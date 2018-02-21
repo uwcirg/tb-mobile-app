@@ -1,0 +1,16 @@
+{
+    "foo-fest": {
+        "patients" = [
+            {
+                'id': 1,
+                'first_name': 'Piotr',
+                'last_name': 'Mankowski'
+            },
+            {
+                'id': 2,
+                'first_name': 'Bob',
+                'last_name': 'Dole'
+            }
+        ]
+    }
+}
