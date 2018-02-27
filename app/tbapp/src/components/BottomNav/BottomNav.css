@@ -1,0 +1,13 @@
+.bottom-nav a {
+    width: 20%;
+    height: 13vh;
+    display: inline-block;
+    color: #333333;
+    font-size: 8vh;
+    text-align: center;
+}
+
+.bottom-nav a.active{ 
+    color: #169bd5;
+    background-color: #f1f1f1;
+}

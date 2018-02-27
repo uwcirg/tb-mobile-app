@@ -12,24 +12,30 @@ import {Container} from 'reactstrap';
 import './App.css';
 
 // import NavBar from '../../components/NavBar';
-import NavBar from '../../components/NavBar';
-import CollapseNav from '../../containers/CollapseNav';
-import Dashboard from '../../components/Dashboard';
+import Startup from '../../components/Startup'
 import Redirect from '../../containers/Redirect';
+import DailyCheckin from '../../components/DailyCheckin';
+import MyProgress from '../../components/MyProgress';
+import Home from '../../components/Home';
+import Placeholder from '../../components/Placeholder';
 
 const App = props => {
   return ( <div id='viewport'> 
     <Router>
       <div>
-        <NavBar />
         <Container fluid={true}>
           <Switch>
+            <Route path='/home' component={Home} />
             <Route path='/redirect' component={Redirect} />
-            <Route path='/' component={Dashboard} />
+            <Route exact path='/' component={Startup} />
+            <Route path='/daily-checkin' component={DailyCheckin} />
+            <Route path='/my-progress' component={MyProgress} />
+            <Route path='/messages' component={Placeholder} />
+            <Route path='/info' component={Placeholder} />
+            <Route path='/my-progress' component={MyProgress} />
+            <Route path='/my-notes' component={Placeholder} />
           </Switch>
         </Container>
-        <CollapseNav />
-
       </div>
     </Router>
   </div>

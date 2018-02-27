@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "react-oauth-flow": "^1.1.0",
-    "redux-implicit-oauth2": "^1.2.1"
-  }
-}

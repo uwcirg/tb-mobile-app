@@ -1,0 +1,23 @@
+.home-main {
+    background-color: rgba(255, 255, 255, 0.7);
+    height: fit-content;
+}
+.home-nav {
+    padding-top: 3vh;
+    padding-bottom: 7vh;
+    text-align: left;
+    width: 100%;
+}
+
+.home-nav .btn-group-vertical {
+    width: 100%;
+}
+
+.home-nav .btn:nth-of-type(odd) {
+    background: #868686;
+}
+.home-nav .btn {
+    color: #333;
+    width: 100%;
+    font-weight: bold;
+}
