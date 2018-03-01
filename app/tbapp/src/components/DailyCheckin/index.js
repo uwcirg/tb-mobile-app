@@ -10,7 +10,7 @@ const DailyCheckin = () => <div className='row' id='daily-checkin'>
 	<div className='main'>
 		<div className='v-center'>
 			<div className='checkin-buttons'>
-				<Button bsSize='large' block bsStyle='primary'>Reporte Diario</Button>
+				<a href='https://mpower-dev.cirg.washington.edu/mpower_tb-ivanc/surveys/new_session?project=daily_check_in' className='btn btn-lg btn-primary btn-block'>Reporte Diario</a>
 				<br />
 				<Button bsSize='large' block>Photo Report</Button>
 			</div>

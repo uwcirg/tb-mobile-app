@@ -1809,6 +1809,10 @@ ctype@0.5.3:
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/ctype/-/ctype-0.5.3.tgz#82c18c2461f74114ef16c135224ad0b9144ca12f"
 
+cuid@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/cuid/-/cuid-2.1.0.tgz#90aa2e3c40b6436f5f14f7cefcfd9d86c5ed64a6"
+
 currently-unhandled@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/currently-unhandled/-/currently-unhandled-0.4.1.tgz#988df33feab191ef799a61369dd76c17adf957ea"
