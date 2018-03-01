@@ -4,12 +4,21 @@ import { connect } from 'react-redux'
 import { login, logout } from '../../redux-implicit-oauth2'
 import { Button } from 'react-bootstrap';
 
+// Google:
+// const config = {
+//   url: "https://accounts.google.com/o/oauth2/v2/auth",
+//   client: "527030791301-ndth0ds5anfck5nk1l40u4su2qqiq1v8.apps.googleusercontent.com",
+//   redirect: "http://lvh.me:3060/redirect",
+//   scope: "https://www.googleapis.com/auth/calendar.readonly",
+//   prompt: 'consent',
+// }
+
+// Authlib:
 const config = {
-  url: "https://accounts.google.com/o/oauth2/v2/auth",
+  url: "https://play.authlib.org/oauth2/authorize",
   client: "527030791301-ndth0ds5anfck5nk1l40u4su2qqiq1v8.apps.googleusercontent.com",
-  redirect: "http://lvh.me:3060/redirect",
-  scope: "https://www.googleapis.com/auth/calendar.readonly",
-  prompt: 'consent',
+  redirect: "https://tb-mobile.cirg.washington.edu/redirect",
+  scope: "email",
 }
 
 const Login = ({ isLoggedIn, login, logout }) => {
