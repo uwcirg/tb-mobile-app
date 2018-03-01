@@ -12,12 +12,31 @@ import {Container} from 'reactstrap';
 import './App.css';
 
 // import NavBar from '../../components/NavBar';
-import Startup from '../../components/Startup'
+import Login from '../../containers/Login'
 import Redirect from '../../containers/Redirect';
 import DailyCheckin from '../../components/DailyCheckin';
 import MyProgress from '../../components/MyProgress';
 import Home from '../../components/Home';
 import Placeholder from '../../components/Placeholder';
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+      props.isLoggedIn ? (
+        <Component {...props} />
+      ) : (
+        <Redirect
+          to={{
+            pathname: "/",
+            state: { from: props.location }
+          }}
+        />
+      )
+    }
+  />
+);
+
 
 const App = props => {
   return ( <div id='viewport'> 
@@ -25,15 +44,15 @@ const App = props => {
       <div>
         <Container fluid={true}>
           <Switch>
-            <Route path='/home' component={Home} />
-            <Route path='/redirect' component={Redirect} />
-            <Route exact path='/' component={Startup} />
-            <Route path='/daily-checkin' component={DailyCheckin} />
-            <Route path='/my-progress' component={MyProgress} />
-            <Route path='/messages' component={Placeholder} />
-            <Route path='/info' component={Placeholder} />
-            <Route path='/my-progress' component={MyProgress} />
-            <Route path='/my-notes' component={Placeholder} />
+            <PrivateRoute path='/home' component={Home} />
+            <PrivateRoute path='/redirect' component={Redirect} />
+            <Route exact path='/' component={Login} />
+            <PrivateRoute path='/daily-checkin' component={DailyCheckin} />
+            <PrivateRoute path='/my-progress' component={MyProgress} />
+            <PrivateRoute path='/messages' component={Placeholder} />
+            <PrivateRoute path='/info' component={Placeholder} />
+            <PrivateRoute path='/my-progress' component={MyProgress} />
+            <PrivateRoute path='/my-notes' component={Placeholder} />
           </Switch>
         </Container>
       </div>
