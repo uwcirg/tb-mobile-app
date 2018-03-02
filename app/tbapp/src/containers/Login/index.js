@@ -1,6 +1,11 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { login } from '../../redux-implicit-oauth2'
+import {
+  connect
+} from 'react-redux'
+import {
+  login
+} from '../../actions'
+
 import Startup from '../../components/Startup'
 
 // Google:
@@ -15,21 +20,22 @@ import Startup from '../../components/Startup'
 // Authlib:
 const config = {
   url: "https://play.authlib.org/oauth2/authorize",
-  client: "527030791301-ndth0ds5anfck5nk1l40u4su2qqiq1v8.apps.googleusercontent.com",
+  client: "skwIPnbi7N3uIvNysUbi0xfXwnWaIMR1MCJxz8rV0dGxeMJD",
   redirect: "http://lvh.me:3060/redirect",
   scope: "email",
 }
+
+console.log("HI!")
 
 const mapStateToProps = ({ auth }) => ({
   isLoggedIn: auth.isLoggedIn
 })
 
-const mapDispatchToProps = {
-  login: () => { login(config) }
+const mapDispatchToProps = (dispatch) => {
+  return {
+      login: () => dispatch(login(config))
+  }
 }
-
-console.log(Startup)
-
 const Login = connect(mapStateToProps, mapDispatchToProps)(Startup);
 
 export default Login;

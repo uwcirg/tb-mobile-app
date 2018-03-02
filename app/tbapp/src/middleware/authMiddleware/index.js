@@ -1,15 +1,19 @@
-import { setToken, removeToken } from './util/token'
-import authorize from './oauth2'
+import { setToken, removeToken } from '../../util/token'
+import authorize from '../../oauth2'
+import {
+  loginSuccess,
+  loginFailure
+} from '../../actions'
+
 import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
-  LOGOUT,
-  loginSuccess,
-  loginFailure
-} from './actions'
+  LOGOUT
+} from '../../reducers/types'
 
-const authMiddleware = store => next => action => {
+const authMiddleware = (store) => (next) => (action) => {
+  console.log(action.type);
   switch (action.type) {
     case LOGIN_REQUEST:
       return authorize(action.config).then(

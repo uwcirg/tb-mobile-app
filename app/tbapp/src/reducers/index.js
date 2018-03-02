@@ -1,13 +1,10 @@
 import {
     combineReducers
 } from 'redux';
-import { authReducer as auth } from './'
-
-
-// import oauth from './oauth'
+import auth from './auth'
 
 const tbApp = combineReducers({
     auth
 }) 
-
+ 
 export default tbApp;

@@ -6,7 +6,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import loggingMiddleware from '../../middleware/loggingMiddleware';
-import { authMiddleware } from '../../redux-implicit-oauth2';
+import authMiddleware from '../../middleware/authMiddleware';
 
 import App from '../App';
 import reducer from '../../reducers';

@@ -9,7 +9,7 @@ const listenForCredentials = (popup, state, resolve, reject) => {
   } catch (err) {
     if (process.env.NODE_ENV !== 'production') {
       /* eslint-disable no-console */
-      console.error(err)
+      // console.error(err)
       /* eslint-enable no-console */
     }
   }

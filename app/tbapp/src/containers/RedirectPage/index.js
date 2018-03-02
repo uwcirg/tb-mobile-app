@@ -9,8 +9,8 @@ export const RedirectBody = () => (
 
 )
 
-export const Redirect = () => {
+export const RedirectPage = () => {
     return <RedirectBody  />
 }
     
-export default Redirect;
+export default RedirectPage;

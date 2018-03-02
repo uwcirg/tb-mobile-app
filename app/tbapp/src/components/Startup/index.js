@@ -1,7 +1,6 @@
 import React from 'react';
-import { Button, ButtonToolbar } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import LoginButton from '../../containers/Login'
+import LoginButton from '../LoginButton'
+import { ButtonToolbar } from 'react-bootstrap';
 
 import './Startup.css'
 
@@ -12,8 +11,7 @@ const Startup = ({login, isLoggedIn}) => <div className='row'>
       <h1>TB Asistente Diario</h1>
       <ButtonToolbar className='signin-toolbar'>
         <LoginButton login={login} />
-        <Link className='btn btn-lg btn-block' to='https://play.authlib.org/account/signup' />
-        <Button id='create-account' bsSize='large' block>Crea una Cuenta</Button>        
+        <a className='btn btn-lg btn-block btn-default' href='https://play.authlib.org/account/signup'>Crea una Cuenta</a>
       </ButtonToolbar>
     </div>
   </div>

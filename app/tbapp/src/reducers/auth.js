@@ -1,5 +1,5 @@
 import * as types from './types'
-import { hasToken, getToken, getExpiresAt } from './util/token'
+import { hasToken, getToken, getExpiresAt } from '../util/token'
 
 const initialState = {
   isLoggedIn: hasToken(),
