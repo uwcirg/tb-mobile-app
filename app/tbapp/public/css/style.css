@@ -30,9 +30,11 @@ ul,label{
 body a:hover{
 	text-decoration:none;
 }
+
 .bg {
-	background-color: #fff;
-	background: url(../images/u33.png) repeat -450px -370px;
+    background-color: #fff;
+    background: url(../images/tb-bg.jpg) repeat -70vh -35vh;
+    background-size: auto 135vh;
 }
 
 /*-- Custom --*/
