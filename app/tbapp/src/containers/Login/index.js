@@ -21,11 +21,9 @@ import Startup from '../../components/Startup'
 const config = {
   url: "https://play.authlib.org/oauth2/authorize",
   client: "skwIPnbi7N3uIvNysUbi0xfXwnWaIMR1MCJxz8rV0dGxeMJD",
-  redirect: "http://lvh.me:3060/redirect",
+  redirect: "https://tb-mobile.cirg.washington.edu/redirect",
   scope: "email",
 }
-
-console.log("HI!")
 
 const mapStateToProps = ({ auth }) => ({
   isLoggedIn: auth.isLoggedIn
