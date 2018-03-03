@@ -8,11 +8,15 @@ const Startup = ({login, isLoggedIn}) => <div className='row'>
   <div className='startup'>
   <div className='v-center'>
     <div className='startup-body'>
-      <h1>TB Asistente Diario</h1>
-      <ButtonToolbar className='signin-toolbar'>
-        <LoginButton login={login} />
-        <a className='btn btn-lg btn-block btn-default' href='https://play.authlib.org/account/signup'>Crea una Cuenta</a>
-      </ButtonToolbar>
+      <div className='v-center'>
+        <div class=''>
+        <h1>TB Asistente Diario</h1>
+        <ButtonToolbar className='signin-toolbar'>          
+          <LoginButton login={login} />
+          <a className='btn btn-lg btn-block btn-default' href='https://play.authlib.org/account/signup'>Crea una Cuenta</a>
+        </ButtonToolbar>
+        </div>
+      </div>
     </div>
   </div>
   </div>

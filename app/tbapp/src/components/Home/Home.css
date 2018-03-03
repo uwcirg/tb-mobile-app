@@ -1,10 +1,10 @@
 .home-main {
-    background-color: rgba(255, 255, 255, 0.7);
-    height: fit-content;
+    /* background-color: rgba(255, 255, 255, 0.8);*/
+    height: auto;
 }
 .home-nav {
-    padding-top: 3vh;
-    padding-bottom: 7vh;
+    padding: 0;
+    margin: 0;
     text-align: left;
     width: 100%;
 }
@@ -14,10 +14,20 @@
 }
 
 .home-nav .btn:nth-of-type(odd) {
-    background: #868686;
+    background: #c9c9c9;
 }
+
+.home-nav .btn:nth-of-type(even) {
+    background: #fff;
+}
+
 .home-nav .btn {
     color: #333;
     width: 100%;
     font-weight: bold;
+    line-height: 8vh;
+}
+
+.top-bar h3 {
+    line-height: 10vh;
 }
