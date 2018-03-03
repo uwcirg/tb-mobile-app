@@ -28,7 +28,7 @@ const config = {
 } 
 
 const mapStateToProps = ({ auth }) => ({
-  isLoggedIn: auth.isLoggedIn 
+  isLoggedIn: auth.isLoggedIn
 })
 
 const mapDispatchToProps = (dispatch) => {
