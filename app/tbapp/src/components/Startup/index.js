@@ -9,7 +9,7 @@ const Startup = ({login, isLoggedIn}) => <div className='row'>
   <div className='v-center'>
     <div className='startup-body'>
       <div className='v-center'>
-        <div class=''>
+        <div>
         <h1>TB Asistente Diario</h1>
         <ButtonToolbar className='signin-toolbar'>          
           <LoginButton login={login} />
