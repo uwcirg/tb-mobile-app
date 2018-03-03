@@ -32,9 +32,9 @@ body a:hover{
 }
 
 .bg {
-    background-color: #fff;
-    background: url(../images/tb-bg.jpg) repeat -70vh -35vh;
-    background-size: auto 135vh;
+    background-color:#fff;
+	background: url(../images/tb-bg.jpg) repeat center;
+	background-size: cover;
 }
 
 /*-- Custom --*/
@@ -60,6 +60,13 @@ body a:hover{
     justify-content: center;
 
     height: 100%;
+}
+
+@media(max-width:667px) and (min-width:280px){
+	.bg {
+		background: url(../images/tb-bg.jpg) repeat -70vh -35vh;
+		background-size: auto 135vh;
+	}
 }
 
 /*-- main --*/
