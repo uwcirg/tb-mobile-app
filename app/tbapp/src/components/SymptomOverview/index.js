@@ -2,7 +2,7 @@ import React from 'react';
 import TopBar from '../TopBar';
 import BottomNav from '../BottomNav';
 
-import './Symptoms.css';
+import './Symptoms.css'; 
 
 const SymptomOverview = () => <div className='row'>
     <TopBar header='Información y Educación' expand />

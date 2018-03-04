@@ -19,7 +19,8 @@ import Startup from '../../components/Startup'
 
 // Authlib:
 const config = {
-  url: "https://play.authlib.org/oauth2/authorize",
+  // url: "https://play.authlib.org/oauth2/authorize",
+  url: "http://lvh.me:8080/oauth2/authorize",
   client: "skwIPnbi7N3uIvNysUbi0xfXwnWaIMR1MCJxz8rV0dGxeMJD",
 //  redirect: "https://tb-mobile.cirg.washington.edu/redirect",
   redirect: "http://lvh.me:3060/redirect",
