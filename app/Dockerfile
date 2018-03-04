@@ -13,5 +13,5 @@ WORKDIR /usr/src/app/tbapp
 
 RUN yarn install
 
-CMD yarn start
+CMD bash # yarn start
 
