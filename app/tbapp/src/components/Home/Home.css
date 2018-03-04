@@ -27,6 +27,7 @@
     font-weight: bold;
     line-height: 10vh;
     text-align: left;
+    padding-left: 2vh;
 }
 
 .btn-group-vertical > .btn:first-child:not(:last-child) {

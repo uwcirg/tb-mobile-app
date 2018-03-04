@@ -44,11 +44,17 @@ body a:hover{
 
 }
 
+.main .btn-block {
+	padding-top: 3vh;
+	padding-bottom: 3vh;
+
+}
+
 section.top-bar {
     height: 10vh;
 	margin: 12vh 0px 0px 0px;
     background-color: rgba(255, 255, 255, 0.8);
-	padding: 0 10px;
+	padding: 0 2vh;
 	border-bottom: #cccccc 1px solid
 }
 
@@ -123,6 +129,42 @@ section.top-bar {
 
 }
 
+.main-menu-buttons {
+    padding: 0 2vh;
+    width: 100%;
+}
+
+.main-menu-buttons .btn-default {
+	color: #555555;
+	border-color: #333333;
+}
+
+.main-menu-buttons .btn-default:hover, .main-menu-buttons .btn-default:active  {
+	color: #333333;
+	background-color: #dddddd;
+}
+
+.main .info-text {
+    height: 60vh;
+    overflow: scroll;
+    padding: 0 3vh;
+}
+
+.main .info-text p {
+    text-align: justify;
+}
+
+.main .info-text h5 {
+    padding: 6vh 0 1vh 0;
+}
+
+.main h4.subhead {
+    font-size: 15.5pt;
+    padding: 1vh 0 1vh 3vh;
+}
+
+
+
 @media(max-width:667px) and (min-width:280px){
 	.bg {
 		background: url(../images/tb-bg.jpg) repeat -74vh -42vh;
@@ -130,6 +172,29 @@ section.top-bar {
 	}
 }
 
+@media(min-width: 668px) {
+	.main {
+		height: 78vh;
+		background-color: rgba(255, 255, 255, .9);
+	
+	}
+	
+	.main .btn-block {
+		padding-top: 2vh;
+		padding-bottom: 2vh;
+		font-size: 17pt;
+		line-height: 1.2;
+	}
+	
+	section.top-bar {
+		height: 10vh;
+		margin: 0vh 0px 0px 0px;
+		background-color: rgba(255, 255, 255, 0.8);
+		padding: 0 2vh;
+		border-bottom: #cccccc 1px solid
+	}
+	
+}
 /*-- main --*/
 .main-row {
     height: 100%;
