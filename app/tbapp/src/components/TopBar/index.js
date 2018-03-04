@@ -6,8 +6,8 @@ import PropTypes from 'prop-types'
 
 import "./TopBar.css"
 
-const TopBar = ({header}) => <div>
-  <section className="top-bar">
+const TopBar = ({header, expand}) => <div>
+  <section className={"top-bar " + (expand ? 'top-bar-expand' : '')}>
     <h3>{header}</h3>
     <div className="clearfix"> </div>
   </section>

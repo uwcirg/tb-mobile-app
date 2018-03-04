@@ -5,8 +5,8 @@ import BottomNav from '../BottomNav';
 import './Symptoms.css';
 
 const SymptomOverview = () => <div className='row'>
-    <TopBar header='Información y Educación' />
-    <div className='main'>
+    <TopBar header='Información y Educación' expand />
+    <div className='main symptoms-main'>
         <div className='symptoms info-text'>
             <h5>Resumen de los síntomas/efectos indeseables y estrategias para intentar en casa para reducir los efectos secundarios</h5>
             <p>Los medicamentos utilizados pueden provocar algunos efectos indeseables que hay que tener en cuenta para consultar con el equipo de salud. Efectos puede ocasionarle y en algunos casos debería consultar.</p>

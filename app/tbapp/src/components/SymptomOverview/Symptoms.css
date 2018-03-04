@@ -1,5 +1,5 @@
 .main .symptoms {
-    height: 66vh;
+    height: 78vh;
 }
 
 .main .symptoms h5 {
@@ -22,3 +22,6 @@
     text-align: left;
 }
 
+.symptoms-main {
+    height: 78vh;
+}

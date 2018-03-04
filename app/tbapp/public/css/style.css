@@ -58,6 +58,10 @@ section.top-bar {
 	border-bottom: #cccccc 1px solid
 }
 
+section.top-bar-expand {
+	margin-top: 0;
+}
+
 .top-bar h3 {
 	font-size: 22pt;
 	line-height: 10vh;
@@ -192,11 +196,7 @@ section.top-bar {
 	}
 	
 	section.top-bar {
-		height: 10vh;
 		margin: 0vh 0px 0px 0px;
-		background-color: rgba(255, 255, 255, 0.8);
-		padding: 0 2vh;
-		border-bottom: #cccccc 1px solid
 	}
 	
 	.home-main {
