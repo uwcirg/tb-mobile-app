@@ -1,39 +1,47 @@
 import * as types from './types'
+import { hasToken, getToken, getExpiresAt } from '../util/token'
 
 const initialState = {
-  isLoggedIn: false,
-  userData: null,
-  pending: false,
-  errors: null
-};
+  isLoggedIn: hasToken(),
+  token: getToken(),
+  expiresAt: getExpiresAt(),
+  isLoggingIn: false,
+  error: null
+}
 
 const auth = (state = initialState, action) => {
   switch (action.type) {
-    case types.TRY_LOGIN:
-      return { ...state, pending: true }
+    case types.LOGIN_REQUEST:
+      return Object.assign({}, state, {
+        isLoggingIn: true
+      })
     case types.LOGIN_SUCCESS:
-      return { 
-        ...state, 
-        pending: false, 
+      return Object.assign({}, state, {
         isLoggedIn: true,
-        userData: action.payload,
-        errors: null,
-      }
+        token: action.token,
+        expiresAt: action.expiresAt,
+        error: null,
+        isLoggingIn: false
+      })
     case types.LOGIN_FAILURE:
-      return {
-        ...state,
-        pending: false,
+      return Object.assign({}, state, {
         isLoggedIn: false,
-        userData: null,
-        errors: action.payload,
-      }
+        token: null,
+        expiresAt: null,
+        error: action.error,
+        isLoggingIn: false
+      })
     case types.LOGOUT:
-      return { 
-        ...state, pending: false, isLoggedIn: false, userData: null 
-      }
+      return Object.assign({}, state, {
+        isLoggedIn: false,
+        token: null,
+        expiresAt: null,
+        error: null,
+        isLoggingIn: false
+      })
     default:
-      return state;
+      return state
   }
 }
 
-export default auth;
+export default auth
