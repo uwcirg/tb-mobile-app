@@ -211,6 +211,42 @@ section.top-bar-expand {
 		height: 100vh;
 	}
 }
+
+/*-- Surveys */
+.progress-container {
+	margin: 0;
+}
+.progress-container .progress-prev {
+	font-size: 20px;
+}
+
+.progress-container .progress-next {
+	font-size: 20px;
+}
+
+.progress-container .progress-holder {
+	width: 33%;
+}
+
+.survey-page-box {
+	overflow-y: scroll;
+	padding: 0 2vh;
+}
+
+textarea.textbox-question {
+	width: 80%;
+    height: 10vh;
+}
+
+textarea.textbox-question {
+	font-size: 14px;
+}
+
+.survey-layout-regular {
+	padding: 1vh 0 0 0;
+
+}
+
 /*-- main --*/
 .main-row {
     height: 100%;
