@@ -1,0 +1,13 @@
+.notes-main {
+    height: 78vh;
+    padding: 2vh 1vh;
+}
+
+.notes-main h3 {
+    height: 6vh;
+}
+
+.notes-main textarea {
+    height: 68vh;
+    text-align: left;
+}
