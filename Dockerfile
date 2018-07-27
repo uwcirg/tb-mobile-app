@@ -7,7 +7,7 @@ RUN npm install -g create-react-app \
                    react-native-cli
 
 RUN mkdir -p /usr/src/app
-COPY . /usr/src/app
+COPY ./app /usr/src/app
 
 WORKDIR /usr/src/app/tbapp
 
