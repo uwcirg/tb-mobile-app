@@ -11,7 +11,9 @@ COPY ./app /usr/src/app
 
 WORKDIR /usr/src/app/tbapp
 
-RUN yarn install
+# RUN yarn install
 
-CMD yarn start
+CMD bin/bash
+
+#CMD yarn start
 
