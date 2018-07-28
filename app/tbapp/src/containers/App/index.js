@@ -22,6 +22,11 @@ import Placeholder from '../../components/Placeholder';
 import Faqs from '../../components/Faqs';
 import InfoEd from '../../components/InfoEd';
 import SymptomOverview from '../../components/SymptomOverview';
+import Messaging from '../../components/Messaging';
+import TbQuiz from '../../components/TbQuiz';
+import MyNotes from '../../components/MyNotes';
+
+
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -61,12 +66,12 @@ const App = props => {
             <StartupRoute exact path='/startup' isLoggedIn={props.isLoggedIn} />
             <PrivateRoute path='/daily-checkin' isLoggedIn={props.isLoggedIn} component={DailyCheckin} />
             <PrivateRoute path='/my-progress' isLoggedIn={props.isLoggedIn} component={MyProgress} />
-            <PrivateRoute path='/messages' isLoggedIn={props.isLoggedIn} component={Placeholder} />
+            <PrivateRoute path='/messages' isLoggedIn={props.isLoggedIn} component={Messaging} />
             <PrivateRoute exact path='/info' isLoggedIn={props.isLoggedIn} component={InfoEd} />
             <PrivateRoute exact path='/info/faqs' isLoggedIn={props.isLoggedIn} component={Faqs} />
             <PrivateRoute exact path='/info/symptom-overview' isLoggedIn={props.isLoggedIn} component={SymptomOverview} />
-            <PrivateRoute exact path='/info/tb-quiz' isLoggedIn={props.isLoggedIn} component={Placeholder} />
-            <PrivateRoute path='/my-notes' isLoggedIn={props.isLoggedIn} component={Placeholder} />
+            <PrivateRoute exact path='/info/tb-quiz' isLoggedIn={props.isLoggedIn} component={TbQuiz} />
+            <PrivateRoute path='/my-notes' isLoggedIn={props.isLoggedIn} component={MyNotes} />
             <Redirect to={{
               state: { error: true }
             }} />

@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 export const RedirectBody = () => (
     <div>
-        <h1>Redirected!</h1>
     </div>    
 
 )
