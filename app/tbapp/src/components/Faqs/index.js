@@ -5,8 +5,8 @@ import BottomNav from '../BottomNav';
 import './Faqs.css';
 
 const Placeholder = () => <div className='row'>
-    <TopBar header='Información y Educación' />
-    <div className='main'>
+    <TopBar header='Información y Educación' expand />
+    <div className='main faqs-main'>
         <h4 class='faqs subhead'>Preguntas frecuentes y respuestas</h4>
 
         <div className='faqs info-text'>

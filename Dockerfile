@@ -6,12 +6,9 @@ RUN npm install -g create-react-app \
                    create-react-native-app \
                    react-native-cli
 
-RUN mkdir -p /usr/src/app
-COPY . /usr/src/app
+RUN mkdir -p /usr/src
+COPY . /usr/src
 
 WORKDIR /usr/src/app/tbapp
 
 RUN yarn install
-
-CMD yarn start
-

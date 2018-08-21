@@ -10,9 +10,11 @@ const DailyCheckin = () => <div className='row' id='daily-checkin'>
 	<div className='main'>
 		<div className='v-center'>
 			<div className='main-menu-buttons'>
-				<a href='https://mpower-dev.cirg.washington.edu/mpower_tb-ivanc/surveys/new_session?project=daily_check_in' className='btn btn-lg btn-primary btn-block'>Notificación Diaria</a>
+				<a href={ process.env.REACT_APP_CHECKIN_PATH+'/new_session?project=daily_checkin' } className='btn btn-lg btn-primary btn-block'>Notificación Diaria</a>
 				<br />
-				<Button bsSize='large' block>Carga la Foto</Button>
+				<a href={ process.env.REACT_APP_CHECKIN_PATH+'/new_session?project=symptoms_side_effects' } className='btn btn-lg btn-block btn-primary'>Mis Sintomas</a> 
+				<br />
+				<a href={ process.env.REACT_APP_CHECKIN_PATH+'/new_session?project=mPOWer%20-%20Photo%20Upload' }  className='btn btn-lg btn-block btn-default'>Carga la Foto</a>
 			</div>
 		</div>
 	</div>

@@ -12,3 +12,5 @@ services:
     stdin_open: true
     tty: true
     container_name: tb-mobile-app
+    environment:
+      NODE_ENV: development
