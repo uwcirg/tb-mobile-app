@@ -1,11 +1,5 @@
-import React from 'react'
-import {
-  connect
-} from 'react-redux'
-import {
-  login
-} from '../../actions'
-
+import { connect } from 'react-redux'
+import { login } from '../../actions'
 import Startup from '../../components/Startup'
 
 const config = {
@@ -13,7 +7,7 @@ const config = {
   client: process.env.REACT_APP_CLIENT_ID,
   redirect: process.env.REACT_APP_REDIRECT_PATH,
   scope: "email",
-} 
+}
 
 const mapStateToProps = ({ auth }) => ({
   isLoggedIn: auth.isLoggedIn

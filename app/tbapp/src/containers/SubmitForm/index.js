@@ -1,19 +1,19 @@
 import React from 'react'
 // import PatientForm from '../../components/PatientForm'
 
-import { Form, Input, InputGroup, InputGroupAddon, Button } from 'reactstrap';
+import { Form, InputGroup, InputGroupAddon, Button } from 'reactstrap';
 import { reduxForm, Field } from 'redux-form'
 
-let PatientForm = ({handleSubmit}) => 
+let PatientForm = ({handleSubmit}) =>
     <Form onSubmit={handleSubmit}>
-        <InputGroup>      
+        <InputGroup>
             <Field name='patientId' bsSize='sm' placeholder={'-- patient id --'} />
             <InputGroupAddon addonType="append"><Button color='primary' size='sm' type='submit' >
-                <i className='fa fa-user' /> 
+                <i className='fa fa-user' />
                 &nbsp;Load Patient
-            </Button></InputGroupAddon> 
+            </Button></InputGroupAddon>
         </InputGroup>
-    </Form> 
+    </Form>
 
 const SubmitForm = reduxForm({
   // a unique name for the form

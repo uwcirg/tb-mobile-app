@@ -1,7 +1,6 @@
 import React from 'react';
 import TopBar from '../TopBar';
 import BottomNav from '../BottomNav';
-import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const InfoEd = () => <div className='row'>
@@ -21,4 +20,4 @@ const InfoEd = () => <div className='row'>
 </div>
 
 
-export default InfoEd; 
+export default InfoEd;

@@ -18,7 +18,6 @@ import RedirectPage from '../../containers/RedirectPage';
 import DailyCheckin from '../../components/DailyCheckin';
 import MyProgress from '../../components/MyProgress';
 import Home from '../../components/Home';
-import Placeholder from '../../components/Placeholder';
 import Faqs from '../../components/Faqs';
 import InfoEd from '../../components/InfoEd';
 import SymptomOverview from '../../components/SymptomOverview';
@@ -33,14 +32,14 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     {...rest}
     render={(props) => {
       console.log(rest.isLoggedIn);
-      console.log(props); 
+      console.log(props);
       return rest.isLoggedIn ? (
         <Component {...props} />
       ) : (
         <Redirect to='/startup' />
       )
     }}
-      
+
   />
 );
 
@@ -54,7 +53,7 @@ const StartupRoute = ({ component: Component, ...rest }) => (
 
 
 const App = props => {
-  return ( <div id='viewport'> 
+  return ( <div id='viewport'>
     <Router>
       <div>
         <Container fluid={true}>

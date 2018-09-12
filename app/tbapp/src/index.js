@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import Root from './containers/Root';
 import registerServiceWorker from './registerServiceWorker';
-import { ActivityIndicator, ListView, Text, View } from 'react';
 
 // import 'bootstrap/dist/css/bootstrap.css';
 
