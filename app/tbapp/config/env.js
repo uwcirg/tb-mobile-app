@@ -82,8 +82,7 @@ function getClientEnvironment(publicUrl) {
       env[key] = JSON.stringify(raw[key]);
       return env;
     }, {}),
-  }; 
-  console.log("HITHERE");
+  };
 
   return { raw, stringified };
 }
