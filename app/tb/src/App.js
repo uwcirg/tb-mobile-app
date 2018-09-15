@@ -75,7 +75,7 @@ const StartupRoute = ({ component: Component, ...rest }) => (
 const App = props => {
   return ( <div id='viewport'>
     <Router>
-      <div>
+      <div className="bg">
         <Switch>
           <PrivateRoute exact path='/' isLoggedIn={props.isLoggedIn} component={Home} />
 
