@@ -9,6 +9,6 @@ RUN npm install -g create-react-app \
 RUN mkdir -p /usr/src
 COPY . /usr/src
 
-WORKDIR /usr/src/app/tb
+WORKDIR /usr/src/
 
 RUN yarn install
