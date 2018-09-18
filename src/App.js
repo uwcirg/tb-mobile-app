@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
+import React from "react"
+import styled from "styled-components"
 
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { Provider } from "react-redux"
+import { createStore, applyMiddleware } from "redux"
+import { composeWithDevTools } from "redux-devtools-extension"
 
-import loggingMiddleware from './middleware/loggingMiddleware';
-import authMiddleware from './middleware/authMiddleware';
+import loggingMiddleware from "./loggingMiddleware"
+import authMiddleware from "./authMiddleware"
 
-import { connect } from 'react-redux'
+import { connect } from "react-redux"
 import {
   BrowserRouter as Router,
   Switch,
@@ -15,23 +16,21 @@ import {
   Redirect
 } from 'react-router-dom';
 
-import reducer from './reducers';
+import reducer from "./reducers"
 
-import Login from './containers/Login'
-import Logout from './containers/Logout'
-import RedirectPage from './containers/RedirectPage';
+import Login from "./Login"
+import Logout from "./Logout"
 
 // Components!
-import DailyCheckin from './components/DailyCheckin';
-import MyProgress from './components/MyProgress';
-import Home from './components/Home';
-import Placeholder from './components/Placeholder';
-import Faqs from './components/Faqs';
-import InfoEd from './components/InfoEd';
-import SymptomOverview from './components/SymptomOverview';
-import Messaging from './components/Messaging';
-import TbQuiz from './components/TbQuiz';
-import MyNotes from './components/MyNotes';
+import DailyCheckin from "./components/DailyCheckin"
+import MyProgress from "./components/MyProgress"
+import Home from "./components/Home"
+import Faqs from "./components/Faqs"
+import InfoEd from "./components/InfoEd"
+import SymptomOverview from "./components/SymptomOverview"
+import Messaging from "./components/Messaging"
+import TbQuiz from "./components/TbQuiz"
+import MyNotes from "./components/MyNotes"
 
 const Root = (props) => {
   const store = createStore(reducer, composeWithDevTools(
@@ -52,8 +51,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={(props) => {
-      console.log(rest.isLoggedIn);
-      console.log(props);
       return rest.isLoggedIn ? (
         <Component {...props} />
       ) : (
@@ -75,11 +72,10 @@ const StartupRoute = ({ component: Component, ...rest }) => (
 const App = props => {
   return ( <div id='viewport'>
     <Router>
-      <div className="bg">
+      <BackgroundImage>
         <Switch>
           <PrivateRoute exact path='/' isLoggedIn={props.isLoggedIn} component={Home} />
 
-          <Route exact path='/redirect' component={RedirectPage} />
           <Route exact path='/logout' component={Logout} />
           <StartupRoute exact path='/startup' isLoggedIn={props.isLoggedIn} />
           <PrivateRoute path='/daily-checkin' isLoggedIn={props.isLoggedIn} component={DailyCheckin} />
@@ -94,12 +90,17 @@ const App = props => {
             state: { error: true }
           }} />
         </Switch>
-      </div>
+      </BackgroundImage>
     </Router>
   </div>
   )
 }
 
+const BackgroundImage = styled.div`
+  background: url(/images/tb-bg.jpg);
+  background-size: cover;
+  height: 100vh;
+`
 
 const mapStateToProps = ({auth}) => ({
   isLoggedIn: auth.isLoggedIn

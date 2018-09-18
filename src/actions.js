@@ -1,9 +1,9 @@
 import * as types from './reducers/types';
 
-export const loginSuccess = (token, expiresAt) => ({
+export const loginSuccess = (token, expiration) => ({
     type: types.LOGIN_SUCCESS,
     token,
-    expiresAt
+    expiration,
 })
 
 export const loginFailure = error => ({

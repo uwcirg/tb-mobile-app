@@ -1,6 +1,6 @@
 import {
   getToken,
-  getExpiresAt,
+  getExpiration,
   hasToken,
   setToken,
   removeToken
@@ -24,8 +24,8 @@ test('empty localStorage returns null for token', () => {
   expect(getToken()).toBeNull()
 })
 
-test('empty localStorage returns null for expiresAt', () => {
-  expect(getExpiresAt()).toBeNull()
+test('empty localStorage returns null for expiration', () => {
+  expect(getExpiration()).toBeNull()
 })
 
 test('empty localStorage has no token', () => {
@@ -38,10 +38,10 @@ test('localStorage returns token after setting it', () => {
   expect(getToken()).toBe('token')
 })
 
-test('localStorage returns expiresAt after setting it', () => {
-  expect(getExpiresAt()).toBeNull()
+test('localStorage returns expiration after setting it', () => {
+  expect(getExpiration()).toBeNull()
   setToken('token', now)
-  expect(getExpiresAt()).toBe(now)
+  expect(getExpiration()).toBe(now)
 })
 
 test('localStorage has token after setting it', () => {
@@ -57,9 +57,9 @@ test('localStorage returns null for token after removing it', () => {
   expect(getToken()).toBeNull()
 })
 
-test('localStorage returns null for expiresAt after removing it', () => {
+test('localStorage returns null for expiration after removing it', () => {
   setToken('token', now)
-  expect(getExpiresAt()).toBe(now)
+  expect(getExpiration()).toBe(now)
   removeToken()
   expect(getToken()).toBeNull()
 })

@@ -1,29 +1,33 @@
-const TOKEN_KEY = 'token'
-const EXPIRES_AT_KEY = 'expiresAt'
-
-export const getExpiresAt = () =>
-  Number(window.localStorage.getItem(EXPIRES_AT_KEY)) || null
+export const getExpiration = () =>
+  Number(window.localStorage.getItem("expiration")) || null
 
 export const hasToken = () => getToken() !== null
 
+// Returns the token, *only* if it has not expired yet.
 export const getToken = () => {
-  const expiresAt = getExpiresAt()
-  if (expiresAt === null || expiresAt > Date.now()) {
-    return window.localStorage.getItem(TOKEN_KEY) || null
-  }
-  return null
+  const expiration = getExpiration()
+  const token = window.localStorage.getItem("token")
+
+  return (token && expiration > Date.now())
+    ? token
+    : null
 }
 
-export const setToken = (token, expiresAt) => {
-  window.localStorage.setItem(TOKEN_KEY, token)
-  if (expiresAt !== null) {
-    window.localStorage.setItem(EXPIRES_AT_KEY, expiresAt)
-  } else {
-    window.localStorage.removeItem(EXPIRES_AT_KEY)
-  }
+export const setToken = (token, expiration) => {
+  // Token
+  if(token)
+    window.localStorage.setItem("token", token)
+  else
+    window.localStorage.removeItem("token")
+
+  // Expiration
+  if(expiration)
+    window.localStorage.setItem("expiration", expiration)
+  else
+    window.localStorage.removeItem("expiration")
 }
 
 export const removeToken = () => {
-  window.localStorage.removeItem(TOKEN_KEY)
-  window.localStorage.removeItem(EXPIRES_AT_KEY)
+  window.localStorage.removeItem("token")
+  window.localStorage.removeItem("expiration")
 }
