@@ -21,3 +21,11 @@ See https://github.com/uwcirg/tb-api for instructions on how to set up all of th
 1. Visit https://tb-mobile.cirg.washington.edu/logout and click the red button
 2. Visit https://tb-api.cirg.washington.edu/account/logout
 
+### Development Reference
+
+This app was created using the `create-react-app` tool,
+recommends certain techniques for adding different features to the app.
+
+Check [the development reference] for more information.
+
+[the development reference]: ./DEV_REFERENCE.md
