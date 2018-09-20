@@ -1,28 +1,21 @@
 import React from "react";
 import styled from "styled-components"
+import { observer } from "mobx-react"
 
-import BottomNav from "./BottomNav";
 import { ArrowRightIcon } from "mdi-react"
-import TopBar from "./TopBar";
 
-const MyNotes = () => (
-  <div>
-    <TopBar header='Mis Notas' expand />
+const MyNotes = observer(() => (
+  <NotesMain>
+    <Heading>
+      <ArrowRightIcon />
+      Sobre "Mis Notas"
+    </Heading>
 
-    <NotesMain>
-        <Heading>
-          <ArrowRightIcon />
-          Sobre "Mis Notas"
-        </Heading>
-
-        <Input
-          placeholder='Aquí puede escribir sus notas...'
-        />
-      </NotesMain>
-
-    <BottomNav />
-  </div>
-)
+    <Input
+      placeholder='Aquí puede escribir sus notas...'
+    />
+  </NotesMain>
+))
 
 const NotesMain = styled.div`
   height: 78vh;

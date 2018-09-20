@@ -1,35 +1,25 @@
 import React from "react"
-import { Link } from "react-router-dom"
-
+import { observer } from "mobx-react"
 import { Button } from "reakit"
 
-import TopBar from "./TopBar"
-import BottomNav from "./BottomNav"
+import Faqs from "./Faqs"
+import SymptomOverview from "./SymptomOverview"
+import TbQuiz from "./TbQuiz"
 
-const InfoEd = () => (
+const InfoEd = observer(({ store }) => (
   <div>
-    <TopBar header='Información y Educación' />
+    <Button onCLick={() => store.showPage(Faqs)} >
+      Preguntas frecuentes<br /> y respuestas
+    </Button>
 
-    <div>
-      <div>
-        <div>
-          <Button as={Link} to='/info/faqs'>
-            Preguntas frecuentes<br /> y respuestas
-          </Button>
+    <Button onCLick={() => store.showPage(SymptomOverview)} >
+      Resumen de los síntomas<br /> y efectos secundarios
+    </Button>
 
-          <Button as={Link} to='/info/symptom-overview'>
-            Resumen de los síntomas<br /> y efectos secundarios
-          </Button>
-
-          <Button as={Link} to='/info/tb-quiz'>
-            Prueba tu conocimiento<br /> sobre la tuberculosis!
-          </Button>
-        </div>
-      </div>
-    </div>
-
-    <BottomNav />
+    <Button onCLick={() => store.showPage(TbQuiz)} >
+      Prueba tu conocimiento<br /> sobre la tuberculosis!
+    </Button>
   </div>
-)
+))
 
 export default InfoEd;

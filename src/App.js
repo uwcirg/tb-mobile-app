@@ -1,111 +1,38 @@
 import React from "react"
 import styled from "styled-components"
+import { observer } from "mobx-react"
 
-import { Provider } from "react-redux"
-import { createStore, applyMiddleware } from "redux"
-import { composeWithDevTools } from "redux-devtools-extension"
+import TopBar from "./components/TopBar"
+import BottomNav from "./components/BottomNav"
 
-import loggingMiddleware from "./loggingMiddleware"
-import authMiddleware from "./authMiddleware"
+const App = observer(({ store }) => (
+  <div>
+    <Layout>
+      <TopBar store={store} />
 
-import { connect } from "react-redux"
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect
-} from 'react-router-dom';
+      <Layout.Main>
+        {React.createElement(store.currentPage, { store: store })}
+      </Layout.Main>
 
-import reducer from "./reducers"
-
-import Login from "./Login"
-import Logout from "./Logout"
-
-// Components!
-import DailyCheckin from "./components/DailyCheckin"
-import MyProgress from "./components/MyProgress"
-import Home from "./components/Home"
-import Faqs from "./components/Faqs"
-import InfoEd from "./components/InfoEd"
-import SymptomOverview from "./components/SymptomOverview"
-import Messaging from "./components/Messaging"
-import TbQuiz from "./components/TbQuiz"
-import MyNotes from "./components/MyNotes"
-
-const Root = (props) => {
-  const store = createStore(reducer, composeWithDevTools(
-    applyMiddleware(
-      authMiddleware,
-      loggingMiddleware
-    )
-  ));
-
-  return (
-    <Provider store={store}>
-      <ConnectedApp />
-    </Provider>
-  );
-}
-
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={(props) => {
-      return rest.isLoggedIn ? (
-        <Component {...props} />
-      ) : (
-        <Redirect to='/startup' />
-      )
-    }}
-
-  />
-);
-
-// wrapping/composing
-const StartupRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={props => {
-    console.log(rest);
-    return rest.isLoggedIn ? (<Redirect to='/' />) : (<Login />)
-  }}/>
-)
-
-const App = props => {
-  return ( <div id='viewport'>
-    <Router>
-      <BackgroundImage>
-        <Switch>
-          <PrivateRoute exact path='/' isLoggedIn={props.isLoggedIn} component={Home} />
-
-          <Route exact path='/logout' component={Logout} />
-          <StartupRoute exact path='/startup' isLoggedIn={props.isLoggedIn} />
-          <PrivateRoute path='/daily-checkin' isLoggedIn={props.isLoggedIn} component={DailyCheckin} />
-          <PrivateRoute path='/my-progress' isLoggedIn={props.isLoggedIn} component={MyProgress} />
-          <PrivateRoute path='/messages' isLoggedIn={props.isLoggedIn} component={Messaging} />
-          <PrivateRoute exact path='/info' isLoggedIn={props.isLoggedIn} component={InfoEd} />
-          <PrivateRoute exact path='/info/faqs' isLoggedIn={props.isLoggedIn} component={Faqs} />
-          <PrivateRoute exact path='/info/symptom-overview' isLoggedIn={props.isLoggedIn} component={SymptomOverview} />
-          <PrivateRoute exact path='/info/tb-quiz' isLoggedIn={props.isLoggedIn} component={TbQuiz} />
-          <PrivateRoute path='/my-notes' isLoggedIn={props.isLoggedIn} component={MyNotes} />
-          <Redirect to={{
-            state: { error: true }
-          }} />
-        </Switch>
-      </BackgroundImage>
-    </Router>
+      <BottomNav store={store} />
+    </Layout>
   </div>
-  )
-}
+))
 
-const BackgroundImage = styled.div`
-  background: url(/images/tb-bg.jpg);
+const Layout = styled.div`
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-row-gap: 2rem;
+
   background-size: cover;
   height: 100vh;
+  background-image: url(/images/tb-bg.jpg);
 `
 
-const mapStateToProps = ({auth}) => ({
-  isLoggedIn: auth.isLoggedIn
-})
+Layout.Main = styled.div`
+  grid-row: 2;
+  margin-left: 2rem;
+  margin-right: 2rem;
+`
 
-const ConnectedApp = connect(mapStateToProps, {})(App);
-
-export default Root;
+export default App;

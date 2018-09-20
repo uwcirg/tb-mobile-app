@@ -1,6 +1,8 @@
 import React from "react"
-
-import { NavLink } from "react-router-dom"
+import styled from "styled-components"
+import { observer } from "mobx-react"
+import { white } from "../colors"
+import { Button } from "reakit"
 
 import {
   CalendarCheckIcon,
@@ -10,28 +12,42 @@ import {
   PencilIcon,
 } from "mdi-react"
 
-const BottomNav = () => (
-  <div>
-    <NavLink exact to='/daily-checkin'>
+import DailyCheckin from "./DailyCheckin"
+import InfoEd from "./InfoEd"
+import Messaging from "./Messaging"
+import MyNotes from "./MyNotes"
+
+const BottomNav = observer(({ store }) => (
+  <Layout>
+    <Button onClick={() => store.showPage(DailyCheckin)} >
       <CalendarCheckIcon />
-    </NavLink>
+    </Button>
 
-    <NavLink exact to='/messages'>
+    <Button onClick={() => store.showPage(Messaging)} >
       <EmailIcon />
-    </NavLink>
+    </Button>
 
-    <NavLink exact to='/info'>
+    <Button onClick={() => store.showPage(InfoEd)} >
       <InformationIcon />
-    </NavLink>
+    </Button>
 
-    <a href={ process.env.REACT_APP_CPRO_PATH+'/users/care' }>
+    <Button as="a" href={ process.env.REACT_APP_CPRO_PATH+"/users/care" }>
       <ChartLineIcon />
-    </a>
+    </Button>
 
-    <NavLink exact to='/my-notes'>
+    <Button onClick={() => store.showPage(MyNotes)} >
       <PencilIcon />
-    </NavLink>
-  </div>
-)
+    </Button>
+  </Layout>
+))
+
+const Layout = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+  background-color: ${white};
+  padding: 1rem;
+`
 
 export default BottomNav;

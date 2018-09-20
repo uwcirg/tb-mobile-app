@@ -1,21 +1,36 @@
-import { connect } from 'react-redux'
-import { login } from './actions'
+import React from "react"
+import styled from "styled-components"
+import Button from "./primitives/Button"
 
-import Startup from './components/Startup'
+const Login = ({store}) => (
+  <Layout>
+    <Button onClick={() => store.login()}>
+      Registrarse
+    </Button>
 
-const config = {
-  url: process.env.REACT_APP_API_PATH + "/oauth2/authorize",
-  client: process.env.REACT_APP_CLIENT_ID,
-  redirect: process.env.REACT_APP_REDIRECT_PATH,
-  scope: "email",
-}
+    <Button as={["a"]}
+      href={ process.env.REACT_APP_API_PATH + "/account/signup" }
+      >
+      Crea una Cuenta
+    </Button>
+  </Layout>
+)
 
-const mapStateToProps = ({ auth }) => ({
-  isLoggedIn: auth.isLoggedIn
-})
+const Layout = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
 
-const mapDispatchToProps = (dispatch) => ({
-  login: () => dispatch(login(config))
-})
+  & > ${Button} {
+    min-width: 50%;
+  }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Startup)
+  & > ${Button}:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+`
+
+export default Login;

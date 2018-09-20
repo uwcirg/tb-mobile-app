@@ -1,38 +1,28 @@
 import React from "react"
-
-import BottomNav from "./BottomNav"
-import TopBar from "./TopBar"
-
 import { Button } from "reakit"
+import { observer } from "mobx-react"
 
-const DailyCheckin = () => (
+const DailyCheckin = observer(() => (
   <div>
-    <TopBar header="Notificación Diaria" />
+    <Button as="a"
+      href={ process.env.REACT_APP_CPRO_PATH+'/surveys/new_session?project=daily_check_in' } >
+      Notificación Diaria
+    </Button>
 
-    <div>
-      <Button as="a"
-        href={ process.env.REACT_APP_CPRO_PATH+'/surveys/new_session?project=daily_check_in' } >
-        Notificación Diaria
-      </Button>
+    <br />
 
-      <br />
+    <Button as="a"
+      href={ process.env.REACT_APP_CPRO_PATH+'/surveys/new_session?project=symptoms_side_effects' } >
+      Mis Sintomas
+    </Button>
 
-      <Button as="a"
-        href={ process.env.REACT_APP_CPRO_PATH+'/surveys/new_session?project=symptoms_side_effects' } >
-        Mis Sintomas
-      </Button>
+    <br />
 
-      <br />
-
-      <Button as="a"
-        href={ process.env.REACT_APP_CPRO_PATH+'/surveys/new_session?project=mPOWer%20-%20Photo%20Upload' }  >
-        Carga la Foto
-      </Button>
-    </div>
-
-    <BottomNav />
+    <Button as="a"
+      href={ process.env.REACT_APP_CPRO_PATH+'/surveys/new_session?project=mPOWer%20-%20Photo%20Upload' }  >
+      Carga la Foto
+    </Button>
   </div>
-)
-
+))
 
 export default DailyCheckin;

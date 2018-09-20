@@ -1,15 +1,8 @@
 // Core
 import React from "react";
 import styled from "styled-components"
-
-// UI Primitives
+import { observer } from "mobx-react"
 import { Button, Grid } from "reakit"
-
-// Utilities
-import { Link } from "react-router-dom";
-
-// Other
-import TopBar from "./TopBar";
 
 import {
   CalendarCheckIcon,
@@ -19,41 +12,50 @@ import {
   PencilIcon,
 } from "mdi-react"
 
-const Home = () => (
-  <div>
-    <TopBar header="Inicio" />
+import DailyCheckin from "./DailyCheckin"
+import InfoEd from "./InfoEd"
+import Messaging from "./Messaging"
+import MyNotes from "./MyNotes"
 
-    <Layout>
-      <Button background="#c9c9c9" as={Link} to='/daily-checkin'>
-        <CalendarCheckIcon />
-        Notificación Diaria
-      </Button>
+const Home = observer(({ store }) => (
+  <Layout>
+    <Button onClick={() => store.showPage(DailyCheckin)} >
+      <CalendarCheckIcon />
+      Notificación Diaria
+    </Button>
 
-      <Button background="#ffffff" as={Link} to='/messages'>
-        <EmailIcon />
-        Mensajería
-      </Button>
+    <Button onClick={() => store.showPage(Messaging)} >
+      <EmailIcon />
+      Mensajería
+    </Button>
 
-      <Button background="#c9c9c9" as={Link} to='/info'>
-        <InformationIcon />
-        Información y Educación
-      </Button>
+    <Button onClick={() => store.showPage(InfoEd)} >
+      <InformationIcon />
+      Información y Educación
+    </Button>
 
-      <Button background="#ffffff" as="a" href={ process.env.REACT_APP_CPRO_PATH+'/users/care' } >
-        <ChartLineIcon />
-        Mi Progreso
-      </Button>
+    <Button as="a" href={process.env.REACT_APP_CPRO_PATH + "/users/care"} >
+      <ChartLineIcon />
+      Mi Progreso
+    </Button>
 
-      <Button background="#c9c9c9" as={Link} to='/my-notes'>
-        <PencilIcon />
-        Mis Notas
-      </Button>
-    </Layout>
-  </div>
-)
+    <Button onClick={() => store.showPage(MyNotes)} >
+      <PencilIcon />
+      Mis Notas
+    </Button>
+  </Layout>
+))
 
 const Layout = styled(Grid)`
   columns: repeat(5, 1fr);
+
+  & > ${Button}:nth-child(2n+1) {
+    background: #c9c9c9;
+  }
+
+  & > ${Button}:nth-child(2n) {
+    background: #ffffff;
+  }
 `
 
 export default Home;
