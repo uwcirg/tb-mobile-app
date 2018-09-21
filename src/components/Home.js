@@ -2,7 +2,7 @@
 import React from "react";
 import styled from "styled-components"
 import { observer } from "mobx-react"
-import { Box, InlineBlock } from "reakit"
+import { InlineBlock } from "reakit"
 import { black, white, grey } from "../colors"
 import Button from "../primitives/Button"
 

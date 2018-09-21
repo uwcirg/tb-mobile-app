@@ -1,4 +1,3 @@
-import React from "react"
 import styled from "styled-components"
 import { Button } from "reakit"
 import { blue, lightblue, white } from "../colors"
