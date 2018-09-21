@@ -1,9 +1,13 @@
 import React from 'react';
-import { Button } from "reakit"
+import Button from "../primitives/Button"
 import { observer } from "mobx-react"
+import Layout from "../layouts/Text"
+import { grey } from "../colors"
 
-const TbQuiz = observer(() => (
-  <div>
+import InfoEd from "./InfoEd"
+
+const TbQuiz = observer(({ store }) => (
+  <Layout>
     <h2>Prueba tu conocimiento sobre la tuberculosis!</h2>
 
     <p>
@@ -13,9 +17,12 @@ const TbQuiz = observer(() => (
       relativamente común pero a menudo incomprendida.
     </p>
 
-    <Button>Atrás</Button>
+    <Button backgroundColor={grey} onClick={() => store.showPage(InfoEd)} >
+      Atrás
+    </Button>
+
     <Button>Empezar</Button>
-  </div>
+  </Layout>
 ))
 
 

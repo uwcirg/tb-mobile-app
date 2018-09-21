@@ -1,8 +1,9 @@
 import React from "react"
 import { observer } from "mobx-react"
+import Layout from "../layouts/Text"
 
 const SymptomOverview = observer(() => (
-  <div>
+  <Layout>
     <h5>
       Resumen de los síntomas/efectos indeseables
       y estrategias para intentar en casa para reducir los efectos secundarios
@@ -156,7 +157,7 @@ const SymptomOverview = observer(() => (
         </li>
       </ul>
     </p>
-  </div>
+  </Layout>
 ))
 
 export default SymptomOverview
