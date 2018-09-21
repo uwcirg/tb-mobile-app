@@ -1,9 +1,11 @@
 import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
+import Layout from "../layouts/Text"
+import { darkgrey } from "../colors"
 
 const Messaging = observer(() => (
-  <Scroll>
+  <Layout>
     <HeadText>
       <p>
         Aquí es donde puede conversar con su coordinador de tratamiento
@@ -48,25 +50,30 @@ const Messaging = observer(() => (
       <Date>Ayer</Date>
       <Text>TB Tratamiento: Felicidades por compluir tu...</Text>
     </Message>
-  </Scroll>
+  </Layout>
 ))
 
 const HeadText = styled.div`
-`
-
-const Scroll = styled.div`
 `
 
 const Name = styled.div`
 `
 
 const Date = styled.div`
+  color: ${darkgrey}
 `
 
 const Text = styled.div`
 `
 
 const Message = styled.div`
+  border: 1px solid ${darkgrey};
+  margin-bottom: 2rem;
+  padding: 1rem;
+
+  & > ${Text} {
+    margin-top: 1rem;
+  }
 `
 
 export default Messaging;
