@@ -18,6 +18,7 @@ import DailyCheckin from "./DailyCheckin"
 import InfoEd from "./InfoEd"
 import Messaging from "./Messaging"
 import MyNotes from "./MyNotes"
+import ListOfLinks from "../layouts/ListOfLinks"
 
 const Home = observer(({ store }) => (
   <Layout>
@@ -48,22 +49,11 @@ const Home = observer(({ store }) => (
   </Layout>
 ))
 
-const Layout = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-
+const Layout = styled(ListOfLinks)`
   & > ${Button} {
     min-width: 50%;
     color: ${black};
     background: ${white};
-  }
-
-  & > ${Button}:not(:last-child) {
-    margin-bottom: 2rem;
   }
 
   & > ${Button}:nth-child(2n+1) {
