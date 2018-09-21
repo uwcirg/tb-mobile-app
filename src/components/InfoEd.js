@@ -1,25 +1,26 @@
 import React from "react"
 import { observer } from "mobx-react"
-import { Button } from "reakit"
+import Button from "../primitives/Button"
+import Layout from "../layouts/ListOfLinks"
 
 import Faqs from "./Faqs"
 import SymptomOverview from "./SymptomOverview"
 import TbQuiz from "./TbQuiz"
 
 const InfoEd = observer(({ store }) => (
-  <div>
-    <Button onCLick={() => store.showPage(Faqs)} >
+  <Layout>
+    <Button onClick={() => store.showPage(Faqs)} >
       Preguntas frecuentes<br /> y respuestas
     </Button>
 
-    <Button onCLick={() => store.showPage(SymptomOverview)} >
+    <Button onClick={() => store.showPage(SymptomOverview)} >
       Resumen de los síntomas<br /> y efectos secundarios
     </Button>
 
-    <Button onCLick={() => store.showPage(TbQuiz)} >
+    <Button onClick={() => store.showPage(TbQuiz)} >
       Prueba tu conocimiento<br /> sobre la tuberculosis!
     </Button>
-  </div>
+  </Layout>
 ))
 
 export default InfoEd;
