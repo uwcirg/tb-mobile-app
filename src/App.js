@@ -13,7 +13,10 @@ const App = observer(({ store }) => (
       {React.createElement(store.currentPage, { store: store })}
     </Layout.Main>
 
-    <BottomNav store={store} />
+    { store.isLoggedIn
+      ? <BottomNav store={store} />
+      : null
+    }
   </Layout>
 ))
 

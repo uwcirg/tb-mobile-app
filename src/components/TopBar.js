@@ -1,18 +1,18 @@
 import React from "react"
 import styled from "styled-components"
-import { Box } from "reakit"
 import { observer } from "mobx-react"
-import { red, white } from "../colors"
+
 import Button from "../primitives/Button"
+import Menu from "./Menu"
+import { Box } from "reakit";
+import { white } from "../colors"
 
 const TopBar = observer(({ store }) => (
   <Layout>
     <Title>{ store.currentPageTitle }</Title>
 
     { store.isLoggedIn
-      ? <Button backgroundColor={red} onClick={() => store.logout()}>
-          Log out
-        </Button>
+      ? <Menu store={store} />
       : null
     }
   </Layout>
