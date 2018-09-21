@@ -2,7 +2,9 @@
 import React from "react";
 import styled from "styled-components"
 import { observer } from "mobx-react"
-import { Button, Grid } from "reakit"
+import { Box, InlineBlock } from "reakit"
+import { black, white, grey } from "../colors"
+import Button from "../primitives/Button"
 
 import {
   CalendarCheckIcon,
@@ -20,42 +22,60 @@ import MyNotes from "./MyNotes"
 const Home = observer(({ store }) => (
   <Layout>
     <Button onClick={() => store.showPage(DailyCheckin)} >
-      <CalendarCheckIcon />
-      Notificación Diaria
+      <Left><CalendarCheckIcon /></Left>
+      <Center>Notificación Diaria</Center>
     </Button>
 
     <Button onClick={() => store.showPage(Messaging)} >
-      <EmailIcon />
-      Mensajería
+      <Left><EmailIcon /></Left>
+      <Center>Mensajería</Center>
     </Button>
 
     <Button onClick={() => store.showPage(InfoEd)} >
-      <InformationIcon />
-      Información y Educación
+      <Left><InformationIcon /></Left>
+      <Center>Información y Educación</Center>
     </Button>
 
     <Button as="a" href={process.env.REACT_APP_CPRO_PATH + "/users/care"} >
-      <ChartLineIcon />
-      Mi Progreso
+      <Left><ChartLineIcon /></Left>
+      <Center>Mi Progreso</Center>
     </Button>
 
     <Button onClick={() => store.showPage(MyNotes)} >
-      <PencilIcon />
-      Mis Notas
+      <Left><PencilIcon /></Left>
+      <Center>Mis Notas</Center>
     </Button>
   </Layout>
 ))
 
-const Layout = styled(Grid)`
-  columns: repeat(5, 1fr);
+const Layout = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+
+  & > ${Button} {
+    min-width: 50%;
+    color: ${black};
+    background: ${white};
+  }
+
+  & > ${Button}:not(:last-child) {
+    margin-bottom: 2rem;
+  }
 
   & > ${Button}:nth-child(2n+1) {
-    background: #c9c9c9;
+    background: ${grey};
   }
+`
 
-  & > ${Button}:nth-child(2n) {
-    background: #ffffff;
-  }
+const Center = styled(InlineBlock)`
+`
+
+const Left = styled(InlineBlock)`
+  float: left;
 `
 
 export default Home;
