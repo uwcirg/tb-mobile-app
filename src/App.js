@@ -6,17 +6,15 @@ import TopBar from "./components/TopBar"
 import BottomNav from "./components/BottomNav"
 
 const App = observer(({ store }) => (
-  <div>
-    <Layout>
-      <TopBar store={store} />
+  <Layout>
+    <TopBar store={store} />
 
-      <Layout.Main>
-        {React.createElement(store.currentPage, { store: store })}
-      </Layout.Main>
+    <Layout.Main>
+      {React.createElement(store.currentPage, { store: store })}
+    </Layout.Main>
 
-      <BottomNav store={store} />
-    </Layout>
-  </div>
+    <BottomNav store={store} />
+  </Layout>
 ))
 
 const Layout = styled.div`
@@ -33,6 +31,7 @@ Layout.Main = styled.div`
   grid-row: 2;
   margin-left: 2rem;
   margin-right: 2rem;
+  overflow-y: auto;
 `
 
 export default App;
