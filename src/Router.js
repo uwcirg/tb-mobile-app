@@ -12,19 +12,19 @@ import MyNotes from "./components/MyNotes"
 
 export const startRouter = (store) => {
   Aviator.setRoutes({
-    "/daily-checkin": () => store.showPage(DailyCheckin),
-    "/messages": () => store.showPage(Messaging),
-    "/my-notes": () => store.showPage(MyNotes),
+    "/": () => store.showPage(Home),
 
     "/info/faqs": () => store.showPage(Faqs),
     "/info/symptom-overview": () => store.showPage(SymptomOverview),
     "/info/tb-quiz": () => store.showPage(TbQuiz),
     "/info": () => store.showPage(InfoEd),
 
-    "/": () => store.showPage(Home),
-
-    notFound: () => store.showHome(),
+    "/daily-checkin": () => store.showPage(DailyCheckin),
+    "/messages": () => store.showPage(Messaging),
+    "/my-notes": () => store.showPage(MyNotes),
   })
+
+  Aviator.dispatch()
 
   autorun(() => {
     const path = store.currentPath

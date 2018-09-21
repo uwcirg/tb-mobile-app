@@ -8,6 +8,7 @@ import { startRouter } from "./Router"
 
 let store = new Store(fetch)
 window.store = store
+store.loadSession()
 startRouter(store)
 
 ReactDOM.render(<App store={store} />, document.getElementById('root'));

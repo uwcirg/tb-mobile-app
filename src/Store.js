@@ -23,9 +23,9 @@ import MyNotes from "./components/MyNotes"
 class Store {
   fetch = null
 
-  @observable isLoggedIn = hasToken()
-  @observable token = getToken()
-  @observable expiration = getExpiration()
+  @observable isLoggedIn = false
+  @observable token = null
+  @observable expiration = null
   @observable error = null
   @observable isLoggingIn = false
 
@@ -33,6 +33,12 @@ class Store {
 
   constructor(fetch) {
     this.fetch = fetch
+  }
+
+  @action loadSession() {
+    this.isLoggedIn = hasToken()
+    this.token = getToken()
+    this.expiration = getExpiration()
   }
 
   @computed get currentPath() {

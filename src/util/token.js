@@ -5,10 +5,10 @@ export const hasToken = () => getToken() !== null
 
 // Returns the token, *only* if it has not expired yet.
 export const getToken = () => {
-  const expiration = getExpiration()
+  const expired = getExpiration() < Date.now()
   const token = window.localStorage.getItem("token")
 
-  return (token && expiration > Date.now())
+  return (token && !expired)
     ? token
     : null
 }
