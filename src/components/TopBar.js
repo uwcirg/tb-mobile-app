@@ -2,7 +2,6 @@ import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
 
-import Button from "../primitives/Button"
 import Menu from "./Menu"
 import { Box } from "reakit";
 import { white } from "../colors"
