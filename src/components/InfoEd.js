@@ -1,6 +1,6 @@
 import React from "react"
 import { observer } from "mobx-react"
-import Button from "../primitives/Button"
+import InternalLink from "../primitives/InternalLink"
 import Layout from "../layouts/ListOfLinks"
 
 import Faqs from "./Faqs"
@@ -9,18 +9,19 @@ import TbQuiz from "./TbQuiz"
 
 const InfoEd = observer(({ store }) => (
   <Layout>
-    <Button onClick={() => store.showPage(Faqs)} >
+    <InternalLink to={Faqs} store={store} >
       Preguntas frecuentes<br /> y respuestas
-    </Button>
+    </InternalLink>
 
-    <Button onClick={() => store.showPage(SymptomOverview)} >
+    <InternalLink to={SymptomOverview} store={store} >
       Resumen de los síntomas<br /> y efectos secundarios
-    </Button>
+    </InternalLink>
 
-    <Button onClick={() => store.showPage(TbQuiz)} >
+    <InternalLink to={TbQuiz} store={store} >
       Prueba tu conocimiento<br /> sobre la tuberculosis!
-    </Button>
+    </InternalLink>
   </Layout>
 ))
 
+InfoEd.route = "/info"
 export default InfoEd;

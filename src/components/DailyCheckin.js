@@ -22,4 +22,5 @@ const DailyCheckin = observer(() => (
   </Layout>
 ))
 
+DailyCheckin.route = "/daily-checkin"
 export default DailyCheckin;

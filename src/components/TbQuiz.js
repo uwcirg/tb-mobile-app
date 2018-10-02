@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from "../primitives/Button"
+import InternalLink from "../primitives/InternalLink"
 import { observer } from "mobx-react"
 import Layout from "../layouts/Text"
 import { grey } from "../colors"
@@ -17,13 +18,13 @@ const TbQuiz = observer(({ store }) => (
       relativamente común pero a menudo incomprendida.
     </p>
 
-    <Button backgroundColor={grey} onClick={() => store.showPage(InfoEd)} >
+    <InternalLink backgroundColor={grey} to={InfoEd} store={store} >
       Atrás
-    </Button>
+    </InternalLink>
 
     <Button>Empezar</Button>
   </Layout>
 ))
 
-
+TbQuiz.route = `/info/tb-quiz`
 export default TbQuiz;

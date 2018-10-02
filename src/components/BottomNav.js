@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
 import { white } from "../colors"
-import { Button } from "reakit"
+import InternalLink from "../primitives/InternalLink"
 
 import {
   CalendarCheckIcon,
@@ -19,25 +19,25 @@ import MyNotes from "./MyNotes"
 
 const BottomNav = observer(({ store }) => (
   <Layout>
-    <Button onClick={() => store.showPage(DailyCheckin)} >
+    <InternalLink to={DailyCheckin} store={store} >
       <CalendarCheckIcon />
-    </Button>
+    </InternalLink>
 
-    <Button onClick={() => store.showPage(Messaging)} >
+    <InternalLink to={Messaging} store={store} >
       <EmailIcon />
-    </Button>
+    </InternalLink>
 
-    <Button onClick={() => store.showPage(InfoEd)} >
+    <InternalLink to={InfoEd} store={store} >
       <InformationIcon />
-    </Button>
+    </InternalLink>
 
-    <Button as="a" href={ process.env.REACT_APP_CPRO_PATH+"/users/care" }>
+    <a href={ process.env.REACT_APP_CPRO_PATH+"/users/care" }>
       <ChartLineIcon />
-    </Button>
+    </a>
 
-    <Button onClick={() => store.showPage(MyNotes)} >
+    <InternalLink to={MyNotes} store={store} >
       <PencilIcon />
-    </Button>
+    </InternalLink>
   </Layout>
 ))
 

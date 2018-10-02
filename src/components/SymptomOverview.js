@@ -164,4 +164,5 @@ const Underline = styled.span`
   text-decoration: underline;
 `
 
+SymptomOverview.route = `/info/symptom-overview`
 export default SymptomOverview

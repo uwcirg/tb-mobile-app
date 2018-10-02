@@ -439,4 +439,5 @@ const Underline = styled.span`
   text-decoration: underline;
 `
 
+FAQs.route = `/info/faqs`
 export default FAQs;

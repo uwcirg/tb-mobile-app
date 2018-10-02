@@ -42,17 +42,7 @@ class Store {
   }
 
   @computed get currentPath() {
-    switch(this.currentPage) {
-      case DailyCheckin: return "/daily-checkin"
-      case Messaging: return "/messages"
-      case MyNotes: return "/my-notes"
-      case Faqs: return "/info/faqs"
-      case SymptomOverview: return "/info/symptom-overview"
-      case TbQuiz: return "/info/tb-quiz"
-      case InfoEd: return "/info"
-      case Home: return "/"
-      case Login: return "/login"
-    }
+    return this.currentPage.route
   }
 
   @computed get currentPageTitle() {

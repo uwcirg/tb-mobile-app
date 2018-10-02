@@ -16,4 +16,5 @@ const Login = ({store}) => (
   </Layout>
 )
 
+Login.route = "/login"
 export default Login;

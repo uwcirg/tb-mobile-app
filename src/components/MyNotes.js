@@ -31,4 +31,5 @@ const Input = styled.textarea`
   text-align: left;
 `
 
+MyNotes.route = "/my-notes"
 export default MyNotes;

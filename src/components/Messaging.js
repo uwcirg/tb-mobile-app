@@ -76,4 +76,5 @@ const Message = styled.div`
   }
 `
 
+Messaging.route = "/messages"
 export default Messaging;

@@ -5,6 +5,7 @@ import { observer } from "mobx-react"
 import { InlineBlock } from "reakit"
 import { black, white, grey } from "../colors"
 import Button from "../primitives/Button"
+import InternalLink from "../primitives/InternalLink"
 
 import {
   CalendarCheckIcon,
@@ -22,17 +23,17 @@ import ListOfLinks from "../layouts/ListOfLinks"
 
 const Home = observer(({ store }) => (
   <Layout>
-    <Button onClick={() => store.showPage(DailyCheckin)} >
+    <Button as={InternalLink} to={DailyCheckin} store={store}>
       <Left><CalendarCheckIcon /></Left>
       <Center>Notificación Diaria</Center>
     </Button>
 
-    <Button onClick={() => store.showPage(Messaging)} >
+    <Button as={InternalLink} to={Messaging} store={store}>
       <Left><EmailIcon /></Left>
       <Center>Mensajería</Center>
     </Button>
 
-    <Button onClick={() => store.showPage(InfoEd)} >
+    <Button as={InternalLink} to={InfoEd} store={store}>
       <Left><InformationIcon /></Left>
       <Center>Información y Educación</Center>
     </Button>
@@ -42,7 +43,7 @@ const Home = observer(({ store }) => (
       <Center>Mi Progreso</Center>
     </Button>
 
-    <Button onClick={() => store.showPage(MyNotes)} >
+    <Button as={InternalLink} to={MyNotes} store={store}>
       <Left><PencilIcon /></Left>
       <Center>Mis Notas</Center>
     </Button>
@@ -68,4 +69,5 @@ const Left = styled(InlineBlock)`
   float: left;
 `
 
+Home.route = "/"
 export default Home;
