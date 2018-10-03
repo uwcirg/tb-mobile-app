@@ -5,8 +5,10 @@ import {
   setToken,
   removeToken
 } from './token'
-
 const now = Date.now()
+
+import LocalStorageMock from "../test_utils/LocalStorageMock"
+global.localStorage = new LocalStorageMock;
 
 beforeAll(() => {
   jest.spyOn(Date, 'now').mockImplementation(() => now)
