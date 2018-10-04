@@ -8,7 +8,7 @@ import InfoEd from "./components/InfoEd"
 import SymptomOverview from "./components/SymptomOverview"
 import Messaging from "./components/Messaging"
 import TbQuiz from "./components/TbQuiz"
-import MyNotes from "./components/MyNotes"
+import Notes from "./components/Notes"
 
 export const startRouter = (store) => {
   Aviator.setRoutes({
@@ -21,7 +21,7 @@ export const startRouter = (store) => {
 
     "/daily-checkin": () => store.showPage(DailyCheckin),
     "/messages": () => store.showPage(Messaging),
-    "/my-notes": () => store.showPage(MyNotes),
+    "/notes": () => store.showPage(Notes),
   })
 
   Aviator.dispatch()

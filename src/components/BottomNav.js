@@ -15,7 +15,7 @@ import {
 import DailyCheckin from "./DailyCheckin"
 import InfoEd from "./InfoEd"
 import Messaging from "./Messaging"
-import MyNotes from "./MyNotes"
+import Notes from "./Notes"
 
 const BottomNav = observer(({ store }) => (
   <Layout>
@@ -35,7 +35,7 @@ const BottomNav = observer(({ store }) => (
       <ChartLineIcon />
     </a>
 
-    <InternalLink to={MyNotes} store={store} >
+    <InternalLink to={Notes} store={store} >
       <PencilIcon />
     </InternalLink>
   </Layout>

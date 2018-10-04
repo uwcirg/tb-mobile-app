@@ -4,7 +4,7 @@ import { observer } from "mobx-react"
 
 import { ArrowRightIcon } from "mdi-react"
 
-const MyNotes = observer(() => (
+const Notes = observer(() => (
   <NotesMain>
     <Heading>
       <ArrowRightIcon />
@@ -31,5 +31,5 @@ const Input = styled.textarea`
   text-align: left;
 `
 
-MyNotes.route = "/my-notes"
-export default MyNotes;
+Notes.route = "/notes"
+export default Notes;

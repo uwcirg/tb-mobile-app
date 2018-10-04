@@ -18,7 +18,7 @@ import {
 import DailyCheckin from "./DailyCheckin"
 import InfoEd from "./InfoEd"
 import Messaging from "./Messaging"
-import MyNotes from "./MyNotes"
+import Notes from "./Notes"
 import ListOfLinks from "../layouts/ListOfLinks"
 
 const Home = observer(({ store }) => (
@@ -43,7 +43,7 @@ const Home = observer(({ store }) => (
       <Center>Mi Progreso</Center>
     </Button>
 
-    <Button as={InternalLink} to={MyNotes} store={store}>
+    <Button as={InternalLink} to={Notes} store={store}>
       <Left><PencilIcon /></Left>
       <Center>Mis Notas</Center>
     </Button>

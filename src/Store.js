@@ -18,7 +18,7 @@ import InfoEd from "./components/InfoEd"
 import SymptomOverview from "./components/SymptomOverview"
 import Messaging from "./components/Messaging"
 import TbQuiz from "./components/TbQuiz"
-import MyNotes from "./components/MyNotes"
+import Notes from "./components/Notes"
 
 class Store {
   fetch = null
@@ -49,7 +49,7 @@ class Store {
     switch(this.currentPage) {
       case DailyCheckin: return "Notificación Diaria"
       case Messaging: return "Mensajería"
-      case MyNotes: return "Mis Notas"
+      case Notes: return "Mis Notas"
       case Faqs: return "Información y Educación"
       case SymptomOverview: return "Información y Educación"
       case TbQuiz: return "TB Quiz"
