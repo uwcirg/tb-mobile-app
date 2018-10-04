@@ -10,9 +10,9 @@ const Fold = observer(({ children }) => (
       <Layout as={Hidden.Toggle} {...hidden}>
         {children[0]}
 
-        <div>
-          <ExpandIcon {...hidden} />
-        </div>
+        <ExpandIcon {...hidden} >
+          <ChevronDownIcon />
+        </ExpandIcon>
 
         <Slider>
           <Hidden fade slide="bottom" {...hidden}>
@@ -27,7 +27,7 @@ const Fold = observer(({ children }) => (
   </Hidden.Container>
 ))
 
-const ExpandIcon = styled(ChevronDownIcon)`
+const ExpandIcon = styled.div`
   transform: rotateZ(${p => p.visible ? "-180deg" : "0deg"});
   transition: transform 250ms;
 `

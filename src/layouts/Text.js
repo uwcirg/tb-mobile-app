@@ -2,11 +2,12 @@ import styled from "styled-components"
 import { black, white } from "../colors"
 
 const Layout = styled.div`
-  color: ${black};
   background-color: ${white};
-  padding: 1rem;
-  max-width: 40em;
+  color: ${black};
   margin: auto;
+  max-width: 40em;
+  overflow: hidden;
+  padding: 1rem;
 `
 
 export default Layout

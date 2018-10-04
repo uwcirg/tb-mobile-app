@@ -1,4 +1,5 @@
 import { observable, computed, action } from "mobx";
+import moment from "moment"
 
 import authorize from "./oauth2"
 
@@ -21,8 +22,6 @@ import TbQuiz from "./components/TbQuiz"
 import Notes from "./components/Notes"
 
 class Store {
-  fetch = null
-
   @observable isLoggedIn = false
   @observable token = null
   @observable expiration = null
@@ -31,9 +30,10 @@ class Store {
 
   @observable currentPage = Login
 
-  constructor(fetch) {
-    this.fetch = fetch
-  }
+  @observable patient_id = 88
+  @observable notes = []
+  @observable noteDraft = null
+  @observable noteTitle = null
 
   @action loadSession() {
     this.isLoggedIn = hasToken()
@@ -117,6 +117,48 @@ class Store {
     this.isLoggingIn = false
 
     this.currentPage = Login
+  }
+
+  @action saveNote() {
+    let now = moment().format("YYYY-MM-DD HH:mm:ss")
+
+    return fetch(`${process.env.REACT_APP_API_PATH}/api/v1.0/notes`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${this.token}`,
+      },
+      body: JSON.stringify({
+        "title": this.noteTitle,
+        "text": this.noteDraft,
+        "created": now,
+        "lastmod": now,
+        // TODO do not commit this.
+        "patient_id": this.patient_id,
+      })
+    })
+      .then(() => {
+        this.noteDraft = null
+        this.noteTitle = null
+        this.loadNotes()
+      })
+  }
+
+  @action loadNotes() {
+    // TODO remove `patient_id`
+    return fetch(`${process.env.REACT_APP_API_PATH}/api/v1.0/notes?patient_id=${this.patient_id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${this.token}`,
+      },
+    })
+      .then(response => response.json())
+      .then(body => { this.notes = body.notes })
+  }
+
+  @action composeNote() {
+    this.noteTitle = ""
+    this.noteDraft = ""
   }
 }
 

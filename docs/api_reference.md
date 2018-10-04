@@ -77,7 +77,7 @@ Date: Mon, 08 Oct 2018 18:03:50 GMT
 curl \
   -i \
   -X GET \
-  'http://localhost:5061/api/v1.0/notes/?patient_id=88'
+  'http://localhost:5061/api/v1.0/notes?patient_id=88'
 ```
 
 Response:
@@ -112,7 +112,7 @@ Date: Mon, 08 Oct 2018 18:04:20 GMT
 curl \
   -i \
   -X GET \
-  'http://localhost:5061/api/v1.0/notes/'
+  'http://localhost:5061/api/v1.0/notes'
 ```
 
 Response:

@@ -10,7 +10,7 @@ const Login = ({store}) => (
 
     <Button as={["a"]}
       href={ process.env.REACT_APP_API_PATH + "/account/signup" }
-      >
+    >
       Crea una Cuenta
     </Button>
   </Layout>
