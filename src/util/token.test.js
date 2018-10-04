@@ -8,7 +8,7 @@ import {
 const now = Date.now()
 
 import LocalStorageMock from "../test_utils/LocalStorageMock"
-global.localStorage = new LocalStorageMock;
+global.localStorage = new LocalStorageMock()
 
 beforeAll(() => {
   jest.spyOn(Date, 'now').mockImplementation(() => now)
@@ -22,65 +22,71 @@ beforeEach(() => {
   localStorage.clear()
 })
 
-test('empty localStorage returns null for token', () => {
-  expect(getToken()).toBeNull()
+describe("getToken()", () => {
+  test('starts as null', () => {
+    expect(getToken()).toBeNull()
+  })
+
+  test('returns token after setting it', () => {
+    setToken('token', now + 1)
+    expect(getToken()).toBe('token')
+  })
+
+  test('returns null for token after removing it', () => {
+    setToken('token', now + 1)
+    expect(getToken()).toBe('token')
+
+    removeToken()
+    expect(getToken()).toBeNull()
+  })
+
+  test('returns token after setting it when not expired', () => {
+    setToken('token', now + 1)
+    expect(getToken()).toBe('token')
+  })
+
+  test('returns null for token after setting it when expired', () => {
+    setToken('token', now)
+    expect(getToken()).toBeNull()
+  })
 })
 
-test('empty localStorage returns null for expiration', () => {
-  expect(getExpiration()).toBeNull()
+describe("hasToken()", () => {
+  test('starts as false', () => {
+    expect(hasToken()).toBeFalsy()
+  })
+
+  test('returns true after setting token', () => {
+    expect(hasToken()).toBeFalsy()
+    setToken('token', now + 1)
+    expect(hasToken()).toBeTruthy()
+  })
+
+  test('returns false after removing token', () => {
+    setToken('token', now + 1)
+    expect(hasToken()).toBeTruthy()
+
+    removeToken()
+    expect(hasToken()).toBeFalsy()
+  })
 })
 
-test('empty localStorage has no token', () => {
-  expect(hasToken()).toBeFalsy()
-})
+describe("getExpiration()", () => {
+  test('starts as null', () => {
+    expect(getExpiration()).toBeNull()
+  })
 
-test('localStorage returns token after setting it', () => {
-  expect(getToken()).toBeNull()
-  setToken('token', null)
-  expect(getToken()).toBe('token')
-})
+  test('returns expiration after setting it', () => {
+    expect(getExpiration()).toBeNull()
+    setToken('token', now)
+    expect(getExpiration()).toBe(now)
+  })
 
-test('localStorage returns expiration after setting it', () => {
-  expect(getExpiration()).toBeNull()
-  setToken('token', now)
-  expect(getExpiration()).toBe(now)
-})
+  test('returns null after removing token', () => {
+    setToken('token', now)
+    expect(getExpiration()).toBe(now)
 
-test('localStorage has token after setting it', () => {
-  expect(hasToken()).toBeFalsy()
-  setToken('token', null)
-  expect(hasToken()).toBeTruthy()
-})
-
-test('localStorage returns null for token after removing it', () => {
-  setToken('token', null)
-  expect(getToken()).toBe('token')
-  removeToken()
-  expect(getToken()).toBeNull()
-})
-
-test('localStorage returns null for expiration after removing it', () => {
-  setToken('token', now)
-  expect(getExpiration()).toBe(now)
-  removeToken()
-  expect(getToken()).toBeNull()
-})
-
-test('localStorage has no token after removing it', () => {
-  setToken('token', null)
-  expect(hasToken()).toBeTruthy()
-  removeToken()
-  expect(hasToken()).toBeFalsy()
-})
-
-test('localStorage returns token after setting it when not expired', () => {
-  expect(getToken()).toBeNull()
-  setToken('token', now + 1)
-  expect(getToken()).toBe('token')
-})
-
-test('localStorage returns null for token after setting it when expired', () => {
-  expect(getToken()).toBeNull()
-  setToken('token', now)
-  expect(getToken()).toBeNull()
+    removeToken()
+    expect(getExpiration()).toBeNull()
+  })
 })

@@ -23,5 +23,9 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-app-rewired eject"
+  },
+  "devDependencies": {},
+  "jest": {
+    "verbose": true
   }
 }
