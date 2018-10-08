@@ -3,32 +3,9 @@
 Test Suite:
 [![CircleCI](https://circleci.com/gh/uwcirg/tb-mobile-app.svg?style=svg)](https://circleci.com/gh/uwcirg/tb-mobile-app)
 
-## Prerequesites
-See https://github.com/uwcirg/tb-api for instructions on how to set up all of the components of this project.
+We've broken out information from the README into several reference documents.
+If you don't find what you're looking for here, try checking:
 
-## Usage Tutorial
-
-### Sign Up for an Account
-1. Visit https://tb-mobile.cirg.washington.edu
-2. Click `Crea una Cuenta`
-3. Put in an email and a password
-4. Click
-
-
-### Log In
-1. Visit https://tb-mobile.cirg.washington.edu
-2. Click `Registrarse`
-3. Put in your email and password and log in.
-
-### Logging out
-1. Visit https://tb-mobile.cirg.washington.edu/logout and click the red button
-2. Visit https://tb-api.cirg.washington.edu/account/logout
-
-### Development Reference
-
-This app was created using the `create-react-app` tool,
-recommends certain techniques for adding different features to the app.
-
-Check [the development reference] for more information.
-
-[the development reference]: ./DEV_REFERENCE.md
+* [Parent project (`tb-api`)](https://github.com/uwcirg/tb-api)
+* [Development reference](./docs/development.md)
+* [API reference](./docs/api_reference.md)
