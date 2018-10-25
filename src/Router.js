@@ -1,7 +1,6 @@
 import Aviator from "aviator"
 import { autorun } from "mobx"
 
-import DailyCheckin from "./components/DailyCheckin"
 import Home from "./components/Home"
 import Faqs from "./components/Faqs"
 import InfoEd from "./components/InfoEd"
@@ -19,7 +18,6 @@ export const startRouter = (store) => {
     "/info/tb-quiz": () => store.showPage(TbQuiz),
     "/info": () => store.showPage(InfoEd),
 
-    "/daily-checkin": () => store.showPage(DailyCheckin),
     "/messages": () => store.showPage(Messaging),
     "/notes": () => store.showPage(Notes),
 

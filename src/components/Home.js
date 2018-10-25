@@ -1,72 +1,76 @@
-// Core
 import React from "react";
 import styled from "styled-components"
 import { observer } from "mobx-react"
-import { InlineBlock } from "reakit"
-import { black, white, grey } from "../colors"
-import Button from "../primitives/Button"
-import InternalLink from "../primitives/InternalLink"
+import ReactCalendar from "react-calendar/dist/entry.nostyle"
+
+import { grey } from "../colors"
 
 import {
-  CalendarCheckIcon,
-  EmailIcon,
-  InformationIcon,
-  ChartLineIcon,
-  PencilIcon,
+  CameraIcon,
+  FormatListChecksIcon,
 } from "mdi-react"
-
-import DailyCheckin from "./DailyCheckin"
-import InfoEd from "./InfoEd"
-import Messaging from "./Messaging"
-import Notes from "./Notes"
-import ListOfLinks from "../layouts/ListOfLinks"
 
 const Home = observer(({ store }) => (
   <Layout>
-    <Button as={InternalLink} to={DailyCheckin} store={store}>
-      <Left><CalendarCheckIcon /></Left>
-      <Center>Notificación Diaria</Center>
-    </Button>
+    <h1>
+      ¡Bienvenido!
+    </h1>
 
-    <Button as={InternalLink} to={Messaging} store={store}>
-      <Left><EmailIcon /></Left>
-      <Center>Mensajería</Center>
-    </Button>
+    <p>
+      Prima un dato para recuerdo tomando su medicación.
+    </p>
 
-    <Button as={InternalLink} to={InfoEd} store={store}>
-      <Left><InformationIcon /></Left>
-      <Center>Información y Educación</Center>
-    </Button>
-
-    <Button as="a" href={process.env.REACT_APP_CPRO_PATH + "/users/care"} >
-      <Left><ChartLineIcon /></Left>
-      <Center>Mi Progreso</Center>
-    </Button>
-
-    <Button as={InternalLink} to={Notes} store={store}>
-      <Left><PencilIcon /></Left>
-      <Center>Mis Notas</Center>
-    </Button>
+    <Calendar
+      calendarType="US"
+      minDetail="year"
+      tileContent={({ date, view }) =>
+        <IconWrapper>
+          { view === 'month' && date.getDate() % 3 === 0
+            ? <CameraIcon />
+            : null
+          }
+          { view === 'month' && date.getDate() % 2 === 0
+              ? <FormatListChecksIcon />
+            : null
+          }
+        </IconWrapper>
+      }
+      onClickDay={(date) => store.reportMedication(date)}
+      tileDisabled={(date) => date > new Date()}
+    />
   </Layout>
 ))
 
-const Layout = styled(ListOfLinks)`
-  & > ${Button} {
-    min-width: 50%;
-    color: ${black};
-    background: ${white};
-  }
-
-  & > ${Button}:nth-child(2n+1) {
-    background: ${grey};
-  }
+const Layout = styled.div`
 `
 
-const Center = styled(InlineBlock)`
+const IconWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  height: 1rem;
 `
 
-const Left = styled(InlineBlock)`
-  float: left;
+const Calendar = styled(ReactCalendar)`
+  & .react-calendar__tile {
+    border: 1px solid ${grey};
+    height: 4rem;
+  }
+
+  & .react-calendar__tile--now {
+    background-color: ${grey};
+  }
+
+  & .react-calendar__month-view__days__day--neighboringMonth {
+    color: ${grey}
+  }
+
+  & .react-calendar__navigation button {
+    border-radius: 0;
+    border: 1px solid ${grey};
+    font-size: 1rem;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+  }
 `
 
 Home.route = "/"

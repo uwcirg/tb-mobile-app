@@ -11,7 +11,6 @@ import {
 } from "./util/token"
 
 import Login from "./Login"
-import DailyCheckin from "./components/DailyCheckin"
 import Home from "./components/Home"
 import Faqs from "./components/Faqs"
 import InfoEd from "./components/InfoEd"
@@ -19,6 +18,12 @@ import SymptomOverview from "./components/SymptomOverview"
 import Messaging from "./components/Messaging"
 import TbQuiz from "./components/TbQuiz"
 import Notes from "./components/Notes"
+
+import SurveyConfig from "./Survey"
+import Survey from "./components/Survey"
+import ReportMedication from "./components/ReportMedication"
+import ReportSymptoms from "./components/ReportSymptoms"
+import PhotoUpload from "./components/PhotoUpload"
 
 class Store {
   @observable isLoggedIn = false
@@ -46,7 +51,6 @@ class Store {
 
   @computed get currentPageTitle() {
     switch(this.currentPage) {
-      case DailyCheckin: return "Notificación Diaria"
       case Messaging: return "Mensajería"
       case Notes: return "Mis Notas"
       case Faqs: return "Información y Educación"
@@ -162,6 +166,17 @@ class Store {
   @action composeNote() {
     this.noteTitle = ""
     this.noteDraft = ""
+  }
+
+  @action reportMedication(date) {
+    this.survey = new SurveyConfig(this)
+    this.survey.medicationDate = date || new Date()
+
+    this.survey.push(ReportMedication)
+    this.survey.push(ReportSymptoms)
+    this.survey.push(PhotoUpload)
+
+    this.currentPage = Survey
   }
 }
 

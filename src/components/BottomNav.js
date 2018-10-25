@@ -4,39 +4,40 @@ import { observer } from "mobx-react"
 import { white } from "../colors"
 import InternalLink from "../primitives/InternalLink"
 
+import Icon from "@mdi/react"
 import {
-  CalendarCheckIcon,
-  EmailIcon,
-  InformationIcon,
-  ChartLineIcon,
-  PencilIcon,
-} from "mdi-react"
+  mdiCalendarCheck,
+  mdiEmail,
+  mdiInformation,
+  mdiChartLine,
+  mdiPencil,
+} from "@mdi/js"
 
-import DailyCheckin from "./DailyCheckin"
+import Home from "./Home"
 import InfoEd from "./InfoEd"
 import Messaging from "./Messaging"
 import Notes from "./Notes"
 
 const BottomNav = observer(({ store }) => (
   <Layout>
-    <InternalLink to={DailyCheckin} store={store} >
-      <CalendarCheckIcon />
-    </InternalLink>
-
     <InternalLink to={Messaging} store={store} >
-      <EmailIcon />
+      <Icon path={mdiEmail} size="1.4rem" />
     </InternalLink>
 
     <InternalLink to={InfoEd} store={store} >
-      <InformationIcon />
+      <Icon path={mdiInformation} size="1.4rem" />
+    </InternalLink>
+
+    <InternalLink to={Home} store={store} >
+      <Icon path={mdiCalendarCheck} size="2.4rem" />
     </InternalLink>
 
     <a href={ process.env.REACT_APP_CPRO_PATH+"/users/care" }>
-      <ChartLineIcon />
+      <Icon path={mdiChartLine} size="1.4rem" />
     </a>
 
     <InternalLink to={Notes} store={store} >
-      <PencilIcon />
+      <Icon path={mdiPencil} size="1.4rem" />
     </InternalLink>
   </Layout>
 ))
