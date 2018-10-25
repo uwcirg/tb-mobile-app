@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
+import { green } from "./colors"
 
 import TopBar from "./components/TopBar"
 import BottomNav from "./components/BottomNav"
@@ -24,10 +25,9 @@ const Layout = styled.div`
   display: grid;
   grid-template-rows: auto 1fr auto;
   grid-row-gap: 2rem;
-
-  background-size: cover;
   height: 100vh;
-  background-image: url(/images/tb-bg.jpg);
+  background-size: cover;
+  background: ${green};
 `
 
 Layout.Main = styled.div`

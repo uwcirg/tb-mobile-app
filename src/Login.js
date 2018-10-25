@@ -1,6 +1,7 @@
 import React from "react"
 import Button from "./primitives/Button"
-import Layout from "./layouts/ListOfLinks"
+import styled from "styled-components"
+import ListOfLinks from "./layouts/ListOfLinks"
 
 const Login = ({store}) => (
   <Layout>
@@ -15,6 +16,11 @@ const Login = ({store}) => (
     </Button>
   </Layout>
 )
+
+const Layout = styled(ListOfLinks)`
+  background-size: cover;
+  background-image: url(/images/tb-bg.jpg);
+`
 
 Login.route = "/login"
 export default Login;
