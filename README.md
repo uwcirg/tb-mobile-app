@@ -9,3 +9,11 @@ If you don't find what you're looking for here, try checking:
 * [Parent project (`tb-api`)](https://github.com/uwcirg/tb-api)
 * [Development reference](./docs/development.md)
 * [API reference](./docs/api_reference.md)
+
+## Getting Started
+
+To run this application on your local computer,
+make sure you have `docker` and `docker-compose` installed.
+
+Run `./bin/setup`,
+and be ready to provide credentials for the `dhair2` repo on Gitlab.

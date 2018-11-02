@@ -1,0 +1,16 @@
+#!/usr/local/bin/fish
+
+if not test -d server
+  git clone https://github.com/uwcirg/tb-api.git server
+end
+
+if not test -d mpower
+  echo "Gitlab username: "
+  read gitlab_username
+  echo "Gitlab password: "
+  read gitlab_password
+
+  git clone https://$gitlab_username:$gitlab_password@gitlab.cirg.washington.edu/svn/dhair2.git mpower
+end
+
+docker-compose build
