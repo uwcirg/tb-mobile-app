@@ -1,32 +1,9 @@
-import querystring from 'query-string'
-import cuid from 'cuid'
-import openPopup from './util/popup'
+import querystring from "query-string"
+import cuid from "cuid"
 
-// Runs on a recursively-scheduled timer loop while the popup is open
-const listenForCredentials = (popup, state, resolve, reject) => {
-  let hash
-
-  try {
-    hash = popup.location.hash
-  } catch (err) {}
-
-  if (hash) {
-    popup.close()
-    oauth(hash, state, resolve, reject)
-
-  } else if (popup.closed) {
-    reject('Authentication was cancelled.')
-
-  } else {
-    setTimeout(
-      () => listenForCredentials(popup, state, resolve, reject),
-      100,
-    )
-  }
-}
-
-const oauth = (hash, state, resolve, reject) => {
+const finish_flow = (hash, resolve, reject) => {
   const response = querystring.parse(hash.substr(1))
+  let state = localStorage.getItem("oauth_state")
 
   if(response.state !== state)
     reject('Invalid state returned.')
@@ -46,7 +23,7 @@ const oauth = (hash, state, resolve, reject) => {
     reject(response.error || 'Unknown error.')
 }
 
-const authorize = config => {
+const start_flow = config => {
   const state = cuid()
 
   const query = querystring.stringify({
@@ -57,14 +34,11 @@ const authorize = config => {
     redirect_uri: config.redirect
   })
 
+  localStorage.setItem("oauth_state", state)
   const url = config.url + (config.url.indexOf('?') === -1 ? '?' : '&') + query
-  const width = config.width || 400
-  const height = config.height || 400
-  const popup = openPopup(url, 'oauth2', width, height)
-
-  return new Promise((resolve, reject) =>
-    listenForCredentials(popup, state, resolve, reject)
-  )
+  window.location = url
 }
 
-export default authorize
+let auth_functions = { start_flow, finish_flow }
+
+export default auth_functions

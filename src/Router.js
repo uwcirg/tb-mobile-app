@@ -22,6 +22,8 @@ export const startRouter = (store) => {
     "/daily-checkin": () => store.showPage(DailyCheckin),
     "/messages": () => store.showPage(Messaging),
     "/notes": () => store.showPage(Notes),
+
+    "/redirect": (params) => store.complete_oauth_flow(params),
   })
 
   Aviator.dispatch()

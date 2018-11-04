@@ -1,7 +1,6 @@
 import { observable, computed, action } from "mobx";
 import moment from "moment"
-
-import authorize from "./oauth2"
+import auth from "./oauth2"
 
 import {
   getExpiration,
@@ -73,21 +72,25 @@ class Store {
   }
 
   @action login(username, password, callback) {
-    authorize({
+    auth.start_flow({
       url: process.env.REACT_APP_API_PATH + "/oauth2/authorize",
       client: process.env.REACT_APP_CLIENT_ID,
       redirect: process.env.REACT_APP_REDIRECT_PATH,
       scope: "email",
     })
-    .then(
+
+    this.isLoggingIn = true
+  }
+
+  @action complete_oauth_flow(params) {
+    auth.finish_flow(
+      window.location.hash,
       response => {
         this.loginSuccess(response)
         this.showHome()
       },
       error => this.loginFailure(error),
     )
-
-    this.isLoggingIn = true
   }
 
   @action loginSuccess({ token, expiration }) {
