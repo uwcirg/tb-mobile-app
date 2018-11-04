@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components"
 import { observer } from "mobx-react"
 import ReactCalendar from "react-calendar/dist/entry.nostyle"
+import moment from "moment"
 
 import { grey } from "../colors"
 
@@ -17,7 +18,7 @@ const Home = observer(({ store }) => (
     </h1>
 
     <p>
-      Prima un dato para recuerdo tomando su medicación.
+      Prima un dato para recordar tomando su medicación.
     </p>
 
     <Calendar
@@ -25,11 +26,13 @@ const Home = observer(({ store }) => (
       minDetail="year"
       tileContent={({ date, view }) =>
         <IconWrapper>
-          { view === 'month' && date.getDate() % 3 === 0
+          { view === 'month' &&
+            store.events.indexOf({ date: moment(date), type: "observation" }) !== -1
             ? <CameraIcon />
             : null
           }
-          { view === 'month' && date.getDate() % 2 === 0
+          { view === 'month' &&
+            store.events.indexOf({ date: moment(date), type: "questionnaire_response" }) !== -1
               ? <FormatListChecksIcon />
             : null
           }

@@ -39,6 +39,23 @@ class Store {
   @observable noteDraft = null
   @observable noteTitle = null
 
+  @observable events = [
+    { date: moment("2010.10.27", "YYYY.MM.DD"), type: "observation", },
+    { date: moment("2010.10.27", "YYYY.MM.DD"), type: "questionnaire_response", },
+    { date: moment("2010.10.28", "YYYY.MM.DD"), type: "observation", },
+    { date: moment("2010.10.28", "YYYY.MM.DD"), type: "questionnaire_response", },
+    { date: moment("2010.10.29", "YYYY.MM.DD"), type: "observation", },
+    { date: moment("2010.10.29", "YYYY.MM.DD"), type: "questionnaire_response", },
+    { date: moment("2010.10.30", "YYYY.MM.DD"), type: "observation", },
+    { date: moment("2010.10.30", "YYYY.MM.DD"), type: "questionnaire_response", },
+    { date: moment("2010.10.31", "YYYY.MM.DD"), type: "observation", },
+    { date: moment("2010.10.31", "YYYY.MM.DD"), type: "questionnaire_response", },
+    { date: moment("2010.11.01", "YYYY.MM.DD"), type: "observation", },
+    { date: moment("2010.11.01", "YYYY.MM.DD"), type: "questionnaire_response", },
+    { date: moment("2010.11.02", "YYYY.MM.DD"), type: "observation", },
+    { date: moment("2010.11.02", "YYYY.MM.DD"), type: "questionnaire_response", },
+  ]
+
   @action loadSession() {
     this.isLoggedIn = hasToken()
     this.token = getToken()
