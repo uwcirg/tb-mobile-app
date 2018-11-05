@@ -4,12 +4,14 @@ import { observer } from "mobx-react"
 import ReactCalendar from "react-calendar/dist/entry.nostyle"
 import moment from "moment"
 
-import { grey } from "../colors"
+import { lightgrey, darkgrey, grey, white } from "../colors"
 
+import { Icon } from "@mdi/react"
 import {
-  CameraIcon,
-  FormatListChecksIcon,
-} from "mdi-react"
+  mdiCamera,
+  mdiFormatListChecks,
+  mdiPill,
+} from "@mdi/js"
 
 const Home = observer(({ store }) => (
   <Layout>
@@ -22,42 +24,79 @@ const Home = observer(({ store }) => (
     </p>
 
     <Calendar
-      calendarType="US"
       minDetail="year"
       tileContent={({ date, view }) =>
-        <IconWrapper>
-          { view === 'month' &&
-            store.events.indexOf({ date: moment(date), type: "observation" }) !== -1
-            ? <CameraIcon />
-            : null
-          }
-          { view === 'month' &&
-            store.events.indexOf({ date: moment(date), type: "questionnaire_response" }) !== -1
-              ? <FormatListChecksIcon />
-            : null
-          }
-        </IconWrapper>
+          <DateWrapper>
+            <DateNumber>{date.getDate()}</DateNumber>
+
+            { view === 'month' &&
+              store.events.find(e =>
+                e.date.unix() === moment(date).unix() &&
+                e.type === "questionnaire_response" &&
+                e.questionnaire_name === "self_report"
+              )
+                ? <Icon color={darkgrey} path={mdiPill} />
+                : <Icon />
+            }
+
+            { view === 'month' &&
+              store.events.find(e =>
+                e.date.unix() === moment(date).unix() &&
+                e.type === "questionnaire_response" &&
+                e.questionnaire_name === "symptoms"
+              )
+                ? <Icon color={darkgrey} path={mdiFormatListChecks} />
+                : <Icon />
+            }
+
+            { view === 'month' &&
+              store.events.find(e =>
+                e.date.unix() === moment(date).unix() &&
+                e.type === "observation"
+              )
+                ? <Icon color={darkgrey} path={mdiCamera} />
+                : <Icon />
+            }
+          </DateWrapper>
       }
       onClickDay={(date) => store.reportMedication(date)}
       tileDisabled={(date) => date > new Date()}
     />
+
+    <IconKey>
+      <Icon color={white} path={mdiPill} />
+      <p>Self-reported medicaction</p>
+
+      <Icon color={white} path={mdiFormatListChecks} />
+      <p>Self-reported symptoms</p>
+
+      <Icon color={white} path={mdiCamera} />
+      <p>Submitted photo of test strip</p>
+    </IconKey>
   </Layout>
 ))
 
 const Layout = styled.div`
 `
 
-const IconWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  height: 1rem;
+const DateWrapper = styled.div`
+  display: grid;
+  grid-column-gap: 5%;
+  grid-row-gap: 5%;
+  padding: 5%;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 50% 50%;
 `
 
 const Calendar = styled(ReactCalendar)`
   & .react-calendar__tile {
-    border: 1px solid ${grey};
+    background-color: ${white};
+    border: 1px solid ${lightgrey};
     height: 4rem;
+    padding: 0;
   }
+
+  & .react-calendar__tile time { display: none; }
 
   & .react-calendar__tile--now {
     background-color: ${grey};
@@ -68,12 +107,25 @@ const Calendar = styled(ReactCalendar)`
   }
 
   & .react-calendar__navigation button {
+    background-color: ${white};
     border-radius: 0;
     border: 1px solid ${grey};
     font-size: 1rem;
     padding: 0.5rem;
     margin-bottom: 1rem;
   }
+`
+
+const DateNumber = styled.span`
+  color: ${darkgrey};
+`
+
+const IconKey = styled.div`
+  color: ${white};
+  display: grid;
+  grid-column-gap: 1rem;
+  grid-template-columns: 2rem auto;
+  margin-top: 1rem;
 `
 
 Home.route = "/"

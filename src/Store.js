@@ -40,20 +40,41 @@ class Store {
   @observable noteTitle = null
 
   @observable events = [
-    { date: moment("2010.10.27", "YYYY.MM.DD"), type: "observation", },
-    { date: moment("2010.10.27", "YYYY.MM.DD"), type: "questionnaire_response", },
-    { date: moment("2010.10.28", "YYYY.MM.DD"), type: "observation", },
-    { date: moment("2010.10.28", "YYYY.MM.DD"), type: "questionnaire_response", },
-    { date: moment("2010.10.29", "YYYY.MM.DD"), type: "observation", },
-    { date: moment("2010.10.29", "YYYY.MM.DD"), type: "questionnaire_response", },
-    { date: moment("2010.10.30", "YYYY.MM.DD"), type: "observation", },
-    { date: moment("2010.10.30", "YYYY.MM.DD"), type: "questionnaire_response", },
-    { date: moment("2010.10.31", "YYYY.MM.DD"), type: "observation", },
-    { date: moment("2010.10.31", "YYYY.MM.DD"), type: "questionnaire_response", },
-    { date: moment("2010.11.01", "YYYY.MM.DD"), type: "observation", },
-    { date: moment("2010.11.01", "YYYY.MM.DD"), type: "questionnaire_response", },
-    { date: moment("2010.11.02", "YYYY.MM.DD"), type: "observation", },
-    { date: moment("2010.11.02", "YYYY.MM.DD"), type: "questionnaire_response", },
+    { date: moment("2018.10.27", "YYYY.MM.DD"), type: "observation", },
+    { date: moment("2018.10.27", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "self_report" },
+    { date: moment("2018.10.27", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "symptoms" },
+
+    { date: moment("2018.10.28", "YYYY.MM.DD"), type: "observation", },
+    { date: moment("2018.10.28", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "self_report" },
+    { date: moment("2018.10.28", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "symptoms" },
+
+    { date: moment("2018.10.29", "YYYY.MM.DD"), type: "observation", },
+    { date: moment("2018.10.29", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "self_report" },
+    { date: moment("2018.10.29", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "symptoms" },
+
+    { date: moment("2018.10.30", "YYYY.MM.DD"), type: "observation", },
+    { date: moment("2018.10.30", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "self_report" },
+    { date: moment("2018.10.30", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "symptoms" },
+
+    { date: moment("2018.10.31", "YYYY.MM.DD"), type: "observation", },
+    { date: moment("2018.10.31", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "self_report" },
+    { date: moment("2018.10.31", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "symptoms" },
+
+    { date: moment("2018.11.01", "YYYY.MM.DD"), type: "observation", },
+    { date: moment("2018.11.01", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "self_report" },
+    { date: moment("2018.11.01", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "symptoms" },
+
+    { date: moment("2018.11.02", "YYYY.MM.DD"), type: "observation", },
+    { date: moment("2018.11.02", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "self_report" },
+    { date: moment("2018.11.02", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "symptoms" },
+
+    { date: moment("2018.11.04", "YYYY.MM.DD"), type: "observation", },
+    { date: moment("2018.11.04", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "self_report" },
+    { date: moment("2018.11.04", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "symptoms" },
+
+    { date: moment("2018.11.05", "YYYY.MM.DD"), type: "observation", },
+    { date: moment("2018.11.05", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "self_report" },
+    { date: moment("2018.11.05", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "symptoms" },
   ]
 
   @action loadSession() {
