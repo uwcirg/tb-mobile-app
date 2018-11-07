@@ -9,7 +9,7 @@ const Survey = observer(({ store }) => (
     {React.createElement(store.survey.currentPage, { store: store })}
 
     <Button width="100%" marginTop="1rem" onClick={() => store.survey.next()} >
-      Continue
+      Continuar
     </Button>
   </div>
 ))

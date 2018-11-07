@@ -210,6 +210,8 @@ class Store {
     this.survey = new SurveyConfig(this)
     this.survey.date = moment(date) || moment()
 
+    this.survey.recordMedicationTime(moment())
+
     this.survey.push(ReportMedication)
     this.survey.push(ReportSymptoms)
     this.survey.push(PhotoUpload)
