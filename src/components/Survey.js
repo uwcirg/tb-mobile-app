@@ -2,14 +2,15 @@ import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
 import { computed } from "mobx"
+import Button from "../primitives/Button"
 
 const Survey = observer(({ store }) => (
   <div>
     {React.createElement(store.survey.currentPage, { store: store })}
 
-    <button onClick={() => store.survey.next()} >
+    <Button width="100%" marginTop="1rem" onClick={() => store.survey.next()} >
       Continue
-    </button>
+    </Button>
   </div>
 ))
 
