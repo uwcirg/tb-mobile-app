@@ -208,7 +208,7 @@ class Store {
 
   @action reportMedication(date) {
     this.survey = new SurveyConfig(this)
-    this.survey.medicationDate = date || new Date()
+    this.survey.date = moment(date) || moment()
 
     this.survey.push(ReportMedication)
     this.survey.push(ReportSymptoms)

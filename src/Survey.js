@@ -3,7 +3,8 @@ import Home from "./components/Home"
 
 class Survey {
   @observable store = null
-  @observable medicationDate
+  @observable date = null
+  @observable medicationTime = null
   @observable pages = []
 
   constructor(store) {
@@ -19,6 +20,13 @@ class Survey {
 
     if(this.pages.length === 0)
       this.store.showHome()
+  }
+
+  @action recordMedicationTime(time) {
+    this.medicationTime = time
+    this.medicationTime.set("year", this.date.year())
+    this.medicationTime.set("month", this.date.month())
+    this.medicationTime.set("date", this.date.date())
   }
 
   @computed get currentPage() {
