@@ -9,16 +9,16 @@ const ReportSymptoms = observer(({ survey }) => (
     <h1>Reporta Sintomas</h1>
 
     <Label>
-      <Input type="checkbox" /><span>Náuseas o vómitos</span>
-      <Input type="checkbox" /><span>Enrojectimiento de la piel, granitos, picazón</span>
-      <Input type="checkbox" /><span>Urticaria</span>
-      <Input type="checkbox" /><span>Fiebre</span>
-      <Input type="checkbox" /><span>Pérdida de apetito</span>
-      <Input type="checkbox" /><span>Visión borrosa o cambios en la forma de ver los colores</span>
-      <Input type="checkbox" /><span>La barriga se siente sensible o dolorido</span>
-      <Input type="checkbox" /><span>Coloración amarillenta en la piel o en la parte blanca de los ojos</span>
-      <Input type="checkbox" /><span>Dificultad para respirar</span>
-      <Input type="checkbox" /><span>Hinchazón de la cara, los labios, la lengua, o la garganta</span>
+      <Checkbox /><span>Náuseas o vómitos</span>
+      <Checkbox /><span>Enrojectimiento de la piel, granitos, picazón</span>
+      <Checkbox /><span>Urticaria</span>
+      <Checkbox /><span>Fiebre</span>
+      <Checkbox /><span>Pérdida de apetito</span>
+      <Checkbox /><span>Visión borrosa o cambios en la forma de ver los colores</span>
+      <Checkbox /><span>La barriga se siente sensible o dolorido</span>
+      <Checkbox /><span>Coloración amarillenta en la piel o en la parte blanca de los ojos</span>
+      <Checkbox /><span>Dificultad para respirar</span>
+      <Checkbox /><span>Hinchazón de la cara, los labios, la lengua, o la garganta</span>
 
       <span>Otra síntoma:</span>
       <TextInput />
@@ -31,11 +31,18 @@ const Layout = styled.div`
 
 const Label = styled.label`
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: 5rem auto;
+  grid-row-gap: 0.5rem;
 `
 
 const TextInput = styled(Input)`
   background-color: ${white};
+`
+
+const Checkbox = styled(Input).attrs({
+  type: "checkbox",
+})`
+  height: 1rem;
 `
 
 ReportSymptoms.route = "/report-symptoms"
