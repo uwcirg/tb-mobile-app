@@ -1,6 +1,7 @@
 import { observable, computed, action } from "mobx";
 import moment from "moment"
 import auth from "./oauth2"
+import { Client } from "minio"
 
 import {
   getExpiration,
@@ -218,6 +219,39 @@ class Store {
 
     this.currentPage = Survey
   }
+
+
+  @action storePhoto(photo) {
+    const minioClient = new Client({
+      endPoint: "localhost",
+      port: 9001,
+      useSSL: false,
+      accessKey: 'minio',
+      secretKey: 'minio123'
+    });
+
+    let reader = new FileReader()
+
+    reader.onload = (evt) => {
+      let blob = evt.target.result
+
+      minioClient.putObject(
+        'foo',
+        photo.name,
+        blob,
+        { 'Content-Type': photo.type },
+        (err, etag) => {
+          if (err) return console.log(err)
+          console.log('File uploaded successfully.')
+          this.uploadedImages.push(`data:${photo.type};base64,` + btoa(blob))
+        }
+      )
+    }
+
+    reader.readAsBinaryString(photo);
+  }
+
+  @observable uploadedImages = []
 }
 
 export default Store
