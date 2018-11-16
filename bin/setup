@@ -13,4 +13,33 @@ if not test -d mpower
   git clone https://$gitlab_username:$gitlab_password@gitlab.cirg.washington.edu/svn/dhair2.git mpower
 end
 
-docker-compose build
+docker-compose \
+  -f docker-compose.prod.yml \
+  -f docker-compose.yml \
+  build
+
+docker-compose \
+  -f docker-compose.prod.yml \
+  -f docker-compose.yml \
+  up -d
+
+docker-compose \
+  -f docker-compose.prod.yml \
+  -f docker-compose.yml \
+  exec tbapp-db \
+    mysql -D tbapi -u tbapi -h localhost -P 3306 --password=tbapi \
+    -e "delete from oauth2_client;"
+
+docker-compose \
+  -f docker-compose.prod.yml \
+  -f docker-compose.yml \
+  exec tbapp-db \
+    mysql -D tbapi -u tbapi -h localhost -P 3306 --password=tbapi \
+    -e "INSERT INTO `oauth2_client` VALUES ('skwIPnbi7N3uIvNysUbi0xfXwnWaIMR1MCJxz8rV0dGxeMJD','0',0,'http://localhost:3060/redirect','http://localhost:3060/redirect','email',1,576,'tb-mobile-app','http://localhost:3060','implicit');"
+
+docker-compose \
+  -f docker-compose.prod.yml \
+  -f docker-compose.yml \
+  exec tbapp-db \
+    mysql -D tbapi -u tbapi -h localhost -P 3306 --password=tbapi \
+    -e "INSERT INTO `oauth2_client` VALUES ('pkwIPnbi7N3uIvNysUbi0xfXwnWaIMR1MCJxz8rV0dGxeMJD','0',0,'http://localhost:8080/auth/truenth/oauth2callback','http://localhost:8080/auth/truenth/oauth2callback','email',2,576,'mpower-tb','http://localhost:8080','authorization_code');"
