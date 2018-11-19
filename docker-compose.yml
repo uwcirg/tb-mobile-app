@@ -132,8 +132,8 @@ services:
     image: mysql:5.7
     hostname: mpower-db
     volumes:
-      - "./db/sql/mpower-db:/docker-entrypoint-initdb.d"
-      - "./db/my.cnf:/etc/mysql/mysql.conf.d/my.cnf"
+      - "./server/db/sql/mpower-db:/docker-entrypoint-initdb.d"
+      - "./server/db/my.cnf:/etc/mysql/mysql.conf.d/my.cnf"
       - type: volume
         source: mpower-db-volume
         target: /var/lib/mysql
@@ -151,6 +151,7 @@ services:
     hostname: tbapp-db
     volumes:
       - "./db/sql/tbapp-db:/docker-entrypoint-initdb.d"
+      - "./server/db/sql/tbapp-db:/docker-entrypoint-initdb.d"
       - type: volume
         source: tbapp-db-volume
         target: /var/lib/mysql
