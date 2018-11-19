@@ -9,10 +9,6 @@ const Layout = styled.div`
   justify-content: center;
   align-items: center;
 
-  & > ${Button} {
-    min-width: 50%;
-  }
-
   & > ${Button}:not(:last-child) {
     margin-bottom: 2rem;
   }

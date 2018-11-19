@@ -1,7 +1,11 @@
 import React from "react"
+import styled from "styled-components"
+
 import { observer } from "mobx-react"
 import InternalLink from "../primitives/InternalLink"
-import Layout from "../layouts/ListOfLinks"
+import ListOfLinks from "../layouts/ListOfLinks"
+import Button from "../primitives/Button"
+import { grey, lightgrey, black } from "../colors"
 
 import Faqs from "./Faqs"
 import SymptomOverview from "./SymptomOverview"
@@ -9,19 +13,41 @@ import TbQuiz from "./TbQuiz"
 
 const InfoEd = observer(({ store }) => (
   <Layout>
-    <InternalLink to={Faqs} store={store} >
-      Preguntas frecuentes<br /> y respuestas
-    </InternalLink>
+    <Button as="div">
+      <InternalLink to={Faqs} store={store} >
+        Preguntas frecuentes<br /> y respuestas
+      </InternalLink>
+    </Button>
 
-    <InternalLink to={SymptomOverview} store={store} >
-      Resumen de los síntomas<br /> y efectos secundarios
-    </InternalLink>
+    <Button as="div">
+      <InternalLink to={SymptomOverview} store={store} >
+        Resumen de los síntomas<br /> y efectos secundarios
+      </InternalLink>
+    </Button>
 
-    <InternalLink to={TbQuiz} store={store} >
-      Prueba tu conocimiento<br /> sobre la tuberculosis!
-    </InternalLink>
+    <Button as="div">
+      <InternalLink to={TbQuiz} store={store} >
+        Prueba tu conocimiento<br /> sobre la tuberculosis!
+      </InternalLink>
+    </Button>
   </Layout>
 ))
+
+const Layout = styled(ListOfLinks)`
+  & > ${Button} {
+    min-width: 50%;
+    background-color: ${grey};
+
+    a {
+      color: ${black}
+      text-decoration: none;
+    }
+  }
+
+  & > ${Button}:nth-child(2n) {
+    background-color: ${lightgrey};
+  }
+`
 
 InfoEd.route = "/info"
 export default InfoEd;
