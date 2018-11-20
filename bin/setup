@@ -1,45 +1,95 @@
-#!/usr/local/bin/fish
+#!/bin/bash
 
-if not test -d server
+if [ ! -e .env ]
+then
+  echo 'Could not find a configuration file at `.env`;'
+  echo 'borrowing from the default config at `.sample.env`:'
+  echo '...'
+  cp .sample.env .env
+
+  echo '- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -'
+  cat .env
+  echo '- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -'
+  echo
+
+  echo 'Press [enter] to go ahead with this configuration,'
+  echo 'or [ctrl-c] to stop and change the file.'
+  echo 'If you choose to edit the file, re-run this script to finish setup.'
+  read
+fi
+
+source .env
+
+if [ ! -d server ]
+then
+  echo 'A copy of `tb-api` was not found in this directory.'
+  echo 'Cloning a copy into `./server`'
+  echo '...'
   git clone https://github.com/uwcirg/tb-api.git server
-end
+fi
 
-if not test -d mpower
-  echo "Gitlab username: "
+if [ ! -d mpower ]
+then
+  echo 'A copy of `dhair2` (aka `mpower`) was not found in this directory.'
+  echo 'Cloning a copy into `./mpower`'
+  echo
+  echo 'Since this repository is private on GitLab,'
+  echo 'you will need to enter a GitLab acces token.'
+  echo
+  echo 'Contact an administrator for details, or pres [ctrl-c] to stop.'
+  echo '...'
+
+  echo "Gitlab token username: "
   read gitlab_username
-  echo "Gitlab password: "
+  echo "Gitlab token password: "
   read gitlab_password
 
   git clone https://$gitlab_username:$gitlab_password@gitlab.cirg.washington.edu/svn/dhair2.git mpower
-end
+fi
 
-docker-compose \
-  -f docker-compose.prod.yml \
-  -f docker-compose.yml \
-  build
+# Check to see if we need to use `sudo`
+docker ps > /dev/null
+if [ $? != 0 ]
+then
+  echo 'Looks like `docker` requires admin privileges to run.'
+  echo 'Enter your password, or press [ctrl-c] to quit'
 
-docker-compose \
-  -f docker-compose.prod.yml \
-  -f docker-compose.yml \
-  up -d
+  SUDO=sudo
 
-docker-compose \
-  -f docker-compose.prod.yml \
-  -f docker-compose.yml \
+  bash -c "$SUDO docker ps > /dev/null"
+  if [ $? != 0 ]
+  then
+    echo 'Hmmm... still not able to run `docker`.'
+    echo 'Make sure that it is installed (https://docs.docker.com/install/).'
+    echo
+    echo 'Make sure `docker run --rm hello-world` works, and then try again.'
+  fi
+fi
+
+
+echo 'Building application images.'
+echo 'This will take a while (5-10 minutes), especially on first run.'
+bash -c "$SUDO docker-compose build"
+
+# Install `node_modules` in the local directory,
+# which is mounted into docker as a volume.
+bash -c "$SUDO docker-compose run --rm client yarn install"
+
+bash -c "$SUDO docker-compose up -d"
+
+bash -c "$SUDO docker-compose \
   exec tbapp-db \
     mysql -D tbapi -u tbapi -h localhost -P 3306 --password=tbapi \
-    -e "delete from oauth2_client;"
+    -e \"delete from oauth2_client;\""
 
-docker-compose \
-  -f docker-compose.prod.yml \
-  -f docker-compose.yml \
+bash -c "$SUDO docker-compose \
   exec tbapp-db \
     mysql -D tbapi -u tbapi -h localhost -P 3306 --password=tbapi \
-    -e "INSERT INTO `oauth2_client` VALUES ('skwIPnbi7N3uIvNysUbi0xfXwnWaIMR1MCJxz8rV0dGxeMJD','0',0,'http://localhost:3060/redirect','http://localhost:3060/redirect','email',1,576,'tb-mobile-app','http://localhost:3060','implicit');"
+    -e \"INSERT INTO oauth2_client VALUES ('skwIPnbi7N3uIvNysUbi0xfXwnWaIMR1MCJxz8rV0dGxeMJD','0',0,'$URL_CLIENT/redirect','$URL_CLIENT/redirect','email',1,576,'tb-mobile-app','$URL_CLIENT','implicit');\""
 
-docker-compose \
-  -f docker-compose.prod.yml \
-  -f docker-compose.yml \
+bash -c "$SUDO docker-compose \
   exec tbapp-db \
     mysql -D tbapi -u tbapi -h localhost -P 3306 --password=tbapi \
-    -e "INSERT INTO `oauth2_client` VALUES ('pkwIPnbi7N3uIvNysUbi0xfXwnWaIMR1MCJxz8rV0dGxeMJD','0',0,'http://localhost:8080/auth/truenth/oauth2callback','http://localhost:8080/auth/truenth/oauth2callback','email',2,576,'mpower-tb','http://localhost:8080','authorization_code');"
+    -e \"INSERT INTO oauth2_client VALUES ('pkwIPnbi7N3uIvNysUbi0xfXwnWaIMR1MCJxz8rV0dGxeMJD','0',0,'$URL_CPRO/auth/truenth/oauth2callback','$URL_CPRO/auth/truenth/oauth2callback','email',2,576,'mpower-tb','$URL_CPRO','authorization_code');\""
+
+echo "The app is up and running at $URL_CLIENT !"

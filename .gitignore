@@ -1,9 +1,11 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
-# A local copy of the server codebase
+# A local copy of the server and legacy codebases
 /server
-# A local copy of the legacy server codebase
 /mpower
+
+# Local configuration
+.env
 
 # vscode
 .vscode

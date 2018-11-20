@@ -26,7 +26,7 @@ services:
   client:
     restart: always
     ports:
-      - ${TB_MOBILE_EXTERNAL_PORT:-3060}:3000
+      - $PORT_CLIENT:3000
     build: .
     stdin_open: true
     tty: true
@@ -35,9 +35,9 @@ services:
       - web
     environment:
       NODE_ENV: development
-      REACT_APP_API_PATH: http://localhost:$WEB_EXTERNAL_PORT
-      REACT_APP_REDIRECT_PATH: http://localhost:$TB_MOBILE_EXTERNAL_PORT/redirect
-      REACT_APP_CPRO_PATH: http://localhost:$CPRO_EXTERNAL_PORT
+      REACT_APP_API_PATH: $URL_API
+      REACT_APP_REDIRECT_PATH: $URL_CLIENT/redirect
+      REACT_APP_CPRO_PATH: $URL_CPRO
       REACT_APP_CLIENT_ID: skwIPnbi7N3uIvNysUbi0xfXwnWaIMR1MCJxz8rV0dGxeMJD
       CHOKIDAR_USEPOLLING: 'true'
       MINIO_HOST: localhost
@@ -55,7 +55,7 @@ services:
         read_only: true
       - "web:/usr/src/app"
     ports:
-      - ${WEB_EXTERNAL_PORT:-5061}:${TB_API_INTERNAL_PORT:-5000}
+      - $PORT_API:5000
     links:
       - mpower-db
       - tbapp-db
@@ -83,23 +83,10 @@ services:
       FLASK_DEBUG: 1
       AUTHLIB_INSECURE_TRANSPORT: 'true'
       MODE: 'dev'
-      REACT_APP_CLIENT_PATH: http://localhost:$TB_MOBILE_EXTERNAL_PORT
-    networks:
-      - tbapi
 
-  nginx:
-    restart: always
-    build: ./server/nginx
-    ports:
-      - ${TB_API_EXTERNAL_PORT:-5060}:80
-    volumes:
-      - web:/www/static
-    depends_on:
-      - web
+      REACT_APP_CLIENT_PATH: $URL_CLIENT
     networks:
       - tbapi
-    environment:
-      TB_API_INTERNAL_PORT: ${TB_API_INTERNAL_PORT:-5000}
 
   cpro:
     restart: always
@@ -107,14 +94,14 @@ services:
       context: ./mpower
       dockerfile: docker/Dockerfile
     ports:
-      - ${CPRO_EXTERNAL_PORT:-8080}:80
+      - $PORT_CPRO:80
     environment:
       HTTPS: 'true'
       INSTANCE_ID: mpower_tb
       CPRO_API_CLIENT_ID: pkwIPnbi7N3uIvNysUbi0xfXwnWaIMR1MCJxz8rV0dGxeMJD
-      REACT_APP_API_PATH: http://localhost:$WEB_EXTERNAL_PORT
-      REACT_APP_CPRO_PATH: http://localhost:$CPRO_EXTERNAL_PORT
-      REACT_APP_CLIENT_PATH: http://localhost:$TB_MOBILE_EXTERNAL_PORT
+      REACT_APP_API_PATH: $URL_API
+      REACT_APP_CPRO_PATH: $URL_CPRO
+      REACT_APP_CLIENT_PATH: $URL_CLIENT
       DATABASE_URL: mysql://mpower:mpower@mpower-db:3306/mpower_demo
     command: bash -c '
       env &&
