@@ -30,7 +30,7 @@ const PhotoUpload = observer(({ store }) => (
     <ImagePreviews>
       {store.uploadedImages.map(image =>
         <Image key={image}>
-          <img src={image} />
+          <img src={image} alt="Uploaded" />
           <ConfirmationIcon />
         </Image>
       )}

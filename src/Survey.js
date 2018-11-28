@@ -1,5 +1,4 @@
 import { observable, computed, action } from "mobx";
-import Home from "./components/Home"
 
 class Survey {
   @observable store = null

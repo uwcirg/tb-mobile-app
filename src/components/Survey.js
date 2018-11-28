@@ -1,7 +1,6 @@
 import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
-import { computed } from "mobx"
 import Button from "../primitives/Button"
 import { darkgrey, lightgrey, green, white } from "../colors"
 import { Block, Tabs } from "reakit";

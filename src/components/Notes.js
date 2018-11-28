@@ -3,7 +3,7 @@ import styled from "styled-components"
 import Layout from "../layouts/Text"
 import Button from "../primitives/Button"
 import { PlusIcon, ContentSaveIcon } from "mdi-react"
-import { grey, darkgrey } from "../colors"
+import { grey } from "../colors"
 import Fold from "../components/Fold"
 import moment from "moment"
 
