@@ -32,9 +32,10 @@ const Layout = styled.div`
 
 Layout.Main = styled.div`
   grid-row: 2;
-  margin-left: 2rem;
-  margin-right: 2rem;
   overflow-y: auto;
+  margin-left: auto;
+  margin-right: auto;
+  width: 20rem;
 `
 
 export default App;
