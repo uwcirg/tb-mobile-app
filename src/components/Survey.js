@@ -34,11 +34,27 @@ const Survey = observer(({ store }) => (
           ))}
 
           <Buttons>
-            <Button as={Tabs.Next} color={darkgrey} backgroundColor={lightgrey} {...tabs} >
+            <Button
+              as={Tabs.Next}
+              color={darkgrey}
+              backgroundColor={lightgrey}
+              {...tabs}
+              onClick={() => {
+                if(tabs.current === tabs.ids.length - 1)
+                  store.showHome();
+              } }
+            >
               Omitir
             </Button>
 
-            <Button as={Tabs.Next} {...tabs} >
+            <Button
+              as={Tabs.Next}
+              {...tabs}
+              onClick={() => {
+                if(tabs.current === tabs.ids.length - 1)
+                  store.showHome();
+              } }
+            >
               Continuar
             </Button>
           </Buttons>
