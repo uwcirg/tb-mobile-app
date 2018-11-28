@@ -20,6 +20,7 @@ export const startRouter = (store) => {
 
     "/messages": () => store.showPage(Messaging),
     "/notes": () => store.showPage(Notes),
+    "/survey": () => store.reportMedication(),
 
     "/redirect": (params) => store.complete_oauth_flow(params),
   })

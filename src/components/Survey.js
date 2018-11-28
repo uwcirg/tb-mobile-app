@@ -14,5 +14,5 @@ const Survey = observer(({ store }) => (
   </div>
 ))
 
-Survey.route = computed(() => "/survey" + window.store.survey.currentPage.route)
+Survey.route = "/survey"
 export default Survey
