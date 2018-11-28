@@ -26,5 +26,5 @@ const ReportMedication = observer(({ store }) => (
 const Layout = styled.div`
 `
 
-ReportMedication.route = "/report-medication"
+ReportMedication.title = "Report Medication"
 export default ReportMedication

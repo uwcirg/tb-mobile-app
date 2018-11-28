@@ -45,5 +45,5 @@ const Checkbox = styled(Input).attrs({
   height: 1rem;
 `
 
-ReportSymptoms.route = "/report-symptoms"
+ReportSymptoms.title = "Report Symptoms"
 export default ReportSymptoms
