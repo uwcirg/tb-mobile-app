@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
 import Button from "../primitives/Button"
-import { darkgrey, lightgrey, green, white } from "../colors"
+import { darkgrey, lightgrey, green, beige, white } from "../colors"
 import { Block, Tabs } from "reakit";
 
 const Survey = observer(({ store }) => (
@@ -76,8 +76,8 @@ const Tab = styled(Tabs.Tab)`
   border: 1px solid white;
   margin-top: 0.1rem;
   padding: 0.5rem;
-  color: ${(tabs) => tabs.active ? green : white };
-  background-color: ${(tabs) => tabs.active ? white : green };
+  color: ${(tabs) => tabs.active ? white : green };
+  background-color: ${(tabs) => tabs.active ? green : white };
 `
 
 Survey.route = "/survey"

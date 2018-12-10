@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
-import { green } from "./colors"
+import { beige } from "./colors"
 
 import BottomNav from "./components/BottomNav"
 import Flash from "./components/Flash"
@@ -30,7 +30,7 @@ const Layout = styled.div`
   grid-row-gap: 2rem;
   height: 100vh;
   background-size: cover;
-  background: ${green};
+  background: ${beige};
 `
 
 Layout.Main = styled.div`

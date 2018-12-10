@@ -1,9 +1,9 @@
 import styled from "styled-components"
 import { Button } from "reakit"
-import { blue, lightblue, white } from "../colors"
+import { green, darkgreen, white } from "../colors"
 
 export default styled(Button)`
-  background-color: ${blue};
+  background-color: ${green};
   color: ${white};
   display: inline-block;
   padding: 1rem;
@@ -12,7 +12,7 @@ export default styled(Button)`
   width: auto;
 
   &:hover {
-    background-color: ${lightblue};
+    background-color: ${darkgreen};
   }
 
   border-radius: 2px;
