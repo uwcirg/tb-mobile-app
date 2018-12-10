@@ -50,8 +50,6 @@ const Calendar = observer(({ store }) => (
           }
         </DateWrapper>
     }
-    onClickDay={(date) => store.reportMedication(date)}
-    tileDisabled={(date) => date > new Date()}
   />
 ))
 

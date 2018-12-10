@@ -14,4 +14,7 @@ export default styled(Button)`
   &:hover {
     background-color: ${lightblue};
   }
+
+  border-radius: 2px;
+  border: 2px solid rgba(100, 100, 100, 0.2);
 `
