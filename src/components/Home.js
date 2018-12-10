@@ -27,7 +27,7 @@ const Home = observer(({ store }) => (
                 e.type === "questionnaire_response" &&
                 e.questionnaire_name === "self_report"
               )
-                ? <Icon color={darkgrey} path={mdiPill} />
+                ? <Icon size="1rem" color={darkgrey} path={mdiPill} />
                 : <Icon />
             }
 
@@ -37,7 +37,7 @@ const Home = observer(({ store }) => (
                 e.type === "questionnaire_response" &&
                 e.questionnaire_name === "symptoms"
               )
-                ? <Icon color={darkgrey} path={mdiFormatListChecks} />
+                ? <Icon size="1rem" color={darkgrey} path={mdiFormatListChecks} />
                 : <Icon />
             }
 
@@ -46,7 +46,7 @@ const Home = observer(({ store }) => (
                 e.date.unix() === moment(date).unix() &&
                 e.type === "observation"
               )
-                ? <Icon color={darkgrey} path={mdiCamera} />
+                ? <Icon size="1rem" color={darkgrey} path={mdiCamera} />
                 : <Icon />
             }
           </DateWrapper>
@@ -56,13 +56,13 @@ const Home = observer(({ store }) => (
     />
 
     <IconKey>
-      <Icon color={white} path={mdiPill} />
+      <Icon size="2rem" color={white} path={mdiPill} />
       <p>Self-reported medicaction</p>
 
-      <Icon color={white} path={mdiFormatListChecks} />
+      <Icon size="2rem" color={white} path={mdiFormatListChecks} />
       <p>Self-reported symptoms</p>
 
-      <Icon color={white} path={mdiCamera} />
+      <Icon size="2rem" color={white} path={mdiCamera} />
       <p>Submitted photo of test strip</p>
     </IconKey>
   </Layout>
