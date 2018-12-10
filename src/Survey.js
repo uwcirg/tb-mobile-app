@@ -1,4 +1,4 @@
-import { observable, computed, action } from "mobx";
+import { observable, action } from "mobx";
 
 class Survey {
   @observable store = null
@@ -14,22 +14,11 @@ class Survey {
     this.pages.push(page)
   }
 
-  @action next() {
-    this.pages.shift()
-
-    if(this.pages.length === 0)
-      this.store.showHome()
-  }
-
   @action recordMedicationTime(time) {
     this.medicationTime = time
     this.medicationTime.set("year", this.date.year())
     this.medicationTime.set("month", this.date.month())
     this.medicationTime.set("date", this.date.date())
-  }
-
-  @computed get currentPage() {
-    return this.pages[0]
   }
 }
 
