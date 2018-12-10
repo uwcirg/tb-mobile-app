@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Check for an application configuration file before starting.
+# If it doesn't exist, create it with default values.
 if [ ! -e .env ]
 then
   echo 'Could not find a configuration file at `.env`;'
@@ -18,33 +20,16 @@ then
   read
 fi
 
+# Load the configuration file.
 source .env
 
+# Pull the server code.
 if [ ! -d server ]
 then
   echo 'A copy of `tb-api` was not found in this directory.'
   echo 'Cloning a copy into `./server`'
   echo '...'
   git clone https://github.com/uwcirg/tb-api.git server
-fi
-
-if [ ! -d mpower ]
-then
-  echo 'A copy of `dhair2` (aka `mpower`) was not found in this directory.'
-  echo 'Cloning a copy into `./mpower`'
-  echo
-  echo 'Since this repository is private on GitLab,'
-  echo 'you will need to enter a GitLab acces token.'
-  echo
-  echo 'Contact an administrator for details, or pres [ctrl-c] to stop.'
-  echo '...'
-
-  echo "Gitlab token username: "
-  read gitlab_username
-  echo "Gitlab token password: "
-  read gitlab_password
-
-  git clone https://$gitlab_username:$gitlab_password@gitlab.cirg.washington.edu/svn/dhair2.git mpower
 fi
 
 # Check to see if we need to use `sudo`
@@ -86,10 +71,5 @@ bash -c "$SUDO docker-compose \
   exec tbapp-db \
     mysql -D tbapi -u tbapi -h localhost -P 3306 --password=tbapi \
     -e \"INSERT INTO oauth2_client VALUES ('skwIPnbi7N3uIvNysUbi0xfXwnWaIMR1MCJxz8rV0dGxeMJD','0',0,'$URL_CLIENT/redirect','$URL_CLIENT/redirect','email',1,576,'tb-mobile-app','$URL_CLIENT','implicit');\""
-
-bash -c "$SUDO docker-compose \
-  exec tbapp-db \
-    mysql -D tbapi -u tbapi -h localhost -P 3306 --password=tbapi \
-    -e \"INSERT INTO oauth2_client VALUES ('pkwIPnbi7N3uIvNysUbi0xfXwnWaIMR1MCJxz8rV0dGxeMJD','0',0,'$URL_CPRO/auth/truenth/oauth2callback','$URL_CPRO/auth/truenth/oauth2callback','email',2,576,'mpower-tb','$URL_CPRO','authorization_code');\""
 
 echo "The app is up and running at $URL_CLIENT !"

@@ -88,32 +88,6 @@ services:
     networks:
       - tbapi
 
-  cpro:
-    restart: always
-    build:
-      context: ./mpower
-      dockerfile: docker/Dockerfile
-    ports:
-      - $PORT_CPRO:80
-    environment:
-      HTTPS: 'true'
-      INSTANCE_ID: mpower_tb
-      CPRO_API_CLIENT_ID: pkwIPnbi7N3uIvNysUbi0xfXwnWaIMR1MCJxz8rV0dGxeMJD
-      REACT_APP_API_PATH: $URL_API
-      REACT_APP_CPRO_PATH: $URL_CPRO
-      REACT_APP_CLIENT_PATH: $URL_CLIENT
-      DATABASE_URL: mysql://mpower:mpower@mpower-db:3306/mpower_demo
-    command: bash -c '
-      env &&
-      wait-for-it.sh --timeout=30 --host=mpower-db --port=3306 --strict &&
-      cake initialize_database &&
-      apache2-foreground
-      '
-    depends_on:
-      - mpower-db
-    networks:
-      - tbapi
-
   mpower-db:
     restart: always
     image: mysql:5.7
