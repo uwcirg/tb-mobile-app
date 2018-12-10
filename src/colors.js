@@ -1,6 +1,6 @@
 export const black = "#222222"
 export const blue = "#488fde"
-export const darkgrey = "#8a8a8a"
+export const darkgrey = "#4a4a4a"
 export const green = "#4bc3c3"
 export const grey = "#c9c9c9"
 export const lightgrey = "#efefef"

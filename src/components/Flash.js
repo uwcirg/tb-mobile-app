@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
 
-import { yellow } from "../colors"
+import { yellow, darkgrey } from "../colors"
 import { Icon } from "@mdi/react"
 import { mdiClose } from "@mdi/js"
 
@@ -20,7 +20,7 @@ const Flash = observer(({ message, color }) => (
         </Message>
 
         <Hidden.Hide {...hidden}>
-          <Icon path={mdiClose} size="1rem" />
+          <Icon path={mdiClose} size="1rem" color={darkgrey} />
         </Hidden.Hide>
       </Layout>
     )}
@@ -50,6 +50,8 @@ const Layout = styled(Hidden)`
 `
 
 const Message = styled.p`
+  margin: 0.5rem 0;
+  color: ${darkgrey};
 `
 
 export default Flash
