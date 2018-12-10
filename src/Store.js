@@ -16,7 +16,6 @@ import Home from "./components/Home"
 import Faqs from "./components/Faqs"
 import InfoEd from "./components/InfoEd"
 import SymptomOverview from "./components/SymptomOverview"
-import Messaging from "./components/Messaging"
 import TbQuiz from "./components/TbQuiz"
 import Notes from "./components/Notes"
 
@@ -90,7 +89,6 @@ class Store {
 
   @computed get currentPageTitle() {
     switch(this.currentPage) {
-      case Messaging: return "Mensajería"
       case Notes: return "Mis Notas"
       case Faqs: return "Información y Educación"
       case SymptomOverview: return "Información y Educación"

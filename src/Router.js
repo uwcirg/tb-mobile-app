@@ -5,7 +5,6 @@ import Home from "./components/Home"
 import Faqs from "./components/Faqs"
 import InfoEd from "./components/InfoEd"
 import SymptomOverview from "./components/SymptomOverview"
-import Messaging from "./components/Messaging"
 import TbQuiz from "./components/TbQuiz"
 import Notes from "./components/Notes"
 
@@ -18,7 +17,6 @@ export const startRouter = (store) => {
     "/info/tb-quiz": () => store.showPage(TbQuiz),
     "/info": () => store.showPage(InfoEd),
 
-    "/messages": () => store.showPage(Messaging),
     "/notes": () => store.showPage(Notes),
     "/survey": () => store.reportMedication(),
 
