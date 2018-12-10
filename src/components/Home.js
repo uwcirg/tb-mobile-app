@@ -15,14 +15,6 @@ import {
 
 const Home = observer(({ store }) => (
   <Layout>
-    <h1>
-      ¡Bienvenido!
-    </h1>
-
-    <p>
-      Prima un dato para recordar tomando su medicación.
-    </p>
-
     <Calendar
       minDetail="year"
       tileContent={({ date, view }) =>

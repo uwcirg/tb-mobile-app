@@ -3,12 +3,15 @@ import styled from "styled-components"
 import { observer } from "mobx-react"
 import { green } from "./colors"
 
-import TopBar from "./components/TopBar"
 import BottomNav from "./components/BottomNav"
+import Flash from "./components/Flash"
+import TopBar from "./components/TopBar"
 
 const App = observer(({ store }) => (
   <Layout>
-    <TopBar store={store} />
+    <TopBar store={store} >
+      <Flash message="Test!" />
+    </TopBar>
 
     <Layout.Main>
       {React.createElement(store.currentPage, { store: store })}
@@ -31,11 +34,10 @@ const Layout = styled.div`
 `
 
 Layout.Main = styled.div`
-  grid-row: 2;
   overflow-y: auto;
   margin-left: auto;
   margin-right: auto;
   width: 20rem;
 `
 
-export default App;
+export default App
