@@ -49,6 +49,7 @@ const Layout = styled.div`
 
 const Choice = styled.div`
   margin-bottom: 1rem;
+  text-align: center;
 `
 
 const Label = styled.label`
