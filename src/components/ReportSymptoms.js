@@ -12,7 +12,10 @@ const ReportSymptoms = observer(({ survey }) => (
     <Hidden.Container>
       { hidden =>
         <div>
-          <p>Have you experienced any symptoms or side effects?</p>
+          <p>
+            Have you experienced symptoms or side effects
+            since your last check-in?
+          </p>
 
           <Choice>
             <Button as={Hidden.Show} {...hidden} >Yes</Button>
@@ -68,5 +71,4 @@ const Checkbox = styled(Input).attrs({
   height: 1rem;
 `
 
-ReportSymptoms.title = "Report Symptoms"
 export default ReportSymptoms

@@ -79,5 +79,4 @@ const ImagePreviews = styled.div`
   grid-template-columns: repeat(3, 1fr);
 `
 
-PhotoUpload.title = "Upload Photo"
 export default PhotoUpload

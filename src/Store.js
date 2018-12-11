@@ -11,11 +11,7 @@ import SymptomOverview from "./components/SymptomOverview"
 import TbQuiz from "./components/TbQuiz"
 import Notes from "./components/Notes"
 
-import SurveyConfig from "./Survey"
 import Survey from "./components/Survey"
-import ReportMedication from "./components/ReportMedication"
-import ReportSymptoms from "./components/ReportSymptoms"
-import PhotoUpload from "./components/PhotoUpload"
 
 class Store {
   @observable authorization_certificate = null
@@ -190,18 +186,8 @@ class Store {
   }
 
   @action reportMedication(date) {
-    this.survey = new SurveyConfig(this)
-    this.survey.date = moment(date) || moment()
-
-    this.survey.recordMedicationTime(moment())
-
-    this.survey.push(ReportMedication)
-    this.survey.push(ReportSymptoms)
-    this.survey.push(PhotoUpload)
-
     this.currentPage = Survey
   }
-
 
   @action storePhoto(photo) {
     const minioClient = new Client({

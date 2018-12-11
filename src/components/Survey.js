@@ -5,42 +5,49 @@ import Button from "../primitives/Button"
 import { darkgrey, lightgrey, green, beige, white } from "../colors"
 import { Block, Tabs } from "reakit";
 
+import ReportMedication from "./ReportMedication"
+import ReportSymptoms from "./ReportSymptoms"
+import PhotoUpload from "./PhotoUpload"
+
 const Survey = observer(({ store }) => (
   <div>
     <Tabs.Container>
-      {tabs => (
+      {state => (
         <Block>
           <Tabs>
-            {store.survey.pages.map((page, index) => (
-              <Tab
-                active={index === tabs.current}
-                key={page.title}
-                tab={page.title}
-                {...tabs}
-              >
-                {index + 1}: {page.title}
-              </Tab>
-            ))}
+            <Tab active={0 === state.current} tab="Report Medication"  {...state} >
+              Report Medication
+            </Tab>
+
+            <Tab active={1 === state.current} tab="Report Symptoms" {...state} >
+              Report Symptoms
+            </Tab>
+
+            <Tab active={2 === state.current} tab="Upload Photo" {...state} >
+              Upload Photo
+            </Tab>
           </Tabs>
 
-          {store.survey.pages.map(page => (
-            <Tabs.Panel
-              key={page.title}
-              tab={page.title}
-              {...tabs}
-            >
-              {React.createElement(page, { store: store })}
-            </Tabs.Panel>
-          ))}
+          <Tabs.Panel tab="Report Medication" {...state} >
+            <ReportMedication store={store} />
+          </Tabs.Panel>
+
+          <Tabs.Panel tab="Report Symptoms" {...state} >
+            <ReportSymptoms store={store} />
+          </Tabs.Panel>
+
+          <Tabs.Panel tab="Upload Photo" {...state} >
+            <PhotoUpload store={store} />
+          </Tabs.Panel>
 
           <Buttons>
             <Button
               as={Tabs.Next}
               color={darkgrey}
               backgroundColor={lightgrey}
-              {...tabs}
+              {...state}
               onClick={() => {
-                if(tabs.current === tabs.ids.length - 1)
+                if(state.current === state.ids.length - 1)
                   store.showHome();
               } }
             >
@@ -49,9 +56,9 @@ const Survey = observer(({ store }) => (
 
             <Button
               as={Tabs.Next}
-              {...tabs}
+              {...state}
               onClick={() => {
-                if(tabs.current === tabs.ids.length - 1)
+                if(state.current === state.ids.length - 1)
                   store.showHome();
               } }
             >

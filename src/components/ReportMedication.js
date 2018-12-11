@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
+import moment from "moment"
 
 import Timepicker from "./Timepicker"
 
@@ -13,16 +14,15 @@ const ReportMedication = observer(({ store }) => (
     </p>
 
     <Timepicker
-      initialValue={store.survey.medicationTime}
-      onChange={time => store.survey.recordMedicationTime(time)}
+      initialValue={store.survey_medication_time}
+      onChange={time => store.survey_medication_time = time}
     />
 
-    <p>del {store.survey.date.format("YYYY/MM/DD")}.</p>
+    <p>del {moment().format("YYYY/MM/DD")}.</p>
   </Layout>
 ))
 
 const Layout = styled.div`
 `
 
-ReportMedication.title = "Report Medication"
 export default ReportMedication
