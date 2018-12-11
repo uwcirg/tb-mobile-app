@@ -10,7 +10,6 @@ import TopBar from "./components/TopBar"
 const App = observer(({ store }) => (
   <Layout>
     <TopBar store={store} >
-      <Flash message="Test!" />
     </TopBar>
 
     <Layout.Main>

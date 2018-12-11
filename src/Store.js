@@ -3,14 +3,6 @@ import moment from "moment"
 import auth from "./oauth2"
 import { Client } from "minio"
 
-import {
-  getExpiration,
-  getToken,
-  hasToken,
-  removeToken,
-  setToken,
-} from "./util/token"
-
 import Login from "./Login"
 import Home from "./components/Home"
 import Faqs from "./components/Faqs"
@@ -26,15 +18,10 @@ import ReportSymptoms from "./components/ReportSymptoms"
 import PhotoUpload from "./components/PhotoUpload"
 
 class Store {
-  @observable isLoggedIn = false
-  @observable token = null
-  @observable expiration = null
-  @observable error = null
-  @observable isLoggingIn = false
+  @observable authorization_certificate = null
 
   @observable currentPage = Login
 
-  @observable patient_id = 88
   @observable notes = []
   @observable noteDraft = null
   @observable noteTitle = null
@@ -78,9 +65,7 @@ class Store {
   ]
 
   @action loadSession() {
-    this.isLoggedIn = hasToken()
-    this.token = getToken()
-    this.expiration = getExpiration()
+    this.authorization_certificate = "abc123"
   }
 
   @computed get currentPath() {
@@ -99,12 +84,21 @@ class Store {
     }
   }
 
+  @computed get authorized() {
+    // Ideally, this would be a server call
+    // to trace the authorization chain upwards.
+    //
+    // TODO
+    // For now, we force logged in.
+    return true
+  }
+
   @action showHome() {
     this.showPage(Home)
   }
 
   @action showPage(page) {
-    if(this.isLoggedIn)
+    if(this.authorized)
       this.currentPage = page
     else {
       this.currentPage = Login
@@ -120,46 +114,31 @@ class Store {
       scope: "email",
     })
 
-    this.isLoggingIn = true
   }
 
   @action complete_oauth_flow(params) {
     auth.finish_flow(
       window.location.hash,
+
       response => {
-        this.loginSuccess(response)
+        this.authorization_certificate = response.token
         this.showHome()
       },
-      error => this.loginFailure(error),
+
+      fail => {
+        this.authorization_certificate = null
+        this.currentPage = Login
+        this.flash(fail.error)
+      }
     )
   }
 
-  @action loginSuccess({ token, expiration }) {
-    setToken(token, expiration)
-    this.isLoggedIn = true
-    this.token = token
-    this.expiration = expiration
-    this.error = null
-    this.isLoggingIn = false
-  }
-
-  @action loginFailure({ error }) {
-    removeToken()
-    this.isLoggedIn = false
-    this.token = null
-    this.expiration = null
-    this.error = error
-    this.isLoggingIn = false
+  // TODO display a flash message
+  @action flash() {
   }
 
   @action logout() {
-    removeToken()
-    this.isLoggedIn = false
-    this.token = null
-    this.expiration = null
-    this.error = null
-    this.isLoggingIn = false
-
+    this.authorization_certificate = null
     this.currentPage = Login
   }
 
@@ -170,14 +149,16 @@ class Store {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${this.token}`,
+        "Authorization": `Bearer ${this.authorization_certificate}`,
       },
       body: JSON.stringify({
         "title": this.noteTitle,
         "text": this.noteDraft,
         "created": now,
         "lastmod": now,
-        // TODO do not commit this.
+
+        // TODO Remove this param.
+        // Requires an API change to scope notes to the current user.
         "patient_id": this.patient_id,
       })
     })
@@ -188,12 +169,15 @@ class Store {
       })
   }
 
+  // TODO set the authorization certificate
+  //
+  // TODO Remove the `patient_id` URL param.
+  // Requires an API change to scope notes to the current user.
   @action loadNotes() {
-    // TODO remove `patient_id`
     return fetch(`${process.env.REACT_APP_API_PATH}/api/v1.0/notes?patient_id=${this.patient_id}`, {
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${this.token}`,
+        "Authorization": `Bearer ${"abc123"}`,
       },
     })
       .then(response => response.json())
