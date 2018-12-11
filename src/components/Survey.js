@@ -5,6 +5,13 @@ import Button from "../primitives/Button"
 import { darkgrey, lightgrey, green, beige, white } from "../colors"
 import { Block, Tabs } from "reakit";
 
+import { Icon } from "@mdi/react"
+import {
+  mdiCamera,
+  mdiFormatListChecks,
+  mdiPill,
+} from "@mdi/js"
+
 import ReportMedication from "./ReportMedication"
 import ReportSymptoms from "./ReportSymptoms"
 import PhotoUpload from "./PhotoUpload"
@@ -15,17 +22,19 @@ const Survey = observer(({ store }) => (
       {state => (
         <Block>
           <Tabs>
-            <Tab active={0 === state.current} tab="Report Medication"  {...state} >
-              Report Medication
-            </Tab>
+            <MultiButton>
+              <Tab active={0 === state.current} tab="Report Medication"  {...state} >
+                <Icon path={mdiPill} size="1rem" />
+              </Tab>
 
-            <Tab active={1 === state.current} tab="Report Symptoms" {...state} >
-              Report Symptoms
-            </Tab>
+              <Tab active={1 === state.current} tab="Report Symptoms" {...state} >
+                <Icon path={mdiFormatListChecks} size="1rem" />
+              </Tab>
 
-            <Tab active={2 === state.current} tab="Upload Photo" {...state} >
-              Upload Photo
-            </Tab>
+              <Tab active={2 === state.current} tab="Upload Photo" {...state} >
+                <Icon path={mdiCamera} size="1rem" />
+              </Tab>
+            </MultiButton>
           </Tabs>
 
           <Tabs.Panel tab="Report Medication" {...state} >
@@ -81,10 +90,20 @@ const Buttons = styled.div`
 
 const Tab = styled(Tabs.Tab)`
   border: 1px solid white;
+  background-color: ${(tabs) => tabs.active ? green : white };
+  color: ${(tabs) => tabs.active ? white : green };
+
   margin-top: 0.1rem;
   padding: 0.5rem;
-  color: ${(tabs) => tabs.active ? white : green };
-  background-color: ${(tabs) => tabs.active ? green : white };
+
+  list-style: none;
+  text-align: center;
+  width: 33%;
+`
+
+const MultiButton = styled.div`
+  display: flex;
+  width: 100%;
 `
 
 Survey.route = "/survey"

@@ -8,7 +8,7 @@ import {
   mdiImage,
 } from "@mdi/js"
 import { Icon } from "@mdi/react"
-import { green, lightgrey } from "../colors"
+import { green, darkgrey } from "../colors"
 
 const PhotoUpload = observer(({ store }) => (
   <div>
@@ -23,7 +23,7 @@ const PhotoUpload = observer(({ store }) => (
     >
       <Instructions>
         <p>Haga clic aquí para subir una foto.</p>
-        <Icon size="2rem" color={lightgrey} path={mdiImage} />
+        <Icon size="2rem" color={darkgrey} path={mdiImage} />
       </Instructions>
     </DropZone>
 
@@ -68,7 +68,6 @@ const ConfirmationIcon = styled(Icon).attrs({
 
 const Instructions = styled.div`
   padding: 1rem;
-  color: ${lightgrey};
   font-size: 1.2rem;
   text-align: center;
 `

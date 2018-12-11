@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
-import { beige } from "./colors"
+import { beige, darkgrey } from "./colors"
 
 import BottomNav from "./components/BottomNav"
 import Flash from "./components/Flash"
@@ -30,6 +30,7 @@ const Layout = styled.div`
   height: 100vh;
   background-size: cover;
   background: ${beige};
+  color: ${darkgrey};
 `
 
 Layout.Main = styled.div`

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components"
 import { observer } from "mobx-react"
 
-import { white } from "../colors"
+import { darkgrey, white } from "../colors"
 
 import { Icon } from "@mdi/react"
 import {
@@ -29,13 +29,13 @@ const Home = observer(({ store }) => (
     <Calendar store={store} />
 
     <IconKey>
-      <Icon size="2rem" color={white} path={mdiPill} />
+      <Icon size="2rem" color={darkgrey} path={mdiPill} />
       <p>Self-reported medicaction</p>
 
-      <Icon size="2rem" color={white} path={mdiFormatListChecks} />
+      <Icon size="2rem" color={darkgrey} path={mdiFormatListChecks} />
       <p>Self-reported symptoms</p>
 
-      <Icon size="2rem" color={white} path={mdiCamera} />
+      <Icon size="2rem" color={darkgrey} path={mdiCamera} />
       <p>Submitted photo of test strip</p>
     </IconKey>
   </Layout>
@@ -45,7 +45,7 @@ const Layout = styled.div`
 `
 
 const IconKey = styled.div`
-  color: ${white};
+  color: ${darkgrey};
   display: grid;
   grid-column-gap: 1rem;
   grid-template-columns: 2rem auto;
