@@ -10,7 +10,7 @@ const TopBar = observer(({ store, children, ...props }) => (
   <Layout {...props} >
     <Title>{ store && store.currentPageTitle }</Title>
 
-    { store && store.isLoggedIn
+    { store && store.authorized
       ? <Menu store={store} />
       : null
     }

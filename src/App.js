@@ -16,7 +16,7 @@ const App = observer(({ store }) => (
       {React.createElement(store.currentPage, { store: store })}
     </Layout.Main>
 
-    { store.isLoggedIn
+    { store.authorized
       ? <BottomNav store={store} />
       : null
     }
