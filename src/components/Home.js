@@ -14,19 +14,20 @@ import {
 import Help from "./Help"
 import IconKey from "./IconKey"
 import Calendar from "./Calendar"
+import Survey from "./Survey"
 import Button from "../primitives/Button"
 import Row from "../primitives/Row"
 
 const Home = observer(({ store }) => (
   <Layout>
     <Row>
-      <TreatmentButton onClick={() => store.reportMedication()} >
+      <TreatmentButton onClick={() => store.showPage(Survey)} >
         Track Treatment
 
         <div>
-          <Icon size="1rem" color={white} path={mdiPill} />
-          <Icon size="1rem" color={white} path={mdiFormatListChecks} />
-          <Icon size="1rem" color={white} path={mdiCamera} />
+          <Icon size={1} color={white} path={mdiPill} />
+          <Icon size={1} color={white} path={mdiFormatListChecks} />
+          <Icon size={1} color={white} path={mdiCamera} />
         </div>
       </TreatmentButton>
 

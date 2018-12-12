@@ -1,12 +1,13 @@
 import Aviator from "aviator"
 import { autorun } from "mobx"
 
-import Home from "./components/Home"
 import Faqs from "./components/Faqs"
+import Home from "./components/Home"
 import InfoEd from "./components/InfoEd"
+import Notes from "./components/Notes"
+import Survey from "./components/Survey"
 import SymptomOverview from "./components/SymptomOverview"
 import TbQuiz from "./components/TbQuiz"
-import Notes from "./components/Notes"
 
 export const startRouter = (store) => {
   Aviator.setRoutes({
@@ -18,7 +19,7 @@ export const startRouter = (store) => {
     "/info": () => store.showPage(InfoEd),
 
     "/notes": () => store.showPage(Notes),
-    "/survey": () => store.reportMedication(),
+    "/survey": () => store.showPage(Survey),
 
     "/redirect": (params) => store.complete_oauth_flow(params),
   })

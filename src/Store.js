@@ -11,8 +11,6 @@ import SymptomOverview from "./components/SymptomOverview"
 import TbQuiz from "./components/TbQuiz"
 import Notes from "./components/Notes"
 
-import Survey from "./components/Survey"
-
 class Store {
   @observable authorization_certificate = null
 
@@ -183,10 +181,6 @@ class Store {
   @action composeNote() {
     this.noteTitle = ""
     this.noteDraft = ""
-  }
-
-  @action reportMedication(date) {
-    this.currentPage = Survey
   }
 
   @action storePhoto(photo) {
