@@ -2,8 +2,8 @@ import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
 
-import { Popover } from "reakit"
-import { Button } from "reakit"
+import { Button, Popover } from "reakit"
+import "../augments/Popover"
 
 import { darkgrey, white } from "../colors"
 
@@ -22,10 +22,10 @@ const Help = observer(({ children }) => (
           <Icon size="1.2rem" path={mdiHelp} size={0.8} color={white} />
         </Stack>
 
-        <Rectangle fade slide hideOnClickOutside {...state}>
-          <Popover.Arrow fillColor="white" strokeColor="rgba(50, 50, 50, 0.5)" />
+        <Popover.Rectangle fade slide hideOnClickOutside {...state}>
+          <Popover.Arrow fillColor={white} strokeColor="rgba(50, 50, 50, 0.5)" />
           { children }
-        </Rectangle>
+        </Popover.Rectangle>
       </HelpToggle>
     )}
   </Popover.Container>
@@ -34,13 +34,6 @@ const Help = observer(({ children }) => (
 const HelpToggle = styled(Button)`
   flex-basis: 2rem;
   margin-left: 1rem;
-`
-
-const Rectangle = styled(Popover)`
-  background-color: white;
-  border: 2px solid rgba(100, 100, 100, 0.5);
-  padding: 1rem;
-  color: ${darkgrey};
 `
 
 export default Help
