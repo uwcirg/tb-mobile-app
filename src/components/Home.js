@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components"
 import { observer } from "mobx-react"
 
-import { darkgrey, white } from "../colors"
+import { white } from "../colors"
 
 import { Icon } from "@mdi/react"
 import {
@@ -12,8 +12,10 @@ import {
 } from "@mdi/js"
 
 import Help from "./Help"
+import IconKey from "./IconKey"
 import Calendar from "./Calendar"
 import Button from "../primitives/Button"
+import Row from "../primitives/Row"
 
 const Home = observer(({ store }) => (
   <Layout>
@@ -28,18 +30,7 @@ const Home = observer(({ store }) => (
         </div>
       </TreatmentButton>
 
-      <Help>
-        <IconKey>
-          <Icon size="2rem" color={darkgrey} path={mdiPill} />
-          <p>Self-reported medication</p>
-
-          <Icon size="2rem" color={darkgrey} path={mdiFormatListChecks} />
-          <p>Self-reported symptoms</p>
-
-          <Icon size="2rem" color={darkgrey} path={mdiCamera} />
-          <p>Submitted photo of test strip</p>
-        </IconKey>
-      </Help>
+      <Help> <IconKey /> </Help>
     </Row>
 
     <Calendar store={store} />
@@ -47,18 +38,6 @@ const Home = observer(({ store }) => (
 ))
 
 const Layout = styled.div`
-`
-
-const Row = styled.div`
-  display: flex;
-  justify-content: space-between;
-`
-
-const IconKey = styled.div`
-  display: grid;
-  grid-column-gap: 1rem;
-  grid-template-columns: 2rem auto;
-  margin-top: 1rem;
 `
 
 const TreatmentButton = styled(Button)`

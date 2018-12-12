@@ -22,7 +22,7 @@ const Help = observer(({ children }) => (
           <Icon size="1.2rem" path={mdiHelp} size={0.8} color={white} />
         </Stack>
 
-        <Rectangle fade slide expand hideOnClickOutside {...state}>
+        <Rectangle fade slide hideOnClickOutside {...state}>
           <Popover.Arrow fillColor="white" strokeColor="rgba(50, 50, 50, 0.5)" />
           { children }
         </Rectangle>
