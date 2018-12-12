@@ -23,15 +23,6 @@ fi
 # Load the configuration file.
 source .env
 
-# Pull the server code.
-if [ ! -d server ]
-then
-  echo 'A copy of `tb-api` was not found in this directory.'
-  echo 'Cloning a copy into `./server`'
-  echo '...'
-  git clone https://github.com/uwcirg/tb-api.git server
-fi
-
 # Check to see if we need to use `sudo`
 docker ps > /dev/null
 if [ $? != 0 ]
@@ -61,15 +52,5 @@ bash -c "$SUDO docker-compose build"
 bash -c "$SUDO docker-compose run --rm client yarn install"
 
 bash -c "$SUDO docker-compose up -d"
-
-bash -c "$SUDO docker-compose \
-  exec tbapp-db \
-    mysql -D tbapi -u tbapi -h localhost -P 3306 --password=tbapi \
-    -e \"delete from oauth2_client;\""
-
-bash -c "$SUDO docker-compose \
-  exec tbapp-db \
-    mysql -D tbapi -u tbapi -h localhost -P 3306 --password=tbapi \
-    -e \"INSERT INTO oauth2_client VALUES ('skwIPnbi7N3uIvNysUbi0xfXwnWaIMR1MCJxz8rV0dGxeMJD','0',0,'$URL_CLIENT/redirect','$URL_CLIENT/redirect','email',1,576,'tb-mobile-app','$URL_CLIENT','implicit');\""
 
 echo "The app is up and running at $URL_CLIENT !"

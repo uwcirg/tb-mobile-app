@@ -45,82 +45,28 @@ services:
       - .:/usr/src
 
   web:
-    command: bash -c '/wait && flask run --host 0.0.0.0 --port 5000'
-    build: ./server/webapp
-    restart: always
-    volumes:
-      - source: ./server/webapp
-        target: /home/flask/app/web
-        type: bind
-        read_only: true
-      - "web:/usr/src/app"
+    build: ./server
+    environment:
+      - PORT=3000
+      - PASSWORD
+      - SELENIUM_HOST=selenium
+      - TEST_APP_HOST=frontend
+      - TEST_APP_PORT=3000
+      - RAILS_ENV=development
     ports:
-      - $PORT_API:5000
+      - $PORT_API:3000
+    volumes:
+      - ./server:/app
+      - frontend
     links:
-      - mpower-db
-      - tbapp-db
-    stdin_open: true
-    tty: true
-    depends_on:
-      - mpower-db
-      - tbapp-db
-    environment:
-      FLASK_ENV: development
-      CPRO_DATABASE_USER: mpower
-      CPRO_DATABASE_PASSWORD: mpower
-      CPRO_DATABASE_NAME: mpower_demo
-      TB_DATABASE_USER: tbapi
-      TB_DATABASE_PASSWORD: tbapi
-      TB_DATABASE_NAME: tbapi
-
-      GUNICORN_ACCESSLOG: '-'
-      GUNICORN_LOG_FILE: '-'
-      GUNICORN_LOG_LEVEL: debug
-
-      WAIT_HOSTS: mpower-db:3306, tbapp-db:3306
-      WAIT_BEFORE_HOSTS: 2
-      FLASK_APP: "tbapi/tbapi_app.py"
-      FLASK_DEBUG: 1
-      AUTHLIB_INSECURE_TRANSPORT: 'true'
-      MODE: 'dev'
-
-      REACT_APP_CLIENT_PATH: $URL_CLIENT
+      - db
+    working_dir: /app
     networks:
       - tbapi
 
-  mpower-db:
+  db:
     restart: always
-    image: mysql:5.7
-    hostname: mpower-db
-    volumes:
-      - "./server/db/sql/mpower-db:/docker-entrypoint-initdb.d"
-      - "./server/db/my.cnf:/etc/mysql/mysql.conf.d/my.cnf"
-      - type: volume
-        source: mpower-db-volume
-        target: /var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: mpower
-      MYSQL_PASSWORD: mpower
-      MYSQL_DATABASE: mpower_demo
-    networks:
-      - tbapi
-
-  tbapp-db:
-    restart: always
-    image: mysql:5.7
-    hostname: tbapp-db
-    volumes:
-      - "./db/sql/tbapp-db:/docker-entrypoint-initdb.d"
-      - "./server/db/sql/tbapp-db:/docker-entrypoint-initdb.d"
-      - type: volume
-        source: tbapp-db-volume
-        target: /var/lib/mysql
-    environment:
-      MYSQL_USER: tbapi
-      MYSQL_PASSWORD: tbapi
-      MYSQL_DATABASE: tbapi
-      MYSQL_ROOT_PASSWORD: root
+    image: postgres
     networks:
       - tbapi
 
@@ -169,9 +115,6 @@ services:
     command: server http://minio1/data http://minio2/data http://minio3/data http://minio4/data
 
 volumes:
-  web:
-  mpower-db-volume:
-  tbapp-db-volume:
   data1:
   data2:
   data3:

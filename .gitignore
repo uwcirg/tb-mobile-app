@@ -1,9 +1,5 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
-# A local copy of the server and legacy codebases
-/server
-/mpower
-
 # Local configuration
 .env
 
