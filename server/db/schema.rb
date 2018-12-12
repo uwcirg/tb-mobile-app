@@ -10,10 +10,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181212221603) do
+ActiveRecord::Schema.define(version: 20181212223929) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "medication_reports", force: :cascade do |t|
+    t.string "user_id", null: false
+    t.datetime "timestamp", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "strip_reports", force: :cascade do |t|
+    t.string "user_id", null: false
+    t.datetime "timestamp", null: false
+    t.string "photo_url", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "symptom_reports", force: :cascade do |t|
+    t.string "user_id", null: false
+    t.datetime "timestamp"
+    t.boolean "nausea"
+    t.boolean "redness"
+    t.boolean "hives"
+    t.boolean "fever"
+    t.boolean "appetite_loss"
+    t.boolean "blurred_vision"
+    t.boolean "sore_belly"
+    t.boolean "yellow_coloration"
+    t.boolean "difficulty_breathing"
+    t.boolean "facial_swelling"
+    t.text "other"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", primary_key: "uuid", id: :string, force: :cascade do |t|
     t.string "name"
@@ -24,4 +57,7 @@ ActiveRecord::Schema.define(version: 20181212221603) do
     t.index ["uuid"], name: "index_users_on_uuid"
   end
 
+  add_foreign_key "medication_reports", "users", primary_key: "uuid"
+  add_foreign_key "strip_reports", "users", primary_key: "uuid"
+  add_foreign_key "symptom_reports", "users", primary_key: "uuid"
 end
