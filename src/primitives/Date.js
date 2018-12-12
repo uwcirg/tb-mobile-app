@@ -21,11 +21,10 @@ const Date = observer(({ store, path }) => (
         <Popover.Rectangle fade slide hideOnClickOutside {...state}>
           <Popover.Arrow fillColor="white" strokeColor="rgba(50, 50, 50, 0.5)" />
 
-          <Calendar onClickDay={
-            date => {
-              store[path] = moment(date)
-              state.hide()
-            } } />
+          <Calendar onClickDay={date => {
+            store[path] = moment(date)
+            state.hide()
+          } } />
         </Popover.Rectangle>
       </div>
     ) }
