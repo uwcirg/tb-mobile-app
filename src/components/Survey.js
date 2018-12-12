@@ -28,15 +28,15 @@ const Survey = observer(({ store }) => (
         <Block>
           <Row as={Tabs}>
             <MultiButton>
-              <Tab active={0 === state.current} tab="Report Medication"  {...state} >
+              <Tab tab="medication" {...state} >
                 <Icon path={mdiPill} size={1} />
               </Tab>
 
-              <Tab active={1 === state.current} tab="Report Symptoms" {...state} >
+              <Tab tab="symptoms" {...state} >
                 <Icon path={mdiFormatListChecks} size={1} />
               </Tab>
 
-              <Tab active={2 === state.current} tab="Upload Photo" {...state} >
+              <Tab tab="photo" {...state} >
                 <Icon path={mdiCamera} size={1} />
               </Tab>
             </MultiButton>
@@ -44,15 +44,15 @@ const Survey = observer(({ store }) => (
             <Help> <IconKey /> </Help>
           </Row>
 
-          <Tabs.Panel tab="Report Medication" {...state} >
+          <Tabs.Panel tab="medication" {...state} >
             <ReportMedication store={store} />
           </Tabs.Panel>
 
-          <Tabs.Panel tab="Report Symptoms" {...state} >
+          <Tabs.Panel tab="symptoms" {...state} >
             <ReportSymptoms store={store} />
           </Tabs.Panel>
 
-          <Tabs.Panel tab="Upload Photo" {...state} >
+          <Tabs.Panel tab="photo" {...state} >
             <PhotoUpload store={store} />
           </Tabs.Panel>
 
@@ -97,8 +97,8 @@ const Buttons = styled.div`
 
 const Tab = styled(Tabs.Tab)`
   border: 1px solid white;
-  background-color: ${(tabs) => tabs.active ? green : white };
-  fill: ${(tabs) => tabs.active ? white : darkgrey };
+  background-color: ${(tabs) => tabs.getCurrentId() === tabs.tab ? green : white };
+  fill: ${(tabs) => tabs.getCurrentId() === tabs.tab ? white : darkgrey };
 
   margin-top: 0.1rem;
   padding: 0.5rem;
