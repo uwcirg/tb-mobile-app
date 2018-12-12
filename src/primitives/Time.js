@@ -14,7 +14,7 @@ const blue = "#4a90e2"
  * `minuteOptions`: a list of allowed values for the minute
  */
 @observer
-class Timepicker extends React.Component {
+class Time extends React.Component {
   @observable enteredText = ""
   @observable open = false
 
@@ -151,4 +151,4 @@ const TimeOption = styled.div`
   ${({selected}) => selected && `background-color: ${blue}; color: white;`}
 `
 
-export default Timepicker
+export default Time

@@ -17,9 +17,7 @@ import {
 } from "@mdi/js"
 
 import Date from "../primitives/Date"
-import Timepicker from "./Timepicker"
-import Calendar from "react-calendar"
-import moment from "moment"
+import Time from "../primitives/Time"
 
 import ReportMedication from "./ReportMedication"
 import ReportSymptoms from "./ReportSymptoms"
@@ -40,7 +38,7 @@ const Survey = observer(({ store }) => (
       </TwentyPercent>
 
       <FortyPercent>
-        <Timepicker store={store} path="survey_medication_time" />
+        <Time store={store} path="survey_medication_time" />
       </FortyPercent>
     </Row>
 
@@ -114,6 +112,7 @@ const Card = styled.div`
 `
 
 const FortyPercent = styled.div`
+  overflow: hidden;
   width: 40%;
 `
 
