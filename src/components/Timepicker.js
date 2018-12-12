@@ -8,21 +8,20 @@ const blue = "#4a90e2"
 
 /*
  * Props:
- * `initialValue`: a `moment` object
- * `onChange`: a callback function that takes a `moment` object.
+ * `store`: a `moment` object
+ * `path`: a callback function that takes a `moment` object.
  * `hourOptions`: a list of allowed values for the hour
  * `minuteOptions`: a list of allowed values for the minute
  */
 @observer
 class Timepicker extends React.Component {
-  @observable time = null
   @observable enteredText = ""
   @observable open = false
 
   constructor(props) {
     super(props)
 
-    this.time = this.props.initialValue
+    this.props.store[this.props.path] = this.props.initialValue
     this.enteredText = this.props.initialValue ? this.props.initialValue.format("HH:mm") : ""
   }
 
@@ -37,8 +36,8 @@ class Timepicker extends React.Component {
   }
 
   render() {
-    let selectedHour = this.time && this.time.hour()
-    let selectedMinute = this.time && this.time.minute()
+    let selectedHour = this.props.store[this.props.path] && this.props.store[this.props.path].hour()
+    let selectedMinute = this.props.store[this.props.path] && this.props.store[this.props.path].minute()
 
     return (
       <Wrapper>
@@ -84,7 +83,7 @@ class Timepicker extends React.Component {
     event.target.select()
 
     this.open = true
-    this.time = this.time || moment()
+    this.props.store[this.props.path] = this.props.store[this.props.path] || moment()
   }
 
   enter(event) {
@@ -94,26 +93,26 @@ class Timepicker extends React.Component {
 
   @action
   hourSelected(hour) {
-    let minute = this.time.minute()
+    let minute = this.props.store[this.props.path].minute()
     let newTime = moment(`${hour}:${minute}`, "HH:mm")
 
-    this.time = newTime
+    this.props.store[this.props.path] = newTime
     this.enteredText = newTime.format("HH:mm")
   }
 
   minuteSelected(minute) {
-    let hour = this.time.hour()
+    let hour = this.props.store[this.props.path].hour()
     let newTime = moment(`${hour}:${minute}`, "HH:mm")
     this.timeChanged(newTime)
   }
 
   @action
   timeChanged(newTime) {
-    this.props.onChange(newTime)
+    this.props.store[this.props.path] = newTime
 
     this.enteredText = newTime.format("HH:mm")
     this.open = false
-    this.time = newTime
+    this.props.store[this.props.path] = newTime
   }
 }
 
@@ -139,6 +138,7 @@ const TouchInput = styled.div`
   height: 15rem;
   position: fixed;
   width: 10rem;
+  z-index: 1;
 `
 
 const Scroll = styled.div`

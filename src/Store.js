@@ -20,6 +20,9 @@ class Store {
   @observable noteDraft = null
   @observable noteTitle = null
 
+  @observable survey_date = moment()
+  @observable survey_medication_time = moment()
+
   @observable events = [
     { date: moment("2018.12.01", "YYYY.MM.DD"), type: "observation", },
     { date: moment("2018.12.01", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "self_report" },
