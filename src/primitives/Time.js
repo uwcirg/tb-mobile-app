@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import moment from "moment"
 import { observer } from "mobx-react"
-import { action, observable } from "mobx"
+import { action, observable, computed } from "mobx"
 
 const blue = "#4a90e2"
 
@@ -15,14 +15,10 @@ const blue = "#4a90e2"
  */
 @observer
 class Time extends React.Component {
-  @observable enteredText = ""
   @observable open = false
 
-  constructor(props) {
-    super(props)
-
-    this.props.store[this.props.path] = this.props.initialValue
-    this.enteredText = this.props.initialValue ? this.props.initialValue.format("HH:mm") : ""
+  @computed get enteredText() {
+    return this.props.store[this.props.path].format("HH:mm")
   }
 
   hourOptions() {
@@ -36,13 +32,13 @@ class Time extends React.Component {
   }
 
   render() {
-    let selectedHour = this.props.store[this.props.path] && this.props.store[this.props.path].hour()
-    let selectedMinute = this.props.store[this.props.path] && this.props.store[this.props.path].minute()
+    let selectedHour = this.props.store[this.props.path].hour()
+    let selectedMinute = this.props.store[this.props.path].minute()
 
     return (
       <Wrapper>
         <TimeInput
-          onChange={(e) => this.enteredText = e.target.value }
+          onChange={(e) => console.log(`Manually changed time: ${e.target.value} (not recorded)` }
           onFocus={(e) => this.focused(e)}
           onKeyPress={(e) => e.key === "Enter" && this.enter(e)}
           placeholder="--:--"
@@ -83,7 +79,6 @@ class Time extends React.Component {
     event.target.select()
 
     this.open = true
-    this.props.store[this.props.path] = this.props.store[this.props.path] || moment()
   }
 
   enter(event) {
@@ -97,7 +92,6 @@ class Time extends React.Component {
     let newTime = moment(`${hour}:${minute}`, "HH:mm")
 
     this.props.store[this.props.path] = newTime
-    this.enteredText = newTime.format("HH:mm")
   }
 
   minuteSelected(minute) {
@@ -110,7 +104,6 @@ class Time extends React.Component {
   timeChanged(newTime) {
     this.props.store[this.props.path] = newTime
 
-    this.enteredText = newTime.format("HH:mm")
     this.open = false
     this.props.store[this.props.path] = newTime
   }
