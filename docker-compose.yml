@@ -47,18 +47,19 @@ services:
   web:
     build: ./server
     environment:
-      - PORT=3000
+      - DATABASE_URL=postgres://postgres:postgres@db
       - PASSWORD
+      - PORT=3000
+      - RAILS_ENV=development
       - SELENIUM_HOST=selenium
       - TEST_APP_HOST=frontend
       - TEST_APP_PORT=3000
-      - RAILS_ENV=development
     ports:
       - $PORT_API:3000
     volumes:
       - ./server:/app
       - frontend
-    links:
+    depends_on:
       - db
     working_dir: /app
     networks:
