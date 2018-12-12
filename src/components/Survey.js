@@ -1,10 +1,11 @@
 import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
-import { darkgrey, lightgrey, green, white } from "../colors"
-import { Block, Tabs } from "reakit";
+import { darkgrey, green, white } from "../colors"
 
-import Button from "../primitives/Button"
+import { Tabs } from "reakit";
+import "../augments/Tabs"
+
 import Row from "../primitives/Row"
 
 import { Icon } from "@mdi/react"
@@ -25,7 +26,7 @@ const Survey = observer(({ store }) => (
   <div>
     <Tabs.Container>
       {state => (
-        <Block>
+        <Card>
           <Row as={Tabs}>
             <MultiButton>
               <Tab tab="medication" {...state} >
@@ -46,57 +47,54 @@ const Survey = observer(({ store }) => (
 
           <Tabs.Panel tab="medication" {...state} >
             <ReportMedication store={store} />
+
+            <Tabs.Buttons
+              store={store}
+              primary="Tomo la medicación."
+              secondary="No tomo."
+              {...state}
+            />
           </Tabs.Panel>
 
           <Tabs.Panel tab="symptoms" {...state} >
             <ReportSymptoms store={store} />
+
+            <Tabs.Buttons
+              store={store}
+              primary="Continuar"
+              secondary="Omitir"
+              {...state}
+            />
           </Tabs.Panel>
 
           <Tabs.Panel tab="photo" {...state} >
             <PhotoUpload store={store} />
+
+            <Tabs.Buttons
+              store={store}
+              primary="Continuar"
+              secondary="Omitir"
+              {...state}
+            />
           </Tabs.Panel>
-
-          <Buttons>
-            <Button
-              as={Tabs.Next}
-              color={darkgrey}
-              backgroundColor={lightgrey}
-              {...state}
-              onClick={() => {
-                if(state.current === state.ids.length - 1)
-                  store.showHome();
-              } }
-            >
-              Omitir
-            </Button>
-
-            <Button
-              as={Tabs.Next}
-              {...state}
-              onClick={() => {
-                if(state.current === state.ids.length - 1)
-                  store.showHome();
-              } }
-            >
-              Continuar
-            </Button>
-          </Buttons>
-        </Block>
+        </Card>
       )}
     </Tabs.Container>
-  </div>
+  </Layout>
 ))
 
-const Buttons = styled.div`
-  display: grid;
-  grid-column-gap: 1rem;
-  grid-template-columns: 1fr 1fr;
-  margin-top: 1rem;
-  width: 100%;
+const Layout = styled.div`
+`
+
+const Card = styled.div`
+  border-radius: 2px
+  border: 2px solid rgba(100, 100, 100, 50%);
+  padding: 0.5rem;
+  background-color: ${white};
 `
 
 const Tab = styled(Tabs.Tab)`
-  border: 1px solid white;
+  border: 2px solid rgba(100, 100, 100, 0.5);
   background-color: ${(tabs) => tabs.getCurrentId() === tabs.tab ? green : white };
   fill: ${(tabs) => tabs.getCurrentId() === tabs.tab ? white : darkgrey };
 
