@@ -1,3 +1,27 @@
+# Check your setup.
+
+If you're running the application in development mode
+and things don't seem to be working correctly,
+troubleshoot by running this command:
+
+```bash
+./bin/docker-compose exec client \
+  curl \
+  -X POST http://web:3000/evaluate \
+  -H "Content-Type: application/json" \
+  -d '{ "code": "2 + 2" }'
+```
+
+If everything's set up correctly, then you should see the number `4`.
+This means you're good to go.
+
+On the other hand,
+if your system isn't capable of computing `2 + 2`,
+there's a good chance it won't work on anything else either.
+Open an issue and we'll get to the bottom of it.
+
+# Misc
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>

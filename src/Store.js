@@ -3,6 +3,8 @@ import moment from "moment"
 import auth from "./oauth2"
 import { Client } from "minio"
 
+import Assemble from "./Assemble"
+
 import Login from "./Login"
 import Home from "./components/Home"
 import Faqs from "./components/Faqs"
@@ -12,6 +14,8 @@ import TbQuiz from "./components/TbQuiz"
 import Notes from "./components/Notes"
 
 class Store {
+  assemble = new Assemble(``)
+
   @observable authorization_certificate = null
 
   @observable currentPage = Login

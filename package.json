@@ -2,6 +2,7 @@
   "name": "tb",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://web:3000",
   "dependencies": {
     "@mdi/js": "^3.0.39",
     "@mdi/react": "^1.1.0",
