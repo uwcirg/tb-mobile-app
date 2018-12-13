@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components"
-import { observer } from "mobx-react"
+import { observer, Observer } from "mobx-react"
 import ReactCalendar from "react-calendar/dist/entry.nostyle"
 import moment from "moment"
 
@@ -20,34 +20,40 @@ const Calendar = observer(({ store }) => (
         <DateWrapper>
           <DateNumber>{date.getDate()}</DateNumber>
 
-          { view === 'month' &&
-            store.events.find(e =>
-              e.date.unix() === moment(date).unix() &&
-              e.type === "questionnaire_response" &&
-              e.questionnaire_name === "self_report"
-            )
+          <Observer>
+            { () => (
+              view === 'month' && store.events.find(e =>
+                e.date.unix() === moment(date).unix() &&
+                e.type === "questionnaire_response" &&
+                e.questionnaire_name === "self_report"
+              )
               ? <Icon size="1rem" color={darkgrey} path={mdiPill} />
-              : <Icon />
-          }
+              : <Placeholder />
+            ) }
+          </Observer>
 
-          { view === 'month' &&
-            store.events.find(e =>
-              e.date.unix() === moment(date).unix() &&
-              e.type === "questionnaire_response" &&
-              e.questionnaire_name === "symptoms"
-            )
-              ? <Icon size="1rem" color={darkgrey} path={mdiFormatListChecks} />
-              : <Icon />
-          }
+          <Observer>
+            { () => (
+              view === 'month' && store.events.find(e =>
+                e.date.unix() === moment(date).unix() &&
+                e.type === "questionnaire_response" &&
+                e.questionnaire_name === "symptoms"
+              )
+                ? <Icon size="1rem" color={darkgrey} path={mdiFormatListChecks} />
+                : <Placeholder />
+            ) }
+          </Observer>
 
-          { view === 'month' &&
-            store.events.find(e =>
-              e.date.unix() === moment(date).unix() &&
-              e.type === "observation"
-            )
-              ? <Icon size="1rem" color={darkgrey} path={mdiCamera} />
-              : <Icon />
-          }
+          <Observer>
+            { () => (
+              view === 'month' && store.events.find(e =>
+                e.date.unix() === moment(date).unix() &&
+                e.type === "observation"
+              )
+                ? <Icon size="1rem" color={darkgrey} path={mdiCamera} />
+                : <Placeholder />
+            ) }
+          </Observer>
         </DateWrapper>
     }
   />
@@ -92,6 +98,9 @@ const CalendarComponent = styled(ReactCalendar)`
 
 const DateNumber = styled.span`
   color: ${darkgrey};
+`
+
+const Placeholder = styled.div`
 `
 
 export default Calendar;
