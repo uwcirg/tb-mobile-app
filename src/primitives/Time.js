@@ -38,7 +38,7 @@ class Time extends React.Component {
     return (
       <Wrapper>
         <TimeInput
-          onChange={(e) => console.log(`Manually changed time: ${e.target.value} (not recorded)` }
+          onChange={(e) => console.log(`Manually changed time: ${e.target.value} (not recorded)`) }
           onFocus={(e) => this.focused(e)}
           onKeyPress={(e) => e.key === "Enter" && this.enter(e)}
           placeholder="--:--"
