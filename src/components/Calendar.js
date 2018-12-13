@@ -22,10 +22,8 @@ const Calendar = observer(({ store }) => (
 
           <Observer>
             { () => (
-              view === 'month' && store.events.find(e =>
-                e.date.unix() === moment(date).unix() &&
-                e.type === "questionnaire_response" &&
-                e.questionnaire_name === "self_report"
+              view === 'month' && store.medication_reports.find(e =>
+                e.date.unix() === moment(date).unix()
               )
               ? <Icon size="1rem" color={darkgrey} path={mdiPill} />
               : <Placeholder />
@@ -34,10 +32,8 @@ const Calendar = observer(({ store }) => (
 
           <Observer>
             { () => (
-              view === 'month' && store.events.find(e =>
-                e.date.unix() === moment(date).unix() &&
-                e.type === "questionnaire_response" &&
-                e.questionnaire_name === "symptoms"
+              view === 'month' && store.symptom_reports.find(e =>
+                e.date.unix() === moment(date).unix()
               )
                 ? <Icon size="1rem" color={darkgrey} path={mdiFormatListChecks} />
                 : <Placeholder />
@@ -46,9 +42,8 @@ const Calendar = observer(({ store }) => (
 
           <Observer>
             { () => (
-              view === 'month' && store.events.find(e =>
-                e.date.unix() === moment(date).unix() &&
-                e.type === "observation"
+              view === 'month' && store.strip_reports.find(e =>
+                e.date.unix() === moment(date).unix()
               )
                 ? <Icon size="1rem" color={darkgrey} path={mdiCamera} />
                 : <Placeholder />

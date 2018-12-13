@@ -28,26 +28,46 @@ class Store {
   @observable survey_date = moment()
   @observable survey_medication_time = moment()
 
-  @observable events = []
+  @observable medication_reports = []
+  @observable symptom_reports = []
+  @observable strip_reports = []
 
   constructor() {
     this.assemble.watch("cirg")`
-      user.medication_reports.map do |r|
-        { date: r.timestamp, type: "questionnaire_response", questionnaire_name: "self_report" }
-      end +
-      user.symptom_reports.map do |r|
-        { date: r.timestamp, type: "questionnaire_response", questionnaire_name: "symptoms" }
-      end +
-      user.strip_reports.map do |r|
-        { date: r.timestamp, type: "observation" }
-      end
-    `(function(response) {
-      response.json().then(action(function(events) {
-        this.events = events.map(event =>
-          Object.assign(event, { date: moment(event.date).transform("YYYY-MM-DD 00:00:00.000") })
-        )
-      }.bind(this)))
-    }.bind(this))
+      user.medication_reports.map { |r| { date: r.timestamp } }
+    `(response => {
+      response
+        .json()
+        .then(action(events => {
+          this.medication_reports = events.map(event =>
+            Object.assign(event, { date: moment(event.date).transform("YYYY-MM-DD 00:00:00.000") })
+          )
+        }))
+    })
+
+    this.assemble.watch("cirg")`
+      user.symptom_reports.map { |r| { date: r.timestamp } }
+    `(response => {
+      response
+        .json()
+        .then(action(events => {
+          this.symptom_reports = events.map(event =>
+            Object.assign(event, { date: moment(event.date).transform("YYYY-MM-DD 00:00:00.000") })
+          )
+        }))
+    })
+
+    this.assemble.watch("cirg")`
+      user.strip_reports.map { |r| { date: r.timestamp } }
+    `(response => {
+      response
+        .json()
+        .then(action(events => {
+          this.strip_reports = events.map(event =>
+            Object.assign(event, { date: moment(event.date).transform("YYYY-MM-DD 00:00:00.000") })
+          )
+        }))
+    })
   }
 
   @action loadSession() {
