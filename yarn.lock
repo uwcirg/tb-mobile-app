@@ -5121,7 +5121,14 @@ mobx@^5.1.2:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/mobx/-/mobx-5.1.2.tgz#5a3a0bc381ba155901e33eabe492c3c7482e8b35"
 
-moment@^2.22.2:
+moment-transform@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/moment-transform/-/moment-transform-1.0.1.tgz#d08565aa0c12d9fb7f76c0b0952b32bbec69bbe9"
+  integrity sha1-0IVlqgwS2ft/dsCwlSsyu+xpu+k=
+  dependencies:
+    moment "^2.10.2"
+
+moment@^2.10.2, moment@^2.22.2:
   version "2.22.2"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.2.tgz#3c257f9839fc0e93ff53149632239eb90783ff66"
 

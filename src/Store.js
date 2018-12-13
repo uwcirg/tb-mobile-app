@@ -4,6 +4,7 @@ import auth from "./oauth2"
 import { Client } from "minio"
 
 import Assemble from "./Assemble"
+import "moment-transform"
 
 import Login from "./Login"
 import Home from "./components/Home"
@@ -27,43 +28,27 @@ class Store {
   @observable survey_date = moment()
   @observable survey_medication_time = moment()
 
-  @observable events = [
-    { date: moment("2018.12.01", "YYYY.MM.DD"), type: "observation", },
-    { date: moment("2018.12.01", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "self_report" },
-    { date: moment("2018.12.01", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "symptoms" },
+  @observable events = []
 
-    { date: moment("2018.12.02", "YYYY.MM.DD"), type: "observation", },
-    { date: moment("2018.12.02", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "self_report" },
-    { date: moment("2018.12.02", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "symptoms" },
-
-    { date: moment("2018.12.04", "YYYY.MM.DD"), type: "observation", },
-    { date: moment("2018.12.04", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "self_report" },
-    { date: moment("2018.12.04", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "symptoms" },
-
-    { date: moment("2018.12.05", "YYYY.MM.DD"), type: "observation", },
-    { date: moment("2018.12.05", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "self_report" },
-    { date: moment("2018.12.05", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "symptoms" },
-
-    { date: moment("2018.12.07", "YYYY.MM.DD"), type: "observation", },
-    { date: moment("2018.12.07", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "self_report" },
-    { date: moment("2018.12.07", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "symptoms" },
-
-    { date: moment("2018.12.08", "YYYY.MM.DD"), type: "observation", },
-    { date: moment("2018.12.08", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "self_report" },
-    { date: moment("2018.12.08", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "symptoms" },
-
-    { date: moment("2018.12.09", "YYYY.MM.DD"), type: "observation", },
-    { date: moment("2018.12.09", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "self_report" },
-    { date: moment("2018.12.09", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "symptoms" },
-
-    { date: moment("2018.12.10", "YYYY.MM.DD"), type: "observation", },
-    { date: moment("2018.12.10", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "self_report" },
-    { date: moment("2018.12.10", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "symptoms" },
-
-    { date: moment("2018.12.11", "YYYY.MM.DD"), type: "observation", },
-    { date: moment("2018.12.11", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "self_report" },
-    { date: moment("2018.12.11", "YYYY.MM.DD"), type: "questionnaire_response", questionnaire_name: "symptoms" },
-  ]
+  constructor() {
+    this.assemble.watch("cirg")`
+      user.medication_reports.map do |r|
+        { date: r.timestamp, type: "questionnaire_response", questionnaire_name: "self_report" }
+      end +
+      user.symptom_reports.map do |r|
+        { date: r.timestamp, type: "questionnaire_response", questionnaire_name: "symptoms" }
+      end +
+      user.strip_reports.map do |r|
+        { date: r.timestamp, type: "observation" }
+      end
+    `(function(response) {
+      response.json().then(action(function(events) {
+        this.events = events.map(event =>
+          Object.assign(event, { date: moment(event.date).transform("YYYY-MM-DD 00:00:00.000") })
+        )
+      }.bind(this)))
+    }.bind(this))
+  }
 
   @action loadSession() {
     this.authorization_certificate = "abc123"
