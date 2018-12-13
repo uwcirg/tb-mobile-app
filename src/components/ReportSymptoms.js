@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
 import { Hidden, Input } from "reakit"
-import { white } from "../colors"
+import { grey, white } from "../colors"
 import Button from "../primitives/Button"
 
 const ReportSymptoms = observer(({ survey }) => (
@@ -63,6 +63,7 @@ const Label = styled.label`
 
 const TextInput = styled(Input)`
   background-color: ${white};
+  border: 1px solid ${grey};
 `
 
 const Checkbox = styled(Input).attrs({
