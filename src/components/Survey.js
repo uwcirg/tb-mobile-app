@@ -70,6 +70,7 @@ const Survey = observer(({ store }) => (
               store={store}
               primary="Tomo la medicación."
               secondary="No tomo."
+              onPrimary={() => store.reportMedication()}
               {...state}
             />
           </Tabs.Panel>
@@ -81,6 +82,7 @@ const Survey = observer(({ store }) => (
               store={store}
               primary="Continuar"
               secondary="Omitir"
+              onPrimary={() => store.reportSymptoms()}
               {...state}
             />
           </Tabs.Panel>
@@ -92,6 +94,7 @@ const Survey = observer(({ store }) => (
               store={store}
               primary="Continuar"
               secondary="Omitir"
+              onPrimary={() => store.reportStrip()}
               {...state}
             />
           </Tabs.Panel>

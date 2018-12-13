@@ -25,12 +25,30 @@ class Store {
   @observable noteDraft = null
   @observable noteTitle = null
 
-  @observable survey_date = moment()
-  @observable survey_medication_time = moment()
-
+  // History of reports
   @observable medication_reports = []
   @observable symptom_reports = []
   @observable strip_reports = []
+
+  // Current medication report
+  @observable survey_date = moment()
+  @observable survey_medication_time = moment()
+
+  // Current symptom report
+  @observable nausea = false
+  @observable redness = false
+  @observable hives = false
+  @observable fever = false
+  @observable appetite_loss = false
+  @observable blurred_vision = false
+  @observable sore_belly = false
+  @observable yellow_coloration = false
+  @observable difficulty_breathing = false
+  @observable facial_swelling = false
+  @observable other = null
+
+  // Current strip report
+  @observable uploadedImages = []
 
   constructor() {
     this.assemble.watch("cirg")`
@@ -204,6 +222,8 @@ class Store {
       secretKey: 'minio123'
     });
 
+    let upload_name = "photo_upload_v1_" + moment().unix()
+
     let reader = new FileReader()
 
     reader.onload = (evt) => {
@@ -211,7 +231,7 @@ class Store {
 
       minioClient.putObject(
         'foo',
-        photo.name,
+        upload_name,
         blob,
         { 'Content-Type': photo.type },
         (err, etag) => {
@@ -223,9 +243,50 @@ class Store {
     }
 
     reader.readAsBinaryString(photo);
+
+    this.assemble.run("cirg")`
+      user.strip_reports.create!(
+        timestamp: ${JSON.stringify(this.survey_datetime)},
+        photo_url: ${JSON.stringify(upload_name)},
+      )
+    `
   }
 
-  @observable uploadedImages = []
+  @computed get survey_datetime() {
+    let time = this.survey_medication_time.format("HH:MM")
+    let datetime = this.survey_date.transform(`YYYY-MM-DD ${time}:00.0000`)
+    return datetime
+  }
+
+  @action reportMedication() {
+    this.assemble.run("cirg")`
+      user.medication_reports.create!(
+        timestamp: ${JSON.stringify(this.survey_datetime)}
+      )
+    `
+  }
+
+  @action reportSymptoms() {
+    this.assemble.run("cirg")`
+      user.symptom_reports.create!(
+        timestamp: ${JSON.stringify(this.survey_datetime)},
+        nausea: ${this.nausea},
+        redness: ${this.redness},
+        hives: ${this.hives},
+        fever: ${this.fever},
+        appetite_loss: ${this.appetite_loss},
+        blurred_vision: ${this.blurred_vision},
+        sore_belly: ${this.sore_belly},
+        yellow_coloration: ${this.yellow_coloration},
+        difficulty_breathing: ${this.difficulty_breathing},
+        facial_swelling: ${this.facial_swelling},
+        other: ${this.other || "nil"},
+      )
+    `
+  }
+
+  @action reportStrip() {
+  }
 }
 
 export default Store

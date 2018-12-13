@@ -6,7 +6,7 @@ import { Tabs } from "reakit";
 import { darkgrey, lightgrey } from "../colors"
 import Button from "../primitives/Button"
 
-Tabs.Buttons = observer(({ primary, secondary, store, ...state }) => (
+Tabs.Buttons = observer(({ primary, secondary, onPrimary, onSecondary, store, ...state }) => (
   <ButtonLayout>
     <Button
       as={Tabs.Next}
@@ -14,6 +14,8 @@ Tabs.Buttons = observer(({ primary, secondary, store, ...state }) => (
       backgroundColor={lightgrey}
       {...state}
       onClick={() => {
+        onSecondary && onSecondary()
+
         if(state.current === state.ids.length - 1)
           store.showHome();
       } }
@@ -25,6 +27,8 @@ Tabs.Buttons = observer(({ primary, secondary, store, ...state }) => (
       as={Tabs.Next}
       {...state}
       onClick={() => {
+        onPrimary && onPrimary()
+
         if(state.current === state.ids.length - 1)
           store.showHome();
       } }
