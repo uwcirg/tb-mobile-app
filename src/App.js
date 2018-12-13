@@ -4,7 +4,6 @@ import { observer } from "mobx-react"
 import { beige, darkgrey } from "./colors"
 
 import BottomNav from "./components/BottomNav"
-import Flash from "./components/Flash"
 import TopBar from "./components/TopBar"
 
 const App = observer(({ store }) => (

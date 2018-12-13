@@ -34,7 +34,7 @@ const Survey = observer(({ store }) => (
       </FortyPercent>
 
       <TwentyPercent>
-        <Icon flexBasis="20%" path={mdiClock} size={1} color={darkgrey} />
+        <Icon path={mdiClock} size={1} color={darkgrey} />
       </TwentyPercent>
 
       <FortyPercent>
@@ -45,7 +45,7 @@ const Survey = observer(({ store }) => (
     <Tabs.Container>
       {state => (
         <Card>
-          <Row as={Tabs}>
+          <Tabs as={Row}>
             <MultiButton>
               <Tab tab="medication" {...state} >
                 <Icon path={mdiPill} size={1} />
@@ -61,7 +61,7 @@ const Survey = observer(({ store }) => (
             </MultiButton>
 
             <Help> <IconKey /> </Help>
-          </Row>
+          </Tabs>
 
           <Tabs.Panel tab="medication" {...state} >
             <ReportMedication store={store} />
