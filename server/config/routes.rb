@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   namespace :admin do
     resources :users
+    resources :notes
     resources :medication_reports
     resources :strip_reports
     resources :symptom_reports
