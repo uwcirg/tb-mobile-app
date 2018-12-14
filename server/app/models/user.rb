@@ -1,5 +1,7 @@
 class User < ApplicationRecord
-  has_many :medication_reports
-  has_many :strip_reports
-  has_many :symptom_reports
+  has_many :medication_reports, dependent: :destroy
+  has_many :strip_reports, dependent: :destroy
+  has_many :symptom_reports, dependent: :destroy
+
+  has_many :notes, as: :author
 end
