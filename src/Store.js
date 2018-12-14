@@ -86,6 +86,16 @@ class Store {
           )
         }))
     })
+
+    this.assemble.watch("cirg")`
+      user.notes
+    `(response => {
+      response
+        .json()
+        .then(action(notes => {
+          this.notes = notes
+        }))
+    })
   }
 
   @action loadSession() {
@@ -167,45 +177,13 @@ class Store {
   }
 
   @action saveNote() {
-    let now = moment().format("YYYY-MM-DD HH:mm:ss")
-
-    return fetch(`${process.env.REACT_APP_API_PATH}/api/v1.0/notes`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${this.authorization_certificate}`,
-      },
-      body: JSON.stringify({
-        "title": this.noteTitle,
-        "text": this.noteDraft,
-        "created": now,
-        "lastmod": now,
-
-        // TODO Remove this param.
-        // Requires an API change to scope notes to the current user.
-        "patient_id": this.patient_id,
-      })
-    })
-      .then(() => {
-        this.noteDraft = null
-        this.noteTitle = null
-        this.loadNotes()
-      })
-  }
-
-  // TODO set the authorization certificate
-  //
-  // TODO Remove the `patient_id` URL param.
-  // Requires an API change to scope notes to the current user.
-  @action loadNotes() {
-    return fetch(`${process.env.REACT_APP_API_PATH}/api/v1.0/notes?patient_id=${this.patient_id}`, {
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${"abc123"}`,
-      },
-    })
-      .then(response => response.json())
-      .then(body => { this.notes = body.notes })
+    this.assemble.run("cirg")`
+      Note.create!(
+        author: user,
+        title: ${JSON.stringify(this.noteTitle)},
+        text: ${JSON.stringify(this.noteDraft)},
+      )
+    `
   }
 
   @action composeNote() {

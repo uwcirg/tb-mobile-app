@@ -35,16 +35,16 @@ const Notes = observer(({store}) => (
 
     {store.notes.length === 0
     ? <Hint>Graba notas privadas aquí.</Hint>
-    : store.notes.map(({ id, title, created, text, lastmod }) => (
+    : store.notes.map(({ id, title, created_at, text, updated_at }) => (
       <Note key={id}>
         <Note.Header>
           {/* TODO change this to `title` */}
           <Note.Title>{title}</Note.Title>
-          <Note.Created>{moment(created).format("MMM DD, HH:mm")}</Note.Created>
+          <Note.Created>{moment(created_at).format("MMM DD, HH:mm")}</Note.Created>
         </Note.Header>
 
         <Note.Text>{text}</Note.Text>
-        <Note.Lastmod>Last edited {lastmod}</Note.Lastmod>
+        <Note.LastUpdated>Last edited {updated_at}</Note.LastUpdated>
       </Note>
     ))}
   </Layout>
@@ -110,7 +110,7 @@ Note.Header = styled.div`
 Note.Title = styled.div`
   font-weight: bold;
 `
-Note.Lastmod = styled.div`
+Note.LastUpdated = styled.div`
   color: ${grey};
   text-align: right;
 `

@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20181214232010) do
   create_table "notes", force: :cascade do |t|
     t.string "author_type", null: false
     t.bigint "author_id", null: false
+    t.text "title"
     t.text "text", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
