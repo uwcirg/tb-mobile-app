@@ -37,7 +37,6 @@ services:
       NODE_ENV: development
       REACT_APP_API_PATH: $URL_API
       REACT_APP_REDIRECT_PATH: $URL_CLIENT/redirect
-      REACT_APP_CPRO_PATH: $URL_CPRO
       REACT_APP_CLIENT_ID: skwIPnbi7N3uIvNysUbi0xfXwnWaIMR1MCJxz8rV0dGxeMJD
       CHOKIDAR_USEPOLLING: 'true'
       MINIO_HOST: localhost
