@@ -22,7 +22,7 @@ ENV PATH /opt/rubies/ruby-2.5.3/bin:$PATH
 
 # Install gems
 WORKDIR /spec
-RUN gem install bundler
+RUN gem install bundler -v 1.17.1
 ADD Gemfile* ./
 RUN bundle
 
