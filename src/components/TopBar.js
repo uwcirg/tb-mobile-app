@@ -8,9 +8,9 @@ import { white } from "../colors"
 
 const TopBar = observer(({ store, children, ...props }) => (
   <Layout {...props} >
-    <Title>{ store && store.currentPageTitle }</Title>
+    <Title>{store.currentPageTitle}</Title>
 
-    { store && store.authorized
+    { store.authorized
       ? <Menu store={store} />
       : null
     }
