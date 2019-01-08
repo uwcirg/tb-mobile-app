@@ -8,8 +8,7 @@ import TopBar from "./components/TopBar"
 
 const App = observer(({ store }) => (
   <Layout>
-    <TopBar store={store} >
-    </TopBar>
+    <TopBar store={store} />
 
     <Layout.Main>
       {React.createElement(store.currentPage, { store: store })}
@@ -25,7 +24,7 @@ const App = observer(({ store }) => (
 const Layout = styled.div`
   display: grid;
   grid-template-rows: auto 1fr auto;
-  grid-row-gap: 2rem;
+  grid-row-gap: 1rem;
   height: 100vh;
   background-size: cover;
   background: ${beige};
@@ -34,9 +33,9 @@ const Layout = styled.div`
 
 Layout.Main = styled.div`
   overflow-y: auto;
-  margin-left: auto;
-  margin-right: auto;
-  width: 20rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  width: auto;
 `
 
 export default App

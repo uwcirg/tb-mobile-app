@@ -39,13 +39,14 @@ const Home = observer(({ store }) => (
 ))
 
 const Layout = styled.div`
+  display: grid;
+  grid-row-gap: 1rem;
 `
 
 const TreatmentButton = styled(Button)`
   align-items: center;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 1rem;
   width: 100%;
   flex-grow: 1;
 `

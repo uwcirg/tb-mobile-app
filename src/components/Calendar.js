@@ -64,6 +64,8 @@ const DateWrapper = styled.div`
 `
 
 const CalendarComponent = styled(ReactCalendar)`
+  width: 100% !important;
+
   & .react-calendar__tile {
     background-color: ${white};
     border: 1px solid ${lightgrey};
@@ -87,7 +89,6 @@ const CalendarComponent = styled(ReactCalendar)`
     border: 1px solid ${grey};
     font-size: 1rem;
     padding: 0.5rem;
-    margin-bottom: 1rem;
   }
 `
 

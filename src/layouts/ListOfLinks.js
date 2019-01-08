@@ -10,7 +10,7 @@ const Layout = styled.div`
   align-items: center;
 
   & > ${Button}:not(:last-child) {
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
 `
 

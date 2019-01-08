@@ -52,7 +52,6 @@ const Notes = observer(({store}) => (
 
 const NewButton = styled(Button)`
   float: right;
-  margin-bottom: 1rem;
 `
 
 const TitleInput = styled.textarea`
@@ -73,7 +72,7 @@ const Draft = styled.div`
   grid-template-columns: 1fr auto;
   grid-template-rows: 2rem 4rem;
   overflow: hidden;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 
   & > ${TitleInput} {
     grid-area: 1 / 1 / 2 / 2;
@@ -90,16 +89,18 @@ const Draft = styled.div`
 
 const Hint = styled.div`
   color: darkgrey;
+  overflow: hidden;
+  height: 2rem;
 `
 
 const Note = styled(Fold)`
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 `
 
 Note.Text = styled.div`
   margin-bottom: 0.5rem;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 `
 Note.Header = styled.div`
   display: flex;
