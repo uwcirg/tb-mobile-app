@@ -8,7 +8,7 @@ import {
   mdiImage,
 } from "@mdi/js"
 import { Icon } from "@mdi/react"
-import { green, darkgrey } from "../colors"
+import { blue, darkgrey } from "../colors"
 
 const PhotoUpload = observer(({ store }) => (
   <div>
@@ -50,7 +50,7 @@ const Image = styled.div`
 `
 
 const ConfirmationIcon = styled(Icon).attrs({
-  color: green,
+  color: blue,
   path: mdiCheckCircle,
 })`
   position: absolute;

@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
-import { darkgrey, green, white } from "../colors"
+import { darkgrey, blue, white } from "../colors"
 
 import { Tabs } from "reakit";
 import "../augments/Tabs"
@@ -126,7 +126,7 @@ const TwentyPercent = styled.div`
 
 const Tab = styled(Tabs.Tab)`
   border: 2px solid rgba(100, 100, 100, 0.5);
-  background-color: ${(tabs) => tabs.getCurrentId() === tabs.tab ? green : white };
+  background-color: ${(tabs) => tabs.getCurrentId() === tabs.tab ? blue : white };
   fill: ${(tabs) => tabs.getCurrentId() === tabs.tab ? white : darkgrey };
 
   margin-top: 0.1rem;
