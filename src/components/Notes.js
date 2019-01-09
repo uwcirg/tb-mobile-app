@@ -4,7 +4,7 @@ import Layout from "../layouts/Text"
 import Button from "../primitives/Button"
 import { PlusIcon, ContentSaveIcon } from "mdi-react"
 import { grey } from "../colors"
-import Fold from "../components/Fold"
+import Fold from "./Fold"
 import moment from "moment"
 
 import { observer } from "mobx-react"
@@ -33,19 +33,21 @@ const Notes = observer(({store}) => (
       </Draft>
     }
 
-    {store.notes.length === 0
-    ? <Hint>Graba notas privadas aquí.</Hint>
-    : store.notes.map(({ id, title, created_at, text, updated_at }) => (
-      <Note key={id}>
-        <Note.Header>
-          {/* TODO change this to `title` */}
-          <Note.Title>{title}</Note.Title>
-          <Note.Created>{moment(created_at).format("MMM DD, HH:mm")}</Note.Created>
-        </Note.Header>
+    { store.notes.length === 0
+      ? <Hint>
+          Escribe notas aquí.
+        </Hint>
+      : store.notes.map(({ id, title, created_at, text, updated_at }) => (
+        <Note key={id}>
+          <Note.Header>
+            {/* TODO change this to `title` */}
+            <Note.Title>{title}</Note.Title>
+            <Note.Created>{moment(created_at).format("MMM DD, HH:mm")}</Note.Created>
+          </Note.Header>
 
-        <Note.Text>{text}</Note.Text>
-        <Note.LastUpdated>Last edited {updated_at}</Note.LastUpdated>
-      </Note>
+          <Note.Text>{text}</Note.Text>
+          <Note.LastUpdated>Last edited {updated_at}</Note.LastUpdated>
+        </Note>
     ))}
   </Layout>
 ))

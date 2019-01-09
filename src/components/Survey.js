@@ -105,6 +105,8 @@ const Survey = observer(({ store }) => (
 ))
 
 const Layout = styled.div`
+  display: grid;
+  grid-row-gap: 1rem;
 `
 
 const Card = styled.div`
