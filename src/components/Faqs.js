@@ -426,6 +426,7 @@ const P = styled(Paragraph)`
 `
 
 const Question = styled.h3`
+  font-weight: 100;
   margin: 0;
 `
 
