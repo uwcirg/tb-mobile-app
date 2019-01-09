@@ -7,7 +7,6 @@ import InfoEd from "./components/InfoEd"
 import Notes from "./components/Notes"
 import Survey from "./components/Survey"
 import SymptomOverview from "./components/SymptomOverview"
-import TbQuiz from "./components/TbQuiz"
 
 export const startRouter = (store) => {
   Aviator.setRoutes({
@@ -15,7 +14,6 @@ export const startRouter = (store) => {
 
     "/info/faqs": () => store.showPage(Faqs),
     "/info/symptom-overview": () => store.showPage(SymptomOverview),
-    "/info/tb-quiz": () => store.showPage(TbQuiz),
     "/info": () => store.showPage(InfoEd),
 
     "/notes": () => store.showPage(Notes),

@@ -9,7 +9,6 @@ import { grey, lightgrey, black } from "../colors"
 
 import Faqs from "./Faqs"
 import SymptomOverview from "./SymptomOverview"
-import TbQuiz from "./TbQuiz"
 
 const InfoEd = observer(({ store }) => (
   <Layout>
@@ -22,12 +21,6 @@ const InfoEd = observer(({ store }) => (
     <Button as="div">
       <InternalLink to={SymptomOverview} store={store} >
         Resumen de los síntomas<br /> y efectos secundarios
-      </InternalLink>
-    </Button>
-
-    <Button as="div">
-      <InternalLink to={TbQuiz} store={store} >
-        Prueba tu conocimiento<br /> sobre la tuberculosis!
       </InternalLink>
     </Button>
   </Layout>

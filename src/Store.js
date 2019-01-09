@@ -11,7 +11,6 @@ import Home from "./components/Home"
 import Faqs from "./components/Faqs"
 import InfoEd from "./components/InfoEd"
 import SymptomOverview from "./components/SymptomOverview"
-import TbQuiz from "./components/TbQuiz"
 import Notes from "./components/Notes"
 
 class Store {
