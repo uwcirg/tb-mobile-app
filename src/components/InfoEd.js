@@ -28,17 +28,7 @@ const InfoEd = observer(({ store }) => (
 
 const Layout = styled(ListOfLinks)`
   & > ${Button} {
-    min-width: 50%;
-    background-color: ${grey};
-
-    a {
-      color: ${black}
-      text-decoration: none;
-    }
-  }
-
-  & > ${Button}:nth-child(2n) {
-    background-color: ${lightgrey};
+    width: 100%;
   }
 `
 

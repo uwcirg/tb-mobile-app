@@ -33,10 +33,9 @@ const SymptomOverview = observer(() => (
 
     <Fold>
       <Heading>
-        <Underline>
-          Llame a su médico o concurra a la guardia de inmediato si tiene:
-        </Underline>
+        Llame a su médico o concurra a la guardia de inmediato si tiene:
       </Heading>
+
       <Bullets>
         <Bullet>Dificultad para respirar.</Bullet>
         <Bullet>Hinchazón de la cara, los labios, la lengua o la garganta</Bullet>
@@ -151,6 +150,9 @@ const Bullets = styled(List)`
 `
 
 const Heading = styled.h3`
+  font-weight: 100;
+  margin-top: 0;
+  margin-bottom: 0;
 `
 
 const P = styled(Paragraph)`
@@ -158,10 +160,7 @@ const P = styled(Paragraph)`
 `
 
 const Title = styled.h1`
-`
-
-const Underline = styled.span`
-  text-decoration: underline;
+  margin-top: 0;
 `
 
 SymptomOverview.route = `/info/symptom-overview`

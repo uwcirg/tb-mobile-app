@@ -435,6 +435,7 @@ const ScientificName = styled.span`
 `
 
 const Title = styled.h2`
+  margin-top: 0;
 `
 
 const Underline = styled.span`
