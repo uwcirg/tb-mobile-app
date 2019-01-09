@@ -4,7 +4,7 @@ import Layout from "../layouts/Text"
 import Button from "../primitives/Button"
 import { PlusIcon, ContentSaveIcon } from "mdi-react"
 import { grey } from "../colors"
-import Fold from "./Fold"
+import Fold from "../primitives/Fold"
 import moment from "moment"
 
 import { observer } from "mobx-react"

@@ -1,5 +1,5 @@
 import React from "react"
-import Fold from "./Fold"
+import Fold from "../primitives/Fold"
 import Layout from "../layouts/Text"
 import styled from "styled-components"
 import { observer } from "mobx-react"

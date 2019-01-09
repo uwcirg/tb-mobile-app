@@ -2,7 +2,7 @@ import React from "react"
 import { observer } from "mobx-react"
 import Layout from "../layouts/Text"
 import styled from "styled-components"
-import Fold from "./Fold"
+import Fold from "../primitives/Fold"
 
 import {
   Paragraph,
@@ -426,13 +426,14 @@ const P = styled(Paragraph)`
 `
 
 const Question = styled.h3`
+  margin: 0;
 `
 
 const ScientificName = styled.span`
   text-decoration: underline;
 `
 
-const Title = styled.h1`
+const Title = styled.h2`
 `
 
 const Underline = styled.span`

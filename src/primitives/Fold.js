@@ -3,6 +3,7 @@ import styled from "styled-components"
 import { Grid, Hidden } from "reakit"
 import { observer } from "mobx-react"
 import { ChevronDownIcon } from "mdi-react"
+import { white } from "../colors"
 
 const Fold = observer(({ children }) => (
   <Hidden.Container>
@@ -37,14 +38,16 @@ const Layout = styled(Grid)`
   border: 1px solid grey;
   grid-template-columns: 1fr auto;
   overflow: hidden;
-  padding: 1rem;
+  padding: 0.5rem;
   text-align: left;
   width: 100%;
+  background-color: ${white};
 `
 
 const Slider = styled.div`
   overflow: hidden;
   grid-columns: 1 -1;
+  margin-top: 0.5rem;
 `
 
 export default Fold

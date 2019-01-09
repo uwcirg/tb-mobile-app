@@ -29,4 +29,6 @@ export default styled(Button)`
 
   border-radius: 2px;
   border: 2px solid rgba(100, 100, 100, 0.2);
+
+  font-weight: 600;
 `
