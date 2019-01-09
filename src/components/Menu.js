@@ -6,6 +6,10 @@ import { MenuIcon, UserIcon, CloseIcon } from "mdi-react"
 import { Box, Block, Backdrop, Portal, Sidebar } from "reakit";
 import { grey, darkgrey, white, red } from "../colors"
 
+import Icon from "../primitives/Icon"
+
+import Select from "../primitives/Select"
+
 const Menu = observer(({ store }) => (
   <Sidebar.Container>
     {sidebar => (
@@ -16,7 +20,38 @@ const Menu = observer(({ store }) => (
         <Sidebar align="right" slide as={Portal} {...sidebar}>
           <Layout>
             <Toggle {...sidebar} ><CloseIcon /></Toggle>
-            <Profile />
+
+            <Question>
+              name
+            </Question>
+
+            <Question>
+              profile photo
+              <Profile />
+            </Question>
+
+            <Question>
+              phone number
+            </Question>
+
+            <Question>
+              <Icon name="Language" mdi="web" />
+
+              <Select
+                current={store.language}
+                options={["Español", "English"]}
+                onChange={(selection) => store.setLanguage(selection)}
+              />
+            </Question>
+
+            <Question>
+              treatment start
+            </Question>
+
+            <Question>
+              time zone
+            </Question>
+
             <LogoutButton onClick={() => store.logout()}>Log out</LogoutButton>
           </Layout>
         </Sidebar>
@@ -60,6 +95,12 @@ const Profile = styled(UserIcon)`
 const LogoutButton = styled(Button)`
  background-color: ${red};
  width: 100%;
+`
+
+const Question = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
 `
 
 export default Menu

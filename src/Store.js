@@ -50,6 +50,24 @@ class Store {
   // Current strip report
   @observable uploadedImages = []
 
+  @observable language = "Español"
+  @observable homepageTitle = "Inicio Aquí"
+  @observable homepageButton = "Reportar la toma de medicamentos"
+
+  @action setLanguage(lang) {
+    this.language = lang
+
+    this.homepageTitle = {
+      "English": "Start Here",
+      "Español": "Inicio Aquí",
+    }[lang]
+
+    this.homepageButton = {
+      "English": "Track Treatment",
+      "Español": "Reportar la toma de medicamentos",
+    }[lang]
+  }
+
   constructor() {
     this.assemble.watch("cirg")`
       user.medication_reports.map { |r| { date: r.timestamp } }
@@ -111,9 +129,8 @@ class Store {
       case Notes: return "Mis Notas"
       case Faqs: return "Información y Educación"
       case SymptomOverview: return "Información y Educación"
-      case TbQuiz: return "TB Quiz"
       case InfoEd: return "Información y Educación"
-      case Home: return "Inicio"
+      case Home: return this.homepageTitle
       default: return "TB Asistente Diario"
     }
   }
