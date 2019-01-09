@@ -13,6 +13,8 @@ import InfoEd from "./components/InfoEd"
 import SymptomOverview from "./components/SymptomOverview"
 import Notes from "./components/Notes"
 
+import espanol from "./languages/es"
+
 class Store {
   assemble = new Assemble(``)
 
@@ -280,6 +282,24 @@ class Store {
   }
 
   @action reportStrip() {
+  }
+
+  // With translation data loaded from `es.yml`,
+  // respond to the given translation queries.
+  translate(key) {
+    var accessor = espanol;
+    let keyParts = key.split(".")
+
+    for (var i=0; i < keyParts.length; i++){
+      if(!accessor[keyParts[i]]) {
+        console.log(`Error! Could not find ${keyParts[i]} of ${key}`)
+        return "Error! Translation not found."
+      }
+
+      accessor = accessor[keyParts[i]];
+    };
+
+    return accessor;
   }
 }
 

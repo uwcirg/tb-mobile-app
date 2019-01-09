@@ -8,133 +8,112 @@ import {
   List,
 } from "reakit"
 
-const SymptomOverview = observer(() => (
+const SymptomOverview = observer(({ store }) => (
   <Layout>
     <Title>
-      Resumen de los síntomas/efectos indeseables
-      y estrategias para intentar en casa para reducir los efectos secundarios
+      {store.translate("symptom_overview.title")}
     </Title>
 
-    <P>
-      Los medicamentos utilizados pueden provocar algunos efectos indeseables.
-      ¿Qué hay que tener en cuenta para consultar con el equipo de salud?
-      ¿Qué efectos podrían presentarse y en qué casos debería consultar?
-    </P>
-    <P>
-      La mayoría de las personas pueden tomar los medicamentos para la TB sin ningún problema.
-    </P>
-    <P>
-      Algunos efectos secundarios son mínimos y otros son más serios.
-      Si tiene un efecto secundario grave,
-      <strong>llame a su médico o concurra a la guardia inmediatamente.</strong>
-      Es posible que le indiquen que deje de tomar sus medicamentos o que vaya
-      a la clínica para que le hagan estudios.
-    </P>
+    <P>{store.translate("symptom_overview.intro_1")}</P>
+    <P>{store.translate("symptom_overview.intro_2")}</P>
+    <P>{store.translate("symptom_overview.intro_3")}</P>
 
     <Fold>
       <Heading>
-        Llame a su médico o concurra a la guardia de inmediato si tiene:
+        {store.translate("symptom_overview.call_your_doctor_if")}
       </Heading>
 
       <Bullets>
-        <Bullet>Dificultad para respirar.</Bullet>
-        <Bullet>Hinchazón de la cara, los labios, la lengua o la garganta</Bullet>
+        <Bullet>{store.translate("survey.symptoms.difficulty_breathing")}</Bullet>
+        <Bullet>{store.translate("survey.symptoms.facial_swelling")}</Bullet>
       </Bullets>
     </Fold>
 
     <Fold>
       <Heading>
-        Los efectos secundarios que se indican a continuación se consideran graves.
-        Requieren intervención médica
+        {store.translate("symptom_overview.grave_symptoms")}
       </Heading>
+
       <Bullets>
-        <Bullet>Falta de apetito</Bullet>
-        <Bullet>Náuseas</Bullet>
-        <Bullet>Vómito</Bullet>
-        <Bullet>Coloración amarilla de la piel o los ojos</Bullet>
-        <Bullet>Fiebre durante 3 o más días</Bullet>
-        <Bullet>Dolor abdominal</Bullet>
-        <Bullet>Sensación de hormigueo en los dedos de las manos o de los pies</Bullet>
-        <Bullet>Dolor en la parte inferior del pecho y acidez estomacal</Bullet>
-        <Bullet>Comezón</Bullet>
-        <Bullet>Sarpullido</Bullet>
-        <Bullet>Aparición fácil de moretones</Bullet>
-        <Bullet>Sangrado en las encías</Bullet>
-        <Bullet>Sangrado en la nariz</Bullet>
-        <Bullet>Orina oscura o de color café</Bullet>
-        <Bullet>Dolor en las articulaciones</Bullet>
-        <Bullet>Mareo</Bullet>
-        <Bullet>Sensación de hormigueo o entumecimiento alrededor de la boca</Bullet>
-        <Bullet>Vista borrosa o cambios en la vista</Bullet>
-        <Bullet>Zumbido en los oídos</Bullet>
-        <Bullet>Pérdida de la audición</Bullet>
+        <Bullet>{store.translate("symptom_overview.grave.failing_appetite")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.grave.nausea")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.grave.vomiting")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.grave.yellow_coloration")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.grave.fever_3_or_more_days")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.grave.abdominal_pain")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.grave.placeholder_1")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.grave.placeholder_2")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.grave.placeholder_3")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.grave.placeholder_4")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.grave.placeholder_5")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.grave.placeholder_6")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.grave.placeholder_7")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.grave.placeholder_8")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.grave.joint_pain")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.grave.placeholder_9")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.grave.placeholder_10")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.grave.changes_in_vision")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.grave.placeholder_11")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.grave.loss_of_hearing")}</Bullet>
       </Bullets>
     </Fold>
 
     <Fold>
       <Heading>
-        Los efectos secundarios a continuación se consideran leves.
-        No requieren intervención médica.
+        {store.translate("symptom_overview.q2.heading")}
       </Heading>
+
       <P>
-        Si tiene alguno de estos efectos secundarios, puede seguir tomando sus medicamentos.
+        {store.translate("symptom_overview.q2.take_medication")}
       </P>
+
       <P>
-        La rifampicina puede:
+        {store.translate("symptom_overview.q2.rifampicina")}
       </P>
 
       <Bullets>
         <Bullet>
-          Hacer que la orina, la saliva o las lágrimas tengan una coloración
-          naranja. Es posible que el equipo de salud le aconsejen que no use
-          lentes de contacto blandos porque pueden mancharse.
+          {store.translate("symptom_overview.q2.bullet_1")}
         </Bullet>
+
         <Bullet>
-          Aumentar su sensibilidad al sol. Esto significa que debe usar un buen
-          filtro solar y cubrir las áreas expuestas para evitar quemaduras.
+          {store.translate("symptom_overview.q2.bullet_2")}
         </Bullet>
+
         <Bullet>
-          Hacer que las píldoras y los implantes anticonceptivos sean menos
-          eficaces. Las mujeres que toman rifampicina deben usar otro método
-          anticonceptivo.
+          {store.translate("symptom_overview.q2.bullet_3")}
         </Bullet>
+
         <Bullet>
-          Si usted está tomando rifampicina y metadona (que se usa para tratar
-          las adicciones), es posible que tenga síntomas de abstinencia. Su
-          médico o enfermera tal vez tengan que ajustarle la dosis de metadona.
+          {store.translate("symptom_overview.q2.bullet_4")}
         </Bullet>
       </Bullets>
     </Fold>
 
     <Fold>
       <Heading>
-        Estrategias para reducir los efectos secundarios
-        En cuanto a los medicamentos en casos de efectos indeseables:
+        {store.translate("symptom_overview.q3.heading")}
       </Heading>
 
       <Bullets>
         <Bullet>
-          Cuando hay intolerancia de tipo digestivo como náuseas, vómitos
-          pueden utilizarse la metoclopramida (Reliveran gotas), ranitidina u
-          omeprazol). Incluso hasta que mejoren los síntomas puede dividirse la
-          toma de medicamentos 2 veces por día.
+          {store.translate("symptom_overview.q3.bullet_1")}
         </Bullet>
+
         <Bullet>
-          Cuando hay reacciones en la piel leves al comienzo del tratamiento,
-          pueden tratarse con anthistamínicos (loratadina, difenhidramina)
+          {store.translate("symptom_overview.q3.bullet_2")}
         </Bullet>
+
         <Bullet>
-          En el caso de artralgias (dolor en las articulaciones) pueden
-          utilizarse analgésicos o antinflamatorios. La pirazinamida suele
-          causar estas molestias.
+          {store.translate("symptom_overview.q3.bullet_3")}
         </Bullet>
+
         <Bullet>
-          En los dolores musculares (polineuropatía) se utiliza complejo
-          Vitamina B.
+          {store.translate("symptom_overview.q3.bullet_4")}
         </Bullet>
+
         <Bullet>
-          En Estados febriles hay que tener en cuenta que no sean ocasionados
-          por fármacos
+          {store.translate("symptom_overview.q3.bullet_5")}
         </Bullet>
       </Bullets>
     </Fold>
