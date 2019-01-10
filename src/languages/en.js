@@ -21,6 +21,15 @@ export default {
     },
   },
 
+  menu: {
+    name: "Name",
+    photo: "Photo",
+    phone: "Phone",
+    language: "Language",
+    treatment_start: "Treatment start date:",
+    time_zone: "Time zone",
+  },
+
   info: {
     faq: "Frequently Asked Questions",
     symptom_overview: "Overview of Symptoms and Side Effects",

@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import Button from "../primitives/Button"
-import { observer } from "mobx-react"
+import { observer, Observer } from "mobx-react"
 import { MenuIcon, UserIcon, CloseIcon } from "mdi-react"
 import { Box, Block, Backdrop, Portal, Sidebar } from "reakit";
 import { grey, darkgrey, white, red } from "../colors"
@@ -18,21 +18,19 @@ const Menu = observer(({ store }) => (
         <TransparentBackdrop as={[Portal, Sidebar.Hide]} {...sidebar} />
 
         <Sidebar align="right" slide as={Portal} {...sidebar}>
+          <Observer>
+            {() => (
           <Layout>
             <Toggle {...sidebar} ><CloseIcon /></Toggle>
 
-            <Question>
-              name
-            </Question>
+            <Question>{store.translate("menu.name")}</Question>
 
             <Question>
-              profile photo
+              {store.translate("menu.photo")}
               <Profile />
             </Question>
 
-            <Question>
-              phone number
-            </Question>
+            <Question>{store.translate("menu.phone")}</Question>
 
             <Question>
               <Icon name="Language" mdi="web" />
@@ -44,16 +42,13 @@ const Menu = observer(({ store }) => (
               />
             </Question>
 
-            <Question>
-              treatment start
-            </Question>
-
-            <Question>
-              time zone
-            </Question>
+            <Question>{store.translate("menu.treatment_start")}</Question>
+            <Question>{store.translate("menu.time_zone")}</Question>
 
             <LogoutButton onClick={() => store.logout()}>Log out</LogoutButton>
           </Layout>
+            )}
+          </Observer>
         </Sidebar>
       </Block>
     )}

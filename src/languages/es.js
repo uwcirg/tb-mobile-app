@@ -21,6 +21,15 @@ export default {
     },
   },
 
+  menu: {
+    name: "Nombre",
+    photo: "Foto",
+    phone: "Telefono",
+    language: "Lingua",
+    treatment_start: "Dato del inicio del tratamiento",
+    time_zone: "Zona horaria",
+  },
+
   info: {
     faq: "Preguntas frecuentes y respuestas",
     symptom_overview: "Resumen de los síntomas y efectos secundarios",
