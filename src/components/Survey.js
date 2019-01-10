@@ -60,7 +60,7 @@ const Survey = observer(({ store }) => (
               </Tab>
             </MultiButton>
 
-            <Help> <IconKey /> </Help>
+            <Help> <IconKey store={store} /> </Help>
           </Tabs>
 
           <Tabs.Panel tab="medication" {...state} >
@@ -68,8 +68,8 @@ const Survey = observer(({ store }) => (
 
             <Tabs.Buttons
               store={store}
-              primary="Tomo la medicación."
-              secondary="No tomo."
+              primary={store.translate("survey.medication.yes")}
+              secondary={store.translate("survey.medication.no")}
               onPrimary={() => store.reportMedication()}
               {...state}
             />
@@ -80,8 +80,8 @@ const Survey = observer(({ store }) => (
 
             <Tabs.Buttons
               store={store}
-              primary="Continuar"
-              secondary="Omitir"
+              primary={store.translate("survey.symptoms.continue")}
+              secondary={store.translate("survey.symptoms.skip")}
               onPrimary={() => store.reportSymptoms()}
               {...state}
             />
@@ -92,8 +92,8 @@ const Survey = observer(({ store }) => (
 
             <Tabs.Buttons
               store={store}
-              primary="Continuar"
-              secondary="Omitir"
+              primary={store.translate("survey.upload.continue")}
+              secondary={store.translate("survey.upload.skip")}
               onPrimary={() => store.reportStrip()}
               {...state}
             />

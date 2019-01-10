@@ -4,8 +4,18 @@ export default {
     survey: "Track Treatment",
   },
 
+  icons: {
+    medication: "Self-reported medication",
+    symptoms: "Self-reported symptoms",
+    photo: "Submitted photo of test strip",
+  },
+
   survey: {
-    medication: "I took the medicine today",
+    medication: {
+      yes: "Tomo la medicacion hoy",
+      no: "No tomo hoy.",
+      title: "Reporta Medicación",
+    },
 
     symptoms: {
       nausea: "Náuseas o vómitos",
@@ -18,7 +28,31 @@ export default {
       yellow_coloration: "Coloración amarillenta en la piel o en la parte blanca de los ojos",
       difficulty_breathing: "Dificultad para respirar",
       facial_swelling: "Hinchazón de la cara, los labios, la lengua, o la garganta",
+
+      prompt: "Which symptoms?",
+      other: "Otra síntoma",
+      since_last: "Have you experienced symptoms or side effects since your last check-in?",
+      title: "Reporta Síntomas",
+
+      yes: "Sí",
+      no: "No",
+
+      continue: "Continuar",
+      skip: "Omitir",
     },
+
+    upload: {
+      click_here: "Haga clic aquí para subir una foto.",
+      finished: "Uploaded",
+      title: "Carga la Foto",
+      continue: "Continuar",
+      skip: "Omitir",
+    },
+  },
+
+  info: {
+    faq: "Frequently Asked Questions",
+    symptom_overview: "Overview of Symptoms and Side Effects",
   },
 
   menu: {
@@ -30,9 +64,12 @@ export default {
     time_zone: "Time zone",
   },
 
-  info: {
-    faq: "Frequently Asked Questions",
-    symptom_overview: "Overview of Symptoms and Side Effects",
+  notes: {
+    new: "New",
+    title: "Title",
+    body: "Write your notes here.",
+    hint: "Write your notes here.",
+    last_edited: "Last edited",
   },
 
   symptom_overview: {

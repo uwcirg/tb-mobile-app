@@ -4,7 +4,7 @@ import { observer } from "mobx-react"
 
 const ReportMedication = observer(({ store }) => (
   <Layout>
-    <h1>Reporta Medicación</h1>
+    <h1>{store.translate("survey.medication.title")}</h1>
   </Layout>
 ))
 

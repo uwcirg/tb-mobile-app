@@ -4,8 +4,18 @@ export default {
     survey: "Reportar la toma de medicamentos",
   },
 
+  icons: {
+    medication: "Self-reported medication",
+    symptoms: "Self-reported symptoms",
+    photo: "Submitted photo of test strip",
+  },
+
   survey: {
-    medication: "Tomo la medicacion hoy",
+    medication: {
+      yes: "Tomo la medicacion hoy",
+      no: "No tomo hoy.",
+      title: "Reporta Medicación",
+    },
 
     symptoms: {
       nausea: "Náuseas o vómitos",
@@ -18,7 +28,31 @@ export default {
       yellow_coloration: "Coloración amarillenta en la piel o en la parte blanca de los ojos",
       difficulty_breathing: "Dificultad para respirar",
       facial_swelling: "Hinchazón de la cara, los labios, la lengua, o la garganta",
+
+      prompt: "Which symptoms?",
+      other: "Otra síntoma",
+      since_last: "Have you experienced symptoms or side effects since your last check-in?",
+      title: "Reporta Síntomas",
+
+      yes: "Sí",
+      no: "No",
+
+      continue: "Continuar",
+      skip: "Omitir",
     },
+
+    upload: {
+      click_here: "Haga clic aquí para subir una foto.",
+      finished: "Uploaded",
+      title: "Carga la Foto",
+      continue: "Continuar",
+      skip: "Omitir",
+    },
+  },
+
+  info: {
+    faq: "Preguntas frecuentes y respuestas",
+    symptom_overview: "Resumen de los síntomas y efectos secundarios",
   },
 
   menu: {
@@ -30,13 +64,17 @@ export default {
     time_zone: "Zona horaria",
   },
 
-  info: {
-    faq: "Preguntas frecuentes y respuestas",
-    symptom_overview: "Resumen de los síntomas y efectos secundarios",
+  notes: {
+    new: "Nueva",
+    title: "Titula",
+    body: "Escribe sus notas aquí.",
+    hint: "Escribe sus notas aquí.",
+    last_edited: "Last edited",
   },
 
   symptom_overview: {
     title: "Resumen de los síntomas/efectos indeseables y estrategias para intentar en casa para reducir los efectos secundarios",
+
     intro_1: `
       Los medicamentos utilizados pueden provocar algunos efectos indeseables.
       ¿Qué hay que tener en cuenta para consultar con el equipo de salud?
@@ -53,10 +91,9 @@ export default {
       a la clínica para que le hagan estudios.
       `,
     call_your_doctor_if: "Llame a su médico o concurra a la guardia de inmediato si tiene:",
-    grave_symptoms: `
-      Los efectos secundarios que se indican a continuación se consideran graves.
-      Requieren intervención médica
-      `,
+    grave_symptoms: `Los efectos secundarios que se indican a continuación
+                     se consideran graves.
+                     Requieren intervención médica.`,
 
     grave: {
       failing_appetite: "Falta de apetito",

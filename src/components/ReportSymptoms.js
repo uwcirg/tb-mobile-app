@@ -5,39 +5,36 @@ import { Hidden, Input } from "reakit"
 import { grey, white } from "../colors"
 import Button from "../primitives/Button"
 
-const ReportSymptoms = observer(({ survey }) => (
+const ReportSymptoms = observer(({ store, survey }) => (
   <Layout>
-    <h1>Reporta Sintomas</h1>
+    <h1>{store.translate("survey.symptoms.title")}</h1>
 
     <Hidden.Container>
       { hidden =>
         <div>
-          <p>
-            Have you experienced symptoms or side effects
-            since your last check-in?
-          </p>
+          <p>{store.translate("survey.symptoms.since_last")}</p>
 
           <Choice>
-            <Button as={Hidden.Show} {...hidden} >Yes</Button>
-            <Button as={Hidden.Hide} {...hidden} >No</Button>
+            <Button as={Hidden.Show} {...hidden} >{store.translate("survey.symptoms.yes")}</Button>
+            <Button as={Hidden.Hide} {...hidden} >{store.translate("survey.symptoms.no")}</Button>
           </Choice>
 
           <Hidden {...hidden}>
-            <p>Which symptoms?</p>
+            <p>{store.translate("survey.symptoms.prompt")}</p>
 
-            <Label><Checkbox /><span>Náuseas o vómitos</span></Label>
-            <Label><Checkbox /><span>Enrojectimiento de la piel, granitos, picazón</span></Label>
-            <Label><Checkbox /><span>Urticaria</span></Label>
-            <Label><Checkbox /><span>Fiebre</span></Label>
-            <Label><Checkbox /><span>Pérdida de apetito</span></Label>
-            <Label><Checkbox /><span>Visión borrosa o cambios en la forma de ver los colores</span></Label>
-            <Label><Checkbox /><span>La barriga se siente sensible o dolorido</span></Label>
-            <Label><Checkbox /><span>Coloración amarillenta en la piel o en la parte blanca de los ojos</span></Label>
-            <Label><Checkbox /><span>Dificultad para respirar</span></Label>
-            <Label><Checkbox /><span>Hinchazón de la cara, los labios, la lengua, o la garganta</span></Label>
+            <Label><Checkbox /><span>{store.translate("survey.symptoms.nausea")}</span></Label>
+            <Label><Checkbox /><span>{store.translate("survey.symptoms.redness")}</span></Label>
+            <Label><Checkbox /><span>{store.translate("survey.symptoms.hives")}</span></Label>
+            <Label><Checkbox /><span>{store.translate("survey.symptoms.fever")}</span></Label>
+            <Label><Checkbox /><span>{store.translate("survey.symptoms.appetite_loss")}</span></Label>
+            <Label><Checkbox /><span>{store.translate("survey.symptoms.blurred_vision")}</span></Label>
+            <Label><Checkbox /><span>{store.translate("survey.symptoms.upset_stomach")}</span></Label>
+            <Label><Checkbox /><span>{store.translate("survey.symptoms.yellow_coloration")}</span></Label>
+            <Label><Checkbox /><span>{store.translate("survey.symptoms.difficulty_breathing")}</span></Label>
+            <Label><Checkbox /><span>{store.translate("survey.symptoms.facial_swelling")}</span></Label>
 
             <Label>
-              <span>Otra síntoma:</span>
+              <span>{store.translate("survey.symptoms.other")}:</span>
               <TextInput />
             </Label>
           </Hidden>

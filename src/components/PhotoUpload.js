@@ -12,7 +12,7 @@ import { blue, darkgrey } from "../colors"
 
 const PhotoUpload = observer(({ store }) => (
   <div>
-    <h1>Carga la Foto</h1>
+    <h1>{store.translate("survey.upload.title")}</h1>
 
     <DropZone
       accept={["image/jpeg", "image/png"]}
@@ -22,7 +22,7 @@ const PhotoUpload = observer(({ store }) => (
       } }
     >
       <Instructions>
-        <p>Haga clic aquí para subir una foto.</p>
+        <p>{store.translate("survey.upload.click_here")}</p>
         <Icon size="2rem" color={darkgrey} path={mdiImage} />
       </Instructions>
     </DropZone>
@@ -30,7 +30,7 @@ const PhotoUpload = observer(({ store }) => (
     <ImagePreviews>
       {store.uploadedImages.map(image =>
         <Image key={image}>
-          <img src={image} alt="Uploaded" />
+          <img src={image} alt={store.translate("survey.upload.finished")} />
           <ConfirmationIcon />
         </Image>
       )}

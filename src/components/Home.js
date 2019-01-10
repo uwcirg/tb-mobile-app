@@ -31,7 +31,7 @@ const Home = observer(({ store }) => (
         </Icons>
       </TreatmentButton>
 
-      <Help> <IconKey /> </Help>
+      <Help> <IconKey store={store} /> </Help>
     </Row>
 
     <Calendar store={store} />

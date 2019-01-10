@@ -13,17 +13,18 @@ const Notes = observer(({store}) => (
   <Layout>
     { store.noteDraft === null && store.noteTitle === null
     ? <NewButton onClick={() => store.composeNote()}>
-        <PlusIcon/> Nueva
+        <PlusIcon/>
+        {store.translate("notes.new")}
       </NewButton>
 
     : <Draft>
         <TitleInput
-          placeholder='Titula'
+          placeholder={store.translate("notes.title")}
           value={store.noteTitle}
           onChange={e => store.noteTitle = e.target.value}
         />
         <Input
-          placeholder='Escribe sus notas aquí...'
+          placeholder={store.translate("notes.body")}
           value={store.noteDraft}
           onChange={e => store.noteDraft = e.target.value}
         />
@@ -34,19 +35,21 @@ const Notes = observer(({store}) => (
     }
 
     { store.notes.length === 0
-      ? <Hint>
-          Escribe notas aquí.
-        </Hint>
+      ? <Hint>{store.translate("notes.hint")}</Hint>
+
       : store.notes.map(({ id, title, created_at, text, updated_at }) => (
         <Note key={id}>
           <Note.Header>
-            {/* TODO change this to `title` */}
             <Note.Title>{title}</Note.Title>
             <Note.Created>{moment(created_at).format("MMM DD, HH:mm")}</Note.Created>
           </Note.Header>
 
           <Note.Text>{text}</Note.Text>
-          <Note.LastUpdated>Last edited {updated_at}</Note.LastUpdated>
+
+          <Note.LastUpdated>
+            {store.translate("notes.last_edited")}
+            {updated_at}
+          </Note.LastUpdated>
         </Note>
     ))}
   </Layout>
