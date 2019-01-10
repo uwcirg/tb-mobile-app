@@ -38,7 +38,7 @@ const Menu = observer(({ store }) => (
               <Icon name="Language" mdi="web" />
 
               <Select
-                current={store.language}
+                current={() => store.language}
                 options={["Español", "English"]}
                 onChange={(selection) => store.setLanguage(selection)}
               />

@@ -8,7 +8,7 @@ const Toggle = observer(({current, options, onChange}) => (
     {options.map(option => (
       <Button
         key={option}
-        active={current !== option}
+        active={current() !== option}
         onClick={() => onChange(option)}
       >
         {option}

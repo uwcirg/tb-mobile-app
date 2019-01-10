@@ -1,11 +1,11 @@
 export default {
   home: {
-    title: "Inicio Aquí.",
-    survey: "Reportar la toma de medicamentos",
+    title: "Start Here.",
+    survey: "Track Treatment",
   },
 
   survey: {
-    medication: "Tomo la medicacion hoy",
+    medication: "I took the medicine today",
 
     symptoms: {
       nausea: "Náuseas o vómitos",
@@ -23,6 +23,7 @@ export default {
 
   symptom_overview: {
     title: "Resumen de los síntomas/efectos indeseables y estrategias para intentar en casa para reducir los efectos secundarios",
+
     intro_1: `
       Los medicamentos utilizados pueden provocar algunos efectos indeseables.
       ¿Qué hay que tener en cuenta para consultar con el equipo de salud?
@@ -39,10 +40,9 @@ export default {
       a la clínica para que le hagan estudios.
       `,
     call_your_doctor_if: "Llame a su médico o concurra a la guardia de inmediato si tiene:",
-    grave_symptoms: `
-      Los efectos secundarios que se indican a continuación se consideran graves.
-      Requieren intervención médica
-      `,
+    grave_symptoms: `Los efectos secundarios que se indican a continuación
+                     se consideran graves.
+                     Requieren intervención médica.`,
 
     grave: {
       failing_appetite: "Falta de apetito",

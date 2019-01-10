@@ -14,6 +14,7 @@ import SymptomOverview from "./components/SymptomOverview"
 import Notes from "./components/Notes"
 
 import espanol from "./languages/es"
+import english from "./languages/en"
 
 class Store {
   assemble = new Assemble(``)
@@ -52,21 +53,9 @@ class Store {
   @observable uploadedImages = []
 
   @observable language = "Español"
-  @observable homepageTitle = "Inicio Aquí"
-  @observable homepageButton = "Reportar la toma de medicamentos"
 
   @action setLanguage(lang) {
     this.language = lang
-
-    this.homepageTitle = {
-      "English": "Start Here",
-      "Español": "Inicio Aquí",
-    }[lang]
-
-    this.homepageButton = {
-      "English": "Track Treatment",
-      "Español": "Reportar la toma de medicamentos",
-    }[lang]
   }
 
   constructor() {
@@ -131,7 +120,7 @@ class Store {
       case Faqs: return "Información y Educación"
       case SymptomOverview: return "Información y Educación"
       case InfoEd: return "Información y Educación"
-      case Home: return this.homepageTitle
+      case Home: return this.translate("home.title")
       default: return "TB Asistente Diario"
     }
   }
@@ -287,7 +276,11 @@ class Store {
   // With translation data loaded from `es.yml`,
   // respond to the given translation queries.
   translate(key) {
-    var accessor = espanol;
+    var accessor = {
+      "Español": espanol,
+      "English": english,
+    }[this.language];
+
     let keyParts = key.split(".")
 
     for (var i=0; i < keyParts.length; i++){

@@ -22,13 +22,13 @@ const Home = observer(({ store }) => (
   <Layout>
     <Row>
       <TreatmentButton onClick={() => store.showPage(Survey)} >
-        Track Treatment
+        {store.translate("home.survey")}
 
-        <div>
+        <Icons>
           <Icon size={1} color={white} path={mdiPill} />
           <Icon size={1} color={white} path={mdiFormatListChecks} />
           <Icon size={1} color={white} path={mdiCamera} />
-        </div>
+        </Icons>
       </TreatmentButton>
 
       <Help> <IconKey /> </Help>
@@ -49,6 +49,10 @@ const TreatmentButton = styled(Button)`
   justify-content: space-between;
   width: 100%;
   flex-grow: 1;
+`
+
+const Icons = styled.div`
+  width: 7rem;
 `
 
 Home.route = "/"
