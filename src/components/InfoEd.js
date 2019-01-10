@@ -5,7 +5,6 @@ import { observer } from "mobx-react"
 import InternalLink from "../primitives/InternalLink"
 import ListOfLinks from "../layouts/ListOfLinks"
 import Button from "../primitives/Button"
-import { white } from "../colors"
 
 import Faqs from "./Faqs"
 import SymptomOverview from "./SymptomOverview"

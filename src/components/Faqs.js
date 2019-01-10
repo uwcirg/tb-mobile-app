@@ -39,16 +39,14 @@ const FAQs = observer(({ store }) => (
         <P>{store.translate("faqs.q2.answer.2")}</P>
         <P>{store.translate("faqs.q2.answer.3")}</P>
         <P>{store.translate("faqs.q2.answer.4")}</P>
-        <P>
-          {store.translate("faqs.q2.answer.5")}
+        <P>{store.translate("faqs.q2.answer.5")}</P>
 
-          <Bullets>
-            <Bullet>{store.translate("faqs.q2.answer.5-bullets.1")}</Bullet>
-            <Bullet>{store.translate("faqs.q2.answer.5-bullets.2")}</Bullet>
-            <Bullet>{store.translate("faqs.q2.answer.5-bullets.3")}</Bullet>
-            <Bullet>{store.translate("faqs.q2.answer.5-bullets.4")}</Bullet>
-          </Bullets>
-        </P>
+        <Bullets>
+          <Bullet>{store.translate("faqs.q2.answer.6-bullets.1")}</Bullet>
+          <Bullet>{store.translate("faqs.q2.answer.6-bullets.2")}</Bullet>
+          <Bullet>{store.translate("faqs.q2.answer.6-bullets.3")}</Bullet>
+          <Bullet>{store.translate("faqs.q2.answer.6-bullets.4")}</Bullet>
+        </Bullets>
       </Answer>
     </Fold>
 
@@ -61,9 +59,7 @@ const FAQs = observer(({ store }) => (
     </Fold>
 
     <Fold>
-      <Question>
-        {store.translate("faqs.q4.question")}
-      </Question>
+      <Question>{store.translate("faqs.q4.question")}</Question>
 
       <Answer>
         <P>{store.translate("faqs.q4.answer.1")}</P>
@@ -77,9 +73,7 @@ const FAQs = observer(({ store }) => (
     </Fold>
 
     <Fold>
-      <Question>
-        {store.translate("faqs.q5.question")}
-      </Question>
+      <Question>{store.translate("faqs.q5.question")}</Question>
 
       <Answer>
         <P>{store.translate("faqs.q5.answer.1")}</P>
@@ -94,7 +88,6 @@ const FAQs = observer(({ store }) => (
 
         <P>
           <Underline>{store.translate("faqs.q5.answer.5.1")}</Underline>
-
           {store.translate("faqs.q5.answer.5.2")}
         </P>
 
@@ -155,67 +148,30 @@ const FAQs = observer(({ store }) => (
       </Question>
 
       <Answer>
-        <P>
-          {store.translate("faqs.q7.answer.1")}
-        </P>
+        <P>{store.translate("faqs.q7.answer.1")}</P>
 
         <Bullets>
-          <Bullet>
-            {store.translate("faqs.q7.answer.2.1")}
-          </Bullet>
-          <Bullet>
-            {store.translate("faqs.q7.answer.2.2")}
-          </Bullet>
-          <Bullet>
-            {store.translate("faqs.q7.answer.2.3")}
-          </Bullet>
-          <Bullet>
-            {store.translate("faqs.q7.answer.2.4")}
-          </Bullet>
+          <Bullet>{store.translate("faqs.q7.answer.2.1")}</Bullet>
+          <Bullet>{store.translate("faqs.q7.answer.2.2")}</Bullet>
+          <Bullet>{store.translate("faqs.q7.answer.2.3")}</Bullet>
+          <Bullet>{store.translate("faqs.q7.answer.2.4")}</Bullet>
         </Bullets>
 
-        <Note>
-          {store.translate("faqs.q7.answer.3")}
-        </Note>
+        <Note>{store.translate("faqs.q7.answer.3-note")}</Note>
+        <P>{store.translate("faqs.q7.answer.4")}</P>
+        <P underline>{store.translate("faqs.q7.answer.5")}</P>
 
-        <P>
-          {store.translate("faqs.q7.answer.4")}
-        </P>
-
-        <P underline>
-          {store.translate("faqs.q7.answer.5")}
-        </P>
         <Bullets>
-          <Bullet>
-            {store.translate("faqs.q7.answer.5-bullets.1")}
-          </Bullet>
-          <Bullet>
-            {store.translate("faqs.q7.answer.5-bullets.2")}
-          </Bullet>
-          <Bullet>
-            {store.translate("faqs.q7.answer.5-bullets.3")}
-          </Bullet>
-          <Bullet>
-            {store.translate("faqs.q7.answer.5-bullets.4")}
-          </Bullet>
-          <Bullet>
-            {store.translate("faqs.q7.answer.5-bullets.5")}
-          </Bullet>
-          <Bullet>
-            {store.translate("faqs.q7.answer.5-bullets.6")}
-          </Bullet>
-          <Bullet>
-            {store.translate("faqs.q7.answer.5-bullets.7")}
-          </Bullet>
-          <Bullet>
-            {store.translate("faqs.q7.answer.5-bullets.8")}
-          </Bullet>
-          <Bullet>
-            {store.translate("faqs.q7.answer.5-bullets.9")}
-          </Bullet>
-          <Bullet>
-            {store.translate("faqs.q7.answer.5-bullets.10")}
-          </Bullet>
+          <Bullet>{store.translate("faqs.q7.answer.6-bullets.1")}</Bullet>
+          <Bullet>{store.translate("faqs.q7.answer.6-bullets.2")}</Bullet>
+          <Bullet>{store.translate("faqs.q7.answer.6-bullets.3")}</Bullet>
+          <Bullet>{store.translate("faqs.q7.answer.6-bullets.4")}</Bullet>
+          <Bullet>{store.translate("faqs.q7.answer.6-bullets.5")}</Bullet>
+          <Bullet>{store.translate("faqs.q7.answer.6-bullets.6")}</Bullet>
+          <Bullet>{store.translate("faqs.q7.answer.6-bullets.7")}</Bullet>
+          <Bullet>{store.translate("faqs.q7.answer.6-bullets.8")}</Bullet>
+          <Bullet>{store.translate("faqs.q7.answer.6-bullets.9")}</Bullet>
+          <Bullet>{store.translate("faqs.q7.answer.6-bullets.10")}</Bullet>
         </Bullets>
       </Answer>
     </Fold>

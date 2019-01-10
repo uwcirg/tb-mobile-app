@@ -217,7 +217,7 @@ export default {
         5: `
           Es importante:
         `,
-        "5-bullets": {
+        "6-bullets": {
           1: `
             controlar a TODOS los contactos que viven con la persona que
             tiene TB.
@@ -448,7 +448,7 @@ export default {
 
         5: `Preguntas de pacientes en el último estudio:`,
 
-        "5-bullets": {
+        "6-bullets": {
 
           1: `¿Cómo se contagia la Tuberculosis?
               Al respirar y no hablar en una habitación
