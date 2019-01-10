@@ -21,6 +21,11 @@ export default {
     },
   },
 
+  info: {
+    faq: "Preguntas frecuentes y respuestas",
+    symptom_overview: "Resumen de los síntomas y efectos secundarios",
+  },
+
   symptom_overview: {
     title: "Resumen de los síntomas/efectos indeseables y estrategias para intentar en casa para reducir los efectos secundarios",
     intro_1: `

@@ -5,22 +5,19 @@ import { observer } from "mobx-react"
 import InternalLink from "../primitives/InternalLink"
 import ListOfLinks from "../layouts/ListOfLinks"
 import Button from "../primitives/Button"
+import { white } from "../colors"
 
 import Faqs from "./Faqs"
 import SymptomOverview from "./SymptomOverview"
 
 const InfoEd = observer(({ store }) => (
   <Layout>
-    <Button as="div">
-      <InternalLink to={Faqs} store={store} >
-        Preguntas frecuentes<br /> y respuestas
-      </InternalLink>
+    <Button as={InternalLink} to={Faqs} store={store} >
+      {store.translate("info.faq")}
     </Button>
 
-    <Button as="div">
-      <InternalLink to={SymptomOverview} store={store} >
-        Resumen de los síntomas<br /> y efectos secundarios
-      </InternalLink>
+    <Button as={InternalLink} to={SymptomOverview} store={store} >
+      {store.translate("info.symptom_overview")}
     </Button>
   </Layout>
 ))

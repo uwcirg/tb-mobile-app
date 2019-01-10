@@ -15,6 +15,9 @@ export default ({ store, to, children, ...props }) => (
       }
     }}
 
+    // This is the main thing.
+    // It renders it as a valid `<a href="/.../...">link</a>`.
+    // Any extra attributes get passed through to the `a` tag.
     href={to && to.route}
     {...props}
   >
