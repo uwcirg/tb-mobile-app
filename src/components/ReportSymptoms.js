@@ -23,16 +23,55 @@ const ReportSymptoms = observer(({ store, survey }) => (
     <Hidden visible={store.survey_anySymptoms} >
       <p>{store.translate("survey.symptoms.prompt")}</p>
 
-      <Label><Checkbox /><span>{store.translate("survey.symptoms.nausea")}</span></Label>
-      <Label><Checkbox /><span>{store.translate("survey.symptoms.redness")}</span></Label>
-      <Label><Checkbox /><span>{store.translate("survey.symptoms.hives")}</span></Label>
-      <Label><Checkbox /><span>{store.translate("survey.symptoms.fever")}</span></Label>
-      <Label><Checkbox /><span>{store.translate("survey.symptoms.appetite_loss")}</span></Label>
-      <Label><Checkbox /><span>{store.translate("survey.symptoms.blurred_vision")}</span></Label>
-      <Label><Checkbox /><span>{store.translate("survey.symptoms.upset_stomach")}</span></Label>
-      <Label><Checkbox /><span>{store.translate("survey.symptoms.yellow_coloration")}</span></Label>
-      <Label><Checkbox /><span>{store.translate("survey.symptoms.difficulty_breathing")}</span></Label>
-      <Label><Checkbox /><span>{store.translate("survey.symptoms.facial_swelling")}</span></Label>
+      <Label>
+        <Checkbox checked={store.nausea} onChange={(e) => store.nausea = e.target.checked } />
+        <span>{store.translate("survey.symptoms.nausea")}</span>
+      </Label>
+
+      <Label>
+        <Checkbox checked={store.redness} onChange={(e) => store.redness = e.target.checked} />
+        <span>{store.translate("survey.symptoms.redness")}</span>
+      </Label>
+
+      <Label>
+        <Checkbox checked={store.hives} onChange={(e) => store.hives = e.target.checked} />
+        <span>{store.translate("survey.symptoms.hives")}</span>
+      </Label>
+
+      <Label>
+        <Checkbox checked={store.fever} onChange={(e) => store.fever = e.target.checked} />
+        <span>{store.translate("survey.symptoms.fever")}</span>
+      </Label>
+
+      <Label>
+        <Checkbox checked={store.appetite_loss} onChange={(e) => store.appetite_loss = e.target.checked} />
+        <span>{store.translate("survey.symptoms.appetite_loss")}</span>
+      </Label>
+
+      <Label>
+        <Checkbox checked={store.blurred_vision} onChange={(e) => store.blurred_vision = e.target.checked} />
+        <span>{store.translate("survey.symptoms.blurred_vision")}</span>
+      </Label>
+
+      <Label>
+        <Checkbox checked={store.sore_belly} onChange={(e) => store.sore_belly = e.target.checked} />
+        <span>{store.translate("survey.symptoms.upset_stomach")}</span>
+      </Label>
+
+      <Label>
+        <Checkbox checked={store.yellow_coloration} onChange={(e) => store.yellow_coloration = e.target.checked} />
+        <span>{store.translate("survey.symptoms.yellow_coloration")}</span>
+      </Label>
+
+      <Label>
+        <Checkbox checked={store.difficulty_breathing} onChange={(e) => store.difficulty_breathing = e.target.checked} />
+        <span>{store.translate("survey.symptoms.difficulty_breathing")}</span>
+      </Label>
+
+      <Label>
+        <Checkbox checked={store.facial_swelling} onChange={(e) => store.facial_swelling = e.target.checked} />
+        <span>{store.translate("survey.symptoms.facial_swelling")}</span>
+      </Label>
 
       <TextFieldLabel>
         <span>{store.translate("survey.symptoms.other")}:</span>
