@@ -8,7 +8,7 @@ import { grey, darkgrey, white, red } from "../colors"
 
 import Icon from "../primitives/Icon"
 
-import Select from "../primitives/Select"
+import Selection from "../primitives/Selection"
 
 const Menu = observer(({ store }) => (
   <Sidebar.Container>
@@ -35,10 +35,10 @@ const Menu = observer(({ store }) => (
             <Question>
               <Icon name="Language" mdi="web" />
 
-              <Select
-                current={() => store.language}
+              <Selection
+                update={() => store.language}
                 options={["Español", "English"]}
-                onChange={(selection) => store.setLanguage(selection)}
+                onChange={(selection) => store.language = selection}
               />
             </Question>
 

@@ -53,10 +53,7 @@ class Store {
   @observable uploadedImages = []
 
   @observable language = "Español"
-
-  @action setLanguage(lang) {
-    this.language = lang
-  }
+  @observable survey_anySymptoms = false
 
   constructor() {
     this.assemble.watch("cirg")`
