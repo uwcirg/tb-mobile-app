@@ -34,10 +34,10 @@ const ReportSymptoms = observer(({ store, survey }) => (
       <Label><Checkbox /><span>{store.translate("survey.symptoms.difficulty_breathing")}</span></Label>
       <Label><Checkbox /><span>{store.translate("survey.symptoms.facial_swelling")}</span></Label>
 
-      <Label>
+      <TextFieldLabel>
         <span>{store.translate("survey.symptoms.other")}:</span>
         <TextInput />
-      </Label>
+      </TextFieldLabel>
     </Hidden>
   </Layout>
 ))
@@ -52,8 +52,13 @@ const Choice = styled.div`
 
 const Label = styled.label`
   display: grid;
-  grid-template-columns: 5rem auto;
+  grid-template-columns: 2rem auto;
   padding-bottom: 0.5rem;
+`
+
+const TextFieldLabel = styled(Label)`
+  grid-template-columns: 5rem auto;
+  margin-top: 1rem;
 `
 
 const TextInput = styled(Input)`
@@ -61,9 +66,7 @@ const TextInput = styled(Input)`
   border: 1px solid ${grey};
 `
 
-const Checkbox = styled(Input).attrs({
-  type: "checkbox",
-})`
+const Checkbox = styled(Input).attrs({ type: "checkbox" })`
   height: 1rem;
 `
 
