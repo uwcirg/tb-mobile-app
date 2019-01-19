@@ -27,7 +27,7 @@ const Survey = observer(({ store }) => (
     <Tabs.Container>
       {state => (
         <Card>
-          <Tabs as={Row}>
+          <Tabs as={Row} marginBottom="1rem">
             <MultiButton>
               <Tab tab="medication" {...state} >
                 <Icon path={mdiPill} size={1} />

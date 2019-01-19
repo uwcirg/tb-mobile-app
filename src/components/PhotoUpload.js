@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
 import DropZone from "react-dropzone"
+import Heading from "../primitives/Heading"
 
 import {
   mdiCheckCircle,
@@ -14,7 +15,7 @@ import DateTime from "../primitives/DateTime"
 
 const PhotoUpload = observer(({ store }) => (
   <Layout>
-    <h1>{store.translate("survey.upload.title")}</h1>
+    <Heading>{store.translate("survey.upload.title")}</Heading>
 
     <DateTime
       store={store}
