@@ -5,10 +5,19 @@ import { beige, darkgrey } from "./colors"
 
 import BottomNav from "./components/BottomNav"
 import TopBar from "./components/TopBar"
+import Flash from "./components/Flash"
 
 const App = observer(({ store }) => (
   <Layout>
-    <TopBar store={store} />
+    <TopBar store={store} >
+      {store.alerts.map(alert => (
+        <Flash
+          key={alert}
+          message={alert}
+          onDismiss={() => store.dismissAlert(alert)}
+        />
+      ))}
+    </TopBar>
 
     <Layout.Main>
       {React.createElement(store.currentPage, { store: store })}

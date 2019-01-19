@@ -2,6 +2,7 @@ import { observable, computed, action } from "mobx";
 import moment from "moment"
 import auth from "./oauth2"
 import { Client } from "minio"
+import { autorun } from "mobx"
 
 import Assemble from "./Assemble"
 import "moment-transform"
@@ -55,6 +56,8 @@ class Store {
   @observable language = "Español"
   @observable survey_anySymptoms = false
 
+  @observable alerts = []
+
   constructor() {
     this.assemble.watch("cirg")`
       user.medication_reports.map { |r| { date: r.timestamp } }
@@ -101,6 +104,23 @@ class Store {
           this.notes = notes
         }))
     })
+
+    autorun(() => {
+      if (this.difficulty_breathing === true)
+        this.alert("Please contact a medical provider immediately.")
+    })
+  }
+
+  @action alert(message) {
+    this.alerts.push(message)
+  }
+
+  @action dismissAlert(message) {
+    var index = this.alerts.indexOf(message);
+
+    if (index > -1) {
+      this.alerts.splice(index, 1);
+    }
   }
 
   @action loadSession() {

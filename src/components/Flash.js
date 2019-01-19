@@ -11,7 +11,7 @@ import { Hidden } from "reakit"
 // Properties:
 //  `mesage`
 //  `color` (visual, optional)
-const Flash = observer(({ message, color }) => (
+const Flash = observer(({ message, color, onDismiss }) => (
   <Hidden.Container initialState={{ visible: true, unmount: true }}>
     { hidden => (
       <Layout {...hidden} fade color={color}>
@@ -20,7 +20,7 @@ const Flash = observer(({ message, color }) => (
         </Message>
 
         <Hidden.Hide {...hidden}>
-          <Icon path={mdiClose} size="1rem" color={darkgrey} />
+          <Icon path={mdiClose} size="1rem" color={darkgrey} onClick={onDismiss} />
         </Hidden.Hide>
       </Layout>
     )}
@@ -41,12 +41,14 @@ const Layout = styled(Hidden)`
   padding: 0.5rem;
 
   border-radius: 2px;
-  border-bottom: 2px solid rgba(100, 100, 100, 0.2);
-  border-left: 2px solid rgba(100, 100, 100, 0.2);
-  border-right: 2px solid rgba(100, 100, 100, 0.2);
+  border-bottom: 2px solid rgba(100, 100, 100, 0.5);
+  border-left: 2px solid rgba(100, 100, 100, 0.5);
+  border-right: 2px solid rgba(100, 100, 100, 0.5);
 
   display: flex;
   justify-content: space-between;
+
+  z-index: 100;
 `
 
 const Message = styled.p`
