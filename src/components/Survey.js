@@ -13,11 +13,7 @@ import {
   mdiCamera,
   mdiFormatListChecks,
   mdiPill,
-  mdiClock,
 } from "@mdi/js"
-
-import Date from "../primitives/Date"
-import Time from "../primitives/Time"
 
 import ReportMedication from "./ReportMedication"
 import ReportSymptoms from "./ReportSymptoms"
@@ -28,20 +24,6 @@ import IconKey from "./IconKey"
 
 const Survey = observer(({ store }) => (
   <Layout>
-    <Row>
-      <FortyPercent>
-        <Date store={store} path="survey_date" />
-      </FortyPercent>
-
-      <TwentyPercent>
-        <Icon path={mdiClock} size={1} color={darkgrey} />
-      </TwentyPercent>
-
-      <FortyPercent>
-        <Time store={store} path="survey_medication_time" />
-      </FortyPercent>
-    </Row>
-
     <Tabs.Container>
       {state => (
         <Card>
@@ -114,16 +96,6 @@ const Card = styled.div`
   border: 2px solid rgba(100, 100, 100, 50%);
   padding: 0.5rem;
   background-color: ${white};
-`
-
-const FortyPercent = styled.div`
-  overflow: hidden;
-  width: 40%;
-`
-
-const TwentyPercent = styled.div`
-  text-align: center;
-  width: 20%;
 `
 
 const Tab = styled(Tabs.Tab)`

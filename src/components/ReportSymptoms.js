@@ -6,6 +6,8 @@ import { grey, white } from "../colors"
 import Button from "../primitives/Button"
 import Selection from "../primitives/Selection"
 
+import DateTime from "../primitives/DateTime"
+
 const translations =  { true: "Sí", false: "No" }
 
 const ReportSymptoms = observer(({ store, survey }) => (
@@ -13,6 +15,12 @@ const ReportSymptoms = observer(({ store, survey }) => (
     <h1>{store.translate("survey.symptoms.title")}</h1>
 
     <p>{store.translate("survey.symptoms.since_last")}</p>
+
+    <DateTime
+      store={store}
+      date_path="survey_date"
+      time_path="survey_medication_time"
+    />
 
     <Selection
       update={() => translations[store.survey_anySymptoms]}
@@ -82,6 +90,8 @@ const ReportSymptoms = observer(({ store, survey }) => (
 ))
 
 const Layout = styled.div`
+  display: grid;
+  grid-row-gap: 1rem;
 `
 
 const Choice = styled.div`

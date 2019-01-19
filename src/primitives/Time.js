@@ -3,6 +3,7 @@ import styled from "styled-components"
 import moment from "moment"
 import { observer } from "mobx-react"
 import { action, observable, computed } from "mobx"
+import { darkgrey } from "../colors"
 
 const blue = "#4a90e2"
 
@@ -117,6 +118,7 @@ function pad(num, size) {
 
 const TimeInput = styled.input`
   padding: 0.5rem;
+  border: 1px solid ${darkgrey};
 `
 
 const Wrapper = styled.div`
@@ -132,10 +134,10 @@ const TouchInput = styled.div`
   position: fixed;
   width: 10rem;
   z-index: 1;
+  border: 1px solid ${darkgrey};
 `
 
 const Scroll = styled.div`
-  border: 1px solid grey;
   overflow-y: scroll;
 `
 

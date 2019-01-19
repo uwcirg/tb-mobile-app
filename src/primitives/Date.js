@@ -35,6 +35,7 @@ const DateBox = styled.div`
   background-color: ${white};
   color: ${darkgrey};
   padding: 0.5rem;
+  border: 1px solid ${darkgrey};
 `
 
 export default Date

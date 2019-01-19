@@ -10,9 +10,17 @@ import {
 import { Icon } from "@mdi/react"
 import { blue, darkgrey } from "../colors"
 
+import DateTime from "../primitives/DateTime"
+
 const PhotoUpload = observer(({ store }) => (
-  <div>
+  <Layout>
     <h1>{store.translate("survey.upload.title")}</h1>
+
+    <DateTime
+      store={store}
+      date_path="survey_date"
+      time_path="survey_medication_time"
+    />
 
     <DropZone
       accept={["image/jpeg", "image/png"]}
@@ -35,8 +43,13 @@ const PhotoUpload = observer(({ store }) => (
         </Image>
       )}
     </ImagePreviews>
-  </div>
+  </Layout>
 ))
+
+const Layout = styled.div`
+  display: grid;
+  grid-row-gap: 1rem;
+`
 
 const Image = styled.div`
   height: 4rem;
