@@ -50,8 +50,8 @@ const Survey = observer(({ store }) => (
 
             <Tabs.Buttons
               store={store}
-              primary={store.translate("survey.medication.yes")}
-              secondary={store.translate("survey.medication.no")}
+              primary={store.translate("survey.continue")}
+              secondary={store.translate("survey.skip")}
               onPrimary={() => store.reportMedication()}
               {...state}
             />

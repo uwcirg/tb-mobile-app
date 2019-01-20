@@ -30,7 +30,9 @@ const ReportSymptoms = observer(({ store, survey }) => (
     <Selection
       update={() => translations[store.survey_anySymptoms]}
       options={["Sí", "No"]}
-      onChange={(selection) => store.survey_anySymptoms = (selection == translations[true])}
+      onChange={(selection) => store.survey_anySymptoms = (
+        selection == translations[true]
+      )}
     />
 
     <Hidden visible={store.survey_anySymptoms} >
@@ -127,6 +129,7 @@ const Label = styled.label`
 const TextFieldLabel = styled(Label)`
   grid-template-columns: 5rem auto;
   margin-top: 1rem;
+  grid-column-gap: 1rem;
 `
 
 const TextInput = styled(Input)`

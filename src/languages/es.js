@@ -11,10 +11,14 @@ export default {
   },
 
   survey: {
-    medication: {
-      yes: "Tomo la medicacion hoy",
+    continue: "Continue",
+    skip: "Skip",
+
+    tookMedication: {
+      yes: "Tomo la medicacion hoy.",
       no: "No tomo hoy.",
       title: "Reporta Medicación",
+      reason: "¿Por qué no tomo la medicación?",
     },
 
     symptoms: {

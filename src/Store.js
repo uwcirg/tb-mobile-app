@@ -55,6 +55,7 @@ class Store {
 
   @observable language = "Español"
   @observable survey_anySymptoms = false
+  @observable survey_tookMedication = true
 
   @observable alerts = []
 
