@@ -107,7 +107,7 @@ class Store {
 
     autorun(() => {
       if (this.difficulty_breathing === true)
-        this.alert("Please contact a medical provider immediately.")
+        this.alert("Llame a su médico o concurra a la guardia inmediatamente")
     })
   }
 

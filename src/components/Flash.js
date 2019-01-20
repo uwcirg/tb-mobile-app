@@ -12,7 +12,7 @@ import { Hidden } from "reakit"
 //  `mesage`
 //  `color` (visual, optional)
 const Flash = observer(({ message, color, onDismiss }) => (
-  <Hidden.Container initialState={{ visible: true, unmount: true }}>
+  <Hidden.Container zIndex="100" initialState={{ visible: true, unmount: true }}>
     { hidden => (
       <Layout {...hidden} fade color={color}>
         <Message>
