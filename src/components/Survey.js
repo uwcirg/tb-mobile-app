@@ -19,7 +19,7 @@ import ReportMedication from "./ReportMedication"
 import ReportSymptoms from "./ReportSymptoms"
 import PhotoUpload from "./PhotoUpload"
 
-import Help from "./Help"
+import Help from "../primitives/Help"
 import IconKey from "./IconKey"
 
 const Survey = observer(({ store }) => (

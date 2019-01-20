@@ -4,10 +4,14 @@ import { observer } from "mobx-react"
 import { Hidden, Input } from "reakit"
 import { grey, white } from "../colors"
 
+import hives from "../images/hives.jpg"
+import rash from "../images/rash.jpg"
+
 import Button from "../primitives/Button"
 import Selection from "../primitives/Selection"
 import Heading from "../primitives/Heading"
 import DateTime from "../primitives/DateTime"
+import Help from "../primitives/Help"
 
 const translations =  { true: "Sí", false: "No" }
 
@@ -40,11 +44,25 @@ const ReportSymptoms = observer(({ store, survey }) => (
       <Label>
         <Checkbox checked={store.redness} onChange={(e) => store.redness = e.target.checked} />
         <span>{store.translate("survey.symptoms.redness")}</span>
+
+        <Help>
+          <Image
+            src={rash}
+            alt="Rash: Speckled red areas on the skin, spreading over a larger area and not grouped into patches."
+          />
+        </Help>
       </Label>
 
       <Label>
         <Checkbox checked={store.hives} onChange={(e) => store.hives = e.target.checked} />
         <span>{store.translate("survey.symptoms.hives")}</span>
+
+        <Help>
+          <Image
+            src={hives}
+            alt="Hives: raised red patches on the skin, the size of coins or larger."
+          />
+        </Help>
       </Label>
 
       <Label>
@@ -102,7 +120,7 @@ const Choice = styled.div`
 
 const Label = styled.label`
   display: grid;
-  grid-template-columns: 2rem auto;
+  grid-template-columns: 2rem auto 2rem;
   padding-bottom: 0.5rem;
 `
 
@@ -118,6 +136,10 @@ const TextInput = styled(Input)`
 
 const Checkbox = styled(Input).attrs({ type: "checkbox" })`
   height: 1rem;
+`
+
+const Image = styled.img`
+  width: 100%;
 `
 
 export default ReportSymptoms
