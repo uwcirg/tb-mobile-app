@@ -1,21 +1,21 @@
 import { observable, computed, action } from "mobx";
 import moment from "moment"
-import auth from "./oauth2"
+import auth from "../oauth2"
 import { Client } from "minio"
 import { autorun } from "mobx"
 
-import Assemble from "./Assemble"
+import Assemble from "../Assemble"
 import "moment-transform"
 
-import Login from "./Login"
-import Home from "./components/Home"
-import Faqs from "./components/Faqs"
-import InfoEd from "./components/InfoEd"
-import SymptomOverview from "./components/SymptomOverview"
-import Notes from "./components/Notes"
+import Login from "../Login"
+import Home from "../components/Home"
+import Faqs from "../components/Faqs"
+import InfoEd from "../components/InfoEd"
+import SymptomOverview from "../components/SymptomOverview"
+import Notes from "../components/Notes"
 
-import espanol from "./languages/es"
-import english from "./languages/en"
+import espanol from "../languages/es"
+import english from "../languages/en"
 
 class Store {
   assemble = new Assemble(``)
@@ -60,6 +60,7 @@ class Store {
   @observable survey_tookMedication = true
 
   @observable alerts = []
+  @observable provider = null
 
   constructor() {
     this.assemble.watch("cirg")`

@@ -1,8 +1,11 @@
 import Aviator from "aviator"
 import { autorun } from "mobx"
 
-import Faqs from "./components/Faqs"
 import Home from "./components/Home"
+import Provider from "./sessions/Provider"
+import ProviderHome from "./components/ProviderHome"
+
+import Faqs from "./components/Faqs"
 import InfoEd from "./components/InfoEd"
 import Notes from "./components/Notes"
 import Survey from "./components/Survey"
@@ -10,14 +13,18 @@ import SymptomOverview from "./components/SymptomOverview"
 
 export const startRouter = (store) => {
   Aviator.setRoutes({
-    "/": () => store.showPage(Home),
+    "/": () => store.currentPage = Home,
+    "/provider": () => {
+      store.currentPage = ProviderHome
+      store.provider = new Provider()
+    },
 
-    "/info/faqs": () => store.showPage(Faqs),
-    "/info/symptom-overview": () => store.showPage(SymptomOverview),
-    "/info": () => store.showPage(InfoEd),
+    "/info/faqs": () => store.currentPage = Faqs,
+    "/info/symptom-overview": () => store.currentPage = SymptomOverview,
+    "/info": () => store.currentPage = InfoEd,
 
-    "/notes": () => store.showPage(Notes),
-    "/survey": () => store.showPage(Survey),
+    "/notes": () => store.currentPage = Notes,
+    "/survey": () => store.currentPage = Survey,
 
     "/redirect": (params) => store.complete_oauth_flow(params),
   })

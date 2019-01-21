@@ -3,13 +3,20 @@ import ReactDOM from "react-dom"
 import registerServiceWorker from "./registerServiceWorker"
 
 import App from "./App"
-import Store from "./Store"
 import { startRouter } from "./Router"
 
-let store = new Store(fetch)
-window.store = store
-store.loadSession()
-startRouter(store)
+import Patient from "./sessions/Patient"
+import Provider from "./sessions/Provider"
 
-ReactDOM.render(<App store={store} />, document.getElementById('root'));
+let patient = new Patient(fetch)
+let provider = new Provider(fetch)
+
+startRouter(patient)
+patient.loadSession()
+
+ReactDOM.render(
+  <App store={patient} />,
+  document.getElementById('root')
+);
+
 registerServiceWorker();
