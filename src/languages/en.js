@@ -529,5 +529,86 @@ export default {
         },
       },
     },
+
+    q8: {
+      question: "How can I avoid transmitting Tuberculosis?",
+
+      answer: {
+        1: `
+          La forma principal de evitar transmitir la tuberculosis es tomar todos sus medicamentos,
+          siguiendo exactamente las indicaciones de su médico o enfermera.
+          ¡También es necesario que vaya a todas sus citas médicas!
+          Su médico o enfermera debe ver cómo evoluciona su estado.a
+          Es posible que necesite otra radiografía de tórax
+          o un análisis de las flemas que expulsa al toser.
+          Estas pruebas mostrarán si los medicamentos están funcionando.
+          También indicarán si usted todavía puede contagiar la tuberculosis a otras personas.
+          Asegúrese de informar a su médico si piensa que algo anda mal.
+          `,
+        2: `
+          Si su enfermedad es contagiosa y permanece en su casa, hay ciertas medidas que puede tomar para proteger a las personas que estén cerca de usted:
+          `,
+        3: {
+          1: `
+            Tómese los medicamentos según las indicaciones. ¡Eso es muy importante!
+            `,
+          2: `
+            Cúbrase la boca con un pañuelo desechable siempre que tosa, estornude o se ría.
+            Eche el pañuelo usado en una bolsa, ciérrela y bótela.
+            `,
+          3: `
+            Se puede evitar más transmisión con el uso de un barbijo
+            hasta que en el control del catarro, éste ya se vuelva negativo.
+          `,
+          4: `
+            Es muy importante el estudio de los contactos,
+            en especial, los menores de 15 años y dentro de este grupo los más pequeños,
+            los menores de 5 años.
+            Es un grupo de edad prioritario,
+            el cual es necesario evaluar e indicarles un tratamiento preventivo o profilaxis,
+            en los que se descartó la enfermedad.
+            `,
+          5: `
+            Ventile su habitación con frecuencia dejando entrar aire de la calle
+            (si no hace demasiado frío afuera).
+            La tuberculosis se propaga en los espacios pequeños cerrados
+            donde no circula aire.
+            Coloque un ventilador en la ventana para extraer el aire
+            que pueda contener gran cantidad de bacterias de tuberculosis.
+            Si abre otras ventanas de la habitación,
+            el ventilador también permitirá el ingreso de aire fresco.
+            Esto reducirá las probabilidades de que las bacterias de tuberculosis
+            permanezcan en la habitación e infecten a las personas que respiren ese aire.
+            `,
+        },
+
+        4: `
+          Recuerde, la tuberculosis se propaga por el aire.
+          Las personas no pueden infectarse con las bacterias de la tuberculosis por darse la mano,
+          sentarse en un inodoro o compartir platos y utensilios
+          con alguien que tenga tuberculosis.
+          `,
+
+        5: `
+          Después de tomar sus medicamentos durante unas 2 o 3 semanas,
+          es posible que usted ya no contagie las bacterias de la tuberculosis a otras personas.
+          Si su médico o enfermera están de acuerdo, podrá volver a su rutina diaria.
+          Recuerde que solo mejorará si toma sus medicamentos
+          siguiendo exactamente las indicaciones de su médico o enfermera.
+          `,
+
+        6: `
+          Piense en las personas que pueden haber pasado tiempo con usted,
+          como familiares, amigos cercanos y compañeros de trabajo.
+          Lo más importante es evaluar a los contactos
+          e identificar signos y síntomas sospechosos de TB.
+          En los contactos sintomáticos respiratorios se deberá solicitor el examen del catarro.
+          La tuberculosis es especialmente peligrosa en los niños
+          y las personas con la infección por el VIH.
+          Si están infectadas por las bacterias de la tuberculosis,
+          estas personas deben tomar medicamentos de inmediato para evitar la enfermedad de tuberculosis.
+          `,
+      }
+    },
   },
 }

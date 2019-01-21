@@ -175,6 +175,30 @@ const FAQs = observer(({ store }) => (
         </Bullets>
       </Answer>
     </Fold>
+
+    <Fold>
+      <Question>
+        {store.translate("faqs.q8.question")}
+      </Question>
+
+      <Answer>
+        <P>{store.translate("faqs.q8.answer.1")}</P>
+
+        <P>{store.translate("faqs.q8.answer.2")}</P>
+
+        <Bullets>
+          <Bullet>{store.translate("faqs.q8.answer.3.1")}</Bullet>
+          <Bullet>{store.translate("faqs.q8.answer.3.2")}</Bullet>
+          <Bullet>{store.translate("faqs.q8.answer.3.3")}</Bullet>
+          <Bullet>{store.translate("faqs.q8.answer.3.4")}</Bullet>
+          <Bullet>{store.translate("faqs.q8.answer.3.5")}</Bullet>
+        </Bullets>
+
+        <P>{store.translate("faqs.q8.answer.4")}</P>
+        <P>{store.translate("faqs.q8.answer.5")}</P>
+        <P>{store.translate("faqs.q8.answer.6")}</P>
+      </Answer>
+    </Fold>
   </Layout>
 ))
 

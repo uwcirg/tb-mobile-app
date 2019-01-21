@@ -35,26 +35,26 @@ const SymptomOverview = observer(({ store }) => (
       </Heading>
 
       <Bullets>
-        <Bullet>{store.translate("symptom_overview.grave.failing_appetite")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.grave.nausea")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.grave.vomiting")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.grave.yellow_coloration")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.grave.fever_3_or_more_days")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.grave.abdominal_pain")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.grave.placeholder_1")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.grave.placeholder_2")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.grave.placeholder_3")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.grave.placeholder_4")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.grave.placeholder_5")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.grave.placeholder_6")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.grave.placeholder_7")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.grave.placeholder_8")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.grave.joint_pain")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.grave.placeholder_9")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.grave.placeholder_10")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.grave.changes_in_vision")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.grave.placeholder_11")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.grave.loss_of_hearing")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.serio.failing_appetite")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.serio.nausea")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.serio.vomiting")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.serio.yellow_coloration")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.serio.fever_3_or_more_days")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.serio.abdominal_pain")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.serio.placeholder_1")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.serio.placeholder_2")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.serio.placeholder_3")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.serio.placeholder_4")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.serio.placeholder_5")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.serio.placeholder_6")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.serio.placeholder_7")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.serio.placeholder_8")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.serio.joint_pain")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.serio.placeholder_9")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.serio.placeholder_10")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.serio.changes_in_vision")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.serio.placeholder_11")}</Bullet>
+        <Bullet>{store.translate("symptom_overview.serio.loss_of_hearing")}</Bullet>
       </Bullets>
     </Fold>
 
