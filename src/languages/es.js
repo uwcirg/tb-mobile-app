@@ -18,7 +18,7 @@ export default {
       yes: "Ya tomé mi medicación",
       no: " Hoy no tomé mi medicación",
       title: "Reporte de medicación",
-      reason: "¿Por qué no tomo la medicación?",
+      reason: "¿Por qué no tomo su medicación?",
     },
 
     symptoms: {

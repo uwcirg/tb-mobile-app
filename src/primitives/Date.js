@@ -5,8 +5,8 @@ import Calendar from "react-calendar"
 import moment from "moment"
 import { Popover, Button } from "reakit"
 
+import Callout from "../primitives/Callout"
 import { darkgrey, white } from "../colors"
-import "../augments/Popover"
 
 const Date = observer(({ store, path }) => (
   <Popover.Container>
@@ -18,14 +18,12 @@ const Date = observer(({ store, path }) => (
           </DateBox>
         </Button>
 
-        <Popover.Rectangle fade slide hideOnClickOutside {...state}>
-          <Popover.Arrow fillColor="white" strokeColor="rgba(50, 50, 50, 0.5)" />
-
+        <Callout {...state}>
           <Calendar onClickDay={date => {
             store[path] = moment(date)
             state.hide()
           } } />
-        </Popover.Rectangle>
+        </Callout>
       </div>
     ) }
   </Popover.Container>

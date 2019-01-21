@@ -62,8 +62,8 @@ const Survey = observer(({ store }) => (
 
             <Tabs.Buttons
               store={store}
-              primary={store.translate("survey.symptoms.continue")}
-              secondary={store.translate("survey.symptoms.skip")}
+              primary={store.translate("survey.continue")}
+              secondary={store.translate("survey.skip")}
               onPrimary={() => store.reportSymptoms()}
               {...state}
             />
@@ -89,6 +89,7 @@ const Survey = observer(({ store }) => (
 const Layout = styled.div`
   display: grid;
   grid-row-gap: 1rem;
+  overflow: hidden;
 `
 
 const Card = styled.div`

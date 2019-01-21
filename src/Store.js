@@ -50,6 +50,8 @@ class Store {
   @observable facial_swelling = false
   @observable other = null
 
+  @observable nausea_rating = 0
+
   // Current strip report
   @observable uploadedImages = []
 

@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
 import { Hidden, Input } from "reakit"
+import Callout from "../primitives/Callout"
 import { grey, white } from "../colors"
 
 import hives from "../images/hives.jpg"
@@ -12,6 +13,15 @@ import Selection from "../primitives/Selection"
 import Heading from "../primitives/Heading"
 import DateTime from "../primitives/DateTime"
 import Help from "../primitives/Help"
+
+import ImageLineup from "./ImageLineup"
+
+import nausea_0 from "../images/nausea_scale_0.png"
+import nausea_2 from "../images/nausea_scale_2.png"
+import nausea_4 from "../images/nausea_scale_4.png"
+import nausea_6 from "../images/nausea_scale_6.png"
+import nausea_8 from "../images/nausea_scale_8.png"
+import nausea_10 from "../images/nausea_scale_10.png"
 
 const translations =  { true: "Sí", false: "No" }
 
@@ -39,12 +49,52 @@ const ReportSymptoms = observer(({ store, survey }) => (
       <p>{store.translate("survey.symptoms.prompt")}</p>
 
       <Label>
-        <Checkbox checked={store.nausea} onChange={(e) => store.nausea = e.target.checked } />
+        <Checkbox
+          checked={store.nausea}
+          onChange={(e) => {
+            store.nausea = e.target.checked
+            store.nausea_rating = 0
+          }}
+        />
+
         <span>{store.translate("survey.symptoms.nausea")}</span>
+
+        <Hidden visible={store.nausea} >
+          {store.nausea_rating} / 10
+        </Hidden>
+
+        <Callout visible={store.nausea && !store.nausea_rating}>
+          <ImageLineup
+            store={store}
+            images={{
+              0: nausea_0,
+              2: nausea_2,
+              4: nausea_4,
+              6: nausea_6,
+              8: nausea_8,
+              10: nausea_10,
+            }}
+            alts={{
+              0: store.translate("survey.symptoms.nausea_ratings.0"),
+              2: store.translate("survey.symptoms.nausea_ratings.2"),
+              4: store.translate("survey.symptoms.nausea_ratings.4"),
+              6: store.translate("survey.symptoms.nausea_ratings.6"),
+              8: store.translate("survey.symptoms.nausea_ratings.8"),
+              10: store.translate("survey.symptoms.nausea_ratings.10"),
+            }}
+            onSelect={(selection) => {
+              store.nausea_rating = selection
+            }}
+          />
+        </Callout>
       </Label>
 
       <Label>
-        <Checkbox checked={store.redness} onChange={(e) => store.redness = e.target.checked} />
+        <Checkbox
+          checked={store.redness}
+          onChange={(e) => store.redness = e.target.checked}
+        />
+
         <span>{store.translate("survey.symptoms.redness")}</span>
 
         <Help>

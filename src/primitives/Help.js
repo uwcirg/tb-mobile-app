@@ -3,15 +3,14 @@ import styled from "styled-components"
 import { observer } from "mobx-react"
 
 import { Button, Popover } from "reakit"
-import "../augments/Popover"
-
-import { darkgrey, white } from "../colors"
-
 import { Icon, Stack } from "@mdi/react"
 import {
   mdiCircle,
   mdiHelp,
 } from "@mdi/js"
+
+import Callout from "./Callout"
+import { darkgrey, white } from "../colors"
 
 const Help = observer(({ children }) => (
   <Popover.Container>
@@ -22,16 +21,14 @@ const Help = observer(({ children }) => (
           <Icon size="1.2rem" path={mdiHelp} size={0.8} color={white} />
         </Stack>
 
-        <Popover.Rectangle fade slide hideOnClickOutside {...state}>
-          <Popover.Arrow fillColor={white} strokeColor="rgba(50, 50, 50, 0.5)" />
-          { children }
-        </Popover.Rectangle>
+        <Callout {...state}>{ children }</Callout>
       </HelpToggle>
     )}
   </Popover.Container>
 ))
 
 const HelpToggle = styled(Button)`
+  width: 2rem;
   flex-basis: 2rem;
   margin-left: 1rem;
 `
