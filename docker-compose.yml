@@ -22,41 +22,17 @@ services:
       - .:/usr/src
 
   web:
-    image: assembleapp/base
+    image: assemble/base
     environment:
-      # This `DATABASE_URL` environment variable gets verbose,
-      # and it's something that our developers
-      # will want very tight control over;
-      # everyone is working with different data,
-      # and it comes in all shapes and sizes.
-      #
-      # Text is *the* most flexible digital representation
-      # that we have for specifying data, bar none.
-      #
-      # This `data` variable,
-      # if added to the `docker-compose` spec,
-      # would be able to specify:
-      #
-      # * A URL to a remote database-as-a-service provider (`postgres://database.....org`)
-      # * A path to a persistant storage volume (`file://....txt`)
-      # * Private deployment information,
-      #   encoded as plaintext strings. (data:text/plain;charset=US-ASCII;base64,...===)
-      #
-      # data: postgres://postgres:postgres@db
-
-      - DATABASE_URL=postgres://postgres:postgres@db
+      - DATA=postgres://postgres:postgres@db
 
       - PASSWORD
       - PORT=3000
       - RAILS_ENV=development
-      - SELENIUM_HOST=selenium
-      - TEST_APP_HOST=frontend
-      - TEST_APP_PORT=3000
     ports:
       - $PORT_API:3000
     volumes:
       - ./server:/app
-      - frontend
     depends_on:
       - db
     working_dir: /app
