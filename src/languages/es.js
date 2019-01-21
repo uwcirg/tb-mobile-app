@@ -33,10 +33,10 @@ export default {
       difficulty_breathing: "Dificultad para respirar",
       facial_swelling: "Hinchazón de la cara, los labios, la lengua, o la garganta",
 
-      prompt: "Which symptoms?",
-      other: "Otra síntoma",
-      since_last: "Have you experienced symptoms or side effects since your last check-in?",
-      title: "Reporta Síntomas",
+      prompt: "¿Qué síntomas?",
+      other: "Otra efecto indeseable",
+      since_last: "¿Ha experimentado efectos indeseables desde su último registro?",
+      title: "Reporte de efectos indeseables",
 
       yes: "Sí",
       no: "No",
@@ -95,6 +95,10 @@ a la clínica para que le hagan estudios.
     grave_symptoms: `Los efectos secundarios que se indican a continuación
 se consideran graves.
 Requieren atención médica.`,
+
+    take_action_immediately: `
+      llame a su médico o concurra a la guardia inmediatamente.
+      `,
 
     serio: {
       failing_appetite: "Falta de apetito",

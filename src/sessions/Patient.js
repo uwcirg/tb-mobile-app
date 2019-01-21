@@ -110,8 +110,8 @@ class Store {
     })
 
     autorun(() => {
-      if (this.difficulty_breathing === true)
-        this.alert("Llame a su médico o concurra a la guardia inmediatamente")
+      if (this.difficulty_breathing || this.facial_swelling)
+        this.alert(this.translate("symptom_overview.take_action_immediately"))
     })
   }
 

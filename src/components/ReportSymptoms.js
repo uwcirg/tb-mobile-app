@@ -172,7 +172,7 @@ const Choice = styled.div`
 
 const Label = styled.label`
   display: grid;
-  grid-template-columns: 2rem auto 2rem;
+  grid-template-columns: 2rem auto 1rem;
   padding-bottom: 0.5rem;
 `
 

@@ -95,9 +95,14 @@ export default {
       a la clínica para que le hagan estudios.
       `,
     call_your_doctor_if: "Llame a su médico o concurra a la guardia de inmediato si tiene:",
+
     grave_symptoms: `Los efectos secundarios que se indican a continuación
                      se consideran graves.
                      Requieren intervención médica.`,
+
+    take_action_immediately: `
+      Call your doctor or go the the emergency department immediately.
+      `,
 
     grave: {
       failing_appetite: "Falta de apetito",
