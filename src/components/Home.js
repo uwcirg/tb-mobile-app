@@ -12,12 +12,13 @@ import {
 } from "@mdi/js"
 
 import IconKey from "./IconKey"
-import Calendar from "./Calendar"
 import Survey from "./Survey"
 
 import Help from "../primitives/Help"
 import Button from "../primitives/Button"
 import Row from "../primitives/Row"
+
+import Calendar from "./Calendar"
 
 const Home = observer(({ store }) => (
   <Layout>
@@ -35,7 +36,9 @@ const Home = observer(({ store }) => (
       <Help> <IconKey store={store} /> </Help>
     </Row>
 
-    <Calendar store={store} />
+    <Calendar
+      store={store}
+    />
   </Layout>
 ))
 
