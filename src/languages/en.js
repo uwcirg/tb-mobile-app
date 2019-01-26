@@ -1,619 +1,937 @@
 export default {
   home: {
-    title: "Start Here.",
-    survey: "Track Treatment",
+    title: `
+    Medication Tracking Home.
+    `,
+
+    survey: `
+    Track Treatment
+    `,
   },
 
   icons: {
-    medication: "Self-reported medication",
-    symptoms: "Self-reported symptoms",
-    photo: "Submitted photo of test strip",
+    medication: `
+    Log medication
+    `,
+
+    symptoms: `
+    Log side effects
+    `,
+
+    photo: `
+    Upload test strip image
+    `,
   },
 
   survey: {
-    continue: "Continue",
-    skip: "Skip",
+    continue: `
+    Continue
+    `,
+
+    skip: `
+    Skip
+    `,
 
     tookMedication: {
-      yes: "I took the medication today.",
-      no: "I did not take it today.",
-      title: "Report taking the medication",
-      reason: "Why did you not take the medication?",
+      yes: `
+      Take now
+      `,
+
+      no: `
+      Not taking today.
+      `,
+
+      title: `
+      Log Medication
+      `,
+
+      reason: `
+      Why did you not take the medicine?
+      `,
     },
 
     symptoms: {
-      nausea: "Náuseas o vómitos",
-      redness: "Enrojectimiento de la piel, granitos, picazón",
-      hives: "Urticaria",
-      fever: "Fiebre",
-      appetite_loss: "Pérdida de apetito",
-      blurred_vision: "Visión borrosa o cambios en la forma de ver los colores",
-      upset_stomach: "La barriga se siente sensible o dolorido",
-      yellow_coloration: "Coloración amarillenta en la piel o en la parte blanca de los ojos",
-      difficulty_breathing: "Dificultad para respirar",
-      facial_swelling: "Hinchazón de la cara, los labios, la lengua, o la garganta",
+      nausea: `
+      Nausea or vomiting
+      `,
 
-      prompt: "Which symptoms?",
-      other: "Otra síntoma",
-      since_last: "Have you experienced symptoms or side effects since your last check-in?",
-      title: "Reporta Síntomas",
+      redness: `
+      Swelling, redness, itching
+      `,
 
-      yes: "Sí",
-      no: "No",
+      hives: `
+      Hives
+      `,
 
-      continue: "Continuar",
-      skip: "Omitir",
+      fever: `
+      Fever
+      `,
+
+      appetite_loss: `
+      Loss of appetite
+      `,
+
+      blurred_vision: `
+      Blurred vision or changes in the way you see colors
+      `,
+
+      upset_stomach: `
+      Upset stomach
+      `,
+
+      yellow_coloration: `
+      Yellowing of the skin or whites of the eyes
+      `,
+
+      difficulty_breathing: `
+      Difficulty breathing
+      `,
+
+      facial_swelling: `
+      Swelling of the face, lips, tongue, or throat
+      `,
+
+      prompt: `
+      Which symptoms?
+      `,
+
+      other: `
+      Other symptom
+      `,
+
+      since_last: `
+      Have you experienced symptoms or side effects since your last check-in?
+      `,
+
+      title: `
+      Log Symptoms
+      `,
+
+      yes: `
+      Yes
+      `,
+
+      no: `
+      No
+      `,
+
+      continue: `
+      Continue
+      `,
+
+      skip: `
+      Skip
+      `,
     },
 
     upload: {
-      click_here: "Haga clic aquí para subir una foto.",
-      finished: "Uploaded",
-      title: "Carga la Foto",
-      continue: "Continuar",
-      skip: "Omitir",
+      click_here: `
+      Click here to upload a photo.
+      `,
+
+      finished: `
+      Uploaded
+      `,
+
+      title: `
+      Load the Photo
+      `,
+
+      continue: `
+      Continue
+      `,
+
+      skip: `
+      Skip
+      `,
     },
   },
 
   info: {
-    faq: "Frequently Asked Questions",
-    symptom_overview: "Overview of Symptoms and Side Effects",
+    faq: `
+    Frequently Asked Questions
+    `,
+
+    symptom_overview: `
+    Overview of Symptoms and Side Effects
+    `,
   },
 
   menu: {
-    name: "Name",
-    photo: "Photo",
-    phone: "Phone",
-    language: "Language",
-    treatment_start: "Treatment start date:",
-    time_zone: "Time zone",
+    name: `
+    Name
+    `,
+
+    photo: `
+    Photo
+    `,
+
+    phone: `
+    Phone
+    `,
+
+    language: `
+    Language
+    `,
+
+    treatment_start: `
+    Treatment start date:
+    `,
+
+    time_zone: `
+    Time zone
+    `,
   },
 
   notes: {
-    new: "New",
-    title: "Title",
-    body: "Write your notes here.",
-    hint: "Write your notes here.",
-    last_edited: "Last edited",
+    new: `
+    New
+    `,
+
+    title: `
+    Title
+    `,
+
+    body: `
+    Write your notes here.
+    `,
+
+    hint: `
+    Write your notes here.
+    `,
+
+    last_edited: `
+    Last edited
+    `,
   },
 
   symptom_overview: {
-    title: "Resumen de los síntomas/efectos indeseables y estrategias para intentar en casa para reducir los efectos secundarios",
+    title: `
+    Summary of side effects and strategies to try to reduce the side effects
+    `,
 
     intro_1: `
-      Los medicamentos utilizados pueden provocar algunos efectos indeseables.
-      ¿Qué hay que tener en cuenta para consultar con el equipo de salud?
-      ¿Qué efectos podrían presentarse y en qué casos debería consultar?
-      `,
-    intro_2: `
-      La mayoría de las personas pueden tomar los medicamentos para la TB sin ningún problema.
-      `,
-    intro_3: `
-      Algunos efectos secundarios son mínimos y otros son más serios.
-      Si tiene un efecto secundario grave,
-      *llame a su médico o concurra a la guardia inmediatamente*.
-      Es posible que le indiquen que deje de tomar sus medicamentos o que vaya
-      a la clínica para que le hagan estudios.
-      `,
-    call_your_doctor_if: "Llame a su médico o concurra a la guardia de inmediato si tiene:",
+    The medication used to treat TB can cause some undesirable effects.
+    What should be taken into account before consulting the health team?
+    What effects could arise and in what cases should I seek care?
+    `,
 
-    grave_symptoms: `Los efectos secundarios que se indican a continuación
-                     se consideran graves.
-                     Requieren intervención médica.`,
+    intro_2: `
+    Most people can take TB medications without any problem.
+    `,
+
+    intro_3: `
+    Some side effects are minimal and others are more serious.
+    If you have a serious side effect,
+    * Call your doctor or go to the emergency department immediately *.
+    You may be told to stop taking your medications or to go
+    to the clinic for studies.
+    `,
+
+    call_your_doctor_if: `
+    Call your doctor or go to the emergency department immediately if you have:
+    `,
+
+
+    grave_symptoms: `
+    The side effects listed below
+    they are considered serious.
+    They require medical intervention.
+    `,
 
     take_action_immediately: `
-      Call your doctor or go the the emergency department immediately.
+    Call your doctor or go to the emergency department a la guardia immediately.
+    `,
+
+    serio: {
+      failing_appetite: `
+      No appetite
       `,
 
-    grave: {
-      failing_appetite: "Falta de apetito",
-      nausea: "Náuseas",
-      vomiting: "Vómito",
-      yellow_coloration: "Coloración amarilla de la piel o los ojos",
-      fever_3_or_more_days: "Fiebre durante 3 o más días",
-      abdominal_pain: "Dolor abdominal",
-      placeholder_1: "Sensación de hormigueo en los dedos de las manos o de los pies",
-      placeholder_2: "Dolor en la parte inferior del pecho y acidez estomacal",
-      placeholder_3: "Comezón",
-      placeholder_4: "Sarpullido",
-      placeholder_5: "Aparición fácil de moretones",
-      placeholder_6: "Sangrado en las encías",
-      placeholder_7: "Sangrado en la nariz",
-      placeholder_8: "Orina oscura o de color café",
-      joint_pain: "Dolor en las articulaciones",
-      placeholder_9: "Mareo",
-      placeholder_10: "Sensación de hormigueo o entumecimiento alrededor de la boca",
-      changes_in_vision: "Vista borrosa o cambios en la vista",
-      placeholder_11: "Zumbido en los oídos",
-      loss_of_hearing: "Pérdida de la audición",
+      nausea: `
+      Nausea
+      `,
+
+      vomiting: `
+      Vomiting
+      `,
+
+      yellow_coloration: `
+      Yellow coloring of the skin or eyes
+      `,
+
+      fever_3_or_more_days: `
+      Fever for 3 or more days
+      `,
+
+      abdominal_pain: `
+      Abdominal pain
+      `,
+
+      placeholder_1: `
+      Sensation of tingling in the fingers or toes
+      `,
+
+      placeholder_2: `
+      Pain in the lower part of the chest and heartburn
+      `,
+
+      placeholder_3: `
+      Itching
+      `,
+
+      placeholder_4: `
+      Rash
+      `,
+
+      placeholder_5: `
+      Easy appearance of bruises
+      `,
+
+      placeholder_6: `
+      Bleeding in the gums
+      `,
+
+      placeholder_7: `
+      Bleeding in the nose
+      `,
+
+      placeholder_8: `
+      Dark or brown urine
+      `,
+
+      joint_pain: `
+      Pain in the joints
+      `,
+
+      placeholder_9: `
+      Dizziness
+      `,
+
+      placeholder_10: `
+      Sensation of tingling or numbness around the mouth
+      `,
+
+      changes_in_vision: `
+      Blurred view or changes in view
+      `,
+
+      placeholder_11: `
+      Ringing in the ears
+      `,
+
+      loss_of_hearing: `
+      Hearing loss
+      `,
     },
 
     q2: {
       heading: `
-        Los efectos secundarios a continuación se consideran leves.
-        No requieren intervención médica.
-        `,
+      The side effects below are considered mild.
+      They do not require medical intervention.
+      `,
 
-      take_medication: "Si tiene alguno de estos efectos secundarios, puede seguir tomando sus medicamentos.",
-      rifampicina: "La rifampicina puede:",
+      take_medication: `
+      If you have any of these side effects,
+      you can continue taking your medications.
+      `,
+
+      rifampicin: `
+      Rifampicin can:
+      `,
 
       bullet_1: `
-        Hacer que la orina, la saliva o las lágrimas tengan una coloración
-        naranja. Es posible que el equipo de salud le aconsejen que no use
-        lentes de contacto blandos porque pueden mancharse.
+      Make the urine, saliva or tears turn an orange color.
+      The health team may advise you not to use soft contact lenses
+      because they can get stained.
       `,
+
       bullet_2: `
-        Aumentar su sensibilidad al sol. Esto significa que debe usar un buen
-        filtro solar y cubrir las áreas expuestas para evitar quemaduras.
+      Increase your sensitivity to the sun.
+      This means that you must use a good sunscreen
+      and cover the exposed areas to avoid burns.
       `,
+
       bullet_3: `
-        Hacer que las píldoras y los implantes anticonceptivos sean menos
-        eficaces. Las mujeres que toman rifampicina deben usar otro método
-        anticonceptivo.
+      Make contraceptive pills and implants less effective.
+      Women who take rifampicin should use another contraceptive method.
       `,
+
       bullet_4: `
-        Si usted está tomando rifampicina y metadona (que se usa para tratar
-        las adicciones), es posible que tenga síntomas de abstinencia. Su
-        médico o enfermera tal vez tengan que ajustarle la dosis de metadona.
+      If you are taking rifampicin and methadone (used to treat addictions),
+      you may have withdrawal symptoms.
+      Your doctor or nurse may have to adjust the dose of methadone.
       `,
     },
 
     q3: {
       heading: `
-        Los efectos secundarios a continuación se consideran leves.
-        No requieren intervención médica.
-        `,
-
-      take_medication: "Si tiene alguno de estos efectos secundarios, puede seguir tomando sus medicamentos.",
-      rifampicina: "La rifampicina puede:",
+      Strategies to reduce side effects.
+      If you experience a medication side effect try:
+      `,
 
       bullet_1: `
-        Cuando hay intolerancia de tipo digestivo como náuseas, vómitos
-        pueden utilizarse la metoclopramida (Reliveran gotas), ranitidina u
-        omeprazol). Incluso hasta que mejoren los síntomas puede dividirse la
-        toma de medicamentos 2 veces por día.
+      If you experience an digestive intolerance such as nausea, vomiting
+      you can use metoclopramide (Reliveran drops), ranitidine or
+      omeprazole). Until the symptoms improve, the
+      medication can be taken 2 times per day.
       `,
+
       bullet_2: `
-        Cuando hay reacciones en la piel leves al comienzo del tratamiento,
-        pueden tratarse con anthistamínicos (loratadina, difenhidramina)
+      When there are mild skin reactions at the beginning of treatment,
+      they can be treated with an anthistaminics (loratadine, diphenhydramine)
       `,
+
       bullet_3: `
-        En el caso de artralgias (dolor en las articulaciones) pueden
-        utilizarse analgésicos o antinflamatorios. La pirazinamida suele
-        causar estas molestias.
+      In the case of arthralgias (joint pain) you can
+      use analgesics or anti-inflammatories. Pyrazinamide usually what
+      cause these discomforts.
       `,
+
       bullet_4: `
-        En los dolores musculares (polineuropatía) se utiliza complejo
-        Vitamina B.
+      In muscle pain (polyneuropathy) a Vitamin B complex is used.
       `,
+
       bullet_5: `
-        En Estados febriles hay que tener en cuenta que no sean ocasionados
-        por fármacos
+      For fevers it is necessary to take into account if they are caused
+      by the drugs or another cause
       `,
     },
   },
 
   faqs: {
-    title: "Preguntas y respuestas sobre la tuberculosis",
-    intro_1: `
-      Esta es una lista de preguntas frecuentes sobre la tuberculosis (TB),
-      medicamentos y otros temas relacionados con TB y las respuestas.
+    title: `
+    Questions and answers about tuberculosis
     `,
-    intro_2: "Qué es, cómo se transmite, y cómo se trata la tuberculosis.",
+
+    intro_1: `
+    This is a list of frequently asked questions about tuberculosis (TB),
+    medications and other issues related to TB and the answers.
+    `,
+
+    intro_2: `
+    What it is, how it is transmitted, and how is TB treated.
+    `,
 
     q1: {
-      question: "¿Qué es?",
+      question: `
+      What is TB?
+      `,
+
       answer: {
         1: `
-          La tuberculosis o TB es una enfermedad causada por el bacilo de Koch o
-          Mycobacterium tuberculosis.
-          La infección principal de la enfermedad se produce en los pulmones,
-          si bien puede atacar otras partes del cuerpo,
-          la TB pulmonar es la única con capacidad de contagiar a otras personas
-          que se encuentran en un contacto habitual y cercano varias horas en el
-          día. Contagio que se produce a través del aire al
-          toser/estornudar/hablar/cantar y eliminar con la tos las pequeñas
-          gotitas que contienen a los bacilos vivos.
+        Tuberculosis or TB is a disease caused by Mycobacterium tuberculosis.
+        The main infection of the disease occurs in the lungs,
+        although it can attack other parts of the body.
+        Pulmonary TB is the only type with the capacity to infect other people
+        who are in regular and close contact for several hours in the
+        day. TB is spread through the air when a person
+        coughs / sneezes / talks / sings releasing small
+        droplets that contain live bacilli.
         `,
+
         2: `
-          No todas las personas en contacto con un enfermo que elimina los
-          bacilos con la tos, pueden llegar a enfermarse. Solamente en el caso
-          que la otra persona tenga las defensas bajas, por la presencia de
-          otras enfermedades como diabetes, otras infecciones como el virus del
-          SIDA, tumores, trasplantes, mala nutrición, pueden llegar a
-          enfermarse.
+        Not all people in contact with a sick person releasing the bacteria with cough get sick. Most often the person who becomes sick
+        has lowered immune defenses, due to the presence of
+        other diseases such as diabetes, other infections such as the
+        AIDS, or tumors, transplants, or poor nutrition.
         `,
+
         3: `
-          Con buenas defensas un individuo puede tomar contacto con el bacilo,
-          pero no necesariamente puede llegar a enfermarse, sino a infectarse,
-          sin desarrollar la enfermedad. En este caso conocido como infección.
-          Estas personas no se sienten mal, no presentan síntomas ni pueden
-          transmitir la tuberculosis a otras personas. Sin embargo, algunas
-          personas con la infección se enferman más adelante de la enfermedad
-          de tuberculosis.
+        With good defenses an individual can can become infected with the bacteria,
+        but not necessarily get sick, but become infected,
+        without developing the disease. In this case it is known as a latent TB infection.
+        These people do not feel bad, they do not present symptoms nor can they
+        transmit TB to other people. However, some
+        people with the infection get sick later on.
         `,
+
         4: `
-          La buena noticia es que las personas con la enfermedad de
-          tuberculosis pueden recibir tratamiento y curarse.
+        The good news is that people with the TB can receive treatment and be cured.
         `,
-      }
+      },
     },
 
     q2: {
-      question: "¿Cómo se transmite?",
+      question: `
+      How is it transmitted?
+      `,
+
       answer: {
         1: `
-          La tuberculosis se transmite de una persona a otra por el aire.
-          Los bacilos se liberan en el aire
-          cuando una persona con la enfermedad de tuberculosis en los pulmones
-          o la garganta tose, estornuda, habla o canta.
-          Las personas que se encuentran cerca
-          pueden respirar estos bacilos e infectarse.
+        TB is transmitted from one person to another through the air.
+        The bacteria are released into the air
+        when a person with TB disease in the lungs coughs, sneezes, speaks or sings.
+        People who are close by can breathe in these bacteria and become infected.
         `,
+
         2: `
-          Cuando una persona respira las bacterias de la tuberculosis,
-          estas pueden alojarse en los pulmones y comenzar a proliferar.
-          Desde allí se pueden desplazar
-          por la sangre hacia otras partes del cuerpo,
-          como los riñones, la columna vertebral y el cerebro.
+        When a person breathes the TB bacteria,
+        the bacteria can enter into the lungs and begin to multiply.
+        From there they can move
+        by blood to other parts of the body,
+        such as the kidneys, the spine and the brain.
         `,
+
         3: `
-          La enfermedad de tuberculosis en los pulmones o la garganta puede ser
-          contagiosa. Esto significa que los bacilos pueden transmitirse a
-          otras personas. La tuberculosis que afecta otras partes del cuerpo,
-          como los riñones o la columna vertebral, por lo general no es
-          contagiosa.
+        TB disease in the lungs or throat may be
+        contagious. This means that the bacteria can be transmitted to
+        others. Tuberculosis that affects other parts of the body,
+        like the kidneys or the spine, is usually not
+        contagious
         `,
+
         4: `
-          Las personas con la enfermedad de tuberculosis tienen más
-          probabilidad de transmitirla a las personas con las que conviven
-          todos los días, como familiares, amigos y compañeros de trabajo y de
-          clase.
+        People with TB disease have more
+        probability of transmitting it to the people with whom they live
+        every day, such as family, friends and co-workers and class.
         `,
+
         5: `
-          Es importante:
+        It is important to:
         `,
+
         "6-bullets": {
           1: `
-            controlar a TODOS los contactos que viven con la persona que
-            tiene TB.
+          Screen ALL the contacts that live with the person who has TB.
           `,
+
           2: `
-            Vacunar al recién nacido con la vacuna BCG para prevenir las
-            formas graves TB
+          Vaccinate the newborn with the BCG vaccine to prevent
+          serious forms TB
           `,
+
           3: `
-            Cubrirse la boca al toser o estornudar.
+          Cover your mouth when you cough or sneeze.
           `,
+
           4: `
-            Enseñar en las escuelas, en el barrio y en la comunidad que TODOS
-            debemos participar de la lucha contra la Tuberculosis.
+          Teach in schools, in the neighborhood and in the community
+          that we ALL must participate in the fight against tuberculosis.
           `,
         },
       },
     },
 
     q3: {
-      question: "¿Cuáles son las pruebas para detectar la infección?",
+      question: `
+      What are the tests to detect the infection?
+      `,
+
       answer: `
-        Para conocer si una persona estuvo en contacto o no con el bacilo
-        es a través de la prueba en la piel,
-        la reacción de Mantoux o prueba tuberculínica.
+      To know if a person was in contact with the bacteria or not
+      a skin test, the Mantoux reaction or tuberculin test is done.
       `,
     },
 
     q4: {
-      question: "¿Cómo se trata?",
+      question: `
+      How is it treated?
+      `,
+
       answer: {
         1: `
-          El tratamiento es altamente efectivo, pudiendo curar a todos los
-          pacientes. La eficacia del tratamiento consiste en la toma regular y
-          diaria de los medicamentos. Se necesita la combinación de varios
-          medicamentos para eliminar la mayor cantidad de los bacilos sobre
-          todo en los 2 primeros meses. El tratamiento debe continuarse con una
-          segunda fase de 4 meses, necesaria para mater al resto de los bacilos
-          que aún permanecen en el organismo.
+        The treatment is highly effective and can cure.
+        For the treatment to be effective,
+        it requires taking the medication daily.
+        The treatment is a combination of several medications
+        to eliminate most of the bacteria in in the first 2 months.
+        The treatment must be continued with a second phase of 4 months,
+        to kill the rest of the bacteria that remain in the body.
         `,
+
         2: `
-          Si usted tiene la enfermedad de tuberculosis en los pulmones o la
-          garganta, es probable que la enfermedad sea contagiosa. Debe quedarse
-          en su casa y no ir al trabajo o la escuela, para no transmitir las
-          bacterias de la tuberculosis a otras personas. Después de tomar los
-          medicamentos durante algunas semanas se sentirá mejor y es posible
-          que la enfermedad ya no sea contagiosa. Su médico o enfermera le
-          indicarán cuándo puede volver al trabajo, la escuela o a ver a sus
-          amigos.
+        If you have TB disease in the lungs or throat,
+        the disease is likely to be contagious.
+        You must stay at home and not go to work or school,
+        to prevent transmiting TB to others.
+        After taking the medication for a few weeks you will feel better
+        and it is possible that the disease is no longer contagious.
+        Your doctor or nurse will inform you
+        when you can return to work, school or see your friends.
         `,
+
         3: `
-          El hecho de tener la enfermedad de tuberculosis no debe impedirle
-          llevar una vida normal. Cuando la enfermedad ya no sea contagiosa y
-          usted no se sienta mal, podrá hacer las mismas cosas que hacía antes
-          de la enfermedad.
+        Having TB disease should not stop you
+        from having a normal life.
+        When the disease is no longer contagious and you do not feel bad,
+        you can do the same things that you did before the illness.
         `,
+
         4: `
-          Es importante el control del catarro principalmente en los 2 primeros
-          meses, antes de pasar a la segunda fase del tratamiento, además de
-          los análisis de rutina.
+        It is important to have a sputum test in the first 2 months,
+        before moving on to the second phase of treatment,
+        along with the routine assessments.
         `,
+
         5: `
-          Utilizaría tratamiento directamente observado (TDO), cuando un
-          personal de salud supervisa la toma de la medicación. En general, el
-          tratamiento supervisado es realizado en un centro de salud cercano al
-          domicilio. En los 2 primeros meses la supervisión en la toma de los
-          medicamentos es diaria, mientras que en los siguientes 4 meses puede
-          realizarse en tratamiento de 2 a 3 tomas por semana.
+        Directly observed treatment (DOT) should be used, which is when a
+        Health staff supervises you taking the medication. In general, the
+        supervised treatment is performed in a health center near your
+        home. In the first 2 months the supervision in the taking of the
+        medication is daily, while in the following 4 months it can be
+        2 to 3 doses per week.
         `,
+
         6: `
-          Hay muchas razones por las cuales las personas tienen problemas para
-          tomar sus medicamentos. Pero en la mayoría de los casos, hay algo que
-          se puede hacer.
+        There are many reasons why people have problems
+        taking their medication. In most cases, there is something that
+        can be done.
         `,
+
         7: `
-          Tanto el diagnóstico como el tratamiento de la Tuberculosis son
-          gratuitos en los centros de salud y hospitales públicos de todo el
-          país.
+        Both the diagnosis and the treatment of TB are free
+        in health centers and public hospitals throughout the country.
         `,
       },
     },
 
     q5: {
-      question: "¿Cuáles son los efectos indeseables de los medicamentos para la tuberculosis?",
+      question: `
+      What are the undesirable effects of tuberculosis drugs?
+      `,
+
       answer: {
         1: `
-          Los medicamentos utilizados pueden provocar algunos efectos indeseables que hay que tener en cuenta para consultar con el equipo de salud. Efectos puede ocasionarle y en algunos casos debería consultar.
+        The medications used can cause some undesirable effects that must be taken into account to consult with the health team. Effects can cause and in some cases should consult.
         `,
+
         2: `
-          Algunos efectos secundarios son mínimos y otros son más serios.
-          Si tiene un efecto secundario grave,
-          *llame a su médico o enfermera inmediatamente*.
-          Es posible que le indiquen que deje de tomar sus medicamentos
-          o que vaya a la clínica para que le hagan pruebas.
+        Some side effects are minimal and others are more serious.
+        If you have a serious side effect,
+        *Call your doctor or nurse immediately*.
+        You may be told to stop taking your medications
+        or go to the clinic for tests.
         `,
+
         3: `
-          Llame a su médico u otros servicios de emergencia de inmediato si tiene:
+        Call your doctor or other emergency services immediately
+        if you have:
         `,
+
         4: {
-          1: `Dificultad para respirar.`,
-          2: `Hinchazón de la cara, los labios, la lengua o la garganta`,
+          1: `
+          Difficulty breathing
+          `,
+
+          2: `
+          Swelling of the face, lips, tongue or throat
+          `,
         },
+
         5: {
-          1: `Los efectos secundarios que se indican a continuación se consideran graves.`,
-          2: `Si tiene alguno de estos síntomas, llame inmediatamente a su médico o enfermera:`,
+          1: `
+          The side effects listed below are considered serious.
+          `,
+
+          2: `
+          If you have any of these symptoms,
+          call your doctor or nurse immediately:
+          `,
         },
 
         6: {
-          1: `Falta de apetito`,
-          2: `Náuseas`,
-          3: `Vómito`,
-          4: `Coloración amarilla de la piel o los ojos`,
-          5: `Fiebre durante 3 o más días`,
-          6: `Dolor abdominal`,
-          7: `Sensación de hormigueo en los dedos de las manos o de los pies`,
-          8: `Dolor en la parte inferior del pecho y acidez estomacal`,
-          9: `Comezón`,
-          10: `Sarpullido`,
-          11: `Aparición fácil de moretones`,
-          12: `Sangrado en las encías`,
-          13: `Sangrado en la nariz`,
-          14: `Orina oscura o de color café`,
-          15: `Dolor en las articulaciones`,
-          16: `Mareo`,
-          17: `Sensación de hormigueo o entumecimiento alrededor de la boca`,
-          18: `Vista borrosa o cambios en la vista`,
-          19: `Zumbido en los oídos`,
-          20: `Pérdida de la audición`,
+          1: `
+          Lack of appetite
+          `,
+
+          2: `
+          Nausea
+          `,
+
+          3: `
+          Vomiting
+          `,
+
+          4: `
+          Yellow coloring of the skin or eyes
+          `,
+
+          5: `
+          Fever for 3 or more days
+          `,
+
+          6: `
+          Abdominal pain
+          `,
+
+          7: `
+          Feeling of tingling in the fingers or toes
+          `,
+
+          8: `
+          Pain in the lower part of the chest and heartburn
+          `,
+
+          9: `
+          Itching
+          `,
+
+          10: `
+          Rash
+          `,
+
+          11: `
+          Easy appearance of bruises
+          `,
+
+          12: `
+          Bleeding in the gums
+          `,
+
+          13: `
+          Bleeding on the nose
+          `,
+
+          14: `
+          Dark or brown urine
+          `,
+
+          15: `
+          Pain in the joints
+          `,
+
+          16: `
+          Mareo
+          `,
+
+          17: `
+          Feeling of tingling or numbness around the mouth
+          `,
+
+          18: `
+          Blurred view or changes in view
+          `,
+
+          19: `
+          Ringing in the ears
+          `,
+
+          20: `
+          Hearing loss
+          `,
         },
 
         7: {
-          1: `Los efectos secundarios a continuación se consideran leves.`,
-          2: `Si tiene alguno de estos efectos secundarios, puede seguir tomando sus medicamentos.`,
+          1: `
+          The side effects below are considered mild.
+          `,
+
+          2: `
+          If you have any of these side effects,
+          you can keep taking your medications.
+          `,
         },
 
-        rifampicina: "La rifampicina puede:",
-        "rifampicina-bullets": {
+        rifampicin: `
+        Rifampicin can:
+        `,
+
+        "rifampicin-bullets": {
           1: `
-            Hacer que la orina, la saliva o las lágrimas tengan una coloración
-            naranja. Es posible que el equipo de salud le aconsejen que no use
-            lentes de contacto blandos porque pueden mancharse.
+          Make the urine, saliva or tears have an orange coloring.
+          The health team may advise you not to use Soft contact lenses
+          because they can get stained.
           `,
+
           2: `
-            Aumentar su sensibilidad al sol. Esto significa que debe usar un
-            buen filtro solar y cubrir las áreas expuestas para evitar
-            quemaduras.
+          Increase your sensitivity to the sun This means that you must use a
+          good sunscreen and cover the exposed areas to avoid
+          Burns.
           `,
+
           3: `
-            Hacer que las píldoras y los implantes anticonceptivos sean menos
-            eficaces. Las mujeres que toman rifampicina deben usar otro método
-            anticonceptivo.
+          Make contraceptive pills and implants less
+          effective Women who take rifampicin should use another method
+          contraceptive.
           `,
+
           4: `
-            Si usted está tomando rifampicina y metadona (que se usa para
-            tratar las adicciones), es posible que tenga síntomas de
-            abstinencia. Su médico o enfermera tal vez tengan que ajustarle la
-            dosis de metadona.
+          If you are taking rifampicin and methadone
+          (used to treat addictions),
+          you may have symptoms of abstinence.
+          Your doctor or nurse may have to adjust the methadone dose.
           `,
         },
       },
     },
 
     q6: {
-      question: "¿Por qué tengo que tomar medicamentos para la tuberculosis en forma regular?",
+      question: `
+      Why do I have to take tuberculosis medicine on a regular basis?
+      `,
+
       answer: {
         1: `
-          Las bacterias de la tuberculosis mueren muy lentamente. Los
-          medicamentos tardan por lo menos 6 meses en destruir todas las
-          bacterias de la tuberculosis. Usted probablemente empezará a sentirse
-          bien después de solo algunas semanas de tratamiento. ¡Pero tenga en
-          cuenta lo siguiente! Las bacterias de la tuberculosis aún están vivas
-          en su cuerpo. Debe seguir tomando sus medicamentos hasta que todas
-          las bacterias de la tuberculosis estén muertas, aun cuando usted se
-          sienta mejor y no tenga más síntomas de enfermedad de tuberculosis.
+        The TB bacteria die very slowly. The
+        medications take at least 6 months to destroy all
+        TB bacteria. You will probably start to feel
+        better after only a few weeks of treatment. But remember there are still TB bacteria in the body.
+        You must continue taking your medications until all
+        the TB bacteria are dead, even if you
+        feel better and have no more symptoms of TB disease.
         `,
+
         2: `
-          Puede ser muy peligroso si no sigue tomando sus medicamentos o si no
-          los toma en forma regular. Las bacterias de la tuberculosis se
-          multiplicarán nuevamente y usted seguirá enfermo por más tiempo.
-          Además, las bacterias pueden volverse resistentes a los medicamentos
-          que esté tomando. Es posible que necesite medicamentos diferentes
-          para eliminar las bacterias de la tuberculosis si los que usaba antes
-          ya no le funcionan. Estos nuevos medicamentos se deben tomar durante
-          más tiempo y, por lo general, tienen efectos secundarios más graves.
+        It can be very dangerous if you do not keep taking your medications or if you do not
+        Take them regularly. The TB bacteria will multiply again and you could remain sick for a longer time.
+        In addition, bacteria can become resistant to the medications if not taken correctly. You may need different medications
+        to kill the TB bacteria. These new medications must be taken for much longer
+        and, generally, have more serious side effects.
         `,
-        3: `Si su enfermedad vuelve a ser contagiosa,
-            podría transmitir las bacterias de la tuberculosis a su familia,
-            sus amigos o a cualquier persona que pase tiempo con usted.
-            Es muy importante que tome sus medicamentos
-            de acuerdo a las indicaciones de su médico o enfermera.
-        `,
+
+        3: `If your disease becomes contagious again,
+        you could transmit TB bacteria to your family,
+        your friends or anyone who spends time with you.
+        It is very important that you take your medications
+        as instructed by your doctor or nurse.
+        `
       },
     },
 
     q7: {
-      question: "¿Cómo puedo acordarme de tomar mis medicamentos?",
+      question: `
+      How can I remember to take my medications?
+      `,
 
       answer: {
-        1: `La única forma curarse es tomando sus medicamentos exactamente
-            según las indicaciones de su médico/a o enfermero/a.
-            ¡Puede que no sea fácil!
-            ya que deberá tomar sus medicamentos
-            durante un tiempo prolongado (6 meses),
-            es bueno que establezca una rutina.
-            Estas son algunas formas de acordarse de tomar sus medicamentos:
+        1: `
+        The only way to be cured is by taking your medications exactly
+        as directed by your doctor or nurse.
+        It may not be easy!
+        You must take your medications
+        for a long time (6 months),
+        It is good that you establish a routine.
+        Here are some ways to remember to take your medications:
         `,
 
         2: {
-          1: `Tomar sus medicamentos todos los días a la misma hora, por ejemplo,
-              antes del desayuno, al hacer una pausa regular
-              como para tomarse un café o después de cepillarse los dientes.`,
+          1: `
+          Take your medicines every day at the same time, for example,
+          before breakfast, or during a regular rutine time
+          such as a coffee break or after brushing your teeth.
+          `,
 
-          2: `Pedir a un familiar o amigo que le recuerde tomar sus píldoras.`,
+          2: `
+          Ask a family member or friend to remind you to take your pills.
+          `,
 
-          3: `Marcar en un calendario cada día que tome sus medicamentos.`,
+          3: `
+          Mark on a calendar every day that you take your medications.
+          `,
 
-          4: `Colocar sus medicamentos en un pastillero semanal.
-              Téngalo junto a su cama o en su cartera o bolsillo.`,
-
+          4: `
+          Put your medications in a weekly pillbox.
+          Place it next to your bed or your wallet or purse.
+          `,
         },
 
-        "3-note": `Recuerde mantener todos los medicamentos fuera del alcance de los niños.`,
+        "3-note": `
+        Remember to keep all medications out of the reach of children.
+        `,
 
-        4: `Si se olvida un día de tomar sus medicamentos,
-            sáltese esa dosis y espere a tomar la dosis que le toca después.
-            Infórmele a su médico o su enfermera que dejó de tomar una dosis.
-            También los puede llamar para preguntar qué debe hacer.`,
-
-        5: `Preguntas de pacientes en el último estudio:`,
-
-        "6-bullets": {
-          1: `¿Cómo se contagia la Tuberculosis?
-              Al respirar y no hablar en una habitación
-              se contagia de la tuberculosis?`,
-
-          2: `¿Alguna de las pastillas puede dar alguna reacción alérgica?
-              Porqué me salen como unas ronchitas que me pican?`,
-
-          3: `Puedo estar en la cama de mi mamá?`,
-
-          4: `A noche traspire mucho estaba toda mojada`,
-
-          5: `Podría tomar algún suplemento vitamínico,
-              como esos que vienen para hacer batidos, estilo "ensure"?`,
-
-          6: `Me duele mucho el pecho`,
-
-          7: `Ya voy 1 mes de tratamiento todavía contagio?
-              Se que tengo para 6 meses para seguir.`,
-
-          8: `Hasta cuando tengo que usar el barbijo?`,
-
-          9: `El síntoma es los dolores de hombro, brazos, y mano,
-              no sé si son los huesos,
-              estoy desde el lunes esto es normal?`,
-
-          10: `La persona que están con este tratamiento al embarazarse
-              que consecuencias trae, o no pueden embarazarse?`,
-        },
+        3: `
+        If you miss a day of taking your medications,
+        skip that dose and wait to take the next dose.
+        Tell your doctor or nurse if you missed taking a dose.
+        You can also call them to ask what you should do.
+        `,
       },
     },
 
     q8: {
-      question: "How can I avoid transmitting Tuberculosis?",
+      question: `
+      How can I prevent spreading it to others?
+      `,
 
       answer: {
         1: `
-          La forma principal de evitar transmitir la tuberculosis es tomar todos sus medicamentos,
-          siguiendo exactamente las indicaciones de su médico o enfermera.
-          ¡También es necesario que vaya a todas sus citas médicas!
-          Su médico o enfermera debe ver cómo evoluciona su estado.a
-          Es posible que necesite otra radiografía de tórax
-          o un análisis de las flemas que expulsa al toser.
-          Estas pruebas mostrarán si los medicamentos están funcionando.
-          También indicarán si usted todavía puede contagiar la tuberculosis a otras personas.
-          Asegúrese de informar a su médico si piensa que algo anda mal.
-          `,
+        The main way to avoid spreading TB is to take all your medicines
+        and follow the exact instructions of your doctor or nurse.
+        You also need to go to all your medical appointments!
+        Your doctor or nurse should see how your condition is progressing.
+        You may need another chest x-ray or a sputum test.
+        These tests will show if the medicaments are working.
+        The test will also indicate if you can still spread TB to other people.
+        Be sure to tell your doctor if you think something is wrong.
+        `,
+
         2: `
-          Si su enfermedad es contagiosa y permanece en su casa, hay ciertas medidas que puede tomar para proteger a las personas que estén cerca de usted:
-          `,
+        If your infection is contagious and you are staying at home,
+        there are steps that you can take to protect the people around you:
+        `,
+
         3: {
           1: `
-            Tómese los medicamentos según las indicaciones. ¡Eso es muy importante!
-            `,
-          2: `
-            Cúbrase la boca con un pañuelo desechable siempre que tosa, estornude o se ría.
-            Eche el pañuelo usado en una bolsa, ciérrela y bótela.
-            `,
-          3: `
-            Se puede evitar más transmisión con el uso de un barbijo
-            hasta que en el control del catarro, éste ya se vuelva negativo.
+          Take the medication as directed.
+          This is very important!
           `,
+
+          2: `
+          Always cover your mouth with a tissue
+          whenever you cough, sneeze, or laugh.
+          Put the used tissue in a bag, close it and throw it away.
+          `,
+
+          3: `
+          You can prevent spreading the infection by using a face mask
+          until your sputum test comes back is negative.
+          `,
+
           4: `
-            Es muy importante el estudio de los contactos,
-            en especial, los menores de 15 años y dentro de este grupo los más pequeños,
-            los menores de 5 años.
-            Es un grupo de edad prioritario,
-            el cual es necesario evaluar e indicarles un tratamiento preventivo o profilaxis,
-            en los que se descartó la enfermedad.
-            `,
+          It is important tos screen all contacts,
+          especially those younger than 15
+          and even more important those under the age of 5.
+          This age group is a priority
+          to evaluate and provide preventative treatment
+          (also called prophylaxis)
+          when the active disease was ruled out.
+          `,
+
           5: `
-            Ventile su habitación con frecuencia dejando entrar aire de la calle
-            (si no hace demasiado frío afuera).
-            La tuberculosis se propaga en los espacios pequeños cerrados
-            donde no circula aire.
-            Coloque un ventilador en la ventana para extraer el aire
-            que pueda contener gran cantidad de bacterias de tuberculosis.
-            Si abre otras ventanas de la habitación,
-            el ventilador también permitirá el ingreso de aire fresco.
-            Esto reducirá las probabilidades de que las bacterias de tuberculosis
-            permanezcan en la habitación e infecten a las personas que respiren ese aire.
-            `,
+          Air out your room often to the outside of the building
+          (if it is not too cold outside).
+          TB spreads in small closed spaces where air doesn’t move.
+          Put a fan in your window
+          to blow out (exhaust)
+          air that may be filled with TB bacteria.
+          If you open other windows in the room,
+          the fan also will pull in fresh air.
+          This will reduce the chances
+          that TB bacteria will stay in the room
+          and infect someone who breathes the air.
+          `,
         },
 
         4: `
-          Recuerde, la tuberculosis se propaga por el aire.
-          Las personas no pueden infectarse con las bacterias de la tuberculosis por darse la mano,
-          sentarse en un inodoro o compartir platos y utensilios
-          con alguien que tenga tuberculosis.
-          `,
+        Remember, TB is spread through the air.
+        People cannot get infected with TB bacteria through handshakes,
+        sitting on toilet seats,
+        or sharing dishes and utensils with someone who has TB.
+        `,
 
         5: `
-          Después de tomar sus medicamentos durante unas 2 o 3 semanas,
-          es posible que usted ya no contagie las bacterias de la tuberculosis a otras personas.
-          Si su médico o enfermera están de acuerdo, podrá volver a su rutina diaria.
-          Recuerde que solo mejorará si toma sus medicamentos
-          siguiendo exactamente las indicaciones de su médico o enfermera.
-          `,
+        After you take the medicines for about 2 or 3 weeks,
+        you may no longer be able to spread TB bacteria to others.
+        If your doctor or nurse agrees,
+        you will be able to go back to your daily routine,
+        including returning to work or school.
+        Remember, you will get well
+        only if you take your medicines
+        exactly as directed by your doctor or nurse.
+        `,
 
         6: `
-          Piense en las personas que pueden haber pasado tiempo con usted,
-          como familiares, amigos cercanos y compañeros de trabajo.
-          Lo más importante es evaluar a los contactos
-          e identificar signos y síntomas sospechosos de TB.
-          En los contactos sintomáticos respiratorios se deberá solicitor el examen del catarro.
-          La tuberculosis es especialmente peligrosa en los niños
-          y las personas con la infección por el VIH.
-          Si están infectadas por las bacterias de la tuberculosis,
-          estas personas deben tomar medicamentos de inmediato para evitar la enfermedad de tuberculosis.
-          `,
-      }
+        Think about people who may have spent time with you,
+        such as family members, close friends, and coworkers.
+        It is very important that all contacts are evaluated and assessed
+        for sign and symptoms suspicious of TB.
+        In symptomatic respiratory contacts a sputum test should be conducted.
+        TB is especially dangerous in children and people with HIV.
+        If they are infected with the TB bacteria,
+        they should take medication immediately to avoid TB disease.
+        `,
+      },
     },
   },
 }
