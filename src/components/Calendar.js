@@ -16,7 +16,8 @@ import {
 const Calendar = observer(({ store }) => (
   <CalendarComponent
     minDetail="year"
-    tileContent={({ date, view }) =>
+    tileContent={
+      ({ date, view }) => (
         <DateWrapper
           date={date}
           medication_report={view === 'month' && store.medication_reports.find(e => e.date.unix() === moment(date).unix())}
@@ -24,42 +25,37 @@ const Calendar = observer(({ store }) => (
           strip_report={view === 'month' && store.strip_reports.find(e => e.date.unix() === moment(date).unix())}
         >
           <DateNumber>{date.getDate()}</DateNumber>
-
-          <Observer>
-            { () => (
-                view === 'month' && store.medication_reports.find(e =>
-                  e.date.unix() === moment(date).unix()
-                )
-                ? <Icon size="0.5rem" color={white} path={mdiPill} />
-                : <Placeholder />
-            ) }
-          </Observer>
-
-          <Observer>
-            { () => (
-                view === 'month' && store.symptom_reports.find(e =>
-                  e.date.unix() === moment(date).unix()
-                )
-                ? <Icon size="0.5rem" color={white} path={mdiFormatListChecks} />
-                : <Placeholder />
-            ) }
-          </Observer>
-
-          <Observer>
-            { () => (
-                view === 'month' && store.strip_reports.find(e =>
-                  e.date.unix() === moment(date).unix()
-                )
-                ? <Icon size="0.5rem" color={white} path={mdiCamera} />
-                : <Placeholder />
-            ) }
-          </Observer>
+          <PillIcon />
+          <SymptomIcon />
+          <PhotoIcon />
         </DateWrapper>
-    }
+    )}
   />
 ))
 
+const PillIcon = styled(Icon).attrs({
+  size: "0.5rem",
+  color: darkgrey,
+  path: mdiPill,
+})``
+
+const SymptomIcon = styled(Icon).attrs({
+  size: "0.5rem",
+  color: darkgrey,
+  path: mdiFormatListChecks,
+})``
+
+const PhotoIcon = styled(Icon).attrs({
+  size: "0.5rem",
+  color: darkgrey,
+  path: mdiCamera,
+})``
+
 const DateWrapper = styled.div`
+  background:       ${(p) => p.date < new Date() ? green : "none" };
+  border: 2px solid ${(p) => p.date < new Date() ? white : darkgrey };
+  color:            ${(p) => p.date < new Date() ? white : darkgrey };
+
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
@@ -70,9 +66,16 @@ const DateWrapper = styled.div`
   height: 2rem;
   width: 2rem;
 
-  ${DateNumber} {
-    background-color: ${(p) => p.medication_report ? green : white };
-    color: ${(p) => p.medication_report ? white : darkgrey };
+  ${PillIcon} {
+    ${p => p.medication_report || "display: none"}
+  }
+
+  ${SymptomIcon} {
+    ${p => p.symptom_report || "display: none"}
+  }
+
+  ${PhotoIcon} {
+    ${p => p.strip_report || "display: none"}
   }
 `
 
@@ -99,9 +102,7 @@ const CalendarComponent = styled(ReactCalendar)`
 `
 
 const DateNumber = styled.span`
-`
-
-const Placeholder = styled.div`
+  font-weight: 700;
 `
 
 export default Calendar;
