@@ -119,13 +119,13 @@ const FAQs = observer(({ store }) => (
           {store.translate("faqs.q5.answer.7.2")}
         </P>
 
-        {store.translate("faqs.q5.answer.rifampicina")}
+        {store.translate("faqs.q5.answer.rifampicin")}
 
         <Bullets>
-          <Bullet>{store.translate("faqs.q5.answer.rifampicina-bullets.1")}</Bullet>
-          <Bullet>{store.translate("faqs.q5.answer.rifampicina-bullets.2")}</Bullet>
-          <Bullet>{store.translate("faqs.q5.answer.rifampicina-bullets.3")}</Bullet>
-          <Bullet>{store.translate("faqs.q5.answer.rifampicina-bullets.4")}</Bullet>
+          <Bullet>{store.translate("faqs.q5.answer.rifampicin-bullets.1")}</Bullet>
+          <Bullet>{store.translate("faqs.q5.answer.rifampicin-bullets.2")}</Bullet>
+          <Bullet>{store.translate("faqs.q5.answer.rifampicin-bullets.3")}</Bullet>
+          <Bullet>{store.translate("faqs.q5.answer.rifampicin-bullets.4")}</Bullet>
         </Bullets>
       </Answer>
     </Fold>
@@ -158,21 +158,6 @@ const FAQs = observer(({ store }) => (
         </Bullets>
 
         <Note>{store.translate("faqs.q7.answer.3-note")}</Note>
-        <P>{store.translate("faqs.q7.answer.4")}</P>
-        <P underline>{store.translate("faqs.q7.answer.5")}</P>
-
-        <Bullets>
-          <Bullet>{store.translate("faqs.q7.answer.6-bullets.1")}</Bullet>
-          <Bullet>{store.translate("faqs.q7.answer.6-bullets.2")}</Bullet>
-          <Bullet>{store.translate("faqs.q7.answer.6-bullets.3")}</Bullet>
-          <Bullet>{store.translate("faqs.q7.answer.6-bullets.4")}</Bullet>
-          <Bullet>{store.translate("faqs.q7.answer.6-bullets.5")}</Bullet>
-          <Bullet>{store.translate("faqs.q7.answer.6-bullets.6")}</Bullet>
-          <Bullet>{store.translate("faqs.q7.answer.6-bullets.7")}</Bullet>
-          <Bullet>{store.translate("faqs.q7.answer.6-bullets.8")}</Bullet>
-          <Bullet>{store.translate("faqs.q7.answer.6-bullets.9")}</Bullet>
-          <Bullet>{store.translate("faqs.q7.answer.6-bullets.10")}</Bullet>
-        </Bullets>
       </Answer>
     </Fold>
 

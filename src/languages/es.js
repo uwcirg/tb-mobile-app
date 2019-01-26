@@ -55,6 +55,26 @@ export default {
       Náuseas o vómitos
       `,
 
+      nausea_ratings: {
+        0: `
+        `,
+
+        2: `
+        `,
+
+        4: `
+        `,
+
+        6: `
+        `,
+
+        8: `
+        `,
+
+        10: `
+        `,
+      },
+
       redness: `
       Enrojectimiento de la piel, granitos, picazón
       `,

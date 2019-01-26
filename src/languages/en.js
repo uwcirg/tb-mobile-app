@@ -55,6 +55,32 @@ export default {
       Nausea or vomiting
       `,
 
+      nausea_ratings: {
+        0: `
+        No discomfort.
+        `,
+
+        2: `
+        Mild discomfort.
+        `,
+
+        4: `
+        Medium discomfort.
+        `,
+
+        6: `
+        Discomfort.
+        `,
+
+        8: `
+        Nauseated; visible discomfort or sweating.
+        `,
+
+        10: `
+        Throwing up.
+        `,
+      },
+
       redness: `
       Swelling, redness, itching
       `,
@@ -234,8 +260,7 @@ export default {
 
 
     grave_symptoms: `
-    The side effects listed below
-    they are considered serious.
+    The side effects listed below are considered serious.
     They require medical intervention.
     `,
 
