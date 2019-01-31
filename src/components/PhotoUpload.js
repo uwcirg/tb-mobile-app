@@ -1,17 +1,15 @@
 import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
-import DropZone from "react-dropzone"
 import Heading from "../primitives/Heading"
 
-import {
-  mdiCheckCircle,
-  mdiImage,
-} from "@mdi/js"
+import { blue } from "../colors"
 import { Icon } from "@mdi/react"
-import { blue, darkgrey } from "../colors"
+import { mdiCheckCircle } from "@mdi/js"
 
 import DateTime from "../primitives/DateTime"
+
+import ImageCapture from "./ImageCapture"
 
 const PhotoUpload = observer(({ store }) => (
   <Layout>
@@ -23,18 +21,7 @@ const PhotoUpload = observer(({ store }) => (
       time_path="survey_medication_time"
     />
 
-    <DropZone
-      accept={["image/jpeg", "image/png"]}
-      onDrop={(acceptedFiles, rejectedFiles) => {
-        console.log(rejectedFiles)
-        acceptedFiles.forEach(file => store.storePhoto(file))
-      } }
-    >
-      <Instructions>
-        <p>{store.translate("survey.upload.click_here")}</p>
-        <Icon size="2rem" color={darkgrey} path={mdiImage} />
-      </Instructions>
-    </DropZone>
+    <ImageCapture store={store}/>
 
     <ImagePreviews>
       {store.uploadedImages.map(image =>
@@ -78,12 +65,6 @@ const ConfirmationIcon = styled(Icon).attrs({
   & > path {
     stroke: black;
   }
-`
-
-const Instructions = styled.div`
-  padding: 1rem;
-  font-size: 1.2rem;
-  text-align: center;
 `
 
 const ImagePreviews = styled.div`
