@@ -12,7 +12,9 @@ import { Icon } from "@mdi/react"
 const DateTime = observer(({ store, date_path, time_path }) => (
   <Layout>
     <Date store={store} path={date_path} />
-    <Icon path={mdiClock} color={darkgrey} />
+
+    <ClockIcon/>
+
     <Time store={store} path={time_path} />
   </Layout>
 ))
@@ -22,6 +24,15 @@ const Layout = styled.div`
   grid-template-columns: 45% auto 45%;
   text-align: center;
   overflow: hidden;
+`
+
+const ClockIcon = styled(Icon).attrs({
+  color: darkgrey,
+  path: mdiClock,
+  size: 1,
+})`
+  margin-left: auto;
+  margin-right: auto;
 `
 
 export default DateTime
