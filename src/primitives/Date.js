@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { observer } from "mobx-react"
 import Calendar from "react-calendar"
 import moment from "moment"
-import { Popover, Button } from "reakit"
+import { Popover, Input } from "reakit"
 
 import Callout from "../primitives/Callout"
 import { darkgrey, white } from "../colors"
@@ -12,9 +12,11 @@ const Date = observer(({ store, path }) => (
   <Popover.Container>
     { state => (
       <Layout>
-        <Button as={Popover.Toggle} {...state} >
-          <DateInput value={store[path].format("YYYY-MM-DD")} />
-        </Button>
+        <Popover.Toggle
+          as={DateInput}
+          {...state}
+          value={store[path].format("YYYY-MM-DD")}
+        />
 
         <Callout {...state}>
           <Calendar onClickDay={date => {
@@ -31,11 +33,12 @@ const Layout = styled.div`
   overflow: hidden;
 `
 
-const DateInput = styled.input`
+const DateInput = styled(Input)`
   background-color: ${white};
+  border: 1px solid ${darkgrey};
   color: ${darkgrey};
   padding: 0.5rem;
-  border: 1px solid ${darkgrey};
+  width: fill-available;
 `
 
 export default Date

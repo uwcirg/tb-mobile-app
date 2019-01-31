@@ -83,7 +83,8 @@ const Survey = observer(({ store }) => (
 ))
 
 const Layout = styled.div`
-  overflow: hidden;
+  overflow-y: scroll;
+  overflow-x: hidden;
 
   border-radius: 2px
   border: 2px solid rgba(100, 100, 100, 50%);

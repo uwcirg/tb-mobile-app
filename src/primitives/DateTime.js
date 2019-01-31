@@ -12,16 +12,15 @@ import { Icon } from "@mdi/react"
 const DateTime = observer(({ store, date_path, time_path }) => (
   <Layout>
     <Date store={store} path={date_path} />
-    <Icon path={mdiClock} size={1} color={darkgrey} />
+    <Icon path={mdiClock} color={darkgrey} />
     <Time store={store} path={time_path} />
   </Layout>
 ))
 
 const Layout = styled.div`
   display: grid;
-  grid-template-columns: 1fr 2rem 1fr;
+  grid-template-columns: 45% auto 45%;
   text-align: center;
-  margin-bottom: 1rem;
   overflow: hidden;
 `
 

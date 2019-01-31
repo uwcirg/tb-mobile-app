@@ -4,6 +4,7 @@ import moment from "moment"
 import { observer } from "mobx-react"
 import { action, observable, computed } from "mobx"
 import { darkgrey, black, blue, white } from "../colors"
+import { Input } from "reakit"
 
 @observer
 class Time extends React.Component {
@@ -28,7 +29,7 @@ class Time extends React.Component {
     let selectedMinute = this.props.store[this.props.path].minute()
 
     return (
-      <Wrapper>
+      <Layout>
         <TimeInput
           onChange={(e) => console.log(`Manually changed time: ${e.target.value} (not recorded)`) }
           onFocus={(e) => this.focused(e)}
@@ -62,7 +63,7 @@ class Time extends React.Component {
             </Scroll>
           </TouchInput>
         }
-      </Wrapper>
+      </Layout>
     )
   }
 
@@ -101,19 +102,16 @@ class Time extends React.Component {
   }
 }
 
-function pad(num, size) {
-  var s = num+"";
-  while (s.length < size) s = "0" + s;
-  return s;
-}
-
-const TimeInput = styled.input`
-  padding: 0.5rem;
-  border: 1px solid ${darkgrey};
+const Layout = styled.div`
+  width: fill-available;
 `
 
-const Wrapper = styled.div`
-  display: inline-block;
+const TimeInput = styled(Input)`
+  background-color: ${white};
+  border: 1px solid ${darkgrey};
+  color: ${darkgrey};
+  padding: 0.5rem;
+  width: fill-available;
 `
 
 const TouchInput = styled.div`
@@ -135,5 +133,11 @@ const TimeOption = styled.div`
   color:            ${(p) => p.selected ? white : black};
   padding: 0.5rem;
 `
+
+function pad(num, size) {
+  var s = num+"";
+  while (s.length < size) s = "0" + s;
+  return s;
+}
 
 export default Time
