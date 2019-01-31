@@ -47,8 +47,6 @@ const Layout = styled(Hidden)`
 
   display: flex;
   justify-content: space-between;
-
-  z-index: 100;
 `
 
 const Message = styled.p`

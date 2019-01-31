@@ -58,6 +58,7 @@ const Drawer = styled.div`
   margin-right: auto;
   position: absolute;
   width: 90%;
+  z-index: 10;
 `
 
 export default AuthBar;
