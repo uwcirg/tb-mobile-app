@@ -6,7 +6,7 @@ import { beige, darkgrey } from "./colors"
 import Navigation from "./components/Navigation"
 import AuthBar from "./components/AuthBar"
 
-import space from "./primitives/Space"
+import Space from "./primitives/Space"
 
 const App = observer(({ store }) => (
   <Layout>
@@ -14,7 +14,7 @@ const App = observer(({ store }) => (
 
     {React.createElement(store.currentPage, { store: store })}
 
-    <space/>
+    <Space/>
 
     { store.authorized
       ? <Navigation store={store} />
