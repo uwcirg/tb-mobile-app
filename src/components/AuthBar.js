@@ -2,11 +2,13 @@ import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
 
+import Flash from "./Flash"
 import Menu from "./Menu"
-import { Box } from "reakit";
+
+import { Box } from "reakit"
 import { white } from "../colors"
 
-const TopBar = observer(({ store, children, ...props }) => (
+const AuthBar = observer(({ store, alerts, ...props }) => (
   <Layout {...props} >
     <Title>{store.currentPageTitle}</Title>
 
@@ -16,7 +18,13 @@ const TopBar = observer(({ store, children, ...props }) => (
     }
 
     <Drawer>
-      {children}
+      {alerts.map(alert => (
+        <Flash
+          key={alert}
+          message={alert}
+          onDismiss={() => store.dismissAlert(alert)}
+        />
+      ))}
     </Drawer>
   </Layout>
 ))
@@ -52,4 +60,4 @@ const Drawer = styled.div`
   width: 90%;
 `
 
-export default TopBar;
+export default AuthBar;

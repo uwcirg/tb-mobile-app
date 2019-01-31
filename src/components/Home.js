@@ -16,7 +16,6 @@ import Survey from "./Survey"
 
 import Help from "../primitives/Help"
 import Button from "../primitives/Button"
-import Row from "../primitives/Row"
 
 import Calendar from "./Calendar"
 
@@ -57,6 +56,11 @@ const TreatmentButton = styled(Button)`
 
 const Icons = styled.div`
   width: 7rem;
+`
+
+const Row = styled.div`
+  display: flex;
+  justify-content: space-between;
 `
 
 Home.route = "/"

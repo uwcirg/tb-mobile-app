@@ -3,48 +3,36 @@ import styled from "styled-components"
 import { observer } from "mobx-react"
 import { beige, darkgrey } from "./colors"
 
-import BottomNav from "./components/BottomNav"
-import TopBar from "./components/TopBar"
-import Flash from "./components/Flash"
+import Navigation from "./components/Navigation"
+import AuthBar from "./components/AuthBar"
+
+import space from "./primitives/Space"
 
 const App = observer(({ store }) => (
   <Layout>
-    <TopBar store={store} >
-      {store.alerts.map(alert => (
-        <Flash
-          key={alert}
-          message={alert}
-          onDismiss={() => store.dismissAlert(alert)}
-        />
-      ))}
-    </TopBar>
+    <AuthBar store={store} alerts={store.alerts} />
 
-    <Layout.Main>
-      {React.createElement(store.currentPage, { store: store })}
-    </Layout.Main>
+    {React.createElement(store.currentPage, { store: store })}
+
+    <space/>
 
     { store.authorized
-      ? <BottomNav store={store} />
+      ? <Navigation store={store} />
       : null
     }
   </Layout>
 ))
 
 const Layout = styled.div`
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  grid-row-gap: 1rem;
   height: 100vh;
   background-size: cover;
+
   background: ${beige};
   color: ${darkgrey};
-`
 
-Layout.Main = styled.div`
-  overflow-y: auto;
-  margin-left: 1rem;
-  margin-right: 1rem;
-  width: auto;
+  display: grid;
+  grid-template-rows: 4rem auto 1fr 4rem;
+  grid-row-gap: 1rem;
 `
 
 export default App

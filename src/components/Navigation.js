@@ -15,7 +15,7 @@ import Home from "./Home"
 import InfoEd from "./InfoEd"
 import Notes from "./Notes"
 
-const BottomNav = observer(({ store }) => (
+const Navigation = observer(({ store }) => (
   <Layout>
     <InternalLink to={InfoEd} store={store} >
       <Icon path={mdiInformation} size="1.4rem" />
@@ -35,9 +35,8 @@ const Layout = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-
   background-color: ${white};
   padding: 1rem;
 `
 
-export default BottomNav;
+export default Navigation;

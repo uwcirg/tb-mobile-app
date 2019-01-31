@@ -3,17 +3,8 @@ import styled from "styled-components"
 import moment from "moment"
 import { observer } from "mobx-react"
 import { action, observable, computed } from "mobx"
-import { darkgrey } from "../colors"
+import { darkgrey, black, blue, white } from "../colors"
 
-const blue = "#4a90e2"
-
-/*
- * Props:
- * `store`: a `moment` object
- * `path`: a callback function that takes a `moment` object.
- * `hourOptions`: a list of allowed values for the hour
- * `minuteOptions`: a list of allowed values for the minute
- */
 @observer
 class Time extends React.Component {
   @observable open = false
@@ -126,8 +117,6 @@ const Wrapper = styled.div`
 `
 
 const TouchInput = styled.div`
-  background-color: white;
-  color: black;
   display: grid;
   grid-template-columns: 1fr 1fr;
   height: 15rem;
@@ -142,8 +131,9 @@ const Scroll = styled.div`
 `
 
 const TimeOption = styled.div`
+  background-color: ${(p) => p.selected ? blue : white};
+  color:            ${(p) => p.selected ? white : black};
   padding: 0.5rem;
-  ${({selected}) => selected && `background-color: ${blue}; color: white;`}
 `
 
 export default Time

@@ -11,11 +11,9 @@ import { darkgrey, white } from "../colors"
 const Date = observer(({ store, path }) => (
   <Popover.Container>
     { state => (
-      <div>
-        <Button width="100%" as={Popover.Toggle} {...state} >
-          <DateBox>
-            {store[path].format("YYYY-MM-DD")}
-          </DateBox>
+      <Layout>
+        <Button as={Popover.Toggle} {...state} >
+          <DateInput value={store[path].format("YYYY-MM-DD")} />
         </Button>
 
         <Callout {...state}>
@@ -24,12 +22,16 @@ const Date = observer(({ store, path }) => (
             state.hide()
           } } />
         </Callout>
-      </div>
+      </Layout>
     ) }
   </Popover.Container>
 ))
 
-const DateBox = styled.div`
+const Layout = styled.div`
+  overflow: hidden;
+`
+
+const DateInput = styled.input`
   background-color: ${white};
   color: ${darkgrey};
   padding: 0.5rem;

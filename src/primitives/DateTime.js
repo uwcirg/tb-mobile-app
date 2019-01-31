@@ -2,7 +2,6 @@ import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
 
-import Row from "./Row"
 import Date from "./Date"
 import Time from "./Time"
 
@@ -11,36 +10,19 @@ import { darkgrey } from "../colors"
 import { Icon } from "@mdi/react"
 
 const DateTime = observer(({ store, date_path, time_path }) => (
-  <Row>
-    <FortyPercent>
-      <Date store={store} path={date_path} />
-    </FortyPercent>
-
-    <TwentyPercent>
-      <Icon path={mdiClock} size={1} color={darkgrey} />
-    </TwentyPercent>
-
-    <FortyPercent>
-      <Time store={store} path={time_path} />
-    </FortyPercent>
-  </Row>
+  <Layout>
+    <Date store={store} path={date_path} />
+    <Icon path={mdiClock} size={1} color={darkgrey} />
+    <Time store={store} path={time_path} />
+  </Layout>
 ))
 
-const Layout = styled(Row)`
+const Layout = styled.div`
   display: grid;
-  grid-template-columns: 40% 20% 40%;
+  grid-template-columns: 1fr 2rem 1fr;
   text-align: center;
-  width: auto;
-
   margin-bottom: 1rem;
-`
-
-const FortyPercent = styled.div`
   overflow: hidden;
-`
-
-const TwentyPercent = styled.div`
-  text-align: center;
 `
 
 export default DateTime
