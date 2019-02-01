@@ -42,15 +42,14 @@ then
   fi
 fi
 
-
 echo 'Building application images.'
 echo 'This will take a while (5-10 minutes), especially on first run.'
 bash -c "$SUDO docker-compose build"
 
 # Install `node_modules` in the local directory,
 # which is mounted into docker as a volume.
+bash -c "$SUDO docker-compose run --rm web rake db:create db:migrate"
 bash -c "$SUDO docker-compose run --rm client yarn install"
-
 bash -c "$SUDO docker-compose up -d"
 
 echo "The app is up and running at $URL_CLIENT !"

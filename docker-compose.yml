@@ -21,22 +21,21 @@ services:
     volumes:
       - .:/usr/src
 
+  db:
+    restart: always
+    image: postgres
+
   web:
-    image: assemble/base
+    image: assemble/foundation
     environment:
       - DATA=postgres://postgres:postgres@db
-
       - PASSWORD
       - PORT=3000
       - RAILS_ENV=development
     ports:
       - $PORT_API:3000
     volumes:
-      - ./server:/app
+      - ./db:/foundation/db
+      - ./models:/foundation/app/models
     depends_on:
       - db
-    working_dir: /app
-
-  db:
-    restart: always
-    image: postgres
