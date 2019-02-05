@@ -26,6 +26,10 @@ const CalendarComponent = styled(ReactCalendar)`
   border: none !important;
   overflow: hidden !important;
 
+  & .react-calendar__tile {
+    padding: 0;
+  }
+
   & .react-calendar__tile time {
     display: none;
   }

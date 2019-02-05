@@ -329,9 +329,11 @@ class Assemble extends React.Component {
         </Drawer>
       </AuthBar>
 
-      <Observer>
-        {() => React.createElement(this.currentPage, { store: this })}
-      </Observer>
+      <Content>
+        <Observer>
+          {() => React.createElement(this.currentPage, { store: this })}
+        </Observer>
+      </Content>
 
       <Space/>
 
@@ -385,6 +387,10 @@ const Drawer = styled.div`
   position: absolute;
   width: 90%;
   z-index: 10;
+`
+
+const Content = styled.div`
+  padding: 0 1rem;
 `
 
 export default Assemble

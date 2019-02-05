@@ -59,8 +59,9 @@ const Icons = styled.div`
 `
 
 const Row = styled.div`
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-column-gap: 1rem;
+  grid-template-columns: 1fr 2rem;
 `
 
 Home.route = "/"
