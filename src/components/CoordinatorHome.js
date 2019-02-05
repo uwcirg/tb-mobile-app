@@ -1,15 +1,73 @@
 import React from "react"
 import { observer } from "mobx-react"
 import styled from "styled-components"
-import Provider from "../sessions/Provider"
 
-const ProviderHome = observer(({ store }) => (
-  <Layout store={store.provider}>
-    Assemble-powered provider layout.
+import ReactTable from "react-table"
+import "react-table/react-table.css"
+
+import { green, red, white, darkgrey } from "../colors"
+
+import Heading from "../primitives/Heading"
+
+import { Icon } from "@mdi/react"
+import { mdiClose, mdiCheckCircle, mdiCheckCircleOutline } from "@mdi/js"
+
+import moment from "moment"
+
+const Icons = {
+  good: <Icon size={1} color={green} path={mdiCheckCircle} />,
+  okay: <Icon size={1} color={green} path={mdiCheckCircleOutline} />,
+  bad:  <Icon size={1} color={red}   path={mdiClose} />,
+}
+
+const CoordinatorHome = observer(({ store }) => (
+  <Layout>
+    <span>{moment().format("YYYY-MM-DD")}</span>
+    <Heading>Manage Patient Progress</Heading>
+
+    <Table
+      data={store.provider.patients}
+      columns={[
+        {
+          Header: "medication_report_dates",
+          accessor: "medication_report_dates",
+
+          Cell: patient => {
+            // TODO placeholder,
+            // until we get the data hooked up for this.
+            let random = Math.random()
+            let randomHealth =
+              random > 0.3 ?  ( random > 0.6 ?  "good" : "okay") : "bad"
+            let healthBadge = Icons[randomHealth]
+
+            return (
+              healthBadge
+            )
+          }
+        },
+
+        { Header: "id", accessor: "id" },
+        { Header: "name", accessor: "name" },
+        { Header: "treatment_start_date", accessor: "treatment_start_date" },
+        { Header: "side_effects", accessor: "side_effects" },
+        { Header: "percent_reported", accessor: "percent_reported" },
+        { Header: "photo", accessor: "photo" },
+        { Header: "note", accessor: "note" },
+        { Header: "coordinator_note", accessor: "coordinator_note" },
+      ]}
+      defaultPageSize={5}
+    />
   </Layout>
 ))
 
 const Layout = styled.div`
+  background-color: ${white};
+  border: 1px solid ${darkgrey};
+  padding: 0.5rem;
+`
+
+const Table = styled(ReactTable)`
+  margin-top: 1rem;
 `
 
   /*
@@ -90,4 +148,4 @@ const Layout = styled.div`
   end
   */
 
-export default ProviderHome
+export default CoordinatorHome

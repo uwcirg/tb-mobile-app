@@ -8,10 +8,8 @@ import { grey, white } from "../colors"
 import hives from "../images/hives.jpg"
 import rash from "../images/rash.jpg"
 
-import Button from "../primitives/Button"
 import Selection from "../primitives/Selection"
 import Heading from "../primitives/Heading"
-import DateTime from "../primitives/DateTime"
 import Help from "../primitives/Help"
 
 import ImageLineup from "./ImageLineup"
@@ -23,25 +21,28 @@ import nausea_6 from "../images/nausea_scale_6.png"
 import nausea_8 from "../images/nausea_scale_8.png"
 import nausea_10 from "../images/nausea_scale_10.png"
 
-const translations =  { true: "Sí", false: "No" }
+const translation_keys =  { true: "yes", false: "no" }
 
 const ReportSymptoms = observer(({ store, survey }) => (
   <Layout>
     <Heading>{store.translate("survey.symptoms.title")}</Heading>
 
-    <DateTime
-      store={store}
-      date_path="survey_date"
-      time_path="survey_medication_time"
-    />
-
     <p>{store.translate("survey.symptoms.since_last")}</p>
 
     <Selection
-      update={() => translations[store.survey_anySymptoms]}
-      options={["Sí", "No"]}
+      update={() =>
+          store.translate(
+            `primitives.yes_no.${translation_keys[store.survey_anySymptoms]}`
+          )
+      }
+      options={
+        Object.values(translation_keys).map((v) =>
+          store.translate(`primitives.yes_no.${v}`)
+        )
+      }
       onChange={(selection) => store.survey_anySymptoms = (
-        selection == translations[true]
+        selection ===
+        store.translate(`primitives.yes_no.${translation_keys[true]}`)
       )}
     />
 
@@ -163,11 +164,6 @@ const ReportSymptoms = observer(({ store, survey }) => (
 const Layout = styled.div`
   display: grid;
   grid-row-gap: 1rem;
-`
-
-const Choice = styled.div`
-  margin-bottom: 1rem;
-  text-align: center;
 `
 
 const Label = styled.label`

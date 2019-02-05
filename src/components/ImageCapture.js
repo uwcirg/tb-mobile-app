@@ -42,7 +42,7 @@ class ImageCapture extends React.Component {
           ? (
             this.imageData
             ? <div>
-                <img alt="Your test strip photo" src={this.imageData} />
+                <img alt="Your test strip report." src={this.imageData} />
 
                 <Button onClick={(ev) => { this.imageData = null }} >
                   Re-take photo

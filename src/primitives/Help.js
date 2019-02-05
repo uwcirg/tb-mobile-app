@@ -17,8 +17,8 @@ const Help = observer(({ children }) => (
     {state => (
       <HelpToggle as={Popover.Toggle} {...state}>
         <Stack>
-          <Icon size="2rem" path={mdiCircle} size={1} color={darkgrey} />
-          <Icon size="1.2rem" path={mdiHelp} size={0.8} color={white} />
+          <Icon path={mdiCircle} size={1} color={darkgrey} />
+          <Icon path={mdiHelp} size={0.8} color={white} />
         </Stack>
 
         <Callout {...state}>{ children }</Callout>

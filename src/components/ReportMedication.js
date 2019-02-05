@@ -13,11 +13,6 @@ const ReportMedication = observer(({ store }) => (
   <Layout>
     <Heading>{store.translate("survey.tookMedication.title")}</Heading>
 
-    <DateTime
-      store={store}
-      date_path="survey_date"
-      time_path="survey_medication_time"
-    />
 
     <Selection
       update={() => store.survey_tookMedication
@@ -38,6 +33,16 @@ const ReportMedication = observer(({ store }) => (
         <span>{store.translate("survey.tookMedication.reason")}</span>
         <TextInput />
       </TextFieldLabel>
+    </Hidden>
+
+    <Hidden visible={store.survey_tookMedication} >
+      <p>{store.translate("survey.tookMedication.at")}</p>
+
+      <DateTime
+        store={store}
+        date_path="survey_date"
+        time_path="survey_medication_time"
+      />
     </Hidden>
   </Layout>
 ))

@@ -7,19 +7,11 @@ import { blue } from "../colors"
 import { Icon } from "@mdi/react"
 import { mdiCheckCircle } from "@mdi/js"
 
-import DateTime from "../primitives/DateTime"
-
 import ImageCapture from "./ImageCapture"
 
 const PhotoUpload = observer(({ store }) => (
   <Layout>
     <Heading>{store.translate("survey.upload.title")}</Heading>
-
-    <DateTime
-      store={store}
-      date_path="survey_date"
-      time_path="survey_medication_time"
-    />
 
     <ImageCapture store={store}/>
 

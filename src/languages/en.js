@@ -1,4 +1,12 @@
 export default {
+  primitives: {
+    yes_no: {
+      yes: "Yes",
+      no: "No",
+      unknown: "Unknown",
+    },
+  },
+
   home: {
     title: `
     Medication Tracking Home.
@@ -47,6 +55,10 @@ export default {
 
       reason: `
       Why did you not take the medicine?
+      `,
+
+      at: `
+      I took the medication at:
       `,
     },
 

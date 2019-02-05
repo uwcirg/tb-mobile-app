@@ -2,21 +2,11 @@ import React from "react"
 import ReactDOM from "react-dom"
 import registerServiceWorker from "./registerServiceWorker"
 
-import App from "./App"
-import { startRouter } from "./Router"
-
-import Patient from "./sessions/Patient"
-import Provider from "./sessions/Provider"
-
-let patient = new Patient(fetch)
-let provider = new Provider(fetch)
-
-startRouter(patient)
-patient.loadSession()
+import Assemble from "./Assemble"
 
 ReactDOM.render(
-  <App store={patient} />,
-  document.getElementById('root')
-);
+  <Assemble link={"linked_hash"} />,
+  document.getElementById('root'),
+)
 
 registerServiceWorker();

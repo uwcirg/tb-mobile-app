@@ -1,4 +1,11 @@
 export default {
+  primitives: {
+    yes_no: {
+      yes: "Sí",
+      no: "No",
+    },
+  },
+
   home: {
     title: `
     Reporte de medicación
@@ -47,6 +54,10 @@ export default {
 
       reason: `
       ¿Por qué no tomo su medicación?
+      `,
+
+      at: `
+      Yo tomé mi medicación a las:
       `,
     },
 

@@ -1,16 +1,9 @@
 import React from "react";
 import styled from "styled-components"
-import { observer, Observer } from "mobx-react"
+import { observer } from "mobx-react"
 import ReactCalendar from "react-calendar/dist/entry.nostyle"
-import moment from "moment"
 
 import { darkgrey, grey, white, green } from "../colors"
-
-import {
-  mdiCamera,
-  mdiFormatListChecks,
-  mdiPill,
-} from "@mdi/js"
 
 const Calendar = observer(({ store }) => (
   <CalendarComponent
