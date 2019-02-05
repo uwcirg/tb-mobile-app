@@ -30,7 +30,6 @@ const Help = observer(({ children }) => (
 const HelpToggle = styled(Button)`
   width: 2rem;
   flex-basis: 2rem;
-  margin-left: 1rem;
 `
 
 export default Help

@@ -3,7 +3,6 @@ export default {
     yes_no: {
       yes: "Yes",
       no: "No",
-      unknown: "Unknown",
     },
   },
 
@@ -277,7 +276,7 @@ export default {
     `,
 
     take_action_immediately: `
-    Call your doctor or go to the emergency department a la guardia immediately.
+    Call your doctor or go to the emergency department immediately.
     `,
 
     serio: {
