@@ -98,6 +98,7 @@ class Assemble extends React.Component {
             Object.assign(event, { date: moment(event.date).transform("YYYY-MM-DD 00:00:00.000") })
           )
         }))
+        .catch(() => {})
     })
 
     this.network.watch("cirg")`
@@ -110,6 +111,7 @@ class Assemble extends React.Component {
             Object.assign(event, { date: moment(event.date).transform("YYYY-MM-DD 00:00:00.000") })
           )
         }))
+        .catch(() => {})
     })
 
     this.network.watch("cirg")`
@@ -122,6 +124,7 @@ class Assemble extends React.Component {
             Object.assign(event, { date: moment(event.date).transform("YYYY-MM-DD 00:00:00.000") })
           )
         }))
+        .catch(() => {})
     })
 
     this.network.watch("cirg")`
@@ -132,6 +135,7 @@ class Assemble extends React.Component {
         .then(action(notes => {
           this.notes = notes
         }))
+        .catch(() => {})
     })
 
     // Behavior
