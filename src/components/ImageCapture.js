@@ -27,7 +27,7 @@ class ImageCapture extends React.Component {
   componentDidMount() {
     navigator
       .mediaDevices
-      .getUserMedia({ video: true, audio: false})
+      .getUserMedia({ video: { facingMode: "environment" }, audio: false})
       .then((stream) => this.stream = stream)
       .catch((err) => this.props.store.alert("An error occured! " + err))
   }
