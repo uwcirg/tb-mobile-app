@@ -175,6 +175,37 @@ export default {
       skip: `
       Saltar esta opción
       `,
+
+      instructions: {
+        intro: `
+        La prueba de orina asegura que su tratamiento esté en camino.
+        Por favor siga estas instrucciones:
+        `,
+
+        1: `
+        orinar en la taza;
+        `,
+
+        2: `
+        corta el extremo de la paja a lo largo de la línea punteada
+        `,
+
+        3: `
+        poner el extremo abierto de la pajilla en la orina y iniciar el cronómetrodejarla.
+        `,
+
+        4: `
+        Eespere 5-15 minutos (no más de 20) para tomar la fotografía (una vez que vea un cambio claro en el color);
+        `,
+
+        5: `
+        Toma la foto (retome la imagen si está borrosa u oscura);
+        `,
+
+        6:         `
+        asegúrese de ver la marca de verificación () y seleccionar Adelante para finalizar la carga.
+        `,
+      }
     },
   },
 

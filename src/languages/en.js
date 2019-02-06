@@ -181,6 +181,32 @@ export default {
       skip: `
       Skip
       `,
+
+      instructions: {
+        intro: `
+        The urine test confirms that you are taking your medication as instructed.
+        Please follow these instructions to take the test:
+        `,
+
+        1: `
+        Void in a cup
+        `,
+        2: `
+        Cut the end of the straw with the test strip along the line
+        `,
+        3: `
+        Place the cut end of the straw with the test strip into the urine and START timer
+        `,
+        4: `
+        Wait for 5-15 minutes (no more than 20) to take the picture (once you see a clear color change)
+        `,
+        5: `
+        Take the picture (retake if blurry or dark)
+        `,
+        6: `
+        Be sure the check mark (check mark or other?- image not coming through here) appears for uploaded successfully and select Continue to finish
+        `,
+      }
     },
   },
 

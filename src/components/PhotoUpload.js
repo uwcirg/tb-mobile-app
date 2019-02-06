@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
 import Heading from "../primitives/Heading"
+import Fold from "../primitives/Fold"
 
 import { blue } from "../colors"
 import { Icon } from "@mdi/react"
@@ -12,6 +13,19 @@ import ImageCapture from "./ImageCapture"
 const PhotoUpload = observer(({ store }) => (
   <Layout>
     <Heading>{store.translate("survey.upload.title")}</Heading>
+
+    <Fold>
+      <div>{store.translate("survey.upload.instructions.intro")}</div>
+
+      <ul>
+        <li>{store.translate("survey.upload.instructions.1")}</li>
+        <li>{store.translate("survey.upload.instructions.2")}</li>
+        <li>{store.translate("survey.upload.instructions.3")}</li>
+        <li>{store.translate("survey.upload.instructions.4")}</li>
+        <li>{store.translate("survey.upload.instructions.5")}</li>
+        <li>{store.translate("survey.upload.instructions.6")}</li>
+      </ul>
+    </Fold>
 
     <ImageCapture store={store}/>
 
