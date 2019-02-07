@@ -54,31 +54,18 @@ const patients = [
 class Coordinator {
   network = new Network(``)
 
-  @observable alerts = []
   @observable patients = patients
 
   constructor() {
-    this.network.watch("cirg")`
-      provider.patients
-    `(response => {
-      response
-        .json()
-        .then(action(patients => {
-          this.patients = patients
-        }))
-    })
-  }
-
-  @action alert(message) {
-    this.alerts.push(message)
-  }
-
-  @action dismissAlert(message) {
-    var index = this.alerts.indexOf(message);
-
-    if (index > -1) {
-      this.alerts.splice(index, 1);
-    }
+    // this.network.watch("cirg")`
+    //   coordinator.patients
+    // `(response => {
+    //   response
+    //     .json()
+    //     .then(action(patients => {
+    //       this.patients = patients
+    //     }))
+    // })
   }
 }
 

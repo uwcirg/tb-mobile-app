@@ -4,8 +4,7 @@ import styled from "styled-components"
 import { observable, computed, action, autorun } from "mobx"
 import { observer, Observer } from "mobx-react"
 
-import { white, beige, darkgrey } from "./colors"
-import Space from "./primitives/Space"
+import { white, beige, lightgrey, darkgrey } from "./colors"
 
 // Utility
 import "moment-transform"
@@ -28,10 +27,14 @@ import SymptomOverview from "./components/SymptomOverview"
 import espanol from "./languages/es"
 import english from "./languages/en"
 
+// Optional data for coordinator assembly
+import Coordinator from "./sessions/Coordinator"
+
 @observer
 class Assemble extends React.Component {
   network = new Network(``)
   @observable currentPage = Home
+  @observable coordinator = null
 
   // Notes
   @observable notes = []
@@ -74,6 +77,8 @@ class Assemble extends React.Component {
 
   constructor(props) {
     super(props)
+
+    this.coordinator = new Coordinator()
 
     // if(props.hash)
     //   this.currentPage = import(props.hash)
@@ -335,10 +340,12 @@ class Assemble extends React.Component {
         </Observer>
       </Content>
 
-      <Space/>
+      <Space />
 
       { this.authorized
-        ? <Navigation store={this} />
+        ? <NavBar>
+            <Navigation store={this} />
+          </NavBar>
         : null
       }
     </Layout>
@@ -353,8 +360,16 @@ const Layout = styled.div`
   color: ${darkgrey};
 
   display: grid;
-  grid-template-rows: 4rem auto 1fr 4rem;
   grid-row-gap: 1rem;
+  grid-template-rows: 4rem auto 4rem;
+`
+
+const NavBar = styled.div`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-top: 1px solid ${lightgrey};
 `
 
 const AuthBar = styled.div`
@@ -368,6 +383,10 @@ const AuthBar = styled.div`
 
   border-radius: 2px;
   border-bottom: 2px solid rgba(100, 100, 100, 0.2);
+`
+
+// We need something to reserve the space of the bottom navigation bar.
+const Space = styled.div`
 `
 
 const Title = styled.h3`

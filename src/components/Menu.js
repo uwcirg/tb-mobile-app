@@ -6,6 +6,10 @@ import { MenuIcon, UserIcon, CloseIcon } from "mdi-react"
 import { Box, Block, Backdrop, Portal, Sidebar } from "reakit";
 import { grey, darkgrey, white, red } from "../colors"
 
+// Link to coordinator interface
+import InternalLink from "../primitives/InternalLink"
+import CoordinatorHome from "./CoordinatorHome"
+
 import Icon from "../primitives/Icon"
 
 import Selection from "../primitives/Selection"
@@ -44,6 +48,10 @@ const Menu = observer(({ store }) => (
 
             <Question>{store.translate("menu.treatment_start")}</Question>
             <Question>{store.translate("menu.time_zone")}</Question>
+
+            <InternalLink to={CoordinatorHome} store={store} >
+              Coordinator Interface
+            </InternalLink>
 
             <LogoutButton onClick={() => store.logout()}>Log out</LogoutButton>
           </Layout>

@@ -26,7 +26,7 @@ const CoordinatorHome = observer(({ store }) => (
     <Heading>Manage Patient Progress</Heading>
 
     <Table
-      data={store.provider.patients}
+      data={store.coordinator.patients}
       columns={[
         {
           Header: "medication_report_dates",
@@ -148,4 +148,5 @@ const Table = styled(ReactTable)`
   end
   */
 
+CoordinatorHome.route = "/coordinator"
 export default CoordinatorHome
