@@ -3,50 +3,63 @@ import Network from "../Network"
 
 const patients = [
   {
-    medication_report_dates: [ ],
-    id: "abc234",
-    name: "Amy Bernier",
+    medication_report_dates: 'notreported',
+    id: "pete",
+    firstname: "Peter",
+    lastname: "Campbell",
+    phone: 15304120086,
     treatment_start_date: null,
+    last_repored_date: null,
     side_effects: ["Nausea"],
-    percent_since_start: 0.91,
+    percent_since_start: 48,
     photo: [],
-    note: [],
+    patient_note: [],
     coordinator_note: [],
   },
 
   {
-    medication_report_dates: [],
-    id: "abc345",
-    name: "Junior Casper",
+    // test dates and notes for both patient and coordinator
+    medication_report_dates: 'confirmed',
+    id: "lucky",
+    firstname: "Lucky",
+    lastname: "Campbell",
+    phone: 15304120086,
     treatment_start_date: null,
+    last_repored_date: null,
     side_effects: ["Nausea"],
-    percent_since_start: 0.91,
+    percent_since_start: 40,
     photo: [],
-    note: [],
+    patient_note: ["jsdjdjdjdjjdjdjdjdjdjdjdjdj"],
     coordinator_note: [],
   },
 
   {
-    medication_report_dates: [],
-    id: "abc456",
-    name: "Boyd Murazik",
+    medication_report_dates: 'reported',
+    id: "boyd",
+    firstname: "Boyd",
+    lastname: "Franklin",
+    phone: 15304120086,
     treatment_start_date: null,
+    last_repored_date: null,
     side_effects: ["Nausea"],
-    percent_since_start: 0.91,
+    percent_since_start: 10,
     photo: [],
-    note: [],
+    patient_note: [],
     coordinator_note: [],
   },
 
   {
-    medication_report_dates: [],
+    medication_report_dates: 'reported',
     id: "abc123",
-    name: "Heriberto Schmitt",
+    firstname: "Heriberto",
+    lastname: "Schmitt",
+    phone: 15304120086,
     treatment_start_date: null,
-    side_effects: ["Nausea"],
-    percent_since_start: 0.91,
+    last_repored_date: null,
+    side_effects: ["Nausea", "Redness", "Appetite loss"],
+    percent_since_start: 85,
     photo: [],
-    note: [],
+    patient_note: [],
     coordinator_note: [],
   },
 ]
@@ -56,6 +69,7 @@ class Coordinator {
 
   @observable patients = patients
 
+  // here is where we would connect to our DB and get REAL patient information
   constructor() {
     // this.network.watch("cirg")`
     //   coordinator.patients
