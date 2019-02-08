@@ -75,10 +75,24 @@ class Assemble extends React.Component {
   @observable alerts = []
   @observable provider = null
 
+  @observable test_strip_timer_end = null
+  @observable test_strip_timer_start = null
+  test_strip_timer = null
+
+  @computed get test_strip_time() {
+    return this.test_strip_timer_end.subtract(
+      this.test_strip_timer_start
+    )
+  }
+
   constructor(props) {
     super(props)
 
     this.coordinator = new Coordinator()
+    this.test_strip_timer = setInterval(
+      () => this.test_strip_timer_end = moment(),
+      1000,
+    )
 
     // if(props.hash)
     //   this.currentPage = import(props.hash)
