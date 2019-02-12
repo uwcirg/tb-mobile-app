@@ -59,7 +59,7 @@ const CoordinatorHome = observer(({ store }) => {
                           checked={store.current_strip_report === 'negative'} /> Negative / Unclear
                     <br></br>
                     {/* TODO: style like a button */}
-                    <Input type="submit" name="photostatus" onClick={e => console.log("Target Value", store.current_strip_report)}/>
+                    <Input type="submit" name="photostatus" onClick={e => (store.setPhotoStatus(store.current_strip_report))}/>
                   </label>
                 </div>)
         },
