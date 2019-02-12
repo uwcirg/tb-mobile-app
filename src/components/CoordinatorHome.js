@@ -4,253 +4,200 @@ import styled from "styled-components"
 
 import ReactTable from "react-table"
 import "react-table/react-table.css"
+import { blue, darkblue } from "../colors"
+
+import { Input } from "reakit";
+import { Block, Button, Backdrop, Portal, Overlay } from "reakit";
+
+// import Button from "../primitives/Button"
+
+// src/primitives/Button.js
+
+
+// For displayig image
+import { Image } from "reakit"
+import strip_report from "../images/strip_report.jpg"
 
 import { green, red, white, darkgrey } from "../colors"
 
 import Heading from "../primitives/Heading"
+import Help from    "../primitives/Help"
+import PhotoPopout from "../primitives/PhotoPopout"
+
+// make my own "Photo" popup?
+// import Photo from   "../pr"
 
 import { Icon } from "@mdi/react"
 import { mdiClose, mdiCheckCircle, mdiCheckCircleOutline } from "@mdi/js"
 
 import moment from "moment"
 
-// Could potentially do a sub component. Where you could look into the
-// data of a patient under itself.
-// https://react-table.js.org/#/story/sub-components
-
-// Confused by the use of these icons. What does good, okay, bad mean?
+// TODO: do we need these?
 const Icons = {
   good: <Icon size={1} color={green} path={mdiCheckCircle} />,
   okay: <Icon size={1} color={green} path={mdiCheckCircleOutline} />,
   bad:  <Icon size={1} color={red}   path={mdiClose} />,
 }
 
-const CoordinatorHome = observer(({ store }) => (
-  <Layout>
-    <span>{moment().format("YYYY-MM-DD")}</span>
-    <br />
-    <Heading>Manage Patient Progress</Heading>
-    <br />
+const CoordinatorHome = observer(({ store }) => {
 
-    <ReactTable
-          data={store.coordinator.patients}
-          columns={[
-            {
-              Header: "Personal",
-              columns: [
-                {
-                  Header: "Report Dates",
-                  accessor: "medication_report_dates",
-                  Cell: row => (
-                    <span>
-                      <span style={{
-                        color: row.value === 'notreported' ? '#ff2e00'
-                          : row.value === 'reported' ? '#ffbf00'
-                          : '#57d500',
-                        transition: 'all .3s ease'
-                      }}>
-                        &#x25cf;
-                      </span> {
-                        row.value === 'notreported' ? 'Not Reported'
-                        : row.value === 'reported' ? `Reported`
-                        : 'Confirmed'
-                      }
-                    </span>
-                  )
-                },
-                {
-                  Header: "First Name",
-                  accessor: "firstname"
-                },
-                {
-                  Header: "Last Name",
-                  accessor: "lastname"
-                },
-                {
-                  Header: "id",
-                  accessor: "id"
-                },
-                {
-                  Header: "Contact",
-                  // TODO: here do the what's up trick and format a button if possible
-                  accessor: "phone",
-                  // wa.me/15304120086
-                  Cell: e =><a href={'https://wa.me/' + e.value} target="_blank"> {e.value} </a>
-                }
-              ]
-            },
-            {
-              Header: "Treatment",
-              columns: [
-                {
-                  Header: "Start Date",
-                  accessor: "treatment_start_date"
-                },
-                {
-                  Header: "Last Reported Date",
-                  accessor: "last_repored_date"
-                },
-                {
-                  Header: "Side Effects",
-                  accessor: "side_effects"
-                },
-                {
-                  Header: "% Since Start",
-                  accessor: "percent_since_start"
-                },
-                {
-                  // TODO: how do we display the photo
-                  Header: "Photo",
-                  accessor: "photo"
-                },
-                
-              ]
-            },
-            {
-              Header: 'Notes',
-              columns: [
-                {
-                  Header: "My Notes",
-                  accessor: "coordinator_note"
-                },
-                {
-                  Header: "Patient Notes",
-                  accessor: "patient_note"
-                }
-              ]
-            }
-          ]}
-          defaultPageSize={10}
-          className="-striped -highlight"
-        />
-
-
-    {/* <Table
-      data={store.coordinator.patients}
-      columns={[
+  const tableColumns= [
+    {
+      Header: "Personal",
+      columns: [
         {
-          Header: "medication_report_dates",
-          accessor: "medication_report_dates",
-
-          Cell: patient => {
-            // TODO placeholder,
-            // until we get the data hooked up for this.
-            let random = Math.random()
-            let randomHealth =
-              random > 0.3 ?  ( random > 0.6 ?  "good" : "okay") : "bad"
-            let healthBadge = Icons[randomHealth]
-
-            return (
-              healthBadge
-            )
-          }
+          Header: 'Status',
+          accessor: 'status',
+          Cell: observer(e=> <div>
+                  <label>
+                    {/* onChange={e => store.setPhotoStatus('positive')} */}
+                    {/* store.current_strip_report = 'negative' */}
+                    <Input type="checkbox" name="photostatus" onChange={e => store.current_strip_report = 'positive'}
+                           checked={store.current_strip_report === 'positive'} /> Positive
+                    <br></br>
+                    <Input type="checkbox" name="photostatus" onChange={e => store.current_strip_report = 'negative'} 
+                          checked={store.current_strip_report === 'negative'} /> Negative / Unclear
+                    <br></br>
+                    {/* TODO: style like a button */}
+                    <Input type="submit" name="photostatus" onClick={e => console.log("Target Value", store.current_strip_report)}/>
+                  </label>
+                </div>)
         },
+        {
+          Header: "Status",
+          accessor: "medication_report_dates",
+          Cell: row => (
+            <span>
+              <span style={{
+                color: row.value === 'notreported' ? '#ff2e00'
+                  : row.value === 'reported' ? '#ffbf00'
+                  : '#57d500',
+                transition: 'all .3s ease'
+              }}>
+                &#x25cf;
+              </span> {
+                row.value === 'notreported' ? 'Not Reported'
+                : row.value === 'reported' ? `Reported`
+                : 'Confirmed'
+              }
+            </span>
+          )
+        },
+        {
+          Header: "First",
+          accessor: "firstname"
+        },
+        {
+          Header: "Last",
+          accessor: "lastname"
+        }
+      ]
+    },
+    {
+      Header: 'Actions',
+      columns: [
+        {
+          Header: "Photo",
+          accessor: "photo",
+          Cell: e=>
+            <PhotoPopout>
+              <Image
+                    src={strip_report}
+                    alt={"Strip report"}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      e.stopPropagation()
+                    }}
+              />
+            </PhotoPopout>
+        },
+  
+        {
+          Header: "Contact",
+          accessor: "phone",
+          // Add's a What's App Link to the table
+          // TODO: make sure phone number is properly formatted in DB
+          Cell: e =><a href={'https://wa.me/' + e.value} target="_blank"> {e.value} </a>
+        },
+        {
+          Header: "Profile",
+          accessor: "id",
+          Cell: e=><a hrer={e.value} target="_black"> View </a>
+        },
+        {
+          Header: "My Notes",
+          accessor: "coordinator_note",
+          Cell: e=>
+          <div>
+            <Input use="textarea" />
+            <br></br>
+            <br></br>
+            <Button>Save Note</Button>
+          </div>
+          // TODO: Add a submit button
+        },
+      ]
+    },
+    {
+      Header: "Treatment",
+      columns: [
+        {
+          // TODO: put side effects into a line break list
+          Header: "Side Effects",
+          accessor: "side_effects"
+        },
+        {
+          Header: "Last Reported Date",
+          accessor: "last_repored_date"
+        },
+        {
+          Header: "% Adherence",
+          accessor: "percent_since_start"
+        },      
+        {
+          Header: "Start Date",
+          accessor: "treatment_start_date"
+        },
+      ]
+    }
+  ];
 
-        { Header: "id", accessor: "id" },
-        { Header: "name", accessor: "name" },
-        { Header: "treatment_start_date", accessor: "treatment_start_date" },
-        { Header: "side_effects", accessor: "side_effects" },
-        { Header: "percent_reported", accessor: "percent_reported" },
-        { Header: "photo", accessor: "photo" },
-        { Header: "note", accessor: "note" },
-        { Header: "coordinator_note", accessor: "coordinator_note"},
-      ]}
-      defaultPageSize={5}
-    /> */}
+  return (
+    <Layout>
+      <span>{moment().format("YYYY-MM-DD")}</span>
+      <br />
+      <Heading>Manage Patient Progress</Heading>
+      <br />
 
-  </Layout>
-))
+      <ReactTable
+            data={store.coordinator.patients}
+            columns={ tableColumns}
+            defaultPageSize={10}
+            showPagination={ false }
+            className="-striped -highlight"
+      />
+    </Layout>
+)})
 
+// STYLING TODO:
+// - get rid of the border
+// - what is the heading style?
 const Layout = styled.div`
   background-color: ${white};
   border: 1px solid ${darkgrey};
-  padding: 0.5rem;
 `
 
+// Padding not working on this styled element
 const Table = styled(ReactTable)`
   margin-top: 1rem;
   width: 100%;
   margin-left: 10px;
   margin-right: 10px;
+  padding-top: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
 `
-
-  /*
-  def index
-    search_term = params[:search].to_s.strip
-    resources = Administrate::Search.new(scoped_resource,
-                                         dashboard_class,
-                                         search_term).run
-    resources = apply_collection_includes(resources)
-    resources = order.apply(resources)
-    resources = resources.page(params[:page]).per(records_per_page)
-    page = Administrate::Page::Collection.new(dashboard, order: order)
-
-    render locals: {
-      resources: resources,
-      search_term: search_term,
-      page: page,
-      show_search_bar: show_search_bar?,
-    }
-  end
-
-  def show
-    render locals: {
-      page: Administrate::Page::Show.new(dashboard, requested_resource),
-    }
-  end
-
-  def new
-    resource = resource_class.new
-    authorize_resource(resource)
-    render locals: {
-      page: Administrate::Page::Form.new(dashboard, resource),
-    }
-  end
-
-  def edit
-    render locals: {
-      page: Administrate::Page::Form.new(dashboard, requested_resource),
-    }
-  end
-
-  def create
-    resource = resource_class.new(resource_params)
-    authorize_resource(resource)
-
-    if resource.save
-      redirect_to(
-        [namespace, resource],
-        notice: translate_with_resource("create.success"),
-      )
-    else
-      render :new, locals: {
-        page: Administrate::Page::Form.new(dashboard, resource),
-      }
-    end
-  end
-
-  def update
-    if requested_resource.update(resource_params)
-      redirect_to(
-        [namespace, requested_resource],
-        notice: translate_with_resource("update.success"),
-      )
-    else
-      render :edit, locals: {
-        page: Administrate::Page::Form.new(dashboard, requested_resource),
-      }
-    end
-  end
-
-  def destroy
-    if requested_resource.destroy
-      flash[:notice] = translate_with_resource("destroy.success")
-    else
-      flash[:error] = requested_resource.errors.full_messages.join("<br/>")
-    end
-    redirect_to action: :index
-  end
-  */
 
 CoordinatorHome.route = "/coordinator"
 export default CoordinatorHome

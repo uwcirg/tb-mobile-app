@@ -45,6 +45,8 @@ class Assemble extends React.Component {
   @observable medication_reports = []
   @observable symptom_reports = []
   @observable strip_reports = []
+  
+  @observable current_strip_report = null
 
   // Current medication report
   @observable survey_date = moment()
@@ -120,14 +122,15 @@ class Assemble extends React.Component {
     })
 
     this.network.watch("cirg")`
-      user.strip_reports.map { |r| { date: r.timestamp } }
+      user.strip_reports 
     `(response => {
       response
         .json()
         .then(action(events => {
           this.strip_reports = events.map(event =>
-            Object.assign(event, { date: moment(event.date).transform("YYYY-MM-DD 00:00:00.000") })
+            Object.assign(event, { date: moment(event.timestamp).transform("YYYY-MM-DD 00:00:00.000") })
           )
+          console.log("Strip Reports", this.strip_reports);
         }))
         .catch(() => {})
     })
@@ -152,6 +155,12 @@ class Assemble extends React.Component {
 
   @action alert(message) {
     this.alerts.push(message)
+  }
+
+  @action setPhotoStatus(message) {
+    this.network.run()`
+      StripReport.find(1).update(status: "${message}")
+    `
   }
 
   @action dismissAlert(message) {
@@ -352,6 +361,8 @@ class Assemble extends React.Component {
   )
 }
 
+// taking out display: grid;
+
 const Layout = styled.div`
   height: 100vh;
   background-size: cover;
@@ -359,7 +370,6 @@ const Layout = styled.div`
   background: ${beige};
   color: ${darkgrey};
 
-  display: grid;
   grid-row-gap: 1rem;
   grid-template-rows: 4rem auto 4rem;
 `

@@ -35,6 +35,7 @@
     "eject": "react-app-rewired eject"
   },
   "devDependencies": {
+    "babel-preset-react": "^6.24.1",
     "enzyme": "^3.6.0",
     "enzyme-adapter-react-16": "^1.5.0",
     "sinon": "^6.3.5"
