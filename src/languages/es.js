@@ -6,11 +6,16 @@ export default {
     },
   },
 
-  home: {
-    title: `
-    Reporte de medicación
-    `,
+  titles: {
+      notes: "Mis Notas",
+      faqs: "Información y Educación",
+      symptomOverview: "Información y Educación",
+      infoEd: "Información y Educación",
+      home: "Reporte de medicación",
+      default: "Asistente de tratamente"
+  },
 
+  home: {
     survey: `
     Control del Tratamiento
     `,
@@ -160,6 +165,18 @@ export default {
       Haga clic aquí para subir una foto.
       `,
 
+      start_timer: `
+      TODO Start timer
+      `,
+
+      end_timer: `
+      TODO Capture a test strip photo to stop the timer.
+      `,
+
+      restart: `
+      TODO Or, start the test again.
+      `,
+
       finished: `
       Uploaded
       `,
@@ -216,6 +233,32 @@ export default {
 
     symptom_overview: `
     Resumen de los efectos indeseables
+    `,
+  },
+
+  login: {
+    welcome: `
+    ¡Bienvenido!
+    `,
+
+    phone: `
+    Número de teléfono
+    `,
+
+    initials: `
+    TODO Initials
+    `,
+
+    date_of_birth: `
+    TODO Date of Birth
+    `,
+
+    treatment_start_date: `
+    TODO Study Start Date
+    `,
+
+    register: `
+    Registrarse
     `,
   },
 

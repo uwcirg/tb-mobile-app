@@ -1,12 +1,5 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import registerServiceWorker from "./registerServiceWorker"
+import Assembly from "./Assembly"
 
-import Assemble from "./Assemble"
-
-ReactDOM.render(
-  <Assemble link={"linked_hash"} />,
-  document.getElementById('root'),
-)
-
-registerServiceWorker();
+ReactDOM.render(<Assembly />, document.getElementById('root'))

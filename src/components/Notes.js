@@ -9,7 +9,7 @@ import moment from "moment"
 
 import { observer } from "mobx-react"
 
-const Notes = observer(({store}) => (
+const Notes = observer(({ store }) => (
   <Layout>
     { store.noteDraft === null && store.noteTitle === null
     ? <NewButton onClick={() => store.composeNote()}>
@@ -28,6 +28,7 @@ const Notes = observer(({store}) => (
           value={store.noteDraft}
           onChange={e => store.noteDraft = e.target.value}
         />
+
         <NewButton onClick={() => store.saveNote()}>
           <ContentSaveIcon/> Save
         </NewButton>
@@ -37,7 +38,7 @@ const Notes = observer(({store}) => (
     { store.notes.length === 0
       ? <Hint>{store.translate("notes.hint")}</Hint>
 
-      : store.notes.map(({ id, title, created_at, text, updated_at }) => (
+      : store.notes.records.map(({ id, title, created_at, text, updated_at }) => (
         <Note key={id}>
           <Note.Header>
             <Note.Title>{title}</Note.Title>
