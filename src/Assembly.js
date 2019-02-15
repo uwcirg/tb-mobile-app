@@ -32,7 +32,7 @@ import { observer, Observer } from "mobx-react"
 import { white, beige, lightgrey, darkgrey } from "./colors"
 
 // Crypto & authentication
-import KJUR from "jsrsasign"
+// import KJUR from "jsrsasign"
 
 // Utility
 import "moment-transform"
@@ -241,26 +241,25 @@ class Assembly extends React.Component {
     this.currentPage = page
   }
 
-  // This is backwards right now.
   @action login(username, password, callback) {
-    let payload = JSON.stringify(this.account)
-    let header = {alg: "HS256", typ: "JWT"};
+    // let payload = JSON.stringify(this.account)
+    // let header = {alg: "HS256", typ: "JWT"};
 
-    fetch("/public_certificate").then((result) =>
-      result.text().then(foundation_public_cert => {
+    // fetch("/public_certificate").then((result) =>
+    //   result.text().then(foundation_public_cert => {
 
-        let jwt = KJUR.jws.JWS.sign(
-          "HS256",
-          header,
-          payload,
-          {utf8: foundation_public_cert},
-        );
+    //     let jwt = KJUR.jws.JWS.sign(
+    //       "HS256",
+    //       header,
+    //       payload,
+    //       {utf8: foundation_public_cert},
+    //     );
 
-        network = new Network(jwt)
-        this.showHome()
-        console.log(network.authorization)
-      })
-    )
+    //     network = new Network(jwt)
+    //     this.showHome()
+    //     console.log(network.authorization)
+    //   })
+    // )
   }
 
   // TODO change out `author_id`
