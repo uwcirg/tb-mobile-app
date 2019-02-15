@@ -48,6 +48,7 @@ const CoordinatorHome = observer(({ store }) => {
         {
           Header: "Status",
           accessor: "medication_report_dates",
+          width: 110,
           // Link this up to the patient so that it changes after a test result is submitted
           Cell: row => (
             <span>
@@ -82,16 +83,13 @@ const CoordinatorHome = observer(({ store }) => {
         {
           // TODO: Link up to the correct value
           Header: "Took Medication",
-          accessor: "last_repored_date"
+          accessor: "took_medication"
         },
         {
           // TODO: put side effects into a line break list
           Header: "Side Effects",
           accessor: "side_effects",
-          Cell: e=> {
-            for (var effect in e.value) {
-              return (effect)
-            }}
+          Cell: e=> e.value.join("\n \n")
         },
         {
           Header: "Photo",
@@ -116,6 +114,8 @@ const CoordinatorHome = observer(({ store }) => {
           width: 175,
           Cell: observer(e=> <div>
                   <label>
+                    {/* TODO: try changing to a radio button and making the result of the change equal
+                    to the opposite */}
                     {/* onChange={e => store.setPhotoStatus('positive')} */}
                     {/* store.current_strip_report = 'negative' */}
                     <Input type="checkbox" name="photostatus" onChange={e => store.current_strip_report = 'positive'}
@@ -144,7 +144,7 @@ const CoordinatorHome = observer(({ store }) => {
         {
           Header: "My Notes",
           accessor: "coordinator_note",
-          width: 100,
+          width: 175,
           Cell: e=>
           <div>
             <Input use="textarea" />

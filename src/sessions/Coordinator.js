@@ -5,6 +5,7 @@ const patients = [
   {
     medication_report_dates: 'notreported',
     id: "pete",
+    took_medication: 'Yes',
     firstname: "Peter",
     lastname: "Campbell",
     phone: 15304120086,
@@ -21,6 +22,7 @@ const patients = [
     // test dates and notes for both patient and coordinator
     medication_report_dates: 'confirmed',
     id: "lucky",
+    took_medication: 'Yes',
     firstname: "Lucky",
     lastname: "Campbell",
     phone: 15304120086,
@@ -36,6 +38,7 @@ const patients = [
   {
     medication_report_dates: 'reported',
     id: "boyd",
+    took_medication: 'Yes',
     firstname: "Boyd",
     lastname: "Franklin",
     phone: 15304120086,
@@ -51,13 +54,14 @@ const patients = [
   {
     medication_report_dates: 'reported',
     id: "abc123",
+    took_medication: 'No',
     firstname: "Heriberto",
     lastname: "Schmitt",
     phone: 15304120086,
     treatment_start_date: null,
     last_repored_date: null,
     side_effects: ["Nausea", "Redness", "Appetite loss"],
-    percent_since_start: 85,
+    percent_since_start: 15,
     photo: [],
     patient_note: [],
     coordinator_note: [],
