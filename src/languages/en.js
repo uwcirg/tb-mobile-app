@@ -246,6 +246,20 @@ export default {
     `,
   },
 
+  contact: {
+    title: `
+    Contact your Coordinator
+    `,
+
+    first: `
+    Do not contact your coordinator if you are having an emergency
+    `,
+
+    second: `
+    Messages will only be read during regular business hours
+    `,
+  },
+
   notes: {
     new: `
     New

@@ -9,11 +9,14 @@ import {
   mdiCalendarCheck,
   mdiInformation,
   mdiPencil,
+  mdiProgressCheck,
+  mdiChat,
 } from "@mdi/js"
 
 import Home from "./Home"
 import InfoEd from "./InfoEd"
 import Notes from "./Notes"
+import Contact from "./Contact"
 
 const Navigation = observer(({ store }) => (
   <Layout>
@@ -21,8 +24,17 @@ const Navigation = observer(({ store }) => (
       <Icon path={mdiInformation} size="1.4rem" />
     </InternalLink>
 
+    {/* progress page */}
+    <InternalLink to={InfoEd} store={store} >
+      <Icon path={mdiProgressCheck} size="1.4rem" />
+    </InternalLink>
+
     <InternalLink to={Home} store={store} >
       <Icon path={mdiCalendarCheck} size="2.4rem" />
+    </InternalLink>
+
+    <InternalLink to={Contact} store={store} >
+      <Icon path={mdiChat} size="1.4rem" />
     </InternalLink>
 
     <InternalLink to={Notes} store={store} >

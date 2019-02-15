@@ -43,29 +43,12 @@ const CoordinatorHome = observer(({ store }) => {
 
   const tableColumns= [
     {
-      Header: "Personal",
+      Header: "Participant Info",
       columns: [
-        {
-          Header: 'Status',
-          accessor: 'status',
-          Cell: observer(e=> <div>
-                  <label>
-                    {/* onChange={e => store.setPhotoStatus('positive')} */}
-                    {/* store.current_strip_report = 'negative' */}
-                    <Input type="checkbox" name="photostatus" onChange={e => store.current_strip_report = 'positive'}
-                           checked={store.current_strip_report === 'positive'} /> Positive
-                    <br></br>
-                    <Input type="checkbox" name="photostatus" onChange={e => store.current_strip_report = 'negative'} 
-                          checked={store.current_strip_report === 'negative'} /> Negative / Unclear
-                    <br></br>
-                    {/* TODO: style like a button */}
-                    <Input type="submit" name="photostatus" onClick={e => (store.setPhotoStatus(store.current_strip_report))}/>
-                  </label>
-                </div>)
-        },
         {
           Header: "Status",
           accessor: "medication_report_dates",
+          // Link this up to the patient so that it changes after a test result is submitted
           Cell: row => (
             <span>
               <span style={{
@@ -94,8 +77,22 @@ const CoordinatorHome = observer(({ store }) => {
       ]
     },
     {
-      Header: 'Actions',
+      Header: 'Reported Data',
       columns: [
+        {
+          // TODO: Link up to the correct value
+          Header: "Took Medication",
+          accessor: "last_repored_date"
+        },
+        {
+          // TODO: put side effects into a line break list
+          Header: "Side Effects",
+          accessor: "side_effects",
+          Cell: e=> {
+            for (var effect in e.value) {
+              return (effect)
+            }}
+        },
         {
           Header: "Photo",
           accessor: "photo",
@@ -111,7 +108,27 @@ const CoordinatorHome = observer(({ store }) => {
               />
             </PhotoPopout>
         },
-  
+        {
+          Header: 'Test Result',
+          // TODO: link each checkbox to each patient. Right now we are routing all data to 
+          // setPhotoStatus and not capturing for whom
+          accessor: 'status',
+          width: 175,
+          Cell: observer(e=> <div>
+                  <label>
+                    {/* onChange={e => store.setPhotoStatus('positive')} */}
+                    {/* store.current_strip_report = 'negative' */}
+                    <Input type="checkbox" name="photostatus" onChange={e => store.current_strip_report = 'positive'}
+                           checked={store.current_strip_report === 'positive'} /> Positive
+                    <br></br>
+                    <Input type="checkbox" name="photostatus" onChange={e => store.current_strip_report = 'negative'} 
+                          checked={store.current_strip_report === 'negative'} /> Negative / Unclear
+                    <br></br>
+                    {/* TODO: style like a button */}
+                    <Input type="submit" name="photostatus" onClick={e => (store.setPhotoStatus(store.current_strip_report))}/>
+                  </label>
+                </div>)
+        },
         {
           Header: "Contact",
           accessor: "phone",
@@ -127,6 +144,7 @@ const CoordinatorHome = observer(({ store }) => {
         {
           Header: "My Notes",
           accessor: "coordinator_note",
+          width: 100,
           Cell: e=>
           <div>
             <Input use="textarea" />
@@ -141,15 +159,6 @@ const CoordinatorHome = observer(({ store }) => {
     {
       Header: "Treatment",
       columns: [
-        {
-          // TODO: put side effects into a line break list
-          Header: "Side Effects",
-          accessor: "side_effects"
-        },
-        {
-          Header: "Last Reported Date",
-          accessor: "last_repored_date"
-        },
         {
           Header: "% Adherence",
           accessor: "percent_since_start"

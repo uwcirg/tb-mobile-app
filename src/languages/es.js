@@ -245,6 +245,20 @@ export default {
     `,
   },
 
+  contact: {
+    title: `
+    Contact your Coordinator (es)
+    `,
+
+    first: `
+    Do not contact your coordinator if you are having an emergency (es)
+    `,
+
+    second: `
+    Messages will only be read during regular business hours (es)
+    `,
+  },
+
   notes: {
     new: `
     Nueva
