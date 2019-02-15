@@ -370,6 +370,7 @@ const Layout = styled.div`
   background: ${beige};
   color: ${darkgrey};
 
+  display: grid;
   grid-row-gap: 1rem;
   grid-template-rows: 4rem auto 4rem;
 `
