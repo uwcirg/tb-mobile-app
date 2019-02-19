@@ -31,7 +31,7 @@ import english from "./languages/en"
 import Coordinator from "./sessions/Coordinator"
 
 @observer
-class Assemble extends React.Component {
+class Assembly extends React.Component {
   network = new Network(``)
   @observable currentPage = Home
   @observable coordinator = null
@@ -130,7 +130,6 @@ class Assemble extends React.Component {
           this.strip_reports = events.map(event =>
             Object.assign(event, { date: moment(event.timestamp).transform("YYYY-MM-DD 00:00:00.000") })
           )
-          console.log("Strip Reports", this.strip_reports);
         }))
         .catch(() => {})
     })
@@ -157,9 +156,10 @@ class Assemble extends React.Component {
     this.alerts.push(message)
   }
 
-  @action setPhotoStatus(message) {
+  // TODO: Change find(1) to find(${photo_id})
+  @action setPhotoStatus(status) {
     this.network.run()`
-      StripReport.find(1).update(status: "${message}")
+      StripReport.find(1).update(status: "${status}")
     `
   }
 
@@ -361,8 +361,6 @@ class Assemble extends React.Component {
   )
 }
 
-// taking out display: grid;
-
 const Layout = styled.div`
   height: 100vh;
   background-size: cover;
@@ -380,8 +378,7 @@ const NavBar = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  border-top: 1px solid ${lightgrey};
-  
+  border-top: 1px solid ${lightgrey}; 
 `
 
 const AuthBar = styled.div`
@@ -424,4 +421,4 @@ const Content = styled.div`
   padding: 0 1rem;
 `
 
-export default Assemble
+export default Assembly

@@ -26,7 +26,7 @@ const Contact = observer(({store}) => (
             </List>
             <Divider />
             <Link href="https://github.com/uwcirg/tb-mobile-app" target="_blank">
-              <Button backgroundColor={blue}>Link to What's App</Button>
+              <Button backgroundColor={blue}>Link to WhatsApp</Button>
             </Link>
         </div>
 

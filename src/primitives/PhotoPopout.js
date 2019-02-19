@@ -6,8 +6,7 @@ import { Button, Popover } from "reakit";
 import Callout from "./Callout"
 
 const PhotoPopout = observer(({ children }) => (
-
-    <Popover.Container>
+  <Popover.Container>
     {state => (
       <HelpToggle as={Popover.Toggle} {...state}>
         View

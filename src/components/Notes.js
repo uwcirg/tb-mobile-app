@@ -7,11 +7,6 @@ import { grey } from "../colors"
 import Fold from "../primitives/Fold"
 import moment from "moment"
 
-// Reakit import
-import theme from "reakit-theme-default";
-// Confusing part is that
-//import { Button, Provider } from "reakit";
-
 import { observer } from "mobx-react"
 
 const Notes = observer(({store}) => (
@@ -34,6 +29,7 @@ const Notes = observer(({store}) => (
             value={store.noteDraft}
             onChange={e => store.noteDraft = e.target.value}
           />
+          {/* TODO translate */}
           <NewButton onClick={() => store.saveNote()}>
             <ContentSaveIcon/> Save
           </NewButton>

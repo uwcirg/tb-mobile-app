@@ -9,35 +9,15 @@ import { blue, darkblue } from "../colors"
 import { Input } from "reakit";
 import { Block, Button, Backdrop, Portal, Overlay } from "reakit";
 
-// import Button from "../primitives/Button"
-
-// src/primitives/Button.js
-
-
-// For displayig image
 import { Image } from "reakit"
 import strip_report from "../images/strip_report.jpg"
 
-import { green, red, white, darkgrey } from "../colors"
+import { white, darkgrey } from "../colors"
 
 import Heading from "../primitives/Heading"
-import Help from    "../primitives/Help"
 import PhotoPopout from "../primitives/PhotoPopout"
 
-// make my own "Photo" popup?
-// import Photo from   "../pr"
-
-import { Icon } from "@mdi/react"
-import { mdiClose, mdiCheckCircle, mdiCheckCircleOutline } from "@mdi/js"
-
 import moment from "moment"
-
-// TODO: do we need these?
-const Icons = {
-  good: <Icon size={1} color={green} path={mdiCheckCircle} />,
-  okay: <Icon size={1} color={green} path={mdiCheckCircleOutline} />,
-  bad:  <Icon size={1} color={red}   path={mdiClose} />,
-}
 
 const CoordinatorHome = observer(({ store }) => {
 
@@ -152,7 +132,8 @@ const CoordinatorHome = observer(({ store }) => {
             <br></br>
             <Button>Save Note</Button>
           </div>
-          // TODO: Add a submit button
+          // TODO: Add an action to connect to the DB after
+          // the Save Note button is clicked
         },
       ]
     },

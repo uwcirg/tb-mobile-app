@@ -247,17 +247,17 @@ export default {
 
   contact: {
     title: `
-    Contact your Coordinator (es)
+    Contactar el coordinador de tratamiento (es)
     `,
 
     first: `
-    Do not contact your coordinator if you are having an emergency (es)
+    No se comunique con su coordinador si tiene una emergencia. Cualquier situación de emergencia debe ser dirigidas a través de rutas habituales, concurriendo al centro de atención más cercano. (es)
     `,
 
     second: `
-    Messages will only be read during regular business hours (es)
+    El coordinador del estudio está disponible durante horas de oficina para leer y responder los mensajes (es)
     `,
-  },
+},
 
   notes: {
     new: `
