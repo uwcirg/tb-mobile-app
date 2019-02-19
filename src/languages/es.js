@@ -288,6 +288,20 @@ export default {
     `,
   },
 
+  contact: {
+    title: `
+    Contactar el coordinador de tratamiento (es)
+    `,
+
+    first: `
+    No se comunique con su coordinador si tiene una emergencia. Cualquier situación de emergencia debe ser dirigidas a través de rutas habituales, concurriendo al centro de atención más cercano. (es)
+    `,
+
+    second: `
+    El coordinador del estudio está disponible durante horas de oficina para leer y responder los mensajes (es)
+    `,
+},
+
   notes: {
     new: `
     Nueva

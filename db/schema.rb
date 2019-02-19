@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20190214191143) do
     t.string "photo_url", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status"
   end
 
   create_table "symptom_reports", force: :cascade do |t|

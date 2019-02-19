@@ -21,12 +21,13 @@
     "react-app-rewire-mobx": "^1.0.9",
     "react-app-rewired": "^1.6.2",
     "react-calendar": "^2.17.4",
+    "react-circular-progressbar": "^1.0.0",
     "react-dom": "^16.5.1",
     "react-dropzone": "^7.0.1",
     "react-scripts": "1.1.5",
     "react-table": "^6.8.6",
     "reakit": "^0.15.1",
-    "reakit-theme-default": "^0.1.2"
+    "reakit-theme-default": "^0.1.12"
   },
   "scripts": {
     "start": "react-app-rewired start",
@@ -35,6 +36,7 @@
     "eject": "react-app-rewired eject"
   },
   "devDependencies": {
+    "babel-preset-react": "^6.24.1",
     "enzyme": "^3.6.0",
     "enzyme-adapter-react-16": "^1.5.0",
     "sinon": "^6.3.5"

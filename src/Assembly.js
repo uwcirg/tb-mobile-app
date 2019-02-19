@@ -208,8 +208,16 @@ class Assembly extends React.Component {
     })
   }
 
+  // TODO: Change find(1) to find(${photo_id})
+  @action setPhotoStatus(status) {
+    this.network.run()`
+      StripReport.find(1).update(status: "${status}")
+    `
+  }
+
   // Alerts
   @action alert(message) { this.alerts.push(message) }
+
   @action dismissAlert(message) {
     var index = this.alerts.indexOf(message);
     if (index > -1) this.alerts.splice(index, 1);
@@ -415,7 +423,7 @@ const NavBar = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  border-top: 1px solid ${lightgrey};
+  border-top: 1px solid ${lightgrey}; 
 `
 
 const AuthBar = styled.div`
