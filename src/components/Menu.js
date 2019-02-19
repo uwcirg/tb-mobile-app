@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import Button from "../primitives/Button"
-import { observer, Observer } from "mobx-react"
+import { observer } from "mobx-react"
 import { MenuIcon, UserIcon, CloseIcon } from "mdi-react"
 import { Box, Block, Backdrop, Portal, Sidebar } from "reakit";
 import { grey, darkgrey, white, red } from "../colors"
@@ -22,8 +22,6 @@ const Menu = observer(({ store }) => (
         <TransparentBackdrop as={[Portal, Sidebar.Hide]} {...sidebar} />
 
         <Sidebar align="right" slide as={Portal} {...sidebar}>
-          <Observer>
-            {() => (
           <Layout>
             <Toggle {...sidebar} ><CloseIcon /></Toggle>
 
@@ -55,8 +53,6 @@ const Menu = observer(({ store }) => (
 
             <LogoutButton onClick={() => store.logout()}>Log out</LogoutButton>
           </Layout>
-            )}
-          </Observer>
         </Sidebar>
       </Block>
     )}

@@ -1,3 +1,28 @@
+// Code snippets - possible future use.
+
+// Dynamic import
+    // if(props.hash)
+    //   this.currentPage = import(props.hash)
+
+// Transform dates
+    // moment(event.timestamp).transform("YYYY-MM-DD 00:00:00.000")
+
+// import IPFS from "ipfs"
+//
+// const ipfs = new IPFS({
+//   EXPERIMENTAL: {
+//     pubsub: true
+//   }
+// })
+//
+// ipfs.once("ready", () =>
+//   ipfs.id((err, info) => {
+//     if(err) throw err;
+//
+//     console.log(`Ready! ${info.id}`)
+//   })
+// )
+
 import React from "react"
 import styled from "styled-components"
 
@@ -6,12 +31,16 @@ import { observer, Observer } from "mobx-react"
 
 import { white, beige, lightgrey, darkgrey } from "./colors"
 
+// Crypto & authentication
+// import KJUR from "jsrsasign"
+
 // Utility
 import "moment-transform"
-import Network from "./Network"
 import auth from "./oauth2"
 import moment from "moment"
-import { Client } from "minio"
+// import { Client } from "minio"
+
+import Network from "./Network"
 
 // Layouts
 import Faqs from "./components/Faqs"
@@ -22,6 +51,7 @@ import Menu from "./components/Menu"
 import Navigation from "./components/Navigation"
 import Notes from "./components/Notes"
 import SymptomOverview from "./components/SymptomOverview"
+import Login from "./components/Login"
 
 // Language
 import espanol from "./languages/es"
@@ -30,40 +60,101 @@ import english from "./languages/en"
 // Optional data for coordinator assembly
 import Coordinator from "./sessions/Coordinator"
 
+let network = new Network()
+
+// For when you'll need a few.
+class Records {
+  constructor(klass_name, instance_name) {
+    this.klass_name = klass_name
+    this.instance_name = instance_name
+
+    // TODO change this to the account lookup
+    this.reference = "User.first"
+  }
+
+  async fetch() {
+    return network.run("cirg")`${this.reference}`
+      .then(r => this.records = r.json())
+      .catch(e => console.log(e))
+  }
+
+  // Always a chance that this cache can become out of date.
+  @observable records = []
+
+  assoc(association_name) {
+    this.reference = `${this.reference}.${association_name}`
+    return this
+  }
+
+  // These functions execute commands on the network
+
+  create(attrs) {
+    return network.run("cirg")`
+      ${this.reference}.
+        ${this.instance_name}.
+        create!(JSON.parse('${JSON.stringify(attrs)}'))
+    `
+  }
+
+  // Keep our records synced with the database.
+  // Can be optimized with pub/sub event subscriptions
+  //
+  // TODO remove "cirg" argument; see comments in `src/Network.js`
+  watch() {
+    network.watch("cirg")`
+      ${this.reference}.${this.instance_name}
+    `(response => {
+      response
+        .json()
+        .then(r => this.records = r)
+        .catch(e => console.log(e))
+    })
+  }
+}
+
 @observer
 class Assembly extends React.Component {
-  network = new Network(``)
   @observable currentPage = Home
   @observable coordinator = null
 
-  // Notes
-  @observable notes = []
+  // TODO change from `User` to `Account`
+  // Records("User", "user").first
+  @observable account = {
+    date_of_birth: null,
+    initials: null,
+    phone_number: null,
+    treatment_start_date: null,
+  }
+
+  @observable authorization = null
+
   @observable noteDraft = null
   @observable noteTitle = null
 
-  // History of reports
-  @observable medication_reports = []
-  @observable symptom_reports = []
-  @observable strip_reports = []
-  
-  @observable current_strip_report = null
+  // Recorded Data
+  @observable medication_reports = new Records("MedicationReport", "medication_reports")
+  @observable symptom_reports    = new Records("SymptomReport"   , "symptom_reports")
+  @observable strip_reports      = new Records("StripReport"     , "strip_reports")
+  @observable notes              = new Records("Note"           , "notes")
 
   // Current medication report
   @observable survey_date = moment()
   @observable survey_medication_time = moment()
 
   // Current symptom report
-  @observable nausea = false
-  @observable redness = false
-  @observable hives = false
-  @observable fever = false
-  @observable appetite_loss = false
-  @observable blurred_vision = false
-  @observable sore_belly = false
-  @observable yellow_coloration = false
-  @observable difficulty_breathing = false
-  @observable facial_swelling = false
-  @observable other = null
+  @observable symptoms = {
+    nausea: false,
+    redness: false,
+    hives: false,
+    fever: false,
+    appetite_loss: false,
+    blurred_vision: false,
+    sore_belly: false,
+    yellow_coloration: false,
+    difficulty_breathing: false,
+    facial_swelling: false,
+    other: null,
+  }
 
   @observable nausea_rating = 0
 
@@ -77,83 +168,44 @@ class Assembly extends React.Component {
   @observable alerts = []
   @observable provider = null
 
+  @observable test_strip_timer_end = null
+  @observable test_strip_timer_start = null
+  test_strip_timer = null
+
+  @computed get test_strip_time() {
+    return this.test_strip_timer_end.subtract(
+      this.test_strip_timer_start
+    )
+  }
+
   constructor(props) {
     super(props)
 
+    this.medication_reports.watch()
+    this.symptom_reports   .watch()
+    this.strip_reports     .watch()
+    this.notes             .watch()
+
+    if(!this.authorization) { this.currentPage = Login }
+
     this.coordinator = new Coordinator()
 
-    // if(props.hash)
-    //   this.currentPage = import(props.hash)
+    this.test_strip_timer = setInterval(
+      () => this.test_strip_timer_end = moment(),
+      1000,
+    )
 
     // Inverse routing
     autorun(() => {
-      const path = this.currentPath
-
-      if(path !== window.location.pathname)
-        window.history.pushState(null, null, path)
-    })
-
-    // Database calls
-    // proxied through Rails models at the moment.
-    this.network.watch("cirg")`
-      user.medication_reports.map { |r| { date: r.timestamp } }
-    `(response => {
-      response
-        .json()
-        .then(action(events => {
-          this.medication_reports = events.map(event =>
-            Object.assign(event, { date: moment(event.date).transform("YYYY-MM-DD 00:00:00.000") })
-          )
-        }))
-        .catch(() => {})
-    })
-
-    this.network.watch("cirg")`
-      user.symptom_reports.map { |r| { date: r.timestamp } }
-    `(response => {
-      response
-        .json()
-        .then(action(events => {
-          this.symptom_reports = events.map(event =>
-            Object.assign(event, { date: moment(event.date).transform("YYYY-MM-DD 00:00:00.000") })
-          )
-        }))
-        .catch(() => {})
-    })
-
-    this.network.watch("cirg")`
-      user.strip_reports 
-    `(response => {
-      response
-        .json()
-        .then(action(events => {
-          this.strip_reports = events.map(event =>
-            Object.assign(event, { date: moment(event.timestamp).transform("YYYY-MM-DD 00:00:00.000") })
-          )
-        }))
-        .catch(() => {})
-    })
-
-    this.network.watch("cirg")`
-      user.notes
-    `(response => {
-      response
-        .json()
-        .then(action(notes => {
-          this.notes = notes
-        }))
-        .catch(() => {})
+      if(this.currentPath !== window.location.pathname)
+        window.history.pushState(null, null, this.currentPath)
     })
 
     // Behavior
     autorun(() => {
-      if (this.difficulty_breathing || this.facial_swelling)
+      if (this.symptoms.difficulty_breathing || this.symptoms.facial_swelling)
         this.alert(this.translate("symptom_overview.take_action_immediately"))
     })
-  }
-
-  @action alert(message) {
-    this.alerts.push(message)
   }
 
   // TODO: Change find(1) to find(${photo_id})
@@ -163,32 +215,29 @@ class Assembly extends React.Component {
     `
   }
 
+  // Alerts
+  @action alert(message) { this.alerts.push(message) }
+
   @action dismissAlert(message) {
     var index = this.alerts.indexOf(message);
     if (index > -1) this.alerts.splice(index, 1);
   }
 
-  @computed get currentPath() {
-    return this.currentPage.route
-  }
+  @computed get currentPath() { return this.currentPage.route }
 
   @computed get currentPageTitle() {
     switch(this.currentPage) {
-      case Notes: return "Mis Notas"
-      case Faqs: return "Información y Educación"
-      case SymptomOverview: return "Información y Educación"
-      case InfoEd: return "Información y Educación"
-      case Home: return this.translate("home.title")
-      default: return "TB Asistente Diario"
+      case Notes:           return this.translate("titles.notes")
+      case Faqs:            return this.translate("titles.faqs")
+      case SymptomOverview: return this.translate("titles.symptomOverview")
+      case InfoEd:          return this.translate("titles.infoEd")
+      case Home:            return this.translate("titles.home")
+      default:              return this.translate("titles.default")
     }
   }
 
   @computed get authorized() {
-    // Ideally, this would be a server call
-    // to trace the authorization chain upwards.
-    //
-    // TODO
-    // For now, we force logged in.
+    // return network.authorization
     return true
   }
 
@@ -201,23 +250,34 @@ class Assembly extends React.Component {
   }
 
   @action login(username, password, callback) {
-    auth.start_flow({
-      url: process.env.REACT_APP_API_PATH + "/oauth2/authorize",
-      client: process.env.REACT_APP_CLIENT_ID,
-      redirect: process.env.REACT_APP_REDIRECT_PATH,
-      scope: "email",
-    })
+    // let payload = JSON.stringify(this.account)
+    // let header = {alg: "HS256", typ: "JWT"};
 
+    // fetch("/public_certificate").then((result) =>
+    //   result.text().then(foundation_public_cert => {
+
+    //     let jwt = KJUR.jws.JWS.sign(
+    //       "HS256",
+    //       header,
+    //       payload,
+    //       {utf8: foundation_public_cert},
+    //     );
+
+    //     network = new Network(jwt)
+    //     this.showHome()
+    //     console.log(network.authorization)
+    //   })
+    // )
   }
 
+  // TODO change out `author_id`
   @action saveNote() {
-    this.network.run("cirg")`
-      Note.create!(
-        author: user,
-        title: ${JSON.stringify(this.noteTitle)},
-        text: ${JSON.stringify(this.noteDraft)},
-      )
-    `
+    this.notes.create({
+      author_id: "abc123",
+      author_type: "User",
+      title: this.noteTitle,
+      text: this.noteDraft,
+    })
   }
 
   @action composeNote() {
@@ -226,42 +286,40 @@ class Assembly extends React.Component {
   }
 
   @action storePhoto(photo) {
-    const minioClient = new Client({
-      endPoint: "localhost",
-      port: 9001,
-      useSSL: false,
-      accessKey: 'minio',
-      secretKey: 'minio123'
-    });
+    // const minioClient = new Client({
+    //   endPoint: "localhost",
+    //   port: 9001,
+    //   useSSL: false,
+    //   accessKey: 'minio',
+    //   secretKey: 'minio123'
+    // });
 
-    let upload_name = "photo_upload_v1_" + moment().unix()
+    // let upload_name = "photo_upload_v1_" + moment().unix()
 
-    let reader = new FileReader()
+    // let reader = new FileReader()
 
-    reader.onload = (evt) => {
-      let blob = evt.target.result
+    // reader.onload = (evt) => {
+    //   let blob = evt.target.result
 
-      minioClient.putObject(
-        'foo',
-        upload_name,
-        blob,
-        { 'Content-Type': photo.type },
-        (err, etag) => {
-          if (err) return console.log(err)
-          console.log('File uploaded successfully.')
-          this.uploadedImages.push(`data:${photo.type};base64,` + btoa(blob))
-        }
-      )
-    }
+    //   minioClient.putObject(
+    //     'foo',
+    //     upload_name,
+    //     blob,
+    //     { 'Content-Type': photo.type },
+    //     (err, etag) => {
+    //       if (err) return console.log(err)
+    //       console.log('File uploaded successfully.')
+    //       this.uploadedImages.push(`data:${photo.type};base64,` + btoa(blob))
+    //     }
+    //   )
+    // }
 
-    reader.readAsBinaryString(photo);
+    // reader.readAsBinaryString(photo);
 
-    this.network.run("cirg")`
-      user.strip_reports.create!(
-        timestamp: ${JSON.stringify(this.survey_datetime)},
-        photo_url: ${JSON.stringify(upload_name)},
-      )
-    `
+    this.strip_reports.create({
+      timestamp: this.survey_datetime,
+      // photo_url: upload_name,
+    })
   }
 
   @computed get survey_datetime() {
@@ -271,52 +329,39 @@ class Assembly extends React.Component {
   }
 
   @action reportMedication() {
-    this.network.run("cirg")`
-      user.medication_reports.create!(
-        timestamp: ${JSON.stringify(this.survey_datetime)}
-      )
-    `
+    this.medication_reports.create({ timestamp: this.survey_datetime })
   }
 
   @action reportSymptoms() {
-    this.network.run("cirg")`
-      user.symptom_reports.create!(
-        timestamp: ${JSON.stringify(this.survey_datetime)},
-        nausea: ${this.nausea},
-        redness: ${this.redness},
-        hives: ${this.hives},
-        fever: ${this.fever},
-        appetite_loss: ${this.appetite_loss},
-        blurred_vision: ${this.blurred_vision},
-        sore_belly: ${this.sore_belly},
-        yellow_coloration: ${this.yellow_coloration},
-        difficulty_breathing: ${this.difficulty_breathing},
-        facial_swelling: ${this.facial_swelling},
-        other: ${this.other || "nil"},
-      )
-    `
+    // TODO Change key from `user` to `author` or `account`
+    this.symptom_reports.create(this.symptoms, { user: this.account })
   }
 
   @action reportStrip() {
+    // TODO Change key from `user` to `author` or `account`
+    // TODO invalid data; should include `image_url`, `timer`, etc.
+    this.strip_reports.create({ user: this.account })
   }
 
-  // With translation data loaded from `es.yml`,
-  // respond to the given translation queries.
-  translate(key) {
+  translate(semantic) {
     var accessor = {
       "Español": espanol,
       "English": english,
     }[this.language];
 
-    let keyParts = key.split(".")
+    let semantic_words = semantic.split(".")
 
-    for (var i=0; i < keyParts.length; i++){
-      if(!accessor[keyParts[i]]) {
-        console.log(`Error! Could not find translation of "${keyParts[i]}", of ${key}`)
+    // TODO this is a clumsy way to do a nested look up.
+    for (var i=0; i < semantic_words.length; i++){
+      if(!accessor[semantic_words[i]]) {
+        console.log(
+          `Error! Could not find translation of "${semantic_words[i]}", of ${semantic}`
+        )
+
         return "Error! Translation not found."
       }
 
-      accessor = accessor[keyParts[i]];
+      accessor = accessor[semantic_words[i]];
     };
 
     return accessor;

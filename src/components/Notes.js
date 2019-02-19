@@ -9,52 +9,51 @@ import moment from "moment"
 
 import { observer } from "mobx-react"
 
-const Notes = observer(({store}) => (
+const Notes = observer(({ store }) => (
+  <Layout>
+    { store.noteDraft === null && store.noteTitle === null
+    ? <NewButton onClick={() => store.composeNote()}>
+        <PlusIcon/>
+        {store.translate("notes.new")}
+      </NewButton>
 
-    <Layout>
-      { store.noteDraft === null && store.noteTitle === null
-      ? <NewButton onClick={() => store.composeNote()}>
-          <PlusIcon/>
-          {store.translate("notes.new")}
+    : <Draft>
+        <TitleInput
+          placeholder={store.translate("notes.title")}
+          value={store.noteTitle}
+          onChange={e => store.noteTitle = e.target.value}
+        />
+        <Input
+          placeholder={store.translate("notes.body")}
+          value={store.noteDraft}
+          onChange={e => store.noteDraft = e.target.value}
+        />
+
+        <NewButton onClick={() => store.saveNote()}>
+          <ContentSaveIcon/> Save
         </NewButton>
+      </Draft>
+    }
 
-      : <Draft>
-          <TitleInput
-            placeholder={store.translate("notes.title")}
-            value={store.noteTitle}
-            onChange={e => store.noteTitle = e.target.value}
-          />
-          <Input
-            placeholder={store.translate("notes.body")}
-            value={store.noteDraft}
-            onChange={e => store.noteDraft = e.target.value}
-          />
-          {/* TODO translate */}
-          <NewButton onClick={() => store.saveNote()}>
-            <ContentSaveIcon/> Save
-          </NewButton>
-        </Draft>
-      }
+    { store.notes.length === 0
+      ? <Hint>{store.translate("notes.hint")}</Hint>
 
-      { store.notes.length === 0
-        ? <Hint>{store.translate("notes.hint")}</Hint>
+      : store.notes.records.map(({ id, title, created_at, text, updated_at }) => (
+        <Note key={id}>
+          <Note.Header>
+            <Note.Title>{title}</Note.Title>
+            <Note.Created>{moment(created_at).format("MMM DD, HH:mm")}</Note.Created>
+          </Note.Header>
 
-        : store.notes.map(({ id, title, created_at, text, updated_at }) => (
-          <Note key={id}>
-            <Note.Header>
-              <Note.Title>{title}</Note.Title>
-              <Note.Created>{moment(created_at).format("MMM DD, HH:mm")}</Note.Created>
-            </Note.Header>
+          <Note.Text>{text}</Note.Text>
 
-            <Note.Text>{text}</Note.Text>
-
-            <Note.LastUpdated>
-              {store.translate("notes.last_edited")}
-              {updated_at}
-            </Note.LastUpdated>
-          </Note>
-      ))}
-    </Layout>
+          <Note.LastUpdated>
+            {store.translate("notes.last_edited")}
+            {updated_at}
+          </Note.LastUpdated>
+        </Note>
+    ))}
+  </Layout>
 ))
 
 const NewButton = styled(Button)`

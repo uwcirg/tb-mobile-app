@@ -6,11 +6,16 @@ export default {
     },
   },
 
-  home: {
-    title: `
-    Medication Tracking Home.
-    `,
+  titles: {
+      notes: "Mis Notas",
+      faqs: "Información y Educación",
+      symptomOverview: "Información y Educación",
+      infoEd: "Información y Educación",
+      home: "Medication Tracking Home",
+      default: "Asistente de tratamente"
+  },
 
+  home: {
     survey: `
     Track Treatment
     `,
@@ -166,6 +171,18 @@ export default {
       Click here to upload a photo.
       `,
 
+      start_timer: `
+      Start timer
+      `,
+
+      end_timer: `
+      Capture a test strip photo to stop the timer.
+      `,
+
+      restart: `
+      Or, start the test again.
+      `,
+
       finished: `
       Uploaded
       `,
@@ -220,6 +237,32 @@ export default {
     `,
   },
 
+  login: {
+    welcome: `
+    Welcome!
+    `,
+
+    phone: `
+    Phone Number
+    `,
+
+    initials: `
+    Initials
+    `,
+
+    date_of_birth: `
+    Date of Birth
+    `,
+
+    treatment_start_date: `
+    Study Start Date
+    `,
+
+    register: `
+    Register
+    `,
+  },
+
   menu: {
     name: `
     Name
@@ -230,7 +273,7 @@ export default {
     `,
 
     phone: `
-    Phone
+    Phone Number
     `,
 
     language: `

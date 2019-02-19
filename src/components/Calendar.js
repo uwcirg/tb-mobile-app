@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { observer } from "mobx-react"
 import ReactCalendar from "react-calendar/dist/entry.nostyle"
 
-import { darkgrey, grey, white, green } from "../colors"
+import { lightgrey, darkgrey, grey, white, green } from "../colors"
 
 const Calendar = observer(({ store }) => (
   <CalendarComponent
@@ -47,8 +47,8 @@ const CalendarComponent = styled(ReactCalendar)`
 
 const DateCell = styled.div`
   background:       ${(p) => p.date < new Date() ? green : "none" };
-  ${p => p.date < new Date() && `border: 2px solid ${white}`}
-  color:            ${(p) => p.date < new Date() ? white : darkgrey };
+  border: 2px solid ${(p) => p.date < new Date() ? grey : lightgrey };
+  color:            ${(p) => p.date < new Date() ? darkgrey : white };
 
   border-radius: 50%;
   margin-bottom: 0.5rem;

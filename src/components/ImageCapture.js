@@ -60,6 +60,8 @@ class ImageCapture extends React.Component {
                   </p>
                 </video>
 
+                {this.props.children}
+
                 <Button onClick={(ev) => this.captureImage()} >
                   Take photo
                 </Button>
@@ -125,6 +127,7 @@ class ImageCapture extends React.Component {
     context.drawImage(this.video.current, 0, 0, this.width, this.height);
 
     this.imageData = this.canvas.current.toDataURL('image/png');
+    this.props.onCapture(this.imageData)
   }
 }
 

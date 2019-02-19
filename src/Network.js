@@ -1,12 +1,15 @@
 import { runInAction } from "mobx"
 
 class Network {
-  constructor(url) {
-    this.url = url
+  constructor(authorization) {
+    this.url = ""
+    this.authorization = authorization
     this.watches = {}
     this.active = true
   }
 
+  // TODO remove "system" argument;
+  // this isn't necessarily the place for it.
   run(system) {
     return (template, ...expressions) => new Promise(resolve => {
       const code = template.reduce((accumulator, part, i) => {
@@ -30,6 +33,8 @@ class Network {
     })
   }
 
+  // TODO remove "system" argument;
+  // this isn't necessarily the place for it.
   watch(system) {
     if(this.watches[system] === undefined) {
       this.watches[system] = []

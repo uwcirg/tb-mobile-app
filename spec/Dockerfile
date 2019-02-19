@@ -2,15 +2,13 @@ FROM ubuntu
 
 RUN apt-get update -qq
 
-# Used to install `ruby-install`
-RUN apt-get install -y wget
-
 # Nokogiri dependencies
 # See https://www.nokogiri.org/tutorials/installing_nokogiri.html
 RUN apt-get install -y build-essential patch ruby-dev zlib1g-dev liblzma-dev
 
 # Ruby prerequisites
 WORKDIR /src
+RUN apt-get install -y wget
 RUN wget -O ruby-install-0.7.0.tar.gz https://github.com/postmodern/ruby-install/archive/v0.7.0.tar.gz
 RUN tar -xzvf ruby-install-0.7.0.tar.gz
 WORKDIR /src/ruby-install-0.7.0/
