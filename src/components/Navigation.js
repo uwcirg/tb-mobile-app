@@ -7,10 +7,10 @@ import InternalLink from "../primitives/InternalLink"
 import Icon from "@mdi/react"
 import {
   mdiCalendarCheck,
-  mdiInformation,
-  mdiPencil,
-  mdiChat,
-  mdiArrowTopRightThick,
+  mdiWhatsapp,
+  mdiFolderClockOutline,
+  mdiInformationOutline,
+  mdiPencilBoxOutline,
 } from "@mdi/js"
 
 import Home from "./Home"
@@ -22,23 +22,23 @@ import Progress from "./Progress"
 const Navigation = observer(({ store }) => (
   <Layout>
     <InternalLink to={InfoEd} store={store} >
-      <Icon path={mdiInformation} size="1.4rem" />
+      <Icon path={mdiInformationOutline} size="1.8rem" />
     </InternalLink>
 
     <InternalLink to={Progress} store={store} >
-      <Icon path={mdiArrowTopRightThick} size="1.4rem" />
+      <Icon path={mdiFolderClockOutline} size="1.8rem" />
     </InternalLink>
 
     <InternalLink to={Home} store={store} >
-      <Icon path={mdiCalendarCheck} size="2.4rem" />
+      <Icon path={mdiCalendarCheck} size="1.8rem" />
     </InternalLink>
 
     <InternalLink to={Contact} store={store} >
-      <Icon path={mdiChat} size="1.4rem" />
+      <Icon path={mdiWhatsapp} size="1.8rem" />
     </InternalLink>
 
     <InternalLink to={Notes} store={store} >
-      <Icon path={mdiPencil} size="1.4rem" />
+      <Icon path={mdiPencilBoxOutline} size="1.8rem" />
     </InternalLink>
   </Layout>
 ))

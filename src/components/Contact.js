@@ -15,10 +15,9 @@ const Contact = observer(({store}) => (
     {
         <Provider theme={theme}>
           <div>
-            
-            <Heading use="h4">
+            <h2>
               {store.translate("contact.title")}
-            </Heading>
+            </h2>
 
             <List>
               <li>{store.translate("contact.first")}</li>

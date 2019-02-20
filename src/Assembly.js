@@ -354,7 +354,7 @@ class Assembly extends React.Component {
   }
 
   render = () => (
-    <Layout>
+    <Layout className="Assembly">
       <AuthBar>
         <Title>{this.currentPageTitle}</Title>
 
@@ -374,7 +374,7 @@ class Assembly extends React.Component {
         </Drawer>
       </AuthBar>
 
-      <Content>
+      <Content className="Content">
         <Observer>
           {() => React.createElement(this.currentPage, { store: this })}
         </Observer>
@@ -400,8 +400,8 @@ const Layout = styled.div`
   color: ${darkgrey};
 
   display: grid;
-  grid-row-gap: 1rem;
   grid-template-rows: 4rem auto 4rem;
+  grid-row-gap: 1rem;
 `
 
 const NavBar = styled.div`
@@ -450,6 +450,7 @@ const Drawer = styled.div`
 
 const Content = styled.div`
   padding: 0 1rem;
+  background: ${beige};
 `
 
 export default Assembly
