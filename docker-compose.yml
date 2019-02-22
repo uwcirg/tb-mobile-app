@@ -13,9 +13,7 @@ services:
       - web
     environment:
       NODE_ENV: development
-      REACT_APP_API_PATH: $URL_API
-      REACT_APP_REDIRECT_PATH: $URL_CLIENT/redirect
-      REACT_APP_CLIENT_ID: skwIPnbi7N3uIvNysUbi0xfXwnWaIMR1MCJxz8rV0dGxeMJD
+      REACT_APP_URL_API: $URL_API
       CHOKIDAR_USEPOLLING: 'true'
       MINIO_HOST: localhost
     volumes:

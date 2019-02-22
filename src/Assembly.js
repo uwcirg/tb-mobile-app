@@ -60,7 +60,8 @@ import english from "./languages/en"
 // Optional data for coordinator assembly
 import Coordinator from "./sessions/Coordinator"
 
-let network = new Network()
+let network = new Network(process.env.REACT_APP_URL_API)
+window.network = network
 
 // For when you'll need a few.
 class Records {

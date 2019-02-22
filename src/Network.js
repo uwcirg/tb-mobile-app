@@ -1,9 +1,9 @@
 import { runInAction } from "mobx"
 
 class Network {
-  constructor(authorization) {
-    this.url = ""
-    this.authorization = authorization
+  constructor(url) {
+    this.url = url
+    this.authorization = null
     this.watches = {}
     this.active = true
   }
