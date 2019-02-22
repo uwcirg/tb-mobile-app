@@ -12,12 +12,17 @@ const Calendar = observer(({ store }) => (
       ({ date, view }) => (
         <DateCell
           date={date}
-          medication_report={view === 'month' && date < new Date() }
+          medication_report={
+            view === 'month' &&
+              store.medication_reports.records.find(mr =>
+                mr.timestamp.replace(/T.+$/, "") === date.toJSON().replace(/T.+$/, "")
+              )
+          }
         >
           {date.getDate()}
         </DateCell>
-    )}
-  />
+      )}
+    />
 ))
 
 const CalendarComponent = styled(ReactCalendar)`
@@ -46,9 +51,9 @@ const CalendarComponent = styled(ReactCalendar)`
 `
 
 const DateCell = styled.div`
-  background:       ${(p) => p.date < new Date() ? green : "none" };
-  border: 2px solid ${(p) => p.date < new Date() ? grey : lightgrey };
-  color:            ${(p) => p.date < new Date() ? darkgrey : white };
+  background:       ${(p) => p.medication_report ? green : "none" };
+  border: 2px solid ${(p) => p.medication_report ? grey : lightgrey };
+  color:            ${(p) => p.medication_report ? darkgrey : white };
 
   border-radius: 50%;
   margin-bottom: 0.5rem;
