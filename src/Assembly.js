@@ -134,8 +134,8 @@ class Assembly extends React.Component {
   @observable notes              = new Records("Note"           , "notes")
 
   // Current medication report
-  @observable survey_date = moment()
-  @observable survey_medication_time = moment()
+  @observable survey_date = moment().format("YYYY-MM-DD")
+  @observable survey_medication_time = moment().format("HH:mm")
 
   // Current symptom report
   @observable symptoms = {
@@ -158,9 +158,8 @@ class Assembly extends React.Component {
   @observable uploadedImages = []
 
   @observable language = "Español"
-  @observable survey_anySymptoms = false
 
-  // Changing to null on start
+  @observable survey_anySymptoms = null
   @observable survey_tookMedication = null
 
   @observable alerts = []
@@ -298,7 +297,11 @@ class Assembly extends React.Component {
   }
 
   @computed get survey_datetime() {
-    let time = this.survey_medication_time.format("HH:MM")
+    // TODO: This line is failing us for formatting reasons.
+    // TODO: Remove these logging functions
+    console.log("Survey Time: ", this.survey_medication_time);
+    console.log("Survey Date: ", this.survey_date);
+    let time = this.survey_medication_time //.format("HH:MM")
     let datetime = this.survey_date.transform(`YYYY-MM-DD ${time}:00.0000`)
     return datetime
   }

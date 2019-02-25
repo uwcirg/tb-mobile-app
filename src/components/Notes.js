@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components"
-import Layout from "../layouts/Text"
 import Button from "../primitives/Button"
 import { PlusIcon, ContentSaveIcon } from "mdi-react"
 import { grey } from "../colors"
@@ -11,6 +10,7 @@ import { observer } from "mobx-react"
 
 const Notes = observer(({ store }) => (
   <Layout>
+    <h2>{store.currentPageTitle}</h2>
     { store.noteDraft === null && store.noteTitle === null
     ? <NewButton onClick={() => store.composeNote()}>
         <PlusIcon/>
@@ -55,6 +55,12 @@ const Notes = observer(({ store }) => (
     ))}
   </Layout>
 ))
+
+const Layout = styled.div`
+  margin: auto;
+  max-width: 40em;
+  overflow: hidden;
+`
 
 const NewButton = styled(Button)`
   float: right;

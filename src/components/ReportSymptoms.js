@@ -48,7 +48,7 @@ const ReportSymptoms = observer(({ store, survey }) => (
     />
 
     <Hidden visible={store.survey_anySymptoms} >
-      <p>{store.translate("survey.symptoms.prompt")}</p>
+      <strong><p>{store.translate("survey.symptoms.prompt")}</p></strong>
 
       <Label>
         <Checkbox
@@ -60,7 +60,7 @@ const ReportSymptoms = observer(({ store, survey }) => (
         />
 
         {/* TODO: Get rid of strong and style normally */}
-        <strong><span>{store.translate("survey.symptoms.nausea")}</span></strong>
+        <span>{store.translate("survey.symptoms.nausea")}</span>
 
         <Hidden visible={store.nausea} >
           {store.nausea_rating} / 10
@@ -98,7 +98,7 @@ const ReportSymptoms = observer(({ store, survey }) => (
           onChange={(e) => store.redness = e.target.checked}
         />
         <span>{store.translate("survey.symptoms.redness")}</span>
-        
+
         <Help>
           <Image
             src={rash}

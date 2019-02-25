@@ -22,7 +22,7 @@ import AdherenceCalendar from "./AdherenceCalendar"
 const Home = observer(({ store }) => (
   <Layout>
     <Row>
-      <TreatmentButton onClick={() => store.showPage(Survey)} >
+      <TreatmentButton className="TreatmentButton" onClick={() => store.showPage(Survey)} >
         {store.translate("home.survey")}
 
         <Icons>
@@ -42,6 +42,7 @@ const Home = observer(({ store }) => (
 const Layout = styled.div`
   display: grid;
   grid-row-gap: 1rem;
+  padding-top: 1rem;
 `
 
 const TreatmentButton = styled(Button)`
