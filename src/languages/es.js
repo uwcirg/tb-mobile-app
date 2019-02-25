@@ -135,11 +135,6 @@ export default {
       Otra efecto indeseable:
       `,
 
-      // TODO: Get rid of this after Sarah's approval
-      since_last: `
-      ¿Ha experimentado efectos indeseables desde su último registro?
-      `,
-
       title: `
       Are you experiencing side effects today? (es)
       `,

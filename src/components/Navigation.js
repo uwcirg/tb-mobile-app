@@ -30,7 +30,7 @@ const Navigation = observer(({ store }) => (
     </InternalLink>
 
     <InternalLink to={Home} store={store} >
-      <Icon path={mdiCalendarCheck} size="1.8rem" />
+      <Icon path={mdiCalendarCheck} size="2.0rem" />
     </InternalLink>
 
     <InternalLink to={Contact} store={store} >

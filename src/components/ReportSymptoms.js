@@ -28,8 +28,6 @@ const ReportSymptoms = observer(({ store, survey }) => (
   <Layout>
     <Heading>{store.translate("survey.symptoms.title")}</Heading>
 
-    {/* TODO: Get rid of this, todo items already in the json file */}
-    {/* <p>{store.translate("survey.symptoms.since_last")}</p> */}
     <Selection
       update={() =>
           store.translate(
@@ -59,7 +57,6 @@ const ReportSymptoms = observer(({ store, survey }) => (
           }}
         />
 
-        {/* TODO: Get rid of strong and style normally */}
         <span>{store.translate("survey.symptoms.nausea")}</span>
 
         <Hidden visible={store.nausea} >
@@ -154,7 +151,6 @@ const ReportSymptoms = observer(({ store, survey }) => (
         <span>{store.translate("survey.symptoms.facial_swelling")}</span>
       </Label>
 
-      {/* TODO: Style this input and make it expandable */}
       <Provider theme={theme}>
         <TextFieldLabel>
           {store.translate("survey.symptoms.other")}

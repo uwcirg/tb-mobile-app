@@ -141,11 +141,6 @@ export default {
       Other symptom:
       `,
 
-      // TODO: Get rid of this after Sarah's approval
-      since_last: `
-      Have you experienced symptoms or side effects since your last check-in?
-      `,
-
       title: `
       Are you experiencing side effects today?
       `,

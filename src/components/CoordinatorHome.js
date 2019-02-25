@@ -187,9 +187,6 @@ const CoordinatorHome = observer(({ store }) => {
     </Layout>
 )})
 
-// STYLING TODO:
-// - get rid of the border
-// - what is the heading style?
 const Layout = styled.div`
   background-color: ${white};
   border: 1px solid ${darkgrey};

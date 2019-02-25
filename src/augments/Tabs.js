@@ -12,23 +12,6 @@ import Home from "../components/Home"
 // in future versions of the Assemble framework.
 Tabs.Buttons = observer(({ primary, secondary, onPrimary, onSecondary, store, ...state }) => (
   <ButtonLayout>
-    
-    {/* No need to have the skip button */}
-    {/* <Button
-      as={Tabs.Next}
-      color={darkgrey}
-      backgroundColor={lightgrey}
-      {...state}
-      onClick={() => {
-        onSecondary && onSecondary()
-
-        if(state.current === state.ids.length - 1)
-          store.showPage(Home);
-      } }
-    >
-      {secondary}
-    </Button> */}
-
     <Button
       as={Tabs.Next}
       {...state}

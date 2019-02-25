@@ -18,7 +18,6 @@ import ReportSymptoms from "./ReportSymptoms"
 import PhotoUpload from "./PhotoUpload"
 
 import Help from "../primitives/Help"
-import Button from "../primitives/Button"
 
 import IconKey from "./IconKey"
 
@@ -27,7 +26,6 @@ const Survey = observer(({ store }) => (
     {state => (
       <Layout className="Survery-Layout">
         <Tabs as={Row} marginBottom="1rem">
-          {/* Patients can toggle through the options here */}
           <MultiButton>
             <Tab tab="medication" {...state} >
               <Icon path={mdiPill} size={1} />
@@ -49,12 +47,9 @@ const Survey = observer(({ store }) => (
         <Tabs.Panel tab="medication" {...state} >
           <ReportMedication store={store} />
 
-          {/* TODO: Add styling to this button */}
-          {/* </Button> */}
           <Tabs.Buttons
             store={store}
             primary={store.translate("survey.continue")}
-            secondary={store.translate("survey.skip")}
             onPrimary={() => store.reportMedication()}
             {...state}
           />
@@ -67,7 +62,6 @@ const Survey = observer(({ store }) => (
           <Tabs.Buttons
             store={store}
             primary={store.translate("survey.continue")}
-            //secondary={store.translate("survey.skip")}
             onPrimary={() => store.reportSymptoms()}
             {...state}
           />
@@ -77,13 +71,9 @@ const Survey = observer(({ store }) => (
         <Tabs.Panel tab="photo" {...state} >
           <PhotoUpload store={store} />
 
-          {/* submit all button should go here */}
-
-          {/* TODO: Not sure if we need Tabs.Buttons for what we are doing */}
           <Tabs.Buttons
             store={store}
             primary={store.translate("survey.upload.continue")}
-            // secondary={store.translate("survey.upload.skip")}
             onPrimary={() => store.reportStrip()}
             {...state}
           />

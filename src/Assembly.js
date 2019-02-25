@@ -297,13 +297,8 @@ class Assembly extends React.Component {
   }
 
   @computed get survey_datetime() {
-    // TODO: This line is failing us for formatting reasons.
-    // TODO: Remove these logging functions
-    console.log("Survey Time: ", this.survey_medication_time);
-    console.log("Survey Date: ", this.survey_date);
-    let time = this.survey_medication_time //.format("HH:MM")
-    let datetime = this.survey_date.transform(`YYYY-MM-DD ${time}:00.0000`)
-    return datetime
+    let survey_datetime = new moment(`${this.survey_date}T${this.survey_medication_time}:00.000`);
+    return survey_datetime
   }
 
   reportMedication() {
