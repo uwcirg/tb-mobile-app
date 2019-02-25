@@ -110,7 +110,7 @@ class Assembly extends React.Component {
 
   // TODO change from `User` to `Account`
   // Records("User", "user").first
-  @observable register = {
+  @observable registration_information = {
     name: null,
     phone_number: null,
     treatment_start_date: null,
@@ -159,7 +159,9 @@ class Assembly extends React.Component {
 
   @observable language = "Español"
   @observable survey_anySymptoms = false
-  @observable survey_tookMedication = true
+
+  // Changing to null on start
+  @observable survey_tookMedication = null
 
   @observable alerts = []
   @observable provider = null
@@ -235,25 +237,12 @@ class Assembly extends React.Component {
     this.currentPage = page
   }
 
-  login(username, password, callback) {
-    // let payload = JSON.stringify(this.account)
-    // let header = {alg: "HS256", typ: "JWT"};
+  register() {
+    debugger
+  }
 
-    // fetch("/public_certificate").then((result) =>
-    //   result.text().then(foundation_public_cert => {
-
-    //     let jwt = KJUR.jws.JWS.sign(
-    //       "HS256",
-    //       header,
-    //       payload,
-    //       {utf8: foundation_public_cert},
-    //     );
-
-    //     network = new Network(jwt)
-    //     this.showPage(Home)
-    //     console.log(network.authorization)
-    //   })
-    // )
+  login() {
+    debugger
   }
 
   // TODO change out `author_id`
@@ -392,6 +381,8 @@ class Assembly extends React.Component {
   )
 }
 
+// TODO: Gurantee it pasts tests on more devices
+// Testing getting rid of this ->  grid-row-gap: 1rem;
 const Layout = styled.div`
   height: 100vh;
   background-size: cover;
@@ -401,7 +392,6 @@ const Layout = styled.div`
 
   display: grid;
   grid-template-rows: 4rem auto 4rem;
-  grid-row-gap: 1rem;
 `
 
 const NavBar = styled.div`

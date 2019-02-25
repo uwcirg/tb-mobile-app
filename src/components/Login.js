@@ -3,7 +3,6 @@ import styled from "styled-components"
 import { observer } from "mobx-react"
 
 import Button from "../primitives/Button"
-import Selection from "../primitives/Selection"
 import ListOfLinks from "../layouts/ListOfLinks"
 import { Input } from "reakit"
 import { white, grey } from "../colors"
@@ -12,9 +11,9 @@ import Register from "./Register"
 
 const Login = observer(({store}) => (
   <Layout>
-    <p>
+    <h2>
       {store.translate("login.welcome")}
-    </p>
+    </h2>
 
     <Form>
       <Field
@@ -31,12 +30,12 @@ const Login = observer(({store}) => (
       />
 
       <Button onClick={() => store.login()}>
-        {store.translate("login.register")}
+        {store.translate("login.go")}
       </Button>
     </Form>
 
     <InternalLink to={Register} store={store} >
-      {store.translate("link.register")}
+      {store.translate("login.link.register")}
     </InternalLink>
   </Layout>
 ))

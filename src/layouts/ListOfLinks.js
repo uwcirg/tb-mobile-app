@@ -9,7 +9,7 @@ const Layout = styled.div`
   justify-content: center;
   align-items: center;
 
-  & > ${Button}:not(:last-child) {
+  & > :not(:last-child) {
     margin-bottom: 1rem;
   }
 `

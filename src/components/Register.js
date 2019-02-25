@@ -17,27 +17,27 @@ const Register = observer(({store}) => (
     <Form>
       <Field
         placeholder={store.translate("register.name")}
-        value={store.register.name}
-        onChange={(e) => store.register.name = e.target.value}
+        value={store.registration_information.name}
+        onChange={(e) => store.registration_information.name = e.target.value}
       />
 
       <Field
         placeholder={store.translate("register.phone")}
-        value={store.register.phone_number}
-        onChange={(e) => store.register.phone_number = e.target.value}
+        value={store.registration_information.phone_number}
+        onChange={(e) => store.registration_information.phone_number = e.target.value}
       />
 
       <Field
         placeholder={store.translate("register.treatment_start_date")}
-        value={store.register.treatment_start_date}
-        onChange={(e) => store.register.treatment_start_date = e.target.value}
+        value={store.registration_information.treatment_start_date}
+        onChange={(e) => store.registration_information.treatment_start_date = e.target.value}
       />
 
       <Field
         password
         placeholder={store.translate("register.password")}
-        value={store.register.password}
-        onChange={(e) => store.register.password = e.target.value}
+        value={store.registration_information.password}
+        onChange={(e) => store.registration_information.password = e.target.value}
       />
 
       <Button onClick={() => store.register()}>

@@ -18,9 +18,10 @@ const PhotoUpload = observer(({ store }) => (
     <Heading>{store.translate("survey.upload.title")}</Heading>
 
     <Fold>
-      <div>{store.translate("survey.upload.instructions.intro")}</div>
-
+      {/* TODO: Translate this */}
+      <Title>Instructions</Title>
       <ul>
+        <li>{store.translate("survey.upload.instructions.intro")}</li>
         <li>{store.translate("survey.upload.instructions.1")}</li>
         <li>{store.translate("survey.upload.instructions.2")}</li>
         <li>{store.translate("survey.upload.instructions.3")}</li>
@@ -42,13 +43,13 @@ const PhotoUpload = observer(({ store }) => (
           {/*TODO remove*/}
         </ImageCapture>
       : <Button onClick={() => store.test_strip_timer_start = moment()}>
+          {/* TODO: Rename start_timer */}
           {store.translate("survey.upload.start_timer")}
         </Button>
         }
     </div>
 
-
-    <ImagePreviews>
+    <ImagePreviews className="ImagePreviews">
       {store.uploadedImages.map(image =>
         <Image key={image}>
           <img src={image} alt={store.translate("survey.upload.finished")} />
@@ -62,6 +63,11 @@ const PhotoUpload = observer(({ store }) => (
 const Layout = styled.div`
   display: grid;
   grid-row-gap: 1rem;
+`
+
+const Title = styled.h3`
+  font-weight: 100;
+  margin: 0;
 `
 
 const Image = styled.div`

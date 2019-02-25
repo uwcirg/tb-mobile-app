@@ -31,8 +31,7 @@ const ClockIcon = styled(Icon).attrs({
   path: mdiClock,
   size: 1,
 })`
-  margin-left: auto;
-  margin-right: auto;
+  margin: auto;
 `
 
 export default DateTime

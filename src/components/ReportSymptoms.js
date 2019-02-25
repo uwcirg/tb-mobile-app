@@ -1,9 +1,10 @@
 import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
-import { Hidden, Input } from "reakit"
+import { Hidden, Input, Provider } from "reakit"
 import Callout from "../primitives/Callout"
 import { grey, white } from "../colors"
+import theme from "reakit-theme-default";
 
 import hives from "../images/hives.jpg"
 import rash from "../images/rash.jpg"
@@ -27,8 +28,8 @@ const ReportSymptoms = observer(({ store, survey }) => (
   <Layout>
     <Heading>{store.translate("survey.symptoms.title")}</Heading>
 
-    <p>{store.translate("survey.symptoms.since_last")}</p>
-
+    {/* TODO: Get rid of this, todo items already in the json file */}
+    {/* <p>{store.translate("survey.symptoms.since_last")}</p> */}
     <Selection
       update={() =>
           store.translate(
@@ -58,7 +59,8 @@ const ReportSymptoms = observer(({ store, survey }) => (
           }}
         />
 
-        <span>{store.translate("survey.symptoms.nausea")}</span>
+        {/* TODO: Get rid of strong and style normally */}
+        <strong><span>{store.translate("survey.symptoms.nausea")}</span></strong>
 
         <Hidden visible={store.nausea} >
           {store.nausea_rating} / 10
@@ -95,9 +97,8 @@ const ReportSymptoms = observer(({ store, survey }) => (
           checked={store.redness}
           onChange={(e) => store.redness = e.target.checked}
         />
-
         <span>{store.translate("survey.symptoms.redness")}</span>
-
+        
         <Help>
           <Image
             src={rash}
@@ -153,10 +154,13 @@ const ReportSymptoms = observer(({ store, survey }) => (
         <span>{store.translate("survey.symptoms.facial_swelling")}</span>
       </Label>
 
-      <TextFieldLabel>
-        <span>{store.translate("survey.symptoms.other")}:</span>
-        <TextInput />
-      </TextFieldLabel>
+      {/* TODO: Style this input and make it expandable */}
+      <Provider theme={theme}>
+        <TextFieldLabel>
+          {store.translate("survey.symptoms.other")}
+          <TextInput />
+        </TextFieldLabel>
+      </Provider>
     </Hidden>
   </Layout>
 ))
@@ -173,7 +177,7 @@ const Label = styled.label`
 `
 
 const TextFieldLabel = styled(Label)`
-  grid-template-columns: 5rem auto;
+  grid-template-columns: 1fr;
   margin-top: 1rem;
   grid-column-gap: 1rem;
 `

@@ -12,7 +12,9 @@ import Home from "../components/Home"
 // in future versions of the Assemble framework.
 Tabs.Buttons = observer(({ primary, secondary, onPrimary, onSecondary, store, ...state }) => (
   <ButtonLayout>
-    <Button
+    
+    {/* No need to have the skip button */}
+    {/* <Button
       as={Tabs.Next}
       color={darkgrey}
       backgroundColor={lightgrey}
@@ -25,7 +27,7 @@ Tabs.Buttons = observer(({ primary, secondary, onPrimary, onSecondary, store, ..
       } }
     >
       {secondary}
-    </Button>
+    </Button> */}
 
     <Button
       as={Tabs.Next}
@@ -44,8 +46,7 @@ Tabs.Buttons = observer(({ primary, secondary, onPrimary, onSecondary, store, ..
 
 const ButtonLayout = styled.div`
   display: grid;
-  grid-column-gap: 1rem;
-  grid-template-columns: 1fr 1fr;
+  margin: auto;
   margin-top: 1rem;
   width: 100%;
 `

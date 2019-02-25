@@ -37,7 +37,7 @@ export default {
 
   survey: {
     continue: `
-    Continue
+    Confirm
     `,
 
     skip: `
@@ -46,23 +46,23 @@ export default {
 
     tookMedication: {
       yes: `
-      Take now
+      Yes
       `,
 
       no: `
-      Not taking today.
+      No
       `,
 
       title: `
-      Log Medication
+      Did you take your medication today?
       `,
 
       reason: `
-      Why did you not take the medicine?
+      Why not?
       `,
 
       at: `
-      I took the medication at:
+      What time did you take it:
       `,
     },
 
@@ -138,15 +138,16 @@ export default {
       `,
 
       other: `
-      Other symptom
+      Other symptom:
       `,
 
+      // TODO: Get rid of this after Sarah's approval
       since_last: `
       Have you experienced symptoms or side effects since your last check-in?
       `,
 
       title: `
-      Log Symptoms
+      Are you experiencing side effects today?
       `,
 
       yes: `
@@ -172,7 +173,7 @@ export default {
       `,
 
       start_timer: `
-      Start timer
+      Upload Test Strip Photo
       `,
 
       end_timer: `
@@ -188,11 +189,11 @@ export default {
       `,
 
       title: `
-      Load the Photo
+      Take the Test / Load Photo
       `,
 
       continue: `
-      Continue
+      Finish / Complete
       `,
 
       skip: `
@@ -1072,6 +1073,7 @@ export default {
     welcome: "Welcome",
     phone: "Phone",
     password: "Password",
+    go: "Log in",
 
     link: {
       register: "Register",

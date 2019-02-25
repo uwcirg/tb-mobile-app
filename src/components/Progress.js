@@ -20,9 +20,8 @@ const Progress = observer(({store}) => (
   <Layout className="Progress">
       <Provider theme={theme}>
         <div>
-          {/* <Row> */}
             {/* TODO: Translations for this whole page */}
-            <h3>Mi Progreso</h3>
+            <h2>Mi Progreso</h2>
             <ProgressBarContainer>
               <CustomContentProgressBar>
                 <Percentage>{total_treatment_days}</Percentage>
@@ -31,10 +30,7 @@ const Progress = observer(({store}) => (
                 </div>
               </CustomContentProgressBar>
             </ProgressBarContainer>
-
-          {/* </Row> */}
           {/* TODO: Link the data to this number */}
-          {/* <HighlightBox>25</HighlightBox> Days Reported in a Row */}
         <Divider />
           <Fold>
             <Question>

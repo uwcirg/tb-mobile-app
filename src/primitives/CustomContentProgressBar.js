@@ -2,7 +2,7 @@ import React from "react"
 import { observer } from "mobx-react"
 
 import CircularProgressbar from "react-circular-progressbar"
-import { darkgrey, white } from "../colors"
+import { lightblue } from "../colors"
 
 const CustomContentProgressBar = observer(({ children }) => (
 
@@ -18,6 +18,9 @@ const CustomContentProgressBar = observer(({ children }) => (
       </div>
       <div
         style={{
+          path: {
+            stroke: lightblue,
+          },
           position: "absolute",
           height: "100%",
           width: "100%",

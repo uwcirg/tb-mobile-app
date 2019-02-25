@@ -18,13 +18,16 @@ import ReportSymptoms from "./ReportSymptoms"
 import PhotoUpload from "./PhotoUpload"
 
 import Help from "../primitives/Help"
+import Button from "../primitives/Button"
+
 import IconKey from "./IconKey"
 
 const Survey = observer(({ store }) => (
   <Tabs.Container>
     {state => (
-      <Layout>
+      <Layout className="Survery-Layout">
         <Tabs as={Row} marginBottom="1rem">
+          {/* Patients can toggle through the options here */}
           <MultiButton>
             <Tab tab="medication" {...state} >
               <Icon path={mdiPill} size={1} />
@@ -42,9 +45,12 @@ const Survey = observer(({ store }) => (
           <Help> <IconKey store={store} /> </Help>
         </Tabs>
 
+        {/* Medication 1/1 */}
         <Tabs.Panel tab="medication" {...state} >
           <ReportMedication store={store} />
 
+          {/* TODO: Add styling to this button */}
+          {/* </Button> */}
           <Tabs.Buttons
             store={store}
             primary={store.translate("survey.continue")}
@@ -54,25 +60,30 @@ const Survey = observer(({ store }) => (
           />
         </Tabs.Panel>
 
+        {/* Symptoms 2/3 */}
         <Tabs.Panel tab="symptoms" {...state} >
           <ReportSymptoms store={store} />
 
           <Tabs.Buttons
             store={store}
             primary={store.translate("survey.continue")}
-            secondary={store.translate("survey.skip")}
+            //secondary={store.translate("survey.skip")}
             onPrimary={() => store.reportSymptoms()}
             {...state}
           />
         </Tabs.Panel>
 
+        {/* Photo Upload 3/3 */}
         <Tabs.Panel tab="photo" {...state} >
           <PhotoUpload store={store} />
 
+          {/* submit all button should go here */}
+
+          {/* TODO: Not sure if we need Tabs.Buttons for what we are doing */}
           <Tabs.Buttons
             store={store}
             primary={store.translate("survey.upload.continue")}
-            secondary={store.translate("survey.upload.skip")}
+            // secondary={store.translate("survey.upload.skip")}
             onPrimary={() => store.reportStrip()}
             {...state}
           />
@@ -90,6 +101,7 @@ const Layout = styled.div`
   border: 2px solid rgba(100, 100, 100, 50%);
   padding: 0.5rem;
   background-color: ${white};
+  margin-top: 0.5rem;
 `
 
 const Tab = styled(Tabs.Tab)`
@@ -110,9 +122,10 @@ const MultiButton = styled.div`
   width: 100%;
 `
 
+// Took out grid-column-gap: 1rem;
+// It was messing with the Info thing on the right of the survey controls
 const Row = styled.div`
   display: grid;
-  grid-column-gap: 1rem;
   grid-template-columns: 1fr 2rem;
 `
 

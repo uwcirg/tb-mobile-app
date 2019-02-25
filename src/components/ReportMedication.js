@@ -2,7 +2,8 @@ import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
 
-import { Hidden, Input } from "reakit"
+import { Hidden, Input, Provider } from "reakit"
+import theme from "reakit-theme-default";
 
 import { grey, white } from "../colors"
 import Heading from "../primitives/Heading"
@@ -13,8 +14,8 @@ const ReportMedication = observer(({ store }) => (
   <Layout>
     <Heading>{store.translate("survey.tookMedication.title")}</Heading>
 
-
-    <Selection
+    {/* TODO: Future cleanup, this is repeated code with ReportSymptoms.js */}
+    <Selection className="Selection"
       update={() => store.survey_tookMedication
         ? store.translate("survey.tookMedication.yes")
         : store.translate("survey.tookMedication.no")
@@ -28,14 +29,18 @@ const ReportMedication = observer(({ store }) => (
       )}
     />
 
-    <Hidden visible={!store.survey_tookMedication} >
-      <TextFieldLabel>
-        <span>{store.translate("survey.tookMedication.reason")}</span>
-        <TextInput />
-      </TextFieldLabel>
-    </Hidden>
+    <Provider theme={theme}>
+      <Hidden visible={!store.survey_tookMedication} >
+        <TextFieldLabel>
+          <span>{store.translate("survey.tookMedication.reason")}</span>
+          {/* TODO: Make this TextInput expandable,
+          or give a list of reasons to the patient */}
+          <TextInput use="textarea" />
+        </TextFieldLabel>
+      </Hidden>
+    </Provider>
 
-    <Hidden visible={store.survey_tookMedication} >
+    <Hidden visible={store.survey_tookMedication === true} >
       <p>{store.translate("survey.tookMedication.at")}</p>
 
       <DateTime

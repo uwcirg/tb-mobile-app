@@ -37,7 +37,7 @@ export default {
 
   survey: {
     continue: `
-    Continuar
+    Confirm (es)
     `,
 
     skip: `
@@ -46,19 +46,19 @@ export default {
 
     tookMedication: {
       yes: `
-      Ya tomé mi medicación
+      Si
       `,
 
       no: `
-      Hoy no tomé mi medicación
+      No
       `,
 
       title: `
-      Reporte de medicación
+      Did you take your medication today? (es)
       `,
 
       reason: `
-      ¿Por qué no tomo su medicación?
+      ¿Por qué no?
       `,
 
       at: `
@@ -132,15 +132,16 @@ export default {
       `,
 
       other: `
-      Otra efecto indeseable
+      Otra efecto indeseable:
       `,
 
+      // TODO: Get rid of this after Sarah's approval
       since_last: `
       ¿Ha experimentado efectos indeseables desde su último registro?
       `,
 
       title: `
-      Reporte de efectos indeseables
+      Are you experiencing side effects today? (es)
       `,
 
       yes: `
@@ -152,7 +153,7 @@ export default {
       `,
 
       continue: `
-      Continue
+      Finish / Complete (es)
       `,
 
       skip: `
@@ -166,7 +167,7 @@ export default {
       `,
 
       start_timer: `
-      TODO Start timer
+      Upload Test Strip Photo (es)
       `,
 
       end_timer: `
@@ -182,11 +183,11 @@ export default {
       `,
 
       title: `
-      Carga la Foto
+      Take the Test / Load Photo (es)
       `,
 
       continue: `
-      Continuar
+      Finish / Complete (es)
       `,
 
       skip: `
@@ -1104,6 +1105,7 @@ export default {
     welcome: "Bienvenido",
     phone: "El numero del telefono",
     password: "TODO Password",
+    go: "TODO Log in",
 
     link: {
       register: "Registrarse",

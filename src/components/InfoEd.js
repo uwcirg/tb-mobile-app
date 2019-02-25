@@ -11,13 +11,13 @@ import SymptomOverview from "./SymptomOverview"
 
 const InfoEd = observer(({ store }) => (
   <Layout>
-    <Button as={InternalLink} to={Faqs} store={store} >
-      {store.translate("info.faq")}
-    </Button>
+      <Button as={InternalLink} to={Faqs} store={store} >
+        {store.translate("info.faq")}
+      </Button>
 
-    <Button as={InternalLink} to={SymptomOverview} store={store} >
-      {store.translate("info.symptom_overview")}
-    </Button>
+      <Button as={InternalLink} to={SymptomOverview} store={store} >
+        {store.translate("info.symptom_overview")}
+      </Button>
   </Layout>
 ))
 
