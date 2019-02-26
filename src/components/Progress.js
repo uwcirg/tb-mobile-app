@@ -1,13 +1,10 @@
 import React from "react"
 import { observer } from "mobx-react"
-import { blue, beige } from "../colors"
 
 import { Provider, Divider, Paragraph } from "reakit";
 import Heading from "../primitives/Heading"
 import theme from "reakit-theme-default";
 
-import CircularProgressbar from "react-circular-progressbar"
-import 'react-circular-progressbar/dist/styles.css';
 import Fold from "../primitives/Fold"
 import CustomContentProgressBar from "../primitives/CustomContentProgressBar"
 
@@ -15,15 +12,13 @@ import styled from "styled-components"
 import Layout from "../layouts/Text"
 
 const total_treatment_days = 112;
-const smaller_text = 'Days of Treatment'
-const percentage = Math.round((total_treatment_days / 180) * 100);
 
 const Progress = observer(({store}) => (
   <Layout>
     <Provider theme={theme}>
       <div>
         {/* TODO: Translations for this whole page */}
-        <h2>Mi Progreso</h2>
+        <Heading>Mi Progreso</Heading>
 
         <ProgressBarContainer>
           <CustomContentProgressBar>
@@ -84,10 +79,6 @@ const Progress = observer(({store}) => (
   </Layout>
 ))
 
-const TreatmentDays = styled.div`
-  text-align: center;
-`
-
 const ProgressBarContainer = styled.div`
   width: 200px;
   height: 200px;
@@ -99,20 +90,7 @@ const Percentage = styled.div`
   font-weight: 400;
 `
 
-const HighlightBox = styled.p`
-  border: 2px solid black;
-  width: fit-content;
-  padding: 0.5rem;
-  display: inline-block;
-`
-
-const Row = styled.div`
-  display: grid;
-  grid-column-gap: 1rem;
-  grid-template-columns: 1fr 6rem;
-`
-
-const Question = styled.h3`
+const Question = styled(Heading)`
   font-weight: 100;
   margin: 0;
 `

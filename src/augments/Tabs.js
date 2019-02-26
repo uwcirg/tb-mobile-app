@@ -3,7 +3,6 @@ import styled from "styled-components"
 import { observer } from "mobx-react"
 import { Tabs } from "reakit";
 
-import { darkgrey, lightgrey } from "../colors"
 import Button from "../primitives/Button"
 import Home from "../components/Home"
 

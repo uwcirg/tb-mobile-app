@@ -7,8 +7,6 @@ import theme from "reakit-theme-default";
 
 import { grey, white } from "../colors"
 import Heading from "../primitives/Heading"
-import DateTime from "../primitives/DateTime"
-import moment from "moment"
 import Selection from "../primitives/Selection"
 
 const translation_keys =  { true: "yes", false: "no" }
@@ -39,28 +37,31 @@ const ReportMedication = observer(({ store }) => (
         <Hidden visible={store.survey_tookMedication === false} >
           <TextFieldLabel>
             <span>{store.translate("survey.tookMedication.reason")}</span>
+
             {/* TODO: Make this TextInput expandable,
             or give a list of reasons to the patient */}
+
             <TextInput use="textarea" />
           </TextFieldLabel>
         </Hidden>
 
         <Hidden visible={store.survey_tookMedication === true} >
           <p>{store.translate("survey.tookMedication.at")}</p>
-            {/* TODO: Figure out how to store and submit this value */}
-            <TextInput className="datepicker" type="date" 
-                  value={store.survey_date}
-                  onChange={(e) => store.survey_date = e.target.value}></TextInput>
-            
-            <TextInput className="datepicker" type="time" 
-                  value={store.survey_medication_time}
-                  onChange={(e) => store.survey_medication_time = e.target.value}></TextInput>
 
-          {/* <DateTime
-            store={store}
-            date_path="survey_date"
-            time_path="survey_medication_time"
-          /> */}
+          {/* TODO: Figure out how to store and submit this value */}
+          <TextInput
+            className="datepicker"
+            type="date"
+            value={store.survey_date}
+            onChange={(e) => store.survey_date = e.target.value}
+          />
+
+          <TextInput
+            className="datepicker"
+            type="time"
+            value={store.survey_medication_time}
+            onChange={(e) => store.survey_medication_time = e.target.value}
+          />
         </Hidden>
       </div>
     </Provider>

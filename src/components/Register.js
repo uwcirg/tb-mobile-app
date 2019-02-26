@@ -3,7 +3,6 @@ import styled from "styled-components"
 import { observer } from "mobx-react"
 
 import Button from "../primitives/Button"
-import Selection from "../primitives/Selection"
 import ListOfLinks from "../layouts/ListOfLinks"
 import { Input } from "reakit"
 import { white, grey } from "../colors"
