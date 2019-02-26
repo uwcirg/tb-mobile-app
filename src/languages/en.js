@@ -261,6 +261,10 @@ export default {
     register: `
     Register
     `,
+
+    link: {
+      login: "Log In",
+    }
   },
 
   menu: {

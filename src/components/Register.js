@@ -7,12 +7,14 @@ import Selection from "../primitives/Selection"
 import ListOfLinks from "../layouts/ListOfLinks"
 import { Input } from "reakit"
 import { white, grey } from "../colors"
+import InternalLink from "../primitives/InternalLink"
+import Login from "./Login"
 
 const Register = observer(({store}) => (
   <Layout>
-    <p>
+    <h2>
       {store.translate("register.welcome")}
-    </p>
+    </h2>
 
     <Form>
       <Field
@@ -44,6 +46,10 @@ const Register = observer(({store}) => (
         {store.translate("register.register")}
       </Button>
     </Form>
+
+    <InternalLink to={Login} store={store} >
+      {store.translate("register.link.login")}
+    </InternalLink>
   </Layout>
 ))
 

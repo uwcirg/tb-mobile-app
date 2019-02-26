@@ -20,8 +20,9 @@ const PhotoUpload = observer(({ store }) => (
     <Fold>
       {/* TODO: Translate this */}
       <Title>Instructions</Title>
+      <p>{store.translate("survey.upload.instructions.intro")}</p>
+
       <ul>
-        <li>{store.translate("survey.upload.instructions.intro")}</li>
         <li>{store.translate("survey.upload.instructions.1")}</li>
         <li>{store.translate("survey.upload.instructions.2")}</li>
         <li>{store.translate("survey.upload.instructions.3")}</li>

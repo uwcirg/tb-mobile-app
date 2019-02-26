@@ -249,17 +249,19 @@ export default {
     TODO Initials
     `,
 
-    password: `
-    TODO Password
-    `,
+    password: "Contraseña",
 
     treatment_start_date: `
-    TODO Study Start Date
+    Fecha de tratamiento
     `,
 
     register: `
     Registrarse
     `,
+
+    link: {
+      login: "Iniciar sesión",
+    }
   },
 
   menu: {
@@ -290,15 +292,19 @@ export default {
 
   contact: {
     title: `
-    Contactar el coordinador de tratamiento (es)
+    Contactar el coordinador de tratamiento
     `,
 
     first: `
-    No se comunique con su coordinador si tiene una emergencia. Cualquier situación de emergencia debe ser dirigidas a través de rutas habituales, concurriendo al centro de atención más cercano. (es)
+    No se comunique con su coordinador si tiene una emergencia.
+    Cualquier situación de emergencia
+    debe ser dirigidas a través de rutas habituales,a
+    concurriendo al centro de atención más cercano.
     `,
 
     second: `
-    El coordinador del estudio está disponible durante horas de oficina para leer y responder los mensajes (es)
+    El coordinador del estudio está disponible durante horas de oficina
+    para leer y responder los mensajes
     `,
 },
 
@@ -1099,8 +1105,8 @@ export default {
   login: {
     welcome: "Bienvenido",
     phone: "El numero del telefono",
-    password: "TODO Password",
-    go: "TODO Log in",
+    password: "Contraseña",
+    go: "Iniciar sesión",
 
     link: {
       register: "Registrarse",
