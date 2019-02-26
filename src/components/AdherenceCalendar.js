@@ -5,27 +5,7 @@ import ReactCalendar from "react-calendar/dist/entry.nostyle"
 
 import { lightgrey, darkgrey, grey, white, green } from "../colors"
 
-const Calendar = observer(({ store }) => (
-  <CalendarComponent
-    minDetail="year"
-    tileContent={
-      ({ date, view }) => (
-        <DateCell
-          date={date}
-          medication_report={
-            view === 'month' &&
-              store.medication_reports.records.find(mr =>
-                mr.timestamp.replace(/T.+$/, "") === date.toJSON().replace(/T.+$/, "")
-              )
-          }
-        >
-          {date.getDate()}
-        </DateCell>
-      )}
-    />
-))
-
-const CalendarComponent = styled(ReactCalendar)`
+const Calendar = styled(ReactCalendar)`
   width: 100% !important;
   background: none !important;
   border: none !important;
@@ -67,4 +47,25 @@ const DateCell = styled.div`
   padding-top: 0.5rem;
 `
 
-export default Calendar;
+const AdherenceCalendar = observer(({ store }) => (
+  <Calendar
+    locale={{ "Español": "es", "English": "en" }[store.language]}
+    minDetail="year"
+    tileContent={
+      ({ date, view }) => (
+        <DateCell
+          date={date}
+          medication_report={
+            view === 'month' &&
+              store.medication_reports.records.find(mr =>
+                mr.timestamp.replace(/T.+$/, "") === date.toJSON().replace(/T.+$/, "")
+              )
+          }
+        >
+          {date.getDate()}
+        </DateCell>
+      )}
+    />
+))
+
+export default AdherenceCalendar;

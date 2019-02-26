@@ -7,6 +7,8 @@ import Selection from "../primitives/Selection"
 import ListOfLinks from "../layouts/ListOfLinks"
 import { Input } from "reakit"
 import { white, grey } from "../colors"
+import InternalLink from "../primitives/InternalLink"
+import Register from "./Register"
 
 const Login = observer(({store}) => (
   <Layout>
@@ -16,33 +18,26 @@ const Login = observer(({store}) => (
 
     <Form>
       <Field
-        placeholder={store.translate("login.initials")}
-        value={store.account.initials}
-        onChange={(e) => store.account.initials = e.target.value}
-      />
-
-      <Field
         placeholder={store.translate("login.phone")}
-        value={store.account.phone_number}
-        onChange={(e) => store.account.phone_number = e.target.value}
+        value={store.login_credentials.phone_number}
+        onChange={(e) => store.login_credentials.phone_number = e.target.value}
       />
 
       <Field
-        placeholder={store.translate("login.date_of_birth")}
-        value={store.account.date_of_birth}
-        onChange={(e) => store.account.date_of_birth = e.target.value}
-      />
-
-      <Field
-        placeholder={store.translate("login.treatment_start_date")}
-        value={store.account.treatment_start_date}
-        onChange={(e) => store.account.treatment_start_date = e.target.value}
+        password
+        placeholder={store.translate("login.password")}
+        value={store.login_credentials.password}
+        onChange={(e) => store.login_credentials.password = e.target.value}
       />
 
       <Button onClick={() => store.login()}>
         {store.translate("login.register")}
       </Button>
     </Form>
+
+    <InternalLink to={Register} store={store} >
+      {store.translate("link.register")}
+    </InternalLink>
   </Layout>
 ))
 

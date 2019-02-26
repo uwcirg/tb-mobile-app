@@ -5,7 +5,11 @@ import { Tabs } from "reakit";
 
 import { darkgrey, lightgrey } from "../colors"
 import Button from "../primitives/Button"
+import Home from "../components/Home"
 
+// TODO this is too complex; it is marked as deprecated.
+// Use of this component will not be supported
+// in future versions of the Assemble framework.
 Tabs.Buttons = observer(({ primary, secondary, onPrimary, onSecondary, store, ...state }) => (
   <ButtonLayout>
     <Button
@@ -17,7 +21,7 @@ Tabs.Buttons = observer(({ primary, secondary, onPrimary, onSecondary, store, ..
         onSecondary && onSecondary()
 
         if(state.current === state.ids.length - 1)
-          store.showHome();
+          store.showPage(Home);
       } }
     >
       {secondary}
@@ -30,7 +34,7 @@ Tabs.Buttons = observer(({ primary, secondary, onPrimary, onSecondary, store, ..
         onPrimary && onPrimary()
 
         if(state.current === state.ids.length - 1)
-          store.showHome();
+          store.showPage(Home);
       } }
     >
       {primary}

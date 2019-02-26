@@ -236,9 +236,13 @@ export default {
     `,
   },
 
-  login: {
+  register: {
     welcome: `
     ¡Bienvenido!
+    `,
+
+    name: `
+    Nombre
     `,
 
     phone: `
@@ -249,8 +253,8 @@ export default {
     TODO Initials
     `,
 
-    date_of_birth: `
-    TODO Date of Birth
+    password: `
+    TODO Password
     `,
 
     treatment_start_date: `
@@ -1085,4 +1089,24 @@ export default {
       },
     },
   },
+
+  coordinator: {
+    daily: {
+      status: {
+        pending_review: "Revisión pendiente",
+        completed: "Completado",
+        no_response: "No respondió",
+      },
+    },
+  },
+
+  login: {
+    welcome: "Bienvenido",
+    phone: "El numero del telefono",
+    password: "TODO Password",
+
+    link: {
+      register: "Registrarse",
+    }
+  }
 }

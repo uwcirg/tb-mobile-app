@@ -39,7 +39,7 @@ const PhotoUpload = observer(({ store }) => (
             store.storePhoto(image);
           }}
         >
-          {store.test_strip_time.format("mm:ss")}
+          {/*TODO remove*/}
         </ImageCapture>
       : <Button onClick={() => store.test_strip_timer_start = moment()}>
           {store.translate("survey.upload.start_timer")}

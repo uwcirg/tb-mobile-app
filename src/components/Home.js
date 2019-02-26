@@ -17,7 +17,7 @@ import Survey from "./Survey"
 import Help from "../primitives/Help"
 import Button from "../primitives/Button"
 
-import Calendar from "./Calendar"
+import AdherenceCalendar from "./AdherenceCalendar"
 
 const Home = observer(({ store }) => (
   <Layout>
@@ -35,9 +35,7 @@ const Home = observer(({ store }) => (
       <Help> <IconKey store={store} /> </Help>
     </Row>
 
-    <Calendar
-      store={store}
-    />
+    <AdherenceCalendar store={store} />
   </Layout>
 ))
 

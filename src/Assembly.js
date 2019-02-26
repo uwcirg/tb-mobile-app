@@ -1,32 +1,22 @@
 // Code snippets - possible future use.
 
 // Dynamic import
-    // if(props.hash)
-    //   this.currentPage = import(props.hash)
+  // if(props.hash)
+  //   this.currentPage = import(props.hash)
 
 // Transform dates
     // moment(event.timestamp).transform("YYYY-MM-DD 00:00:00.000")
 
 // import IPFS from "ipfs"
-//
-// const ipfs = new IPFS({
-//   EXPERIMENTAL: {
-//     pubsub: true
-//   }
-// })
-//
+// const ipfs = new IPFS({ EXPERIMENTAL: { pubsub: true } })
 // ipfs.once("ready", () =>
-//   ipfs.id((err, info) => {
-//     if(err) throw err;
-//
-//     console.log(`Ready! ${info.id}`)
-//   })
+//   ipfs.id((err, info) => { if(err) throw err; console.log(`Ready! ${info.id}`) })
 // )
 
 import React from "react"
 import styled from "styled-components"
 
-import { observable, computed, action, autorun } from "mobx"
+import { observable, computed,  autorun } from "mobx"
 import { observer, Observer } from "mobx-react"
 
 import { white, beige, lightgrey, darkgrey } from "./colors"
@@ -120,11 +110,16 @@ class Assembly extends React.Component {
 
   // TODO change from `User` to `Account`
   // Records("User", "user").first
-  @observable account = {
-    date_of_birth: null,
-    initials: null,
+  @observable register = {
+    name: null,
     phone_number: null,
     treatment_start_date: null,
+    password: null,
+  }
+
+  @observable login_credentials = {
+    phone: "",
+    password: "",
   }
 
   @observable authorization = null
@@ -173,12 +168,6 @@ class Assembly extends React.Component {
   @observable test_strip_timer_start = null
   test_strip_timer = null
 
-  @computed get test_strip_time() {
-    return this.test_strip_timer_end.subtract(
-      this.test_strip_timer_start
-    )
-  }
-
   constructor(props) {
     super(props)
 
@@ -210,16 +199,16 @@ class Assembly extends React.Component {
   }
 
   // TODO: Change find(1) to find(${photo_id})
-  @action setPhotoStatus(status) {
+  setPhotoStatus(status) {
     this.network.run()`
       StripReport.find(1).update(status: "${status}")
     `
   }
 
   // Alerts
-  @action alert(message) { this.alerts.push(message) }
+  alert(message) { this.alerts.push(message) }
 
-  @action dismissAlert(message) {
+  dismissAlert(message) {
     var index = this.alerts.indexOf(message);
     if (index > -1) this.alerts.splice(index, 1);
   }
@@ -242,15 +231,11 @@ class Assembly extends React.Component {
     return true
   }
 
-  @action showHome() {
-    this.showPage(Home)
-  }
-
-  @action showPage(page) {
+   showPage(page) {
     this.currentPage = page
   }
 
-  @action login(username, password, callback) {
+  login(username, password, callback) {
     // let payload = JSON.stringify(this.account)
     // let header = {alg: "HS256", typ: "JWT"};
 
@@ -265,14 +250,14 @@ class Assembly extends React.Component {
     //     );
 
     //     network = new Network(jwt)
-    //     this.showHome()
+    //     this.showPage(Home)
     //     console.log(network.authorization)
     //   })
     // )
   }
 
   // TODO change out `author_id`
-  @action saveNote() {
+  saveNote() {
     this.notes.create({
       author_id: "abc123",
       author_type: "User",
@@ -281,12 +266,12 @@ class Assembly extends React.Component {
     })
   }
 
-  @action composeNote() {
+  composeNote() {
     this.noteTitle = ""
     this.noteDraft = ""
   }
 
-  @action storePhoto(photo) {
+  storePhoto(photo) {
     // const minioClient = new Client({
     //   endPoint: "localhost",
     //   port: 9001,
@@ -329,16 +314,16 @@ class Assembly extends React.Component {
     return datetime
   }
 
-  @action reportMedication() {
+  reportMedication() {
     this.medication_reports.create({ timestamp: this.survey_datetime })
   }
 
-  @action reportSymptoms() {
+  reportSymptoms() {
     // TODO Change key from `user` to `author` or `account`
     this.symptom_reports.create(this.symptoms, { user: this.account })
   }
 
-  @action reportStrip() {
+  reportStrip() {
     // TODO Change key from `user` to `author` or `account`
     // TODO invalid data; should include `image_url`, `timer`, etc.
     this.strip_reports.create({ user: this.account })
@@ -424,7 +409,7 @@ const NavBar = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  border-top: 1px solid ${lightgrey}; 
+  border-top: 1px solid ${lightgrey};
 `
 
 const AuthBar = styled.div`

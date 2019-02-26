@@ -88,26 +88,44 @@ const CoordinatorHome = observer(({ store }) => {
         },
         {
           Header: 'Test Result',
-          // TODO: link each checkbox to each patient. Right now we are routing all data to 
-          // setPhotoStatus and not capturing for whom
+          // TODO: link each checkbox to each patient.
+          // Right now we are routing all data to setPhotoStatus
+          // and not capturing for whom
           accessor: 'status',
           width: 175,
+
+          // TODO
+          // onClick={e => store.setPhotoStatus(strip_report, "positive")}
+          // onClick={e => store.setPhotoStatus(strip_report, "negative")}
           Cell: observer(e=> <div>
-                  <label>
-                    {/* TODO: try changing to a radio button and making the result of the change equal
-                    to the opposite */}
-                    {/* onChange={e => store.setPhotoStatus('positive')} */}
-                    {/* store.current_strip_report = 'negative' */}
-                    <Input type="checkbox" name="photostatus" onChange={e => store.current_strip_report = 'positive'}
-                           checked={store.current_strip_report === 'positive'} /> Positive
-                    <br></br>
-                    <Input type="checkbox" name="photostatus" onChange={e => store.current_strip_report = 'negative'} 
-                          checked={store.current_strip_report === 'negative'} /> Negative / Unclear
-                    <br></br>
-                    {/* TODO: style like a button */}
-                    <Input type="submit" name="photostatus" onClick={e => (store.setPhotoStatus(store.current_strip_report))}/>
-                  </label>
-                </div>)
+            <label>
+              <Input
+                type="checkbox"
+                name="photostatus"
+                onChange={null}
+                checked={store.current_strip_report === 'positive'}
+              />
+              Positive
+
+                <br></br>
+
+                <Input
+                  type="checkbox"
+                  name="photostatus"
+                  onChange={null}
+                  checked={store.current_strip_report === 'negative'}
+                />
+                Negative / Unclear
+
+                <br></br>
+
+                <Input
+                  type="submit"
+                  name="photostatus"
+                />
+              </label>
+            </div>
+          )
         },
         {
           Header: "Contact",
@@ -143,7 +161,7 @@ const CoordinatorHome = observer(({ store }) => {
         {
           Header: "% Adherence",
           accessor: "percent_since_start"
-        },      
+        },
         {
           Header: "Start Date",
           accessor: "treatment_start_date"

@@ -237,9 +237,13 @@ export default {
     `,
   },
 
-  login: {
+  register: {
     welcome: `
     Welcome!
+    `,
+
+    name: `
+    Name
     `,
 
     phone: `
@@ -250,8 +254,8 @@ export default {
     Initials
     `,
 
-    date_of_birth: `
-    Date of Birth
+    password: `
+    Password
     `,
 
     treatment_start_date: `
@@ -1053,4 +1057,24 @@ export default {
       },
     },
   },
+
+  coordinator: {
+    daily: {
+      status: {
+        pending_review: "Pending review",
+        completed: "Completed",
+        no_response: "No response",
+      },
+    },
+  },
+
+  login: {
+    welcome: "Welcome",
+    phone: "Phone",
+    password: "Password",
+
+    link: {
+      register: "Register",
+    },
+  }
 }
