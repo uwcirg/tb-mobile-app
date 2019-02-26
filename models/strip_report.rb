@@ -1,3 +1,3 @@
 class StripReport < ApplicationRecord
-  belongs_to :user
+  belongs_to :participant
 end

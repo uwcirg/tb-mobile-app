@@ -26,8 +26,8 @@ import { white, beige, lightgrey, darkgrey } from "./colors"
 
 // Utility
 import "moment-transform"
-import auth from "./oauth2"
 import moment from "moment"
+import { DateTime } from "luxon"
 // import { Client } from "minio"
 
 import Network from "./Network"
@@ -47,9 +47,6 @@ import Login from "./components/Login"
 import espanol from "./languages/es"
 import english from "./languages/en"
 
-// Optional data for coordinator assembly
-import Coordinator from "./sessions/Coordinator"
-
 let network = new Network(process.env.REACT_APP_URL_API)
 window.network = network
 
@@ -60,12 +57,14 @@ class Records {
     this.instance_name = instance_name
 
     // TODO change this to the account lookup
-    this.reference = "User.first"
+    this.reference = "Participant.first"
   }
 
   async fetch() {
     return network.run("cirg")`${this.reference}`
-      .then(r => this.records = r.json())
+      .then(r => this.records = r.json().sort((a, b) =>
+        DateTime.local(b.timestamp) - DateTime.local(a.timestamp)
+      ))
       .catch(e => console.log(e))
   }
 
@@ -106,10 +105,26 @@ class Records {
 @observer
 class Assembly extends React.Component {
   @observable currentPage = Home
-  @observable coordinator = null
+  @observable coordinator = {
+    patients: [
+      {
+        med_report_status: 'notreported',
+        id: "pete",
+        took_medication: 'Yes',
+        firstname: "Peter",
+        lastname: "Campbell",
+        phone: 15304120086,
+        treatment_start_date: null,
+        last_repored_date: null,
+        side_effects: ["Nausea", "Redness"],
+        percent_since_start: 48,
+        photo: [],
+        patient_note: [],
+        coordinator_note: [],
+      },
+    ]
+  }
 
-  // TODO change from `User` to `Account`
-  // Records("User", "user").first
   @observable registration_information = {
     name: null,
     phone_number: null,
@@ -131,7 +146,7 @@ class Assembly extends React.Component {
   @observable medication_reports = new Records("MedicationReport", "medication_reports")
   @observable symptom_reports    = new Records("SymptomReport"   , "symptom_reports")
   @observable strip_reports      = new Records("StripReport"     , "strip_reports")
-  @observable notes              = new Records("Note"           , "notes")
+  @observable notes              = new Records("Note"            , "notes")
 
   // Current medication report
   @observable survey_date = moment().format("YYYY-MM-DD")
@@ -140,6 +155,7 @@ class Assembly extends React.Component {
   // Current symptom report
   @observable symptoms = {
     nausea: false,
+    nausea_rating: 0,
     redness: false,
     hives: false,
     fever: false,
@@ -151,8 +167,6 @@ class Assembly extends React.Component {
     facial_swelling: false,
     other: null,
   }
-
-  @observable nausea_rating = 0
 
   // Current strip report
   @observable uploadedImages = []
@@ -166,20 +180,18 @@ class Assembly extends React.Component {
   @observable provider = null
 
   @observable test_strip_timer_end = null
-  @observable test_strip_timer_start = null
+  @observable capturing = false
   test_strip_timer = null
 
   constructor(props) {
     super(props)
 
     this.medication_reports.watch()
-    this.symptom_reports   .watch()
-    this.strip_reports     .watch()
-    this.notes             .watch()
+    this.symptom_reports.watch()
+    this.strip_reports.watch()
+    this.notes.watch()
 
     if(!this.authorization) { this.currentPage = Login }
-
-    this.coordinator = new Coordinator()
 
     this.test_strip_timer = setInterval(
       () => this.test_strip_timer_end = moment(),
@@ -248,7 +260,7 @@ class Assembly extends React.Component {
   saveNote() {
     this.notes.create({
       author_id: "abc123",
-      author_type: "User",
+      author_type: "Participant",
       title: this.noteTitle,
       text: this.noteDraft,
     })
@@ -305,15 +317,16 @@ class Assembly extends React.Component {
     this.medication_reports.create({ timestamp: this.survey_datetime })
   }
 
-  reportSymptoms() {
-    // TODO Change key from `user` to `author` or `account`
-    this.symptom_reports.create(this.symptoms, { user: this.account })
-  }
-
   reportStrip() {
+    debugger;
     // TODO Change key from `user` to `author` or `account`
     // TODO invalid data; should include `image_url`, `timer`, etc.
     this.strip_reports.create({ user: this.account })
+  }
+
+  reportSymptoms() {
+    debugger;
+    this.symptom_reports.create(this.symptoms)
   }
 
   translate(semantic) {
@@ -345,10 +358,7 @@ class Assembly extends React.Component {
       <AuthBar>
         <Title>{this.currentPageTitle}</Title>
 
-        { this.authorized
-          ? <Menu store={this} />
-          : null
-        }
+        <Menu store={this} />
 
         <Drawer>
           {this.alerts.map(alert => (
@@ -369,12 +379,9 @@ class Assembly extends React.Component {
 
       <Space />
 
-      { this.authorized
-        ? <NavBar>
-            <Navigation store={this} />
-          </NavBar>
-        : null
-      }
+      <NavBar>
+        <Navigation store={this} />
+      </NavBar>
     </Layout>
   )
 }

@@ -4,129 +4,116 @@ import styled from "styled-components"
 
 import ReactTable from "react-table"
 import "react-table/react-table.css"
-import { blue, darkblue } from "../colors"
+
+import {
+  darkgrey,
+  grey,
+  white,
+
+  green,
+  red,
+  yellow,
+} from "../colors"
 
 import { Input } from "reakit";
-import { Block, Button, Backdrop, Portal, Overlay } from "reakit";
+import Button from "../primitives/Button"
+import Selection from "../primitives/Selection"
 
-import { Image } from "reakit"
 import strip_report from "../images/strip_report.jpg"
-
-import { white, darkgrey } from "../colors"
 
 import Heading from "../primitives/Heading"
 import PhotoPopout from "../primitives/PhotoPopout"
 
 import moment from "moment"
+import { DateTime } from "luxon"
 
 const CoordinatorHome = observer(({ store }) => {
+  let reports = store.medication_reports.records
+  let last_medication_report = reports[reports.length - 1]
+
+  let last_report_date = DateTime.fromISO(last_medication_report.timestamp)
+  let now = DateTime.local()
+
+  let today = (
+    last_report_date.hasSame(now, "year") &&
+    last_report_date.hasSame(now, "month") &&
+    last_report_date.hasSame(now, "day")
+  )
+
+  let today_reports_for_patient = {
+    medication: today ? last_medication_report : { timestamp: "" }
+  }
 
   const tableColumns= [
     {
       Header: "Participant Info",
       columns: [
         {
-          Header: "Status",
-          accessor: "medication_report_dates",
-          width: 110,
-          // Link this up to the patient so that it changes after a test result is submitted
-          Cell: row => (
-            <span>
-              <span style={{
-                color: row.value === 'notreported' ? '#ff2e00'
-                  : row.value === 'reported' ? '#ffbf00'
-                  : '#57d500',
-                transition: 'all .3s ease'
-              }}>
-                &#x25cf;
-              </span> {
-                row.value === 'notreported' ? 'Not Reported'
-                : row.value === 'reported' ? `Reported`
-                : 'Confirmed'
-              }
-            </span>
-          )
+          Header: "First Name",
+          accessor: "firstname",
+          width: 100,
+          Cell: row => <RightAlign>{row.value}</RightAlign>
         },
+
         {
-          Header: "First",
-          accessor: "firstname"
-        },
-        {
-          Header: "Last",
-          accessor: "lastname"
+          Header: "L.I.",
+          id: "last_initial",
+          accessor: (r) => r.lastname[0],
+          width: 40,
         }
+
       ]
     },
+
     {
-      Header: 'Reported Data',
+      Header: "Today",
       columns: [
         {
-          // TODO: Link up to the correct value
-          Header: "Took Medication",
-          accessor: "took_medication"
+          Header: "Medication",
+          id: "med_report_status",
+
+          accessor: (r) =>
+          DateTime.fromISO(today_reports_for_patient.medication.timestamp),
+
+          Cell: observer(row => (
+              <Indicator status={ today ? "reported" : "notreported" }>
+                &#x25cf;
+                {row.value && row.value.toLocaleString(DateTime.TIME_SIMPLE)}
+              </Indicator>
+          ))
         },
+
         {
           // TODO: put side effects into a line break list
           Header: "Side Effects",
           accessor: "side_effects",
-          Cell: e=> e.value.join("\n \n")
+          Cell: r => (
+            <div>
+              {r.value.map(symptom => <Symptom key={symptom}>{symptom}</Symptom>)}
+            </div>
+          )
         },
+
         {
           Header: "Photo",
           accessor: "photo",
           Cell: e=>
-            <PhotoPopout>
-              <Image
-                    src={strip_report}
-                    alt={"Strip report"}
-                    onClick={(e) => {
-                      e.preventDefault()
-                      e.stopPropagation()
-                    }}
-              />
-            </PhotoPopout>
+          <PhotoPopout
+            src={strip_report}
+          >
+            <Selection
+              options={["positive", "negative"]}
+              update={() => null}
+              onChange={value => store.setPhotoStatus(value)}
+            />
+          </PhotoPopout>
         },
-        {
-          Header: 'Test Result',
-          // TODO: link each checkbox to each patient.
-          // Right now we are routing all data to setPhotoStatus
-          // and not capturing for whom
-          accessor: 'status',
-          width: 175,
+      ]
+    },
 
-          // TODO
-          // onClick={e => store.setPhotoStatus(strip_report, "positive")}
-          // onClick={e => store.setPhotoStatus(strip_report, "negative")}
-          Cell: observer(e=> <div>
-            <label>
-              <Input
-                type="checkbox"
-                name="photostatus"
-                onChange={null}
-                checked={store.current_strip_report === 'positive'}
-              />
-              Positive
-
-                <br></br>
-
-                <Input
-                  type="checkbox"
-                  name="photostatus"
-                  onChange={null}
-                  checked={store.current_strip_report === 'negative'}
-                />
-                Negative / Unclear
-
-                <br></br>
-
-                <Input
-                  type="submit"
-                  name="photostatus"
-                />
-              </label>
-            </div>
-          )
-        },
+    {
+      Header: "Coordinator Actions",
+      columns: [
         {
           Header: "Contact",
           accessor: "phone",
@@ -134,38 +121,36 @@ const CoordinatorHome = observer(({ store }) => {
           // TODO: make sure phone number is properly formatted in DB
           Cell: e =><a href={'https://wa.me/' + e.value} target="_blank"> {e.value} </a>
         },
-        {
-          Header: "Profile",
-          accessor: "id",
-          Cell: e=><a hrer={e.value} target="_black"> View </a>
-        },
+
         {
           Header: "My Notes",
           accessor: "coordinator_note",
           width: 175,
           Cell: e=>
-          <div>
-            <Input use="textarea" />
-            <br></br>
-            <br></br>
-            <Button>Save Note</Button>
-          </div>
+          <CoordinatorNote>
+            <TextField use="textarea" />
+            <InlineButton>Save Note</InlineButton>
+          </CoordinatorNote>
           // TODO: Add an action to connect to the DB after
           // the Save Note button is clicked
         },
       ]
     },
+
     {
       Header: "Treatment",
       columns: [
+
         {
           Header: "% Adherence",
           accessor: "percent_since_start"
         },
+
         {
           Header: "Start Date",
           accessor: "treatment_start_date"
         },
+
       ]
     }
   ];
@@ -173,35 +158,63 @@ const CoordinatorHome = observer(({ store }) => {
   return (
     <Layout>
       <span>{moment().format("YYYY-MM-DD")}</span>
-      <br />
       <Heading>Manage Patient Progress</Heading>
-      <br />
 
       <ReactTable
-            data={store.coordinator.patients}
-            columns={ tableColumns}
-            defaultPageSize={10}
-            showPagination={ false }
-            className="-striped -highlight"
+        data={store.coordinator.patients}
+        columns={ tableColumns}
+        defaultPageSize={store.coordinator.patients.length}
+        showPagination={ false }
+        className="-striped -highlight"
+
+        getTdProps={(state, rowInfo, column, instance) => ({
+          onClick: (e) => {
+            console.log(`Routing to the profile page for ${rowInfo.row.id}`)
+          },
+        })}
       />
     </Layout>
-)})
+  )})
 
 const Layout = styled.div`
   background-color: ${white};
+  border-radius: 2px;
   border: 1px solid ${darkgrey};
+  display: grid;
+  grid-row-gap: 1rem;
+  padding: 1rem;
 `
 
-// Padding not working on this styled element
-const Table = styled(ReactTable)`
-  margin-top: 1rem;
-  width: 100%;
-  margin-left: 10px;
-  margin-right: 10px;
-  padding-top: 1rem;
-  padding-right: 1rem;
-  padding-bottom: 1rem;
-  padding-left: 1rem;
+const Indicator = styled.span`
+  color: ${p => ({
+    notreported: red,
+    reported: yellow,
+    confirmed: green,
+  }[p.status])};
+
+  transition: all .3s ease;
+`
+
+const Symptom = styled.div`
+  color: ${red};
+`
+
+const RightAlign = styled.div`
+  text-align: right;
+`
+
+const CoordinatorNote = styled.div`
+  display: grid;
+  grid-row-gap: 0.5rem;
+`
+
+const TextField = styled(Input)`
+  border: 1px solid ${grey};
+  padding: 0.5rem 0;
+`
+
+const InlineButton = styled(Button)`
+  padding: 0.2rem;
 `
 
 CoordinatorHome.route = "/coordinator"

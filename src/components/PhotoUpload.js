@@ -4,7 +4,7 @@ import { observer } from "mobx-react"
 
 import Heading from "../primitives/Heading"
 import Button from "../primitives/Button"
-import moment from "moment"
+import { DateTime } from "luxon"
 import Fold from "../primitives/Fold"
 
 import { blue } from "../colors"
@@ -33,7 +33,7 @@ const PhotoUpload = observer(({ store }) => (
     </Fold>
 
     <div>
-      { store.test_strip_timer_start
+      { store.capturing
       ? <ImageCapture
           store={store}
           onCapture={(image) => {
@@ -43,7 +43,7 @@ const PhotoUpload = observer(({ store }) => (
         >
           {/*TODO remove*/}
         </ImageCapture>
-      : <Button onClick={() => store.test_strip_timer_start = moment()}>
+      : <Button onClick={() => store.capturing = true}>
           {/* TODO: Rename start_timer */}
           {store.translate("survey.upload.start_timer")}
         </Button>

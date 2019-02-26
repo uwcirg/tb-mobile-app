@@ -24,9 +24,8 @@ const Calendar = styled(ReactCalendar)`
   }
 
   & .react-calendar__navigation button {
-    border-radius: 0;
     text-decoration: underline;
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 `
 

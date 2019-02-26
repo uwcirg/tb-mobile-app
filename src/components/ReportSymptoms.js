@@ -50,20 +50,20 @@ const ReportSymptoms = observer(({ store, survey }) => (
 
       <Label>
         <Checkbox
-          checked={store.nausea}
+          checked={store.symptoms.nausea}
           onChange={(e) => {
-            store.nausea = e.target.checked
-            store.nausea_rating = 0
+            store.symptoms.nausea = e.target.checked
+            store.symptoms.nausea_rating = 0
           }}
         />
 
         <span>{store.translate("survey.symptoms.nausea")}</span>
 
-        <Hidden visible={store.nausea} >
-          {store.nausea_rating} / 10
+        <Hidden visible={store.symptoms.nausea} >
+          {store.symptoms.nausea_rating} / 10
         </Hidden>
 
-        <Callout visible={store.nausea && !store.nausea_rating}>
+        <Callout visible={store.symptoms.nausea && !store.symptoms.nausea_rating}>
           <ImageLineup
             store={store}
             images={{
@@ -83,7 +83,7 @@ const ReportSymptoms = observer(({ store, survey }) => (
               10: store.translate("survey.symptoms.nausea_ratings.10"),
             }}
             onSelect={(selection) => {
-              store.nausea_rating = selection
+              store.symptoms.nausea_rating = selection
             }}
           />
         </Callout>
@@ -91,8 +91,8 @@ const ReportSymptoms = observer(({ store, survey }) => (
 
       <Label>
         <Checkbox
-          checked={store.redness}
-          onChange={(e) => store.redness = e.target.checked}
+          checked={store.symptoms.redness}
+          onChange={(e) => store.symptoms.redness = e.target.checked}
         />
         <span>{store.translate("survey.symptoms.redness")}</span>
 
@@ -105,7 +105,10 @@ const ReportSymptoms = observer(({ store, survey }) => (
       </Label>
 
       <Label>
-        <Checkbox checked={store.hives} onChange={(e) => store.hives = e.target.checked} />
+        <Checkbox
+          checked={store.symptoms.hives}
+          onChange={(e) => store.symptoms.hives = e.target.checked}
+        />
         <span>{store.translate("survey.symptoms.hives")}</span>
 
         <Help>
@@ -117,44 +120,69 @@ const ReportSymptoms = observer(({ store, survey }) => (
       </Label>
 
       <Label>
-        <Checkbox checked={store.fever} onChange={(e) => store.fever = e.target.checked} />
+        <Checkbox
+          checked={store.symptoms.fever}
+          onChange={(e) => store.symptoms.fever = e.target.checked}
+        />
         <span>{store.translate("survey.symptoms.fever")}</span>
       </Label>
 
       <Label>
-        <Checkbox checked={store.appetite_loss} onChange={(e) => store.appetite_loss = e.target.checked} />
+        <Checkbox
+          checked={store.symptoms.appetite_loss}
+          onChange={(e) => store.symptoms.appetite_loss = e.target.checked}
+        />
         <span>{store.translate("survey.symptoms.appetite_loss")}</span>
       </Label>
 
       <Label>
-        <Checkbox checked={store.blurred_vision} onChange={(e) => store.blurred_vision = e.target.checked} />
+        <Checkbox
+          checked={store.symptoms.blurred_vision}
+          onChange={(e) => store.symptoms.blurred_vision = e.target.checked}
+        />
         <span>{store.translate("survey.symptoms.blurred_vision")}</span>
       </Label>
 
       <Label>
-        <Checkbox checked={store.sore_belly} onChange={(e) => store.sore_belly = e.target.checked} />
+        <Checkbox
+          checked={store.symptoms.sore_belly}
+          onChange={(e) => store.symptoms.sore_belly = e.target.checked}
+        />
         <span>{store.translate("survey.symptoms.upset_stomach")}</span>
       </Label>
 
       <Label>
-        <Checkbox checked={store.yellow_coloration} onChange={(e) => store.yellow_coloration = e.target.checked} />
+        <Checkbox
+          checked={store.symptoms.yellow_coloration}
+          onChange={(e) => store.symptoms.yellow_coloration = e.target.checked}
+        />
         <span>{store.translate("survey.symptoms.yellow_coloration")}</span>
       </Label>
 
       <Label>
-        <Checkbox checked={store.difficulty_breathing} onChange={(e) => store.difficulty_breathing = e.target.checked} />
+        <Checkbox
+          checked={store.symptoms.difficulty_breathing}
+          onChange={(e) => store.symptoms.difficulty_breathing = e.target.checked}
+        />
         <span>{store.translate("survey.symptoms.difficulty_breathing")}</span>
       </Label>
 
       <Label>
-        <Checkbox checked={store.facial_swelling} onChange={(e) => store.facial_swelling = e.target.checked} />
+        <Checkbox
+          checked={store.symptoms.facial_swelling}
+          onChange={(e) => store.symptoms.facial_swelling = e.target.checked}
+        />
         <span>{store.translate("survey.symptoms.facial_swelling")}</span>
       </Label>
 
       <Provider theme={theme}>
         <TextFieldLabel>
           {store.translate("survey.symptoms.other")}
-          <TextInput />
+
+          <TextInput
+            value={store.symptoms.other || ""}
+            onChange={e => store.symptoms.other = e.target.value}
+          />
         </TextFieldLabel>
       </Provider>
     </Hidden>
@@ -173,7 +201,7 @@ const Label = styled.label`
 `
 
 const TextFieldLabel = styled(Label)`
-  grid-template-columns: 1fr;
+  grid-template-columns: 6rem auto;
   margin-top: 1rem;
   grid-column-gap: 1rem;
 `

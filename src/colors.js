@@ -15,4 +15,4 @@ export const darkgreen = "#3ab16a"
 
 export const red       = "#e66464"
 
-export const yellow    = "#e3cb7d"
+export const yellow    = "#ffbf00"
