@@ -29,11 +29,10 @@ const Progress = observer(({store}) => (
           <CustomContentProgressBar>
             {/* TODO: Link the data to this number */}
             <Percentage>{total_treatment_days}</Percentage>
-
             {/* TODO style component */}
-            <div>
+            <TreatmentDays>
               <strong>Days of Treatment</strong>
-            </div>
+            </TreatmentDays>
           </CustomContentProgressBar>
         </ProgressBarContainer>
 
@@ -85,17 +84,18 @@ const Progress = observer(({store}) => (
 ))
 
 const TreatmentDays = styled.div`
-  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 400;
 `
 
 const ProgressBarContainer = styled.div`
-  width: 200px;
-  height: 200px;
+  width: 10rem;
+  height: 10rem;
   margin: auto;
 `
 
 const Percentage = styled.div`
-  font-size: 40px;
+  font-size: 2rem;
   font-weight: 400;
 `
 

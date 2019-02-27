@@ -358,14 +358,11 @@ class Assembly extends React.Component {
   render = () => (
     <Layout className="Assembly">
       <AuthBar>
-        <Title>
-          <InternalLink to={Home} store={this} >
+        <InternalLink to={Home} store={this} >
           <Image src={logo} width="2rem" height="2rem" />
-            {this.currentPageTitle}
-          </InternalLink>
-        </Title>
+          <Title>{this.currentPageTitle}</Title>
+        </InternalLink>
         
-
         <Menu store={this} />
 
         <Drawer>
@@ -435,6 +432,7 @@ const Space = styled.div`
 const Title = styled.h3`
   margin-top: 0;
   margin-bottom: 0;
+  display: inline-block
 `
 
 // A handy space just below the top bar,
