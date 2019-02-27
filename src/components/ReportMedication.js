@@ -50,14 +50,12 @@ const ReportMedication = observer(({ store }) => (
 
           {/* TODO: Figure out how to store and submit this value */}
           <TextInput
-            className="datepicker"
             type="date"
             value={store.survey_date}
             onChange={(e) => store.survey_date = e.target.value}
           />
 
           <TextInput
-            className="datepicker"
             type="time"
             value={store.survey_medication_time}
             onChange={(e) => store.survey_medication_time = e.target.value}

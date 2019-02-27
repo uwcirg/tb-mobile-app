@@ -3,7 +3,6 @@ import { runInAction } from "mobx"
 class Network {
   constructor(url) {
     this.url = url
-    this.authorization = null
     this.watches = {}
     this.active = true
   }

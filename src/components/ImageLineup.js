@@ -6,7 +6,7 @@ import { observer } from "mobx-react"
 const ImageLineup = observer(({ store, images, alts, onSelect }) => (
   <Layout>
     { Object.keys(images).map((value) => (
-      <div>
+      <div key={value}>
         <Image
           src={images[value]}
           alt={alts[value]}
