@@ -8,12 +8,12 @@ import { blue } from "../colors"
 import { observer } from "mobx-react"
 
 const Contact = observer(({store}) => (
-  <Layout>
+  // <Layout>
     <Provider theme={theme}>
       <div>
-        <Heading use="h4">
+        <h2>
           {store.translate("contact.title")}
-        </Heading>
+        </h2>
 
         <List>
           <li>{store.translate("contact.first")}</li>
@@ -27,7 +27,7 @@ const Contact = observer(({store}) => (
         </Link>
       </div>
     </Provider>
-  </Layout>
+  // </Layout>
 ))
 
 Contact.route = "/contact"

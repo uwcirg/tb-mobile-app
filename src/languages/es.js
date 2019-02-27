@@ -37,7 +37,7 @@ export default {
 
   survey: {
     continue: `
-    Confirm (es)
+    Siguiente
     `,
 
     skip: `
@@ -54,15 +54,15 @@ export default {
       `,
 
       title: `
-      Did you take your medication today? (es)
+      Did you take your medication? (es)
       `,
 
       reason: `
-      ¿Por qué no?
+      ¿Por qué?
       `,
 
       at: `
-      Yo tomé mi medicación a las:
+      ¿Cuando?:
       `,
     },
 
@@ -136,7 +136,7 @@ export default {
       `,
 
       title: `
-      Are you experiencing side effects today? (es)
+      Are you experiencing side effects? (es)
       `,
 
       yes: `

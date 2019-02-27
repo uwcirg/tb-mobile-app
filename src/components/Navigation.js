@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
-import { white } from "../colors"
+import { white, blue } from "../colors"
 import InternalLink from "../primitives/InternalLink"
 
 import Icon from "@mdi/react"
@@ -11,6 +11,7 @@ import {
   mdiFolderClockOutline,
   mdiInformationOutline,
   mdiPencilBoxOutline,
+  mdiHome,
 } from "@mdi/js"
 
 import Home from "./Home"
@@ -21,16 +22,12 @@ import Progress from "./Progress"
 
 const Navigation = observer(({ store }) => (
   <Layout>
-    <InternalLink to={InfoEd} store={store} >
-      <Icon path={mdiInformationOutline} size="1.8rem" />
+    <InternalLink to={Home} store={store} >
+      <Icon path={mdiHome} color={blue} size="1.8rem" />
     </InternalLink>
-
+  
     <InternalLink to={Progress} store={store} >
       <Icon path={mdiFolderClockOutline} size="1.8rem" />
-    </InternalLink>
-
-    <InternalLink to={Home} store={store} >
-      <Icon path={mdiCalendarCheck} size="2.0rem" />
     </InternalLink>
 
     <InternalLink to={Contact} store={store} >
@@ -39,6 +36,10 @@ const Navigation = observer(({ store }) => (
 
     <InternalLink to={Notes} store={store} >
       <Icon path={mdiPencilBoxOutline} size="1.8rem" />
+    </InternalLink>
+
+    <InternalLink to={InfoEd} store={store} >
+      <Icon path={mdiInformationOutline} size="1.8rem" />
     </InternalLink>
   </Layout>
 ))

@@ -37,7 +37,7 @@ export default {
 
   survey: {
     continue: `
-    Confirm
+    Next
     `,
 
     skip: `
@@ -54,15 +54,15 @@ export default {
       `,
 
       title: `
-      Did you take your medication today?
+      Did you take it?
       `,
 
       reason: `
-      Why not?
+      Why?
       `,
 
       at: `
-      What time did you take it:
+      When?:
       `,
     },
 
@@ -142,7 +142,7 @@ export default {
       `,
 
       title: `
-      Are you experiencing side effects today?
+      Are you experiencing side effects?
       `,
 
       yes: `

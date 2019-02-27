@@ -12,14 +12,14 @@ import Fold from "../primitives/Fold"
 import CustomContentProgressBar from "../primitives/CustomContentProgressBar"
 
 import styled from "styled-components"
-import Layout from "../layouts/Text"
+// import Layout from "../layouts/Text"
 
 const total_treatment_days = 112;
 const smaller_text = 'Days of Treatment'
 const percentage = Math.round((total_treatment_days / 180) * 100);
 
 const Progress = observer(({store}) => (
-  <Layout>
+  // <Layout>
     <Provider theme={theme}>
       <div>
         {/* TODO: Translations for this whole page */}
@@ -81,7 +81,7 @@ const Progress = observer(({store}) => (
         </Fold>
       </div>
     </Provider>
-  </Layout>
+  // </Layout>
 ))
 
 const TreatmentDays = styled.div`
