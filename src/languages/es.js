@@ -273,7 +273,7 @@ export default {
     Foto
     `,
 
-    phone: `
+    phone_number: `
     Número de teléfono
     `,
 

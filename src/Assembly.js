@@ -99,7 +99,7 @@ class Account {
       `.then(response => {
           response
             .json()
-            .then(information => resolve(information))
+            .then(information => { this.information = information; resolve(information) })
         })
     )
   }
@@ -113,6 +113,19 @@ class Account {
         ) == ${JSON.stringify(password)} ?
         Participant.find_by(JSON.parse('${JSON.stringify(attributes)}')) :
         {}
+      `.then(response => {
+        response
+          .json()
+          .then(information => { this.information = information; resolve(information) })
+      })
+    )
+  }
+
+  update(uuid) {
+    return new Promise((resolve, reject) =>
+      network.run("cirg")`
+        Participant.find_by(uuid: ${JSON.stringify(uuid)}).
+        update(JSON.parse('${JSON.stringify(this.information)}'))
       `.then(response => {
         response
           .json()

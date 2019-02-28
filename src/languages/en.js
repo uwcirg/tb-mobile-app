@@ -276,7 +276,7 @@ export default {
     Photo
     `,
 
-    phone: `
+    phone_number: `
     Phone Number
     `,
 

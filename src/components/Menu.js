@@ -1,9 +1,9 @@
 import React from "react"
 import styled from "styled-components"
 import Button from "../primitives/Button"
-import { observer } from "mobx-react"
-import { MenuIcon, UserIcon, CloseIcon } from "mdi-react"
-import { Box, Block, Backdrop, Portal, Sidebar } from "reakit";
+import { observer, Observer } from "mobx-react"
+import { MenuIcon, CloseIcon } from "mdi-react"
+import { Box, Block, Backdrop, Portal, Sidebar, Input } from "reakit";
 import { grey, darkgrey, white, red } from "../colors"
 
 // Link to coordinator interface
@@ -22,17 +22,29 @@ const Menu = observer(({ store }) => (
         <TransparentBackdrop as={[Portal, Sidebar.Hide]} {...sidebar} />
 
         <Sidebar align="right" slide as={Portal} {...sidebar}>
+          <Observer>
+            { () =>
           <Layout>
             <Toggle {...sidebar} ><CloseIcon /></Toggle>
 
-            <Question>{store.translate("menu.name")}</Question>
-
             <Question>
-              {store.translate("menu.photo")}
-              <Profile />
+              <label for="name">{store.translate("menu.name")}</label>
+              <Field
+                name="name"
+                value={store.registration.information.name || ""}
+                onChange={(e) => { store.registration.information.name = e.target.value; store.registration.update(store.uuid) }}
+              />
             </Question>
 
-            <Question>{store.translate("menu.phone")}</Question>
+            <Question>
+              <label for="phone_number">{store.translate("menu.phone_number")}</label>
+              <Field
+                name="phone_number"
+                type="tel"
+                value={store.registration.information.phone_number || ""}
+                onChange={(e) => { store.registration.information.phone_number = e.target.value; store.registration.update(store.uuid) }}
+              />
+            </Question>
 
             <Question>
               <Icon name="Language" mdi="web" />
@@ -44,15 +56,23 @@ const Menu = observer(({ store }) => (
               />
             </Question>
 
-            <Question>{store.translate("menu.treatment_start")}</Question>
-            <Question>{store.translate("menu.time_zone")}</Question>
+            <Question>
+              <label for="treatment_start">{store.translate("menu.treatment_start")}</label>
+              <Field
+                type="date"
+                value={store.registration.information.treatment_start || ""}
+                onChange={(e) => { store.registration.information.treatment_start = e.target.value; store.registration.update(store.uuid) }}
+              />
+            </Question>
+
+            <LogoutButton onClick={() => store.logout()}>Log out</LogoutButton>
 
             <InternalLink to={CoordinatorHome} store={store} >
               Coordinator Interface
             </InternalLink>
-
-            <LogoutButton onClick={() => store.logout()}>Log out</LogoutButton>
           </Layout>
+            }
+          </Observer>
         </Sidebar>
       </Block>
     )}
@@ -60,18 +80,18 @@ const Menu = observer(({ store }) => (
 ))
 
 const Layout = styled(Box)`
- bottom: 0;
- top: 0;
- right: 0;
- background-color: ${white}
- height: 100vh;
- width: 20rem;
- border-left: 1px solid ${grey};
+  bottom: 0;
+  top: 0;
+  right: 0;
+  background-color: ${white}
+  height: 100vh;
+  width: 20rem;
+  border-left: 1px solid ${grey};
 
- display: flex;
- flex-direction: column;
- justify-content: space-between;
- align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 `
 
 const Toggle = styled(Sidebar.Toggle)`
@@ -84,16 +104,9 @@ const TransparentBackdrop = styled(Backdrop)`
   opacity: 0.4;
 `
 
-const Profile = styled(UserIcon)`
-  height: 10rem;
-  width: 10rem;
-  border: 1px solid ${darkgrey}
-  border-radius: 50%;
-`
-
 const LogoutButton = styled(Button)`
- background-color: ${red};
- width: 100%;
+  background-color: ${red};
+  width: 100%;
 `
 
 const Question = styled.div`
@@ -102,4 +115,11 @@ const Question = styled.div`
   width: 80%;
 `
 
+const Field = styled(Input)`
+  background-color: ${white}
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 2px;
+  border: 1px solid ${grey};
+`
 export default Menu
