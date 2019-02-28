@@ -8,11 +8,9 @@
     "@mdi/react": "^1.1.0",
     "aviator": "^0.6.6",
     "cuid": "^2.1.4",
-    "fetch-mock": "^7.0.7",
     "history": "^4.7.2",
     "luxon": "^1.11.3",
     "mdi-react": "^4.3.0",
-    "minio": "^7.0.5",
     "mobx": "^5.1.2",
     "mobx-react": "^5.2.8",
     "mobx-utils": "^5.0.2",
@@ -35,13 +33,6 @@
     "eject": "react-app-rewired eject"
   },
   "devDependencies": {
-    "babel-preset-react": "^6.24.1",
-    "enzyme": "^3.6.0",
-    "enzyme-adapter-react-16": "^1.5.0",
-    "sinon": "^6.3.5"
-  },
-  "jest": {
-    "verbose": true,
-    "setupTestFrameworkScriptFile": "<rootDir>src/test_utils/setupEnzyme.js"
+    "babel-preset-react": "^6.24.1"
   }
 }
