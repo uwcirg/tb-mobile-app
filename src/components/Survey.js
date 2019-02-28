@@ -74,7 +74,7 @@ const Survey = observer(({ store }) => (
           <Tabs.Buttons
             store={store}
             primary={store.translate("survey.upload.continue")}
-            onPrimary={() => store.reportStrip()}
+            onPrimary={() => {}}
             {...state}
           />
         </Tabs.Panel>

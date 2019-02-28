@@ -35,16 +35,10 @@ const PhotoUpload = observer(({ store }) => (
       { store.capturing
       ? <ImageCapture
           store={store}
-          onCapture={(image) => {
-            clearInterval(store.test_strip_timer)
-            store.storePhoto(image);
-          }}
-        >
-          {/*TODO remove*/}
-        </ImageCapture>
+          onCapture={(image) => store.storePhoto(image) }
+        />
       : <Button onClick={() => store.capturing = true}>
-          {/* TODO: Rename start_timer */}
-          {store.translate("survey.upload.start_timer")}
+          {store.translate("survey.upload.upload_photo")}
         </Button>
         }
     </div>

@@ -167,7 +167,7 @@ export default {
       Click here to upload a photo.
       `,
 
-      start_timer: `
+      upload_photo: `
       Upload Test Strip Photo
       `,
 

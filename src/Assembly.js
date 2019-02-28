@@ -4,9 +4,6 @@
   // if(props.hash)
   //   this.currentPage = import(props.hash)
 
-// Transform dates
-    // moment(event.timestamp).transform("YYYY-MM-DD 00:00:00.000")
-
 // import IPFS from "ipfs"
 // const ipfs = new IPFS({ EXPERIMENTAL: { pubsub: true } })
 // ipfs.once("ready", () =>
@@ -25,23 +22,19 @@ import { white, beige, lightgrey, darkgrey } from "./colors"
 // import KJUR from "jsrsasign"
 
 // Utility
-import "moment-transform"
-import moment from "moment"
-import { DateTime } from "luxon"
-// import { Client } from "minio"
-
 import Network from "./Network"
+import { DateTime } from "luxon"
 
 // Layouts
 import Faqs from "./components/Faqs"
 import Flash from "./components/Flash"
 import Home from "./components/Home"
 import InfoEd from "./components/InfoEd"
+import Login from "./components/Login"
 import Menu from "./components/Menu"
 import Navigation from "./components/Navigation"
 import Notes from "./components/Notes"
 import SymptomOverview from "./components/SymptomOverview"
-import Login from "./components/Login"
 
 // Language
 import espanol from "./languages/es"
@@ -185,8 +178,8 @@ class Assembly extends React.Component {
   @observable notes              = new Records("Note",             "notes")
 
   // Current medication report
-  @observable survey_date = moment().format("YYYY-MM-DD")
-  @observable survey_medication_time = moment().format("HH:mm")
+  @observable survey_date = DateTime.local().toISODate()
+  @observable survey_medication_time = DateTime.local().toLocaleString(DateTime.TIME_24_SIMPLE)
 
   // Current symptom report
   @observable symptoms = {
@@ -215,19 +208,12 @@ class Assembly extends React.Component {
   @observable alerts = []
   @observable provider = null
 
-  @observable test_strip_timer_end = null
   @observable capturing = false
-  test_strip_timer = null
 
   constructor(props) {
     super(props)
 
     if(!this.authorized) { this.currentPage = Login }
-
-    this.test_strip_timer = setInterval(
-      () => this.test_strip_timer_end = moment(),
-      1000,
-    )
 
     // Inverse routing
     autorun(() => {
@@ -325,85 +311,40 @@ class Assembly extends React.Component {
     this.noteDraft = ""
   }
 
-  storePhoto(photo) {
-    // const minioClient = new Client({
-    //   endPoint: "localhost",
-    //   port: 9001,
-    //   useSSL: false,
-    //   accessKey: 'minio',
-    //   secretKey: 'minio123'
-    // });
-
-    // let upload_name = "photo_upload_v1_" + moment().unix()
-
-    // let reader = new FileReader()
-
-    // reader.onload = (evt) => {
-    //   let blob = evt.target.result
-
-    //   minioClient.putObject(
-    //     'foo',
-    //     upload_name,
-    //     blob,
-    //     { 'Content-Type': photo.type },
-    //     (err, etag) => {
-    //       if (err) return console.log(err)
-    //       console.log('File uploaded successfully.')
-    //       this.uploadedImages.push(`data:${photo.type};base64,` + btoa(blob))
-    //     }
-    //   )
-    // }
-
-    // reader.readAsBinaryString(photo);
-
-    this.strip_reports.create({
-      timestamp: this.survey_datetime,
-      // photo_url: upload_name,
-    }, this.uuid)
-  }
-
   @computed get survey_datetime() {
-    let survey_datetime = new moment(`${this.survey_date}T${this.survey_medication_time}:00.000`);
-    return survey_datetime
+    return DateTime.local(`${this.survey_date}T${this.survey_medication_time}:00.000`);
   }
 
   reportMedication() {
     this.medication_reports.create({ timestamp: this.survey_datetime }, this.uuid)
   }
 
-  reportStrip() {
-    debugger;
-    // TODO Change key from `user` to `author` or `account`
-    // TODO invalid data; should include `image_url`, `timer`, etc.
-    this.strip_reports.create({ user: this.account }, this.uuid)
-  }
-
   reportSymptoms() {
     this.symptom_reports.create(this.symptoms, this.uuid)
   }
 
-  translate(semantic) {
-    var accessor = {
-      "Español": espanol,
-      "English": english,
-    }[this.language];
+  storePhoto(photo) {
+    this.strip_reports.create({
+      timestamp: this.survey_datetime,
+      photo: photo,
+    }, this.uuid)
+  }
 
+  translate(semantic) {
     let semantic_words = semantic.split(".")
+    let dictionary = { "Español": espanol, "English": english }[this.language];
 
     // TODO this is a clumsy way to do a nested look up.
-    for (var i=0; i < semantic_words.length; i++){
-      if(!accessor[semantic_words[i]]) {
-        console.log(
-          `Error! Could not find translation of "${semantic_words[i]}", of ${semantic}`
-        )
-
+    for (var i=0; i < semantic_words.length; i++) {
+      if(!dictionary[semantic_words[i]]) {
+        console.log(`Error! Could not find translation of "${semantic_words[i]}", of ${semantic}`)
         return "Error! Translation not found."
       }
 
-      accessor = accessor[semantic_words[i]];
-    };
+      dictionary = dictionary[semantic_words[i]];
+    }
 
-    return accessor;
+    return dictionary;
   }
 
   logout() {

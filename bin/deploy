@@ -2,11 +2,8 @@
 # Assemble LLC and the University of Washington.
 # All rights reserved.
 
-# This script, for the moment,
-# must be run interactively.
-# It does not work consistently enough
-# in a regular development environment
-# to be fully automated.
+# This script must be run line-by-line, by a human.
+# It does not work consistently enough to be fully automated.
 
 ssh grace00@manganese.cirg.washington.edu
 cd /srv/www/tb-api-dev.cirg.washington.edu/tb-mobile-app
