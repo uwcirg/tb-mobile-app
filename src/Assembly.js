@@ -50,16 +50,6 @@ class Records {
     this.instance_name = instance_name
   }
 
-  async fetch(uuid) {
-    return network.run("cirg")`
-      Participant.find_by(uuid: '${uuid}').${this.instance_name}
-    `
-      .then(r => this.records = r.json().sort((a, b) =>
-        DateTime.local(b.timestamp) - DateTime.local(a.timestamp)
-      ))
-      .catch(e => console.log(e))
-  }
-
   // Always a chance that this cache can become out of date.
   @observable records = []
 
@@ -198,7 +188,7 @@ class Assembly extends React.Component {
   }
 
   // Current strip report
-  @observable uploadedImages = []
+  @observable photos_uploaded = []
 
   @observable language = "Español"
 
@@ -311,12 +301,8 @@ class Assembly extends React.Component {
     this.noteDraft = ""
   }
 
-  @computed get survey_datetime() {
-    return DateTime.local(`${this.survey_date}T${this.survey_medication_time}:00.000`);
-  }
-
   reportMedication() {
-    this.medication_reports.create({ timestamp: this.survey_datetime }, this.uuid)
+    this.medication_reports.create({ timestamp: `${this.survey_date}T${this.survey_medication_time}:00.000` }, this.uuid)
   }
 
   reportSymptoms() {
@@ -325,9 +311,9 @@ class Assembly extends React.Component {
 
   storePhoto(photo) {
     this.strip_reports.create({
-      timestamp: this.survey_datetime,
+      timestamp: DateTime.local().toISO(),
       photo: photo,
-    }, this.uuid)
+    }, this.uuid).then(r => { if(r.ok) { this.photos_uploaded.push(photo) } })
   }
 
   translate(semantic) {

@@ -6,7 +6,7 @@ import Heading from "../primitives/Heading"
 import Button from "../primitives/Button"
 import Fold from "../primitives/Fold"
 
-import { blue } from "../colors"
+import { green } from "../colors"
 import { Icon } from "@mdi/react"
 import { mdiCheckCircle } from "@mdi/js"
 
@@ -44,7 +44,7 @@ const PhotoUpload = observer(({ store }) => (
     </div>
 
     <ImagePreviews className="ImagePreviews">
-      {store.uploadedImages.map(image =>
+      {store.photos_uploaded.map(image =>
         <Image key={image}>
           <img src={image} alt={store.translate("survey.upload.finished")} />
           <ConfirmationIcon />
@@ -76,7 +76,7 @@ const Image = styled.div`
 `
 
 const ConfirmationIcon = styled(Icon).attrs({
-  color: blue,
+  color: green,
   path: mdiCheckCircle,
 })`
   position: absolute;
