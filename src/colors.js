@@ -16,3 +16,10 @@ export const darkgreen = "#3ab16a"
 export const red       = "#e66464"
 
 export const yellow    = "#ffbf00"
+
+// export const primary   = "#3A7AF3"
+export const primary   = "#4DB6DB" // from Sam's logo
+export const teal      = "#25B3A2"
+export const secondary = "#A05BC6"
+export const success   = "#4EB23E" // from Sam's logo
+export const info      = "#2CACE3"

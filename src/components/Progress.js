@@ -1,6 +1,6 @@
 import React from "react"
 import { observer } from "mobx-react"
-import { blue, beige } from "../colors"
+import { blue, beige, darkgrey } from "../colors"
 
 import { Provider, Divider, Paragraph } from "reakit";
 import Heading from "../primitives/Heading"
@@ -12,6 +12,13 @@ import Fold from "../primitives/Fold"
 import CustomContentProgressBar from "../primitives/CustomContentProgressBar"
 
 import styled from "styled-components"
+
+import { Icon } from "@mdi/react"
+import {
+  mdiCamera,
+  mdiFormatListChecks,
+  mdiPill,
+} from "@mdi/js"
 // import Layout from "../layouts/Text"
 
 const total_treatment_days = 112;
@@ -39,7 +46,7 @@ const Progress = observer(({store}) => (
       <Divider />
         <Fold>
           <Question>
-            Medication History
+          <Icon size="2rem" color={darkgrey} path={mdiPill} /> Medication History
           </Question>
 
           <Answer>
@@ -53,7 +60,7 @@ const Progress = observer(({store}) => (
 
         <Fold>
           <Question>
-            Side Effect History
+          <Icon size="2rem" color={darkgrey} path={mdiFormatListChecks} /> Side Effect History
           </Question>
 
           <Answer>
@@ -67,7 +74,7 @@ const Progress = observer(({store}) => (
 
         <Fold>
           <Question>
-            Test Result History
+          <Icon size="2rem" color={darkgrey} path={mdiCamera} /> Test Result History 
           </Question>
 
           <Answer>

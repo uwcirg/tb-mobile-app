@@ -320,14 +320,14 @@ class Assembly extends React.Component {
   }
 
   reportStrip() {
-    debugger;
+    // debugger;
     // TODO Change key from `user` to `author` or `account`
     // TODO invalid data; should include `image_url`, `timer`, etc.
     this.strip_reports.create({ user: this.account })
   }
 
   reportSymptoms() {
-    debugger;
+    // debugger;
     this.symptom_reports.create(this.symptoms)
   }
 
@@ -359,7 +359,7 @@ class Assembly extends React.Component {
     <Layout className="Assembly">
       <AuthBar>
         <InternalLink to={Home} store={this} >
-          <Image src={logo} width="2rem" height="2rem" />
+          <Image src={logo} width="2rem" height="2rem"/>
           <Title>{this.currentPageTitle}</Title>
         </InternalLink>
         
@@ -432,7 +432,9 @@ const Space = styled.div`
 const Title = styled.h3`
   margin-top: 0;
   margin-bottom: 0;
-  display: inline-block
+  display: inline-block;
+  color: black;
+  vertical-align: super;
 `
 
 // A handy space just below the top bar,
