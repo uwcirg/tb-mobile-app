@@ -359,7 +359,7 @@ class Assembly extends React.Component {
     <Layout className="Assembly">
       <AuthBar>
         <InternalLink to={Home} store={this} >
-          <Image src={logo} width="2rem" height="2rem"/>
+          <Image src={logo} width="1.5rem" height="1.5rem"/>
           <Title>{this.currentPageTitle}</Title>
         </InternalLink>
         
@@ -435,6 +435,7 @@ const Title = styled.h3`
   display: inline-block;
   color: black;
   vertical-align: super;
+  padding-left: 0.25em;
 `
 
 // A handy space just below the top bar,

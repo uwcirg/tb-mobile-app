@@ -37,7 +37,7 @@ export default {
 
   survey: {
     continue: `
-    Next
+    Confirm
     `,
 
     skip: `
@@ -54,7 +54,7 @@ export default {
       `,
 
       title: `
-      Did you take it?
+      Did you take your medication today?
       `,
 
       reason: `
@@ -62,7 +62,7 @@ export default {
       `,
 
       at: `
-      When?:
+      At what time?
       `,
     },
 
@@ -134,7 +134,7 @@ export default {
       `,
 
       prompt: `
-      Which symptoms?
+      Which side effects?
       `,
 
       other: `
@@ -142,7 +142,7 @@ export default {
       `,
 
       title: `
-      Are you experiencing side effects?
+      Did you experience any side effects after taking the medication?
       `,
 
       yes: `
@@ -295,15 +295,21 @@ export default {
 
   contact: {
     title: `
-    Contact your Coordinator
+    Send a message to treatment supporter
     `,
 
     first: `
-    Do not contact your coordinator if you are having an emergency
+    The treatment supporter is available for questions only during 
+    business hours Monday through Friday 0800 to 1300. Outside of this
+    schedule and in case of an emergency go to your nearest healthcare center.
     `,
 
     second: `
-    Messages will only be read during regular business hours
+    If you have recommendations to improve the application, please email Sarah Iribarren (sjiribar@uw.edu)
+    `,
+
+    third: `
+    Join a discussion group
     `,
   },
 

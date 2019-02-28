@@ -46,7 +46,8 @@ const Progress = observer(({store}) => (
       <Divider />
         <Fold>
           <Question>
-          <Icon size="2rem" color={darkgrey} path={mdiPill} /> Medication History
+            {/* TODO: Figure out how to add vertical alignment for these icons */}
+          <Icon size="1.5rem" vertical-align="bottom" color={darkgrey} path={mdiPill} /> Medication History
           </Question>
 
           <Answer>
@@ -60,7 +61,7 @@ const Progress = observer(({store}) => (
 
         <Fold>
           <Question>
-          <Icon size="2rem" color={darkgrey} path={mdiFormatListChecks} /> Side Effect History
+          <Icon size="1.5rem" color={darkgrey} path={mdiFormatListChecks} /> Side Effect History
           </Question>
 
           <Answer>
@@ -74,7 +75,7 @@ const Progress = observer(({store}) => (
 
         <Fold>
           <Question>
-          <Icon size="2rem" color={darkgrey} path={mdiCamera} /> Test Result History 
+          <Icon size="1.5rem" color={darkgrey} path={mdiCamera} /> Test Result History 
           </Question>
 
           <Answer>
