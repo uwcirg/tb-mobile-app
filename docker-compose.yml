@@ -15,7 +15,6 @@ services:
       NODE_ENV: development
       REACT_APP_URL_API: $URL_API
       CHOKIDAR_USEPOLLING: 'true'
-      MINIO_HOST: localhost
     volumes:
       - .:/usr/src
 

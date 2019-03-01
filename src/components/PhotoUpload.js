@@ -4,10 +4,9 @@ import { observer } from "mobx-react"
 
 import Heading from "../primitives/Heading"
 import Button from "../primitives/Button"
-import { DateTime } from "luxon"
 import Fold from "../primitives/Fold"
 
-import { blue } from "../colors"
+import { green } from "../colors"
 import { Icon } from "@mdi/react"
 import { mdiCheckCircle } from "@mdi/js"
 
@@ -36,22 +35,16 @@ const PhotoUpload = observer(({ store }) => (
       { store.capturing
       ? <ImageCapture
           store={store}
-          onCapture={(image) => {
-            clearInterval(store.test_strip_timer)
-            store.storePhoto(image);
-          }}
-        >
-          {/*TODO remove*/}
-        </ImageCapture>
+          onCapture={(image) => store.storePhoto(image) }
+        />
       : <Button onClick={() => store.capturing = true}>
-          {/* TODO: Rename start_timer */}
           {store.translate("survey.upload.click_here")}
         </Button>
         }
     </div>
 
     <ImagePreviews className="ImagePreviews">
-      {store.uploadedImages.map(image =>
+      {store.photos_uploaded.map(image =>
         <Image key={image}>
           <img src={image} alt={store.translate("survey.upload.finished")} />
           <ConfirmationIcon />
@@ -83,7 +76,7 @@ const Image = styled.div`
 `
 
 const ConfirmationIcon = styled(Icon).attrs({
-  color: blue,
+  color: green,
   path: mdiCheckCircle,
 })`
   position: absolute;

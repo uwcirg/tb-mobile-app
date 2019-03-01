@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import Button from "../primitives/Button"
 
 const Layout = styled.div`
   display: flex;

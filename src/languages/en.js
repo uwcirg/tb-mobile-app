@@ -49,7 +49,7 @@ export default {
       Yes
       `,
 
-      no: `
+      no: 
       No
       `,
 
@@ -238,7 +238,7 @@ export default {
     Name
     `,
 
-    phone: `
+    phone_number: `
     Phone Number
     `,
 
@@ -250,7 +250,7 @@ export default {
     Password
     `,
 
-    treatment_start_date: `
+    treatment_start: `
     Study Start Date
     `,
 
@@ -272,7 +272,7 @@ export default {
     Photo
     `,
 
-    phone: `
+    phone_number: `
     Phone Number
     `,
 
@@ -1072,7 +1072,7 @@ export default {
 
   login: {
     welcome: "Welcome",
-    phone: "Phone",
+    phone_number: "Phone",
     password: "Password",
     go: "Log in",
 

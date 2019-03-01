@@ -237,7 +237,7 @@ export default {
     Nombre
     `,
 
-    phone: `
+    phone_number: `
     Número de teléfono
     `,
 
@@ -247,7 +247,7 @@ export default {
 
     password: "Contraseña",
 
-    treatment_start_date: `
+    treatment_start: `
     Fecha de tratamiento
     `,
 
@@ -269,7 +269,7 @@ export default {
     Foto
     `,
 
-    phone: `
+    phone_number: `
     Número de teléfono
     `,
 
@@ -1104,7 +1104,7 @@ export default {
 
   login: {
     welcome: "Bienvenido",
-    phone: "El numero del telefono",
+    phone_number: "El numero del telefono",
     password: "Contraseña",
     go: "Iniciar sesión",
 

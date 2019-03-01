@@ -6,7 +6,6 @@ import { observable, action, autorun } from "mobx"
 import DropZone from "react-dropzone"
 
 import Button from "../primitives/Button"
-import { DateTime } from "luxon"
 
 import { darkgrey } from "../colors"
 import { Icon } from "@mdi/react"
@@ -24,6 +23,7 @@ class ImageCapture extends React.Component {
   // when the component mounts.
   // It lasts as long as the component is on screen.
   @observable stream = null
+  @observable imageData = null
 
   componentDidMount() {
     navigator
@@ -32,8 +32,6 @@ class ImageCapture extends React.Component {
       .then((stream) => this.stream = stream)
       .catch((err) => this.props.store.alert("An error occured! " + err))
   }
-
-  @observable imageData = null
 
   render() {
     return (

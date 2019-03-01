@@ -77,7 +77,7 @@ const Survey = observer(({ store }) => (
             backgroundColor={success_green}
             store={store}
             primary={store.translate("survey.upload.continue")}
-            onPrimary={() => store.reportStrip()}
+            onPrimary={() => {}}
             {...state}
           />
         </Tabs.Panel>

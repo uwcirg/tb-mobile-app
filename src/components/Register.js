@@ -3,7 +3,6 @@ import styled from "styled-components"
 import { observer } from "mobx-react"
 
 import Button from "../primitives/Button"
-import Selection from "../primitives/Selection"
 import ListOfLinks from "../layouts/ListOfLinks"
 import { Input } from "reakit"
 import { white, grey } from "../colors"
@@ -17,29 +16,33 @@ const Register = observer(({store}) => (
     </h2>
 
     <Form>
+      <label for="name">{store.translate("register.name")}</label>
       <Field
-        placeholder={store.translate("register.name")}
-        value={store.registration_information.name}
-        onChange={(e) => store.registration_information.name = e.target.value}
+        name="name"
+        value={store.registration.information.name || ""}
+        onChange={(e) => store.registration.information.name = e.target.value}
       />
 
+      <label for="phone_number">{store.translate("register.phone_number")}</label>
       <Field
-        placeholder={store.translate("register.phone")}
-        value={store.registration_information.phone_number}
-        onChange={(e) => store.registration_information.phone_number = e.target.value}
+        name="phone_number"
+        type="tel"
+        value={store.registration.information.phone_number || ""}
+        onChange={(e) => store.registration.information.phone_number = e.target.value}
       />
 
+      <label for="treatment_start">{store.translate("register.treatment_start")}</label>
       <Field
-        placeholder={store.translate("register.treatment_start_date")}
-        value={store.registration_information.treatment_start_date}
-        onChange={(e) => store.registration_information.treatment_start_date = e.target.value}
+        type="date"
+        value={store.registration.information.treatment_start || ""}
+        onChange={(e) => store.registration.information.treatment_start = e.target.value}
       />
 
+      <label for="password">{store.translate("register.password")}</label>
       <Field
-        password
-        placeholder={store.translate("register.password")}
-        value={store.registration_information.password}
-        onChange={(e) => store.registration_information.password = e.target.value}
+        type="password"
+        value={store.registration.information.password || ""}
+        onChange={(e) => store.registration.information.password = e.target.value}
       />
 
       <Button onClick={() => store.register()}>

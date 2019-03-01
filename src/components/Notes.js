@@ -4,8 +4,6 @@ import Button from "../primitives/Button"
 import { PlusIcon, ContentSaveIcon } from "mdi-react"
 import { grey } from "../colors"
 import Fold from "../primitives/Fold"
-import moment from "moment"
-
 import { observer } from "mobx-react"
 
 const Notes = observer(({ store }) => (
@@ -42,7 +40,7 @@ const Notes = observer(({ store }) => (
         <Note key={id}>
           <Note.Header>
             <Note.Title>{title}</Note.Title>
-            <Note.Created>{moment(created_at).format("MMM DD, HH:mm")}</Note.Created>
+            <Note.Created>{created_at}</Note.Created>
           </Note.Header>
 
           <Note.Text>{text}</Note.Text>

@@ -24,7 +24,7 @@ const Progress = observer(({store}) => (
     <Provider theme={theme}>
       <div>
         {/* TODO: Translations for this whole page */}
-        <h2>Mi Progreso</h2>
+        <Heading>Mi Progreso</Heading>
 
         <ProgressBarContainer>
           <CustomContentProgressBar>
@@ -88,7 +88,6 @@ const TreatmentDays = styled.div`
   font-size: 0.85rem;
   font-weight: 400;
 `
-
 const ProgressBarContainer = styled.div`
   width: 10rem;
   height: 10rem;
@@ -100,20 +99,7 @@ const Percentage = styled.div`
   font-weight: 400;
 `
 
-const HighlightBox = styled.p`
-  border: 2px solid black;
-  width: fit-content;
-  padding: 0.5rem;
-  display: inline-block;
-`
-
-const Row = styled.div`
-  display: grid;
-  grid-column-gap: 1rem;
-  grid-template-columns: 1fr 6rem;
-`
-
-const Question = styled.h3`
+const Question = styled(Heading)`
   font-weight: 100;
   margin: 0;
   display: flexbox;

@@ -2,6 +2,8 @@ import React from "react"
 import { observer } from "mobx-react"
 import styled from "styled-components"
 
+import { DateTime } from "luxon"
+
 import ReactTable from "react-table"
 import "react-table/react-table.css"
 
@@ -23,9 +25,6 @@ import strip_report from "../images/strip_report.jpg"
 
 import Heading from "../primitives/Heading"
 import PhotoPopout from "../primitives/PhotoPopout"
-
-import moment from "moment"
-import { DateTime } from "luxon"
 
 const CoordinatorHome = observer(({ store }) => {
   let reports = store.medication_reports.records
@@ -148,7 +147,7 @@ const CoordinatorHome = observer(({ store }) => {
 
         {
           Header: "Start Date",
-          accessor: "treatment_start_date"
+          accessor: "treatment_start"
         },
 
       ]
@@ -157,7 +156,7 @@ const CoordinatorHome = observer(({ store }) => {
 
   return (
     <Layout>
-      <span>{moment().format("YYYY-MM-DD")}</span>
+      <span>{DateTime.local().toIsoDate()}</span>
       <Heading>Manage Patient Progress</Heading>
 
       <ReactTable

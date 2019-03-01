@@ -17,13 +17,14 @@ const Login = observer(({store}) => (
 
     <Form>
       <Field
-        placeholder={store.translate("login.phone")}
+        type="tel"
+        placeholder={store.translate("login.phone_number")}
         value={store.login_credentials.phone_number}
         onChange={(e) => store.login_credentials.phone_number = e.target.value}
       />
 
       <Field
-        password
+        type="password"
         placeholder={store.translate("login.password")}
         value={store.login_credentials.password}
         onChange={(e) => store.login_credentials.password = e.target.value}
