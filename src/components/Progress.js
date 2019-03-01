@@ -7,6 +7,7 @@ import theme from "reakit-theme-default";
 
 import 'react-circular-progressbar/dist/styles.css';
 import Fold from "../primitives/Fold"
+import Heading from "../primitives/Heading"
 import CustomContentProgressBar from "../primitives/CustomContentProgressBar"
 
 import styled from "styled-components"
@@ -24,7 +25,7 @@ const Progress = observer(({store}) => (
     <Provider theme={theme}>
       <div>
         {/* TODO: Translations for this whole page */}
-        <Heading>Mi Progreso</Heading>
+        <h2>Mi Progreso</h2>
 
         <ProgressBarContainer>
           <CustomContentProgressBar>

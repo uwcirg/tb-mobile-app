@@ -37,7 +37,6 @@ import Navigation from "./components/Navigation"
 import Notes from "./components/Notes"
 import SymptomOverview from "./components/SymptomOverview"
 
-import Login from "./components/Login"
 import InternalLink from "./primitives/InternalLink"
 
 // Language

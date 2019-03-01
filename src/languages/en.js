@@ -49,7 +49,7 @@ export default {
       Yes
       `,
 
-      no: 
+      no:` 
       No
       `,
 
