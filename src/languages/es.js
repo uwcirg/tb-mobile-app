@@ -158,10 +158,6 @@ export default {
 
     upload: {
       click_here: `
-      Haga clic aquí para subir una foto.
-      `,
-
-      start_timer: `
       Subir foto de tira de prueba
       `,
 

@@ -164,10 +164,6 @@ export default {
 
     upload: {
       click_here: `
-      Click here to upload a photo.
-      `,
-
-      start_timer: `
       Upload Test Strip Photo
       `,
 
