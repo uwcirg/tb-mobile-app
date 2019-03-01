@@ -138,7 +138,7 @@ export default {
       `,
 
       other: `
-      Other symptom:
+      Other symptoms:
       `,
 
       title: `

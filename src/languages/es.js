@@ -148,7 +148,7 @@ export default {
       `,
 
       continue: `
-      Finish / Complete (es)
+      Terminar / Completar
       `,
 
       skip: `

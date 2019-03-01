@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
-import { darkgrey, blue, white, primary, teal, info, success } from "../colors"
+import { darkgrey, white, primary, success_green } from "../colors"
 
 import { Tabs } from "reakit";
 import "../augments/Tabs"
@@ -48,7 +48,7 @@ const Survey = observer(({ store }) => (
           <ReportMedication store={store} />
 
           <Tabs.Buttons
-            backgroundColor={success}
+            backgroundColor={success_green}
             store={store}
             primary={store.translate("survey.continue")}
             onPrimary={() => store.reportMedication()}
@@ -61,7 +61,7 @@ const Survey = observer(({ store }) => (
           <ReportSymptoms store={store} />
 
           <Tabs.Buttons
-            backgroundColor={success}
+            backgroundColor={success_green}
             store={store}
             primary={store.translate("survey.continue")}
             onPrimary={() => store.reportSymptoms()}
@@ -74,7 +74,7 @@ const Survey = observer(({ store }) => (
           <PhotoUpload store={store} />
 
           <Tabs.Buttons
-            backgroundColor={success}
+            backgroundColor={success_green}
             store={store}
             primary={store.translate("survey.upload.continue")}
             onPrimary={() => store.reportStrip()}

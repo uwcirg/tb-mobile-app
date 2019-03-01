@@ -1,12 +1,10 @@
 import React from "react"
 import { observer } from "mobx-react"
-import { blue, beige, darkgrey } from "../colors"
+import { darkgrey } from "../colors"
 
 import { Provider, Divider, Paragraph } from "reakit";
-import Heading from "../primitives/Heading"
 import theme from "reakit-theme-default";
 
-import CircularProgressbar from "react-circular-progressbar"
 import 'react-circular-progressbar/dist/styles.css';
 import Fold from "../primitives/Fold"
 import CustomContentProgressBar from "../primitives/CustomContentProgressBar"
@@ -19,14 +17,10 @@ import {
   mdiFormatListChecks,
   mdiPill,
 } from "@mdi/js"
-// import Layout from "../layouts/Text"
 
 const total_treatment_days = 112;
-const smaller_text = 'Days of Treatment'
-const percentage = Math.round((total_treatment_days / 180) * 100);
 
 const Progress = observer(({store}) => (
-  // <Layout>
     <Provider theme={theme}>
       <div>
         {/* TODO: Translations for this whole page */}
@@ -36,7 +30,7 @@ const Progress = observer(({store}) => (
           <CustomContentProgressBar>
             {/* TODO: Link the data to this number */}
             <Percentage>{total_treatment_days}</Percentage>
-            {/* TODO style component */}
+            {/* TODO translation */}
             <TreatmentDays>
               <strong>Days of Treatment</strong>
             </TreatmentDays>
@@ -47,7 +41,7 @@ const Progress = observer(({store}) => (
         <Fold>
           <Question>
             {/* TODO: Figure out how to add vertical alignment for these icons */}
-          <Icon size="1.5rem" vertical-align="bottom" color={darkgrey} path={mdiPill} /> Medication History
+          <Icon size="1.5rem" color={darkgrey} path={mdiPill} /> Medication History
           </Question>
 
           <Answer>
@@ -88,7 +82,6 @@ const Progress = observer(({store}) => (
         </Fold>
       </div>
     </Provider>
-  // </Layout>
 ))
 
 const TreatmentDays = styled.div`
@@ -123,6 +116,8 @@ const Row = styled.div`
 const Question = styled.h3`
   font-weight: 100;
   margin: 0;
+  display: flexbox;
+  align-items: center;
 `
 
 const Answer = styled.div`

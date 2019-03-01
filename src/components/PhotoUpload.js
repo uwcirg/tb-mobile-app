@@ -45,7 +45,7 @@ const PhotoUpload = observer(({ store }) => (
         </ImageCapture>
       : <Button onClick={() => store.capturing = true}>
           {/* TODO: Rename start_timer */}
-          {store.translate("survey.upload.start_timer")}
+          {store.translate("survey.upload.click_here")}
         </Button>
         }
     </div>
