@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { Button } from "reakit"
-import { blue, darkblue, white } from "../colors"
+import { primary, darkblue, white } from "../colors"
 
 // This button does not have "behavior" by default,
 // but that is something that will likely change.
@@ -14,8 +14,8 @@ import { blue, darkblue, white } from "../colors"
 // by running the behaivor.
 
 export default styled(Button)`
-  background-color: ${({active}) => active ? white : blue};
-  color:            ${({active}) => active ? blue : white};
+  background-color: ${({active}) => active ? white : primary};
+  color:            ${({active}) => active ? primary : white};
 
   display: inline-block;
   padding: 1rem;
@@ -24,11 +24,11 @@ export default styled(Button)`
   width: auto;
 
   &:hover {
-    background-color: ${darkblue};
+    background-color: ${primary};
   }
 
-  border-radius: 2px;
+  border-radius: 0.35em;
   border: 2px solid rgba(100, 100, 100, 0.2);
 
-  font-weight: 600;
+  font-weight: 400;
 `

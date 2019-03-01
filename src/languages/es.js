@@ -37,7 +37,7 @@ export default {
 
   survey: {
     continue: `
-    Confirm (es)
+    Confirmar
     `,
 
     skip: `
@@ -54,15 +54,15 @@ export default {
       `,
 
       title: `
-      Did you take your medication today? (es)
+      Tomaste los medicamentos?
       `,
 
       reason: `
-      ¿Por qué no?
+      ¿Por qué?
       `,
 
       at: `
-      Yo tomé mi medicación a las:
+      A qué hora?
       `,
     },
 
@@ -128,7 +128,7 @@ export default {
       `,
 
       prompt: `
-      ¿Qué síntomas?
+      Qué efectos indeseables?
       `,
 
       other: `
@@ -136,7 +136,7 @@ export default {
       `,
 
       title: `
-      Are you experiencing side effects today? (es)
+      Presentaste algún malestar al tomar los remedios?
       `,
 
       yes: `
@@ -148,7 +148,7 @@ export default {
       `,
 
       continue: `
-      Finish / Complete (es)
+      Terminar / Completar
       `,
 
       skip: `
@@ -158,11 +158,7 @@ export default {
 
     upload: {
       click_here: `
-      Haga clic aquí para subir una foto.
-      `,
-
-      upload_photo: `
-      Upload Test Strip Photo (es)
+      Subir foto de tira de prueba
       `,
 
       end_timer: `
@@ -178,7 +174,7 @@ export default {
       `,
 
       title: `
-      Take the Test / Load Photo (es)
+      Realizaste la prueba de la tira? Y si es así, por favor, podrías subir la foto
       `,
 
       continue: `
@@ -292,19 +288,23 @@ export default {
 
   contact: {
     title: `
-    Contactar el coordinador de tratamiento
+    Enviar un mensaje al asistente de tratamiento
     `,
 
     first: `
-    No se comunique con su coordinador si tiene una emergencia.
-    Cualquier situación de emergencia
-    debe ser dirigidas a través de rutas habituales,a
-    concurriendo al centro de atención más cercano.
+    El horario de disponibilidad para preguntas al asistente
+    del tratamiento es 0800 hasta 1300 horas lunes a viernes.
+    Fuera de ese horario ante una emergencia concurre al centro
+    de atención más cercano.
     `,
 
     second: `
-    El coordinador del estudio está disponible durante horas de oficina
-    para leer y responder los mensajes
+    Si tiene una recomendación para mejorar la aplicación consultar
+    con Sarah Iribarren (sjiribar@uw.edu)
+    `,
+
+    third: `
+    Participa en un grupo de discusión.
     `,
 },
 

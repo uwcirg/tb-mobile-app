@@ -38,7 +38,7 @@ const PhotoUpload = observer(({ store }) => (
           onCapture={(image) => store.storePhoto(image) }
         />
       : <Button onClick={() => store.capturing = true}>
-          {store.translate("survey.upload.upload_photo")}
+          {store.translate("survey.upload.click_here")}
         </Button>
         }
     </div>

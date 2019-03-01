@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
-import { darkgrey, blue, white } from "../colors"
+import { darkgrey, white, primary, success_green } from "../colors"
 
 import { Tabs } from "reakit";
 import "../augments/Tabs"
@@ -48,6 +48,7 @@ const Survey = observer(({ store }) => (
           <ReportMedication store={store} />
 
           <Tabs.Buttons
+            backgroundColor={success_green}
             store={store}
             primary={store.translate("survey.continue")}
             onPrimary={() => store.reportMedication()}
@@ -60,6 +61,7 @@ const Survey = observer(({ store }) => (
           <ReportSymptoms store={store} />
 
           <Tabs.Buttons
+            backgroundColor={success_green}
             store={store}
             primary={store.translate("survey.continue")}
             onPrimary={() => store.reportSymptoms()}
@@ -72,6 +74,7 @@ const Survey = observer(({ store }) => (
           <PhotoUpload store={store} />
 
           <Tabs.Buttons
+            backgroundColor={success_green}
             store={store}
             primary={store.translate("survey.upload.continue")}
             onPrimary={() => {}}
@@ -87,7 +90,8 @@ const Layout = styled.div`
   overflow-y: scroll;
   overflow-x: hidden;
 
-  border-radius: 2px
+  border-radius: 0.25em;
+
   border: 2px solid rgba(100, 100, 100, 50%);
   padding: 0.5rem;
   background-color: ${white};
@@ -96,7 +100,7 @@ const Layout = styled.div`
 
 const Tab = styled(Tabs.Tab)`
   border: 2px solid rgba(100, 100, 100, 0.5);
-  background-color: ${(tabs) => tabs.getCurrentId() === tabs.tab ? blue : white };
+  background-color: ${(tabs) => tabs.getCurrentId() === tabs.tab ? primary : white };
   fill: ${(tabs) => tabs.getCurrentId() === tabs.tab ? white : darkgrey };
 
   margin-top: 0.1rem;
@@ -105,6 +109,7 @@ const Tab = styled(Tabs.Tab)`
   list-style: none;
   text-align: center;
   width: 33%;
+  border-radius: 0.35em;
 `
 
 const MultiButton = styled.div`

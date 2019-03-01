@@ -1,20 +1,26 @@
 import React from "react"
 import { observer } from "mobx-react"
+import { darkgrey } from "../colors"
 
 import { Provider, Divider, Paragraph } from "reakit";
-import Heading from "../primitives/Heading"
 import theme from "reakit-theme-default";
 
+import 'react-circular-progressbar/dist/styles.css';
 import Fold from "../primitives/Fold"
 import CustomContentProgressBar from "../primitives/CustomContentProgressBar"
 
 import styled from "styled-components"
-import Layout from "../layouts/Text"
+
+import { Icon } from "@mdi/react"
+import {
+  mdiCamera,
+  mdiFormatListChecks,
+  mdiPill,
+} from "@mdi/js"
 
 const total_treatment_days = 112;
 
 const Progress = observer(({store}) => (
-  <Layout>
     <Provider theme={theme}>
       <div>
         {/* TODO: Translations for this whole page */}
@@ -24,18 +30,18 @@ const Progress = observer(({store}) => (
           <CustomContentProgressBar>
             {/* TODO: Link the data to this number */}
             <Percentage>{total_treatment_days}</Percentage>
-
-            {/* TODO style component */}
-            <div>
+            {/* TODO translation */}
+            <TreatmentDays>
               <strong>Days of Treatment</strong>
-            </div>
+            </TreatmentDays>
           </CustomContentProgressBar>
         </ProgressBarContainer>
 
       <Divider />
         <Fold>
           <Question>
-            Medication History
+            {/* TODO: Figure out how to add vertical alignment for these icons */}
+          <Icon size="1.5rem" color={darkgrey} path={mdiPill} /> Medication History
           </Question>
 
           <Answer>
@@ -49,7 +55,7 @@ const Progress = observer(({store}) => (
 
         <Fold>
           <Question>
-            Side Effect History
+          <Icon size="1.5rem" color={darkgrey} path={mdiFormatListChecks} /> Side Effect History
           </Question>
 
           <Answer>
@@ -63,7 +69,7 @@ const Progress = observer(({store}) => (
 
         <Fold>
           <Question>
-            Test Result History
+          <Icon size="1.5rem" color={darkgrey} path={mdiCamera} /> Test Result History 
           </Question>
 
           <Answer>
@@ -76,23 +82,28 @@ const Progress = observer(({store}) => (
         </Fold>
       </div>
     </Provider>
-  </Layout>
 ))
 
+const TreatmentDays = styled.div`
+  font-size: 0.85rem;
+  font-weight: 400;
+`
 const ProgressBarContainer = styled.div`
-  width: 200px;
-  height: 200px;
+  width: 10rem;
+  height: 10rem;
   margin: auto;
 `
 
 const Percentage = styled.div`
-  font-size: 40px;
+  font-size: 2rem;
   font-weight: 400;
 `
 
 const Question = styled(Heading)`
   font-weight: 100;
   margin: 0;
+  display: flexbox;
+  align-items: center;
 `
 
 const Answer = styled.div`

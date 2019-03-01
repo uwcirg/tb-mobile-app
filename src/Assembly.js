@@ -15,8 +15,9 @@ import styled from "styled-components"
 
 import { observable, computed,  autorun } from "mobx"
 import { observer, Observer } from "mobx-react"
-
+import { Image } from "reakit"
 import { white, beige, lightgrey, darkgrey } from "./colors"
+import logo from "./logo.png"
 
 // Crypto & authentication
 // import KJUR from "jsrsasign"
@@ -35,6 +36,9 @@ import Menu from "./components/Menu"
 import Navigation from "./components/Navigation"
 import Notes from "./components/Notes"
 import SymptomOverview from "./components/SymptomOverview"
+
+import Login from "./components/Login"
+import InternalLink from "./primitives/InternalLink"
 
 // Language
 import espanol from "./languages/es"
@@ -353,8 +357,11 @@ class Assembly extends React.Component {
   render = () => (
     <Layout>
       <AuthBar>
-        <Title>{this.currentPageTitle}</Title>
-
+        <InternalLink to={Home} store={this} >
+          <Image src={logo} width="1.5rem" height="1.5rem"/>
+          <Title>{this.currentPageTitle}</Title>
+        </InternalLink>
+        
         <Menu store={this} />
 
         <Drawer>
@@ -424,6 +431,10 @@ const Space = styled.div`
 const Title = styled.h3`
   margin-top: 0;
   margin-bottom: 0;
+  display: inline-block;
+  color: black;
+  vertical-align: super;
+  padding-left: 0.25em;
 `
 
 // A handy space just below the top bar,
