@@ -401,15 +401,19 @@ class Assembly extends React.Component {
         <Menu store={this} />
 
         <Drawer>
-          {this.alerts.map(alert => (
-            <Flash
-              key={alert}
-              message={alert}
-              onDismiss={() => this.dismissAlert(alert)}
-            />
-          ))}
+          <Observer>
+            {() => this.alerts.map(alert => (
+              <Flash
+                key={alert}
+                message={alert}
+                onDismiss={() => this.dismissAlert(alert)}
+              />
+            ))}
+          </Observer>
         </Drawer>
       </AuthBar>
+
+      <Space />
 
       <Content>
         <Observer>
@@ -450,7 +454,10 @@ const NavBar = styled.div`
 const AuthBar = styled.div`
   background-color: ${white};
   padding: 1rem;
-  position: relative;
+  position: fixed;
+  z-index: 10;
+  right: 0;
+  left: 0;
 
   display: flex;
   justify-content: space-between;
@@ -473,8 +480,7 @@ const Title = styled.h3`
   padding-left: 0.25em;
 `
 
-// A handy space just below the top bar,
-// for showing miscellaneous content.
+// A handy space just below the top bar, for showing miscellaneous content.
 // Disappears when not in use.
 const Drawer = styled.div`
   bottom: 0px;
@@ -484,7 +490,6 @@ const Drawer = styled.div`
   margin-right: auto;
   position: absolute;
   width: 90%;
-  z-index: 10;
 `
 
 const Content = styled.div`
