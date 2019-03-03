@@ -22,7 +22,10 @@ import AdherenceCalendar from "./AdherenceCalendar"
 const Home = observer(({ store }) => (
   <Layout>
     <Row>
-      <TreatmentButton className="TreatmentButton" onClick={() => store.showPage(Survey)} >
+      <TreatmentButton
+        className="TreatmentButton"
+        onClick={() => store.currentPage = Survey}
+      >
         {store.translate("home.survey")}
 
         <Icons>

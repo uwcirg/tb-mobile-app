@@ -8,7 +8,7 @@ import theme from "reakit-theme-default";
 import 'react-circular-progressbar/dist/styles.css';
 import Fold from "../primitives/Fold"
 import Heading from "../primitives/Heading"
-import CustomContentProgressBar from "../primitives/CustomContentProgressBar"
+import TreatmentProgress from "../primitives/TreatmentProgress"
 
 import styled from "styled-components"
 
@@ -28,14 +28,15 @@ const Progress = observer(({store}) => (
         <h2>Mi Progreso</h2>
 
         <ProgressBarContainer>
-          <CustomContentProgressBar>
+          <TreatmentProgress>
             {/* TODO: Link the data to this number */}
             <Percentage>{total_treatment_days}</Percentage>
+
             {/* TODO translation */}
             <TreatmentDays>
               <strong>Days of Treatment</strong>
             </TreatmentDays>
-          </CustomContentProgressBar>
+          </TreatmentProgress>
         </ProgressBarContainer>
 
       <Divider />
@@ -70,7 +71,7 @@ const Progress = observer(({store}) => (
 
         <Fold>
           <Question>
-          <Icon size="1.5rem" color={darkgrey} path={mdiCamera} /> Test Result History 
+          <Icon size="1.5rem" color={darkgrey} path={mdiCamera} /> Test Result History
           </Question>
 
           <Answer>

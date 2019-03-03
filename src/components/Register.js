@@ -8,6 +8,7 @@ import { Input } from "reakit"
 import { white, grey } from "../colors"
 import InternalLink from "../primitives/InternalLink"
 import Login from "./Login"
+import CoordinatorLogin from "./CoordinatorLogin"
 
 const Register = observer(({store}) => (
   <Layout>
@@ -52,6 +53,10 @@ const Register = observer(({store}) => (
 
     <InternalLink to={Login} store={store} >
       {store.translate("register.link.login")}
+    </InternalLink>
+
+    <InternalLink to={CoordinatorLogin} store={store} >
+      {store.translate("login.link.coordinator_login")}
     </InternalLink>
   </Layout>
 ))

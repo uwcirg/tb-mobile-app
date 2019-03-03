@@ -1,12 +1,11 @@
 import styled from "styled-components"
 import { Button } from "reakit"
-import { primary, darkblue, white } from "../colors"
+import { primary, white } from "../colors"
 
 // This button does not have "behavior" by default,
 // but that is something that will likely change.
 
-// Few people install buttons
-// that aren't intended to be used.
+// Few people install buttons that aren't intended to be used.
 
 // A straightforward approach is to place some generic bahavior in the store,
 // give this button a name,

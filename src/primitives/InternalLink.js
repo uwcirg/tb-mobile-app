@@ -11,7 +11,7 @@ export default ({ store, to, children, ...props }) => (
         // The user wants to open the page in the current tab;
         // use single-page-app routing for a quick page load.
         e.preventDefault()
-        store.showPage(to)
+        store.currentPage = to
       }
     }}
 

@@ -65,8 +65,12 @@ class Network {
     return templating
   }
 
-  destruct() {
+  clearWatches() {
     this.watches = {}
+  }
+
+  destruct() {
+    this.clearWatches()
     this.active = false
   }
 }

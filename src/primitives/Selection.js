@@ -31,6 +31,8 @@ const Selection = observer(({update, options, onChange}) => (
   </Layout>
 ))
 
-const Layout = styled.div``
+const Layout = styled.div`
+  text-align: center;
+`
 
 export default Selection

@@ -18,7 +18,7 @@ Tabs.Buttons = observer(({ primary, secondary, onPrimary, onSecondary, store, ..
         onPrimary && onPrimary()
 
         if(state.current === state.ids.length - 1)
-          store.showPage(Home);
+          store.currentPage = Home
       } }
     >
       {primary}

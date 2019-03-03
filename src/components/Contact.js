@@ -9,9 +9,9 @@ import { observer } from "mobx-react"
 const Contact = observer(({store}) => (
     <Provider theme={theme}>
       <div>
-        <h2>
+        <Heading>
           {store.translate("contact.title")}
-        </h2>
+        </Heading>
 
         <List>
           <li>{store.translate("contact.first")}</li>

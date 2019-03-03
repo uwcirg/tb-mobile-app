@@ -18,7 +18,7 @@ const PhotoUpload = observer(({ store }) => (
 
     <Fold>
       {/* TODO: Translate this */}
-      <Title>Instructions</Title>
+      <Title>{store.translate("survey.upload.instructions.heading")}</Title>
       <p>{store.translate("survey.upload.instructions.intro")}</p>
 
       <ul>

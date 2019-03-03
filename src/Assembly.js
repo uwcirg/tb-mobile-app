@@ -30,6 +30,7 @@ import { DateTime } from "luxon"
 import Faqs from "./components/Faqs"
 import Flash from "./components/Flash"
 import Home from "./components/Home"
+import CoordinatorHome from "./components/CoordinatorHome"
 import InfoEd from "./components/InfoEd"
 import Login from "./components/Login"
 import Menu from "./components/Menu"
@@ -82,9 +83,11 @@ class Records {
 }
 
 class Account {
+  @observable model = ""
   @observable information = {}
 
-  constructor(information) {
+  constructor(model, information) {
+    this.model = model
     this.information = information
     console.log(this.information)
   }
@@ -92,12 +95,17 @@ class Account {
   persist() {
     return new Promise((resolve, reject) =>
       network.run("cirg")`
-        Participant.create!(
+        ${this.model}.create!(
           uuid: SecureRandom.uuid,
-          treatment_start: ${JSON.stringify(this.information.treatment_start)},
-          phone_number: ${JSON.stringify(this.information.phone_number)},
-          name: ${JSON.stringify(this.information.name)},
           password_digest:  BCrypt::Password.create("${this.information.password}"),
+          ${
+            Object
+            .keys(this.information)
+            .diff(["password"])
+            .map(key => (
+              `${key}: ${JSON.stringify(this.information[key])}`
+            )).join(", ")
+          }
         )
       `.then(response => {
           response
@@ -111,10 +119,10 @@ class Account {
     return new Promise((resolve, reject) =>
       network.run("cirg")`
         BCrypt::Password.new(
-          Participant.find_by(JSON.parse('${JSON.stringify(attributes)}')).
+          ${this.model}.find_by(JSON.parse('${JSON.stringify(attributes)}')).
             password_digest
         ) == ${JSON.stringify(password)} ?
-        Participant.find_by(JSON.parse('${JSON.stringify(attributes)}')) :
+        ${this.model}.find_by(JSON.parse('${JSON.stringify(attributes)}')) :
         {}
       `.then(response => {
         response
@@ -140,29 +148,11 @@ class Account {
 
 @observer
 class Assembly extends React.Component {
-  @observable currentPage = Home
-  @observable coordinator = {
-    patients: [
-      {
-        med_report_status: 'notreported',
-        id: "pete",
-        took_medication: 'Yes',
-        firstname: "Peter",
-        lastname: "Campbell",
-        phone: 15304120086,
-        treatment_start: null,
-        last_repored_date: null,
-        side_effects: ["Nausea", "Redness"],
-        percent_since_start: 48,
-        photo: [],
-        patient_note: [],
-        coordinator_note: [],
-      },
-    ]
-  }
+  // ------ Participant ------
 
   @observable uuid = null
-  @observable registration = new Account({
+
+  @observable registration = new Account("Participant", {
     name: "",
     phone_number: "",
     treatment_start: DateTime.local().toISODate(),
@@ -203,23 +193,55 @@ class Assembly extends React.Component {
     other: null,
   }
 
-  // Current strip report
   @observable photos_uploaded = []
-
-  @observable language = "Español"
-
   @observable survey_anySymptoms = null
   @observable survey_tookMedication = null
 
-  @observable alerts = []
-  @observable provider = null
-
   @observable capturing = false
+
+  // ------ Coordinator ------
+
+  @observable coordinator_uuid = null
+
+  @observable coordinator_registration = new Account("Coordinator", {
+    name: "",
+    email: "",
+    password: "",
+  })
+
+  @observable coordinator_login_credentials = {
+    email: "",
+    password: "",
+  }
+
+  @observable coordinator = {
+    patients: [
+      {
+        med_report_status: 'notreported',
+        id: "pete",
+        took_medication: 'Yes',
+        firstname: "Peter",
+        lastname: "Campbell",
+        phone: 15304120086,
+        treatment_start: null,
+        last_repored_date: null,
+        side_effects: ["Nausea", "Redness"],
+        percent_since_start: 48,
+        photo: [],
+        patient_note: [],
+        coordinator_note: [],
+      },
+    ]
+  }
+
+  // ------ Misc ------
+
+  @observable language = "Español"
+  @observable alerts = []
+  @observable currentPage = Login
 
   constructor(props) {
     super(props)
-
-    if(!this.authorized) { this.currentPage = Login }
 
     // Inverse routing
     autorun(() => {
@@ -240,6 +262,9 @@ class Assembly extends React.Component {
         this.symptom_reports.watch(this.uuid)
         this.strip_reports.watch(this.uuid)
         this.notes.watch(this.uuid)
+      }
+      else {
+        network.clearWatches()
       }
     })
 
@@ -274,19 +299,11 @@ class Assembly extends React.Component {
     }
   }
 
-  @computed get authorized() {
-    return this.uuid
-  }
-
-   showPage(page) {
-    this.currentPage = page
-  }
-
   register() {
     this.registration.persist()
       .then(information => {
         this.uuid = information.uuid
-        if(this.authorized) this.showPage(Home)
+        if(this.uuid) this.currentPage = Home
       })
   }
 
@@ -297,7 +314,27 @@ class Assembly extends React.Component {
     )
       .then(information => {
         this.uuid = information.uuid
-        if(this.authorized) this.showPage(Home)
+        if(this.uuid) this.currentPage = Home
+      })
+      .catch(e => this.alert(e))
+  }
+
+  coordinator_register() {
+    this.coordinator_registration.persist()
+      .then(information => {
+        this.coordinator_uuid = information.uuid
+        if(this.coordinator_uuid) this.currentPage = CoordinatorHome
+      })
+  }
+
+  coordinator_login() {
+    this.coordinator_registration.request(
+      { email: this.coordinator_login_credentials.email },
+      this.coordinator_login_credentials.password,
+    )
+      .then(information => {
+        this.coordinator_uuid = information.uuid
+        if(this.coordinator_uuid) this.currentPage = CoordinatorHome
       })
       .catch(e => this.alert(e))
   }
@@ -360,7 +397,7 @@ class Assembly extends React.Component {
           <Image src={logo} width="1.5rem" height="1.5rem"/>
           <Title>{this.currentPageTitle}</Title>
         </InternalLink>
-        
+
         <Menu store={this} />
 
         <Drawer>
@@ -454,5 +491,10 @@ const Content = styled.div`
   padding: 0 1rem;
   background: ${beige};
 `
+
+// Subtract one array from another
+Array.prototype.diff = function(otherArray) {
+  return this.filter(function(element) {return otherArray.indexOf(element) < 0;});
+};
 
 export default Assembly

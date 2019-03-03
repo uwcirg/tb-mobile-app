@@ -4,14 +4,9 @@ import Button from "../primitives/Button"
 import { observer, Observer } from "mobx-react"
 import { MenuIcon, CloseIcon } from "mdi-react"
 import { Box, Block, Backdrop, Portal, Sidebar, Input } from "reakit";
+
 import { grey, darkgrey, white, red } from "../colors"
-
-// Link to coordinator interface
-import InternalLink from "../primitives/InternalLink"
-import CoordinatorHome from "./CoordinatorHome"
-
 import Icon from "../primitives/Icon"
-
 import Selection from "../primitives/Selection"
 
 const Menu = observer(({ store }) => (
@@ -28,7 +23,7 @@ const Menu = observer(({ store }) => (
             <Toggle {...sidebar} ><CloseIcon /></Toggle>
 
             <Question>
-              <label for="name">{store.translate("menu.name")}</label>
+              <label htmlFor="name">{store.translate("menu.name")}</label>
               <Field
                 name="name"
                 value={store.registration.information.name || ""}
@@ -37,7 +32,7 @@ const Menu = observer(({ store }) => (
             </Question>
 
             <Question>
-              <label for="phone_number">{store.translate("menu.phone_number")}</label>
+              <label htmlFor="phone_number">{store.translate("menu.phone_number")}</label>
               <Field
                 name="phone_number"
                 type="tel"
@@ -57,7 +52,7 @@ const Menu = observer(({ store }) => (
             </Question>
 
             <Question>
-              <label for="treatment_start">{store.translate("menu.treatment_start")}</label>
+              <label htmlFor="treatment_start">{store.translate("menu.treatment_start")}</label>
               <Field
                 type="date"
                 value={store.registration.information.treatment_start || ""}
@@ -66,10 +61,6 @@ const Menu = observer(({ store }) => (
             </Question>
 
             <LogoutButton onClick={() => store.logout()}>Log out</LogoutButton>
-
-            <InternalLink to={CoordinatorHome} store={store} >
-              Coordinator Interface
-            </InternalLink>
           </Layout>
             }
           </Observer>

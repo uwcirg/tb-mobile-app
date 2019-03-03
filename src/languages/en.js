@@ -12,7 +12,7 @@ export default {
       symptomOverview: "Información y Educación",
       infoEd: "Información y Educación",
       home: "Medication Tracking Home",
-      default: "Asistente de tratamente"
+      default: "Asistente de Tratamiento"
   },
 
   home: {
@@ -49,7 +49,7 @@ export default {
       Yes
       `,
 
-      no:` 
+      no:`
       No
       `,
 
@@ -192,6 +192,8 @@ export default {
       `,
 
       instructions: {
+        heading: "Instructions",
+
         intro: `
         The urine test confirms that you are taking your medication as instructed.
         Please follow these instructions to take the test:
@@ -242,10 +244,6 @@ export default {
     Phone Number
     `,
 
-    initials: `
-    Initials
-    `,
-
     password: `
     Password
     `,
@@ -260,6 +258,37 @@ export default {
 
     link: {
       login: "Log In",
+    }
+  },
+
+  coordinator_register: {
+    welcome: `
+    Welcome!
+    `,
+
+    context: `
+    Register as a healthcare coordinator.
+    `,
+
+    name: `
+    Name
+    `,
+
+    email: `
+    Email
+    `,
+
+    password: `
+    Password
+    `,
+
+    register: `
+    Register
+    `,
+
+    link: {
+      login: "Log In",
+      patient_login: "Log in as a patient",
     }
   },
 
@@ -295,7 +324,7 @@ export default {
     `,
 
     first: `
-    The treatment supporter is available for questions only during 
+    The treatment supporter is available for questions only during
     business hours Monday through Friday 0800 to 1300. Outside of this
     schedule and in case of an emergency go to your nearest healthcare center.
     `,
@@ -535,7 +564,7 @@ export default {
     `,
 
     intro_2: `
-    What it is, how it is transmitted, and how is TB treated.
+    What is TB? How is it transmitted? How is it treated?
     `,
 
     q1: {
@@ -1077,6 +1106,20 @@ export default {
     go: "Log in",
 
     link: {
+      coordinator_login: "Coordinator Login",
+      register: "Register",
+    },
+  },
+
+  coordinator_login: {
+    welcome: "Welcome",
+    context: "Log in as a healthcare coordinator",
+    email: "Email",
+    password: "Password",
+    go: "Log in",
+
+    link: {
+      coordinator_login: "Coordinator Login",
       register: "Register",
     },
   }

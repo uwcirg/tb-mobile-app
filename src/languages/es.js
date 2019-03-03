@@ -12,7 +12,7 @@ export default {
       symptomOverview: "Información y Educación",
       infoEd: "Información y Educación",
       home: "Reporte de medicación",
-      default: "Asistente de tratamente"
+      default: "Asistente de Tratamiento"
   },
 
   home: {
@@ -54,7 +54,7 @@ export default {
       `,
 
       title: `
-      Tomaste los medicamentos?
+      ¿Tomaste los medicamentos hoy?
       `,
 
       reason: `
@@ -62,7 +62,7 @@ export default {
       `,
 
       at: `
-      A qué hora?
+      ¿A qué hora?
       `,
     },
 
@@ -128,7 +128,7 @@ export default {
       `,
 
       prompt: `
-      Qué efectos indeseables?
+      ¿Qué efectos indeseables?
       `,
 
       other: `
@@ -174,7 +174,7 @@ export default {
       `,
 
       title: `
-      Realizaste la prueba de la tira? Y si es así, por favor, podrías subir la foto
+      ¿Realizaste la prueba de la tira? Y si es así, por favor, podrías subir la foto
       `,
 
       continue: `
@@ -186,6 +186,8 @@ export default {
       `,
 
       instructions: {
+        heading: "Instrucciones",
+
         intro: `
         La prueba de orina asegura que su tratamiento esté en camino.
         Por favor siga estas instrucciones:
@@ -204,7 +206,7 @@ export default {
         `,
 
         4: `
-        Eespere 5-15 minutos (no más de 20) para tomar la fotografía (una vez que vea un cambio claro en el color);
+        Espere 5-15 minutos (no más de 20) para tomar la fotografía (una vez que vea un cambio claro en el color);
         `,
 
         5: `
@@ -241,10 +243,6 @@ export default {
     Número de teléfono
     `,
 
-    initials: `
-    TODO Initials
-    `,
-
     password: "Contraseña",
 
     treatment_start: `
@@ -257,6 +255,35 @@ export default {
 
     link: {
       login: "Iniciar sesión",
+    }
+  },
+
+  coordinator_register: {
+    welcome: `
+    ¡Bienvenido!
+    `,
+
+    context: `
+    TODO Register as a healthcare coordinator.
+    `,
+
+    name: `
+    Nombre
+    `,
+
+    email: `
+    TODO email
+    `,
+
+    password: "Contraseña",
+
+    register: `
+    Registrarse
+    `,
+
+    link: {
+      login: "Iniciar sesión",
+      patient_login: "TODO Log in as a patient",
     }
   },
 
@@ -1109,7 +1136,21 @@ export default {
     go: "Iniciar sesión",
 
     link: {
+      coordinator_login: "TODO Coordinator Login",
       register: "Registrarse",
     }
+  },
+
+  coordinator_login: {
+    welcome: "Bienvenido",
+    context: "TODO Log in as a healthcare coordinator",
+    email: "TODO Email",
+    password: "Contraseña",
+    go: "Iniciar sesión",
+
+    link: {
+      coordinator_login: "TODO Patient Login",
+      register: "Registrarse",
+    },
   }
 }

@@ -6,7 +6,6 @@ import InternalLink from "../primitives/InternalLink"
 
 import Icon from "@mdi/react"
 import {
-  mdiCalendarCheck,
   mdiWhatsapp,
   mdiFolderClockOutline,
   mdiInformationOutline,
@@ -23,23 +22,43 @@ import Progress from "./Progress"
 const Navigation = observer(({ store }) => (
   <Layout>
     <InternalLink to={Home} store={store} >
-      <Icon path={mdiHome} color={store.currentPage == Home ? primary : black} size="1.8rem" />
+      <Icon
+        path={mdiHome}
+        color={store.currentPage === Home ? primary : black}
+        size="1.8rem"
+      />
     </InternalLink>
-  
+
     <InternalLink to={Progress} store={store} >
-      <Icon path={mdiFolderClockOutline} color={store.currentPage == Progress ? primary : black} size="1.8rem" />
+      <Icon
+        path={mdiFolderClockOutline}
+        color={store.currentPage === Progress ? primary : black}
+        size="1.8rem"
+      />
     </InternalLink>
 
     <InternalLink to={Contact} store={store} >
-      <Icon path={mdiWhatsapp} color={store.currentPage == Contact ? primary : black} size="1.8rem" />
+      <Icon
+        path={mdiWhatsapp}
+        color={store.currentPage === Contact ? primary : black}
+        size="1.8rem"
+      />
     </InternalLink>
 
     <InternalLink to={Notes} store={store} >
-      <Icon path={mdiPencilBoxOutline} color={store.currentPage == Notes ? primary : black} size="1.8rem" />
+      <Icon
+        path={mdiPencilBoxOutline}
+        color={store.currentPage === Notes ? primary : black}
+        size="1.8rem"
+      />
     </InternalLink>
 
     <InternalLink to={InfoEd} store={store} >
-      <Icon path={mdiInformationOutline} color={store.currentPage == InfoEd ? primary : black} size="1.8rem" />
+      <Icon
+        path={mdiInformationOutline}
+        color={store.currentPage === InfoEd ? primary : black}
+        size="1.8rem"
+      />
     </InternalLink>
   </Layout>
 ))
