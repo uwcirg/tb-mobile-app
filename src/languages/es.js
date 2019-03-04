@@ -31,7 +31,7 @@ export default {
     `,
 
     photo: `
-    Subir foto de la tira de prueba
+    Subir foto de la tira de prueb
     `,
   },
 
