@@ -56,7 +56,7 @@ const AdherenceCalendar = observer(({ store }) => (
           date={date}
           medication_report={
             view === 'month' &&
-              store.medication_reports.records.find(mr =>
+              store.registration.information.medication_reports.find(mr =>
                 mr.timestamp.replace(/T.+$/, "") === date.toJSON().replace(/T.+$/, "")
               )
           }

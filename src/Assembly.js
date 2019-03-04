@@ -13,7 +13,7 @@
 import React from "react"
 import styled from "styled-components"
 
-import { observable, computed,  autorun } from "mobx"
+import { observable, computed,  autorun, reaction } from "mobx"
 import { observer, Observer } from "mobx-react"
 import { Image } from "reakit"
 import { white, beige, lightgrey, darkgrey } from "./colors"
@@ -47,41 +47,6 @@ import english from "./languages/en"
 let network = new Network(process.env.REACT_APP_URL_API)
 window.network = network
 
-// For when you'll need a few.
-class Records {
-  constructor(klass_name, instance_name) {
-    this.klass_name = klass_name
-    this.instance_name = instance_name
-  }
-
-  // Always a chance that this cache can become out of date.
-  @observable records = []
-
-  // These functions execute commands on the network
-  create(attrs, uuid) {
-    return network.run("cirg")`
-      Participant.find_by(uuid: '${uuid}').
-        ${this.instance_name}.
-        create!(JSON.parse('${JSON.stringify(attrs)}'))
-    `
-  }
-
-  // Keep our records synced with the database.
-  // Can be optimized with pub/sub event subscriptions
-  //
-  // TODO remove "cirg" argument; see comments in `src/Network.js`
-  watch(uuid) {
-    network.watch("cirg")`
-      Participant.find_by(uuid: '${uuid}').${this.instance_name}
-    `(response => {
-      response
-        .json()
-        .then(r => this.records = r)
-        .catch(e => console.log(e))
-    })
-  }
-}
-
 class Account {
   @observable model = ""
   @observable information = {}
@@ -89,53 +54,52 @@ class Account {
   constructor(model, information) {
     this.model = model
     this.information = information
-    console.log(this.information)
   }
 
   persist() {
-    return new Promise((resolve, reject) =>
-      network.run("cirg")`
-        ${this.model}.create!(
-          uuid: SecureRandom.uuid,
-          password_digest:  BCrypt::Password.create("${this.information.password}"),
-          ${
-            Object
-            .keys(this.information)
-            .diff(["password"])
-            .map(key => (
-              `${key}: ${JSON.stringify(this.information[key])}`
-            )).join(", ")
-          }
-        )
-      `.then(response => {
-          response
-            .json()
-            .then(information => { this.information = information; resolve(information) })
-        })
-    )
+    network.run`
+      ${this.model}.create!(
+        uuid: SecureRandom.uuid,
+        password_digest:  BCrypt::Password.create("${this.information.password}"),
+        ${
+          Object
+          .keys(this.information)
+          .diff(["password"])
+          .map(key => (
+            `${key}: ${JSON.stringify(this.information[key])}`
+          )).join(", ")
+        }
+      ).uuid
+    `.then(response => response.json().then(uuid => this.watch(uuid)))
   }
 
-  request(attributes, password) {
+  watch(uuid) {
+    network.watch`
+      ${this.model}.find_by(uuid: ${JSON.stringify(uuid)})
+    `(response => {
+      response.json()
+        .then(r => this.information = r)
+        .catch(e => console.log(e))
+    })
+  }
+
+  authenticate(attributes, password) {
     return new Promise((resolve, reject) =>
-      network.run("cirg")`
+      network.run`
         BCrypt::Password.new(
           ${this.model}.find_by(JSON.parse('${JSON.stringify(attributes)}')).
             password_digest
         ) == ${JSON.stringify(password)} ?
-        ${this.model}.find_by(JSON.parse('${JSON.stringify(attributes)}')) :
+        ${this.model}.find_by(JSON.parse('${JSON.stringify(attributes)}')).uuid :
         {}
-      `.then(response => {
-        response
-          .json()
-          .then(information => { this.information = information; resolve(information) })
-      })
+    `.then(response => response.json().then(uuid => this.watch(uuid) ))
     )
   }
 
   update(uuid) {
     return new Promise((resolve, reject) =>
-      network.run("cirg")`
-        Participant.find_by(uuid: ${JSON.stringify(uuid)}).
+      network.run`
+        ${this.model}.find_by(uuid: ${JSON.stringify(uuid)}).
         update(JSON.parse('${JSON.stringify(this.information)}'))
       `.then(response => {
         response
@@ -144,13 +108,19 @@ class Account {
       })
     )
   }
+
+  create(path, attrs, uuid) {
+    return network.run`
+      ${this.model}.find_by(uuid: '${uuid}').
+        ${path}.
+        create!(JSON.parse('${JSON.stringify(attrs)}'))
+    `
+  }
 }
 
 @observer
 class Assembly extends React.Component {
   // ------ Participant ------
-
-  @observable uuid = null
 
   @observable registration = new Account("Participant", {
     name: "",
@@ -166,12 +136,6 @@ class Assembly extends React.Component {
 
   @observable noteDraft = null
   @observable noteTitle = null
-
-  // Recorded Data
-  @observable medication_reports = new Records("MedicationReport", "medication_reports")
-  @observable symptom_reports    = new Records("SymptomReport",    "symptom_reports")
-  @observable strip_reports      = new Records("StripReport",      "strip_reports")
-  @observable notes              = new Records("Note",             "notes")
 
   // Current medication report
   @observable survey_date = DateTime.local().toISODate()
@@ -201,8 +165,6 @@ class Assembly extends React.Component {
 
   // ------ Coordinator ------
 
-  @observable coordinator_uuid = null
-
   @observable coordinator_registration = new Account("Coordinator", {
     name: "",
     email: "",
@@ -212,26 +174,6 @@ class Assembly extends React.Component {
   @observable coordinator_login_credentials = {
     email: "",
     password: "",
-  }
-
-  @observable coordinator = {
-    patients: [
-      {
-        med_report_status: 'notreported',
-        id: "pete",
-        took_medication: 'Yes',
-        firstname: "Peter",
-        lastname: "Campbell",
-        phone: 15304120086,
-        treatment_start: null,
-        last_repored_date: null,
-        side_effects: ["Nausea", "Redness"],
-        percent_since_start: 48,
-        photo: [],
-        patient_note: [],
-        coordinator_note: [],
-      },
-    ]
   }
 
   // ------ Misc ------
@@ -255,26 +197,22 @@ class Assembly extends React.Component {
         this.alert(this.translate("symptom_overview.take_action_immediately"))
     })
 
-    // Debugging
-    autorun(() => {
-      if(this.uuid) {
-        this.medication_reports.watch(this.uuid)
-        this.symptom_reports.watch(this.uuid)
-        this.strip_reports.watch(this.uuid)
-        this.notes.watch(this.uuid)
-      }
-      else {
-        network.clearWatches()
-      }
-    })
+    reaction(
+      () => this.registration.information.uuid,
+      (uuid) => this.currentPage = Home,
+    )
+
+    reaction(
+      () => this.coordinator_registration.information.uuid,
+      (uuid) => this.currentPage = CoordinatorHome,
+    )
 
     window.assembly = this
   }
 
-  // TODO: Change find(1) to find(${photo_id})
-  setPhotoStatus(status) {
-    this.network.run()`
-      StripReport.find(1).update(status: "${status}")
+  setPhotoStatus(id, status) {
+    network.run`
+      StripReport.find(${id}).update(status: "${status}")
     `
   }
 
@@ -301,52 +239,33 @@ class Assembly extends React.Component {
 
   register() {
     this.registration.persist()
-      .then(information => {
-        this.uuid = information.uuid
-        if(this.uuid) this.currentPage = Home
-      })
   }
 
   login() {
-    this.registration.request(
+    this.registration.authenticate(
       { phone_number: this.login_credentials.phone_number },
       this.login_credentials.password,
     )
-      .then(information => {
-        this.uuid = information.uuid
-        if(this.uuid) this.currentPage = Home
-      })
-      .catch(e => this.alert(e))
   }
 
   coordinator_register() {
     this.coordinator_registration.persist()
-      .then(information => {
-        this.coordinator_uuid = information.uuid
-        if(this.coordinator_uuid) this.currentPage = CoordinatorHome
-      })
   }
 
   coordinator_login() {
-    this.coordinator_registration.request(
+    this.coordinator_registration.authenticate(
       { email: this.coordinator_login_credentials.email },
       this.coordinator_login_credentials.password,
     )
-      .then(information => {
-        this.coordinator_uuid = information.uuid
-        if(this.coordinator_uuid) this.currentPage = CoordinatorHome
-      })
-      .catch(e => this.alert(e))
   }
 
   // TODO change out `author_id`
   saveNote() {
-    this.notes.create({
-      author_id: "abc123",
-      author_type: "Participant",
-      title: this.noteTitle,
-      text: this.noteDraft,
-    }, this.uuid)
+    this.registration.create(
+      "notes",
+      { title: this.noteTitle, text: this.noteDraft },
+      this.registration.information.uuid
+    )
   }
 
   composeNote() {
@@ -355,18 +274,19 @@ class Assembly extends React.Component {
   }
 
   reportMedication() {
-    this.medication_reports.create({ timestamp: `${this.survey_date}T${this.survey_medication_time}:00.000` }, this.uuid)
+    this.registration.create("medication_reports", { timestamp: `${this.survey_date}T${this.survey_medication_time}:00.000` }, this.registration.information.uuid)
   }
 
   reportSymptoms() {
-    this.symptom_reports.create(this.symptoms, this.uuid)
+    this.registration.create("symptom_reports", this.symptoms, this.registration.information.uuid)
   }
 
   storePhoto(photo) {
-    this.strip_reports.create({
-      timestamp: DateTime.local().toISO(),
-      photo: photo,
-    }, this.uuid).then(r => { if(r.ok) { this.photos_uploaded.push(photo) } })
+    this.registration.create(
+      "strip_reports",
+      { timestamp: DateTime.local().toISO(), photo: photo },
+      this.registration.information.uuid
+    ).then(r => { if(r.ok) { this.photos_uploaded.push(photo) } })
   }
 
   translate(semantic) {
@@ -386,8 +306,15 @@ class Assembly extends React.Component {
     return dictionary;
   }
 
+  @computed get locale() {
+    return { "Español": "es", "English": "en" }[this.language];
+  }
+
   logout() {
-    this.uuid = null
+    this.registration.information = {}
+    this.coordinator_registration.information = {}
+    this.currentPage = Login
+    network.clearWatches()
   }
 
   render = () => (
@@ -430,8 +357,6 @@ class Assembly extends React.Component {
   )
 }
 
-// TODO: Gurantee it pasts tests on more devices
-// Testing getting rid of this ->  grid-row-gap: 1rem;
 const Layout = styled.div`
   height: 100vh;
   background-size: cover;

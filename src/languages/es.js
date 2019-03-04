@@ -272,7 +272,7 @@ export default {
     `,
 
     email: `
-    TODO email
+    Email
     `,
 
     password: "Contraseña",
@@ -283,7 +283,7 @@ export default {
 
     link: {
       login: "Iniciar sesión",
-      patient_login: "TODO Log in as a patient",
+      patient_login: "El login del participante",
     }
   },
 
@@ -1120,6 +1120,20 @@ export default {
   },
 
   coordinator: {
+    heading: "Progreso diario de los participantes",
+    participant_info: "Información del participante",
+    name: "Nombre",
+    today: "Hoy",
+    medication: "Control de medicación",
+    side_effects: "Efectos adversos o indeseables",
+    photo: "Resultados del test de orina",
+    actions: "Acción",
+    contact: "Contacto",
+    notes: "Notas",
+    treatment: "Tratamiento",
+    adherence: "TODO % Adherence",
+    start_date: "Fecha de inicio del tratamiento",
+
     daily: {
       status: {
         pending_review: "Revisión pendiente",
@@ -1144,12 +1158,12 @@ export default {
   coordinator_login: {
     welcome: "Bienvenido",
     context: "TODO Log in as a healthcare coordinator",
-    email: "TODO Email",
+    email: "Email",
     password: "Contraseña",
     go: "Iniciar sesión",
 
     link: {
-      coordinator_login: "TODO Patient Login",
+      coordinator_login: "El login del participante",
       register: "Registrarse",
     },
   }

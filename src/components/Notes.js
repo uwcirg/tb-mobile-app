@@ -36,7 +36,7 @@ const Notes = observer(({ store }) => (
     { store.notes.length === 0
       ? <Hint>{store.translate("notes.hint")}</Hint>
 
-      : store.notes.records.map(({ id, title, created_at, text, updated_at }) => (
+      : store.registration.information.notes.map(({ id, title, created_at, text, updated_at }) => (
         <Note key={id}>
           <Note.Header>
             <Note.Title>{title}</Note.Title>

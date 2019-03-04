@@ -1,72 +1,60 @@
 import { runInAction } from "mobx"
 
 class Network {
+  watches = []
+  active = true
+
   constructor(url) {
     this.url = url
-    this.watches = {}
-    this.active = true
   }
 
-  // TODO remove "system" argument;
-  // this isn't necessarily the place for it.
-  run(system) {
-    return (template, ...expressions) => new Promise(resolve => {
+  run(template, ...expressions) {
+    return new Promise(resolve => {
       const code = template.reduce((accumulator, part, i) => {
         return accumulator + expressions[i - 1] + part
       })
 
       fetch(`${this.url}/evaluate`, {
         method: "POST",
-        body: JSON.stringify({ system, code }),
+        body: JSON.stringify({ code }),
         headers: {
           "Content-Type": "application/json",
         },
       }).then(resolve)
     }).then((result) => {
-      let watches = this.watches[system]
-      if(this.active && watches !== undefined) {
-        watches.forEach((watch) => watch())
+      if(this.active) {
+        this.watches.forEach((watch) => watch())
       }
 
       return result;
     })
   }
 
-  // TODO remove "system" argument;
-  // this isn't necessarily the place for it.
-  watch(system) {
-    if(this.watches[system] === undefined) {
-      this.watches[system] = []
-    }
+  watch(template, ...expressions) {
+    const code = template.reduce((accumulator, part, i) => {
+      return accumulator + expressions[i - 1] + part
+    })
 
-    let templating = (template, ...expressions) => {
-      const code = template.reduce((accumulator, part, i) => {
-        return accumulator + expressions[i - 1] + part
-      })
-
-      return (callback) => {
-        let watch = () =>
-          fetch(`${this.url}/evaluate`, {
-            method: "POST",
-            body: JSON.stringify({ system, code }),
-            headers: {
-              "Content-Type": "application/json",
-            },
+    return (callback) => {
+      let watch = () =>
+        fetch(`${this.url}/evaluate`, {
+          method: "POST",
+          body: JSON.stringify({ code }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then(result => {
+            if(this.active) { runInAction(() => callback(result)) }
           })
-            .then(result => {
-              if(this.active) { runInAction(() => callback(result)) }
-            })
 
-        this.watches[system].push(watch)
-        watch()
-      }
+      this.watches.push(watch)
+      watch()
     }
-
-    return templating
   }
 
   clearWatches() {
-    this.watches = {}
+    this.watches = []
   }
 
   destruct() {

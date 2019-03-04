@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190301175941) do
+ActiveRecord::Schema.define(version: 20190304164700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20190301175941) do
     t.date "treatment_start", null: false
     t.string "phone_number", null: false
     t.string "password_digest", null: false
+    t.string "coordinator_id", null: false
     t.index ["uuid"], name: "index_participants_on_uuid"
   end
 

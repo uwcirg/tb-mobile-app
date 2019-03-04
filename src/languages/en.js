@@ -1090,6 +1090,20 @@ export default {
   },
 
   coordinator: {
+    heading: "Daily Participant Review",
+    participant_info: "Participant Info",
+    name: "Name",
+    today: "Today",
+    medication: "Medication",
+    side_effects: "Side Effects",
+    photo: "Photo",
+    actions: "Actions",
+    contact: "Contact",
+    notes: "My Notes",
+    treatment: "Treatment",
+    adherence: "% Adherence",
+    start_date: "Start Date",
+
     daily: {
       status: {
         pending_review: "Pending review",
