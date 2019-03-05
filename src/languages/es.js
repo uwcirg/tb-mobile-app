@@ -12,32 +12,32 @@ export default {
       symptomOverview: "Información y Educación",
       infoEd: "Información y Educación",
       home: "Reporte de medicación",
-      default: "Asistente de tratamente"
+      default: "Asistente de tratamiente"
   },
 
   home: {
     survey: `
-    Control del Tratamiento
+    Control del medicacion
     `,
   },
 
   icons: {
     medication: `
-    Toma de medicamentos
+    Control de medicacion
     `,
 
     symptoms: `
-    Reportar efectos secundarios
+    Efectos adversos o indeseables
     `,
 
     photo: `
-    Subir foto de la tira de prueba
+    Resultados del test de orina
     `,
   },
 
   survey: {
     continue: `
-    Confirm (es)
+    Confirmar
     `,
 
     skip: `
@@ -46,7 +46,7 @@ export default {
 
     tookMedication: {
       yes: `
-      Si
+      Sí
       `,
 
       no: `
@@ -54,7 +54,7 @@ export default {
       `,
 
       title: `
-      Did you take your medication today? (es)
+      ¿Tomaste los medicamentos hoy?
       `,
 
       reason: `
@@ -62,7 +62,7 @@ export default {
       `,
 
       at: `
-      Yo tomé mi medicación a las:
+      ¿A qué hora?:
       `,
     },
 
@@ -112,7 +112,7 @@ export default {
       `,
 
       upset_stomach: `
-      La barriga se siente sensible o dolorido
+      Dolor de barriga
       `,
 
       yellow_coloration: `
@@ -128,15 +128,15 @@ export default {
       `,
 
       prompt: `
-      ¿Qué síntomas?
+      ¿Qué efectos adversos o indeseables?
       `,
 
       other: `
-      Otra efecto indeseable:
+      Otro efecto indeseable:
       `,
 
       title: `
-      Are you experiencing side effects today? (es)
+      ¿Presentaste algún  malestar al tomar los remedios?
       `,
 
       yes: `
@@ -148,7 +148,7 @@ export default {
       `,
 
       continue: `
-      Finish / Complete (es)
+      Confirmar
       `,
 
       skip: `
@@ -158,11 +158,11 @@ export default {
 
     upload: {
       click_here: `
-      Haga clic aquí para subir una foto.
+      Haga clic aquí para tomar una foto.
       `,
 
       upload_photo: `
-      Upload Test Strip Photo (es)
+      Tomar foto
       `,
 
       end_timer: `
@@ -174,15 +174,15 @@ export default {
       `,
 
       finished: `
-      Uploaded
+      Recibido
       `,
 
       title: `
-      Take the Test / Load Photo (es)
+      Tomar foto
       `,
 
       continue: `
-      Finish / Complete (es)
+      Confirmar
       `,
 
       skip: `
@@ -190,25 +190,25 @@ export default {
       `,
 
       instructions: {
-        intro: `
-        La prueba de orina asegura que su tratamiento esté en camino.
+        Instrucciones: `
+        La prueba de orina asegura que su tratamiento es correcto.
         Por favor siga estas instrucciones:
         `,
 
         1: `
-        orinar en la taza;
+        orinar en el recipiente;
         `,
 
         2: `
-        corta el extremo de la paja a lo largo de la línea punteada
+        cortar el extremo de la pajilla a lo largo de la línea punteada
         `,
 
         3: `
-        poner el extremo abierto de la pajilla en la orina y iniciar el cronómetrodejarla.
+        poner el extremo de la pajilla en la orina.
         `,
 
         4: `
-        Eespere 5-15 minutos (no más de 20) para tomar la fotografía (una vez que vea un cambio claro en el color);
+        Espere 5 y 15 minutos (no más de 20) para tomar la foto;
         `,
 
         5: `
@@ -216,7 +216,7 @@ export default {
         `,
 
         6:         `
-        asegúrese de ver la marca de verificación () y seleccionar Adelante para finalizar la carga.
+        asegúrese de ver la marca de verificación y seleccionar Finalizar.
         `,
       }
     },
@@ -245,8 +245,8 @@ export default {
     Número de teléfono
     `,
 
-    initials: `
-    TODO Initials
+    studyID: `
+    studyID
     `,
 
     password: "Contraseña",
@@ -292,19 +292,15 @@ export default {
 
   contact: {
     title: `
-    Contactar el coordinador de tratamiento
+    Enviar un mensaje al asistente de tratamiento
     `,
 
     first: `
-    No se comunique con su coordinador si tiene una emergencia.
-    Cualquier situación de emergencia
-    debe ser dirigidas a través de rutas habituales,a
-    concurriendo al centro de atención más cercano.
+    El horario de disponibilidad para preguntas al asistente del tratamiento es 0800 hasta 1300 horas lunes a viernes. Fuera de ese horario ante una emergencia concurre al centro de atención más cercano.
     `,
 
     second: `
-    El coordinador del estudio está disponible durante horas de oficina
-    para leer y responder los mensajes
+    Si tiene una recomendación para mejorar la aplicación consultar con Sarah Iribarren (sjiribar@uw.edu)
     `,
 },
 
