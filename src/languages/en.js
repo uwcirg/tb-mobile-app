@@ -200,22 +200,22 @@ export default {
         `,
 
         1: `
-        Void in a cup
+        Void in the specimen cup
         `,
         2: `
         Cut the end of the straw with the test strip along the line
         `,
         3: `
-        Place the cut end of the straw with the test strip into the urine and START timer
+        Place the cut end of the straw with the test strip into the urine
         `,
         4: `
-        Wait for 5-15 minutes (no more than 20) to take the picture (once you see a clear color change)
+        Wait for 5-15 minutes (no more than 20) to take the picture
         `,
         5: `
         Take the picture (retake if blurry or dark)
         `,
         6: `
-        Be sure the check mark (check mark or other?- image not coming through here) appears for uploaded successfully and select Continue to finish
+        Be sure the check mark appears for successful upload and select Finish
         `,
       }
     },
@@ -242,6 +242,10 @@ export default {
 
     phone_number: `
     Phone Number
+    `,
+
+    Study_id: `
+    Study ID
     `,
 
     password: `
@@ -320,21 +324,15 @@ export default {
 
   contact: {
     title: `
-    Send a message to treatment supporter
+    Contact your treatment supporter
     `,
 
     first: `
-    The treatment supporter is available for questions only during
-    business hours Monday through Friday 0800 to 1300. Outside of this
-    schedule and in case of an emergency go to your nearest healthcare center.
+    Do not contact your treatment supporter if you are having an emergency
     `,
 
     second: `
     If you have recommendations to improve the application, please email Sarah Iribarren (sjiribar@uw.edu)
-    `,
-
-    third: `
-    Join a discussion group
     `,
   },
 
