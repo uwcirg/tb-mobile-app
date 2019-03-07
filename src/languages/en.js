@@ -338,6 +338,29 @@ export default {
     `,
   },
 
+  progress: {
+    title: `
+    My Progress
+    `,
+
+    days: `
+    Days of Treatment
+    `,
+
+    medication: `
+    Medication History
+    `,
+
+    side_effect: `
+    Side Effect History
+    `,
+
+    test_result: `
+    Test Result History
+    `,
+
+  },
+
   notes: {
     new: `
     New

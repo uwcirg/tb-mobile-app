@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Button, Link, List, Heading, Provider, Divider } from "reakit";
+import { Button, Link, List, Provider, Divider } from "reakit";
 import theme from "reakit-theme-default";
 import { blue } from "../colors"
 
@@ -9,9 +9,9 @@ import { observer } from "mobx-react"
 const Contact = observer(({store}) => (
     <Provider theme={theme}>
       <div>
-        <Heading>
+        <h2>
           {store.translate("contact.title")}
-        </Heading>
+        </h2>
 
         <List>
           <li>{store.translate("contact.first")}</li>

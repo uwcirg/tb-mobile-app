@@ -333,7 +333,30 @@ export default {
     third: `
     Participa en un grupo de discusión.
     `,
-},
+  },
+
+  progress: {
+    title: `
+    Mi Progreso
+    `,
+
+    days: `
+    Days of Treatment (es)
+    `,
+
+    medication: `
+    Medication History (es)
+    `,
+
+    side_effect: `
+    Side Effect History (es)
+    `,
+
+    test_result: `
+    Test Result History (es)
+    `,
+
+  },
 
   notes: {
     new: `

@@ -56,6 +56,7 @@ class Account {
     this.information = information
   }
 
+  // For registration
   persist() {
     network.run`
       ${this.model}.create!(
@@ -73,6 +74,7 @@ class Account {
     `.then(response => response.json().then(uuid => this.watch(uuid)))
   }
 
+  // Pulls in patient information from DB
   watch(uuid) {
     network.watch`
       ${this.model}.find_by(uuid: ${JSON.stringify(uuid)})
@@ -83,6 +85,7 @@ class Account {
     })
   }
 
+  // Log in
   authenticate(attributes, password) {
     return new Promise((resolve, reject) =>
       network.run`
@@ -96,6 +99,7 @@ class Account {
     )
   }
 
+  // Update sidebar with profile information
   update(uuid) {
     return new Promise((resolve, reject) =>
       network.run`
@@ -109,6 +113,7 @@ class Account {
     )
   }
 
+  // Used for notes, medication reports, etc
   create(path, attrs, uuid) {
     return network.run`
       ${this.model}.find_by(uuid: '${uuid}').
@@ -197,6 +202,7 @@ class Assembly extends React.Component {
         this.alert(this.translate("symptom_overview.take_action_immediately"))
     })
 
+    // When the UUID changes, set the currentPage to Home
     reaction(
       () => this.registration.information.uuid,
       (uuid) => this.currentPage = Home,
@@ -347,12 +353,14 @@ class Assembly extends React.Component {
           {() => React.createElement(this.currentPage, { store: this })}
         </Observer>
       </Content>
-
+      
+      {console.log("UUID: ", this.registration.information.uuid)}
       <Space />
-
-      <NavBar>
-        <Navigation store={this} />
-      </NavBar>
+      {this.registration.information.name == "Sean Campbell" ? null : 
+        <NavBar>
+          <Navigation store={this} />
+        </NavBar>
+      }
     </Layout>
   )
 }
