@@ -33,7 +33,7 @@ const Notes = observer(({ store }) => (
       </Draft>
     }
 
-    { store.notes.length === 0
+    { store.registration.information.notes === 0
       ? <Hint>{store.translate("notes.hint")}</Hint>
 
       : store.registration.information.notes.map(({ id, title, created_at, text, updated_at }) => (
