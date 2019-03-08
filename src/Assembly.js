@@ -27,10 +27,11 @@ import Account from "./Account"
 import { DateTime } from "luxon"
 
 // Layouts
+import CoordinatorHome from "./components/CoordinatorHome"
+import CoordinatorParticipantHistory from "./components/CoordinatorParticipantHistory"
 import Faqs from "./components/Faqs"
 import Flash from "./components/Flash"
 import Home from "./components/Home"
-import CoordinatorHome from "./components/CoordinatorHome"
 import InfoEd from "./components/InfoEd"
 import Login from "./components/Login"
 import Menu from "./components/Menu"
@@ -107,6 +108,9 @@ class Assembly extends React.Component {
     password: "",
   }
 
+  // If this is not set, then render an error.
+  @observable participant_history = new Account("Participant", {})
+
   // ------ Misc ------
 
   @observable language = "Español"
@@ -131,12 +135,26 @@ class Assembly extends React.Component {
     // When the UUID changes, set the currentPage to Home
     reaction(
       () => this.registration.information.uuid,
-      (uuid) => this.currentPage = Home,
+      (uuid) => {
+        network.clearWatches()
+
+        if(uuid) {
+          this.registration.watch(uuid)
+        } else {
+        }
+      }
     )
 
     reaction(
       () => this.coordinator_registration.information.uuid,
-      (uuid) => this.currentPage = CoordinatorHome,
+      (uuid) => {
+        network.clearWatches()
+
+        if(uuid) {
+          this.coordinator_registration.watch(uuid)
+        } else {
+        }
+      }
     )
 
     this.survey_date = DateTime.local().setLocale(this.locale).toISODate()

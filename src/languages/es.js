@@ -1194,6 +1194,29 @@ export default {
     },
   },
 
+  coordinator_participant_history: {
+    date: "Fecha",
+    heading: "Reporting History",
+    participant_info: "Participant Info",
+    name: "Name",
+    today: "Today",
+    medication: "Medication",
+    side_effects: "Side Effects",
+    photo: "Photo",
+    contact: "Contact",
+
+    medication_taken: "Medication Taken",
+    side_effect: "Side Effect",
+    photo: "Action",
+    test_result: "Test Result",
+    action: "Action",
+
+    participant_id: "Participant ID",
+    first_name: "First Name",
+    start_date: "Treatment start",
+    end_date: "Expected End Date",
+  },
+
   login: {
     welcome: "Bienvenido",
     phone_number: "El numero del telefono",
