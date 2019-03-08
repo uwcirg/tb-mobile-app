@@ -18,7 +18,6 @@ const Progress = observer(({store}) => (
     <Provider theme={theme}>
         <div>
           <h2>{store.translate("progress.title")}</h2>
-        {/* TODO: Translations for this whole page */}
         {/* TODO: Get rid of before merging */}
         {/* {console.log("Medication Reports", patient_info.medication_reports)} */}
         {/* {console.log("Symptom Reports", patient_info.symptom_reports)} */}
@@ -29,7 +28,6 @@ const Progress = observer(({store}) => (
             {/* TODO: Link the data to this number */}
             <Percentage>{total_treatment_days}</Percentage>
 
-            {/* TODO translation */}
             <TreatmentDays>
               <strong>{store.translate("progress.days")}</strong>
             </TreatmentDays>

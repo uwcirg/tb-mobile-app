@@ -38,9 +38,7 @@ const ReportMedication = observer(({ store }) => (
           <TextFieldLabel>
             <span>{store.translate("survey.tookMedication.reason")}</span>
 
-            {/* TODO: Make this TextInput expandable,
-            or give a list of reasons to the patient */}
-
+            {/* TODO: Connect this to a part of the DB */}
             <TextInput use="textarea" />
           </TextFieldLabel>
         </Hidden>

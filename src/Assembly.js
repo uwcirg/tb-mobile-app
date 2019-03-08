@@ -143,6 +143,7 @@ class Assembly extends React.Component {
   @observable noteTitle = null
 
   // Current medication report
+  // TODO: Time isn't the correct local here!
   @observable survey_date = DateTime.local().toISODate()
   @observable survey_medication_time = DateTime.local().toLocaleString(DateTime.TIME_24_SIMPLE)
 
@@ -279,12 +280,33 @@ class Assembly extends React.Component {
     this.noteDraft = ""
   }
 
+  // TODO: Need survey medication time isn't guranteed to be in 24 hour time
   reportMedication() {
-    this.registration.create("medication_reports", { timestamp: `${this.survey_date}T${this.survey_medication_time}:00.000` }, this.registration.information.uuid)
+    this.registration.create("medication_reports", { timestamp: `${this.survey_date}T${this.survey_medication_time}:00.000` },
+                            this.registration.information.uuid)
+    this.survey_date = null
+    this.survey_medication_time = null
+    this.survey_tookMedication = null // need to use this value after migration
   }
 
   reportSymptoms() {
-    this.registration.create("symptom_reports", this.symptoms, this.registration.information.uuid)
+    this.registration.create("symptom_reports", this.symptoms, 
+                            this.registration.information.uuid)
+    // Lousy way of reverting the symptoms back to normal
+    this.symptoms = {
+      nausea: false,
+      nausea_rating: 0,
+      redness: false,
+      hives: false,
+      fever: false,
+      appetite_loss: false,
+      blurred_vision: false,
+      sore_belly: false,
+      yellow_coloration: false,
+      difficulty_breathing: false,
+      facial_swelling: false,
+      other: null,
+    }
   }
 
   storePhoto(photo) {
@@ -356,11 +378,15 @@ class Assembly extends React.Component {
       
       {console.log("UUID: ", this.registration.information.uuid)}
       <Space />
-      {this.registration.information.name == "Sean Campbell" ? null : 
-        <NavBar>
-          <Navigation store={this} />
-        </NavBar>
-      }
+      {/* Only shows the navbar when a user is logged in */}
+      <Observer>
+        {() => 
+          this.registration.information.uuid == null ? null : 
+            <NavBar>
+              <Navigation store={this} />
+            </NavBar>
+        }
+        </Observer>
     </Layout>
   )
 }

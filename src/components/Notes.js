@@ -5,6 +5,7 @@ import { PlusIcon, ContentSaveIcon } from "mdi-react"
 import { grey } from "../colors"
 import Fold from "../primitives/Fold"
 import { observer } from "mobx-react"
+import { DateTime } from "luxon"
 
 const Notes = observer(({ store }) => (
   <Layout>
@@ -40,14 +41,14 @@ const Notes = observer(({ store }) => (
         <Note key={id}>
           <Note.Header>
             <Note.Title>{title}</Note.Title>
-            <Note.Created>{created_at}</Note.Created>
+            <Note.Created>{DateTime.fromISO(created_at).toLocaleString(DateTime.DATETIME_SHORT)}</Note.Created>
           </Note.Header>
 
           <Note.Text>{text}</Note.Text>
 
           <Note.LastUpdated>
             {store.translate("notes.last_edited")}
-            {updated_at}
+            {DateTime.fromISO(updated_at).toLocaleString(DateTime.DATETIME_SHORT)}
           </Note.LastUpdated>
         </Note>
     ))}
