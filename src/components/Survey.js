@@ -77,7 +77,6 @@ const Survey = observer(({ store }) => (
             backgroundColor={success_green}
             store={store}
             primary={store.translate("survey.upload.continue")}
-            // TODO: Call storePhoto and save the photo here
             onPrimary={() => {}}
             {...state}
           />

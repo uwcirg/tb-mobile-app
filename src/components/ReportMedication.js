@@ -38,15 +38,16 @@ const ReportMedication = observer(({ store }) => (
           <TextFieldLabel>
             <span>{store.translate("survey.tookMedication.reason")}</span>
 
-            {/* TODO: Connect this to a part of the DB */}
-            <TextInput use="textarea" />
+            <TextInput use="textarea" 
+              value={store.survey_notTakingMedicationReason || ""}
+              onChange={(e) => store.survey_notTakingMedicationReason = e.target.value}
+            />
           </TextFieldLabel>
         </Hidden>
 
         <Hidden visible={store.survey_tookMedication === true} >
           <p>{store.translate("survey.tookMedication.at")}</p>
 
-          {/* TODO: Figure out how to store and submit this value */}
           <TextInput
             type="date"
             value={store.survey_date}

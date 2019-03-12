@@ -8,7 +8,7 @@ import Fold from "../primitives/Fold"
 import { Icon } from "@mdi/react"
 import { mdiCamera } from "@mdi/js"
 import Heading from "../primitives/Heading"
-import { Paragraph } from "reakit";
+import { Image } from "reakit";
 
 import styled from "styled-components"
 
@@ -21,18 +21,22 @@ const StripReports = observer(({ store }) => (
 
           { store.registration.information.strip_reports.length === 0
             ? <Answer>
-                <P>2019/03/20 - Unclear / Not Yet Confirmed</P>
-                <P>2019/03/19 - Confirmed</P>
-                <P>2019/03/18 - Confirmed</P>
-                <P>2019/03/17 - No Photo Submitted</P>
+                {/* TODO: Need translation */}
+                <Info>No Strip Reports Submitted</Info>
               </Answer>
 
             : store.registration.information.strip_reports.map(({created_at, photo, status}) => (
               <Answer>
-                <P key={created_at}>{DateTime
-                .fromISO(created_at)
-                .toLocaleString(DateTime.DATETIME_SHORT)
-                 + ": " + status + "\n" + photo}</P>
+                <Time key={created_at}>{DateTime
+                  .fromISO(created_at)
+                  .toLocaleString(DateTime.DATETIME_SHORT)}
+                </Time>
+                <Info>
+                  {/* TODO: Need translations */}
+                  {status || "Not Reviewed Yet"}
+                </Info>
+                <Image src={photo}>
+                </Image>
               </Answer>
           ))}
         </Fold>
@@ -49,8 +53,12 @@ const Question = styled(Heading)`
   align-items: center;
 `
 
-const P = styled(Paragraph)`
-  margin-bottom: 1rem;
+const Time = styled.div`
+  margin-top: 0.5rem;
+`
+
+const Info = styled.div`
+  word-wrap: break-word;
 `
 
 export default StripReports;

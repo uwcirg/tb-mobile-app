@@ -143,9 +143,10 @@ class Assembly extends React.Component {
   @observable noteTitle = null
 
   // Current medication report
-  // TODO: Time isn't the correct local here!
-  @observable survey_date = DateTime.local().toISODate()
-  @observable survey_medication_time = DateTime.local().toLocaleString(DateTime.TIME_24_SIMPLE)
+  @observable survey_date = null
+  @observable survey_medication_time = null
+  @observable survey_tookMedication = null
+  @observable survey_notTakingMedicationReason = null
 
   // Current symptom report
   @observable symptoms = {
@@ -165,7 +166,6 @@ class Assembly extends React.Component {
 
   @observable photos_uploaded = []
   @observable survey_anySymptoms = null
-  @observable survey_tookMedication = null
 
   @observable capturing = false
 
@@ -213,6 +213,9 @@ class Assembly extends React.Component {
       () => this.coordinator_registration.information.uuid,
       (uuid) => this.currentPage = CoordinatorHome,
     )
+
+    this.survey_date = DateTime.local().setLocale(this.locale).toISODate()
+    this.survey_medication_time = DateTime.local().setLocale(this.locale).toLocaleString(DateTime.TIME_24_SIMPLE)
 
     window.assembly = this
   }
@@ -280,19 +283,31 @@ class Assembly extends React.Component {
     this.noteDraft = ""
   }
 
-  // TODO: Need survey medication time isn't guranteed to be in 24 hour time
   reportMedication() {
-    this.registration.create("medication_reports", { timestamp: `${this.survey_date}T${this.survey_medication_time}:00.000` },
-                            this.registration.information.uuid)
+    if (this.survey_tookMedication != null) {
+      this.registration.create(
+        "medication_reports", 
+        { 
+          timestamp: `${this.survey_date}T${this.survey_medication_time}:00.000`,
+          took_medication: this.survey_tookMedication,
+          not_taking_medication_reason: this.survey_notTakingMedicationReason 
+        },
+        this.registration.information.uuid
+      )
+    }
+    
     this.survey_date = null
     this.survey_medication_time = null
-    this.survey_tookMedication = null // need to use this value after migration
+    this.survey_tookMedication = null
+    this.survey_notTakingMedicationReason = null
   }
 
   reportSymptoms() {
     this.registration.create("symptom_reports", this.symptoms, 
                             this.registration.information.uuid)
-    // Lousy way of reverting the symptoms back to normal
+
+    // Lousy way of reverting the survey back to normal
+    this.survey_anySymptoms = null;
     this.symptoms = {
       nausea: false,
       nausea_rating: 0,
@@ -376,7 +391,6 @@ class Assembly extends React.Component {
         </Observer>
       </Content>
       
-      {console.log("UUID: ", this.registration.information.uuid)}
       <Space />
       {/* Only shows the navbar when a user is logged in */}
       <Observer>

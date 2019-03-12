@@ -17,24 +17,22 @@ const MedicationReports = observer(({ store }) => (
         <Fold>
 
         <Question>
-          {/* TODO: Figure out how to add vertical alignment for these icons */}
         <Icon size="1.5rem" color={darkgrey} path={mdiPill} /> {store.translate("progress.medication")}
         </Question>
 
         { store.registration.information.medication_reports.length === 0
           ? <Answer>
-              <P>No Medication Reports</P>
-              <P>2019/03/20 - Yes</P>
-              <P>2019/03/19 - Yes</P>
-              <P>2019/03/18 - Yes</P>
-              <P>2019/03/17 - No</P>
+              {/* TODO: Translate */}
+              <Info>No Medication Reports</Info>
             </Answer>
 
-          : store.registration.information.medication_reports.map(({timestamp, id}) => (
+          : store.registration.information.medication_reports.map(({timestamp, id, took_medication,
+            not_taking_medication_reason}) => (
             
             // TODO: Sort by date and link reports
             <Answer>
-              <P key={id}>{DateTime.fromISO(timestamp).toLocaleString(DateTime.DATETIME_SHORT)}</P>
+              <Time key={id}>{DateTime.fromISO(timestamp).toLocaleString(DateTime.DATETIME_SHORT)}</Time>
+              <Info key={took_medication}>Took Medication: {took_medication && "Yes"} {!took_medication && "No, I reported \"" + not_taking_medication_reason + "\""}</Info>
             </Answer>
         ))}
 
@@ -52,7 +50,11 @@ const Question = styled(Heading)`
   align-items: center;
 `
 
-const P = styled(Paragraph)`
+const Time = styled.div`
+  margin-bottom: 0.25;
+`
+
+const Info = styled(Paragraph)`
   margin-bottom: 1rem;
 `
 

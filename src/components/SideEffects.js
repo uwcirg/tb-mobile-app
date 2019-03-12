@@ -21,20 +21,21 @@ const SideEffects = observer(({ store }) => (
 
           { store.registration.information.symptom_reports.length === 0
             ? <Answer>
-                <P>2019/03/20 - Nausea</P>
-                <P>2019/03/19 - Redness, Nausea, Appetite loss</P>
-                <P>2019/03/18 - Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim et alias nam obcaecati molestias expedita? Eos asperiores illum tempore, repudiandae, maiores molestiae natus aut accusantium voluptate quaerat eaque reiciendis quia?</P>
-                <P>2019/03/17 - Null</P>
+                {/* TODO: Translate this piece */}
+                <Info>No Side Effects Reported</Info>
               </Answer>
 
             : store.registration.information.symptom_reports.map(({created_at, reported_symptoms}) => (
               
-              // Sort by date and link reports
+              // TODO: Sort by date and link reports
               <Answer>
-                <P key={created_at}>{DateTime
+                <Time key={created_at}>{DateTime
                 .fromISO(created_at)
-                .toLocaleString(DateTime.DATETIME_SHORT)
-                 + ": " + reported_symptoms}</P>
+                .toLocaleString(DateTime.DATETIME_SHORT)}</Time>
+                {reported_symptoms.length !== 0 ? 
+                <Info key={reported_symptoms}>{reported_symptoms.join(", ")}</Info>
+                  // TODO: Translations
+                : <Info>N/A</Info>}
               </Answer>
           ))}
         </Fold>
@@ -51,8 +52,13 @@ const Question = styled(Heading)`
   align-items: center;
 `
 
-const P = styled(Paragraph)`
+const Time = styled.div`
+  margin-bottom: 0.25;
+`
+
+const Info = styled(Paragraph)`
   margin-bottom: 1rem;
+  word-wrap: break-word;
 `
 
 export default SideEffects;
