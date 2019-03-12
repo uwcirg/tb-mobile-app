@@ -23,7 +23,7 @@ import logo from "./logo.png"
 // import KJUR from "jsrsasign"
 
 // Utility
-import Network from "./Network"
+import Account from "./Account"
 import { DateTime } from "luxon"
 
 // Layouts
@@ -45,90 +45,14 @@ import WhenAuthenticated from "./primitives/WhenAuthenticated"
 import espanol from "./languages/es"
 import english from "./languages/en"
 
+import Network from "./Network"
 let network = new Network(process.env.REACT_APP_URL_API)
-window.network = network
-
-class Account {
-  @observable model = ""
-  @observable information = {}
-
-  constructor(model, information) {
-    this.model = model
-    this.information = information
-  }
-
-  // For registration
-  persist() {
-    network.run`
-      ${this.model}.create!(
-        uuid: SecureRandom.uuid,
-        password_digest:  BCrypt::Password.create("${this.information.password}"),
-        ${
-          Object
-          .keys(this.information)
-          .diff(["password"])
-          .map(key => (
-            `${key}: ${JSON.stringify(this.information[key])}`
-          )).join(", ")
-        }
-      ).uuid
-    `.then(response => response.json().then(uuid => this.watch(uuid)))
-  }
-
-  // Pulls in patient information from DB
-  watch(uuid) {
-    network.watch`
-      ${this.model}.find_by(uuid: ${JSON.stringify(uuid)})
-    `(response => {
-      response.json()
-        .then(r => this.information = r)
-        .catch(e => console.log(e))
-    })
-  }
-
-  // Log in
-  authenticate(attributes, password) {
-    return new Promise((resolve, reject) =>
-      network.run`
-        BCrypt::Password.new(
-          ${this.model}.find_by(JSON.parse('${JSON.stringify(attributes)}')).
-            password_digest
-        ) == ${JSON.stringify(password)} ?
-        ${this.model}.find_by(JSON.parse('${JSON.stringify(attributes)}')).uuid :
-        {}
-    `.then(response => response.json().then(uuid => this.watch(uuid) ))
-    )
-  }
-
-  // Update sidebar with profile information
-  update(uuid) {
-    return new Promise((resolve, reject) =>
-      network.run`
-        ${this.model}.find_by(uuid: ${JSON.stringify(uuid)}).
-        update(JSON.parse('${JSON.stringify(this.information)}'))
-      `.then(response => {
-        response
-          .json()
-          .then(information => resolve(information))
-      })
-    )
-  }
-
-  // Used for notes, medication reports, etc
-  create(path, attrs, uuid) {
-    return network.run`
-      ${this.model}.find_by(uuid: '${uuid}').
-        ${path}.
-        create!(JSON.parse('${JSON.stringify(attrs)}'))
-    `
-  }
-}
 
 @observer
 class Assembly extends React.Component {
   // ------ Participant ------
 
-  @observable registration = new Account("Participant", {
+  @observable registration = new Account(network, "Participant", {
     name: "",
     phone_number: "",
     treatment_start: DateTime.local().toISODate(),
@@ -172,7 +96,7 @@ class Assembly extends React.Component {
 
   // ------ Coordinator ------
 
-  @observable coordinator_registration = new Account("Coordinator", {
+  @observable coordinator_registration = new Account(network, "Coordinator", {
     name: "",
     email: "",
     password: "",
