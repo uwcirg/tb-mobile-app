@@ -16,7 +16,6 @@ const Contact = observer(({store}) => (
         <List>
           <li>{store.translate("contact.first")}</li>
           <li>{store.translate("contact.second")}</li>
-          <li>{store.translate("contact.third")}</li>
         </List>
 
         <Divider />

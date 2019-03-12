@@ -36,3 +36,4 @@ services:
       - ./models:/foundation/app/models
     depends_on:
       - db
+    restart: always
