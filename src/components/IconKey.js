@@ -11,16 +11,16 @@ import {
   mdiPill,
 } from "@mdi/js"
 
-const IconKey = observer(({ store }) => (
+const IconKey = observer(({ assembly }) => (
   <Layout>
     <Icon size="2rem" color={darkgrey} path={mdiPill} />
-    <p>{store.translate("icons.medication")}</p>
+    <p>{assembly.translate("icons.medication")}</p>
 
     <Icon size="2rem" color={darkgrey} path={mdiFormatListChecks} />
-    <p>{store.translate("icons.symptoms")}</p>
+    <p>{assembly.translate("icons.symptoms")}</p>
 
     <Icon size="2rem" color={darkgrey} path={mdiCamera} />
-    <p>{store.translate("icons.photo")}</p>
+    <p>{assembly.translate("icons.photo")}</p>
   </Layout>
 ))
 

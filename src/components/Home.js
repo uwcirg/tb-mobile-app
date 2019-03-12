@@ -19,14 +19,14 @@ import Button from "../primitives/Button"
 
 import AdherenceCalendar from "./AdherenceCalendar"
 
-const Home = observer(({ store }) => (
+const Home = observer(({ assembly }) => (
   <Layout>
     <Row>
       <TreatmentButton
         className="TreatmentButton"
-        onClick={() => store.currentPage = Survey}
+        onClick={() => assembly.currentPage = Survey}
       >
-        {store.translate("home.survey")}
+        {assembly.translate("home.survey")}
 
         <Icons>
           <Icon size={1} color={white} path={mdiPill} />
@@ -35,10 +35,10 @@ const Home = observer(({ store }) => (
         </Icons>
       </TreatmentButton>
 
-      <Help> <IconKey store={store} /> </Help>
+      <Help> <IconKey assembly={assembly} /> </Help>
     </Row>
 
-    <AdherenceCalendar store={store} />
+    <AdherenceCalendar assembly={assembly} />
   </Layout>
 ))
 

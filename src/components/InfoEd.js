@@ -9,14 +9,14 @@ import Button from "../primitives/Button"
 import Faqs from "./Faqs"
 import SymptomOverview from "./SymptomOverview"
 
-const InfoEd = observer(({ store }) => (
+const InfoEd = observer(({ assembly }) => (
   <Layout>
-    <Button as={InternalLink} to={Faqs} store={store} >
-        {store.translate("info.faq")}
+    <Button as={InternalLink} to={Faqs} assembly={assembly} >
+        {assembly.translate("info.faq")}
     </Button>
 
-    <Button as={InternalLink} to={SymptomOverview} store={store} >
-        {store.translate("info.symptom_overview")}
+    <Button as={InternalLink} to={SymptomOverview} assembly={assembly} >
+        {assembly.translate("info.symptom_overview")}
     </Button>
   </Layout>
 ))

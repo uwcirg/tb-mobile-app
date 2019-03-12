@@ -9,7 +9,7 @@ import { grey, darkgrey, white, red } from "../colors"
 import Icon from "../primitives/Icon"
 import Selection from "../primitives/Selection"
 
-const Menu = observer(({ store }) => (
+const Menu = observer(({ assembly }) => (
   <Sidebar.Container>
     {sidebar => (
       <Block>
@@ -23,21 +23,21 @@ const Menu = observer(({ store }) => (
             <Toggle {...sidebar} ><CloseIcon /></Toggle>
 
             <Question>
-              <label htmlFor="name">{store.translate("menu.name")}</label>
+              <label htmlFor="name">{assembly.translate("menu.name")}</label>
               <Field
                 name="name"
-                value={store.registration.information.name || ""}
-                onChange={(e) => { store.registration.information.name = e.target.value; store.registration.update(store.uuid) }}
+                value={assembly.registration.information.name || ""}
+                onChange={(e) => { assembly.registration.information.name = e.target.value; assembly.registration.update(assembly.uuid) }}
               />
             </Question>
 
             <Question>
-              <label htmlFor="phone_number">{store.translate("menu.phone_number")}</label>
+              <label htmlFor="phone_number">{assembly.translate("menu.phone_number")}</label>
               <Field
                 name="phone_number"
                 type="tel"
-                value={store.registration.information.phone_number || ""}
-                onChange={(e) => { store.registration.information.phone_number = e.target.value; store.registration.update(store.uuid) }}
+                value={assembly.registration.information.phone_number || ""}
+                onChange={(e) => { assembly.registration.information.phone_number = e.target.value; assembly.registration.update(assembly.uuid) }}
               />
             </Question>
 
@@ -45,22 +45,22 @@ const Menu = observer(({ store }) => (
               <Icon name="Language" mdi="web" />
 
               <Selection
-                update={() => store.language}
+                update={() => assembly.language}
                 options={["Español", "English"]}
-                onChange={(selection) => store.language = selection}
+                onChange={(selection) => assembly.language = selection}
               />
             </Question>
 
             <Question>
-              <label htmlFor="treatment_start">{store.translate("menu.treatment_start")}</label>
+              <label htmlFor="treatment_start">{assembly.translate("menu.treatment_start")}</label>
               <Field
                 type="date"
-                value={store.registration.information.treatment_start || ""}
-                onChange={(e) => { store.registration.information.treatment_start = e.target.value; store.registration.update(store.uuid) }}
+                value={assembly.registration.information.treatment_start || ""}
+                onChange={(e) => { assembly.registration.information.treatment_start = e.target.value; assembly.registration.update(assembly.uuid) }}
               />
             </Question>
 
-            <LogoutButton onClick={() => store.logout()}>Log out</LogoutButton>
+            <LogoutButton onClick={() => assembly.logout()}>Log out</LogoutButton>
           </Layout>
             }
           </Observer>

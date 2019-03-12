@@ -6,16 +6,16 @@ import { blue } from "../colors"
 
 import { observer } from "mobx-react"
 
-const Contact = observer(({store}) => (
+const Contact = observer(({assembly}) => (
     <Provider theme={theme}>
       <div>
         <h2>
-          {store.translate("contact.title")}
+          {assembly.translate("contact.title")}
         </h2>
 
         <List>
-          <li>{store.translate("contact.first")}</li>
-          <li>{store.translate("contact.second")}</li>
+          <li>{assembly.translate("contact.first")}</li>
+          <li>{assembly.translate("contact.second")}</li>
         </List>
 
         <Divider />

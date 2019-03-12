@@ -19,44 +19,44 @@ import Notes from "./Notes"
 import Contact from "./Contact"
 import Progress from "./Progress"
 
-const Navigation = observer(({ store }) => (
+const Navigation = observer(({ assembly }) => (
   <Layout>
-    <InternalLink to={Home} store={store} >
+    <InternalLink to={Home} assembly={assembly} >
       <Icon
         path={mdiHome}
-        color={store.currentPage === Home ? primary : black}
+        color={assembly.currentPage === Home ? primary : black}
         size="1.8rem"
       />
     </InternalLink>
 
-    <InternalLink to={Progress} store={store} >
+    <InternalLink to={Progress} assembly={assembly} >
       <Icon
         path={mdiFolderClockOutline}
-        color={store.currentPage === Progress ? primary : black}
+        color={assembly.currentPage === Progress ? primary : black}
         size="1.8rem"
       />
     </InternalLink>
 
-    <InternalLink to={Contact} store={store} >
+    <InternalLink to={Contact} assembly={assembly} >
       <Icon
         path={mdiWhatsapp}
-        color={store.currentPage === Contact ? primary : black}
+        color={assembly.currentPage === Contact ? primary : black}
         size="1.8rem"
       />
     </InternalLink>
 
-    <InternalLink to={Notes} store={store} >
+    <InternalLink to={Notes} assembly={assembly} >
       <Icon
         path={mdiPencilBoxOutline}
-        color={store.currentPage === Notes ? primary : black}
+        color={assembly.currentPage === Notes ? primary : black}
         size="1.8rem"
       />
     </InternalLink>
 
-    <InternalLink to={InfoEd} store={store} >
+    <InternalLink to={InfoEd} assembly={assembly} >
       <Icon
         path={mdiInformationOutline}
-        color={store.currentPage === InfoEd ? primary : black}
+        color={assembly.currentPage === InfoEd ? primary : black}
         size="1.8rem"
       />
     </InternalLink>

@@ -17,45 +17,45 @@ import Selection from "../primitives/Selection"
 import Heading from "../primitives/Heading"
 import PhotoPopout from "../primitives/PhotoPopout"
 
-const CoordinatorHome = observer(({ store }) => (
+const CoordinatorHome = observer(({ assembly }) => (
   <Layout>
     <span>
       { DateTime
         .local()
-        .setLocale(store.locale)
+        .setLocale(assembly.locale)
         .toLocaleString(DateTime.DATE_SIMPLE)
       }
     </span>
-    <Heading>{store.translate("coordinator.heading")}</Heading>
+    <Heading>{assembly.translate("coordinator.heading")}</Heading>
 
     <DailyReviewTable>
       <thead>
         <tr>
-          <th colSpan={1}>{store.translate("coordinator.participant_info")}</th>
-          <th colSpan={3}>{store.translate("coordinator.today")}</th>
-          <th colSpan={2}>{store.translate("coordinator.actions")}</th>
-          <th colSpan={2}>{store.translate("coordinator.treatment")}</th>
+          <th colSpan={1}>{assembly.translate("coordinator.participant_info")}</th>
+          <th colSpan={3}>{assembly.translate("coordinator.today")}</th>
+          <th colSpan={2}>{assembly.translate("coordinator.actions")}</th>
+          <th colSpan={2}>{assembly.translate("coordinator.treatment")}</th>
         </tr>
       </thead>
 
       <thead>
         <tr>
-          <th>{store.translate("coordinator.name")}</th>
+          <th>{assembly.translate("coordinator.name")}</th>
 
-          <th>{store.translate("coordinator.medication")}</th>
-          <th>{store.translate("coordinator.side_effects")}</th>
-          <th>{store.translate("coordinator.photo")}</th>
+          <th>{assembly.translate("coordinator.medication")}</th>
+          <th>{assembly.translate("coordinator.side_effects")}</th>
+          <th>{assembly.translate("coordinator.photo")}</th>
 
-          <th>{store.translate("coordinator.contact")}</th>
-          <th>{store.translate("coordinator.notes")}</th>
+          <th>{assembly.translate("coordinator.contact")}</th>
+          <th>{assembly.translate("coordinator.notes")}</th>
 
-          <th>{store.translate("coordinator.adherence")}</th>
-          <th>{store.translate("coordinator.start_date")}</th>
+          <th>{assembly.translate("coordinator.adherence")}</th>
+          <th>{assembly.translate("coordinator.start_date")}</th>
         </tr>
       </thead>
 
       <tbody>
-        {store.coordinator_registration.information.participants.map(participant =>
+        {assembly.coordinator_registration.information.participants.map(participant =>
           <tr key={participant.uuid} >
             <td>{participant.name}</td>
 
@@ -88,7 +88,7 @@ const CoordinatorHome = observer(({ store }) => (
                     <Selection
                       options={["positive", "negative"]}
                       update={() => strip_report.status}
-                      onChange={value => store.setPhotoStatus(strip_report.id, value)}
+                      onChange={value => assembly.setPhotoStatus(strip_report.id, value)}
                     />
                   </PhotoPopout>
                 )
@@ -115,7 +115,7 @@ const CoordinatorHome = observer(({ store }) => (
             <td>
               { DateTime
                 .fromISO(participant.treatment_start)
-                .setLocale(store.locale)
+                .setLocale(assembly.locale)
                 .toLocaleString(DateTime.DATE_SIMPLE)
               }
             </td>

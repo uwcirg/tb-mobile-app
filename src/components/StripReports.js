@@ -12,26 +12,26 @@ import { Image } from "reakit";
 
 import styled from "styled-components"
 
-const StripReports = observer(({ store }) => (
+const StripReports = observer(({ assembly }) => (
       <div>
         <Fold>
           <Question>
-            <Icon size="1.5rem" color={darkgrey} path={mdiCamera} /> 
-            {store.translate("progress.test_result")}
+            <Icon size="1.5rem" color={darkgrey} path={mdiCamera} />
+            {assembly.translate("progress.test_result")}
           </Question>
 
-          { store.registration.information.strip_reports.length === 0
+          { assembly.registration.information.strip_reports.length === 0
             ? <Answer>
-                <Info>{store.translate("progress.no_strip_reports")}</Info>
+                <Info>{assembly.translate("progress.no_strip_reports")}</Info>
               </Answer>
 
-            : store.registration.information.strip_reports.map(({created_at, photo, status}) => (
+            : assembly.registration.information.strip_reports.map(({created_at, photo, status}) => (
               <Answer>
                 <Time key={created_at}>
                   {DateTime.fromISO(created_at).toLocaleString(DateTime.DATETIME_SHORT)}
                 </Time>
                 <Info>
-                  {status || store.translate("progress.not_reviewed")}
+                  {status || assembly.translate("progress.not_reviewed")}
                 </Info>
                 <Image src={photo}>
                 </Image>

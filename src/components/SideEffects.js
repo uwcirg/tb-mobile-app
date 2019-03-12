@@ -12,29 +12,33 @@ import { Paragraph } from "reakit";
 
 import styled from "styled-components"
 
-const SideEffects = observer(({ store }) => (
+const SideEffects = observer(({ assembly }) => (
   <div>
     <Fold>
       <Question>
-        <Icon size="1.5rem" color={darkgrey} path={mdiFormatListChecks} /> 
-        {store.translate("progress.side_effect")}
+        <Icon size="1.5rem" color={darkgrey} path={mdiFormatListChecks} />
+        {assembly.translate("progress.side_effect")}
       </Question>
 
-      { store.registration.information.symptom_reports.length === 0
+      { assembly.registration.information.symptom_reports.length === 0
         ? <Answer>
-            <Info>{store.translate("progress.no_side_effects")}</Info>
+            <Info>{assembly.translate("progress.no_side_effects")}</Info>
           </Answer>
 
-        : store.registration.information.symptom_reports.map(({created_at, reported_symptoms}) => (
-          
+        : assembly.registration.information.symptom_reports.map((sr) => (
           // TODO: Sort by date and link reports
-          <Answer>
-            <Time key={created_at}>{DateTime
-            .fromISO(created_at)
-            .toLocaleString(DateTime.DATETIME_SHORT)}</Time>
-            {reported_symptoms.length !== 0 ? 
-            <Info key={reported_symptoms}>{reported_symptoms.join(", ")}</Info>
-            : <Info>{store.translate("progress.no_side_effects")}</Info>}
+          <Answer key={sr.created_at}>
+            <Time>
+              { DateTime
+                .fromISO(sr.created_at)
+                .toLocaleString(DateTime.DATETIME_SHORT)
+              }
+            </Time>
+
+            { sr.reported_symptoms.length !== 0
+            ? <Info>{sr.reported_symptoms.join(", ")}</Info>
+            : <Info>{assembly.translate("progress.no_side_effects")}</Info>
+            }
           </Answer>
       ))}
     </Fold>

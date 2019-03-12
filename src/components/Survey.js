@@ -21,7 +21,7 @@ import Help from "../primitives/Help"
 
 import IconKey from "./IconKey"
 
-const Survey = observer(({ store }) => (
+const Survey = observer(({ assembly }) => (
   <Tabs.Container>
     {state => (
       <Layout className="Survery-Layout">
@@ -40,44 +40,44 @@ const Survey = observer(({ store }) => (
             </Tab>
           </MultiButton>
 
-          <Help> <IconKey store={store} /> </Help>
+          <Help> <IconKey assembly={assembly} /> </Help>
         </Tabs>
 
         {/* Medication 1/1 */}
         <Tabs.Panel tab="medication" {...state} >
-          <ReportMedication store={store} />
+          <ReportMedication assembly={assembly} />
 
           <Tabs.Buttons
             backgroundColor={success_green}
-            store={store}
-            primary={store.translate("survey.continue")}
-            onPrimary={() => store.reportMedication()}
+            assembly={assembly}
+            text={assembly.translate("survey.continue")}
+            onClick={() => assembly.reportMedication()}
             {...state}
           />
         </Tabs.Panel>
 
         {/* Symptoms 2/3 */}
         <Tabs.Panel tab="symptoms" {...state} >
-          <ReportSymptoms store={store} />
+          <ReportSymptoms assembly={assembly} />
 
           <Tabs.Buttons
             backgroundColor={success_green}
-            store={store}
-            primary={store.translate("survey.continue")}
-            onPrimary={() => store.reportSymptoms()}
+            assembly={assembly}
+            text={assembly.translate("survey.continue")}
+            onClick={() => assembly.reportSymptoms()}
             {...state}
           />
         </Tabs.Panel>
 
         {/* Photo Upload 3/3 */}
         <Tabs.Panel tab="photo" {...state} >
-          <PhotoUpload store={store} />
+          <PhotoUpload assembly={assembly} />
 
           <Tabs.Buttons
             backgroundColor={success_green}
-            store={store}
-            primary={store.translate("survey.upload.continue")}
-            onPrimary={() => {}}
+            assembly={assembly}
+            text={assembly.translate("survey.upload.continue")}
+            onClick={() => {}}
             {...state}
           />
         </Tabs.Panel>

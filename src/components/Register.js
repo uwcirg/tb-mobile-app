@@ -10,53 +10,53 @@ import InternalLink from "../primitives/InternalLink"
 import Login from "./Login"
 import CoordinatorLogin from "./CoordinatorLogin"
 
-const Register = observer(({store}) => (
+const Register = observer(({assembly}) => (
   <Layout>
     <h2>
-      {store.translate("register.welcome")}
+      {assembly.translate("register.welcome")}
     </h2>
 
     <Form>
-      <label for="name">{store.translate("register.name")}</label>
+      <label for="name">{assembly.translate("register.name")}</label>
       <Field
         name="name"
-        value={store.registration.information.name || ""}
-        onChange={(e) => store.registration.information.name = e.target.value}
+        value={assembly.registration.information.name || ""}
+        onChange={(e) => assembly.registration.information.name = e.target.value}
       />
 
-      <label for="phone_number">{store.translate("register.phone_number")}</label>
+      <label for="phone_number">{assembly.translate("register.phone_number")}</label>
       <Field
         name="phone_number"
         type="tel"
-        value={store.registration.information.phone_number || ""}
-        onChange={(e) => store.registration.information.phone_number = e.target.value}
+        value={assembly.registration.information.phone_number || ""}
+        onChange={(e) => assembly.registration.information.phone_number = e.target.value}
       />
 
-      <label for="treatment_start">{store.translate("register.treatment_start")}</label>
+      <label for="treatment_start">{assembly.translate("register.treatment_start")}</label>
       <Field
         type="date"
-        value={store.registration.information.treatment_start || ""}
-        onChange={(e) => store.registration.information.treatment_start = e.target.value}
+        value={assembly.registration.information.treatment_start || ""}
+        onChange={(e) => assembly.registration.information.treatment_start = e.target.value}
       />
 
-      <label for="password">{store.translate("register.password")}</label>
+      <label for="password">{assembly.translate("register.password")}</label>
       <Field
         type="password"
-        value={store.registration.information.password || ""}
-        onChange={(e) => store.registration.information.password = e.target.value}
+        value={assembly.registration.information.password || ""}
+        onChange={(e) => assembly.registration.information.password = e.target.value}
       />
 
-      <Button onClick={() => store.register()}>
-        {store.translate("register.register")}
+      <Button onClick={() => assembly.register()}>
+        {assembly.translate("register.register")}
       </Button>
     </Form>
 
-    <InternalLink to={Login} store={store} >
-      {store.translate("register.link.login")}
+    <InternalLink to={Login} assembly={assembly} >
+      {assembly.translate("register.link.login")}
     </InternalLink>
 
-    <InternalLink to={CoordinatorLogin} store={store} >
-      {store.translate("login.link.coordinator_login")}
+    <InternalLink to={CoordinatorLogin} assembly={assembly} >
+      {assembly.translate("login.link.coordinator_login")}
     </InternalLink>
   </Layout>
 ))

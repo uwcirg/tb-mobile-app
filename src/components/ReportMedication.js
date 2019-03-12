@@ -11,54 +11,54 @@ import Selection from "../primitives/Selection"
 
 const translation_keys =  { true: "yes", false: "no" }
 
-const ReportMedication = observer(({ store }) => (
+const ReportMedication = observer(({ assembly }) => (
   <Layout>
-    <Heading>{store.translate("survey.tookMedication.title")}</Heading>
+    <Heading>{assembly.translate("survey.tookMedication.title")}</Heading>
 
     <Selection
       update={() =>
-          store.translate(
-            `primitives.yes_no.${translation_keys[store.survey_tookMedication]}`
+          assembly.translate(
+            `primitives.yes_no.${translation_keys[assembly.survey_tookMedication]}`
           )
       }
       options={
         Object.values(translation_keys).map((v) =>
-          store.translate(`primitives.yes_no.${v}`)
+          assembly.translate(`primitives.yes_no.${v}`)
         )
       }
-      onChange={(selection) => store.survey_tookMedication = (
+      onChange={(selection) => assembly.survey_tookMedication = (
         selection ===
-        store.translate(`primitives.yes_no.${translation_keys[true]}`)
+        assembly.translate(`primitives.yes_no.${translation_keys[true]}`)
       )}
     />
 
     <Provider theme={theme}>
       <div>
-        <Hidden visible={store.survey_tookMedication === false} >
+        <Hidden visible={assembly.survey_tookMedication === false} >
           <TextFieldLabel>
-            <span>{store.translate("survey.tookMedication.reason")}</span>
+            <span>{assembly.translate("survey.tookMedication.reason")}</span>
 
-            <TextInput 
-              use="textarea" 
-              value={store.survey_notTakingMedicationReason || ""}
-              onChange={(e) => store.survey_notTakingMedicationReason = e.target.value}
+            <TextInput
+              use="textarea"
+              value={assembly.survey_notTakingMedicationReason || ""}
+              onChange={(e) => assembly.survey_notTakingMedicationReason = e.target.value}
             />
           </TextFieldLabel>
         </Hidden>
 
-        <Hidden visible={store.survey_tookMedication === true} >
-          <p>{store.translate("survey.tookMedication.at")}</p>
+        <Hidden visible={assembly.survey_tookMedication === true} >
+          <p>{assembly.translate("survey.tookMedication.at")}</p>
 
           <TextInput
             type="date"
-            value={store.survey_date}
-            onChange={(e) => store.survey_date = e.target.value}
+            value={assembly.survey_date}
+            onChange={(e) => assembly.survey_date = e.target.value}
           />
 
           <TextInput
             type="time"
-            value={store.survey_medication_time}
-            onChange={(e) => store.survey_medication_time = e.target.value}
+            value={assembly.survey_medication_time}
+            onChange={(e) => assembly.survey_medication_time = e.target.value}
           />
         </Hidden>
       </div>

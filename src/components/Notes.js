@@ -7,37 +7,37 @@ import Fold from "../primitives/Fold"
 import { observer } from "mobx-react"
 import { DateTime } from "luxon"
 
-const Notes = observer(({ store }) => (
+const Notes = observer(({ assembly }) => (
   <Layout>
-    <h2>{store.currentPageTitle}</h2>
-    { store.noteDraft === null && store.noteTitle === null
-    ? <NewButton onClick={() => store.composeNote()}>
+    <h2>{assembly.currentPageTitle}</h2>
+    { assembly.noteDraft === null && assembly.noteTitle === null
+    ? <NewButton onClick={() => assembly.composeNote()}>
         <PlusIcon/>
-        {store.translate("notes.new")}
+        {assembly.translate("notes.new")}
       </NewButton>
 
     : <Draft>
         <TitleInput
-          placeholder={store.translate("notes.title")}
-          value={store.noteTitle}
-          onChange={e => store.noteTitle = e.target.value}
+          placeholder={assembly.translate("notes.title")}
+          value={assembly.noteTitle}
+          onChange={e => assembly.noteTitle = e.target.value}
         />
         <Input
-          placeholder={store.translate("notes.body")}
-          value={store.noteDraft}
-          onChange={e => store.noteDraft = e.target.value}
+          placeholder={assembly.translate("notes.body")}
+          value={assembly.noteDraft}
+          onChange={e => assembly.noteDraft = e.target.value}
         />
 
-        <NewButton onClick={() => store.saveNote()}>
+        <NewButton onClick={() => assembly.saveNote()}>
           <ContentSaveIcon/> Save
         </NewButton>
       </Draft>
     }
 
-    { store.registration.information.notes.length === 0
-      ? <Hint>{store.translate("notes.hint")}</Hint>
+    { assembly.registration.information.notes.length === 0
+      ? <Hint>{assembly.translate("notes.hint")}</Hint>
 
-      : store.registration.information.notes.map(({ id, title, created_at, text, updated_at }) => (
+      : assembly.registration.information.notes.map(({ id, title, created_at, text, updated_at }) => (
         <Note key={id}>
           <Note.Header>
             <Note.Title>{title}</Note.Title>
@@ -47,7 +47,7 @@ const Notes = observer(({ store }) => (
           <Note.Text>{text}</Note.Text>
 
           <Note.LastUpdated>
-            {store.translate("notes.last_edited")}
+            {assembly.translate("notes.last_edited")}
             {DateTime.fromISO(updated_at).toLocaleString(DateTime.DATETIME_SHORT)}
           </Note.LastUpdated>
         </Note>

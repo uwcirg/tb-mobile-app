@@ -8,112 +8,112 @@ import {
   List,
 } from "reakit"
 
-const SymptomOverview = observer(({ store }) => (
+const SymptomOverview = observer(({ assembly }) => (
   <Layout>
     <Title>
-      {store.translate("symptom_overview.title")}
+      {assembly.translate("symptom_overview.title")}
     </Title>
 
-    <P>{store.translate("symptom_overview.intro_1")}</P>
-    <P>{store.translate("symptom_overview.intro_2")}</P>
-    <P>{store.translate("symptom_overview.intro_3")}</P>
+    <P>{assembly.translate("symptom_overview.intro_1")}</P>
+    <P>{assembly.translate("symptom_overview.intro_2")}</P>
+    <P>{assembly.translate("symptom_overview.intro_3")}</P>
 
     <Fold>
       <Heading>
-        {store.translate("symptom_overview.call_your_doctor_if")}
+        {assembly.translate("symptom_overview.call_your_doctor_if")}
       </Heading>
 
       <Bullets>
-        <Bullet>{store.translate("survey.symptoms.difficulty_breathing")}</Bullet>
-        <Bullet>{store.translate("survey.symptoms.facial_swelling")}</Bullet>
+        <Bullet>{assembly.translate("survey.symptoms.difficulty_breathing")}</Bullet>
+        <Bullet>{assembly.translate("survey.symptoms.facial_swelling")}</Bullet>
       </Bullets>
     </Fold>
 
     <Fold>
       <Heading>
-        {store.translate("symptom_overview.grave_symptoms")}
+        {assembly.translate("symptom_overview.grave_symptoms")}
       </Heading>
 
       <Bullets>
-        <Bullet>{store.translate("symptom_overview.serio.failing_appetite")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.serio.nausea")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.serio.vomiting")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.serio.yellow_coloration")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.serio.fever_3_or_more_days")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.serio.abdominal_pain")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.serio.placeholder_1")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.serio.placeholder_2")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.serio.placeholder_3")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.serio.placeholder_4")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.serio.placeholder_5")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.serio.placeholder_6")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.serio.placeholder_7")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.serio.placeholder_8")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.serio.joint_pain")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.serio.placeholder_9")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.serio.placeholder_10")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.serio.changes_in_vision")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.serio.placeholder_11")}</Bullet>
-        <Bullet>{store.translate("symptom_overview.serio.loss_of_hearing")}</Bullet>
+        <Bullet>{assembly.translate("symptom_overview.serio.failing_appetite")}</Bullet>
+        <Bullet>{assembly.translate("symptom_overview.serio.nausea")}</Bullet>
+        <Bullet>{assembly.translate("symptom_overview.serio.vomiting")}</Bullet>
+        <Bullet>{assembly.translate("symptom_overview.serio.yellow_coloration")}</Bullet>
+        <Bullet>{assembly.translate("symptom_overview.serio.fever_3_or_more_days")}</Bullet>
+        <Bullet>{assembly.translate("symptom_overview.serio.abdominal_pain")}</Bullet>
+        <Bullet>{assembly.translate("symptom_overview.serio.placeholder_1")}</Bullet>
+        <Bullet>{assembly.translate("symptom_overview.serio.placeholder_2")}</Bullet>
+        <Bullet>{assembly.translate("symptom_overview.serio.placeholder_3")}</Bullet>
+        <Bullet>{assembly.translate("symptom_overview.serio.placeholder_4")}</Bullet>
+        <Bullet>{assembly.translate("symptom_overview.serio.placeholder_5")}</Bullet>
+        <Bullet>{assembly.translate("symptom_overview.serio.placeholder_6")}</Bullet>
+        <Bullet>{assembly.translate("symptom_overview.serio.placeholder_7")}</Bullet>
+        <Bullet>{assembly.translate("symptom_overview.serio.placeholder_8")}</Bullet>
+        <Bullet>{assembly.translate("symptom_overview.serio.joint_pain")}</Bullet>
+        <Bullet>{assembly.translate("symptom_overview.serio.placeholder_9")}</Bullet>
+        <Bullet>{assembly.translate("symptom_overview.serio.placeholder_10")}</Bullet>
+        <Bullet>{assembly.translate("symptom_overview.serio.changes_in_vision")}</Bullet>
+        <Bullet>{assembly.translate("symptom_overview.serio.placeholder_11")}</Bullet>
+        <Bullet>{assembly.translate("symptom_overview.serio.loss_of_hearing")}</Bullet>
       </Bullets>
     </Fold>
 
     <Fold>
       <Heading>
-        {store.translate("symptom_overview.q2.heading")}
+        {assembly.translate("symptom_overview.q2.heading")}
       </Heading>
 
       <P>
-        {store.translate("symptom_overview.q2.take_medication")}
+        {assembly.translate("symptom_overview.q2.take_medication")}
       </P>
 
       <P>
-        {store.translate("symptom_overview.q2.rifampicina")}
+        {assembly.translate("symptom_overview.q2.rifampicina")}
       </P>
 
       <Bullets>
         <Bullet>
-          {store.translate("symptom_overview.q2.bullet_1")}
+          {assembly.translate("symptom_overview.q2.bullet_1")}
         </Bullet>
 
         <Bullet>
-          {store.translate("symptom_overview.q2.bullet_2")}
+          {assembly.translate("symptom_overview.q2.bullet_2")}
         </Bullet>
 
         <Bullet>
-          {store.translate("symptom_overview.q2.bullet_3")}
+          {assembly.translate("symptom_overview.q2.bullet_3")}
         </Bullet>
 
         <Bullet>
-          {store.translate("symptom_overview.q2.bullet_4")}
+          {assembly.translate("symptom_overview.q2.bullet_4")}
         </Bullet>
       </Bullets>
     </Fold>
 
     <Fold>
       <Heading>
-        {store.translate("symptom_overview.q3.heading")}
+        {assembly.translate("symptom_overview.q3.heading")}
       </Heading>
 
       <Bullets>
         <Bullet>
-          {store.translate("symptom_overview.q3.bullet_1")}
+          {assembly.translate("symptom_overview.q3.bullet_1")}
         </Bullet>
 
         <Bullet>
-          {store.translate("symptom_overview.q3.bullet_2")}
+          {assembly.translate("symptom_overview.q3.bullet_2")}
         </Bullet>
 
         <Bullet>
-          {store.translate("symptom_overview.q3.bullet_3")}
+          {assembly.translate("symptom_overview.q3.bullet_3")}
         </Bullet>
 
         <Bullet>
-          {store.translate("symptom_overview.q3.bullet_4")}
+          {assembly.translate("symptom_overview.q3.bullet_4")}
         </Bullet>
 
         <Bullet>
-          {store.translate("symptom_overview.q3.bullet_5")}
+          {assembly.translate("symptom_overview.q3.bullet_5")}
         </Bullet>
       </Bullets>
     </Fold>

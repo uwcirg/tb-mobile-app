@@ -14,26 +14,26 @@ import styled from "styled-components"
 
 const total_treatment_days = 25;
 
-const Progress = observer(({store}) => (
+const Progress = observer(({assembly}) => (
     <Provider theme={theme}>
         <div>
-          <h2>{store.translate("progress.title")}</h2>
+          <h2>{assembly.translate("progress.title")}</h2>
         <ProgressBarContainer>
           <TreatmentProgress>
             {/* TODO: Link the data to this number */}
             <Percentage>{total_treatment_days}</Percentage>
 
             <TreatmentDays>
-              <strong>{store.translate("progress.days")}</strong>
+              <strong>{assembly.translate("progress.days")}</strong>
             </TreatmentDays>
           </TreatmentProgress>
         </ProgressBarContainer>
 
         <Divider />
 
-        <MedicationReports store={store}/>
-        <SideEffects store={store}/>
-        <StripReports store={store}/>
+        <MedicationReports assembly={assembly}/>
+        <SideEffects assembly={assembly}/>
+        <StripReports assembly={assembly}/>
 
         </div>
 

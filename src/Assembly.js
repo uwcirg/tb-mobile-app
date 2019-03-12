@@ -287,16 +287,16 @@ class Assembly extends React.Component {
   reportMedication() {
     if (this.survey_tookMedication != null) {
       this.registration.create(
-        "medication_reports", 
-        { 
+        "medication_reports",
+        {
           timestamp: `${this.survey_date}T${this.survey_medication_time}:00.000`,
           took_medication: this.survey_tookMedication,
-          not_taking_medication_reason: this.survey_notTakingMedicationReason 
+          not_taking_medication_reason: this.survey_notTakingMedicationReason,
         },
-        this.registration.information.uuid
+        this.registration.information.uuid,
       )
     }
-    
+
     this.survey_date = DateTime.local().setLocale(this.locale).toISODate();
     this.survey_medication_time = DateTime.local().setLocale(this.locale).toLocaleString(DateTime.TIME_24_SIMPLE)
     this.survey_tookMedication = null
@@ -304,7 +304,7 @@ class Assembly extends React.Component {
   }
 
   reportSymptoms() {
-    this.registration.create("symptom_reports", this.symptoms, 
+    this.registration.create("symptom_reports", this.symptoms,
                             this.registration.information.uuid)
 
     this.survey_anySymptoms = null;
@@ -363,13 +363,13 @@ class Assembly extends React.Component {
   render = () => (
     <Layout>
       <AuthBar>
-        <InternalLink to={Login} store={this} >
+        <InternalLink to={Login} assembly={this} >
           <Image src={logo} width="1.5rem" height="1.5rem"/>
           <Title>{this.currentPageTitle}</Title>
         </InternalLink>
 
         <WhenAuthenticated account={this} >
-          <Menu store={this} />
+          <Menu assembly={this} />
         </WhenAuthenticated>
 
         <Drawer>
@@ -389,15 +389,15 @@ class Assembly extends React.Component {
 
       <Content>
         <Observer>
-          {() => React.createElement(this.currentPage, { store: this })}
+          {() => React.createElement(this.currentPage, { assembly: this })}
         </Observer>
       </Content>
-      
+
       <Space />
 
       <WhenAuthenticated account={this} >
         <NavBar>
-          <Navigation store={this} />
+          <Navigation assembly={this} />
         </NavBar>
       </WhenAuthenticated>
     </Layout>

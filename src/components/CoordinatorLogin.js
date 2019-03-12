@@ -11,40 +11,40 @@ import InternalLink from "../primitives/InternalLink"
 import CoordinatorRegister from "./CoordinatorRegister"
 import Login from "./Login"
 
-const CoordinatorLogin = observer(({store}) => (
+const CoordinatorLogin = observer(({assembly}) => (
   <Layout>
     <h2>
-      {store.translate("coordinator_login.welcome")}
+      {assembly.translate("coordinator_login.welcome")}
     </h2>
 
-    <p>{store.translate("coordinator_login.context")}</p>
+    <p>{assembly.translate("coordinator_login.context")}</p>
 
     <Form>
       <Field
         type="tel"
-        placeholder={store.translate("coordinator_login.email")}
-        value={store.coordinator_login_credentials.email}
-        onChange={(e) => store.coordinator_login_credentials.email = e.target.value}
+        placeholder={assembly.translate("coordinator_login.email")}
+        value={assembly.coordinator_login_credentials.email}
+        onChange={(e) => assembly.coordinator_login_credentials.email = e.target.value}
       />
 
       <Field
         type="password"
-        placeholder={store.translate("coordinator_login.password")}
-        value={store.coordinator_login_credentials.password}
-        onChange={(e) => store.coordinator_login_credentials.password = e.target.value}
+        placeholder={assembly.translate("coordinator_login.password")}
+        value={assembly.coordinator_login_credentials.password}
+        onChange={(e) => assembly.coordinator_login_credentials.password = e.target.value}
       />
 
-      <Button onClick={() => store.coordinator_login()}>
-        {store.translate("coordinator_login.go")}
+      <Button onClick={() => assembly.coordinator_login()}>
+        {assembly.translate("coordinator_login.go")}
       </Button>
     </Form>
 
-    <InternalLink to={CoordinatorRegister} store={store} >
-      {store.translate("coordinator_login.link.register")}
+    <InternalLink to={CoordinatorRegister} assembly={assembly} >
+      {assembly.translate("coordinator_login.link.register")}
     </InternalLink>
 
-    <InternalLink to={Login} store={store} >
-      {store.translate("coordinator_register.link.patient_login")}
+    <InternalLink to={Login} assembly={assembly} >
+      {assembly.translate("coordinator_register.link.patient_login")}
     </InternalLink>
   </Layout>
 ))

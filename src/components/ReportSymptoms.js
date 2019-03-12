@@ -24,48 +24,48 @@ import nausea_10 from "../images/nausea_scale_10.png"
 
 const translation_keys =  { true: "yes", false: "no" }
 
-const ReportSymptoms = observer(({ store, survey }) => (
+const ReportSymptoms = observer(({ assembly, survey }) => (
   <Layout>
-    <Heading>{store.translate("survey.symptoms.title")}</Heading>
+    <Heading>{assembly.translate("survey.symptoms.title")}</Heading>
 
     <Selection
       update={() =>
-          store.translate(
-            `primitives.yes_no.${translation_keys[store.survey_anySymptoms]}`
+          assembly.translate(
+            `primitives.yes_no.${translation_keys[assembly.survey_anySymptoms]}`
           )
       }
       options={
         Object.values(translation_keys).map((v) =>
-          store.translate(`primitives.yes_no.${v}`)
+          assembly.translate(`primitives.yes_no.${v}`)
         )
       }
-      onChange={(selection) => store.survey_anySymptoms = (
+      onChange={(selection) => assembly.survey_anySymptoms = (
         selection ===
-        store.translate(`primitives.yes_no.${translation_keys[true]}`)
+        assembly.translate(`primitives.yes_no.${translation_keys[true]}`)
       )}
     />
 
-    <Hidden visible={store.survey_anySymptoms} >
-      <strong><p>{store.translate("survey.symptoms.prompt")}</p></strong>
+    <Hidden visible={assembly.survey_anySymptoms} >
+      <strong><p>{assembly.translate("survey.symptoms.prompt")}</p></strong>
 
       <Label>
         <Checkbox
-          checked={store.symptoms.nausea}
+          checked={assembly.symptoms.nausea}
           onChange={(e) => {
-            store.symptoms.nausea = e.target.checked
-            store.symptoms.nausea_rating = 0
+            assembly.symptoms.nausea = e.target.checked
+            assembly.symptoms.nausea_rating = 0
           }}
         />
 
-        <span>{store.translate("survey.symptoms.nausea")}</span>
+        <span>{assembly.translate("survey.symptoms.nausea")}</span>
 
-        <Hidden visible={store.symptoms.nausea} >
-          {store.symptoms.nausea_rating} / 10
+        <Hidden visible={assembly.symptoms.nausea} >
+          {assembly.symptoms.nausea_rating} / 10
         </Hidden>
 
-        <Callout visible={store.symptoms.nausea && !store.symptoms.nausea_rating}>
+        <Callout visible={assembly.symptoms.nausea && !assembly.symptoms.nausea_rating}>
           <ImageLineup
-            store={store}
+            assembly={assembly}
             images={{
               0: nausea_0,
               2: nausea_2,
@@ -75,15 +75,15 @@ const ReportSymptoms = observer(({ store, survey }) => (
               10: nausea_10,
             }}
             alts={{
-              0: store.translate("survey.symptoms.nausea_ratings.0"),
-              2: store.translate("survey.symptoms.nausea_ratings.2"),
-              4: store.translate("survey.symptoms.nausea_ratings.4"),
-              6: store.translate("survey.symptoms.nausea_ratings.6"),
-              8: store.translate("survey.symptoms.nausea_ratings.8"),
-              10: store.translate("survey.symptoms.nausea_ratings.10"),
+              0: assembly.translate("survey.symptoms.nausea_ratings.0"),
+              2: assembly.translate("survey.symptoms.nausea_ratings.2"),
+              4: assembly.translate("survey.symptoms.nausea_ratings.4"),
+              6: assembly.translate("survey.symptoms.nausea_ratings.6"),
+              8: assembly.translate("survey.symptoms.nausea_ratings.8"),
+              10: assembly.translate("survey.symptoms.nausea_ratings.10"),
             }}
             onSelect={(selection) => {
-              store.symptoms.nausea_rating = selection
+              assembly.symptoms.nausea_rating = selection
             }}
           />
         </Callout>
@@ -91,10 +91,10 @@ const ReportSymptoms = observer(({ store, survey }) => (
 
       <Label>
         <Checkbox
-          checked={store.symptoms.redness}
-          onChange={(e) => store.symptoms.redness = e.target.checked}
+          checked={assembly.symptoms.redness}
+          onChange={(e) => assembly.symptoms.redness = e.target.checked}
         />
-        <span>{store.translate("survey.symptoms.redness")}</span>
+        <span>{assembly.translate("survey.symptoms.redness")}</span>
 
         <Help>
           <Image
@@ -106,10 +106,10 @@ const ReportSymptoms = observer(({ store, survey }) => (
 
       <Label>
         <Checkbox
-          checked={store.symptoms.hives}
-          onChange={(e) => store.symptoms.hives = e.target.checked}
+          checked={assembly.symptoms.hives}
+          onChange={(e) => assembly.symptoms.hives = e.target.checked}
         />
-        <span>{store.translate("survey.symptoms.hives")}</span>
+        <span>{assembly.translate("survey.symptoms.hives")}</span>
 
         <Help>
           <Image
@@ -121,67 +121,67 @@ const ReportSymptoms = observer(({ store, survey }) => (
 
       <Label>
         <Checkbox
-          checked={store.symptoms.fever}
-          onChange={(e) => store.symptoms.fever = e.target.checked}
+          checked={assembly.symptoms.fever}
+          onChange={(e) => assembly.symptoms.fever = e.target.checked}
         />
-        <span>{store.translate("survey.symptoms.fever")}</span>
+        <span>{assembly.translate("survey.symptoms.fever")}</span>
       </Label>
 
       <Label>
         <Checkbox
-          checked={store.symptoms.appetite_loss}
-          onChange={(e) => store.symptoms.appetite_loss = e.target.checked}
+          checked={assembly.symptoms.appetite_loss}
+          onChange={(e) => assembly.symptoms.appetite_loss = e.target.checked}
         />
-        <span>{store.translate("survey.symptoms.appetite_loss")}</span>
+        <span>{assembly.translate("survey.symptoms.appetite_loss")}</span>
       </Label>
 
       <Label>
         <Checkbox
-          checked={store.symptoms.blurred_vision}
-          onChange={(e) => store.symptoms.blurred_vision = e.target.checked}
+          checked={assembly.symptoms.blurred_vision}
+          onChange={(e) => assembly.symptoms.blurred_vision = e.target.checked}
         />
-        <span>{store.translate("survey.symptoms.blurred_vision")}</span>
+        <span>{assembly.translate("survey.symptoms.blurred_vision")}</span>
       </Label>
 
       <Label>
         <Checkbox
-          checked={store.symptoms.sore_belly}
-          onChange={(e) => store.symptoms.sore_belly = e.target.checked}
+          checked={assembly.symptoms.sore_belly}
+          onChange={(e) => assembly.symptoms.sore_belly = e.target.checked}
         />
-        <span>{store.translate("survey.symptoms.upset_stomach")}</span>
+        <span>{assembly.translate("survey.symptoms.upset_stomach")}</span>
       </Label>
 
       <Label>
         <Checkbox
-          checked={store.symptoms.yellow_coloration}
-          onChange={(e) => store.symptoms.yellow_coloration = e.target.checked}
+          checked={assembly.symptoms.yellow_coloration}
+          onChange={(e) => assembly.symptoms.yellow_coloration = e.target.checked}
         />
-        <span>{store.translate("survey.symptoms.yellow_coloration")}</span>
+        <span>{assembly.translate("survey.symptoms.yellow_coloration")}</span>
       </Label>
 
       <Label>
         <Checkbox
-          checked={store.symptoms.difficulty_breathing}
-          onChange={(e) => store.symptoms.difficulty_breathing = e.target.checked}
+          checked={assembly.symptoms.difficulty_breathing}
+          onChange={(e) => assembly.symptoms.difficulty_breathing = e.target.checked}
         />
-        <span>{store.translate("survey.symptoms.difficulty_breathing")}</span>
+        <span>{assembly.translate("survey.symptoms.difficulty_breathing")}</span>
       </Label>
 
       <Label>
         <Checkbox
-          checked={store.symptoms.facial_swelling}
-          onChange={(e) => store.symptoms.facial_swelling = e.target.checked}
+          checked={assembly.symptoms.facial_swelling}
+          onChange={(e) => assembly.symptoms.facial_swelling = e.target.checked}
         />
-        <span>{store.translate("survey.symptoms.facial_swelling")}</span>
+        <span>{assembly.translate("survey.symptoms.facial_swelling")}</span>
       </Label>
 
       <Provider theme={theme}>
         <TextFieldLabel>
-          {store.translate("survey.symptoms.other")}
+          {assembly.translate("survey.symptoms.other")}
 
           <TextInput
-            value={store.symptoms.other || ""}
-            onChange={e => store.symptoms.other = e.target.value}
+            value={assembly.symptoms.other || ""}
+            onChange={e => assembly.symptoms.other = e.target.value}
           />
         </TextFieldLabel>
       </Provider>

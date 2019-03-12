@@ -12,9 +12,9 @@ import styled from "styled-components"
 //
 // <Selection
 //   // How to tell what option is selected
-//   update={() => store.language}
+//   update={() => assembly.language}
 //   options={["Español", "English"]}
-//   onChange={(selection) => store.language = selection}
+//   onChange={(selection) => assembly.language = selection}
 // />
 
 const Selection = observer(({update, options, onChange}) => (

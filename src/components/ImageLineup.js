@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { Image } from "reakit"
 import { observer } from "mobx-react"
 
-const ImageLineup = observer(({ store, images, alts, onSelect }) => (
+const ImageLineup = observer(({ assembly, images, alts, onSelect }) => (
   <Layout>
     { Object.keys(images).map((value) => (
       <div key={value}>

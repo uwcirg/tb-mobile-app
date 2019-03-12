@@ -1,6 +1,6 @@
 import React from "react"
 
-export default ({ store, to, children, ...props }) => (
+export default ({ assembly, to, children, ...props }) => (
   <a
     onClick={e => {
       if(e.metaKey || e.ctrlKey)
@@ -11,7 +11,7 @@ export default ({ store, to, children, ...props }) => (
         // The user wants to open the page in the current tab;
         // use single-page-app routing for a quick page load.
         e.preventDefault()
-        store.currentPage = to
+        assembly.currentPage = to
       }
     }}
 

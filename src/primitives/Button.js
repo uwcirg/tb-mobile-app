@@ -7,9 +7,9 @@ import { primary, white } from "../colors"
 
 // Few people install buttons that aren't intended to be used.
 
-// A straightforward approach is to place some generic bahavior in the store,
+// A straightforward approach is to place some generic bahavior in the assembly,
 // give this button a name,
-// and then have the store respond to this button's name
+// and then have the assembly respond to this button's name
 // by running the behaivor.
 
 export default styled(Button)`

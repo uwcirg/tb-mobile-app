@@ -46,9 +46,9 @@ const DateCell = styled.div`
   padding-top: 0.5rem;
 `
 
-const AdherenceCalendar = observer(({ store }) => (
+const AdherenceCalendar = observer(({ assembly }) => (
   <Calendar
-    locale={{ "Español": "es", "English": "en" }[store.language]}
+    locale={{ "Español": "es", "English": "en" }[assembly.language]}
     minDetail="year"
     tileContent={
       ({ date, view }) => (
@@ -56,7 +56,7 @@ const AdherenceCalendar = observer(({ store }) => (
           date={date}
           medication_report={
             view === 'month' &&
-              store.registration.information.medication_reports.find(mr =>
+              assembly.registration.information.medication_reports.find(mr =>
                 mr.timestamp.replace(/T.+$/, "") === date.toJSON().replace(/T.+$/, "")
               )
           }

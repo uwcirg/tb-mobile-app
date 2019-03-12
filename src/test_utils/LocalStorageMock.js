@@ -4,23 +4,23 @@
 
 class LocalStorageMock {
   constructor() {
-    this.store = {};
+    this.assembly = {};
   }
 
   clear() {
-    this.store = {};
+    this.assembly = {};
   }
 
   getItem(key) {
-    return this.store[key] || null;
+    return this.assembly[key] || null;
   }
 
   setItem(key, value) {
-    this.store[key] = value.toString();
+    this.assembly[key] = value.toString();
   }
 
   removeItem(key) {
-    delete this.store[key];
+    delete this.assembly[key];
   }
 };
 

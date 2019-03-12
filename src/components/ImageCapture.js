@@ -30,7 +30,7 @@ class ImageCapture extends React.Component {
       .mediaDevices
       .getUserMedia({ video: { facingMode: "environment" }, audio: false})
       .then((stream) => this.stream = stream)
-      .catch((err) => this.props.store.alert("An error occured! " + err))
+      .catch((err) => this.props.assembly.alert("An error occured! " + err))
   }
 
   render() {
@@ -71,11 +71,11 @@ class ImageCapture extends React.Component {
               accept={["image/jpeg", "image/png"]}
               onDrop={(acceptedFiles, rejectedFiles) => {
                 console.log(rejectedFiles)
-                acceptedFiles.forEach(file => this.props.store.storePhoto(file))
+                acceptedFiles.forEach(file => this.props.assembly.storePhoto(file))
               } }
             >
               <Instructions>
-                <p>{this.props.store.translate("survey.upload.click_here")}</p>
+                <p>{this.props.assembly.translate("survey.upload.click_here")}</p>
                 <Icon size="2rem" color={darkgrey} path={mdiImage} />
               </Instructions>
             </DropZone>

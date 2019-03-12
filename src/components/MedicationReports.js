@@ -12,32 +12,32 @@ import { Paragraph } from "reakit";
 
 import styled from "styled-components"
 
-const MedicationReports = observer(({ store }) => (
+const MedicationReports = observer(({ assembly }) => (
   <div>
     <Fold>
 
     <Question>
       <Icon size="1.5rem" color={darkgrey} path={mdiPill} />
-      {store.translate("progress.medication")}
+      {assembly.translate("progress.medication")}
     </Question>
 
-    { store.registration.information.medication_reports.length === 0
+    { assembly.registration.information.medication_reports.length === 0
       ? <Answer>
-          <Info>{store.translate("progress.no_medication_reports")}</Info>
+          <Info>{assembly.translate("progress.no_medication_reports")}</Info>
         </Answer>
 
-      : store.registration.information.medication_reports.map(({timestamp, id, took_medication,
+      : assembly.registration.information.medication_reports.map(({timestamp, id, took_medication,
         not_taking_medication_reason}) => (
-        
+
         // TODO: Sort by date and link reports
         <Answer>
           <Time key={id}>{DateTime.fromISO(timestamp).toLocaleString(DateTime.DATETIME_SHORT)}</Time>
-          
+
           <Info key={took_medication}>
-                {store.translate("progress.took_medication")}
+                {assembly.translate("progress.took_medication")}
                 { took_medication
-                ? store.translate("progress.took_medication_yes")
-                : store.translate("progress.took_medication_no") + not_taking_medication_reason
+                ? assembly.translate("progress.took_medication_yes")
+                : assembly.translate("progress.took_medication_no") + not_taking_medication_reason
                 }
           </Info>
         </Answer>

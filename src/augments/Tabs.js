@@ -9,19 +9,19 @@ import Home from "../components/Home"
 // TODO this is too complex; it is marked as deprecated.
 // Use of this component will not be supported
 // in future versions of the Assemble framework.
-Tabs.Buttons = observer(({ primary, secondary, onPrimary, onSecondary, store, ...state }) => (
+Tabs.Buttons = observer(({ text, onClick, assembly, ...state }) => (
   <ButtonLayout>
     <Button
       as={Tabs.Next}
       {...state}
       onClick={() => {
-        onPrimary && onPrimary()
+        onClick && onClick()
 
         if(state.current === state.ids.length - 1)
-          store.currentPage = Home
+          assembly.currentPage = Home
       } }
     >
-      {primary}
+      {text}
     </Button>
   </ButtonLayout>
 ))

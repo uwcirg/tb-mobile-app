@@ -12,40 +12,40 @@ import { mdiCheckCircle } from "@mdi/js"
 
 import ImageCapture from "./ImageCapture"
 
-const PhotoUpload = observer(({ store }) => (
+const PhotoUpload = observer(({ assembly }) => (
   <Layout>
-    <Heading>{store.translate("survey.upload.title")}</Heading>
+    <Heading>{assembly.translate("survey.upload.title")}</Heading>
 
     <Fold>
-      <Title>{store.translate("survey.upload.instructions.heading")}</Title>
-      <p>{store.translate("survey.upload.instructions.intro")}</p>
+      <Title>{assembly.translate("survey.upload.instructions.heading")}</Title>
+      <p>{assembly.translate("survey.upload.instructions.intro")}</p>
 
       <ul>
-        <li>{store.translate("survey.upload.instructions.1")}</li>
-        <li>{store.translate("survey.upload.instructions.2")}</li>
-        <li>{store.translate("survey.upload.instructions.3")}</li>
-        <li>{store.translate("survey.upload.instructions.4")}</li>
-        <li>{store.translate("survey.upload.instructions.5")}</li>
-        <li>{store.translate("survey.upload.instructions.6")}</li>
+        <li>{assembly.translate("survey.upload.instructions.1")}</li>
+        <li>{assembly.translate("survey.upload.instructions.2")}</li>
+        <li>{assembly.translate("survey.upload.instructions.3")}</li>
+        <li>{assembly.translate("survey.upload.instructions.4")}</li>
+        <li>{assembly.translate("survey.upload.instructions.5")}</li>
+        <li>{assembly.translate("survey.upload.instructions.6")}</li>
       </ul>
     </Fold>
 
     <div>
-      { store.capturing
+      { assembly.capturing
       ? <ImageCapture
-          store={store}
-          onCapture={(image) => store.storePhoto(image) }
+          assembly={assembly}
+          onCapture={(image) => assembly.storePhoto(image) }
         />
-      : <Button onClick={() => store.capturing = true}>
-          {store.translate("survey.upload.click_here")}
+      : <Button onClick={() => assembly.capturing = true}>
+          {assembly.translate("survey.upload.click_here")}
         </Button>
         }
     </div>
 
     <ImagePreviews className="ImagePreviews">
-      {store.photos_uploaded.map(image =>
+      {assembly.photos_uploaded.map(image =>
         <Image key={image}>
-          <img src={image} alt={store.translate("survey.upload.finished")} />
+          <img src={image} alt={assembly.translate("survey.upload.finished")} />
           <ConfirmationIcon />
         </Image>
       )}
