@@ -27,6 +27,11 @@ const Calendar = styled(ReactCalendar)`
     text-decoration: underline;
     font-size: 1.2rem;
   }
+
+  & button {
+    background: none;
+    border: none;
+  }
 `
 
 const DateCell = styled.div`
