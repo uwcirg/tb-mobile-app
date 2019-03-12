@@ -28,9 +28,11 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",
-    "eject": "react-app-rewired eject"
+    "eject": "react-app-rewired eject",
+    "demo": "docker-compose down && docker-compose up -d && docker-compose exec web rake db:create db:migrate && sleep 10 && docker-compose ps && taiko script/coordinator/register.js --observe && taiko script/participant/register.js --observe"
   },
   "devDependencies": {
-    "babel-preset-react": "^6.24.1"
+    "babel-preset-react": "^6.24.1",
+    "taiko": "^0.6.0"
   }
 }
