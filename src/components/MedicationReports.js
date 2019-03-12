@@ -13,31 +13,38 @@ import { Paragraph } from "reakit";
 import styled from "styled-components"
 
 const MedicationReports = observer(({ store }) => (
-      <div>
-        <Fold>
+  <div>
+    <Fold>
 
-        <Question>
-        <Icon size="1.5rem" color={darkgrey} path={mdiPill} /> {store.translate("progress.medication")}
-        </Question>
+    <Question>
+      <Icon size="1.5rem" color={darkgrey} path={mdiPill} />
+      {store.translate("progress.medication")}
+    </Question>
 
-        { store.registration.information.medication_reports.length === 0
-          ? <Answer>
-              {/* TODO: Translate */}
-              <Info>No Medication Reports</Info>
-            </Answer>
+    { store.registration.information.medication_reports.length === 0
+      ? <Answer>
+          <Info>{store.translate("progress.no_medication_reports")}</Info>
+        </Answer>
 
-          : store.registration.information.medication_reports.map(({timestamp, id, took_medication,
-            not_taking_medication_reason}) => (
-            
-            // TODO: Sort by date and link reports
-            <Answer>
-              <Time key={id}>{DateTime.fromISO(timestamp).toLocaleString(DateTime.DATETIME_SHORT)}</Time>
-              <Info key={took_medication}>Took Medication: {took_medication && "Yes"} {!took_medication && "No, I reported \"" + not_taking_medication_reason + "\""}</Info>
-            </Answer>
-        ))}
+      : store.registration.information.medication_reports.map(({timestamp, id, took_medication,
+        not_taking_medication_reason}) => (
+        
+        // TODO: Sort by date and link reports
+        <Answer>
+          <Time key={id}>{DateTime.fromISO(timestamp).toLocaleString(DateTime.DATETIME_SHORT)}</Time>
+          
+          <Info key={took_medication}>
+                {store.translate("progress.took_medication")}
+                { took_medication
+                ? store.translate("progress.took_medication_yes")
+                : store.translate("progress.took_medication_no") + not_taking_medication_reason
+                }
+          </Info>
+        </Answer>
+    ))}
 
-        </Fold>
-      </div>
+    </Fold>
+  </div>
 ))
 
 const Answer = styled.div`

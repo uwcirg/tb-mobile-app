@@ -356,6 +356,33 @@ export default {
     Test Result History (es)
     `,
 
+    no_medication_reports: `
+    No Medication Reports (es)
+    `,
+
+    no_side_effects: `
+    No Side Effects Reported (es)
+    `,
+
+    no_strip_reports: `
+    No Strip Reports Submitted (es)
+    `,
+
+    not_reviewed: `
+    Not Reviewed Yet (es)
+    `,
+
+    took_medication: `
+    Took Medication (es):
+    `,
+
+    took_medication_yes: `
+    Sí
+    `,
+
+    took_medication_no: `
+    No; 
+    `,
   },
 
   notes: {

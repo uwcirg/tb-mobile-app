@@ -39,6 +39,7 @@ import Notes from "./components/Notes"
 import SymptomOverview from "./components/SymptomOverview"
 
 import InternalLink from "./primitives/InternalLink"
+import WhenAuthenticated from "./primitives/WhenAuthenticated"
 
 // Language
 import espanol from "./languages/es"
@@ -296,8 +297,8 @@ class Assembly extends React.Component {
       )
     }
     
-    this.survey_date = null
-    this.survey_medication_time = null
+    this.survey_date = DateTime.local().setLocale(this.locale).toISODate();
+    this.survey_medication_time = DateTime.local().setLocale(this.locale).toLocaleString(DateTime.TIME_24_SIMPLE)
     this.survey_tookMedication = null
     this.survey_notTakingMedicationReason = null
   }
@@ -306,7 +307,6 @@ class Assembly extends React.Component {
     this.registration.create("symptom_reports", this.symptoms, 
                             this.registration.information.uuid)
 
-    // Lousy way of reverting the survey back to normal
     this.survey_anySymptoms = null;
     this.symptoms = {
       nausea: false,
@@ -363,12 +363,14 @@ class Assembly extends React.Component {
   render = () => (
     <Layout>
       <AuthBar>
-        <InternalLink to={Home} store={this} >
+        <InternalLink to={Login} store={this} >
           <Image src={logo} width="1.5rem" height="1.5rem"/>
           <Title>{this.currentPageTitle}</Title>
         </InternalLink>
 
-        <Menu store={this} />
+        <WhenAuthenticated account={this} >
+          <Menu store={this} />
+        </WhenAuthenticated>
 
         <Drawer>
           <Observer>
@@ -392,15 +394,12 @@ class Assembly extends React.Component {
       </Content>
       
       <Space />
-      {/* Only shows the navbar when a user is logged in */}
-      <Observer>
-        {() => 
-          this.registration.information.uuid == null ? null : 
-            <NavBar>
-              <Navigation store={this} />
-            </NavBar>
-        }
-        </Observer>
+
+      <WhenAuthenticated account={this} >
+        <NavBar>
+          <Navigation store={this} />
+        </NavBar>
+      </WhenAuthenticated>
     </Layout>
   )
 }

@@ -359,6 +359,33 @@ export default {
     Test Result History
     `,
 
+    no_medication_reports: `
+    No Medication Reports
+    `,
+
+    no_side_effects: `
+    No Side Effects Reported
+    `,
+
+    no_strip_reports: `
+    No Strip Reports Submitted
+    `,
+
+    not_reviewed: `
+    Not Reviewed Yet
+    `,
+
+    took_medication: `
+    Took Medication:
+    `,
+
+    took_medication_yes: `
+    Yes
+    `,
+
+    took_medication_no: `
+    No: 
+    `,
   },
 
   notes: {

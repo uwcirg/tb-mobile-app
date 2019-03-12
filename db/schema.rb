@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20190311204446) do
     t.datetime "timestamp", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "took_medication"
+    t.boolean "took_medication", null: false
     t.string "not_taking_medication_reason"
   end
 

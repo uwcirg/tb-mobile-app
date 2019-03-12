@@ -38,7 +38,8 @@ const ReportMedication = observer(({ store }) => (
           <TextFieldLabel>
             <span>{store.translate("survey.tookMedication.reason")}</span>
 
-            <TextInput use="textarea" 
+            <TextInput 
+              use="textarea" 
               value={store.survey_notTakingMedicationReason || ""}
               onChange={(e) => store.survey_notTakingMedicationReason = e.target.value}
             />

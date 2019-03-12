@@ -18,11 +18,6 @@ const Progress = observer(({store}) => (
     <Provider theme={theme}>
         <div>
           <h2>{store.translate("progress.title")}</h2>
-        {/* TODO: Get rid of before merging */}
-        {/* {console.log("Medication Reports", patient_info.medication_reports)} */}
-        {/* {console.log("Symptom Reports", patient_info.symptom_reports)} */}
-        {/* {console.log("Information", store.registration.information.medication_reports)} */}
-
         <ProgressBarContainer>
           <TreatmentProgress>
             {/* TODO: Link the data to this number */}
@@ -36,9 +31,9 @@ const Progress = observer(({store}) => (
 
         <Divider />
 
-        <MedicationReports store={store}></MedicationReports>
-        <SideEffects store={store}></SideEffects>
-        <StripReports store={store}> </StripReports>
+        <MedicationReports store={store}/>
+        <SideEffects store={store}/>
+        <StripReports store={store}/>
 
         </div>
 

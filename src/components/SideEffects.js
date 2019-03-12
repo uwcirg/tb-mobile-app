@@ -13,33 +13,32 @@ import { Paragraph } from "reakit";
 import styled from "styled-components"
 
 const SideEffects = observer(({ store }) => (
-      <div>
-        <Fold>
-          <Question>
-          <Icon size="1.5rem" color={darkgrey} path={mdiFormatListChecks} /> {store.translate("progress.side_effect")}
-          </Question>
+  <div>
+    <Fold>
+      <Question>
+        <Icon size="1.5rem" color={darkgrey} path={mdiFormatListChecks} /> 
+        {store.translate("progress.side_effect")}
+      </Question>
 
-          { store.registration.information.symptom_reports.length === 0
-            ? <Answer>
-                {/* TODO: Translate this piece */}
-                <Info>No Side Effects Reported</Info>
-              </Answer>
+      { store.registration.information.symptom_reports.length === 0
+        ? <Answer>
+            <Info>{store.translate("progress.no_side_effects")}</Info>
+          </Answer>
 
-            : store.registration.information.symptom_reports.map(({created_at, reported_symptoms}) => (
-              
-              // TODO: Sort by date and link reports
-              <Answer>
-                <Time key={created_at}>{DateTime
-                .fromISO(created_at)
-                .toLocaleString(DateTime.DATETIME_SHORT)}</Time>
-                {reported_symptoms.length !== 0 ? 
-                <Info key={reported_symptoms}>{reported_symptoms.join(", ")}</Info>
-                  // TODO: Translations
-                : <Info>N/A</Info>}
-              </Answer>
-          ))}
-        </Fold>
-      </div>
+        : store.registration.information.symptom_reports.map(({created_at, reported_symptoms}) => (
+          
+          // TODO: Sort by date and link reports
+          <Answer>
+            <Time key={created_at}>{DateTime
+            .fromISO(created_at)
+            .toLocaleString(DateTime.DATETIME_SHORT)}</Time>
+            {reported_symptoms.length !== 0 ? 
+            <Info key={reported_symptoms}>{reported_symptoms.join(", ")}</Info>
+            : <Info>{store.translate("progress.no_side_effects")}</Info>}
+          </Answer>
+      ))}
+    </Fold>
+  </div>
 ))
 
 const Answer = styled.div`
