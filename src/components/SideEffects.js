@@ -36,8 +36,20 @@ const SideEffects = observer(({ assembly }) => (
             </Time>
 
             { sr.reported_symptoms.length !== 0
-            ? <Info>{sr.reported_symptoms.join(", ")}</Info>
-            : <Info>{assembly.translate("progress.no_side_effects")}</Info>
+
+            ? <Info>
+                { sr
+                  .reported_symptoms
+                  .map(symptom_key => assembly.translate(`survey.symptoms.${symptom_key}`))
+                  .join(", ")}
+
+                { sr.nausea_rating }
+                { sr.other }
+              </Info>
+
+            : <Info>
+                {assembly.translate("progress.no_side_effects")}
+              </Info>
             }
           </Answer>
       ))}
