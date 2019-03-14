@@ -5,17 +5,12 @@ class SymptomReport < ApplicationRecord
     {
       created_at: created_at,
       reported_symptoms: reported_symptoms,
+      nausea_rating: nausea_rating,
+      other: other,
     }
   end
 
   def reported_symptoms
-    basic_symptoms + [
-      other ? "Other: #{other}" : nil,
-      nausea ? "Nausea: #{nausea_rating} / 10" : nil,
-    ].compact
-  end
-
-  def basic_symptoms
     %w[
       redness
       hives
@@ -26,6 +21,7 @@ class SymptomReport < ApplicationRecord
       yellow_coloration
       difficulty_breathing
       facial_swelling
+      nausea
     ].select { |symptom| self.send(symptom) }
   end
 end
