@@ -43,7 +43,15 @@ class ImageCapture extends React.Component {
             ? <div>
                 <img alt="Your test strip report." src={this.imageData} />
 
-                <Button onClick={(ev) => { this.imageData = null }} >
+                <Button
+                  onClick={(ev) => {
+                    this.imageData = null;
+
+                    Object.keys(this.props.assembly.photos_uploaded)
+                      .map(photo_id => this.props.assembly.registration.forget("strip_reports", { id: photo_id }))
+
+                    this.props.assembly.photos_uploaded = {}
+                  }} >
                   Re-take photo
                 </Button>
               </div>

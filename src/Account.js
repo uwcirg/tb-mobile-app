@@ -69,11 +69,21 @@ class Account {
   }
 
   // Used for notes, medication reports, etc
-  create(path, attrs, uuid) {
+  create(path, attrs) {
     return this.network.run`
-      ${this.model}.find_by(uuid: '${uuid}').
+      ${this.model}.find_by(uuid: '${this.information.uuid}').
         ${path}.
         create!(JSON.parse('${JSON.stringify(attrs)}'))
+    `
+  }
+
+  // Used for notes, medication reports, etc
+  forget(path, attrs) {
+    return this.network.run`
+      ${this.model}.find_by(uuid: '${this.information.uuid}').
+        ${path}.
+        find_by(JSON.parse('${JSON.stringify(attrs)}')).
+        destroy
     `
   }
 }

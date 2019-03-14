@@ -89,7 +89,7 @@ class Assembly extends React.Component {
     other: null,
   }
 
-  @observable photos_uploaded = []
+  @observable photos_uploaded = {}
   @observable survey_anySymptoms = null
 
   @observable capturing = false
@@ -253,7 +253,7 @@ class Assembly extends React.Component {
       "strip_reports",
       { timestamp: DateTime.local().toISO(), photo: photo },
       this.registration.information.uuid
-    ).then(r => { if(r.ok) { this.photos_uploaded.push(photo) } })
+    ).then(r => {  r.json().then(photo => this.photos_uploaded[photo.id] = photo) })
   }
 
   translate(semantic) {
