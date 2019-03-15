@@ -16,6 +16,7 @@ import Button from "../primitives/Button"
 import Selection from "../primitives/Selection"
 import Heading from "../primitives/Heading"
 import PhotoPopout from "../primitives/PhotoPopout"
+import participant_adherence from "../util/participant_adherence"
 
 const CoordinatorHome = observer(({ assembly }) => (
   <Layout>
@@ -158,19 +159,19 @@ const DailyReviewTable = styled(Table)`
   td { border: 1px solid darkgrey; }
 `
 
-const participant_adherence = (participant) => {
-  let start = DateTime.fromISO(participant.treatment_start)
-  let end = DateTime.local()
-  let full_days = parseInt(end.diff(start, 'days').toObject().days, 10)
-  if(full_days === 0) full_days = 1
+// const participant_adherence = (participant) => {
+//   let start = DateTime.fromISO(participant.treatment_start)
+//   let end = DateTime.local()
+//   let full_days = parseInt(end.diff(start, 'days').toObject().days, 10)
+//   if(full_days === 0) full_days = 1
 
-  let report_dates = participant.medication_reports.map(report =>
-    DateTime.fromISO(report.timestamp).toISODate()
-  )
+//   let report_dates = participant.medication_reports.map(report =>
+//     DateTime.fromISO(report.timestamp).toISODate()
+//   )
 
-  let unique_report_dates = Array.from(new Set(report_dates))
-  return unique_report_dates.length / full_days
-}
+//   let unique_report_dates = Array.from(new Set(report_dates))
+//   return unique_report_dates.length / full_days
+// }
 
 CoordinatorHome.route = "/coordinator"
 export default CoordinatorHome
