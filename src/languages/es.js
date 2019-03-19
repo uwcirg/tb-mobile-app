@@ -1195,6 +1195,8 @@ export default {
   },
 
   coordinator_participant_history: {
+    info: "Information",
+
     date: "Fecha",
     heading: "Reporting History",
     participant_info: "Participant Info",
