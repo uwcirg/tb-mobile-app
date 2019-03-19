@@ -27,10 +27,12 @@ import Account from "./Account"
 import { DateTime } from "luxon"
 
 // Layouts
+import AdherenceCalendar from "./components/AdherenceCalendar"
+import CoordinatorHome from "./components/CoordinatorHome"
+import CoordinatorParticipantHistory from "./components/CoordinatorParticipantHistory"
 import Faqs from "./components/Faqs"
 import Flash from "./components/Flash"
 import Home from "./components/Home"
-import CoordinatorHome from "./components/CoordinatorHome"
 import InfoEd from "./components/InfoEd"
 import Login from "./components/Login"
 import Menu from "./components/Menu"
@@ -52,7 +54,7 @@ let network = new Network(process.env.REACT_APP_URL_API)
 class Assembly extends React.Component {
   // ------ Participant ------
 
-  @observable registration = new Account(network, "Participant", {
+  @observable participant_account = new Account(network, "Participant", {
     name: "",
     phone_number: "",
     treatment_start: DateTime.local().toISODate(),
@@ -89,14 +91,14 @@ class Assembly extends React.Component {
     other: null,
   }
 
-  @observable photos_uploaded = []
+  @observable photos_uploaded = {}
   @observable survey_anySymptoms = null
 
   @observable capturing = false
 
   // ------ Coordinator ------
 
-  @observable coordinator_registration = new Account(network, "Coordinator", {
+  @observable coordinator_account = new Account(network, "Coordinator", {
     name: "",
     email: "",
     password: "",
@@ -106,6 +108,9 @@ class Assembly extends React.Component {
     email: "",
     password: "",
   }
+
+  // If this is not set, then render an error.
+  @observable participant_history = new Account(network, "Participant", {})
 
   // ------ Misc ------
 
@@ -130,13 +135,39 @@ class Assembly extends React.Component {
 
     // When the UUID changes, set the currentPage to Home
     reaction(
-      () => this.registration.information.uuid,
-      (uuid) => this.currentPage = Home,
+      () => this.participant_account.information.uuid,
+      (uuid) => {
+        network.clearWatches()
+
+        if(uuid) {
+          this.participant_account.watch(uuid)
+          this.currentPage = AdherenceCalendar
+        } else {
+        }
+      }
     )
 
     reaction(
-      () => this.coordinator_registration.information.uuid,
-      (uuid) => this.currentPage = CoordinatorHome,
+      () => this.coordinator_account.information.uuid,
+      (uuid) => {
+        network.clearWatches()
+
+        if(uuid) {
+          this.coordinator_account.watch(uuid)
+          this.currentPage = CoordinatorHome
+        } else {
+        }
+      }
+    )
+
+    reaction(
+      () => this.participant_history.information.uuid,
+      (uuid) => {
+        if(uuid) {
+          this.participant_history.watch(uuid)
+          this.currentPage = CoordinatorParticipantHistory
+        }
+      }
     )
 
     this.survey_date = DateTime.local().setLocale(this.locale).toISODate()
@@ -173,22 +204,22 @@ class Assembly extends React.Component {
   }
 
   register() {
-    this.registration.persist()
+    this.participant_account.persist()
   }
 
   login() {
-    this.registration.authenticate(
+    this.participant_account.authenticate(
       { phone_number: this.login_credentials.phone_number },
       this.login_credentials.password,
     )
   }
 
   coordinator_register() {
-    this.coordinator_registration.persist()
+    this.coordinator_account.persist()
   }
 
   coordinator_login() {
-    this.coordinator_registration.authenticate(
+    this.coordinator_account.authenticate(
       { email: this.coordinator_login_credentials.email },
       this.coordinator_login_credentials.password,
     )
@@ -196,10 +227,9 @@ class Assembly extends React.Component {
 
   // TODO change out `author_id`
   saveNote() {
-    this.registration.create(
+    this.participant_account.create(
       "notes",
       { title: this.noteTitle, text: this.noteDraft },
-      this.registration.information.uuid
     )
   }
 
@@ -210,14 +240,13 @@ class Assembly extends React.Component {
 
   reportMedication() {
     if (this.survey_tookMedication != null) {
-      this.registration.create(
+      this.participant_account.create(
         "medication_reports",
         {
           timestamp: `${this.survey_date}T${this.survey_medication_time}:00.000`,
           took_medication: this.survey_tookMedication,
           not_taking_medication_reason: this.survey_notTakingMedicationReason,
         },
-        this.registration.information.uuid,
       )
     }
 
@@ -228,8 +257,7 @@ class Assembly extends React.Component {
   }
 
   reportSymptoms() {
-    this.registration.create("symptom_reports", this.symptoms,
-                            this.registration.information.uuid)
+    this.participant_account.create("symptom_reports", this.symptoms)
 
     this.survey_anySymptoms = null;
     this.symptoms = {
@@ -249,11 +277,10 @@ class Assembly extends React.Component {
   }
 
   storePhoto(photo) {
-    this.registration.create(
+    this.participant_account.create(
       "strip_reports",
       { timestamp: DateTime.local().toISO(), photo: photo },
-      this.registration.information.uuid
-    ).then(r => { if(r.ok) { this.photos_uploaded.push(photo) } })
+    ).then(r => {  r.json().then(photo => this.photos_uploaded[photo.id] = photo) })
   }
 
   translate(semantic) {
@@ -278,8 +305,8 @@ class Assembly extends React.Component {
   }
 
   logout() {
-    this.registration.information = {}
-    this.coordinator_registration.information = {}
+    this.participant_account.information = {}
+    this.coordinator_account.information = {}
     this.currentPage = Login
     network.clearWatches()
   }
@@ -292,7 +319,7 @@ class Assembly extends React.Component {
           <Title>{this.currentPageTitle}</Title>
         </InternalLink>
 
-        <WhenAuthenticated account={this} >
+        <WhenAuthenticated account={this.participant_account} >
           <Menu assembly={this} />
         </WhenAuthenticated>
 
@@ -319,7 +346,7 @@ class Assembly extends React.Component {
 
       <Space />
 
-      <WhenAuthenticated account={this} >
+      <WhenAuthenticated account={this.participant_account} >
         <NavBar>
           <Navigation assembly={this} />
         </NavBar>

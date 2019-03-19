@@ -43,9 +43,13 @@ const PhotoUpload = observer(({ assembly }) => (
     </div>
 
     <ImagePreviews className="ImagePreviews">
-      {assembly.photos_uploaded.map(image =>
-        <Image key={image}>
-          <img src={image} alt={assembly.translate("survey.upload.finished")} />
+      {Object.keys(assembly.photos_uploaded).map(photo_id =>
+        <Image key={assembly.photos_uploaded[photo_id].photo}>
+          <img
+            src={assembly.photos_uploaded[photo_id].photo}
+            alt={assembly.translate("survey.upload.finished")}
+          />
+
           <ConfirmationIcon />
         </Image>
       )}

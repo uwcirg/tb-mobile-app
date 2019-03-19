@@ -20,12 +20,12 @@ const StripReports = observer(({ assembly }) => (
             {assembly.translate("progress.test_result")}
           </Question>
 
-          { assembly.registration.information.strip_reports.length === 0
+          { assembly.participant_account.information.strip_reports.length === 0
             ? <Answer>
                 <Info>{assembly.translate("progress.no_strip_reports")}</Info>
               </Answer>
 
-            : assembly.registration.information.strip_reports.map(({created_at, photo, status}) => (
+            : assembly.participant_account.information.strip_reports.map(({created_at, photo, status}) => (
               <Answer>
                 <Time key={created_at}>
                   {DateTime.fromISO(created_at).toLocaleString(DateTime.DATETIME_SHORT)}
