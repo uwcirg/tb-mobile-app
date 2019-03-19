@@ -4,18 +4,22 @@ import { observer } from "mobx-react"
 
 import Button from "../primitives/Button"
 import ListOfLinks from "../layouts/ListOfLinks"
-import { Input } from "reakit"
+import { Input, Provider } from "reakit"
 import { white, grey } from "../colors"
 import InternalLink from "../primitives/InternalLink"
 import Login from "./Login"
 import CoordinatorLogin from "./CoordinatorLogin"
+import InputMask from "react-input-mask"
+import theme from "reakit-theme-default";
 
 const Register = observer(({assembly}) => (
-  <Layout>
+  // <Layout>
+    <Provider theme={theme}>
+    <div>
     <h2>
       {assembly.translate("register.welcome")}
     </h2>
-
+    
     <Form>
       <label for="name">{assembly.translate("register.name")}</label>
       <Field
@@ -25,7 +29,13 @@ const Register = observer(({assembly}) => (
       />
 
       <label for="phone_number">{assembly.translate("register.phone_number")}</label>
-      <Field
+      {/* <Field
+        name="phone_number"
+        type="tel"
+        value={assembly.registration.information.phone_number || ""}
+        onChange={(e) => assembly.registration.information.phone_number = e.target.value}
+      /> */}
+      <InputMask mask="+5\4 99 9999 9999" maskChar={null} 
         name="phone_number"
         type="tel"
         value={assembly.registration.information.phone_number || ""}
@@ -58,13 +68,22 @@ const Register = observer(({assembly}) => (
     <InternalLink to={CoordinatorLogin} assembly={assembly} >
       {assembly.translate("login.link.coordinator_login")}
     </InternalLink>
-  </Layout>
+    </div>
+    </Provider>
 ))
 
 const Layout = styled(ListOfLinks)`
 `
 
 const Field = styled(Input)`
+  background-color: ${white}
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 2px;
+  border: 1px solid ${grey};
+`
+
+const FormatTest = styled(Input)`
   background-color: ${white}
   padding: 0.5rem;
   margin-bottom: 1rem;
