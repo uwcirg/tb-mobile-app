@@ -13,7 +13,7 @@ const translation_keys =  { true: "yes", false: "no" }
 
 const ReportMedication = observer(({ assembly }) => (
   <Layout>
-    <Heading>{assembly.translate("survey.tookMedication.title")}</Heading>
+    <Heading>{assembly.translate("survey.tookMedication.title") + assembly.survey_date}</Heading>
 
     <Selection
       update={() =>
@@ -49,11 +49,11 @@ const ReportMedication = observer(({ assembly }) => (
         <Hidden visible={assembly.survey_tookMedication === true} >
           <p>{assembly.translate("survey.tookMedication.at")}</p>
 
-          <TextInput
+          {/* <TextInput
             type="date"
             value={assembly.survey_date}
             onChange={(e) => assembly.survey_date = e.target.value}
-          />
+          /> */}
 
           <TextInput
             type="time"

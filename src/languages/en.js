@@ -54,7 +54,7 @@ export default {
       `,
 
       title: `
-      Did you take your medication today?
+      Did you take your medication on
       `,
 
       reason: `

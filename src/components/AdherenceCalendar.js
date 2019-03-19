@@ -5,7 +5,50 @@ import ReactCalendar from "react-calendar/dist/entry.nostyle"
 import Survey from "./Survey"
 import { DateTime } from "luxon"
 
-import { lightgrey, darkgrey, grey, white, green } from "../colors"
+import { lightgrey, darkgrey, grey, white, green, red } from "../colors"
+
+
+const AdherenceCalendar = observer(({ assembly }) => (
+  <Calendar
+    locale={{ "Español": "es", "English": "en" }[assembly.language]}
+    minDetail="year"
+    // Use https://moment.github.io/luxon/docs/manual/parsing.html#table-of-tokens
+    // if you need to format the date again
+    // React calendar returns this format of date "Fri Mar 29 2019 00:00:00 GMT-1000 (Hawaii-Aleutian Standard Time)"
+    onClickDay={((value) => assembly.survey_date = 
+                           DateTime.fromFormat(value.toString().substr(0, 15), 'EEE LLL dd yyyy').toISODate())}
+    
+    onChange={() => assembly.currentPage = Survey}
+
+    tileContent={
+      ({ date, view }) => {
+        let survey_for_day =
+          view === "month" &&
+          assembly
+            .participant_account
+            .information
+            .medication_reports
+            .find(mr =>mr.timestamp.replace(/T.+$/, "") === date.toJSON().replace(/T.+$/, ""));
+        
+        if (survey_for_day) {        
+          return (
+            <DateCell date={date} took_medication={survey_for_day.took_medication}>
+              {date.getDate()}
+            </DateCell>
+          )
+        } else {
+          return (
+            <UnreportedDate date={date}>
+              {date.getDate()}
+            </UnreportedDate>
+          )
+        }
+      }
+    }
+  />
+))
+
+export default AdherenceCalendar;
 
 const Calendar = styled(ReactCalendar)`
   width: 100% !important;
@@ -35,10 +78,8 @@ const Calendar = styled(ReactCalendar)`
     border: none;
   }
 `
-
 const DateCell = styled.div`
-  background:       ${(p) => p.medication_report ? green : "none" };
-  background:       ${(p) => p.medication_report ? green : "none" };
+  background:       ${(p) => p.took_medication ? green : red };
   border: 2px solid ${(p) => p.medication_report ? grey : lightgrey };
   color:            ${(p) => p.medication_report ? darkgrey : white };
 
@@ -53,31 +94,16 @@ const DateCell = styled.div`
   padding-top: 0.5rem;
 `
 
-const AdherenceCalendar = observer(({ assembly }) => (
-  <Calendar
-    locale={{ "Español": "es", "English": "en" }[assembly.language]}
-    minDetail="year"
-    // onClickDay={(value) => console.log('Clicked day: ', value)}
-    // DateTime.local().setLocale(this.locale).toISODate();
-    // Fri Mar 22 2019 00:00:00 GMT-1000 (Hawaii-Aleutian Standard Time)
-    onClickDay={(value) => assembly.survey_date = 
-                           DateTime.fromFormat(value.toString().substr(0, 15), 'EEE LLL dd yyyy').toISODate()}
+const UnreportedDate = styled.div`
+  border: 2px solid lightgrey
 
-    tileContent={
-      ({ date, view }) => (
-        <DateCell
-          date={date}
-          medication_report={
-            view === 'month' &&
-              assembly.participant_account.information.medication_reports.find(mr =>
-                mr.timestamp.replace(/T.+$/, "") === date.toJSON().replace(/T.+$/, "")
-              )
-          }
-        >
-          {date.getDate()}
-        </DateCell>
-      )}
-    />
-))
+  border-radius: 50%;
+  margin-bottom: 0.5rem;
+  height: 2.0rem;
+  width: 2.0rem;
 
-export default AdherenceCalendar;
+  font-size: 1rem;
+  font-weight: 700;
+  display: block;
+  padding-top: 0.5rem;
+`

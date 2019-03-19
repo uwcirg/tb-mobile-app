@@ -53,8 +53,12 @@ export default {
       No
       `,
 
+      // title: `
+      // ¿Tomaste los medicamentos hoy?
+      // `,
+
       title: `
-      ¿Tomaste los medicamentos hoy?
+      Did you take your medication on
       `,
 
       reason: `
