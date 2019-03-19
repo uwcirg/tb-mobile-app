@@ -7,7 +7,8 @@ const { openBrowser, goto, click, inputField, write, closeBrowser } = require('t
         await write("grace.c.youngblood@gmail.com", inputField({ placeholder: "Email" }));
         await write("password", inputField({ placeholder: "Contraseña" }));
         await click("Iniciar sesión");
-        await client().Page.reload()
+        // TODO refresh does not yet work.
+        // await client().Page.reload()
         await click("Grace");
     } catch (e) {
         console.error(e);

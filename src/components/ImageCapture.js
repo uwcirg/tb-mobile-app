@@ -48,7 +48,13 @@ class ImageCapture extends React.Component {
                     this.imageData = null;
 
                     Object.keys(this.props.assembly.photos_uploaded)
-                      .map(photo_id => this.props.assembly.registration.forget("strip_reports", { id: photo_id }))
+                      .map(photo_id =>
+                        this
+                        .props
+                        .assembly
+                        .participant_account
+                        .forget("strip_reports", { id: photo_id })
+                      )
 
                     this.props.assembly.photos_uploaded = {}
                   }} >

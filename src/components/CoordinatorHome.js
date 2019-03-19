@@ -55,7 +55,7 @@ const CoordinatorHome = observer(({ assembly }) => (
       </thead>
 
       <tbody>
-        {assembly.coordinator_registration.information.participants.map(participant =>
+        {assembly.coordinator_account.information.participants.map(participant =>
           <tr key={participant.uuid} onClick={() => assembly.participant_history.watch(participant.uuid)} >
             <td>{participant.name}</td>
 

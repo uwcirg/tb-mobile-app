@@ -19,26 +19,35 @@ const CoordinatorRegister = observer(({assembly}) => (
     <p>{assembly.translate("coordinator_register.context")}</p>
 
     <Form>
-      <label for="name">{assembly.translate("coordinator_register.name")}</label>
+      <label htmlFor="name">
+        {assembly.translate("coordinator_register.name")}
+      </label>
+
       <Field
         name="name"
-        value={assembly.coordinator_registration.information.name || ""}
-        onChange={(e) => assembly.coordinator_registration.information.name = e.target.value}
+        value={assembly.coordinator_account.information.name || ""}
+        onChange={(e) => assembly.coordinator_account.information.name = e.target.value}
       />
 
-      <label for="email">{assembly.translate("coordinator_register.email")}</label>
+      <label htmlFor="email">
+        {assembly.translate("coordinator_register.email")}
+      </label>
+
       <Field
         name="email"
         type="tel"
-        value={assembly.coordinator_registration.information.email || ""}
-        onChange={(e) => assembly.coordinator_registration.information.email = e.target.value}
+        value={assembly.coordinator_account.information.email || ""}
+        onChange={(e) => assembly.coordinator_account.information.email = e.target.value}
       />
 
-      <label for="password">{assembly.translate("coordinator_register.password")}</label>
+      <label htmlFor="password">
+        {assembly.translate("coordinator_register.password")}
+      </label>
+
       <Field
         type="password"
-        value={assembly.coordinator_registration.information.password || ""}
-        onChange={(e) => assembly.coordinator_registration.information.password = e.target.value}
+        value={assembly.coordinator_account.information.password || ""}
+        onChange={(e) => assembly.coordinator_account.information.password = e.target.value}
       />
 
       <Button onClick={() => assembly.coordinator_register()}>

@@ -20,12 +20,12 @@ const SideEffects = observer(({ assembly }) => (
         {assembly.translate("progress.side_effect")}
       </Question>
 
-      { assembly.registration.information.symptom_reports.length === 0
+      { assembly.participant_account.information.symptom_reports.length === 0
         ? <Answer>
             <Info>{assembly.translate("progress.no_side_effects")}</Info>
           </Answer>
 
-        : assembly.registration.information.symptom_reports.map((sr) => (
+        : assembly.participant_account.information.symptom_reports.map((sr) => (
           // TODO: Sort by date and link reports
           <Answer key={sr.created_at}>
             <Time>

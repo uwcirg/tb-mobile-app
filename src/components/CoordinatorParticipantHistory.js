@@ -74,7 +74,7 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
       </thead>
 
       <tbody>
-        {assembly.coordinator_registration.information.participants.map(participant =>
+        {assembly.coordinator_account.information.participants.map(participant =>
           <tr key={participant.uuid} >
             <td>{participant.name}</td>
 

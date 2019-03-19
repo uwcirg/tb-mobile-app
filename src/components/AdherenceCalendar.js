@@ -61,7 +61,7 @@ const AdherenceCalendar = observer(({ assembly }) => (
           date={date}
           medication_report={
             view === 'month' &&
-              assembly.registration.information.medication_reports.find(mr =>
+              assembly.participant_account.information.medication_reports.find(mr =>
                 mr.timestamp.replace(/T.+$/, "") === date.toJSON().replace(/T.+$/, "")
               )
           }

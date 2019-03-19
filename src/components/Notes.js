@@ -34,10 +34,14 @@ const Notes = observer(({ assembly }) => (
       </Draft>
     }
 
-    { assembly.registration.information.notes.length === 0
-      ? <Hint>{assembly.translate("notes.hint")}</Hint>
+    { assembly.participant_account.information.notes.length === 0
+    ? <Hint>{assembly.translate("notes.hint")}</Hint>
 
-      : assembly.registration.information.notes.map(({ id, title, created_at, text, updated_at }) => (
+    : assembly
+      .participant_account
+      .information
+      .notes
+      .map(({ id, title, created_at, text, updated_at }) => (
         <Note key={id}>
           <Note.Header>
             <Note.Title>{title}</Note.Title>

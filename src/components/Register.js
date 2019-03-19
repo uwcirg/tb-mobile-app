@@ -17,33 +17,45 @@ const Register = observer(({assembly}) => (
     </h2>
 
     <Form>
-      <label for="name">{assembly.translate("register.name")}</label>
+      <label htmlFor="name">
+        {assembly.translate("register.name")}
+      </label>
+
       <Field
         name="name"
-        value={assembly.registration.information.name || ""}
-        onChange={(e) => assembly.registration.information.name = e.target.value}
+        value={assembly.participant_account.information.name || ""}
+        onChange={(e) => assembly.participant_account.information.name = e.target.value}
       />
 
-      <label for="phone_number">{assembly.translate("register.phone_number")}</label>
+      <label htmlFor="phone_number">
+        {assembly.translate("register.phone_number")}
+      </label>
+
       <Field
         name="phone_number"
         type="tel"
-        value={assembly.registration.information.phone_number || ""}
-        onChange={(e) => assembly.registration.information.phone_number = e.target.value}
+        value={assembly.participant_account.information.phone_number || ""}
+        onChange={(e) => assembly.participant_account.information.phone_number = e.target.value}
       />
 
-      <label for="treatment_start">{assembly.translate("register.treatment_start")}</label>
+      <label htmlFor="treatment_start">
+        {assembly.translate("register.treatment_start")}
+      </label>
+
       <Field
         type="date"
-        value={assembly.registration.information.treatment_start || ""}
-        onChange={(e) => assembly.registration.information.treatment_start = e.target.value}
+        value={assembly.participant_account.information.treatment_start || ""}
+        onChange={(e) => assembly.participant_account.information.treatment_start = e.target.value}
       />
 
-      <label for="password">{assembly.translate("register.password")}</label>
+      <label htmlFor="password">
+        {assembly.translate("register.password")}
+      </label>
+
       <Field
         type="password"
-        value={assembly.registration.information.password || ""}
-        onChange={(e) => assembly.registration.information.password = e.target.value}
+        value={assembly.participant_account.information.password || ""}
+        onChange={(e) => assembly.participant_account.information.password = e.target.value}
       />
 
       <Button onClick={() => assembly.register()}>

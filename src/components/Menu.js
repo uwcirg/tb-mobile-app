@@ -23,21 +23,36 @@ const Menu = observer(({ assembly }) => (
             <Toggle {...sidebar} ><CloseIcon /></Toggle>
 
             <Question>
-              <label htmlFor="name">{assembly.translate("menu.name")}</label>
+              <label htmlFor="name">
+                {assembly.translate("menu.name")}
+              </label>
+
               <Field
                 name="name"
-                value={assembly.registration.information.name || ""}
-                onChange={(e) => { assembly.registration.information.name = e.target.value; assembly.registration.update(assembly.uuid) }}
+                value={assembly.participant_account.information.name || ""}
+                onChange={(e) => {
+                  assembly.participant_account.information.name = e.target.value
+                  assembly.participant_account.update(assembly.uuid)
+                }}
               />
             </Question>
 
             <Question>
-              <label htmlFor="phone_number">{assembly.translate("menu.phone_number")}</label>
+              <label htmlFor="phone_number">
+                {assembly.translate("menu.phone_number")}
+              </label>
+
               <Field
                 name="phone_number"
                 type="tel"
-                value={assembly.registration.information.phone_number || ""}
-                onChange={(e) => { assembly.registration.information.phone_number = e.target.value; assembly.registration.update(assembly.uuid) }}
+                value={assembly.participant_account.information.phone_number || ""}
+                onChange={(e) => {
+                  // TODO possible race condition.
+                  // Fold all logic into the `update` function,
+                  // with a semaphore to prevent losing data.
+                  assembly.participant_account.information.phone_number = e.target.value
+                  assembly.participant_account.update(assembly.uuid)
+                }}
               />
             </Question>
 
@@ -52,11 +67,20 @@ const Menu = observer(({ assembly }) => (
             </Question>
 
             <Question>
-              <label htmlFor="treatment_start">{assembly.translate("menu.treatment_start")}</label>
+              <label htmlFor="treatment_start">
+                {assembly.translate("menu.treatment_start")}
+              </label>
+
               <Field
                 type="date"
-                value={assembly.registration.information.treatment_start || ""}
-                onChange={(e) => { assembly.registration.information.treatment_start = e.target.value; assembly.registration.update(assembly.uuid) }}
+                value={assembly.participant_account.information.treatment_start || ""}
+                onChange={(e) => {
+                  // TODO possible race condition.
+                  // Fold all logic into the `update` function,
+                  // with a semaphore to prevent losing data.
+                  assembly.participant_account.information.treatment_start = e.target.value
+                  assembly.participant_account.update(assembly.uuid)
+                }}
               />
             </Question>
 
