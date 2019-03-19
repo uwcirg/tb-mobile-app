@@ -4,21 +4,18 @@ import { observer } from "mobx-react"
 
 import Button from "../primitives/Button"
 import ListOfLinks from "../layouts/ListOfLinks"
-import { Input, Provider } from "reakit"
+import { Input } from "reakit"
 import { white, grey } from "../colors"
 import InternalLink from "../primitives/InternalLink"
 import Login from "./Login"
 import CoordinatorLogin from "./CoordinatorLogin"
-import theme from "reakit-theme-default";
 
 const Register = observer(({assembly}) => (
-  // <Layout>
-    <Provider theme={theme}>
-    <div>
+  <Layout>
     <h2>
       {assembly.translate("register.welcome")}
     </h2>
-    
+
     <Form>
       <label htmlFor="name">
         {assembly.translate("register.name")}
@@ -73,22 +70,13 @@ const Register = observer(({assembly}) => (
     <InternalLink to={CoordinatorLogin} assembly={assembly} >
       {assembly.translate("login.link.coordinator_login")}
     </InternalLink>
-    </div>
-    </Provider>
+  </Layout>
 ))
 
 const Layout = styled(ListOfLinks)`
 `
 
 const Field = styled(Input)`
-  background-color: ${white}
-  padding: 0.5rem;
-  margin-bottom: 1rem;
-  border-radius: 2px;
-  border: 1px solid ${grey};
-`
-
-const FormatTest = styled(Input)`
   background-color: ${white}
   padding: 0.5rem;
   margin-bottom: 1rem;

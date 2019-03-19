@@ -27,7 +27,6 @@ import Account from "./Account"
 import { DateTime } from "luxon"
 
 // Layouts
-import AdherenceCalendar from "./components/AdherenceCalendar"
 import CoordinatorHome from "./components/CoordinatorHome"
 import CoordinatorParticipantHistory from "./components/CoordinatorParticipantHistory"
 import Faqs from "./components/Faqs"
@@ -141,7 +140,7 @@ class Assembly extends React.Component {
 
         if(uuid) {
           this.participant_account.watch(uuid)
-          this.currentPage = AdherenceCalendar
+          this.currentPage = Home
         } else {
         }
       }
@@ -171,8 +170,8 @@ class Assembly extends React.Component {
     )
 
     this.survey_date = DateTime.local().setLocale(this.locale).toISODate()
-    this.survey_medication_time = DateTime.local().setLocale(this.locale).toLocaleString(DateTime.TIME_24_SIMPLE)
-
+    this.survey_medication_time = DateTime.local().setLocale(this.locale).toLocaleString(DateTime.TIME_24)
+    
     window.assembly = this
   }
 
@@ -251,7 +250,7 @@ class Assembly extends React.Component {
     }
 
     this.survey_date = DateTime.local().setLocale(this.locale).toISODate();
-    this.survey_medication_time = DateTime.local().setLocale(this.locale).toLocaleString(DateTime.TIME_24_SIMPLE)
+    this.survey_medication_time = DateTime.local().toLocaleString(DateTime.TIME_SIMPLE);
     this.survey_tookMedication = null
     this.survey_notTakingMedicationReason = null
   }
