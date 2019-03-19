@@ -382,7 +382,7 @@ export default {
     `,
 
     took_medication_no: `
-    No; 
+    No;
     `,
   },
 
@@ -1195,28 +1195,20 @@ export default {
   },
 
   coordinator_participant_history: {
-    info: "Information",
-
-    date: "Fecha",
-    heading: "Reporting History",
-    participant_info: "Participant Info",
-    name: "Name",
-    today: "Today",
-    medication: "Medication",
-    side_effects: "Side Effects",
-    photo: "Photo",
-    contact: "Contact",
-
-    medication_taken: "Medication Taken",
-    side_effect: "Side Effect",
-    photo: "Action",
-    test_result: "Test Result",
     action: "Action",
-
-    participant_id: "Participant ID",
-    first_name: "First Name",
-    start_date: "Treatment start",
     end_date: "Expected End Date",
+    first_name: "First Name",
+    heading: "Reporting History",
+    medication: "Medication",
+    medication_taken: "Medication Taken",
+    name: "Name",
+    participant_id: "Participant ID",
+    participant_info: "Participant Info",
+    photo: "Photo",
+    save_note: "Save Note",
+    side_effects: "Side Effects",
+    start_date: "Treatment start",
+    test_result: "Test Result",
   },
 
   login: {

@@ -27,7 +27,6 @@ import Account from "./Account"
 import { DateTime } from "luxon"
 
 // Layouts
-import AdherenceCalendar from "./components/AdherenceCalendar"
 import CoordinatorHome from "./components/CoordinatorHome"
 import CoordinatorParticipantHistory from "./components/CoordinatorParticipantHistory"
 import Faqs from "./components/Faqs"
@@ -141,7 +140,7 @@ class Assembly extends React.Component {
 
         if(uuid) {
           this.participant_account.watch(uuid)
-          this.currentPage = AdherenceCalendar
+          this.currentPage = Home
         } else {
         }
       }
@@ -257,7 +256,13 @@ class Assembly extends React.Component {
   }
 
   reportSymptoms() {
-    this.participant_account.create("symptom_reports", this.symptoms)
+    this.participant_account.create(
+      "symptom_reports",
+      Object.assign(
+        { timestamp: `${this.survey_date}T${this.survey_medication_time}:00.000` },
+        this.symptoms,
+      ),
+    )
 
     this.survey_anySymptoms = null;
     this.symptoms = {
@@ -279,7 +284,10 @@ class Assembly extends React.Component {
   storePhoto(photo) {
     this.participant_account.create(
       "strip_reports",
-      { timestamp: DateTime.local().toISO(), photo: photo },
+      {
+        timestamp: `${this.survey_date}T${this.survey_medication_time}:00.000`,
+        photo: photo,
+      },
     ).then(r => {  r.json().then(photo => this.photos_uploaded[photo.id] = photo) })
   }
 

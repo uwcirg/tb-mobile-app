@@ -6,6 +6,7 @@ class SymptomReport < ApplicationRecord
       created_at: created_at,
       reported_symptoms: reported_symptoms,
       nausea_rating: nausea_rating,
+      timestamp: timestamp,
       other: other,
     }
   end

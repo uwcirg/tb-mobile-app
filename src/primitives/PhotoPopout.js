@@ -9,9 +9,14 @@ const PhotoPopout = observer(({ children, src }) => (
   <Popover.Container>
     {state => (
       <HelpToggle>
-        <Preview as={Image} {...state} src={src} />
+        <Preview
+          as={Image}
+          {...state}
+          src={src}
+          onClick={e => { e.stopPropagation() }}
+        />
 
-        <Callout {...state}>
+        <Callout {...state} onClick={e => e.stopPropagation()}>
           <Image
             src={src}
             alt={"Strip report"}

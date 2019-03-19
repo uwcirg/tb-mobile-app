@@ -83,8 +83,8 @@ const CoordinatorHome = observer(({ assembly }) => (
             </td>
 
             <td>
-              { participant.today.strip_reports.map(strip_report =>
-                  <PhotoPopout src={strip_report.photo} >
+              { participant.today.strip_reports.map((strip_report, index) =>
+                  <PhotoPopout src={strip_report.photo} key={strip_report.id} >
                     <Selection
                       options={["positive", "negative"]}
                       update={() => strip_report.status}
