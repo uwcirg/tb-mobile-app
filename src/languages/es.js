@@ -31,7 +31,7 @@ export default {
     `,
 
     photo: `
-    Resultados del test de orina
+    Tomar foto del test de orina
     `,
   },
 
@@ -162,7 +162,7 @@ export default {
       `,
 
       upload_photo: `
-      Tomar foto
+      Tomar foto 
       `,
 
       end_timer: `
@@ -178,7 +178,7 @@ export default {
       `,
 
       title: `
-      Tomar foto
+      Tomar foto del test de orina
       `,
 
       continue: `
@@ -273,7 +273,7 @@ export default {
     `,
 
     context: `
-    TODO Register as a healthcare coordinator.
+    Registrarse como asistente de tratamiento
     `,
 
     name: `
@@ -342,39 +342,39 @@ export default {
     `,
 
     days: `
-    Days of Treatment (es)
+    Número de días en tratamiento
     `,
 
     medication: `
-    Medication History (es)
+    Control de medicación 
     `,
 
     side_effect: `
-    Side Effect History (es)
+    Efectos adversos o indeseables
     `,
 
     test_result: `
-    Test Result History (es)
+    Resultados del test de orina
     `,
 
     no_medication_reports: `
-    No Medication Reports (es)
+    No control de medicación
     `,
 
     no_side_effects: `
-    No Side Effects Reported (es)
+    No effectos adversos o indeseables reportado
     `,
 
     no_strip_reports: `
-    No Strip Reports Submitted (es)
+    No resultados del test de orina reportado
     `,
 
     not_reviewed: `
-    Not Reviewed Yet (es)
+    aún no revisado
     `,
 
     took_medication: `
-    Took Medication (es):
+    control de medicación
     `,
 
     took_medication_yes: `
@@ -1196,25 +1196,25 @@ export default {
 
   coordinator_participant_history: {
     date: "Fecha",
-    heading: "Reporting History",
-    participant_info: "Participant Info",
-    name: "Name",
-    today: "Today",
-    medication: "Medication",
-    side_effects: "Side Effects",
-    photo: "Photo",
-    contact: "Contact",
+    heading: "Registro",
+    participant_info: "Información del participante",
+    name: "Nombre",
+    today: "Hoy",
+    medication: "Medicacion",
+    side_effects: "Efectos adversos",
+    photo: "Foto",
+    contact: "Contactar al participante",
 
-    medication_taken: "Medication Taken",
-    side_effect: "Side Effect",
-    photo: "Action",
-    test_result: "Test Result",
-    action: "Action",
+    medication_taken: "Control de medicacion",
+    side_effect: "Efectos adversos",
+    photo: "revisar foto",
+    test_result: "Resultado del test de urina",
+    action: "acción",
 
-    participant_id: "Participant ID",
-    first_name: "First Name",
-    start_date: "Treatment start",
-    end_date: "Expected End Date",
+    participant_id: "número de identificación del estudio",
+    first_name: "Nombre",
+    start_date: "fecha de inicio del tratamiento",
+    end_date: "fecha prevista de finalización del tratamiento",
   },
 
   login: {
@@ -1224,20 +1224,20 @@ export default {
     go: "Iniciar sesión",
 
     link: {
-      coordinator_login: "TODO Coordinator Login",
+      coordinator_login: "Iniciar sesión para asistente de tratamiento",
       register: "Registrarse",
     }
   },
 
   coordinator_login: {
     welcome: "Bienvenido",
-    context: "TODO Log in as a healthcare coordinator",
-    email: "Email",
+    context: "Iniciar sesión para asistente de tratamiento",
+    email: "correo electrónico",
     password: "Contraseña",
     go: "Iniciar sesión",
 
     link: {
-      coordinator_login: "El login del participante",
+      coordinator_login: "Iniciar sesión para el participante",
       register: "Registrarse",
     },
   }
