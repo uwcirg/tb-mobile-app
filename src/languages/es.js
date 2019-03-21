@@ -327,8 +327,12 @@ export default {
   },
 
   contact: {
-    title: `
+    contact_title: `
     Enviar un mensaje al asistente de tratamiento
+    `,
+
+    discussion_title: `
+    Smaller
     `,
 
     first: `
@@ -336,7 +340,15 @@ export default {
     `,
 
     second: `
-    Si tiene una recomendación para mejorar la aplicación consultar con Sarah Iribarren (sjiribar@uw.edu)
+    Si tiene una recomendación para mejorar la aplicación consultar con Sarah Iribarren
+    `,
+
+    whatsapp: `
+    WhatsApp Link (es)
+    `,
+
+    discussion: `
+    Link to Discussion Forum (es)
     `,
   },
 
@@ -645,6 +657,14 @@ export default {
         `,
 
         2: `
+        Link to educational video (es)
+        `,
+
+        Link: `
+        https://www.youtube.com/watch?v=KizqF_HmI2w
+        `,
+
+        3: `
         No todas las personas en contacto con un enfermo que elimina los
         bacilos con la tos, pueden llegar a enfermarse. Solamente en el caso
         que la otra persona tenga las defensas bajas, por la presencia de
@@ -653,7 +673,7 @@ export default {
         enfermarse.
         `,
 
-        3: `
+        4: `
         Con buenas defensas un individuo puede tomar contacto con el bacilo,
         pero no necesariamente llega a enfermarse. En este caso cse dice que la persona esta infectada, pero NO desarrolla la Tuberculosis.
         Estas personas no se sienten mal, no presentan síntomas ni tampoco
@@ -661,7 +681,7 @@ export default {
         de personas con la infección pueden desarrollar la enfermedad en los años siguientes si aparece alguna condición que baje sus defensas .
         `,
 
-        4: `
+        5: `
         La buena noticia es que las personas con tuberculosis pueden recibir tratamiento
         y curarse completamente.
         `,

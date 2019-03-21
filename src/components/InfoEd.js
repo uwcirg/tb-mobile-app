@@ -18,6 +18,8 @@ const InfoEd = observer(({ assembly }) => (
     <Button as={InternalLink} to={SymptomOverview} assembly={assembly} >
         {assembly.translate("info.symptom_overview")}
     </Button>
+
+    <p>{assembly.translate("contact.second")} <a href="mailto:sjiribar@uw.edu" target="_blank">sjiribar@uw.edu</a></p>
   </Layout>
 ))
 

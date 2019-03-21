@@ -323,8 +323,12 @@ export default {
   },
 
   contact: {
-    title: `
+    contact_title: `
     Contact your treatment supporter
+    `,
+
+    discussion_title: `
+    Join a discussion forum with other patients
     `,
 
     first: `
@@ -332,7 +336,15 @@ export default {
     `,
 
     second: `
-    If you have recommendations to improve the application, please email Sarah Iribarren (sjiribar@uw.edu)
+    If you have recommendations to improve this application, please email Sarah Iribarren
+    `,
+
+    whatsapp: `
+    Contact your treatment assistant (WhatsApp)
+    `,
+
+    discussion: `
+    Link to Discussion Forum
     `,
   },
 
@@ -633,13 +645,21 @@ export default {
         `,
 
         2: `
+        Link to educational video
+        `,
+
+        Link: `
+        https://www.youtube.com/watch?v=KizqF_HmI2w
+        `,
+
+        3: `
         Not all people in contact with a sick person releasing the bacteria with cough get sick. Most often the person who becomes sick
         has lowered immune defenses, due to the presence of
         other diseases such as diabetes, other infections such as the
         AIDS, or tumors, transplants, or poor nutrition.
         `,
 
-        3: `
+        4: `
         With good defenses an individual can can become infected with the bacteria,
         but not necessarily get sick, but become infected,
         without developing the disease. In this case it is known as a latent TB infection.
@@ -648,7 +668,7 @@ export default {
         people with the infection get sick later on.
         `,
 
-        4: `
+        5: `
         The good news is that people with the TB can receive treatment and be cured.
         `,
       },
