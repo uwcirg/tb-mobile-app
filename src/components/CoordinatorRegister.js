@@ -35,6 +35,7 @@ const CoordinatorRegister = observer(({assembly}) => (
 
       <Field
         name="email"
+        // TODO: type can be email here?
         type="tel"
         value={assembly.coordinator_account.information.email || ""}
         onChange={(e) => assembly.coordinator_account.information.email = e.target.value}

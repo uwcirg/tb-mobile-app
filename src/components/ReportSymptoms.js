@@ -148,7 +148,7 @@ const ReportSymptoms = observer(({ assembly, survey }) => (
           checked={assembly.symptoms.sore_belly}
           onChange={(e) => assembly.symptoms.sore_belly = e.target.checked}
         />
-        <span>{assembly.translate("survey.symptoms.upset_stomach")}</span>
+        <span>{assembly.translate("survey.symptoms.sore_belly")}</span>
       </Label>
 
       <Label>

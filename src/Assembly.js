@@ -352,7 +352,8 @@ class Assembly extends React.Component {
         </Observer>
       </Content>
 
-      <Space />
+      {/* Temporarily deleting this to see how it effects the app */}
+      {/* <Space className="SPACE" /> */}
 
       <WhenAuthenticated account={this.participant_account} >
         <NavBar>

@@ -41,7 +41,7 @@ const SideEffects = observer(({ assembly }) => (
                 { sr
                   .reported_symptoms
                   .map(symptom_key => assembly.translate(`survey.symptoms.${symptom_key}`))
-                  .join(", ")}
+                  .join(",")}
 
                 { sr.nausea_rating }
                 { sr.other }

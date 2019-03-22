@@ -6,7 +6,15 @@ const days_of_treatment = (participant) => {
     let full_days = parseInt(end.diff(start, 'days').toObject().days, 10)
     if(full_days === 0) full_days = 1
   
-    let report_dates = participant.medication_reports.map(report =>
+    // Goes through medication reports and grabs dates and only
+    // reports where they indicate they did take their medication
+    debugger
+    // let all_true_reports = participant.medication_reports.map(report => {
+    //   if (report.took_medication === true) {
+    //     return report;
+    //   }};
+    
+    let report_dates = all_true_reports.map(report =>
       DateTime.fromISO(report.timestamp).toISODate()
     )
   

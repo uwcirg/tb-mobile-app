@@ -117,7 +117,7 @@ export default {
       Blurred vision or changes in the way you see colors
       `,
 
-      upset_stomach: `
+      sore_belly: `
       Upset stomach
       `,
 
@@ -307,6 +307,10 @@ export default {
 
     phone_number: `
     Phone Number
+    `,
+
+    email: `
+    Email
     `,
 
     language: `

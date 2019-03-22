@@ -115,7 +115,7 @@ export default {
       Visión borrosa o cambios en la forma de ver los colores
       `,
 
-      upset_stomach: `
+      sore_belly: `
       Dolor de barriga
       `,
 
@@ -252,6 +252,10 @@ export default {
     Número de teléfono
     `,
 
+    email: `
+    Correo electrónico
+    `,
+
     study_id: `
     studyID
     `,
@@ -285,7 +289,7 @@ export default {
     `,
 
     email: `
-    Email
+    Correo electrónico
     `,
 
     password: "Contraseña",
@@ -358,7 +362,7 @@ export default {
     `,
 
     days: `
-    Número de días en tratamiento
+    Días en tratamiento
     `,
 
     medication: `
@@ -1256,7 +1260,7 @@ export default {
   coordinator_login: {
     welcome: "Bienvenido",
     context: "Iniciar sesión para asistente de tratamiento",
-    email: "correo electrónico",
+    email: "Correo electrónico",
     password: "Contraseña",
     go: "Iniciar sesión",
 
