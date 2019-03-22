@@ -332,7 +332,7 @@ export default {
     `,
 
     discussion_title: `
-    Smaller
+    Únete a un foro de discusión con otros pacientes
     `,
 
     first: `
@@ -344,7 +344,7 @@ export default {
     `,
 
     whatsapp: `
-    WhatsApp Link (es)
+    WhatsApp
     `,
 
     discussion: `

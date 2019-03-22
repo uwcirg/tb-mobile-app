@@ -340,7 +340,7 @@ export default {
     `,
 
     whatsapp: `
-    Contact your treatment assistant (WhatsApp)
+    WhatsApp
     `,
 
     discussion: `
