@@ -63,5 +63,6 @@ const Form = styled.div`
   grid-column-gap: 1rem;
 `
 
-Login.route = "/login"
+// Temporarly deleting
+// Login.route = "/login"
 export default Login;

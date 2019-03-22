@@ -9,19 +9,17 @@ import TreatmentProgress from "../primitives/TreatmentProgress"
 import MedicationReports from "./MedicationReports"
 import SideEffects from "./SideEffects"
 import StripReports from "./StripReports"
+import days_of_treatment from "../util/days_of_treatment"
 
 import styled from "styled-components"
 
-const total_treatment_days = 25;
-
-const Progress = observer(({assembly}) => (
+const Progress = observer(({ assembly }) => (
     <Provider theme={theme}>
         <div>
           <h2>{assembly.translate("progress.title")}</h2>
         <ProgressBarContainer>
           <TreatmentProgress>
-            {/* TODO: Link the data to this number */}
-            <Percentage>{total_treatment_days}</Percentage>
+            <Percentage>{days_of_treatment(assembly.participant_account.information)}</Percentage>
 
             <TreatmentDays>
               <strong>{assembly.translate("progress.days")}</strong>

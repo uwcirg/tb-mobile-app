@@ -2,26 +2,45 @@ import React from "react";
 
 import { Button, Link, List, Provider, Divider } from "reakit";
 import theme from "reakit-theme-default";
-import { blue } from "../colors"
+import { blue, green, white } from "../colors"
+
+import Icon from "@mdi/react"
+import {
+  mdiWhatsapp,
+} from "@mdi/js"
 
 import { observer } from "mobx-react"
 
 const Contact = observer(({assembly}) => (
     <Provider theme={theme}>
       <div>
-        <h2>
-          {assembly.translate("contact.title")}
-        </h2>
+        <h3>
+          {assembly.translate("contact.contact_title")}
+        </h3>
 
         <List>
           <li>{assembly.translate("contact.first")}</li>
-          <li>{assembly.translate("contact.second")}</li>
         </List>
+
+        <Link href="https://github.com/uwcirg/tb-mobile-app" target="_blank">
+          <Button backgroundColor={green}>{assembly.translate("contact.whatsapp")}
+            <Icon
+              path={mdiWhatsapp}
+              color={white}
+              size="1.5rem"
+            />
+          </Button>
+        </Link>
 
         <Divider />
 
-        <Link href="https://github.com/uwcirg/tb-mobile-app" target="_blank">
-          <Button backgroundColor={blue}>Link to WhatsApp</Button>
+        <h3>
+          {assembly.translate("contact.discussion_title")}
+        </h3>
+
+        {/* TOOD: In the future we may not want the target to be blank */}
+        <Link href="https://asistente.trydiscourse.com/" target="_blank">
+          <Button backgroundColor={blue}>{assembly.translate("contact.discussion")}</Button>
         </Link>
       </div>
     </Provider>
