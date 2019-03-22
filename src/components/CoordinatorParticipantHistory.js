@@ -19,129 +19,147 @@ import PhotoPopout from "../primitives/PhotoPopout"
 
 const CoordinatorParticipantHistory = observer(({ assembly }) => (
   <Layout>
-    <Heading>{assembly.translate("coordinator_participant_history.heading")}</Heading>
+    <Heading>
+      {assembly.translate("coordinator_participant_history.heading")}
+    </Heading>
 
-    <Info>
-      <dt>Participant ID</dt>
-      <dd>TODO not yet saved in database</dd>
+    <Split>
+      <Info>
+        <dt>
+          {assembly.translate("coordinator_participant_history.participant_id")}
+        </dt>
+        <dd>
+          TODO not yet saved in database
+        </dd>
 
-      <dt>{assembly.translate("coordinator_participant_history.first_name")}</dt>
-      <dd>{assembly.participant_history.information.name}</dd>
+        <dt>
+          {assembly.translate("coordinator_participant_history.first_name")}
+        </dt>
+        <dd>
+          {assembly.participant_history.information.name}
+        </dd>
 
-      <dt>{assembly.translate("coordinator_participant_history.start_date")}</dt>
-      <dd>{
-        DateTime
-          .fromISO(assembly.participant_history.information.treatment_start)
-          .setLocale("es")
-          .toLocaleString(DateTime.DATE_SIMPLE)
-      }</dd>
+        <dt>
+          {assembly.translate("coordinator_participant_history.start_date")}
+        </dt>
+        <dd>
+          { DateTime
+            .fromISO(assembly.participant_history.information.treatment_start)
+            .setLocale("es")
+            .toLocaleString(DateTime.DATE_SIMPLE)
+          }
+        </dd>
 
-      <dt>{assembly.translate("coordinator_participant_history.start_date")}</dt>
-      <dd>{
-        DateTime
-          .fromISO(assembly.participant_history.information.treatment_start)
-          .setLocale("es")
-          .plus({ months: 6 })
-          .toLocaleString(DateTime.DATE_SIMPLE)
-      }</dd>
+        <dt>
+          {assembly.translate("coordinator_participant_history.start_date")}
+        </dt>
+        <dd>
+          { DateTime
+            .fromISO(assembly.participant_history.information.treatment_start)
+            .setLocale("es")
+            .plus({ months: 6 })
+            .toLocaleString(DateTime.DATE_SIMPLE)
+          }
+        </dd>
+      </Info>
 
-    </Info>
-
-    <DataTable>
-      <thead>
-        <tr>
-          <th colSpan={1}>{assembly.translate("coordinator_participant_history.participant_info")}</th>
-          <th colSpan={3}>{assembly.translate("coordinator_participant_history.today")}</th>
-          <th colSpan={2}>{assembly.translate("coordinator_participant_history.actions")}</th>
-          <th colSpan={2}>{assembly.translate("coordinator_participant_history.treatment")}</th>
-        </tr>
-      </thead>
-
-      <thead>
-        <tr>
-          <th>{assembly.translate("coordinator_participant_history.name")}</th>
-
-          <th>{assembly.translate("coordinator_participant_history.medication")}</th>
-          <th>{assembly.translate("coordinator_participant_history.side_effects")}</th>
-          <th>{assembly.translate("coordinator_participant_history.photo")}</th>
-
-          <th>{assembly.translate("coordinator_participant_history.contact")}</th>
-          <th>{assembly.translate("coordinator_participant_history.notes")}</th>
-
-          <th>{assembly.translate("coordinator_participant_history.adherence")}</th>
-          <th>{assembly.translate("coordinator_participant_history.start_date")}</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        {assembly.coordinator_account.information.participants.map(participant =>
-          <tr key={participant.uuid} >
-            <td>{participant.name}</td>
-
-            <td>
-              { participant.today.medication_reports.length > 0
-                ? DateTime
-                  .fromISO(participant.today.medication_reports[0].timestamp)
-                  .toLocaleString(DateTime.TIME_SIMPLE)
-                : null
-              }
-            </td>
-
-            <td>
-              {participant.today.symptom_reports.map(symptom_report =>
-                <div>
-                  { DateTime
-                      .fromISO(symptom_report.created_at)
-                      .toLocaleString(DateTime.TIME_SIMPLE)
-                  }
-                  { symptom_report.reported_symptoms.map(symptom =>
-                    <Symptom key={symptom}>{symptom}</Symptom>
-                  )}
-                </div>
-              )}
-            </td>
-
-            <td>
-              { participant.today.strip_reports.map(strip_report =>
-                  <PhotoPopout src={strip_report.photo} >
-                    <Selection
-                      options={["positive", "negative"]}
-                      update={() => strip_report.status}
-                      onChange={value => assembly.setPhotoStatus(strip_report.id, value)}
-                    />
-                  </PhotoPopout>
-                )
-              }
-            </td>
-
-            <td>
-              <a href={'https://wa.me/' + participant.phone_number} target="_blank">
-                {participant.phone_number}
-              </a>
-            </td>
-
-            <td>
-              <CoordinatorNote>
-                <TextField use="textarea" />
-                <InlineButton>Save Note</InlineButton>
-              </CoordinatorNote>
-            </td>
-
-            <td>
-              {parseInt(participant_adherence(participant) * 100, 10) + "%"}
-            </td>
-
-            <td>
-              { DateTime
-                .fromISO(participant.treatment_start)
-                .setLocale(assembly.locale)
-                .toLocaleString(DateTime.DATE_SIMPLE)
-              }
-            </td>
+      <DataTable>
+        <thead>
+          <tr>
+            <th>
+              {assembly.translate("coordinator_participant_history.medication")}
+            </th>
+            <th>
+              {assembly.translate("coordinator_participant_history.side_effects")}
+            </th>
+            <th>
+              {assembly.translate("coordinator_participant_history.photo")}
+            </th>
+            <th>
+              {assembly.translate("coordinator_participant_history.test_result")}
+            </th>
+            <th>
+              {assembly.translate("coordinator_participant_history.action")}
+            </th>
           </tr>
-        )}
-      </tbody>
-    </DataTable>
+        </thead>
+
+        <tbody>
+          { assembly
+            .participant_history
+            .information
+            .medication_reports
+            .map(mr =>
+              <tr key={mr.timestamp}>
+                <td>
+                  <Padding>
+                    { DateTime
+                      .fromISO(mr.timestamp)
+                      .setLocale(assembly.locale)
+                      .toLocaleString(DateTime.DATE_SIMPLE)
+                    }
+                  </Padding>
+
+                  <Padding>
+                    { DateTime
+                      .fromISO(mr.timestamp)
+                      .setLocale(assembly.locale)
+                      .toLocaleString(DateTime.TIME_SIMPLE)
+                    }
+                  </Padding>
+                </td>
+
+                <td>
+                  { assembly
+                    .participant_history
+                    .information
+                    .symptom_reports
+                    .filter(sr => sr.timestamp === mr.timestamp)
+                    .map(sr => (
+                      sr.reported_symptoms.map(symptom => (
+                        <div key={symptom} >
+                          {assembly.translate(`survey.symptoms.${symptom}`)}
+                        </div>
+                      ))
+                    ))
+                  }
+                </td>
+
+                <td>
+                  { assembly
+                    .participant_history
+                    .information
+                    .strip_reports
+                    .filter(sr => sr.timestamp === mr.timestamp)
+                    .map(sr => (
+                      <img src={sr.photo} />
+                    ))
+                  }
+                </td>
+
+                <td>
+                  { assembly
+                    .participant_history
+                    .information
+                    .strip_reports
+                    .filter(sr => sr.timestamp === mr.timestamp)
+                    .map(sr => (
+                      <Padding>
+                        {sr.status}
+                      </Padding>
+                    ))
+                  }
+                </td>
+
+                <td>
+                  TODO not implemented yet.
+                </td>
+              </tr>
+            )
+          }
+        </tbody>
+      </DataTable>
+    </Split>
   </Layout>
 ))
 
@@ -155,11 +173,18 @@ const Layout = styled.div`
   grid-row-gap: 1rem;
 `
 
+const Split = styled.div`
+  display: grid;
+  grid-template-columns: auto 1fr;
+`
+
 const Name = styled.span`
 `
 
 const Info = styled.dl`
   border: 1px solid ${darkgrey};
+  margin: 0;
+  padding: 1rem;
 `
 
 const Symptom = styled.div`
@@ -183,6 +208,10 @@ const InlineButton = styled(Button)`
 const DataTable = styled(Table)`
   th { border: 1px solid darkgrey; }
   td { border: 1px solid darkgrey; }
+`
+
+const Padding = styled.span`
+  padding: 0.5rem;
 `
 
 const participant_adherence = (participant) => {

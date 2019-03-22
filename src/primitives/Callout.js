@@ -6,7 +6,12 @@ import { Popover } from "reakit"
 import { white, darkgrey } from "../colors"
 
 const Callout = observer(({ children, ...props }) => (
-  <Layout fade placement="bottom" hideOnClickOutside {...props} >
+  <Layout
+    fade
+    placement="bottom"
+    hideOnClickOutside
+    {...props}
+  >
     { children }
   </Layout>
 ))
