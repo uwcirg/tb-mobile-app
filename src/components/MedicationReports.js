@@ -30,6 +30,11 @@ const MedicationReports = observer(({ assembly }) => (
       .participant_account
       .information
       .medication_reports
+      .sort(function(a,b){
+        // Turn your strings into dates, and then subtract them
+        // to get a value that is either negative, positive, or zero.
+        return new Date(b.timestamp) - new Date(a.timestamp);
+      })
       .map(({timestamp, id, took_medication, not_taking_medication_reason}) => (
         // TODO: Sort by date and link reports
         <Answer>

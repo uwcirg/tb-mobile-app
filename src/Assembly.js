@@ -170,7 +170,8 @@ class Assembly extends React.Component {
     )
 
     this.survey_date = DateTime.local().setLocale(this.locale).toISODate()
-    this.survey_medication_time = DateTime.local().setLocale(this.locale).toLocaleString(DateTime.TIME_24)
+    this.survey_medication_time = "09:30"
+    // DateTime.local().setLocale(this.locale).toLocaleString(DateTime.TIME_24_SIMPLE)
     
     window.assembly = this
   }

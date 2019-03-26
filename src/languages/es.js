@@ -370,7 +370,7 @@ export default {
     `,
 
     side_effect: `
-    Efectos adversos o indeseables
+    Efectos adversos
     `,
 
     test_result: `
@@ -394,7 +394,7 @@ export default {
     `,
 
     took_medication: `
-    control de medicación
+    Control de medicación:
     `,
 
     took_medication_yes: `
@@ -661,7 +661,7 @@ export default {
         `,
 
         2: `
-        Link to educational video (es)
+        Enlace a un video educativo
         `,
 
         Link: `

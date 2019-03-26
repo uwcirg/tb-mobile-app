@@ -649,7 +649,7 @@ export default {
         `,
 
         2: `
-        Link to educational video
+        Link for an educational video
         `,
 
         Link: `

@@ -15,6 +15,7 @@ const FAQs = observer(({ assembly }) => (
 
     <P>{assembly.translate("faqs.intro_1")}</P>
     <P>{assembly.translate("faqs.intro_2")}</P>
+    <P><a href={assembly.translate("faqs.q1.answer.Link")} target="_blank">{assembly.translate("faqs.q1.answer.2")}</a></P>
 
     <Fold>
       <Question>
@@ -23,7 +24,6 @@ const FAQs = observer(({ assembly }) => (
 
       <Answer>
         <P>{assembly.translate("faqs.q1.answer.1")}</P>
-        <P><a href={assembly.translate("faqs.q1.answer.Link")} target="_blank">{assembly.translate("faqs.q1.answer.2")}</a></P>
         <P>{assembly.translate("faqs.q1.answer.3")}</P>
         <P>{assembly.translate("faqs.q1.answer.4")}</P>
         <P>{assembly.translate("faqs.q1.answer.5")}</P>

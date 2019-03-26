@@ -25,7 +25,15 @@ const SideEffects = observer(({ assembly }) => (
             <Info>{assembly.translate("progress.no_side_effects")}</Info>
           </Answer>
 
-        : assembly.participant_account.information.symptom_reports.map((sr) => (
+        : assembly
+            .participant_account
+            .information.symptom_reports
+            .slice().sort(function(a,b){
+              // Turn your strings into dates, and then subtract them
+              // to get a value that is either negative, positive, or zero.
+              return new Date(b.created_at) - new Date(a.created_at);
+            })
+            .map((sr) => (
           // TODO: Sort by date and link reports
           <Answer key={sr.created_at}>
             <Time>

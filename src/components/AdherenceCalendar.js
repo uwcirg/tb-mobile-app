@@ -12,6 +12,11 @@ const AdherenceCalendar = observer(({ assembly }) => (
   <Calendar
     locale={{ "Español": "es", "English": "en" }[assembly.language]}
     minDetail="year"
+
+    tileDisabled={({activeStartDate, date, view }) => {
+      return (DateTime.fromJSDate(date) > DateTime.local())}
+    }
+
     // Use https://moment.github.io/luxon/docs/manual/parsing.html#table-of-tokens
     // if you need to format the date again
     // React calendar returns this format of date "Fri Mar 29 2019 00:00:00 GMT-1000 (Hawaii-Aleutian Standard Time)"

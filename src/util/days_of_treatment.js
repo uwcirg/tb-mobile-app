@@ -8,13 +8,13 @@ const days_of_treatment = (participant) => {
   
     // Goes through medication reports and grabs dates and only
     // reports where they indicate they did take their medication
-    debugger
+    // debugger
     // let all_true_reports = participant.medication_reports.map(report => {
     //   if (report.took_medication === true) {
     //     return report;
     //   }};
     
-    let report_dates = all_true_reports.map(report =>
+    let report_dates = participant.medication_reports.map(report =>
       DateTime.fromISO(report.timestamp).toISODate()
     )
   

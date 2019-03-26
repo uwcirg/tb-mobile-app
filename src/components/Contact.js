@@ -38,8 +38,7 @@ const Contact = observer(({assembly}) => (
           {assembly.translate("contact.discussion_title")}
         </h3>
 
-        {/* TOOD: In the future we may not want the target to be blank */}
-        <Link href="https://asistente.trydiscourse.com/" target="_blank">
+        <Link href="https://tb-discourse.cirg.washington.edu" target="_blank">
           <Button backgroundColor={blue}>{assembly.translate("contact.discussion")}</Button>
         </Link>
       </div>
