@@ -13,7 +13,6 @@ const translation_keys =  { true: "yes", false: "no" }
 
 const ReportMedication = observer(({ assembly }) => (
   <Layout>
-    {/* TODO: If the current date is today then use "today" */}
     <Heading>{assembly.translate("survey.tookMedication.title") + assembly.survey_date + "?"}</Heading>
 
     <Selection

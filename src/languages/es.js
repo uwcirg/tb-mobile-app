@@ -254,10 +254,6 @@ export default {
     Número de teléfono
     `,
 
-    email: `
-    Correo electrónico
-    `,
-
     study_id: `
     studyID
     `,
@@ -290,11 +286,9 @@ export default {
     Nombre
     `,
 
-    email: `
-    Correo electrónico
+    password: `
+    Contraseña
     `,
-
-    password: "Contraseña",
 
     register: `
     Registrarse

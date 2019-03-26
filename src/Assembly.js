@@ -355,9 +355,6 @@ class Assembly extends React.Component {
         </Observer>
       </Content>
 
-      {/* Temporarily deleting this to see how it effects the app */}
-      {/* <Space className="SPACE" /> */}
-
       <WhenAuthenticated account={this.participant_account} >
         <NavBar>
           <Navigation assembly={this} />

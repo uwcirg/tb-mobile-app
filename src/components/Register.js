@@ -43,16 +43,6 @@ const Register = observer(({assembly}) => (
         />
       </FieldDiv>
 
-      <label htmlFor="phone_number">
-        {assembly.translate("register.email")}
-      </label>
-
-      <Field
-        type="email"
-        value={assembly.participant_account.information.email || ""}
-        onChange={(e) => assembly.participant_account.information.email = e.target.value}
-      />
-
       <label htmlFor="treatment_start">
         {assembly.translate("register.treatment_start")}
       </label>

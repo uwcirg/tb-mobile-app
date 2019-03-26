@@ -142,7 +142,7 @@ export default {
       `,
 
       title: `
-      Did you experience any side effects after taking the medication on 
+      Did you experience any side effects after taking the medication?
       `,
 
       yes: `
