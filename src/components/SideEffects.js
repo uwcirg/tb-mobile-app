@@ -28,17 +28,16 @@ const SideEffects = observer(({ assembly }) => (
         : assembly
             .participant_account
             .information.symptom_reports
-            .slice().sort(function(a,b){
-              // Turn your strings into dates, and then subtract them
-              // to get a value that is either negative, positive, or zero.
-              return new Date(b.created_at) - new Date(a.created_at);
+            .slice()
+            .sort(function(a,b){
+              return new Date(b.timestamp) - new Date(a.timestamp);
             })
             .map((sr) => (
-          // TODO: Sort by date and link reports
           <Answer key={sr.created_at}>
             <Time>
               { DateTime
-                .fromISO(sr.created_at)
+                .fromISO(sr.timestamp, {zone: 'utc'})
+                .setLocale(assembly.locale)
                 .toLocaleString(DateTime.DATETIME_SHORT)
               }
             </Time>

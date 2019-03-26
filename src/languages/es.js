@@ -53,12 +53,14 @@ export default {
       No
       `,
 
+      // TODO: If it is the current date then say,
+      // Did you take your medication today?
       // title: `
       // ¿Tomaste los medicamentos hoy?
       // `,
 
       title: `
-      Did you take your medication on
+      ¿Tomaste los medicamentos el dia
       `,
 
       reason: `
@@ -140,7 +142,7 @@ export default {
       `,
 
       title: `
-      ¿Presentaste algún  malestar al tomar los remedios?
+      ¿Presentaste algún malestar al tomar los remedios el dia 
       `,
 
       yes: `
@@ -352,7 +354,7 @@ export default {
     `,
 
     discussion: `
-    Link to Discussion Forum (es)
+    Enlace a foro de discusión
     `,
   },
 

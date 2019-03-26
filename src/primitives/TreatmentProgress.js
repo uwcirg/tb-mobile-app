@@ -9,7 +9,7 @@ import days_of_treatment from "../util/days_of_treatment"
 const TreatmentProgress = observer(({ children, assembly }) => (
     <Layout>
       <Progressbar        
-        percentage={days_of_treatment(assembly.participant_account.information) / 180}
+        percentage={days_of_treatment(assembly.participant_account.information) / 180 * 100}
         styles={{ path: { stroke: primary } }}
       />
 

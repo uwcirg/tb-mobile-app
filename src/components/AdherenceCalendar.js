@@ -13,7 +13,7 @@ const AdherenceCalendar = observer(({ assembly }) => (
     locale={{ "Español": "es", "English": "en" }[assembly.language]}
     minDetail="year"
 
-    tileDisabled={({activeStartDate, date, view }) => {
+    tileDisabled={({date}) => {
       return (DateTime.fromJSDate(date) > DateTime.local())}
     }
 

@@ -31,14 +31,16 @@ const MedicationReports = observer(({ assembly }) => (
       .information
       .medication_reports
       .sort(function(a,b){
-        // Turn your strings into dates, and then subtract them
-        // to get a value that is either negative, positive, or zero.
         return new Date(b.timestamp) - new Date(a.timestamp);
       })
       .map(({timestamp, id, took_medication, not_taking_medication_reason}) => (
-        // TODO: Sort by date and link reports
         <Answer>
-          <Time key={id}>{DateTime.fromISO(timestamp).toLocaleString(DateTime.DATETIME_SHORT)}</Time>
+          <Time key={id}>
+            {DateTime
+              .fromISO(timestamp, {zone: 'utc'})
+              .setLocale(assembly.locale)
+              .toLocaleString(DateTime.DATETIME_SHORT)}
+          </Time>
 
           <Info key={took_medication}>
             {assembly.translate("progress.took_medication")}

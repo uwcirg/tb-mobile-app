@@ -169,9 +169,9 @@ class Assembly extends React.Component {
       }
     )
 
-    this.survey_date = DateTime.local().setLocale(this.locale).toISODate()
-    this.survey_medication_time = "09:30"
-    // DateTime.local().setLocale(this.locale).toLocaleString(DateTime.TIME_24_SIMPLE)
+    // For spanish version: Changed from .toISODate(), didn't notice any regression
+    this.survey_date = DateTime.local().setLocale(this.locale).toLocaleString()
+    this.survey_medication_time = DateTime.local().setLocale(this.locale).toLocaleString(DateTime.TIME_24_SIMPLE)
     
     window.assembly = this
   }
@@ -249,11 +249,6 @@ class Assembly extends React.Component {
         },
       )
     }
-
-    this.survey_date = DateTime.local().setLocale(this.locale).toISODate();
-    this.survey_medication_time = DateTime.local().setLocale(this.locale).toLocaleString(DateTime.TIME_24)
-    this.survey_tookMedication = null
-    this.survey_notTakingMedicationReason = null
   }
 
   reportSymptoms() {
@@ -264,6 +259,13 @@ class Assembly extends React.Component {
         this.symptoms,
       ),
     )
+    
+    // Because we use survey date and time for both medication
+    // and side effect reports we need to reset here
+    this.survey_date = DateTime.local().setLocale(this.locale).toISODate();
+    this.survey_medication_time = DateTime.local().setLocale(this.locale).toLocaleString(DateTime.TIME_24_SIMPLE)
+    this.survey_tookMedication = null
+    this.survey_notTakingMedicationReason = null
 
     this.survey_anySymptoms = null;
     this.symptoms = {

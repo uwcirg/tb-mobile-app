@@ -28,15 +28,17 @@ const StripReports = observer(({ assembly }) => (
             : assembly
                 .participant_account
                 .information.strip_reports
+                .slice()
                 .sort(function(a,b){
-                  // Turn your strings into dates, and then subtract them
-                  // to get a value that is either negative, positive, or zero.
-                  return new Date(a.created_at) - new Date(b.created_at);
+                  return new Date(b.created_at) - new Date(a.created_at);
                 })
                 .map(({created_at, photo, status}) => (
               <Answer>
                 <Time key={created_at}>
-                  {DateTime.fromISO(created_at).toLocaleString(DateTime.DATETIME_SHORT)}
+                  {DateTime
+                    .fromISO(created_at)
+                    .setLocale(assembly.locale)
+                    .toLocaleString(DateTime.DATETIME_SHORT)}
                 </Time>
                 <Info>
                   {status || assembly.translate("progress.not_reviewed")}
