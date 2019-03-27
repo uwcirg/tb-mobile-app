@@ -41,7 +41,7 @@ class Account {
   }
 
   // Log in
-  authenticate(attributes, password) {
+  authenticate(session_uuid, attributes, password) {
     return new Promise((resolve, reject) =>
       this.network.run`
         BCrypt::Password.new(
@@ -50,7 +50,14 @@ class Account {
         ) == ${JSON.stringify(password)} ?
         ${this.model}.find_by(JSON.parse('${JSON.stringify(attributes)}')).uuid :
         {}
-    `.then(response => response.json().then(uuid => this.watch(uuid) ))
+      `.then(response =>
+        response
+        .json()
+        .then(uuid => {
+          localStorage.setItem(session_uuid, uuid)
+          this.watch(uuid)
+        })
+      )
     )
   }
 

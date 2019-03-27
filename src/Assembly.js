@@ -16,6 +16,7 @@ import { DateTime } from "luxon"
 
 // Layouts
 import CoordinatorHome from "./components/CoordinatorHome"
+import CoordinatorMenu from "./components/CoordinatorMenu"
 import CoordinatorParticipantHistory from "./components/CoordinatorParticipantHistory"
 import Faqs from "./components/Faqs"
 import Flash from "./components/Flash"
@@ -160,6 +161,11 @@ class Assembly extends React.Component {
     this.survey_date = DateTime.local().setLocale(this.locale).toLocaleString()
     this.survey_medication_time = DateTime.local().setLocale(this.locale).toLocaleString(DateTime.TIME_24_SIMPLE)
 
+    let coordinator_uuid = localStorage.getItem("coordinator_uuid")
+    let participant_uuid = localStorage.getItem("participant_uuid")
+    if(coordinator_uuid) this.coordinator_account.watch(coordinator_uuid)
+    if(participant_uuid) this.participant_account.watch(participant_uuid)
+
     window.assembly = this
   }
 
@@ -196,6 +202,7 @@ class Assembly extends React.Component {
 
   login() {
     this.participant_account.authenticate(
+      "participant_uuid",
       { phone_number: this.login_credentials.phone_number },
       this.login_credentials.password,
     )
@@ -207,6 +214,7 @@ class Assembly extends React.Component {
 
   coordinator_login() {
     this.coordinator_account.authenticate(
+      "coordinator_uuid",
       { email: this.coordinator_login_credentials.email },
       this.coordinator_login_credentials.password,
     )
@@ -306,6 +314,8 @@ class Assembly extends React.Component {
     this.participant_account.information = {}
     this.coordinator_account.information = {}
     this.currentPage = Login
+    localStorage.removeItem("coordinator_uuid")
+    localStorage.removeItem("participant_uuid")
     network.clearWatches()
   }
 
@@ -319,6 +329,10 @@ class Assembly extends React.Component {
 
         <WithCredentials account={this.participant_account} >
           <Menu assembly={this} />
+        </WithCredentials>
+
+        <WithCredentials account={this.coordinator_account} >
+          <CoordinatorMenu assembly={this} />
         </WithCredentials>
 
         <Drawer>

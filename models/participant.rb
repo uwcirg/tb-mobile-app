@@ -1,6 +1,4 @@
 class Participant < ApplicationRecord
-  belongs_to :coordinator
-
   has_many :medication_reports, dependent: :destroy
   has_many :strip_reports, dependent: :destroy
   has_many :symptom_reports, dependent: :destroy
@@ -10,12 +8,6 @@ class Participant < ApplicationRecord
   validates :phone_number, presence: true, uniqueness: true
   validates :treatment_start, presence: true
   validates :password_digest, presence: true
-
-  before_validation :assign_random_coordinator
-
-  def assign_random_coordinator
-    self.coordinator_id ||= Coordinator.pluck(:uuid).sample
-  end
 
   def as_json(*args)
     {
