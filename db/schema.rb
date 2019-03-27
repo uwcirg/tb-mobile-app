@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190311204446) do
+ActiveRecord::Schema.define(version: 20190322174149) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20190311204446) do
     t.datetime "timestamp", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "took_medication", null: false
+    t.boolean "took_medication", default: false, null: false
     t.string "not_taking_medication_reason"
   end
 
@@ -52,6 +52,22 @@ ActiveRecord::Schema.define(version: 20190311204446) do
     t.string "password_digest", null: false
     t.string "coordinator_id", null: false
     t.index ["uuid"], name: "index_participants_on_uuid"
+  end
+
+  create_table "resolutions", force: :cascade do |t|
+    t.string "coordinator_id", null: false
+    t.string "participant_id", null: false
+    t.datetime "timestamp"
+    t.bigint "medication_report_id"
+    t.bigint "strip_report_id"
+    t.bigint "symptom_report_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["coordinator_id"], name: "index_resolutions_on_coordinator_id"
+    t.index ["medication_report_id"], name: "index_resolutions_on_medication_report_id"
+    t.index ["participant_id"], name: "index_resolutions_on_participant_id"
+    t.index ["strip_report_id"], name: "index_resolutions_on_strip_report_id"
+    t.index ["symptom_report_id"], name: "index_resolutions_on_symptom_report_id"
   end
 
   create_table "strip_reports", force: :cascade do |t|
@@ -83,6 +99,9 @@ ActiveRecord::Schema.define(version: 20190311204446) do
   end
 
   add_foreign_key "medication_reports", "participants", primary_key: "uuid"
+  add_foreign_key "resolutions", "medication_reports"
+  add_foreign_key "resolutions", "strip_reports"
+  add_foreign_key "resolutions", "symptom_reports"
   add_foreign_key "strip_reports", "participants", primary_key: "uuid"
   add_foreign_key "symptom_reports", "participants", primary_key: "uuid"
 end

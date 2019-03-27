@@ -1,10 +1,10 @@
 import React from "react"
 import { observer } from "mobx-react"
 
-const WhenAuthenticated = observer(({ children, account }) => (
+const WithCredentials = observer(({ children, account }) => (
   account.information.uuid
   ? <div>{children}</div>
   : null
   ))
 
-export default WhenAuthenticated;
+export default WithCredentials;

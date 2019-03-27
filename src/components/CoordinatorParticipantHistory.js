@@ -132,7 +132,7 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
                     .strip_reports
                     .filter(sr => sr.timestamp === mr.timestamp)
                     .map(sr => (
-                      <img src={sr.photo} />
+                      <PhotoPopout src={sr.photo} key={sr.id} />
                     ))
                   }
                 </td>
@@ -145,7 +145,11 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
                     .filter(sr => sr.timestamp === mr.timestamp)
                     .map(sr => (
                       <Padding>
-                        {sr.status}
+                        <Selection
+                          options={["positive", "negative"]}
+                          update={() => sr.status}
+                          onChange={value => assembly.setPhotoStatus(sr.id, value)}
+                        />
                       </Padding>
                     ))
                   }

@@ -1,15 +1,3 @@
-// Code snippets - possible future use.
-
-// Dynamic import
-  // if(props.hash)
-  //   this.currentPage = import(props.hash)
-
-// import IPFS from "ipfs"
-// const ipfs = new IPFS({ EXPERIMENTAL: { pubsub: true } })
-// ipfs.once("ready", () =>
-//   ipfs.id((err, info) => { if(err) throw err; console.log(`Ready! ${info.id}`) })
-// )
-
 import React from "react"
 import styled from "styled-components"
 
@@ -40,7 +28,7 @@ import Notes from "./components/Notes"
 import SymptomOverview from "./components/SymptomOverview"
 
 import InternalLink from "./primitives/InternalLink"
-import WhenAuthenticated from "./primitives/WhenAuthenticated"
+import WithCredentials from "./primitives/WithCredentials"
 
 // Language
 import espanol from "./languages/es"
@@ -169,10 +157,9 @@ class Assembly extends React.Component {
       }
     )
 
-    // For spanish version: Changed from .toISODate(), didn't notice any regression
     this.survey_date = DateTime.local().setLocale(this.locale).toLocaleString()
     this.survey_medication_time = DateTime.local().setLocale(this.locale).toLocaleString(DateTime.TIME_24_SIMPLE)
-    
+
     window.assembly = this
   }
 
@@ -259,7 +246,7 @@ class Assembly extends React.Component {
         this.symptoms,
       ),
     )
-    
+
     // Because we use survey date and time for both medication
     // and side effect reports we need to reset here
     this.survey_date = DateTime.local().setLocale(this.locale).toISODate();
@@ -330,9 +317,9 @@ class Assembly extends React.Component {
           <Title>{this.currentPageTitle}</Title>
         </InternalLink>
 
-        <WhenAuthenticated account={this.participant_account} >
+        <WithCredentials account={this.participant_account} >
           <Menu assembly={this} />
-        </WhenAuthenticated>
+        </WithCredentials>
 
         <Drawer>
           <Observer>
@@ -355,11 +342,13 @@ class Assembly extends React.Component {
         </Observer>
       </Content>
 
-      <WhenAuthenticated account={this.participant_account} >
+      <WithCredentials account={this.participant_account} >
+        <Space />
+
         <NavBar>
           <Navigation assembly={this} />
         </NavBar>
-      </WhenAuthenticated>
+      </WithCredentials>
     </Layout>
   )
 }

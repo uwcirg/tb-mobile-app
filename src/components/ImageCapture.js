@@ -11,6 +11,7 @@ import { darkgrey } from "../colors"
 import { Icon } from "@mdi/react"
 import { mdiImage } from "@mdi/js"
 
+// TODO translate
 @observer
 class ImageCapture extends React.Component {
   width = 320;    // We will scale the photo width to this
