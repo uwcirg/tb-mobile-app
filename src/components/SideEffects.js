@@ -30,7 +30,7 @@ const SideEffects = observer(({ assembly }) => (
             .information.symptom_reports
             .slice()
             .sort(function(a,b){
-              return new Date(b.timestamp) - new Date(a.timestamp);
+              return DateTime.fromISO(b.timestamp) - DateTime.fromISO(a.timestamp);
             })
             .map((sr) => (
           <Answer key={sr.created_at}>
@@ -45,12 +45,15 @@ const SideEffects = observer(({ assembly }) => (
             { sr.reported_symptoms.length !== 0
 
             ? <Info>
-                { sr
+                {sr
                   .reported_symptoms
-                  .map(symptom_key => assembly.translate(`survey.symptoms.${symptom_key}`))
-                  .join(",")}
-
-                { sr.nausea_rating }
+                  .map(symptom_key => (
+                    <span>
+                      {assembly.translate(`survey.symptoms.${symptom_key}`)}
+                    </span>
+                  ))
+                }
+                { sr.nausea_rating ? sr.nausea_rating : null }
                 { sr.other }
               </Info>
 

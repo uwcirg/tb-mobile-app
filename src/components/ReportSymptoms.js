@@ -26,7 +26,10 @@ const translation_keys =  { true: "yes", false: "no" }
 
 const ReportSymptoms = observer(({ assembly, survey }) => (
   <Layout>
-    <Heading>{assembly.translate("survey.symptoms.title") + assembly.survey_date + "?"}</Heading>
+    <Heading>
+      {assembly.translate("survey.symptoms.title")}
+      {assembly.survey_date + "?"}
+    </Heading>
 
     <Selection
       update={() =>

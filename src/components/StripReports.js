@@ -30,7 +30,8 @@ const StripReports = observer(({ assembly }) => (
                 .information.strip_reports
                 .slice()
                 .sort(function(a,b){
-                  return new Date(b.created_at) - new Date(a.created_at);
+                  // NOTE: We are using created_at here, which is when rails captured the photo
+                  return DateTime.fromISO(b.created_at) - DateTime.fromISO(a.created_at);
                 })
                 .map(({created_at, photo, status}) => (
               <Answer>
