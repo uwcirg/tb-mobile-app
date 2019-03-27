@@ -32,16 +32,23 @@ const Register = observer(({assembly}) => (
         {assembly.translate("register.phone_number")}
       </label>
 
-      <FieldDiv>
+      <Field
+        name="phone_number"
+        type="tel"
+        value={assembly.participant_account.information.phone_number || ""}
+        onChange={(e) => assembly.participant_account.information.phone_number = e.target.value}
+      />
+
+      {/* <FieldDiv>
         <InputMask 
-          mask="+5\4 99 9999 9999" 
+          mask="5\4 099 9999 9999"
           maskChar={null} 
           name="phone_number"
           type="tel"
           value={assembly.participant_account.information.phone_number || ""}
           onChange={(e) => assembly.participant_account.information.phone_number = e.target.value}
         />
-      </FieldDiv>
+      </FieldDiv> */}
 
       <label htmlFor="treatment_start">
         {assembly.translate("register.treatment_start")}
