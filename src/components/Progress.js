@@ -18,7 +18,7 @@ const Progress = observer(({ assembly }) => (
         <div>
           <h2>{assembly.translate("progress.title")}</h2>
         <ProgressBarContainer>
-          <TreatmentProgress>
+          <TreatmentProgress assembly={assembly}>
             <Percentage>{days_of_treatment(assembly.participant_account.information)}</Percentage>
 
             <TreatmentDays>

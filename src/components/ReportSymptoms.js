@@ -26,7 +26,10 @@ const translation_keys =  { true: "yes", false: "no" }
 
 const ReportSymptoms = observer(({ assembly, survey }) => (
   <Layout>
-    <Heading>{assembly.translate("survey.symptoms.title")}</Heading>
+    <Heading>
+      {assembly.translate("survey.symptoms.title")}
+      {assembly.survey_date + "?"}
+    </Heading>
 
     <Selection
       update={() =>
@@ -148,7 +151,7 @@ const ReportSymptoms = observer(({ assembly, survey }) => (
           checked={assembly.symptoms.sore_belly}
           onChange={(e) => assembly.symptoms.sore_belly = e.target.checked}
         />
-        <span>{assembly.translate("survey.symptoms.upset_stomach")}</span>
+        <span>{assembly.translate("survey.symptoms.sore_belly")}</span>
       </Label>
 
       <Label>

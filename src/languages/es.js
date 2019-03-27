@@ -53,12 +53,14 @@ export default {
       No
       `,
 
+      // TODO: If it is the current date then say,
+      // Did you take your medication today?
       // title: `
       // ¿Tomaste los medicamentos hoy?
       // `,
 
       title: `
-      Did you take your medication on
+      ¿Tomaste los medicamentos el dia
       `,
 
       reason: `
@@ -115,7 +117,7 @@ export default {
       Visión borrosa o cambios en la forma de ver los colores
       `,
 
-      upset_stomach: `
+      sore_belly: `
       Dolor de barriga
       `,
 
@@ -140,7 +142,7 @@ export default {
       `,
 
       title: `
-      ¿Presentaste algún  malestar al tomar los remedios?
+      ¿Presentaste algún malestar al tomar los remedios el dia 
       `,
 
       yes: `
@@ -284,11 +286,9 @@ export default {
     Nombre
     `,
 
-    email: `
-    Email
+    password: `
+    Contraseña
     `,
-
-    password: "Contraseña",
 
     register: `
     Registrarse
@@ -348,7 +348,7 @@ export default {
     `,
 
     discussion: `
-    Link to Discussion Forum (es)
+    Enlace a foro de discusión
     `,
   },
 
@@ -358,7 +358,7 @@ export default {
     `,
 
     days: `
-    Número de días en tratamiento
+    Días en tratamiento
     `,
 
     medication: `
@@ -366,7 +366,7 @@ export default {
     `,
 
     side_effect: `
-    Efectos adversos o indeseables
+    Efectos adversos
     `,
 
     test_result: `
@@ -390,7 +390,7 @@ export default {
     `,
 
     took_medication: `
-    control de medicación
+    Control de medicación:
     `,
 
     took_medication_yes: `
@@ -657,7 +657,7 @@ export default {
         `,
 
         2: `
-        Link to educational video (es)
+        Enlace a un video educativo
         `,
 
         Link: `
@@ -1256,7 +1256,7 @@ export default {
   coordinator_login: {
     welcome: "Bienvenido",
     context: "Iniciar sesión para asistente de tratamiento",
-    email: "correo electrónico",
+    email: "Correo electrónico",
     password: "Contraseña",
     go: "Iniciar sesión",
 

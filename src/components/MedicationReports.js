@@ -30,10 +30,18 @@ const MedicationReports = observer(({ assembly }) => (
       .participant_account
       .information
       .medication_reports
+      .slice()
+      .sort(function(a,b){
+        return DateTime.fromISO(b.timestamp) - DateTime.fromISO(a.timestamp);
+      })
       .map(({timestamp, id, took_medication, not_taking_medication_reason}) => (
-        // TODO: Sort by date and link reports
         <Answer>
-          <Time key={id}>{DateTime.fromISO(timestamp).toLocaleString(DateTime.DATETIME_SHORT)}</Time>
+          <Time key={id}>
+            {DateTime
+              .fromISO(timestamp, {zone: 'utc'})
+              .setLocale(assembly.locale)
+              .toLocaleString(DateTime.DATETIME_SHORT)}
+          </Time>
 
           <Info key={took_medication}>
             {assembly.translate("progress.took_medication")}

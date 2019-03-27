@@ -25,10 +25,21 @@ const StripReports = observer(({ assembly }) => (
                 <Info>{assembly.translate("progress.no_strip_reports")}</Info>
               </Answer>
 
-            : assembly.participant_account.information.strip_reports.map(({created_at, photo, status}) => (
+            : assembly
+                .participant_account
+                .information.strip_reports
+                .slice()
+                .sort(function(a,b){
+                  // NOTE: We are using created_at here, which is when rails captured the photo
+                  return DateTime.fromISO(b.created_at) - DateTime.fromISO(a.created_at);
+                })
+                .map(({created_at, photo, status}) => (
               <Answer>
                 <Time key={created_at}>
-                  {DateTime.fromISO(created_at).toLocaleString(DateTime.DATETIME_SHORT)}
+                  {DateTime
+                    .fromISO(created_at)
+                    .setLocale(assembly.locale)
+                    .toLocaleString(DateTime.DATETIME_SHORT)}
                 </Time>
                 <Info>
                   {status || assembly.translate("progress.not_reviewed")}

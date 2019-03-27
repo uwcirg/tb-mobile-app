@@ -25,12 +25,19 @@ const SideEffects = observer(({ assembly }) => (
             <Info>{assembly.translate("progress.no_side_effects")}</Info>
           </Answer>
 
-        : assembly.participant_account.information.symptom_reports.map((sr) => (
-          // TODO: Sort by date and link reports
+        : assembly
+            .participant_account
+            .information.symptom_reports
+            .slice()
+            .sort(function(a,b){
+              return DateTime.fromISO(b.timestamp) - DateTime.fromISO(a.timestamp);
+            })
+            .map((sr) => (
           <Answer key={sr.created_at}>
             <Time>
               { DateTime
-                .fromISO(sr.created_at)
+                .fromISO(sr.timestamp, {zone: 'utc'})
+                .setLocale(assembly.locale)
                 .toLocaleString(DateTime.DATETIME_SHORT)
               }
             </Time>
@@ -38,12 +45,15 @@ const SideEffects = observer(({ assembly }) => (
             { sr.reported_symptoms.length !== 0
 
             ? <Info>
-                { sr
+                {sr
                   .reported_symptoms
-                  .map(symptom_key => assembly.translate(`survey.symptoms.${symptom_key}`))
-                  .join(", ")}
-
-                { sr.nausea_rating }
+                  .map(symptom_key => (
+                    <span>
+                      {assembly.translate(`survey.symptoms.${symptom_key}`)}
+                    </span>
+                  ))
+                }
+                { sr.nausea_rating ? sr.nausea_rating : null }
                 { sr.other }
               </Info>
 

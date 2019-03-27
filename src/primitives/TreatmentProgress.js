@@ -4,11 +4,12 @@ import { observer } from "mobx-react"
 
 import CircularProgressbar from "react-circular-progressbar"
 import { primary } from "../colors"
+import days_of_treatment from "../util/days_of_treatment"
 
-const TreatmentProgress = observer(({ children }) => (
+const TreatmentProgress = observer(({ children, assembly }) => (
     <Layout>
-      <Progressbar
-        percentage={68}
+      <Progressbar        
+        percentage={days_of_treatment(assembly.participant_account.information) / 180 * 100}
         styles={{ path: { stroke: primary } }}
       />
 
