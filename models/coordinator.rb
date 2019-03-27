@@ -11,6 +11,7 @@ class Coordinator < ApplicationRecord
       name: name,
       email: email,
       participants: Participant.all.as_json,
+      resolutions: Resolution.all.as_json,
     }
   end
 end

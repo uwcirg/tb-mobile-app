@@ -309,6 +309,10 @@ export default {
     Foto
     `,
 
+    email: `
+    Correo electrónico
+    `,
+
     phone_number: `
     Número de teléfono
     `,

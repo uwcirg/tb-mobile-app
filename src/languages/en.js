@@ -301,6 +301,10 @@ export default {
     Name
     `,
 
+    email: `
+    Email
+    `,
+
     photo: `
     Photo
     `,

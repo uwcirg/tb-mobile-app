@@ -46,123 +46,129 @@ const CoordinatorHome = observer(({ assembly }) => (
     </span>
     <Heading>{assembly.translate("coordinator.heading")}</Heading>
 
-    <DailyReviewTable>
-      <thead>
-        <tr>
-          <th>{assembly.translate("coordinator.status_")}</th>
-          <th>{assembly.translate("coordinator.name")}</th>
+    <InformationTable>
+      <Row>
+        <Cell>{assembly.translate("coordinator.status_")}</Cell>
+        <Cell>{assembly.translate("coordinator.name")}</Cell>
 
-          <th>{assembly.translate("coordinator.medication")}</th>
-          <th>{assembly.translate("coordinator.side_effects")}</th>
-          <th>{assembly.translate("coordinator.photo")}</th>
+        <Cell>{assembly.translate("coordinator.medication")}</Cell>
+        <Cell>{assembly.translate("coordinator.side_effects")}</Cell>
+        <Cell>{assembly.translate("coordinator.photo")}</Cell>
 
-          <th>{assembly.translate("coordinator.contact")}</th>
-          <th>{assembly.translate("coordinator.notes")}</th>
+        <Cell>{assembly.translate("coordinator.contact")}</Cell>
+        <Cell>{assembly.translate("coordinator.notes")}</Cell>
 
-          <th>{assembly.translate("coordinator.adherence")}</th>
-          <th>{assembly.translate("coordinator.start_date")}</th>
-        </tr>
-      </thead>
+        <Cell>{assembly.translate("coordinator.adherence")}</Cell>
+        <Cell>{assembly.translate("coordinator.start_date")}</Cell>
+      </Row>
 
-      <tbody>
-        {assembly.coordinator_account.information.participants.map(participant =>
-          <tr key={participant.uuid} onClick={() => assembly.participant_history.watch(participant.uuid)} >
-            <td>
-              {
-                participant_has_reports_that_have_not_been_resolved(participant)
-                ?
-                  <Popover.Container>
-                    {popover => (
-                      <div style={{ color: lightgrey }} >
-                        {Icons.no_response}
+      {assembly.coordinator_account.information.participants.map(participant =>
+        <Row
+          key={participant.uuid}
+          onClick={() => {} /* assembly.participant_history.watch(participant.uuid) */}
+        >
+          <Cell>
+            {participant_has_reports_that_have_not_been_resolved(participant)}
+            {
+              participant_has_reports_that_have_not_been_resolved(participant)
+              ?
+                <Popover.Container onClick={e => { e.stopPropagation(); e.preventDefault() } } >
+                  {popover => (
+                    <Status style={{ color: lightgrey }} >
+                      {Icons.no_response}
+                      <span>
                         {assembly.translate("coordinator.status.no_response")}
+                      </span>
 
-                        <Popover {...popover}>
-                        </Popover>
-                      </div>
-                    ) }
-                  </Popover.Container>
-                :
-                  <Popover.Container>
-                    {popover => (
-                      <div style={{ color: green }} >
-                        {Icons.pending_review}
+                      <Popover {...popover}>
+                        Hello?
+                      </Popover>
+                    </Status>
+                  ) }
+                </Popover.Container>
+              :
+                <Popover.Container onClick={e => { e.stopPropagation(); e.preventDefault() } } >
+                  {popover => (
+                    <Status style={{ color: green }} >
+                      {Icons.pending_review}
+                      <span>
                         {assembly.translate("coordinator.status.pending_review")}
+                      </span>
 
-                        <Popover {...popover}>
-                        </Popover>
-                      </div>
-                    )}
-                  </Popover.Container>
-              }
-            </td>
-
-            <td>{participant.name}</td>
-
-            <td>
-              { participant.today.medication_reports.length > 0
-                ? DateTime
-                  .fromISO(participant.today.medication_reports[0].timestamp)
-                  .toLocaleString(DateTime.TIME_SIMPLE)
-                : null
-              }
-            </td>
-
-            <td>
-              {participant.today.symptom_reports.map(symptom_report =>
-                <div>
-                  { DateTime
-                      .fromISO(symptom_report.created_at)
-                      .toLocaleString(DateTime.TIME_SIMPLE)
-                  }
-                  { symptom_report.reported_symptoms.map(symptom =>
-                    <Symptom key={symptom}>{symptom}</Symptom>
+                      <Popover {...popover}>
+                        Hello?
+                      </Popover>
+                    </Status>
                   )}
-                </div>
-              )}
-            </td>
+                </Popover.Container>
+            }
+          </Cell>
 
-            <td>
-              { participant.today.strip_reports.map((strip_report, index) =>
-                  <PhotoPopout src={strip_report.photo} key={strip_report.id} >
-                    <Selection
-                      options={["positive", "negative"]}
-                      update={() => strip_report.status}
-                      onChange={value => assembly.setPhotoStatus(strip_report.id, value)}
-                    />
-                  </PhotoPopout>
-                )
-              }
-            </td>
+          <Cell>{participant.name}</Cell>
 
-            <td>
-              <a href={'https://wa.me/' + participant.phone_number} target="_blank">
-                {participant.phone_number}
-              </a>
-            </td>
+          <Cell>
+            { participant.today.medication_reports.length > 0
+              ? DateTime
+                .fromISO(participant.today.medication_reports[0].timestamp)
+                .toLocaleString(DateTime.TIME_SIMPLE)
+              : null
+            }
+          </Cell>
 
-            <td>
-              <CoordinatorNote>
-                <TextField use="textarea" />
-                <InlineButton>Save Note</InlineButton>
-              </CoordinatorNote>
-            </td>
+          <Cell>
+            {participant.today.symptom_reports.map(symptom_report =>
+              <div key={symptom_report.created_at} >
+                { DateTime
+                    .fromISO(symptom_report.created_at)
+                    .toLocaleString(DateTime.TIME_SIMPLE)
+                }
+                { symptom_report.reported_symptoms.map(symptom =>
+                  <Symptom key={symptom}>{symptom}</Symptom>
+                )}
+              </div>
+            )}
+          </Cell>
 
-            <td>
-              {parseInt(participant_adherence(participant) * 100, 10) + "%"}
-            </td>
+          <Cell>
+            { participant.today.strip_reports.map((strip_report, index) =>
+                <PhotoPopout src={strip_report.photo} key={strip_report.id} >
+                  <Selection
+                    options={["positive", "negative"]}
+                    update={() => strip_report.status}
+                    onChange={value => assembly.setPhotoStatus(strip_report.id, value)}
+                  />
+                </PhotoPopout>
+              )
+            }
+          </Cell>
 
-            <td>
-              { DateTime
-                .fromISO(participant.treatment_start)
-                .setLocale(assembly.locale)
-                .toLocaleString(DateTime.DATE_SIMPLE)
-              }
-            </td>
-          </tr>
-        )}
-      </tbody>
-    </DailyReviewTable>
+          <Cell>
+            <a href={'https://wa.me/' + participant.phone_number} target="_blank">
+              {participant.phone_number}
+            </a>
+          </Cell>
+
+          <Cell>
+            <CoordinatorNote>
+              <TextField use="textarea" />
+              <InlineButton>Save Note</InlineButton>
+            </CoordinatorNote>
+          </Cell>
+
+          <Cell>
+            {parseInt(participant_adherence(participant) * 100, 10) + "%"}
+          </Cell>
+
+          <Cell>
+            { DateTime
+              .fromISO(participant.treatment_start)
+              .setLocale(assembly.locale)
+              .toLocaleString(DateTime.DATE_SIMPLE)
+            }
+          </Cell>
+        </Row>
+      )}
+    </InformationTable>
   </Layout>
 ))
 
@@ -194,14 +200,42 @@ const InlineButton = styled(Button)`
   padding: 0.2rem;
 `
 
-const DailyReviewTable = styled(Table)`
-  th { border-bottom: 1px solid darkgrey; }
-  td { border-bottom: 1px solid darkgrey; }
+const InformationTable = styled.div`
+  display: grid;
+  grid-template-rows: repeat(9, 1fr);
 `
 
+const Row = styled.div`
+  &:first-child {
+    border-bottom: 1px solid ${darkgrey};
+  }
+
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  border-bottom: 1px solid ${lightgrey};
+  margin-bottom: 1rem;
+`
+
+const Cell = styled.div`
+  padding: 0.5rem;
+`
+
+// Need a thorough review of this logic;
+// it seems to work for now,
+// but won't hold up in the live site.
 const participant_has_reports_that_have_not_been_resolved = (participant) => (
-  false
+  (
+    participant.medication_reports +
+    participant.symptom_reports +
+    participant.strip_reports
+  ).length === 0
 )
+
+const Status = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
 
 CoordinatorHome.route = "/coordinator"
 export default CoordinatorHome

@@ -1,8 +1,8 @@
 import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
-import { Hidden, Input, Provider } from "reakit"
-import { grey, white } from "../colors"
+import { Hidden, Input, Provider, Popover } from "reakit"
+import { darkgrey, grey, white } from "../colors"
 import theme from "reakit-theme-default";
 
 import hives from "../images/hives.jpg"

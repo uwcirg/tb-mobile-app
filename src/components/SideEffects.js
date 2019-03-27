@@ -21,18 +21,16 @@ const SideEffects = observer(({ assembly }) => (
       </Question>
 
       { assembly.participant_account.information.symptom_reports.length === 0
-        ? <Answer>
-            <Info>{assembly.translate("progress.no_side_effects")}</Info>
-          </Answer>
+      ? <Answer>
+          <Info>{assembly.translate("progress.no_side_effects")}</Info>
+        </Answer>
 
-        : assembly
-            .participant_account
-            .information.symptom_reports
-            .slice()
-            .sort(function(a,b){
-              return DateTime.fromISO(b.timestamp) - DateTime.fromISO(a.timestamp);
-            })
-            .map((sr) => (
+      : assembly
+        .participant_account
+        .information.symptom_reports
+        .slice()
+        .sort((a,b) => DateTime.fromISO(b.timestamp) - DateTime.fromISO(a.timestamp))
+        .map(sr => (
           <Answer key={sr.created_at}>
             <Time>
               { DateTime
@@ -62,7 +60,8 @@ const SideEffects = observer(({ assembly }) => (
               </Info>
             }
           </Answer>
-      ))}
+        ))
+      }
     </Fold>
   </div>
 ))

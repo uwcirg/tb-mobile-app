@@ -24,10 +24,11 @@ sudo mv build /srv/www/tb-app.cirg.washington.edu/htdocs
 # sudo docker-compose exec web bundle exec rake db:create db:migrate
 
 # # Soft Restart!
-sudo docker-compose kill -f web client
+sudo docker-compose stop
 sudo docker-compose rm -f web client
 sudo docker-compose pull
 sudo docker-compose up -d
+sudo docker-compose exec web bundle exec rake db:create db:migrate
 
 # # Status
 sudo docker-compose logs -f web
