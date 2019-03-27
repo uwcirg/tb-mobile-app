@@ -16,9 +16,18 @@ import Button from "../primitives/Button"
 import Selection from "../primitives/Selection"
 import Heading from "../primitives/Heading"
 import PhotoPopout from "../primitives/PhotoPopout"
+import InternalLink from "../primitives/InternalLink"
+import CoordinatorHome from "../components/CoordinatorHome"
 
 const CoordinatorParticipantHistory = observer(({ assembly }) => (
   <Layout>
+    <InternalLink
+      assembly={assembly}
+      to={CoordinatorHome}
+    >
+      {assembly.translate("coordinator_participant_history.link.home")}
+    </InternalLink>
+
     <Heading>
       {assembly.translate("coordinator_participant_history.heading")}
     </Heading>
@@ -210,8 +219,8 @@ const InlineButton = styled(Button)`
 `
 
 const DataTable = styled(Table)`
-  th { border: 1px solid darkgrey; }
-  td { border: 1px solid darkgrey; }
+  th { border-bottom: 1px solid darkgrey; }
+  td { border-bottom: 1px solid darkgrey; }
 `
 
 const Padding = styled.span`

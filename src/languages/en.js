@@ -1175,17 +1175,18 @@ export default {
     treatment: "Treatment",
     adherence: "% Adherence",
     start_date: "Start Date",
+    status_: "Status",
 
-    daily: {
-      status: {
-        pending_review: "Pending review",
-        completed: "Completed",
-        no_response: "No response",
-      },
+    status: {
+      overdue: "Overdue",
+      pending_review: "Pending review",
+      reviewed: "Completed",
+      no_response: "No response",
     },
   },
 
   coordinator_participant_history: {
+    link: { home: "Return" },
     action: "Action",
     end_date: "Expected End Date",
     first_name: "First Name",

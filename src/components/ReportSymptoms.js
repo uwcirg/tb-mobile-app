@@ -2,7 +2,6 @@ import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
 import { Hidden, Input, Provider } from "reakit"
-import Callout from "../primitives/Callout"
 import { grey, white } from "../colors"
 import theme from "reakit-theme-default";
 
@@ -221,5 +220,24 @@ const Checkbox = styled(Input).attrs({ type: "checkbox" })`
 const Image = styled.img`
   width: 100%;
 `
+
+const Callout = observer(({ children, ...props }) => (
+  <CalloutLayout
+    fade
+    placement="bottom"
+    hideOnClickOutside
+    {...props}
+  >
+    { children }
+  </CalloutLayout>
+))
+
+const CalloutLayout = styled(Popover)`
+  background-color: ${white};
+  border: 2px solid rgba(100, 100, 100, 0.5);
+  padding: 1rem;
+  color: ${darkgrey};
+`
+
 
 export default ReportSymptoms

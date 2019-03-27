@@ -9,7 +9,6 @@ import {
   mdiHelp,
 } from "@mdi/js"
 
-import Callout from "./Callout"
 import { darkgrey, white } from "../colors"
 
 const Help = observer(({ children }) => (
@@ -21,7 +20,9 @@ const Help = observer(({ children }) => (
           <Icon path={mdiHelp} size={0.6} color={white} />
         </Stack>
 
-        <Callout {...state}>{ children }</Callout>
+        <Callout {...state}>
+          { children }
+        </Callout>
       </HelpToggle>
     )}
   </Popover.Container>
@@ -31,5 +32,24 @@ const HelpToggle = styled(Button)`
   width: 2rem;
   flex-basis: 2rem;
 `
+
+const Callout = observer(({ children, ...props }) => (
+  <CalloutLayout
+    fade
+    placement="bottom"
+    hideOnClickOutside
+    {...props}
+  >
+    { children }
+  </CalloutLayout>
+))
+
+const CalloutLayout = styled(Popover)`
+  background-color: ${white};
+  border: 2px solid rgba(100, 100, 100, 0.5);
+  padding: 1rem;
+  color: ${darkgrey};
+`
+
 
 export default Help

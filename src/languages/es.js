@@ -142,7 +142,7 @@ export default {
       `,
 
       title: `
-      ¿Presentaste algún malestar al tomar los remedios el dia 
+      ¿Presentaste algún malestar al tomar los remedios el dia
       `,
 
       yes: `
@@ -168,7 +168,7 @@ export default {
       `,
 
       upload_photo: `
-      Tomar foto 
+      Tomar foto
       `,
 
       end_timer: `
@@ -362,7 +362,7 @@ export default {
     `,
 
     medication: `
-    Control de medicación 
+    Control de medicación
     `,
 
     side_effect: `
@@ -1206,19 +1206,20 @@ export default {
     contact: "Contacto",
     notes: "Notas",
     treatment: "Tratamiento",
-    adherence: "TODO % Adherence",
+    adherence: "La adherencia",
     start_date: "Fecha de inicio del tratamiento",
+    status_: "Estado",
 
-    daily: {
-      status: {
-        pending_review: "Revisión pendiente",
-        completed: "Completado",
-        no_response: "No respondió",
-      },
+    status: {
+      overdue: "Atrasada",
+      pending_review: "Revisión pendiente",
+      reviewed: "Completado",
+      no_response: "No respondió",
     },
   },
 
   coordinator_participant_history: {
+    link: { home: "Regrarse" },
     date: "Fecha",
     heading: "Registro",
     participant_info: "Información del participante",

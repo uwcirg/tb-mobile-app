@@ -6,17 +6,34 @@ import { DateTime } from "luxon"
 
 import {
   darkgrey,
+  lightgrey,
+  green,
   grey,
-  white,
   red,
+  white,
 } from "../colors"
 
-import { Input, Table } from "reakit";
+import { Popover, Input, Table } from "reakit";
 import Button from "../primitives/Button"
 import Selection from "../primitives/Selection"
 import Heading from "../primitives/Heading"
 import PhotoPopout from "../primitives/PhotoPopout"
 import participant_adherence from "../util/participant_adherence"
+
+import { Icon } from "@mdi/react"
+import {
+  mdiCloseCircle,
+  mdiCloseCircleOutline,
+  mdiCheckCircle,
+  mdiCircleOutline,
+} from "@mdi/js"
+
+const Icons = {
+  reviewed:       <Icon size={1.5} color={green} path={mdiCheckCircle} />,
+  pending_review: <Icon size={1.5} color={green} path={mdiCircleOutline} />,
+  no_response:    <Icon size={1.5} color={lightgrey}   path={mdiCloseCircleOutline} />,
+  overdue:        <Icon size={1.5} color={red}   path={mdiCloseCircle} />,
+}
 
 const CoordinatorHome = observer(({ assembly }) => (
   <Layout>
@@ -32,15 +49,7 @@ const CoordinatorHome = observer(({ assembly }) => (
     <DailyReviewTable>
       <thead>
         <tr>
-          <th colSpan={1}>{assembly.translate("coordinator.participant_info")}</th>
-          <th colSpan={3}>{assembly.translate("coordinator.today")}</th>
-          <th colSpan={2}>{assembly.translate("coordinator.actions")}</th>
-          <th colSpan={2}>{assembly.translate("coordinator.treatment")}</th>
-        </tr>
-      </thead>
-
-      <thead>
-        <tr>
+          <th>{assembly.translate("coordinator.status_")}</th>
           <th>{assembly.translate("coordinator.name")}</th>
 
           <th>{assembly.translate("coordinator.medication")}</th>
@@ -58,6 +67,36 @@ const CoordinatorHome = observer(({ assembly }) => (
       <tbody>
         {assembly.coordinator_account.information.participants.map(participant =>
           <tr key={participant.uuid} onClick={() => assembly.participant_history.watch(participant.uuid)} >
+            <td>
+              {
+                participant_has_reports_that_have_not_been_resolved(participant)
+                ?
+                  <Popover.Container>
+                    {popover => (
+                      <div style={{ color: lightgrey }} >
+                        {Icons.no_response}
+                        {assembly.translate("coordinator.status.no_response")}
+
+                        <Popover {...popover}>
+                        </Popover>
+                      </div>
+                    ) }
+                  </Popover.Container>
+                :
+                  <Popover.Container>
+                    {popover => (
+                      <div style={{ color: green }} >
+                        {Icons.pending_review}
+                        {assembly.translate("coordinator.status.pending_review")}
+
+                        <Popover {...popover}>
+                        </Popover>
+                      </div>
+                    )}
+                  </Popover.Container>
+              }
+            </td>
+
             <td>{participant.name}</td>
 
             <td>
@@ -128,6 +167,7 @@ const CoordinatorHome = observer(({ assembly }) => (
 ))
 
 const Layout = styled.div`
+  margin-top: 2rem;
   background-color: ${white};
   border-radius: 2px;
   border: 1px solid ${darkgrey};
@@ -155,23 +195,13 @@ const InlineButton = styled(Button)`
 `
 
 const DailyReviewTable = styled(Table)`
-  th { border: 1px solid darkgrey; }
-  td { border: 1px solid darkgrey; }
+  th { border-bottom: 1px solid darkgrey; }
+  td { border-bottom: 1px solid darkgrey; }
 `
 
-// const participant_adherence = (participant) => {
-//   let start = DateTime.fromISO(participant.treatment_start)
-//   let end = DateTime.local()
-//   let full_days = parseInt(end.diff(start, 'days').toObject().days, 10)
-//   if(full_days === 0) full_days = 1
-
-//   let report_dates = participant.medication_reports.map(report =>
-//     DateTime.fromISO(report.timestamp).toISODate()
-//   )
-
-//   let unique_report_dates = Array.from(new Set(report_dates))
-//   return unique_report_dates.length / full_days
-// }
+const participant_has_reports_that_have_not_been_resolved = (participant) => (
+  false
+)
 
 CoordinatorHome.route = "/coordinator"
 export default CoordinatorHome
