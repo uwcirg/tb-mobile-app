@@ -8,7 +8,6 @@ import ListOfLinks from "../layouts/ListOfLinks"
 import { Input } from "reakit"
 import { white, grey } from "../colors"
 import InternalLink from "../primitives/InternalLink"
-import CoordinatorRegister from "./CoordinatorRegister"
 import Login from "./Login"
 
 const CoordinatorLogin = observer(({assembly}) => (
@@ -38,10 +37,6 @@ const CoordinatorLogin = observer(({assembly}) => (
         {assembly.translate("coordinator_login.go")}
       </Button>
     </Form>
-
-    <InternalLink to={CoordinatorRegister} assembly={assembly} >
-      {assembly.translate("coordinator_login.link.register")}
-    </InternalLink>
 
     <InternalLink to={Login} assembly={assembly} >
       {assembly.translate("coordinator_register.link.patient_login")}
