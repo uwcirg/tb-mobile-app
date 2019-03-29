@@ -94,10 +94,13 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
         </thead>
 
         <tbody>
-          { assembly
-            .participant_history
-            .information
-            .medication_reports
+          { (
+            assembly
+              .participant_history
+              .information
+              .medication_reports
+            || []
+            )
             .map(mr =>
               <tr key={mr.timestamp}>
                 <td>

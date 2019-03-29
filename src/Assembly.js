@@ -1,11 +1,12 @@
 import React from "react"
 import styled from "styled-components"
 
-import { observable, computed,  autorun, reaction } from "mobx"
+import { observable, computed,  autorun, reaction, action } from "mobx"
 import { observer, Observer } from "mobx-react"
 import { Image } from "reakit"
 import { white, beige, lightgrey, darkgrey } from "./colors"
 import logo from "./logo.png"
+import ErrorBoundary from "./primitives/ErrorBoundary"
 
 // Crypto & authentication
 // import KJUR from "jsrsasign"
@@ -14,8 +15,10 @@ import logo from "./logo.png"
 import Account from "./Account"
 import { DateTime } from "luxon"
 
-// Layouts
+// Pages
+import Contact from "./components/Contact"
 import CoordinatorHome from "./components/CoordinatorHome"
+import CoordinatorLogin from "./components/CoordinatorLogin"
 import CoordinatorMenu from "./components/CoordinatorMenu"
 import CoordinatorParticipantHistory from "./components/CoordinatorParticipantHistory"
 import Faqs from "./components/Faqs"
@@ -26,6 +29,9 @@ import Login from "./components/Login"
 import Menu from "./components/Menu"
 import Navigation from "./components/Navigation"
 import Notes from "./components/Notes"
+import Progress from "./components/Progress"
+import Register from "./components/Register"
+import Survey from "./components/Survey"
 import SymptomOverview from "./components/SymptomOverview"
 
 import InternalLink from "./primitives/InternalLink"
@@ -97,6 +103,10 @@ class Assembly extends React.Component {
     password: "",
   }
 
+  // TODO this is not a great concept -
+  // it's a sub-account loaded on top of a coordinator account.
+  // The possibility of the two accounts interfering with each other is quite high.
+  //
   // If this is not set, then render an error.
   @observable participant_history = new Account(network, "Participant", {})
 
@@ -104,16 +114,10 @@ class Assembly extends React.Component {
 
   @observable language = "Español"
   @observable alerts = []
-  @observable currentPage = Login
+  @observable currentPage = null
 
   constructor(props) {
     super(props)
-
-    // Inverse routing
-    autorun(() => {
-      if(this.currentPath !== window.location.pathname)
-        window.history.pushState(null, null, this.currentPath)
-    })
 
     // Behavior
     autorun(() => {
@@ -121,52 +125,60 @@ class Assembly extends React.Component {
         this.alert(this.translate("symptom_overview.take_action_immediately"))
     })
 
-    // When the UUID changes, set the currentPage to Home
-    reaction(
-      () => this.participant_account.information.uuid,
-      (uuid) => {
-        network.clearWatches()
-
-        if(uuid) {
-          this.participant_account.watch(uuid)
-          this.currentPage = Home
-        } else {
-        }
-      }
-    )
-
-    reaction(
-      () => this.coordinator_account.information.uuid,
-      (uuid) => {
-        network.clearWatches()
-
-        if(uuid) {
-          this.coordinator_account.watch(uuid)
-          this.currentPage = CoordinatorHome
-        } else {
-        }
-      }
-    )
-
-    reaction(
-      () => this.participant_history.information.uuid,
-      (uuid) => {
-        if(uuid) {
-          this.participant_history.watch(uuid)
-          this.currentPage = CoordinatorParticipantHistory
-        }
-      }
-    )
-
     this.survey_date = DateTime.local().setLocale(this.locale).toLocaleString()
     this.survey_medication_time = DateTime.local().setLocale(this.locale).toLocaleString(DateTime.TIME_24_SIMPLE)
 
-    let coordinator_uuid = localStorage.getItem("coordinator_uuid")
-    let participant_uuid = localStorage.getItem("participant_uuid")
-    if(coordinator_uuid) this.coordinator_account.watch(coordinator_uuid)
-    if(participant_uuid) this.participant_account.watch(participant_uuid)
+    // When the page loads,
+    // immediately look for stored credentials in `localStorage`.
+    let coordinator_uuid = localStorage.getItem("coordinator.uuid")
+    let participant_uuid = localStorage.getItem("participant.uuid")
 
+    if(coordinator_uuid)
+      this.coordinator_account.watch(coordinator_uuid, () => this.route())
+
+    if(participant_uuid)
+      this.participant_account.watch(participant_uuid, () => this.route())
+
+    // Determine what to display
+    this.route()
+
+    // Save the current page
+    autorun(() =>
+      window.localStorage.setItem(
+        "current_page",
+        this.currentPage ? this.currentPage.route : null
+      )
+    )
+
+    // Attach to the window for debugging
     window.assembly = this
+  }
+
+  // Given...
+  // * the remembered route
+  // * all of the data present in the application
+  //
+  // ...determine what to display.
+  @action route() {
+    console.log(`Set the current page for "${localStorage.getItem('current_page')}"`)
+
+    // Note: `Login` does not have a route;
+    // it is handled internally by Assemble
+    // so should not appear in this list.
+    this.currentPage = {
+      "/": Home,
+      "/contact": Contact,
+      "/coordinator": CoordinatorHome,
+      "/coordinator_login": CoordinatorLogin,
+      "/coordinator_participant_history": CoordinatorParticipantHistory,
+      "/info": InfoEd,
+      "/info/faqs": Faqs,
+      "/info/symptom-overview": SymptomOverview,
+      "/notes": Notes,
+      "/progress": Progress,
+      "/register": Register,
+      "/survey": Survey,
+    }[localStorage.getItem("current_page")] || Login
   }
 
   setPhotoStatus(id, status) {
@@ -182,8 +194,6 @@ class Assembly extends React.Component {
     var index = this.alerts.indexOf(message);
     if (index > -1) this.alerts.splice(index, 1);
   }
-
-  @computed get currentPath() { return this.currentPage.route }
 
   @computed get currentPageTitle() {
     switch(this.currentPage) {
@@ -202,10 +212,12 @@ class Assembly extends React.Component {
 
   login() {
     this.participant_account.authenticate(
-      "participant_uuid",
       { phone_number: this.login_credentials.phone_number },
       this.login_credentials.password,
-    )
+    ).then((uuid) => {
+      localStorage.setItem("participant.uuid", uuid)
+      this.currentPage = Home
+    })
   }
 
   coordinator_register() {
@@ -214,10 +226,12 @@ class Assembly extends React.Component {
 
   coordinator_login() {
     this.coordinator_account.authenticate(
-      "coordinator_uuid",
       { email: this.coordinator_login_credentials.email },
       this.coordinator_login_credentials.password,
-    )
+    ).then((uuid) => {
+      localStorage.setItem("coordinator.uuid", uuid)
+      this.currentPage = CoordinatorHome
+    })
   }
 
   // TODO change out `author_id`
@@ -313,10 +327,13 @@ class Assembly extends React.Component {
   logout() {
     this.participant_account.information = {}
     this.coordinator_account.information = {}
-    this.currentPage = Login
-    localStorage.removeItem("coordinator_uuid")
-    localStorage.removeItem("participant_uuid")
+
+    // Remove stored credentials
+    localStorage.removeItem("coordinator.uuid")
+    localStorage.removeItem("participant.uuid")
+
     network.clearWatches()
+    this.currentPage = Login
   }
 
   render = () => (
@@ -352,7 +369,13 @@ class Assembly extends React.Component {
 
       <Content>
         <Observer>
-          {() => React.createElement(this.currentPage, { assembly: this })}
+          {() =>
+            this.currentPage
+            ? <ErrorBoundary assembly={this}>
+                { React.createElement(this.currentPage, { assembly: this }) }
+              </ErrorBoundary>
+            : null
+          }
         </Observer>
       </Content>
 

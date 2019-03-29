@@ -1,6 +1,6 @@
 import React from "react"
 
-export default ({ assembly, to, children, ...props }) => (
+const InternalLink = ({ assembly, to, children, ...props }) => (
   <a
     onClick={e => {
       if(e.metaKey || e.ctrlKey)
@@ -24,3 +24,5 @@ export default ({ assembly, to, children, ...props }) => (
     {children}
   </a>
 )
+
+export default InternalLink

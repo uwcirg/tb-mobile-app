@@ -30,18 +30,20 @@ class Account {
   }
 
   // Pulls in patient information from DB
-  watch(uuid) {
+  watch(uuid, callback) {
     this.network.watch`
       ${this.model}.find_by(uuid: ${JSON.stringify(uuid)})
     `(response => {
-      response.json()
+      response
+        .json()
         .then(r => this.information = r)
         .catch(e => console.log(e))
+      if(callback) callback()
     })
   }
 
   // Log in
-  authenticate(session_uuid, attributes, password) {
+  authenticate(attributes, password) {
     return new Promise((resolve, reject) =>
       this.network.run`
         BCrypt::Password.new(
@@ -54,8 +56,9 @@ class Account {
         response
         .json()
         .then(uuid => {
-          localStorage.setItem(session_uuid, uuid)
+          // uuid exists here
           this.watch(uuid)
+          resolve(uuid)
         })
       )
     )

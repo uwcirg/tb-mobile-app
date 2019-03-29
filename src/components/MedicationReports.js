@@ -21,7 +21,13 @@ const MedicationReports = observer(({ assembly }) => (
       {assembly.translate("progress.medication")}
     </Question>
 
-    { assembly.participant_account.information.medication_reports.length === 0
+    { (
+      assembly
+      .participant_account
+      .information
+      .medication_reports
+        || []
+      ).length === 0
     ? <Answer>
         <Info>{assembly.translate("progress.no_medication_reports")}</Info>
       </Answer>

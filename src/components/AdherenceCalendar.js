@@ -20,22 +20,24 @@ const AdherenceCalendar = observer(({ assembly }) => (
     // Use https://moment.github.io/luxon/docs/manual/parsing.html#table-of-tokens
     // if you need to format the date again
     // React calendar returns this format of date "Fri Mar 29 2019 00:00:00 GMT-1000 (Hawaii-Aleutian Standard Time)"
-    onClickDay={((value) => assembly.survey_date = 
+    onClickDay={((value) => assembly.survey_date =
                            DateTime.fromFormat(value.toString().substr(0, 15), 'EEE LLL dd yyyy').toISODate())}
-    
+
     onChange={() => assembly.currentPage = Survey}
 
     tileContent={
       ({ date, view }) => {
         let survey_for_day =
           view === "month" &&
-          assembly
-            .participant_account
-            .information
-            .medication_reports
-            .find(mr =>mr.timestamp.replace(/T.+$/, "") === date.toJSON().replace(/T.+$/, ""));
-        
-        if (survey_for_day) {        
+          (
+            assembly
+              .participant_account
+              .information
+              .medication_reports
+            || []
+          ).find(mr =>mr.timestamp.replace(/T.+$/, "") === date.toJSON().replace(/T.+$/, ""));
+
+        if (survey_for_day) {
           return (
             <DateCell date={date} took_medication={survey_for_day.took_medication}>
               {date.getDate()}

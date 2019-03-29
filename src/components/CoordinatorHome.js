@@ -13,12 +13,13 @@ import {
   white,
 } from "../colors"
 
-import { Popover, Input, Table } from "reakit";
 import Button from "../primitives/Button"
-import Selection from "../primitives/Selection"
+import CoordinatorParticipantHistory from "../components/CoordinatorParticipantHistory"
 import Heading from "../primitives/Heading"
 import PhotoPopout from "../primitives/PhotoPopout"
+import Selection from "../primitives/Selection"
 import participant_adherence from "../util/participant_adherence"
+import { Popover, Input, Table } from "reakit";
 
 import { Icon } from "@mdi/react"
 import {
@@ -62,10 +63,17 @@ const CoordinatorHome = observer(({ assembly }) => (
         <Cell>{assembly.translate("coordinator.start_date")}</Cell>
       </Row>
 
-      {assembly.coordinator_account.information.participants.map(participant =>
+      { (
+        assembly
+          .coordinator_account
+          .information
+          .participants
+        || []
+        )
+        .map(participant =>
         <Row
           key={participant.uuid}
-          onClick={() => {} /* assembly.participant_history.watch(participant.uuid) */}
+          onClick={() => assembly.participant_history.watch(participant.uuid, () => assembly.currentPage = CoordinatorParticipantHistory)}
         >
           <Cell>
             {participant_has_reports_that_have_not_been_resolved(participant)}

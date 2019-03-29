@@ -20,14 +20,25 @@ const SideEffects = observer(({ assembly }) => (
         {assembly.translate("progress.side_effect")}
       </Question>
 
-      { assembly.participant_account.information.symptom_reports.length === 0
+      { (
+        assembly
+          .participant_account
+          .information
+          .symptom_reports
+        || []
+        ).length === 0
+
       ? <Answer>
           <Info>{assembly.translate("progress.no_side_effects")}</Info>
         </Answer>
 
-      : assembly
-        .participant_account
-        .information.symptom_reports
+      : (
+        assembly
+          .participant_account
+          .information
+          .symptom_reports
+        || []
+        )
         .slice()
         .sort((a,b) => DateTime.fromISO(b.timestamp) - DateTime.fromISO(a.timestamp))
         .map(sr => (

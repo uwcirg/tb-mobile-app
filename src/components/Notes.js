@@ -34,7 +34,15 @@ const Notes = observer(({ assembly }) => (
       </Draft>
     }
 
-    { assembly.participant_account.information.notes.length === 0
+    { (
+      assembly
+        .participant_account
+        .information
+        .notes
+      || []
+      )
+      .length === 0
+
     ? <Hint>{assembly.translate("notes.hint")}</Hint>
 
     : assembly
