@@ -34,42 +34,42 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
 
     <Split>
       <Info>
-        <dt>
+        <Label>
           {assembly.translate("coordinator_participant_history.participant_id")}
-        </dt>
-        <dd>
+        </Label>
+        <Information>
           TODO not yet saved in database
-        </dd>
+        </Information>
 
-        <dt>
+        <Label>
           {assembly.translate("coordinator_participant_history.first_name")}
-        </dt>
-        <dd>
+        </Label>
+        <Information>
           {assembly.participant_history.information.name}
-        </dd>
+        </Information>
 
-        <dt>
+        <Label>
           {assembly.translate("coordinator_participant_history.start_date")}
-        </dt>
-        <dd>
+        </Label>
+        <Information>
           { DateTime
             .fromISO(assembly.participant_history.information.treatment_start)
             .setLocale("es")
             .toLocaleString(DateTime.DATE_SIMPLE)
           }
-        </dd>
+        </Information>
 
-        <dt>
-          {assembly.translate("coordinator_participant_history.start_date")}
-        </dt>
-        <dd>
+        <Label>
+          {assembly.translate("coordinator_participant_history.end_date")}
+        </Label>
+        <Information>
           { DateTime
             .fromISO(assembly.participant_history.information.treatment_start)
             .setLocale("es")
             .plus({ months: 6 })
             .toLocaleString(DateTime.DATE_SIMPLE)
           }
-        </dd>
+        </Information>
       </Info>
 
       <DataTable>
@@ -157,11 +157,7 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
                     .filter(sr => sr.timestamp === mr.timestamp)
                     .map(sr => (
                       <Padding>
-                        <Selection
-                          options={["positive", "negative"]}
-                          update={() => sr.status}
-                          onChange={value => assembly.setPhotoStatus(sr.id, value)}
-                        />
+                        {sr.status}
                       </Padding>
                     ))
                   }
@@ -207,16 +203,6 @@ const Symptom = styled.div`
   color: ${red};
 `
 
-const CoordinatorNote = styled.div`
-  display: grid;
-  grid-row-gap: 0.5rem;
-`
-
-const TextField = styled(Input)`
-  border: 1px solid ${grey};
-  padding: 0.5rem 0;
-`
-
 const InlineButton = styled(Button)`
   padding: 0.2rem;
 `
@@ -243,6 +229,14 @@ const participant_adherence = (participant) => {
   let unique_report_dates = Array.from(new Set(report_dates))
   return unique_report_dates.length / full_days
 }
+
+const Label = styled.dt`
+  font-weight: 700;
+`
+
+const Information = styled.dd`
+  padding: 0.5rem;
+`
 
 CoordinatorParticipantHistory.route = "/coordinator_participant_history"
 export default CoordinatorParticipantHistory

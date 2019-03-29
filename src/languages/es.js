@@ -17,13 +17,13 @@ export default {
 
   home: {
     survey: `
-    Control del medicacion
+    Control de la medicacion
     `,
   },
 
   icons: {
     medication: `
-    Control de medicacion
+    Control de la medicacion
     `,
 
     symptoms: `
@@ -366,7 +366,7 @@ export default {
     `,
 
     medication: `
-    Control de medicación
+    Control de la medicación
     `,
 
     side_effect: `
@@ -378,7 +378,7 @@ export default {
     `,
 
     no_medication_reports: `
-    No control de medicación
+    No control de la medicación
     `,
 
     no_side_effects: `
@@ -394,7 +394,7 @@ export default {
     `,
 
     took_medication: `
-    Control de medicación:
+    Control de la medicación:
     `,
 
     took_medication_yes: `
@@ -1203,7 +1203,7 @@ export default {
     participant_info: "Información del participante",
     name: "Nombre",
     today: "Hoy",
-    medication: "Control de medicación",
+    medication: "Control de la medicación",
     side_effects: "Efectos adversos o indeseables",
     photo: "Resultados del test de orina",
     actions: "Acción",
@@ -1234,7 +1234,7 @@ export default {
     photo: "Foto",
     contact: "Contactar al participante",
 
-    medication_taken: "Control de medicacion",
+    medication_taken: "Control de la medicacion",
     side_effect: "Efectos adversos",
     photo: "Revisar foto",
     test_result: "Resultado del test de urina",

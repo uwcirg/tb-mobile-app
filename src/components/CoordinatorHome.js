@@ -20,6 +20,7 @@ import PhotoPopout from "../primitives/PhotoPopout"
 import Selection from "../primitives/Selection"
 import participant_adherence from "../util/participant_adherence"
 import { Popover, Input, Table } from "reakit";
+import days_of_treatment from "../util/days_of_treatment"
 
 import { Icon } from "@mdi/react"
 import {
@@ -60,7 +61,7 @@ const CoordinatorHome = observer(({ assembly }) => (
         <Cell>{assembly.translate("coordinator.notes")}</Cell>
 
         <Cell>{assembly.translate("coordinator.adherence")}</Cell>
-        <Cell>{assembly.translate("coordinator.start_date")}</Cell>
+        <Cell>{assembly.translate("progress.days")}</Cell>
       </Row>
 
       { (
@@ -76,39 +77,29 @@ const CoordinatorHome = observer(({ assembly }) => (
           onClick={() => assembly.participant_history.watch(participant.uuid, () => assembly.currentPage = CoordinatorParticipantHistory)}
         >
           <Cell>
-            {participant_has_reports_that_have_not_been_resolved(participant)}
-            {
-              participant_has_reports_that_have_not_been_resolved(participant)
-              ?
-                <Popover.Container onClick={e => { e.stopPropagation(); e.preventDefault() } } >
-                  {popover => (
-                    <Status style={{ color: lightgrey }} >
-                      {Icons.no_response}
-                      <span>
-                        {assembly.translate("coordinator.status.no_response")}
-                      </span>
+            { participant_has_reports_that_have_not_been_resolved(participant)
+            ? <Popover.Container onClick={e => { e.stopPropagation(); e.preventDefault() } } >
+                {popover => (
+                  <Status style={{ color: lightgrey }} >
+                    {Icons.no_response}
 
-                      <Popover {...popover}>
-                        Hello?
-                      </Popover>
-                    </Status>
-                  ) }
+                    <Popover {...popover}>
+                      Hello?
+                    </Popover>
+                  </Status>
+                ) }
                 </Popover.Container>
-              :
-                <Popover.Container onClick={e => { e.stopPropagation(); e.preventDefault() } } >
-                  {popover => (
-                    <Status style={{ color: green }} >
-                      {Icons.pending_review}
-                      <span>
-                        {assembly.translate("coordinator.status.pending_review")}
-                      </span>
+            : <Popover.Container onClick={e => { e.stopPropagation(); e.preventDefault() } } >
+                {popover => (
+                  <Status style={{ color: green }} >
+                    {Icons.pending_review}
 
-                      <Popover {...popover}>
-                        Hello?
-                      </Popover>
-                    </Status>
-                  )}
-                </Popover.Container>
+                    <Popover {...popover}>
+                      Hello?
+                    </Popover>
+                  </Status>
+                )}
+              </Popover.Container>
             }
           </Cell>
 
@@ -168,11 +159,7 @@ const CoordinatorHome = observer(({ assembly }) => (
           </Cell>
 
           <Cell>
-            { DateTime
-              .fromISO(participant.treatment_start)
-              .setLocale(assembly.locale)
-              .toLocaleString(DateTime.DATE_SIMPLE)
-            }
+            {days_of_treatment(participant)}
           </Cell>
         </Row>
       )}

@@ -15,14 +15,17 @@ import styled from "styled-components"
 
 const Progress = observer(({ assembly }) => (
     <Provider theme={theme}>
-        <div>
-          <h2>{assembly.translate("progress.title")}</h2>
+      <div>
+        <h2>{assembly.translate("progress.title")}</h2>
+
         <ProgressBarContainer>
           <TreatmentProgress assembly={assembly}>
-            <Percentage>{days_of_treatment(assembly.participant_account.information)}</Percentage>
+            <Percentage>
+              {days_of_treatment(assembly.participant_account.information)}
+            </Percentage>
 
             <TreatmentDays>
-              <strong>{assembly.translate("progress.days")}</strong>
+              {assembly.translate("progress.days")}
             </TreatmentDays>
           </TreatmentProgress>
         </ProgressBarContainer>
@@ -33,14 +36,13 @@ const Progress = observer(({ assembly }) => (
         <SideEffects assembly={assembly}/>
         <StripReports assembly={assembly}/>
 
-        </div>
-
+      </div>
     </Provider>
 ))
 
 const TreatmentDays = styled.div`
   font-size: 0.85rem;
-  font-weight: 400;
+  font-weight: 700;
 `
 const ProgressBarContainer = styled.div`
   width: 10rem;
