@@ -13,7 +13,7 @@ class Account {
 
   // For registration
   persist() {
-    this.network.run`
+    return this.network.run`
       ${this.model}.create!(
         uuid: SecureRandom.uuid,
         password_digest:  BCrypt::Password.create("${this.information.password}"),
@@ -26,7 +26,11 @@ class Account {
           )).join(", ")
         }
       ).uuid
-    `.then(response => response.json().then(uuid => this.watch(uuid)))
+    `.then(response =>
+      response
+      .json()
+      .then(uuid => this.watch(uuid))
+    )
   }
 
   // Pulls in patient information from DB

@@ -208,6 +208,7 @@ class Assembly extends React.Component {
 
   register() {
     this.participant_account.persist()
+      .then(() => { this.currentPage = Home })
   }
 
   login() {
@@ -222,6 +223,7 @@ class Assembly extends React.Component {
 
   coordinator_register() {
     this.coordinator_account.persist()
+      .then(() => { this.currentPage = CoordinatorHome })
   }
 
   coordinator_login() {
