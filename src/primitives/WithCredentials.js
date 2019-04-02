@@ -3,7 +3,9 @@ import { observer } from "mobx-react"
 
 const WithCredentials = observer(({ children, account }) => (
   (account.information && account.information.uuid)
-  ? <div>{children}</div>
+  ? <div>
+      {children}
+    </div>
   : null
   ))
 
