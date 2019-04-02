@@ -15,9 +15,10 @@ const InfoEd = observer(({ assembly }) => (
         {assembly.translate("info.faq")}
     </Button>
 
-    <Button as={InternalLink} to={SymptomOverview} assembly={assembly} >
+    {/* Temporarily taking out this section of the app per Sarah's request */}
+    {/* <Button as={InternalLink} to={SymptomOverview} assembly={assembly} >
         {assembly.translate("info.symptom_overview")}
-    </Button>
+    </Button> */}
 
     <p>{assembly.translate("contact.second")} <a href="mailto:sjiribar@uw.edu" target="_blank">sjiribar@uw.edu</a></p>
   </Layout>

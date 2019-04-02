@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
+import { DateTime } from "luxon"
 
 import { Hidden, Input, Provider } from "reakit"
 import theme from "reakit-theme-default";
@@ -15,7 +16,9 @@ const ReportMedication = observer(({ assembly }) => (
   <Layout>
     <Heading>
       {assembly.translate("survey.tookMedication.title")}
-      {assembly.survey_date + "?"}
+      {assembly.survey_date == DateTime.local().setLocale(assembly.locale).toLocaleString()
+        ? assembly.translate("survey.tookMedication.today")
+        : assembly.translate("survey.tookMedication.on") + assembly.survey_date + "?"}
     </Heading>
 
     <Selection
