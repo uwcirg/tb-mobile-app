@@ -135,9 +135,12 @@ class Assembly extends React.Component {
 
     if(coordinator_uuid)
       this.coordinator_account.watch(coordinator_uuid, () => this.route())
-
-    if(participant_uuid)
+    else if(participant_uuid)
       this.participant_account.watch(participant_uuid, () => this.route())
+    else {
+      this.currentPage = Login
+      localStorage.removeItem("current_page")
+    }
 
     // Determine what to display
     this.route()
