@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20190327163948) do
     t.datetime "updated_at", null: false
     t.boolean "took_medication", default: false, null: false
     t.string "not_taking_medication_reason"
+    t.string "resolution_uuid"
   end
 
   create_table "notes", force: :cascade do |t|
@@ -53,20 +54,13 @@ ActiveRecord::Schema.define(version: 20190327163948) do
     t.index ["uuid"], name: "index_participants_on_uuid"
   end
 
-  create_table "resolutions", force: :cascade do |t|
-    t.string "coordinator_id", null: false
-    t.string "participant_id", null: false
+  create_table "resolutions", primary_key: "uuid", id: :string, force: :cascade do |t|
+    t.string "author_type", null: false
+    t.string "author_id", null: false
     t.datetime "timestamp"
-    t.bigint "medication_report_id"
-    t.bigint "strip_report_id"
-    t.bigint "symptom_report_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["coordinator_id"], name: "index_resolutions_on_coordinator_id"
-    t.index ["medication_report_id"], name: "index_resolutions_on_medication_report_id"
-    t.index ["participant_id"], name: "index_resolutions_on_participant_id"
-    t.index ["strip_report_id"], name: "index_resolutions_on_strip_report_id"
-    t.index ["symptom_report_id"], name: "index_resolutions_on_symptom_report_id"
+    t.index ["uuid"], name: "index_resolutions_on_uuid"
   end
 
   create_table "strip_reports", force: :cascade do |t|
@@ -76,6 +70,7 @@ ActiveRecord::Schema.define(version: 20190327163948) do
     t.datetime "updated_at", null: false
     t.string "status"
     t.text "photo", null: false
+    t.string "resolution_uuid"
   end
 
   create_table "symptom_reports", force: :cascade do |t|
@@ -95,12 +90,10 @@ ActiveRecord::Schema.define(version: 20190327163948) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "nausea_rating"
+    t.string "resolution_uuid"
   end
 
   add_foreign_key "medication_reports", "participants", primary_key: "uuid"
-  add_foreign_key "resolutions", "medication_reports"
-  add_foreign_key "resolutions", "strip_reports"
-  add_foreign_key "resolutions", "symptom_reports"
   add_foreign_key "strip_reports", "participants", primary_key: "uuid"
   add_foreign_key "symptom_reports", "participants", primary_key: "uuid"
 end
