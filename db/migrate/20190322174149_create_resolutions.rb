@@ -1,17 +1,20 @@
 class CreateResolutions < ActiveRecord::Migration[5.1]
   def change
-    create_table :resolutions do |t|
-      t.string :coordinator_id, null: false
-      t.string :participant_id, null: false
-      t.index :coordinator_id
-      t.index :participant_id
+    # A resolution is a "reported event",
+    # authored by coordinators.
+    create_table :resolutions, id: false do |t|
+      t.string :uuid, primary_key: true, unique: true, null: false, index: true
+      t.string :author_type, null: false
+      t.string :author_id, null: false
 
       t.datetime :timestamp
-      t.belongs_to :medication_report, foreign_key: true
-      t.belongs_to :strip_report, foreign_key: true
-      t.belongs_to :symptom_report, foreign_key: true
-
       t.timestamps
     end
+
+    # These other "reported events"
+    # can be associated to only a single resolution.
+    add_column :medication_reports, :resolution_uuid, :string, foreign_key: true
+    add_column :strip_reports, :resolution_uuid, :string, foreign_key: true
+    add_column :symptom_reports, :resolution_uuid, :string, foreign_key: true
   end
 end
