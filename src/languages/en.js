@@ -53,8 +53,16 @@ export default {
       No
       `,
 
+      today: `
+      today?
+      `,
+
       title: `
-      Did you take your medication on
+      Did you take your medication
+      `,
+
+      on: `
+      on
       `,
 
       reason: `
