@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20190327163948) do
     t.datetime "timestamp", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "took_medication", default: false, null: false
+    t.boolean "took_medication", null: false
     t.string "not_taking_medication_reason"
     t.string "resolution_uuid"
   end

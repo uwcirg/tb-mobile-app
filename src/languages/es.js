@@ -53,15 +53,18 @@ export default {
       No
       `,
 
-      // TODO: If it is the current date then say,
-      // Did you take your medication today?
-      // title: `
-      // ¿Tomaste los medicamentos hoy?
-      // `,
+      today: `
+      hoy?
+      `,
 
       title: `
-      ¿Tomaste los medicamentos el dia
+      ¿Tomaste los medicamentos
       `,
+
+      on: `
+      el dia
+      `,
+
 
       reason: `
       ¿Por qué?
@@ -118,7 +121,7 @@ export default {
       `,
 
       sore_belly: `
-      Dolor de barriga
+      Dolor de panza
       `,
 
       yellow_coloration: `
