@@ -223,7 +223,7 @@ const TextField = styled(Input)`
 
 const InformationTable = styled.div`
   display: grid;
-  grid-template-rows: repeat(9, 1fr);
+  grid-template-rows: auto;
 `
 
 const Row = styled.div`
