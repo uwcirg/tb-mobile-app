@@ -47,7 +47,6 @@ let network = new Network(process.env.REACT_APP_URL_API)
 @observer
 class Assembly extends React.Component {
   // ------ Participant ------
-
   @observable participant_account = new Account(network, "Participant", {
     name: "",
     phone_number: "",
@@ -84,6 +83,8 @@ class Assembly extends React.Component {
     facial_swelling: false,
     other: null,
   }
+
+  @observable resolution_notes = null
 
   @observable photos_uploaded = {}
   @observable survey_anySymptoms = null
@@ -208,6 +209,40 @@ class Assembly extends React.Component {
       default:              return this.translate("titles.default")
     }
   }
+
+  @action
+  resolve_participant_records(participant, status) {
+    network.run`
+      Resolution.create!(
+        note: ${
+          JSON.stringify(`${status}: ${this.coordinator_note[participant.uuid] || ""}`)
+        },
+
+        medication_reports: [ ${
+          participant.medication_reports.map(record =>
+          `MedicationReport.find(${record.id})`
+          ).join(",")
+        } ],
+
+        strip_reports: [ ${
+          participant.strip_reports.map(record =>
+          `StripReport.find(${record.id})`
+          ).join(",")
+        } ],
+
+        symptom_reports: [ ${
+          participant.symptom_reports.map(record =>
+          `SymptomReport.find(${record.id})`
+          ).join(",")
+        } ],
+
+        uuid: SecureRandom.uuid,
+        author: Coordinator.find_by(uuid: "${this.coordinator_account.information.uuid}"),
+      )
+    `
+  }
+
+  @observable coordinator_note = {}
 
   register() {
     this.participant_account.persist()

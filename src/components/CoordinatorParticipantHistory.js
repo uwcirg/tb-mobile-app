@@ -6,9 +6,11 @@ import { DateTime } from "luxon"
 
 import {
   darkgrey,
+  green,
   grey,
-  white,
+  lightgrey,
   red,
+  white,
 } from "../colors"
 
 import { Input, Table } from "reakit";
@@ -18,6 +20,21 @@ import Heading from "../primitives/Heading"
 import PhotoPopout from "../primitives/PhotoPopout"
 import InternalLink from "../primitives/InternalLink"
 import CoordinatorHome from "../components/CoordinatorHome"
+
+import { Icon } from "@mdi/react"
+import {
+  mdiCloseCircle,
+  mdiCloseCircleOutline,
+  mdiCheckCircle,
+  mdiCircleOutline,
+} from "@mdi/js"
+
+const Icons = {
+  reviewed:       <Icon size={1.5} color={green} path={mdiCheckCircle} />,
+  pending_review: <Icon size={1.5} color={green} path={mdiCircleOutline} />,
+  no_response:    <Icon size={1.5} color={lightgrey}   path={mdiCloseCircleOutline} />,
+  overdue:        <Icon size={1.5} color={red}   path={mdiCloseCircle} />,
+}
 
 const CoordinatorParticipantHistory = observer(({ assembly }) => (
   <Layout>
@@ -94,31 +111,33 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
         </thead>
 
         <tbody>
-          { (
-            assembly
-              .participant_history
+          { assembly
+              .coordinator_account
               .information
-              .medication_reports
-            || []
-            )
-            .map(mr =>
-              <tr key={mr.timestamp}>
+              .resolutions
+              .map(resolution =>
+              <tr key={resolution.uuid}>
                 <td>
-                  <Padding>
-                    { DateTime
-                      .fromISO(mr.timestamp)
-                      .setLocale(assembly.locale)
-                      .toLocaleString(DateTime.DATE_SIMPLE)
-                    }
-                  </Padding>
+                  { assembly
+                    .participant_history
+                    .information
+                    .medication_reports
+                    .filter(report => report.resolution_uuid === resolution.uuid)
+                    .map(report =>
+                      <Padding>
+                        { DateTime
+                          .fromISO()
+                          .setLocale(assembly.locale)
+                          .toLocaleString(DateTime.DATE_SIMPLE)
+                        }
 
-                  <Padding>
-                    { DateTime
-                      .fromISO(mr.timestamp)
-                      .setLocale(assembly.locale)
-                      .toLocaleString(DateTime.TIME_SIMPLE)
-                    }
-                  </Padding>
+                        { DateTime
+                          .fromISO(report.timestamp)
+                          .setLocale(assembly.locale)
+                          .toLocaleString(DateTime.TIME_SIMPLE)
+                        }
+                      </Padding>
+                  ) }
                 </td>
 
                 <td>
@@ -126,14 +145,14 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
                     .participant_history
                     .information
                     .symptom_reports
-                    .filter(sr => sr.timestamp === mr.timestamp)
-                    .map(sr => (
-                      sr.reported_symptoms.map(symptom => (
+                    .filter(report => report.resolution_uuid === resolution.uuid)
+                    .map(report =>
+                      report.reported_symptoms.map(symptom => (
                         <div key={symptom} >
                           {assembly.translate(`survey.symptoms.${symptom}`)}
                         </div>
                       ))
-                    ))
+                    )
                   }
                 </td>
 
@@ -142,10 +161,10 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
                     .participant_history
                     .information
                     .strip_reports
-                    .filter(sr => sr.timestamp === mr.timestamp)
-                    .map(sr => (
-                      <PhotoPopout src={sr.photo} key={sr.id} />
-                    ))
+                    .filter(report => report.resolution_uuid === resolution.uuid)
+                    .map(report =>
+                      <PhotoPopout src={report.photo} key={report.id} />
+                    )
                   }
                 </td>
 
@@ -154,21 +173,20 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
                     .participant_history
                     .information
                     .strip_reports
-                    .filter(sr => sr.timestamp === mr.timestamp)
-                    .map(sr => (
+                    .filter(report => report.resolution_uuid === resolution.uuid)
+                    .map(report =>
                       <Padding>
-                        {sr.status}
+                        {report.status}
                       </Padding>
-                    ))
+                    )
                   }
                 </td>
 
                 <td>
-                  TODO not implemented yet.
+                  {resolution.note}
                 </td>
               </tr>
-            )
-          }
+          ) }
         </tbody>
       </DataTable>
     </Split>

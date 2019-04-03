@@ -1,7 +1,6 @@
 import React from "react"
 import { observer } from "mobx-react"
 import styled from "styled-components"
-
 import { DateTime } from "luxon"
 
 import {
@@ -19,7 +18,7 @@ import Heading from "../primitives/Heading"
 import PhotoPopout from "../primitives/PhotoPopout"
 import Selection from "../primitives/Selection"
 import participant_adherence from "../util/participant_adherence"
-import { Popover, Input, Table } from "reakit";
+import { Popover, Input, Table, InlineBlock } from "reakit";
 import days_of_treatment from "../util/days_of_treatment"
 
 import { Icon } from "@mdi/react"
@@ -73,72 +72,98 @@ const CoordinatorHome = observer(({ assembly }) => (
         )
         .map(participant =>
         <Row
+          onClick={() =>
+            assembly.participant_history.watch(
+              participant.uuid,
+              () => assembly.currentPage = CoordinatorParticipantHistory
+            )
+          }
           key={participant.uuid}
-          onClick={() => assembly.participant_history.watch(participant.uuid, () => assembly.currentPage = CoordinatorParticipantHistory)}
         >
-          <Cell>
-            { participant_has_reports_that_have_not_been_resolved(participant)
-            ? <Popover.Container onClick={e => { e.stopPropagation(); e.preventDefault() } } >
-                {popover => (
-                  <Status style={{ color: lightgrey }} >
-                    {Icons.no_response}
+          <div onClick={(e) => { e.stopPropagation(); e.preventDefault() }}>
+            <Popover.Container>
+              { popover => (
+                <Cell>
+                  <Popover.Toggle use={Status} {...popover}>
+                    { (
+                        participant.medication_reports.filter(report => report.resolution_uuid === null) +
+                        participant.symptom_reports.filter(report => report.resolution_uuid === null) +
+                        participant.strip_reports.filter(report => report.resolution_uuid === null)
+                      ).length > 0
+                      ? Icons.pending_review
+                      : Icons.no_response
+                    }
+                  </Popover.Toggle>
 
-                    <Popover {...popover}>
-                      Hello?
-                    </Popover>
-                  </Status>
-                ) }
-                </Popover.Container>
-            : <Popover.Container onClick={e => { e.stopPropagation(); e.preventDefault() } } >
-                {popover => (
-                  <Status style={{ color: green }} >
-                    {Icons.pending_review}
+                  <Popover hideOnClickOutside {...popover} >
+                    <Card onClick={(e) => { e.stopPropagation(); e.preventDefault() }} >
+                      <CoordinatorNote>
+                        <TextField
+                          use="textarea"
+                          onChange={(e) =>
+                            assembly.coordinator_note[participant.uuid] = e.target.value
+                          }
+                        />
+                      </CoordinatorNote>
 
-                    <Popover {...popover}>
-                      Hello?
-                    </Popover>
-                  </Status>
-                )}
-              </Popover.Container>
-            }
-          </Cell>
+                      <span onClick={() => assembly.resolve_participant_records(participant, "reviewed")} >
+                        {Icons.reviewed}
+                      </span>
+
+                      <span onClick={() => assembly.resolve_participant_records(participant, "overdue")} >
+                        {Icons.overdue}
+                      </span>
+                    </Card>
+                  </Popover>
+                </Cell>
+              ) }
+            </Popover.Container>
+          </div>
 
           <Cell>{participant.name}</Cell>
 
           <Cell>
-            { participant.today.medication_reports.length > 0
-              ? DateTime
-                .fromISO(participant.today.medication_reports[0].timestamp)
-                .toLocaleString(DateTime.TIME_SIMPLE)
-              : null
+            { participant
+                .medication_reports
+                .filter(report => report.resolution_uuid === null)
+                .map(report =>
+                  DateTime
+                    .fromISO(report.timestamp)
+                    .toLocaleString(DateTime.TIME_SIMPLE)
+                )
             }
           </Cell>
 
           <Cell>
-            {participant.today.symptom_reports.map(symptom_report =>
-              <div key={symptom_report.created_at} >
-                { DateTime
-                    .fromISO(symptom_report.created_at)
-                    .toLocaleString(DateTime.TIME_SIMPLE)
-                }
-                { symptom_report.reported_symptoms.map(symptom =>
-                  <Symptom key={symptom}>{symptom}</Symptom>
-                )}
-              </div>
+            {participant
+              .symptom_reports
+              .filter(report => report.resolution_uuid === null)
+              .map(symptom_report =>
+                <div key={symptom_report.created_at} >
+                  { DateTime
+                      .fromISO(symptom_report.created_at)
+                      .toLocaleString(DateTime.TIME_SIMPLE)
+                  }
+                  { symptom_report.reported_symptoms.map(symptom =>
+                    <Symptom key={symptom}>{symptom}</Symptom>
+                  )}
+                </div>
             )}
           </Cell>
 
           <Cell>
-            { participant.today.strip_reports.map((strip_report, index) =>
-                <PhotoPopout src={strip_report.photo} key={strip_report.id} >
-                  <Selection
-                    options={["positive", "negative"]}
-                    update={() => strip_report.status}
-                    onChange={value => assembly.setPhotoStatus(strip_report.id, value)}
-                  />
-                </PhotoPopout>
-              )
-            }
+            { participant
+              .strip_reports
+              .filter(report => report.resolution_uuid === null)
+              .map((strip_report, index) =>
+              <PhotoPopout src={strip_report.photo} key={strip_report.id} >
+                <Selection
+                  options={["positive", "negative"]}
+                  update={() => strip_report.status}
+                  onChange={value => assembly.setPhotoStatus(strip_report.id, value)}
+                />
+              </PhotoPopout>
+            ) }
           </Cell>
 
           <Cell>
@@ -148,10 +173,6 @@ const CoordinatorHome = observer(({ assembly }) => (
           </Cell>
 
           <Cell>
-            <CoordinatorNote>
-              <TextField use="textarea" />
-              <InlineButton>Save Note</InlineButton>
-            </CoordinatorNote>
           </Cell>
 
           <Cell>
@@ -215,21 +236,16 @@ const Cell = styled.div`
   padding: 0.5rem;
 `
 
-// Need a thorough review of this logic;
-// it seems to work for now,
-// but won't hold up in the live site.
-const participant_has_reports_that_have_not_been_resolved = (participant) => (
-  (
-    participant.medication_reports +
-    participant.symptom_reports +
-    participant.strip_reports
-  ).length === 0
-)
-
-const Status = styled.div`
+const Status = styled(InlineBlock)`
   display: flex;
   align-items: center;
   justify-content: space-between;
+`
+
+const Card = styled.div`
+  background-color: white;
+  padding: 0.5rem;
+  border: 1px solid ${lightgrey};
 `
 
 CoordinatorHome.route = "/coordinator"
