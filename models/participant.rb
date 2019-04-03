@@ -22,4 +22,19 @@ class Participant < ApplicationRecord
       notes: notes,
     }
   end
+
+  def summary
+    {
+      uuid: uuid,
+      name: name,
+      phone_number: phone_number,
+      treatment_start: treatment_start,
+
+      medication_reports: medication_reports.where(resolution_uuid: nil),
+      strip_reports: strip_reports.where(resolution_uuid: nil),
+      symptom_reports: symptom_reports.where(resolution_uuid: nil),
+
+      notes: notes,
+    }
+  end
 end

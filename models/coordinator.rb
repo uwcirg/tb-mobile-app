@@ -10,7 +10,7 @@ class Coordinator < ApplicationRecord
       uuid: uuid,
       name: name,
       email: email,
-      participants: Participant.all.as_json,
+      participants: Participant.all.map(&:summary),
       resolutions: Resolution.all.as_json,
     }
   end
