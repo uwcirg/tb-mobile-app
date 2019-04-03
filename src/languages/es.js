@@ -121,7 +121,7 @@ export default {
       `,
 
       sore_belly: `
-      Dolor de panza
+      Dolor de la panza
       `,
 
       yellow_coloration: `
@@ -145,7 +145,7 @@ export default {
       `,
 
       title: `
-      ¿Presentaste algún malestar al tomar los remedios el dia
+      ¿Presentaste algún malestar al tomar los remedios hoy
       `,
 
       yes: `
@@ -228,7 +228,7 @@ export default {
         `,
 
         6:         `
-        asegúrese de ver la marca de verificación y seleccionar Finalizar.
+        asegúrese de ver la marca de verificación y seleccionar Confirmar.
         `,
       }
     },
@@ -339,7 +339,7 @@ export default {
     `,
 
     discussion_title: `
-    Únete a un foro de discusión con otros pacientes
+    Únete a un foro de discusión con otros pacientes para hacer preguntas, sacar dudas, y ver informacion nueva
     `,
 
     first: `
@@ -423,7 +423,7 @@ export default {
     `,
 
     hint: `
-    Escriba sus notas aquí.
+    Escriba sus notas aquí, por ejemplo, escriba su próxima cita médica u otros recordatorios.
     `,
 
     last_edited: `
@@ -654,13 +654,6 @@ export default {
         1: `
         La tuberculosis o TB es una enfermedad causada por el bacilo de Koch o
         Mycobacterium tuberculosis.
-        La infección principal de la enfermedad se produce en los pulmones,
-        si bien puede atacar otras partes del cuerpo.
-        la TB pulmonar es la única con capacidad de contagiar a otras personas
-        que se encuentran en un contacto habitual y cercano varias horas en el
-        día. El contagio se produce a través del aire al
-        toser/estornudar/hablar/cantar y eliminar con la tos las pequeñas
-        gotitas que contienen a los bacilos vivos.
         `,
 
         2: `
@@ -672,23 +665,6 @@ export default {
         `,
 
         3: `
-        No todas las personas en contacto con un enfermo que elimina los
-        bacilos con la tos, pueden llegar a enfermarse. Solamente en el caso
-        que la otra persona tenga las defensas bajas, por la presencia de
-        otras enfermedades como diabetes, otras infecciones como el virus del
-        SIDA, tumores, trasplantes, mala nutrición, pueden llegar a
-        enfermarse.
-        `,
-
-        4: `
-        Con buenas defensas un individuo puede tomar contacto con el bacilo,
-        pero no necesariamente llega a enfermarse. En este caso cse dice que la persona esta infectada, pero NO desarrolla la Tuberculosis.
-        Estas personas no se sienten mal, no presentan síntomas ni tampoco
-        transmiten la tuberculosis a otras personas. Sin embargo, un pequeño porcentaje
-        de personas con la infección pueden desarrollar la enfermedad en los años siguientes si aparece alguna condición que baje sus defensas .
-        `,
-
-        5: `
         La buena noticia es que las personas con tuberculosis pueden recibir tratamiento
         y curarse completamente.
         `,
@@ -707,7 +683,7 @@ export default {
         cuando una persona con la enfermedad de tuberculosis en los pulmones
         o la garganta tose, estornuda, habla o canta.
         Las personas que se encuentran cerca
-        pueden respirar estos bacilos e infectarse.
+        pueden respirar estas pequeñas gotitas que contienen a los bacilos vivos e infectarse.
         `,
 
         2: `
@@ -719,21 +695,13 @@ export default {
         `,
 
         3: `
-        La enfermedad de tuberculosis en los pulmones o la garganta puede ser
-        contagiosa. Esto significa que los bacilos pueden transmitirse a
-        otras personas. La tuberculosis que afecta otras partes del cuerpo,
-        como los riñones o la columna vertebral, por lo general no es
-        contagiosa.
-        `,
-
-        4: `
         Las personas con tuberculosis tienen más
         probabilidad de transmitirla a las personas con las que conviven
         todos los días, como familiares, amigos y compañeros de trabajo o de
         clase.
         `,
 
-        5: `
+        4: `
         Puntos importantes a tener en cuenta:
         `,
 
@@ -792,11 +760,7 @@ export default {
         `,
 
         2: `
-        Si usted tiene la enfermedad de tuberculosis en los pulmones o la
-        garganta, es probable que la enfermedad sea contagiosa. Debe quedarse
-        en su casa y no ir al trabajo o la escuela, para no transmitir las
-        bacterias de la tuberculosis a otras personas. Después de tomar los
-        medicamentos durante algunas semanas se sentirá mejor y es posible
+        Después de tomar los medicamentos durante algunas semanas se sentirá mejor y es posible
         que la enfermedad ya no sea contagiosa. Su médico o enfermera le
         indicarán cuándo puede volver al trabajo, la escuela o a ver a sus
         amigos.
@@ -818,27 +782,14 @@ export default {
         `,
 
         5: `
-        Siempre se recomienda utilizar
-        el tratamiento directamente observado (TAES),
-        cuando un personal de salud supervisa la toma de la medicación.
-        En general, el tratamiento supervisado es realizado
-        en un centro de salud cercano al domicilio.
-        En los 2 primeros meses la supervisión
-        en la toma de los medicamentos es diaria,
-        mientras que en los siguientes 4 meses
-        puede realizarse en tratamiento de 2 a 3 tomas por semana.
-        `,
-
-        6: `
         Hay muchas razones por las cuales las personas pueden tener problemas
         para tomar sus medicamentos todos los días.
         Pero en la mayoría de los casos, hay algo que se puede hacer.
         `,
 
-        7: `
+        6: `
         Tanto el diagnóstico como el tratamiento de la Tuberculosis
-        son gratuitos
-        en los centros de salud y hospitales públicos de todo el país.
+        son gratuitos en los centros de salud y hospitales públicos de todo el país.  
         `,
       },
     },
@@ -910,7 +861,7 @@ export default {
           `,
 
           6: `
-          Dolor abdominal
+          Dolor de la panza
           `,
 
           7: `
@@ -1029,10 +980,6 @@ export default {
         después de solo algunas semanas de tratamiento.
         ¡Pero tenga en cuenta que las bacterias de la tuberculosis
         aún están vivas en su cuerpo!
-        Debe seguir tomando sus medicamentos
-        hasta que todas las bacterias de la tuberculosis estén muertas,
-        aun cuando usted se sienta mejor
-        y no tenga más síntomas de la enfermedad.
         `,
 
         2: `
@@ -1047,9 +994,6 @@ export default {
         `,
 
         3: `
-        Si su enfermedad vuelve a ser contagiosa,
-        podría transmitir las bacterias de la tuberculosis a su familia,
-        sus amigos o a cualquier persona que pase tiempo con usted.
         Es muy importante que tome sus medicamentos
         de acuerdo a las indicaciones de su médico o enfermera.
         `,
@@ -1066,7 +1010,7 @@ export default {
         La única forma de curarse es tomando sus medicamentos exactamente
         según las indicaciones de su médico/a o enfermero/a.
         ¡Puede que no sea fácil!
-        ya que deberá tomar sus medicamentos
+        Ya que deberá tomar sus medicamentos
         durante un tiempo prolongado (6 meses),
         es recomendable que establezca una rutina.
         Estas son algunas formas de acordarse de tomar sus medicamentos:
@@ -1189,13 +1133,6 @@ export default {
         como familiares, amigos cercanos y compañeros de trabajo.
         Lo más importante es evaluar a los contactos
         e identificar signos y síntomas sospechosos de TB.
-        En los contactos sintomáticos respiratoriosa
-        se deberá solicitor el examen del catarro.
-        La tuberculosis es especialmente peligrosa en los niños
-        y las personas con la infección por el VIH.
-        Si están infectadas por las bacterias de la tuberculosis,
-        estas personas deben tomar medicamentos de inmediato
-        para evitar la enfermedad de tuberculosis.
         `,
       },
     },
