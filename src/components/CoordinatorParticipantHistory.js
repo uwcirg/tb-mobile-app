@@ -4,37 +4,13 @@ import styled from "styled-components"
 
 import { DateTime } from "luxon"
 
-import {
-  darkgrey,
-  green,
-  grey,
-  lightgrey,
-  red,
-  white,
-} from "../colors"
+import { darkgrey, white } from "../colors"
 
-import { Input, Table } from "reakit";
-import Button from "../primitives/Button"
-import Selection from "../primitives/Selection"
+import { Table } from "reakit";
 import Heading from "../primitives/Heading"
 import PhotoPopout from "../primitives/PhotoPopout"
 import InternalLink from "../primitives/InternalLink"
 import CoordinatorHome from "../components/CoordinatorHome"
-
-import { Icon } from "@mdi/react"
-import {
-  mdiCloseCircle,
-  mdiCloseCircleOutline,
-  mdiCheckCircle,
-  mdiCircleOutline,
-} from "@mdi/js"
-
-const Icons = {
-  reviewed:       <Icon size={1.5} color={green} path={mdiCheckCircle} />,
-  pending_review: <Icon size={1.5} color={green} path={mdiCircleOutline} />,
-  no_response:    <Icon size={1.5} color={lightgrey}   path={mdiCloseCircleOutline} />,
-  overdue:        <Icon size={1.5} color={red}   path={mdiCloseCircle} />,
-}
 
 const CoordinatorParticipantHistory = observer(({ assembly }) => (
   <Layout>
@@ -221,21 +197,10 @@ const Split = styled.div`
   grid-template-columns: auto 1fr;
 `
 
-const Name = styled.span`
-`
-
 const Info = styled.dl`
   border: 1px solid ${darkgrey};
   margin: 0;
   padding: 1rem;
-`
-
-const Symptom = styled.div`
-  color: ${red};
-`
-
-const InlineButton = styled(Button)`
-  padding: 0.2rem;
 `
 
 const DataTable = styled(Table)`
@@ -246,20 +211,6 @@ const DataTable = styled(Table)`
 const Padding = styled.span`
   padding: 0.5rem;
 `
-
-const participant_adherence = (participant) => {
-  let start = DateTime.fromISO(participant.treatment_start)
-  let end = DateTime.local()
-  let full_days = parseInt(end.diff(start, 'days').toObject().days, 10)
-  if(full_days === 0) full_days = 1
-
-  let report_dates = participant.medication_reports.map(report =>
-    DateTime.fromISO(report.timestamp).toISODate()
-  )
-
-  let unique_report_dates = Array.from(new Set(report_dates))
-  return unique_report_dates.length / full_days
-}
 
 const Label = styled.dt`
   font-weight: 700;

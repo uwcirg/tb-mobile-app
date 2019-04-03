@@ -7,7 +7,6 @@ import ListOfLinks from "../layouts/ListOfLinks"
 import Button from "../primitives/Button"
 
 import Faqs from "./Faqs"
-import SymptomOverview from "./SymptomOverview"
 
 const InfoEd = observer(({ assembly }) => (
   <Layout>
@@ -20,7 +19,14 @@ const InfoEd = observer(({ assembly }) => (
         {assembly.translate("info.symptom_overview")}
     </Button> */}
 
-    <p>{assembly.translate("contact.second")} <a href="mailto:sjiribar@uw.edu" target="_blank">sjiribar@uw.edu</a></p>
+    <p>
+      {assembly.translate("contact.second")}
+      <a
+        href="mailto:sjiribar@uw.edu"
+        target="_blank"
+        rel="noopener noreferrer"
+      >sjiribar@uw.edu</a>
+    </p>
   </Layout>
 ))
 

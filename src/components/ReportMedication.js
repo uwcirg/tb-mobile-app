@@ -16,7 +16,7 @@ const ReportMedication = observer(({ assembly }) => (
   <Layout>
     <Heading>
       {assembly.translate("survey.tookMedication.title")}
-      {assembly.survey_date == DateTime.local().setLocale(assembly.locale).toLocaleString()
+      {assembly.survey_date === DateTime.local().setLocale(assembly.locale).toLocaleString()
         ? assembly.translate("survey.tookMedication.today")
         : assembly.translate("survey.tookMedication.on") + assembly.survey_date + "?"}
     </Heading>
