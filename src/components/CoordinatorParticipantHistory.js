@@ -68,24 +68,10 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
       <DataTable>
         <thead>
           <tr>
-            <th>
-              {assembly.translate("coordinator_participant_history.medication")}
-            </th>
-            <th>
-              {assembly.translate("coordinator_participant_history.medication_taken")}
-            </th>
-            <th>
-              {assembly.translate("coordinator_participant_history.side_effects")}
-            </th>
-            <th>
-              {assembly.translate("coordinator_participant_history.photo")}
-            </th>
-            <th>
-              {assembly.translate("coordinator_participant_history.test_result")}
-            </th>
-            <th>
-              {assembly.translate("coordinator_participant_history.action")}
-            </th>
+            <th>{assembly.translate("coordinator_participant_history.medication")}</th>
+            <th>{assembly.translate("coordinator_participant_history.side_effects")}</th>
+            <th>{assembly.translate("coordinator_participant_history.photo")}</th>
+            <th>{assembly.translate("coordinator_participant_history.action")}</th>
           </tr>
         </thead>
 
@@ -115,18 +101,14 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
                           .setLocale(assembly.locale)
                           .toLocaleString(DateTime.TIME_SIMPLE)
                         }
+
+                        { report.took_medication
+                        ? assembly.translate("progress.took_medication_yes")
+                        : assembly.translate("progress.took_medication_no") +
+                          report.not_taking_medication_reason
+                        }
                       </Padding>
                   ) }
-                </td>
-
-                <td>
-                  <Padding>
-                    { mr.took_medication
-                    ? assembly.translate("progress.took_medication_yes")
-                    : assembly.translate("progress.took_medication_no") +
-                      mr.not_taking_medication_reason
-                    }
-                  </Padding>
                 </td>
 
                 <td>
@@ -152,21 +134,13 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
                     .strip_reports
                     .filter(report => report.resolution_uuid === resolution.uuid)
                     .map(report =>
-                      <PhotoPopout src={report.photo} key={report.id} />
-                    )
-                  }
-                </td>
+                      <div>
+                        <PhotoPopout src={report.photo} key={report.id} />
 
-                <td>
-                  { assembly
-                    .participant_history
-                    .information
-                    .strip_reports
-                    .filter(report => report.resolution_uuid === resolution.uuid)
-                    .map(report =>
-                      <Padding>
-                        {report.status}
-                      </Padding>
+                        <Padding>
+                          {report.status}
+                        </Padding>
+                      </div>
                     )
                   }
                 </td>
