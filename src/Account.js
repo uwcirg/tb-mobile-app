@@ -18,9 +18,7 @@ class Account {
         uuid: SecureRandom.uuid,
         password_digest:  BCrypt::Password.create("${this.information.password}"),
         ${
-          Object
-          .keys(this.information)
-          .diff(["password"])
+          diff(Object.keys(this.information), ["password"])
           .map(key => (
             `${key}: ${JSON.stringify(this.information[key])}`
           )).join(", ")
@@ -101,5 +99,8 @@ class Account {
     `
   }
 }
+
+const diff = (first, second) =>
+  first.filter(element => second.indexOf(element) < 0)
 
 export default Account
