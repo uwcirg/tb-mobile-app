@@ -801,7 +801,7 @@ export default {
 
         6: `
         Tanto el diagnóstico como el tratamiento de la Tuberculosis
-        son gratuitos en los centros de salud y hospitales públicos de todo el país.  
+        son gratuitos en los centros de salud y hospitales públicos de todo el país.
         `,
       },
     },
@@ -1161,7 +1161,6 @@ export default {
     photo: "Resultados del test de orina",
     actions: "Acción",
     contact: "Contacto",
-    notes: "Notas",
     treatment: "Tratamiento",
     adherence: "La adherencia",
     start_date: "Fecha de inicio del tratamiento",

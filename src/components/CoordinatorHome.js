@@ -56,8 +56,6 @@ const CoordinatorHome = observer(({ assembly }) => (
         <Cell>{assembly.translate("coordinator.photo")}</Cell>
 
         <Cell>{assembly.translate("coordinator.contact")}</Cell>
-        <Cell>{assembly.translate("coordinator.notes")}</Cell>
-
         <Cell>{assembly.translate("coordinator.adherence")}</Cell>
         <Cell>{assembly.translate("progress.days")}</Cell>
       </Row>
@@ -182,9 +180,6 @@ const CoordinatorHome = observer(({ assembly }) => (
           </Cell>
 
           <Cell>
-          </Cell>
-
-          <Cell>
             {parseInt(participant_adherence(participant) * 100, 10) + "%"}
           </Cell>
 
@@ -232,7 +227,7 @@ const Row = styled.div`
   }
 
   display: grid;
-  grid-template-columns: repeat(9, 1fr);
+  grid-template-columns: repeat(8, 1fr);
   border-bottom: 1px solid ${lightgrey};
   margin-bottom: 1rem;
 `

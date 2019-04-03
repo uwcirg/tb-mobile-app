@@ -1179,7 +1179,6 @@ export default {
     photo: "Photo",
     actions: "Actions",
     contact: "Contact",
-    notes: "My Notes",
     treatment: "Treatment",
     adherence: "% Adherence",
     start_date: "Start Date",
