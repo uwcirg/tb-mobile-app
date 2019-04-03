@@ -79,6 +79,9 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
               {assembly.translate("coordinator_participant_history.medication")}
             </th>
             <th>
+              {assembly.translate("coordinator_participant_history.medication_taken")}
+            </th>
+            <th>
               {assembly.translate("coordinator_participant_history.side_effects")}
             </th>
             <th>
@@ -101,12 +104,16 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
               .medication_reports
             || []
             )
+            .slice()
+            .sort(function(a,b){
+              return DateTime.fromISO(b.timestamp) - DateTime.fromISO(a.timestamp);
+            })
             .map(mr =>
               <tr key={mr.timestamp}>
                 <td>
                   <Padding>
                     { DateTime
-                      .fromISO(mr.timestamp)
+                      .fromISO(mr.timestamp, {zone: 'utc'})
                       .setLocale(assembly.locale)
                       .toLocaleString(DateTime.DATE_SIMPLE)
                     }
@@ -114,9 +121,19 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
 
                   <Padding>
                     { DateTime
-                      .fromISO(mr.timestamp)
+                      .fromISO(mr.timestamp, {zone: 'utc'})
                       .setLocale(assembly.locale)
                       .toLocaleString(DateTime.TIME_SIMPLE)
+                    }
+                  </Padding>
+                </td>
+                
+                <td>
+                  <Padding>
+                    { mr.took_medication
+                    ? assembly.translate("progress.took_medication_yes")
+                    : assembly.translate("progress.took_medication_no") +
+                      mr.not_taking_medication_reason
                     }
                   </Padding>
                 </td>

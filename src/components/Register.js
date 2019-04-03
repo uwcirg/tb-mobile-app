@@ -31,11 +31,15 @@ const Register = observer(({assembly}) => (
       <label htmlFor="phone_number">
         {assembly.translate("register.phone_number")}
       </label>
+      
+      <label>
+        {"54-911-0000-2222"}
+      </label>
 
       <Field
         name="phone_number"
         type="tel"
-        value={assembly.participant_account.information.phone_number || ""}
+        value={assembly.participant_account.information.phone_number || "54-911"}
         onChange={(e) => assembly.participant_account.information.phone_number = e.target.value}
       />
 

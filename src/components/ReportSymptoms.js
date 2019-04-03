@@ -4,6 +4,7 @@ import { observer } from "mobx-react"
 import { Hidden, Input, Provider, Popover } from "reakit"
 import { darkgrey, grey, white } from "../colors"
 import theme from "reakit-theme-default";
+import { DateTime } from "luxon"
 
 import hives from "../images/hives.jpg"
 import rash from "../images/rash.jpg"
@@ -25,9 +26,12 @@ const translation_keys =  { true: "yes", false: "no" }
 
 const ReportSymptoms = observer(({ assembly, survey }) => (
   <Layout>
+
     <Heading>
       {assembly.translate("survey.symptoms.title")}
-      {assembly.survey_date + "?"}
+      {assembly.survey_date == DateTime.local().setLocale(assembly.locale).toLocaleString()
+        ? assembly.translate("survey.symptoms.today")
+        : assembly.translate("survey.symptoms.on") + assembly.survey_date + "?"}
     </Heading>
 
     <Selection

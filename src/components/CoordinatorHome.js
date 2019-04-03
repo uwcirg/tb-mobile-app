@@ -74,7 +74,6 @@ const CoordinatorHome = observer(({ assembly }) => (
         .map(participant =>
         <Row
           key={participant.uuid}
-          onClick={() => assembly.participant_history.watch(participant.uuid, () => assembly.currentPage = CoordinatorParticipantHistory)}
         >
           <Cell>
             { participant_has_reports_that_have_not_been_resolved(participant)
@@ -103,13 +102,16 @@ const CoordinatorHome = observer(({ assembly }) => (
             }
           </Cell>
 
-          <Cell>{participant.name}</Cell>
+          <NameLinkCell onClick={() => assembly.participant_history.watch(participant.uuid, () => assembly.currentPage = CoordinatorParticipantHistory)}>
+            {participant.name}
+          </NameLinkCell>
 
           <Cell>
             { participant.today.medication_reports.length > 0
               ? DateTime
-                .fromISO(participant.today.medication_reports[0].timestamp)
-                .toLocaleString(DateTime.TIME_SIMPLE)
+                  .fromISO(participant.today.medication_reports[0].timestamp, {zone: 'utc'})
+                  .setLocale(assembly.locale)
+                  .toLocaleString(DateTime.TIME_SIMPLE)
               : null
             }
           </Cell>
@@ -118,7 +120,8 @@ const CoordinatorHome = observer(({ assembly }) => (
             {participant.today.symptom_reports.map(symptom_report =>
               <div key={symptom_report.created_at} >
                 { DateTime
-                    .fromISO(symptom_report.created_at)
+                    .fromISO(symptom_report.timestamp, {zone: 'utc'})
+                    .setLocale(assembly.locale)
                     .toLocaleString(DateTime.TIME_SIMPLE)
                 }
                 { symptom_report.reported_symptoms.map(symptom =>
@@ -142,7 +145,7 @@ const CoordinatorHome = observer(({ assembly }) => (
           </Cell>
 
           <Cell>
-            <a href={'https://wa.me/' + participant.phone_number} target="_blank">
+            <a href={'https://wa.me/' + participant.phone_number.replace(/-/g, "")} target="_blank">
               {participant.phone_number}
             </a>
           </Cell>
@@ -213,6 +216,11 @@ const Row = styled.div`
 
 const Cell = styled.div`
   padding: 0.5rem;
+`
+
+const NameLinkCell = styled.div`
+  padding: 0.5rem;
+  text-decoration: underline;
 `
 
 // Need a thorough review of this logic;

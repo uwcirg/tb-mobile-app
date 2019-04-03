@@ -21,7 +21,10 @@ const AdherenceCalendar = observer(({ assembly }) => (
     // if you need to format the date again
     // React calendar returns this format of date "Fri Mar 29 2019 00:00:00 GMT-1000 (Hawaii-Aleutian Standard Time)"
     onClickDay={((value) => assembly.survey_date =
-                           DateTime.fromFormat(value.toString().substr(0, 15), 'EEE LLL dd yyyy').toISODate())}
+                           DateTime
+                            .fromFormat(value.toString().substr(0, 15), 'EEE LLL dd yyyy')
+                            .setLocale(assembly.locale)
+                            .toLocaleString(DateTime.DATE_SHORT))}
 
     onChange={() => assembly.currentPage = Survey}
 

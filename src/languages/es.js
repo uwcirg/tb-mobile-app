@@ -145,7 +145,19 @@ export default {
       `,
 
       title: `
-      ¿Presentaste algún malestar al tomar los remedios hoy
+      ¿Presentaste algún malestar al tomar los remedios
+      `,
+
+      today: `
+      hoy?
+      `,
+
+      on: `
+      el dia
+      `,
+
+      on: `
+      hoy?
       `,
 
       yes: `
@@ -1144,6 +1156,7 @@ export default {
     name: "Nombre",
     today: "Hoy",
     medication: "Control de la medicación",
+    medication_taken: "Control de la medicacion",
     side_effects: "Efectos adversos o indeseables",
     photo: "Resultados del test de orina",
     actions: "Acción",
