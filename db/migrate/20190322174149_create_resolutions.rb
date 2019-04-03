@@ -13,8 +13,8 @@ class CreateResolutions < ActiveRecord::Migration[5.1]
 
     # These other "reported events"
     # can be associated to only a single resolution.
-    add_column :medication_reports, :resolution_uuid, :string, foreign_key: true
-    add_column :strip_reports, :resolution_uuid, :string, foreign_key: true
-    add_column :symptom_reports, :resolution_uuid, :string, foreign_key: true
+    add_column :medication_reports, :resolution_uuid, :string
+    add_column :strip_reports, :resolution_uuid, :string
+    add_column :symptom_reports, :resolution_uuid, :string
   end
 end

@@ -1,7 +1,7 @@
 class Resolution < ApplicationRecord
-  belongs_to :coordinator
-  belongs_to :participant
-  belongs_to :medication_report
-  belongs_to :strip_report
-  belongs_to :symptom_report
+  belongs_to :author, polymorphic: true
+
+  has_many :medication_reports, foreign_key: :resolution_uuid
+  has_many :strip_reports, foreign_key: :resolution_uuid
+  has_many :symptom_reports, foreign_key: :resolution_uuid
 end

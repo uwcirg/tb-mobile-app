@@ -20,13 +20,6 @@ class Participant < ApplicationRecord
       strip_reports: strip_reports,
       symptom_reports: symptom_reports,
       notes: notes,
-
-      today: {
-        medication_reports: medication_reports.where("timestamp >= :date", date: Time.current.beginning_of_day),
-        strip_reports: strip_reports.where("timestamp >= :date", date: Time.current.beginning_of_day),
-        symptom_reports: symptom_reports.where("created_at >= :date", date: Time.current.beginning_of_day),
-        notes: notes.where("created_at >= :date", date: Time.current.beginning_of_day),
-      }
     }
   end
 end
