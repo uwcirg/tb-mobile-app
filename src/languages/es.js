@@ -1176,7 +1176,6 @@ export default {
 
     medication_taken: "Control de la medicacion",
     side_effect: "Efectos adversos",
-    photo: "Revisar foto",
     test_result: "Resultado del test de urina",
     action: "Acción",
 

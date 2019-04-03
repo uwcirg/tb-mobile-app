@@ -12,13 +12,12 @@ import {
   white,
 } from "../colors"
 
-import Button from "../primitives/Button"
 import CoordinatorParticipantHistory from "../components/CoordinatorParticipantHistory"
 import Heading from "../primitives/Heading"
 import PhotoPopout from "../primitives/PhotoPopout"
 import Selection from "../primitives/Selection"
 import participant_adherence from "../util/participant_adherence"
-import { Popover, Input, Table, InlineBlock } from "reakit";
+import { Popover, Input, InlineBlock } from "reakit";
 import days_of_treatment from "../util/days_of_treatment"
 
 import { Icon } from "@mdi/react"
@@ -85,11 +84,13 @@ const CoordinatorHome = observer(({ assembly }) => (
               { popover => (
                 <Cell>
                   <Popover.Toggle use={Status} {...popover}>
-                    { (
+                    { // Any unresolved reports?
+                      (
                         participant.medication_reports.filter(report => report.resolution_uuid === null) +
                         participant.symptom_reports.filter(report => report.resolution_uuid === null) +
                         participant.strip_reports.filter(report => report.resolution_uuid === null)
                       ).length > 0
+
                       ? Icons.pending_review
                       : Icons.no_response
                     }
@@ -106,11 +107,17 @@ const CoordinatorHome = observer(({ assembly }) => (
                         />
                       </CoordinatorNote>
 
-                      <span onClick={() => assembly.resolve_participant_records(participant, "reviewed")} >
+                      <span onClick={(e) => {
+                        assembly.resolve_participant_records(participant, "reviewed")
+                        e.stopPropagation()
+                      }} >
                         {Icons.reviewed}
                       </span>
 
-                      <span onClick={() => assembly.resolve_participant_records(participant, "overdue")} >
+                      <span onClick={(e) => {
+                        assembly.resolve_participant_records(participant, "overdue")
+                        e.stopPropagation()
+                      }} >
                         {Icons.overdue}
                       </span>
                     </Card>
@@ -210,10 +217,6 @@ const CoordinatorNote = styled.div`
 const TextField = styled(Input)`
   border: 1px solid ${grey};
   padding: 0.5rem 0;
-`
-
-const InlineButton = styled(Button)`
-  padding: 0.2rem;
 `
 
 const InformationTable = styled.div`

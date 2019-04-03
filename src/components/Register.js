@@ -9,7 +9,6 @@ import { white, grey } from "../colors"
 import InternalLink from "../primitives/InternalLink"
 import Login from "./Login"
 import CoordinatorLogin from "./CoordinatorLogin"
-import InputMask from "react-input-mask"
 
 const Register = observer(({assembly}) => (
   <Layout>
@@ -38,17 +37,6 @@ const Register = observer(({assembly}) => (
         value={assembly.participant_account.information.phone_number || ""}
         onChange={(e) => assembly.participant_account.information.phone_number = e.target.value}
       />
-
-      {/* <FieldDiv>
-        <InputMask 
-          mask="5\4 099 9999 9999"
-          maskChar={null} 
-          name="phone_number"
-          type="tel"
-          value={assembly.participant_account.information.phone_number || ""}
-          onChange={(e) => assembly.participant_account.information.phone_number = e.target.value}
-        />
-      </FieldDiv> */}
 
       <label htmlFor="treatment_start">
         {assembly.translate("register.treatment_start")}
@@ -89,14 +77,6 @@ const Layout = styled(ListOfLinks)`
 `
 
 const Field = styled(Input)`
-  background-color: ${white}
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
-  border-radius: 2px;
-  border: 1px solid ${grey};
-`
-
-const FieldDiv = styled.div`
   background-color: ${white}
   padding: 0.5rem;
   margin-bottom: 0.5rem;

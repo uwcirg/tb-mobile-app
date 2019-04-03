@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 
-import { observable, computed,  autorun, reaction, action } from "mobx"
+import { observable, computed,  autorun, action } from "mobx"
 import { observer, Observer } from "mobx-react"
 import { Image } from "reakit"
 import { white, beige, lightgrey, darkgrey } from "./colors"
@@ -494,10 +494,5 @@ const Content = styled.div`
   padding: 0 1rem;
   background: ${beige};
 `
-
-// Subtract one array from another
-Array.prototype.diff = function(otherArray) {
-  return this.filter(function(element) {return otherArray.indexOf(element) < 0;});
-};
 
 export default Assembly

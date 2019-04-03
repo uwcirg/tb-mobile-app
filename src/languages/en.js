@@ -321,10 +321,6 @@ export default {
     Phone Number
     `,
 
-    email: `
-    Email
-    `,
-
     language: `
     Language
     `,
