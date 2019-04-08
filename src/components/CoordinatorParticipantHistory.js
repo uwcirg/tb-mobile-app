@@ -157,16 +157,6 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
                         {resolution.note}
                       </div>
                     )
-
-                    // .information
-                    // .uuid === resolution.uuid ? <div>WORKSK</div> : <div>DOESN'T</div>
-                    
-                    // .filter(info => info.uuid === resolution.uuid)
-                    // .map(report =>
-                    //   <div>
-                    //     {resolution.note}
-                    //   </div>
-                    // )
                   }
                 </td>
               </tr>
