@@ -37,7 +37,6 @@ const Home = observer(({ assembly }) => (
 
       <Help> <IconKey assembly={assembly} /> </Help>
     </Row>
-
     <AdherenceCalendar assembly={assembly} />
   </Layout>
 ))

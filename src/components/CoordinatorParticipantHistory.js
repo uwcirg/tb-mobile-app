@@ -44,6 +44,7 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
         <Label>
           {assembly.translate("coordinator_participant_history.start_date")}
         </Label>
+        {/* Start Date */}
         <Information>
           { DateTime
             .fromISO(assembly.participant_history.information.treatment_start)
@@ -76,10 +77,15 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
         </thead>
 
         <tbody>
-          { assembly
+          {
+            assembly
               .coordinator_account
               .information
               .resolutions
+              .slice()
+              .sort(function(a,b){
+                return DateTime.fromISO(b.created_at) - DateTime.fromISO(a.created_at);
+              })
               .map(resolution =>
               <tr key={resolution.uuid}>
                 <td>
@@ -91,15 +97,9 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
                     .map(report =>
                       <Padding>
                         { DateTime
-                          .fromISO()
-                          .setLocale(assembly.locale)
-                          .toLocaleString(DateTime.DATE_SIMPLE)
-                        }
-
-                        { DateTime
                           .fromISO(report.timestamp)
                           .setLocale(assembly.locale)
-                          .toLocaleString(DateTime.TIME_SIMPLE)
+                          .toLocaleString(DateTime.DATETIME_SHORT)
                         }
 
                         { report.took_medication
@@ -146,7 +146,28 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
                 </td>
 
                 <td>
-                  {resolution.note}
+                  {/* TODO: Clean up this approach */}
+                  { assembly
+                    .participant_history
+                    .information
+                    .medication_reports
+                    .filter(report => report.resolution_uuid === resolution.uuid)
+                    .map(report =>
+                      <div>
+                        {resolution.note}
+                      </div>
+                    )
+
+                    // .information
+                    // .uuid === resolution.uuid ? <div>WORKSK</div> : <div>DOESN'T</div>
+                    
+                    // .filter(info => info.uuid === resolution.uuid)
+                    // .map(report =>
+                    //   <div>
+                    //     {resolution.note}
+                    //   </div>
+                    // )
+                  }
                 </td>
               </tr>
           ) }

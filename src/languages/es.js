@@ -1175,7 +1175,7 @@ export default {
   },
 
   coordinator_participant_history: {
-    link: { home: "Regrarse" },
+    link: { home: "Volver" },
     date: "Fecha",
     heading: "Registro",
     participant_info: "Información del participante",

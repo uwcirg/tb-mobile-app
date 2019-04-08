@@ -164,7 +164,6 @@ class Assembly extends React.Component {
   //
   // ...determine what to display.
   @action route() {
-    console.log(`Set the current page for "${localStorage.getItem('current_page')}"`)
 
     // Note: `Login` does not have a route;
     // it is handled internally by Assemble

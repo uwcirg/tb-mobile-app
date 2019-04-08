@@ -49,6 +49,8 @@ const CoordinatorHome = observer(({ assembly }) => (
     <InformationTable>
       <Row>
         <Cell>{assembly.translate("coordinator.status_")}</Cell>
+        {/* TODO: Last reported day */}
+        {/* <Cell>Last Reported Date</Cell> */}
         <Cell>{assembly.translate("coordinator.name")}</Cell>
 
         <Cell>{assembly.translate("coordinator.medication")}</Cell>
@@ -69,12 +71,6 @@ const CoordinatorHome = observer(({ assembly }) => (
         )
         .map(participant =>
         <Row
-          onClick={() =>
-            assembly.participant_history.watch(
-              participant.uuid,
-              () => assembly.currentPage = CoordinatorParticipantHistory
-            )
-          }
           key={participant.uuid}
         >
           <div onClick={(e) => { e.stopPropagation(); e.preventDefault() }}>
@@ -124,23 +120,48 @@ const CoordinatorHome = observer(({ assembly }) => (
               ) }
             </Popover.Container>
           </div>
+          
+          {/* TODO: Last Reported Day */}
+          {/* <Cell>
+            { participant
+                .medication_reports
+                .sort(function(a,b){
+                  return DateTime.fromISO(b.created_at) - DateTime.fromISO(a.created_at);
+                }).toString()
+            }
+          </Cell> */}
 
-          <NameLinkCell onClick={() => assembly.participant_history.watch(participant.uuid, () => assembly.currentPage = CoordinatorParticipantHistory)}>
+          <NameLinkCell onClick={() =>
+                          assembly.participant_history.watch(participant.uuid,
+                           () => assembly.currentPage = CoordinatorParticipantHistory)
+          }>
             {participant.name}
           </NameLinkCell>
-
+          
+          {/* Medication Reports */}
           <Cell>
             { participant
                 .medication_reports
                 .filter(report => report.resolution_uuid === null)
                 .map(report =>
-                  DateTime
-                    .fromISO(report.timestamp)
-                    .toLocaleString(DateTime.TIME_SIMPLE)
+                  <div>
+                    { DateTime
+                        .fromISO(report.timestamp, {zone:'utc'})
+                        .setLocale(assembly.locale)
+                        .toLocaleString(DateTime.DATETIME_SHORT)
+                    }
+
+                    { report.took_medication
+                        ? assembly.translate("progress.took_medication_yes")
+                        : assembly.translate("progress.took_medication_no") +
+                          report.not_taking_medication_reason
+                    }
+                  </div>
                 )
             }
           </Cell>
-
+          
+          {/* Symptom Reports */}
           <Cell>
             {participant
               .symptom_reports
@@ -148,8 +169,9 @@ const CoordinatorHome = observer(({ assembly }) => (
               .map(symptom_report =>
                 <div key={symptom_report.created_at} >
                   { DateTime
-                      .fromISO(symptom_report.created_at)
-                      .toLocaleString(DateTime.TIME_SIMPLE)
+                      .fromISO(symptom_report.timestamp, {zone:'utc'})
+                      .setLocale(assembly.locale)
+                      .toLocaleString(DateTime.DATETIME_SHORT)
                   }
                   { symptom_report.reported_symptoms.map(symptom =>
                     <Symptom key={symptom}>{symptom}</Symptom>
@@ -157,7 +179,8 @@ const CoordinatorHome = observer(({ assembly }) => (
                 </div>
             )}
           </Cell>
-
+          
+          {/* Strip Reports */}
           <Cell>
             { participant
               .strip_reports
@@ -227,7 +250,7 @@ const Row = styled.div`
   }
 
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(9, 1fr);
   border-bottom: 1px solid ${lightgrey};
   margin-bottom: 1rem;
 `
