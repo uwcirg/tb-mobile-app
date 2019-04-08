@@ -7,7 +7,6 @@ import { DateTime } from "luxon"
 
 import { lightgrey, darkgrey, grey, white, green, red } from "../colors"
 
-
 const AdherenceCalendar = observer(({ assembly }) => (
   <Calendar
     locale={{ "Español": "es", "English": "en" }[assembly.language]}
@@ -27,7 +26,6 @@ const AdherenceCalendar = observer(({ assembly }) => (
                             .toLocaleString(DateTime.DATE_SHORT))}
 
     onChange={() => assembly.currentPage = Survey}
-
     tileContent={
       ({ date, view }) => {
         let survey_for_day =
@@ -57,8 +55,6 @@ const AdherenceCalendar = observer(({ assembly }) => (
     }
   />
 ))
-
-export default AdherenceCalendar;
 
 const Calendar = styled(ReactCalendar)`
   width: 100% !important;
@@ -117,3 +113,5 @@ const UnreportedDate = styled.div`
   display: block;
   padding-top: 0.5rem;
 `
+
+export default AdherenceCalendar;

@@ -41,7 +41,7 @@ const CoordinatorHome = observer(({ assembly }) => (
       { DateTime
         .local()
         .setLocale(assembly.locale)
-        .toLocaleString(DateTime.DATE_SIMPLE)
+        .toLocaleString(DateTime.DATETIME_SHORT)
       }
     </span>
     <Heading>{assembly.translate("coordinator.heading")}</Heading>
@@ -49,6 +49,7 @@ const CoordinatorHome = observer(({ assembly }) => (
     <InformationTable>
       <Row>
         <Cell>{assembly.translate("coordinator.status_")}</Cell>
+        <Cell>{assembly.translate("coordinator.last_resolution")}</Cell>
         <Cell>{assembly.translate("coordinator.name")}</Cell>
 
         <Cell>{assembly.translate("coordinator.medication")}</Cell>
@@ -129,6 +130,23 @@ const CoordinatorHome = observer(({ assembly }) => (
             </Popover.Container>
           </div>
 
+          <div>
+            {
+              last_resolution(
+                assembly.coordinator_account.information.resolutions,
+                participant
+              ) &&
+              DateTime.fromISO(
+                last_resolution(
+                  assembly.coordinator_account.information.resolutions,
+                  participant
+                ).timestamp
+              )
+              .setLocale(assembly.locale)
+              .toLocaleString(DateTime.DATETIME_SHORT)
+            }
+          </div>
+
           <NameLinkCell
             onClick={() =>
               assembly.participant_history.watch(
@@ -139,18 +157,30 @@ const CoordinatorHome = observer(({ assembly }) => (
             {participant.name}
           </NameLinkCell>
 
+          {/* Medication Reports */}
           <Cell>
             { participant
-                .medication_reports
-                .filter(report => report.resolution_uuid === null)
-                .map(report =>
-                  DateTime
-                    .fromISO(report.timestamp)
-                    .toLocaleString(DateTime.TIME_SIMPLE)
-                )
+              .medication_reports
+              .filter(report => report.resolution_uuid === null)
+              .map(report =>
+                <div key={report.timestamp} >
+                  { DateTime
+                    .fromISO(report.timestamp, { zone: "utc" })
+                    .setLocale(assembly.locale)
+                    .toLocaleString(DateTime.DATETIME_SHORT)
+                  }
+
+                  { report.took_medication
+                      ? assembly.translate("progress.took_medication_yes")
+                      : assembly.translate("progress.took_medication_no") +
+                        report.not_taking_medication_reason
+                  }
+                </div>
+              )
             }
           </Cell>
 
+          {/* Symptom Reports */}
           <Cell>
             {participant
               .symptom_reports
@@ -158,9 +188,11 @@ const CoordinatorHome = observer(({ assembly }) => (
               .map(symptom_report =>
                 <div key={symptom_report.created_at} >
                   { DateTime
-                      .fromISO(symptom_report.created_at)
-                      .toLocaleString(DateTime.TIME_SIMPLE)
+                    .fromISO(symptom_report.timestamp, { zone: "utc" })
+                    .setLocale(assembly.locale)
+                    .toLocaleString(DateTime.DATETIME_SHORT)
                   }
+
                   { symptom_report.reported_symptoms.map(symptom =>
                     <Symptom key={symptom}>{symptom}</Symptom>
                   )}
@@ -168,6 +200,7 @@ const CoordinatorHome = observer(({ assembly }) => (
             )}
           </Cell>
 
+          {/* Strip Reports */}
           <Cell>
             { participant
               .strip_reports
@@ -237,7 +270,7 @@ const Row = styled.div`
   }
 
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(9, 1fr);
   border-bottom: 1px solid ${lightgrey};
   margin-bottom: 1rem;
 `
@@ -266,7 +299,7 @@ const Card = styled.div`
 const last_resolution = (resolutions, participant) => {
   let ordered_resolutions = resolutions
     .filter(resolution => resolution.participant_uuid === participant.uuid)
-    .sort((b, a) => DateTime.fromISO(b.timestamp) - DateTime.fromISO(a.timestamp))
+    .sort((a,b) => DateTime.fromISO(b.created_at) - DateTime.fromISO(a.created_at))
 
   if(ordered_resolutions.length > 0)
     return ordered_resolutions[0]

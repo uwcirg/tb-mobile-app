@@ -5,6 +5,8 @@ import { observer } from "mobx-react"
 import Heading from "../primitives/Heading"
 import Button from "../primitives/Button"
 import Fold from "../primitives/Fold"
+import { Image } from "reakit";
+import StripReportInstructions from "../images/StripReportInstructions.png"
 
 import { green } from "../colors"
 import { Icon } from "@mdi/react"
@@ -15,6 +17,13 @@ import ImageCapture from "./ImageCapture"
 const PhotoUpload = observer(({ assembly }) => (
   <Layout>
     <Heading>{assembly.translate("survey.upload.title")}</Heading>
+
+    <Image
+      src={StripReportInstructions}
+      width="auto"
+      height="6rem"
+      alt="Strip report instructions"
+    />
 
     <Fold>
       <Title>{assembly.translate("survey.upload.instructions.heading")}</Title>
@@ -44,14 +53,14 @@ const PhotoUpload = observer(({ assembly }) => (
 
     <ImagePreviews className="ImagePreviews">
       {Object.keys(assembly.photos_uploaded).map(photo_id =>
-        <Image key={assembly.photos_uploaded[photo_id].photo}>
+        <Img key={assembly.photos_uploaded[photo_id].photo}>
           <img
             src={assembly.photos_uploaded[photo_id].photo}
             alt={assembly.translate("survey.upload.finished")}
           />
 
           <ConfirmationIcon />
-        </Image>
+        </Img>
       )}
     </ImagePreviews>
   </Layout>
@@ -67,7 +76,7 @@ const Title = styled.h3`
   margin: 0;
 `
 
-const Image = styled.div`
+const Img = styled.div`
   height: 4rem;
   overflow: hidden;
   position: relative;

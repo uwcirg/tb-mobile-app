@@ -44,11 +44,12 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
         <Label>
           {assembly.translate("coordinator_participant_history.start_date")}
         </Label>
+        {/* Start Date */}
         <Information>
           { DateTime
             .fromISO(assembly.participant_history.information.treatment_start)
-            .setLocale("es")
-            .toLocaleString(DateTime.DATE_SIMPLE)
+            .setLocale(assembly.locale)
+            .toLocaleString(DateTime.DATETIME_SHORT)
           }
         </Information>
 
@@ -58,9 +59,9 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
         <Information>
           { DateTime
             .fromISO(assembly.participant_history.information.treatment_start)
-            .setLocale("es")
+            .setLocale(assembly.locale)
             .plus({ months: 6 })
-            .toLocaleString(DateTime.DATE_SIMPLE)
+            .toLocaleString(DateTime.DATETIME_SHORT)
           }
         </Information>
       </Info>
@@ -68,6 +69,7 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
       <DataTable>
         <thead>
           <tr>
+            <th>{assembly.translate("coordinator_participant_history.resolution")}</th>
             <th>{assembly.translate("coordinator_participant_history.medication")}</th>
             <th>{assembly.translate("coordinator_participant_history.side_effects")}</th>
             <th>{assembly.translate("coordinator_participant_history.photo")}</th>
@@ -77,15 +79,24 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
 
         <tbody>
           { assembly
-              .coordinator_account
-              .information
-              .resolutions
-              .filter(resolution =>
-                resolution.particpant_uuid ===
-                assembly.participant_history.information.uuid
-              )
-              .map(resolution =>
-              <tr key={resolution.uuid}>
+            .coordinator_account
+            .information
+            .resolutions
+            .filter(resolution =>
+              resolution.participant_uuid ===
+              assembly.participant_history.information.uuid
+            )
+            .sort((a,b) => DateTime.fromISO(b.created_at) - DateTime.fromISO(a.created_at))
+            .map(resolution =>
+              <tr key={resolution.uuid} >
+                <td>
+                  { DateTime
+                    .fromISO(resolution.timestamp)
+                    .setLocale(assembly.locale)
+                    .toLocaleString(DateTime.DATETIME_SHORT)
+                  }
+                </td>
+
                 <td>
                   { assembly
                     .participant_history
@@ -93,17 +104,11 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
                     .medication_reports
                     .filter(report => report.resolution_uuid === resolution.uuid)
                     .map(report =>
-                      <Padding>
+                      <Padding key={report.timestamp} >
                         { DateTime
                           .fromISO(report.timestamp, { zone: "utc" })
                           .setLocale(assembly.locale)
-                          .toLocaleString(DateTime.DATE_SIMPLE)
-                        }
-                        -
-                        { DateTime
-                          .fromISO(report.timestamp, { zone: "utc" })
-                          .setLocale(assembly.locale)
-                          .toLocaleString(DateTime.TIME_SIMPLE)
+                          .toLocaleString(DateTime.DATETIME_SHORT)
                         }
 
                         { report.took_medication
@@ -138,7 +143,7 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
                     .strip_reports
                     .filter(report => report.resolution_uuid === resolution.uuid)
                     .map(report =>
-                      <div>
+                      <div key={report.timestamp} >
                         <PhotoPopout src={report.photo} key={report.id} />
 
                         <Padding>
@@ -186,7 +191,7 @@ const DataTable = styled(Table)`
   td { border-bottom: 1px solid darkgrey; }
 `
 
-const Padding = styled.span`
+const Padding = styled.div`
   padding: 0.5rem;
 `
 

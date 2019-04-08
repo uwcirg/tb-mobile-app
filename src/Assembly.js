@@ -155,7 +155,7 @@ class Assembly extends React.Component {
     )
 
     // Attach to the window for debugging
-    window.assembly = this
+    // window.assembly = this
   }
 
   // Given...
@@ -164,7 +164,6 @@ class Assembly extends React.Component {
   //
   // ...determine what to display.
   @action route() {
-    console.log(`Set the current page for "${localStorage.getItem('current_page')}"`)
 
     // Note: `Login` does not have a route;
     // it is handled internally by Assemble

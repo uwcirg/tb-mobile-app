@@ -22,7 +22,7 @@ const Contact = observer(({assembly}) => (
           <li>{assembly.translate("contact.first")}</li>
         </List>
 
-        <Link href="https://github.com/uwcirg/tb-mobile-app" target="_blank">
+        <Link href={process.env.REACT_APP_CONTACT_LINK} target="_blank">
           <Button backgroundColor={green}>{assembly.translate("contact.whatsapp")}
             <Icon
               path={mdiWhatsapp}

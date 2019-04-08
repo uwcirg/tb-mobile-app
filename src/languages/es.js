@@ -1149,6 +1149,7 @@ export default {
     heading: "Progreso diario de los participantes",
     participant_info: "Información del participante",
     name: "Nombre",
+    last_resolution: "TODO Last Resolved",
     today: "Hoy",
     medication: "Control de la medicación",
     medication_taken: "Control de la medicacion",
@@ -1170,7 +1171,7 @@ export default {
   },
 
   coordinator_participant_history: {
-    link: { home: "Regrarse" },
+    link: { home: "Volver" },
     date: "Fecha",
     heading: "Registro",
     participant_info: "Información del participante",
@@ -1187,6 +1188,7 @@ export default {
     action: "Acción",
 
     participant_id: "Número de identificación del estudio",
+    resolution: "TODO Resolved",
     first_name: "Nombre",
     start_date: "Fecha de inicio del tratamiento",
     end_date: "Fecha prevista de finalización del tratamiento",
