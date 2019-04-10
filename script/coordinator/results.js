@@ -3,12 +3,11 @@ const { openBrowser, goto, click, inputField, write, closeBrowser } = require('t
     try {
         await openBrowser();
         await goto("http://localhost:3060");
-        await click("TODO Coordinator Login");
+        await click("Iniciar sesión para asistente de tratamiento");
         await write("grace.c.youngblood@gmail.com", inputField({ placeholder: "Email" }));
         await write("password", inputField({ placeholder: "Contraseña" }));
         await click("Iniciar sesión");
-        // TODO refresh does not yet work.
-        // await client().Page.reload()
+        await client().Page.reload()
         await click("Grace");
     } catch (e) {
         console.error(e);

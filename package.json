@@ -30,7 +30,7 @@
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-app-rewired eject",
     "clean": "docker-compose down && docker-compose up -d && docker-compose exec web rake db:create db:migrate && sleep 10 && docker-compose ps",
-    "demo:1": "taiko script/coordinator/register.js --observe",
+    "demo:1": "docker-compose exec web rails r \"Coordinator.create!(email: 'grace.c.youngblood@gmail.com', name: 'Grace C Youngblood', password_digest: BCrypt::Password.create('password'), uuid: SecureRandom.uuid)\"",
     "demo:2": "taiko script/participant/register.js --observe",
     "demo:3": "taiko script/participant/survey.js --observe",
     "demo:4": "taiko script/coordinator/results.js --observe",

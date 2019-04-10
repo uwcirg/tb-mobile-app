@@ -3,10 +3,11 @@ const { openBrowser, goto, inputField, write, click, above, below, image, toRigh
     try {
         await openBrowser();
         await goto("http://localhost:3060");
-        await write("2223334444", inputField({ placeholder: "El numero del telefono" }));
+        await emulateDevice("Galaxy S5");
+        await write("54-911-0000-2222", inputField({ placeholder: "El numero del telefono" }));
         await write("password", inputField({ placeholder: "Contraseña" }));
         await click("Iniciar sesión");
-        await click("Control del medicacion");
+        await click("Control de la medicacion");
         await click("Sí");
         await write("06:00 AM", inputField(above("Confirmar")));
         await click("Confirmar");
