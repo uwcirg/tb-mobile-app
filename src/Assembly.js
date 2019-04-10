@@ -219,7 +219,7 @@ class Assembly extends React.Component {
         timestamp: ${JSON.stringify(DateTime.local().toISO())},
 
         note: ${
-          JSON.stringify(`${status}: ${this.coordinator_note[participant.uuid] || ""}`)
+          JSON.stringify(this.coordinator_note[participant.uuid] || "")
         },
 
         medication_reports: [ ${

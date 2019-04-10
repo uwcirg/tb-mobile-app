@@ -65,7 +65,6 @@ export default {
       el dia
       `,
 
-
       reason: `
       ¿Por qué?
       `,
@@ -154,10 +153,6 @@ export default {
 
       on: `
       el dia
-      `,
-
-      on: `
-      hoy?
       `,
 
       yes: `
