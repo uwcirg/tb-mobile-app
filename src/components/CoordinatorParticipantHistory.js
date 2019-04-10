@@ -80,6 +80,11 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
               .coordinator_account
               .information
               .resolutions
+              .filter(resolution =>
+                assembly.participant_history.information.medication_reports.filter(report => report.resolution_uuid === resolution.uuid).length > 0 ||
+                assembly.participant_history.information.symptom_reports.filter(report => report.resolution_uuid === resolution.uuid).length > 0 ||
+                assembly.participant_history.information.strip_reports.filter(report => report.resolution_uuid === resolution.uuid).length > 0
+              )
               .map(resolution =>
               <tr key={resolution.uuid}>
                 <td>
