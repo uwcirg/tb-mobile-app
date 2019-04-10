@@ -96,13 +96,13 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
                     .map(report =>
                       <Padding>
                         { DateTime
-                          .fromISO()
+                          .fromISO(report.timestamp, { zone: "utc" })
                           .setLocale(assembly.locale)
                           .toLocaleString(DateTime.DATE_SIMPLE)
                         }
-
+                        -
                         { DateTime
-                          .fromISO(report.timestamp)
+                          .fromISO(report.timestamp, { zone: "utc" })
                           .setLocale(assembly.locale)
                           .toLocaleString(DateTime.TIME_SIMPLE)
                         }
