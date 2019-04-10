@@ -214,6 +214,10 @@ class Assembly extends React.Component {
   resolve_participant_records(participant, status) {
     network.run`
       Resolution.create!(
+        participant_uuid: ${JSON.stringify(participant.uuid)},
+        status: ${JSON.stringify(status)},
+        timestamp: ${JSON.stringify(DateTime.local().toISO())},
+
         note: ${
           JSON.stringify(`${status}: ${this.coordinator_note[participant.uuid] || ""}`)
         },

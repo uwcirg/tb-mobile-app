@@ -69,12 +69,6 @@ const CoordinatorHome = observer(({ assembly }) => (
         )
         .map(participant =>
         <Row
-          onClick={() =>
-            assembly.participant_history.watch(
-              participant.uuid,
-              () => assembly.currentPage = CoordinatorParticipantHistory
-            )
-          }
           key={participant.uuid}
         >
           <div onClick={(e) => { e.stopPropagation(); e.preventDefault() }}>
@@ -125,7 +119,13 @@ const CoordinatorHome = observer(({ assembly }) => (
             </Popover.Container>
           </div>
 
-          <NameLinkCell onClick={() => assembly.participant_history.watch(participant.uuid, () => assembly.currentPage = CoordinatorParticipantHistory)}>
+          <NameLinkCell
+            onClick={() =>
+              assembly.participant_history.watch(
+                participant.uuid,
+                () => assembly.currentPage = CoordinatorParticipantHistory
+              )
+            }>
             {participant.name}
           </NameLinkCell>
 
