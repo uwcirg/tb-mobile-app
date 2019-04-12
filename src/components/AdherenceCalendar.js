@@ -50,7 +50,7 @@ const Date = observer(({date, assembly}) => {
   return (
     medication_report
     ? medication_report.took_medication
-      ? <DateCell
+      ? <TookMedication
           date={date}
           style={{
             backgroundColor: green,
@@ -59,9 +59,9 @@ const Date = observer(({date, assembly}) => {
           }}
         >
           {date.getDate()}
-        </DateCell>
+        </TookMedication>
 
-      : <DateCell
+      : <DidNotTakeMedication
           date={date}
           style={{
             backgroundColor: red,
@@ -70,7 +70,7 @@ const Date = observer(({date, assembly}) => {
           }}
         >
           {date.getDate()}
-        </DateCell>
+        </DidNotTakeMedication>
 
     : <UnreportedDate date={date}>
         {date.getDate()}
@@ -106,7 +106,20 @@ const Calendar = styled(ReactCalendar)`
     border: none;
   }
 `
-const DateCell = styled.div`
+
+const TookMedication = styled.div`
+  border-radius: 50%;
+  margin-bottom: 0.5rem;
+  height: 2.0rem;
+  width: 2.0rem;
+
+  font-size: 1rem;
+  font-weight: 700;
+  display: block;
+  padding-top: 0.5rem;
+`
+
+const DidNotTakeMedication = styled.div`
   border-radius: 50%;
   margin-bottom: 0.5rem;
   height: 2.0rem;
