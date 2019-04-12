@@ -16,14 +16,17 @@ const AdherenceCalendar = observer(({ assembly }) => (
       return (DateTime.fromJSDate(date) > DateTime.local())}
     }
 
-    // Use https://moment.github.io/luxon/docs/manual/parsing.html#table-of-tokens
-    // if you need to format the date again
-    // React calendar returns this format of date "Fri Mar 29 2019 00:00:00 GMT-1000 (Hawaii-Aleutian Standard Time)"
-    onClickDay={((value) => assembly.survey_date =
-                           DateTime
-                            .fromFormat(value.toString().substr(0, 15), 'EEE LLL dd yyyy')
-                            .setLocale(assembly.locale)
-                            .toLocaleString(DateTime.DATE_SHORT))}
+    onClickDay={ (value) =>
+      // React calendar formats dates as:
+      // "Fri Mar 29 2019 00:00:00 GMT-1000 (Hawaii-Aleutian Standard Time)"
+      // https://moment.github.io/luxon/docs/manual/parsing.html#table-of-tokens
+      assembly.survey_date = DateTime.fromFormat(
+        value.toString().substr(0, 15),
+        'EEE LLL dd yyyy',
+      )
+        .setLocale(assembly.locale)
+        .toLocaleString(DateTime.DATE_SHORT)
+    }
 
     onChange={() => assembly.currentPage = Survey}
     tileContent={({ date, view }) => (
