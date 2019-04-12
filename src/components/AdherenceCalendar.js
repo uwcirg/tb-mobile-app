@@ -50,25 +50,11 @@ const Date = observer(({date, assembly}) => {
   return (
     medication_report
     ? medication_report.took_medication
-      ? <TookMedication
-          date={date}
-          style={{
-            backgroundColor: green,
-            border: `2px solid ${grey}`,
-            color: white,
-          }}
-        >
+      ? <TookMedication date={date} >
           {date.getDate()}
         </TookMedication>
 
-      : <DidNotTakeMedication
-          date={date}
-          style={{
-            backgroundColor: red,
-            border: `2px solid ${lightgrey}`,
-            color: darkgrey,
-          }}
-        >
+      : <DidNotTakeMedication date={date} >
           {date.getDate()}
         </DidNotTakeMedication>
 
@@ -107,7 +93,7 @@ const Calendar = styled(ReactCalendar)`
   }
 `
 
-const TookMedication = styled.div`
+const DateCell = styled.div`
   border-radius: 50%;
   margin-bottom: 0.5rem;
   height: 2.0rem;
@@ -119,30 +105,20 @@ const TookMedication = styled.div`
   padding-top: 0.5rem;
 `
 
-const DidNotTakeMedication = styled.div`
-  border-radius: 50%;
-  margin-bottom: 0.5rem;
-  height: 2.0rem;
-  width: 2.0rem;
-
-  font-size: 1rem;
-  font-weight: 700;
-  display: block;
-  padding-top: 0.5rem;
+const TookMedication = styled(DateCell)`
+  background-color: ${green};
+  border: 2px solid ${white};
+  color: ${white};
 `
 
-const UnreportedDate = styled.div`
-  border: 2px solid lightgrey
+const DidNotTakeMedication = styled(DateCell)`
+  background-color: ${red};
+  border: 2px solid ${white};
+  color: ${darkgrey};
+`
 
-  border-radius: 50%;
-  margin-bottom: 0.5rem;
-  height: 2.0rem;
-  width: 2.0rem;
-
-  font-size: 1rem;
-  font-weight: 700;
-  display: block;
-  padding-top: 0.5rem;
+const UnreportedDate = styled(DateCell)`
+  border: 2px solid ${lightgrey};
 `
 
 export default AdherenceCalendar;
