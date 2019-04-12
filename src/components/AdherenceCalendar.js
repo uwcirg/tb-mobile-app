@@ -26,35 +26,50 @@ const AdherenceCalendar = observer(({ assembly }) => (
                             .toLocaleString(DateTime.DATE_SHORT))}
 
     onChange={() => assembly.currentPage = Survey}
-    tileContent={
-      ({ date, view }) => {
-        let survey_for_day =
-          view === "month" &&
-          (
-            assembly
-              .participant_account
-              .information
-              .medication_reports
-            || []
-          ).find(mr =>mr.timestamp.replace(/T.+$/, "") === date.toJSON().replace(/T.+$/, ""));
-
-        if (survey_for_day) {
-          return (
-            <DateCell date={date} took_medication={survey_for_day.took_medication}>
-              {date.getDate()}
-            </DateCell>
-          )
-        } else {
-          return (
-            <UnreportedDate date={date}>
-              {date.getDate()}
-            </UnreportedDate>
-          )
-        }
-      }
-    }
+    tileContent={({ date, view }) => (
+      view === "month"
+      ? <Date date={date} assembly={assembly} />
+      : null
+    )}
   />
 ))
+
+const Date = observer(({date, assembly}) => {
+  let medication_report = (
+    assembly
+      .participant_account
+      .information
+      .medication_reports
+    || []
+  ).find(report => (
+    DateTime.fromISO(report.timestamp).toISODate()
+    ===
+    DateTime.fromISO(date.toISOString()).toISODate()
+  ))
+
+  return (
+    medication_report
+    ? <DateCell
+        date={date}
+        style={{
+          backgroundColor: medication_report.took_medication
+          ? green
+          : red,
+          border: medication_report.took_medication
+          ? `2px solid ${grey}`
+          : `2px solid ${lightgrey}`,
+          color: medication_report.took_medication
+          ? white
+          : darkgrey,
+        }}
+      >
+        {date.getDate()}
+      </DateCell>
+    : <UnreportedDate date={date}>
+        {date.getDate()}
+      </UnreportedDate>
+  )
+})
 
 const Calendar = styled(ReactCalendar)`
   width: 100% !important;
@@ -85,10 +100,6 @@ const Calendar = styled(ReactCalendar)`
   }
 `
 const DateCell = styled.div`
-  background:       ${(p) => p.took_medication ? green : red };
-  border: 2px solid ${(p) => p.medication_report ? grey : lightgrey };
-  color:            ${(p) => p.medication_report ? darkgrey : white };
-
   border-radius: 50%;
   margin-bottom: 0.5rem;
   height: 2.0rem;
