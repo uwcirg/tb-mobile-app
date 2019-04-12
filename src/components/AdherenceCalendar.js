@@ -49,22 +49,29 @@ const Date = observer(({date, assembly}) => {
 
   return (
     medication_report
-    ? <DateCell
-        date={date}
-        style={{
-          backgroundColor: medication_report.took_medication
-          ? green
-          : red,
-          border: medication_report.took_medication
-          ? `2px solid ${grey}`
-          : `2px solid ${lightgrey}`,
-          color: medication_report.took_medication
-          ? white
-          : darkgrey,
-        }}
-      >
-        {date.getDate()}
-      </DateCell>
+    ? medication_report.took_medication
+      ? <DateCell
+          date={date}
+          style={{
+            backgroundColor: green,
+            border: `2px solid ${grey}`,
+            color: white,
+          }}
+        >
+          {date.getDate()}
+        </DateCell>
+
+      : <DateCell
+          date={date}
+          style={{
+            backgroundColor: red,
+            border: `2px solid ${lightgrey}`,
+            color: darkgrey,
+          }}
+        >
+          {date.getDate()}
+        </DateCell>
+
     : <UnreportedDate date={date}>
         {date.getDate()}
       </UnreportedDate>
