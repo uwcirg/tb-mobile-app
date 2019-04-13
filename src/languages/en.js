@@ -304,6 +304,32 @@ export default {
     }
   },
 
+  new_coordinator: {
+    name: `
+    Name
+    `,
+
+    email: `
+    Email
+    `,
+
+    language: `
+    Language
+    `,
+
+    password: `
+    Password
+    `,
+
+    save: `
+    Save
+    `,
+
+    title: `
+    Add a coordinator
+    `,
+  },
+
   menu: {
     name: `
     Name

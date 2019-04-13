@@ -7,12 +7,12 @@ export default {
   },
 
   titles: {
-      notes: "Mis Notas",
-      faqs: "Información y Educación",
-      symptomOverview: "Información y Educación",
-      infoEd: "Información y Educación",
-      home: "Reporte de medicación",
-      default: "Asistente de tratamiente",
+    notes: "Mis Notas",
+    faqs: "Información y Educación",
+    symptomOverview: "Información y Educación",
+    infoEd: "Información y Educación",
+    home: "Reporte de medicación",
+    default: "Asistente de tratamiente",
   },
 
   home: {
@@ -308,6 +308,32 @@ export default {
       login: "Iniciar sesión",
       patient_login: "El login del participante",
     }
+  },
+
+  new_coordinator: {
+    name: `
+    Nombre
+    `,
+
+    email: `
+    Correo electrónico
+    `,
+
+    language: `
+    Idioma
+    `,
+
+    password: `
+    Contraseña
+    `,
+
+    save: `
+    Confirmar
+    `,
+
+    title: `
+    ~~Add a coordinator~~
+    `,
   },
 
   menu: {

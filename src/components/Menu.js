@@ -47,9 +47,6 @@ const Menu = observer(({ assembly }) => (
                 type="tel"
                 value={assembly.participant_account.information.phone_number || ""}
                 onChange={(e) => {
-                  // TODO possible race condition.
-                  // Fold all logic into the `update` function,
-                  // with a semaphore to prevent losing data.
                   assembly.participant_account.information.phone_number = e.target.value
                   assembly.participant_account.update(assembly.uuid)
                 }}
