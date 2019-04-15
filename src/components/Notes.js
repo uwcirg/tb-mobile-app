@@ -1,119 +1,100 @@
 import React from "react";
 import styled from "styled-components"
-import Button from "../primitives/Button"
+// import Button from "../primitives/Button"
 import { PlusIcon, ContentSaveIcon } from "mdi-react"
 import { grey } from "../colors"
 import Fold from "../primitives/Fold"
 import { observer } from "mobx-react"
 import { DateTime } from "luxon"
+import theme from "reakit-theme-default";
+import { Button, Provider, Input } from "reakit";
+import { primary, green } from "../colors"
 
 const Notes = observer(({ assembly }) => (
-  <Layout>
-    <h2>{assembly.currentPageTitle}</h2>
-    { assembly.noteDraft === null && assembly.noteTitle === null
-    ? <NewButton onClick={() => assembly.composeNote()}>
-        <PlusIcon/>
-        {assembly.translate("notes.new")}
-      </NewButton>
 
-    : <Draft>
-        <TitleInput
-          placeholder={assembly.translate("notes.title")}
-          value={assembly.noteTitle}
-          onChange={e => assembly.noteTitle = e.target.value}
-        />
-        <Input
-          placeholder={assembly.translate("notes.body")}
-          value={assembly.noteDraft}
-          onChange={e => assembly.noteDraft = e.target.value}
-        />
+  <Provider theme={theme}>
+    <div>
+      <h2>
+        {assembly.currentPageTitle}
+      </h2>
+      
+      { assembly.noteDraft === null && assembly.noteTitle === null
 
-        <NewButton onClick={() => assembly.saveNote()}>
-          <ContentSaveIcon/> Save
-        </NewButton>
-      </Draft>
-    }
+      ? <Button onClick={() => assembly.composeNote()} backgroundColor={primary}>
+          <PlusIcon/> {assembly.translate("notes.new")}
+        </Button>
 
-    { (
-      assembly
+      : <div>
+          <Input
+            placeholder={assembly.translate("notes.title")}
+            value={assembly.noteTitle}
+            onChange={e => assembly.noteTitle = e.target.value}
+          />
+          
+          <Padding></Padding>
+
+          <Input
+            placeholder={assembly.translate("notes.body")}
+            value={assembly.noteDraft}
+            onChange={e => assembly.noteDraft = e.target.value}
+            as="textarea"
+          />
+
+          <SaveButton onClick={() => assembly.saveNote()}>
+            <ContentSaveIcon/> {assembly.translate("notes.save")}
+          </SaveButton>
+        </div>
+      }
+
+      { (
+        assembly
+          .participant_account
+          .information
+          .notes
+        || []
+        )
+        .length === 0
+
+      ? <Hint>{assembly.translate("notes.hint")}</Hint>
+
+      : assembly
         .participant_account
         .information
         .notes
-      || []
-      )
-      .length === 0
+        .map(({ id, title, created_at, text }) => (
+          <Note key={id}>
+            <Note.Header>
+              <Note.Title>{title}</Note.Title>
+              <Note.Created>
+                {DateTime
+                  .fromISO(created_at)
+                  .setLocale(assembly.locale)
+                  .toLocaleString(DateTime.DATETIME_SHORT)}
+              </Note.Created>
+            </Note.Header>
 
-    ? <Hint>{assembly.translate("notes.hint")}</Hint>
+            <Note.Text>{text}</Note.Text>
 
-    : assembly
-      .participant_account
-      .information
-      .notes
-      .map(({ id, title, created_at, text, updated_at }) => (
-        <Note key={id}>
-          <Note.Header>
-            <Note.Title>{title}</Note.Title>
-            <Note.Created>{DateTime.fromISO(created_at).toLocaleString(DateTime.DATETIME_SHORT)}</Note.Created>
-          </Note.Header>
-
-          <Note.Text>{text}</Note.Text>
-
-          <Note.LastUpdated>
-            {assembly.translate("notes.last_edited")}
-            {DateTime.fromISO(updated_at).toLocaleString(DateTime.DATETIME_SHORT)}
-          </Note.LastUpdated>
-        </Note>
-    ))}
-  </Layout>
+          </Note>
+      ))}
+    </div>
+  </Provider>
 ))
 
-const Layout = styled.div`
-  margin: auto;
-  max-width: 40em;
-  overflow: hidden;
+const SaveButton = styled(Button)`
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  background-color: ${green};
 `
 
-const NewButton = styled(Button)`
-  float: right;
-`
-
-const TitleInput = styled.textarea`
-  text-align: left;
-  flex-grow: 1;
-  border-bottom: none;
-`
-
-const Input = styled.textarea`
-  text-align: left;
-  flex-grow: 1;
-  border-top: none;
-`
-
-const Draft = styled.div`
-  display: grid;
-
-  grid-template-columns: 1fr auto;
-  grid-template-rows: 2rem 4rem;
-  overflow: hidden;
-  margin-bottom: 1rem;
-
-  & > ${TitleInput} {
-    grid-area: 1 / 1 / 2 / 2;
-  }
-
-  & > ${Input} {
-    grid-area: 2 / 1 / -1 / 2;
-  }
-
-  & > ${NewButton} {
-    grid-area: 1 / 2 / -1 / -1;
-  }
+const Padding = styled.div`
+  padding: 0.25rem;
 `
 
 const Hint = styled.div`
   color: darkgrey;
   overflow: hidden;
-  height: 2rem;
+  padding-top: 0.5rem;
 `
 
 const Note = styled(Fold)`
@@ -125,19 +106,23 @@ Note.Text = styled.div`
   margin-bottom: 0.5rem;
   margin-top: 0.5rem;
 `
+
 Note.Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   top: 50%;
 `
+
 Note.Title = styled.div`
   font-weight: bold;
 `
+
 Note.LastUpdated = styled.div`
   color: ${grey};
   text-align: right;
 `
+
 Note.Created = styled.div`
   color: ${grey};
 `

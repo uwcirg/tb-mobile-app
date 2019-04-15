@@ -415,20 +415,18 @@ export default {
     New
     `,
 
-    title: `
-    Title
-    `,
+    title: `Title`,
 
-    body: `
-    Write your notes here.
-    `,
+    body: `Write your notes here.`,
 
-    hint: `
-    Write your notes here.
-    `,
+    hint: `Write your notes here.`,
 
     last_edited: `
     Last edited
+    `,
+
+    save: `
+    Save
     `,
   },
 

@@ -280,6 +280,8 @@ class Assembly extends React.Component {
       "notes",
       { title: this.noteTitle, text: this.noteDraft },
     )
+    this.noteTitle = null
+    this.noteDraft = null
   }
 
   composeNote() {

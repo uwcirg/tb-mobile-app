@@ -45,8 +45,6 @@ const FAQs = observer(({ assembly }) => (
         <P>{assembly.translate("faqs.q2.answer.1")}</P>
         <P>{assembly.translate("faqs.q2.answer.2")}</P>
         <P>{assembly.translate("faqs.q2.answer.3")}</P>
-        <P>{assembly.translate("faqs.q2.answer.4")}</P>
-        <P>{assembly.translate("faqs.q2.answer.5")}</P>
 
         <Bullets>
           <Bullet>{assembly.translate("faqs.q2.answer.6-bullets.1")}</Bullet>
