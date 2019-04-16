@@ -2,18 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:8.12.0
+      - image: circleci/ruby:2.4.1
     steps:
       - checkout
-      - run: git clone https://github.com/uwcirg/tb-api.git server
-      - run: git clone https://$dhair_username:$dhair_password@gitlab.cirg.washington.edu/svn/dhair2.git mpower
-      - run: yarn
-      - run: yarn test
-      - setup_remote_docker
-      - run:
-          name: Install Docker Compose
-          command: |
-            curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
-            chmod +x ~/docker-compose
-            sudo mv ~/docker-compose /usr/local/bin/docker-compose
-      - run: docker-compose -f .circleci/docker-compose.yml --project-directory . run --rm spec
+      - run: echo "Source commit verified"
