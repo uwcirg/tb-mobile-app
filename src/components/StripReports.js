@@ -48,7 +48,10 @@ const StripReports = observer(({ assembly }) => (
               .toLocaleString(DateTime.DATETIME_SHORT)}
           </Time>
           <Info>
-            {status || assembly.translate("progress.not_reviewed")}
+            {/* Translate status here */}
+            { status ? assembly.translate(`primitives.pos_neg.${status}`) : assembly.translate("progress.not_reviewed")}
+
+            {/* {status || assembly.translate("progress.not_reviewed")} */}
           </Info>
           <Image src={photo}>
           </Image>

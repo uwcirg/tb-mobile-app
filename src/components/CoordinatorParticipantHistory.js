@@ -3,6 +3,7 @@ import { observer } from "mobx-react"
 import styled from "styled-components"
 
 import { DateTime } from "luxon"
+import participant_adherence from "../util/participant_adherence"
 
 import { darkgrey, white } from "../colors"
 
@@ -63,6 +64,13 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
             .plus({ months: 6 })
             .toLocaleString(DateTime.DATE_SIMPLE)
           }
+        </Information>
+        
+        <Label>
+          % Adherence
+        </Label>
+        <Information>
+          {parseInt(participant_adherence(assembly.participant_history.information) * 100, 10) + "%"}
         </Information>
       </Info>
 

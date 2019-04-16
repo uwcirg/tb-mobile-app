@@ -4,6 +4,11 @@ export default {
       yes: "Yes",
       no: "No",
     },
+
+    pos_neg: {
+      positive: "Positive",
+      negative: "Negative",
+    },
   },
 
   titles: {
@@ -197,6 +202,10 @@ export default {
 
       skip: `
       Skip
+      `,
+
+      retake: `
+      Re-take photo
       `,
 
       instructions: {

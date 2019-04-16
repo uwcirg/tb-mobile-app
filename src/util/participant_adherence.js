@@ -1,6 +1,7 @@
 import { DateTime } from "luxon";
 
 const participant_adherence = (participant) => {
+    // debugger
     let start = DateTime.fromISO(participant.treatment_start)
     let end = DateTime.local()
 
