@@ -1,11 +1,10 @@
 import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
-import { Hidden, Input, Provider, Popover } from "reakit"
-import { darkgrey, grey, white } from "../colors"
-import theme from "reakit-theme-default";
+import { Hidden, Input, Popover } from "reakit"
+import { darkgrey, white } from "../colors"
 import { DateTime } from "luxon"
-
+import field from "../util/field"
 import hives from "../images/hives.jpg"
 import rash from "../images/rash.jpg"
 
@@ -29,29 +28,27 @@ const ReportSymptoms = observer(({ assembly, survey }) => (
 
     <Heading>
       {assembly.translate("survey.symptoms.title")}
-      {assembly.survey_date === DateTime.local().setLocale(assembly.locale).toLocaleString()
+      {assembly.survey.date === DateTime.local().setLocale(assembly.locale).toLocaleString()
         ? assembly.translate("survey.symptoms.today")
-        : assembly.translate("survey.symptoms.on") + assembly.survey_date + "?"}
+        : assembly.translate("survey.symptoms.on") + assembly.survey.date + "?"}
     </Heading>
 
     <Selection
-      update={() =>
-          assembly.translate(
-            `primitives.yes_no.${translation_keys[assembly.survey_anySymptoms]}`
-          )
-      }
+      update={() => assembly.translate(
+        `primitives.yes_no.${translation_keys[assembly.survey.any_symptoms]}`
+      ) }
       options={
         Object.values(translation_keys).map((v) =>
           assembly.translate(`primitives.yes_no.${v}`)
         )
       }
-      onChange={(selection) => assembly.survey_anySymptoms = (
+      onChange={(selection) => assembly.survey.any_symptoms = (
         selection ===
         assembly.translate(`primitives.yes_no.${translation_keys[true]}`)
       )}
     />
 
-    <Hidden visible={assembly.survey_anySymptoms} >
+    <Hidden visible={assembly.survey.any_symptoms} >
       <strong><p>{assembly.translate("survey.symptoms.prompt")}</p></strong>
 
       <Label>
@@ -181,16 +178,10 @@ const ReportSymptoms = observer(({ assembly, survey }) => (
         <span>{assembly.translate("survey.symptoms.facial_swelling")}</span>
       </Label>
 
-      <Provider theme={theme}>
-        <TextFieldLabel>
-          {assembly.translate("survey.symptoms.other")}
-
-          <TextInput
-            value={assembly.symptoms.other || ""}
-            onChange={e => assembly.symptoms.other = e.target.value}
-          />
-        </TextFieldLabel>
-      </Provider>
+      <Other>
+        {field(assembly, "survey.symptoms.other").label}
+        {field(assembly, "survey.symptoms.other").field}
+      </Other>
     </Hidden>
   </Layout>
 ))
@@ -206,15 +197,10 @@ const Label = styled.label`
   padding-bottom: 0.5rem;
 `
 
-const TextFieldLabel = styled(Label)`
+const Other = styled.div`
   grid-template-columns: 6rem auto;
   margin-top: 1rem;
   grid-column-gap: 1rem;
-`
-
-const TextInput = styled(Input)`
-  background-color: ${white};
-  border: 1px solid ${grey};
 `
 
 const Checkbox = styled(Input).attrs({ type: "checkbox" })`

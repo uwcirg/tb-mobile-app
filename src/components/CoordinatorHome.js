@@ -2,12 +2,12 @@ import React from "react"
 import { observer } from "mobx-react"
 import styled from "styled-components"
 import { DateTime } from "luxon"
+import field from "../util/field"
 
 import {
   darkgrey,
   lightgrey,
   green,
-  grey,
   red,
   white,
 } from "../colors"
@@ -17,7 +17,7 @@ import Heading from "../primitives/Heading"
 import PhotoPopout from "../primitives/PhotoPopout"
 import Selection from "../primitives/Selection"
 import participant_adherence from "../util/participant_adherence"
-import { Popover, Input, InlineBlock } from "reakit";
+import { Popover, InlineBlock } from "reakit";
 import days_of_treatment from "../util/days_of_treatment"
 
 import { Icon } from "@mdi/react"
@@ -102,12 +102,7 @@ const CoordinatorHome = observer(({ assembly }) => (
                   <Popover hideOnClickOutside {...popover} >
                     <Card onClick={(e) => { e.stopPropagation(); e.preventDefault() }} >
                       <CoordinatorNote>
-                        <TextField
-                          use="textarea"
-                          onChange={(e) =>
-                            assembly.coordinator_note[participant.uuid] = e.target.value
-                          }
-                        />
+                        {field(assembly, `coordinator_note.${participant.uuid}`, "textarea").field}
                       </CoordinatorNote>
 
                       <span onClick={(e) => {
@@ -252,11 +247,6 @@ const Symptom = styled.div`
 const CoordinatorNote = styled.div`
   display: grid;
   grid-row-gap: 0.5rem;
-`
-
-const TextField = styled(Input)`
-  border: 1px solid ${grey};
-  padding: 0.5rem 0;
 `
 
 const InformationTable = styled.div`

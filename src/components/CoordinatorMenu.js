@@ -4,8 +4,8 @@ import Button from "../primitives/Button"
 import { observer, Observer } from "mobx-react"
 import { Icon } from "@mdi/react"
 import { mdiMenu, mdiClose, mdiWeb } from "@mdi/js"
-import { Box, Block, Backdrop, Portal, Sidebar, Input } from "reakit";
-
+import { Box, Block, Backdrop, Portal, Sidebar } from "reakit";
+import field from "../util/field"
 import { grey, darkgrey, white, red } from "../colors"
 import Selection from "../primitives/Selection"
 
@@ -28,37 +28,13 @@ const CoordinatorMenu = observer(({ assembly }) => (
             </Toggle>
 
             <Question>
-              <label htmlFor="name">
-                {assembly.translate("menu.name")}
-              </label>
-
-              <Field
-                name="name"
-                value={assembly.coordinator_account.information.name || ""}
-                onChange={(e) => {
-                  assembly.coordinator_account.information.name = e.target.value
-                  assembly.coordinator_account.update(assembly.uuid)
-                }}
-              />
+              {field(assembly, "coordinator_menu.name").label}
+              {field(assembly, "coordinator_menu.name").field}
             </Question>
 
             <Question>
-              <label htmlFor="email">
-                {assembly.translate("menu.email")}
-              </label>
-
-              <Field
-                name="email"
-                type="email"
-                value={assembly.coordinator_account.information.email || ""}
-                onChange={(e) => {
-                  // TODO possible race condition.
-                  // Fold all logic into the `update` function,
-                  // with a semaphore to prevent losing data.
-                  assembly.coordinator_account.information.email = e.target.value
-                  assembly.coordinator_account.update(assembly.uuid)
-                }}
-              />
+              {field(assembly, "coordinator_menu.email", "email").label}
+              {field(assembly, "coordinator_menu.email", "email").field}
             </Question>
 
             <Question>
@@ -71,7 +47,15 @@ const CoordinatorMenu = observer(({ assembly }) => (
               />
             </Question>
 
-            <LogoutButton onClick={() => assembly.logout()}>Log out</LogoutButton>
+            <Button onClick={() =>
+              assembly.coordinator_account.update(assembly.coordinator_menu)
+            } >
+              Save
+            </Button>
+
+            <LogoutButton onClick={() => assembly.logout()} >
+              Log out
+            </LogoutButton>
           </Layout>
             }
           </Observer>
@@ -117,11 +101,4 @@ const Question = styled.div`
   width: 80%;
 `
 
-const Field = styled(Input)`
-  background-color: ${white}
-  padding: 0.5rem;
-  margin-bottom: 1rem;
-  border-radius: 2px;
-  border: 1px solid ${grey};
-`
 export default CoordinatorMenu

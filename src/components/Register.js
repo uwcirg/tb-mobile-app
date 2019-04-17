@@ -1,11 +1,10 @@
 import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
+import field from "../util/field"
 
 import Button from "../primitives/Button"
 import ListOfLinks from "../layouts/ListOfLinks"
-import { Input } from "reakit"
-import { white, grey } from "../colors"
 import InternalLink from "../primitives/InternalLink"
 import Login from "./Login"
 import CoordinatorLogin from "./CoordinatorLogin"
@@ -13,62 +12,30 @@ import CoordinatorLogin from "./CoordinatorLogin"
 const Register = observer(({assembly}) => (
   <Layout>
     <h2>
-      {assembly.translate("register.welcome")}
+      {assembly.translate("participant_registration.welcome")}
     </h2>
 
     <Form>
-      <label htmlFor="name">
-        {assembly.translate("register.name")}
-      </label>
+      {field(assembly, "participant_registration.name").label}
+      {field(assembly, "participant_registration.name").field}
 
-      <Field
-        name="name"
-        value={assembly.participant_account.information.name || ""}
-        onChange={(e) => assembly.participant_account.information.name = e.target.value}
-      />
+      {field(assembly, "participant_registration.phone_number", "tel").label}
+      <label>54-911-0000-2222</label>
+      {field(assembly, "participant_registration.phone_number", "tel").field}
 
-      <label htmlFor="phone_number">
-        {assembly.translate("register.phone_number")}
-      </label>
-      
-      <label>
-        {"54-911-0000-2222"}
-      </label>
+      {field(assembly, "participant_registration.treatment_start", "date").label}
+      {field(assembly, "participant_registration.treatment_start", "date").field}
 
-      <Field
-        name="phone_number"
-        type="tel"
-        value={assembly.participant_account.information.phone_number || "54-911"}
-        onChange={(e) => assembly.participant_account.information.phone_number = e.target.value}
-      />
+      {field(assembly, "participant_registration.password", "password").label}
+      {field(assembly, "participant_registration.password", "password").field}
 
-      <label htmlFor="treatment_start">
-        {assembly.translate("register.treatment_start")}
-      </label>
-
-      <Field
-        type="date"
-        value={assembly.participant_account.information.treatment_start || ""}
-        onChange={(e) => assembly.participant_account.information.treatment_start = e.target.value}
-      />
-
-      <label htmlFor="password">
-        {assembly.translate("register.password")}
-      </label>
-
-      <Field
-        type="password"
-        value={assembly.participant_account.information.password || ""}
-        onChange={(e) => assembly.participant_account.information.password = e.target.value}
-      />
-
-      <Button onClick={() => assembly.register()}>
-        {assembly.translate("register.register")}
+      <Button onClick={() => assembly.register_participant()}>
+        {assembly.translate("participant_registration.register")}
       </Button>
     </Form>
 
     <InternalLink to={Login} assembly={assembly} >
-      {assembly.translate("register.link.login")}
+      {assembly.translate("participant_registration.link.login")}
     </InternalLink>
 
     <InternalLink to={CoordinatorLogin} assembly={assembly} >
@@ -78,14 +45,6 @@ const Register = observer(({assembly}) => (
 ))
 
 const Layout = styled(ListOfLinks)`
-`
-
-const Field = styled(Input)`
-  background-color: ${white}
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
-  border-radius: 2px;
-  border: 1px solid ${grey};
 `
 
 const Form = styled.div`
