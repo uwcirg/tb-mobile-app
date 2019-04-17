@@ -22,9 +22,7 @@ class Network {
         },
       }).then(resolve)
     }).then((result) => {
-      if(this.active) {
-        this.watches.forEach((watch) => watch())
-      }
+      this.refresh()
 
       return result;
     })
@@ -60,6 +58,13 @@ class Network {
   destruct() {
     this.clearWatches()
     this.active = false
+  }
+
+  // Reload each of the network queries that are being watched.
+  refresh() {
+    if(this.active) {
+      this.watches.forEach((watch) => watch())
+    }
   }
 }
 

@@ -105,6 +105,10 @@ class Assembly extends React.Component {
     password: "",
   }
 
+  @observable coordinator_timer = null
+
+  @observable coordinator_note = {}
+
   // - - - Coordinator's view of participant information
   @observable participant_history = new Account(network, "Participant", {})
 
@@ -135,6 +139,18 @@ class Assembly extends React.Component {
     autorun(() => {
       if (this.symptoms.difficulty_breathing || this.symptoms.facial_swelling)
         this.alert(this.translate("symptom_overview.take_action_immediately"))
+    })
+
+    autorun(() => {
+      if(this.currentPage === CoordinatorHome)
+        this.coordinator_timer = setInterval(
+          () => network.refresh(),
+          5 * 60 * 1000, // 5 minutes, 60 s/min, 1000 ms/s
+        )
+      else if(this.coordinator_timer) {
+        clearInterval(this.coordinator_timer)
+        this.coordinator_timer = null
+      }
     })
 
     this.survey_date = DateTime.local().setLocale(this.locale).toLocaleString()

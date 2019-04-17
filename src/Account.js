@@ -53,14 +53,17 @@ class Account {
             password_digest
         ) == ${JSON.stringify(password)} ?
         ${this.model}.find_by(JSON.parse('${JSON.stringify(attributes)}')).uuid :
-        {}
+        nil
       `.then(response =>
         response
         .json()
         .then(uuid => {
-          // uuid exists here
-          this.watch(uuid)
-          resolve(uuid)
+          if(uuid) {
+            this.watch(uuid)
+            resolve(uuid)
+          } else {
+            console.log("Invalid credentials.")
+          }
         })
       )
     )
