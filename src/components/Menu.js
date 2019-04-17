@@ -2,25 +2,27 @@ import React from "react"
 import styled from "styled-components"
 import Button from "../primitives/Button"
 import { observer, Observer } from "mobx-react"
-import { MenuIcon, CloseIcon } from "mdi-react"
-import { Box, Block, Backdrop, Portal, Sidebar, Input } from "reakit";
-
+import { Icon } from "@mdi/react"
+import { mdiMenu, mdiClose, mdiWeb } from "@mdi/js"
+import { Box, Block, Backdrop, Popover, Portal, Input } from "reakit";
 import { grey, darkgrey, white, red } from "../colors"
-import Icon from "../primitives/Icon"
 import Selection from "../primitives/Selection"
 
 const Menu = observer(({ assembly }) => (
-  <Sidebar.Container>
+  <Popover.Container>
     {sidebar => (
       <Block>
-        <Toggle {...sidebar} ><MenuIcon /></Toggle>
-        <TransparentBackdrop as={[Portal, Sidebar.Hide]} {...sidebar} />
+        <Toggle {...sidebar} >
+          <Icon path={mdiMenu} size={1} />
+        </Toggle>
 
-        <Sidebar align="right" slide as={Portal} {...sidebar}>
-          <Observer>
-            { () =>
+        <TransparentBackdrop as={[Portal, Pop.Hide]} {...sidebar} />
+
+        <Pop align="right" slide as={Portal} {...sidebar}>
           <Layout>
-            <Toggle {...sidebar} ><CloseIcon /></Toggle>
+            <Toggle {...sidebar} >
+              <Icon path={mdiClose} size={1} />
+            </Toggle>
 
             <Question>
               <label htmlFor="name">
@@ -54,7 +56,7 @@ const Menu = observer(({ assembly }) => (
             </Question>
 
             <Question>
-              <Icon name="Language" mdi="web" />
+              <Icon path={mdiWeb} size={1} />
 
               <Selection
                 update={() => assembly.language}
@@ -83,12 +85,10 @@ const Menu = observer(({ assembly }) => (
 
             <LogoutButton onClick={() => assembly.logout()}>Log out</LogoutButton>
           </Layout>
-            }
-          </Observer>
-        </Sidebar>
+        </Pop>
       </Block>
     )}
-  </Sidebar.Container>
+  </Popover.Container>
 ))
 
 const Layout = styled(Box)`
@@ -96,9 +96,8 @@ const Layout = styled(Box)`
   top: 0;
   right: 0;
   background-color: ${white}
-  height: 100vh;
   width: 20rem;
-  border-left: 1px solid ${grey};
+  border: 1px solid ${grey};
 
   display: flex;
   flex-direction: column;
@@ -106,7 +105,13 @@ const Layout = styled(Box)`
   align-items: center;
 `
 
-const Toggle = styled(Sidebar.Toggle)`
+const Pop = styled(Popover)`
+  border: 1px solid ${darkgrey};
+  padding: 1rem;
+  background-color: ${white};
+`
+
+const Toggle = styled(Pop.Toggle)`
   background-color: ${white};
   color: ${darkgrey};
 `
@@ -134,4 +139,5 @@ const Field = styled(Input)`
   border-radius: 2px;
   border: 1px solid ${grey};
 `
+
 export default Menu

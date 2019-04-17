@@ -2,21 +2,21 @@ import React from "react"
 import styled from "styled-components"
 import Button from "../primitives/Button"
 import { observer, Observer } from "mobx-react"
-import { PlusIcon } from "mdi-react"
-import { Box, Block, Popover, Input } from "reakit";
-
+import { Icon } from "@mdi/react"
+import { mdiPlus } from "@mdi/js"
+import { Box, Block, Popover } from "reakit";
 import { grey, darkgrey, white, blue } from "../colors"
 
 const AddCoordinator = observer(({ assembly }) => (
-  <Popover.Container>
+  <Pop.Container>
     {popover => (
       <Block>
         <Toggle {...popover} >
-          <PlusIcon />
+          <Icon path={mdiPlus} size={1} />
         </Toggle>
 
         <Pop hideOnClickOutside {...popover}>
-          <Popover.Arrow/>
+          <Pop.Arrow/>
 
           <Observer>{ () =>
             <Layout>
@@ -41,7 +41,7 @@ const AddCoordinator = observer(({ assembly }) => (
         </Pop>
       </Block>
     )}
-  </Popover.Container>
+  </Pop.Container>
 ))
 
 const Layout = styled(Box)`

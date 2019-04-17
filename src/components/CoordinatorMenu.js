@@ -2,25 +2,30 @@ import React from "react"
 import styled from "styled-components"
 import Button from "../primitives/Button"
 import { observer, Observer } from "mobx-react"
-import { MenuIcon, CloseIcon } from "mdi-react"
+import { Icon } from "@mdi/react"
+import { mdiMenu, mdiClose, mdiWeb } from "@mdi/js"
 import { Box, Block, Backdrop, Portal, Sidebar, Input } from "reakit";
 
 import { grey, darkgrey, white, red } from "../colors"
-import Icon from "../primitives/Icon"
 import Selection from "../primitives/Selection"
 
 const CoordinatorMenu = observer(({ assembly }) => (
   <Sidebar.Container>
     {sidebar => (
       <Block>
-        <Toggle {...sidebar} ><MenuIcon /></Toggle>
+        <Toggle {...sidebar} >
+          <Icon path={mdiMenu} size={1} />
+        </Toggle>
+
         <TransparentBackdrop as={[Portal, Sidebar.Hide]} {...sidebar} />
 
         <Sidebar align="right" slide as={Portal} {...sidebar}>
           <Observer>
             { () =>
           <Layout>
-            <Toggle {...sidebar} ><CloseIcon /></Toggle>
+            <Toggle {...sidebar} >
+              <Icon path={mdiClose} size={1} />
+            </Toggle>
 
             <Question>
               <label htmlFor="name">
@@ -57,7 +62,7 @@ const CoordinatorMenu = observer(({ assembly }) => (
             </Question>
 
             <Question>
-              <Icon name="Language" mdi="web" />
+              <Icon path={mdiWeb} size={1} />
 
               <Selection
                 update={() => assembly.language}
