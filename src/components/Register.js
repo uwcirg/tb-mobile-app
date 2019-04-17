@@ -39,7 +39,7 @@ const Register = observer(({assembly}) => (
     </InternalLink>
 
     <InternalLink to={CoordinatorLogin} assembly={assembly} >
-      {assembly.translate("login.link.coordinator_login")}
+      {assembly.translate("participant_login.link.coordinator_login")}
     </InternalLink>
   </Layout>
 ))

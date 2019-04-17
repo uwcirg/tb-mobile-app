@@ -16,7 +16,6 @@ import CoordinatorParticipantHistory from "../components/CoordinatorParticipantH
 import Heading from "../primitives/Heading"
 import PhotoPopout from "../primitives/PhotoPopout"
 import Selection from "../primitives/Selection"
-import participant_adherence from "../util/participant_adherence"
 import { Popover, InlineBlock } from "reakit";
 import days_of_treatment from "../util/days_of_treatment"
 
@@ -218,7 +217,7 @@ const CoordinatorHome = observer(({ assembly }) => (
           </Cell>
 
           <Cell>
-            {parseInt(participant_adherence(participant) * 100, 10) + "%"}
+            {parseInt(participant.adherence * 100, 10) + "%"}
           </Cell>
 
           <Cell>
