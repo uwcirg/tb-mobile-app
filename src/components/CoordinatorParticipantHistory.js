@@ -170,7 +170,6 @@ const Layout = styled.div`
   border-radius: 2px;
   border: 1px solid ${darkgrey};
   padding: 1rem;
-
   display: grid;
   grid-row-gap: 1rem;
 `

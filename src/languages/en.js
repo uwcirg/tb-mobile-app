@@ -4,6 +4,11 @@ export default {
       yes: "Yes",
       no: "No",
     },
+
+    pos_neg: {
+      positive: "Positive",
+      negative: "Negative",
+    },
   },
 
   titles: {
@@ -197,6 +202,10 @@ export default {
 
       skip: `
       Skip
+      `,
+
+      retake: `
+      Re-take photo
       `,
 
       instructions: {
@@ -441,20 +450,18 @@ export default {
     New
     `,
 
-    title: `
-    Title
-    `,
+    title: `Title`,
 
-    body: `
-    Write your notes here.
-    `,
+    body: `Write your notes here.`,
 
-    hint: `
-    Write your notes here.
-    `,
+    hint: `Write your notes here.`,
 
     last_edited: `
     Last edited
+    `,
+
+    save: `
+    Save
     `,
   },
 

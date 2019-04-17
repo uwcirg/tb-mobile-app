@@ -59,7 +59,7 @@ class ImageCapture extends React.Component {
 
                     this.props.assembly.photos_uploaded = {}
                   }} >
-                  Re-take photo
+                  {this.props.assembly.translate("survey.upload.retake")}
                 </Button>
               </div>
 
@@ -77,7 +77,7 @@ class ImageCapture extends React.Component {
                 {this.props.children}
 
                 <Button onClick={(ev) => this.captureImage()} >
-                  Take photo
+                  {this.props.assembly.translate("survey.upload.upload_photo")}
                 </Button>
               </div>
             )

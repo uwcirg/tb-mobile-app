@@ -31,8 +31,6 @@ const FAQs = observer(({ assembly }) => (
       <Answer>
         <P>{assembly.translate("faqs.q1.answer.1")}</P>
         <P>{assembly.translate("faqs.q1.answer.3")}</P>
-        <P>{assembly.translate("faqs.q1.answer.4")}</P>
-        <P>{assembly.translate("faqs.q1.answer.5")}</P>
       </Answer>
     </Fold>
 
@@ -45,8 +43,6 @@ const FAQs = observer(({ assembly }) => (
         <P>{assembly.translate("faqs.q2.answer.1")}</P>
         <P>{assembly.translate("faqs.q2.answer.2")}</P>
         <P>{assembly.translate("faqs.q2.answer.3")}</P>
-        <P>{assembly.translate("faqs.q2.answer.4")}</P>
-        <P>{assembly.translate("faqs.q2.answer.5")}</P>
 
         <Bullets>
           <Bullet>{assembly.translate("faqs.q2.answer.6-bullets.1")}</Bullet>
@@ -75,7 +71,6 @@ const FAQs = observer(({ assembly }) => (
         <P>{assembly.translate("faqs.q4.answer.4")}</P>
         <P>{assembly.translate("faqs.q4.answer.5")}</P>
         <P>{assembly.translate("faqs.q4.answer.6")}</P>
-        <P>{assembly.translate("faqs.q4.answer.7")}</P>
       </Answer>
     </Fold>
 

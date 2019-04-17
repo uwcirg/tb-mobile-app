@@ -4,6 +4,11 @@ export default {
       yes: "Sí",
       no: "No",
     },
+
+    pos_neg: {
+      positive: "Positivo",
+      negative: "Negativo",
+    },
   },
 
   titles: {
@@ -203,6 +208,10 @@ export default {
 
       skip: `
       Saltar esta opción
+      `,
+
+      retake: `
+      Repetir foto
       `,
 
       instructions: {
@@ -447,13 +456,9 @@ export default {
     Nueva
     `,
 
-    title: `
-    Titulo
-    `,
+    title: `Titulo`,
 
-    body: `
-    Escriba sus notas aquí.
-    `,
+    body: `Escriba sus notas aquí.`,
 
     hint: `
     Escriba sus notas aquí, por ejemplo, escriba su próxima cita médica u otros recordatorios.
@@ -461,6 +466,10 @@ export default {
 
     last_edited: `
     última edición
+    `,
+
+    save: `
+    Guardar
     `,
   },
 
