@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components"
-// import Button from "../primitives/Button"
 import { PlusIcon, ContentSaveIcon } from "mdi-react"
 import { grey } from "../colors"
 import Fold from "../primitives/Fold"
@@ -106,23 +105,19 @@ Note.Text = styled.div`
   margin-bottom: 0.5rem;
   margin-top: 0.5rem;
 `
-
 Note.Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   top: 50%;
 `
-
 Note.Title = styled.div`
   font-weight: bold;
 `
-
 Note.LastUpdated = styled.div`
   color: ${grey};
   text-align: right;
 `
-
 Note.Created = styled.div`
   color: ${grey};
 `

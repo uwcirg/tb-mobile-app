@@ -49,8 +49,6 @@ const CoordinatorHome = observer(({ assembly }) => (
     <InformationTable>
       <Row>
         <Cell>{assembly.translate("coordinator.status_")}</Cell>
-        {/* TODO: Last reported day */}
-        {/* <Cell>Last Reported Date</Cell> */}
         <Cell>{assembly.translate("coordinator.name")}</Cell>
 
         <Cell>{assembly.translate("coordinator.medication")}</Cell>
@@ -120,16 +118,6 @@ const CoordinatorHome = observer(({ assembly }) => (
               ) }
             </Popover.Container>
           </div>
-          
-          {/* TODO: Last Reported Day */}
-          {/* <Cell>
-            { participant
-                .medication_reports
-                .sort(function(a,b){
-                  return DateTime.fromISO(b.created_at) - DateTime.fromISO(a.created_at);
-                }).toString()
-            }
-          </Cell> */}
 
           <NameLinkCell onClick={() =>
                           assembly.participant_history.watch(participant.uuid,

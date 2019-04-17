@@ -3,7 +3,6 @@ import { observer } from "mobx-react"
 import styled from "styled-components"
 
 import { DateTime } from "luxon"
-import participant_adherence from "../util/participant_adherence"
 
 import { darkgrey, white } from "../colors"
 
@@ -49,8 +48,8 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
         <Information>
           { DateTime
             .fromISO(assembly.participant_history.information.treatment_start)
-            .setLocale("es")
-            .toLocaleString(DateTime.DATE_SIMPLE)
+            .setLocale(assembly.locale)
+            .toLocaleString(DateTime.DATETIME_SHORT)
           }
         </Information>
 
@@ -60,23 +59,17 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
         <Information>
           { DateTime
             .fromISO(assembly.participant_history.information.treatment_start)
-            .setLocale("es")
+            .setLocale(assembly.locale)
             .plus({ months: 6 })
-            .toLocaleString(DateTime.DATE_SIMPLE)
+            .toLocaleString(DateTime.DATETIME_SHORT)
           }
-        </Information>
-        
-        <Label>
-          % Adherence
-        </Label>
-        <Information>
-          {parseInt(participant_adherence(assembly.participant_history.information) * 100, 10) + "%"}
         </Information>
       </Info>
 
       <DataTable>
         <thead>
           <tr>
+            <th>{assembly.translate("coordinator_participant_history.resolution")}</th>
             <th>{assembly.translate("coordinator_participant_history.medication")}</th>
             <th>{assembly.translate("coordinator_participant_history.side_effects")}</th>
             <th>{assembly.translate("coordinator_participant_history.photo")}</th>
@@ -85,17 +78,25 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
         </thead>
 
         <tbody>
-          {
-            assembly
-              .coordinator_account
-              .information
-              .resolutions
-              .slice()
-              .sort(function(a,b){
-                return DateTime.fromISO(b.created_at) - DateTime.fromISO(a.created_at);
-              })
-              .map(resolution =>
-              <tr key={resolution.uuid}>
+          { assembly
+            .coordinator_account
+            .information
+            .resolutions
+            .filter(resolution =>
+              resolution.participant_uuid ===
+              assembly.participant_history.information.uuid
+            )
+            .sort((a,b) => DateTime.fromISO(b.created_at) - DateTime.fromISO(a.created_at))
+            .map(resolution =>
+              <tr key={resolution.uuid} >
+                <td>
+                  { DateTime
+                    .fromISO(resolution.timestamp)
+                    .setLocale(assembly.locale)
+                    .toLocaleString(DateTime.DATETIME_SHORT)
+                  }
+                </td>
+
                 <td>
                   { assembly
                     .participant_history
@@ -103,9 +104,9 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
                     .medication_reports
                     .filter(report => report.resolution_uuid === resolution.uuid)
                     .map(report =>
-                      <Padding>
+                      <Padding key={report.timestamp} >
                         { DateTime
-                          .fromISO(report.timestamp)
+                          .fromISO(report.timestamp, { zone: "utc" })
                           .setLocale(assembly.locale)
                           .toLocaleString(DateTime.DATETIME_SHORT)
                         }
@@ -142,7 +143,7 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
                     .strip_reports
                     .filter(report => report.resolution_uuid === resolution.uuid)
                     .map(report =>
-                      <div>
+                      <div key={report.timestamp} >
                         <PhotoPopout src={report.photo} key={report.id} />
 
                         <Padding>
@@ -154,18 +155,7 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
                 </td>
 
                 <td>
-                  {/* TODO: Clean up this approach */}
-                  { assembly
-                    .participant_history
-                    .information
-                    .medication_reports
-                    .filter(report => report.resolution_uuid === resolution.uuid)
-                    .map(report =>
-                      <div>
-                        {resolution.note}
-                      </div>
-                    )
-                  }
+                  {resolution.status}: {resolution.note}
                 </td>
               </tr>
           ) }
@@ -180,7 +170,6 @@ const Layout = styled.div`
   border-radius: 2px;
   border: 1px solid ${darkgrey};
   padding: 1rem;
-
   display: grid;
   grid-row-gap: 1rem;
 `
@@ -201,7 +190,7 @@ const DataTable = styled(Table)`
   td { border-bottom: 1px solid darkgrey; }
 `
 
-const Padding = styled.span`
+const Padding = styled.div`
   padding: 0.5rem;
 `
 

@@ -155,8 +155,6 @@ class Assembly extends React.Component {
     )
 
     // Attach to the window for debugging
-    // Taken out for prod
-    // window.assembly = this
   }
 
   // Given...

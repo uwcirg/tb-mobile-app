@@ -27,6 +27,7 @@ const AdherenceCalendar = observer(({ assembly }) => (
                             .toLocaleString(DateTime.DATE_SHORT))}
 
     onChange={() => assembly.currentPage = Survey}
+
     tileContent={
       ({ date, view }) => {
         let survey_for_day =
@@ -38,8 +39,7 @@ const AdherenceCalendar = observer(({ assembly }) => (
               .medication_reports
             || []
           ).find(mr =>mr.timestamp.replace(/T.+$/, "") === date.toJSON().replace(/T.+$/, ""));
-          
-        
+
         if (survey_for_day) {
           return (
             <DateCell date={date} took_medication={survey_for_day.took_medication}>
