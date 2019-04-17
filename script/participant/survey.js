@@ -4,8 +4,8 @@ const { openBrowser, goto, inputField, write, click, above, below, image, toRigh
         await openBrowser();
         await goto("http://localhost:3060");
         await emulateDevice("Galaxy S5");
-        await write("54-911-0000-2222", inputField({ placeholder: "El numero del telefono" }));
-        await write("password", inputField({ placeholder: "Contraseña" }));
+        await write("54-911-0000-2222", inputField(below("El numero del telefono")));
+        await write("password", inputField(below("Contraseña")));
         await click("Iniciar sesión");
         await click("Control de la medicacion");
         await click("Sí");
