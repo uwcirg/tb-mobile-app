@@ -42,6 +42,7 @@ import WithCredentials from "./primitives/WithCredentials"
 import espanol from "./languages/es"
 import english from "./languages/en"
 
+import { Client } from "minio"
 import Network from "./Network"
 let network = new Network(process.env.REACT_APP_URL_API)
 
@@ -373,6 +374,46 @@ class Assembly extends React.Component {
   }
 
   storePhoto(photo) {
+    const minioClient = new Client({
+      endpoint: process.env.REACT_APP_MINIO_HOST,
+      port: process.env.REACT_APP_MINIO_PORT,
+      useSSL: false,
+      accessKey: process.env.REACT_APP_MINIO_ACCESS_KEY,
+      secretKey: process.env.REACT_APP_MINIO_SECRET_KEY,
+    })
+
+    let upload_name = `${DateTime.local().toISO()}.photo_upload_v1`
+
+    // FileReader;
+    // it is unclear if this code still works,
+    // or if another approach is needed.
+    // Check `src/components/ImageCapture.js` to see how this is used.
+    // Be ready for HTML canvas and raw image information.
+
+    // let reader = new FileReader()
+    // reader.onload = (evt) => {
+    //   let blob = evt.target.result
+    //   minioClient.putObject(
+    //     'foo',
+    //     upload_name,
+    //     blob,
+    //     { 'Content-Type': photo.type },
+    //     (err, etag) => {
+    //       if(err)
+    //         console.log(err)
+    //       else
+    //         console.log("File uploaded.")
+    //     }
+    //   )
+    // }
+    // // Kick the process off.
+    // reader.readAsBinaryString(photo)
+
+    this.strip_reports.create({
+      timestamp: this.survey_datetime,
+      photo_url: upload_name,
+    }, this.uuid)
+
     this.participant_account.create(
       "strip_reports",
       {

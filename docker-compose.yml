@@ -15,6 +15,12 @@ services:
       NODE_ENV: development
       REACT_APP_URL_API: $URL_API
       REACT_APP_CONTACT_LINK: $CONTACT_LINK
+
+      REACT_APP_MINIO_HOST: $MINIO_HOST
+      REACT_APP_MINIO_PORT: $MINIO_PORT
+      REACT_APP_MINIO_ACCESS_KEY: $MINIO_ACCESS_KEY
+      REACT_APP_MINIO_SECRET_KEY: $MINIO_SECRET_KEY
+
       CHOKIDAR_USEPOLLING: 'true'
     volumes:
       - .:/usr/src
@@ -22,6 +28,19 @@ services:
   db:
     restart: always
     image: postgres
+
+  # For an example of running multiple connected Minio services, see
+  # https://github.com/minio/minio/blob/master/docs/orchestration/docker-compose/docker-compose.yaml
+  minio1:
+    image: minio/minio:RELEASE.2019-04-09T01-22-30Z
+    volumes:
+     - photos_volume_1:/data
+    ports:
+     - $MINIO_PORT:9000
+    environment:
+     MINIO_ACCESS_KEY: $MINIO_ACCESS_KEY
+     MINIO_SECRET_KEY: $MINIO_SECRET_KEY
+    command: server http://minio1/data
 
   web:
     image: assemble/foundation
@@ -38,3 +57,6 @@ services:
     depends_on:
       - db
     restart: always
+
+volumes:
+  photos_volume_1:
