@@ -41,7 +41,7 @@ const CoordinatorHome = observer(({ assembly }) => (
       { DateTime
         .local()
         .setLocale(assembly.locale)
-        .toLocaleString(DateTime.DATE_SIMPLE)
+        .toLocaleString(DateTime.DATETIME_SHORT)
       }
     </span>
     <Heading>{assembly.translate("coordinator.heading")}</Heading>
@@ -49,6 +49,7 @@ const CoordinatorHome = observer(({ assembly }) => (
     <InformationTable>
       <Row>
         <Cell>{assembly.translate("coordinator.status_")}</Cell>
+        <Cell>{assembly.translate("coordinator.last_resolution")}</Cell>
         <Cell>{assembly.translate("coordinator.name")}</Cell>
 
         <Cell>{assembly.translate("coordinator.medication")}</Cell>
@@ -84,7 +85,17 @@ const CoordinatorHome = observer(({ assembly }) => (
                       ).length > 0
 
                       ? Icons.pending_review
-                      : Icons.no_response
+                      : resolved_in_last_day(
+                          assembly.coordinator_account.information.resolutions,
+                          participant
+                        )
+                        ? last_resolution(
+                            assembly.coordinator_account.information.resolutions,
+                            participant
+                          ).status === "reviewed"
+                          ? Icons.reviewed
+                          : Icons.overdue
+                        : Icons.no_response
                     }
                   </Popover.Toggle>
 
@@ -119,36 +130,56 @@ const CoordinatorHome = observer(({ assembly }) => (
             </Popover.Container>
           </div>
 
-          <NameLinkCell onClick={() =>
-                          assembly.participant_history.watch(participant.uuid,
-                           () => assembly.currentPage = CoordinatorParticipantHistory)
-          }>
+          <div>
+            {
+              last_resolution(
+                assembly.coordinator_account.information.resolutions,
+                participant
+              ) &&
+              DateTime.fromISO(
+                last_resolution(
+                  assembly.coordinator_account.information.resolutions,
+                  participant
+                ).timestamp
+              )
+              .setLocale(assembly.locale)
+              .toLocaleString(DateTime.DATETIME_SHORT)
+            }
+          </div>
+
+          <NameLinkCell
+            onClick={() =>
+              assembly.participant_history.watch(
+                participant.uuid,
+                () => assembly.currentPage = CoordinatorParticipantHistory
+              )
+            }>
             {participant.name}
           </NameLinkCell>
-          
+
           {/* Medication Reports */}
           <Cell>
             { participant
-                .medication_reports
-                .filter(report => report.resolution_uuid === null)
-                .map(report =>
-                  <div>
-                    { DateTime
-                        .fromISO(report.timestamp, {zone:'utc'})
-                        .setLocale(assembly.locale)
-                        .toLocaleString(DateTime.DATETIME_SHORT)
-                    }
+              .medication_reports
+              .filter(report => report.resolution_uuid === null)
+              .map(report =>
+                <div key={report.timestamp} >
+                  { DateTime
+                    .fromISO(report.timestamp, { zone: "utc" })
+                    .setLocale(assembly.locale)
+                    .toLocaleString(DateTime.DATETIME_SHORT)
+                  }
 
-                    { report.took_medication
-                        ? assembly.translate("progress.took_medication_yes")
-                        : assembly.translate("progress.took_medication_no") +
-                          report.not_taking_medication_reason
-                    }
-                  </div>
-                )
+                  { report.took_medication
+                      ? assembly.translate("progress.took_medication_yes")
+                      : assembly.translate("progress.took_medication_no") +
+                        report.not_taking_medication_reason
+                  }
+                </div>
+              )
             }
           </Cell>
-          
+
           {/* Symptom Reports */}
           <Cell>
             {participant
@@ -157,17 +188,18 @@ const CoordinatorHome = observer(({ assembly }) => (
               .map(symptom_report =>
                 <div key={symptom_report.created_at} >
                   { DateTime
-                      .fromISO(symptom_report.timestamp, {zone:'utc'})
-                      .setLocale(assembly.locale)
-                      .toLocaleString(DateTime.DATETIME_SHORT)
+                    .fromISO(symptom_report.timestamp, { zone: "utc" })
+                    .setLocale(assembly.locale)
+                    .toLocaleString(DateTime.DATETIME_SHORT)
                   }
+
                   { symptom_report.reported_symptoms.map(symptom =>
                     <Symptom key={symptom}>{symptom}</Symptom>
                   )}
                 </div>
             )}
           </Cell>
-          
+
           {/* Strip Reports */}
           <Cell>
             { participant
@@ -238,7 +270,7 @@ const Row = styled.div`
   }
 
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(9, 1fr);
   border-bottom: 1px solid ${lightgrey};
   margin-bottom: 1rem;
 `
@@ -263,6 +295,26 @@ const Card = styled.div`
   padding: 0.5rem;
   border: 1px solid ${lightgrey};
 `
+
+const last_resolution = (resolutions, participant) => {
+  let ordered_resolutions = resolutions
+    .filter(resolution => resolution.participant_uuid === participant.uuid)
+    .sort((a,b) => DateTime.fromISO(b.created_at) - DateTime.fromISO(a.created_at))
+
+  if(ordered_resolutions.length > 0)
+    return ordered_resolutions[0]
+  else
+    return null
+}
+
+const resolved_in_last_day = (resolutions, participant) => {
+  let resolution = last_resolution(resolutions, participant)
+
+  return (
+    resolution &&
+    DateTime.fromISO(resolution.timestamp) > DateTime.local().minus({ days: 1 })
+  )
+}
 
 CoordinatorHome.route = "/coordinator"
 export default CoordinatorHome

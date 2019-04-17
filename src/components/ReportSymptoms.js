@@ -29,7 +29,7 @@ const ReportSymptoms = observer(({ assembly, survey }) => (
 
     <Heading>
       {assembly.translate("survey.symptoms.title")}
-      {assembly.survey_date == DateTime.local().setLocale(assembly.locale).toLocaleString()
+      {assembly.survey_date === DateTime.local().setLocale(assembly.locale).toLocaleString()
         ? assembly.translate("survey.symptoms.today")
         : assembly.translate("survey.symptoms.on") + assembly.survey_date + "?"}
     </Heading>

@@ -12,12 +12,12 @@ export default {
   },
 
   titles: {
-      notes: "Mis Notas",
-      faqs: "Información y Educación",
-      symptomOverview: "Información y Educación",
-      infoEd: "Información y Educación",
-      home: "Reporte de medicación",
-      default: "Asistente de tratamiente",
+    notes: "Mis Notas",
+    faqs: "Información y Educación",
+    symptomOverview: "Información y Educación",
+    infoEd: "Información y Educación",
+    home: "Reporte de medicación",
+    default: "Asistente de tratamiente",
   },
 
   home: {
@@ -69,7 +69,6 @@ export default {
       on: `
       el dia
       `,
-
 
       reason: `
       ¿Por qué?
@@ -159,10 +158,6 @@ export default {
 
       on: `
       el dia
-      `,
-
-      on: `
-      hoy?
       `,
 
       yes: `
@@ -322,6 +317,32 @@ export default {
       login: "Iniciar sesión",
       patient_login: "El login del participante",
     }
+  },
+
+  new_coordinator: {
+    name: `
+    Nombre
+    `,
+
+    email: `
+    Correo electrónico
+    `,
+
+    language: `
+    Idioma
+    `,
+
+    password: `
+    Contraseña
+    `,
+
+    save: `
+    Confirmar
+    `,
+
+    title: `
+    ~~Add a coordinator~~
+    `,
   },
 
   menu: {
@@ -1163,6 +1184,7 @@ export default {
     heading: "Progreso diario de los participantes",
     participant_info: "Información del participante",
     name: "Nombre",
+    last_resolution: "TODO Last Resolved",
     today: "Hoy",
     medication: "Control de la medicación",
     medication_taken: "Control de la medicacion",
@@ -1201,6 +1223,7 @@ export default {
     action: "Acción",
 
     participant_id: "Número de identificación del estudio",
+    resolution: "TODO Resolved",
     first_name: "Nombre",
     start_date: "Fecha de inicio del tratamiento",
     end_date: "Fecha prevista de finalización del tratamiento",

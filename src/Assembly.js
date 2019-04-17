@@ -27,6 +27,7 @@ import Home from "./components/Home"
 import InfoEd from "./components/InfoEd"
 import Login from "./components/Login"
 import Menu from "./components/Menu"
+import AddCoordinator from "./components/AddCoordinator"
 import Navigation from "./components/Navigation"
 import Notes from "./components/Notes"
 import Progress from "./components/Progress"
@@ -104,12 +105,22 @@ class Assembly extends React.Component {
     password: "",
   }
 
-  // TODO this is not a great concept -
-  // it's a sub-account loaded on top of a coordinator account.
-  // The possibility of the two accounts interfering with each other is quite high.
-  //
-  // If this is not set, then render an error.
+  // - - - Coordinator's view of participant information
   @observable participant_history = new Account(network, "Participant", {})
+
+  @observable new_coordinator = {
+    name: "",
+    email: "",
+    password: "",
+  }
+
+  fetch = (tag) => {
+    let data = this
+    tag
+      .split(".")
+      .forEach(part => data = data[part])
+    return data
+  }
 
   // ------ Misc ------
 
@@ -155,6 +166,7 @@ class Assembly extends React.Component {
     )
 
     // Attach to the window for debugging
+    // window.assembly = this
   }
 
   // Given...
@@ -212,8 +224,12 @@ class Assembly extends React.Component {
   resolve_participant_records(participant, status) {
     network.run`
       Resolution.create!(
+        participant_uuid: ${JSON.stringify(participant.uuid)},
+        status: ${JSON.stringify(status)},
+        timestamp: ${JSON.stringify(DateTime.local().toISO())},
+
         note: ${
-          JSON.stringify(`${status}: ${this.coordinator_note[participant.uuid] || ""}`)
+          JSON.stringify(this.coordinator_note[participant.uuid] || "")
         },
 
         medication_reports: [ ${
@@ -255,6 +271,29 @@ class Assembly extends React.Component {
       localStorage.setItem("participant.uuid", uuid)
       this.currentPage = Home
     })
+  }
+
+  set(tag, value) {
+    let data = this
+    let parts = tag.split(".")
+
+    parts.forEach((part, index) => {
+      if(index === parts.length - 1)
+        data[part] = value
+      else
+        data = data[part]
+    })
+  }
+
+  add_coordinator() {
+    network.run`
+    Coordinator.create!(
+      name: ${JSON.stringify(this.new_coordinator.name)},
+      email: ${JSON.stringify(this.new_coordinator.email)},
+      password_digest:  BCrypt::Password.create(${JSON.stringify(this.new_coordinator.password)}),
+      uuid: SecureRandom.uuid,
+    )
+    `
   }
 
   coordinator_register() {
@@ -389,6 +428,10 @@ class Assembly extends React.Component {
         </WithCredentials>
 
         <WithCredentials account={this.coordinator_account} >
+          <AddCoordinator assembly={this} />
+        </WithCredentials>
+
+        <WithCredentials account={this.coordinator_account} >
           <CoordinatorMenu assembly={this} />
         </WithCredentials>
 
@@ -457,8 +500,9 @@ const AuthBar = styled.div`
   right: 0;
   left: 0;
 
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  grid-column-gap: 1rem;
   align-items: baseline;
 
   border-radius: 2px;

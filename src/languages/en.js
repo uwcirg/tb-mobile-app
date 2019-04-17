@@ -313,6 +313,32 @@ export default {
     }
   },
 
+  new_coordinator: {
+    name: `
+    Name
+    `,
+
+    email: `
+    Email
+    `,
+
+    language: `
+    Language
+    `,
+
+    password: `
+    Password
+    `,
+
+    save: `
+    Save
+    `,
+
+    title: `
+    Add a coordinator
+    `,
+  },
+
   menu: {
     name: `
     Name
@@ -1180,6 +1206,7 @@ export default {
     heading: "Daily Participant Review",
     participant_info: "Participant Info",
     name: "Name",
+    last_resolution: "Last Resolved",
     today: "Today",
     medication: "Medication",
     side_effects: "Side Effects",
@@ -1211,6 +1238,7 @@ export default {
     participant_id: "Participant ID",
     participant_info: "Participant Info",
     photo: "Photo",
+    resolution: "Resolved",
     save_note: "Save Note",
     side_effects: "Side Effects",
     start_date: "Treatment start",
