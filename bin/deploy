@@ -28,11 +28,14 @@ sudo docker-compose stop
 sudo docker-compose rm -f web client
 sudo docker-compose pull
 sudo docker-compose up -d
-sudo docker-compose exec web bundle exec rake db:create db:migrate
+sudo docker-compose exec web bundle exec rake db:migrate
 
 # # Status
 sudo docker-compose logs -f web
 sudo docker-compose ps
-sudo docker-compose exec web rails c
 
 # sudo vi /etc/apache2/sites-enabled/25-ssl-tb-app.cirg.washington.edu.conf
+
+# Ready to dive into your computer?
+# Start here!
+sudo docker-compose exec web rails c
