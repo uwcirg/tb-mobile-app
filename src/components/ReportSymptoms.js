@@ -1,12 +1,14 @@
 import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
-import { Hidden, Input, Popover } from "reakit"
+import { Hidden, Input, Popover, Provider } from "reakit"
 import { darkgrey, white } from "../colors"
 import { DateTime } from "luxon"
 import field from "../util/field"
 import hives from "../images/hives.jpg"
 import rash from "../images/rash.jpg"
+import { grey } from "../colors"
+import theme from "reakit-theme-default";
 
 import Selection from "../primitives/Selection"
 import Heading from "../primitives/Heading"
@@ -178,10 +180,16 @@ const ReportSymptoms = observer(({ assembly, survey }) => (
         <span>{assembly.translate("survey.symptoms.facial_swelling")}</span>
       </Label>
 
-      <Other>
-        {field(assembly, "survey.symptoms.other").label}
-        {field(assembly, "survey.symptoms.other").field}
-      </Other>
+      <Provider theme={theme}>
+        <TextFieldLabel>
+          {assembly.translate("survey.symptoms.other")}
+
+          <TextInput
+            value={assembly.symptoms.other || ""}
+            onChange={e => assembly.symptoms.other = e.target.value}
+          />
+        </TextFieldLabel>
+      </Provider>
     </Hidden>
   </Layout>
 ))
@@ -197,10 +205,15 @@ const Label = styled.label`
   padding-bottom: 0.5rem;
 `
 
-const Other = styled.div`
+const TextFieldLabel = styled(Label)`
   grid-template-columns: 6rem auto;
   margin-top: 1rem;
   grid-column-gap: 1rem;
+`
+
+const TextInput = styled(Input)`
+  background-color: ${white};
+  border: 1px solid ${grey};
 `
 
 const Checkbox = styled(Input).attrs({ type: "checkbox" })`
