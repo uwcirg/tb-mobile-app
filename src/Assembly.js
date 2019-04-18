@@ -82,7 +82,7 @@ class Assembly extends React.Component {
     yellow_coloration: false,
     difficulty_breathing: false,
     facial_swelling: false,
-    other: null,
+    other: "",
   }
 
   @observable resolution_notes = null
@@ -368,7 +368,7 @@ class Assembly extends React.Component {
       yellow_coloration: false,
       difficulty_breathing: false,
       facial_swelling: false,
-      other: null,
+      other: "",
     }
   }
 
