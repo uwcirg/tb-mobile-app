@@ -2,21 +2,22 @@ import React from "react"
 import styled from "styled-components"
 import Button from "../primitives/Button"
 import { observer, Observer } from "mobx-react"
-import { PlusIcon } from "mdi-react"
-import { Box, Block, Popover, Input } from "reakit";
-
-import { grey, darkgrey, white, blue } from "../colors"
+import { Icon } from "@mdi/react"
+import { mdiPlus } from "@mdi/js"
+import { Box, Block, Popover } from "reakit";
+import { darkgrey, white, blue } from "../colors"
+import field from "../util/field"
 
 const AddCoordinator = observer(({ assembly }) => (
-  <Popover.Container>
+  <Pop.Container>
     {popover => (
       <Block>
         <Toggle {...popover} >
-          <PlusIcon />
+          <Icon path={mdiPlus} size={1} />
         </Toggle>
 
         <Pop hideOnClickOutside {...popover}>
-          <Popover.Arrow/>
+          <Pop.Arrow/>
 
           <Observer>{ () =>
             <Layout>
@@ -41,7 +42,7 @@ const AddCoordinator = observer(({ assembly }) => (
         </Pop>
       </Block>
     )}
-  </Popover.Container>
+  </Pop.Container>
 ))
 
 const Layout = styled(Box)`
@@ -70,37 +71,5 @@ const Save = styled(Button)`
   width: 100%;
   grid-column: 2;
 `
-
-const Question = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 80%;
-`
-
-const Field = styled(Input)`
-  background-color: ${white}
-  padding: 0.5rem;
-  margin-bottom: 1rem;
-  border-radius: 2px;
-  border: 1px solid ${grey};
-`
-
-const field = (assembly, tag) => ({
-  label:
-    <label htmlFor={tag}>
-      {assembly.translate(tag)}
-    </label>
-  ,
-
-  field:
-    <Field
-      name={tag}
-      value={assembly.fetch(tag)}
-      onChange={(e) => {
-        assembly.set(tag, e.target.value)
-      }}
-    />
-  ,
-})
 
 export default AddCoordinator

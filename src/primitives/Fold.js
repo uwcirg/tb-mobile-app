@@ -2,7 +2,8 @@ import React from "react"
 import styled from "styled-components"
 import { Hidden } from "reakit"
 import { observer } from "mobx-react"
-import { ChevronDownIcon } from "mdi-react"
+import { Icon } from "@mdi/react"
+import { mdiChevronDown } from "@mdi/js"
 import { white } from "../colors"
 
 const Fold = observer(({ children }) => (
@@ -13,7 +14,7 @@ const Fold = observer(({ children }) => (
           {children[0]}
 
           <ExpandIcon {...hidden} >
-            <ChevronDownIcon />
+            <Icon path={mdiChevronDown} size={1} />
           </ExpandIcon>
 
           <Slider>

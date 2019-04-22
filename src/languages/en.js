@@ -12,12 +12,12 @@ export default {
   },
 
   titles: {
-      notes: "Mis Notas",
-      faqs: "Información y Educación",
-      symptomOverview: "Información y Educación",
-      infoEd: "Información y Educación",
-      home: "Medication Tracking Home",
-      default: "Asistente de Tratamiento"
+    notes: "Mis Notas",
+    faqs: "Información y Educación",
+    symptomOverview: "Información y Educación",
+    infoEd: "Información y Educación",
+    home: "Medication Tracking Home",
+    default: "Asistente de Tratamiento"
   },
 
   home: {
@@ -49,7 +49,7 @@ export default {
     Skip
     `,
 
-    tookMedication: {
+    took_medication: {
       yes: `
       Yes
       `,
@@ -69,15 +69,15 @@ export default {
       on: `
       on
       `,
-
-      reason: `
-      Why?
-      `,
-
-      at: `
-      At what time?
-      `,
     },
+
+    medication_time: `
+    At what time?
+    `,
+
+    not_taking_medication_reason: `
+    Why?
+    `,
 
     symptoms: {
       nausea: `
@@ -248,7 +248,7 @@ export default {
     `,
   },
 
-  register: {
+  participant_registration: {
     welcome: `
     Welcome!
     `,
@@ -279,37 +279,6 @@ export default {
 
     link: {
       login: "Log In",
-    }
-  },
-
-  coordinator_register: {
-    welcome: `
-    Welcome!
-    `,
-
-    context: `
-    Register as a healthcare coordinator.
-    `,
-
-    name: `
-    Name
-    `,
-
-    email: `
-    Email
-    `,
-
-    password: `
-    Password
-    `,
-
-    register: `
-    Register
-    `,
-
-    link: {
-      login: "Log In",
-      patient_login: "Log in as a patient",
     }
   },
 
@@ -344,10 +313,6 @@ export default {
     Name
     `,
 
-    email: `
-    Email
-    `,
-
     photo: `
     Photo
     `,
@@ -366,6 +331,20 @@ export default {
 
     time_zone: `
     Time zone
+    `,
+  },
+
+  coordinator_menu: {
+    name: `
+    Name
+    `,
+
+    email: `
+    Email
+    `,
+
+    language: `
+    Language
     `,
   },
 
@@ -1245,7 +1224,7 @@ export default {
     test_result: "Test Result",
   },
 
-  login: {
+  participant_login: {
     welcome: "Welcome",
     phone_number: "Phone",
     password: "Password",
@@ -1265,8 +1244,7 @@ export default {
     go: "Log in",
 
     link: {
-      coordinator_login: "Coordinator Login",
-      register: "Register",
+      patient_login: "Log in as a patient",
     },
-  }
+  },
 }

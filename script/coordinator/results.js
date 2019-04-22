@@ -4,8 +4,8 @@ const { openBrowser, goto, click, inputField, write, closeBrowser } = require('t
         await openBrowser();
         await goto("http://localhost:3060");
         await click("Iniciar sesión para asistente de tratamiento");
-        await write("grace.c.youngblood@gmail.com", inputField({ placeholder: "Email" }));
-        await write("password", inputField({ placeholder: "Contraseña" }));
+        await write("grace.c.youngblood@gmail.com", inputField(below("Email")));
+        await write("password", inputField(below("Contraseña")));
         await click("Iniciar sesión");
         await client().Page.reload()
         await click("Grace");

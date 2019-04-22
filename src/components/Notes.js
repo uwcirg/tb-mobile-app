@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components"
-import { PlusIcon, ContentSaveIcon } from "mdi-react"
+import { Icon } from "@mdi/react"
+import { mdiPlus, mdiContentSave } from "@mdi/js"
 import { grey } from "../colors"
 import Fold from "../primitives/Fold"
 import { observer } from "mobx-react"
@@ -16,11 +17,12 @@ const Notes = observer(({ assembly }) => (
       <h2>
         {assembly.currentPageTitle}
       </h2>
-      
+
       { assembly.noteDraft === null && assembly.noteTitle === null
 
       ? <Button onClick={() => assembly.composeNote()} backgroundColor={primary}>
-          <PlusIcon/> {assembly.translate("notes.new")}
+          <Icon path={mdiPlus} size={1} />
+          {assembly.translate("notes.new")}
         </Button>
 
       : <div>
@@ -29,7 +31,7 @@ const Notes = observer(({ assembly }) => (
             value={assembly.noteTitle}
             onChange={e => assembly.noteTitle = e.target.value}
           />
-          
+
           <Padding></Padding>
 
           <Input
@@ -39,8 +41,9 @@ const Notes = observer(({ assembly }) => (
             as="textarea"
           />
 
-          <SaveButton onClick={() => assembly.saveNote()}>
-            <ContentSaveIcon/> {assembly.translate("notes.save")}
+          <SaveButton onClick={() => assembly.saveNote()} >
+            <Icon path={mdiContentSave} size={1} />
+            {assembly.translate("notes.save")}
           </SaveButton>
         </div>
       }

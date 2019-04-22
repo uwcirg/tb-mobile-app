@@ -1,14 +1,12 @@
-
 import React from "react"
 import styled from "styled-components"
 import { observer } from "mobx-react"
 
 import Button from "../primitives/Button"
 import ListOfLinks from "../layouts/ListOfLinks"
-import { Input } from "reakit"
-import { white, grey } from "../colors"
 import InternalLink from "../primitives/InternalLink"
 import Login from "./Login"
+import field from "../util/field"
 
 const CoordinatorLogin = observer(({assembly}) => (
   <Layout>
@@ -19,40 +17,24 @@ const CoordinatorLogin = observer(({assembly}) => (
     <p>{assembly.translate("coordinator_login.context")}</p>
 
     <Form>
-      <Field
-        type="tel"
-        placeholder={assembly.translate("coordinator_login.email")}
-        value={assembly.coordinator_login_credentials.email}
-        onChange={(e) => assembly.coordinator_login_credentials.email = e.target.value}
-      />
+      {field(assembly, "coordinator_login.email", "email").label}
+      {field(assembly, "coordinator_login.email", "email").field}
 
-      <Field
-        type="password"
-        placeholder={assembly.translate("coordinator_login.password")}
-        value={assembly.coordinator_login_credentials.password}
-        onChange={(e) => assembly.coordinator_login_credentials.password = e.target.value}
-      />
+      {field(assembly, "coordinator_login.password", "password").label}
+      {field(assembly, "coordinator_login.password", "password").field}
 
-      <Button onClick={() => assembly.coordinator_login()}>
+      <Button onClick={() => assembly.login_coordinator()}>
         {assembly.translate("coordinator_login.go")}
       </Button>
     </Form>
 
     <InternalLink to={Login} assembly={assembly} >
-      {assembly.translate("coordinator_register.link.patient_login")}
+      {assembly.translate("coordinator_login.link.patient_login")}
     </InternalLink>
   </Layout>
 ))
 
 const Layout = styled(ListOfLinks)`
-`
-
-const Field = styled(Input)`
-  background-color: ${white}
-  padding: 0.5rem;
-  margin-bottom: 1rem;
-  border-radius: 2px;
-  border: 1px solid ${grey};
 `
 
 const Form = styled.div`
