@@ -1165,6 +1165,7 @@ export default {
 
   coordinator: {
     heading: "Progreso diario de los participantes",
+    last_updated: "Última actualización:",
     participant_info: "Información del participante",
     name: "Nombre",
     last_resolution: "TODO Last Resolved",

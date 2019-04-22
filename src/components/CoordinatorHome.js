@@ -37,6 +37,7 @@ const Icons = {
 const CoordinatorHome = observer(({ assembly }) => (
   <Layout>
     <span>
+      {assembly.translate("coordinator.last_updated")}&nbsp;
       { DateTime
         .local()
         .setLocale(assembly.locale)
@@ -200,13 +201,20 @@ const CoordinatorHome = observer(({ assembly }) => (
               .strip_reports
               .filter(report => report.resolution_uuid === null)
               .map((strip_report, index) =>
-              <PhotoPopout src={strip_report.photo} key={strip_report.id} >
-                <Selection
-                  options={["positive", "negative"]}
-                  update={() => strip_report.status}
-                  onChange={value => assembly.setPhotoStatus(strip_report.id, value)}
-                />
-              </PhotoPopout>
+              <span>
+                { DateTime
+                    .fromISO(strip_report.created_at)
+                    .setLocale(assembly.locale)
+                    .toLocaleString(DateTime.DATETIME_SHORT)
+                }
+                <PhotoPopout src={strip_report.photo} key={strip_report.id} >
+                  <Selection
+                    options={["positive", "negative"]}
+                    update={() => strip_report.status}
+                    onChange={value => assembly.setPhotoStatus(strip_report.id, value)}
+                  />
+                </PhotoPopout>
+              </span>
             ) }
           </Cell>
 
