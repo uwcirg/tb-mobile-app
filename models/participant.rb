@@ -20,6 +20,7 @@ class Participant < ApplicationRecord
       strip_reports: strip_reports,
       symptom_reports: symptom_reports,
       notes: notes,
+      adherence: adherence,
     }
   end
 
@@ -35,6 +36,21 @@ class Participant < ApplicationRecord
       symptom_reports: symptom_reports.where(resolution_uuid: nil),
 
       notes: notes,
+      adherence: adherence,
     }
+  end
+
+  def adherence
+    days = (Time.current.to_date - treatment_start).to_i
+
+    if days == 0
+      days = 1
+    end
+
+    report_dates = medication_reports.map do |report|
+      report.timestamp.to_date
+    end.uniq.count
+
+    report_dates.to_f / days.to_f
   end
 end

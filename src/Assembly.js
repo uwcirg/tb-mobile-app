@@ -55,7 +55,17 @@ class Assembly extends React.Component {
     password: "",
   })
 
-  @observable login_credentials = {
+  @observable menu = {}
+  @observable coordinator_menu = {}
+
+  @observable participant_registration = {
+    name: "",
+    phone_number: "",
+    treatment_start: DateTime.local().toISODate(),
+    password: "",
+  }
+
+  @observable participant_login = {
     phone_number: "",
     password: "",
   }
@@ -64,10 +74,12 @@ class Assembly extends React.Component {
   @observable noteTitle = null
 
   // Current medication report
-  @observable survey_date = null
-  @observable survey_medication_time = null
-  @observable survey_tookMedication = null
-  @observable survey_notTakingMedicationReason = null
+  @observable survey = {
+    date: null,
+    medication_time: null,
+    not_taking_medication_reason: null,
+    took_medication: null,
+  }
 
   // Current symptom report
   @observable symptoms = {
@@ -82,13 +94,13 @@ class Assembly extends React.Component {
     yellow_coloration: false,
     difficulty_breathing: false,
     facial_swelling: false,
-    other: null,
+    other: "",
   }
 
   @observable resolution_notes = null
 
   @observable photos_uploaded = {}
-  @observable survey_anySymptoms = null
+  @observable any_symptoms = null
 
   @observable capturing = false
 
@@ -100,13 +112,13 @@ class Assembly extends React.Component {
     password: "",
   })
 
-  @observable coordinator_login_credentials = {
+  @observable coordinator_login = {
     email: "",
     password: "",
   }
 
-  @observable coordinator_timer = null
 
+  @observable coordinator_timer = null
   @observable coordinator_note = {}
 
   // - - - Coordinator's view of participant information
@@ -181,6 +193,17 @@ class Assembly extends React.Component {
       )
     )
 
+    autorun(() => {
+      this.menu.name = this.participant_account.information.name
+      this.menu.phone_number = this.participant_account.information.phone_number
+      this.menu.treatment_start = this.participant_account.information.treatment_start
+    })
+
+    autorun(() => {
+      this.coordinator_menu.name = this.coordinator_account.information.name
+      this.coordinator_menu.email = this.coordinator_account.information.email
+    })
+
     // Attach to the window for debugging
     // window.assembly = this
   }
@@ -245,7 +268,7 @@ class Assembly extends React.Component {
         timestamp: ${JSON.stringify(DateTime.local().toISO())},
 
         note: ${
-          JSON.stringify(this.coordinator_note[participant.uuid] || "")
+          JSON.stringify(this.fetch(`coordinator_note.${participant.uuid}`) || "")
         },
 
         medication_reports: [ ${
@@ -272,17 +295,15 @@ class Assembly extends React.Component {
     `
   }
 
-  @observable coordinator_note = {}
-
-  register() {
-    this.participant_account.persist()
+  register_participant() {
+    this.participant_account.persist(this.participant_registration)
       .then(() => { this.currentPage = Home })
   }
 
   login() {
     this.participant_account.authenticate(
-      { phone_number: this.login_credentials.phone_number },
-      this.login_credentials.password,
+      { phone_number: this.participant_login.phone_number },
+      this.participant_login.password,
     ).then((uuid) => {
       localStorage.setItem("participant.uuid", uuid)
       this.currentPage = Home
@@ -312,15 +333,10 @@ class Assembly extends React.Component {
     `
   }
 
-  coordinator_register() {
-    this.coordinator_account.persist()
-      .then(() => { this.currentPage = CoordinatorHome })
-  }
-
-  coordinator_login() {
+  login_coordinator() {
     this.coordinator_account.authenticate(
-      { email: this.coordinator_login_credentials.email },
-      this.coordinator_login_credentials.password,
+      { email: this.coordinator_login.email },
+      this.coordinator_login.password,
     ).then((uuid) => {
       localStorage.setItem("coordinator.uuid", uuid)
       this.currentPage = CoordinatorHome
@@ -343,13 +359,13 @@ class Assembly extends React.Component {
   }
 
   reportMedication() {
-    if (this.survey_tookMedication != null) {
+    if (this.survey.took_medication != null) {
       this.participant_account.create(
         "medication_reports",
         {
-          timestamp: `${this.survey_date}T${this.survey_medication_time}:00.000`,
-          took_medication: this.survey_tookMedication,
-          not_taking_medication_reason: this.survey_notTakingMedicationReason,
+          timestamp: `${this.survey.date}T${this.survey.medication_time}:00.000`,
+          took_medication: this.survey.took_medication,
+          not_taking_medication_reason: this.survey.not_taking_medication_reason,
         },
       )
     }
@@ -359,19 +375,21 @@ class Assembly extends React.Component {
     this.participant_account.create(
       "symptom_reports",
       Object.assign(
-        { timestamp: `${this.survey_date}T${this.survey_medication_time}:00.000` },
+        { timestamp: `${this.survey.date}T${this.survey.medication_time}:00.000` },
         this.symptoms,
       ),
     )
 
     // Because we use survey date and time for both medication
     // and side effect reports we need to reset here
-    this.survey_date = DateTime.local().setLocale(this.locale).toISODate();
-    this.survey_medication_time = DateTime.local().setLocale(this.locale).toLocaleString(DateTime.TIME_24_SIMPLE)
-    this.survey_tookMedication = null
-    this.survey_notTakingMedicationReason = null
+    this.survey = {
+      date: DateTime.local().setLocale(this.locale).toISODate(),
+      medication_time: DateTime.local().setLocale(this.locale).toLocaleString(DateTime.TIME_24_SIMPLE),
+      not_taking_medication_reason: null,
+      took_medication: null,
+      any_symptoms: null,
+    }
 
-    this.survey_anySymptoms = null;
     this.symptoms = {
       nausea: false,
       nausea_rating: 0,
@@ -384,7 +402,7 @@ class Assembly extends React.Component {
       yellow_coloration: false,
       difficulty_breathing: false,
       facial_swelling: false,
-      other: null,
+      other: "",
     }
   }
 
@@ -392,7 +410,7 @@ class Assembly extends React.Component {
     this.participant_account.create(
       "strip_reports",
       {
-        timestamp: `${this.survey_date}T${this.survey_medication_time}:00.000`,
+        timestamp: `${this.survey.date}T${this.survey.medication_time}:00.000`,
         photo: photo,
       },
     ).then(r => {  r.json().then(photo => this.photos_uploaded[photo.id] = photo) })

@@ -12,15 +12,15 @@ class Account {
   }
 
   // For registration
-  persist() {
+  persist(information) {
     return this.network.run`
       ${this.model}.create!(
         uuid: SecureRandom.uuid,
-        password_digest:  BCrypt::Password.create("${this.information.password}"),
+        password_digest:  BCrypt::Password.create("${information.password}"),
         ${
-          diff(Object.keys(this.information), ["password"])
+          diff(Object.keys(information), ["password"])
           .map(key => (
-            `${key}: ${JSON.stringify(this.information[key])}`
+            `${key}: ${JSON.stringify(information[key])}`
           )).join(", ")
         }
       ).uuid
@@ -69,16 +69,16 @@ class Account {
     )
   }
 
-  // Update sidebar with profile information
-  update(uuid) {
+  // Update account with new information
+  update(information) {
     return new Promise((resolve, reject) =>
       this.network.run`
-        ${this.model}.find_by(uuid: ${JSON.stringify(uuid)}).
-        update(JSON.parse('${JSON.stringify(this.information)}'))
+        ${this.model}.find_by(uuid: ${JSON.stringify(this.information.uuid)}).
+        update(JSON.parse('${JSON.stringify(information)}'))
       `.then(response => {
         response
           .json()
-          .then(information => resolve(information))
+          .then(info => resolve(info))
       })
     )
   }

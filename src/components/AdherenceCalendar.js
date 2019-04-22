@@ -20,7 +20,7 @@ const AdherenceCalendar = observer(({ assembly }) => (
       // React calendar formats dates as:
       // "Fri Mar 29 2019 00:00:00 GMT-1000 (Hawaii-Aleutian Standard Time)"
       // https://moment.github.io/luxon/docs/manual/parsing.html#table-of-tokens
-      assembly.survey_date = DateTime.fromFormat(
+      assembly.survey.date = DateTime.fromFormat(
         value.toString().substr(0, 15),
         'EEE LLL dd yyyy',
       )

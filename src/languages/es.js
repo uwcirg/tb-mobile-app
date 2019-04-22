@@ -49,7 +49,7 @@ export default {
     Saltar esta opción
     `,
 
-    tookMedication: {
+    took_medication: {
       yes: `
       Sí
       `,
@@ -69,15 +69,15 @@ export default {
       on: `
       el dia
       `,
-
-      reason: `
-      ¿Por qué?
-      `,
-
-      at: `
-      ¿A qué hora?:
-      `,
     },
+
+    medication_time: `
+    ¿A qué hora?:
+    `,
+
+    not_taking_medication_reason: `
+    ¿Por qué?
+    `,
 
     symptoms: {
       nausea: `
@@ -260,7 +260,7 @@ export default {
     `,
   },
 
-  register: {
+  participant_registration: {
     welcome: `
     ¡Bienvenido!
     `,
@@ -289,33 +289,6 @@ export default {
 
     link: {
       login: "Iniciar sesión",
-    }
-  },
-
-  coordinator_register: {
-    welcome: `
-    ¡Bienvenido!
-    `,
-
-    context: `
-    Registrarse como asistente de tratamiento
-    `,
-
-    name: `
-    Nombre
-    `,
-
-    password: `
-    Contraseña
-    `,
-
-    register: `
-    Registrarse
-    `,
-
-    link: {
-      login: "Iniciar sesión",
-      patient_login: "El login del participante",
     }
   },
 
@@ -354,10 +327,6 @@ export default {
     Foto
     `,
 
-    email: `
-    Correo electrónico
-    `,
-
     phone_number: `
     Número de teléfono
     `,
@@ -372,6 +341,20 @@ export default {
 
     time_zone: `
     Zona horaria
+    `,
+  },
+
+  coordinator_menu: {
+    name: `
+    Name
+    `,
+
+    email: `
+    Email
+    `,
+
+    language: `
+    Language
     `,
   },
 
@@ -1229,7 +1212,7 @@ export default {
     end_date: "Fecha prevista de finalización del tratamiento",
   },
 
-  login: {
+  participant_login: {
     welcome: "Bienvenido",
     phone_number: "El numero del telefono",
     password: "Contraseña",
@@ -1249,8 +1232,7 @@ export default {
     go: "Iniciar sesión",
 
     link: {
-      coordinator_login: "Iniciar sesión para el participante",
-      register: "Registrarse",
+      patient_login: "El login del participante",
     },
-  }
+  },
 }
