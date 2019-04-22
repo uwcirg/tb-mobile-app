@@ -8,7 +8,7 @@ const days_of_treatment = (participant) => {
 
   let report_dates = (
     participant.medication_reports || []
-  ).map(report => DateTime.fromISO(report.timestamp).toISODate())
+  ).filter(report => report.took_medication === true).map(report => DateTime.fromISO(report.timestamp).toISODate())
 
   let unique_report_dates = Array.from(new Set(report_dates))
   return unique_report_dates.length
