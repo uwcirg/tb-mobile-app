@@ -7,7 +7,7 @@ const { openBrowser, goto, inputField, write, click, above, below, image, toRigh
         await write("54-911-0000-2222", inputField(below("El numero del telefono")));
         await write("password", inputField(below("Contraseña")));
         await click("Iniciar sesión");
-        await click("Control de la medicacion");
+        await click("Control de la medicación");
         await click("Sí");
         await write("06:00 AM", inputField(above("Confirmar")));
         await click("Confirmar");

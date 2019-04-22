@@ -1183,6 +1183,7 @@ export default {
 
   coordinator: {
     heading: "Daily Participant Review",
+    last_updated: "Last Updated:",
     participant_info: "Participant Info",
     name: "Name",
     last_resolution: "Last Resolved",

@@ -454,7 +454,7 @@ class Assembly extends React.Component {
       <AuthBar>
         <InternalLink to={Login} assembly={this} >
           <Image src={logo} width="1.5rem" height="1.5rem"/>
-          <Title>{this.currentPageTitle}</Title>
+          <Title>{this.translate("titles.default")}</Title>
         </InternalLink>
 
         <WithCredentials account={this.participant_account} >
