@@ -1,7 +1,7 @@
 # This script must be run line-by-line, by a human.
 # It does not work consistently enough to be fully automated.
 
-ssh grace00@manganese.cirg.washington.edu
+ssh seanpc@manganese.cirg.washington.edu
 cd /srv/www/tb-api-dev.cirg.washington.edu/tb-mobile-app
 
 # Get sudo out of the way,
@@ -10,7 +10,7 @@ sudo ls
 
 # Deploy changes.
 git status
-git checkout lead
+git checkout mocks
 git pull
 sudo docker-compose run --rm client yarn
 sudo docker-compose run --rm client yarn build

@@ -17,18 +17,18 @@ export default {
     symptomOverview: "Información y Educación",
     infoEd: "Información y Educación",
     home: "Reporte de medicación",
-    default: "Asistente de tratamiente",
+    default: "Asistente de tratamiento",
   },
 
   home: {
     survey: `
-    Control de la medicacion
+    Control de la medicación
     `,
   },
 
   icons: {
     medication: `
-    Control de la medicacion
+    Control de la medicación
     `,
 
     symptoms: `
@@ -1170,7 +1170,7 @@ export default {
     last_resolution: "TODO Last Resolved",
     today: "Hoy",
     medication: "Control de la medicación",
-    medication_taken: "Control de la medicacion",
+    medication_taken: "Control de la medicación",
     side_effects: "Efectos adversos o indeseables",
     photo: "Resultados del test de orina",
     actions: "Acción",
@@ -1200,7 +1200,7 @@ export default {
     photo: "Foto",
     contact: "Contactar al participante",
 
-    medication_taken: "Control de la medicacion",
+    medication_taken: "Control de la medicación",
     side_effect: "Efectos adversos",
     test_result: "Resultado del test de urina",
     action: "Acción",
