@@ -117,6 +117,8 @@ class Assembly extends React.Component {
     password: "",
   }
 
+
+  @observable coordinator_timer = null
   @observable coordinator_note = {}
 
   // - - - Coordinator's view of participant information
@@ -151,8 +153,20 @@ class Assembly extends React.Component {
         this.alert(this.translate("symptom_overview.take_action_immediately"))
     })
 
-    this.survey.date = DateTime.local().setLocale(this.locale).toLocaleString()
-    this.survey.medication_time = DateTime.local().setLocale(this.locale).toLocaleString(DateTime.TIME_24_SIMPLE)
+    autorun(() => {
+      if(this.currentPage === CoordinatorHome)
+        this.coordinator_timer = setInterval(
+          () => network.refresh(),
+          5 * 60 * 1000, // 5 minutes, 60 s/min, 1000 ms/s
+        )
+      else if(this.coordinator_timer) {
+        clearInterval(this.coordinator_timer)
+        this.coordinator_timer = null
+      }
+    })
+
+    this.survey_date = DateTime.local().setLocale(this.locale).toLocaleString()
+    this.survey_medication_time = DateTime.local().setLocale(this.locale).toLocaleString(DateTime.TIME_24_SIMPLE)
 
     // When the page loads,
     // immediately look for stored credentials in `localStorage`.
