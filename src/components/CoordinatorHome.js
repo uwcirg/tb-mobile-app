@@ -100,21 +100,23 @@ const CoordinatorHome = observer(({ assembly }) => (
                   </Popover.Toggle>
 
                   <Popover hideOnClickOutside {...popover} >
-                    <Card onClick={(e) => { e.stopPropagation(); e.preventDefault() }} >
+                    <Card onClick={(e) => { e.stopPropagation(); e.preventDefault(); }} >
                       <CoordinatorNote>
                         {field(assembly, `coordinator_note.${participant.uuid}`, "textarea").field}
                       </CoordinatorNote>
 
                       <span onClick={(e) => {
-                        assembly.resolve_participant_records(participant, "reviewed")
                         e.stopPropagation()
+                        e.preventDefault()
+                        assembly.resolve_participant_records(participant, "reviewed")
                       }} >
                         {Icons.reviewed}
                       </span>
 
                       <span onClick={(e) => {
-                        assembly.resolve_participant_records(participant, "overdue")
                         e.stopPropagation()
+                        e.preventDefault()
+                        assembly.resolve_participant_records(participant, "overdue")
                       }} >
                         {Icons.overdue}
                       </span>
@@ -143,11 +145,13 @@ const CoordinatorHome = observer(({ assembly }) => (
           </div>
 
           <NameLinkCell
-            onClick={() =>
+            className="NameLinkCell"
+            onClick={(e) => {
               assembly.participant_history.watch(
                 participant.uuid,
                 () => assembly.currentPage = CoordinatorParticipantHistory
               )
+              }
             }>
             {participant.name}
           </NameLinkCell>
@@ -279,6 +283,7 @@ const Cell = styled.div`
 const NameLinkCell = styled.div`
   padding: 0.5rem;
   text-decoration: underline;
+  cursor: pointer;
 `
 
 const Status = styled(InlineBlock)`

@@ -147,6 +147,12 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
                         <PhotoPopout src={report.photo} key={report.id} />
 
                         <Padding>
+                          { DateTime
+                              .fromISO(report.created_at)
+                              .setLocale(assembly.locale)
+                              .toLocaleString(DateTime.DATETIME_SHORT)
+                          }
+                          <br></br>
                           {report.status}
                         </Padding>
                       </div>
