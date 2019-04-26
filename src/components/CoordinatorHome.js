@@ -106,17 +106,15 @@ const CoordinatorHome = observer(({ assembly }) => (
                       </CoordinatorNote>
 
                       <span onClick={(e) => {
-                        e.stopPropagation()
-                        e.preventDefault()
                         assembly.resolve_participant_records(participant, "reviewed")
+                        e.stopPropagation()
                       }} >
                         {Icons.reviewed}
                       </span>
 
                       <span onClick={(e) => {
-                        e.stopPropagation()
-                        e.preventDefault()
                         assembly.resolve_participant_records(participant, "overdue")
+                        e.stopPropagation()
                       }} >
                         {Icons.overdue}
                       </span>
