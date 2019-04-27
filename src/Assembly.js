@@ -153,6 +153,16 @@ class Assembly extends React.Component {
         this.alert(this.translate("symptom_overview.take_action_immediately"))
     })
 
+    // This solution fixes a redirect error. Prior, it saved a network watch
+    // request for the participants history and would go to the history page
+    // Now we ditch the network watch when we had to a history page.
+    // This has not been thoroughly tested for regression yet.
+    autorun(() => {
+      if (this.currentPage === CoordinatorParticipantHistory)
+        network.clearLast();
+    })
+
+    // Every 5 minutes refresh the coordinator home
     autorun(() => {
       if(this.currentPage === CoordinatorHome)
         this.coordinator_timer = setInterval(
@@ -165,8 +175,8 @@ class Assembly extends React.Component {
       }
     })
 
-    this.survey_date = DateTime.local().setLocale(this.locale).toLocaleString()
-    this.survey_medication_time = DateTime.local().setLocale(this.locale).toLocaleString(DateTime.TIME_24_SIMPLE)
+    this.survey.date = DateTime.local().setLocale(this.locale).toLocaleString()
+    this.survey.medication_time = DateTime.local().setLocale(this.locale).toLocaleString(DateTime.TIME_24_SIMPLE)
 
     // When the page loads,
     // immediately look for stored credentials in `localStorage`.

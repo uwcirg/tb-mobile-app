@@ -39,7 +39,7 @@ class Account {
       response
         .json()
         .then(r => this.information = r)
-        .then(() => { if(callback) callback() })
+        .then(() => { if(callback) callback();})
         .catch(e => console.log(e))
     })
   }

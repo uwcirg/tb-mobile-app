@@ -23,7 +23,6 @@ class Network {
       }).then(resolve)
     }).then((result) => {
       this.refresh()
-
       return result;
     })
   }
@@ -53,6 +52,10 @@ class Network {
 
   clearWatches() {
     this.watches = []
+  }
+
+  clearLast() {
+    this.watches.pop();
   }
 
   destruct() {
