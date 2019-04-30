@@ -9,6 +9,11 @@ export default {
       positive: "Positivo",
       negative: "Negativo",
     },
+
+    pos_inconclusive: {
+      positive: "Positivo",
+      negative: "Inconclusivo",
+    }
   },
 
   titles: {

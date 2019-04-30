@@ -167,6 +167,18 @@ const CoordinatorHome = observer(({ assembly }) => (
                     .toLocaleString(DateTime.DATETIME_SHORT)
                   }
 
+                  <br></br>
+                  <br></br>
+                  Submission:
+                  { DateTime
+                    .fromISO(report.created_at)
+                    .setLocale(assembly.locale)
+                    .toLocaleString(DateTime.DATETIME_SHORT)
+                  }
+
+                  <br></br>
+                  <br></br>
+
                   { report.took_medication
                       ? assembly.translate("progress.took_medication_yes")
                       : assembly.translate("progress.took_medication_no") +
@@ -205,7 +217,7 @@ const CoordinatorHome = observer(({ assembly }) => (
               .map((strip_report, index) =>
               <span>
                 { DateTime
-                    .fromISO(strip_report.created_at)
+                    .fromISO(strip_report.created_at, { zone: "utc" })
                     .setLocale(assembly.locale)
                     .toLocaleString(DateTime.DATETIME_SHORT)
                 }
