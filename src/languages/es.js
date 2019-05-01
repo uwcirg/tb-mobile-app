@@ -1173,7 +1173,7 @@ export default {
     last_updated: "Última actualización:",
     participant_info: "Información del participante",
     name: "Nombre",
-    last_resolution: "TODO Last Resolved",
+    last_resolution: "Last Resolved",
     today: "Hoy",
     medication: "Control de la medicación",
     medication_taken: "Control de la medicación",

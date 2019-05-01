@@ -11,6 +11,7 @@ import Heading from "../primitives/Heading"
 import PhotoPopout from "../primitives/PhotoPopout"
 import InternalLink from "../primitives/InternalLink"
 import CoordinatorHome from "../components/CoordinatorHome"
+import days_of_treatment from "../util/days_of_treatment"
 
 const CoordinatorParticipantHistory = observer(({ assembly }) => (
   <Layout>
@@ -27,13 +28,6 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
 
     <Split>
       <Info>
-        <Label>
-          {assembly.translate("coordinator_participant_history.participant_id")}
-        </Label>
-        <Information>
-          TODO not yet saved in database
-        </Information>
-
         <Label>
           {assembly.translate("coordinator_participant_history.first_name")}
         </Label>
@@ -63,6 +57,12 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
             .plus({ months: 6 })
             .toLocaleString(DateTime.DATETIME_SHORT)
           }
+        </Information>
+        <Label>
+          {assembly.translate("progress.days")}
+        </Label>
+        <Information>
+          {days_of_treatment(assembly.participant_history.information)}
         </Information>
       </Info>
 
@@ -126,12 +126,27 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
                     .information
                     .symptom_reports
                     .filter(report => report.resolution_uuid === resolution.uuid)
-                    .map(report =>
-                      report.reported_symptoms.map(symptom => (
-                        <div key={symptom} >
-                          {assembly.translate(`survey.symptoms.${symptom}`)}
-                        </div>
-                      ))
+                    .map(symptom_report =>
+                      <div key={symptom_report.created_at} >
+
+                      { DateTime
+                        .fromISO(symptom_report.timestamp, { zone: "utc" })
+                        .setLocale(assembly.locale)
+                        .toLocaleString(DateTime.DATETIME_SHORT) + ": "
+                      }
+    
+                      {symptom_report
+                        .reported_symptoms
+                        .map(symptom_key => (
+                          <span>
+                            {assembly.translate(`survey.symptoms.${symptom_key}`)}
+                          </span>
+                        ))
+                      }
+                      
+                      { symptom_report.nausea_rating ? symptom_report.nausea_rating + ", " : null }
+                      { symptom_report.other ? assembly.translate("survey.symptoms.other") + symptom_report.other : null}
+                      </div>
                     )
                   }
                 </td>

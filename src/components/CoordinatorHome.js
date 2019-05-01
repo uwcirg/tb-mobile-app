@@ -17,7 +17,6 @@ import Heading from "../primitives/Heading"
 import PhotoPopout from "../primitives/PhotoPopout"
 import Selection from "../primitives/Selection"
 import { Popover, InlineBlock } from "reakit";
-import days_of_treatment from "../util/days_of_treatment"
 
 import { Icon } from "@mdi/react"
 import {
@@ -58,7 +57,6 @@ const CoordinatorHome = observer(({ assembly }) => (
 
         <Cell>{assembly.translate("coordinator.contact")}</Cell>
         <Cell>{assembly.translate("coordinator.adherence")}</Cell>
-        <Cell>{assembly.translate("progress.days")}</Cell>
       </Row>
 
       { (
@@ -172,6 +170,7 @@ const CoordinatorHome = observer(({ assembly }) => (
                   Submission:
                   { DateTime
                     .fromISO(report.created_at)
+                    .setZone('local')
                     .setLocale(assembly.locale)
                     .toLocaleString(DateTime.DATETIME_SHORT)
                   }
@@ -199,12 +198,20 @@ const CoordinatorHome = observer(({ assembly }) => (
                   { DateTime
                     .fromISO(symptom_report.timestamp, { zone: "utc" })
                     .setLocale(assembly.locale)
-                    .toLocaleString(DateTime.DATETIME_SHORT)
+                    .toLocaleString(DateTime.DATETIME_SHORT) + ": "
                   }
 
-                  { symptom_report.reported_symptoms.map(symptom =>
-                    <Symptom key={symptom}>{symptom}</Symptom>
-                  )}
+                  {symptom_report
+                    .reported_symptoms
+                    .map(symptom_key => (
+                      <span>
+                        {assembly.translate(`survey.symptoms.${symptom_key}`)}
+                      </span>
+                    ))
+                  }
+                  { symptom_report.nausea_rating ? symptom_report.nausea_rating + " " : null }
+                  { symptom_report.other ? assembly.translate("survey.symptoms.other") + symptom_report.other : null}
+
                 </div>
             )}
           </Cell>
@@ -217,7 +224,8 @@ const CoordinatorHome = observer(({ assembly }) => (
               .map((strip_report, index) =>
               <span>
                 { DateTime
-                    .fromISO(strip_report.created_at, { zone: "utc" })
+                    .fromISO(strip_report.created_at)
+                    .setZone('local')
                     .setLocale(assembly.locale)
                     .toLocaleString(DateTime.DATETIME_SHORT)
                 }
@@ -240,10 +248,6 @@ const CoordinatorHome = observer(({ assembly }) => (
 
           <Cell>
             {parseInt(participant.adherence * 100, 10) + "%"}
-          </Cell>
-
-          <Cell>
-            {days_of_treatment(participant)}
           </Cell>
         </Row>
       )}
