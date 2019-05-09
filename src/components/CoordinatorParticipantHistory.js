@@ -72,46 +72,7 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
         <Information>
           <Button onClick={(e) => {
                         console.log("CLICKED", assembly.participant_history.information)
-                        exportAllDataToCSV(assembly.participant_history.information)
-                        e.stopPropagation()
-                      }}>
-            Here
-          </Button>
-        </Information>
-
-        <Label>
-          Download Medication Data
-        </Label>
-        <Information>
-          <Button onClick={(e) => {
-                        console.log("CLICKED", assembly.participant_history)
-                        exportMedicationDataToCSV(assembly.participant_history.information.medication_reports)
-                        e.stopPropagation()
-                      }}>
-            Here
-          </Button>
-        </Information>
-
-        <Label>
-          Download Symptom Data
-        </Label>
-        <Information>
-          <Button onClick={(e) => {
-                        console.log("CLICKED", assembly.participant_history)
-                        exportSideEffectDataToCSV(assembly.participant_history.information.symptom_reports)
-                        e.stopPropagation()
-                      }}>
-            Here
-          </Button>
-        </Information>
-
-        <Label>
-          Download Strip Report Data
-        </Label>
-        <Information>
-          <Button onClick={(e) => {
-                        console.log("CLICKED", assembly.participant_history)
-                        exportStripReportDataToCSV(assembly.participant_history.information.strip_reports)
+                        exportAllDataToCSV(assembly.participant_history.information, assembly.coordinator_account)
                         e.stopPropagation()
                       }}>
             Here
@@ -239,85 +200,135 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
   </Layout>
 ))
 
-// Help from: https://www.codexworld.com/export-html-table-data-to-csv-using-javascript/
-function exportAllDataToCSV(participant_information) {
+function exportAllDataToCSV(participant_information, coordinator_account) {
+  
+  let resolution_data = coordinator_account
+            .information
+            .resolutions
+            .filter(resolution =>
+              resolution.participant_uuid ===
+              participant_information.uuid
+            )
+  
   let all_data = [];
-  // get the medication reports
-  let medication_csv = exportMedicationDataToCSV(participant_information.medication_reports)
-
-  // get the symptom_reports
-  let symptom_csv = exportSideEffectDataToCSV(participant_information.symptom_reports);
   
-  // TODO: Strip report information
-  // strip_reports = participant_information.strip_reports;
+  // Format patient data in CSV formatting
+  let medication_data = formatMedicationData(participant_information.medication_reports)
+  let symptom_data = formatSideEffectData(participant_information.symptom_reports);
+  let notes = formatNotesData(participant_information.notes);
+  let resolutions = formatResolutionsData(resolution_data);
+  // let strip_reports = formatStripReportData(participant_information.strip_reports);
 
-  // TODO: Resolution information
+  // Setting the headers
+  all_data[0] = "Name,Start_Date," + medication_data[0] + symptom_data[0] + notes[0] + resolutions[0];
   
-  // need to think about out of bounds errors in the future
-  for (let i = 0; i < medication_csv.length; i++) {
-    all_data[i] = medication_csv[i] + "," + symptom_csv[i];
+  // HERE: figure out how long to do the for loop
+
+  // We are starting at 1 here because we set the columns above
+  for (let i = 1; i < symptom_data.length; i++) {
+    // Checking for out of bounds for our field. If it is undefinded then we want
+    // an empty cell for each column, thus we have the amount of commas equal to the
+    // data that would normally be present
+    if (medication_data[i] === undefined) {
+      medication_data[i] = ",,";
+    }
+
+    if (symptom_data[i] === undefined) {
+      symptom_data[i] = ",,,";
+    }
+
+    if (notes[i] === undefined) {
+      notes[i] = ",,";
+    }
+
+    if (resolutions[i] === undefined) {
+      resolutions[i] = ",,";
+    }
+    
+    all_data[i] =    participant_information.name + ","
+                   + participant_information.treatment_start + ","
+                   + medication_data[i] + ","
+                   + symptom_data[i] + ","
+                   + notes[i] + ","
+                   + resolutions[i] + ",";
   }
 
-  // Download CSV file
+  // Download CSV file, TODO add date and name to the CSV file
   downloadCSV(all_data.join("\n"), "all_patient_data.csv");
 }
 
-
-// Returns a CSV with medication data to a CSV
-function exportMedicationDataToCSV(medication_reports) {
-  var csv = [];
-  csv.push("Timestamp_Medication,Took_Medication,Not_Taking_Reason");
+// Returns medication data in a format close to CSV
+// The set up is adjustable, look at the medication_reports data model
+// to add more fields
+function formatMedicationData(medication_reports) {
+  let data = [];
+  data.push("Timestamp_Medication,Took_Medication,Not_Taking_Reason,");
   
-  for (var i = 0; i < medication_reports.length; i++) {
-    var row = medication_reports[i];
-    csv.push(row.timestamp + "," + row.took_medication + "," + row.not_taking_medication_reason);
+  for (let i = 0; i < medication_reports.length; i++) {
+    let row = medication_reports[i];
+    data.push(row.timestamp + "," + row.took_medication + "," + row.not_taking_medication_reason);
   }
-  return csv;
-  // debugger
-
-
-  // Download CSV file
-  // downloadCSV(csv.join("\n"), "medication_data.csv");
+  return data;
 }
 
-// Returns a CSV with side effect data to a CSV
-// TODO: see if it works with multiple side effects, does patient history work with multiple side effects?
-// 27: "2019-05-09T12:41:00.000Z,fever,appetite_loss,0,Other symptoms too" for a multiple report, let's see how it looks
-function exportSideEffectDataToCSV(symptom_reports) {
-  var csv = [];
-  csv.push("Timestamp_Side_Effect,Reported_Symptoms,Nausea_Rating,Other_Symptoms");
+// Returns symptom report data in a format close to CSV
+// The set up is adjustable, look at the medication_reports data model
+// to add more fields
+function formatSideEffectData(symptom_reports) {
+  let data = [];
+  data.push("Timestamp_Side_Effect,Reported_Symptoms,Nausea_Rating,Other_Symptoms,");
   
-  for (var i = 0; i < symptom_reports.length; i++) {
-    var row = symptom_reports[i];
-    // for the case when they have multiple symptoms to report
-    // this is not an elegant solution, we should consider seperating these differently
-    var reported_symptoms = row.reported_symptoms.join(" ");
-    csv.push(row.timestamp + "," + reported_symptoms + "," + row.nausea_rating + "," + row.other);
+  for (let i = 0; i < symptom_reports.length; i++) {
+    let row = symptom_reports[i];
+    // NOT elegant: for the case when they have multiple symptoms to report
+    // we should consider seperating these differently. Right now we can't seperate because it is a list
+    let reported_symptoms = row.reported_symptoms.join(" ");
+    data.push(row.timestamp + "," + reported_symptoms + "," + row.nausea_rating + "," + row.other);
   }
-  return csv;
-  // debugger
-
-  // Download CSV file
-  // downloadCSV(csv.join("\n"), "side_effect_data.csv");
+  return data;
 }
 
-// Returns a CSV with side effect data to a CSV
-function exportStripReportDataToCSV(strip_reports) {
-  var csv = [];
-  csv.push("Created_At_Strip_Report,Status,Photo");
+// Returns note data in a format close to CSV
+// This setup is adjustable visit the notes schema to add or remove fields
+function formatNotesData(notes) {
+  let data = []
+  data.push("Notes_Created_At,Notes_Title,Notes_Text,");
+
+  for (let i = 0; i < notes.length; i++) {
+    let row = notes[i];
+    // trim needed for return characters
+    data.push(row.created_at + "," + row.title + "," + row.text.trim());
+  }
+  return data;
+}
+
+function formatResolutionsData(resolutions) {
+  let data = []
+  data.push("Resolutions_Created_At,Resolution_Status,Resolution_Reviewed");
+
+  for (let i = 0; i < resolutions.length; i++) {
+    let row = resolutions[i];
+    data.push(row.created_at + "," + row.status + "," + row.reviewed);
+  }
+  return data;
+}
+
+// This function is NOT working. The image is not viewable inside of the
+// CSV, it is data:pngXXXXXXXX formatting right now
+function formatStripReportData(strip_reports) {
+  var data = [];
+  data.push("Created_At_Strip_Report,Status,Photo");
   
   for (var i = 0; i < strip_reports.length; i++) {
     var row = strip_reports[i];
-    csv.push(row.created_at + "," + row.status + ",Photo_Here");
+    data.push(row.created_at + "," + row.status + ",Photo_Here");
   }
 
   // Download CSV file
-  downloadCSV(csv.join("\n"), "strip_report_data.csv");
+  downloadCSV(data.join("\n"), "strip_report_data.csv");
 }
 
-
-
-// This function is working just fine
+// Help from: https://www.codexworld.com/export-html-table-data-to-csv-using-javascript/
 function downloadCSV(csv, filename) {
   var csvFile;
   var downloadLink;
