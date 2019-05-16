@@ -6,7 +6,7 @@ import { DateTime } from "luxon"
 
 import { darkgrey, white } from "../colors"
 
-import { Table, Button } from "reakit";
+import { Table } from "reakit";
 import Heading from "../primitives/Heading"
 import PhotoPopout from "../primitives/PhotoPopout"
 import InternalLink from "../primitives/InternalLink"
@@ -67,16 +67,15 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
         </Information>
 
         <Label>
-          Download All Patient Data
+          Download Patient Data
         </Label>
         <Information>
-          <Button onClick={(e) => {
-                        console.log("CLICKED", assembly.participant_history.information)
+          <DownloadButton onClick={(e) => {
                         exportAllDataToCSV(assembly.participant_history.information, assembly.coordinator_account)
                         e.stopPropagation()
                       }}>
             Here
-          </Button>
+          </DownloadButton>
         </Information>
       </Info>
 
@@ -215,18 +214,18 @@ function exportAllDataToCSV(participant_information, coordinator_account) {
   // Format patient data in CSV formatting
   let medication_data = formatMedicationData(participant_information.medication_reports)
   let symptom_data = formatSideEffectData(participant_information.symptom_reports);
+  let strip_reports = formatStripReportData(participant_information.strip_reports);
   let notes = formatNotesData(participant_information.notes);
   let resolutions = formatResolutionsData(resolution_data);
-  // let strip_reports = formatStripReportData(participant_information.strip_reports);
 
   // Setting the headers
-  all_data[0] = "Name,Start_Date," + medication_data[0] + symptom_data[0] + notes[0] + resolutions[0];
+  all_data[0] = "Name,Start_Date," + medication_data[0] + symptom_data[0] + strip_reports[0] + notes[0] + resolutions[0];
   
-  // HERE: figure out how long to do the for loop
+  let report_length = Math.max(symptom_data.length, medication_data.length);
 
   // We are starting at 1 here because we set the columns above
-  for (let i = 1; i < symptom_data.length; i++) {
-    // Checking for out of bounds for our field. If it is undefinded then we want
+  for (let i = 1; i < report_length; i++) {
+    // Checking for out of bounds for each field. If it is undefinded then we want
     // an empty cell for each column, thus we have the amount of commas equal to the
     // data that would normally be present
     if (medication_data[i] === undefined) {
@@ -244,17 +243,22 @@ function exportAllDataToCSV(participant_information, coordinator_account) {
     if (resolutions[i] === undefined) {
       resolutions[i] = ",,";
     }
+
+    if (strip_reports[i] === undefined) {
+      strip_reports[i] = ",,"
+    }
     
     all_data[i] =    participant_information.name + ","
                    + participant_information.treatment_start + ","
                    + medication_data[i] + ","
                    + symptom_data[i] + ","
+                   + strip_reports[i] + ","
                    + notes[i] + ","
                    + resolutions[i] + ",";
   }
 
-  // Download CSV file, TODO add date and name to the CSV file
-  downloadCSV(all_data.join("\n"), "all_patient_data.csv");
+  // Download CSV file,
+  downloadCSV(all_data.join("\n"), participant_information.name + "_patient_data.csv");
 }
 
 // Returns medication data in a format close to CSV
@@ -314,18 +318,17 @@ function formatResolutionsData(resolutions) {
 }
 
 // This function is NOT working. The image is not viewable inside of the
-// CSV, it is data:pngXXXXXXXX formatting right now
+// CSV, it is data:pngXXXXXXXX formatting right now. For now we have commented
+// out of the photo piece and just put "Photo_Here"
 function formatStripReportData(strip_reports) {
-  var data = [];
-  data.push("Created_At_Strip_Report,Status,Photo");
+  let data = [];
+  data.push("Created_At_Strip_Report,Status,Photo,");
   
-  for (var i = 0; i < strip_reports.length; i++) {
-    var row = strip_reports[i];
+  for (let i = 0; i < strip_reports.length; i++) {
+    let row = strip_reports[i];
     data.push(row.created_at + "," + row.status + ",Photo_Here");
   }
-
-  // Download CSV file
-  downloadCSV(data.join("\n"), "strip_report_data.csv");
+  return data;
 }
 
 // Help from: https://www.codexworld.com/export-html-table-data-to-csv-using-javascript/
@@ -390,6 +393,11 @@ const Label = styled.dt`
 
 const Information = styled.dd`
   padding: 0.5rem;
+`
+
+const DownloadButton = styled.div`
+  cursor: pointer;
+  text-decoration: underline;
 `
 
 CoordinatorParticipantHistory.route = "/coordinator_participant_history"
