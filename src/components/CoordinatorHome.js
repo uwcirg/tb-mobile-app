@@ -123,7 +123,7 @@ const CoordinatorHome = observer(({ assembly }) => (
             </Popover.Container>
           </div>
 
-          <div>
+          <Cell>
             {
               last_resolution(
                 assembly.coordinator_account.information.resolutions,
@@ -138,7 +138,7 @@ const CoordinatorHome = observer(({ assembly }) => (
               .setLocale(assembly.locale)
               .toLocaleString(DateTime.DATETIME_SHORT)
             }
-          </div>
+          </Cell>
 
           <NameLinkCell
             className="NameLinkCell"
@@ -285,7 +285,7 @@ const Row = styled.div`
   }
 
   display: grid;
-  grid-template-columns: repeat(9, 1fr);
+  grid-template-columns: repeat(8, 1fr);
   border-bottom: 1px solid ${lightgrey};
   margin-bottom: 1rem;
 `

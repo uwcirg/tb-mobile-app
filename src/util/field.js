@@ -18,6 +18,7 @@ const field = (assembly, tag, type) => ({
       onChange={(e) => {
         assembly.set(tag, e.target.value)
       }}
+      as={type === "textarea" ? "textarea" : null}
     />
   ,
 })

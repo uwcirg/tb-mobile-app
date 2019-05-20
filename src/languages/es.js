@@ -1212,7 +1212,7 @@ export default {
     action: "Acción",
 
     participant_id: "Número de identificación del estudio",
-    resolution: "TODO Resolved",
+    resolution: "Resolved Date",
     first_name: "Nombre",
     start_date: "Fecha de inicio del tratamiento",
     end_date: "Fecha prevista de finalización del tratamiento",
