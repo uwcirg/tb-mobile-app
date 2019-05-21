@@ -170,7 +170,7 @@ const CoordinatorHome = observer(({ assembly }) => (
                   Submission:
                   { DateTime
                     .fromISO(report.created_at)
-                    .setZone('local')
+                    .setZone('UTC-3')
                     .setLocale(assembly.locale)
                     .toLocaleString(DateTime.DATETIME_SHORT)
                   }
@@ -225,7 +225,7 @@ const CoordinatorHome = observer(({ assembly }) => (
               <span>
                 { DateTime
                     .fromISO(strip_report.created_at)
-                    .setZone('local')
+                    .setZone('UTC-3')
                     .setLocale(assembly.locale)
                     .toLocaleString(DateTime.DATETIME_SHORT)
                 }

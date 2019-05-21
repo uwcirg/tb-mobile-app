@@ -5,7 +5,7 @@ import ReactCalendar from "react-calendar/dist/entry.nostyle"
 import Survey from "./Survey"
 import { DateTime } from "luxon"
 
-import { lightgrey, darkgrey, grey, white, green, red, blue, black } from "../colors"
+import { lightgrey, darkgrey, grey, white, green, red, black } from "../colors"
 
 const AdherenceCalendar = observer(({ assembly }) => (
   <Calendar
@@ -107,6 +107,10 @@ const Calendar = styled(ReactCalendar)`
     color: ${black}
   }
 
+  & .react-calendar__month-view__weekdays {
+    padding-top: 1rem;
+  }
+
   & button.react-calendar__navigation__arrow.react-calendar__navigation__prev2-button {
     display: none;
   }
@@ -121,6 +125,8 @@ const Calendar = styled(ReactCalendar)`
   }
 `
 
+// Before we had padding-top: 0.5rem, now we use line-height
+// it makes all of the circles smaller however
 const DateCell = styled.div`
   border-radius: 50%;
   margin-bottom: 0.5rem;
@@ -130,7 +136,7 @@ const DateCell = styled.div`
   font-size: 1rem;
   font-weight: 700;
   display: block;
-  padding-top: 0.5rem;
+  line-height: 2rem;
 `
 
 const TookMedication = styled(DateCell)`
