@@ -110,6 +110,7 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
                   }
                 </td>
 
+                {/* Medication Reports */}
                 <td>
                   { assembly
                     .participant_history
@@ -133,6 +134,7 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
                   ) }
                 </td>
 
+                {/* Symptom Reports */}
                 <td>
                   { assembly
                     .participant_history
@@ -164,6 +166,7 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
                   }
                 </td>
 
+                {/* Strip Reports */}
                 <td>
                   { assembly
                     .participant_history
@@ -177,6 +180,7 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
                         <Padding>
                           { DateTime
                               .fromISO(report.created_at)
+                              .setZone('UTC-3')
                               .setLocale(assembly.locale)
                               .toLocaleString(DateTime.DATETIME_SHORT)
                           }

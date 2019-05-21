@@ -24,6 +24,7 @@ export default styled(Button)`
 
   &:hover {
     background-color: ${primary};
+    color: ${white};
   }
 
   border-radius: 0.35em;

@@ -28,9 +28,11 @@ const CoordinatorLogin = observer(({assembly}) => (
       </Button>
     </Form>
 
-    <InternalLink to={Login} assembly={assembly} >
-      {assembly.translate("coordinator_login.link.patient_login")}
-    </InternalLink>
+    <Underline>
+      <InternalLink to={Login} assembly={assembly} >
+        {assembly.translate("coordinator_login.link.patient_login")}
+      </InternalLink>
+    </Underline>
   </Layout>
 ))
 
@@ -41,6 +43,11 @@ const Form = styled.div`
   display: grid;
   grid-template-rows: repeat(3, auto);
   grid-column-gap: 1rem;
+`
+
+const Underline = styled.div`
+  text-decoration: underline; 
+  cursor: pointer;
 `
 
 CoordinatorLogin.route = "/coordinator_login"
