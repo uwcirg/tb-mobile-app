@@ -673,12 +673,20 @@ export default {
         droplets that contain live bacilli.
         `,
 
-        2: `
+        Video1: `
         Link for an educational video
         `,
 
-        Link: `
+        Video1Link: `
         https://www.youtube.com/watch?v=KizqF_HmI2w
+        `,
+
+        Video2: `
+        Link for another educational video
+        `,
+
+        Video2Link: `
+        https://www.youtube.com/watch?v=vaXrKW0ZGtg&feature=youtu.be
         `,
 
         3: `

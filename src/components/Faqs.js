@@ -17,11 +17,22 @@ const FAQs = observer(({ assembly }) => (
     <P>{assembly.translate("faqs.intro_2")}</P>
     <P>
       <a 
-        href={assembly.translate("faqs.q1.answer.Link")}
+        href={assembly.translate("faqs.q1.answer.Video1Link")}
         target="_blank">
-        {assembly.translate("faqs.q1.answer.2")}
+        {assembly.translate("faqs.q1.answer.Video1")}
       </a>
     </P>
+
+    {/* <P>
+      <a 
+        href={assembly.translate("faqs.q1.answer.Video2Link")}
+        target="_blank">
+        {assembly.translate("faqs.q1.answer.Video2")}
+      </a>
+    </P> */}
+
+    {/* Iframe for embeded video2 */}
+    <iframe width="100%" height="315" src="https://www.youtube.com/embed/vaXrKW0ZGtg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
     <Fold>
       <Question>

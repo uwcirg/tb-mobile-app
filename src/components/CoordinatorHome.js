@@ -66,6 +66,8 @@ const CoordinatorHome = observer(({ assembly }) => (
           .participants
         || []
         )
+        .slice()
+        .sort((a,b) => DateTime.fromISO(b.treatment_start) - DateTime.fromISO(a.treatment_start))
         .map(participant =>
         <Row
           key={participant.uuid}

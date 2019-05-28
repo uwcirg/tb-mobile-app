@@ -312,11 +312,11 @@ function formatNotesData(notes) {
 
 function formatResolutionsData(resolutions) {
   let data = []
-  data.push("Resolutions_Created_At,Resolution_Status,Resolution_Reviewed");
+  data.push("Resolutions_Created_At,Resolution_Status,Resolution_Note");
 
   for (let i = 0; i < resolutions.length; i++) {
     let row = resolutions[i];
-    data.push(row.created_at + "," + row.status + "," + row.reviewed);
+    data.push(row.created_at + "," + row.status + "," + row.note);
   }
   return data;
 }
