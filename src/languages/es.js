@@ -694,12 +694,20 @@ export default {
         https://www.youtube.com/watch?v=KizqF_HmI2w
         `,
 
+        Video1Embed: `
+        <iframe width="100%" height="315" src="https://www.youtube.com/embed/KizqF_HmI2w" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        `,
+
         Video2: `
         Enlance a otro video educativo
         `,
 
         Video2Link: `
         https://www.youtube.com/watch?v=vaXrKW0ZGtg&feature=youtu.be
+        `,
+
+        Video2Embed: `
+        <iframe width="100%" height="315" src="https://www.youtube.com/embed/vaXrKW0ZGtg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         `,
 
         3: `
