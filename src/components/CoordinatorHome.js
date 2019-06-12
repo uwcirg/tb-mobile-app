@@ -108,6 +108,7 @@ const CoordinatorHome = observer(({ assembly }) => (
                       <span onClick={(e) => {
                         assembly.resolve_participant_records(participant, "reviewed")
                         e.stopPropagation()
+                        popover.hide()
                       }} >
                         {Icons.reviewed}
                       </span>
@@ -115,6 +116,7 @@ const CoordinatorHome = observer(({ assembly }) => (
                       <span onClick={(e) => {
                         assembly.resolve_participant_records(participant, "overdue")
                         e.stopPropagation()
+                        popover.hide()
                       }} >
                         {Icons.overdue}
                       </span>
