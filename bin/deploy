@@ -39,3 +39,13 @@ sudo docker-compose ps
 # Ready to dive into your computer?
 # Start here!
 sudo docker-compose exec web rails c
+
+# #Possible quick fix for logging issues
+# remove logging line
+dc exec web sed -i '/logger.tagged/d' /foundation/app/controllers/code_controller.rb
+
+# confirm logging line removed
+dc exec web grep logger /foundation/app/controllers/code_controller.rb
+
+# restart service to load changes
+dc restart web
