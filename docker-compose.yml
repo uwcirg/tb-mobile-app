@@ -24,7 +24,7 @@ services:
     image: postgres
 
   web:
-    image: assemble/foundation
+    image: kjgoodwins/foundation
     environment:
       - DATA=postgres://postgres:postgres@db
       - PASSWORD
