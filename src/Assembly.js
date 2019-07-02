@@ -139,7 +139,6 @@ class Assembly extends React.Component {
   }
 
   // ------ Misc ------
-
   @observable language = "Español"
   @observable alerts = []
   @observable currentPage = null

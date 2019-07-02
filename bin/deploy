@@ -17,12 +17,6 @@ sudo docker-compose run --rm client yarn build
 sudo rm -rf /srv/www/tb-app.cirg.washington.edu/htdocs
 sudo mv build /srv/www/tb-app.cirg.washington.edu/htdocs
 
-# # Hard Restart!
-# sudo docker-compose down --remove-orphans;
-# sudo docker-compose pull
-# sudo docker-compose up -d
-# sudo docker-compose exec web bundle exec rake db:create db:migrate
-
 # # Soft Restart!
 sudo docker-compose stop
 sudo docker-compose rm -f web client
@@ -49,3 +43,10 @@ dc exec web grep logger /foundation/app/controllers/code_controller.rb
 
 # restart service to load changes
 dc restart web
+
+
+# # Hard Restart! Removes DB - NOT GOOD
+# sudo docker-compose down --remove-orphans;
+# sudo docker-compose pull
+# sudo docker-compose up -d
+# sudo docker-compose exec web bundle exec rake db:create db:migrate
