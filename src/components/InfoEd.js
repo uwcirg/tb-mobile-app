@@ -10,6 +10,11 @@ import Faqs from "./Faqs"
 
 const InfoEd = observer(({ assembly }) => (
   <Layout>
+
+  <PatientMessage>
+  Has completado una semana de tratamiento. <br /> <br /> ¡Buen trabajo!
+  </PatientMessage>
+
     <Button as={InternalLink} to={Faqs} assembly={assembly} >
         {assembly.translate("info.faq")}
     </Button>
@@ -34,6 +39,14 @@ const Layout = styled(ListOfLinks)`
   & > ${Button} {
     width: 100%;
   }
+`
+
+const PatientMessage = styled.div`
+  border: 2px solid red;
+  border-radius: 5px;
+  padding: 2em;
+  font-size: 2em;
+  text-align: left;
 `
 
 InfoEd.route = "/info"

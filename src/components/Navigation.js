@@ -53,13 +53,18 @@ const Navigation = observer(({ assembly }) => (
       />
     </InternalLink>
 
+    <IconContainer>
     <InternalLink to={InfoEd} assembly={assembly} >
+    <PopUpIcon>
+          {assembly.timeSinceTreatment / 7 > 1 ? "1" : "0"}
+        </PopUpIcon>
       <Icon
         path={mdiInformationOutline}
         color={assembly.currentPage === InfoEd ? primary : black}
         size="1.8rem"
-      />
+      />       
     </InternalLink>
+    </IconContainer>
   </Layout>
 ))
 
@@ -69,6 +74,33 @@ const Layout = styled.div`
   justify-content: space-around;
   background-color: ${white};
   padding: 1rem;
+  a:link {
+    text-decoration: none;
+  }
+  
+  a:visited {
+    text-decoration: none;
+  }
+`
+
+const IconContainer = styled.div`
+
+
+`
+
+const PopUpIcon = styled.div`
+  width: 20px;
+  height: 20px;
+  padding: 1px;
+  border-radius: 5px;
+  background-color: red;
+  position: absolute;
+  z-index: 1000;
+  top: 10px;
+  right: 20px;
+  color: white;
+  text-align: center;
+
 `
 
 export default Navigation;

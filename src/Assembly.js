@@ -13,7 +13,7 @@ import ErrorBoundary from "./primitives/ErrorBoundary"
 
 // Utility
 import Account from "./Account"
-import { DateTime } from "luxon"
+import { DateTime, Duration } from "luxon"
 
 // Pages
 import Contact from "./components/Contact"
@@ -304,6 +304,8 @@ class Assembly extends React.Component {
     `
   }
 
+
+
   register_participant() {
     this.participant_account.persist(this.participant_registration)
       .then(() => { this.currentPage = Home })
@@ -444,6 +446,14 @@ class Assembly extends React.Component {
 
   @computed get locale() {
     return { "Español": "es", "English": "en" }[this.language];
+  }
+
+  @computed  get timeSinceTreatment(){
+    let dt = DateTime.fromSQL(this.participant_account.information.treatment_start).toObject();
+    console.log(dt);
+    let duration = Duration.fromObject(dt);
+    console.log(duration)
+    return duration.days;
   }
 
   logout() {
