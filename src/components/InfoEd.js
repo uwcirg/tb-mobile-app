@@ -11,9 +11,11 @@ import Faqs from "./Faqs"
 const InfoEd = observer(({ assembly }) => (
   <Layout>
 
+{/*
   <PatientMessage>
   Has completado una semana de tratamiento. <br /> <br /> ¡Buen trabajo!
   </PatientMessage>
+  */}
 
     <Button as={InternalLink} to={Faqs} assembly={assembly} >
         {assembly.translate("info.faq")}

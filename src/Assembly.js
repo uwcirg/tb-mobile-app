@@ -391,8 +391,10 @@ class Assembly extends React.Component {
       ),
     )
 
+    // KYLECHANGE: Not really sure why they were doing this?
     // Because we use survey date and time for both medication
     // and side effect reports we need to reset here
+    /*
     this.survey = {
       date: DateTime.local().setLocale(this.locale).toISODate(),
       medication_time: DateTime.local().setLocale(this.locale).toLocaleString(DateTime.TIME_24_SIMPLE),
@@ -400,6 +402,7 @@ class Assembly extends React.Component {
       took_medication: null,
       any_symptoms: null,
     }
+    */
 
     this.symptoms = {
       nausea: false,

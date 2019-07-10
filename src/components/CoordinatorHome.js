@@ -1,5 +1,5 @@
 import React from "react"
-import { observer } from "mobx-react"
+import { observer} from "mobx-react"
 import styled from "styled-components"
 import { DateTime } from "luxon"
 import field from "../util/field"
@@ -52,13 +52,11 @@ const CoordinatorHome = observer(({ assembly }) => (
         <TitleCell>{assembly.translate("coordinator.status_")}</TitleCell>
         <TitleCell>{assembly.translate("coordinator.last_resolution")}</TitleCell>
         <TitleCell>{assembly.translate("coordinator.name")}</TitleCell>
-        <TitleCell>{assembly.translate("coordinator.contact")}</TitleCell>
-        <TitleCell>{assembly.translate("coordinator.adherence")}</TitleCell>
-
         <TitleCell>{assembly.translate("coordinator.medication")}</TitleCell>
         <TitleCell>{assembly.translate("coordinator.side_effects")}</TitleCell>
         <TitleCell>{assembly.translate("coordinator.photo")}</TitleCell>
-
+        <TitleCell>{assembly.translate("coordinator.contact")}</TitleCell>
+        <TitleCell>{assembly.translate("coordinator.adherence")}</TitleCell>
       </Row>
 
       {(
@@ -158,22 +156,15 @@ const CoordinatorHome = observer(({ assembly }) => (
               {participant.name}
             </NameLinkCell>
 
-            <Cell>
-              <a href={'https://wa.me/' + participant.phone_number.replace(/-/g, "")} target="_blank">
-                {participant.phone_number}
-              </a>
-            </Cell>
-
-            <Cell>
-              {parseInt(participant.adherence * 100, 10) > 100 ? "100%" : parseInt(participant.adherence * 100, 10) + "%"}
-            </Cell>
-
+            
             {/* Medication Reports */}
             <ResultsCell>
               {participant
                 .medication_reports
                 .filter(report => report.resolution_uuid === null)
+                .sort((a, b) => {DateTime.fromISO(b.timestamp) - DateTime.fromISO(a.timestamp)})
                 .map(report =>
+                  
                   <Result key={report.timestamp} >
                 {/*
                     {DateTime
@@ -208,6 +199,7 @@ const CoordinatorHome = observer(({ assembly }) => (
               {participant
                 .symptom_reports
                 .filter(report => report.resolution_uuid === null)
+                .sort((a, b) => {DateTime.fromISO(b.timestamp) - DateTime.fromISO(a.timestamp)})
                 .map(symptom_report =>
                   <Result key={symptom_report.created_at} >
                     {DateTime
@@ -237,6 +229,7 @@ const CoordinatorHome = observer(({ assembly }) => (
               {participant
                 .strip_reports
                 .filter(report => report.resolution_uuid === null)
+                .sort((a, b) => {DateTime.fromISO(b.timestamp) - DateTime.fromISO(a.timestamp)})
                 .map((strip_report, index) =>
                   <Result>
                     {/*
@@ -257,6 +250,17 @@ const CoordinatorHome = observer(({ assembly }) => (
                   </Result>
                 )}
             </ResultsCell>
+
+            <Cell>
+              <a href={'https://wa.me/' + participant.phone_number.replace(/-/g, "")} target="_blank">
+                {participant.phone_number}
+              </a>
+            </Cell>
+
+            <Cell>
+              {parseInt(participant.adherence * 100, 10) > 100 ? "100%" : parseInt(participant.adherence * 100, 10) + "%"}
+            </Cell>
+
           </Row>
         )}
     </InformationTable>
@@ -271,6 +275,8 @@ const Layout = styled.div`
   display: grid;
   grid-row-gap: 1rem;
   padding: 1rem;
+  grid-template-columns: auto;
+
 `
 
 const Symptom = styled.div`
@@ -292,7 +298,7 @@ const Row = styled.div`
   &:first-child {
     border-bottom: 1px solid ${darkgrey};
   }
-  &:nth-child(2){
+  &:nth-child(even){
     background-color: rgba(211,211,211 ,.5);
   }
   display: grid;

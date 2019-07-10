@@ -55,9 +55,6 @@ const Navigation = observer(({ assembly }) => (
 
     <IconContainer>
     <InternalLink to={InfoEd} assembly={assembly} >
-    <PopUpIcon>
-          {assembly.timeSinceTreatment / 7 > 1 ? "1" : "0"}
-        </PopUpIcon>
       <Icon
         path={mdiInformationOutline}
         color={assembly.currentPage === InfoEd ? primary : black}
