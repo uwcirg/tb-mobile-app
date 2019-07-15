@@ -69,6 +69,46 @@ class Network {
       this.watches.forEach((watch) => watch())
     }
   }
+
+  getMessages(user) {
+    return new Promise(resolve => {
+
+      fetch(`http://localhost:5002/v1/channels/0`, {
+        method: "GET",
+        headers: {
+          "X-User": user
+        },
+      }).then(resolve)
+
+    }).then((result) => {
+      return result.json();
+    })
+  }
+
+
+  postMessage(user,message) {
+    return new Promise(resolve => {
+
+      fetch(`http://manganese.cirg.washington.edu:5002/v1/channels/0`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-User": user,
+        },
+        body: message,
+      }).then(resolve)
+
+    }).then((result) => {
+      return result;
+    })
+  }
+
+
+
+
+
+
+
 }
 
 export default Network

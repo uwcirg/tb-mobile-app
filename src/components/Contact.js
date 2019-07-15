@@ -4,9 +4,14 @@ import { Button, Link, List, Provider, Divider } from "reakit";
 import theme from "reakit-theme-default";
 import { blue, green, white } from "../colors"
 
+import Discuss from './Discuss'
+
+import InternalLink from "../primitives/InternalLink"
+
 import Icon from "@mdi/react"
 import {
   mdiWhatsapp,
+  mdiChat
 } from "@mdi/js"
 
 import { observer } from "mobx-react"
@@ -37,10 +42,15 @@ const Contact = observer(({assembly}) => (
         <h3>
           {assembly.translate("contact.discussion_title")}
         </h3>
-
-        <Link href="https://tb-discourse.cirg.washington.edu" target="_blank">
-          <Button backgroundColor={blue}>{assembly.translate("contact.discussion")}</Button>
-        </Link>
+        <InternalLink to={Discuss} assembly={assembly} >
+        <Button backgroundColor={green}>{assembly.translate("discussion_board.title")}
+            <Icon
+              path={mdiChat}
+              color={white}
+              size="1.5rem"
+            />
+          </Button>
+    </InternalLink>
       </div>
     </Provider>
 ))

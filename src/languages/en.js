@@ -1269,4 +1269,8 @@ export default {
       patient_login: "Log in as a patient",
     },
   },
+
+  discussion_board:{
+    title: "Discussion Board"
+  }
 }

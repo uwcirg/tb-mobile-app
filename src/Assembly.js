@@ -143,6 +143,8 @@ class Assembly extends React.Component {
   @observable alerts = []
   @observable currentPage = null
 
+  @observable discussionBoard = [];
+
   constructor(props) {
     super(props)
 
@@ -305,6 +307,9 @@ class Assembly extends React.Component {
   }
 
 
+  getMessages(user){
+    return network.getMessages(user);
+  }
 
   register_participant() {
     this.participant_account.persist(this.participant_registration)

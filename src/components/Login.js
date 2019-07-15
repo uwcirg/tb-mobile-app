@@ -15,8 +15,8 @@ const Login = observer(({assembly}) => (
     </h2>
 
     <Form>
-      {field(assembly, "participant_login.phone_number", "tel").label}
-      {field(assembly, "participant_login.phone_number", "tel").field}
+      {field(assembly, "participant_login.phone_number", "text").label}
+      {field(assembly, "participant_login.phone_number", "text").field}
 
       {field(assembly, "participant_login.password", "password").label}
       {field(assembly, "participant_login.password", "password").field}

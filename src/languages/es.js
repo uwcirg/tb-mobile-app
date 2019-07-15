@@ -1257,4 +1257,8 @@ export default {
       patient_login: "El login del participante",
     },
   },
+
+  discussion_board:{
+    title: "Panel de Discusión"
+  }
 }
