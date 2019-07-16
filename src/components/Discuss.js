@@ -1,44 +1,96 @@
 import React from "react"
 import styled from "styled-components"
 import { Button } from "reakit"
-import { green } from "../colors"
+import { green, red} from "../colors"
 import theme from "reakit-theme-default";
 import { DateTime } from "luxon"
+import { observable, runInAction, action } from "mobx";
+import { observer } from "mobx-react"
 
-function postMessage(user, message) {
-    let messageJSON = {body: message, userName:user.name };
-    return new Promise(resolve => {
 
-        fetch(`http://localhost:5002/v1/channels/0`, {
+class DiscussStore {
+
+    //Overview info
+    @observable onSpecificChannel = false;
+    @observable specificChannel = 0;
+    @observable userID = "";
+    @observable userName = "";
+
+    //Channel Info
+    @observable channels = [];
+    @observable newChannelName = ""
+    @observable newChannelDescription = ""
+
+    //Specific Discussion
+    @observable specificChannelMessages = [];
+    @observable newMessageBody = "";
+
+
+    constructor(){
+        this.url = 'http://localhost:5002'
+    }
+   
+
+    @action
+    getChannels = () => {
+        fetch(`${this.url}/v1/channels`, {
+            method: "GET",
+            headers: {
+                "X-User": this.userID
+            },
+        }).then(resolve => resolve.json())
+            .then(json =>
+                    this.channels = json
+            )
+    }
+
+    postChannel = () => {
+        let channelJSON = { description: this.newChannelDescription, name: this.newChannelName };
+        fetch(`${this.url}/v1/channels`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "X-User": user.id,
+                "X-User": this.userID
             },
-            body: JSON.stringify(messageJSON),
-        }).then(resolve)
+            body: JSON.stringify(channelJSON),
+        }).then(resolve => resolve.json())
+            .then(json => { this.getChannels() });
+    }
 
-    }).then((result) => {
+    @action
+    getDiscussion = () => {
 
-        return result.json();
-    })
-}
-
-function getMessages(user) {
-    console.log("guser "+ user)
-    return new Promise(resolve => {
-
-        fetch(`http://localhost:5002/v1/channels/0`, {
+        console.log("thisran " + this.specificChannel)
+        fetch(`${this.url}/v1/channels/${this.specificChannel}`, {
             method: "GET",
             headers: {
-                "X-User": user
+                "X-User": this.userID
             },
-        }).then(resolve)
+        }).then(resolve => {
+                return resolve.json()})
+        .then(json =>{
+                    this.specificChannelMessages = json
+            }
+        ).catch( err => console.log(err))
 
-    }).then((result) => {
-        return result.json();
-    })
+    }
+
+    postMessage = () => {
+        let messageJSON = { body: this.newMessageBody, userName: this.userName };
+        fetch(`${this.url}/v1/channels/${this.specificChannel}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-User": this.userID
+            },
+            body: JSON.stringify(messageJSON),
+        }).then(resolve => resolve.json())
+        .then(json => { this.getDiscussion() });
+    }
+
+
 }
+
 
 function getUserNumber(assembly) {
     return assembly.fetch("menu.phone_number").replace("-", "").trim();
@@ -48,7 +100,66 @@ function getUserName(assembly) {
     return assembly.fetch("menu.name");
 }
 
+const store = new DiscussStore();
+
+
+@observer
 class Discuss extends React.Component {
+
+    componentDidMount(){
+        store.userID = getUserNumber(this.props.assembly);
+        store.userName = getUserName(this.props.assembly);
+    }
+
+    render() {
+
+        if (store.onSpecificChannel) {
+            return <Channel assembly={this.props.assembly} ></Channel>
+        }
+        return <DiscussTest assembly={this.props.assembly} ></DiscussTest>
+    }
+
+}
+
+@observer
+class DiscussTest extends React.Component {
+
+
+    updateChannels = (userID) => {
+        store.getChannels(userID);
+    }
+
+    componentDidMount() {
+        this.updateChannels();
+    }
+
+    handleChannelClick = (event) => {
+        store.onSpecificChannel = true;
+        store.specificChannel = event.target.getAttribute('data-key');
+    }
+
+    render() {
+        let channelList = store.channels.slice().sort((a, b) => {
+            return DateTime.fromISO(a.createdAt) - DateTime.fromISO(b.createdAt)
+        }).map(item => {
+            return <ChannelCard key={item.id} data-key={item.id} onClick={this.handleChannelClick}>
+                <h1 data-key={item.id} onClick={this.handleChannelClick}>{item.name}</h1>
+                <p data-key={item.id} onClick={this.handleChannelClick}>{item.description}</p>
+            </ChannelCard>
+        })
+
+        return (
+            <Layout>
+                <h1>{this.props.assembly.translate("discussion_board.title")}</h1>
+                {channelList}
+                <NewChannel />
+            </Layout>
+        )
+    }
+}
+
+@observer
+class Channel extends React.Component {
 
     constructor(props) {
         super(props)
@@ -57,26 +168,29 @@ class Discuss extends React.Component {
         }
     }
 
-    updateMessages = (userID) => {
-        getMessages(userID).then(stuff => {
-            this.setState({
-                messages: stuff
-            })
-        })
+    updateMessages = () => {
+        store.getDiscussion()
+    }
+
+    handleBack = () => {
+        store.onSpecificChannel = false;
+        store.specificChannelMessages = []
     }
 
     componentDidMount() {
-        this.updateMessages(getUserNumber(this.props.assembly));
+        this.updateMessages();
     }
 
     render() {
 
-        let messageList = this.state.messages.sort((a,b)=>{
+        let messageList = store
+        .specificChannelMessages.slice()
+        .sort((a, b) => {
             return DateTime.fromISO(a.createdAt) - DateTime.fromISO(b.createdAt)
         }).map(item => {
             return <Message>
                 <MessageBody>{item.body}</MessageBody>
-                <MessageCreator>{item.creatorName}</MessageCreator>
+                <MessageCreator>{item.creatorName} at {DateTime.fromISO(item.createdAt).toLocaleString(DateTime.DATETIME_MED)} </MessageCreator>
             </Message>
         })
 
@@ -85,9 +199,10 @@ class Discuss extends React.Component {
 
         return (
             <Layout>
+                <Button onClick={this.handleBack} theme={theme} backgroundColor={red}>Back</Button>
                 <h1>{this.props.assembly.translate("discussion_board.title")}</h1>
                 {messageList}
-                <NewMessage user={{name: userName,id: userID}} updateMessages={this.updateMessages} />
+                <NewMessage user={{ name: userName, id: userID }} updateMessages={this.updateMessages} />
             </Layout>
         )
     }
@@ -95,23 +210,14 @@ class Discuss extends React.Component {
 
 class NewMessage extends React.Component {
 
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            newMessage: ""
-        }
-    }
 
     messageChange = (event) => {
-        this.setState({ newMessage: event.target.value });
+        store.newMessageBody = event.target.value;
     }
 
     sendMessage = () => {
-        postMessage(this.props.user, this.state.newMessage).then(res => {
-            this.props.updateMessages(this.props.userID);
-        });
-        
+        store.postMessage();
+
     }
 
 
@@ -127,6 +233,36 @@ class NewMessage extends React.Component {
     }
 }
 
+@observer
+class NewChannel extends React.Component {
+
+    nameChange = (event) => {
+        store.newChannelName = event.target.value;
+    }
+
+    descriptionChange = (event) => {
+        store.newChannelDescription = event.target.value;
+    }
+
+    sendNewChannel = () => {
+        store.postChannel()
+    }
+
+
+
+    render() {
+        return <MessageForm>
+            <label htmlFor="msg"><b>Title</b></label>
+            <input placeholder="Type name.." name="msg" onChange={this.nameChange}></input>
+            <label htmlFor="msg"><b>Title</b></label>
+            <input placeholder="Type description.." name="msg" onChange={this.descriptionChange}></input>
+
+            <Button onClick={this.sendNewChannel} theme={theme} backgroundColor={green}>Submit
+          </Button>
+        </MessageForm>
+    }
+}
+
 const Layout = styled.div`
 padding: 1em;
 `
@@ -137,8 +273,9 @@ const MessageBody = styled.div`
 `
 
 const MessageCreator = styled.div`
-    color: white;
+    color: gray;
     padding-left: .5em;
+    font-size: .5em;
 
 `
 
@@ -159,12 +296,23 @@ const MessageForm = styled.div`
 
 `
 
+const ChannelCard = styled.div`
+background-color: darkgrey;
+border: soild 5px;
+padding: 1em;
+margin: .5em .25em .5em .25em;
+
+h1{
+    font-size: 2em;
+}
+`
+
 
 const Message = styled.div`
 color: black;
-padding: 1em;
+padding: .5em;
 margin: 1em;
-background-color: darkgrey;
+background-color: white;
 border-radius: 5px;
 
 `
