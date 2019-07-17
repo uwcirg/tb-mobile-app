@@ -1,0 +1,12 @@
+version: '3'
+services:
+  message:
+    image: kjgoodwins/message
+    ports:
+      - "5055:5055"
+    environment:
+      PORT: "5055"
+      MDPORT: "mongo:27017"
+  mongo:
+    ports: "27017"
+    image: "mongo"

@@ -39,3 +39,23 @@ services:
     depends_on:
       - db
     restart: always
+
+  mongo:
+    container_name: mongo
+    ports:
+     - "27017:27017"
+    image: "mongo"
+    restart: always
+
+  message:
+    container_name: "message"
+    depends_on:
+      - mongo
+    image: kjgoodwins/messaging
+    ports:
+      - "5002:5002"
+    environment:
+      PORT: "5002"
+      MDPORT: "mongo:27017"
+      NAME: "message"
+    restart: always

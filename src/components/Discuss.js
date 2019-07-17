@@ -325,7 +325,7 @@ const MessageForm = styled.div`
 `
 
 const ChannelCard = styled.div`
-background-color: darkgrey;
+background-color: white;
 border: soild 5px;
 padding: 1em;
 margin: .5em .25em .5em .25em;
@@ -361,8 +361,16 @@ input{
     margin-bottom: 1em;
     }
 
+    input{
+        width: 50%;
+    }
+
     textarea{
         width: 80%;
+        height: 50px;
+        resize: none;
+        margin-bottom: 50px;
+
     }
 }
 
