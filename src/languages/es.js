@@ -1259,6 +1259,7 @@ export default {
   },
 
   discussion_board:{
-    title: "Panel de Discusión"
+    title: "Panel de Discusión",
+    new_channel: "Añadir un nuevo tema"
   }
 }

@@ -7,6 +7,13 @@ import { DateTime } from "luxon"
 import { observable, runInAction, action } from "mobx";
 import { observer } from "mobx-react"
 
+import Icon from "@mdi/react"
+import {
+    mdiPlus,
+    mdiMinus
+} from "@mdi/js"
+
+
 
 class DiscussStore {
 
@@ -20,6 +27,7 @@ class DiscussStore {
     @observable channels = [];
     @observable newChannelName = ""
     @observable newChannelDescription = ""
+    @observable isAddingNewChannel = false;
 
     //Specific Discussion
     @observable specificChannelMessages = [];
@@ -27,12 +35,13 @@ class DiscussStore {
 
 
     constructor(){
-        this.url = 'http://localhost:5002'
+        this.url = process.env.REACT_APP_MESSAGE_API;
     }
    
 
     @action
     getChannels = () => {
+
         fetch(`${this.url}/v1/channels`, {
             method: "GET",
             headers: {
@@ -152,7 +161,7 @@ class DiscussTest extends React.Component {
             <Layout>
                 <h1>{this.props.assembly.translate("discussion_board.title")}</h1>
                 {channelList}
-                <NewChannel />
+                <NewChannel assembly={this.props.assembly} />
             </Layout>
         )
     }
@@ -220,8 +229,6 @@ class NewMessage extends React.Component {
 
     }
 
-
-
     render() {
         return <MessageForm>
             <label htmlFor="msg"><b>Message</b></label>
@@ -236,6 +243,14 @@ class NewMessage extends React.Component {
 @observer
 class NewChannel extends React.Component {
 
+    handlePlus = () => {
+        store.isAddingNewChannel = true;
+    }
+
+    handleMinus = () => {
+        store.isAddingNewChannel = false;
+    }
+
     nameChange = (event) => {
         store.newChannelName = event.target.value;
     }
@@ -248,18 +263,31 @@ class NewChannel extends React.Component {
         store.postChannel()
     }
 
-
-
     render() {
-        return <MessageForm>
-            <label htmlFor="msg"><b>Title</b></label>
-            <input placeholder="Type name.." name="msg" onChange={this.nameChange}></input>
-            <label htmlFor="msg"><b>Title</b></label>
-            <input placeholder="Type description.." name="msg" onChange={this.descriptionChange}></input>
 
-            <Button onClick={this.sendNewChannel} theme={theme} backgroundColor={green}>Submit
-          </Button>
-        </MessageForm>
+        let plusIcon = <Icon onClick={this.handlePlus} path={mdiPlus} color={"white"} size="1.5em" />
+        let minusIcon = <Icon onClick={this.handleMinus} path={mdiMinus} color={"white"} size="1.5em" />
+
+        let controls = (<div className="input-group">
+        <label htmlFor="msg">Title</label>
+        <br></br>
+        <input placeholder="Type name.." name="msg" onChange={this.nameChange}></input>
+        <br></br>
+        <label htmlFor="msg">Description</label>
+        <br></br>
+        <textarea placeholder="Type description.." name="msg" onChange={this.descriptionChange}></textarea>
+        <br></br>
+        </div>)
+
+
+        return <ChannelForm>
+ 
+            <h1>{this.props.assembly.translate("discussion_board.new_channel")} 
+            {store.isAddingNewChannel ? minusIcon : plusIcon} 
+            </h1>
+            {store.isAddingNewChannel ? controls : ""}
+            {store.isAddingNewChannel ? <Button onClick={this.sendNewChannel} theme={theme}>Create</Button> : ""}
+        </ChannelForm>
     }
 }
 
@@ -305,6 +333,55 @@ margin: .5em .25em .5em .25em;
 h1{
     font-size: 2em;
 }
+`
+
+const ChannelForm = styled(ChannelCard)`
+
+position: relative;
+
+button{
+    background-color: white;
+    color: green;
+    position: absolute;
+    bottom: 1em;
+    right: 1em;
+}
+
+input{
+    padding: 1em;
+}
+
+.input-group{
+
+    label{
+    font-size: 1.5em;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    }
+
+    textarea{
+        width: 80%;
+    }
+}
+
+
+h1{
+    display: inline-block;
+    position: relative;
+    width: 100%;
+}
+
+h1 svg{
+    display: inline-block;
+    vertical-align: middle;
+    position: absolute;
+    right: 1em;
+}
+
+background-color: ${green}
+
 `
 
 
