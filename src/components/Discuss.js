@@ -215,7 +215,7 @@ class Channel extends React.Component {
 
         return (
             <SpecificChannel>
-               <Icon onClick={this.handleBack} path={mdiArrowLeftBold} color={green} size="50px" />
+               <Icon id="back" onClick={this.handleBack} path={mdiArrowLeftBold} color={green} size="50px" />
                 
                 <ChannelHeader>
                 <h1> 
@@ -248,7 +248,9 @@ class NewMessage extends React.Component {
             <label htmlFor="msg"><b>Message</b></label>
             <MessageGroup>
             <textarea placeholder="Type message.." name="msg" onChange={this.messageChange}></textarea>
-            <Button onClick={this.sendMessage} theme={theme} backgroundColor={green}>Send</Button>
+            <Send onClick={this.sendMessage} theme={theme} backgroundColor={green}>
+            <Icon path={mdiArrowRightBold} color={"white"} size="2em" />
+                </Send>
             </MessageGroup>
         </MessageForm>
     }
@@ -266,6 +268,8 @@ class NewChannel extends React.Component {
 
     handleMinus = () => {
         store.isAddingNewChannel = false;
+        store.newChannelDescription = "";
+        store.newChannelName = "";
     }
 
     nameChange = (event) => {
@@ -278,6 +282,7 @@ class NewChannel extends React.Component {
 
     sendNewChannel = () => {
         store.postChannel()
+        this.handleMinus();
     }
 
     scrollToBottom() {
@@ -288,15 +293,19 @@ class NewChannel extends React.Component {
 
         let plusIcon = <Icon onClick={this.handlePlus} path={mdiPlus} color={"white"} size="1.5em" />
         let minusIcon = <Icon onClick={this.handleMinus} path={mdiMinus} color={"white"} size="1.5em" />
+    
+        let title = this.props.assembly.translate("discussion_board.channel_title");
+        let description = this.props.assembly.translate("discussion_board.channel_description");
+        let type = this.props.assembly.translate("discussion_board.type");
 
         let controls = (<div ref={newTitle => { this.newTitle = newTitle; }} className="input-group">
-        <label htmlFor="msg">Title</label>
+        <label htmlFor="msg">{title}</label>
         <br></br>
-        <input placeholder="Type name.." name="msg" onChange={this.nameChange}></input>
+        <input placeholder={`${type} ${title}... `} name="msg" onChange={this.nameChange}></input>
         <br></br>
-        <label htmlFor="msg">Description</label>
+        <label htmlFor="msg">{description}</label>
         <br></br>
-        <textarea placeholder="Type description.." name="msg" onChange={this.descriptionChange}></textarea>
+        <textarea placeholder={`${type} ${description}... `} name="msg" onChange={this.descriptionChange}></textarea>
         <br></br>
         </div>)
 
@@ -307,7 +316,7 @@ class NewChannel extends React.Component {
             {store.isAddingNewChannel ? minusIcon : plusIcon} 
             </h1>
             {store.isAddingNewChannel ? controls : ""}
-            {store.isAddingNewChannel ? <Button onClick={this.sendNewChannel} theme={theme}>Create</Button> : ""}
+            {store.isAddingNewChannel && (store.newChannelName && store.newChannelDescription) ? <Button  onClick={this.sendNewChannel} theme={theme}>{this.props.assembly.translate("discussion_board.add")}</Button> : ""}
         </ChannelForm>
     }
 }
@@ -326,20 +335,32 @@ label{
 }
 
 `
+
+const Send = styled.div` 
+
+    //position: absolute;
+    //right: 0px;
+    //bottom: 5px;
+    height: 75px;
+    margin: 5px;
+    width: 20%
+    background-color: ${green};
+    float: left;
+
+    svg{
+        display: block;
+        margin: auto;
+        margin-top: 33%;
+    }
+
+`
 const MessageGroup = styled.div`
-    position: absolute;
     bottom: 0px;
     width: 95vw;
 
-    button{
-        position: absolute;
-        right: 0px;
-        bottom: 5px;
-
-    }
-
     textarea{
-        width: 80%;
+        float: left;
+        width: 65%;
         padding: 15px;
         margin: 5px 0 0px 0;
         border: none;
@@ -366,7 +387,7 @@ h1{
 
 const SpecificChannel = styled.div`
 position: relative;
-svg{
+#back{
     position: absolute;
     top 10px;
     left: -10px;
@@ -382,8 +403,6 @@ padding: .25em 1em 1em .25em;
 h1{
     font-size: 1.5em;
 }
-
-
 `
 
 const ChannelForm = styled(ChannelCard)`
@@ -398,29 +417,31 @@ button{
     right: 1em;
 }
 
-input{
-    padding: 1em;
-}
-
 .input-group{
 
     label{
-    font-size: 1.5em;
-    font-weight: bold;
-    display: inline-block;
-    margin-top: 1em;
-    margin-bottom: 1em;
+        font-size: 1.5em;
+        font-weight: bold;
+        display: inline-block;
+        margin-top: 1em;
+        margin-bottom: .5em
     }
 
     input{
-        width: 50%;
+        padding: 1em;
+        width: 70%
+        border: none;
+        border-radius: 2px;
     }
 
     textarea{
         width: 70%;
         height: 50px;
         resize: none;
-        margin-bottom: 50px;
+        margin-bottom: 100px;
+        padding: 1em;
+        border: none;
+        border-radius: 2px;
 
     }
 }

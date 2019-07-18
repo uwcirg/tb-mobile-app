@@ -1260,6 +1260,10 @@ export default {
 
   discussion_board:{
     title: "Panel de Discusión",
-    new_channel: "Añadir un nuevo tema"
+    type: "Escribe",
+    new_channel: "Añadir un nuevo tema",
+    channel_title: "Título",
+    channel_description: "Descripción",
+    add: "Añadir"
   }
 }

@@ -1272,6 +1272,10 @@ export default {
 
   discussion_board:{
     title: "Discussion Board",
-    new_channel: "Add a new topic"
+    type: "Type",
+    channel_title: "Title",
+    channel_description: "Description",
+    new_channel: "Add a new topic",
+    add: "Add"
   }
 }
