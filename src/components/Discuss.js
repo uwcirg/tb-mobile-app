@@ -77,7 +77,6 @@ class DiscussStore {
     @action
     getDiscussion = () => {
 
-        console.log("thisran " + this.specificChannel)
         fetch(`${this.url}/v1/channels/${this.specificChannel}`, {
             method: "GET",
             headers: {
@@ -260,6 +259,9 @@ class NewChannel extends React.Component {
 
     handlePlus = () => {
         store.isAddingNewChannel = true;
+        setTimeout( () => {
+            this.scrollToBottom();
+        }, 100)
     }
 
     handleMinus = () => {
@@ -278,12 +280,16 @@ class NewChannel extends React.Component {
         store.postChannel()
     }
 
+    scrollToBottom() {
+        this.newTitle.scrollIntoView({ behavior: 'smooth' });
+      }
+
     render() {
 
         let plusIcon = <Icon onClick={this.handlePlus} path={mdiPlus} color={"white"} size="1.5em" />
         let minusIcon = <Icon onClick={this.handleMinus} path={mdiMinus} color={"white"} size="1.5em" />
 
-        let controls = (<div className="input-group">
+        let controls = (<div ref={newTitle => { this.newTitle = newTitle; }} className="input-group">
         <label htmlFor="msg">Title</label>
         <br></br>
         <input placeholder="Type name.." name="msg" onChange={this.nameChange}></input>
@@ -297,7 +303,7 @@ class NewChannel extends React.Component {
 
         return <ChannelForm>
  
-            <h1>{this.props.assembly.translate("discussion_board.new_channel")} 
+            <h1 onClick={store.isAddingNewChannel ? this.handleMinus : this.handlePlus}>{this.props.assembly.translate("discussion_board.new_channel")} 
             {store.isAddingNewChannel ? minusIcon : plusIcon} 
             </h1>
             {store.isAddingNewChannel ? controls : ""}
@@ -307,6 +313,9 @@ class NewChannel extends React.Component {
 }
 
 const Layout = styled.div`
+h1{
+    font-size: 1.5em;
+}
 `
 const MessageForm = styled.div`
 position: absolute;
@@ -345,11 +354,13 @@ const MessageGroup = styled.div`
 const ChannelCard = styled.div`
 background-color: white;
 border: soild 5px;
-padding: 1em;
-margin: .5em .25em .5em .25em;
+padding: .5em 1em .5em 1em;
+margin-bottom: .5em;
+border-radius: 5px;
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.09);
 
 h1{
-    font-size: 2em;
+    font-size: 1.5em;
 }
 `
 
@@ -423,9 +434,9 @@ h1{
 
 h1 svg{
     display: inline-block;
-    vertical-align: middle;
     position: absolute;
-    right: 1em;
+    top: -2px;
+    right: 0;
 }
 
 background-color: ${green}
