@@ -4,13 +4,15 @@ import { Button } from "reakit"
 import { green, red} from "../colors"
 import theme from "reakit-theme-default";
 import { DateTime } from "luxon"
-import { observable, runInAction, action } from "mobx";
+import { observable, runInAction, action, computed } from "mobx";
 import { observer } from "mobx-react"
 
 import Icon from "@mdi/react"
 import {
     mdiPlus,
-    mdiMinus
+    mdiMinus,
+    mdiArrowLeftBold,
+    mdiArrowRightBold
 } from "@mdi/js"
 
 
@@ -36,6 +38,12 @@ class DiscussStore {
 
     constructor(){
         this.url = process.env.REACT_APP_MESSAGE_API;
+    }
+
+    @computed get currentChannelObject(){
+        return this.channels.find( channel =>{
+            return channel.id == this.specificChannel;
+        })
     }
    
 
@@ -207,12 +215,19 @@ class Channel extends React.Component {
         let userName = getUserName(this.props.assembly);
 
         return (
-            <Layout>
-                <Button onClick={this.handleBack} theme={theme} backgroundColor={red}>Back</Button>
-                <h1>{this.props.assembly.translate("discussion_board.title")}</h1>
+            <SpecificChannel>
+               <Icon onClick={this.handleBack} path={mdiArrowLeftBold} color={green} size="50px" />
+                
+                <ChannelHeader>
+                <h1> 
+                {store.currentChannelObject.name}
+                </h1>
+                <p>{store.currentChannelObject.description}</p>
+                </ChannelHeader>
+
                 {messageList}
                 <NewMessage user={{ name: userName, id: userID }} updateMessages={this.updateMessages} />
-            </Layout>
+            </SpecificChannel>
         )
     }
 }
@@ -232,10 +247,10 @@ class NewMessage extends React.Component {
     render() {
         return <MessageForm>
             <label htmlFor="msg"><b>Message</b></label>
+            <MessageGroup>
             <textarea placeholder="Type message.." name="msg" onChange={this.messageChange}></textarea>
-
-            <Button onClick={this.sendMessage} theme={theme} backgroundColor={green}>Submit
-          </Button>
+            <Button onClick={this.sendMessage} theme={theme} backgroundColor={green}>Send</Button>
+            </MessageGroup>
         </MessageForm>
     }
 }
@@ -292,33 +307,36 @@ class NewChannel extends React.Component {
 }
 
 const Layout = styled.div`
-padding: 1em;
 `
-
-const MessageBody = styled.div`
-    padding: .5em;
-
-`
-
-const MessageCreator = styled.div`
-    color: gray;
-    padding-left: .5em;
-    font-size: .5em;
-
-`
-
 const MessageForm = styled.div`
+position: absolute;
+bottom: 5px;
 
-    width: 80%;
+label{
+    display: none;
+}
+
+`
+const MessageGroup = styled.div`
+    position: absolute;
+    bottom: 0px;
+    width: 95vw;
+
+    button{
+        position: absolute;
+        right: 0px;
+        bottom: 5px;
+
+    }
 
     textarea{
-        width: 100%;
+        width: 80%;
         padding: 15px;
-        margin: 5px 0 22px 0;
+        margin: 5px 0 0px 0;
         border: none;
         background: #f1f1f1;
         resize: none;
-        min-height: 50px;
+        min-height: 25px;
         font-size: 1.25em;
     }
 
@@ -333,6 +351,28 @@ margin: .5em .25em .5em .25em;
 h1{
     font-size: 2em;
 }
+`
+
+const SpecificChannel = styled.div`
+position: relative;
+svg{
+    position: absolute;
+    top 10px;
+    left: -10px;
+}
+
+height: 100%;
+`
+
+const ChannelHeader = styled.div`
+margin-left: 50px;
+padding: .25em 1em 1em .25em;
+
+h1{
+    font-size: 1.5em;
+}
+
+
 `
 
 const ChannelForm = styled(ChannelCard)`
@@ -366,7 +406,7 @@ input{
     }
 
     textarea{
-        width: 80%;
+        width: 70%;
         height: 50px;
         resize: none;
         margin-bottom: 50px;
@@ -396,9 +436,21 @@ background-color: ${green}
 const Message = styled.div`
 color: black;
 padding: .5em;
-margin: 1em;
+margin: .5em;
 background-color: white;
 border-radius: 5px;
+
+`
+
+const MessageBody = styled.div`
+
+
+`
+
+const MessageCreator = styled.div`
+    color: gray;
+    font-size: .5em;
+    padding-top: .5em;
 
 `
 
