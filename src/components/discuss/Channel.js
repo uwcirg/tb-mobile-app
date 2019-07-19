@@ -1,7 +1,7 @@
 import { observer } from "mobx-react"
 import React from "react"
 import styled from "styled-components"
-import { green} from "../../colors"
+import { green } from "../../colors"
 import theme from "reakit-theme-default";
 import { DateTime } from "luxon"
 
@@ -14,6 +14,11 @@ import {
 
 @observer
 export default class Channel extends React.Component {
+
+    constructor(props){
+        super(props);
+        this.bottom = React.createRef();
+    }
 
     updateMessages = () => {
         this.props.store.getDiscussion()
@@ -28,41 +33,59 @@ export default class Channel extends React.Component {
         this.updateMessages();
     }
 
-    render() {
+    scroll = () => {
+        setTimeout( () => {
+            this.bottom.current.scrollIntoView({ behavior: "smooth" });
+        }, 500)
+        
+    }
+
+
+    render(){
 
         let messageList = this.props.store
-        .specificChannelMessages.slice()
-        .sort((a, b) => {
-            return DateTime.fromISO(a.createdAt) - DateTime.fromISO(b.createdAt)
-        }).map(item => {
-            return <Message key={item.createdAt}>
-                <MessageBody>{item.body}</MessageBody>
-                <MessageCreator>{item.creatorName} at {DateTime.fromISO(item.createdAt).toLocaleString(DateTime.DATETIME_MED)} </MessageCreator>
-            </Message>
-        })
+            .specificChannelMessages.slice()
+            .sort((a, b) => {
+                return DateTime.fromISO(a.createdAt) - DateTime.fromISO(b.createdAt)
+            }).map(item => {
+                console.log("here")
+                return <Message key={item.createdAt}>
+                    <MessageBody>{item.body}</MessageBody>
+                    <MessageCreator>{item.creatorName} at {DateTime.fromISO(item.createdAt).toLocaleString(DateTime.DATETIME_MED)} </MessageCreator>
+                </Message>
+            })
+
 
         let userID = this.props.store.userID;
         let userName = this.props.store.userName;
 
         return (
             <SpecificChannel>
-               <Icon id="back" onClick={this.handleBack} path={mdiArrowLeftBoldCircle} color={"gray"} size="2em" />
-                
-                <ChannelHeader>
-                <h1> 
-                {this.props.store.currentChannelObject.name}
-                </h1>
-                <p>{this.props.store.currentChannelObject.description}</p>
+                <Icon id="back" onClick={this.handleBack} path={mdiArrowLeftBoldCircle} color={"gray"} size="2em" />
+
+                <ChannelHeader onClick={this.scroll}>
+                    <h1>
+                        {this.props.store.currentChannelObject.name}
+                    </h1>
+                    <p>{this.props.store.currentChannelObject.description}</p>
                 </ChannelHeader>
 
-
+                <Messages>
                 {messageList}
-              
-                <NewMessage store={this.props.store} user={{ name: userName, id: userID }} updateMessages={this.updateMessages} />
+                <div ref={this.bottom}></div>
+                </Messages>
+                
+
+                <NewMessage scroll={this.scroll} store={this.props.store} user={{ name: userName, id: userID }} updateMessages={this.updateMessages} />
             </SpecificChannel>
         )
     }
 }
+
+const Messages = styled.div`
+margin-bottom: 100px;
+
+`
 
 const SpecificChannel = styled.div`
 position: relative;
@@ -85,23 +108,24 @@ h1{
 
 class NewMessage extends React.Component {
 
-
     messageChange = (event) => {
         this.props.store.newMessageBody = event.target.value;
     }
 
     sendMessage = () => {
         this.props.store.postMessage();
-
+        this.props.store.newMessageBody = "";
+        this.textArea.value = "";
+        this.props.scroll();
     }
 
     render() {
         return <MessageForm>
             <label htmlFor="msg"><b>Message</b></label>
             <MessageGroup>
-            <textarea placeholder="Type message.." name="msg" onChange={this.messageChange}></textarea>
-            <Send onClick={this.sendMessage} theme={theme} backgroundColor={green}>
-            <Icon path={mdiArrowRightBold} color={"white"} size="2em" />
+                <textarea ref={textArea => { this.textArea = textArea; }} placeholder="Type message.." name="msg" onChange={this.messageChange}></textarea>
+                <Send onClick={this.sendMessage} theme={theme} backgroundColor={green}>
+                    <Icon path={mdiArrowRightBold} color={"white"} size="2em" />
                 </Send>
             </MessageGroup>
         </MessageForm>
