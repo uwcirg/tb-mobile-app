@@ -1259,7 +1259,7 @@ export default {
   },
 
   discussion_board:{
-    title: "Panel de Discusión",
+    title: "Foro de Discusión",
     type: "Escribe",
     new_channel: "Añadir un nuevo tema",
     channel_title: "Título",

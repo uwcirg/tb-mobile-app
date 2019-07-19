@@ -4,7 +4,7 @@ import { Button, Link, List, Provider, Divider } from "reakit";
 import theme from "reakit-theme-default";
 import { blue, green, white } from "../colors"
 
-import Discuss from './Discuss'
+import Discuss from './discuss/Discuss'
 
 import InternalLink from "../primitives/InternalLink"
 
