@@ -76,7 +76,7 @@ export default class Channel extends React.Component {
                 </Messages>
                 
 
-                <NewMessage scroll={this.scroll} store={this.props.store} user={{ name: userName, id: userID }} updateMessages={this.updateMessages} />
+                <NewMessage assembly={this.props.assembly} scroll={this.scroll} store={this.props.store} user={{ name: userName, id: userID }} updateMessages={this.updateMessages} />
             </SpecificChannel>
         )
     }
@@ -123,7 +123,7 @@ class NewMessage extends React.Component {
         return <MessageForm>
             <label htmlFor="msg"><b>Message</b></label>
             <MessageGroup>
-                <textarea ref={textArea => { this.textArea = textArea; }} placeholder="Type message.." name="msg" onChange={this.messageChange}></textarea>
+                <textarea ref={textArea => { this.textArea = textArea; }} placeholder={`${this.props.assembly.translate("discussion_board.type_here")}...`} name="msg" onChange={this.messageChange}></textarea>
                 <Send onClick={this.sendMessage} theme={theme} backgroundColor={green}>
                     <Icon path={mdiArrowRightBold} color={"white"} size="2em" />
                 </Send>

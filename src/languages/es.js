@@ -1264,6 +1264,7 @@ export default {
     new_channel: "Añadir un nuevo tema",
     channel_title: "Título",
     channel_description: "Descripción",
-    add: "Añadir"
+    add: "Añadir",
+    type_here: "Escriba mensaje aqui"
   }
 }

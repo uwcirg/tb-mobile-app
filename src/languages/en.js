@@ -1276,6 +1276,7 @@ export default {
     channel_title: "Title",
     channel_description: "Description",
     new_channel: "Add a new topic",
-    add: "Add"
+    add: "Add",
+    type_here: "Type here"
   }
 }
