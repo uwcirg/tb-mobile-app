@@ -11,6 +11,7 @@ import {
   mdiInformationOutline,
   mdiPencilBoxOutline,
   mdiHome,
+  mdiAlertDecagram,
 } from "@mdi/js"
 
 import Home from "./Home"
@@ -18,6 +19,17 @@ import InfoEd from "./InfoEd"
 import Notes from "./Notes"
 import Contact from "./Contact"
 import Progress from "./Progress"
+
+const PopUp = () => {
+  return(
+  <PopUpIcon>      
+  <Icon
+  path={mdiAlertDecagram}
+  color={"red"}
+  size="1.5em"/>
+  </PopUpIcon>
+  )}
+
 
 const Navigation = observer(({ assembly }) => (
   <Layout>
@@ -38,11 +50,15 @@ const Navigation = observer(({ assembly }) => (
     </InternalLink>
 
     <InternalLink to={Contact} assembly={assembly} >
+      <NotificationContainer>
       <Icon
         path={mdiWhatsapp}
         color={assembly.currentPage === Contact ? primary : black}
         size="1.8rem"
       />
+      {localStorage.getItem('visitedDiscussion') ? "" : <PopUp />}
+      </NotificationContainer>
+
     </InternalLink>
 
     <InternalLink to={Notes} assembly={assembly} >
@@ -86,18 +102,23 @@ const IconContainer = styled.div`
 `
 
 const PopUpIcon = styled.div`
+position: absolute;
+  top: -10px;
+  right: -10px;
+/*
   width: 20px;
   height: 20px;
   padding: 1px;
   border-radius: 5px;
   background-color: red;
-  position: absolute;
   z-index: 1000;
-  top: 10px;
-  right: 20px;
+
   color: white;
   text-align: center;
+  */
 
 `
+const NotificationContainer = styled.div`
+position: relative;`
 
 export default Navigation;

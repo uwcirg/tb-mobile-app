@@ -17,6 +17,8 @@ import Survey from "./Survey"
 import Help from "../primitives/Help"
 import Button from "../primitives/Button"
 
+import Alert from "./NewFeatureAlert"
+
 import AdherenceCalendar from "./AdherenceCalendar"
 
 const Home = observer(({ assembly }) => (
@@ -38,6 +40,7 @@ const Home = observer(({ assembly }) => (
       <Help> <IconKey assembly={assembly} /> </Help>
     </Row>
     <AdherenceCalendar assembly={assembly} />
+    {localStorage.getItem('visitedDiscussion') ? "" : <Alert assembly={assembly} />}
   </Layout>
 ))
 

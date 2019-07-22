@@ -34,6 +34,7 @@ class Discuss extends React.Component {
     componentDidMount(){
         store.userID = getUserNumber(this.props.assembly);
         store.userName = getUserName(this.props.assembly);
+        localStorage.setItem('visitedDiscussion',"true");
     }
 
     render() {
