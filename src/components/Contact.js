@@ -23,8 +23,6 @@ const Contact = observer(({assembly}) => (
           {assembly.translate("contact.contact_title")}
         </h3>
 
-          <p>{assembly.translate("contact.first")}</p>
-          
         <Link href="http://wa.me/5491127481963" target="_blank">
           <Button backgroundColor={green}>{assembly.translate("contact.whatsapp")}
             <Icon
@@ -35,12 +33,14 @@ const Contact = observer(({assembly}) => (
           </Button>
         </Link>
 
+          <p>{assembly.translate("contact.first")}</p>
+          
+
         <Divider />
 
         <h3>
           {assembly.translate("discussion_board.title")}
         </h3>
-        <p> {assembly.translate("contact.discussion_title")}</p>
         <InternalLink to={Discuss} assembly={assembly} >
         <Button backgroundColor={green}>{assembly.translate("discussion_board.title")}
             <Icon
@@ -50,6 +50,8 @@ const Contact = observer(({assembly}) => (
             />
           </Button>
     </InternalLink>
+        <p> {assembly.translate("contact.discussion_title")}</p>
+
       </div>
     </Provider>
 ))
