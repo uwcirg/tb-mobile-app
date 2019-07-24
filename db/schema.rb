@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190410205240) do
+ActiveRecord::Schema.define(version: 20190723223618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 20190410205240) do
     t.string "status"
     t.text "photo", null: false
     t.string "resolution_uuid"
+    t.string "url_photo"
   end
 
   create_table "symptom_reports", force: :cascade do |t|

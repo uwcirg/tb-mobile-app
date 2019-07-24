@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 
-import { observable, computed,  autorun, action } from "mobx"
+import { observable, computed, autorun, action } from "mobx"
 import { observer, Observer } from "mobx-react"
 import { Image } from "reakit"
 import { white, beige, lightgrey, darkgrey } from "./colors"
@@ -163,12 +163,12 @@ class Assembly extends React.Component {
 
     // Every 5 minutes refresh the coordinator home
     autorun(() => {
-      if(this.currentPage === CoordinatorHome)
+      if (this.currentPage === CoordinatorHome)
         this.coordinator_timer = setInterval(
           () => network.refresh(),
           5 * 60 * 1000, // 5 minutes, 60 s/min, 1000 ms/s
         )
-      else if(this.coordinator_timer) {
+      else if (this.coordinator_timer) {
         clearInterval(this.coordinator_timer)
         this.coordinator_timer = null
       }
@@ -182,9 +182,9 @@ class Assembly extends React.Component {
     let coordinator_uuid = localStorage.getItem("coordinator.uuid")
     let participant_uuid = localStorage.getItem("participant.uuid")
 
-    if(coordinator_uuid)
+    if (coordinator_uuid)
       this.coordinator_account.watch(coordinator_uuid, () => this.route())
-    else if(participant_uuid)
+    else if (participant_uuid)
       this.participant_account.watch(participant_uuid, () => this.route())
     else {
       this.currentPage = Login
@@ -258,13 +258,13 @@ class Assembly extends React.Component {
   }
 
   @computed get currentPageTitle() {
-    switch(this.currentPage) {
-      case Notes:           return this.translate("titles.notes")
-      case Faqs:            return this.translate("titles.faqs")
+    switch (this.currentPage) {
+      case Notes: return this.translate("titles.notes")
+      case Faqs: return this.translate("titles.faqs")
       case SymptomOverview: return this.translate("titles.symptomOverview")
-      case InfoEd:          return this.translate("titles.infoEd")
-      case Home:            return this.translate("titles.home")
-      default:              return this.translate("titles.default")
+      case InfoEd: return this.translate("titles.infoEd")
+      case Home: return this.translate("titles.home")
+      default: return this.translate("titles.default")
     }
   }
 
@@ -277,26 +277,26 @@ class Assembly extends React.Component {
         timestamp: ${JSON.stringify(DateTime.local().toISO())},
 
         note: ${
-          JSON.stringify(this.fetch(`coordinator_note.${participant.uuid}`) || "")
-        },
+      JSON.stringify(this.fetch(`coordinator_note.${participant.uuid}`) || "")
+      },
 
         medication_reports: [ ${
-          participant.medication_reports.map(record =>
-          `MedicationReport.find(${record.id})`
-          ).join(",")
-        } ],
+      participant.medication_reports.map(record =>
+        `MedicationReport.find(${record.id})`
+      ).join(",")
+      } ],
 
         strip_reports: [ ${
-          participant.strip_reports.map(record =>
-          `StripReport.find(${record.id})`
-          ).join(",")
-        } ],
+      participant.strip_reports.map(record =>
+        `StripReport.find(${record.id})`
+      ).join(",")
+      } ],
 
         symptom_reports: [ ${
-          participant.symptom_reports.map(record =>
-          `SymptomReport.find(${record.id})`
-          ).join(",")
-        } ],
+      participant.symptom_reports.map(record =>
+        `SymptomReport.find(${record.id})`
+      ).join(",")
+      } ],
 
         uuid: SecureRandom.uuid,
         author: Coordinator.find_by(uuid: "${this.coordinator_account.information.uuid}"),
@@ -305,7 +305,7 @@ class Assembly extends React.Component {
   }
 
 
-  getMessages(user){
+  getMessages(user) {
     return network.getMessages(user);
   }
 
@@ -329,7 +329,7 @@ class Assembly extends React.Component {
     let parts = tag.split(".")
 
     parts.forEach((part, index) => {
-      if(index === parts.length - 1)
+      if (index === parts.length - 1)
         data[part] = value
       else
         data = data[part]
@@ -438,8 +438,8 @@ class Assembly extends React.Component {
     let dictionary = { "Español": espanol, "English": english }[this.language];
 
     // TODO this is a clumsy way to do a nested look up.
-    for (var i=0; i < semantic_words.length; i++) {
-      if(!dictionary[semantic_words[i]]) {
+    for (var i = 0; i < semantic_words.length; i++) {
+      if (!dictionary[semantic_words[i]]) {
         console.log(`Error! Could not find translation of "${semantic_words[i]}", of ${semantic}`)
         return "Error! Translation not found."
       }
@@ -454,7 +454,7 @@ class Assembly extends React.Component {
     return { "Español": "es", "English": "en" }[this.language];
   }
 
-  @computed  get timeSinceTreatment(){
+  @computed get timeSinceTreatment() {
     let dt = DateTime.fromSQL(this.participant_account.information.treatment_start).toObject();
     console.log(dt);
     let duration = Duration.fromObject(dt);
@@ -478,7 +478,7 @@ class Assembly extends React.Component {
     <Layout>
       <AuthBar>
         <InternalLink to={Login} assembly={this} >
-          <Image src={logo} width="1.5rem" height="1.5rem"/>
+          <Image src={logo} width="1.5rem" height="1.5rem" />
           <Title>{this.translate("titles.default")}</Title>
         </InternalLink>
 
@@ -513,10 +513,10 @@ class Assembly extends React.Component {
         <Observer>
           {() =>
             this.currentPage
-            ? <ErrorBoundary assembly={this}>
-                { React.createElement(this.currentPage, { assembly: this }) }
+              ? <ErrorBoundary assembly={this}>
+                {React.createElement(this.currentPage, { assembly: this })}
               </ErrorBoundary>
-            : null
+              : null
           }
         </Observer>
       </Content>

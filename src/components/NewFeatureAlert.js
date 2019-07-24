@@ -11,9 +11,10 @@ import {
 const NewFeatureAlert = () => (
   <Layout>
       <span>
-        A new messageboard feature has been added. 
+      Estimados pacientes hemos agregado una nueva función, un Foro de discusión.
         <br></br>
-        Check it out by clicking the <Icon path={mdiWhatsapp} color={"white"} size="1.5em"/>
+        <br></br>
+        ¡Pruebe la nueva función del foro de discusión! Haga clic en el icono de <Icon path={mdiWhatsapp} color={"white"} size="1em"/>
       </span>
   </Layout>
 )
@@ -23,7 +24,7 @@ const Layout = styled.div`
   border-radius: 5px;
   padding: 1em;
   color: white;
-  width: 80%;
+  width: 90%;
   margin: auto;
 `
 

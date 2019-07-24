@@ -39,7 +39,7 @@ const StripReports = observer(({ assembly }) => (
             // NOTE: We are using created_at here, which is when rails captured the photo
             return DateTime.fromISO(b.created_at) - DateTime.fromISO(a.created_at);
           })
-          .map(({created_at, photo, status}) => (
+          .map(({created_at, photo, status,url_photo}) => (
         <Answer>
           <Time key={created_at}>
             {DateTime
@@ -51,6 +51,8 @@ const StripReports = observer(({ assembly }) => (
             { status ? assembly.translate(`primitives.pos_inconclusive.${status}`) : assembly.translate("progress.not_reviewed")}
           </Info>
           <Image src={photo}>
+          </Image>
+          <Image src={url_photo}>
           </Image>
         </Answer>
       ))}
