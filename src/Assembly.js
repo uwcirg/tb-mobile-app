@@ -99,7 +99,7 @@ class Assembly extends React.Component {
 
   @observable resolution_notes = null
 
-  @observable photos_uploaded = {}
+  @observable photo_uploaded = ""
   @observable any_symptoms = null
 
   @observable capturing = false
@@ -424,13 +424,34 @@ class Assembly extends React.Component {
   }
 
   storePhoto(photo) {
-    this.participant_account.create(
-      "strip_reports",
-      {
-        timestamp: `${this.survey.date}T${this.survey.medication_time}:00.000`,
-        photo: photo,
-      },
-    ).then(r => {  r.json().then(photo => this.photos_uploaded[photo.id] = photo) })
+
+   let upload_photo_count = this.participant_account.information.strip_reports.length + 2;
+   let upload_name = "photo_upload_" + upload_photo_count;
+   
+    //Build JSON for Fetch Request With User Information
+    let bodySend = JSON.stringify(
+      {filename: upload_name,
+         photo: photo.replace(/^data:image\/\w+;base64,/, ""),
+          userID:this.participant_account.information.uuid,
+          timestamp: `${this.survey.date}T${this.survey.medication_time}:00.000`
+         });
+    
+   fetch(`${process.env.REACT_APP_URL_API}/photo`, {
+       method: "POST",
+       headers: {
+           "Content-Type": "application/json",
+       },
+       body: bodySend,
+   }).then( res => res.json())
+   .then(json => {
+     console.log(json)
+     let tempUrl = `${process.env.REACT_APP_URL_API}/photo/${json.userID}/${json.filename}.png`
+     console.log(tempUrl);
+     this.photo_uploaded = tempUrl
+    })
+  
+
+
   }
 
   translate(semantic) {
