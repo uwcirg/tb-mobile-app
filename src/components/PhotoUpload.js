@@ -51,7 +51,7 @@ const PhotoUpload = observer(({ assembly }) => (
         }
     </div>
 
-    <ImagePreviews className="ImagePreviews">
+    {assembly.photo_uploaded === "" ? "" : <ImagePreviews className="ImagePreviews">
         <Img >
           <img
             src={assembly.photo_uploaded}
@@ -60,7 +60,7 @@ const PhotoUpload = observer(({ assembly }) => (
 
           <ConfirmationIcon />
         </Img>
-    </ImagePreviews>
+    </ImagePreviews>}
   </Layout>
 ))
 
