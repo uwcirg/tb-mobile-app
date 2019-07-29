@@ -62,7 +62,7 @@ class Account {
             this.watch(uuid)
             resolve(uuid)
           } else {
-            console.log("Invalid credentials.")
+            reject();
           }
         })
       )
