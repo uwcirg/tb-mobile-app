@@ -322,7 +322,7 @@ class Assembly extends React.Component {
       localStorage.setItem("participant.uuid", uuid)
       this.currentPage = Home
     }).catch((e) => {
-      this.alert("Invalid Credentials");
+      this.alert("Nombre de usuario o contraseña incorrecta");
     });
   }
 
