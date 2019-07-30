@@ -36,8 +36,6 @@ services:
       - db
     restart: always
     volumes:
-      - ./db:/foundation/db
-      - ./models:/foundation/app/models
       - source: user-documents
         target: /ruby/backend/upload/
         type: volume
