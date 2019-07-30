@@ -34,6 +34,12 @@ class ImageCapture extends React.Component {
       .catch((err) => this.props.assembly.alert("An error occured! " + err))
   }
 
+  componentWillUnmount() {
+    if (this.stream.active) {
+      this.stream.getTracks()[0].stop();
+    }
+  }
+
   render() {
     return (
       <Layout imageData={this.imageData}>
