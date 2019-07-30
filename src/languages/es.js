@@ -369,7 +369,7 @@ export default {
     `,
 
     discussion_title: `
-    Únete a un foro de discusión con otros pacientes para hacer preguntas, sacar dudas, y ver informacion nueva
+    El foro de discusión es una oportunidad en el que les proponemos la participación con los demás pacientes que se incluyen en el estudio. Que puedan expresar experiencias, dificultades o facilitadores del tratamiento o todo lo que consideren necesario.
     `,
 
     first: `
