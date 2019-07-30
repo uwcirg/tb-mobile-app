@@ -175,7 +175,7 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
                     .filter(report => report.resolution_uuid === resolution.uuid)
                     .map(report =>
                       <div key={report.timestamp} >
-                        <PhotoPopout src={report.photo} key={report.id} />
+                        <PhotoPopout src={report.url_photo} key={report.id} />
 
                         <Padding>
                           { DateTime

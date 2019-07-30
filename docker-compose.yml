@@ -29,6 +29,7 @@ services:
       - PASSWORD
       - PORT=3000
       - RAILS_ENV=development
+      - URL_API=$URL_API
     ports:
       - $PORT_API:3000
     depends_on:
@@ -38,7 +39,7 @@ services:
       - ./db:/foundation/db
       - ./models:/foundation/app/models
       - source: user-documents
-        target: /ruby/backend/upload/dir
+        target: /ruby/backend/upload/
         type: volume
 
   mongo:

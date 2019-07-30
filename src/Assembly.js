@@ -445,7 +445,7 @@ class Assembly extends React.Component {
    }).then( res => res.json())
    .then(json => {
      console.log(json)
-     let tempUrl = `${process.env.REACT_APP_URL_API}/photo/${json.userID}/${json.filename}.png`
+     let tempUrl = `${json.filename}.png`
      console.log(tempUrl);
      this.photo_uploaded = tempUrl
     })
