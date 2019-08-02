@@ -20,66 +20,97 @@ import Notes from "./Notes"
 import Contact from "./Contact"
 import Progress from "./Progress"
 
-const PopUp = () => {
-  return(
-  <PopUpIcon>      
-  <Icon
-  path={mdiAlertDecagram}
-  color={"red"}
-  size="1.5em"/>
-  </PopUpIcon>
-  )}
+import NotificationStore from "./discuss/NotificationStore"
 
+const notificationStore = new NotificationStore();
 
-const Navigation = observer(({ assembly }) => (
-  <Layout>
-    <InternalLink to={Home} assembly={assembly} >
-      <Icon
-        path={mdiHome}
-        color={assembly.currentPage === Home ? primary : black}
-        size="1.8rem"
-      />
-    </InternalLink>
+class PopUp extends React.Component{
 
-    <InternalLink to={Progress} assembly={assembly} >
-      <Icon
-        path={mdiFolderClockOutline}
-        color={assembly.currentPage === Progress ? primary : black}
-        size="1.8rem"
-      />
-    </InternalLink>
+  render(){
+    return(
+    <PopUpIcon>
+      {this.props.number}
+    </PopUpIcon>
+    )}
+}
 
-    <InternalLink to={Contact} assembly={assembly} >
-      <NotificationContainer>
-      <Icon
-        path={mdiWhatsapp}
-        color={assembly.currentPage === Contact ? primary : black}
-        size="1.8rem"
-      />
-      {localStorage.getItem('visitedDiscussion') ? "" : <PopUp />}
-      </NotificationContainer>
+@observer
+export class Navigation extends React.Component {
 
-    </InternalLink>
+  @observer
+  componentDidMount(){
+    notificationStore.userID = this.props.assembly.fetch("menu.phone_number").replace("-", "").trim();
+    notificationStore.getChannelNotifications();
 
-    <InternalLink to={Notes} assembly={assembly} >
-      <Icon
-        path={mdiPencilBoxOutline}
-        color={assembly.currentPage === Notes ? primary : black}
-        size="1.8rem"
-      />
-    </InternalLink>
+    /*
+    setTimeout(() =>{
+      
+    },1000)
+    */
 
-    <IconContainer>
-    <InternalLink to={InfoEd} assembly={assembly} >
-      <Icon
-        path={mdiInformationOutline}
-        color={assembly.currentPage === InfoEd ? primary : black}
-        size="1.8rem"
-      />       
-    </InternalLink>
-    </IconContainer>
-  </Layout>
-))
+    
+  }
+
+  render() {
+
+    if(!notificationStore.fetching){
+      console.log(notificationStore.totalNumberOfNotifications);
+    }
+
+    //Did this because I was converting from the older "const" notation to a React Class
+    let assembly = this.props.assembly;
+    return(
+    <Layout>
+      <InternalLink to={Home} assembly={assembly} >
+        <Icon
+          path={mdiHome}
+          color={assembly.currentPage === Home ? primary : black}
+          size="1.8rem"
+        />
+      </InternalLink>
+
+      <InternalLink to={Progress} assembly={assembly} >
+        <Icon
+          path={mdiFolderClockOutline}
+          color={assembly.currentPage === Progress ? primary : black}
+          size="1.8rem"
+        />
+      </InternalLink>
+
+      <InternalLink to={Contact} assembly={assembly} >
+        <NotificationContainer>
+          <Icon
+            path={mdiWhatsapp}
+            color={assembly.currentPage === Contact ? primary : black}
+            size="1.8rem"
+          />
+          {console.log(notificationStore.totalNumberOfNotifications)}
+          {notificationStore.totalNumberOfNotifications > 0 ?<PopUp number={notificationStore.totalNumberOfNotifications} />: "" }
+        </NotificationContainer>
+
+      </InternalLink>
+
+      <InternalLink to={Notes} assembly={assembly} >
+        <Icon
+          path={mdiPencilBoxOutline}
+          color={assembly.currentPage === Notes ? primary : black}
+          size="1.8rem"
+        />
+      </InternalLink>
+
+      <IconContainer>
+        <InternalLink to={InfoEd} assembly={assembly} >
+          <Icon
+            path={mdiInformationOutline}
+            color={assembly.currentPage === InfoEd ? primary : black}
+            size="1.8rem"
+          />
+        </InternalLink>
+      </IconContainer>
+    </Layout>
+    )
+  }
+}
 
 const Layout = styled.div`
   display: flex;
@@ -98,16 +129,17 @@ const Layout = styled.div`
 
 const IconContainer = styled.div`
 
-
 `
 
 const PopUpIcon = styled.div`
-position: absolute;
+  position: absolute;
   top: -10px;
   right: -10px;
-/*
-  width: 20px;
-  height: 20px;
+
+  font-size: .75em;
+
+  width: 15px;
+  height: 15px;
   padding: 1px;
   border-radius: 5px;
   background-color: red;
@@ -115,7 +147,7 @@ position: absolute;
 
   color: white;
   text-align: center;
-  */
+
 
 `
 const NotificationContainer = styled.div`

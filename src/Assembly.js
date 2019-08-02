@@ -143,6 +143,7 @@ class Assembly extends React.Component {
   @observable alerts = []
   @observable currentPage = null
 
+
   constructor(props) {
     super(props)
 

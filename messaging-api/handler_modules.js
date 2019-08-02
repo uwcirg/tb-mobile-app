@@ -503,11 +503,9 @@ function getMessagesPerChannel(req,res) {
 function clearUserNotifications(userID, channelID) {
 
     User.findOneAndUpdate({ channelID: channelID, userID: userID }, { numberOfMessages: 0 }, (err, res) => {
-
         if (err) {
             console.log("error + " + err)
         }
-
         if (!err && !res){
             let temp = User.create({
                 userID: userID,
@@ -522,7 +520,6 @@ function clearUserNotifications(userID, channelID) {
         }
         console.log("updated all users")
     })
-
 }
 
 
@@ -536,38 +533,6 @@ function updateAllUserNotifications(channelID) {
         console.log("updated all users")
     })
 
-}
-
-//ADD function for getUserNotifications
-
-function modifyUserNotifications(userID, channelID, newLastMessageID) {
-
-    const query = { userID: userID, channelID: channelID }
-    const update = { lastMessageID: newLastMessageID }
-
-    User.findOneAndUpdate(query, update, (error, result) => {
-        if (!error) {
-            // If the document doesn't exist
-            if (!result) {
-                // Create it
-                let temp = User({
-                    userID: userID,
-                    channelID: channelID,
-                    lastMessageID: newLastMessageID
-                })
-                temp.save(function (error) {
-                    if (!error) {
-
-                    } else {
-                        console.log("Error creating new notificaiton user " + error)
-                        throw error;
-                    }
-                });
-            }
-            console.log("User notifications updated");
-            console.log(result);
-        }
-    });
 }
 
 
