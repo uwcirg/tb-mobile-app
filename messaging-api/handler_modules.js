@@ -2,47 +2,10 @@
 
 const Channel = require("./channel")
 const Message = require("./message")
+const User = require('./user');
+
 
 const amqp = require('amqplib/callback_api');
-
-
-/*
-function mqSender(messageType, messageData, messageDataName, channelID, channelMembers) {
-
-
-    Channel.findOne({ id: channelID }, function (err, res) {
-        var users
-
-        if(!res.private){
-            users = []
-        }
-        else if (channelMembers) {
-            users = channelMembers
-        } else {
-            users = res.members
-        }
-
-
-        var sendobj = {}
-        sendobj.type = messageType
-        sendobj[messageDataName] = messageData
-        sendobj.userIDs = users
-
-
-
-        amqp.connect('amqp://rabbit', function (err, conn) {
-            conn.createChannel(function (err, ch) {
-                var q = 'messages';
-
-                ch.assertQueue(q, { durable: true });
-                ch.sendToQueue(q, new Buffer.from(JSON.stringify(sendobj)));
-                console.log(" message sent to queue");
-                console.log(sendobj)
-            });
-        });
-    });
-}
-*/
 
 function initalizeGeneralChannel() {
 
@@ -176,7 +139,7 @@ function specificChannel(req, res, isMemberRequest) {
                         if (parsedURL[1]) {
                             getMessagesAfterID(res, channelID, parsedURL[1]);
                         } else {
-                            getMessages(res, channelID);
+                            getMessages(req, res, channelID);
                         }
                     }
 
@@ -267,23 +230,27 @@ function postNewMessage(req, res, channelID) {
             }
 
             //mqSender("message-new", newMessage, "message", channelID)
+            updateAllUserNotifications(channelID);
             res.json(newMessage)
         });
     });
 }
 
-function getMessages(res, channelID) {
+function getMessages(req, res, channelID) {
 
     Message.find({ channelID: channelID })
         .sort({ createdAt: -1 })
-        .limit(100)
         .exec(function (err, response) {
             if (err) throw err;
+
+            let userID = req.get('X-User');
+            clearUserNotifications(userID, channelID)
             res.json(response)
 
         });
 
 }
+
 
 
 function getMessagesAfterID(res, channelID, messageID) {
@@ -426,7 +393,7 @@ function editMessage(req, res) {
 
 
 function deleteMessage(res, messageID) {
-    Message.findOneAndDelete({ id: messageID }, function (err,response) {
+    Message.findOneAndDelete({ id: messageID }, function (err, response) {
         let tempChannel = response.channelID;
         if (err) {
             let error = new Error("Error deleting message from database")
@@ -479,6 +446,131 @@ function getId(url, isMemberRequest) {
 }
 
 
+function getMessagesPerChannel(req,res) {
+
+    let userID = req.get('X-User');
+
+    //Get full list of channels
+    User.find({userID: userID}, (err, userResponse) => {
+        if (err) {
+            err = new Error("Error getting channels from database")
+            err.status = 505
+            sendError(res, err)
+
+        }
+
+        Channel.find({}, (err, channelResponse) => {
+            if (err) {
+                err = new Error("Error getting channels from database")
+                err.status = 505
+                sendError(res, err)
+
+            }
+
+            if(!userResponse && channelResponse){
+                User.create({
+                    userID: userID,
+                    channelID: channelResponse[0].id,
+                    lastMessageID: 0,
+                    numberOfMessages: 0
+                }, (err,res) =>{
+                    if(err){
+                        err = new Error("Error establishing new user")
+                        err.status = 505
+                        sendError(res, err)
+                    }
+                })
+            }
+
+            //Reshape data for response
+            let temp = {};
+
+            userResponse.forEach( notification => {
+                temp[`${notification.channelID}`] = notification.numberOfMessages
+            });
+
+            channelResponse.forEach( channel => {
+                
+                if(!temp[`${channel.id}`] ){
+                    temp[`${channel.id}`] = 0
+                }
+            })
+            res.json(temp);
+        });
+    });
+}
+
+function clearUserNotifications(userID, channelID) {
+
+    User.findOneAndUpdate({ channelID: channelID, userID: userID }, { numberOfMessages: 0 }, (err, res) => {
+
+        if (err) {
+            console.log("error + " + err)
+        }
+
+        if (!err && !res){
+            let temp = User.create({
+                userID: userID,
+                channelID: channelID,
+                lastMessageID: 0,
+                numberOfMessages: 0
+            }, (err,res) => {
+                if( err){
+                    console.log("Error adding a channel that notificaiton user didnt have");
+                }
+            })            
+        }
+        console.log("updated all users")
+    })
+
+}
+
+
+function updateAllUserNotifications(channelID) {
+
+    User.updateMany({ channelID: channelID }, { $inc: { numberOfMessages: 1 } }, (err, res) => {
+
+        if (err) {
+            console.log("error + " + err)
+        }
+        console.log("updated all users")
+    })
+
+}
+
+//ADD function for getUserNotifications
+
+function modifyUserNotifications(userID, channelID, newLastMessageID) {
+
+    const query = { userID: userID, channelID: channelID }
+    const update = { lastMessageID: newLastMessageID }
+
+    User.findOneAndUpdate(query, update, (error, result) => {
+        if (!error) {
+            // If the document doesn't exist
+            if (!result) {
+                // Create it
+                let temp = User({
+                    userID: userID,
+                    channelID: channelID,
+                    lastMessageID: newLastMessageID
+                })
+                temp.save(function (error) {
+                    if (!error) {
+
+                    } else {
+                        console.log("Error creating new notificaiton user " + error)
+                        throw error;
+                    }
+                });
+            }
+            console.log("User notifications updated");
+            console.log(result);
+        }
+    });
+}
+
+
 function sendError(res, err) {
     res.status(err.status || 500);
     res.send(err.message);
@@ -490,5 +582,6 @@ module.exports = {
     postNewChannel,
     channels,
     specificChannel,
-    editMessage
+    editMessage,
+    getMessagesPerChannel
 }

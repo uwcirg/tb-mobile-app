@@ -51,7 +51,7 @@ services:
     container_name: "message"
     depends_on:
       - mongo
-    image: kjgoodwins/messaging
+    image: kjgoodwins/message
     ports:
       - "5002:5002"
     environment:

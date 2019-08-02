@@ -9,6 +9,7 @@ const instanceName = process.env.NAME;
 const mdport = process.env.MDPORT;
 const handlers = require('./handler_modules')
 var mongoose = require('mongoose');
+mongoose.Promise = require('bluebird')
 
 var db;
 
@@ -22,6 +23,7 @@ mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 
 var Channel = require('./channel')
+var User = require('./user');
 
 //Bind connection to error event (to get notification of connection errors)
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
@@ -81,6 +83,11 @@ app.all("/v1/channels/*", (req, res) => {
 app.all("/v1/messages/*", (req, res) => {
     handlers.editMessage(req, res)
 });
+
+app.get("/v1/notifications", (req, res) => {
+    handlers.getMessagesPerChannel(req,res);
+});
+
 
 // Error handler
 app.use(function (err, req, res, next) {
