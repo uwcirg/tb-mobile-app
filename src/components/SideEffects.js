@@ -63,6 +63,8 @@ const SideEffects = observer(({ assembly }) => (
                   ))
                 }
                 { sr.nausea_rating ? sr.nausea_rating : null }
+                { sr.dizziness ? console.log("DIZZY") : null}
+                { sr.headache ? console.log("HEADACHE") : null}
                 { sr.other }
               </Info>
 

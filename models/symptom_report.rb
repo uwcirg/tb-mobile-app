@@ -26,6 +26,8 @@ class SymptomReport < ApplicationRecord
       difficulty_breathing
       facial_swelling
       nausea
+      dizziness
+      headache
     ].select { |symptom| self.send(symptom) }
   end
 end

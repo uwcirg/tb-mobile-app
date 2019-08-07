@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190723223618) do
+ActiveRecord::Schema.define(version: 20190806233905) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,6 +95,8 @@ ActiveRecord::Schema.define(version: 20190723223618) do
     t.datetime "updated_at", null: false
     t.integer "nausea_rating"
     t.string "resolution_uuid"
+    t.boolean "headache"
+    t.boolean "dizziness"
   end
 
   add_foreign_key "medication_reports", "participants", primary_key: "uuid"

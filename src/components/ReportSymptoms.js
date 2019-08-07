@@ -179,6 +179,22 @@ const ReportSymptoms = observer(({ assembly, survey }) => (
         <span>{assembly.translate("survey.symptoms.facial_swelling")}</span>
       </Label>
 
+      <Label>
+        <Checkbox
+          checked={assembly.symptoms.dizziness}
+          onChange={(e) => assembly.symptoms.dizziness = e.target.checked}
+        />
+        <span>{assembly.translate("survey.symptoms.dizziness")}</span>
+      </Label>
+
+      <Label>
+        <Checkbox
+          checked={assembly.symptoms.headache}
+          onChange={(e) => assembly.symptoms.headache = e.target.checked}
+        />
+        <span>{assembly.translate("survey.symptoms.headache")}</span>
+      </Label>
+
       <Provider theme={theme}>
         <TextFieldLabel>
           {assembly.translate("survey.symptoms.other")}

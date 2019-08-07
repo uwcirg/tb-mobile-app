@@ -151,6 +151,14 @@ export default {
       Swelling of the face, lips, tongue, or throat
       `,
 
+      dizziness: `
+      Dizziness
+      `,
+
+      headache: `
+      Headache
+      `,
+
       prompt: `
       Which side effects?
       `,

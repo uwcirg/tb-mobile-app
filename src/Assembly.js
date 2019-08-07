@@ -94,6 +94,8 @@ class Assembly extends React.Component {
     yellow_coloration: false,
     difficulty_breathing: false,
     facial_swelling: false,
+    dizziness: false,
+    headache: false,
     other: "",
   }
 
@@ -214,7 +216,7 @@ class Assembly extends React.Component {
     })
 
     // Attach to the window for debugging
-    // window.assembly = this
+    window.assembly = this
   }
 
   // Given...
@@ -388,6 +390,7 @@ class Assembly extends React.Component {
   }
 
   reportSymptoms() {
+    debugger
     this.participant_account.create(
       "symptom_reports",
       Object.assign(
@@ -421,6 +424,8 @@ class Assembly extends React.Component {
       yellow_coloration: false,
       difficulty_breathing: false,
       facial_swelling: false,
+      dizziness: false,
+      headache: false,
       other: "",
     }
   }

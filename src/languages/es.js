@@ -145,6 +145,14 @@ export default {
       Hinchazón de la cara, los labios, la lengua, o la garganta
       `,
 
+      dizziness: `
+      Mareos
+      `,
+
+      headache: `
+      Dolor de cabeza
+      `,
+
       prompt: `
       ¿Qué efectos adversos o indeseables?
       `,
