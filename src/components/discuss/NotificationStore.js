@@ -21,7 +21,7 @@ export default class NotificationStore {
             },
         }).then(resolve => resolve.json())
             .then(json => {
-                    console.log(json);
+                    
                     this.channelNotifications = json
                     this.fetching = false;
             })

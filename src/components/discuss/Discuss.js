@@ -16,7 +16,6 @@ import {
 
 import DiscussStore from './DiscussStore'
 
-
 function getUserNumber(assembly) {
     return assembly.fetch("menu.phone_number").replace("-", "").trim();
 }
@@ -34,6 +33,8 @@ class Discuss extends React.Component {
     componentDidMount(){
         store.userID = getUserNumber(this.props.assembly);
         store.userName = getUserName(this.props.assembly);
+        this.props.assembly.notificationStore.userID = getUserNumber(this.props.assembly);
+        this.props.assembly.notificationStore.getChannelNotifications();
         localStorage.setItem('visitedDiscussion',"true");
     }
 
@@ -63,13 +64,14 @@ class DiscussionList extends React.Component {
         store.specificChannel = event.target.getAttribute('data-key');
     }
 
-    render() {
+    render(){
         let channelList = store.channels.slice().sort((a, b) => {
             return DateTime.fromISO(a.createdAt) - DateTime.fromISO(b.createdAt)
         }).map(item => {
             return <ChannelCard key={item.id} data-key={item.id} onClick={this.handleChannelClick}>
                 <h1 data-key={item.id} onClick={this.handleChannelClick}>{item.name}</h1>
                 <p data-key={item.id} onClick={this.handleChannelClick}>{item.description}</p>
+                {this.props.assembly.notificationStore.fetching || this.props.assembly.notificationStore.channelNotifications[`${item.id}`] == 0 ? "" : <NewMessages data-key={item.id}> <p>{this.props.assembly.notificationStore.channelNotifications[`${item.id}`]}</p></NewMessages>}
             </ChannelCard>
         })
 
@@ -148,6 +150,28 @@ class NewChannel extends React.Component {
     }
 }
 
+const NewMessages = styled.div`
+color: white;
+background-color: ${green};
+position: absolute;
+right: 1em;
+top: 1em;
+height: 1.5em;
+line-height: 1.5em;
+
+width: 1.5em;
+padding: .5em;
+
+border-radius: 5px;
+text-align: center;
+
+p{
+    padding: 0;
+    margin: 0;
+}
+`
+
+
 const Layout = styled.div`
 h1{
     font-size: 1.5em;
@@ -161,6 +185,7 @@ padding: .5em 1em .5em 1em;
 margin-bottom: .5em;
 border-radius: 5px;
 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.09);
+position: relative;
 
 h1{
     font-size: 1.5em;

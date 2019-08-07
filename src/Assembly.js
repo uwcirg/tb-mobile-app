@@ -43,7 +43,11 @@ import espanol from "./languages/es"
 import english from "./languages/en"
 
 import Network from "./Network"
+import NotificationStore from './components/discuss/NotificationStore'
 let network = new Network(process.env.REACT_APP_URL_API)
+
+const notificationStore = new NotificationStore();
+
 
 @observer
 class Assembly extends React.Component {
@@ -142,10 +146,13 @@ class Assembly extends React.Component {
   @observable language = "Español"
   @observable alerts = []
   @observable currentPage = null
+  @observable notificationStore = null;
 
 
   constructor(props) {
     super(props)
+
+    this.notificationStore = notificationStore;
 
     // Behavior
     autorun(() => {
@@ -185,9 +192,9 @@ class Assembly extends React.Component {
 
     if (coordinator_uuid)
       this.coordinator_account.watch(coordinator_uuid, () => this.route())
-    else if (participant_uuid)
+    else if (participant_uuid){
       this.participant_account.watch(participant_uuid, () => this.route())
-    else {
+    }else {
       this.currentPage = Login
       localStorage.removeItem("current_page")
     }
@@ -216,6 +223,17 @@ class Assembly extends React.Component {
 
     // Attach to the window for debugging
     // window.assembly = this
+    autorun(() => {
+      if(this.participant_account){
+        console.log("this actually happend " + this.participant_account.information.phone_number);
+        this.notificationStore.userID = this.participant_account.information.phone_number.replace("-", "").trim();
+        this.refreshNotifications();
+      }
+    });
+  }
+
+  refreshNotifications(){
+    this.notificationStore.getChannelNotifications(); 
   }
 
   // Given...
@@ -397,19 +415,6 @@ class Assembly extends React.Component {
       ),
     )
 
-    // KYLECHANGE: Not really sure why they were doing this?
-    // Because we use survey date and time for both medication
-    // and side effect reports we need to reset here
-    /*
-    this.survey = {
-      date: DateTime.local().setLocale(this.locale).toISODate(),
-      medication_time: DateTime.local().setLocale(this.locale).toLocaleString(DateTime.TIME_24_SIMPLE),
-      not_taking_medication_reason: null,
-      took_medication: null,
-      any_symptoms: null,
-    }
-    */
-
     this.symptoms = {
       nausea: false,
       nausea_rating: 0,
@@ -447,14 +452,9 @@ class Assembly extends React.Component {
        body: bodySend,
    }).then( res => res.json())
    .then(json => {
-     console.log(json)
      let tempUrl = `${json.filename}.png`
-     console.log(tempUrl);
      this.photo_uploaded = tempUrl
     })
-  
-
-
   }
 
   translate(semantic) {
@@ -480,9 +480,7 @@ class Assembly extends React.Component {
 
   @computed get timeSinceTreatment() {
     let dt = DateTime.fromSQL(this.participant_account.information.treatment_start).toObject();
-    console.log(dt);
     let duration = Duration.fromObject(dt);
-    console.log(duration)
     return duration.days;
   }
 
@@ -498,7 +496,9 @@ class Assembly extends React.Component {
     this.currentPage = Login
   }
 
-  render = () => (
+  render = () => {
+
+  return(
     <Layout>
       <AuthBar>
         <InternalLink to={Login} assembly={this} >
@@ -507,6 +507,7 @@ class Assembly extends React.Component {
         </InternalLink>
 
         <WithCredentials account={this.participant_account} >
+
           <Menu assembly={this} />
         </WithCredentials>
 
@@ -554,6 +555,7 @@ class Assembly extends React.Component {
       </WithCredentials>
     </Layout>
   )
+        }
 }
 
 const Layout = styled.div`

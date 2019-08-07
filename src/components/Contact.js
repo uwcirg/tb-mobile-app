@@ -16,45 +16,55 @@ import {
 
 import { observer } from "mobx-react"
 
-const Contact = observer(({assembly}) => (
+
+@observer
+class Contact extends React.Component {
+render(){
+
+  return(
     <Provider theme={theme}>
-      <div>
-        <h3>
-          {assembly.translate("contact.contact_title")}
-        </h3>
+    <div>
+      <h3>
+        {console.log(this.props.tests)}
+        {this.props.assembly.translate("contact.contact_title")}
+      </h3>
 
-        <Link href="http://wa.me/5491127481963" target="_blank">
-          <Button backgroundColor={green}>{assembly.translate("contact.whatsapp")}
-            <Icon
-              path={mdiWhatsapp}
-              color={white}
-              size="1.5rem"
-            />
-          </Button>
-        </Link>
+      <Link href="http://wa.me/5491127481963" target="_blank">
+        <Button backgroundColor={green}>{this.props.assembly.translate("contact.whatsapp")}
+          <Icon
+            path={mdiWhatsapp}
+            color={white}
+            size="1.5rem"
+          />
+        </Button>
+      </Link>
 
-          <p>{assembly.translate("contact.first")}</p>
-          
+        <p>{this.props.assembly.translate("contact.first")}</p>
+        
 
-        <Divider />
+      <Divider />
 
-        <h3>
-          {assembly.translate("discussion_board.title")}
-        </h3>
-        <InternalLink to={Discuss} assembly={assembly} >
-        <Button backgroundColor={green}>{assembly.translate("discussion_board.title")}
-            <Icon
-              path={mdiChat}
-              color={white}
-              size="1.5rem"
-            />
-          </Button>
-    </InternalLink>
-        <p> {assembly.translate("contact.discussion_title")}</p>
+      <h3>
+        {this.props.assembly.translate("discussion_board.title")}
+      </h3>
+      <InternalLink to={Discuss} assembly={this.props.assembly} >
+      <Button backgroundColor={green}>{this.props.assembly.translate("discussion_board.title")}
+          <Icon
+            path={mdiChat}
+            color={white}
+            size="1.5rem"
+          />
+        </Button>
+  </InternalLink>
+      <p> {this.props.assembly.translate("contact.discussion_title")}</p>
 
-      </div>
-    </Provider>
-))
+    </div>
+  </Provider>
+  )
+}
+
+}
+
 
 Contact.route = "/contact"
 export default Contact;

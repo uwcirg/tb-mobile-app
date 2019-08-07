@@ -27,6 +27,7 @@ export default class Channel extends React.Component {
     handleBack = () => {
         this.props.store.onSpecificChannel = false;
         this.props.store.specificChannelMessages = []
+        this.props.assembly.refreshNotifications();
     }
 
     componentDidMount() {

@@ -19,46 +19,20 @@ import InfoEd from "./InfoEd"
 import Notes from "./Notes"
 import Contact from "./Contact"
 import Progress from "./Progress"
-
-import NotificationStore from "./discuss/NotificationStore"
-
-const notificationStore = new NotificationStore();
-
-class PopUp extends React.Component{
-
-  render(){
-    return(
-    <PopUpIcon>
-      {this.props.number}
-    </PopUpIcon>
-    )}
-}
+import PopUp from './Notification'
 
 @observer
 export class Navigation extends React.Component {
 
-  @observer
-  componentDidMount(){
-    notificationStore.userID = this.props.assembly.fetch("menu.phone_number").replace("-", "").trim();
-    notificationStore.getChannelNotifications();
-
-    /*
-    setTimeout(() =>{
-      
-    },1000)
-    */
-
-    
-  }
-
   render() {
-
-    if(!notificationStore.fetching){
-      console.log(notificationStore.totalNumberOfNotifications);
-    }
 
     //Did this because I was converting from the older "const" notation to a React Class
     let assembly = this.props.assembly;
+
+    if(!assembly.notificationStore.fetching){
+      console.log(assembly.notificationStore.totalNumberOfNotifications);
+    }
+
     return(
     <Layout>
       <InternalLink to={Home} assembly={assembly} >
@@ -84,8 +58,8 @@ export class Navigation extends React.Component {
             color={assembly.currentPage === Contact ? primary : black}
             size="1.8rem"
           />
-          {console.log(notificationStore.totalNumberOfNotifications)}
-          {notificationStore.totalNumberOfNotifications > 0 ?<PopUp number={notificationStore.totalNumberOfNotifications} />: "" }
+          {console.log("in nav " + this.props.assembly.notificationStore.totalNumberOfNotifications)}
+          {this.props.assembly.notificationStore.totalNumberOfNotifications > 0 ?<PopUp number={this.props.assembly.notificationStore.totalNumberOfNotifications} />: "" }
         </NotificationContainer>
 
       </InternalLink>
@@ -128,26 +102,6 @@ const Layout = styled.div`
 `
 
 const IconContainer = styled.div`
-
-`
-
-const PopUpIcon = styled.div`
-  position: absolute;
-  top: -10px;
-  right: -10px;
-
-  font-size: .75em;
-
-  width: 15px;
-  height: 15px;
-  padding: 1px;
-  border-radius: 5px;
-  background-color: red;
-  z-index: 1000;
-
-  color: white;
-  text-align: center;
-
 
 `
 const NotificationContainer = styled.div`
