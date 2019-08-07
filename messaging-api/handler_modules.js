@@ -4,7 +4,6 @@ const Channel = require("./channel")
 const Message = require("./message")
 const User = require('./user');
 
-
 const amqp = require('amqplib/callback_api');
 
 function initalizeGeneralChannel() {
@@ -32,7 +31,6 @@ function initalizeGeneralChannel() {
             console.log("General already in the DB")
         }
     });
-
 }
 
 function channels(req, res) {
@@ -248,10 +246,7 @@ function getMessages(req, res, channelID) {
             res.json(response)
 
         });
-
 }
-
-
 
 function getMessagesAfterID(res, channelID, messageID) {
 
@@ -445,7 +440,6 @@ function getId(url, isMemberRequest) {
     return channelID
 }
 
-
 function getMessagesPerChannel(req,res) {
 
     let userID = req.get('X-User');
@@ -464,34 +458,21 @@ function getMessagesPerChannel(req,res) {
                 err = new Error("Error getting channels from database")
                 err.status = 505
                 sendError(res, err)
-
             }
-
-            if(!userResponse && channelResponse){
-                User.create({
-                    userID: userID,
-                    channelID: channelResponse[0].id,
-                    lastMessageID: 0,
-                    numberOfMessages: 0
-                }, (err,res) =>{
-                    if(err){
-                        err = new Error("Error establishing new user")
-                        err.status = 505
-                        sendError(res, err)
-                    }
-                })
-            }
-
+        
             //Reshape data for response
             let temp = {};
 
+            //For reach user add their channel notifications to an object
             userResponse.forEach( notification => {
                 temp[`${notification.channelID}`] = notification.numberOfMessages
             });
 
             channelResponse.forEach( channel => {
                 
+                //If a channel exisits but the user does not have it
                 if(!temp[`${channel.id}`] ){
+                    createNewNotificationUser(userID,channel.id);
                     temp[`${channel.id}`] = 0
                 }
             })
@@ -522,7 +503,6 @@ function clearUserNotifications(userID, channelID) {
     })
 }
 
-
 function updateAllUserNotifications(channelID) {
 
     User.updateMany({ channelID: channelID }, { $inc: { numberOfMessages: 1 } }, (err, res) => {
@@ -532,7 +512,21 @@ function updateAllUserNotifications(channelID) {
         }
         console.log("updated all users")
     })
+}
 
+function createNewNotificationUser(userID,channelID){
+    User.create({
+        userID: userID,
+        channelID: channelID,
+        lastMessageID: 0,
+        numberOfMessages: 0
+    }, (err,res) =>{
+        if(err){
+            err = new Error("Error establishing new user")
+            err.status = 505
+            sendError(res, err)
+        }
+    })   
 }
 
 
