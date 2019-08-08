@@ -2,7 +2,7 @@ import React from "react";
 
 import { Button, Link, List, Provider, Divider } from "reakit";
 import theme from "reakit-theme-default";
-import { blue, green, white } from "../colors"
+import { blue, green, white, red} from "../colors"
 
 import Discuss from './discuss/Discuss'
 
@@ -15,6 +15,8 @@ import {
 } from "@mdi/js"
 
 import { observer } from "mobx-react"
+
+import PopUp from './Notification'
 
 
 @observer
@@ -54,7 +56,9 @@ render(){
             color={white}
             size="1.5rem"
           />
+          {this.props.assembly.notificationStore.totalNumberOfNotifications > 0 ?<PopUp color={red} number={this.props.assembly.notificationStore.totalNumberOfNotifications} />: "" }
         </Button>
+
   </InternalLink>
       <p> {this.props.assembly.translate("contact.discussion_title")}</p>
 
@@ -64,6 +68,8 @@ render(){
 }
 
 }
+
+
 
 
 Contact.route = "/contact"

@@ -471,7 +471,8 @@ function getMessagesPerChannel(req,res) {
             channelResponse.forEach( channel => {
                 
                 //If a channel exisits but the user does not have it
-                if(!temp[`${channel.id}`] ){
+                if( !(`${channel.id}` in temp) ){
+                    console.log(`creating ${userID} ${channel.id}`)
                     createNewNotificationUser(userID,channel.id);
                     temp[`${channel.id}`] = 0
                 }
@@ -483,23 +484,11 @@ function getMessagesPerChannel(req,res) {
 
 function clearUserNotifications(userID, channelID) {
 
-    User.findOneAndUpdate({ channelID: channelID, userID: userID }, { numberOfMessages: 0 }, (err, res) => {
+    User.updateOne({ channelID: channelID, userID: userID }, { numberOfMessages: 0 }, (err, res) => {
         if (err) {
             console.log("error + " + err)
         }
-        if (!err && !res){
-            let temp = User.create({
-                userID: userID,
-                channelID: channelID,
-                lastMessageID: 0,
-                numberOfMessages: 0
-            }, (err,res) => {
-                if( err){
-                    console.log("Error adding a channel that notificaiton user didnt have");
-                }
-            })            
-        }
-        console.log("updated all users")
+        console.log(`cleared ${userID}'s notifications for ${channelID}`)
     })
 }
 
@@ -515,18 +504,26 @@ function updateAllUserNotifications(channelID) {
 }
 
 function createNewNotificationUser(userID,channelID){
-    User.create({
-        userID: userID,
-        channelID: channelID,
-        lastMessageID: 0,
-        numberOfMessages: 0
-    }, (err,res) =>{
+
+    console.log("happening");
+    User.findOneAndUpdate({userID: userID, channelID: channelID},{numberOfMessages: 1}
+    ,{upsert:true}, (err,res) =>{
         if(err){
             err = new Error("Error establishing new user")
             err.status = 505
             sendError(res, err)
         }
     })   
+}
+
+function allUsers(req,res){
+
+    User.find({}, function (err, response) {
+        if (err) {
+            console.log("Shouldnt happen")
+        }
+        res.json(response)
+    });
 }
 
 
@@ -542,5 +539,6 @@ module.exports = {
     channels,
     specificChannel,
     editMessage,
-    getMessagesPerChannel
+    getMessagesPerChannel,
+    allUsers
 }

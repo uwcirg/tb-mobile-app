@@ -39,7 +39,7 @@ class Discuss extends React.Component {
     }
 
     render() {
-
+        console.log(this.props.assembly.notificationStore.channelNotifications);
         if (store.onSpecificChannel) {
             return <Channel store={store} assembly={this.props.assembly} ></Channel>
         }
@@ -71,7 +71,7 @@ class DiscussionList extends React.Component {
             return <ChannelCard key={item.id} data-key={item.id} onClick={this.handleChannelClick}>
                 <h1 data-key={item.id} onClick={this.handleChannelClick}>{item.name}</h1>
                 <p data-key={item.id} onClick={this.handleChannelClick}>{item.description}</p>
-                {this.props.assembly.notificationStore.fetching || this.props.assembly.notificationStore.channelNotifications[`${item.id}`] == 0 ? "" : <NewMessages data-key={item.id}> <p>{this.props.assembly.notificationStore.channelNotifications[`${item.id}`]}</p></NewMessages>}
+                {this.props.assembly.notificationStore.fetching || this.props.assembly.notificationStore.channelNotifications[`${item.id}`] == 0 ? "" : <NewMessages data-key={item.id}> <p data-key={item.id}>{this.props.assembly.notificationStore.channelNotifications[`${item.id}`]}</p></NewMessages>}
             </ChannelCard>
         })
 

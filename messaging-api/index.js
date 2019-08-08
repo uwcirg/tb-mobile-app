@@ -88,6 +88,9 @@ app.get("/v1/notifications", (req, res) => {
     handlers.getMessagesPerChannel(req,res);
 });
 
+app.get("/test", (req,res) => {
+    handlers.allUsers(req,res);
+});
 
 // Error handler
 app.use(function (err, req, res, next) {
