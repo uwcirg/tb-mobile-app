@@ -27,7 +27,6 @@ render(){
     <Provider theme={theme}>
     <div>
       <h3>
-        {console.log(this.props.tests)}
         {this.props.assembly.translate("contact.contact_title")}
       </h3>
 

@@ -68,7 +68,6 @@ export default class DiscussStore {
         }).then(resolve => {
                 return resolve.json()})
         .then(json =>{
-                    console.log(json);
                     this.specificChannelMessages = json
             }
         ).catch( err => console.log(err))

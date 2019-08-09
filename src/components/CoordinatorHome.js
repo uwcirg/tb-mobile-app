@@ -240,7 +240,6 @@ const CoordinatorHome = observer(({ assembly }) => (
                       .toLocaleString(DateTime.DATETIME_SHORT)
                     }
                   */}
-                  {console.log(strip_report)}
                   
                     <PhotoPopout  src={strip_report.url_photo} >
                       <Selection

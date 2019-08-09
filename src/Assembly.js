@@ -227,7 +227,6 @@ class Assembly extends React.Component {
     // window.assembly = this
     autorun(() => {
       if(this.participant_account){
-        console.log("this actually happend " + this.participant_account.information.phone_number);
         this.notificationStore.userID = this.participant_account.information.phone_number.replace("-", "").trim();
         this.refreshNotifications();
       }

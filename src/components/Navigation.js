@@ -29,10 +29,6 @@ export class Navigation extends React.Component {
     //Did this because I was converting from the older "const" notation to a React Class
     let assembly = this.props.assembly;
 
-    if(!assembly.notificationStore.fetching){
-      console.log(assembly.notificationStore.totalNumberOfNotifications);
-    }
-
     return(
     <Layout>
       <InternalLink to={Home} assembly={assembly} >
@@ -58,7 +54,6 @@ export class Navigation extends React.Component {
             color={assembly.currentPage === Contact ? primary : black}
             size="1.8rem"
           />
-          {console.log("in nav " + this.props.assembly.notificationStore.totalNumberOfNotifications)}
           {this.props.assembly.notificationStore.totalNumberOfNotifications > 0 ?<PopUp number={this.props.assembly.notificationStore.totalNumberOfNotifications} />: "" }
         </NotificationContainer>
 

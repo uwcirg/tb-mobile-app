@@ -39,7 +39,6 @@ class Discuss extends React.Component {
     }
 
     render() {
-        console.log(this.props.assembly.notificationStore.channelNotifications);
         if (store.onSpecificChannel) {
             return <Channel store={store} assembly={this.props.assembly} ></Channel>
         }

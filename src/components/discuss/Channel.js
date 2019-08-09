@@ -49,7 +49,6 @@ export default class Channel extends React.Component {
             .sort((a, b) => {
                 return DateTime.fromISO(a.createdAt) - DateTime.fromISO(b.createdAt)
             }).map(item => {
-                console.log("here")
                 return <Message key={item.createdAt}>
                     <MessageBody>{item.body}</MessageBody>
                     <MessageCreator>{item.creatorName} at {DateTime.fromISO(item.createdAt).toLocaleString(DateTime.DATETIME_MED)} </MessageCreator>
