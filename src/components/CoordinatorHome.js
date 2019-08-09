@@ -240,7 +240,9 @@ const CoordinatorHome = observer(({ assembly }) => (
                       .toLocaleString(DateTime.DATETIME_SHORT)
                     }
                   */}
-                    <PhotoPopout src={strip_report.photo} key={strip_report.id} >
+                  {console.log(strip_report)}
+                  
+                    <PhotoPopout  src={strip_report.url_photo} >
                       <Selection
                         options={["positive", "negative"]}
                         update={() => strip_report.status}

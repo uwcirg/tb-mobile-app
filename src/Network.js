@@ -70,44 +70,26 @@ class Network {
     }
   }
 
-  getMessages(user) {
-    return new Promise(resolve => {
 
-      fetch(`http://localhost:5002/v1/channels/0`, {
+  getNotifications(userID){
+      fetch(`${process.env.REACT_APP_MESSAGE_API}/v1/notifications`, {
         method: "GET",
         headers: {
-          "X-User": user
+            "X-User": userID
         },
-      }).then(resolve)
+    }).then(resolve => resolve.json())
+        .then(json => {
 
-    }).then((result) => {
-      return result.json();
-    })
-  }
-
-
-  postMessage(user,message) {
-    return new Promise(resolve => {
-
-      fetch(`http://manganese.cirg.washington.edu:5002/v1/channels/0`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-User": user,
-        },
-        body: message,
-      }).then(resolve)
-
-    }).then((result) => {
-      return result;
-    })
-  }
-
-
-
-
-
-
+          let total = 0;
+          let keys = Object.keys(json);
+  
+          keys.forEach( key => {
+              total += json[`${key}`];
+          })
+  
+          return total;
+        })
+    }
 
 }
 

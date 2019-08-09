@@ -12,6 +12,7 @@ const InternalLink = ({ assembly, to, children, ...props }) => (
         // use single-page-app routing for a quick page load.
         e.preventDefault()
         assembly.currentPage = to
+        assembly.refreshNotifications();
       }
     }}
 

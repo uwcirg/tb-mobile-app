@@ -19,67 +19,72 @@ import InfoEd from "./InfoEd"
 import Notes from "./Notes"
 import Contact from "./Contact"
 import Progress from "./Progress"
+import PopUp from './Notification'
 
-const PopUp = () => {
-  return(
-  <PopUpIcon>      
-  <Icon
-  path={mdiAlertDecagram}
-  color={"red"}
-  size="1.5em"/>
-  </PopUpIcon>
-  )}
+@observer
+export class Navigation extends React.Component {
 
+  render() {
 
-const Navigation = observer(({ assembly }) => (
-  <Layout>
-    <InternalLink to={Home} assembly={assembly} >
-      <Icon
-        path={mdiHome}
-        color={assembly.currentPage === Home ? primary : black}
-        size="1.8rem"
-      />
-    </InternalLink>
+    //Did this because I was converting from the older "const" notation to a React Class
+    let assembly = this.props.assembly;
 
-    <InternalLink to={Progress} assembly={assembly} >
-      <Icon
-        path={mdiFolderClockOutline}
-        color={assembly.currentPage === Progress ? primary : black}
-        size="1.8rem"
-      />
-    </InternalLink>
+    if(!assembly.notificationStore.fetching){
+      console.log(assembly.notificationStore.totalNumberOfNotifications);
+    }
 
-    <InternalLink to={Contact} assembly={assembly} >
-      <NotificationContainer>
-      <Icon
-        path={mdiWhatsapp}
-        color={assembly.currentPage === Contact ? primary : black}
-        size="1.8rem"
-      />
-      {localStorage.getItem('visitedDiscussion') ? "" : <PopUp />}
-      </NotificationContainer>
+    return(
+    <Layout>
+      <InternalLink to={Home} assembly={assembly} >
+        <Icon
+          path={mdiHome}
+          color={assembly.currentPage === Home ? primary : black}
+          size="1.8rem"
+        />
+      </InternalLink>
 
-    </InternalLink>
+      <InternalLink to={Progress} assembly={assembly} >
+        <Icon
+          path={mdiFolderClockOutline}
+          color={assembly.currentPage === Progress ? primary : black}
+          size="1.8rem"
+        />
+      </InternalLink>
 
-    <InternalLink to={Notes} assembly={assembly} >
-      <Icon
-        path={mdiPencilBoxOutline}
-        color={assembly.currentPage === Notes ? primary : black}
-        size="1.8rem"
-      />
-    </InternalLink>
+      <InternalLink to={Contact} assembly={assembly} >
+        <NotificationContainer>
+          <Icon
+            path={mdiWhatsapp}
+            color={assembly.currentPage === Contact ? primary : black}
+            size="1.8rem"
+          />
+          {console.log("in nav " + this.props.assembly.notificationStore.totalNumberOfNotifications)}
+          {this.props.assembly.notificationStore.totalNumberOfNotifications > 0 ?<PopUp number={this.props.assembly.notificationStore.totalNumberOfNotifications} />: "" }
+        </NotificationContainer>
 
-    <IconContainer>
-    <InternalLink to={InfoEd} assembly={assembly} >
-      <Icon
-        path={mdiInformationOutline}
-        color={assembly.currentPage === InfoEd ? primary : black}
-        size="1.8rem"
-      />       
-    </InternalLink>
-    </IconContainer>
-  </Layout>
-))
+      </InternalLink>
+
+      <InternalLink to={Notes} assembly={assembly} >
+        <Icon
+          path={mdiPencilBoxOutline}
+          color={assembly.currentPage === Notes ? primary : black}
+          size="1.8rem"
+        />
+      </InternalLink>
+
+      <IconContainer>
+        <InternalLink to={InfoEd} assembly={assembly} >
+          <Icon
+            path={mdiInformationOutline}
+            color={assembly.currentPage === InfoEd ? primary : black}
+            size="1.8rem"
+          />
+        </InternalLink>
+      </IconContainer>
+    </Layout>
+    )
+  }
+}
 
 const Layout = styled.div`
   display: flex;
@@ -97,25 +102,6 @@ const Layout = styled.div`
 `
 
 const IconContainer = styled.div`
-
-
-`
-
-const PopUpIcon = styled.div`
-position: absolute;
-  top: -10px;
-  right: -10px;
-/*
-  width: 20px;
-  height: 20px;
-  padding: 1px;
-  border-radius: 5px;
-  background-color: red;
-  z-index: 1000;
-
-  color: white;
-  text-align: center;
-  */
 
 `
 const NotificationContainer = styled.div`

@@ -2,15 +2,13 @@ version: '3.3'
 
 services:
   client:
-    restart: always
+    restart: on-failure
     ports:
       - $PORT_CLIENT:3000
     build: .
     stdin_open: true
     tty: true
     command: yarn start
-    depends_on:
-      - web
     environment:
       NODE_ENV: development
       REACT_APP_URL_API: $URL_API
@@ -31,14 +29,16 @@ services:
       - PASSWORD
       - PORT=3000
       - RAILS_ENV=development
+      - URL_API=$URL_API
     ports:
       - $PORT_API:3000
-    volumes:
-      - ./db:/foundation/db
-      - ./models:/foundation/app/models
     depends_on:
       - db
     restart: always
+    volumes:
+      - source: user-documents
+        target: /ruby/backend/upload/
+        type: volume
 
   mongo:
     container_name: mongo
@@ -51,7 +51,7 @@ services:
     container_name: "message"
     depends_on:
       - mongo
-    image: kjgoodwins/messaging
+    image: kjgoodwins/message
     ports:
       - "5002:5002"
     environment:
@@ -59,3 +59,6 @@ services:
       MDPORT: "mongo:27017"
       NAME: "message"
     restart: always
+
+volumes:
+    user-documents: {}

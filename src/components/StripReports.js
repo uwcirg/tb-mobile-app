@@ -50,8 +50,6 @@ const StripReports = observer(({ assembly }) => (
           <Info>
             { status ? assembly.translate(`primitives.pos_inconclusive.${status}`) : assembly.translate("progress.not_reviewed")}
           </Info>
-          <Image src={photo}>
-          </Image>
           <Image src={url_photo}>
           </Image>
         </Answer>

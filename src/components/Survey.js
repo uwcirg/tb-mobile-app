@@ -77,7 +77,7 @@ const Survey = observer(({ assembly }) => (
             backgroundColor={success_green}
             assembly={assembly}
             text={assembly.translate("survey.upload.continue")}
-            onClick={() => assembly.photos_uploaded = {}}
+            onClick={() => assembly.photo_uploaded = ""}
             {...state}
           />
         </Tabs.Panel>
