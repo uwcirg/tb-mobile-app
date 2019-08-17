@@ -56,7 +56,7 @@ services:
       - "5002:5002"
     environment:
       PORT: "5002"
-      MDPORT: "mongo:27017"
+      MDPORT: "localhost:27017"
       NAME: "message"
     restart: always
 
