@@ -505,7 +505,6 @@ function updateAllUserNotifications(channelID) {
 
 function createNewNotificationUser(userID,channelID){
 
-    console.log("happening");
     User.findOneAndUpdate({userID: userID, channelID: channelID},{numberOfMessages: 1}
     ,{upsert:true}, (err,res) =>{
         if(err){

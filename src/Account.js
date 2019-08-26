@@ -33,9 +33,7 @@ class Account {
 
   // Pulls in patient information from DB
   watch(uuid, callback) {
-    this.network.watch`
-      ${this.model}.find_by(uuid: ${JSON.stringify(uuid)})
-    `(response => {
+    this.network.watch`${this.model}.find_by(uuid: '${uuid}')`(response => {
       response
         .json()
         .then(r => this.information = r)
@@ -45,6 +43,7 @@ class Account {
   }
 
   // Log in
+  /*
   authenticate(attributes, password) {
     return new Promise((resolve, reject) =>
       this.network.run`
@@ -67,7 +66,33 @@ class Account {
         })
       )
     )
-  }
+  }*/
+
+  authenticate(body, password) {
+
+    body.password = password
+
+    return new Promise((resolve, reject) =>
+    fetch(`${process.env.REACT_APP_URL_API}/auth/login/${this.model.toLocaleLowerCase()}`, {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then(response => response.json())
+    .then(json =>{
+      if(json && json.uuid){
+
+        localStorage.setItem("user.token", json.token)
+        localStorage.setItem(`${this.model.toLocaleLowerCase()}.uuid`,json.uuid)
+        this.watch(json.uuid)
+        resolve(json);
+
+      }else{
+        reject();
+      }
+      })
+    )}
 
   // Update account with new information
   update(information) {

@@ -41,9 +41,9 @@ services:
         type: volume
 
   mongo:
-    container_name: mongo
     ports:
-     - "27017:27017"
+      - "27017"
+    container_name: mongo
     image: "mongo"
     restart: always
 

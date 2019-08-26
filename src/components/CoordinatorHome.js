@@ -1,5 +1,5 @@
 import React from "react"
-import { observer} from "mobx-react"
+import { observer } from "mobx-react"
 import styled from "styled-components"
 import { DateTime } from "luxon"
 import field from "../util/field"
@@ -14,7 +14,7 @@ import {
 
 import CoordinatorParticipantHistory from "../components/CoordinatorParticipantHistory"
 import Heading from "../primitives/Heading"
-import PhotoPopout from "../primitives/PhotoPopout"
+import NewPhotoPopout from "../primitives/PhotoPopout"
 import Selection from "../primitives/Selection"
 import { Popover, InlineBlock } from "reakit";
 
@@ -34,6 +34,8 @@ const Icons = {
   overdue: <Icon size={1.5} color={red} path={mdiCloseCircle} />,
   loading: <Icon size={1.5} color={red} path={mdiLoading} />,
 }
+
+
 
 const CoordinatorHome = observer(({ assembly }) => (
   <Layout>
@@ -156,17 +158,17 @@ const CoordinatorHome = observer(({ assembly }) => (
               {participant.name}
             </NameLinkCell>
 
-            
+
             {/* Medication Reports */}
             <ResultsCell>
               {participant
                 .medication_reports
                 .filter(report => report.resolution_uuid === null)
-                .sort((a, b) => {DateTime.fromISO(b.timestamp) - DateTime.fromISO(a.timestamp)})
+                .sort((a, b) => { DateTime.fromISO(b.timestamp) - DateTime.fromISO(a.timestamp) })
                 .map(report =>
-                  
+
                   <Result key={report.timestamp} >
-                {/*
+                    {/*
                     {DateTime
                       .fromISO(report.timestamp, { zone: "utc" })
                       .setLocale(assembly.locale)
@@ -174,7 +176,7 @@ const CoordinatorHome = observer(({ assembly }) => (
                     }
                      <br></br>
                   */}
-                   
+
                     Submission:
                     <br></br>
                     {DateTime
@@ -199,7 +201,7 @@ const CoordinatorHome = observer(({ assembly }) => (
               {participant
                 .symptom_reports
                 .filter(report => report.resolution_uuid === null)
-                .sort((a, b) => {DateTime.fromISO(b.timestamp) - DateTime.fromISO(a.timestamp)})
+                .sort((a, b) => { DateTime.fromISO(b.timestamp) - DateTime.fromISO(a.timestamp) })
                 .map(symptom_report =>
                   <Result key={symptom_report.created_at} >
                     {DateTime
@@ -229,25 +231,16 @@ const CoordinatorHome = observer(({ assembly }) => (
               {participant
                 .strip_reports
                 .filter(report => report.resolution_uuid === null)
-                .sort((a, b) => {DateTime.fromISO(b.timestamp) - DateTime.fromISO(a.timestamp)})
+                .sort((a, b) => { DateTime.fromISO(b.timestamp) - DateTime.fromISO(a.timestamp) })
                 .map((strip_report, index) =>
                   <Result>
-                    {/*
-                    {DateTime
-                      .fromISO(strip_report.created_at)
-                      .setZone('UTC-3')
-                      .setLocale(assembly.locale)
-                      .toLocaleString(DateTime.DATETIME_SHORT)
-                    }
-                  */}
-                  
-                    <PhotoPopout  src={strip_report.url_photo} >
+                    <NewPhotoPopout src={strip_report.url_photo} >
                       <Selection
                         options={["positive", "negative"]}
                         update={() => strip_report.status}
                         onChange={value => assembly.setPhotoStatus(strip_report.id, value)}
                       />
-                    </PhotoPopout>
+                    </NewPhotoPopout>
                   </Result>
                 )}
             </ResultsCell>

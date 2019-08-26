@@ -12,6 +12,49 @@ import { Image } from "reakit";
 
 import styled from "styled-components"
 
+
+
+class StripPhoto extends React.Component{
+
+  constructor(props) {
+    super(props);
+    this.state = { source: {}}
+  }
+
+  getImage = (url) => {
+
+    fetch(`${url}`, {
+      method: "GET",
+      headers: {
+        "Authorization": localStorage.getItem("user.token")
+      },
+    }).then(resolve => resolve.blob())
+    .then((result) => {
+      let image = URL.createObjectURL(result);
+      this.setState({source: image})
+  })
+    
+  }
+
+componentDidMount(){
+  this.getImage(this.props.src);
+}
+
+render(){
+
+  return(
+    <Image src={this.state.source}>
+    </Image>
+  )
+
+}
+
+
+
+}
+
+
+
 const StripReports = observer(({ assembly }) => (
   <div>
     <Fold>
@@ -50,8 +93,8 @@ const StripReports = observer(({ assembly }) => (
           <Info>
             { status ? assembly.translate(`primitives.pos_inconclusive.${status}`) : assembly.translate("progress.not_reviewed")}
           </Info>
-          <Image src={url_photo}>
-          </Image>
+          <StripPhoto src={url_photo}>
+          </StripPhoto>
         </Answer>
       ))}
     </Fold>

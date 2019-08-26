@@ -19,6 +19,7 @@ class Network {
         body: JSON.stringify({ code }),
         headers: {
           "Content-Type": "application/json",
+          "Authorization": localStorage.getItem("user.token")
         },
       }).then(resolve)
     }).then((result) => {
@@ -33,12 +34,14 @@ class Network {
     })
 
     return (callback) => {
+      console.log("token "+ localStorage.getItem("user.token"));
       let watch = () =>
         fetch(`${this.url}/evaluate`, {
           method: "POST",
           body: JSON.stringify({ code }),
           headers: {
             "Content-Type": "application/json",
+            "Authorization": localStorage.getItem("user.token")
           },
         })
           .then(result => {

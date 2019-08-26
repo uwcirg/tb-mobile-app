@@ -192,6 +192,7 @@ class Assembly extends React.Component {
     let coordinator_uuid = localStorage.getItem("coordinator.uuid")
     let participant_uuid = localStorage.getItem("participant.uuid")
 
+
     if (coordinator_uuid)
       this.coordinator_account.watch(coordinator_uuid, () => this.route())
     else if (participant_uuid){
@@ -227,6 +228,7 @@ class Assembly extends React.Component {
     // window.assembly = this
     autorun(() => {
       if(this.participant_account){
+        console.log(this.participant_account);
         this.notificationStore.userID = this.participant_account.information.phone_number.replace("-", "").trim();
         this.refreshNotifications();
       }
@@ -336,10 +338,9 @@ class Assembly extends React.Component {
 
   login() {
     this.participant_account.authenticate(
-      { phone_number: this.participant_login.phone_number },
+      {phone_number: this.participant_login.phone_number},
       this.participant_login.password,
-    ).then((uuid) => {
-      localStorage.setItem("participant.uuid", uuid)
+    ).then((json) => {
       this.currentPage = Home
     }).catch((e) => {
       this.alert("Nombre de usuario o contraseña incorrecta");
@@ -373,8 +374,10 @@ class Assembly extends React.Component {
     this.coordinator_account.authenticate(
       { email: this.coordinator_login.email },
       this.coordinator_login.password,
-    ).then((uuid) => {
-      localStorage.setItem("coordinator.uuid", uuid)
+    ).then((token) => {
+      //console.log(uuid);
+
+      localStorage.setItem("coordinator.uuid", token.uuid)
       this.currentPage = CoordinatorHome
     })
   }
@@ -434,6 +437,21 @@ class Assembly extends React.Component {
     }
   }
 
+  //Duplicate code that is also in, PhotoPopout.js need to move when refactoring
+  getImage = (url) => {
+    fetch(`${url}`, {
+      method: "GET",
+      headers: {
+        "Authorization": localStorage.getItem("user.token")
+      },
+    }).then(resolve => resolve.blob())
+      .then((result) => {
+        let image = URL.createObjectURL(result);
+        console.log("test");
+        this.photo_uploaded = image;
+      })
+  }
+
   storePhoto(photo) {
 
    let upload_photo_count = this.participant_account.information.strip_reports.length + 2;
@@ -451,12 +469,12 @@ class Assembly extends React.Component {
        method: "POST",
        headers: {
            "Content-Type": "application/json",
+           "Authorization": localStorage.getItem("user.token")
        },
        body: bodySend,
    }).then( res => res.json())
    .then(json => {
-     let tempUrl = `${json.filename}.png`
-     this.photo_uploaded = tempUrl
+     this.getImage(json.filename);
     })
   }
 
@@ -494,12 +512,15 @@ class Assembly extends React.Component {
     // Remove stored credentials
     localStorage.removeItem("coordinator.uuid")
     localStorage.removeItem("participant.uuid")
+    localStorage.removeItem("user.token")
 
     network.clearWatches()
     this.currentPage = Login
   }
 
   render = () => {
+
+    console.log(DateTime.local().toISODate());
 
   return(
     <Layout>

@@ -17,10 +17,10 @@ const FAQs = observer(({ assembly }) => (
     <P>{assembly.translate("faqs.intro_2")}</P>
 
     {/* Iframe for embeded Video1Embed */}
-    <iframe width="100%" height="315" src="https://www.youtube.com/embed/KizqF_HmI2w" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe width="100%" height="315" src="https://www.youtube.com/embed/KizqF_HmI2w" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
     {/* Iframe for embeded Video2Embed */}
-    <iframe width="100%" height="315" src="https://www.youtube.com/embed/vaXrKW0ZGtg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe width="100%" height="315" src="https://www.youtube.com/embed/vaXrKW0ZGtg" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
     <Fold>
       <Question>
