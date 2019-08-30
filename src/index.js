@@ -7,6 +7,8 @@ import { Provider } from 'mobx-react';
 import {AccountStore} from './stores/accountStore'
 import {AccountAPI} from './stores/accountStore'
 
+//This attaches the class containing the API fetch requests to the stores
+//Doing it this way allows you to swap in other data retrival methods for testing
 const APIS = {
     accountAPI: new AccountAPI()
 }

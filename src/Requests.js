@@ -14,12 +14,15 @@
 
 
     const authenticatedRequest = (url,method,body) => {
+        console.log("dddd")
+        console.log(body)
         return fetch(`${process.env.REACT_APP_URL_API}${url}`, {
             method: method,
             headers: {
-                "Authorization": localStorage.getItem("user.token")
+                "Authorization": localStorage.getItem("user.token"),
+                "Content-Type": "application/json",
             },
-            body: body
+            body: JSON.stringify(body)
         })
         .then(resolve => resolve.json())
         .then(json => { return json });

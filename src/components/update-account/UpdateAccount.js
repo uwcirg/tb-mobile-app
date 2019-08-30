@@ -11,22 +11,29 @@ import {grey,white} from '../../colors'
 export default class UpdateAccount extends React.Component {
 
 componentDidMount(){
+  this.props.accountStore.getCurrentUserInformation();
+}
+
+nameChange = (e) => {
+  this.props.accountStore.userInput.name = e.target.value;
+}
+
+handleInfoUpdate = () => {
   this.props.accountStore.updateCurrentUserInformation();
 }
 
 render(){
 
-  console.log("Render Actupdate")
-  console.log(this.props.accountStore.currentUserAccount);
+  console.log(this.props.accountStore.userInput.name);
 
   return(
     <UpdateContainer>
         <h1>{this.props.assembly.translate("account_information.title")}</h1>
         <h2>{this.props.assembly.translate("account_information.account_information")}</h2>
         <Question>
-            {field(this.props.assembly, "menu.name").label}
+            <label> Name</label>
             <br/>
-            {field(this.props.assembly, "menu.name").field}
+            <Field onChange={this.nameChange} />
         </Question>
 
         <Question>
@@ -41,7 +48,7 @@ render(){
             {field(this.props.assembly, "menu.treatment_start", "date").field}
         </Question>
 
-        <Button>
+        <Button onClick={this.handleInfoUpdate}>
           Enviar
         </Button>
 
