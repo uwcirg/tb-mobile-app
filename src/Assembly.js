@@ -1,6 +1,8 @@
 import React from "react"
 import styled from "styled-components"
 
+import Requests from "./Requests";
+
 import { observable, computed, autorun, action } from "mobx"
 import { observer, Observer } from "mobx-react"
 import { Image } from "reakit"
@@ -16,6 +18,7 @@ import Account from "./Account"
 import { DateTime, Duration } from "luxon"
 
 // Pages
+import UpdateAccount from "./components/update-account/UpdateAccount"
 import Contact from "./components/Contact"
 import CoordinatorHome from "./components/CoordinatorHome"
 import CoordinatorLogin from "./components/CoordinatorLogin"
@@ -152,6 +155,7 @@ class Assembly extends React.Component {
 
 
   constructor(props) {
+
     super(props)
 
     this.notificationStore = notificationStore;
@@ -224,8 +228,6 @@ class Assembly extends React.Component {
       this.coordinator_menu.email = this.coordinator_account.information.email
     })
 
-    // Attach to the window for debugging
-    // window.assembly = this
     autorun(() => {
       if(this.participant_account){
         console.log(this.participant_account);
@@ -262,6 +264,7 @@ class Assembly extends React.Component {
       "/progress": Progress,
       "/register": Register,
       "/survey": Survey,
+      "/update_account": UpdateAccount
     }[localStorage.getItem("current_page")] || Login
   }
 

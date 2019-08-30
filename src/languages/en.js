@@ -1286,5 +1286,13 @@ export default {
     new_channel: "Add a new topic",
     add: "Add",
     type_here: "Type here"
+  },
+
+  account_information:{
+    title: "Account Information",
+    account_information: "Update Your Account",
+    update_password: "Update Your Password",
+    password: "Password",
+    new_password:"New Password"
   }
 }

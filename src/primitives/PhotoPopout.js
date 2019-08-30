@@ -43,10 +43,8 @@ class NewPhotoPopout extends React.Component {
 
   constructor(props) {
     super(props);
-
     this.state = { source: {}}
   }
-
 
   getImage = (url) => {
 
@@ -58,7 +56,6 @@ class NewPhotoPopout extends React.Component {
     }).then(resolve => resolve.blob())
     .then((result) => {
       let image = URL.createObjectURL(result);
-      console.log(image);
       this.setState({source: image})
   })
     

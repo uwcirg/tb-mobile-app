@@ -7,7 +7,9 @@ import { mdiMenu, mdiClose, mdiWeb } from "@mdi/js"
 import { Box, Block, Backdrop, Sidebar, Portal } from "reakit";
 import { grey, darkgrey, white, red } from "../colors"
 import Selection from "../primitives/Selection"
-import field from "../util/field"
+
+import UpdateAccount from "./update-account/UpdateAccount"
+import InternalLink from "../primitives/InternalLink"
 
 const Menu = observer(({ assembly }) => (
   <Sidebar.Container>
@@ -21,46 +23,43 @@ const Menu = observer(({ assembly }) => (
 
         <Side align="right" slide as={Portal} {...sidebar}>
           <Observer>{() =>
-          <Layout>
-            <Toggle {...sidebar} >
-              <Icon path={mdiClose} size={1} />
-            </Toggle>
+            <Layout>
+              <Toggle {...sidebar} >
+                <Icon path={mdiClose} size={1} />
+              </Toggle>
 
-            <Question>
-              {field(assembly, "menu.name").label}
-              {field(assembly, "menu.name").field}
-            </Question>
 
-            <Question>
-              {field(assembly, "menu.phone_number", "tel").label}
-              {field(assembly, "menu.phone_number", "tel").field}
-            </Question>
+              <Toggle {...sidebar}>
+              <p>{assembly.participant_account.information.name}</p>
+              <p>{assembly.participant_account.information.phone_number}</p>
 
-            <Question>
-              <Icon path={mdiWeb} size={1} />
+              <InternalLink to={UpdateAccount} assembly={assembly} >
+                <Button>
+                 Update your account.
+                 </Button>
+              </InternalLink>
+              </Toggle>
 
-              <Selection
-                update={() => assembly.language}
-                options={["Español", "English"]}
-                onChange={(selection) => assembly.language = selection}
-              />
-            </Question>
+              <Question>
+                <Icon path={mdiWeb} size={1} />
 
-            <Question>
-              {field(assembly, "menu.treatment_start", "date").label}
-              {field(assembly, "menu.treatment_start", "date").field}
-            </Question>
+                <Selection
+                  update={() => assembly.language}
+                  options={["Español", "English"]}
+                  onChange={(selection) => assembly.language = selection}
+                />
+              </Question>
 
-            <Button
-              onClick={() => assembly.participant_account.update(assembly.menu)}
-            >
-              Save
+              <Button
+                onClick={() => assembly.participant_account.update(assembly.menu)}
+              >
+                Save
             </Button>
 
-            <LogoutButton onClick={() => assembly.logout()}>
-              Log out
+              <LogoutButton onClick={() => assembly.logout()}>
+                Log out
             </LogoutButton>
-          </Layout>
+            </Layout>
           }</Observer>
         </Side>
       </Block>

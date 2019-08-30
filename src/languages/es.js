@@ -1274,5 +1274,13 @@ export default {
     channel_description: "Descripción",
     add: "Añadir",
     type_here: "Escriba mensaje aqui"
+  },
+
+  account_information:{
+    title: "Actualiza tu cuenta",
+    account_information: "Información de la cuenta",
+    update_password: "Actualiza tu contraseña",
+    password: "Contraseña",
+    new_password:"Nueva Contraseña"
   }
 }
