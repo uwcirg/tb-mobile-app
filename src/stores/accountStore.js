@@ -1,56 +1,72 @@
-import { action, observable, mobx,toJS} from "mobx";
-import Requests from "../Requests"
+import { action, observable,toJS} from "mobx";
 
 
 const ROUTES = {
-
     getCurrentUser: ["/participant/current","GET"],
-    updateCurrentUser: ["/participant/current","PATCH"]
-
-        
-}
-
-export class AccountAPI {
-
-
-    executeRequest(route,body){
-
-        let routeInfo = ROUTES[route];
-
-        if(routeInfo){
-            return Requests.authenticatedRequest(...routeInfo,body);
-        }else{
-            throw new Error("Provided route not available.")
-        }
-    }
+    updateCurrentUser: ["/participant/current","PATCH"],
+    updatePassword: ["/participant/current/password","PATCH"]
 }
 
 export class AccountStore {
 
-    @observable currentUserAccount = {};
+    @observable currentUser = {};
+
     @observable userInput = {
         name: "",
         phone_number: "",
         treatment_start: ""
     }
 
-    //Takes in a data strategy, so you can swap out the API one for testing data
+    @observable passwordUpdate = {
+        one: "",
+        two: ""
+    }
+
+    @observable afterPasswordUpdateText = ""
+    @observable passwordUpdateSuccess = false;
+
+
+    //Takes in a data fetching strategy, so you can swap out the API one for testing data
     constructor(strategy) {
         this.strategy = strategy;
     }
 
-
     @action
     getCurrentUserInformation = () => {
-        this.strategy.executeRequest('getCurrentUser').then( json =>{
-            this.currentUserAccount = json;
+        this.strategy.executeRequest(ROUTES,'getCurrentUser').then( json =>{
+            this.currentUser = json;
         })
     }
 
     @action updateCurrentUserInformation = () => {
-        console.log(toJS(this.userInput))
-        this.strategy.executeRequest('updateCurrentUser',toJS(this.userInput)).then( json =>{
-            console.log(json)
+        this.strategy.executeRequest(ROUTES,'updateCurrentUser',toJS(this.userInput)).then( json =>{
+            this.currentUser = json;
         })
+    }
+
+    @action validateAndUpdatePassword = () => {
+
+        if(this.passwordUpdate.one === this.passwordUpdate.two){
+            let body = {
+                password: this.passwordUpdate.one,
+                password_check: this.passwordUpdate.two
+            }
+
+            this.passowrdUpdateAttempted = true;
+            this.strategy.executeRequest(ROUTES,'updatePassword',body).then( res => {
+                this.afterPasswordUpdateText = "Password Update Success"
+                this.passwordUpdateSuccess = true;
+            }).catch( err => {
+                this.afterPasswordUpdateText = "Password Update Failed on Server"
+                return new Error("Error updating password on server");
+            })
+
+
+        }else{
+            this.afterPasswordUpdateText = "Passwords do not match"
+            return new Error("Passwords do not match");
+        }
+
+        
     }
 }

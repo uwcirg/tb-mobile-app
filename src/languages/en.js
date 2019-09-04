@@ -1293,6 +1293,8 @@ export default {
     account_information: "Update Your Account",
     update_password: "Update Your Password",
     password: "Password",
-    new_password:"New Password"
+    new_password:"New Password",
+    verify_password:"Verify_password",
+    enter: "Enter"
   }
 }

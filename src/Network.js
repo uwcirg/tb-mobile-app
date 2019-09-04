@@ -34,7 +34,6 @@ class Network {
     })
 
     return (callback) => {
-      console.log("token "+ localStorage.getItem("user.token"));
       let watch = () =>
         fetch(`${this.url}/evaluate`, {
           method: "POST",

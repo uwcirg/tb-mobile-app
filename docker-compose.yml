@@ -41,7 +41,7 @@ services:
         type: volume
 
   mongo:
-    ports:
+    expose:
       - "27017"
     container_name: mongo
     image: "mongo"

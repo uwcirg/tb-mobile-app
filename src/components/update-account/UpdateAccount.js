@@ -1,88 +1,115 @@
 import React from "react";
-import { Input } from "reakit";
 import { inject, observer } from "mobx-react"
-import field from "../../util/field"
 import styled from "styled-components"
 import Button from "../../primitives/Button"
-import {grey,white} from '../../colors'
+import { grey, white } from '../../colors'
 
 @inject('accountStore')
 @observer
 export default class UpdateAccount extends React.Component {
 
-componentDidMount(){
-  this.props.accountStore.getCurrentUserInformation();
-}
+  componentDidMount() {
+    this.props.accountStore.getCurrentUserInformation();
+  }
 
-nameChange = (e) => {
-  this.props.accountStore.userInput.name = e.target.value;
-}
+  nameChange = (e) => {
+    this.props.accountStore.userInput.name = e.target.value;
+  }
 
-handleInfoUpdate = () => {
-  this.props.accountStore.updateCurrentUserInformation();
-}
+  phoneChange = (e) => {
+    this.props.accountStore.userInput.phone_number = e.target.value;
+  }
 
-render(){
+  dateChange = (e) => {
+    this.props.accountStore.userInput.phone_number = e.target.value;
+  }
 
-  console.log(this.props.accountStore.userInput.name);
+  passwordOneChange = (e) => {
+    this.props.accountStore.passwordUpdate.one = e.target.value;
+  }
 
-  return(
-    <UpdateContainer>
-        <h1>{this.props.assembly.translate("account_information.title")}</h1>
-        <h2>{this.props.assembly.translate("account_information.account_information")}</h2>
-        <Question>
-            <label> Name</label>
-            <br/>
-            <Field onChange={this.nameChange} />
-        </Question>
+  passwordTwoChange = (e) => {
+    this.props.accountStore.passwordUpdate.two = e.target.value;
+  }
 
-        <Question>
-            {field(this.props.assembly, "menu.phone_number", "tel").label}
-            <br/>
-            {field(this.props.assembly, "menu.phone_number", "tel").field}
-        </Question>
+  handleInfoUpdate = () => {
+    this.props.accountStore.updateCurrentUserInformation();
+  }
 
-        <Question>
-            {field(this.props.assembly, "menu.treatment_start", "date").label}
-            <br/>
-            {field(this.props.assembly, "menu.treatment_start", "date").field}
-        </Question>
+  handlePasswordUpdate = () => {
+    this.props.accountStore.validateAndUpdatePassword();
+  }
+
+  render() {
+
+    let translations = {
+      title: this.props.assembly.translate("account_information.title"),
+      account_information: this.props.assembly.translate("account_information.account_information"),
+      update_password: this.props.assembly.translate("account_information.update_password"),
+      password: this.props.assembly.translate("account_information.password"),
+      verify_password: this.props.assembly.translate("account_information.verify_password"),
+      new_password: this.props.assembly.translate("account_information.new_password"),
+      enter: this.props.assembly.translate("account_information.enter"),
+      name: this.props.assembly.translate("menu.name"),
+      phone_number: this.props.assembly.translate("menu.phone_number"),
+      treatment_start: this.props.assembly.translate("menu.treatment_start")
+    }
+
+    let resultColor = this.props.accountStore.passwordUpdateSuccess ? "green" : "red";
+
+    return (
+      <UpdateContainer>
+        <h1>{translations.title}</h1>
+        <h2>{translations.account_information}</h2>
+
+        <LabeledField label={translations.name} callback={this.nameChange} value={this.props.accountStore.currentUser.name} ></LabeledField>
+        <LabeledField label={translations.phone_number} callback={this.phoneChange} value={this.props.accountStore.currentUser.phone_number} ></LabeledField>
+        <LabeledField label={translations.treatment_start} type="date" callback={this.dateChange} value={this.props.accountStore.currentUser.treatment_start} ></LabeledField>
 
         <Button onClick={this.handleInfoUpdate}>
-          Enviar
+          {translations.enter}
         </Button>
 
-        <h2>{this.props.assembly.translate("account_information.update_password")} </h2>
-        <Question>
-          <Field type="password"></Field>
-        </Question>
-        <Question>
-          <Field type="password"></Field>
-        </Question>
+        <h2>{translations.update_password} </h2>
+        <LabeledField type="password" label={translations.new_password} callback={this.passwordOneChange}></LabeledField>
+        <LabeledField type="password" label={translations.verify_password} callback={this.passwordTwoChange}></LabeledField>
 
-        <Button>
-          Enviar
+        <Button onClick={this.handlePasswordUpdate}>
+          {translations.enter}
         </Button>
-    </UpdateContainer>
-    
-  )
+
+        <br></br>
+        {this.props.accountStore.afterPasswordUpdateText? <ResultBox color={resultColor}> {this.props.accountStore.afterPasswordUpdateText} </ResultBox> : ""}
+      </UpdateContainer>
+
+    )
+  }
 }
 
-}
+const LabeledField = props => (
+  <div>
+    <label>{props.label}</label>
+    <br />
+    <Field defaultValue={props.value} type={props.type} onChange={props.callback} />
+  </div>);
 
 const UpdateContainer = styled.div`
 padding-bottom: 3em;
 `
 
-const Question = styled.div`
+const ResultBox = styled.div`
+background-color: ${props => props.color}
+padding: 1em;
+margin-top: 1em;
+display: block;
+color: white;
 
 `
-
 const Field = styled.input`
   background-color: ${white}
   padding: .5em;
   height: 2em;
-  width: 40%;
+  width: 60%;
   margin-bottom: 1rem;
   border-radius: 2px;
   border: 1px solid ${grey};

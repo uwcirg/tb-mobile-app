@@ -4,7 +4,7 @@ import styled from "styled-components"
 import Requests from "./Requests";
 
 import { observable, computed, autorun, action } from "mobx"
-import { observer, Observer } from "mobx-react"
+import { observer, Observer, inject } from "mobx-react"
 import { Image } from "reakit"
 import { white, beige, lightgrey, darkgrey } from "./colors"
 import logo from "./logo.png"
@@ -51,7 +51,7 @@ let network = new Network(process.env.REACT_APP_URL_API)
 
 const notificationStore = new NotificationStore();
 
-
+@inject('accountStore')
 @observer
 class Assembly extends React.Component {
   // ------ Participant ------
@@ -197,9 +197,9 @@ class Assembly extends React.Component {
     let participant_uuid = localStorage.getItem("participant.uuid")
 
 
-    if (coordinator_uuid)
+    if (coordinator_uuid){
       this.coordinator_account.watch(coordinator_uuid, () => this.route())
-    else if (participant_uuid){
+    }else if (participant_uuid){
       this.participant_account.watch(participant_uuid, () => this.route())
     }else {
       this.currentPage = Login
@@ -230,7 +230,7 @@ class Assembly extends React.Component {
 
     autorun(() => {
       if(this.participant_account){
-        console.log(this.participant_account);
+        this.props.accountStore.getCurrentUserInformation();
         this.notificationStore.userID = this.participant_account.information.phone_number.replace("-", "").trim();
         this.refreshNotifications();
       }

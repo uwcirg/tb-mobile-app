@@ -35,7 +35,7 @@ const Menu = observer(({ assembly }) => (
 
               <InternalLink to={UpdateAccount} assembly={assembly} >
                 <Button>
-                 Update your account.
+                 {assembly.translate("account_information.title")}
                  </Button>
               </InternalLink>
               </Toggle>

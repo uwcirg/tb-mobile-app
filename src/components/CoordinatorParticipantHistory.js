@@ -1,5 +1,5 @@
 import React from "react"
-import { observer } from "mobx-react"
+import { observer, inject } from "mobx-react"
 import styled from "styled-components"
 
 import { DateTime } from "luxon"
@@ -13,8 +13,46 @@ import InternalLink from "../primitives/InternalLink"
 import CoordinatorHome from "../components/CoordinatorHome"
 import days_of_treatment from "../util/days_of_treatment"
 
+@inject('coordinatorStore')
+@observer
+class ResetPassword extends React.Component {
+
+  generateNewPassword = () => {
+    {
+
+      try{
+      this.props.coordinatorStore.resetUserPassword(this.props.uuid).then(json =>{
+        this.props.coordinatorStore.newPassword = json.new_password;
+
+      })
+    }catch(err){
+        alert("Password not reset. Try again.")
+      }
+    }
+  }
+
+  render(){
+  return (
+    <div>
+      <Label>
+        Reset Patient Password
+      </Label>
+      <Information>
+        <button onClick={this.generateNewPassword}>Reset Password</button>
+        {this.props.coordinatorStore.newPassword ? <p>Nueva Contraseña : {this.props.coordinatorStore.newPassword}</p> : ""}
+      </Information>
+    </div>
+  )
+}
+
+}
+
+
+
+
 const CoordinatorParticipantHistory = observer(({ assembly }) => (
   <Layout>
+
     <InternalLink
       assembly={assembly}
       to={CoordinatorHome}
@@ -40,7 +78,7 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
         </Label>
         {/* Start Date */}
         <Information>
-          { DateTime
+          {DateTime
             .fromISO(assembly.participant_history.information.treatment_start)
             .setLocale(assembly.locale)
             .toLocaleString(DateTime.DATETIME_SHORT)
@@ -51,7 +89,7 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
           {assembly.translate("coordinator_participant_history.end_date")}
         </Label>
         <Information>
-          { DateTime
+          {DateTime
             .fromISO(assembly.participant_history.information.treatment_start)
             .setLocale(assembly.locale)
             .plus({ months: 6 })
@@ -71,12 +109,14 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
         </Label>
         <Information>
           <DownloadButton onClick={(e) => {
-                        exportAllDataToCSV(assembly.participant_history.information, assembly.coordinator_account)
-                        e.stopPropagation()
-                      }}>
+            exportAllDataToCSV(assembly.participant_history.information, assembly.coordinator_account)
+            e.stopPropagation()
+          }}>
             Here
           </DownloadButton>
         </Information>
+        <ResetPassword uuid={assembly.participant_history.information.uuid}/>
+
       </Info>
 
       <DataTable>
@@ -91,7 +131,8 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
         </thead>
 
         <tbody>
-          { assembly
+
+          {assembly
             .coordinator_account
             .information
             .resolutions
@@ -99,11 +140,11 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
               resolution.participant_uuid ===
               assembly.participant_history.information.uuid
             )
-            .sort((a,b) => DateTime.fromISO(b.created_at) - DateTime.fromISO(a.created_at))
+            .sort((a, b) => DateTime.fromISO(b.created_at) - DateTime.fromISO(a.created_at))
             .map(resolution =>
               <tr key={resolution.uuid} >
                 <td>
-                  { DateTime
+                  {DateTime
                     .fromISO(resolution.timestamp)
                     .setLocale(assembly.locale)
                     .toLocaleString(DateTime.DATETIME_SHORT)
@@ -112,31 +153,31 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
 
                 {/* Medication Reports */}
                 <td>
-                  { assembly
+                  {assembly
                     .participant_history
                     .information
                     .medication_reports
                     .filter(report => report.resolution_uuid === resolution.uuid)
                     .map(report =>
                       <Padding key={report.timestamp} >
-                        { DateTime
+                        {DateTime
                           .fromISO(report.timestamp, { zone: "utc" })
                           .setLocale(assembly.locale)
                           .toLocaleString(DateTime.DATETIME_SHORT)
                         }
 
-                        { report.took_medication
-                        ? assembly.translate("progress.took_medication_yes")
-                        : assembly.translate("progress.took_medication_no") +
+                        {report.took_medication
+                          ? assembly.translate("progress.took_medication_yes")
+                          : assembly.translate("progress.took_medication_no") +
                           report.not_taking_medication_reason
                         }
                       </Padding>
-                  ) }
+                    )}
                 </td>
 
                 {/* Symptom Reports */}
                 <td>
-                  { assembly
+                  {assembly
                     .participant_history
                     .information
                     .symptom_reports
@@ -144,23 +185,23 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
                     .map(symptom_report =>
                       <div key={symptom_report.created_at} >
 
-                      { DateTime
-                        .fromISO(symptom_report.timestamp, { zone: "utc" })
-                        .setLocale(assembly.locale)
-                        .toLocaleString(DateTime.DATETIME_SHORT) + ": "
-                      }
-    
-                      {symptom_report
-                        .reported_symptoms
-                        .map(symptom_key => (
-                          <span>
-                            {assembly.translate(`survey.symptoms.${symptom_key}`)}
-                          </span>
-                        ))
-                      }
-                      
-                      { symptom_report.nausea_rating ? symptom_report.nausea_rating + ", " : null }
-                      { symptom_report.other ? assembly.translate("survey.symptoms.other") + symptom_report.other : null}
+                        {DateTime
+                          .fromISO(symptom_report.timestamp, { zone: "utc" })
+                          .setLocale(assembly.locale)
+                          .toLocaleString(DateTime.DATETIME_SHORT) + ": "
+                        }
+
+                        {symptom_report
+                          .reported_symptoms
+                          .map(symptom_key => (
+                            <span>
+                              {assembly.translate(`survey.symptoms.${symptom_key}`)}
+                            </span>
+                          ))
+                        }
+
+                        {symptom_report.nausea_rating ? symptom_report.nausea_rating + ", " : null}
+                        {symptom_report.other ? assembly.translate("survey.symptoms.other") + symptom_report.other : null}
                       </div>
                     )
                   }
@@ -168,7 +209,7 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
 
                 {/* Strip Reports */}
                 <td>
-                  { assembly
+                  {assembly
                     .participant_history
                     .information
                     .strip_reports
@@ -178,11 +219,11 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
                         <PhotoPopout src={report.url_photo} key={report.id} />
 
                         <Padding>
-                          { DateTime
-                              .fromISO(report.created_at)
-                              .setZone('UTC-3')
-                              .setLocale(assembly.locale)
-                              .toLocaleString(DateTime.DATETIME_SHORT)
+                          {DateTime
+                            .fromISO(report.created_at)
+                            .setZone('UTC-3')
+                            .setLocale(assembly.locale)
+                            .toLocaleString(DateTime.DATETIME_SHORT)
                           }
                           <br></br>
                           {report.status}
@@ -196,7 +237,7 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
                   {resolution.status}: {resolution.note}
                 </td>
               </tr>
-          ) }
+            )}
         </tbody>
       </DataTable>
     </Split>
@@ -204,17 +245,17 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
 ))
 
 function exportAllDataToCSV(participant_information, coordinator_account) {
-  
+
   let resolution_data = coordinator_account
-            .information
-            .resolutions
-            .filter(resolution =>
-              resolution.participant_uuid ===
-              participant_information.uuid
-            )
-  
+    .information
+    .resolutions
+    .filter(resolution =>
+      resolution.participant_uuid ===
+      participant_information.uuid
+    )
+
   let all_data = [];
-  
+
   // Format patient data in CSV formatting
   let medication_data = formatMedicationData(participant_information.medication_reports)
   let symptom_data = formatSideEffectData(participant_information.symptom_reports);
@@ -224,7 +265,7 @@ function exportAllDataToCSV(participant_information, coordinator_account) {
 
   // Setting the headers
   all_data[0] = "Name,Start_Date," + medication_data[0] + symptom_data[0] + strip_reports[0] + notes[0] + resolutions[0];
-  
+
   let report_length = Math.max(symptom_data.length, medication_data.length);
 
   // We are starting at 1 here because we set the columns above
@@ -251,14 +292,14 @@ function exportAllDataToCSV(participant_information, coordinator_account) {
     if (strip_reports[i] === undefined) {
       strip_reports[i] = ",,"
     }
-    
-    all_data[i] =    participant_information.name + ","
-                   + participant_information.treatment_start + ","
-                   + medication_data[i] + ","
-                   + symptom_data[i] + ","
-                   + strip_reports[i] + ","
-                   + notes[i] + ","
-                   + resolutions[i] + ",";
+
+    all_data[i] = participant_information.name + ","
+      + participant_information.treatment_start + ","
+      + medication_data[i] + ","
+      + symptom_data[i] + ","
+      + strip_reports[i] + ","
+      + notes[i] + ","
+      + resolutions[i] + ",";
   }
 
   // Download CSV file,
@@ -271,7 +312,7 @@ function exportAllDataToCSV(participant_information, coordinator_account) {
 function formatMedicationData(medication_reports) {
   let data = [];
   data.push("Timestamp_Medication,Took_Medication,Not_Taking_Reason,");
-  
+
   for (let i = 0; i < medication_reports.length; i++) {
     let row = medication_reports[i];
     data.push(row.timestamp + "," + row.took_medication + "," + row.not_taking_medication_reason);
@@ -285,7 +326,7 @@ function formatMedicationData(medication_reports) {
 function formatSideEffectData(symptom_reports) {
   let data = [];
   data.push("Timestamp_Side_Effect,Reported_Symptoms,Nausea_Rating,Other_Symptoms,");
-  
+
   for (let i = 0; i < symptom_reports.length; i++) {
     let row = symptom_reports[i];
     // NOT elegant: for the case when they have multiple symptoms to report
@@ -327,7 +368,7 @@ function formatResolutionsData(resolutions) {
 function formatStripReportData(strip_reports) {
   let data = [];
   data.push("Created_At_Strip_Report,Status,Photo,");
-  
+
   for (let i = 0; i < strip_reports.length; i++) {
     let row = strip_reports[i];
     data.push(row.created_at + "," + row.status + ",Photo_Here");
@@ -341,7 +382,7 @@ function downloadCSV(csv, filename) {
   var downloadLink;
 
   // CSV file
-  csvFile = new Blob([csv], {type: "text/csv"});
+  csvFile = new Blob([csv], { type: "text/csv" });
 
   // Download link
   downloadLink = document.createElement("a");
