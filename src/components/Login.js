@@ -7,6 +7,7 @@ import ListOfLinks from "../layouts/ListOfLinks"
 import InternalLink from "../primitives/InternalLink"
 import Register from "./Register"
 import CoordinatorLogin from "./CoordinatorLogin"
+import ForgotPassword from "./ForgotPassword"
 
 const Login = observer(({assembly}) => (
   <Layout>
@@ -33,6 +34,11 @@ const Login = observer(({assembly}) => (
     <InternalLink to={CoordinatorLogin} assembly={assembly} >
       {assembly.translate("participant_login.link.coordinator_login")}
     </InternalLink>
+
+    <InternalLink to={ForgotPassword} assembly={assembly} >
+      {assembly.translate("forgot_password.title")}
+    </InternalLink>
+
   </Layout>
 ))
 

@@ -1284,5 +1284,14 @@ export default {
     new_password:"Nueva Contraseña",
     verify_password:"Verificar contraseña",
     enter: "Enviar"
+  },
+
+  forgot_password:{
+    title: "¿Olvidaste tu contraseña?",
+    step_one: "Solicite al coordinador una contraseña temporal en Whatsapp",
+    step_two: "Iniciar sesión con contraseña temporal",
+    step_three: "Clic el ☰ botón en la parte superior derecha",
+    step_four: "Clic Actualiza tu cuenta",
+    step_five: "¡Elija una nueva contraseña y clic Enviar"
   }
 }

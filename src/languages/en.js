@@ -1289,12 +1289,21 @@ export default {
   },
 
   account_information:{
-    title: "Account Information",
+    title: "Edit Account Information",
     account_information: "Update Your Account",
     update_password: "Update Your Password",
     password: "Password",
     new_password:"New Password",
     verify_password:"Verify_password",
     enter: "Enter"
+  },
+
+  forgot_password:{
+    title: "Forgot Password?",
+    step_one: "Ask coordinator for a temporary password on Whatsapp",
+    step_two: "Login with new password",
+    step_three: "Tap the ☰ button on the top right",
+    step_four: "Tap Edit Account Information",
+    step_five: "Pick a new password and update!"
   }
 }
