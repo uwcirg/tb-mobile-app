@@ -17,12 +17,18 @@ export class AccountStore {
         treatment_start: ""
     }
 
+    @observable currentPassword = "";
+
     @observable passwordUpdate = {
         one: "",
         two: ""
     }
 
-    @observable afterPasswordUpdateText = ""
+    @observable accountUpdateAttempt = false;
+    @observable accountUpdateSuccess = false;
+
+
+    @observable passwordUpdateAttempt = false;
     @observable passwordUpdateSuccess = false;
 
 
@@ -39,31 +45,37 @@ export class AccountStore {
     }
 
     @action updateCurrentUserInformation = () => {
-        this.strategy.executeRequest(ROUTES,'updateCurrentUser',toJS(this.userInput)).then( json =>{
+        this.accountUpdateAttempt = true;
+
+        return this.strategy.executeRequest(ROUTES,'updateCurrentUser',toJS(this.userInput)).then( json =>{
             this.currentUser = json;
+            this.accountUpdateSuccess = true;
+        }).catch(err =>{
+            this.accountUpdateSuccess = false;
         })
     }
 
     @action validateAndUpdatePassword = () => {
 
+        this.passwordUpdateAttempt = true;
         if(this.passwordUpdate.one === this.passwordUpdate.two){
             let body = {
+                current_password: this.currentPassword,
                 password: this.passwordUpdate.one,
                 password_check: this.passwordUpdate.two
             }
 
-            this.passowrdUpdateAttempted = true;
             this.strategy.executeRequest(ROUTES,'updatePassword',body).then( res => {
-                this.afterPasswordUpdateText = "Password Update Success"
                 this.passwordUpdateSuccess = true;
-            }).catch( err => {
-                this.afterPasswordUpdateText = "Password Update Failed on Server"
-                return new Error("Error updating password on server");
+            }).catch((err) =>{
+                console.log(err);
+                this.passwordUpdateSuccess = false;
             })
 
 
         }else{
             this.afterPasswordUpdateText = "Passwords do not match"
+            this.passwordUpdateSuccess = false;
             return new Error("Passwords do not match");
         }
 

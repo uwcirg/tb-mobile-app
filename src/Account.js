@@ -42,32 +42,6 @@ class Account {
     })
   }
 
-  // Log in
-  /*
-  authenticate(attributes, password) {
-    return new Promise((resolve, reject) =>
-      this.network.run`
-        BCrypt::Password.new(
-          ${this.model}.find_by(JSON.parse('${JSON.stringify(attributes)}')).
-            password_digest
-        ) == ${JSON.stringify(password)} ?
-        ${this.model}.find_by(JSON.parse('${JSON.stringify(attributes)}')).uuid :
-        nil
-      `.then(response =>
-        response
-        .json()
-        .then(uuid => {
-          if(uuid) {
-            this.watch(uuid)
-            resolve(uuid)
-          } else {
-            reject();
-          }
-        })
-      )
-    )
-  }*/
-
   authenticate(body, password) {
 
     body.password = password

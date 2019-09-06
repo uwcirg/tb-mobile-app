@@ -1,15 +1,15 @@
 import React from "react"
 import styled from "styled-components"
-import { observer } from "mobx-react"
+import { observer,inject } from "mobx-react"
 
 import CircularProgressbar from "react-circular-progressbar"
 import { primary } from "../colors"
 import days_of_treatment from "../util/days_of_treatment"
 
-const TreatmentProgress = observer(({ children, assembly }) => (
+const TreatmentProgress = inject("participantStore")(observer(({participantStore, children, assembly }) => (
     <Layout>
       <Progressbar        
-        percentage={days_of_treatment(assembly.participant_account.information) / 180 * 100}
+        percentage={days_of_treatment(participantStore.information) / 180 * 100}
         styles={{ path: { stroke: primary } }}
       />
 
@@ -17,7 +17,7 @@ const TreatmentProgress = observer(({ children, assembly }) => (
         {children}
       </ChildWrapper>
     </Layout>
-))
+)))
 
 const Layout = styled.div`
   position: relative;

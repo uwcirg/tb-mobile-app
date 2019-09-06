@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import Button from "../primitives/Button"
-import { observer, Observer } from "mobx-react"
+import { inject, observer, Observer } from "mobx-react"
 import { Icon } from "@mdi/react"
 import { mdiMenu, mdiClose, mdiWeb } from "@mdi/js"
 import { Box, Block, Backdrop, Sidebar, Portal } from "reakit";
@@ -11,7 +11,7 @@ import Selection from "../primitives/Selection"
 import UpdateAccount from "./update-account/UpdateAccount"
 import InternalLink from "../primitives/InternalLink"
 
-const Menu = observer(({ assembly }) => (
+const Menu = inject("participantStore")(observer(({participantStore, assembly }) => (
   <Sidebar.Container>
     {sidebar => (
       <Block>
@@ -30,8 +30,8 @@ const Menu = observer(({ assembly }) => (
 
 
               <Toggle {...sidebar}>
-              <p>{assembly.participant_account.information.name}</p>
-              <p>{assembly.participant_account.information.phone_number}</p>
+              <p>{participantStore.name}</p>
+              <p>{participantStore.phone_number}</p>
 
               <InternalLink to={UpdateAccount} assembly={assembly} >
                 <Button>
@@ -50,12 +50,6 @@ const Menu = observer(({ assembly }) => (
                 />
               </Question>
 
-              <Button
-                onClick={() => assembly.participant_account.update(assembly.menu)}
-              >
-                Save
-            </Button>
-
               <LogoutButton onClick={() => assembly.logout()}>
                 Log out
             </LogoutButton>
@@ -65,7 +59,7 @@ const Menu = observer(({ assembly }) => (
       </Block>
     )}
   </Sidebar.Container>
-))
+)))
 
 const Layout = styled(Box)`
   bottom: 0;

@@ -1293,9 +1293,12 @@ export default {
     account_information: "Update Your Account",
     update_password: "Update Your Password",
     password: "Password",
+    current_password: "Current password",
     new_password:"New Password",
     verify_password:"Verify_password",
-    enter: "Enter"
+    enter: "Enter",
+    update_not_recieved: "Update not recieved",
+    update_recieved: "Update recieved"
   },
 
   forgot_password:{

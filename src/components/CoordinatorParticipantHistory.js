@@ -17,6 +17,7 @@ import days_of_treatment from "../util/days_of_treatment"
 @observer
 class ResetPassword extends React.Component {
 
+  //@TODO Move this into the store, it should not be here
   generateNewPassword = () => {
     {
 

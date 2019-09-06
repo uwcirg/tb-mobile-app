@@ -6,7 +6,7 @@ export default class PopUp extends React.Component{
 
     render(){
       return(
-      <PopUpIcon style={{"background-color": this.props.color || green}}>
+      <PopUpIcon style={{"backgroundColor": this.props.color || green}}>
         {this.props.number}
       </PopUpIcon>
       )}

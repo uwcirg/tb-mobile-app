@@ -1,5 +1,5 @@
 import React from "react"
-import { observer } from "mobx-react"
+import { observer,inject } from "mobx-react"
 
 import { Provider, Divider } from "reakit";
 import theme from "reakit-theme-default";
@@ -13,15 +13,16 @@ import days_of_treatment from "../util/days_of_treatment"
 
 import styled from "styled-components"
 
-const Progress = observer(({ assembly }) => (
+const Progress = inject("participantStore")(observer(({participantStore, assembly }) => (
     <Provider theme={theme}>
       <div>
         <h2>{assembly.translate("progress.title")}</h2>
 
         <ProgressBarContainer>
+        {console.log("here "+ participantStore.uuid)}
           <TreatmentProgress assembly={assembly}>
             <Percentage>
-              {days_of_treatment(assembly.participant_account.information)}
+              {days_of_treatment(participantStore.information)}
             </Percentage>
 
             <TreatmentDays>
@@ -38,7 +39,7 @@ const Progress = observer(({ assembly }) => (
 
       </div>
     </Provider>
-))
+)));
 
 const TreatmentDays = styled.div`
   font-size: 0.85rem;

@@ -51,7 +51,7 @@ let network = new Network(process.env.REACT_APP_URL_API)
 
 const notificationStore = new NotificationStore();
 
-@inject('accountStore')
+@inject('accountStore','participantStore')
 @observer
 class Assembly extends React.Component {
   // ------ Participant ------
@@ -198,8 +198,13 @@ class Assembly extends React.Component {
 
 
     if (coordinator_uuid){
+      //Pull in inital setup data here
+      //then do updates on button press situations.
       this.coordinator_account.watch(coordinator_uuid, () => this.route())
     }else if (participant_uuid){
+      this.props.participantStore.uuid = participant_uuid
+      this.props.participantStore.getParticipantInformation();
+
       this.participant_account.watch(participant_uuid, () => this.route())
     }else {
       this.currentPage = Login
@@ -327,11 +332,6 @@ class Assembly extends React.Component {
         author: Coordinator.find_by(uuid: "${this.coordinator_account.information.uuid}"),
       )
     `
-  }
-
-
-  getMessages(user) {
-    return network.getMessages(user);
   }
 
   register_participant() {

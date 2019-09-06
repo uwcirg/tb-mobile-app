@@ -4,7 +4,7 @@ import styled from "styled-components"
 import Button from "../../primitives/Button"
 import { grey, white } from '../../colors'
 
-@inject('accountStore')
+@inject('accountStore','participantStore')
 @observer
 export default class UpdateAccount extends React.Component {
 
@@ -24,6 +24,10 @@ export default class UpdateAccount extends React.Component {
     this.props.accountStore.userInput.phone_number = e.target.value;
   }
 
+  currentPasswordChange = (e) => {
+    this.props.accountStore.currentPassword = e.target.value;
+  }
+
   passwordOneChange = (e) => {
     this.props.accountStore.passwordUpdate.one = e.target.value;
   }
@@ -33,7 +37,10 @@ export default class UpdateAccount extends React.Component {
   }
 
   handleInfoUpdate = () => {
-    this.props.accountStore.updateCurrentUserInformation();
+    this.props.accountStore.updateCurrentUserInformation().then( () =>{
+      this.props.participantStore.getParticipantInformation();
+    });
+    
   }
 
   handlePasswordUpdate = () => {
@@ -47,21 +54,27 @@ export default class UpdateAccount extends React.Component {
       account_information: this.props.assembly.translate("account_information.account_information"),
       update_password: this.props.assembly.translate("account_information.update_password"),
       password: this.props.assembly.translate("account_information.password"),
+      current_password: this.props.assembly.translate("account_information.current_password"),
       verify_password: this.props.assembly.translate("account_information.verify_password"),
       new_password: this.props.assembly.translate("account_information.new_password"),
       enter: this.props.assembly.translate("account_information.enter"),
       name: this.props.assembly.translate("menu.name"),
       phone_number: this.props.assembly.translate("menu.phone_number"),
-      treatment_start: this.props.assembly.translate("menu.treatment_start")
+      treatment_start: this.props.assembly.translate("menu.treatment_start"),
+      update_recieved: this.props.assembly.translate("account_information.update_recieved"),
+      udpate_not_recieved: this.props.assembly.translate("account_information.update_not_recieved")
     }
 
-    let resultColor = this.props.accountStore.passwordUpdateSuccess ? "green" : "red";
+    let accountResultColor = this.props.accountStore.accountUpdateSuccess ? "green" : "red";
+    let passwordResultColor = this.props.accountStore.passwordUpdateSuccess ? "green" : "red";
 
     return (
       <UpdateContainer>
         <h1>{translations.title}</h1>
         <h2>{translations.account_information}</h2>
-
+        {this.props.accountStore.accountUpdateAttempt? <ResultBox color={accountResultColor}> {this.props.accountStore.accountUpdateSuccess? 
+          translations.update_recieved : translations.udpate_not_recieved} </ResultBox> : ""}
+        <br></br>
         <LabeledField label={translations.name} callback={this.nameChange} value={this.props.accountStore.currentUser.name} ></LabeledField>
         <LabeledField label={translations.phone_number} callback={this.phoneChange} value={this.props.accountStore.currentUser.phone_number} ></LabeledField>
         <LabeledField label={translations.treatment_start} type="date" callback={this.dateChange} value={this.props.accountStore.currentUser.treatment_start} ></LabeledField>
@@ -69,8 +82,12 @@ export default class UpdateAccount extends React.Component {
         <Button onClick={this.handleInfoUpdate}>
           {translations.enter}
         </Button>
-
+      
         <h2>{translations.update_password} </h2>
+        {this.props.accountStore.passwordUpdateAttempt? <ResultBox color={passwordResultColor}>
+        {this.props.accountStore.passwordUpdateSuccess? translations.update_recieved : translations.udpate_not_recieved} </ResultBox> : ""}
+        <br></br>
+        <LabeledField type="password" label={translations.current_password} callback={this.currentPasswordChange}></LabeledField>
         <LabeledField type="password" label={translations.new_password} callback={this.passwordOneChange}></LabeledField>
         <LabeledField type="password" label={translations.verify_password} callback={this.passwordTwoChange}></LabeledField>
 
@@ -78,8 +95,6 @@ export default class UpdateAccount extends React.Component {
           {translations.enter}
         </Button>
 
-        <br></br>
-        {this.props.accountStore.afterPasswordUpdateText? <ResultBox color={resultColor}> {this.props.accountStore.afterPasswordUpdateText} </ResultBox> : ""}
       </UpdateContainer>
 
     )

@@ -22,8 +22,13 @@ const authenticatedRequest = (url, method, body) => {
         },
         body: JSON.stringify(body)
     })
-        .then(resolve => resolve.json())
-        .then(json => { return json });
+        .then(resolve => {
+            if(!resolve.ok){
+                throw Error(resolve.statusText)
+            }
+            return resolve.json()})
+        .then(json => { return json })
+
 
 }
 
