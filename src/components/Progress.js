@@ -19,7 +19,6 @@ const Progress = inject("participantStore")(observer(({participantStore, assembl
         <h2>{assembly.translate("progress.title")}</h2>
 
         <ProgressBarContainer>
-        {console.log("here "+ participantStore.uuid)}
           <TreatmentProgress assembly={assembly}>
             <Percentage>
               {days_of_treatment(participantStore.information)}

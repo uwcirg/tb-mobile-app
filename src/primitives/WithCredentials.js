@@ -1,7 +1,15 @@
 import React from "react"
-import { observer } from "mobx-react"
+import { observer,inject } from "mobx-react"
 
-const WithCredentials = observer(({ children, account }) => (
+const AuthenticatedParticipant = inject("participantStore")(observer(({participantStore, children, assembly }) => (
+  (participantStore.information && participantStore.information.uuid)
+  ? <div>
+      {children}
+    </div>
+  : null
+  )))
+
+const AuthenticatedCoordinator = observer(({ children, account }) => (
   (account.information && account.information.uuid)
   ? <div>
       {children}
@@ -9,4 +17,4 @@ const WithCredentials = observer(({ children, account }) => (
   : null
   ))
 
-export default WithCredentials;
+export{ AuthenticatedParticipant, AuthenticatedCoordinator}

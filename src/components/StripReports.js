@@ -1,7 +1,7 @@
 import React from "react"
 
 import { darkgrey } from "../colors"
-import { observer } from "mobx-react"
+import { observer, inject } from "mobx-react"
 import { DateTime } from "luxon"
 import Fold from "../primitives/Fold"
 
@@ -55,7 +55,7 @@ render(){
 
 
 
-const StripReports = observer(({ assembly }) => (
+const StripReports = inject("participantStore")(observer(({participantStore, assembly }) => (
   <div>
     <Fold>
       <Question>
@@ -64,8 +64,7 @@ const StripReports = observer(({ assembly }) => (
       </Question>
 
       { (
-        assembly
-          .participant_account
+          participantStore
           .information
           .strip_reports
         || []
@@ -74,8 +73,8 @@ const StripReports = observer(({ assembly }) => (
           <Info>{assembly.translate("progress.no_strip_reports")}</Info>
         </Answer>
 
-      : assembly
-          .participant_account
+      :
+          participantStore
           .information.strip_reports
           .slice()
           .sort(function(a,b){
@@ -99,7 +98,7 @@ const StripReports = observer(({ assembly }) => (
       ))}
     </Fold>
   </div>
-))
+)))
 
 const Answer = styled.div`
 `

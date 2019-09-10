@@ -1,7 +1,7 @@
 import React from "react"
 
 import { darkgrey } from "../colors"
-import { observer } from "mobx-react"
+import { observer, inject } from "mobx-react"
 import { DateTime } from "luxon"
 import Fold from "../primitives/Fold"
 
@@ -12,7 +12,7 @@ import { Paragraph } from "reakit";
 
 import styled from "styled-components"
 
-const SideEffects = observer(({ assembly }) => (
+const SideEffects = inject("participantStore")(observer(({participantStore, assembly }) => (
   <div>
     <Fold>
       <Question>
@@ -21,8 +21,7 @@ const SideEffects = observer(({ assembly }) => (
       </Question>
 
       { (
-        assembly
-          .participant_account
+        participantStore
           .information
           .symptom_reports
         || []
@@ -33,8 +32,7 @@ const SideEffects = observer(({ assembly }) => (
         </Answer>
 
       : (
-        assembly
-          .participant_account
+          participantStore
           .information
           .symptom_reports
         || []
@@ -75,7 +73,7 @@ const SideEffects = observer(({ assembly }) => (
       }
     </Fold>
   </div>
-))
+)))
 
 const Answer = styled.div`
 `

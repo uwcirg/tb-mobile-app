@@ -33,6 +33,8 @@ export default class DiscussStore {
     @action
     getChannels = () => {
 
+        console.log(this.userID);
+
         fetch(`${this.url}/v1/channels`, {
             method: "GET",
             headers: {

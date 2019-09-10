@@ -1278,7 +1278,7 @@ export default {
 
   account_information:{
     title: "Actualiza tu cuenta",
-    account_information: "Información de la cuenta",
+    account_information: "Actualiza tu Información de la cuenta",
     update_password: "Actualiza tu contraseña",
     password: "Contraseña",
     current_password: "Contraseña actual",

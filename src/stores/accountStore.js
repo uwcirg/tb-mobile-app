@@ -9,6 +9,8 @@ const ROUTES = {
 
 export class AccountStore {
 
+    @observable sessionExpired = false;
+
     @observable currentUser = {};
 
     @observable userInput = {
@@ -39,9 +41,16 @@ export class AccountStore {
 
     @action
     getCurrentUserInformation = () => {
+
         this.strategy.executeRequest(ROUTES,'getCurrentUser').then( json =>{
+
+            if(!json.uuid){
+                this.sessionExpired = true;
+            }
+
             this.currentUser = json;
-        })
+        });
+
     }
 
     @action updateCurrentUserInformation = () => {
@@ -68,7 +77,6 @@ export class AccountStore {
             this.strategy.executeRequest(ROUTES,'updatePassword',body).then( res => {
                 this.passwordUpdateSuccess = true;
             }).catch((err) =>{
-                console.log(err);
                 this.passwordUpdateSuccess = false;
             })
 

@@ -1,4 +1,4 @@
-import { observable } from "mobx"
+import { observable} from "mobx"
 
 class Account {
   @observable network = null
@@ -36,7 +36,11 @@ class Account {
     this.network.watch`${this.model}.find_by(uuid: '${uuid}')`(response => {
       response
         .json()
-        .then(r => this.information = r)
+        .then(r => {
+          this.information = r
+          console.log(r);
+
+        })
         .then(() => { if(callback) callback();})
         .catch(e => console.log(e))
     })

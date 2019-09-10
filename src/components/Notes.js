@@ -4,13 +4,13 @@ import { Icon } from "@mdi/react"
 import { mdiPlus, mdiContentSave } from "@mdi/js"
 import { grey } from "../colors"
 import Fold from "../primitives/Fold"
-import { observer } from "mobx-react"
+import { observer,inject } from "mobx-react"
 import { DateTime } from "luxon"
 import theme from "reakit-theme-default";
 import { Button, Provider, Input } from "reakit";
 import { primary, green } from "../colors"
 
-const Notes = observer(({ assembly }) => (
+const Notes = inject("participantStore")(observer(({participantStore, assembly }) => (
 
   <Provider theme={theme}>
     <div>
@@ -49,8 +49,7 @@ const Notes = observer(({ assembly }) => (
       }
 
       { (
-        assembly
-          .participant_account
+        participantStore
           .information
           .notes
         || []
@@ -59,8 +58,7 @@ const Notes = observer(({ assembly }) => (
 
       ? <Hint>{assembly.translate("notes.hint")}</Hint>
 
-      : assembly
-        .participant_account
+      : participantStore
         .information
         .notes
         .map(({ id, title, created_at, text }) => (
@@ -81,7 +79,7 @@ const Notes = observer(({ assembly }) => (
       ))}
     </div>
   </Provider>
-))
+)))
 
 const SaveButton = styled(Button)`
   margin-top: 0.5rem;

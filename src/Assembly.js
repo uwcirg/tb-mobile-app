@@ -1,8 +1,6 @@
 import React from "react"
 import styled from "styled-components"
 
-import Requests from "./Requests";
-
 import { observable, computed, autorun, action } from "mobx"
 import { observer, Observer, inject } from "mobx-react"
 import { Image } from "reakit"
@@ -39,7 +37,7 @@ import Survey from "./components/Survey"
 import SymptomOverview from "./components/SymptomOverview"
 
 import InternalLink from "./primitives/InternalLink"
-import WithCredentials from "./primitives/WithCredentials"
+import {AuthenticatedParticipant,AuthenticatedCoordinator} from "./primitives/WithCredentials"
 
 // Language
 import espanol from "./languages/es"
@@ -55,12 +53,6 @@ const notificationStore = new NotificationStore();
 @observer
 class Assembly extends React.Component {
   // ------ Participant ------
-  @observable participant_account = new Account(network, "Participant", {
-    name: "",
-    phone_number: "",
-    treatment_start: DateTime.local().toISODate(),
-    password: "",
-  })
 
   @observable menu = {}
   @observable coordinator_menu = {}
@@ -160,6 +152,13 @@ class Assembly extends React.Component {
 
     this.notificationStore = notificationStore;
 
+    autorun(() => {
+      if(this.props.accountStore.sessionExpired){
+        console.log("user session expired")
+        this.logout();
+      }
+    })
+
     // Behavior
     autorun(() => {
       if (this.symptoms.difficulty_breathing || this.symptoms.facial_swelling)
@@ -204,8 +203,7 @@ class Assembly extends React.Component {
     }else if (participant_uuid){
       this.props.participantStore.uuid = participant_uuid
       this.props.participantStore.getParticipantInformation();
-
-      this.participant_account.watch(participant_uuid, () => this.route())
+      this.route();
     }else {
       this.currentPage = Login
       localStorage.removeItem("current_page")
@@ -223,20 +221,14 @@ class Assembly extends React.Component {
     )
 
     autorun(() => {
-      this.menu.name = this.participant_account.information.name
-      this.menu.phone_number = this.participant_account.information.phone_number
-      this.menu.treatment_start = this.participant_account.information.treatment_start
-    })
-
-    autorun(() => {
       this.coordinator_menu.name = this.coordinator_account.information.name
       this.coordinator_menu.email = this.coordinator_account.information.email
     })
 
     autorun(() => {
-      if(this.participant_account){
-        this.props.accountStore.getCurrentUserInformation();
-        this.notificationStore.userID = this.participant_account.information.phone_number.replace("-", "").trim();
+      if(this.props.participantStore.information){
+        this.notificationStore.userID = this.props.participantStore.phone_number.replace("-", "").trim();
+        console.log("Phone bug " + this.notificationStore.userID);
         this.refreshNotifications();
       }
     });
@@ -335,18 +327,26 @@ class Assembly extends React.Component {
   }
 
   register_participant() {
-    this.participant_account.persist(this.participant_registration)
-      .then(() => { this.currentPage = Home })
+   // this.participant_account.persist(this.participant_registration)
+   //   .then(() => { this.currentPage = Home })
+   this.props.participantStore.register(this.participant_registration).then( () =>{
+     this.currentPage = Home;
+   })
   }
 
   login() {
-    this.participant_account.authenticate(
-      {phone_number: this.participant_login.phone_number},
-      this.participant_login.password,
-    ).then((json) => {
-      this.currentPage = Home
+    this.props.participantStore.authenticate(
+      {phone_number: this.participant_login.phone_number, password: this.participant_login.password}
+    ).then((error) => {
+      if(!error){
+        this.currentPage = Home
+      }else{
+        this.alert(error.message)
+      }
+      
     }).catch((e) => {
-      this.alert("Nombre de usuario o contraseña incorrecta");
+      console.log(e);
+      //this.alert("Nombre de usuario o contraseña incorrecta");
     });
   }
 
@@ -378,8 +378,6 @@ class Assembly extends React.Component {
       { email: this.coordinator_login.email },
       this.coordinator_login.password,
     ).then((token) => {
-      //console.log(uuid);
-
       localStorage.setItem("coordinator.uuid", token.uuid)
       this.currentPage = CoordinatorHome
     })
@@ -450,13 +448,11 @@ class Assembly extends React.Component {
     }).then(resolve => resolve.blob())
       .then((result) => {
         let image = URL.createObjectURL(result);
-        console.log("test");
         this.photo_uploaded = image;
       })
   }
 
   storePhoto(photo) {
-
    let upload_photo_count = this.participant_account.information.strip_reports.length + 2;
    let upload_name = "photo_upload_" + upload_photo_count;
    
@@ -488,7 +484,6 @@ class Assembly extends React.Component {
     // TODO this is a clumsy way to do a nested look up.
     for (var i = 0; i < semantic_words.length; i++) {
       if (!dictionary[semantic_words[i]]) {
-        console.log(`Error! Could not find translation of "${semantic_words[i]}", of ${semantic}`)
         return "Error! Translation not found."
       }
 
@@ -509,7 +504,7 @@ class Assembly extends React.Component {
   }
 
   logout() {
-    this.participant_account.information = {}
+    this.props.participantStore.information = {}
     this.coordinator_account.information = {}
 
     // Remove stored credentials
@@ -533,18 +528,17 @@ class Assembly extends React.Component {
           <Title>{this.translate("titles.default")}</Title>
         </InternalLink>
 
-        <WithCredentials account={this.participant_account} >
-
+        <AuthenticatedParticipant account={{information: this.props.participantStore}}>
           <Menu assembly={this} />
-        </WithCredentials>
+        </AuthenticatedParticipant>
 
-        <WithCredentials account={this.coordinator_account} >
+        <AuthenticatedCoordinator account={this.coordinator_account} >
           <AddCoordinator assembly={this} />
-        </WithCredentials>
+        </AuthenticatedCoordinator>
 
-        <WithCredentials account={this.coordinator_account} >
+        <AuthenticatedCoordinator account={this.coordinator_account} >
           <CoordinatorMenu assembly={this} />
-        </WithCredentials>
+        </AuthenticatedCoordinator>
 
         <Drawer>
           <Observer>
@@ -573,13 +567,13 @@ class Assembly extends React.Component {
         </Observer>
       </Content>
 
-      <WithCredentials account={this.participant_account} >
+      <AuthenticatedParticipant account={this.participant_account} >
         <Space />
 
         <NavBar>
           <Navigation assembly={this} />
         </NavBar>
-      </WithCredentials>
+      </AuthenticatedParticipant>
     </Layout>
   )
         }

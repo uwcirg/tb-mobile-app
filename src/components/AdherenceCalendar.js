@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components"
-import { observer } from "mobx-react"
+import { observer, inject } from "mobx-react"
 import ReactCalendar from "react-calendar/dist/entry.nostyle"
 import Survey from "./Survey"
 import { DateTime } from "luxon"
@@ -34,10 +34,9 @@ const AdherenceCalendar = observer(({ assembly }) => (
   />
 ))
 
-const Date = observer(({date, assembly}) => {
+const Date = inject("participantStore")(observer(({participantStore, date, assembly }) => {
   let medication_report = (
-    assembly
-      .participant_account
+    participantStore
       .information
       .medication_reports
     || []
@@ -81,7 +80,7 @@ const Date = observer(({date, assembly}) => {
         {date.getDate()}
       </UnreportedDate>
   )
-})
+}))
 
 const Calendar = styled(ReactCalendar)`
   width: 100% !important;

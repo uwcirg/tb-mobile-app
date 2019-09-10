@@ -4,7 +4,7 @@ import { Button } from "reakit"
 import { green} from "../../colors"
 import theme from "reakit-theme-default";
 import { DateTime } from "luxon"
-import { observer } from "mobx-react"
+import { observer,inject } from "mobx-react"
 
 import Channel from './Channel';
 
@@ -14,26 +14,24 @@ import {
     mdiMinus
 } from "@mdi/js"
 
+
 import DiscussStore from './DiscussStore'
 
-function getUserNumber(assembly) {
-    return assembly.fetch("menu.phone_number").replace("-", "").trim();
-}
-
-function getUserName(assembly) {
-    return assembly.fetch("menu.name");
+function getUserNumber(number) {
+    
+    return number.replace("-", "").trim();
 }
 
 const store = new DiscussStore();
 
-
+@inject('participantStore')
 @observer
 class Discuss extends React.Component {
 
     componentDidMount(){
-        store.userID = getUserNumber(this.props.assembly);
-        store.userName = getUserName(this.props.assembly);
-        this.props.assembly.notificationStore.userID = getUserNumber(this.props.assembly);
+        store.userID = getUserNumber(this.props.participantStore.phone_number);
+        store.userName = this.props.participantStore.name;
+        this.props.assembly.notificationStore.userID = getUserNumber(this.props.participantStore.phone_number);
         this.props.assembly.notificationStore.getChannelNotifications();
         localStorage.setItem('visitedDiscussion',"true");
     }

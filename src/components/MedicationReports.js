@@ -1,7 +1,7 @@
 import React from "react"
 
 import { darkgrey } from "../colors"
-import { observer } from "mobx-react"
+import { observer, inject } from "mobx-react"
 import { DateTime } from "luxon"
 import Fold from "../primitives/Fold"
 
@@ -12,7 +12,7 @@ import { Paragraph } from "reakit";
 
 import styled from "styled-components"
 
-const MedicationReports = observer(({ assembly }) => (
+const MedicationReports = inject("participantStore")(observer(({participantStore, assembly }) => (
   <div>
     <Fold>
 
@@ -22,8 +22,7 @@ const MedicationReports = observer(({ assembly }) => (
     </Question>
 
     { (
-      assembly
-      .participant_account
+      participantStore
       .information
       .medication_reports
         || []
@@ -32,8 +31,7 @@ const MedicationReports = observer(({ assembly }) => (
         <Info>{assembly.translate("progress.no_medication_reports")}</Info>
       </Answer>
 
-    : assembly
-      .participant_account
+    : participantStore
       .information
       .medication_reports
       .slice()
@@ -41,8 +39,8 @@ const MedicationReports = observer(({ assembly }) => (
         return DateTime.fromISO(b.timestamp) - DateTime.fromISO(a.timestamp);
       })
       .map(({timestamp, id, took_medication, not_taking_medication_reason}) => (
-        <Answer>
-          <Time key={id}>
+        <Answer key={id}>
+          <Time >
             {DateTime
               .fromISO(timestamp, {zone: 'utc'})
               .setLocale(assembly.locale)
@@ -63,7 +61,7 @@ const MedicationReports = observer(({ assembly }) => (
 
     </Fold>
   </div>
-))
+)))
 
 const Answer = styled.div`
 `
