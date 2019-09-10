@@ -37,7 +37,7 @@ import Survey from "./components/Survey"
 import SymptomOverview from "./components/SymptomOverview"
 
 import InternalLink from "./primitives/InternalLink"
-import {AuthenticatedParticipant,AuthenticatedCoordinator} from "./primitives/WithCredentials"
+import { AuthenticatedParticipant, AuthenticatedCoordinator } from "./primitives/WithCredentials"
 
 // Language
 import espanol from "./languages/es"
@@ -49,7 +49,7 @@ let network = new Network(process.env.REACT_APP_URL_API)
 
 const notificationStore = new NotificationStore();
 
-@inject('accountStore','participantStore')
+@inject('accountStore', 'participantStore')
 @observer
 class Assembly extends React.Component {
   // ------ Participant ------
@@ -153,7 +153,7 @@ class Assembly extends React.Component {
     this.notificationStore = notificationStore;
 
     autorun(() => {
-      if(this.props.accountStore.sessionExpired){
+      if (this.props.accountStore.sessionExpired) {
         console.log("user session expired")
         this.logout();
       }
@@ -196,15 +196,15 @@ class Assembly extends React.Component {
     let participant_uuid = localStorage.getItem("participant.uuid")
 
 
-    if (coordinator_uuid){
+    if (coordinator_uuid) {
       //Pull in inital setup data here
       //then do updates on button press situations.
       this.coordinator_account.watch(coordinator_uuid, () => this.route())
-    }else if (participant_uuid){
+    } else if (participant_uuid) {
       this.props.participantStore.uuid = participant_uuid
       this.props.participantStore.getParticipantInformation();
       this.route();
-    }else {
+    } else {
       this.currentPage = Login
       localStorage.removeItem("current_page")
     }
@@ -226,7 +226,7 @@ class Assembly extends React.Component {
     })
 
     autorun(() => {
-      if(this.props.participantStore.information){
+      if (this.props.participantStore.information) {
         this.notificationStore.userID = this.props.participantStore.phone_number.replace("-", "").trim();
         console.log("Phone bug " + this.notificationStore.userID);
         this.refreshNotifications();
@@ -234,8 +234,8 @@ class Assembly extends React.Component {
     });
   }
 
-  refreshNotifications(){
-    this.notificationStore.getChannelNotifications(); 
+  refreshNotifications() {
+    this.notificationStore.getChannelNotifications();
   }
 
   // Given...
@@ -327,23 +327,23 @@ class Assembly extends React.Component {
   }
 
   register_participant() {
-   // this.participant_account.persist(this.participant_registration)
-   //   .then(() => { this.currentPage = Home })
-   this.props.participantStore.register(this.participant_registration).then( () =>{
-     this.currentPage = Home;
-   })
+    // this.participant_account.persist(this.participant_registration)
+    //   .then(() => { this.currentPage = Home })
+    this.props.participantStore.register(this.participant_registration).then(() => {
+      this.currentPage = Home;
+    })
   }
 
   login() {
     this.props.participantStore.authenticate(
-      {phone_number: this.participant_login.phone_number, password: this.participant_login.password}
+      { phone_number: this.participant_login.phone_number, password: this.participant_login.password }
     ).then((error) => {
-      if(!error){
+      if (!error) {
         this.currentPage = Home
-      }else{
+      } else {
         this.alert(error.message)
       }
-      
+
     }).catch((e) => {
       console.log(e);
       //this.alert("Nombre de usuario o contraseña incorrecta");
@@ -385,10 +385,8 @@ class Assembly extends React.Component {
 
   // TODO change out `author_id`
   saveNote() {
-    this.participant_account.create(
-      "notes",
-      { title: this.noteTitle, text: this.noteDraft },
-    )
+    let body = { title: this.noteTitle, text: this.noteDraft };
+    this.props.participantStore.saveNote(body);
     this.noteTitle = null
     this.noteDraft = null
   }
@@ -453,28 +451,29 @@ class Assembly extends React.Component {
   }
 
   storePhoto(photo) {
-   let upload_photo_count = this.participant_account.information.strip_reports.length + 2;
-   let upload_name = "photo_upload_" + upload_photo_count;
-   
+    let upload_photo_count = this.participant_account.information.strip_reports.length + 2;
+    let upload_name = "photo_upload_" + upload_photo_count;
+
     //Build JSON for Fetch Request With User Information
     let bodySend = JSON.stringify(
-      {filename: upload_name,
-         photo: photo.replace(/^data:image\/\w+;base64,/, ""),
-          userID:this.participant_account.information.uuid,
-          timestamp: `${this.survey.date}T${this.survey.medication_time}:00.000`
-         });
-    
-   fetch(`${process.env.REACT_APP_URL_API}/photo`, {
-       method: "POST",
-       headers: {
-           "Content-Type": "application/json",
-           "Authorization": localStorage.getItem("user.token")
-       },
-       body: bodySend,
-   }).then( res => res.json())
-   .then(json => {
-     this.getImage(json.filename);
-    })
+      {
+        filename: upload_name,
+        photo: photo.replace(/^data:image\/\w+;base64,/, ""),
+        userID: this.participant_account.information.uuid,
+        timestamp: `${this.survey.date}T${this.survey.medication_time}:00.000`
+      });
+
+    fetch(`${process.env.REACT_APP_URL_API}/photo`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": localStorage.getItem("user.token")
+      },
+      body: bodySend,
+    }).then(res => res.json())
+      .then(json => {
+        this.getImage(json.filename);
+      })
   }
 
   translate(semantic) {
@@ -520,63 +519,63 @@ class Assembly extends React.Component {
 
     console.log(DateTime.local().toISODate());
 
-  return(
-    <Layout>
-      <AuthBar>
-        <InternalLink to={Login} assembly={this} >
-          <Image src={logo} width="1.5rem" height="1.5rem" />
-          <Title>{this.translate("titles.default")}</Title>
-        </InternalLink>
+    return (
+      <Layout>
+        <AuthBar>
+          <InternalLink to={Login} assembly={this} >
+            <Image src={logo} width="1.5rem" height="1.5rem" />
+            <Title>{this.translate("titles.default")}</Title>
+          </InternalLink>
 
-        <AuthenticatedParticipant account={{information: this.props.participantStore}}>
-          <Menu assembly={this} />
-        </AuthenticatedParticipant>
+          <AuthenticatedParticipant account={{ information: this.props.participantStore }}>
+            <Menu assembly={this} />
+          </AuthenticatedParticipant>
 
-        <AuthenticatedCoordinator account={this.coordinator_account} >
-          <AddCoordinator assembly={this} />
-        </AuthenticatedCoordinator>
+          <AuthenticatedCoordinator account={this.coordinator_account} >
+            <AddCoordinator assembly={this} />
+          </AuthenticatedCoordinator>
 
-        <AuthenticatedCoordinator account={this.coordinator_account} >
-          <CoordinatorMenu assembly={this} />
-        </AuthenticatedCoordinator>
+          <AuthenticatedCoordinator account={this.coordinator_account} >
+            <CoordinatorMenu assembly={this} />
+          </AuthenticatedCoordinator>
 
-        <Drawer>
-          <Observer>
-            {() => this.alerts.map(alert => (
-              <Flash
-                key={alert}
-                message={alert}
-                onDismiss={() => this.dismissAlert(alert)}
-              />
-            ))}
-          </Observer>
-        </Drawer>
-      </AuthBar>
+          <Drawer>
+            <Observer>
+              {() => this.alerts.map(alert => (
+                <Flash
+                  key={alert}
+                  message={alert}
+                  onDismiss={() => this.dismissAlert(alert)}
+                />
+              ))}
+            </Observer>
+          </Drawer>
+        </AuthBar>
 
-      <Space />
-
-      <Content>
-        <Observer>
-          {() =>
-            this.currentPage
-              ? <ErrorBoundary assembly={this}>
-                {React.createElement(this.currentPage, { assembly: this })}
-              </ErrorBoundary>
-              : null
-          }
-        </Observer>
-      </Content>
-
-      <AuthenticatedParticipant account={this.participant_account} >
         <Space />
 
-        <NavBar>
-          <Navigation assembly={this} />
-        </NavBar>
-      </AuthenticatedParticipant>
-    </Layout>
-  )
-        }
+        <Content>
+          <Observer>
+            {() =>
+              this.currentPage
+                ? <ErrorBoundary assembly={this}>
+                  {React.createElement(this.currentPage, { assembly: this })}
+                </ErrorBoundary>
+                : null
+            }
+          </Observer>
+        </Content>
+
+        <AuthenticatedParticipant account={this.participant_account} >
+          <Space />
+
+          <NavBar>
+            <Navigation assembly={this} />
+          </NavBar>
+        </AuthenticatedParticipant>
+      </Layout>
+    )
+  }
 }
 
 const Layout = styled.div`

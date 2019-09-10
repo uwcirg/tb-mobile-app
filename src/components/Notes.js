@@ -50,7 +50,6 @@ const Notes = inject("participantStore")(observer(({participantStore, assembly }
 
       { (
         participantStore
-          .information
           .notes
         || []
         )
@@ -59,7 +58,6 @@ const Notes = inject("participantStore")(observer(({participantStore, assembly }
       ? <Hint>{assembly.translate("notes.hint")}</Hint>
 
       : participantStore
-        .information
         .notes
         .map(({ id, title, created_at, text }) => (
           <Note key={id}>
