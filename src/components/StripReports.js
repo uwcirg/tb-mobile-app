@@ -14,11 +14,11 @@ import styled from "styled-components"
 
 
 
-class StripPhoto extends React.Component{
+class StripPhoto extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { source: {}}
+    this.state = { source: {} }
   }
 
   getImage = (url) => {
@@ -29,33 +29,28 @@ class StripPhoto extends React.Component{
         "Authorization": localStorage.getItem("user.token")
       },
     }).then(resolve => resolve.blob())
-    .then((result) => {
-      let image = URL.createObjectURL(result);
-      this.setState({source: image})
-  })
-    
+      .then((result) => {
+        let image = URL.createObjectURL(result);
+        this.setState({ source: image })
+      })
+
   }
 
-componentDidMount(){
-  this.getImage(this.props.src);
+  componentDidMount() {
+    this.getImage(this.props.src);
+  }
+
+  render() {
+
+    return (
+      <Image src={this.state.source}>
+      </Image>
+    )
+
+  }
 }
 
-render(){
-
-  return(
-    <Image src={this.state.source}>
-    </Image>
-  )
-
-}
-
-
-
-}
-
-
-
-const StripReports = inject("participantStore")(observer(({participantStore, assembly }) => (
+const StripReports = inject("participantStore")(observer(({ participantStore, assembly }) => (
   <div>
     <Fold>
       <Question>
@@ -63,39 +58,39 @@ const StripReports = inject("participantStore")(observer(({participantStore, ass
         {assembly.translate("progress.test_result")}
       </Question>
 
-      { (
-          participantStore
+      {(
+        participantStore
           .information
           .strip_reports
         || []
       ).length === 0
-      ? <Answer>
+        ? <Answer>
           <Info>{assembly.translate("progress.no_strip_reports")}</Info>
         </Answer>
 
-      :
-          participantStore
+        :
+        participantStore
           .information.strip_reports
           .slice()
-          .sort(function(a,b){
+          .sort(function (a, b) {
             // NOTE: We are using created_at here, which is when rails captured the photo
             return DateTime.fromISO(b.created_at) - DateTime.fromISO(a.created_at);
           })
-          .map(({created_at, photo, status,url_photo}) => (
-        <Answer>
-          <Time key={created_at}>
-            {DateTime
-              .fromISO(created_at)
-              .setLocale(assembly.locale)
-              .toLocaleString(DateTime.DATETIME_SHORT)}
-          </Time>
-          <Info>
-            { status ? assembly.translate(`primitives.pos_inconclusive.${status}`) : assembly.translate("progress.not_reviewed")}
-          </Info>
-          <StripPhoto src={url_photo}>
-          </StripPhoto>
-        </Answer>
-      ))}
+          .map(({ created_at, photo, status, url_photo }) => (
+            <Answer>
+              <Time key={created_at}>
+                {DateTime
+                  .fromISO(created_at)
+                  .setLocale(assembly.locale)
+                  .toLocaleString(DateTime.DATETIME_SHORT)}
+              </Time>
+              <Info>
+                {status ? assembly.translate(`primitives.pos_inconclusive.${status}`) : assembly.translate("progress.not_reviewed")}
+              </Info>
+              <StripPhoto src={url_photo}>
+              </StripPhoto>
+            </Answer>
+          ))}
     </Fold>
   </div>
 )))

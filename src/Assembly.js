@@ -154,7 +154,6 @@ class Assembly extends React.Component {
 
     autorun(() => {
       if (this.props.accountStore.sessionExpired) {
-        console.log("user session expired")
         this.logout();
       }
     })
@@ -228,7 +227,6 @@ class Assembly extends React.Component {
     autorun(() => {
       if (this.props.participantStore.information) {
         this.notificationStore.userID = this.props.participantStore.phone_number.replace("-", "").trim();
-        console.log("Phone bug " + this.notificationStore.userID);
         this.refreshNotifications();
       }
     });
@@ -397,25 +395,22 @@ class Assembly extends React.Component {
   }
 
   reportMedication() {
-    if (this.survey.took_medication != null) {
-      this.participant_account.create(
-        "medication_reports",
-        {
-          timestamp: `${this.survey.date}T${this.survey.medication_time}:00.000`,
-          took_medication: this.survey.took_medication,
-          not_taking_medication_reason: this.survey.not_taking_medication_reason,
-        },
-      )
+
+   if (this.survey.took_medication != null) {
+     let body =  {
+      timestamp: `${this.survey.date}T${this.survey.medication_time}:00.000`,
+      took_medication: this.survey.took_medication,
+      not_taking_medication_reason: this.survey.not_taking_medication_reason,
     }
+    this.props.participantStore.reportMedication(body);
+   }
+
+
   }
 
   reportSymptoms() {
-    this.participant_account.create(
-      "symptom_reports",
-      Object.assign(
-        { timestamp: `${this.survey.date}T${this.survey.medication_time}:00.000` },
-        this.symptoms,
-      ),
+    this.props.participantStore.reportSymptoms(
+      Object.assign({ timestamp: `${this.survey.date}T${this.survey.medication_time}:00.000` },this.symptoms)
     )
 
     this.symptoms = {
@@ -451,7 +446,7 @@ class Assembly extends React.Component {
   }
 
   storePhoto(photo) {
-    let upload_photo_count = this.participant_account.information.strip_reports.length + 2;
+    let upload_photo_count = this.props.participantStore.information.strip_reports.length + 2;
     let upload_name = "photo_upload_" + upload_photo_count;
 
     //Build JSON for Fetch Request With User Information
@@ -459,7 +454,7 @@ class Assembly extends React.Component {
       {
         filename: upload_name,
         photo: photo.replace(/^data:image\/\w+;base64,/, ""),
-        userID: this.participant_account.information.uuid,
+        userID: this.props.participantStore.uuid,
         timestamp: `${this.survey.date}T${this.survey.medication_time}:00.000`
       });
 
@@ -497,7 +492,7 @@ class Assembly extends React.Component {
   }
 
   @computed get timeSinceTreatment() {
-    let dt = DateTime.fromSQL(this.participant_account.information.treatment_start).toObject();
+    let dt = DateTime.fromSQL(this.props.participantStore.information.treatment_start).toObject();
     let duration = Duration.fromObject(dt);
     return duration.days;
   }
@@ -516,8 +511,6 @@ class Assembly extends React.Component {
   }
 
   render = () => {
-
-    console.log(DateTime.local().toISODate());
 
     return (
       <Layout>

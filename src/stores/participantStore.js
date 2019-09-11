@@ -1,9 +1,13 @@
 import { action, observable,toJS} from "mobx";
+import ReportMedication from "../components/ReportMedication";
+import ReportSymptoms from "../components/ReportSymptoms";
 
 const ROUTES = {
     login: ["/auth/login/participant","POST"],
     register: ["/participant","POST"],
-    saveNote: ["/participant/current/notes","POST"]
+    saveNote: ["/participant/current/notes","POST"],
+    reportMedication: ["/participant/current/medication_report","POST"],
+    reportSymptoms: ["/participant/current/symptom_report","POST"]
 }
 
 export class ParticipantStore {
@@ -20,8 +24,8 @@ export class ParticipantStore {
 
     @observable notes = []
 
+
     setAccountInformation(json){
-        //console.log(json);
         this.information = json;
         this.name = json.name;
         this.phone_number= json.phone_number;
@@ -58,6 +62,19 @@ export class ParticipantStore {
     @action saveNote(body){
         return this.strategy.executeRequest(ROUTES,'saveNote',body).then(json => {
             this.notes = json;
+        });
+    }
+
+    @action reportMedication(body){
+        return this.strategy.executeRequest(ROUTES,'reportMedication',body).then(json => {
+            this.getParticipantInformation();
+        });
+    }
+
+    @action reportSymptoms(body){
+       
+        return this.strategy.executeRequest(ROUTES,'reportSymptoms',body).then(json => {
+           this.getParticipantInformation();
         });
     }
 }

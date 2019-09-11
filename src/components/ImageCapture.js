@@ -49,7 +49,7 @@ class ImageCapture extends React.Component {
             this.imageData
             ? <div>
                 <img alt="Your test strip report." src={this.imageData} />
-
+              {/*
                 <Button
                   onClick={(ev) => {
                     this.imageData = null;
@@ -67,8 +67,9 @@ class ImageCapture extends React.Component {
                   }} >
                   {this.props.assembly.translate("survey.upload.retake")}
                 </Button>
+             
+                */ }
               </div>
-
             : <div>
                 <video ref={this.video} >
                   <p>
