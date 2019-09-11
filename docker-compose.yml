@@ -44,6 +44,11 @@ services:
     expose:
       - "27017"
     container_name: mongo
+<<<<<<< HEAD
+=======
+    ports:
+     - "27017"
+>>>>>>> 57631c52edad53148f1d112912e9f3e5d9a9efc8
     image: "mongo"
     restart: always
 
