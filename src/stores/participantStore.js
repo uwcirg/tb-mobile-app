@@ -1,6 +1,4 @@
 import { action, observable,toJS} from "mobx";
-import ReportMedication from "../components/ReportMedication";
-import ReportSymptoms from "../components/ReportSymptoms";
 
 const ROUTES = {
     login: ["/auth/login/participant","POST"],
@@ -28,6 +26,7 @@ export class ParticipantStore {
     setAccountInformation(json){
         this.information = json;
         this.name = json.name;
+        this.uuid = json.uuid;
         this.phone_number= json.phone_number;
         this.notes = json.notes;
     }
