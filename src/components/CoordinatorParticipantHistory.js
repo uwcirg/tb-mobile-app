@@ -51,7 +51,7 @@ class ResetPassword extends React.Component {
 
 
 
-const CoordinatorParticipantHistory = observer(({ assembly }) => (
+const CoordinatorParticipantHistory = inject("coordinatorStore")(observer(({coordinatorStore, assembly }) => (
   <Layout>
 
     <InternalLink
@@ -110,7 +110,7 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
         </Label>
         <Information>
           <DownloadButton onClick={(e) => {
-            exportAllDataToCSV(assembly.participant_history.information, assembly.coordinator_account)
+            exportAllDataToCSV(assembly.participant_history.information, coordinatorStore.resolutions)
             e.stopPropagation()
           }}>
             Here
@@ -133,9 +133,7 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
 
         <tbody>
 
-          {assembly
-            .coordinator_account
-            .information
+          {coordinatorStore
             .resolutions
             .filter(resolution =>
               resolution.participant_uuid ===
@@ -243,13 +241,11 @@ const CoordinatorParticipantHistory = observer(({ assembly }) => (
       </DataTable>
     </Split>
   </Layout>
-))
+)))
 
-function exportAllDataToCSV(participant_information, coordinator_account) {
+function exportAllDataToCSV(participant_information, coordinator_resolutions) {
 
-  let resolution_data = coordinator_account
-    .information
-    .resolutions
+  let resolution_data = coordinator_resolutions
     .filter(resolution =>
       resolution.participant_uuid ===
       participant_information.uuid

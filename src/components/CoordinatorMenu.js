@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import Button from "../primitives/Button"
-import { observer, Observer } from "mobx-react"
+import { observer, Observer, inject } from "mobx-react"
 import { Icon } from "@mdi/react"
 import { mdiMenu, mdiClose, mdiWeb } from "@mdi/js"
 import { Box, Block, Backdrop, Portal, Sidebar } from "reakit";
@@ -9,7 +9,7 @@ import field from "../util/field"
 import { grey, darkgrey, white, red } from "../colors"
 import Selection from "../primitives/Selection"
 
-const CoordinatorMenu = observer(({ assembly }) => (
+const CoordinatorMenu = inject("coordinatorStore")(observer(({coordinatorStore, assembly }) => (
   <Sidebar.Container>
     {sidebar => (
       <Block>
@@ -26,16 +26,9 @@ const CoordinatorMenu = observer(({ assembly }) => (
             <Toggle {...sidebar} >
               <Icon path={mdiClose} size={1} />
             </Toggle>
-
-            <Question>
-              {field(assembly, "coordinator_menu.name").label}
-              {field(assembly, "coordinator_menu.name").field}
-            </Question>
-
-            <Question>
-              {field(assembly, "coordinator_menu.email", "email").label}
-              {field(assembly, "coordinator_menu.email", "email").field}
-            </Question>
+            <h1>Cuenta de Asistente</h1>
+            <p>{coordinatorStore.name}</p>
+            <p>{coordinatorStore.email}</p>
 
             <Question>
               <Icon path={mdiWeb} size={1} />
@@ -47,12 +40,6 @@ const CoordinatorMenu = observer(({ assembly }) => (
               />
             </Question>
 
-            <Button onClick={() =>
-              assembly.coordinator_account.update(assembly.coordinator_menu)
-            } >
-              Save
-            </Button>
-
             <LogoutButton onClick={() => assembly.logout()} >
               Log out
             </LogoutButton>
@@ -63,9 +50,11 @@ const CoordinatorMenu = observer(({ assembly }) => (
       </Block>
     )}
   </Sidebar.Container>
-))
+)))
 
 const Layout = styled(Box)`
+
+
   bottom: 0;
   top: 0;
   right: 0;
@@ -78,6 +67,10 @@ const Layout = styled(Box)`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+
+  h1{
+    font-size: 1.5em;
+  }
 `
 
 const Toggle = styled(Sidebar.Toggle)`

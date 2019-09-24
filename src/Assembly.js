@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 
-import { observable, computed, autorun, action } from "mobx"
+import { observable, computed, autorun, action, toJS } from "mobx"
 import { observer, Observer, inject } from "mobx-react"
 import { Image } from "reakit"
 import { white, beige, lightgrey, darkgrey } from "./colors"
@@ -45,11 +45,12 @@ import english from "./languages/en"
 
 import Network from "./Network"
 import NotificationStore from './components/discuss/NotificationStore'
+import { mdiHome } from "@mdi/js"
 let network = new Network(process.env.REACT_APP_URL_API)
 
 const notificationStore = new NotificationStore();
 
-@inject('accountStore', 'participantStore')
+@inject('accountStore', 'participantStore','coordinatorStore')
 @observer
 class Assembly extends React.Component {
   // ------ Participant ------
@@ -106,12 +107,13 @@ class Assembly extends React.Component {
   @observable capturing = false
 
   // ------ Coordinator ------
-
+/*
   @observable coordinator_account = new Account(network, "Coordinator", {
     name: "",
     email: "",
     password: "",
   })
+  */
 
   @observable coordinator_login = {
     email: "",
@@ -164,14 +166,18 @@ class Assembly extends React.Component {
         this.alert(this.translate("symptom_overview.take_action_immediately"))
     })
 
+    //TODO: Remove this legacy code
+
     // This solution fixes a redirect error. Prior, it saved a network watch
     // request for the participants history and would go to the history page
     // Now we ditch the network watch when we had to a history page.
     // This has not been thoroughly tested for regression yet.
+   /* 
     autorun(() => {
       if (this.currentPage === CoordinatorParticipantHistory)
         network.clearLast();
     })
+    */
 
     // Every 5 minutes refresh the coordinator home
     autorun(() => {
@@ -198,7 +204,11 @@ class Assembly extends React.Component {
     if (coordinator_uuid) {
       //Pull in inital setup data here
       //then do updates on button press situations.
-      this.coordinator_account.watch(coordinator_uuid, () => this.route())
+      this.props.coordinatorStore.getParticipantRecords();
+      this.props.coordinatorStore.getCoordinatorInformation();
+      //TODO 
+      //this.coordinator_account.watch(coordinator_uuid, () => this.route());
+      this.route();
     } else if (participant_uuid) {
       this.props.participantStore.uuid = participant_uuid
       this.props.participantStore.getParticipantInformation();
@@ -218,11 +228,6 @@ class Assembly extends React.Component {
         this.currentPage ? this.currentPage.route : null
       )
     )
-
-    autorun(() => {
-      this.coordinator_menu.name = this.coordinator_account.information.name
-      this.coordinator_menu.email = this.coordinator_account.information.email
-    })
 
     autorun(() => {
       if (this.props.participantStore.information) {
@@ -288,6 +293,7 @@ class Assembly extends React.Component {
     }
   }
 
+/*
   @action
   resolve_participant_records(participant, status) {
     network.run`
@@ -323,6 +329,41 @@ class Assembly extends React.Component {
       )
     `
   }
+  */
+
+
+//TODO move this to the coordinator page
+ resolve_participant_records = (participant, status) => {
+
+
+  //Extract ids from survey records
+  let medicationIDs = participant.medication_reports.map( report => {
+    return (report.id )
+  })
+
+  let stripIDs = participant.strip_reports.map( report => {
+    return (report.id )
+  })
+
+  let symptomIDs = participant.symptom_reports.map( report => {
+    return (report.id )
+  })
+
+  let body = {
+        uuid: participant.uuid,
+        status: status,
+        timestamp: DateTime.local().toISO(),
+        note: (this.fetch(`coordinator_note.${participant.uuid}`) || ""), 
+        medication_ids: medicationIDs,
+        strip_ids: stripIDs,
+        symptom_ids: symptomIDs,
+        coordinator_uuid: this.props.coordinatorStore.uuid
+  }
+
+  body = toJS(body)
+
+  this.props.coordinatorStore.postResolution(body);
+ }
 
   register_participant() {
     // this.participant_account.persist(this.participant_registration)
@@ -446,13 +487,10 @@ class Assembly extends React.Component {
   }
 
   storePhoto(photo) {
-    let upload_photo_count = this.props.participantStore.information.strip_reports.length + 2;
-    let upload_name = "photo_upload_" + upload_photo_count;
 
     //Build JSON for Fetch Request With User Information
     let bodySend = JSON.stringify(
       {
-        filename: upload_name,
         photo: photo.replace(/^data:image\/\w+;base64,/, ""),
         userID: this.props.participantStore.uuid,
         timestamp: `${this.survey.date}T${this.survey.medication_time}:00.000`
@@ -530,6 +568,12 @@ class Assembly extends React.Component {
 
           <AuthenticatedCoordinator account={this.coordinator_account} >
             <CoordinatorMenu assembly={this} />
+          </AuthenticatedCoordinator>
+
+          <AuthenticatedCoordinator account={this.coordinator_account} >
+          <InternalLink to={CoordinatorHome} assembly={this} >
+            Coordinator Home
+          </InternalLink>
           </AuthenticatedCoordinator>
 
           <Drawer>

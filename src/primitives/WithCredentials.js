@@ -9,12 +9,12 @@ const AuthenticatedParticipant = inject("participantStore")(observer(({participa
   : null
   )))
 
-const AuthenticatedCoordinator = observer(({ children, account }) => (
-  (account.information && account.information.uuid)
+const AuthenticatedCoordinator = inject("coordinatorStore")(observer(({coordinatorStore, children, assembly }) => (
+  (coordinatorStore.email && coordinatorStore.participantRecords)
   ? <div>
       {children}
     </div>
   : null
-  ))
+  )))
 
 export{ AuthenticatedParticipant, AuthenticatedCoordinator}

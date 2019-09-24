@@ -1,5 +1,5 @@
 import React from "react"
-import { observer } from "mobx-react"
+import { observer, inject } from "mobx-react"
 import styled from "styled-components"
 import { DateTime } from "luxon"
 import field from "../util/field"
@@ -37,7 +37,7 @@ const Icons = {
 
 
 
-const CoordinatorHome = observer(({ assembly }) => (
+const CoordinatorHome = inject("coordinatorStore")(observer(({coordinatorStore, assembly }) => (
   <Layout>
     <span>
       {assembly.translate("coordinator.last_updated")}&nbsp;
@@ -62,11 +62,7 @@ const CoordinatorHome = observer(({ assembly }) => (
       </Row>
 
       {(
-        assembly
-          .coordinator_account
-          .information
-          .participants
-        || []
+        coordinatorStore.participantRecords || []
       )
         .slice()
         .sort((a, b) => DateTime.fromISO(b.treatment_start) - DateTime.fromISO(a.treatment_start))
@@ -88,11 +84,11 @@ const CoordinatorHome = observer(({ assembly }) => (
 
                           ? Icons.pending_review
                           : resolved_in_last_day(
-                            assembly.coordinator_account.information.resolutions,
+                            coordinatorStore.resolutions,
                             participant
                           )
                             ? last_resolution(
-                              assembly.coordinator_account.information.resolutions,
+                              coordinatorStore.resolutions,
                               participant
                             ).status === "reviewed"
                               ? Icons.reviewed
@@ -132,12 +128,12 @@ const CoordinatorHome = observer(({ assembly }) => (
             <Cell>
               {
                 last_resolution(
-                  assembly.coordinator_account.information.resolutions,
+                  coordinatorStore.resolutions,
                   participant
                 ) &&
                 DateTime.fromISO(
                   last_resolution(
-                    assembly.coordinator_account.information.resolutions,
+                    coordinatorStore.resolutions,
                     participant
                   ).timestamp
                 )
@@ -259,7 +255,7 @@ const CoordinatorHome = observer(({ assembly }) => (
         )}
     </InformationTable>
   </Layout>
-))
+)))
 
 const Layout = styled.div`
   margin-top: 2rem;
