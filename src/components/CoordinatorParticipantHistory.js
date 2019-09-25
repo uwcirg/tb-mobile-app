@@ -71,7 +71,7 @@ const CoordinatorParticipantHistory = inject("coordinatorStore")(observer(({coor
           {assembly.translate("coordinator_participant_history.first_name")}
         </Label>
         <Information>
-          {assembly.participant_history.information.name}
+          {coordinatorStore.currentParticipant.name}
         </Information>
 
         <Label>
@@ -80,7 +80,7 @@ const CoordinatorParticipantHistory = inject("coordinatorStore")(observer(({coor
         {/* Start Date */}
         <Information>
           {DateTime
-            .fromISO(assembly.participant_history.information.treatment_start)
+            .fromISO(coordinatorStore.currentParticipant.treatment_start)
             .setLocale(assembly.locale)
             .toLocaleString(DateTime.DATETIME_SHORT)
           }
@@ -91,7 +91,7 @@ const CoordinatorParticipantHistory = inject("coordinatorStore")(observer(({coor
         </Label>
         <Information>
           {DateTime
-            .fromISO(assembly.participant_history.information.treatment_start)
+            .fromISO(coordinatorStore.currentParticipant.treatment_start)
             .setLocale(assembly.locale)
             .plus({ months: 6 })
             .toLocaleString(DateTime.DATETIME_SHORT)
@@ -102,7 +102,7 @@ const CoordinatorParticipantHistory = inject("coordinatorStore")(observer(({coor
           {assembly.translate("progress.days")}
         </Label>
         <Information>
-          {days_of_treatment(assembly.participant_history.information)}
+          {days_of_treatment(coordinatorStore.currentParticipant)}
         </Information>
 
         <Label>
@@ -110,13 +110,13 @@ const CoordinatorParticipantHistory = inject("coordinatorStore")(observer(({coor
         </Label>
         <Information>
           <DownloadButton onClick={(e) => {
-            exportAllDataToCSV(assembly.participant_history.information, coordinatorStore.resolutions)
+            exportAllDataToCSV(coordinatorStore.currentParticipant, coordinatorStore.resolutions)
             e.stopPropagation()
           }}>
             Here
           </DownloadButton>
         </Information>
-        <ResetPassword uuid={assembly.participant_history.information.uuid}/>
+        <ResetPassword uuid={coordinatorStore.currentParticipant.uuid}/>
 
       </Info>
 
@@ -137,7 +137,7 @@ const CoordinatorParticipantHistory = inject("coordinatorStore")(observer(({coor
             .resolutions
             .filter(resolution =>
               resolution.participant_uuid ===
-              assembly.participant_history.information.uuid
+              coordinatorStore.currentParticipant.uuid
             )
             .sort((a, b) => DateTime.fromISO(b.created_at) - DateTime.fromISO(a.created_at))
             .map(resolution =>
@@ -152,10 +152,7 @@ const CoordinatorParticipantHistory = inject("coordinatorStore")(observer(({coor
 
                 {/* Medication Reports */}
                 <td>
-                  {assembly
-                    .participant_history
-                    .information
-                    .medication_reports
+                  {coordinatorStore.currentParticipant.medication_reports
                     .filter(report => report.resolution_uuid === resolution.uuid)
                     .map(report =>
                       <Padding key={report.timestamp} >
@@ -176,9 +173,7 @@ const CoordinatorParticipantHistory = inject("coordinatorStore")(observer(({coor
 
                 {/* Symptom Reports */}
                 <td>
-                  {assembly
-                    .participant_history
-                    .information
+                  {coordinatorStore.currentParticipant
                     .symptom_reports
                     .filter(report => report.resolution_uuid === resolution.uuid)
                     .map(symptom_report =>
@@ -208,9 +203,7 @@ const CoordinatorParticipantHistory = inject("coordinatorStore")(observer(({coor
 
                 {/* Strip Reports */}
                 <td>
-                  {assembly
-                    .participant_history
-                    .information
+                  {coordinatorStore.currentParticipant
                     .strip_reports
                     .filter(report => report.resolution_uuid === resolution.uuid)
                     .map(report =>

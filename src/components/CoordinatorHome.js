@@ -145,10 +145,10 @@ const CoordinatorHome = inject("coordinatorStore")(observer(({coordinatorStore, 
             <NameLinkCell
               className="NameLinkCell"
               onClick={(e) => {
-                assembly.participant_history.watch(
-                  participant.uuid,
-                  () => assembly.currentPage = CoordinatorParticipantHistory
-                )
+                coordinatorStore.updateCurrentParticipant(participant.uuid).then( () => {
+          
+                  assembly.currentPage = CoordinatorParticipantHistory
+                })
               }
               }>
               {participant.name}

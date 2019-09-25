@@ -12,7 +12,6 @@ import ErrorBoundary from "./primitives/ErrorBoundary"
 // import KJUR from "jsrsasign"
 
 // Utility
-import Account from "./Account"
 import { DateTime, Duration } from "luxon"
 
 // Pages
@@ -43,10 +42,9 @@ import { AuthenticatedParticipant, AuthenticatedCoordinator } from "./primitives
 import espanol from "./languages/es"
 import english from "./languages/en"
 
-import Network from "./Network"
 import NotificationStore from './components/discuss/NotificationStore'
 import { mdiHome } from "@mdi/js"
-let network = new Network(process.env.REACT_APP_URL_API)
+//let network = new Network(process.env.REACT_APP_URL_API)
 
 const notificationStore = new NotificationStore();
 
@@ -107,13 +105,6 @@ class Assembly extends React.Component {
   @observable capturing = false
 
   // ------ Coordinator ------
-/*
-  @observable coordinator_account = new Account(network, "Coordinator", {
-    name: "",
-    email: "",
-    password: "",
-  })
-  */
 
   @observable coordinator_login = {
     email: "",
@@ -125,7 +116,7 @@ class Assembly extends React.Component {
   @observable coordinator_note = {}
 
   // - - - Coordinator's view of participant information
-  @observable participant_history = new Account(network, "Participant", {})
+  //@observable participant_history = new Account(network, "Participant", {})
 
   @observable new_coordinator = {
     name: "",
@@ -180,6 +171,8 @@ class Assembly extends React.Component {
     */
 
     // Every 5 minutes refresh the coordinator home
+    /*
+    TODO: fix this to use coordinator store
     autorun(() => {
       if (this.currentPage === CoordinatorHome)
         this.coordinator_timer = setInterval(
@@ -191,6 +184,7 @@ class Assembly extends React.Component {
         this.coordinator_timer = null
       }
     })
+    */
 
     this.survey.date = DateTime.local().setLocale(this.locale).toLocaleString()
     this.survey.medication_time = DateTime.local().setLocale(this.locale).toLocaleString(DateTime.TIME_24_SIMPLE)
@@ -202,12 +196,8 @@ class Assembly extends React.Component {
 
 
     if (coordinator_uuid) {
-      //Pull in inital setup data here
-      //then do updates on button press situations.
       this.props.coordinatorStore.getParticipantRecords();
       this.props.coordinatorStore.getCoordinatorInformation();
-      //TODO 
-      //this.coordinator_account.watch(coordinator_uuid, () => this.route());
       this.route();
     } else if (participant_uuid) {
       this.props.participantStore.uuid = participant_uuid
@@ -269,9 +259,16 @@ class Assembly extends React.Component {
   }
 
   setPhotoStatus(id, status) {
+
+    /*
     network.run`
       StripReport.find(${id}).update(status: "${status}")
     `
+    */
+
+    this.props.coordinatorStore.setPhotoStatus(id,status);
+
+
   }
 
   // Alerts
@@ -293,48 +290,9 @@ class Assembly extends React.Component {
     }
   }
 
-/*
-  @action
-  resolve_participant_records(participant, status) {
-    network.run`
-      Resolution.create!(
-        participant_uuid: ${JSON.stringify(participant.uuid)},
-        status: ${JSON.stringify(status)},
-        timestamp: ${JSON.stringify(DateTime.local().toISO())},
-
-        note: ${
-      JSON.stringify(this.fetch(`coordinator_note.${participant.uuid}`) || "")
-      },
-
-        medication_reports: [ ${
-      participant.medication_reports.map(record =>
-        `MedicationReport.find(${record.id})`
-      ).join(",")
-      } ],
-
-        strip_reports: [ ${
-      participant.strip_reports.map(record =>
-        `StripReport.find(${record.id})`
-      ).join(",")
-      } ],
-
-        symptom_reports: [ ${
-      participant.symptom_reports.map(record =>
-        `SymptomReport.find(${record.id})`
-      ).join(",")
-      } ],
-
-        uuid: SecureRandom.uuid,
-        author: Coordinator.find_by(uuid: "${this.coordinator_account.information.uuid}"),
-      )
-    `
-  }
-  */
-
 
 //TODO move this to the coordinator page
  resolve_participant_records = (participant, status) => {
-
 
   //Extract ids from survey records
   let medicationIDs = participant.medication_reports.map( report => {
@@ -385,7 +343,7 @@ class Assembly extends React.Component {
 
     }).catch((e) => {
       console.log(e);
-      //this.alert("Nombre de usuario o contraseña incorrecta");
+      this.alert("Nombre de usuario o contraseña incorrecta");
     });
   }
 
@@ -402,24 +360,32 @@ class Assembly extends React.Component {
   }
 
   add_coordinator() {
-    network.run`
-    Coordinator.create!(
-      name: ${JSON.stringify(this.new_coordinator.name)},
-      email: ${JSON.stringify(this.new_coordinator.email)},
-      password_digest:  BCrypt::Password.create(${JSON.stringify(this.new_coordinator.password)}),
-      uuid: SecureRandom.uuid,
-    )
-    `
+
+    let body = {
+      name: this.new_coordinator.name,
+      email: this.new_coordinator.email,
+      password:  this.new_coordinator.password
+  }
+
+    this.props.coordinatorStore.addCoordinator(body)
+
+
   }
 
   login_coordinator() {
-    this.coordinator_account.authenticate(
-      { email: this.coordinator_login.email },
-      this.coordinator_login.password,
-    ).then((token) => {
-      localStorage.setItem("coordinator.uuid", token.uuid)
-      this.currentPage = CoordinatorHome
-    })
+    this.props.coordinatorStore.authenticate(
+      { email: this.coordinator_login.email, password: this.coordinator_login.password }
+    ).then((error) => {
+      if (!error) {
+        this.currentPage = CoordinatorHome
+      } else {
+        this.alert(error.message)
+      }
+
+    }).catch((e) => {
+      console.log(e);
+      this.alert("Nombre de usuario o contraseña incorrecta");
+    });
   }
 
   // TODO change out `author_id`
@@ -537,14 +503,12 @@ class Assembly extends React.Component {
 
   logout() {
     this.props.participantStore.information = {}
-    this.coordinator_account.information = {}
+    this.props.coordinatorStore.logout();
 
     // Remove stored credentials
     localStorage.removeItem("coordinator.uuid")
     localStorage.removeItem("participant.uuid")
     localStorage.removeItem("user.token")
-
-    network.clearWatches()
     this.currentPage = Login
   }
 
@@ -562,15 +526,15 @@ class Assembly extends React.Component {
             <Menu assembly={this} />
           </AuthenticatedParticipant>
 
-          <AuthenticatedCoordinator account={this.coordinator_account} >
+          <AuthenticatedCoordinator >
             <AddCoordinator assembly={this} />
           </AuthenticatedCoordinator>
 
-          <AuthenticatedCoordinator account={this.coordinator_account} >
+          <AuthenticatedCoordinator >
             <CoordinatorMenu assembly={this} />
           </AuthenticatedCoordinator>
 
-          <AuthenticatedCoordinator account={this.coordinator_account} >
+          <AuthenticatedCoordinator >
           <InternalLink to={CoordinatorHome} assembly={this} >
             Coordinator Home
           </InternalLink>

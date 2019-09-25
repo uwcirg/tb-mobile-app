@@ -80,11 +80,11 @@ export default class Channel extends React.Component {
             </SpecificChannel>
         )
     }
+
 }
 
 const Messages = styled.div`
-margin-bottom: 100px;
-
+padding-bottom: 100px;
 `
 
 const SpecificChannel = styled.div`
@@ -179,6 +179,7 @@ const MessageGroup = styled.div`
         background-color: white;
     }
 
+
 `
 
 const Message = styled.div`
@@ -187,6 +188,9 @@ padding: .5em;
 margin: .5em;
 background-color: white;
 border-radius: 5px;
+
+
+
 
 `
 

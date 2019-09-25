@@ -40,7 +40,7 @@ const Home = observer(({ assembly }) => (
       <Help> <IconKey assembly={assembly} /> </Help>
     </Row>
     <AdherenceCalendar assembly={assembly} />
-    {localStorage.getItem('visitedDiscussion') ? "" : <Alert assembly={assembly} />}
+   
   </Layout>
 ))
 
