@@ -25,10 +25,11 @@ export class ParticipantStore {
 
     executeRequest(type,body){
         return this.strategy.executeRequest(ROUTES,type,body).then(res =>{
-            
+            console.log(res)
             if( res instanceof Error){
                 //Check if loggin to provide different error
                 if(type != "login"){
+                    console.log("also in here")
                     this.expired = true;
                 }
                 return ""
@@ -89,5 +90,15 @@ export class ParticipantStore {
         return this.executeRequest('reportSymptoms',body).then(json => {
            this.getParticipantInformation();
         });
+    }
+
+    @action logout(){
+        this.uuid = ""
+        this.name = ""
+        this.phone_number = ""
+        this.information = {}
+        this.notes = []
+        this.expired = false;
+
     }
 }

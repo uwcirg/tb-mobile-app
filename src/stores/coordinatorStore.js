@@ -40,7 +40,7 @@ export class CoordinatorStore {
         this.strategy = strategy;
     }
 
-    
+
     executeRequest(type,body){
         return this.strategy.executeRequest(ROUTES,type,body).then(res =>{
             
@@ -122,5 +122,6 @@ export class CoordinatorStore {
         this.email = ""
         this.participantRecords = []
         this.resolutions = []
+        this.expired = false;
     }
 }

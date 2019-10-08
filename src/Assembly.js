@@ -143,11 +143,23 @@ class Assembly extends React.Component {
 
     super(props)
     this.notificationStore = notificationStore;
+
     autorun(() => {
-      if (this.props.accountStore.sessionExpired || this.props.coordinatorStore.expired || this.props.participantStore.expired) {
+     
+      if (this.props.coordinatorStore.expired) {
         this.logout();
         this.alert(this.translate("session_expiration.alert"))
       }
+    })
+
+    autorun(() => {
+      console.log(this.props.participantStore.expired);
+      if(this.props.participantStore.expired){
+        console.log('change !!!');
+        this.logout();
+        this.alert(this.translate("session_expiration.alert"))
+      }
+
     })
 
     // Behavior
@@ -501,7 +513,7 @@ class Assembly extends React.Component {
   }
 
   logout() {
-    this.props.participantStore.information = {}
+    this.props.participantStore.logout();
     this.props.coordinatorStore.logout();
 
     // Remove stored credentials
@@ -509,6 +521,7 @@ class Assembly extends React.Component {
     localStorage.removeItem("participant.uuid")
     localStorage.removeItem("user.token")
     this.currentPage = Login
+
   }
 
   render = () => {
