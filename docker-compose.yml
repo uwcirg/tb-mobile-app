@@ -56,7 +56,7 @@ services:
       - mongo
     image: kjgoodwins/message
     ports:
-      - "5002:5002"
+      - "$PORT_MESSAGE:5002"
     environment:
       PORT: "5002"
       MDPORT: "mongo:27017"
