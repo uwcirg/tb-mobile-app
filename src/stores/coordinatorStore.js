@@ -16,6 +16,7 @@ export class CoordinatorStore {
     @observable email = ""
     @observable participantRecords = []
     @observable resolutions = []
+    @observable expired = false;
 
     //Participant Page Information
     @observable currentParticipant = {
@@ -39,8 +40,20 @@ export class CoordinatorStore {
         this.strategy = strategy;
     }
 
+    
     executeRequest(type,body){
-        return this.strategy.executeRequest(ROUTES,type,body)
+        return this.strategy.executeRequest(ROUTES,type,body).then(res =>{
+            
+            if( res instanceof Error){
+                //Check if loggin to provide different error
+                if(type != "login"){
+                    this.expired = true;
+                }
+                return ""
+            }else{
+                return res
+            }
+        })
     }
 
     @observable newPassword = "";
@@ -64,7 +77,9 @@ export class CoordinatorStore {
     }
 
     @action getCoordinatorInformation = () => {
+        
         this.executeRequest('get_coordinator').then(json => {
+            console.log(json)
             this.name = json.name;
             this.email = json.email;
             this.uuid = json.uuid;

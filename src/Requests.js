@@ -8,6 +8,12 @@ const authenticatedRequest = (url, method, body) => {
         body: JSON.stringify(body)
     })
         .then(resolve => {
+
+            if(resolve.status == 401){
+                console.log("THEREE")
+                return new Error(401);
+                ;
+            }
             return resolve.json()})
         .then(json => { return json })
 
