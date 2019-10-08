@@ -133,7 +133,7 @@ class Assembly extends React.Component {
   }
 
   // ------ Misc ------
-  @observable language = "Español"
+  @observable language = process.env.REACT_APP_LANGUAGE || "Español"
   @observable alerts = []
   @observable currentPage = null
   @observable notificationStore = null;
@@ -144,6 +144,8 @@ class Assembly extends React.Component {
     super(props)
 
     this.notificationStore = notificationStore;
+
+    console.log(process.env);
 
     autorun(() => {
       if (this.props.accountStore.sessionExpired) {
