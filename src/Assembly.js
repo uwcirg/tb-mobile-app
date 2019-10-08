@@ -142,11 +142,7 @@ class Assembly extends React.Component {
   constructor(props) {
 
     super(props)
-
     this.notificationStore = notificationStore;
-
-    console.log(process.env);
-
     autorun(() => {
       if (this.props.accountStore.sessionExpired) {
         this.logout();
