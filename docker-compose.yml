@@ -24,7 +24,7 @@ services:
     image: postgres
 
   web:
-    image: kjgoodwins/foundation
+    image: kjgoodwins/foundation:$API_DOCKER_TAG
     environment:
       - DATA=postgres://postgres:postgres@db
       - PASSWORD
