@@ -12,7 +12,7 @@ import ErrorBoundary from "./primitives/ErrorBoundary"
 // import KJUR from "jsrsasign"
 
 // Utility
-import { DateTime, Duration } from "luxon"
+import { DateTime, Duration, Interval} from "luxon"
 
 // Pages
 import UpdateAccount from "./components/update-account/UpdateAccount"
@@ -111,7 +111,6 @@ class Assembly extends React.Component {
     password: "",
   }
 
-
   @observable coordinator_timer = null
   @observable coordinator_note = {}
 
@@ -142,25 +141,9 @@ class Assembly extends React.Component {
   constructor(props) {
 
     super(props)
+
+
     this.notificationStore = notificationStore;
-
-    autorun(() => {
-     
-      if (this.props.coordinatorStore.expired) {
-        this.logout();
-        this.alert(this.translate("session_expiration.alert"))
-      }
-    })
-
-    autorun(() => {
-      console.log(this.props.participantStore.expired);
-      if(this.props.participantStore.expired){
-        console.log('change !!!');
-        this.logout();
-        this.alert(this.translate("session_expiration.alert"))
-      }
-
-    })
 
     // Behavior
     autorun(() => {
@@ -197,14 +180,41 @@ class Assembly extends React.Component {
     })
     */
 
+   autorun(() => {
+     
+    if (this.currentPage == ""){
+      console.log('autoron')
+      this.tokenCheckTimer = setInterval(
+        () => {console.log("FUK")},
+        1000, // 5 minutes, 60 s/min, 1000 ms/s
+      )
+    }
+    else if (this.tokenCheckTimer) {
+      clearInterval(this.tokenCheckTimer)
+      this.tokenCheckTimer = null
+    }
+  })
+
     this.survey.date = DateTime.local().setLocale(this.locale).toLocaleString()
     this.survey.medication_time = DateTime.local().setLocale(this.locale).toLocaleString(DateTime.TIME_24_SIMPLE)
 
     // When the page loads,
     // immediately look for stored credentials in `localStorage`.
+    let tokenExpiration = localStorage.getItem("token.exp")
     let coordinator_uuid = localStorage.getItem("coordinator.uuid")
     let participant_uuid = localStorage.getItem("participant.uuid")
 
+    if(tokenExpiration){
+      let start = DateTime.local();
+      let end = DateTime.fromISO(tokenExpiration);
+      let interval = Interval.fromDateTimes(start,end);
+
+      setTimeout(() => {
+        this.alert(this.translate("session_expiration.alert"));
+        this.logout();
+        console.log(`Session mili ${interval.toDuration().milliseconds}`)
+        this.currentPage = Login},interval.toDuration().milliseconds);
+    }
 
     if (coordinator_uuid) {
       this.props.coordinatorStore.getParticipantRecords();
@@ -218,6 +228,8 @@ class Assembly extends React.Component {
       this.currentPage = Login
       localStorage.removeItem("current_page")
     }
+
+
 
     // Determine what to display
     this.route()
@@ -520,11 +532,13 @@ class Assembly extends React.Component {
     localStorage.removeItem("coordinator.uuid")
     localStorage.removeItem("participant.uuid")
     localStorage.removeItem("user.token")
+    localStorage.removeItem("token.exp")
     this.currentPage = Login
 
   }
 
   render = () => {
+    
 
     return (
       <Layout>
@@ -548,7 +562,7 @@ class Assembly extends React.Component {
 
           <AuthenticatedCoordinator >
           <InternalLink to={CoordinatorHome} assembly={this} >
-            Coordinator Home
+            <button onClick={this.props.coordinatorStore.getParticipantRecords()}>Update Coordinator Home</button>
           </InternalLink>
           </AuthenticatedCoordinator>
 

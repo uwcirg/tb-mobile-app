@@ -44,7 +44,7 @@ export class CoordinatorStore {
     executeRequest(type,body){
         return this.strategy.executeRequest(ROUTES,type,body).then(res =>{
             
-            if( res instanceof Error){
+                       if( res instanceof Error){
                 //Check if loggin to provide different error
                 if(type != "login"){
                     this.expired = true;
@@ -53,6 +53,7 @@ export class CoordinatorStore {
             }else{
                 return res
             }
+        
         })
     }
 
@@ -91,6 +92,8 @@ export class CoordinatorStore {
             if(json && json.uuid){
                 localStorage.setItem("user.token", json.token);
                 localStorage.setItem(`coordinator.uuid`,json.uuid);
+                localStorage.setItem('token.exp',json.exp)
+                console.log( json.exp)
                 this.getCoordinatorInformation();
                 this.getParticipantRecords();
                 return

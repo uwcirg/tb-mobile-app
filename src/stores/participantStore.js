@@ -1,4 +1,5 @@
 import { action, observable,toJS} from "mobx";
+import { mdiJson } from "@mdi/js";
 
 const ROUTES = {
     login: ["/auth/login/participant","POST"],
@@ -25,12 +26,15 @@ export class ParticipantStore {
 
     executeRequest(type,body){
         return this.strategy.executeRequest(ROUTES,type,body).then(res =>{
-            console.log(res)
             if( res instanceof Error){
                 //Check if loggin to provide different error
                 if(type != "login"){
-                    console.log("also in here")
+
+                    //The token expiration should only be set to true if they 
+                    //have not already been logged out, this prevents 2 messages
+                    if(this.uuid){
                     this.expired = true;
+                    }
                 }
                 return ""
             }else{
@@ -59,6 +63,8 @@ export class ParticipantStore {
         return this.executeRequest('login',body).then(json =>{
             if(json && json.uuid){
                 localStorage.setItem("user.token", json.token);
+                console.log(json.token)
+                localStorage.setItem("token.exp",json.exp);
                 localStorage.setItem(`participant.uuid`,json.uuid);
                 this.getParticipantInformation();
                 return

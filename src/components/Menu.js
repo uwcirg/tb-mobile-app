@@ -34,7 +34,7 @@ const Menu = inject("participantStore")(observer(({participantStore, assembly })
               <p>{participantStore.phone_number}</p>
 
               <InternalLink to={UpdateAccount} assembly={assembly} >
-                <Button>
+                <Button onClick={participantStore.getParticipantInformation()}>
                  {assembly.translate("account_information.title")}
                  </Button>
               </InternalLink>
