@@ -180,21 +180,6 @@ class Assembly extends React.Component {
     })
     */
 
-   autorun(() => {
-     
-    if (this.currentPage == ""){
-      console.log('autoron')
-      this.tokenCheckTimer = setInterval(
-        () => {console.log("FUK")},
-        1000, // 5 minutes, 60 s/min, 1000 ms/s
-      )
-    }
-    else if (this.tokenCheckTimer) {
-      clearInterval(this.tokenCheckTimer)
-      this.tokenCheckTimer = null
-    }
-  })
-
     this.survey.date = DateTime.local().setLocale(this.locale).toLocaleString()
     this.survey.medication_time = DateTime.local().setLocale(this.locale).toLocaleString(DateTime.TIME_24_SIMPLE)
 
@@ -249,7 +234,6 @@ class Assembly extends React.Component {
       setTimeout(() => {
         this.alert(this.translate("session_expiration.alert"));
         this.logout();
-        console.log(`Session mili ${interval.toDuration().milliseconds}`)
         this.currentPage = Login},interval.toDuration().milliseconds);
     }
   }
