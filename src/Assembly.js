@@ -200,21 +200,10 @@ class Assembly extends React.Component {
 
     // When the page loads,
     // immediately look for stored credentials in `localStorage`.
-    let tokenExpiration = localStorage.getItem("token.exp")
     let coordinator_uuid = localStorage.getItem("coordinator.uuid")
     let participant_uuid = localStorage.getItem("participant.uuid")
 
-    if(tokenExpiration){
-      let start = DateTime.local();
-      let end = DateTime.fromISO(tokenExpiration);
-      let interval = Interval.fromDateTimes(start,end);
-
-      setTimeout(() => {
-        this.alert(this.translate("session_expiration.alert"));
-        this.logout();
-        console.log(`Session mili ${interval.toDuration().milliseconds}`)
-        this.currentPage = Login},interval.toDuration().milliseconds);
-    }
+    this.checkTokenTimeout();
 
     if (coordinator_uuid) {
       this.props.coordinatorStore.getParticipantRecords();
@@ -248,6 +237,21 @@ class Assembly extends React.Component {
         this.refreshNotifications();
       }
     });
+  }
+
+  checkTokenTimeout(){
+    let tokenExpiration = localStorage.getItem("token.exp")
+    if(tokenExpiration){
+      let start = DateTime.local();
+      let end = DateTime.fromISO(tokenExpiration);
+      let interval = Interval.fromDateTimes(start,end);
+
+      setTimeout(() => {
+        this.alert(this.translate("session_expiration.alert"));
+        this.logout();
+        console.log(`Session mili ${interval.toDuration().milliseconds}`)
+        this.currentPage = Login},interval.toDuration().milliseconds);
+    }
   }
 
   refreshNotifications() {
@@ -359,6 +363,7 @@ class Assembly extends React.Component {
       { phone_number: this.participant_login.phone_number, password: this.participant_login.password }
     ).then((error) => {
       if (!error) {
+        this.checkTokenTimeout();
         this.currentPage = Home
       } else {
         this.alert(error.message)
@@ -400,6 +405,7 @@ class Assembly extends React.Component {
       { email: this.coordinator_login.email, password: this.coordinator_login.password }
     ).then((error) => {
       if (!error) {
+        this.checkTokenTimeout();
         this.currentPage = CoordinatorHome
       } else {
         this.alert(error.message)
