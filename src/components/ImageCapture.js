@@ -14,7 +14,7 @@ import { mdiImage } from "@mdi/js"
 // TODO translate
 @observer
 class ImageCapture extends React.Component {
-  width = 320;    // We will scale the photo width to this
+  width = 1024;    // We will scale the photo width to this
   height = 0;     // This will be computed based on the input stream
 
   @observable video = React.createRef();
@@ -29,14 +29,7 @@ class ImageCapture extends React.Component {
   componentDidMount() {
     navigator
       .mediaDevices
-      .getUserMedia({ video: { facingMode: "environment",
-        minWidth: 320,
-        minWidth: 640,
-        minWidth: 1024,
-        minWidth: 1280,
-        minWidth: 1920,
-        minWidth: 2560}, audio: false})
-
+      .getUserMedia({ video: { facingMode: "environment" }, audio: false})
       .then((stream) => this.stream = stream)
       .catch((err) => this.props.assembly.alert("An error occured! " + err))
   }
