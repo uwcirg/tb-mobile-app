@@ -14,7 +14,7 @@ import { mdiImage } from "@mdi/js"
 // TODO translate
 @observer
 class ImageCapture extends React.Component {
-  width = 1024;    // We will scale the photo width to this
+  width = 320;    // We will scale the photo width to this
   height = 0;     // This will be computed based on the input stream
 
   @observable video = React.createRef();
