@@ -31,7 +31,7 @@ services:
       - PORT=3000
       - RAILS_ENV=development
       - URL_API=$URL_API
-      - URL_CLIENT=$URL_CLIENT
+      - URL_CORS=$URL_CORS
       - WA_KEY=$WA_KEY
       - WA_SID=$WA_SID
     ports:
