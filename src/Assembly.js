@@ -180,7 +180,7 @@ class Assembly extends React.Component {
     })
     */
 
-    this.survey.date = DateTime.local().setLocale(this.locale).toLocaleString()
+    this.survey.date = DateTime.local().setLocale(this.locale)
     this.survey.medication_time = DateTime.local().setLocale(this.locale).toLocaleString(DateTime.TIME_24_SIMPLE)
 
     // When the page loads,
@@ -415,6 +415,8 @@ class Assembly extends React.Component {
   }
 
   reportMedication() {
+    console.log(this.survey.date)
+    console.log(this.survey.timestamp)
 
    if (this.survey.took_medication != null) {
      let body =  {
