@@ -1,41 +1,45 @@
 {
-  "name": "tb",
+  "name": "tb-spike",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@mdi/js": "^3.0.39",
-    "@mdi/react": "^1.1.0",
-    "luxon": "^1.11.3",
-    "mobx": "^5.1.2",
-    "mobx-react": "^5.2.8",
-    "react": "^16.5.1",
+    "@material-ui/core": "^4.5.2",
+    "@material-ui/icons": "^4.5.1",
+    "babel-plugin-import": "^1.12.2",
+    "classnames": "^2.2.6",
+    "customize-cra": "^0.9.1",
+    "fix-image-rotation": "^2.0.0",
+    "luxon": "^1.21.1",
+    "mobx": "^5.15.0",
+    "mobx-react": "^6.1.4",
+    "react": "^16.11.0",
     "react-app-rewire-mobx": "^1.0.9",
-    "react-app-rewired": "^1.6.2",
-    "react-calendar": "^2.17.4",
-    "react-circular-progressbar": "^1.0.0",
-    "react-dom": "^16.5.1",
-    "react-dropzone": "^7.0.1",
-    "react-scripts": "1.1.5",
-    "reakit": "^0.15.1",
-    "reakit-theme-default": "^0.1.12"
+    "react-dom": "^16.11.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.2.0"
   },
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "test": "react-app-rewired test --env=jsdom",
-    "eject": "react-app-rewired eject",
-    "clean": "docker-compose down && docker-compose up -d && docker-compose exec web rake db:create db:migrate && sleep 10 && docker-compose ps",
-    "demo:1": "docker-compose exec web rails r \"Coordinator.create!(email: 'grace.c.youngblood@gmail.com', name: 'Grace C Youngblood', password_digest: BCrypt::Password.create('password'), uuid: SecureRandom.uuid)\"",
-    "demo:2": "taiko script/participant/register.js --observe",
-    "demo:3": "taiko script/participant/survey.js --observe",
-    "demo:4": "taiko script/coordinator/results.js --observe",
-    "demo": "yarn run clean && yarn run demo:1 && yarn run demo:2 && yarn run demo:3 && yarn run demo:4",
-    "credential:practitioner": "echo 'Requested: a command that will create credentials for a coordinator",
-    "credential:patient": "echo 'Requested: a command that will create credentials for patient",
-    "credentials": "yarn run demo; and dc exec web rails r 'puts \"Coordinator: #{Coordinator.first.uuid}\"; puts \"Participant: #{Participant.first.uuid}\"'"
+    "test": "react-app-rewired test",
+    "eject": "react-app-rewired eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "devDependencies": {
-    "babel-preset-react": "^6.24.1",
-    "taiko": "^0.6.0"
+    "react-app-rewired": "^2.1.5"
   }
 }

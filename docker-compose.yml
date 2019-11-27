@@ -29,7 +29,8 @@ services:
       - DATA=postgres://postgres:postgres@db
       - PASSWORD
       - PORT=3000
-      - RAILS_ENV=development
+      - RAILS_ENV=$ENVIRONMENT
+      - SECRET_KEY_BASE=$SECRET_KEY_BASE
       - URL_API=$URL_API
       - URL_CORS=$URL_CORS
       - WA_KEY=$WA_KEY
