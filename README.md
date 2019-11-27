@@ -1,111 +1,68 @@
-# TB Mobile App
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-This software, developed under the direction of Sarah Iribarren
-at the University of Washington,
-is used to assist in a public-health study of Tuberculosis ([en], [es])
-and the treatment outcomes of participants who carry the disease.
+## Available Scripts
 
-[en]: https://en.wikipedia.org/wiki/Tuberculosis
-[es]: https://es.wikipedia.org/wiki/Tuberculosis
+In the project directory, you can run:
 
-### Start
+### `yarn start`
 
-This software requires a host device with [Docker] configured and active.
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-On a bash command line, run:
+The page will reload if you make edits.<br />
+You will also see any lint errors in the console.
 
-```sh
-> git clone https://github.com/uwcirg/tb-mobile-app.git
-> ./bin/setup
-```
+### `yarn test`
 
-You may be prompted for an administrator password,
-depending on how Docker is set up on your device.
+Launches the test runner in the interactive watch mode.<br />
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-If all goes well, your application will start up after a few minutes;
-you will be able to view the software in a web browser,
-at the URL <http://localhost:3060>.
+### `yarn build`
 
-If not, please [open an issue] here on GitHub.
+Builds the app for production to the `build` folder.<br />
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-[Docker]: https://docs.docker.com/v17.12/install/
-[open an issue]: https://github.com/uwcirg/tb-mobile-app/issues/new?title=Problem%20with%20setup%20script
+The build is minified and the filenames include the hashes.<br />
+Your app is ready to be deployed!
 
-### Query Data
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-This software is mostly built out of the web browser language Javascript.
-It does require a small bundle of code running on the host device;
-about one hundred lines of code total, stored in [./models].
+### `yarn eject`
 
-The code packaged for the host device
-defines the structure of the application's information,
-as stored on the host device in a [PostgreSQL] database.
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-The code makes use of [ActiveRecord],
-originally built to empower [Ruby on Rails] applications.
-Comprehensive documentation and question/answer threads
-are readily available online.
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-[ActiveRecord]: https://guides.rubyonrails.org/active_record_basics.html
-[PostgreSQL]: https://www.postgresql.org/
-[Ruby on Rails]: https://rubyonrails.org/
-[./models]: ./models
+Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-### Encrypt Passwords
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-Passwords are encrypted before they are stored,
-in order to safeguard against a database breach.
+## Learn More
 
-This project uses the Ruby library [bcrypt-ruby] to secure passwords.
-password "digests" are computed and stored in the database fields:
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-* `participant.password_digest`
-* `coordinator.password_digest`
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-Code for storing a password looks like:
+### Code Splitting
 
-```
-participant.password_digest = BCrypt::Password.create("password")
-```
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
 
-Code to compare a stored password against an attempt looks like:
+### Analyzing the Bundle Size
 
-```
-BCrypt::Password.new(password_digest) == "attempt"
-```
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
 
-[bcrypt-ruby]: https://github.com/codahale/bcrypt-ruby
+### Making a Progressive Web App
 
-### Save Information
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
 
-It is important to take snapshots of the software's backing database
-before any maintenance or operation that risks information erasure.
+### Advanced Configuration
 
-To save the database to a date-stamped file, run:
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
 
-```
-docker-compose exec db pg_dump -U postgres -F t development > $(date +'%C%y_%m_%d').backup
-```
+### Deployment
 
-Restoring a database is a two-step process.
-You must first place a copy of the backup file into the database container.
-In this example, `tb_db_1` is the name of our database container.
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
 
-```
-docker cp restore.backup tb_db_1:/usr/src/restore.backup
-docker-compose exec db psql -U postgres -d development -f /usr/src/restore.backup
-```
+### `yarn build` fails to minify
 
-### Manage
-
-Finally, a useful list of commands to manage the software
-can be found in the [./bin/deploy] script.
-If your host or development device doesn't require `sudo`,
-please leave it off of the commands.
-
-Some of the commands in the file,
-especially related to the Apache web server,
-are specific to the University of Washington deployment under Sarah Iribarren.
-General docker commands are expected to work in any environment.
-
-[./bin/deploy]: ./bin/deploy
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
