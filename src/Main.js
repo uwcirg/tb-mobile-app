@@ -5,6 +5,7 @@ import Drawer from './Navigation/Drawer'
 import { ThemeProvider, styled} from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { inject, observer } from 'mobx-react';
+import {reaction} from 'mobx';
 import TopBar from './Navigation/TopBar';
 
 const theme = createMuiTheme({
@@ -36,13 +37,26 @@ export default class Main extends React.Component{
 
   }
 
+  handleTest = () => {
+    if( this.props.uiStore.language == "en"){
+      this.props.uiStore.language = "es";
+    }
+   else{
+    this.props.uiStore.language = "en";
+  }
+  }
+
+
     render(){
+
+      
         return(
         <div className="App">
         <ThemeProvider theme={theme}>
             <TopBar />
             <Drawer />
                 {this.props.participantStore.isLoggedIn ? <App /> : <Login props={{approveLogin:this.approveLogin }} />}
+                <button onClick={this.handleTest}> test </button>
         </ThemeProvider>
         </div>
         )
