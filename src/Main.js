@@ -5,8 +5,8 @@ import Drawer from './Navigation/Drawer'
 import { ThemeProvider, styled} from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { inject, observer } from 'mobx-react';
-import {reaction} from 'mobx';
 import TopBar from './Navigation/TopBar';
+import { Translation, withTranslation} from "react-i18next";
 
 const theme = createMuiTheme({
     palette: {
@@ -19,6 +19,7 @@ const theme = createMuiTheme({
     }
   }); 
 
+@withTranslation()
 @inject('uiStore','participantStore')
 @observer
 export default class Main extends React.Component{
@@ -37,24 +38,28 @@ export default class Main extends React.Component{
 
   }
 
-  handleTest = () => {
-    if( this.props.uiStore.language == "en"){
-      this.props.uiStore.language = "es";
+    handleTest = () => {
+        if( this.props.uiStore.language == "en"){
+          this.props.uiStore.language = "es";
+        }else{
+          this.props.uiStore.language = "en";
+        }
     }
-   else{
-    this.props.uiStore.language = "en";
-  }
-  }
-
 
     render(){
-
-      
         return(
         <div className="App">
+          {/*
+         <Translation>
+      {
+        (t, { i18n }) => <p>{t('greeting')}</p>
+      }
+    </Translation>
+    */}
         <ThemeProvider theme={theme}>
             <TopBar />
             <Drawer />
+            {this.props.t('greeting')}
                 {this.props.participantStore.isLoggedIn ? <App /> : <Login props={{approveLogin:this.approveLogin }} />}
                 <button onClick={this.handleTest}> test </button>
         </ThemeProvider>

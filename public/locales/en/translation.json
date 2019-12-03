@@ -1,4 +1,6 @@
 {
     "title": "Assistant",
+    "online": "Online",
+    "offline": "Offline",
     "greeting": "Hello"
 }
