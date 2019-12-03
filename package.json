@@ -13,6 +13,7 @@
     "i18next": "^19.0.1",
     "i18next-browser-languagedetector": "^4.0.1",
     "i18next-xhr-backend": "^3.2.2",
+    "jest": "^24.9.0",
     "luxon": "^1.21.1",
     "mobx": "^5.15.0",
     "mobx-react": "^6.1.4",
@@ -26,8 +27,9 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "test": "react-app-rewired test",
-    "eject": "react-app-rewired eject"
+    "test": "set CI=true && react-app-rewired test",
+    "eject": "react-app-rewired eject",
+    "test:coverage": "set CI=true && react-app-rewired test --coverage"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -46,5 +48,14 @@
   },
   "devDependencies": {
     "react-app-rewired": "^2.1.5"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "**/*.js",
+      "!**/node_modules/**",
+      "!**/coverage/**",
+      "!**/serviceWorker.js",
+      "!**/index.js"
+    ]
   }
 }

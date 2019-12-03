@@ -4,6 +4,7 @@ export class UIStore {
 
     @observable language = "en";
 
+
     @observable menuOpened = false;
 
     @observable offline = !navigator.onLine;
@@ -11,6 +12,7 @@ export class UIStore {
     @action toggleMenu = () => {
         this.menuOpened = !this.menuOpened;
     }
+
 
 
 

@@ -20,7 +20,7 @@ if (workbox) {
 }
 
 workbox.routing.registerRoute(
-  /\.(?:js|css|html)$/,
+  /\.(?:js|css|json|html)$/,
   workbox.strategies.networkFirst()
 )
 

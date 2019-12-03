@@ -1,6 +1,5 @@
 import { action, observable,toJS} from "mobx";
 
-
 const ROUTES = {
     getCurrentUser: ["/participant/current","GET"],
     updateCurrentUser: ["/participant/current","PATCH"],
@@ -40,14 +39,13 @@ export class AccountStore {
     }
 
     @action
-    getCurrentUserInformation = () => {
-
-        this.strategy.executeRequest(ROUTES,'getCurrentUser').then( json =>{
-
+     getCurrentUserInformation = () => {
+        console.log("in here")
+        return this.strategy.executeRequest(ROUTES,'getCurrentUser').then( json => {
+            console.log(json)
             if(!json.uuid){
                 this.sessionExpired = true;
             }
-
             this.currentUser = json;
         });
 

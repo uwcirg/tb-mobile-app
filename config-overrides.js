@@ -1,6 +1,5 @@
 const workboxPlugin = require('workbox-webpack-plugin')
 const path = require('path')
-
 const rewireMobX = require('react-app-rewire-mobx');
 
 /*
