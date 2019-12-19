@@ -4,7 +4,6 @@ export class UIStore {
 
     @observable language = "en";
 
-
     @observable menuOpened = false;
 
     @observable offline = !navigator.onLine;

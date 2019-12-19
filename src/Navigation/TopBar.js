@@ -7,14 +7,14 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { inject, observer } from 'mobx-react';
 import { useTranslation } from 'react-i18next';
 
-const TopBar = inject("uiStore","participantStore")(observer(({ uiStore,participantStore, props }) => {
+const TopBar = inject("uiStore","patientStore")(observer(({ uiStore,patientStore, props }) => {
 
   const { t, i18n } = useTranslation('translation');
 
     return(
         <AppBar color={uiStore.offline ? "secondary" : "primary"} position="static" style={{flexGrow: 1}}>
           <Toolbar>
-            {participantStore.isLoggedIn  ? <IconButton onClick={uiStore.toggleMenu} edge="start"  color="inherit" aria-label="menu">
+            {patientStore.isLoggedIn  ? <IconButton onClick={uiStore.toggleMenu} edge="start"  color="inherit" aria-label="menu">
               <MenuIcon />
             </IconButton> : ""}
             <Typography variant="h6" style={{flexGrow: 1}}>

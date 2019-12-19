@@ -2,18 +2,18 @@ import { action, observable, computed} from "mobx";
 //import { mdiJson } from "@mdi/js";
 
 const ROUTES = {
-    login: ["/auth/login/participant","POST"],
+    login: ["/authenticate","POST"],
     register: ["/participant","POST"],
     saveNote: ["/participant/current/notes","POST"],
     reportMedication: ["/participant/current/medication_report","POST"],
     reportSymptoms: ["/participant/current/symptom_report","POST"],
-    getCurrentParticipant: ["/participant/current","GET"],
+    getCurrentPatient: ["/patient/me","GET"],
     getVapidKey: ["/push_key","GET"]
 }
 
 const apiURL = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') ? "http://localhost:5061" : "https://tb-api-test.cirg.washington.edu";
 
-export class ParticipantStore {
+export class PatientStore {
 
     //Takes in a data fetching strategy, so you can swap out the API one for testing data
     constructor(strategy) {
@@ -23,7 +23,7 @@ export class ParticipantStore {
     @observable loginPhoneNumber = "";
     @observable loginPassword = "";
 
-    @observable uuid = ""
+    @observable userID = ""
     @observable name = ""
     @observable phone_number = ""
     @observable information = {}
@@ -32,9 +32,13 @@ export class ParticipantStore {
 
     @observable initalLogIn = false;
 
+    //@observable isLoggedIn = false;
+
+    
     @computed get isLoggedIn(){
-        return( (this.uuid && this.token) || this.initalLogIn )
+        return( (this.userID && this.token) || this.initalLogIn )
     }
+    
 
     executeRequest(type,body){
         return this.strategy.executeRequest(ROUTES,type,body).then(res =>{
@@ -44,7 +48,7 @@ export class ParticipantStore {
 
                     //The token expiration should only be set to true if they 
                     //have not already been logged out, this prevents 2 messages
-                    if(this.uuid){
+                    if(this.userID){
                     this.expired = true;
                     }
                 }
@@ -56,35 +60,37 @@ export class ParticipantStore {
     }
 
     setAccountInformation(json){
+        console.log(json);
         this.information = json;
         this.name = json.name;
-        this.uuid = json.uuid;
+        this.userID = json.user_id;
         this.phone_number= json.phone_number;
         this.notes = json.notes;
     }
 
-    @action getParticipantInformation(){
+    @action getPatientInformation(){
 
-        this.executeRequest('getCurrentParticipant').then(json =>{
+        this.executeRequest('getCurrentPatient').then(json =>{
             this.setAccountInformation(json);
         })
     }
 
     @action login = () =>{
         let body = {
-            phone_number: this.loginPhoneNumber,
-            password: this.loginPassword
+            phoneNumber: this.loginPhoneNumber,
+            password: this.loginPassword,
+            userType: "Patient"
         }
 
         return this.executeRequest('login', body).then(json => {
 
-            if(json && json.uuid){
+            if(json && json.user_id){
                 this.initalLogIn = true;
                 localStorage.setItem("user.token", json.token);
-                localStorage.setItem(`participant.uuid`,json.uuid);
+                localStorage.setItem(`participant.userID`,json.user_id);
                 localStorage.setItem("token.exp",json.exp);
-                this.getParticipantInformation()
-                this.subscribeToNotifications();
+                this.getPatientInformation()
+                //this.subscribeToNotifications();
                 return true
             }
             return false;
@@ -106,14 +112,14 @@ export class ParticipantStore {
 
     @action reportMedication(body){
         return this.executeRequest('reportMedication',body).then(json => {
-            this.getParticipantInformation();
+            this.getPatientInformation();
         });
     }
 
     @action reportSymptoms(body){
        
         return this.executeRequest('reportSymptoms',body).then(json => {
-           this.getParticipantInformation();
+           this.getPatientInformation();
         });
     }
 
@@ -125,7 +131,7 @@ export class ParticipantStore {
         this.unsubscribeFromNotifications();
 
         //Clear MobX Session Data
-        this.uuid = ""
+        this.userID = ""
         this.token = ""
         this.name = ""
         this.phone_number = ""
@@ -138,7 +144,7 @@ export class ParticipantStore {
 
     clearLocalStorage(){
         localStorage.removeItem("user.token");
-        localStorage.removeItem("participant.uuid");
+        localStorage.removeItem("participant.userID");
     }
 
     unsubscribeFromNotifications(){
@@ -187,7 +193,7 @@ export class ParticipantStore {
           subscription = JSON.parse(sj);
       
           let body = JSON.stringify({
-            uuid: this.uuid,
+            userID: this.userID,
             endpoint: subscription.endpoint,
             auth: subscription.keys.auth,
             p256dh: subscription.keys.p256dh

@@ -1,11 +1,10 @@
 import React from 'react';
 import App from './Screens/App';
 import Login from './Screens/Login'; 
-import Drawer from './Navigation/Drawer'
+
 import { ThemeProvider, styled} from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { inject, observer } from 'mobx-react';
-import TopBar from './Navigation/TopBar';
 import { Translation, withTranslation} from "react-i18next";
 
 const theme = createMuiTheme({
@@ -20,7 +19,7 @@ const theme = createMuiTheme({
   }); 
 
 @withTranslation()
-@inject('uiStore','participantStore')
+@inject('uiStore','patientStore')
 @observer
 export default class Main extends React.Component{
 
@@ -29,11 +28,11 @@ export default class Main extends React.Component{
     this.initalizeApplicationState();
     this.listenForConnectivityChanges();
 
-    /*@TODO move this code to participantStore to simplify
+    /*@TODO move this code to patientStore to simplify
       Just move all of the logic from initalizeApplicationState to that file
     */
-    if( this.props.participantStore.isLoggedIn){
-      this.props.participantStore.getParticipantInformation();
+    if( this.props.patientStore.isLoggedIn){
+      this.props.patientStore.getPatientInformation();
     }
 
   }
@@ -48,20 +47,9 @@ export default class Main extends React.Component{
 
     render(){
         return(
-        <div className="App">
-          {/*
-         <Translation>
-      {
-        (t, { i18n }) => <p>{t('greeting')}</p>
-      }
-    </Translation>
-    */}
+        <div>
         <ThemeProvider theme={theme}>
-            <TopBar />
-            <Drawer />
-            {this.props.t('greeting')}
-                {this.props.participantStore.isLoggedIn ? <App /> : <Login props={{approveLogin:this.approveLogin }} />}
-                <button onClick={this.handleTest}> test </button>
+                {!this.props.patientStore.isLoggedIn ? <Login props={{approveLogin:this.approveLogin }} /> : <App />}
         </ThemeProvider>
         </div>
         )
@@ -79,11 +67,11 @@ export default class Main extends React.Component{
 
     initalizeApplicationState(){
       //Get Notificaiton Authenticaiton key from Server
-      this.props.participantStore.getVapidKeyFromServerAndStoreLocally();
+      this.props.patientStore.getVapidKeyFromServerAndStoreLocally();
 
       //Initalize User Identifiers
-      this.props.participantStore.token = localStorage.getItem("user.token")
-      this.props.participantStore.uuid = localStorage.getItem("participant.uuid")
+      this.props.patientStore.token = localStorage.getItem("user.token")
+      this.props.patientStore.uuid = localStorage.getItem("participant.uuid")
 
     }
 }

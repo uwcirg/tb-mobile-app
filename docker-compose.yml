@@ -4,11 +4,9 @@ services:
   client:
     restart: on-failure
     ports:
-      - $PORT_CLIENT:3000
-    build: .
-    stdin_open: true
-    tty: true
-    command: yarn start
+      - $PORT_CLIENT:80
+    build:
+      context: '.'
     environment:
       NODE_ENV: development
       REACT_APP_URL_API: $URL_API
@@ -16,8 +14,6 @@ services:
       REACT_APP_MESSAGE_API: $URL_MESSAGE_API
       REACT_APP_LANGUAGE: $LANGUAGE
       CHOKIDAR_USEPOLLING: 'true'
-    volumes:
-      - .:/usr/src
 
   db:
     restart: always

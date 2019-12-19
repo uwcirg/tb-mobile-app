@@ -6,6 +6,9 @@ import BottomBar from '../Navigation/BottomBar'
 import UploadedCard from '../ImageCapture/UploadedCard'
 import { inject, observer } from 'mobx-react';
 
+import TopBar from '../Navigation/TopBar';
+import Drawer from '../Navigation/Drawer';
+
 @inject("uiStore")
 @observer
 class App extends Component {
@@ -73,6 +76,8 @@ class App extends Component {
 
     return (
       <div className="main-screen">
+        <TopBar />
+        <Drawer />
         {this.state.hasUploaded && uploadedCard}
         {this.state.isUploading && uploadingCard}
         <ClCamera isUploading={this.isUploading} hasUploaded={this.hasUploaded} setImages={this.setImages} />

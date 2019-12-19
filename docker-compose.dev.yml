@@ -2,8 +2,8 @@ version: '3.3'
 services:
   web:
     volumes:
-      - source: ../tb-foundation/db
-        target: /foundation/db
+      - source: ../tb-foundation/
+        target: /foundation/
         type: bind
         read_only: false
       - source: user-documents
