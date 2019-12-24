@@ -148,6 +148,10 @@ export default class ClCamera extends Component {
         });
     }
 
+    componentWillUnmount() {
+        this.webcam.endVideo();
+    }
+
     render() {
 
         const imageDisplay = this.state.capturedImage ?

@@ -49,7 +49,7 @@ export default class Main extends React.Component{
         return(
         <div>
         <ThemeProvider theme={theme}>
-                {!this.props.patientStore.isLoggedIn ? <Login props={{approveLogin:this.approveLogin }} /> : <App />}
+                {this.props.patientStore.isLoggedIn ? <App /> : <Login props={{approveLogin:this.approveLogin }} />}
         </ThemeProvider>
         </div>
         )
@@ -67,11 +67,12 @@ export default class Main extends React.Component{
 
     initalizeApplicationState(){
       //Get Notificaiton Authenticaiton key from Server
-      this.props.patientStore.getVapidKeyFromServerAndStoreLocally();
+      //this.props.patientStore.getVapidKeyFromServerAndStoreLocally();
+      const token =  localStorage.getItem("user.token")
+      const id = localStorage.getItem("userID")
 
       //Initalize User Identifiers
-      this.props.patientStore.token = localStorage.getItem("user.token")
-      this.props.patientStore.uuid = localStorage.getItem("participant.uuid")
+      this.props.patientStore.initalize(token,id);
 
     }
 }

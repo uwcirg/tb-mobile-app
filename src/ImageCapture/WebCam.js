@@ -57,6 +57,19 @@ export default class WebCam {
         });
     }
 
+    endVideo(){
+
+            let stream = this.webcamElement.srcObject;
+            let tracks = stream.getTracks();
+          
+            tracks.forEach(function(track) {
+              track.stop();
+            });
+          
+            this.webcamElement.srcObject = null;
+          
+    }
+
     takeBlobPhoto() {
         const { imageWidth, imageHeight } = this._drawImage();
         return new Promise((resolve, reject) => {

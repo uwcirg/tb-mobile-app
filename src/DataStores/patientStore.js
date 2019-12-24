@@ -24,22 +24,32 @@ export class PatientStore {
     @observable loginPassword = "";
 
     @observable userID = ""
+    @observable token = ""
     @observable name = ""
     @observable phone_number = ""
     @observable information = {}
     @observable notes = []
     @observable expired = false;
 
+    @observable isLoggedIn = false;
+
+
+    /*
     @observable initalLogIn = false;
 
-    //@observable isLoggedIn = false;
-
-    
     @computed get isLoggedIn(){
         return( (this.userID && this.token) || this.initalLogIn )
     }
-    
+    */
 
+    initalize(token,id){
+        if(token && id){
+            this.isLoggedIn = true;
+            this.getPatientInformation();
+        }
+
+    }
+    
     executeRequest(type,body){
         return this.strategy.executeRequest(ROUTES,type,body).then(res =>{
             if( res instanceof Error){
@@ -87,9 +97,10 @@ export class PatientStore {
             if(json && json.user_id){
                 this.initalLogIn = true;
                 localStorage.setItem("user.token", json.token);
-                localStorage.setItem(`participant.userID`,json.user_id);
+                localStorage.setItem(`userID`,json.user_id);
                 localStorage.setItem("token.exp",json.exp);
                 this.getPatientInformation()
+                this.isLoggedIn = true;
                 //this.subscribeToNotifications();
                 return true
             }
@@ -138,13 +149,14 @@ export class PatientStore {
         this.information = {}
         this.notes = []
         this.expired = false;
+        this.isLoggedIn = false;
 
     }
     
 
     clearLocalStorage(){
         localStorage.removeItem("user.token");
-        localStorage.removeItem("participant.userID");
+        localStorage.removeItem("userID");
     }
 
     unsubscribeFromNotifications(){
