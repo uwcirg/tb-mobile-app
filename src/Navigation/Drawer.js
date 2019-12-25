@@ -22,6 +22,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import { inject, observer } from 'mobx-react';
 
 const LeftDrawer = inject("uiStore","patientStore")(observer(({ uiStore,patientStore, props }) => {
+  
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);

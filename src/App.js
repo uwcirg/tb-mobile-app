@@ -1,13 +1,13 @@
 import React, { Component, useEffect } from 'react';
 import './App.css';
-import ClCamera from '../ImageCapture/ClCamera'
-import ImageGallery from '../ImageCapture/ImageGallery'
-import BottomBar from '../Navigation/BottomBar'
-import UploadedCard from '../ImageCapture/UploadedCard'
+import ClCamera from './ImageCapture/ClCamera'
+import ImageGallery from './ImageCapture/ImageGallery'
+import BottomBar from './Navigation/BottomBar'
+import UploadedCard from './ImageCapture/UploadedCard'
 import { inject, observer } from 'mobx-react';
 
-import TopBar from '../Navigation/TopBar';
-import Drawer from '../Navigation/Drawer';
+import TopBar from './Navigation/TopBar';
+import Drawer from './Navigation/Drawer';
 
 @inject("uiStore")
 @observer
@@ -74,15 +74,14 @@ class App extends Component {
     const uploadedCard = <UploadedCard title="Photo Uploaded" buttonText="Okay" color="#58a45c" action={this.clearLoadCycle}/>
     const uploadingCard = <UploadedCard title="Photo Uploading" color="#ff5c62"/>
 
+    const tabs = [<div>One</div>, <div>Two</div>,<div>Three</div>]
+
     return (
       <div className="main-screen">
         <TopBar />
         <Drawer />
-        {this.state.hasUploaded && uploadedCard}
-        {this.state.isUploading && uploadingCard}
-        <ClCamera isUploading={this.isUploading} hasUploaded={this.hasUploaded} setImages={this.setImages} />
-        {this.props.uiStore.offline ? <ImageGallery images={this.state.images}></ImageGallery> : ""}
-        {/*<BottomBar />*/}
+        {tabs[this.props.uiStore.activeTab]}
+        <BottomBar />
       </div>
     );
   }

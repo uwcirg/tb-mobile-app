@@ -1,5 +1,5 @@
 import React from 'react';
-import App from './Screens/App';
+import App from './App';
 import Login from './Screens/Login'; 
 
 import { ThemeProvider, styled} from '@material-ui/core/styles';

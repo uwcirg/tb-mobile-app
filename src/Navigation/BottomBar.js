@@ -5,12 +5,18 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import RestoreIcon from '@material-ui/icons/Restore';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
+import { inject, observer } from 'mobx-react';
 
 const useStyles = makeStyles({
+  root: {
+    width: "100%",
+    position: "fixed",
+    bottom: 0
+  }
 
 });
 
-export default function SimpleBottomNavigation() {
+const BottomBar = inject("uiStore","patientStore")(observer(({ uiStore,patientStore, props }) => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -18,6 +24,8 @@ export default function SimpleBottomNavigation() {
     <BottomNavigation
       value={value}
       onChange={(event, newValue) => {
+        console.log(newValue)
+        uiStore.activeTab = newValue;
         setValue(newValue);
       }}
       showLabels
@@ -28,4 +36,6 @@ export default function SimpleBottomNavigation() {
       <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
     </BottomNavigation>
   );
-}
+}));
+
+export default BottomBar;
