@@ -8,6 +8,11 @@ import { inject, observer } from 'mobx-react';
 import { Translation, withTranslation} from "react-i18next";
 
 const theme = createMuiTheme({
+
+    typography:{
+      fontFamily: "Roboto, sans-serif"
+
+    },
     palette: {
       primary: {
           main: "#1f4a94"
@@ -70,9 +75,11 @@ export default class Main extends React.Component{
       //this.props.patientStore.getVapidKeyFromServerAndStoreLocally();
       const token =  localStorage.getItem("user.token")
       const id = localStorage.getItem("userID")
+      const uiState = localStorage.getItem("uiState");
 
       //Initalize User Identifiers
       this.props.patientStore.initalize(token,id);
+      this.props.uiStore.initalize(JSON.parse(uiState));
 
     }
 }

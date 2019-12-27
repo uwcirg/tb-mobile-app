@@ -6,6 +6,8 @@ import BottomBar from './Navigation/BottomBar'
 import UploadedCard from './ImageCapture/UploadedCard'
 import { inject, observer } from 'mobx-react';
 
+import Messaging from './Screens/Messaging/';
+
 import TopBar from './Navigation/TopBar';
 import Drawer from './Navigation/Drawer';
 
@@ -74,7 +76,7 @@ class App extends Component {
     const uploadedCard = <UploadedCard title="Photo Uploaded" buttonText="Okay" color="#58a45c" action={this.clearLoadCycle}/>
     const uploadingCard = <UploadedCard title="Photo Uploading" color="#ff5c62"/>
 
-    const tabs = [<div>One</div>, <div>Two</div>,<div>Three</div>]
+    const tabs = [<div>One</div>,<Messaging />  ,<ClCamera isUploading={this.isUploading} hasUploaded={this.hasUploaded} setImages={this.setImages} />]
 
     return (
       <div className="main-screen">

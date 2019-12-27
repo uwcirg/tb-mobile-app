@@ -1,6 +1,10 @@
 {
-    "title": "Assistant",
+    "title": "Treatment Assistant",
     "online": "Online",
     "offline": "Offline",
-    "greeting": "Hello"
+    "greeting": "Hello",
+
+    "messaging": {
+        "nurseContact": "Need individual support? Contact your provider!"
+    }
 }

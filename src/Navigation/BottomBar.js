@@ -2,38 +2,38 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import RestoreIcon from '@material-ui/icons/Restore';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import ForumIcon from '@material-ui/icons/Forum';
+import InfoIcon from '@material-ui/icons/Info';
 import { inject, observer } from 'mobx-react';
 
 const useStyles = makeStyles({
   root: {
     width: "100%",
     position: "fixed",
-    bottom: 0
+    bottom: 0,
+    borderTop: "1px solid lightgray"
   }
 
 });
 
 const BottomBar = inject("uiStore","patientStore")(observer(({ uiStore,patientStore, props }) => {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(uiStore.activeTab);
 
   return (
     <BottomNavigation
       value={value}
       onChange={(event, newValue) => {
-        console.log(newValue)
-        uiStore.activeTab = newValue;
+        uiStore.updateTab(newValue);
         setValue(newValue);
       }}
       showLabels
       className={classes.root}
     >
-      <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-      <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-      <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
+      <BottomNavigationAction icon={<AddCircleOutlineIcon />} />
+      <BottomNavigationAction icon={<ForumIcon />} />
+      <BottomNavigationAction icon={<InfoIcon  />} />
     </BottomNavigation>
   );
 }));
