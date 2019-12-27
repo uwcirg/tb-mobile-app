@@ -14,6 +14,7 @@ import {AccountStore} from './DataStores/accountStore'
 import {CoordinatorStore} from './DataStores/coordinatorStore'
 import { PatientStore } from "./DataStores/patientStore";
 import {UIStore} from "./DataStores/uiStore"
+import {MessagingStore} from "./DataStores/messagingStore"
 
 import APIHelper from './DataStores/Requests'
 //This attaches the class containing the API fetch requests to the stores
@@ -24,7 +25,8 @@ const stores = {
     uiStore: new UIStore(),
     accountStore: new AccountStore(apiHelper),
     coordinatorStore: new CoordinatorStore(apiHelper),
-    patientStore: new PatientStore(apiHelper)
+    patientStore: new PatientStore(apiHelper),
+    messagingStore: new MessagingStore(apiHelper)
 }
 
 reaction(

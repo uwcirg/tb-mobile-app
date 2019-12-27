@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components'
 
 
-const ChannelPreview = () => { 
+const ChannelPreview = (props) => { 
 
     return (
 
@@ -10,11 +10,11 @@ const ChannelPreview = () => {
         <img></img>
 
         <div>
-            <h2>Title of Channel</h2>
-            <p> Subtitle</p>
+            <h2>{props.title}</h2>
+            <p> {props.subtitle}</p>
         </div>
 
-        <span id="time" >4:30pm</span>
+        <span id="time" >{props.time}</span>
 
         </Container>
 
@@ -33,8 +33,7 @@ const Container = styled.div`
 
     img{
         padding: 0;
-        margin: 0;
-        margin-right: 2em
+        margin: 0em 2em 0em 1em;
         height: 3em;
         width: 3em;
         background-color: #4597ec;

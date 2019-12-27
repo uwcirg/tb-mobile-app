@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect }from 'react';
 import Paper from '@material-ui/core/Paper'
 import ChevronRight from '@material-ui/icons/ChevronRight'
 import WarningIcon from '@material-ui/icons/Warning';
@@ -37,15 +37,21 @@ const TopWarning = () =>{
 
 }
 
-const Messaging = inject("uiStore")(observer(({ uiStore, props }) => {
+const Messaging = inject("uiStore","messagingStore")(observer(({ uiStore, messagingStore, props }) => {
 
     const { t, i18n } = useTranslation('translation');
     const classes = useStyles();
 
+    useEffect(() => messagingStore.getChannels(), []);
+
+    const allChannels = messagingStore.channels.map( (channel) => {
+        return <ChannelPreview title={channel.title} subtitle={channel.subtitle} time="3:00pm"/>
+    })
+
         return(
             <Paper className={classes.root}>
                 <TopWarning> </TopWarning>
-                <ChannelPreview />
+                {allChannels}
             </Paper>
         )
     
