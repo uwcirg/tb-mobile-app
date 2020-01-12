@@ -1,6 +1,7 @@
 {
   "short_name": "Assistant",
   "name": "Treatment Assistant",
+  "theme_color": "#2196F3",
   "icons": [
     {
       "src": "favicon.ico",
@@ -19,7 +20,5 @@
     }
   ],
   "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#1f4a94",
-  "background_color": "#ffffff"
+  "display": "standalone"
 }

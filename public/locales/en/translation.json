@@ -4,6 +4,12 @@
     "offline": "Offline",
     "greeting": "Hello",
 
+    "home": {
+        "greeting": "Hi",
+        "purpose": "Lets keep track of your medication and health!",
+        "today": "Today"
+    },
+
     "messaging": {
         "nurseContact": "Need individual support? Contact your provider!"
     }

@@ -1,10 +1,12 @@
 import React, { Component, useEffect } from 'react';
 import './App.css';
 import ClCamera from './ImageCapture/ClCamera'
-import ImageGallery from './ImageCapture/ImageGallery'
 import BottomBar from './Navigation/BottomBar'
 import UploadedCard from './ImageCapture/UploadedCard'
 import { inject, observer } from 'mobx-react';
+
+import Home from './Screens/Home'
+import Info from './Screens/Info'
 
 import Messaging from './Screens/Messaging/';
 
@@ -76,7 +78,9 @@ class App extends Component {
     const uploadedCard = <UploadedCard title="Photo Uploaded" buttonText="Okay" color="#58a45c" action={this.clearLoadCycle}/>
     const uploadingCard = <UploadedCard title="Photo Uploading" color="#ff5c62"/>
 
-    const tabs = [<div>One</div>,<Messaging />  ,<ClCamera isUploading={this.isUploading} hasUploaded={this.hasUploaded} setImages={this.setImages} />]
+    //<ClCamera isUploading={this.isUploading} hasUploaded={this.hasUploaded} setImages={this.setImages} />
+
+    const tabs = [<Home />,<Messaging />  ,<Info />]
 
     return (
       <div className="main-screen">

@@ -25,7 +25,8 @@ export class PatientStore {
 
     @observable userID = ""
     @observable token = ""
-    @observable name = ""
+    @observable given_name = ""
+    @observable family_name = ""
     @observable phone_number = ""
     @observable information = {}
     @observable notes = []
@@ -72,7 +73,8 @@ export class PatientStore {
     setAccountInformation(json){
         console.log(json);
         this.information = json;
-        this.name = json.name;
+        this.given_name = json.given_name;
+        this.family_name = json.family_name;
         this.userID = json.user_id;
         this.phone_number= json.phone_number;
         this.notes = json.notes;

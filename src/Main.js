@@ -10,7 +10,7 @@ import { Translation, withTranslation} from "react-i18next";
 const theme = createMuiTheme({
 
     typography:{
-      fontFamily: "Roboto, sans-serif"
+      fontFamily: "'Roboto', sans-serif"
 
     },
     palette: {

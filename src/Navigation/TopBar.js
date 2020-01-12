@@ -33,7 +33,7 @@ const TopBar = inject("uiStore","patientStore")(observer(({ uiStore,patientStore
 }));
 
 const GradientAppBar = styled(AppBar)`
-  background: linear-gradient(170.51deg, #2D79E6 -22.97%, #053476 116.51%);
+  background: (170.51deg, #2D79E6 -22.97%, #053476 116.51%);
 
   ${({ offline }) => offline && `
   background: none;

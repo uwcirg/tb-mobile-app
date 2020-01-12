@@ -10,6 +10,7 @@ import { inject, observer } from 'mobx-react';
 const useStyles = makeStyles({
   root: {
     width: "100%",
+    height: "60px",
     position: "fixed",
     bottom: 0,
     borderTop: "1px solid lightgray"
