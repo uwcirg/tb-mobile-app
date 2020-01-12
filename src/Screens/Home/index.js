@@ -31,12 +31,13 @@ const Home = inject("uiStore", "patientStore")(observer(({ uiStore, patientStore
 }));
 
 const Body = styled.div`
-height: 90vh;
+height: ${window.innerHeight-120};
 width: 100%;
 display: flex;
 flex-direction: column;
-justify-content: space-evenly;
+justify-content: flex-start;
 align-items: center;
+margin: 60px 0 60px 0;
 
 `
 
@@ -59,6 +60,8 @@ margin-top: 2em;
  h2{
      font-weight: 100;
      font-size: 1em;
+     width: 80%;
+     margin: 1em auto 0 auto;
  }
 
 `

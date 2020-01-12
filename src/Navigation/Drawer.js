@@ -55,6 +55,7 @@ const LeftDrawer = inject("uiStore","patientStore")(observer(({ uiStore,patientS
               {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
             </IconButton>
           </div>
+          {/*
           <Divider />
           <List>
             {['Inbox'].map((text, index) => (
@@ -65,6 +66,7 @@ const LeftDrawer = inject("uiStore","patientStore")(observer(({ uiStore,patientS
             ))}
           </List>
           <Divider />
+            */}
           <List>
               <ListItem button  onClick={handleLogout} key={"logout"}>
                 <ListItemIcon><ExitToApp/></ListItemIcon>

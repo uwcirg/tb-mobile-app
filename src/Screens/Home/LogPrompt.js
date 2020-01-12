@@ -13,7 +13,7 @@ const LogPrompt = () => {
             <span>Today</span>
             <span id="sub-date">Jan 2</span>
             </DateContainer>
-            <Fab size="medium" style={{backgroundColor: "#4b98e9", color: "white"}} aria-label="add">
+            <Fab size="medium" style={{backgroundColor: "#4b98e9", color: "white", marginRight: "1em"}} aria-label="add">
           <AddIcon />
         </Fab>
             
@@ -28,15 +28,12 @@ height: 4em;
 display: flex;
 margin-top: auto;
 background-color: #e8f3fc;
-position: relative;
-top: -60px;
-justify-content: space-evenly;
+position: fixed;
+bottom: 60px;
+justify-content: flex-start;
 align-items: center;
 
-
-
 span{
-    margin: 0;
     padding: 0;
     font-size: .75em;
     text-align: right;
@@ -52,6 +49,7 @@ const DateContainer = styled.div`
 display: flex;
 flex-direction: column;
 height: 50%;
+margin: 1em;
 
 `
 
