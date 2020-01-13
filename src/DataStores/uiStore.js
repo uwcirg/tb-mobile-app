@@ -2,6 +2,7 @@ import { action, observable, autorun} from "mobx";
 
 export class UIStore {
 
+    @observable userInt = 0;
     @observable userType = "";
 
     @observable language = "en";

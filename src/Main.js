@@ -50,11 +50,25 @@ export default class Main extends React.Component{
         }
     }
 
+    //3 Seperate applications <PatinetApp /> <PractitionerApp /> and <AdminApp />
+
     render(){
+
+      let Application = ""
+
+      if(this.props.uiStore.userType == "Patient"){
+        Application = (<App />);
+      }else if( this.props.uiStore.userType == "Practitioner"){
+        Application = (<div> Coordinator Application Placeholder</div>)
+      }else if( this.props.uiStore.userType == "Administrator"){
+        Application = (<div> Admin App Placeholder</div>)
+      }
+
+
         return(
         <div>
         <ThemeProvider theme={theme}>
-                {this.props.patientStore.isLoggedIn ? <App /> : <Login props={{approveLogin:this.approveLogin }} />}
+                {this.props.patientStore.isLoggedIn ? Application : <Login props={{approveLogin:this.approveLogin }} />}
         </ThemeProvider>
         </div>
         )
@@ -76,6 +90,8 @@ export default class Main extends React.Component{
       const token =  localStorage.getItem("user.token")
       const id = localStorage.getItem("userID")
       const uiState = localStorage.getItem("uiState");
+
+      this.props.uiStore.userType = localStorage.getItem("user.type");
 
       //Initalize User Identifiers
       this.props.patientStore.initalize(token,id);

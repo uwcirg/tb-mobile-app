@@ -6,38 +6,38 @@ import styled from 'styled-components';
 
 import { inject, observer } from 'mobx-react';
 
-const phoneNumberText = "Phone Number"
-const passwordText = "Password"
+const USER_TYPES = ["Patient","Practitioner","Administrator"];
+const identifierTextOptions = ["Phone Number","Email"];
+const passwordText = "********"
 
-const Login = inject("patientStore","uiStore", "coordinatorStore")(observer(({ patientStore,uiStore,coordinatorStore, props }) => {
+const Login = inject("patientStore","uiStore", "coordinatorStore", "loginStore")(observer(({ patientStore,uiStore,coordinatorStore,loginStore, props }) => {
 
   let updatePassword = (e) => {
-    patientStore.loginPassword = e.target.value;
-    coordinatorStore.loginEmail = e.target.value;
+    loginStore.password = e.target.value;
   }
 
   let updateIdentifier = (e) => {
-
-    if( uiStore.userType == 0){
-      patientStore.loginPhoneNumber = e.target.value;
-    }else{
-      coordinatorStore.loginEmail = e.target.value;
-    }
+    loginStore.identifier = e.target.value;
   }
 
   let handleLogin = () => {
-    patientStore.login();
+    
+    loginStore.login(USER_TYPES[uiStore.userInt]).then( res => {
+
+      //Open proper part of the application depending on user
+      
+    });
+
   }
 
   const Container = styled.div`
 
-  background-color: ${uiStore.userType != 0 ? "gray" : "#23509d"};
+  background-color: ${uiStore.userInt != 0 ? "gray" : "#23509d"};
   height: 100vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
-  color: white;
-
+  color:  "white";
   label{
     visibility: hidden;
   }
@@ -51,12 +51,12 @@ const Login = inject("patientStore","uiStore", "coordinatorStore")(observer(({ p
       <h1> Asistiante de Tratamiento</h1>
       </Title>
       <Card>
-          <InputLabel htmlFor="input-with-icon-adornment">{ uiStore.userType == 0 ?  "Phone Number" : "Email"}</InputLabel>
+          <InputLabel htmlFor="input-with-icon-adornment">{ uiStore.userInt == 0 ?  "Phone Number" : "Email"}</InputLabel>
           <Input
-            defaultValue={ uiStore.userType == 0 ?  "Phone Number" : "Email"}
+            defaultValue={ uiStore.userInt == 0 ?  "Phone Number" : "Email"}
             onChange={(e) => { updateIdentifier(e) }}
             onClick={(e) => { 
-              if(e.target.value == phoneNumberText){
+              if(identifierTextOptions.includes(e.target.value)){
                 e.target.value = ""
               }}}
             id="input-with-icon-adornment"
@@ -82,7 +82,7 @@ const Login = inject("patientStore","uiStore", "coordinatorStore")(observer(({ p
           <a>Forgot Password?</a>
         <br />
         <Button fullWidth onClick={handleLogin} variant="contained" color={"primary"} > Log in</Button>
-        <a onClick={ () => { if(uiStore.userType == 0){uiStore.userType = 1 }else uiStore.userType = 0}}>Treatment Coordinator? Login Here</a>
+        <a onClick={ () => { if(uiStore.userInt == 2){uiStore.userInt = 0 }else uiStore.userInt += 1; console.log(uiStore.userInt)}}>Treatment Coordinator? Login Here</a>
         </Card>
     </Container>
   );
