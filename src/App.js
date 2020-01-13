@@ -1,6 +1,5 @@
 import React, { Component, useEffect } from 'react';
 import './App.css';
-import ClCamera from './ImageCapture/ClCamera'
 import BottomBar from './Navigation/BottomBar'
 import UploadedCard from './ImageCapture/UploadedCard'
 import { inject, observer } from 'mobx-react';

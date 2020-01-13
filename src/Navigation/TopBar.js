@@ -9,18 +9,25 @@ import { inject, observer } from 'mobx-react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components'
 
-
+import ChevronLeft from '@material-ui/icons/ChevronLeft'
 
 const TopBar = inject("uiStore","patientStore")(observer(({ uiStore,patientStore, props }) => {
 
   const { t, i18n } = useTranslation('translation');
 
+  //Conditional Logic to Display back button during treatment flow
+  let buttonToDisplay = (
+    patientStore.isLoggedIn && <IconButton onClick={uiStore.toggleMenu} edge="start"  color="inherit" aria-label="menu"> <MenuIcon /></IconButton>
+  )
+
+  if(uiStore.onTreatmentFlow){
+    buttonToDisplay = ( <IconButton onClick={uiStore.toggleTreatmentFlow} edge="start"  color="inherit" aria-label="menu"> <ChevronLeft /></IconButton>)
+  }
+
     return(
         <GradientAppBar color={uiStore.offline ? "secondary" : "primary"} offline={uiStore.offline} position="static" style={{flexGrow: 1}}>
           <Toolbar>
-            {patientStore.isLoggedIn  ? <IconButton onClick={uiStore.toggleMenu} edge="start"  color="inherit" aria-label="menu">
-              <MenuIcon />
-            </IconButton> : ""}
+            {buttonToDisplay}
             <Typography variant="h6" style={{flexGrow: 1}}>
             {t("title")}
             </Typography>

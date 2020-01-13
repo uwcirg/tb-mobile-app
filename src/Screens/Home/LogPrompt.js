@@ -1,26 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
-
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
+import { inject, observer } from 'mobx-react';
 
+const LogPrompt = inject("uiStore")(observer(({ uiStore}) => {
 
-const LogPrompt = () => {
+    const handleLogTreatment = () => {
+        uiStore.onTreatmentFlow = true;
+    }
+
     return (
         <PromptContainer>
             <DateContainer>
             <span>Today</span>
             <span id="sub-date">Jan 2</span>
             </DateContainer>
-            <Fab size="medium" style={{backgroundColor: "#4b98e9", color: "white", marginRight: "1em"}} aria-label="add">
+            <Fab onClick={handleLogTreatment} size="medium" style={{backgroundColor: "#4b98e9", color: "white", marginRight: "1em"}} aria-label="add">
           <AddIcon />
         </Fab>
             
-            <p>Lets log your medication today</p>
+            <p>Log Medication</p>
         </PromptContainer>
     )
-}
+}));
 
 const PromptContainer = styled.div`
 width: 100%;

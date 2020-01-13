@@ -2,13 +2,13 @@ import { action, observable, autorun} from "mobx";
 
 export class UIStore {
 
+    @observable userType = "";
+
     @observable language = "en";
-
     @observable activeTab = 0;
-
     @observable menuOpened = false;
-
     @observable offline = !navigator.onLine;
+    @observable onTreatmentFlow = false;
 
     @action toggleMenu = () => {
         this.menuOpened = !this.menuOpened;
@@ -23,23 +23,19 @@ export class UIStore {
         }else{
             prevState = JSON.parse(prevState);
         }
-        console.log(tabNumber);
+
         prevState.tab = tabNumber;
-        console.log(prevState)
         localStorage.setItem("uiState",JSON.stringify(prevState));
-
     }
-
 
     @action initalize = (uiState) => {
 
         if(uiState && uiState.tab){
             this.activeTab = uiState.tab;
         }
-
     }
 
-
-
-
+    @action toggleTreatmentFlow = () =>{
+        this.onTreatmentFlow = false;
+    }
 }

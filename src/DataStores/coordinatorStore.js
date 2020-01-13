@@ -11,6 +11,9 @@ const ROUTES = {
 
 export class CoordinatorStore {
 
+    @observable loginEmail = "";
+    @observable loginPassword = "";
+
     @observable uuid = ""
     @observable name = ""
     @observable email = ""
@@ -19,9 +22,7 @@ export class CoordinatorStore {
     @observable expired = false;
 
     //Participant Page Information
-    @observable currentParticipant = {
-
-    }
+    @observable currentParticipant = {}
 
     /*
             adherence: 0,
@@ -87,7 +88,14 @@ export class CoordinatorStore {
         })
     }
 
-    @action authenticate(body){
+    @action login(){
+
+        let body = {
+            phoneNumber: this.loginEmail,
+            password: this.loginPassword,
+            userType: "Patient"
+        }
+
         return this.executeRequest('login',body).then(json =>{
             if(json && json.uuid){
                 localStorage.setItem("user.token", json.token);
