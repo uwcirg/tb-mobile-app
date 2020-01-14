@@ -43,10 +43,10 @@ ReactDOM.render(
     <Provider {...stores}>
         <I18nextProvider i18n={i18n}>
             <Suspense fallback="Page Loading">
-            <Main />
+              <Main />
             </Suspense>
-            </I18nextProvider>
-            </Provider>
+        </I18nextProvider>
+      </Provider>
         , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

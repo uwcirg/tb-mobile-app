@@ -24,8 +24,20 @@ const Login = inject("patientStore","uiStore", "coordinatorStore", "loginStore")
     
     loginStore.login(USER_TYPES[uiStore.userInt]).then( res => {
 
-      //Open proper part of the application depending on user
-      
+      switch(res) {
+        case USER_TYPES[2]:
+          console.log("Future admin login flow")
+          break;
+        case USER_TYPES[1]:
+          console.log("Future practitioner login flow")
+          break;
+        case USER_TYPES[0]:
+          patientStore.initalize();
+        break;
+        default:
+          console.log("Invalid Login")
+      }
+     
     });
 
   }

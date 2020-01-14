@@ -68,7 +68,7 @@ export default class Main extends React.Component{
         return(
         <div>
         <ThemeProvider theme={theme}>
-                {this.props.patientStore.isLoggedIn ? Application : <Login props={{approveLogin:this.approveLogin }} />}
+                {this.props.patientStore.isLoggedIn ? Application : <Login />}
         </ThemeProvider>
         </div>
         )
@@ -88,13 +88,12 @@ export default class Main extends React.Component{
       //Get Notificaiton Authenticaiton key from Server
       //this.props.patientStore.getVapidKeyFromServerAndStoreLocally();
       const token =  localStorage.getItem("user.token")
-      const id = localStorage.getItem("userID")
+      const id = localStorage.getItem("user.id")
       const uiState = localStorage.getItem("uiState");
-
       this.props.uiStore.userType = localStorage.getItem("user.type");
-
+console.log("YERR")
       //Initalize User Identifiers
-      this.props.patientStore.initalize(token,id);
+      this.props.patientStore.initalize();
       this.props.uiStore.initalize(JSON.parse(uiState));
 
     }
