@@ -83,7 +83,7 @@ export default class ClCamera extends Component {
         let error = false;
         if (images.length > 0) {
             //this.setState({ 'uploading': true });
-            this.props.setImages(images);
+            //this.props.setImages(images);
             //this.setState({ 'uploading': false });
             if (!error) {
                 alert("All saved images have been uploaded to your Cloudinary Media Library");
@@ -117,21 +117,18 @@ export default class ClCamera extends Component {
         let date = new Date();
 
         localFile.image = this.state.capturedImage;
+        this.props.imagePass(this.state.capturedImage);
         localFile.dateTime = date.toISOString();
 
         localStorage.setItem(localStorageName, JSON.stringify(localFile));
-        this.props.pushImage(localStorageName);
+        //this.props.pushImage(localStorageName);
         this.discardImage();
     }else{
         this.setState({
             uploading: true
         })
-        this.props.isUploading();
-        window.setTimeout(() => {
-            this.setState({uploading: false})
-            this.props.hasUploaded()
-            this.discardImage();
-        }, 4000)
+
+        this.props.imagePass(this.state.capturedImage);
     }
 
     }

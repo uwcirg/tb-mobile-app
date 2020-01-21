@@ -29,6 +29,7 @@ workbox.routing.registerRoute(
   workbox.strategies.networkFirst()
 )
 
+/*
 self.addEventListener('push', function(event) {
 
  let data = event.data.json();
@@ -99,4 +100,5 @@ self.addEventListener('notificationclick', function(event) {
   event.waitUntil(promiseChain);
 
 });
+*/
 

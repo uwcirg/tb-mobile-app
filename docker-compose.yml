@@ -19,6 +19,19 @@ services:
     restart: always
     image: postgres
 
+  bucket:
+    image: minio/minio
+    environment:
+      - MINIO_ACCESS_KEY=$MINIO_ACCESS_KEY
+      - MINIO_SECRET_KEY=$MINIO_SECRET_KEY
+    volumes:
+      - source: user-files
+        target: /files
+        type: volume
+    command: server /files
+    ports: 
+       - $PORT_MINIO:9000
+
   web:
     image: uwcirg/tb-foundation:$API_DOCKER_TAG
     environment:
@@ -29,8 +42,9 @@ services:
       - SECRET_KEY_BASE=$SECRET_KEY_BASE
       - URL_API=$URL_API
       - URL_CORS=$URL_CORS
-      - WA_KEY=$WA_KEY
-      - WA_SID=$WA_SID
+      - URL_MINIO=$URL_MINIO
+      - MINIO_ACCESS_KEY=$MINIO_ACCESS_KEY
+      - MINIO_SECRET_KEY=$MINIO_SECRET_KEY
     ports:
       - $PORT_API:3000
     depends_on:
@@ -41,25 +55,7 @@ services:
         target: /ruby/backend/upload/
         type: volume
 
-  mongo:
-    expose:
-      - "27017"
-    container_name: mongo
-    image: "mongo"
-    restart: always
-
-  message:
-    container_name: "message"
-    depends_on:
-      - mongo
-    image: kjgoodwins/message
-    ports:
-      - "$PORT_MESSAGE:5002"
-    environment:
-      PORT: "5002"
-      MDPORT: "mongo:27017"
-      NAME: "message"
-    restart: always
 
 volumes:
+    user-files: {}
     user-documents: {}

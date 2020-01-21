@@ -7,6 +7,8 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { inject, observer } from 'mobx-react';
 import { Translation, withTranslation} from "react-i18next";
 
+import ImageUploadFlow from './Screens/Login/TestImageFlow'
+
 const theme = createMuiTheme({
 
     typography:{
@@ -52,6 +54,11 @@ export default class Main extends React.Component{
 
     //3 Seperate applications <PatinetApp /> <PractitionerApp /> and <AdminApp />
 
+  handleBack = () =>{
+      console.log("HANDLEBAK")
+      this.props.patientStore.isLoggedIn = false;
+  }
+
     render(){
 
       let Application = ""
@@ -62,8 +69,9 @@ export default class Main extends React.Component{
         Application = (<div> Coordinator Application Placeholder</div>)
       }else if( this.props.uiStore.userType == "Administrator"){
         Application = (<div> Admin App Placeholder</div>)
+      }else if( this.props.uiStore.userType == "ImageTest"){
+        Application = (<ImageUploadFlow handleBack={ () => {this.handleBack()}} />)
       }
-
 
         return(
         <div>
@@ -91,7 +99,6 @@ export default class Main extends React.Component{
       const id = localStorage.getItem("user.id")
       const uiState = localStorage.getItem("uiState");
       this.props.uiStore.userType = localStorage.getItem("user.type");
-console.log("YERR")
       //Initalize User Identifiers
       this.props.patientStore.initalize();
       this.props.uiStore.initalize(JSON.parse(uiState));

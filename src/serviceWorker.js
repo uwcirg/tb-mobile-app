@@ -20,21 +20,22 @@ const isLocalhost = Boolean(
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://bit.ly/CRA-PWA
 
+/*
 const requestNotificationPermission = async () => {
   const permission = await window.Notification.requestPermission();
   // value of permission can be 'granted', 'default', 'denied'
   // granted: user has accepted the request
   // default: user has dismissed the notification permission popup by clicking on x
   // denied: user has denied the request.
-  /*
+  
   if(permission !== 'granted'){
       throw new Error('Permission not granted for Notification');
   }
-  */
+
 }
 
 requestNotificationPermission();
-
+  */
 export function register(config) {
   if ('serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.

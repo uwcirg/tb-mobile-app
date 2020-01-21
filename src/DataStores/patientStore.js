@@ -19,16 +19,18 @@ export class PatientStore extends UserStore {
     }
 
     @observable isLoggedIn = false;
+    @observable medicationStep = 0;
 
     initalize(){
         this.executeRequest("getCurrentPatient").then( (json) => {
-            this.setAccountInformation(json)
-            this.isLoggedIn = true;
+            if(json.id){
+                this.isLoggedIn = true;
+                this.setAccountInformation(json)
+            }
         });
     }
 
     setAccountInformation(json){
-        console.log(json);
         this.information = json;
         this.givenName = json.given_name;
         this.familyName = json.family_name;
@@ -36,15 +38,6 @@ export class PatientStore extends UserStore {
         this.phoneNumber= json.phone_number;
         this.notes = json.notes;
     }
-/*
-    @action initalize(){
-
-        this.executeRequest('getCurrentPatient').then(json =>{
-            this.setAccountInformation(json);
-        })
-    }
-    */
-
 
     @action register(body){
         return this.executeRequest('register',body).then(json =>{

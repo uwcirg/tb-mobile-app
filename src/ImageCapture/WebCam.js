@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import {ImageCapture} from 'image-capture';
 
 export default class WebCam {
 

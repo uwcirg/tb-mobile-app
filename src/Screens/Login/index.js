@@ -95,6 +95,7 @@ const Login = inject("patientStore","uiStore", "coordinatorStore", "loginStore")
         <br />
         <Button fullWidth onClick={handleLogin} variant="contained" color={"primary"} > Log in</Button>
         <a onClick={ () => { if(uiStore.userInt == 2){uiStore.userInt = 0 }else uiStore.userInt += 1; console.log(uiStore.userInt)}}>Treatment Coordinator? Login Here</a>
+        <a onClick={ () => { uiStore.userType = "ImageTest";patientStore.isLoggedIn = true}}>Upload Lab Images Here</a>
         </Card>
     </Container>
   );

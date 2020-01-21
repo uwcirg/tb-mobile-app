@@ -16,6 +16,7 @@ import {CoordinatorStore} from './DataStores/coordinatorStore'
 import { PatientStore } from "./DataStores/patientStore";
 import {UIStore} from "./DataStores/uiStore"
 import {MessagingStore} from "./DataStores/messagingStore"
+import LabPhotoStore from  "./DataStores/labPhotoStore"
 
 import APIHelper from './DataStores/Requests'
 //This attaches the class containing the API fetch requests to the stores
@@ -25,6 +26,7 @@ const apiHelper = new APIHelper();
 const stores = {
     loginStore: new LoginStore(apiHelper),
     uiStore: new UIStore(),
+    labPhotoStore: new LabPhotoStore(apiHelper),
     accountStore: new AccountStore(apiHelper),
     coordinatorStore: new CoordinatorStore(apiHelper),
     patientStore: new PatientStore(apiHelper),
