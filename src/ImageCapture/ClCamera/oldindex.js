@@ -9,7 +9,7 @@ import { inject, observer } from 'mobx-react';
 
 const PHOTO_LIST_NAME = "photoFileList";
 
-@inject("uiStore","labPhotoStore")
+@inject("uiStore")
 @observer
 export default class ClCamera extends Component {
     constructor() {
@@ -31,6 +31,10 @@ export default class ClCamera extends Component {
 
     captureImage = async () => {
 
+        this.setState({
+            capturing: true
+        })
+
         let image = this.webcam.testFunc();
         let captureHeight;
 
@@ -42,6 +46,7 @@ export default class ClCamera extends Component {
                 if (captureHeight < settings.imageHeight.min) {
                     captureHeight = settings.imageHeight.max;
                 }
+
             }
             image.takePhoto({ imageHeight: captureHeight }).then(blob => {
 
@@ -50,16 +55,13 @@ export default class ClCamera extends Component {
                     reader.readAsDataURL(test[0]); // converts the blob to base64 and calls onload
 
                     reader.onload = () => {
-
-                        this.props.labPhotoStore.photoTaken= true;
-                        this.props.labPhotoStore.photoRender = reader.result;
-                        
                         this.setState({
                             captured: true,
                             capturedImage: reader.result,
                             capturing: false
     
                         })
+
                     };
 
                 });
@@ -69,15 +71,66 @@ export default class ClCamera extends Component {
     }
 
     discardImage = () => {
-        this.props.labPhotoStore.photoTaken= false;
         this.setState({
             captured: false,
             capturedImage: null
         })
     }
 
+    batchUploads = () => {
+        // this is where all the images saved can be uploaded as batch uploads
+        const images = this.findLocalItems(/^cloudy_pwa_/);
+        let error = false;
+        if (images.length > 0) {
+            //this.setState({ 'uploading': true });
+            //this.props.setImages(images);
+            //this.setState({ 'uploading': false });
+            if (!error) {
+                alert("All saved images have been uploaded to your Cloudinary Media Library");
+            }
+        }
+    }
+
     uploadImage = () => {
-        this.props.labPhotoStore.photo = this.state.capturedImage;
+
+        if(this.props.uiStore.offline){
+        const prefix = 'strip_report';
+        const rs = Math.random().toString(36).substr(2, 5);
+        const localStorageName = `${prefix}#${rs}`;
+
+        //Add the filename to the list for the gallery
+        let stringList = localStorage.getItem(PHOTO_LIST_NAME)
+        let photoList = ""
+
+        if (stringList) {
+            //Add to the list of files
+            photoList = JSON.parse(stringList);
+            photoList.push(localStorageName)
+            localStorage.setItem(PHOTO_LIST_NAME, JSON.stringify(photoList))
+        } else {
+            //Create new localstorage list
+            photoList = JSON.stringify([localStorageName])
+            localStorage.setItem(PHOTO_LIST_NAME, photoList)
+        }
+
+        let localFile = {}
+        let date = new Date();
+
+        localFile.image = this.state.capturedImage;
+        this.props.imagePass(this.state.capturedImage);
+        localFile.dateTime = date.toISOString();
+
+        localStorage.setItem(localStorageName, JSON.stringify(localFile));
+        //this.props.pushImage(localStorageName);
+        this.discardImage();
+    }else{
+        this.setState({
+            uploading: true
+        })
+
+        this.props.imagePass(this.state.capturedImage);
+    }
+
     }
 
     componentDidMount() {
@@ -105,7 +158,8 @@ export default class ClCamera extends Component {
 
         const buttons = this.state.captured ?
             <div className="camera-buttons">
-                <DeleteButton variant="contained" color="secondary" onClick={this.discardImage} > Retake Photo </DeleteButton>
+                <DeleteButton variant="contained" color="secondary" onClick={this.discardImage} > Delete Photo </DeleteButton>
+                 <Button variant="contained" color="primary"  onClick={this.uploadImage} > {this.props.uiStore.offline ? "Save Photo" : "Upload Photo"} </Button>
             </div> :
             <div className="camera-buttons">
                 <Button variant="contained"  color="primary" onClick={this.captureImage} > Take Picture </Button>

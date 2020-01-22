@@ -57,6 +57,7 @@ export default class Main extends React.Component{
   handleBack = () =>{
       console.log("HANDLEBAK")
       this.props.patientStore.isLoggedIn = false;
+      this.props.uiStore.userType = ""
   }
 
     render(){
@@ -76,7 +77,7 @@ export default class Main extends React.Component{
         return(
         <div>
         <ThemeProvider theme={theme}>
-                {this.props.patientStore.isLoggedIn ? Application : <Login />}
+                {this.props.patientStore.isLoggedIn || this.props.uiStore.userType == "ImageTest" ? Application : <Login />}
         </ThemeProvider>
         </div>
         )

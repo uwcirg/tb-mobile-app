@@ -2,7 +2,7 @@ import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
-import ClCamera from '../../ImageCapture/ClCamera'
+import ClCamera from '../../ImageCapture/ClCamera/oldindex'
 import moment from 'moment';
 import Button from '@material-ui/core/Button'
 

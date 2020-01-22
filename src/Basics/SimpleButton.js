@@ -7,9 +7,10 @@ const SimpleButton = (props) => {
     const CustomButton = styled(Button)({
         
         color: props.color ? props.color : "white",
+        backgroundColor: props.backgroundColor ? props.backgroundColor : "",
         textTransform: "none",
         width: "35vw",
-        height: "8vh"
+        height: "6vh"
     })
         
     return (<CustomButton color="primary" onClick={props.onClick} variant="contained" >{props.children}</CustomButton>)
