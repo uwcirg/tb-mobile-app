@@ -15,6 +15,14 @@ const TopBar = inject("uiStore","patientStore")(observer(({ uiStore,patientStore
 
   const { t, i18n } = useTranslation('translation');
 
+  const GradientAppBar = styled(AppBar)`
+  background: (170.51deg, #2D79E6 -22.97%, #053476 116.51%);
+
+  ${({ offline }) => offline && `
+  background: none;
+`}
+`
+
   //Conditional Logic to Display back button during treatment flow
   let buttonToDisplay = (
     patientStore.isLoggedIn && <IconButton onClick={uiStore.toggleMenu} edge="start"  color="inherit" aria-label="menu"> <MenuIcon /></IconButton>
@@ -25,7 +33,7 @@ const TopBar = inject("uiStore","patientStore")(observer(({ uiStore,patientStore
   }
 
     return(
-        <GradientAppBar color={uiStore.offline ? "secondary" : "primary"} offline={uiStore.offline} position="static" style={{flexGrow: 1}}>
+        <GradientAppBar color={uiStore.offline ? "secondary" : "primary"} position="static" style={{flexGrow: 1}}>
           <Toolbar>
             {buttonToDisplay}
             <Typography variant="h6" style={{flexGrow: 1}}>
@@ -39,12 +47,5 @@ const TopBar = inject("uiStore","patientStore")(observer(({ uiStore,patientStore
     )
 }));
 
-const GradientAppBar = styled(AppBar)`
-  background: (170.51deg, #2D79E6 -22.97%, #053476 116.51%);
-
-  ${({ offline }) => offline && `
-  background: none;
-`}
-`
 
 export default TopBar;

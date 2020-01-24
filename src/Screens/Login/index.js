@@ -33,6 +33,7 @@ const Login = inject("patientStore","uiStore", "coordinatorStore", "loginStore")
           break;
         case USER_TYPES[0]:
           patientStore.initalize();
+          uiStore.userType = "Patient"
         break;
         default:
           console.log("Invalid Login")

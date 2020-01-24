@@ -1,5 +1,6 @@
 import { action, observable, computed} from "mobx";
 import {UserStore} from './userStore';
+import DateTime from 'luxon'
 
 const ROUTES = {
     login: ["/authenticate","POST"],
@@ -20,6 +21,10 @@ export class PatientStore extends UserStore {
 
     @observable isLoggedIn = false;
     @observable medicationStep = 0;
+    
+
+    //MedicationFlow Variables
+    medicationTime = "";
 
     initalize(){
         this.executeRequest("getCurrentPatient").then( (json) => {

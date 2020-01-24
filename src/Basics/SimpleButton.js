@@ -9,8 +9,10 @@ const SimpleButton = (props) => {
         color: props.color ? props.color : "white",
         backgroundColor: props.backgroundColor ? props.backgroundColor : "",
         textTransform: "none",
-        width: "35vw",
-        height: "6vh"
+        width: "20vw",
+        height: "4vh",
+        borderRadius: "2vh",
+        padding: 0
     })
         
     return (<CustomButton color="primary" onClick={props.onClick} variant="contained" >{props.children}</CustomButton>)
