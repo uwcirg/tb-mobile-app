@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import fixRotation from 'fix-image-rotation';
 import Webcam from '../WebCam'
-//import './ClCamera.css';
+import './ClCamera.css';
 import Button from '@material-ui/core/Button'
 import { ThemeProvider, styled } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -31,7 +31,7 @@ export default class ClCamera extends Component {
 
     captureImage = async () => {
 
-        let image = this.webcam.testFunc();
+        let image = this.webcam.takePhoto();
         let captureHeight;
 
         image.getPhotoCapabilities().then(settings => {

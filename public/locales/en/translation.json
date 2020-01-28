@@ -15,9 +15,9 @@
     },
 
     "report": {
-        "medicationTitle": "Did you take your medication today?",
-        "symptomsTitle": "Any symptoms to report?",
-        "photoTitle": "Capture an image of your test strip"
+        "medicationTitle": "Medication",
+        "symptomsTitle": "Symptoms?",
+        "photoTitle": "Strip Report"
     },
 
     

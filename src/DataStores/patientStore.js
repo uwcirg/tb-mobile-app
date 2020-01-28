@@ -23,6 +23,7 @@ export class PatientStore extends UserStore {
     @observable medicationStep = 0;
     @observable givenName = ""
     @observable cameraIsOpen = false;
+    @observable medicationWasReported = false;
     
 
     //MedicationFlow Variables

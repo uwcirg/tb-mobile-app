@@ -3,6 +3,8 @@ import fixRotation from 'fix-image-rotation';
 import Webcam from './WebCam'
 import Button from '../Basics/SimpleButton'
 import styled from 'styled-components';
+import IconButton from '@material-ui/core/IconButton'
+import CloseIcon from '@material-ui/icons/Close';
 
 
 export default class Camera extends Component {
@@ -99,10 +101,12 @@ export default class Camera extends Component {
                 <Button variant="contained"  color="primary" onClick={this.captureImage} > Take Picture </Button>
             </div>
 
+        const exit = (<Exit><IconButton onClick={this.props.handleExit}><CloseIcon /></IconButton></Exit>)
+
 
         return (
             <Container>
-
+                {exit}
                 <div className="webcam-container">
                 <video width="350px" autoPlay playsInline muted id="webcam" className={this.state.captured ? "hidden" : ""} />
                 </div>
@@ -117,6 +121,14 @@ export default class Camera extends Component {
         )
     }
 }
+
+const Exit = styled.div`
+position: fixed;
+top: 0px;
+left: 10px;
+color: white;
+z-index: 10;
+`
 
 const Container = styled.div`
 
@@ -170,6 +182,9 @@ const Container = styled.div`
       position: fixed;
       bottom: 60px;
       z-index: 10;
+      width: 100%;
+      display: flex;
+      justify-content: center;
   }
 
 

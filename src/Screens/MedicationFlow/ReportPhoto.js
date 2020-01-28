@@ -13,10 +13,14 @@ const ReportPhoto = inject("patientStore")(observer(({patientStore}) => {
         console.log(photo);
     }
 
+    const handleExit = () => {
+        patientStore.cameraIsOpen = false;
+    }
+
     return(
         <div>
                 <SimpleButton onClick={() => {patientStore.cameraIsOpen = true}}>Open Camera</SimpleButton>
-                { patientStore.cameraIsOpen ? <Camera returnPhoto={handlePhoto} /> : ""}
+                { patientStore.cameraIsOpen ? <Camera handleExit={handleExit} returnPhoto={handlePhoto} /> : ""}
         </div>
         )
 }));

@@ -51,7 +51,7 @@ const SymptomsList = observer(() => {
 
     const List = Symptoms.map( (name,index) => {
         return(
-            <SingleSymptom id={name + index}>
+            <SingleSymptom key={name + index}>
                 <div> </div>
                 <div>
                     <span> {t(`symptoms.${name}.title`)} </span> <br />
