@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
 import fixRotation from 'fix-image-rotation';
-import Webcam from '../WebCam'
-//import './ClCamera.css';
-import Button from '@material-ui/core/Button'
-import { ThemeProvider, styled } from '@material-ui/core/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
-import { inject, observer } from 'mobx-react';
+import Webcam from './WebCam'
+import Button from '../Basics/SimpleButton'
+import styled from 'styled-components';
 
-const PHOTO_LIST_NAME = "photoFileList";
 
-@inject("uiStore","labPhotoStore")
-@observer
-export default class ClCamera extends Component {
+export default class Camera extends Component {
     constructor() {
         super();
         this.webcam = null;
@@ -31,7 +25,7 @@ export default class ClCamera extends Component {
 
     captureImage = async () => {
 
-        let image = this.webcam.testFunc();
+        let image = this.webcam.takePhoto();
         let captureHeight;
 
         image.getPhotoCapabilities().then(settings => {
@@ -48,18 +42,13 @@ export default class ClCamera extends Component {
                 this.myRotationFunction([blob]).then(test => {
                     let reader = new FileReader();
                     reader.readAsDataURL(test[0]); // converts the blob to base64 and calls onload
-
                     reader.onload = () => {
-
-                        this.props.labPhotoStore.photoTaken= true;
-                        this.props.labPhotoStore.photoRender = reader.result;
-                        
                         this.setState({
                             captured: true,
                             capturedImage: reader.result,
                             capturing: false
-    
                         })
+                        this.props.returnPhoto(reader.result);
                     };
 
                 });
@@ -69,7 +58,6 @@ export default class ClCamera extends Component {
     }
 
     discardImage = () => {
-        this.props.labPhotoStore.photoTaken= false;
         this.setState({
             captured: false,
             capturedImage: null
@@ -77,7 +65,7 @@ export default class ClCamera extends Component {
     }
 
     uploadImage = () => {
-        this.props.labPhotoStore.photo = this.state.capturedImage;
+        
     }
 
     componentDidMount() {
@@ -105,7 +93,7 @@ export default class ClCamera extends Component {
 
         const buttons = this.state.captured ?
             <div className="camera-buttons">
-                <DeleteButton variant="contained" color="secondary" onClick={this.discardImage} > Retake Photo </DeleteButton>
+                <Button variant="contained" color="secondary" onClick={this.discardImage} > Retake Photo </Button>
             </div> :
             <div className="camera-buttons">
                 <Button variant="contained"  color="primary" onClick={this.captureImage} > Take Picture </Button>
@@ -113,8 +101,7 @@ export default class ClCamera extends Component {
 
 
         return (
-            <div>
-                <ThemeProvider theme={theme}>
+            <Container>
 
                 <div className="webcam-container">
                 <video width="350px" autoPlay playsInline muted id="webcam" className={this.state.captured ? "hidden" : ""} />
@@ -126,25 +113,64 @@ export default class ClCamera extends Component {
                 </div>
                 
                 {buttons}
-                </ThemeProvider>
-            </div>
+            </Container>
         )
     }
 }
 
-const theme = createMuiTheme({
-    palette: {
-      primary: {
-          main: "#4791e2"
-      }
-    },
-    typography:{
-        button:{
-            textTransform: "none"
-        }
-    }
-  }); 
+const Container = styled.div`
 
-const DeleteButton = styled(Button)({
-    marginLeft: "1em"
-})
+.hidden{
+    visibility: hidden;
+    display: none;
+    height: 0px;
+    margin: 0px;
+    padding: 0px;
+  }
+
+.imageCanvas{
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    background-color: black;
+    text-align: center;
+  }
+
+  img{
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    background-color: black;
+    height: 100vh;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+    margin: auto;
+   
+  }
+
+  #webcam{
+    padding: 0;
+    display: block;
+    margin: auto;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+  }
+
+  .webcam-container{
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    #background-color: black;
+
+  }
+
+  .camera-buttons{
+      position: fixed;
+      bottom: 60px;
+      z-index: 10;
+  }
+
+
+`

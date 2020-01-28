@@ -100,7 +100,7 @@ export default class WebCam {
     }
 
 
-    testFunc(){
+    takePhoto(){
         const image = new ImageCapture(this.mediaStreamTrack);
         return image;
     }

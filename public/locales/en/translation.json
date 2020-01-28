@@ -12,5 +12,83 @@
 
     "messaging": {
         "nurseContact": "Need individual support? Contact your provider!"
+    },
+
+    "report": {
+        "medicationTitle": "Did you take your medication today?",
+        "symptomsTitle": "Any symptoms to report?",
+        "photoTitle": "Capture an image of your test strip"
+    },
+
+    
+    "symptoms": {
+        "nausea": 
+        {
+            "title": "Nausea or Vomiting",
+            "subtitle": "test subtitle"
+        },
+
+        "redness":{
+            "title": "Redness",
+            "subtitle": "Swelling, redness, itching of skin"
+        },
+
+        "hives": {
+            "title": "Hives",
+            "subtitle": "Itchy spots on skin"
+        },
+
+        "fever":{
+            "title": "Fever",
+            "subtitle": "Body temperature over 37.5"
+        },
+
+        "appetite_loss":{
+            "title": "Appetite Loss",
+            "subtitle": "Loss of appetite"
+        },
+
+        "blurred_vision":{
+            "title": "Blur in Vision",
+            "subtitle": "Blurred vision or changes in the way you see colors"
+        },
+
+        "sore_belly":{
+            "title": "Upset Stomach",
+            "subtitle": "Soreness of belly"
+        },
+
+        "yellow_coloration":{
+            "title": "Yellowness Coloration",
+            "subtitle": "Yellowing of the skin or whites of the eyes"
+        },
+
+        "difficulty_breathing":{
+            "title": "Difficulty Breathing",
+            "subtitle": "Shortness of breath or difficulty breathing"
+        },
+
+        "facial_swelling":{
+            "title": "Facial Swelling",
+            "subtitle": "Swelling of the face, lips, tongue, or throat"
+        },
+
+        "dizziness":{
+            "title": "Dizziness",
+            "subtitle": ""
+        },
+
+        "headache":{
+            "title": "Headache",
+            "subtitle": ""
+        },
+
+        "other":{
+            "title": "Other",
+            "subtitle": "Click here to list additional side effects"
+        }
+
     }
+    
 }
+

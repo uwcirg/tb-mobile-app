@@ -15,7 +15,7 @@ const Progress = inject("uiStore", "patientStore")(observer(({ uiStore, patientS
         <Body>
             <ProgressGraph week={10} />
             <Greeting>
-                <h1> {t("home.greeting")} {patientStore.given_name}! 👋</h1>
+                <h1> {t("home.greeting")} {patientStore.givenName}! 👋</h1>
                 <h2> {t("home.purpose")} </h2>
             </Greeting>
             <LogPrompt />

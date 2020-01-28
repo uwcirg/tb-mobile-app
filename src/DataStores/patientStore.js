@@ -21,10 +21,13 @@ export class PatientStore extends UserStore {
 
     @observable isLoggedIn = false;
     @observable medicationStep = 0;
+    @observable givenName = ""
+    @observable cameraIsOpen = false;
     
 
     //MedicationFlow Variables
     medicationTime = "";
+    @observable selectedSymptoms = [];
 
     initalize(){
         this.executeRequest("getCurrentPatient").then( (json) => {

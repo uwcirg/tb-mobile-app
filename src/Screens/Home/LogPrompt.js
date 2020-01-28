@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import {DateTime} from 'luxon';
 
 import { inject, observer } from 'mobx-react';
 
@@ -11,11 +12,13 @@ const LogPrompt = inject("uiStore")(observer(({ uiStore}) => {
         uiStore.onTreatmentFlow = true;
     }
 
+    const displayDate = DateTime.local().toLocaleString(DateTime.DATE_MED).split(",")[0]
+
     return (
         <PromptContainer>
             <DateContainer>
             <span>Today</span>
-            <span id="sub-date">Jan 2</span>
+            <span id="sub-date">{displayDate}</span>
             </DateContainer>
             <Fab onClick={handleLogTreatment} size="medium" style={{backgroundColor: "#4b98e9", color: "white", marginRight: "1em"}} aria-label="add">
           <AddIcon />

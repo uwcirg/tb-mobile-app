@@ -61,6 +61,8 @@
   .camera-buttons{
     margin: auto;
     width: 90%;
+    position: fixed;
+    bottom: 4em;
   }
 
 
