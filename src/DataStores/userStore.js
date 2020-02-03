@@ -3,16 +3,40 @@ import APIStore from './apiStore'
 
 export class UserStore extends APIStore{
 
+    @observable userType = "";
+
     @observable userID = ""
     @observable token = ""
     @observable givenName = ""
     @observable familyName = ""
     @observable expired = false;
+    @observable isLoggedIn = false;
 
-    constructor(strategy,routes){
+    constructor(strategy,routes,userType){
         super(strategy,routes);
+        this.userType = userType;
+    }
+
+    logout(){
 
     }
+
+    initalize(){
+      this.executeRequest(`getCurrent${this.userType}`).then( (json) => {
+        if(json.id){
+            this.setAccountInformation(json)
+            this.isLoggedIn = true;
+        }
+    });
+
+
+    }
+
+    clearLocalStorage(){
+      localStorage.removeItem("user.token");
+      localStorage.removeItem("user.id");
+      localStorage.removeItem("user.type");
+  }
 
     /*  FOR FUTURE Notifications implementation
     

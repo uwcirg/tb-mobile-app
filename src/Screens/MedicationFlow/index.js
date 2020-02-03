@@ -26,7 +26,7 @@ const MedicationFlow = inject("patientStore")(observer(({patientStore}) => {
         <StatusBar>
             <CircularLabel number={patientStore.medicationStep + 1} />
             <span>{titles[patientStore.medicationStep]}</span>
-            {patientStore.medicationStep == 0 ? "" : <ChevronLeft onClick={handleBack} />}
+            {/* patientStore.medicationStep == 0 ? "" : <ChevronLeft onClick={handleBack} /> */}
         </StatusBar>
 
         {Tabs[patientStore.medicationStep]}

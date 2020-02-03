@@ -10,7 +10,7 @@ const USER_TYPES = ["Patient","Practitioner","Administrator"];
 const identifierTextOptions = ["Phone Number","Email"];
 const passwordText = "********"
 
-const Login = inject("patientStore","uiStore", "coordinatorStore", "loginStore")(observer(({ patientStore,uiStore,coordinatorStore,loginStore, props }) => {
+const Login = inject("patientStore","uiStore", "practitionerStore", "loginStore")(observer(({ patientStore,uiStore,practitionerStore,loginStore, props }) => {
 
   let updatePassword = (e) => {
     loginStore.password = e.target.value;
@@ -29,11 +29,10 @@ const Login = inject("patientStore","uiStore", "coordinatorStore", "loginStore")
           console.log("Future admin login flow")
           break;
         case USER_TYPES[1]:
-          console.log("Future practitioner login flow")
+          practitionerStore.initalize();
           break;
         case USER_TYPES[0]:
           patientStore.initalize();
-          uiStore.userType = "Patient"
         break;
         default:
           console.log("Invalid Login")
@@ -96,7 +95,7 @@ const Login = inject("patientStore","uiStore", "coordinatorStore", "loginStore")
         <br />
         <Button fullWidth onClick={handleLogin} variant="contained" color={"primary"} > Log in</Button>
         <a onClick={ () => { if(uiStore.userInt == 2){uiStore.userInt = 0 }else uiStore.userInt += 1; console.log(uiStore.userInt)}}>Treatment Coordinator? Login Here</a>
-        <a onClick={ () => { uiStore.userType = "ImageTest";patientStore.isLoggedIn = true}}>Upload Lab Images Here</a>
+        <a onClick={ () => { uiStore.userType = "ImageTest";uiStore.isLoggedIn = true}}>Upload Lab Images Here</a>
         </Card>
     </Container>
   );
@@ -107,7 +106,6 @@ const Title = styled.div`
 display: flex;
 justify-content: center;
 flex-direction: column;
-align-conent: flex-end;
 flex-grow: 1;
 height: 30vh;
 

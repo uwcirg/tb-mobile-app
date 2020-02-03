@@ -6,14 +6,14 @@ import { inject, observer } from 'mobx-react';
 import Home from './Screens/Home'
 import Info from './Screens/Info'
 
-import Messaging from './Screens/Messaging/';
+import Messaging from './Screens/Messaging';
 
 import TopBar from './Navigation/TopBar';
 import Drawer from './Navigation/Drawer';
 
 @inject("uiStore")
 @observer
-class App extends Component {
+class PatientHome extends Component {
 
   render(){
 
@@ -30,4 +30,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default PatientHome;

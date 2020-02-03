@@ -5,6 +5,9 @@ import Button from '../Basics/SimpleButton'
 import styled from 'styled-components';
 import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close';
+import Colors from '../Basics/Colors'
+import CameraAltIcon from '@material-ui/icons/CameraAlt';
+import Fab from '@material-ui/core/Fab';
 
 
 export default class Camera extends Component {
@@ -50,7 +53,6 @@ export default class Camera extends Component {
                             capturedImage: reader.result,
                             capturing: false
                         })
-                        this.props.returnPhoto(reader.result);
                     };
 
                 });
@@ -86,6 +88,11 @@ export default class Camera extends Component {
         this.webcam.endVideo();
     }
 
+    handleUsePhoto = () => {
+        this.props.returnPhoto(this.state.capturedImage);
+        this.props.handleExit();
+    }
+
     render() {
 
         const imageDisplay = this.state.capturedImage ?
@@ -96,9 +103,11 @@ export default class Camera extends Component {
         const buttons = this.state.captured ?
             <div className="camera-buttons">
                 <Button variant="contained" color="secondary" onClick={this.discardImage} > Retake Photo </Button>
+                <Button variant="contained" backgroundColor={Colors.green} onClick={this.handleUsePhoto} > Use Photo</Button>
             </div> :
             <div className="camera-buttons">
-                <Button variant="contained"  color="primary" onClick={this.captureImage} > Take Picture </Button>
+                {/*<Button variant="contained"  color="primary" onClick={this.captureImage} > Take Picture </Button>*/}
+                <Fab onClick={this.captureImage}><CameraAltIcon /></Fab>
             </div>
 
         const exit = (<Exit><IconButton onClick={this.props.handleExit}><CloseIcon /></IconButton></Exit>)
@@ -121,6 +130,18 @@ export default class Camera extends Component {
         )
     }
 }
+
+const CameraButton = styled.div`
+height: 40px;
+width: 40px;
+border: solid 2px white;
+border-radius: 40px;
+background-color: lightgray;
+display: flex;
+justify-content: center;
+align-content: center;
+align-items: center;
+`
 
 const Exit = styled.div`
 position: fixed;
@@ -185,6 +206,11 @@ const Container = styled.div`
       width: 100%;
       display: flex;
       justify-content: center;
+
+      button:first-of-type{
+        margin-right: 1em;
+      }
+      
   }
 
 

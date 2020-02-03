@@ -7,10 +7,7 @@ export default class APIStore {
 
     executeRequest(type, body) {
         return this.strategy.executeRequest(this.routes, type, body).then(res => {
-
-                return res
-
-
+            return res
         })
     }
 }

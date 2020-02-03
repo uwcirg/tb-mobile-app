@@ -4,6 +4,17 @@
     "offline": "Offline",
     "greeting": "Hello",
 
+    "userFields":{
+        "givenName": "Given Name",
+        "familyName": "Family Name",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "password": "Password",
+        "treatmentStart": "Treatment Start Date",
+        "phoneNumber": "Phone Number"
+
+    },
+
     "home": {
         "greeting": "Hi",
         "purpose": "Lets keep track of your medication and health!",
@@ -19,7 +30,6 @@
         "symptomsTitle": "Symptoms?",
         "photoTitle": "Strip Report"
     },
-
     
     "symptoms": {
         "nausea": 
@@ -89,6 +99,6 @@
         }
 
     }
-    
+
 }
 

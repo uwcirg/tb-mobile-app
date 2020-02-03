@@ -11,7 +11,7 @@ import { I18nextProvider} from 'react-i18next';
 
 //Stores 
 import {AccountStore} from './DataStores/accountStore'
-import {CoordinatorStore} from './DataStores/coordinatorStore'
+import {PractitionerStore} from './DataStores/practitionerStore'
 import { PatientStore } from "./DataStores/patientStore";
 import {UIStore} from "./DataStores/uiStore"
 
@@ -27,7 +27,6 @@ it('renders without crashing', () => {
   const stores = {
     uiStore: new UIStore(),
     accountStore: new AccountStore(apiHelper),
-    coordinatorStore: new CoordinatorStore(apiHelper),
     patientStore: new PatientStore(apiHelper)
 }
 

@@ -16,7 +16,7 @@ i18n.use(XHR)
 .init({
   fallbackLng: "en",
   load: "languageOnly",
-  debug: true
+  debug: false
 });
 
 export default i18n;

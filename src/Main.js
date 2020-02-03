@@ -1,6 +1,8 @@
 import React from 'react';
-import App from './App';
+import PatientHome from './PatientHome';
 import Login from './Screens/Login/'; 
+
+import PractitionerHome from './Practitioner'
 
 import { ThemeProvider, styled} from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -8,6 +10,7 @@ import { inject, observer } from 'mobx-react';
 import { Translation, withTranslation} from "react-i18next";
 
 import ImageUploadFlow from './Screens/Login/TestImageFlow'
+import { computed } from 'mobx';
 
 const theme = createMuiTheme({
 
@@ -26,21 +29,34 @@ const theme = createMuiTheme({
   }); 
 
 @withTranslation()
-@inject('uiStore','patientStore')
+@inject('uiStore','patientStore','practitionerStore')
 @observer
 export default class Main extends React.Component{
 
+  @computed get isLoggedIn(){
+   return this.props.patientStore.isLoggedIn || this.props.practitionerStore.isLoggedIn
+  }
+
+  @computed get test(){
+    if(this.props.patientStore.isLoggedIn){
+      return (<PatientHome />)
+    }else if( this.props.practitionerStore.isLoggedIn){
+      return (<PractitionerHome />)
+    }
+
+  }
+
   componentDidMount() {
 
-    this.initalizeApplicationState();
     this.listenForConnectivityChanges();
 
     /*@TODO move this code to patientStore to simplify
       Just move all of the logic from initalizeApplicationState to that file
-    */
+    
     if( this.props.patientStore.isLoggedIn){
       this.props.patientStore.getPatientInformation();
     }
+    */
 
   }
 
@@ -52,32 +68,19 @@ export default class Main extends React.Component{
         }
     }
 
-    //3 Seperate applications <PatinetApp /> <PractitionerApp /> and <AdminApp />
-
   handleBack = () =>{
-      console.log("HANDLEBAK")
-      this.props.patientStore.isLoggedIn = false;
+      this.props.uiStore.isLoggedIn = false;
       this.props.uiStore.userType = ""
   }
 
     render(){
 
-      let Application = ""
-
-      if(this.props.uiStore.userType == "Patient"){
-        Application = (<App />);
-      }else if( this.props.uiStore.userType == "Practitioner"){
-        Application = (<div> Coordinator Application Placeholder</div>)
-      }else if( this.props.uiStore.userType == "Administrator"){
-        Application = (<div> Admin App Placeholder</div>)
-      }else if( this.props.uiStore.userType == "ImageTest"){
-        Application = (<ImageUploadFlow handleBack={ () => {this.handleBack()}} />)
-      }
+      let Application = this.initalizeApplicationState();
 
         return(
         <div>
         <ThemeProvider theme={theme}>
-                {this.props.patientStore.isLoggedIn || this.props.uiStore.userType == "ImageTest" ? Application : <Login />}
+                {this.isLoggedIn ? this.test : <Login />}
         </ThemeProvider>
         </div>
         )
@@ -95,14 +98,35 @@ export default class Main extends React.Component{
 
     initalizeApplicationState(){
       //Get Notificaiton Authenticaiton key from Server
-      //this.props.patientStore.getVapidKeyFromServerAndStoreLocally();
+      //this.props.patientStore.getVapidKeyFromServerAndStoreLocally();      
+      
+      const userType = localStorage.getItem("user.type");
+
+      if(userType === "Patient"){
+        this.props.patientStore.initalize();
+
+      }else if( userType === "Practitioner"){
+        this.props.practitionerStore.initalize();
+      }
+
+
+
+      
+      /*
       const token =  localStorage.getItem("user.token")
       const id = localStorage.getItem("user.id")
       const uiState = localStorage.getItem("uiState");
-      this.props.uiStore.userType = localStorage.getItem("user.type");
-      //Initalize User Identifiers
-      this.props.patientStore.initalize();
-      this.props.uiStore.initalize(JSON.parse(uiState));
+      *'/
 
+
+      /*
+      //Initalize User Identifiers
+      this.props.patientStore.initalize().then( (userAuthorization) => {
+        this.props.uiStore.isLoggedIn = true;
+      })
+  
+      
+      this.props.uiStore.initalize(JSON.parse(uiState));
+    */
     }
 }

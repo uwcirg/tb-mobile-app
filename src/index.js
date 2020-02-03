@@ -12,12 +12,11 @@ import { I18nextProvider} from 'react-i18next';
 //Stores 
 import {AccountStore} from './DataStores/accountStore'
 import LoginStore from './DataStores/loginStore'
-import {CoordinatorStore} from './DataStores/coordinatorStore'
-import { PatientStore } from "./DataStores/patientStore";
+import {PractitionerStore} from './DataStores/practitionerStore'
+import { PatientStore } from "./DataStores/patientStore"
 import {UIStore} from "./DataStores/uiStore"
 import {MessagingStore} from "./DataStores/messagingStore"
 import LabPhotoStore from  "./DataStores/labPhotoStore"
-
 import APIHelper from './DataStores/Requests'
 //This attaches the class containing the API fetch requests to the stores
 //Doing it this way allows you to swap in other data retrival methods for testing
@@ -28,7 +27,7 @@ const stores = {
     uiStore: new UIStore(),
     labPhotoStore: new LabPhotoStore(apiHelper),
     accountStore: new AccountStore(apiHelper),
-    coordinatorStore: new CoordinatorStore(apiHelper),
+    practitionerStore: new PractitionerStore(apiHelper),
     patientStore: new PatientStore(apiHelper),
     messagingStore: new MessagingStore(apiHelper)
 }

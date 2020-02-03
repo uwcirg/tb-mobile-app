@@ -5,6 +5,8 @@ export class UIStore {
     @observable userInt = 0;
     @observable userType = "";
 
+    @observable isLoggedIn = false;
+
     @observable language = "en";
     @observable activeTab = 0;
     @observable menuOpened = false;

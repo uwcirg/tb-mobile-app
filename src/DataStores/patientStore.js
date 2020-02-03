@@ -16,28 +16,21 @@ export class PatientStore extends UserStore {
 
     //Takes in a data fetching strategy, so you can swap out the API one for testing data
     constructor(strategy) {
-        super(strategy,ROUTES)
+        super(strategy,ROUTES,"Patient")
     }
 
-    @observable isLoggedIn = false;
     @observable medicationStep = 0;
     @observable givenName = ""
     @observable cameraIsOpen = false;
     @observable medicationWasReported = false;
+
     
 
     //MedicationFlow Variables
     medicationTime = "";
     @observable selectedSymptoms = [];
-
-    initalize(){
-        this.executeRequest("getCurrentPatient").then( (json) => {
-            if(json.id){
-                this.isLoggedIn = true;
-                this.setAccountInformation(json)
-            }
-        });
-    }
+    @observable photoWasTaken = false;
+    photoString = "";
 
     setAccountInformation(json){
         this.information = json;
@@ -74,7 +67,7 @@ export class PatientStore extends UserStore {
     }
 
     @action logout = () => {
-
+       
         //Remove persistant user information
         this.clearLocalStorage();
         //this.unsubscribeFromNotifications();
@@ -86,12 +79,7 @@ export class PatientStore extends UserStore {
         this.phone_number = ""
         this.information = {}
         this.notes = []
-        this.expired = false;
+        this.expired = false; 
         this.isLoggedIn = false;
-    }
-    
-    clearLocalStorage(){
-        localStorage.removeItem("user.token");
-        localStorage.removeItem("user.id");
     }
 }
