@@ -2898,7 +2898,7 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-classnames@^2.2.6:
+classnames@^2.2.5, classnames@^2.2.6:
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
   integrity sha512-JR/iSQOSt+LQIWwrwEzJ9uk0xfN3mTVYMwt1Ir5mUcSN6pU+V4zQFFaJsclJbPuAUQH+yfWef6tm7l1quW3C8Q==
@@ -8692,6 +8692,15 @@ react-circular-progressbar@^2.0.3:
   resolved "https://registry.yarnpkg.com/react-circular-progressbar/-/react-circular-progressbar-2.0.3.tgz#fa8eb59f8db168d2904bae4590641792c80f5991"
   integrity sha512-YKN+xAShXA3gYihevbQZbavfiJxo83Dt1cUxqg/cltj4VVsRQpDr7Fg1mvjDG3x1KHGtd9NmYKvJ2mMrPwbKyw==
 
+react-code-input@^3.9.0:
+  version "3.9.0"
+  resolved "https://registry.yarnpkg.com/react-code-input/-/react-code-input-3.9.0.tgz#6b943711d7d806a72434d152d43e38b54477d6c6"
+  integrity sha512-KbFKecaEiWMaLtFR8MH5N1lKTqV7IXFiStLgxqMPftEVfzBUU5TeoVxERTYTFg3vK4q+kLgQuafmF6HQJJhz/w==
+  dependencies:
+    classnames "^2.2.5"
+    react "^16.3.2"
+    react-dom "^16.3.2"
+
 react-dev-utils@^9.1.0:
   version "9.1.0"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-9.1.0.tgz#3ad2bb8848a32319d760d0a84c56c14bdaae5e81"
@@ -8723,7 +8732,7 @@ react-dev-utils@^9.1.0:
     strip-ansi "5.2.0"
     text-table "0.2.0"
 
-react-dom@^16.11.0:
+react-dom@^16.11.0, react-dom@^16.3.2:
   version "16.12.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.12.0.tgz#0da4b714b8d13c2038c9396b54a92baea633fe11"
   integrity sha512-LMxFfAGrcS3kETtQaCkTKjMiifahaMySFDn71fZUNpPHZQEzmk/GiAeIT8JSOrHB23fnuCOMruL2a8NYlw+8Gw==
@@ -8858,7 +8867,7 @@ react-transition-group@^4.0.0, react-transition-group@^4.3.0:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react@^16.11.0:
+react@^16.11.0, react@^16.3.2:
   version "16.12.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.12.0.tgz#0c0a9c6a142429e3614834d5a778e18aa78a0b83"
   integrity sha512-fglqy3k5E+81pA8s+7K0/T3DBCF0ZDOher1elBFzF7O6arXJgzyu/FW+COxFvAWXJoJN9KIZbT2LXlukwphYTA==

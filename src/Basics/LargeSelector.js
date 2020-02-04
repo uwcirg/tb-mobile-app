@@ -7,14 +7,15 @@ const LargeSelector = (props) => {
 
     const BaseStyles = {
         borderRadius: "5px",
-        width: "65%",
+        width: "75%",
         margin: "1em auto 0 auto",
         fontSize: "1em",
         backgroundColor: props.backgroundColor
     }
 
     return (
-        <ButtonBase onClick={props.onClick} style={BaseStyles}>
+        <ButtonBase onClick={() => {window.setTimeout(() => {props.onClick(props.id)}, 350)}}
+            style={BaseStyles}>
             <Field id={props.id}>
                 {props.children}
             </Field>
@@ -30,11 +31,10 @@ justify-content: flex-start;
 align-items: center;
 padding: 1em;
 border-radius: 5px;
-font-weight: 600;
 color: white;
 
 span{
-    margin: auto;
+    margin-left: 2em;
     display: block;
 }
 `

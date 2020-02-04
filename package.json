@@ -26,6 +26,7 @@
     "react": "^16.11.0",
     "react-app-rewire-mobx": "^1.0.9",
     "react-circular-progressbar": "^2.0.3",
+    "react-code-input": "^3.9.0",
     "react-dom": "^16.11.0",
     "react-i18next": "^11.2.5",
     "react-router-dom": "^5.1.2",

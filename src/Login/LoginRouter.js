@@ -1,32 +1,57 @@
 import React, {useState} from 'react'
 import LargeSelector from '../Basics/LargeSelector'
-import {makeStyles} from '@material-ui/core/styles'
+import {makeStyles, withTheme} from '@material-ui/core/styles'
 
 //Components
 import AppLogo from '../Basics/AppLogo'
+import IconButton from '@material-ui/core/IconButton'
+import LoginPage from './LoginPage'
 
 //Icons
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
-
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import Colors from '../Basics/Colors'
+import ChevronLeftOutlined from '@material-ui/icons/ChevronLeftOutlined';
 
 const useStyles = makeStyles({
-    selectionContainer: {
+    container: {
         width: "100%",
-        display: "flex",
-        flexDirection: "column"
+        height: "100vh",
+        backgroundColor: "#0e3782",
     },
-    center: {
-        backgroundColor: "black",
+    selectionContainer: {
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
         justifyItems: "center",
         justifyContent: "center",
-        height: "100vh"
+        alignContent: "center",
+
     },
     logo: {
-        height: "30vh",
-        marginBottom: "2em"
+        paddingTop: "2em"
+    },
+    containerBottom: {
+        height: "60%"
+    },
+    containerTop: {
+        height: "30%",
+    },
+    subtitle: {
+        color: "white",
+        fontSize: "1em",
+        margin: 0,
+        padding: 0,
+        textAlign: "center",
+        fontWeight: 500
+    },
+
+    back: {
+        color: "white",
+        height: "1.5em",
+        width: "1.5em"
     }
   });
 
@@ -35,9 +60,11 @@ const Selection = (props) => {
     const classes = useStyles();
     return (
     <div className={classes.selectionContainer}>
+        <h2 className={classes.subtitle}>Select your user type:</h2>
         <LargeSelector onClick={props.handleSelection} id="Patient" backgroundColor={Colors.blue}><AccountBoxIcon /><span>Patient</span></LargeSelector>
-        <LargeSelector onClick={props.handleSelection} id="Provider" backgroundColor={Colors.blue}><SupervisorAccountIcon /><span>Provider</span></LargeSelector>
+        <LargeSelector onClick={props.handleSelection} id="Practitioner" backgroundColor={Colors.blue}><SupervisorAccountIcon /><span>Provider</span></LargeSelector>
         <LargeSelector onClick={props.handleSelection} id="Administrator" backgroundColor={Colors.blue}><SupervisedUserCircleIcon /><span>Administrator</span></LargeSelector>
+        <LargeSelector onClick={props.handleSelection} id="Administrator" backgroundColor={Colors.blue}><AddAPhotoIcon /><span>Bio Engineer</span></LargeSelector>
     </div>)
 }
 
@@ -45,14 +72,19 @@ const LoginRouter = () => {
     const classes = useStyles();
     const [selection,setSelection] = useState("");
 
-    const handleSelection = (event) => {
-        setSelection(event.target.id);
+    const handleSelection = (id) => {
+            setSelection(id)
     }
 
     return(
-        <div className={`${classes.selectionContainer} ${classes.center}`}>
-            <AppLogo className={classes.logo}/>
-            {!selection ? <Selection handleSelection={handleSelection} /> : <div style={{color:"white"}}>{selection}</div>}
+        <div className={`${classes.container} `}>
+            {selection ? <IconButton onClick={() => {setSelection("")}} ><ChevronLeftOutlined className={classes.back}/></IconButton> : ""}
+            <div className={classes.containerTop}>
+                <AppLogo className={classes.logo}/>
+            </div>
+            <div className={classes.containerBottom}>
+            {!selection ? <Selection handleSelection={handleSelection} /> : <LoginPage loginType={selection}/>}
+            </div>
         </div>
     )
 }
