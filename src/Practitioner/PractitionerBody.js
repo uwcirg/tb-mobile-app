@@ -4,11 +4,8 @@ import styled from 'styled-components'
 import {observer} from 'mobx-react'
 import useStores from '../Basics/UseStores';
 import Colors from '../Basics/Colors';
-
 import AddPatientPrompt from './AddPatientPrompt'
 import AddPatientFlow from './AddPatientFlow'
-
-
 
 const PractitionerBody = observer(() => {
 
@@ -20,9 +17,7 @@ const PractitionerBody = observer(() => {
             {!practitionerStore.onNewPatientFlow ? <AddPatientFlow /> : <AddPatientPrompt />}
         </Body>
     )
- 
 });
-
 
 const Body = styled.div`
 margin-top: 10vh;

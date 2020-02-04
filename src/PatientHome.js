@@ -3,10 +3,10 @@ import './App.css';
 import BottomBar from './Navigation/BottomBar'
 import { inject, observer } from 'mobx-react';
 
-import Home from './Screens/Home'
-import Info from './Screens/Info'
+import Home from './Patient/Home'
+import Info from './Patient/Info'
 
-import Messaging from './Screens/Messaging';
+import Messaging from './Patient/Messaging';
 
 import TopBar from './Navigation/TopBar';
 import Drawer from './Navigation/Drawer';

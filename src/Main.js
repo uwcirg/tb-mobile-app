@@ -1,6 +1,6 @@
 import React from 'react';
 import PatientHome from './PatientHome';
-import Login from './Screens/Login/'; 
+import Login from './Login'; 
 
 import PractitionerHome from './Practitioner'
 
@@ -9,7 +9,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { inject, observer } from 'mobx-react';
 import { Translation, withTranslation} from "react-i18next";
 
-import ImageUploadFlow from './Screens/Login/TestImageFlow'
+import ImageUploadFlow from './Login/TestImageFlow'
 import { computed } from 'mobx';
 
 const theme = createMuiTheme({

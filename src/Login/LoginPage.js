@@ -4,6 +4,8 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import styled from 'styled-components';
 
+import AppLogo from '../Basics/AppLogo';
+
 import { inject, observer } from 'mobx-react';
 
 const USER_TYPES = ["Patient","Practitioner","Administrator"];
@@ -58,10 +60,7 @@ const Login = inject("patientStore","uiStore", "practitionerStore", "loginStore"
 
   return (
     <Container>
-      <Title>
-      <img src="icon.svg"></img>
-      <h1> Asistiante de Tratamiento</h1>
-      </Title>
+      <AppLogo />
       <Card>
           <InputLabel htmlFor="input-with-icon-adornment">{ uiStore.userInt == 0 ?  "Phone Number" : "Email"}</InputLabel>
           <Input
@@ -91,6 +90,7 @@ const Login = inject("patientStore","uiStore", "practitionerStore", "loginStore"
             id="input-with-icon-adornment"
             fullWidth
           />
+          <a>Activate New Account?</a>
           <a>Forgot Password?</a>
         <br />
         <Button fullWidth onClick={handleLogin} variant="contained" color={"primary"} > Log in</Button>
@@ -101,23 +101,7 @@ const Login = inject("patientStore","uiStore", "practitionerStore", "loginStore"
   );
 }));
 
-const Title = styled.div`
 
-display: flex;
-justify-content: center;
-flex-direction: column;
-flex-grow: 1;
-height: 30vh;
-
-img{
-  height: 10vh;
-}
-
-h1{
-  width: 85%;
-  margin: auto;
-}
-`
 const Card = styled.div`
   margin: auto;
   width: 80%;

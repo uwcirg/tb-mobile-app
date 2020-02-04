@@ -11,8 +11,7 @@ import SimpleButton from '../Basics/SimpleButton'
 const useStyles = makeStyles({
     title: {
         fontSize: '1.5em',
-        fontWeight: '600',
-        marginBottom: '1em'
+        fontWeight: '600'
     },
     input: {
       margin: '2em',

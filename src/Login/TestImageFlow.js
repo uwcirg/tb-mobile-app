@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import ClCamera from '../../ImageCapture/ClCamera/'
-import SimpleButton from '../../Basics/SimpleButton'
+import ClCamera from '../ImageCapture/ClCamera'
+import SimpleButton from '../Basics/SimpleButton'
 import ChevronLeft from '@material-ui/icons/ChevronLeft'
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
