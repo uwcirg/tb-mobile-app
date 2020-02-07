@@ -7,6 +7,16 @@ import Colors from '../Basics/Colors';
 import TextField from '@material-ui/core/TextField'
 import { Typography } from '@material-ui/core'
 import SimpleButton from '../Basics/SimpleButton'
+import InputLabel from '@material-ui/core/InputLabel'
+import SelectionList from '../Basics/SelectionList';
+import {
+    MuiPickersUtilsProvider,
+    KeyboardTimePicker,
+    KeyboardDatePicker,
+  } from '@material-ui/pickers';
+  import DateFnsUtils from '@date-io/luxon';
+
+
 
 const useStyles = makeStyles({
     title: {
@@ -40,6 +50,11 @@ const AddPatientFlow = observer(() => {
     const { t, i18n } = useTranslation('translation');
     const classes = useStyles();
 
+
+    const handleDateChange = (date) => {
+      practitionerStore.newPatientInformation.startDate = date
+    };
+
     const cleanInput = (e) => {
         if(e.target.value == practitionerStore.DEFAULT_PHONE){
             e.target.value = ""
@@ -47,6 +62,8 @@ const AddPatientFlow = observer(() => {
     }
 
     const handleInputs = (e) => {
+        console.log(e.target.id)
+        console.log(e.target.value)
         practitionerStore.newPatientInformation[e.target.id] = e.target.value;
     }
 
@@ -68,6 +85,28 @@ const AddPatientFlow = observer(() => {
 
     });
 
+    const DateInput = observer(() => {
+        return (
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <KeyboardDatePicker
+                className={classes.input}
+                disableToolbar
+                variant="inline"
+                format="dd/MM/yyyy"
+                margin="normal"
+                id="date-picker-inline"
+                label="Treatment Start Date"
+                value={new Date(practitionerStore.newPatientInformation.startDate)}
+                onChange={handleDateChange}
+                KeyboardButtonProps={{
+                  'aria-label': 'change date',
+                }}
+              />
+              </MuiPickersUtilsProvider>
+        )
+
+    });
+
     return (
 
         <div className={classes.container}>
@@ -79,10 +118,14 @@ const AddPatientFlow = observer(() => {
             {practitionerStore.errorReturned ? <ListErrors errors={practitionerStore.paramErrors} /> : ""}
                 <form noValidate autoComplete="off">
                     <PatientInput id="givenName" />
-                    <PatientInput id="familyName" />
+                    <PatientInput id="familyName" /> 
+                    <DateInput />
+                    <InputLabel>Organization</InputLabel>                   
+                    <SelectionList controlled id="organization" handleChange={(e) => {e.target.id = "organization"; handleInputs(e)}} className={classes.input} value={practitionerStore.newPatientInformation.organization} list={practitionerStore.organizationsList} />
                     <br />
                     <Typography>Login Information</Typography>
-                    <PatientInput type="tel" id="phoneNumber" onClick={cleanInput}/>
+                    <PatientInput type="tel" id="phoneNumber" />
+
                 </form>
             
             <SimpleButton onClick={practitionerStore.addNewPatient}>Generate Signup Code</SimpleButton>

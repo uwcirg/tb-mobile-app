@@ -9,7 +9,8 @@ const ROUTES = {
     set_photo_status:["/photo"],
     add_coordinator:["/coordinator", "POST"],
     addPatient:["/patient","POST"],
-    getCurrentPractitioner:["/practitioner/me", "GET"]
+    getCurrentPractitioner:["/practitioner/me", "GET"],
+    getOrganizations:["/organizations","GET"]
 }
 
 export class PractitionerStore extends UserStore {
@@ -26,6 +27,8 @@ export class PractitionerStore extends UserStore {
     @observable newPatientCode = "";
     @observable errorReturned = false;
 
+    @observable organizationsList = [];
+
     @observable paramErrors = {
         givenName: undefined,
         familyname: undefined,
@@ -35,7 +38,9 @@ export class PractitionerStore extends UserStore {
     @observable newPatientInformation = {
         givenName: "",
         familyName: "",
-        phoneNumber: this.DEFAULT_PHONE
+        phoneNumber: "",
+        organization: "",
+        startDate: new Date().toISOString()
     }
 
     @action
@@ -55,6 +60,23 @@ export class PractitionerStore extends UserStore {
                 this.newPatientCode = json.code;
             }
         });
+    }
+
+    @action
+    initalize(){
+        this.getOrganizations();
+        super.initalize();
+    }
+
+    @action
+    getOrganizations = () => {
+        this.executeRequest('getOrganizations').then( json => {
+            let list = json.map(each =>{
+                return(each.title)
+            })
+            this.organizationsList = list
+            list.length > 0 && (this.newPatientInformation.organization = list[0]);
+        })
     }
 
     @action

@@ -3,6 +3,8 @@ import APIStore from './apiStore';
 
 const ROUTES = {
     login: ["/authenticate", "POST"],
+    checkActivationCode: ["/patient/activation/check","POST"],
+    activatePatient: ["/patient/activation","POST"],
 }
 
 export default class LoginStore extends APIStore {
@@ -14,7 +16,27 @@ export default class LoginStore extends APIStore {
     @observable identifier = "";
     @observable password = "";
 
-    @action login = (userType) => {
+    //Patient Activation
+    @observable activationWasRequested = false;
+    @observable activationWasSuccessful = false;
+    @observable activationLoading = false;
+
+    activationBody = {
+        phoneNumber: "",
+        activationCode: "",
+        username: "",
+        password: "",
+        passwordConfirmation: ""
+    }
+    
+    @action verifyActivationCode = () => {
+        this.executeRequest('checkActivationCode',this.activationBody).then(json =>{
+            this.activationWasRequested = true;
+            this.activationWasSuccessful = json.validCode;
+        })
+    }
+
+    login = (userType) => {
 
         let body = {
             identifier: this.identifier,
@@ -23,21 +45,29 @@ export default class LoginStore extends APIStore {
         }
 
         return this.executeRequest('login', body).then(json => {
-
-            if (json && json.user_id) {
-                this.persistUserData(json);
-                return json.user_type
-            }
-            return false;
-
+            return this.handleAuthentication(json);
         })
     }
+
+   activatePatient = () => {
+       return this.executeRequest('activatePatient',this.activationBody).then(json =>{
+           return this.handleAuthentication
+       })
+   }
 
     persistUserData = (json) => {
         localStorage.setItem("user.token", json.token);
         localStorage.setItem("user.type", json.user_type);
         localStorage.setItem(`userID`, json.user_id);
         localStorage.setItem("token.exp", json.exp);
+    }
+
+    handleAuthentication = (json) => {
+        if (json && json.user_id) {
+            this.persistUserData(json);
+            return json.user_type
+        }
+        return false;
     }
 
 }

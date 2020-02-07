@@ -37,7 +37,7 @@ export default class Main extends React.Component{
    return this.props.patientStore.isLoggedIn || this.props.practitionerStore.isLoggedIn
   }
 
-  @computed get test(){
+  @computed get userHome(){
     if(this.props.patientStore.isLoggedIn){
       return (<PatientHome />)
     }else if( this.props.practitionerStore.isLoggedIn){
@@ -80,7 +80,7 @@ export default class Main extends React.Component{
         return(
         <div>
         <ThemeProvider theme={theme}>
-                {this.isLoggedIn ? this.test : <Login />}
+                {this.isLoggedIn ? this.userHome : <Login />}
         </ThemeProvider>
         </div>
         )
