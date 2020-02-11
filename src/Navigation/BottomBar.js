@@ -7,6 +7,8 @@ import ForumIcon from '@material-ui/icons/Forum';
 import InfoIcon from '@material-ui/icons/Info';
 import { inject, observer } from 'mobx-react';
 
+import EventAvailableIcon from '@material-ui/icons/EventAvailable';
+
 const useStyles = makeStyles({
   root: {
     width: "100%",
@@ -33,6 +35,7 @@ const BottomBar = inject("uiStore","patientStore")(observer(({ uiStore,patientSt
       className={classes.root}
     >
       <BottomNavigationAction icon={<AddCircleOutlineIcon />} />
+      <BottomNavigationAction icon={<EventAvailableIcon />} />
       <BottomNavigationAction icon={<ForumIcon />} />
       <BottomNavigationAction icon={<InfoIcon  />} />
     </BottomNavigation>

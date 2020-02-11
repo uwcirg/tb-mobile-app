@@ -22,6 +22,9 @@ import APIHelper from './DataStores/Requests'
 //Doing it this way allows you to swap in other data retrival methods for testing
 const apiHelper = new APIHelper();
 
+import { MuiPickersUtilsProvider } from '@material-ui/pickers/MuiPickersUtilsProvider';
+import DateFnsUtils from '@date-io/luxon';
+
 const stores = {
     loginStore: new LoginStore(apiHelper),
     uiStore: new UIStore(),
@@ -44,7 +47,9 @@ ReactDOM.render(
     <Provider {...stores}>
         <I18nextProvider i18n={i18n}>
             <Suspense fallback="Page Loading">
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <Main />
+              </MuiPickersUtilsProvider>
             </Suspense>
         </I18nextProvider>
       </Provider>

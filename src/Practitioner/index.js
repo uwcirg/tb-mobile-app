@@ -53,8 +53,8 @@ const PractitionerHome = observer(() => {
             </AccountButton>
         </AppBarStyled>
         </StylesProvider>
-        <PractitionerBody />
 
+        <PractitionerBody />
 
         <Menu
             id="simple-menu"

@@ -8,6 +8,8 @@ import Info from './Patient/Info'
 
 import Messaging from './Patient/Messaging';
 
+import Progress from './Patient/Progress';
+
 import TopBar from './Navigation/TopBar';
 import Drawer from './Navigation/Drawer';
 
@@ -17,7 +19,7 @@ class PatientHome extends Component {
 
   render(){
 
-    const tabs = [<Home />,<Messaging />  ,<Info />]
+    const tabs = [<Home />, <Progress />, <Messaging />  ,<Info />]
 
     return (
       <div className="main-screen">

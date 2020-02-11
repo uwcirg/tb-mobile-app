@@ -101,6 +101,7 @@ export default class Main extends React.Component{
       //this.props.patientStore.getVapidKeyFromServerAndStoreLocally();      
       
       const userType = localStorage.getItem("user.type");
+      const uiState = localStorage.getItem("uiState");
 
       if(userType === "Patient"){
         this.props.patientStore.initalize();
@@ -108,6 +109,8 @@ export default class Main extends React.Component{
       }else if( userType === "Practitioner"){
         this.props.practitionerStore.initalize();
       }
+
+      this.props.uiStore.initalize(JSON.parse(uiState));
 
 
 

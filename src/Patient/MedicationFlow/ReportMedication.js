@@ -4,8 +4,6 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { DateTime } from 'luxon'
 import { TimePicker } from "@material-ui/pickers/TimePicker";
-import { MuiPickersUtilsProvider } from '@material-ui/pickers/MuiPickersUtilsProvider';
-import DateFnsUtils from '@date-io/luxon';
 import SimpleButton from '../../Basics/SimpleButton';
 import BinaryField from '../../Basics/BinaryField';
 import IconButton from '@material-ui/core/IconButton'
@@ -37,13 +35,11 @@ const ReportMedication = inject("uiStore", "patientStore")(observer(({ uiStore, 
         <Fade timeout={1000} in={patientStore.medicationWasReported}>
         <div>
         <h1> What time did you take your medication?</h1>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <TimePicker
             clearable
             ampm={false}
             value={selectedDate}
             onChange={handleDate}/>
-      </MuiPickersUtilsProvider>
 
       <ButtonContainer>
       <SimpleButton backgroundColor={colors.gray} onClick={() =>{patientStore.medicationWasReported = false}} aria-label="back">
