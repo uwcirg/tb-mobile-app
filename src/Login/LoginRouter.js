@@ -14,6 +14,7 @@ import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import Colors from '../Basics/Colors'
 import ChevronLeftOutlined from '@material-ui/icons/ChevronLeftOutlined';
+import DeveloperModeIcon from '@material-ui/icons/DeveloperMode';
 
 const useStyles = makeStyles({
     container: {
@@ -65,6 +66,7 @@ const Selection = (props) => {
         <LargeSelector onClick={props.handleSelection} id="Practitioner" backgroundColor={Colors.blue}><SupervisorAccountIcon /><span>Provider</span></LargeSelector>
         <LargeSelector onClick={props.handleSelection} id="Administrator" backgroundColor={Colors.blue}><SupervisedUserCircleIcon /><span>Administrator</span></LargeSelector>
         <LargeSelector onClick={props.handleSelection} id="Administrator" backgroundColor={Colors.blue}><AddAPhotoIcon /><span>Bio Engineer</span></LargeSelector>
+        <LargeSelector onClick={props.handleSelection} id="Test" backgroundColor={Colors.blue}><DeveloperModeIcon /><span>Test</span></LargeSelector>
     </div>)
 }
 

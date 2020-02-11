@@ -44,9 +44,10 @@ const Messaging = inject("uiStore","messagingStore")(observer(({ uiStore, messag
 
     useEffect(() => messagingStore.getChannels(), []);
 
-    const allChannels = messagingStore.channels.map( (channel) => {
+    let allChannels;
+    messagingStore.channels.length > 0 && (allChannels = messagingStore.channels.map( (channel) => {
         return <ChannelPreview title={channel.title} subtitle={channel.subtitle} time="3:00pm"/>
-    })
+    }))
 
         return(
             <Paper className={classes.root}>

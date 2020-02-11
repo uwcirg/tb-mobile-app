@@ -25,6 +25,7 @@ const apiHelper = new APIHelper();
 import { MuiPickersUtilsProvider } from '@material-ui/pickers/MuiPickersUtilsProvider';
 import DateFnsUtils from '@date-io/luxon';
 
+
 const stores = {
     loginStore: new LoginStore(apiHelper),
     uiStore: new UIStore(),
@@ -47,7 +48,7 @@ ReactDOM.render(
     <Provider {...stores}>
         <I18nextProvider i18n={i18n}>
             <Suspense fallback="Page Loading">
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <MuiPickersUtilsProvider utils={DateFnsUtils} locale={"es-AR"}>
               <Main />
               </MuiPickersUtilsProvider>
             </Suspense>
