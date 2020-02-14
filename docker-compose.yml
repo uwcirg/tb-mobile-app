@@ -45,6 +45,7 @@ services:
       - URL_MINIO=$URL_MINIO
       - MINIO_ACCESS_KEY=$MINIO_ACCESS_KEY
       - MINIO_SECRET_KEY=$MINIO_SECRET_KEY
+      - RAILS_BASE_PASS=$RAILS_BASE_PASS
     ports:
       - $PORT_API:3000
     depends_on:
