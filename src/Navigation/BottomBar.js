@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import HomeIcon from '@material-ui/icons/Home'
 import ForumIcon from '@material-ui/icons/Forum';
 import InfoIcon from '@material-ui/icons/Info';
 import { inject, observer } from 'mobx-react';
@@ -34,7 +35,7 @@ const BottomBar = inject("uiStore","patientStore")(observer(({ uiStore,patientSt
       showLabels
       className={classes.root}
     >
-      <BottomNavigationAction icon={<AddCircleOutlineIcon />} />
+      <BottomNavigationAction icon={<HomeIcon />} />
       <BottomNavigationAction icon={<EventAvailableIcon />} />
       <BottomNavigationAction icon={<ForumIcon />} />
       <BottomNavigationAction icon={<InfoIcon  />} />

@@ -52,7 +52,7 @@ const LoginForm = observer((props) => {
           <br />
         <PasswordInput updatePassword={updatePassword} />
           <br />
-          <Button fullWidth onClick={handleLogin} variant="contained" color={"primary"} > Log in</Button>
+          <Button id="login" fullWidth onClick={handleLogin} variant="contained" color={"primary"} > Log in</Button>
           </Card>
           <BottomLinks>
             <a onClick={props.handleActivate}>Activate New Account</a>

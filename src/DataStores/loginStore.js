@@ -2,7 +2,7 @@ import { action, observable } from "mobx";
 import APIStore from './apiStore';
 
 const ROUTES = {
-    login: ["/authenticate", "POST"],
+    login: ["/auth", "POST"],
     checkActivationCode: ["/patient/activation/check","POST"],
     activatePatient: ["/patient/activation","POST"],
 }

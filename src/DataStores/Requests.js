@@ -5,9 +5,9 @@ const baseURL = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development'
 const authenticatedRequest = (url, method, body) => {
     return fetch(`${baseURL}${url}`, {
         method: method,
+        credentials: "include",
         headers: {
-            "Authorization": localStorage.getItem("user.token"),
-            "Content-Type": "application/json",
+            "Content-Type": "application/json"
         },
         body: JSON.stringify(body)
     })

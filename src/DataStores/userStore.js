@@ -1,10 +1,13 @@
 import { action, observable, computed} from "mobx";
 import APIStore from './apiStore'
 
+    const USER_ROUTES = {
+      logout: ["/auth", "DELETE"]
+    }
+
 export class UserStore extends APIStore{
 
     @observable userType = "";
-
     @observable userID = ""
     @observable token = ""
     @observable givenName = ""
@@ -13,11 +16,16 @@ export class UserStore extends APIStore{
     @observable isLoggedIn = false;
 
     constructor(strategy,routes,userType){
-        super(strategy,routes);
+        const mergedRoutes = {...USER_ROUTES,...routes}
+        super(strategy,mergedRoutes);
         this.userType = userType;
     }
 
     logout(){
+        this.executeRequest('logout').then(json => {
+          console.log("fron logout")
+          console.log(json)
+        })
 
     }
 

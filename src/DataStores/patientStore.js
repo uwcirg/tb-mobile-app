@@ -36,7 +36,7 @@ export class PatientStore extends UserStore {
         this.information = json;
         this.givenName = json.given_name;
         this.familyName = json.family_name;
-        this.userID = json.user_id;
+        this.userID = json.id;
         this.phoneNumber= json.phone_number;
         this.notes = json.notes;
     }
@@ -66,8 +66,9 @@ export class PatientStore extends UserStore {
         });
     }
 
-    @action logout = () => {
+    @action logout(){
        
+        super.logout();
         //Remove persistant user information
         this.clearLocalStorage();
         //this.unsubscribeFromNotifications();
