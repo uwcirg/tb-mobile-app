@@ -8,7 +8,8 @@ const Colors = {
     lightBlue: "#204c97",
     darkBlue: "#0e3782",
     themeBlue: "#1f4a94",
-    babyBlue: "#74C1FF"
+    babyBlue: "#74C1FF",
+    messageBlue: "rgba(42,91,173,.7)"
 
 }
 

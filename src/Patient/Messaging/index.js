@@ -46,11 +46,15 @@ const Messaging = observer(() => {
 
     let allChannels;
     messagingStore.channels.length > 0 && (allChannels = messagingStore.channels.map( (channel) => {
+        console.log(channel.user_id)
         return <ChannelPreview 
+                    key={`channel${channel.id}`}
                     title={channel.title} 
+                    isPersonalChannel={patientStore.userID == channel.user_id}
                     subtitle={channel.subtitle} 
                     time={DateTime.fromISO(channel.updated_at).toLocaleString(DateTime.TIME_24_SIMPLE)}
                     onClick={() => {
+                        messagingStore.selectedChannelInfo.creator = channel.user_id
                         messagingStore.selectedChannel = channel.id
                         messagingStore.selectedChannelInfo.title = channel.title
                         messagingStore.getSelectedChannel();
@@ -61,9 +65,13 @@ const Messaging = observer(() => {
 
     const ChannelList = (<><TopWarning />{allChannels}</>)
 
+    console.log(messagingStore.selectedChannelCreator)
+
         return(
             <div className={classes.root}>
-                {messagingStore.selectedChannel === 0 ? ChannelList : <Channel userID={patientStore.userID} />}
+                {messagingStore.selectedChannel === 0 ? ChannelList : 
+                <Channel isPersonalChannel={patientStore.userID == messagingStore.selectedChannelCreator} 
+                userID={patientStore.userID} />}
             </div>
         )
     

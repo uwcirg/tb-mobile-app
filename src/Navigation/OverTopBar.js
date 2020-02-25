@@ -8,10 +8,16 @@ import { inject, observer } from 'mobx-react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 
+import Colors from '../Basics/Colors'
+
 const useStyles = makeStyles({
   bar: {
     position: "fixed",
-    top: 0
+    top: 0,
+    backgroundColor: Colors.themeBlue
+  },
+  altColor: {
+    backgroundColor: Colors.green
   }
 });
 
@@ -24,7 +30,7 @@ const OverTopBar = (props) => {
    const classes = useStyles();
 
     return(
-        <AppBar className={classes.bar} color={"primary"} position="static" style={{flexGrow: 1}}>
+        <AppBar className={`${classes.bar} ${props.altColor ? classes.altColor : ""}`} color={"primary"} position="static" style={{flexGrow: 1}}>
           <Toolbar>
             {buttonToDisplay}
             <Typography variant="h6" style={{flexGrow: 1}}>

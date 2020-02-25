@@ -108,6 +108,7 @@ const StaticDatePicker = () => {
         <div className={classes.calendar} >
             <DatePicker
                 autoOk
+                fullWidth
                 variant="static"
                 openTo="date"
                 value={date}

@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components'
+import Colors from '../../Basics/Colors'
 
 const ChannelPreview = (props) => {
-
     return (
 
-        <Container onClick={props.onClick}>
+        <Container onClick={props.onClick} altColor={props.isPersonalChannel}>
             <div className="display"><span>{props.title[0]}</span></div>
             <BorderedPart>
             <div className="text">
@@ -19,10 +19,10 @@ const ChannelPreview = (props) => {
 }
 
 const BorderedPart = styled.div`
-border-bottom: solid 1px lightgray;
-display: flex;
-flex-grow: 1;
-padding: 1.5em;
+    border-bottom: solid 1px lightgray;
+    display: flex;
+    flex-grow: 1;
+    padding: 1.5em;
 
 #time{
         display: block;
@@ -68,7 +68,7 @@ const Container = styled.div`
         margin: 0em .5em 0em .5em;
         height: 50px;
         width: 50px;
-        background-color: #4597ec;
+        background-color: ${props =>  props.altColor? Colors.green : Colors.babyBlue};
         display: flex;
         justify-content: center;
         align-items: center;

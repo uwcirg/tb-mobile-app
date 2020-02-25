@@ -14,7 +14,8 @@ const useStyles = makeStyles({
         marginBottom: "100px",
         margin: ".5em",
         display: "flex",
-        flexDirection: "column",
+        flexDirection: "column"
+
     },
 
 });
@@ -34,11 +35,11 @@ const Channel = observer((props) => {
         messages.push(<ScrollRef />)
     }
 
-    console.log(messagingStore.lastMessageFetched)
+    console.log(props.isPersonalChannel)
 
     return (
         <>
-            <OverTopBar handleBack={messagingStore.clearSelection} title={messagingStore.selectedChannelTitle} />
+            <OverTopBar altColor={props.isPersonalChannel} handleBack={messagingStore.clearSelection} title={messagingStore.selectedChannelTitle} />
             <div className={classes.messageList}>
                 {messages}
             </div>

@@ -15,8 +15,10 @@ export class MessagingStore {
     @observable channelInfoReturned = false;
     @observable selectedChannelInfo = {
         title: "",
-        messages: []
+        messages: [],
+        creator: ""
     };
+
     @observable newMessage = "";
 
     @computed
@@ -35,6 +37,11 @@ export class MessagingStore {
     @computed
     get selectedChannelMessages(){
         return this.selectedChannelInfo.messages;
+    }
+
+    @computed
+    get selectedChannelCreator(){
+        return this.selectedChannelInfo.creator;
     }
 
     @action getChannels(){

@@ -17,10 +17,10 @@ const useStyles = makeStyles({
         color: "gray",
         fontSize: ".2em",
         bottom: "-20px",
-        width: "100vw"
+        width: "50vw"
     },
     message: {
-        padding: ".75em",
+        padding: "1em",
         margin: ".5em 0 .5em 0",
         maxWidth: "75%",
         position: "relative",
@@ -28,10 +28,11 @@ const useStyles = makeStyles({
     },
     myMessage: {
         borderRadius: "15px 15px 0 15px",
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.messageBlue,
         alignSelf: "flex-end",
         marginRight: "5px",
         color: "white"
+   
     },
     myTimestamp: {
         right: "10px",
@@ -49,7 +50,7 @@ const useStyles = makeStyles({
         borderLeft: "0px solid transparent",
         borderRight: "10px solid transparent",
         borderBottom: `10px solid ${Colors.lightgray}`,
-        top: "-8px",
+        top: "-10px",
         left: "0"
     },
     myTriangle: {
@@ -58,8 +59,8 @@ const useStyles = makeStyles({
         height: 0,
         borderRight: "0px solid transparent",
         borderLeft: "10px solid transparent",
-        borderTop: `10px solid ${Colors.blue}`,
-        bottom: "-8px",
+        borderTop: `10px solid ${Colors.messageBlue}`,
+        bottom: "-10px",
         right: "0"
     },
     username: {
@@ -80,7 +81,7 @@ const Message = (props) => {
                 
         <div key={props.message.id} className={`${classes.message} ${props.isUser ? classes.myMessage : classes.otherMessage}`}>
             <div className={props.isUser ? classes.myTriangle: classes.triangle}></div>
-            {props.message.body} z
+            {props.message.body}
             <div className={`${classes.timestamp} ${props.isUser ? classes.myTimestamp: ""}`}><p><span className={classes.username}>username</span> at {processTime(props.message.created_at)}</p></div>
         </div>
        
