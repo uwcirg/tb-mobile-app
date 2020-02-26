@@ -12,7 +12,6 @@ export class MessagingStore {
 
     @observable channels = [];
     @observable selectedChannel = 0;
-    @observable channelInfoReturned = false;
     @observable selectedChannelInfo = {
         title: "",
         messages: [],
@@ -26,7 +25,7 @@ export class MessagingStore {
         if(this.selectedChannelInfo.messages && this.selectedChannelInfo.messages.length < 1){
             return ""
         }
-        return this.selectedChannelInfo.messages[this.selectedChannelInfo.messages.length - 1].created_at
+        return this.selectedChannelInfo.messages[this.selectedChannelInfo.messages.length - 1].id
     }
 
     @computed
@@ -50,12 +49,36 @@ export class MessagingStore {
         })
     }
 
-     @action getSelectedChannel(){
-        this.strategy.executeRawRequest(`/channel/${this.selectedChannel}/messages`,"GET").then((response) => {
+    @action getSelectedChannel(){
+
+        let url = `/channel/${this.selectedChannel}/messages`
+
+        if(this.lastMessageFetched != ""){
+            url += `?lastMessageID=${this.lastMessageFetched}`
+        } 
+
+        this.strategy.executeRawRequest(url,"GET").then((response) => {
             this.selectedChannelInfo.messages = response;
-            this.channelInfoReturned = true;
         })
     }
+
+    @action getNewMessages(){
+
+        let url = `/channel/${this.selectedChannel}/messages`
+
+        if(this.lastMessageFetched != ""){
+            url += `?lastMessageID=${this.lastMessageFetched}`
+        } 
+
+        this.strategy.executeRawRequest(url,"GET").then((response) => {
+           
+                this.selectedChannelInfo.messages = this.selectedChannelInfo.messages.concat(response);
+                console.log(this.selectedChannelInfo.messages)
+          
+            
+        })
+    }
+
 
     @action clearSelection = () => {
         this.selectedChannel = 0
@@ -63,14 +86,17 @@ export class MessagingStore {
             title: "",
             messages: []
         };
-        this.channelInfoReturned = false;
     }
 
-    sendMessage = () => {
-        this.strategy.executeRawRequest(`/channel/${this.selectedChannel}/messages`,"POST").then((response) => {
-            this.selectedChannelInfo.messages = response;
-            this.channelInfoReturned = true;
-            
+    @action sendMessage = () => {
+        let body = {
+            body: this.newMessage
+        }
+
+        this.strategy.executeRawRequest(`/channel/${this.selectedChannel}/messages`,"POST",body).then((response) => {
+            this.getNewMessages();
+            this.newMessage = "";
+
         })
 
     }

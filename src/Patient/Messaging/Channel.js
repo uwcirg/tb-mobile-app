@@ -25,7 +25,8 @@ const Channel = observer((props) => {
     const { messagingStore } = useStores();
 
     let messages = [];
-    if (messagingStore.channelInfoReturned && messagingStore.selectedChannelMessages) {
+    if (messagingStore.selectedChannelMessages &&
+        messagingStore.selectedChannelMessages.length > 0) {
         messages = messagingStore.selectedChannelMessages.map(message => {
             const isUser = props.userID === message.user_id;
 
@@ -45,7 +46,7 @@ const Channel = observer((props) => {
             </div>
             <MessageInput value={messagingStore.newMessage}
                 setValue={(value) => { messagingStore.newMessage = value }}
-                disabled={messagingStore.newMessage == ""}
+                disableSend={messagingStore.newMessage == ""}
                 handleSend={messagingStore.sendMessage}
             />
         </>

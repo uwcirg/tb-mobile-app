@@ -36,10 +36,7 @@ const useStyles = makeStyles({
 const MessageInput = (props) => {
 
     const classes = useStyles();
-
     const handleChange = (event) => {
-
-        console.log(event.target.value)
         props.setValue(event.target.value)
     }
 
@@ -52,7 +49,7 @@ const MessageInput = (props) => {
             multiline
             onChange={handleChange} 
         />
-        <IconButton onClick={props.handleSend} className={classes.send}><SendIcon outlined /></IconButton>
+        <IconButton disabled={props.disableSend} onClick={props.handleSend} className={classes.send}><SendIcon outlined /></IconButton>
     </div>)
 
 }

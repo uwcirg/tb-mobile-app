@@ -47,7 +47,7 @@ export default class Main extends React.Component{
   }
 
   componentDidMount() {
-
+    this.initalizeApplicationState();
     this.listenForConnectivityChanges();
 
     /*@TODO move this code to patientStore to simplify
@@ -74,9 +74,6 @@ export default class Main extends React.Component{
   }
 
     render(){
-
-      let Application = this.initalizeApplicationState();
-
         return(
         <div>
         <ThemeProvider theme={theme}>

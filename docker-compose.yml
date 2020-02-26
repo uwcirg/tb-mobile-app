@@ -46,6 +46,7 @@ services:
       - MINIO_ACCESS_KEY=$MINIO_ACCESS_KEY
       - MINIO_SECRET_KEY=$MINIO_SECRET_KEY
       - RAILS_BASE_PASS=$RAILS_BASE_PASS
+      - VAPID_PUBLIC_KEY=$VAPID_PUBLIC_KEY
     ports:
       - $PORT_API:3000
     depends_on:

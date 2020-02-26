@@ -2,7 +2,9 @@ import { action, observable, computed} from "mobx";
 import APIStore from './apiStore'
 
     const USER_ROUTES = {
-      logout: ["/auth", "DELETE"]
+      logout: ["/auth", "DELETE"],
+      getVapidKey: ["/push_key","GET"],
+      updateSubscription: ["/update_user_subscription","PATCH"]
     }
 
 export class UserStore extends APIStore{
@@ -30,10 +32,12 @@ export class UserStore extends APIStore{
     }
 
     initalize(){
+      console.log("CALLED INIT")
       this.executeRequest(`getCurrent${this.userType}`).then( (json) => {
         if(json.id){
             this.setAccountInformation(json)
             this.isLoggedIn = true;
+            this.subscribeToNotifications();
         }
     });
 
@@ -46,13 +50,7 @@ export class UserStore extends APIStore{
       localStorage.removeItem("user.type");
   }
 
-    /*  FOR FUTURE Notifications implementation
-    
-    const apiURL = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') ? "http://localhost:5061" : "https://tb-api-test.cirg.washington.edu";
-
-
-
-    unsubscribeFromNotifications(){
+  unsubscribeFromNotifications(){
             navigator.serviceWorker.ready.then(registration => {
               //Find the registered push subscription in the service worker
               registration.pushManager
@@ -72,7 +70,7 @@ export class UserStore extends APIStore{
             })
     }
 
-    subscribeToNotifications() {
+  subscribeToNotifications() {
 
         navigator.serviceWorker.ready.then(registration => {
 
@@ -80,17 +78,25 @@ export class UserStore extends APIStore{
             alert("Push Unsupported")
             return
           }
-          
-          registration.pushManager
-            .subscribe({
+
+
+          this.getVapidKeyFromServerAndStoreLocally().then(() => {
+            registration.pushManager.subscribe({
               userVisibleOnly: true, //Always display notifications
               applicationServerKey: this.urlB64ToUint8Array(localStorage.getItem("vapidKey"))
             })
             .then(subscription => this.updateSubscriptionOnServer(subscription))
             .catch(err => console.error("Push subscription error: ", err))
         })
+      })
+          
       }
-      updateSubscriptionOnServer(subscription) {
+
+
+
+
+
+    updateSubscriptionOnServer = (subscription) => {
 
         if (subscription) {
           let sj = JSON.stringify(subscription);
@@ -104,34 +110,26 @@ export class UserStore extends APIStore{
           })
       
           
-          return fetch(`${apiURL}/update_user_subscription`, {
-            method: 'PATCH',
-            headers: {
-              'Content-type': 'application/json'
-            },
-            body: body
-          });
-         
-        } else {
-          
+          return this.executeRequest("updateSubscription",body)
         }
+
       }
 
-      getVapidKeyFromServerAndStoreLocally(){
-        this.executeRequest('getVapidKey').then(json =>{
+      getVapidKeyFromServerAndStoreLocally = () =>{
+        return this.executeRequest('getVapidKey').then(json =>{
             localStorage.setItem("vapidKey",json.key)
         })
       }
 
      urlB64ToUint8Array = (base64String)  => {
         try{
-        const padding = '='.repeat((4 - base64String.length % 4) % 4);
-        const base64 = (base64String + padding)
-          .replace(/\-/g, '+')
-          .replace(/_/g, '/');
-      
-        const rawData = window.atob(base64);
-        const outputArray = new Uint8Array(rawData.length);
+          const padding = '='.repeat((4 - base64String.length % 4) % 4);
+          const base64 = (base64String + padding)
+            .replace(/\-/g, '+')
+            .replace(/_/g, '/');
+        
+          const rawData = window.atob(base64);
+          const outputArray = new Uint8Array(rawData.length);
       
         for (let i = 0; i < rawData.length; ++i) {
           outputArray[i] = rawData.charCodeAt(i);
@@ -143,10 +141,6 @@ export class UserStore extends APIStore{
         }
 
     }
-    */
-
-
 
 
 }
-

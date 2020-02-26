@@ -29,7 +29,7 @@ workbox.routing.registerRoute(
   workbox.strategies.networkFirst()
 )
 
-/*
+
 self.addEventListener('push', function(event) {
 
  let data = event.data.json();
@@ -54,7 +54,7 @@ self.addEventListener('pushsubscriptionchange', function(event) {
     self.registration.pushManager.subscribe({ userVisibleOnly: true })
     .then(function(subscription) {
       console.log('Subscribed after expiration', subscription.endpoint);
-      return fetch(`https://tb-api-test.cirg.washington.edu/update_user_subscription`, {
+      return fetch(`${baseURL}/update_user_subscription`, {
         method: 'patch',
         headers: {
           'Content-type': 'application/json'
@@ -100,5 +100,4 @@ self.addEventListener('notificationclick', function(event) {
   event.waitUntil(promiseChain);
 
 });
-*/
 
