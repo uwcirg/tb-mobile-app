@@ -102,12 +102,12 @@ export class UserStore extends APIStore{
           let sj = JSON.stringify(subscription);
           subscription = JSON.parse(sj);
       
-          let body = JSON.stringify({
+          let body = {
             userID: this.userID,
             endpoint: subscription.endpoint,
             auth: subscription.keys.auth,
             p256dh: subscription.keys.p256dh
-          })
+          }
       
           
           return this.executeRequest("updateSubscription",body)
