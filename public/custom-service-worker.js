@@ -72,8 +72,8 @@ self.addEventListener('pushsubscriptionchange', function(event) {
 
 self.addEventListener('notificationclick', function(event) {
 
-  const examplePage = '/';
-
+  const examplePage = `/#messages?event=${Math.random(10)}`;
+  console.log("NOTIF CLICK w")
   const urlToOpen = new URL(examplePage, self.location.origin).href;
 
   const promiseChain = clients.matchAll({

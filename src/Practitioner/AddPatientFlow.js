@@ -110,6 +110,8 @@ const AddPatientFlow = observer(() => {
     return (
 
         <div className={classes.container}>
+            <Typography className={classes.title}>Send Test Notification To All Users</Typography>
+            <button onClick={practitionerStore.sendNotificationToAll}> Test Notify</button>
             {!practitionerStore.newPatientCode ?
             <div>
             {!practitionerStore.newPatientLoading ? 

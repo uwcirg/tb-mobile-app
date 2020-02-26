@@ -10,7 +10,8 @@ const ROUTES = {
     add_coordinator:["/coordinator", "POST"],
     addPatient:["/patient","POST"],
     getCurrentPractitioner:["/practitioner/me", "GET"],
-    getOrganizations:["/organizations","GET"]
+    getOrganizations:["/organizations","GET"],
+    notifyAll: ["/notify_all", "POST"]
 }
 
 export class PractitionerStore extends UserStore {
@@ -89,6 +90,12 @@ export class PractitionerStore extends UserStore {
     @action
     setAccountInformation = () => {
         console.log("pracition set account info")
+    }
+
+    sendNotificationToAll = () => {
+        this.executeRequest("notifyAll").then( response => {
+            console.log(response)
+        })
     }
 
 

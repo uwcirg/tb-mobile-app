@@ -91,6 +91,17 @@ export default class Main extends React.Component{
       window.addEventListener('offline', () => {
         this.props.uiStore.offline = true;
       });
+
+      window.onhashchange = (e) => { 
+        if(e.newURL.includes("#messages")){
+          
+        alert("Notification was clicked")
+        this.props.uiStore.activeTab = 2;
+        console.log(e)
+        }
+
+
+   }
     }
 
     initalizeApplicationState(){
