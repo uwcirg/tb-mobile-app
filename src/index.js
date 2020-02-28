@@ -19,15 +19,31 @@ import {UIStore} from "./DataStores/uiStore"
 import {MessagingStore} from "./DataStores/messagingStore"
 import LabPhotoStore from  "./DataStores/labPhotoStore"
 import APIHelper from './DataStores/Requests'
-//This attaches the class containing the API fetch requests to the stores
-//Doing it this way allows you to swap in other data retrival methods for testing
-const apiHelper = new APIHelper();
+
+
+
 
 import { MuiPickersUtilsProvider } from '@material-ui/pickers/MuiPickersUtilsProvider';
 import DateFnsUtils from '@date-io/luxon';
 
+//Testing router option ( would improve usibility on coordinator side)
+import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
+import { Router } from 'react-router';
+import createBrowserHistory from 'history/createBrowserHistory';
+
+const browserHistory = createBrowserHistory();
+const routingStore = new RouterStore();
+const history = syncHistoryWithStore(browserHistory, routingStore);
+
+//This attaches the class containing the API fetch requests to the stores
+//Doing it this way allows you to swap in other data retrival methods for testing
+const apiHelper = new APIHelper();
+
+
+
 
 const stores = {
+    routingStore: routingStore,
     loginStore: new LoginStore(apiHelper),
     uiStore: new UIStore(),
     labPhotoStore: new LabPhotoStore(apiHelper),
@@ -50,7 +66,9 @@ ReactDOM.render(
         <I18nextProvider i18n={i18n}>
             <Suspense fallback="Page Loading">
             <MuiPickersUtilsProvider utils={DateFnsUtils} locale={"es-AR"}>
+            <Router history={history}>
               <Main />
+              </Router>
               </MuiPickersUtilsProvider>
             </Suspense>
         </I18nextProvider>

@@ -18,9 +18,12 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { Typography } from '@material-ui/core';
 
+import Drawer from './Drawer'
+
 
 const useStyles = makeStyles({
     topBar: {
+        position: "fixed",
         display: "flex",
         justifyContent: "center",
         flexDirection: "row",
@@ -29,7 +32,8 @@ const useStyles = makeStyles({
         backgroundColor: "white",
         color: Colors.blue,
         height: "10vh",
-        fontFamily: "roboto, sans-serif"
+        fontFamily: "roboto, sans-serif",
+        zIndex: 20
     },
     appName:{
         fontSize: "1.25em",
@@ -46,9 +50,7 @@ const useStyles = makeStyles({
     menu:{
         fontSize: "1.2em",
         marginLeft: "1em"
-    }
-
-    
+    } 
 })
 
 
@@ -71,8 +73,9 @@ const PractitionerHome = observer(() => {
 
     return(
         <div>
-        <AppBar className={classes.topBar}> 
-            <IconButton className={classes.menu}  onClick={practitionerStore.toggleMenu} edge="start"  color="primary" aria-label="menu"> <MenuIcon/></IconButton>
+        <Drawer />
+        <AppBar  className={classes.topBar}> 
+            <IconButton className={classes.menu}  onClick={uiStore.toggleMenu} edge="start"  color="primary" aria-label="menu"> <MenuIcon/></IconButton>
             <Typography className={classes.appName}>{t("title")}</Typography>
             <Autocomplete
                 fullWidth="false"

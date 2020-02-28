@@ -7,6 +7,7 @@ services:
       - $PORT_CLIENT:80
     build:
       context: '.'
+    image: 'uwcirg/tb-mobile-app:$API_DOCKER_TAG'
     environment:
       NODE_ENV: development
       REACT_APP_URL_API: $URL_API

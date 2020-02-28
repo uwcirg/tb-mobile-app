@@ -6,14 +6,16 @@ import useStores from '../Basics/UseStores';
 import Colors from '../Basics/Colors';
 import AddPatientPrompt from './AddPatientPrompt'
 import AddPatientFlow from './AddPatientFlow'
+import Messages from '../Messaging'
 
 const PractitionerBody = observer(() => {
-
-    const {practitionerStore} = useStores();
+    const {practitionerStore,routingStore} = useStores();
+    const { location, push, goBack } = routingStore;
     const {t, i18n} = useTranslation('translation');
 
     return(
         <Body>
+            {location.pathname === "/messaging" && <Messages />}
             {practitionerStore.onNewPatientFlow ? <AddPatientFlow /> : <AddPatientPrompt />}
         </Body>
     )

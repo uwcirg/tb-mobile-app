@@ -23,6 +23,7 @@
     "minio": "^7.0.13",
     "mobx": "^5.15.0",
     "mobx-react": "^6.1.4",
+    "mobx-react-router": "^4.1.0",
     "react": "^16.11.0",
     "react-app-rewire-mobx": "^1.0.9",
     "react-circular-progressbar": "^2.0.3",
