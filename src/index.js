@@ -4,6 +4,7 @@ import * as serviceWorker from './serviceWorker';
 import Main from './Main';
 import { Provider } from 'mobx-react';
 import {reaction} from 'mobx';
+import './App.css';
 
 //Internationalization
 import i18n from "./Language/i18n";

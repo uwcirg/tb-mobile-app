@@ -5,7 +5,7 @@ import WarningIcon from '@material-ui/icons/Warning';
 import Channel from './Channel';
 import ChannelPreview from './ChannelPreview'
 import {DateTime} from 'luxon'
-import useStores from '../../Basics/UseStores';
+import useStores from '../Basics/UseStores';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
@@ -45,8 +45,14 @@ const Messaging = observer(() => {
     useEffect(() => messagingStore.getChannels(), []);
 
     let allChannels;
-    messagingStore.channels.length > 0 && (allChannels = messagingStore.channels.map( (channel) => {
-        console.log(channel.user_id)
+    messagingStore.channels.length > 0 && (allChannels = messagingStore.channels.sort((channel)=>{ 
+        if(channel.isPrivate){
+            return 1
+        }else{
+            return -1
+        }
+    }).map( (channel) => {
+      
         return <ChannelPreview 
                     key={`channel${channel.id}`}
                     title={channel.title} 

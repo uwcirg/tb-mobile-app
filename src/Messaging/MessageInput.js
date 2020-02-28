@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import InputBase from '@material-ui/core/InputBase'
 import SendIcon from '@material-ui/icons/Send'
 import IconButton from '@material-ui/core/IconButton'
-import Colors from '../../Basics/Colors'
+import Colors from '../Basics/Colors'
 
 const useStyles = makeStyles({
     container: {

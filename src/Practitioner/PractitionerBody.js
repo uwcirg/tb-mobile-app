@@ -14,7 +14,7 @@ const PractitionerBody = observer(() => {
 
     return(
         <Body>
-            {!practitionerStore.onNewPatientFlow ? <AddPatientFlow /> : <AddPatientPrompt />}
+            {practitionerStore.onNewPatientFlow ? <AddPatientFlow /> : <AddPatientPrompt />}
         </Body>
     )
 });
@@ -26,6 +26,7 @@ height: 90vh;
 background-color: ${Colors.lightgray};
 
 display: flex;
+flex-direction: column;
 justify-content: center;
 align-content: center;
 align-items: center;

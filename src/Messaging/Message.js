@@ -1,5 +1,5 @@
 import React from 'react'
-import Colors from '../../Basics/Colors'
+import Colors from '../Basics/Colors'
 import { makeStyles } from '@material-ui/core/styles';
 import { DateTime } from 'luxon';
 

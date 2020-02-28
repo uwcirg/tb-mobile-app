@@ -1,17 +1,16 @@
 import React, { Component, useEffect } from 'react';
-import './App.css';
-import BottomBar from './Navigation/BottomBar'
+import BottomBar from '../Navigation/BottomBar'
 import { inject, observer } from 'mobx-react';
 
-import Home from './Patient/Home'
-import Info from './Patient/Info'
+import Home from './Home'
+import Info from './Info'
 
-import Messaging from './Patient/Messaging';
+import Messaging from '../Messaging';
 
-import Progress from './Patient/Progress';
+import Progress from './Progress';
 
-import TopBar from './Navigation/TopBar';
-import Drawer from './Navigation/Drawer';
+import TopBar from '../Navigation/TopBar';
+import Drawer from '../Navigation/Drawer';
 
 @inject("uiStore")
 @observer

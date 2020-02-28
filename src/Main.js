@@ -1,5 +1,5 @@
 import React from 'react';
-import PatientHome from './PatientHome';
+import PatientHome from './Patient/';
 import Login from './Login'; 
 
 import PractitionerHome from './Practitioner'

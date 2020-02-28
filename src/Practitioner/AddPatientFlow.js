@@ -9,6 +9,7 @@ import { Typography } from '@material-ui/core'
 import SimpleButton from '../Basics/SimpleButton'
 import InputLabel from '@material-ui/core/InputLabel'
 import SelectionList from '../Basics/SelectionList';
+import Button from '@material-ui/core/Button'
 import {
     MuiPickersUtilsProvider,
     KeyboardTimePicker,
@@ -62,8 +63,6 @@ const AddPatientFlow = observer(() => {
     }
 
     const handleInputs = (e) => {
-        console.log(e.target.id)
-        console.log(e.target.value)
         practitionerStore.newPatientInformation[e.target.id] = e.target.value;
     }
 
@@ -108,7 +107,8 @@ const AddPatientFlow = observer(() => {
     });
 
     return (
-
+        <>
+        <Button onClick={ () => {practitionerStore.onNewPatientFlow = false}} >Back</Button>
         <div className={classes.container}>
             <Typography className={classes.title}>Send Test Notification To All Users</Typography>
             <button onClick={practitionerStore.sendNotificationToAll}> Test Notify</button>
@@ -133,6 +133,7 @@ const AddPatientFlow = observer(() => {
             <SimpleButton onClick={practitionerStore.addNewPatient}>Generate Signup Code</SimpleButton>
             </div> : <p>Loading</p> } </div> :<CodeDisplay name={practitionerStore.newPatientInformation.givenName} code={practitionerStore.newPatientCode} />}
         </div>
+        </>
         
 
     )

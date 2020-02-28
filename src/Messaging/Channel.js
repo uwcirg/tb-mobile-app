@@ -1,12 +1,12 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import Colors from '../../Basics/Colors';
+import Colors from '../Basics/Colors';
 import { observer } from 'mobx-react';
-import useStores from '../../Basics/UseStores';
-import OverTopBar from '../../Navigation/OverTopBar';
+import useStores from '../Basics/UseStores';
+import OverTopBar from '../Navigation/OverTopBar';
 import MessageInput from './MessageInput';
-import ScrollRef from '../../Basics/ScrollRef'
+import ScrollRef from '../Basics/ScrollRef'
 import Message from './Message';
 
 const useStyles = makeStyles({

@@ -1,10 +1,9 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import styled from 'styled-components'
 import {observer} from 'mobx-react'
 import useStores from '../Basics/UseStores';
 import AppBar from '@material-ui/core/AppBar';
-import { StylesProvider } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Colors from '../Basics/Colors'
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -13,12 +12,49 @@ import PractitionerBody from './PractitionerBody';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import ButtonBase from '@material-ui/core/ButtonBase';
-
+import MenuIcon from '@material-ui/icons/Menu';
+import IconButton from '@material-ui/core/IconButton'
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import { Typography } from '@material-ui/core';
+
+
+const useStyles = makeStyles({
+    topBar: {
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "row",
+        alignContent: "center",
+        alignItems: "center",
+        backgroundColor: "white",
+        color: Colors.blue,
+        height: "10vh",
+        fontFamily: "roboto, sans-serif"
+    },
+    appName:{
+        fontSize: "1.25em",
+        fontWeight: 600,
+        display: "block",
+        marginLeft: "2em"
+    },
+    input:{
+        marginLeft: "auto",
+        marginRight: "2em",
+        width: "300px",
+        display: "inline"
+    },
+    menu:{
+        fontSize: "1.2em",
+        marginLeft: "1em"
+    }
+
+    
+})
 
 
 const PractitionerHome = observer(() => {
+
+    const classes = useStyles();
 
     const {practitionerStore,uiStore} = useStores();
     const {t, i18n} = useTranslation('translation');
@@ -35,24 +71,23 @@ const PractitionerHome = observer(() => {
 
     return(
         <div>
-        <StylesProvider injectFirst>
-        <AppBarStyled>
-            <h1>{t("title")}</h1>
-
-            <StyledAutocomplete
+        <AppBar className={classes.topBar}> 
+            <IconButton className={classes.menu}  onClick={practitionerStore.toggleMenu} edge="start"  color="primary" aria-label="menu"> <MenuIcon/></IconButton>
+            <Typography className={classes.appName}>{t("title")}</Typography>
+            <Autocomplete
+                fullWidth="false"
+                className={classes.input}
                 id="combo-box-demo"
                 options={["patient2","patient3"]}
                 getOptionLabel={option => option}
                 renderInput={params => (
-                    <TextField  {...params}  variant="outlined" fullWidth />
+                    <TextField className={classes.textField}  {...params}  variant="outlined" fullWidth />
                 )}
             />
-
-            <AccountButton onClick={handleClick}>
+            <IconButton onClick={handleClick}>
                 <AccountCircle id="account-button"/>
-            </AccountButton>
-        </AppBarStyled>
-        </StylesProvider>
+            </IconButton>
+        </AppBar>
 
         <PractitionerBody />
 
@@ -71,6 +106,8 @@ const PractitionerHome = observer(() => {
     )
  
 });
+
+/*
 
 const StyledAutocomplete = styled(Autocomplete)`
 
@@ -109,10 +146,12 @@ const AppBarStyled = styled(AppBar)`
         font-size: 1.25em;
         font-weight: 600;
         display: block;
+        margin-left: 2em;
     }
 
     
 
 `
+*/
 
 export default PractitionerHome;

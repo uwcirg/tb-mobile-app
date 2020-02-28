@@ -33,19 +33,18 @@ const AddPatient = observer(() => {
 
 
 const Container = styled.div`
-width: 300px;
-height: 150px;
-background-color: lightblue;
-position: relative;
+position: fixed;
+bottom: 1em;
+right: 1em;
+display: flex;
 
 #add-patient{
-    position: absolute;
-    bottom: 1em;
-    right: 1em;
+margin-left: 2em;
 }
 
 h2{
-    font-weight: 500;
+    font-weight: 200;
+    font-size: 1.5em;
     text-align: center;
     padding: 0;
 }

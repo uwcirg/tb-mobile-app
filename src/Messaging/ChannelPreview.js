@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components'
-import Colors from '../../Basics/Colors'
+import Colors from '../Basics/Colors'
 
 const ChannelPreview = (props) => {
     return (
