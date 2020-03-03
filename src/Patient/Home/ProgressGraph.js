@@ -1,26 +1,38 @@
 import React from 'react';
 import styled from 'styled-components';
-import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
+import { CircularProgressbarWithChildren as CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 const ProgressGraph = (props) => {
     return (
         <ProgressContainer>
-            <CircularProgressbarWithChildren value={props.week / 24 * 100} styles={buildStyles({
+            <CircularProgressbar  circleRatio={0.5} value={25} styles={buildStyles({
                 // Rotation of path and trail, in number of turns (0-1)
                 transition: 'stroke-dashoffset 0.5s ease 0s',
-                pathColor: "#4b98e9"
+                pathColor: "#4b98e9",
+                rotation: 3 / 4,
+                strokeLinecap: "round"
+                
             })}>
-                {/* Put any JSX content in here that you'd like. It'll be vertically and horizonally centered. */}
-                <p>{props.week} / 24 Weeks</p>
-            </CircularProgressbarWithChildren>
+               <p> 90 of <br /> 180 Days</p>
+            </CircularProgressbar>
         </ProgressContainer>
     )
 }
 
 const ProgressContainer = styled.div`
-width: 30vh;
+width: 25%;
 margin-top: 2em;
+
+p{
+    text-align: center;
+    color: lightblue;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    top: -1em;
+    font-size: .5em;
+}
 `
 
 export default ProgressGraph;

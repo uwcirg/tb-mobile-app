@@ -1,0 +1,45 @@
+import React from 'react'
+import { makeStyles } from '@material-ui/core/styles';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import ChevronRight from '@material-ui/icons/ChevronRight';
+import Check from '@material-ui/icons/Check';
+import Styles from '../Basics/Styles';
+import Colors from '../Basics/Colors';
+
+const useStyles = makeStyles({
+    button:{
+        ...Styles.buttonBase,
+        border: `1px solid ${Colors.buttonBlue}`,
+        color: Colors.buttonBlue,
+        display: "flex",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        width: "95%",
+    },
+    rightIcon:{
+        marginLeft: "auto"
+    },
+    text:{
+        margin: "0 1em 0 1em"
+    },
+    positive: {
+        color: Colors.approvedGreen,
+        border: `1px solid ${Colors.approvedGreen}`,
+    }
+    
+  
+})
+
+const NewButton = (props) => {
+
+    const classes = useStyles();
+
+    return(<ButtonBase onClick={props.onClick} className={`${classes.button} ${props.positive && classes.positive}`}>
+        {props.positive ? <Check /> : props.icon}
+        <span className={classes.text}>{props.text}</span>
+        <ChevronRight className={classes.rightIcon} />
+    </ButtonBase>)
+
+}
+
+export default NewButton;

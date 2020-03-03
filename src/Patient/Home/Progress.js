@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import ProgressGraph from './ProgressGraph';
 import LogPrompt from './LogPrompt';
+import ActionBox from './ActionBox';
 
 const Progress = inject("uiStore", "patientStore")(observer(({ uiStore, patientStore, props }) => {
 
@@ -13,7 +14,8 @@ const Progress = inject("uiStore", "patientStore")(observer(({ uiStore, patientS
     return (
 
         <Body>
-            <ProgressGraph week={10} />
+            <ActionBox />
+            <ProgressGraph />
             <Greeting>
                 <h1> {t("home.greeting")} {patientStore.givenName}! 👋</h1>
                 <h2> {t("home.purpose")} </h2>
@@ -31,7 +33,7 @@ display: flex;
 flex-direction: column;
 justify-content: flex-start;
 align-items: center;
-margin: 60px 0 60px 0;
+margin: 1em 0 60px 0;
 
 `
 
