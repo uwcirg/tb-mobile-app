@@ -36,7 +36,7 @@ const LeftDrawer = inject("uiStore","patientStore")(observer(({ uiStore,patientS
         <Drawer
           className={classes.drawer}
           variant="persistent"
-          anchor="left"
+          anchor="top"
           open={uiStore.menuOpened}
           classes={{
             paper: classes.drawerPaper,
@@ -69,7 +69,7 @@ const LeftDrawer = inject("uiStore","patientStore")(observer(({ uiStore,patientS
     );
   }));
 
-  const drawerWidth = 240;
+  const drawerWidth = "100%";
 
   const useStyles = makeStyles(theme => ({
     root: {

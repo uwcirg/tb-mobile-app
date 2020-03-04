@@ -24,7 +24,9 @@ class PatientHome extends Component {
       <div className="main-screen">
         <TopBar />
         <Drawer />
+        <div style={{marginTop: "70px", marginBottom:"70px"}}>
         {tabs[this.props.uiStore.activeTab]}
+        </div>
         <BottomBar />
       </div>
     );

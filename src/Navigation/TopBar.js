@@ -13,7 +13,7 @@ import Colors from '../Basics/Colors';
 
 const useStyles = makeStyles({
   personIcon:{
-    color: Colors.messageBlue,
+    color: Colors.buttonBlue,
     fontSize: "1.5em"
   },
   menuContainer:{
@@ -44,7 +44,7 @@ const TopBar = inject("uiStore","patientStore")(observer(({ uiStore,patientStore
 
 
     return(
-        <AppBar className={classes.bar} color={!uiStore.offline ? "secondary" : "primary"} position="static" >
+        <AppBar className={classes.bar} color={!uiStore.offline ? "secondary" : "primary"} position="fixed" >
           <Toolbar>
             
             <Typography variant="h6" className={classes.appTitle}> {t("title")}</Typography>

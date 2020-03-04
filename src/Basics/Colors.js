@@ -11,7 +11,9 @@ const Colors = {
     babyBlue: "#74C1FF",
     messageBlue: "rgba(42,91,173,.7)",
     buttonBlue: "#4285F4",
-    approvedGreen: "#5EBA55"
+    accentBlue: "#80B2FF",
+    approvedGreen: "#5EBA55",
+    textGray: "#757575"
 
 }
 
