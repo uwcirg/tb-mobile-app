@@ -6,12 +6,12 @@ import Camera from '../../ImageCapture/Camera';
 import styled from 'styled-components';
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import Colors from '../../Basics/Colors'
+import useStores from '../../Basics/UseStores';
 
-const ReportPhoto = inject("patientStore")(observer(({patientStore}) => {
+const ReportPhoto = observer((props) => {
 
-    const handleNext = () => {
-        patientStore.medicationStep += 1;
-    }
+    const {patientStore} = useStores();
+    patientStore.report.headerText = "Please capture photo of test strip"
 
     const handlePhoto = (photo) => {
         patientStore.photoString = photo;
@@ -34,12 +34,12 @@ const ReportPhoto = inject("patientStore")(observer(({patientStore}) => {
                         Open Camera
                     </PhotoPrompt>
                 </ButtonBase>}
-                <ButtonContainer><SimpleButton onClick={handleNext} disabled={!patientStore.photoWasTaken} backgroundColor={Colors.green}>Continute</SimpleButton></ButtonContainer>
+             <SimpleButton alignRight onClick={props.advance} disabled={!patientStore.photoWasTaken} backgroundColor={Colors.green}>Continute</SimpleButton>
                 {patientStore.cameraIsOpen ? <Camera handleExit={handleExit} returnPhoto={handlePhoto} /> : ""}
                 
         </div>
         )
-}));
+});
 
 const ButtonContainer = styled.div`
 width: 100%;

@@ -23,8 +23,11 @@ const useStyles = makeStyles({
     marginRight: "auto"
   },
     bar:{
+      position: "fixed",
+      zIndex: "5",
       boxShadow: "none",
-      border: `1px solid ${Colors.gray}`
+      borderBottom: `1px solid ${Colors.gray}`,
+      height: '60px'
   }
 
 
@@ -44,7 +47,7 @@ const TopBar = inject("uiStore","patientStore")(observer(({ uiStore,patientStore
 
 
     return(
-        <AppBar className={classes.bar} color={!uiStore.offline ? "secondary" : "primary"} position="fixed" >
+        <AppBar className={classes.bar} color={!uiStore.offline ? "secondary" : "primary"} >
           <Toolbar>
             
             <Typography variant="h6" className={classes.appTitle}> {t("title")}</Typography>

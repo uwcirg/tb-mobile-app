@@ -1,5 +1,5 @@
 {
-    "title": "Treatment Assistant",
+    "title": "Treatment Companion",
     "online": "Online",
     "offline": "Offline",
     "greeting": "Hello",
@@ -12,7 +12,6 @@
         "password": "Password",
         "treatmentStart": "Treatment Start Date",
         "phoneNumber": "Phone Number"
-
     },
 
     "home": {
@@ -26,6 +25,7 @@
     },
 
     "report": {
+        "title": "Log Today's Medication",
         "medicationTitle": "Medication",
         "symptomsTitle": "Symptoms?",
         "photoTitle": "Strip Report"

@@ -1,4 +1,5 @@
-const Styles = {
+let Styles = {
+
     flexRow:{
         display: "flex",
         flexDirection: "row"
@@ -6,6 +7,14 @@ const Styles = {
     flexColumn:{
         display: "flex",
         flexDirection: 'column'
+    },
+    flexCenter:{
+        display: "flex",
+        width: "100%",
+        height: "100%",
+        justifyContent: "center",
+        alignItems:"center",
+
     },
     buttonBase: {
         fontSize: "1.125em",
@@ -28,8 +37,17 @@ const Styles = {
         marginTop: "10px",
         padding: "1em",
         width:"85%",
-    }
+    },
     
+}
+
+Styles.alignRight = {
+    ...Styles.flexRow,
+    width: "100vw",
+    justifyContent: "flex-end",
+    "& > button": {
+        marginRight: "1.5em"
+    }
 }
 
 export default Styles;

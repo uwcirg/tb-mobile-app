@@ -22,7 +22,8 @@ const useStyles = makeStyles({
       flexDirection: "column",
       alignItems: "center",
       marginBottom: "1em",
-      padding: ".5em"
+      padding: ".5em",
+      paddingTop:"1em"
   },
   upperText:{
       ...Styles.secondaryText,

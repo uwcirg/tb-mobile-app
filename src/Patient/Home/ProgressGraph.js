@@ -20,7 +20,7 @@ const useStyles = makeStyles({
     },
     graph:{
         width: "50%",
-        margin: "auto"
+        margin: "auto",
     },
     stats:{
         ...Styles.flexRow,
@@ -45,7 +45,7 @@ const useStyles = makeStyles({
         fontSize: "1em",
         textAlign: "center",
         color: Colors.accentBlue,
-        margin: 0,
+        margin: "0 0 .5em 0",
         padding: 0,
     },
     statBoxText:{
@@ -64,7 +64,6 @@ const ProgressGraph = (props) => {
 
     return (
         <InteractionCard upperText={"My Progress"}>
-
             <div className={classes.graph}>
             <CircularProgressbar  circleRatio={0.5} value={25} styles={buildStyles({
                 transition: 'stroke-dashoffset 0.5s ease 0s',
@@ -77,9 +76,9 @@ const ProgressGraph = (props) => {
             </div>
 
             <div className={classes.stats}>
-            <StatBox title='Oct 2' text="Estimated End Date"/>
             <StatBox title='4 Days' text="Current Streak" />
             <StatBox title='Feb 28' text="Next Check In" />
+            <StatBox title='Oct 2' text="Estimated End Date"/>
             </div>
         </InteractionCard>
     )

@@ -5,11 +5,15 @@ import NewButton from '../../Basics/NewButton';
 import Clipboard from '@material-ui/icons/Assignment'
 import Camera from '@material-ui/icons/CameraAlt';
 import InteractionCard from './InteractionCard';
+import useStores from '../../Basics/UseStores';
+import {observer} from 'mobx-react'
 
-const ActionBox = () => {
+const ActionBox = observer(() => {
+
+    const {uiStore} = useStores();
 
     const handleClick = () =>{
-        console.log("clicky")
+        uiStore.onTreatmentFlow = true;
     }
 
     return(<InteractionCard upperText={DateTime.local().toLocaleString(DateTime.DATE_HUGE)}>
@@ -19,6 +23,6 @@ const ActionBox = () => {
             <NewButton onClick={handleClick} positive icon={<Clipboard />} text="Test Check Button" />
         </InteractionCard>)
 
-}
+});
 
 export default ActionBox;

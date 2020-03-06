@@ -11,8 +11,8 @@ const HomePage = () => {
 
         <Body>
             <ActionBox />
-            <Alerts />
             <ProgressGraph />
+            <Alerts />
             <LogPrompt />
         </Body>
     )
@@ -20,7 +20,7 @@ const HomePage = () => {
 };
 
 const Body = styled.div`
-height: ${window.innerHeight-120};
+
 width: 100%;
 display: flex;
 flex-direction: column;

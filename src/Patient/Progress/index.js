@@ -2,17 +2,10 @@ import React, {useState} from 'react'
 import { DatePicker } from "@material-ui/pickers/DatePicker/";
 import {DateTime} from 'luxon';
 import { makeStyles } from '@material-ui/core';
-import { Badge } from "@material-ui/core";
-import {Day} from "@material-ui/pickers/views/Calendar/Day"
 import ButtonBase from '@material-ui/core/ButtonBase'
-import ThemeProvider from '@material-ui/styles/ThemeProvider'
 import Colors from '../../Basics/Colors';
-import { lightBlue } from '@material-ui/core/colors';
-import { createMuiTheme } from "@material-ui/core";
-
 import DayDrawer from './DayDrawer'
 
-import Drawer from '@material-ui/core/Drawer';
 
 const useStyles = makeStyles(theme =>({
     container: {

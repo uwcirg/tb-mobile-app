@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { DateTime } from 'luxon';
+import Colors from '../../Basics/Colors'
 
 import { inject, observer } from 'mobx-react';
 
@@ -14,7 +15,7 @@ const LogPrompt = inject("uiStore")(observer(({ uiStore }) => {
 
     return (
         <PromptContainer>
-            <Fab onClick={handleLogTreatment} size="medium" style={{ backgroundColor: "#4b98e9", color: "white", marginRight: "1em", boxShadow: "none" }} aria-label="add">
+            <Fab onClick={handleLogTreatment} size="medium" style={{ backgroundColor: Colors.buttonBlue, color: "white", marginRight: "1em", boxShadow: "none" }} aria-label="add">
                 <AddIcon />
             </Fab>
         </PromptContainer>

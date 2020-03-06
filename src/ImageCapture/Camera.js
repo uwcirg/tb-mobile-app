@@ -9,7 +9,6 @@ import Colors from '../Basics/Colors'
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import Fab from '@material-ui/core/Fab';
 
-
 export default class Camera extends Component {
     constructor() {
         super();
@@ -148,7 +147,7 @@ position: fixed;
 top: 0px;
 left: 10px;
 color: white;
-z-index: 10;
+z-index: 12;
 `
 
 const Container = styled.div`
@@ -164,7 +163,7 @@ const Container = styled.div`
 .imageCanvas{
     position: fixed;
     top: 0;
-    z-index: 1;
+    z-index: 11;
     background-color: black;
     text-align: center;
   }
@@ -172,7 +171,7 @@ const Container = styled.div`
   img{
     position: fixed;
     top: 0;
-    z-index: 1;
+    z-index: 11;
     background-color: black;
     height: 100vh;
     width: 100%;
@@ -194,7 +193,7 @@ const Container = styled.div`
   .webcam-container{
     position: fixed;
     top: 0;
-    z-index: 1;
+    z-index: 11;
     #background-color: black;
 
   }
@@ -202,7 +201,7 @@ const Container = styled.div`
   .camera-buttons{
       position: fixed;
       bottom: 60px;
-      z-index: 10;
+      z-index: 12;
       width: 100%;
       display: flex;
       justify-content: center;

@@ -24,13 +24,17 @@ export class PatientStore extends UserStore {
     @observable cameraIsOpen = false;
     @observable medicationWasReported = false;
 
-    
-
     //MedicationFlow Variables
     medicationTime = "";
     @observable selectedSymptoms = [];
     @observable photoWasTaken = false;
     photoString = "";
+
+    @observable report = {
+        tookMedication: true,
+        headerText: "When did you take your medication?"
+
+    }
 
     setAccountInformation(json){
         this.information = json;

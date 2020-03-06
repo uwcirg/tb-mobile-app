@@ -5,8 +5,11 @@ html, body{
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    
 }
+
+body::-webkit-scrollbar {
+    display: none;
+  }
 
 body {
     overscroll-behavior: contain;

@@ -1,20 +1,38 @@
 import React from 'react';
-import styled from '@material-ui/core/styles/styled';
 import Button from '@material-ui/core/Button'
-import { StylesProvider } from '@material-ui/core/styles/'
+import { makeStyles } from '@material-ui/core/styles';
+import Colors from './Colors';
+import Styles from './Styles';
 
+
+const useStyles = makeStyles({
+    button:{
+      backgroundColor: Colors.buttonBlue,
+      color: "white",
+      fontSize: "1em",
+      textTransform: "capitalize",
+      padding: ".5em"
+    },
+    inner:{
+      padding: "0 .75em 0 .75em"
+    },
+    aligned:{
+      ...Styles.alignRight
+    }
+
+  })
 
 const SimpleButton = (props) => {
 
-    const CustomButton = styled(Button)({
-        color: props.color ? props.color : "white",
-        backgroundColor: props.disabled? "gray" : (props.backgroundColor ? props.backgroundColor : ""),
-        textTransform: "none"
-    })
-        
-    return (
-        <CustomButton color="primary" onClick={props.onClick} variant="contained" disabled={props.disabled}>{props.children}</CustomButton>)
+    const classes = useStyles();
 
+    const Base = <Button className={classes.button} onClick={props.onClick} variant="contained" disabled={props.disabled}><div className={classes.inner}>{props.children}</div></Button>;
+    
+      return(
+        <div className={props.alignRight && classes.aligned} >
+          {Base}
+        </div>
+      )
 };
 
 export default SimpleButton;

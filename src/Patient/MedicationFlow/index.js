@@ -4,48 +4,73 @@ import ReportMedication from './ReportMedication'
 import ReportSymptoms from './ReportSymptoms'
 import ReportPhoto from './ReportPhoto'
 import ReportConfirmation from './ReportConfirmation'
-import CircularLabel from '../../Basics/CircularLabel'
 import { useTranslation } from 'react-i18next';
-import styled from 'styled-components'
-import ChevronLeft from '@material-ui/icons/ChevronLeftOutlined';
+import OverTopBar from '../../Navigation/OverTopBar'
+import useStores from '../../Basics/UseStores';
+import { makeStyles } from '@material-ui/core/styles';
+import Styles from '../../Basics/Styles'
+import Colors from '../../Basics/Colors';
+import SimpleButton from '../../Basics/SimpleButton';
 
-const MedicationFlow = inject("patientStore")(observer(({patientStore}) => {
+const useStyles = makeStyles({
+    title: {
+        ...Styles.flexRow,
+        alignItems: "center"
+    },
+    titleText: {
+        marginLeft: "1em"
+    },
+    number: {
+        ...Styles.flexCenter,
+        height: "30px",
+        width: "30px",
+        borderRadius: "15px",
+        backgroundColor: Colors.accentBlue,
+        color: "white",
+        marginLeft: "1em"
+    },
+    innerNumber: {
+        display: "block",
+        textAlign: "center"
+    }
+});
 
 
-    const Tabs = [<ReportMedication />, <ReportSymptoms />,<ReportPhoto />, <ReportConfirmation />]
+const NumberedTitle = (props) => {
+    const classes = useStyles();
+    return (
+        <div className={classes.title}>
+            <div className={classes.number}><span className={classes.innerNumber} >{props.number}</span></div>
+            <span className={classes.titleText}>{props.title}</span>
+        </div>
+    )
+}
+
+const MedicationFlow = observer((props) => {
+    const classes = useStyles();
+    const { patientStore, uiStore } = useStores();
     const { t, i18n } = useTranslation('translation');
-    const titles = [t("report.medicationTitle"),t("report.symptomsTitle"),t("report.photoTitle")]
 
     const handleBack = () => {
-        patientStore.medicationStep -= 1;
+        if (patientStore.medicationStep > 0) {
+            patientStore.medicationStep -= 1;
+        } else {
+            uiStore.onTreatmentFlow = false;
+        }
     }
 
-    return(
-        <div>
+    const advance = () => {
+        patientStore.medicationStep += 1
+    }
 
-        <StatusBar>
-            <CircularLabel number={patientStore.medicationStep + 1} />
-            <span>{titles[patientStore.medicationStep]}</span>
-            {/* patientStore.medicationStep == 0 ? "" : <ChevronLeft onClick={handleBack} /> */}
-        </StatusBar>
+    const Tabs = [<ReportMedication />, <ReportSymptoms />, <ReportPhoto />, <ReportConfirmation />]
 
-        {Tabs[patientStore.medicationStep]}
-        </div>
-        )
-}));
-
-const StatusBar = styled.div`
-display: flex;
-align-items: center;
-
-& > span{
-    
-}
-
-svg{
-    background-color: lightgray;
-}
-`
-
+    return (
+        <>
+            <NumberedTitle number={patientStore.medicationStep + 1} title={patientStore.report.headerText} />
+            <OverTopBar title={t("report.title")} handleBack={handleBack} />
+            {React.cloneElement(Tabs[patientStore.medicationStep],{advance: advance})}
+        </>)
+});
 
 export default MedicationFlow;
