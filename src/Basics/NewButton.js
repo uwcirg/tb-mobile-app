@@ -27,14 +27,13 @@ const useStyles = makeStyles({
         border: `1px solid ${Colors.approvedGreen}`,
     }
     
-  
 })
 
 const NewButton = (props) => {
 
     const classes = useStyles();
 
-    return(<ButtonBase onClick={props.onClick} className={`${classes.button} ${props.positive && classes.positive}`}>
+    return(<ButtonBase onClick={props.onClick} className={`${classes.button} ${props.positive && classes.positive} ${props.className && props.className}`}>
         {props.positive ? <Check /> : props.icon}
         <span className={classes.text}>{props.text}</span>
         <ChevronRight className={classes.rightIcon} />

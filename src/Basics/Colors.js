@@ -13,7 +13,8 @@ const Colors = {
     buttonBlue: "#4285F4",
     accentBlue: "#80B2FF",
     approvedGreen: "#5EBA55",
-    textGray: "#757575"
+    textGray: "#757575",
+    calendarGreen: "rgba(114,195,106,.32)"
 
 }
 

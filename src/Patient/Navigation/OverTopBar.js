@@ -7,8 +7,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { inject, observer } from 'mobx-react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 
-import Colors from '../Basics/Colors'
+import Colors from '../../Basics/Colors'
 
 const useStyles = makeStyles({
   bar: {
@@ -32,6 +33,10 @@ const useStyles = makeStyles({
   title:{
     fontWeight: 600,
     flexGrow: 1
+  },
+  reverse: {
+    flexDirection: 'row-reverse',
+    justifyContent: 'center',
   }
 });
 
@@ -40,12 +45,14 @@ import ChevronLeft from '@material-ui/icons/ChevronLeft'
 const OverTopBar = (props) => {
 
   const classes = useStyles();
-  let buttonToDisplay = ( <IconButton onClick={props.handleBack} edge="start"  color="inherit" aria-label="menu"> <ChevronLeft className={classes.back} /></IconButton>)
+  let buttonToDisplay = props.icon ? props.icon : <ChevronLeft className={classes.back} />
   
   return(
-        <AppBar className={`${classes.bar} ${props.altColor ? classes.altColor : ""}`} color={"primary"} position="static" style={{flexGrow: 1}}>
+        <AppBar className={`${classes.bar} ${props.altColor ? classes.altColor : ""} ${props.reverse && classes.reverse}`} color={"primary"} position="static" style={{flexGrow: 1}}>
           <Toolbar>
+          <IconButton onClick={props.handleBack} edge="start"  color="inherit" aria-label="menu">
             {buttonToDisplay}
+            </IconButton>
             <Typography variant="h6" className={classes.title}>
             {props.title}
             </Typography>
@@ -55,6 +62,12 @@ const OverTopBar = (props) => {
         </AppBar>
     )
 };
+
+OverTopBar.PropTypes = {
+  reverse: PropTypes.bool,
+  title: PropTypes.string
+
+}
 
 
 export default OverTopBar;

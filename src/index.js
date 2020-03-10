@@ -19,10 +19,6 @@ import {UIStore} from "./DataStores/uiStore"
 import {MessagingStore} from "./DataStores/messagingStore"
 import LabPhotoStore from  "./DataStores/labPhotoStore"
 import APIHelper from './DataStores/Requests'
-
-
-
-
 import { MuiPickersUtilsProvider } from '@material-ui/pickers/MuiPickersUtilsProvider';
 import DateFnsUtils from '@date-io/luxon';
 
@@ -38,9 +34,6 @@ const history = syncHistoryWithStore(browserHistory, routingStore);
 //This attaches the class containing the API fetch requests to the stores
 //Doing it this way allows you to swap in other data retrival methods for testing
 const apiHelper = new APIHelper();
-
-
-
 
 const stores = {
     routingStore: routingStore,

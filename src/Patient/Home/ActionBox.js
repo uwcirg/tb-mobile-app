@@ -16,11 +16,10 @@ const ActionBox = observer(() => {
         uiStore.onTreatmentFlow = true;
     }
 
-    return(<InteractionCard upperText={DateTime.local().toLocaleString(DateTime.DATE_HUGE)}>
+    return(<InteractionCard upperText={"Action Needed"}>
             <NewButton onClick={handleClick} icon={<Clipboard />} text="Log Medication" />
             <NewButton onClick={handleClick} icon={<Camera />} text="Test Strip Photo" />
-
-            <NewButton onClick={handleClick} positive icon={<Clipboard />} text="Test Check Button" />
+            {/*<NewButton onClick={handleClick} positive icon={<Clipboard />} text="Test Check Button" />*/}
         </InteractionCard>)
 
 });

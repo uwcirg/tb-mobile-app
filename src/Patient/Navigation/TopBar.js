@@ -9,7 +9,7 @@ import { inject, observer } from 'mobx-react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components'
 import PersonIcon from '@material-ui/icons/Person'
-import Colors from '../Basics/Colors';
+import Colors from '../../Basics/Colors';
 
 const useStyles = makeStyles({
   personIcon:{
@@ -39,7 +39,6 @@ const TopBar = inject("uiStore","patientStore")(observer(({ uiStore,patientStore
 
   const { t, i18n } = useTranslation('translation');
 
-
   //Conditional Logic to Display back button during treatment flow
   let buttonToDisplay = (
     patientStore.isLoggedIn && <IconButton className={classes.menuContainer} onClick={uiStore.toggleMenu} edge="start"  color="inherit" aria-label="menu"> <PersonIcon className={classes.personIcon} /></IconButton>
@@ -49,7 +48,6 @@ const TopBar = inject("uiStore","patientStore")(observer(({ uiStore,patientStore
     return(
         <AppBar className={classes.bar} color={!uiStore.offline ? "secondary" : "primary"} >
           <Toolbar>
-            
             <Typography variant="h6" className={classes.appTitle}> {t("title")}</Typography>
             {buttonToDisplay}
             <Typography variant="h6" color={!uiStore.offline ? "secondary" : "primary"} style={{color: "flex-end"}} >

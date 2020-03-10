@@ -4,16 +4,19 @@ import ProgressGraph from './ProgressGraph';
 import LogPrompt from './LogPrompt';
 import ActionBox from './ActionBox';
 import Alerts from './Alerts';
+import WeekCalendar from '../Progress/WeekCalendar';
+import Colors from '../../Basics/Colors';
 
 const HomePage = () => {
 
     return (
 
         <Body>
-            <ActionBox />
+            <WeekCalendar />
             <ProgressGraph />
+            <ActionBox />
             <Alerts />
-            <LogPrompt />
+            {/*<LogPrompt />*/}
         </Body>
     )
 
@@ -26,7 +29,7 @@ display: flex;
 flex-direction: column;
 justify-content: flex-start;
 align-items: center;
-margin: 1em 0 60px 0;
+background-color: ${Colors.lightgray}
 
 `
 

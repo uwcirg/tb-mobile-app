@@ -20,6 +20,15 @@
         "today": "Today"
     },
 
+    "profile": {
+        "title": "Health Profile",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "totalTreatments": "Total Required Treatments",
+        "currentAdherence": "Current Adherence",
+        "logout": "Log Out"
+    },
+
     "messaging": {
         "nurseContact": "Need individual support? Contact your provider!"
     },

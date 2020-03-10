@@ -5,7 +5,7 @@ import ReportSymptoms from './ReportSymptoms'
 import ReportPhoto from './ReportPhoto'
 import ReportConfirmation from './ReportConfirmation'
 import { useTranslation } from 'react-i18next';
-import OverTopBar from '../../Navigation/OverTopBar'
+import OverTopBar from '../Navigation/OverTopBar'
 import useStores from '../../Basics/UseStores';
 import { makeStyles } from '@material-ui/core/styles';
 import Styles from '../../Basics/Styles'
