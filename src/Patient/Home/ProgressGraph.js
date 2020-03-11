@@ -7,6 +7,7 @@ import {makeStyles} from '@material-ui/core/styles'
 import Styles from '../../Basics/Styles';
 import InteractionCard from './InteractionCard';
 import Colors from '../../Basics/Colors';
+import NewButton from '../../Basics/NewButton';
 
 const useStyles = makeStyles({
     progressText:{
@@ -55,6 +56,10 @@ const useStyles = makeStyles({
         padding: 0,
         color: Colors.textGray,
         fontWeight: 250
+    },
+    actionButton:{
+        position: "relative",
+        top: "-2em"
     }
 
 })
@@ -74,7 +79,6 @@ const ProgressGraph = (props) => {
                <p className={classes.progressText}> 90 of <br /> 180 Days</p>
             </CircularProgressbar>
             </div>
-
             <div className={classes.stats}>
             <StatBox title='4 Days' text="Current Streak" />
             <StatBox title='Feb 28' text="Next Check In" />

@@ -11,7 +11,7 @@ export class UIStore {
     @observable activeTab = 0;
     @observable menuOpened = false;
     @observable offline = !navigator.onLine;
-    @observable onTreatmentFlow = false;
+    @observable onTreatmentFlow = !false;
 
     @action toggleMenu = () => {
         this.menuOpened = !this.menuOpened;

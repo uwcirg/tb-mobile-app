@@ -19,7 +19,7 @@ export class PatientStore extends UserStore {
         super(strategy,ROUTES,"Patient")
     }
 
-    @observable medicationStep = 0;
+    @observable medicationStep = 1;
     @observable givenName = ""
     @observable cameraIsOpen = false;
     @observable medicationWasReported = false;

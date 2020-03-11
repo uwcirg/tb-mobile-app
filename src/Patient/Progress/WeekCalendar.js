@@ -6,6 +6,8 @@ import Colors from '../../Basics/Colors';
 import { Typography, Grid, Container } from '@material-ui/core';
 import Calendar from '@material-ui/icons/Event';
 import Dot from '@material-ui/icons/FiberManualRecord';
+import useStores from '../../Basics/UseStores';
+
 
 const useStyles = makeStyles({
     container:{
@@ -60,7 +62,6 @@ const useStyles = makeStyles({
 
 const WeekCalendar = () => {
 
-
     const classes = useStyles();
 
     return(<div className={classes.container}>
@@ -77,15 +78,23 @@ const WeekCalendar = () => {
 function Days(){
 
     const classes = useStyles();
-
+    const {patientStore,uiStore} = useStores();
 
     let list = []
     for(let i = 4; i >= 0; i--){
-        
+        const today = i == 0;
         const date = DateTime.local().minus({days: i})
         const component = (
             //TODO Add Patient Data
-            <div className={`${classes.day} ${i == 0 && classes.today} ${i==3 && classes.missedDay}`}>
+            <div 
+                className={`${classes.day} ${today && classes.today} ${i==3 && classes.missedDay}`}
+                onClick={() => {
+                    if(today){
+                        uiStore.onTreatmentFlow = true;
+                    }
+                }}
+                
+                >
                 <p>{date.weekdayShort}</p>
                 <p>{date.day}</p>
                 {i==3 && <Dot className={classes.dot} />}

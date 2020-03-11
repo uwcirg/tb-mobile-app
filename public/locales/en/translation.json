@@ -44,7 +44,7 @@
         "nausea": 
         {
             "title": "Nausea or Vomiting",
-            "subtitle": "test subtitle"
+            "subtitle": "Feeling nauscious or unable to put food down"
         },
 
         "redness":{
@@ -78,7 +78,7 @@
         },
 
         "yellow_coloration":{
-            "title": "Yellowness Coloration",
+            "title": "Yellow Coloration",
             "subtitle": "Yellowing of the skin or whites of the eyes"
         },
 

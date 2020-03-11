@@ -11,6 +11,7 @@ import { Translation, withTranslation} from "react-i18next";
 
 import ImageUploadFlow from './Login/TestImageFlow'
 import { computed } from 'mobx';
+import Colors from './Basics/Colors';
 
 const theme = createMuiTheme({
 
@@ -20,7 +21,7 @@ const theme = createMuiTheme({
     },
     palette: {
       primary: {
-          main: "#1f4a94"
+          main: Colors.buttonBlue
       },
       secondary:{
         main: "#FFFFFF"

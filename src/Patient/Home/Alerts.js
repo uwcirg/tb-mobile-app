@@ -17,7 +17,7 @@ const useStyles = makeStyles({
         paddingLeft: "1em",
         fontSize: ".75em"
     },
-    noPadding:{
+    noPadding: {
         paddingLeft: "1em",
         paddingRight: "1em",
     }
@@ -29,10 +29,10 @@ const Alerts = () => {
     const classes = useStyles();
 
     return (
-    <InteractionCard upperText="Daily Education">
-        <Alert summary="Week One" new />
-        <Alert summary="Welcome"/>
-    </InteractionCard>)
+        <InteractionCard upperText="Daily Education">
+            <Alert summary="Week One" new />
+            <Alert summary="Welcome" />
+        </InteractionCard>)
 }
 
 
@@ -40,23 +40,23 @@ const Alert = (props) => {
 
     const classes = useStyles();
 
-    return(
+    return (
         <ExpansionPanel className={classes.expansionPanel}>
-        <ExpansionPanelSummary
-            className={classes.noPadding}
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-        >
-<Typography className={classes.heading}>{props.summary} {props.new && <span className={classes.new}>New</span>}</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-            <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                sit amet blandit leo lobortis eget.
-      </Typography>
-        </ExpansionPanelDetails>
-    </ExpansionPanel>
+            <ExpansionPanelSummary
+                className={classes.noPadding}
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+            >
+                <Typography className={classes.heading}>{props.summary} {props.new && <span className={classes.new}>New</span>}</Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+                <Typography>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                    sit amet blandit leo lobortis eget.
+                </Typography>
+            </ExpansionPanelDetails>
+        </ExpansionPanel>
     )
 }
 
