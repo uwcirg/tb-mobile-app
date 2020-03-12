@@ -10,10 +10,10 @@ import {observer} from 'mobx-react'
 
 const ActionBox = observer(() => {
 
-    const {uiStore} = useStores();
+    const {patientStore} = useStores();
 
     const handleClick = () =>{
-        uiStore.onTreatmentFlow = true;
+        patientStore.onTreatmentFlow = true;
     }
 
     return(<InteractionCard upperText={"Action Needed"}>

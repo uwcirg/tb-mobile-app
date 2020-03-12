@@ -78,7 +78,7 @@ const WeekCalendar = () => {
 function Days(){
 
     const classes = useStyles();
-    const {patientStore,uiStore} = useStores();
+    const {patientStore} = useStores();
 
     let list = []
     for(let i = 4; i >= 0; i--){
@@ -90,11 +90,9 @@ function Days(){
                 className={`${classes.day} ${today && classes.today} ${i==3 && classes.missedDay}`}
                 onClick={() => {
                     if(today){
-                        uiStore.onTreatmentFlow = true;
+                        patientStore.onTreatmentFlow = true;
                     }
-                }}
-                
-                >
+                }}>
                 <p>{date.weekdayShort}</p>
                 <p>{date.day}</p>
                 {i==3 && <Dot className={classes.dot} />}

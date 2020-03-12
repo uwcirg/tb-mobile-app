@@ -6,7 +6,7 @@ import MedicationFlow from '../MedicationFlow/'
 
 const Home = inject("uiStore", "patientStore")(observer(({ uiStore, patientStore, props }) => {
 
-    if(uiStore.onTreatmentFlow){
+    if(patientStore.onTreatmentFlow){
         return (<MedicationFlow/>)
     }else{
         return (<HomePage />)

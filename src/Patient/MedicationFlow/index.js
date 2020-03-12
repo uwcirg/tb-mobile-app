@@ -55,7 +55,7 @@ const MedicationFlow = observer((props) => {
         if (patientStore.medicationStep > 0) {
             patientStore.medicationStep -= 1;
         } else {
-            uiStore.onTreatmentFlow = false;
+            patientStore.onTreatmentFlow = false;
         }
     }
 
@@ -63,7 +63,7 @@ const MedicationFlow = observer((props) => {
         patientStore.medicationStep += 1
     }
 
-    const Tabs = [<ReportMedication />, <ReportSymptoms />, <ReportPhoto />, <ReportConfirmation />]
+    const Tabs = [<ReportMedication />, <ReportSymptoms />, <ReportConfirmation />, <ReportPhoto />,]
 
     return (
         <>

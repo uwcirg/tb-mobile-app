@@ -1,6 +1,5 @@
 import { action, observable, computed} from "mobx";
 import {UserStore} from './userStore';
-import DateTime from 'luxon'
 
 const ROUTES = {
     login: ["/authenticate","POST"],
@@ -19,7 +18,9 @@ export class PatientStore extends UserStore {
         super(strategy,ROUTES,"Patient")
     }
 
-    @observable medicationStep = 1;
+    @observable onTreatmentFlow = false;
+
+    @observable medicationStep = 0;
     @observable givenName = ""
     @observable cameraIsOpen = false;
     @observable medicationWasReported = false;
@@ -33,7 +34,6 @@ export class PatientStore extends UserStore {
     @observable report = {
         tookMedication: true,
         headerText: "When did you take your medication?"
-
     }
 
     setAccountInformation(json){

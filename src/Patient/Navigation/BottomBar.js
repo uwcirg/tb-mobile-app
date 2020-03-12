@@ -16,7 +16,7 @@ const useStyles = makeStyles({
     height: "60px",
     position: "fixed",
     bottom: 0,
-    borderTop: "1px solid lightgray"
+    borderTop: "1px solid lightgray",
   }
 
 });

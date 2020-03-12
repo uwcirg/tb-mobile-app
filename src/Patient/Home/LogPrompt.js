@@ -6,11 +6,14 @@ import { DateTime } from 'luxon';
 import Colors from '../../Basics/Colors'
 
 import { inject, observer } from 'mobx-react';
+import useStores from '../../Basics/UseStores';
 
-const LogPrompt = inject("uiStore")(observer(({ uiStore }) => {
+const LogPrompt = observer(() => {
+
+    const {patientStore} = useStores();
 
     const handleLogTreatment = () => {
-        uiStore.onTreatmentFlow = true;
+        patientStore.onTreatmentFlow = true;
     }
 
     return (
@@ -20,7 +23,7 @@ const LogPrompt = inject("uiStore")(observer(({ uiStore }) => {
             </Fab>
         </PromptContainer>
     )
-}));
+});
 
 const PromptContainer = styled.div`
 width: 100%;

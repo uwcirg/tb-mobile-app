@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { inject, observer } from 'mobx-react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
@@ -115,14 +115,16 @@ const ReportMedication = observer((props) => {
 
     const { patientStore } = useStores();
 
-    const toggle = () => {
-        patientStore.report.tookMedication = !patientStore.report.tookMedication
-
+    useEffect(() => {
         if (patientStore.report.tookMedication) {
             patientStore.report.headerText = "When did you take your medication?"
         } else {
             patientStore.report.headerText = "Why didn't you take your medication?"
         }
+    })
+
+    const toggle = () => {
+        patientStore.report.tookMedication = !patientStore.report.tookMedication
     }
 
     return (
