@@ -5,6 +5,9 @@ import { makeStyles } from '@material-ui/core';
 import ButtonBase from '@material-ui/core/ButtonBase'
 import Colors from '../../Basics/Colors';
 import DayDrawer from './DayDrawer'
+import WeekCalendar from '../Progress/WeekCalendar';
+import useStores from '../../Basics/UseStores';
+import {observer} from 'mobx-react'
 
 
 const useStyles = makeStyles(theme =>({
@@ -14,7 +17,8 @@ const useStyles = makeStyles(theme =>({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        flexDirection: "column"
+        flexDirection: "column",
+        paddingTop: "1em"
 
     },
     calendar: {
@@ -35,7 +39,7 @@ const useStyles = makeStyles(theme =>({
         borderRadius: "20px"
     },
     selectedDay: {
-        backgroundColor: "lightblue"
+        backgroundColor: Colors.accentBlue,
     },
     disabledDay: {
         color: "lightgray"
@@ -45,7 +49,7 @@ const useStyles = makeStyles(theme =>({
     },
 
     between:{
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.calendarGreen,
         borderRadius: "0px 0px 0px 0px",
     },
 
@@ -92,11 +96,16 @@ const customDay = (day, selectedDate, isInCurrentMonth, dayComponent) => {
     //return <Day {...dayComponent.props} style={{backgroundColor:'green'}} ></Day>;
 }
 
-const StaticDatePicker = () => {
- 
-  const [date, changeDate] = useState(DateTime.local());
+const StaticDatePicker = observer(() => {
+
   // prettier-ignore
   const classes = useStyles();
+  const {patientStore} = useStores();
+
+  const changeDate = (newDate) =>{
+    patientStore.selectedDate = newDate;
+  }
+
   return (
         <div className={classes.calendar} >
             <DatePicker
@@ -104,7 +113,7 @@ const StaticDatePicker = () => {
                 fullWidth
                 variant="static"
                 openTo="date"
-                value={date}
+                value={patientStore.selectedDate}
                 onChange={changeDate}
                 disableFuture
                 ToolbarComponent={CustomToolbar}
@@ -112,7 +121,7 @@ const StaticDatePicker = () => {
             />
             </div>
         );
-};
+});
 
 
 const Progress = () => {
@@ -121,6 +130,7 @@ const Progress = () => {
 
     return(<>
         <div className={classes.container} >  
+            <WeekCalendar />
             <StaticDatePicker />
         </div>
         <DayDrawer className={classes.drawer} />

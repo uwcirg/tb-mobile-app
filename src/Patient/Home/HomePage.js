@@ -4,7 +4,6 @@ import ProgressGraph from './ProgressGraph';
 import LogPrompt from './LogPrompt';
 import ActionBox from './ActionBox';
 import Alerts from './Alerts';
-import WeekCalendar from '../Progress/WeekCalendar';
 import Colors from '../../Basics/Colors';
 
 const HomePage = () => {
@@ -12,7 +11,6 @@ const HomePage = () => {
     return (
 
         <Body>
-            <WeekCalendar />
             <ProgressGraph />
             <ActionBox />
             <Alerts />
@@ -23,6 +21,8 @@ const HomePage = () => {
 };
 
 const Body = styled.div`
+
+padding-top: 1em;
 
 width: 100%;
 display: flex;

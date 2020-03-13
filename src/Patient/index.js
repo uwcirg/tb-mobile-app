@@ -20,7 +20,7 @@ class PatientHome extends Component {
       <div className="main-screen">
         <TopBar />
         <Drawer />
-        <div style={{paddingTop: "70px", paddingBottom:"60px"}}>
+        <div style={{paddingTop: "60px", paddingBottom:"60px"}}>
         {tabs[this.props.uiStore.activeTab]}
         </div>
         <BottomBar />

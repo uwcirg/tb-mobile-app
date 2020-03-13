@@ -8,6 +8,11 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import IconButton from '@material-ui/core/IconButton'
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
+import ClipBoard from '@material-ui/icons/Assignment';
+import Check from '@material-ui/icons/CheckCircle';
+import Healing from '@material-ui/icons/Healing';
+
+
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
@@ -17,12 +22,12 @@ import useStores from '../../Basics/UseStores'
 import Typography from '@material-ui/core/Typography'
 
 import { makeStyles } from '@material-ui/core';
+import { observer } from 'mobx-react';
+import Colors from '../../Basics/Colors';
 
 
 const useStyles = makeStyles({
-    drawer: {
-        zIndex: "-1",
-    },
+
     drawerPaper:{
       
     },
@@ -32,21 +37,35 @@ const useStyles = makeStyles({
         padding: "0px",
         width: "100vw",
         borderBottom: "unset",
-        boxShadow: "unset"
+        boxShadow: "unset",
+        zIndex: "10"
+    },
+
+    drawerTitle:{
+      margin: 0,
+      padding: "0 0 .5em 0",
+      fontSize: "1.25em"
     },
     collapsedDrawer:{
         
         margin: 0,
     },
     test:{
-        height: "200px",
+        minHeight: "200px",
         width: "90vw",
         zIndex: "100",
-        backgroundColor: "lightblue",
     },
     preview:{
       display: "flex",
-      justifyContent: "start"
+      width: "100%",
+      justifyContent: "space-between",
+      "& > svg": {
+        fontSize: "3em",
+        color: Colors.textGray
+      },
+      "& > svg:first-of-type":{
+        color: Colors.approvedGreen
+      }
     },
     previewItem:{
       width: "50px",
@@ -57,13 +76,17 @@ const useStyles = makeStyles({
       justifyContent: "center",
       alignItems: "center"
 
+    },
+    container: {
+      width: "100%"
     }
 })
 
 
-const DayDrawer = (props) => {
+const DayDrawer = observer((props) => {
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
+    const {patientStore} = useStores();
 
     const handleDrawerOpen = () => {
       setOpen(true);
@@ -79,21 +102,24 @@ const DayDrawer = (props) => {
             expandIcon={<KeyboardArrowUpIcon />}
             aria-controls="panel1a-content"
             id="panel1a-header">
-           <div className={classes.preview}>
-             <div className={classes.previewItem}>1</div>
-             <div className={classes.previewItem}>2</div>
-             <div className={classes.previewItem}>3</div> 
+          <div className={classes.container}>
+          <h2 className={classes.drawerTitle}>{patientStore.selectedDateForDisplay}</h2>
+            <div className={classes.preview}>
+              <Check />
+              <ClipBoard />
+              <Healing />
+            </div>
            </div>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
-            <div className={classes.test}>
-
-            </div>
+              <div className={classes.test}>
+                  <h1>{patientStore.selectedDateForDisplay}</h1>
+              </div>
             </ExpansionPanelDetails>
       </ExpansionPanel>
     )
 
-};
+});
 
 export default DayDrawer;
 

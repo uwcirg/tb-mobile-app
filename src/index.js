@@ -58,7 +58,7 @@ ReactDOM.render(
     <Provider {...stores}>
         <I18nextProvider i18n={i18n}>
             <Suspense fallback="Page Loading">
-            <MuiPickersUtilsProvider utils={DateFnsUtils} locale={"es-AR"}>
+            <MuiPickersUtilsProvider utils={DateFnsUtils} >
             <Router history={history}>
               <Main />
               </Router>

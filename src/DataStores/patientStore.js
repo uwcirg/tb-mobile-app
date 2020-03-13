@@ -1,5 +1,6 @@
 import { action, observable, computed} from "mobx";
 import {UserStore} from './userStore';
+import {DateTime} from 'luxon';
 
 const ROUTES = {
     login: ["/authenticate","POST"],
@@ -35,6 +36,13 @@ export class PatientStore extends UserStore {
         tookMedication: true,
         headerText: "When did you take your medication?"
     }
+
+    @computed get selectedDateForDisplay() {
+        return this.selectedDate.toLocaleString(DateTime.DATE_FULL)
+    }
+
+    //Calendar Selection
+    @observable selectedDate = DateTime.local();
 
     setAccountInformation(json){
         this.information = json;
