@@ -18,7 +18,6 @@ const authenticatedRequest = (url, method, body) => {
             }
             return resolve.json()})
         .then(json => { return json })
-
 }
 
 export default class APIHelper {

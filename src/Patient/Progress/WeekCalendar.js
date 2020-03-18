@@ -91,6 +91,8 @@ function Days(){
                 onClick={() => {
                     if(today){
                         patientStore.onTreatmentFlow = true;
+                    }else{
+                        patientStore.onCalendarView = true;
                     }
                 }}>
                 <p>{date.weekdayShort}</p>

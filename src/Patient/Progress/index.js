@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme =>({
         width: "100vw",
         height: "70vh",
         display: "flex",
-        justifyContent: "center",
+        justifyContent: "flex-start",
         alignItems: "center",
         flexDirection: "column",
         paddingTop: "1em"
@@ -108,7 +108,7 @@ const StaticDatePicker = observer(() => {
 
   return (
         <div className={classes.calendar} >
-            <DatePicker
+           <DatePicker
                 autoOk
                 fullWidth
                 variant="static"
@@ -118,23 +118,26 @@ const StaticDatePicker = observer(() => {
                 disableFuture
                 ToolbarComponent={CustomToolbar}
                 renderDay={customDay}
-            />
+           />
             </div>
         );
 });
 
 
-const Progress = () => {
+const Progress = observer(() => {
 
     const classes = useStyles();
+    const {patientStore} = useStores();
 
     return(<>
         <div className={classes.container} >  
-            <WeekCalendar />
-            <StaticDatePicker />
+            {!patientStore.onCalendarView ? <WeekCalendar /> :
+            <>
+                <StaticDatePicker />
+                <DayDrawer className={classes.drawer} />
+            </>}
         </div>
-        <DayDrawer className={classes.drawer} />
       </>)
-}
+});
 
 export default Progress;

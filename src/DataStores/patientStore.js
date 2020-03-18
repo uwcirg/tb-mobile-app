@@ -19,12 +19,17 @@ export class PatientStore extends UserStore {
         super(strategy,ROUTES,"Patient")
     }
 
+    @observable treatmentStart = ""
+
     @observable onTreatmentFlow = false;
+    @observable onCalendarView = false;
 
     @observable medicationStep = 0;
     @observable givenName = ""
     @observable cameraIsOpen = false;
     @observable medicationWasReported = false;
+
+    @observable medicationSchedule = []
 
     //MedicationFlow Variables
     medicationTime = "";
@@ -43,15 +48,6 @@ export class PatientStore extends UserStore {
 
     //Calendar Selection
     @observable selectedDate = DateTime.local();
-
-    setAccountInformation(json){
-        this.information = json;
-        this.givenName = json.given_name;
-        this.familyName = json.family_name;
-        this.userID = json.id;
-        this.phoneNumber= json.phone_number;
-        this.notes = json.notes;
-    }
 
     @action register(body){
         return this.executeRequest('register',body).then(json =>{
@@ -76,6 +72,10 @@ export class PatientStore extends UserStore {
         return this.executeRequest('reportSymptoms',body).then(json => {
            this.getPatientInformation();
         });
+    }
+
+    saveReportingState(){
+
     }
 
     @action logout(){

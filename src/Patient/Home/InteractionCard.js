@@ -28,7 +28,7 @@ const useStyles = makeStyles({
   upperText:{
       ...Styles.secondaryText,
       textAlign: "left",
-      marginLeft: "10%"
+      marginLeft: "2em"
   },
   noPadding:{
       

@@ -42,7 +42,7 @@ const LeftDrawer = inject("uiStore", "patientStore")(observer(({ uiStore, patien
     >
       <div className={classes.contentContainer}>
         <HealthProfile />
-        <NewButton className={classes.logout} icon={<ExitToApp />} text={t("profile.logout")} />
+        <NewButton onClick={patientStore.logout} className={classes.logout} icon={<ExitToApp />} text={t("profile.logout")} />
       </div>
     </Drawer>
   );

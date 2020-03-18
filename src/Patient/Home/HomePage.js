@@ -11,8 +11,8 @@ const HomePage = () => {
     return (
 
         <Body>
-            <ProgressGraph />
             <ActionBox />
+            <ProgressGraph />
             <Alerts />
             {/*<LogPrompt />*/}
         </Body>

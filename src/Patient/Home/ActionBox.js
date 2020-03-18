@@ -10,7 +10,17 @@ import {observer} from 'mobx-react'
 
 const ActionBox = observer(() => {
 
+
     const {patientStore} = useStores();
+
+    let weekday = DateTime.local().weekday;
+    let weekSinceStart = Math.floor(DateTime.fromISO(patientStore.treatmentStart).diffNow("weeks").weeks * -1)
+    let isPhotoDay = patientStore.photoSchedule[weekSinceStart].includes(weekday)
+
+    console.log(weekSinceStart)
+    console.log(patientStore.photoSchedule[weekSinceStart])
+
+    //console.log(weekSinceStart)
 
     const handleClick = () =>{
         patientStore.onTreatmentFlow = true;
@@ -18,7 +28,7 @@ const ActionBox = observer(() => {
 
     return(<InteractionCard upperText={"Action Needed"}>
             <NewButton onClick={handleClick} icon={<Clipboard />} text="Log Medication" />
-            <NewButton onClick={handleClick} icon={<Camera />} text="Test Strip Photo" />
+            {isPhotoDay && <NewButton onClick={handleClick} icon={<Camera />} text="Upload Photo" />}
             {/*<NewButton onClick={handleClick} positive icon={<Clipboard />} text="Test Check Button" />*/}
         </InteractionCard>)
 

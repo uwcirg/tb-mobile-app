@@ -23,24 +23,35 @@ export class UserStore extends APIStore{
         this.userType = userType;
     }
 
-    logout(){
-        this.executeRequest('logout').then(json => {
-          console.log("fron logout")
-          console.log(json)
+    @action setAccountInformation(json){
+      this.givenName = json.givenName;
+      this.familyName = json.familyName;
+      this.userID = json.identifier[0].value;
+
+      //TODO move this to to patient store and use Super call
+      if(this.userType = "Patient"){
+        this.photoSchedule = JSON.parse(json.medicationSchedule)
+        this.treatmentStart = json.treatmentStart
+      }
+      
+  }
+
+    @action logout = () => {
+        this.executeRequest('logout').then( (json) => {
+          this.isLoggedIn = false;
         })
 
     }
 
     initalize(){
-      console.log("CALLED INIT")
+
       this.executeRequest(`getCurrent${this.userType}`).then( (json) => {
-        if(json.id){
+        if(json.identifier){
             this.setAccountInformation(json)
             this.isLoggedIn = true;
             this.subscribeToNotifications();
         }
     });
-
 
     }
 
@@ -91,10 +102,6 @@ export class UserStore extends APIStore{
       })
           
       }
-
-
-
-
 
     updateSubscriptionOnServer = (subscription) => {
 
