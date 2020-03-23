@@ -131,7 +131,7 @@ const Progress = observer(() => {
 
     return(<>
         <div className={classes.container} >  
-            {!patientStore.onCalendarView ? <WeekCalendar /> :
+            {!patientStore.uiState.onCalendarView ? <WeekCalendar /> :
             <>
                 <StaticDatePicker />
                 <DayDrawer className={classes.drawer} />

@@ -17,7 +17,11 @@
     "home": {
         "greeting": "Hi",
         "purpose": "Lets keep track of your medication and health!",
-        "today": "Today"
+        "today": "Today",
+        "actions":{
+            "logMedication": "Log Medication",
+            "uploadPhoto": "Upload Photo"
+        }
     },
 
     "profile": {
@@ -26,7 +30,8 @@
         "endDate": "End Date",
         "totalTreatments": "Total Required Treatments",
         "currentAdherence": "Current Adherence",
-        "logout": "Log Out"
+        "logout": "Log Out",
+        "organization": "Organization"
     },
 
     "messaging": {
@@ -39,7 +44,12 @@
         "symptomsTitle": "Symptoms?",
         "photoTitle": "Strip Report"
     },
-    
+
+    "reportConfirmation":{
+        "goodJob": "Good Job",
+        "photoNeeded": "You also need to upload a photo of your test strip today",
+        "doLater": "Do Later Today"
+    },
     "symptoms": {
         "nausea": 
         {

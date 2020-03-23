@@ -3,7 +3,7 @@ import { inject, observer } from 'mobx-react';
 import ReportMedication from './ReportMedication'
 import ReportSymptoms from './ReportSymptoms'
 import ReportPhoto from './ReportPhoto'
-import ReportConfirmation from './ReportConfirmation'
+import ReportPopUp from './ReportPopUp'
 import { useTranslation } from 'react-i18next';
 import OverTopBar from '../Navigation/OverTopBar'
 import useStores from '../../Basics/UseStores';
@@ -11,11 +11,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import Styles from '../../Basics/Styles'
 import Colors from '../../Basics/Colors';
 import SimpleButton from '../../Basics/SimpleButton';
+import {DateTime} from 'luxon'
+import {autorun,when} from 'mobx';
 
 const useStyles = makeStyles({
     title: {
         ...Styles.flexRow,
-        alignItems: "center"
+        alignItems: "center",
+        marginBottom: "1em"
     },
     titleText: {
         marginLeft: "1em"
@@ -32,6 +35,9 @@ const useStyles = makeStyles({
     innerNumber: {
         display: "block",
         textAlign: "center"
+    },
+    container:{
+        marginTop: "1em"
     }
 });
 
@@ -52,25 +58,29 @@ const MedicationFlow = observer((props) => {
     const { t, i18n } = useTranslation('translation');
 
     const handleBack = () => {
-        if (patientStore.medicationStep > 0) {
-            patientStore.medicationStep -= 1;
+
+        //If on photo flow exit to home
+        if (!patientStore.uiState.onPhotoFlow && patientStore.report.step > 0) {
+            patientStore.report.step -= 1;
         } else {
-            patientStore.onTreatmentFlow = false;
+            patientStore.uiState.onTreatmentFlow = false;
+            patientStore.uiState.onPhotoFlow = false;
         }
     }
 
     const advance = () => {
-        patientStore.medicationStep += 1
+        patientStore.report.step += 1
     }
 
-    const Tabs = [<ReportMedication />, <ReportSymptoms />, <ReportConfirmation />, <ReportPhoto />,]
+    const Tabs = [<ReportMedication />, <ReportSymptoms />, <ReportPopUp />]
 
+    const tabNumber = (patientStore.uiState.onPhotoFlow ? 3 : patientStore.report.step + 1);
     return (
-        <>
-            <NumberedTitle number={patientStore.medicationStep + 1} title={patientStore.report.headerText} />
+        <div className={classes.container}>
+            {(patientStore.report.step != 2  || patientStore.uiState.onPhotoFlow)&& <NumberedTitle number={tabNumber} title={patientStore.report.headerText} />}
             <OverTopBar title={t("report.title")} handleBack={handleBack} />
-            {React.cloneElement(Tabs[patientStore.medicationStep],{advance: advance})}
-        </>)
+           {patientStore.uiState.onPhotoFlow ? <ReportPhoto /> : React.cloneElement(Tabs[patientStore.report.step],{advance: advance})}
+        </div>)
 });
 
 export default MedicationFlow;

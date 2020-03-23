@@ -1,6 +1,14 @@
 {
     "title": "Assistiante de Tratamiento",
-    "online": "Conectado",
-    "offline": "Desconectado",
-    "greeting": "Hola"
+
+    "profile": {
+        "title": "Perfil de Salud",
+        "startDate": "Fecha de inicio",
+        "endDate": "Fecha final",
+        "totalTreatments": "Total Required Treatments",
+        "currentAdherence": "Current Adherence",
+        "logout": "cerrar sesión",
+        "organization": "Organización"
+    }
+    
 }

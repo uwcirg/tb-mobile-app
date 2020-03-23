@@ -81,12 +81,12 @@ const Symptom = observer((props) => {
     const handleSelection = (e) => {
         let symptomName = e.target.id
   
-         let index = patientStore.selectedSymptoms.indexOf(symptomName);
+         let index = patientStore.report.selectedSymptoms.indexOf(symptomName);
  
          if( index === -1){
-             patientStore.selectedSymptoms.push(symptomName);
+             patientStore.report.selectedSymptoms.push(symptomName);
          }else{
-             patientStore.selectedSymptoms.splice(index,1);
+             patientStore.report.selectedSymptoms.splice(index,1);
          }
  
      }
@@ -94,7 +94,7 @@ const Symptom = observer((props) => {
     const check = (
     <Checkbox
         id={props.name}
-        checked={patientStore.selectedSymptoms.includes(props.name)}
+        checked={patientStore.report.selectedSymptoms.includes(props.name)}
         style={{marginLeft: "auto",marginRight:"1em"}}
         value="secondary"
         color="primary"
@@ -135,24 +135,11 @@ const SymptomsList = observer((props) => {
     const {patientStore} = useStores();
     const {t, i18n} = useTranslation('translation');
 
-    const handleSelection = (e) => {
-       let symptomName = e.target.id
- 
-        let index = patientStore.selectedSymptoms.indexOf(symptomName);
-
-        if( index === -1){
-            patientStore.selectedSymptoms.push(symptomName);
-        }else{
-            patientStore.selectedSymptoms.splice(index,1);
-        }
-
-    }
-
     let selectedList = props.severe ? SevereSymptoms : Symptoms;
 
     const List = selectedList.map( (name,index) => {
         return(
-            <Symptom name={name} subtitle={t(`symptoms.${name}.subtitle`)} title={t(`symptoms.${name}.title`)} />
+            <Symptom key={`symptom-${index}`} name={name} subtitle={t(`symptoms.${name}.subtitle`)} title={t(`symptoms.${name}.title`)} />
         )
     })
 
@@ -163,37 +150,4 @@ const SymptomsList = observer((props) => {
     )
 });
 
-const ListContainer = styled.div`
-height: 50vh;
-overflow-y: scroll;
-overflow-x: hidden;
-`
-
-const SingleSymptom = styled.div`
-border-bottom: solid 1px lightgray;
-padding: .5em;
-display: flex;
-width: 100%;
-margin: auto;
-
-div:first-of-type{
-    width: 30px;
-    height: 30px;
-    background-color: lightgray;
-    border-radius: 15px;
-    margin-right: 1em;
-    margin-left: 1em;
-}
-
-span:first-of-type{
-    font-weight: 500;
-}
-
-span:nth-of-type(2){
-    color: gray;
-    font-size: .75em;
-}
-
-
-`
 export default SymptomsList;

@@ -1,4 +1,4 @@
-import { action, observable, autorun} from "mobx";
+import { action, observable, autorun, computed} from "mobx";
 
 export class UIStore {
 
@@ -11,6 +11,20 @@ export class UIStore {
     @observable activeTab = 0;
     @observable menuOpened = false;
     @observable offline = !navigator.onLine;
+
+
+    @computed get isSpanish(){
+        return this.language == "es"
+    }
+
+    @action toggleLanguage = () => {
+        if(this.language == "en"){
+            this.language = "es"
+        }else{
+            this.language = "en"
+        }
+        console.log("tes")
+    }
 
     @action toggleMenu = () => {
         this.menuOpened = !this.menuOpened;

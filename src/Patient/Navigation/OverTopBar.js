@@ -63,7 +63,7 @@ const OverTopBar = (props) => {
     )
 };
 
-OverTopBar.PropTypes = {
+OverTopBar.propTypes = {
   reverse: PropTypes.bool,
   title: PropTypes.string
 

@@ -1,5 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
+import {observer} from 'mobx-react'
+import useStores from '../../Basics/UseStores'
 import { CircularProgressbarWithChildren as CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import Paper from '@material-ui/core/Paper';
@@ -40,7 +41,6 @@ const useStyles = makeStyles({
         "&:last-child": {
             borderLeft: `.5px solid ${Colors.gray}`
         }
-
     },
     statBoxTitle:{
         fontSize: "1em",
@@ -64,19 +64,21 @@ const useStyles = makeStyles({
 
 })
 
-const ProgressGraph = (props) => {
+const ProgressGraph = observer((props) => {
     const classes = useStyles();
+    const {patientStore} = useStores();
+    const dayValue = (patientStore.daysSinceTreatmentStart / 180 ) * 100;
 
     return (
         <InteractionCard upperText={"My Progress"}>
             <div className={classes.graph}>
-            <CircularProgressbar  circleRatio={0.5} value={25} styles={buildStyles({
+            <CircularProgressbar  circleRatio={0.5} value={dayValue} styles={buildStyles({
                 transition: 'stroke-dashoffset 0.5s ease 0s',
                 pathColor: Colors.accentBlue,
                 rotation: 3 / 4,
                 strokeLinecap: "round"  
             })}>
-               <p className={classes.progressText}> 90 of <br /> 180 Days</p>
+               <p className={classes.progressText}>{patientStore.daysSinceTreatmentStart} of <br /> 180 Days</p>
             </CircularProgressbar>
             </div>
             <div className={classes.stats}>
@@ -86,7 +88,7 @@ const ProgressGraph = (props) => {
             </div>
         </InteractionCard>
     )
-}
+});
 
 function StatBox (props){
     const classes = useStyles();

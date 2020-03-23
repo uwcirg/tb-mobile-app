@@ -1,4 +1,4 @@
-import { action, observable, computed} from "mobx";
+import { action, observable, computed, autorun} from "mobx";
 import {UserStore} from './userStore';
 import {DateTime} from 'luxon';
 
@@ -12,34 +12,60 @@ const ROUTES = {
     getVapidKey: ["/push_key","GET"]
 }
 
-export class PatientStore extends UserStore {
+export class PatientStore extends UserStore{
 
     //Takes in a data fetching strategy, so you can swap out the API one for testing data
     constructor(strategy) {
         super(strategy,ROUTES,"Patient")
+
+        const json = localStorage.getItem(`medicationReport`);
+        const lsReport = JSON.parse(json);
+        //Is the stored report from today? -> Load the state
+        if(Math.floor(DateTime.fromISO(lsReport.date).diffNow("days").days * -1) === 0){
+            console.log("same date")
+            this.report = lsReport
+        }else{
+            console.log("not same date")
+            //Dont mess with exisiting one
+            return
+        }
     }
 
     @observable treatmentStart = ""
 
-    @observable onTreatmentFlow = false;
-    @observable onCalendarView = false;
-
-    @observable medicationStep = 0;
-    @observable givenName = ""
-    @observable cameraIsOpen = false;
-    @observable medicationWasReported = false;
+    @observable uiState = {
+        onTreatmentFlow: false,
+        onPhotoFlow: false,
+        onCalendarView: false,
+        cameraIsOpen: false,
+    }
 
     @observable medicationSchedule = []
 
     //MedicationFlow Variables
-    medicationTime = "";
-    @observable selectedSymptoms = [];
-    @observable photoWasTaken = false;
-    photoString = "";
-
     @observable report = {
+        date: DateTime.local().toISODate(),
+        step: 0,
+        timeTaken: DateTime.local().startOf('second').startOf("minute").toISOTime({ suppressSeconds: true }),
+        selectedSymptoms: [],
+        photoWasTaken: false,
+        photoString: "",
         tookMedication: true,
-        headerText: "When did you take your medication?"
+        headerText: "When did you take your medication?",
+    }
+
+    @computed get hasReportedToday(){
+        return false
+    }
+
+    @computed get daysSinceTreatmentStart(){
+        return Math.floor(DateTime.fromISO(this.treatmentStart).diffNow("days").days * -1)
+    }
+
+    @computed get isPhotoDay(){
+        let weekday = DateTime.local().weekday;
+        let weekSinceStart = Math.floor(DateTime.fromISO(this.treatmentStart).diffNow("weeks").weeks * -1)
+        return(this.photoSchedule[weekSinceStart].includes(weekday));
     }
 
     @computed get selectedDateForDisplay() {
@@ -74,9 +100,14 @@ export class PatientStore extends UserStore {
         });
     }
 
-    saveReportingState(){
 
-    }
+    saveReportingState = autorun(() =>{
+        if(this.report.step > 0){
+            console.log("activated")
+            localStorage.setItem(`medicationReport`,JSON.stringify(this.report));
+        }
+        
+    });
 
     @action logout(){
        

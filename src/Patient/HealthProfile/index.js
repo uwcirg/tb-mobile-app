@@ -3,53 +3,71 @@ import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores'
 import OverTopBar from '../Navigation/OverTopBar';
 import { useTranslation } from 'react-i18next';
-import ClearIcon from '@material-ui/icons/Clear'
+import ChevronLeft from '@material-ui/icons/ChevronLeft'
 import { Typography } from '@material-ui/core';
 import Styles from '../../Basics/Styles';
 import Colors from '../../Basics/Colors';
-import {DateTime} from 'luxon';
+import { DateTime } from 'luxon';
+import TimeIcon from '@material-ui/icons/AccessTime';
+import FlagIcon from '@material-ui/icons/FlagOutlined';
+import LocationIcon from '@material-ui/icons/LocationOn';
+
+import Options from './Options'
 
 const useStyles = makeStyles({
-    patientInfo: {
-        ...Styles.flexRow,
-        "& > div":{
-            width: "50%",
-        }
+    header: {
+        ...Styles.flexColumn,
+        alignContent: "center"
     },
-
-    photoContainer:{
-        width: "100px",
-        height: "100px",
-        borderRadius: "50px",
+    photoContainer: {
+        width: "50px",
+        height: "50px",
+        borderRadius: "25px",
         backgroundColor: Colors.accentBlue,
         position: "relative",
         color: "white",
-        marginLeft: "auto"
+        margin: "auto"
     },
-    photo:{
+    photo: {
         fontSize: "2em",
         position: "absolute",
         top: "50%",
         left: "50%",
-        transform: "translate(-50%,-50%)" 
+        transform: "translate(-50%,-50%)"
     },
     container: {
         ...Styles.flexColumn,
-        margin: "2em 1em 1em 1em",
+        margin: "1em",
         minHeight: "25vh",
-        widht: "90%",
-    },
-    test: {
-        height: "200vh",
+        width: "90%",
     },
     name: {
-        fontSize: "1.5em",
+        textAlign: "center",
+        fontSize: "1em",
         margin: ".5em 0 .5em 0",
-        fontWeight: "200"
     },
-    rightSide: {
-        fontWeight: "bold"
+    patientInfo: {
+        width: "100%",
+        borderRadius: "5px",
+        border: "solid 1px lightgray",
     },
+    profileItem: {
+        ...Styles.flexRow,
+        margin: ".5em",
+        alignItems: "center",
+        "& > svg": {
+            color: "gray"
+        },
+        "& > div": {
+            ...Styles.flexColumn,
+            margin: " 0 0 0 1em",
+            "& > h1,p": {
+                fontSize: ".9em",
+                padding: "5px 0 0 0",
+                margin: 0
+            }
+        }
+    }
 
 })
 
@@ -60,12 +78,13 @@ const HealthProfile = () => {
     const { t, i18n } = useTranslation('translation');
 
     return (<>
-        <OverTopBar reverse title={t("profile.title")} handleBack={() => { uiStore.menuOpened = false }} icon={<ClearIcon />}></OverTopBar>
+        <OverTopBar title={t("profile.title")} handleBack={() => { uiStore.menuOpened = false }} ></OverTopBar>
         <div className={classes.container}>
             <PatientInfo />
         </div>
-        </>
-)}
+    </>
+    )
+}
 
 
 function PatientInfo() {
@@ -75,24 +94,37 @@ function PatientInfo() {
     const { t, i18n } = useTranslation('translation');
 
     return (
-        <div className={classes.patientInfo}>
-        <div className={classes.info}>
-            <Typography className={classes.name} variant="h2">{patientStore.givenName} {patientStore.familyName[0]}.</Typography>
-            <Typography variant="body1">{t("profile.startDate")}:<br/> <span className={classes.rightSide}>{DateTime.local().toLocaleString(DateTime.DATE_SHORT)} </span> </Typography>
-            <Typography variant="body1">{t("profile.endDate")}:<br/>  <span className={classes.rightSide}>{DateTime.local().plus({days: 180}).toLocaleString(DateTime.DATE_SHORT)}</span></Typography>
-            <Typography variant="body1">
-                {t("profile.totalTreatments")}<br/> 
-                <span className={classes.rightSide}>164</span>
-            </Typography>
-            <Typography variant="body1">{t("profile.currentAdherence")}<br/> <span className={classes.rightSide}>98%</span></Typography>
+        <div className={classes.header}>
+            <div>
+                <div className={classes.photoContainer}>
+                    <div className={classes.photo}>{patientStore.givenName[0]}</div>
+                </div>
+                <Typography className={classes.name} className={classes.name} variant="h2">{patientStore.givenName} {patientStore.familyName}</Typography>
+            </div>
+            <div className={classes.patientInfo}>
+                <ProfileItem title={t("profile.startDate")} text="Feb 12" icon={<TimeIcon />} />
+                <ProfileItem title={t("profile.endDate")} text="Feb 12" icon={<FlagIcon />} />
+                <ProfileItem title={t("profile.organization")} text={patientStore.managingOrganization} icon={<LocationIcon />} />
+            </div>
+        <Options />
         </div>
-        <div>
-            <div className={classes.photoContainer}>
-                <div className={classes.photo}>{patientStore.givenName[0]}</div>
+    )
+}
+
+
+
+function ProfileItem(props) {
+
+    const classes = useStyles();
+    return (
+        <div className={classes.profileItem}>
+            {props.icon}
+            <div>
+                <h1>{props.title}</h1>
+                <p>{props.text}</p>
             </div>
         </div>
-        </div>
-)
+    )
 }
 
 export default HealthProfile;

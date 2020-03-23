@@ -13,7 +13,7 @@ const LogPrompt = observer(() => {
     const {patientStore} = useStores();
 
     const handleLogTreatment = () => {
-        patientStore.onTreatmentFlow = true;
+        patientStore.uiState.onTreatmentFlow = true;
     }
 
     return (

@@ -7,8 +7,23 @@ import styled from 'styled-components';
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import Colors from '../../Basics/Colors'
 import useStores from '../../Basics/UseStores';
+import ClickableText from '../../Basics/ClickableText';
+import { makeStyles } from '@material-ui/core/styles';
+
+
+
+const useStyles = makeStyles({
+
+    info:{
+        marginLeft: "10%",
+        fontSize: "1em"
+    }
+
+})
 
 const ReportPhoto = observer((props) => {
+
+    const classes = useStyles();
 
     const {patientStore} = useStores();
     patientStore.report.headerText = "Please capture photo of test strip"
@@ -19,37 +34,28 @@ const ReportPhoto = observer((props) => {
     }
 
     const handleExit = () => {
-        patientStore.cameraIsOpen = false;
+        patientStore.uiState.cameraIsOpen = false;
     }
 
     return(
         <div style={{width: "100%"}}>
                 {patientStore.photoWasTaken ?
                 <StripPhoto><img src={patientStore.photoString}/> </StripPhoto>
-                    
                     : 
+                <>
                 <ButtonBase style={{width:"90%",margin:"5%"}}>
-                    <PhotoPrompt onClick={() => {patientStore.cameraIsOpen = true}}>
+                    <PhotoPrompt onClick={() => {patientStore.uiState.cameraIsOpen = true}}>
                         <CameraAltIcon />
                         Open Camera
                     </PhotoPrompt>
-                </ButtonBase>}
+                </ButtonBase>
+                <ClickableText className={classes.info} hideIcon onClick={props.toggle} text="Show Me How" />
+                </>}
              <SimpleButton alignRight onClick={props.advance} disabled={!patientStore.photoWasTaken} backgroundColor={Colors.green}>Continute</SimpleButton>
-                {patientStore.cameraIsOpen ? <Camera handleExit={handleExit} returnPhoto={handlePhoto} /> : ""}
-                
+            {patientStore.uiState.cameraIsOpen ? <Camera handleExit={handleExit} returnPhoto={handlePhoto} /> : ""}
         </div>
         )
 });
-
-const ButtonContainer = styled.div`
-width: 100%;
-display: flex;
-justify-content: flex-end;
-
-button{
-    margin-right: 1em;
-}
-`
 
 const PhotoPrompt = styled.div`
 width: 100%;

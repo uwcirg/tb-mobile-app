@@ -24,7 +24,7 @@ const ReportSymptoms = observer((props) => {
                 <SymptomsList severe />
             </InteractionCard>
             <SimpleButton alignRight onClick={props.advance}>
-                Report {patientStore.selectedSymptoms.length === 0 ? "No" : patientStore.selectedSymptoms.length} Symptoms
+                Report {patientStore.report.selectedSymptoms.length === 0 ? "No" : patientStore.report.selectedSymptoms.length} Symptoms
             </SimpleButton>
         </Container>)
 });

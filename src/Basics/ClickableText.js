@@ -21,8 +21,9 @@ const ClickableText = (props) => {
     const classes = useStyles();
 
     return(
-    <ButtonBase className={classes.text} onClick={props.onClick}>
-        <ErrorOutlineIcon className={classes.icon} /> {props.text}
+    <ButtonBase className={`${classes.text} ${props.className}`} onClick={props.onClick}>
+        { !props.hideIcon && <ErrorOutlineIcon className={classes.icon} /> }
+        {props.text}
     </ButtonBase>
     )
 }

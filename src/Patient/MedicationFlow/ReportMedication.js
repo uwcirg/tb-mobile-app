@@ -70,7 +70,7 @@ const TimeQuestion = observer(() => {
 
     const handleDate = (date) => {
         handleDateChange(date);
-        patientStore.medicationTime = date.toISO();
+        patientStore.report.timeTaken = date.startOf('second').startOf("minute").toISOTime({ suppressSeconds: true });
     }
 
     return (
@@ -80,7 +80,7 @@ const TimeQuestion = observer(() => {
                     className={classes.timeSelect}
                     clearable
                     ampm={false}
-                    value={selectedDate}
+                    value={DateTime.fromISO(patientStore.report.timeTaken)}
                     onChange={handleDate}
                 />
             </div>
@@ -109,8 +109,6 @@ function DidntTakeMedication(props) {
     )
 }
 
-
-
 const ReportMedication = observer((props) => {
 
     const { patientStore } = useStores();
@@ -127,11 +125,15 @@ const ReportMedication = observer((props) => {
         patientStore.report.tookMedication = !patientStore.report.tookMedication
     }
 
+    const handleNext = () => {
+        props.advance()
+    }
+
     return (
         <>
             <Container>
                 {patientStore.report.tookMedication ? <DidTakeMedication toggle={toggle} /> : <DidntTakeMedication toggle={toggle} />}
-                <SimpleButton alignRight onClick={props.advance}>Next</SimpleButton>
+                <SimpleButton alignRight onClick={handleNext}>Next</SimpleButton>
             </Container>
         </>
     )

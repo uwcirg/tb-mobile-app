@@ -90,9 +90,9 @@ function Days(){
                 className={`${classes.day} ${today && classes.today} ${i==3 && classes.missedDay}`}
                 onClick={() => {
                     if(today){
-                        patientStore.onTreatmentFlow = true;
+                        patientStore.uiState.onTreatmentFlow = true;
                     }else{
-                        patientStore.onCalendarView = true;
+                        patientStore.uiState.onCalendarView = true;
                     }
                 }}>
                 <p>{date.weekdayShort}</p>

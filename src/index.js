@@ -25,7 +25,7 @@ import DateFnsUtils from '@date-io/luxon';
 //Testing router option ( would improve usibility on coordinator side)
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
 import { Router } from 'react-router';
-import createBrowserHistory from 'history/createBrowserHistory';
+import {createBrowserHistory} from 'history';
 
 const browserHistory = createBrowserHistory();
 const routingStore = new RouterStore();
@@ -49,7 +49,6 @@ const stores = {
 reaction(
     () => stores.uiStore.language,
     locale => {
-      console.log("change language");
       i18n.changeLanguage(locale);
     }
   );

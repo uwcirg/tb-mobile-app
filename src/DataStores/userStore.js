@@ -27,6 +27,7 @@ export class UserStore extends APIStore{
       this.givenName = json.givenName;
       this.familyName = json.familyName;
       this.userID = json.identifier[0].value;
+      this.managingOrganization = json.managingOrganization
 
       //TODO move this to to patient store and use Super call
       if(this.userType = "Patient"){

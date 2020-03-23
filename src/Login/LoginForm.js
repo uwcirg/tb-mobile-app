@@ -23,7 +23,7 @@ const LoginForm = observer((props) => {
       loginStore.identifier = e.target.value;
     }
 
-    //Todo refactor polymorphicly
+    //TODO refactor polymorphicly
     let handleLogin = () => {
       loginStore.login(props.loginType).then( res => {
         switch(res) {
