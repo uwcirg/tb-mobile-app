@@ -19,15 +19,20 @@ export class PatientStore extends UserStore{
         super(strategy,ROUTES,"Patient")
 
         const json = localStorage.getItem(`medicationReport`);
-        const lsReport = JSON.parse(json);
-        //Is the stored report from today? -> Load the state
-        if(Math.floor(DateTime.fromISO(lsReport.date).diffNow("days").days * -1) === 0){
-            console.log("same date")
-            this.report = lsReport
-        }else{
-            console.log("not same date")
-            //Dont mess with exisiting one
-            return
+
+        if(json){
+            const lsReport = JSON.parse(json);
+            if(lsReport.date){
+                //Is the stored report from today? -> Load the state
+                if(Math.floor(DateTime.fromISO(lsReport.date).diffNow("days").days * -1) === 0){
+                    console.log("same date")
+                    this.report = lsReport
+                }else{
+                    console.log("not same date")
+                    //Dont mess with exisiting one
+                    return
+                }
+        }
         }
     }
 
