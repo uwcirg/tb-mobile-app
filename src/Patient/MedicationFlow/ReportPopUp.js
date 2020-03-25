@@ -31,6 +31,8 @@ const ReportPopUp = observer(() => {
 
     const handleExit = () => {
         patientStore.uiState.onTreatmentFlow = false;
+        patientStore.report.step = 0;
+        patientStore.report.hasSubmitted = true;
     }
 
     return (

@@ -29,7 +29,7 @@ const ReportPhoto = observer((props) => {
     patientStore.report.headerText = "Please capture photo of test strip"
 
     const handlePhoto = (photo) => {
-        patientStore.photoString = photo;
+        patientStore.report.photoString = photo;
         patientStore.photoWasTaken = true;
     }
 
@@ -40,7 +40,7 @@ const ReportPhoto = observer((props) => {
     return(
         <div style={{width: "100%"}}>
                 {patientStore.photoWasTaken ?
-                <StripPhoto><img src={patientStore.photoString}/> </StripPhoto>
+                <StripPhoto><img src={patientStore.report.photoString}/> </StripPhoto>
                     : 
                 <>
                 <ButtonBase style={{width:"90%",margin:"5%"}}>
@@ -51,7 +51,7 @@ const ReportPhoto = observer((props) => {
                 </ButtonBase>
                 <ClickableText className={classes.info} hideIcon onClick={props.toggle} text="Show Me How" />
                 </>}
-             <SimpleButton alignRight onClick={props.advance} disabled={!patientStore.photoWasTaken} backgroundColor={Colors.green}>Continute</SimpleButton>
+             <SimpleButton alignRight onClick={patientStore.photoSubmission} disabled={!patientStore.photoWasTaken} backgroundColor={Colors.green}>Continute</SimpleButton>
             {patientStore.uiState.cameraIsOpen ? <Camera handleExit={handleExit} returnPhoto={handlePhoto} /> : ""}
         </div>
         )

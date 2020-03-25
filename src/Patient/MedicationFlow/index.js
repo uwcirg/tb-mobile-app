@@ -1,5 +1,5 @@
 import React from 'react';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import ReportMedication from './ReportMedication'
 import ReportSymptoms from './ReportSymptoms'
 import ReportPhoto from './ReportPhoto'
@@ -10,9 +10,8 @@ import useStores from '../../Basics/UseStores';
 import { makeStyles } from '@material-ui/core/styles';
 import Styles from '../../Basics/Styles'
 import Colors from '../../Basics/Colors';
-import SimpleButton from '../../Basics/SimpleButton';
-import {DateTime} from 'luxon'
-import {autorun,when} from 'mobx';
+
+import ReportConfirmation from './ReportConfirmation'
 
 const useStyles = makeStyles({
     title: {
@@ -54,7 +53,7 @@ const NumberedTitle = (props) => {
 
 const MedicationFlow = observer((props) => {
     const classes = useStyles();
-    const { patientStore, uiStore } = useStores();
+    const { patientStore} = useStores();
     const { t, i18n } = useTranslation('translation');
 
     const handleBack = () => {
@@ -72,7 +71,13 @@ const MedicationFlow = observer((props) => {
         patientStore.report.step += 1
     }
 
-    const Tabs = [<ReportMedication />, <ReportSymptoms />, <ReportPopUp />]
+    let Tabs;
+
+    if(patientStore.isPhotoDay){
+        Tabs = [<ReportMedication />, <ReportSymptoms />,<ReportPopUp />,<ReportConfirmation />]
+    }else{
+        Tabs = [<ReportMedication />, <ReportSymptoms />,<ReportConfirmation />]
+    }
 
     const tabNumber = (patientStore.uiState.onPhotoFlow ? 3 : patientStore.report.step + 1);
     return (
@@ -82,5 +87,6 @@ const MedicationFlow = observer((props) => {
            {patientStore.uiState.onPhotoFlow ? <ReportPhoto /> : React.cloneElement(Tabs[patientStore.report.step],{advance: advance})}
         </div>)
 });
+
 
 export default MedicationFlow;
