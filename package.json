@@ -26,6 +26,7 @@
     "mobx-react-router": "^4.1.0",
     "react": "^16.11.0",
     "react-app-rewire-mobx": "^1.0.9",
+    "react-calendar": "^3.0.0",
     "react-circular-progressbar": "^2.0.3",
     "react-code-input": "^3.9.0",
     "react-dom": "^16.11.0",

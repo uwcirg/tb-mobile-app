@@ -8,6 +8,8 @@ import DayDrawer from './DayDrawer'
 import WeekCalendar from '../Progress/WeekCalendar';
 import useStores from '../../Basics/UseStores';
 import {observer} from 'mobx-react'
+import CustomCalendar from './CustomCalendar';
+import OverTopBar from '../Navigation/OverTopBar';
 
 
 const useStyles = makeStyles(theme =>({
@@ -118,6 +120,7 @@ const StaticDatePicker = observer(() => {
                 disableFuture
                 ToolbarComponent={CustomToolbar}
                 renderDay={customDay}
+                next2Label={""}
            />
             </div>
         );
@@ -133,7 +136,8 @@ const Progress = observer(() => {
         <div className={classes.container} >  
             {!patientStore.uiState.onCalendarView ? <WeekCalendar /> :
             <>
-                <StaticDatePicker />
+                <OverTopBar title="Calendar" handleBack={() => {patientStore.uiState.onCalendarView = false}}/>
+                <CustomCalendar />
                 <DayDrawer className={classes.drawer} />
             </>}
         </div>

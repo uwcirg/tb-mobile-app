@@ -65,7 +65,8 @@ const OverTopBar = (props) => {
 
 OverTopBar.propTypes = {
   reverse: PropTypes.bool,
-  title: PropTypes.string
+  title: PropTypes.string,
+  handleBack: PropTypes.func
 
 }
 

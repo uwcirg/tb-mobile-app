@@ -1,4 +1,5 @@
 import { action, observable, autorun, computed} from "mobx";
+import {Settings} from 'luxon'
 
 export class UIStore {
 
@@ -12,6 +13,8 @@ export class UIStore {
     @observable menuOpened = false;
     @observable offline = !navigator.onLine;
 
+    @observable locale = "en-US"
+
 
     @computed get isSpanish(){
         return this.language == "es"
@@ -20,11 +23,16 @@ export class UIStore {
     @action toggleLanguage = () => {
         if(this.language == "en"){
             this.language = "es"
+            this.locale = "es-ar"
         }else{
             this.language = "en"
+            this.locale = "en-US"
         }
-        console.log("tes")
     }
+
+    syncLuxon = autorun(() => {
+        Settings.defaultLocale = this.locale;
+    });
 
     @action toggleMenu = () => {
         this.menuOpened = !this.menuOpened;
