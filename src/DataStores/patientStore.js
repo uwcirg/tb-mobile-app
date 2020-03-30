@@ -4,12 +4,11 @@ import { DateTime } from 'luxon';
 
 const ROUTES = {
     login: ["/authenticate", "POST"],
-    register: ["/participant", "POST"],
-    saveNote: ["/participant/current/notes", "POST"],
-    reportMedication: ["/participant/current/medication_report", "POST"],
-    reportSymptoms: ["/participant/current/symptom_report", "POST"],
     getCurrentPatient: ["/patient/me", "GET"],
-    getVapidKey: ["/push_key", "GET"]
+    getVapidKey: ["/push_key", "GET"],
+    dailyReport: ["/daily_report", "POST"],
+    patientReports: ["/daily_reports", "GET"],
+    getPhotoUploadURL: ["/patient/daily_reports/photo_upload_url","GET"]
 }
 
 export class PatientStore extends UserStore {
@@ -31,6 +30,10 @@ export class PatientStore extends UserStore {
         }
     }
 
+    @computed get selectedDayReport() {
+        return this.savedReports[`${this.uiState.selectedCalendarDate.toISODate()}`]
+    }
+
     @observable treatmentStart = ""
 
     @observable uiState = {
@@ -38,9 +41,12 @@ export class PatientStore extends UserStore {
         onPhotoFlow: false,
         onCalendarView: false,
         cameraIsOpen: false,
+        selectedCalendarDate: DateTime.local().startOf('day')
     }
 
     @observable medicationSchedule = []
+
+    @observable savedReports = [];
 
     //MedicationFlow Variables
     @observable report = {
@@ -115,8 +121,68 @@ export class PatientStore extends UserStore {
     }
 
     @action submitReport = () => {
-        this.report.hasSubmitted = true;
-        this.uiState.onTreatmentFlow = false;
+        let body = {};
+        this.report.selectedSymptoms.map((value) => {
+            body[value] = true
+        })
+        body.date = this.report.date;
+        body.medicationWasTaken = this.report.tookMedication;
+        body.dateTimeTaken = this.report.timeTaken;
+
+        if(this.isPhotoDay && this.report.photoString){
+            this.uploadPhoto().then( res => {
+                body.photoURL = res
+                this.executeRequest('dailyReport', body).then(json => {
+                    this.report.hasSubmitted = true;
+                    this.uiState.onTreatmentFlow = false;
+                    this.getReports();
+                })
+                
+            })
+        }else{
+            this.executeRequest('dailyReport', body).then(json => {
+                this.report.hasSubmitted = true;
+                this.uiState.onTreatmentFlow = false;
+                this.getReports();
+            })
+        }
+
+        
+
+    }
+
+    @action getReports = () => {
+
+        this.executeRequest('patientReports').then(json => {
+            console.log(json)
+            this.savedReports = json;
+        })
+    }
+
+    getReportFromDateTime = (date) => {
+        return this.savedReports[`${date.toISODate()}`]
+    }
+
+    uploadPhoto = () => {
+
+        const imageString = this.report.photoString.replace(/^data:image\/\w+;base64,/, "")
+        const file = new Buffer(imageString, 'base64')
+
+        return this.executeRequest('getPhotoUploadURL').then( (json) => {
+            return fetch(json.url, {
+                method: 'PUT',
+                body: file
+            }).then((res) => {
+                return json.key
+            }).catch((e) => {
+                console.error(e);
+            });
+        })
+    }
+
+    @action initalize() {
+        super.initalize()
+        this.getReports();
     }
 
     @action logout() {

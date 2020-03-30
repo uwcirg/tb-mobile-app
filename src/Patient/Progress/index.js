@@ -15,7 +15,7 @@ import OverTopBar from '../Navigation/OverTopBar';
 const useStyles = makeStyles(theme =>({
     container: {
         width: "100vw",
-        height: "70vh",
+        height: "60vh",
         display: "flex",
         justifyContent: "flex-start",
         alignItems: "center",
@@ -61,6 +61,9 @@ const useStyles = makeStyles(theme =>({
 
     end:{
         borderRadius: "0 20px 20px 0"
+    },
+    centerContainer:{
+        justifyContent: "center"
     }
 }));
 
@@ -133,7 +136,7 @@ const Progress = observer(() => {
     const {patientStore} = useStores();
 
     return(<>
-        <div className={classes.container} >  
+        <div className={`${classes.container} ${patientStore.uiState.onCalendarView && classes.centerContainer}`} >  
             {!patientStore.uiState.onCalendarView ? <WeekCalendar /> :
             <>
                 <OverTopBar title="Calendar" handleBack={() => {patientStore.uiState.onCalendarView = false}}/>

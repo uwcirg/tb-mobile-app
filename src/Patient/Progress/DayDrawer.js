@@ -1,26 +1,13 @@
 import React,{useState} from 'react';
-import Drawer from '@material-ui/core/Drawer'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import IconButton from '@material-ui/core/IconButton'
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-
 import ClipBoard from '@material-ui/icons/Assignment';
 import Check from '@material-ui/icons/CheckCircle';
 import Healing from '@material-ui/icons/Healing';
-
-
+import {DateTime} from 'luxon'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-
 import useStores from '../../Basics/UseStores'
-
-import Typography from '@material-ui/core/Typography'
-
 import { makeStyles } from '@material-ui/core';
 import { observer } from 'mobx-react';
 import Colors from '../../Basics/Colors';
@@ -40,6 +27,9 @@ const useStyles = makeStyles({
         boxShadow: "unset",
         zIndex: "10"
     },
+    drawerImage:{
+        width: "100%",
+    },
 
     drawerTitle:{
       margin: 0,
@@ -57,10 +47,10 @@ const useStyles = makeStyles({
     },
     preview:{
       display: "flex",
-      width: "100%",
+      width: "20%",
       justifyContent: "space-between",
       "& > svg": {
-        fontSize: "3em",
+        fontSize: "1.8em",
         color: Colors.textGray
       },
       "& > svg:first-of-type":{
@@ -88,6 +78,8 @@ const DayDrawer = observer((props) => {
     const [open, setOpen] = React.useState(true);
     const {patientStore} = useStores();
 
+    const date = patientStore.uiState.selectedCalendarDate
+
     const handleDrawerOpen = () => {
       setOpen(true);
     };
@@ -103,7 +95,7 @@ const DayDrawer = observer((props) => {
             aria-controls="panel1a-content"
             id="panel1a-header">
           <div className={classes.container}>
-          <h2 className={classes.drawerTitle}>{patientStore.selectedDateForDisplay}</h2>
+          <h2 className={classes.drawerTitle}>{date.toLocaleString(DateTime.DATE_MED)}</h2>
             <div className={classes.preview}>
               <Check />
               <ClipBoard />
@@ -113,7 +105,8 @@ const DayDrawer = observer((props) => {
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <div className={classes.test}>
-                  <h1>{patientStore.selectedDateForDisplay}</h1>
+                  <h1>{(patientStore.selectedDayReport && patientStore.selectedDayReport.medicationTaken) ? "Yes" : "No"}</h1>
+                  {(patientStore.selectedDayReport && patientStore.selectedDayReport.photoURL) ? <img className={classes.drawerImage} src={patientStore.selectedDayReport.photoURL} /> : "No"}
               </div>
             </ExpansionPanelDetails>
       </ExpansionPanel>
@@ -122,27 +115,3 @@ const DayDrawer = observer((props) => {
 });
 
 export default DayDrawer;
-
-/*
- <Drawer
-        className={classes.drawer}
-        variant="persistent"
-        anchor="bottom"
-        open={open}
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
-            <KeyboardArrowUpIcon />
-          </IconButton>
-        </div>
-        <List>
-            <ListItem button key={"Day"}>
-              <ListItemIcon><AddCircleOutlineIcon /></ListItemIcon>
-              <ListItemText primary={"Day"} />
-            </ListItem>
-        </List>
-      </Drawer>
-*/

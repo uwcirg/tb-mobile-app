@@ -45,13 +45,7 @@ const Messaging = observer(() => {
     useEffect(() => messagingStore.getChannels(), []);
 
     let allChannels;
-    messagingStore.channels.length > 0 && (allChannels = messagingStore.channels.sort((channel)=>{ 
-        if(channel.isPrivate){
-            return 1
-        }else{
-            return -1
-        }
-    }).map( (channel) => {
+    messagingStore.channels.length > 0 && (allChannels = messagingStore.channels.map( (channel) => {
       
         return <ChannelPreview 
                     key={`channel${channel.id}`}
@@ -70,8 +64,6 @@ const Messaging = observer(() => {
 
 
     const ChannelList = (<><TopWarning />{allChannels}</>)
-
-    console.log(messagingStore.selectedChannelCreator)
 
         return(
             <div className={classes.root}>

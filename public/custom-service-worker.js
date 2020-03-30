@@ -15,9 +15,12 @@ const apiURL = (isLocalhost) ? "http://localhost:5061" : "https://tb-api-test.ci
 
 if (workbox) {
   console.log(`Yay! Workbox is loaded 🎉`);
+  
 } else {
   console.log(`Boo! Workbox didn't load 😬`);
 }
+
+workbox.setConfig({debug: false});
 
 workbox.routing.registerRoute(
   /\.(?:js|css|json|html)$/,

@@ -49,7 +49,7 @@ const MessageInput = (props) => {
             multiline
             onChange={handleChange} 
         />
-        <IconButton disabled={props.disableSend} onClick={props.handleSend} className={classes.send}><SendIcon outlined /></IconButton>
+        <IconButton disabled={props.disableSend} onClick={props.handleSend} className={classes.send}><SendIcon /></IconButton>
     </div>)
 
 }

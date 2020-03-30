@@ -27,16 +27,14 @@ const Channel = observer((props) => {
     let messages = [];
     if (messagingStore.selectedChannelMessages &&
         messagingStore.selectedChannelMessages.length > 0) {
-        messages = messagingStore.selectedChannelMessages.map(message => {
+        messages = messagingStore.selectedChannelMessages.map( (message, index) => {
             const isUser = props.userID === message.user_id;
 
-            return <Message message={message} isUser={isUser} />
+            return <Message key={`message ${index}`} message={message} isUser={isUser} />
         })
 
-        messages.push(<ScrollRef />)
+        messages.push(<ScrollRef  key={'message -1'}/>)
     }
-
-    console.log(props.isPersonalChannel)
 
     return (
         <>

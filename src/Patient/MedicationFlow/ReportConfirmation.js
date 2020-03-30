@@ -16,28 +16,32 @@ import ReportPopUp from './ReportPopUp'
 
 
 const useStyles = makeStyles({
+    superContainer:{
+        marginBottom: "1em"
+    },
     container: {
         ...Styles.flexColumn,
+        maxWidth: "100vw",
         "& > div": {
             borderBottom: "1px solid lightgray"
         },
-        marginBottom: "2em"
+        marginBottom: "1em"
     },
     parent: {
         margin: "auto",
-        width: "100%",
+        width: "90%",
         display: "grid",
         gridTemplateColumns: "repeat(3,1fr)",
         gridTemplateRows: "auto auto",
         gridColumnGap: "0",
         gridRowGap: "0",
-        paddingLeft: ".5em",
         paddingBottom: ".5em",
 
     },
     one: {
         gridArea: "1 / 1 / 2 / 3",
         justifyContent: "flex-start",
+        padding: ".5em",
         "& > h2": {
             ...Styles.flexRow,
             alignItems: "center",
@@ -82,9 +86,10 @@ const ReportConfirmation = observer(() => {
 
     const classes = useStyles();
     const { patientStore } = useStores();
+    patientStore.report.headerText = "Confirm and Submit"
 
     return (
-        <>
+        <div className={classes.superContainer}>
             <div className={classes.container}>
                 <ListItem icon={<PillIcon />} title={"Medication"} >
                     <p>Taken at {DateTime.fromISO(patientStore.report.timeTaken).toLocaleString(DateTime.TIME_24_SIMPLE)}</p>
@@ -96,7 +101,7 @@ const ReportConfirmation = observer(() => {
                 <PhotoListItem />
             </div>
             <SimpleButton alignRight onClick={patientStore.submitReport}>Confirm and Submit</SimpleButton>
-        </>
+        </div>
     )
 
 });

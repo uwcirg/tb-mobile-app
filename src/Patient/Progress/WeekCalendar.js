@@ -87,6 +87,7 @@ function Days(){
         const component = (
             //TODO Add Patient Data
             <div 
+                key={`week-calendar-${date.weekdayShort}`}
                 className={`${classes.day} ${today && classes.today} ${i==3 && classes.missedDay}`}
                 onClick={() => {
                     if(today){
