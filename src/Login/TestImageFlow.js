@@ -8,7 +8,6 @@ import styled from 'styled-components';
 import Switch from '@material-ui/core/Switch'
 
 import { inject, observer } from 'mobx-react';
-import { render } from 'react-dom';
 
 const uploadFile = (imageString) => {
     imageString = imageString.replace(/^data:image\/\w+;base64,/, "")

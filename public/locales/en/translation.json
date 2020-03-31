@@ -34,6 +34,16 @@
         "organization": "Organization"
     },
 
+    "patient": {
+        "home":{
+            "todaysActions":{
+                "title": "Todays Actions",
+                "logMedication": "Log Medication",
+                "uploadPhoto": "Upload Photo"
+            }
+        }
+    },
+
     "messaging": {
         "nurseContact": "Need individual support? Contact your provider!"
     },

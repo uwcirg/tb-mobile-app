@@ -98,18 +98,15 @@ export class PatientStore extends UserStore {
     }
 
     @action reportSymptoms(body) {
-
         return this.executeRequest('reportSymptoms', body).then(json => {
             this.getPatientInformation();
         });
     }
 
-
     saveReportingState = autorun(() => {
         if (this.report.step > 0 || this.report.hasSubmitted) {
             localStorage.setItem(`medicationReport`, JSON.stringify(this.report));
         }
-
     });
 
     @action photoSubmission = () => {
@@ -117,7 +114,6 @@ export class PatientStore extends UserStore {
         this.uiState.onPhotoFlow = false;
         this.uiState.onTreatmentFlow = true;
         this.report.step = 3;
-
     }
 
     @action submitReport = () => {
@@ -146,15 +142,12 @@ export class PatientStore extends UserStore {
                 this.getReports();
             })
         }
-
-        
-
     }
 
     @action getReports = () => {
 
         this.executeRequest('patientReports').then(json => {
-            console.log(json)
+             (json)
             this.savedReports = json;
         })
     }

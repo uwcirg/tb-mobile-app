@@ -5,12 +5,14 @@ import LogPrompt from './LogPrompt';
 import ActionBox from './ActionBox';
 import Alerts from './Alerts';
 import Colors from '../../Basics/Colors';
+import Greeting from './Greeting'
 
 const HomePage = () => {
 
     return (
 
         <Body>
+            <Greeting />
             <ActionBox />
             <ProgressGraph />
             <Alerts />

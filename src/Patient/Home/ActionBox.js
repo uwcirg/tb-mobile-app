@@ -23,9 +23,9 @@ const ActionBox = observer(() => {
     }
 
     return(
-        <InteractionCard upperText={"Action Needed"}>
-            <NewButton positive={patientStore.report.hasSubmitted} onClick={handleReportClick} icon={<Clipboard />} text="Log Medication" />
-            {patientStore.isPhotoDay && <NewButton positive={patientStore.report.hasSubmittedPhoto} onClick={handlePhotoClick} icon={<Camera />} text="Upload Photo" />} 
+        <InteractionCard upperText={t("patient.home.todaysActions.title")}>
+            <NewButton positive={patientStore.report.hasSubmitted} onClick={handleReportClick} icon={<Clipboard />} text={t("patient.home.todaysActions.logMedication")} />
+            {patientStore.isPhotoDay && <NewButton positive={patientStore.report.hasSubmittedPhoto} onClick={handlePhotoClick} icon={<Camera />} text={t("patient.home.todaysActions.uploadPhoto")} />} 
         </InteractionCard>)
 });
 
