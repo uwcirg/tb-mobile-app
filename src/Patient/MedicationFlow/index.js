@@ -79,6 +79,10 @@ const MedicationFlow = observer((props) => {
         Tabs = [<ReportMedication />, <ReportSymptoms />,<ReportConfirmation />]
     }
 
+    if(patientStore.report.step > Tabs.length - 1){
+        patientStore.report.step = Tabs.length - 1
+    }
+
     const tabNumber = (patientStore.uiState.onPhotoFlow ? 3 : patientStore.report.step + 1);
     return (
         <div className={classes.container}>

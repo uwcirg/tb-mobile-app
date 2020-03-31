@@ -37,7 +37,7 @@
     "patient": {
         "home":{
             "todaysActions":{
-                "title": "Todays Actions",
+                "title": "Todays Tasks",
                 "logMedication": "Log Medication",
                 "uploadPhoto": "Upload Photo"
             }

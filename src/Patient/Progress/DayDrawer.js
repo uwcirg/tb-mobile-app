@@ -19,12 +19,9 @@ import ReportConfirmation from '../MedicationFlow/ReportConfirmation';
 
 const useStyles = makeStyles({
 
-  drawerPaper: {
-
-  },
   drawer: {
-    position: "absolute",
-    bottom: "60px",
+    position: "fixed",
+    bottom: "0",
     padding: "0px",
     width: "100vw",
     borderBottom: "unset",
@@ -75,7 +72,7 @@ const useStyles = makeStyles({
     width: "100%"
   },
   detail:{
-    maxHeight: "60vh",
+    maxHeight: "85vh",
     overflow: "scroll",
     padding: 0,
     margin: 0,

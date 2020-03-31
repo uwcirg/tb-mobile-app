@@ -11,6 +11,12 @@ import { observer } from 'mobx-react'
 
 const useStyles = makeStyles({
     calendar: {
+
+        "& > div.react-calendar__navigation > button":{
+            backgroundColor: "white",
+            border: "none",
+            
+        },
         "& > div.react-calendar__viewContainer > div > div > div > div.react-calendar__month-view__days > button > abbr": {
             display: "none"
         },
@@ -79,17 +85,6 @@ const useStyles = makeStyles({
     },
 
 })
-
-/*
- "& > p": {
-            display: "block",
-            width: "50%",
-            height: "50%",
-            backgroundColor: Colors.accentBlue,
-            padding: "8px",
-            borderRadius: "5px"
-        },
-*/
 
 const CustomCalendar = () => {
 

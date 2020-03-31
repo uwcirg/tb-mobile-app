@@ -76,6 +76,10 @@ export class PatientStore extends UserStore {
         return this.selectedDate.toLocaleString(DateTime.DATE_FULL)
     }
 
+    @computed get dailyActionsCompleted(){
+        return this.report.hasSubmittedPhoto && this.report.hasSubmitted
+    }
+
     //Calendar Selection
     @observable selectedDate = DateTime.local();
 
@@ -150,6 +154,11 @@ export class PatientStore extends UserStore {
              (json)
             this.savedReports = json;
         })
+    }
+
+    @action openReportConfirmation = () => {
+        this.uiState.onTreatmentFlow = true;
+        this.report.step = 4;
     }
 
     getReportFromDateTime = (date) => {

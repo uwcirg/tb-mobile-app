@@ -43,7 +43,7 @@ const InteractionCard = (props) => {
 
     return(<div className={classes.superContainer}>
         <span className={classes.upperText}>{props.upperText}</span>
-        <Paper className={`${classes.container}  ${props.noPadding && classes.noPadding}`}>
+        <Paper className={`${classes.container}  ${props.noPadding && classes.noPadding} ${props.className}`}>
             {props.children}
         </Paper>
     </div>)

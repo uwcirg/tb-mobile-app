@@ -8,12 +8,57 @@ import Calendar from '@material-ui/icons/Event';
 import Dot from '@material-ui/icons/FiberManualRecord';
 import useStores from '../../Basics/UseStores';
 
+const WeekCalendar = () => {
+
+    const classes = useStyles();
+
+    return(<div className={classes.container}>
+        <Grid className={classes.monthContainer} container direction="row" justify="flex-end" alignItems="center">
+            <Typography className={classes.month} variant="h2" >{DateTime.local().monthLong}</Typography>
+            <Calendar size="1.5em" />
+        </Grid>
+        <Days />
+    </div>)
+}
+
+function Days(){
+
+    const classes = useStyles();
+    const {patientStore} = useStores();
+
+    let list = []
+    for(let i = 4; i >= 0; i--){
+        const today = i == 0;
+        const date = DateTime.local().minus({days: i})
+        const component = (
+            //TODO Add Patient Data
+            <div 
+                key={`week-calendar-${date.weekdayShort}`}
+                className={`${classes.day} ${today && classes.today} ${i==3 && classes.missedDay}`}
+                onClick={() => {
+                    if(today){
+                        patientStore.uiState.onTreatmentFlow = true;
+                    }else{
+                        patientStore.uiState.onCalendarView = true;
+                    }
+                }}>
+                <p>{date.weekdayShort}</p>
+                <p>{date.day}</p>
+                {i==3 && <Dot className={classes.dot} />}
+            </div>
+        )
+        list.push(component)
+    }
+
+    return(<div className={classes.week}>{list}</div>)
+}
 
 const useStyles = makeStyles({
     container:{
         marginBottom: "1em",
         backgroundColor: "white",
-        paddingBottom: ".5em"
+        paddingBottom: ".5em",
+        paddingTop: "1em",
     },
     day:{
         ...Styles.flexColumn,
@@ -59,52 +104,5 @@ const useStyles = makeStyles({
     }
   
 })
-
-const WeekCalendar = () => {
-
-    const classes = useStyles();
-
-    return(<div className={classes.container}>
-        <Grid className={classes.monthContainer} container direction="row" justify="flex-end" alignItems="center">
-            <Typography className={classes.month} variant="h2" >{DateTime.local().monthLong}</Typography>
-            <Calendar size="1.5em" />
-        </Grid>
-        <Days />
-    </div>)
-
-}
-
-
-function Days(){
-
-    const classes = useStyles();
-    const {patientStore} = useStores();
-
-    let list = []
-    for(let i = 4; i >= 0; i--){
-        const today = i == 0;
-        const date = DateTime.local().minus({days: i})
-        const component = (
-            //TODO Add Patient Data
-            <div 
-                key={`week-calendar-${date.weekdayShort}`}
-                className={`${classes.day} ${today && classes.today} ${i==3 && classes.missedDay}`}
-                onClick={() => {
-                    if(today){
-                        patientStore.uiState.onTreatmentFlow = true;
-                    }else{
-                        patientStore.uiState.onCalendarView = true;
-                    }
-                }}>
-                <p>{date.weekdayShort}</p>
-                <p>{date.day}</p>
-                {i==3 && <Dot className={classes.dot} />}
-            </div>
-        )
-        list.push(component)
-    }
-
-    return(<div className={classes.week}>{list}</div>)
-}
 
 export default WeekCalendar;
