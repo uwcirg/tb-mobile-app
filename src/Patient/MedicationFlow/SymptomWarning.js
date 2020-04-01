@@ -10,30 +10,6 @@ import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
 import { ReactComponent as DoctorIcon } from '../../Basics/Icons/doctor.svg';
 
-const useStyles = makeStyles({
-    basicButton: {
-        textTransform: "capitalize",
-        color: Colors.buttonBlue
-    },
-    title:{
-        margin: "1em 0 0 0",
-        fontSize: "120%"
-    },
-    subtitle: {
-        fontSize: "100%"
-    },
-    customButton: {
-        width: "50%",
-        textAlign: "center",
-        "& > span":{
-            width: "100%"
-        },
-        "& > svg": {
-            display: "none"
-        }
-    }
-})
-
 const SymptomWarning = observer(() => {
 
     const { patientStore } = useStores();
@@ -60,6 +36,30 @@ const SymptomWarning = observer(() => {
         </PopUp>
     )
 });
+
+const useStyles = makeStyles({
+    basicButton: {
+        textTransform: "capitalize",
+        color: Colors.buttonBlue
+    },
+    title:{
+        margin: "1em 0 0 0",
+        fontSize: "120%"
+    },
+    subtitle: {
+        fontSize: "100%"
+    },
+    customButton: {
+        width: "50%",
+        textAlign: "center",
+        "& > span":{
+            width: "100%"
+        },
+        "& > svg": {
+            display: "none"
+        }
+    }
+})
 
 
 export default SymptomWarning;
