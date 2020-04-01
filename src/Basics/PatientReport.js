@@ -100,6 +100,12 @@ const PhotoListItem = (props) => {
                 <img className={classes.stripPhoto} src={props.photoString}/>
             </ListItem>
         )
+    }else{
+        return(
+            <ListItem icon={<CameraIcon />} title={"Strip Photo"}>
+            <p>No Photo Needed Today</p>
+        </ListItem>
+        )
     }
 
 };

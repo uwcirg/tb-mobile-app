@@ -7,10 +7,12 @@ import { Typography, Grid, Container } from '@material-ui/core';
 import Calendar from '@material-ui/icons/Event';
 import Dot from '@material-ui/icons/FiberManualRecord';
 import useStores from '../../Basics/UseStores';
+import ClickableText from '../../Basics/ClickableText';
 
 const WeekCalendar = () => {
 
     const classes = useStyles();
+    const {patientStore} = useStores();
 
     return(<div className={classes.container}>
         <Grid className={classes.monthContainer} container direction="row" justify="flex-end" alignItems="center">
@@ -18,8 +20,9 @@ const WeekCalendar = () => {
             <Calendar size="1.5em" />
         </Grid>
         <Days />
+        <ClickableText onClick={() => {patientStore.uiState.onCalendarView = true}} className={classes.clickableText} hideIcon text="View Your Calendar" />
     </div>)
-}
+};
 
 function Days(){
 
@@ -101,6 +104,12 @@ const useStyles = makeStyles({
     dot:{
         fontSize: ".6em",
         color: "red"
+    },
+    clickableText:{
+        fontSize: "1em",
+        textAlign: "center",
+        display: "block",
+        margin: "1em auto .5em auto"
     }
   
 })

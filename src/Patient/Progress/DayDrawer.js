@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import ClipBoard from '@material-ui/icons/Assignment';
 import Check from '@material-ui/icons/CheckCircle';
@@ -11,11 +11,64 @@ import useStores from '../../Basics/UseStores'
 import { makeStyles } from '@material-ui/core';
 import { observer } from 'mobx-react';
 import Colors from '../../Basics/Colors';
-
 import PatientReport from '../../Basics/PatientReport';
-
 import ReportConfirmation from '../MedicationFlow/ReportConfirmation';
+import Styles from '../../Basics/Styles';
 
+const Header = (props) => {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.header}>
+      <h2 className={classes.drawerTitle}>{props.date.toLocaleString(DateTime.DATE_FULL)}</h2>
+      <p className={`${classes.status} ${!props.complete && classes.incomplete}`}>{props.complete ? "Complete" : "Incomplete"}</p>
+    </div>
+  )
+}
+
+const DayDrawer = observer((props) => {
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(true);
+  const { patientStore } = useStores();
+
+  const date = patientStore.uiState.selectedCalendarDate
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <ExpansionPanel className={classes.drawer}>
+      <ExpansionPanelSummary className={classes.collapsedDrawer}
+        expandIcon={<KeyboardArrowUpIcon />}
+        aria-controls="panel1a-content"
+        id="panel1a-header">
+        <div className={classes.container}>
+          <Header date={date} complete={patientStore.selectedDayReport && patientStore.selectedDayReport.medicationTaken } />
+          <div className={classes.preview}>
+            <Check />
+            <ClipBoard />
+            <Healing />
+          </div>
+        </div>
+      </ExpansionPanelSummary>
+      <ExpansionPanelDetails className={classes.detail}>
+        {patientStore.selectedDayReport ?
+          <PatientReport
+            timeTaken={patientStore.selectedDayReport.takenAt}
+            selectedSymptoms={patientStore.selectedDayReport.symptoms}
+            photoString={patientStore.selectedDayReport.photoURL}
+            isPhotoDay={true}
+          /> : <p>Supress Warning</p>}
+      </ExpansionPanelDetails>
+    </ExpansionPanel>
+  )
+
+});
 
 const useStyles = makeStyles({
 
@@ -26,7 +79,8 @@ const useStyles = makeStyles({
     width: "100vw",
     borderBottom: "unset",
     boxShadow: "unset",
-    zIndex: "10"
+    zIndex: "10",
+    minHeight: "18vh"
   },
   drawerImage: {
     width: "100%",
@@ -34,7 +88,6 @@ const useStyles = makeStyles({
 
   drawerTitle: {
     margin: 0,
-    padding: "0 0 .5em 0",
     fontSize: "1.25em"
   },
   collapsedDrawer: {
@@ -71,58 +124,26 @@ const useStyles = makeStyles({
   container: {
     width: "100%"
   },
-  detail:{
+  detail: {
     maxHeight: "85vh",
     overflow: "scroll",
     padding: 0,
     margin: 0,
     width: "100vw"
+  },
+  header: {
+    ...Styles.flexRow,
+    alignItems: "center"
+  },
+  status: {
+    textTransform: "uppercase",
+    color: Colors.approvedGreen,
+    fontSize: ".75em",
+    marginLeft: "2em"
+  },
+  incomplete: {
+    color: Colors.red
   }
 })
-
-
-const DayDrawer = observer((props) => {
-  const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
-  const { patientStore } = useStores();
-
-  const date = patientStore.uiState.selectedCalendarDate
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
-  return (
-    <ExpansionPanel className={classes.drawer}>
-      <ExpansionPanelSummary className={classes.collapsedDrawer}
-        expandIcon={<KeyboardArrowUpIcon />}
-        aria-controls="panel1a-content"
-        id="panel1a-header">
-        <div className={classes.container}>
-          <h2 className={classes.drawerTitle}>{date.toLocaleString(DateTime.DATE_MED)}</h2>
-          <div className={classes.preview}>
-            <Check />
-            <ClipBoard />
-            <Healing />
-          </div>
-        </div>
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails className={classes.detail}>
-        {patientStore.selectedDayReport ?
-        <PatientReport
-          timeTaken={patientStore.selectedDayReport.takenAt}
-          selectedSymptoms={patientStore.selectedDayReport.symptoms}
-          photoString={patientStore.selectedDayReport.photoURL}
-          isPhotoDay={true}
-        />: <p>Supress Warning</p>}
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
-  )
-
-});
 
 export default DayDrawer;
