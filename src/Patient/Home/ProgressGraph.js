@@ -18,11 +18,12 @@ const useStyles = makeStyles({
         margin: 0,
         position: "relative",
         top: "-1em",
-        fontSize: "5vw"
+        fontSize: "110%"
     },
     graph:{
         width: "50%",
         margin: "auto",
+        maxWidth: "200px"
     },
     stats:{
         ...Styles.flexRow,

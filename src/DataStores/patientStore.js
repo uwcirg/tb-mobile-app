@@ -1,4 +1,4 @@
-import { action, observable, computed, autorun } from "mobx";
+import { action, observable, computed, autorun, toJS } from "mobx";
 import { UserStore } from './userStore';
 import { DateTime } from 'luxon';
 
@@ -8,7 +8,7 @@ const ROUTES = {
     getVapidKey: ["/push_key", "GET"],
     dailyReport: ["/daily_report", "POST"],
     patientReports: ["/daily_reports", "GET"],
-    getPhotoUploadURL: ["/patient/daily_reports/photo_upload_url","GET"]
+    getPhotoUploadURL: ["/patient/daily_reports/photo_upload_url", "GET"]
 }
 
 export class PatientStore extends UserStore {
@@ -17,21 +17,7 @@ export class PatientStore extends UserStore {
     constructor(strategy) {
         super(strategy, ROUTES, "Patient")
 
-        const json = localStorage.getItem(`medicationReport`);
-
-        if (json) {
-            const lsReport = JSON.parse(json);
-            if (lsReport.date) {
-                //Is the stored report from today? -> Load the state
-                if (Math.floor(DateTime.fromISO(lsReport.date).diffNow("days").days * -1) === 0) {
-                    this.report = lsReport
-                }
-            }
-        }
-    }
-
-    @computed get selectedDayReport() {
-        return this.savedReports[`${this.uiState.selectedCalendarDate.toISODate()}`]
+        this.loadDailyReport()
     }
 
     @observable treatmentStart = ""
@@ -41,14 +27,11 @@ export class PatientStore extends UserStore {
         onPhotoFlow: false,
         onCalendarView: false,
         cameraIsOpen: false,
-        selectedCalendarDate: DateTime.local().startOf('day')
+        selectedCalendarDate: DateTime.local().startOf('day'),
+        symptomWarningVisible: false
     }
-
     @observable medicationSchedule = []
-
     @observable savedReports = [];
-
-    //MedicationFlow Variables
     @observable report = {
         date: DateTime.local().toISODate(),
         step: 0,
@@ -61,6 +44,11 @@ export class PatientStore extends UserStore {
         hasSubmitted: false,
         hasSubmittedPhoto: false
     }
+
+    @computed get selectedDayReport() {
+        return this.savedReports[`${this.uiState.selectedCalendarDate.toISODate()}`]
+    }
+
 
     @computed get daysSinceTreatmentStart() {
         return Math.floor(DateTime.fromISO(this.treatmentStart).endOf('day').diffNow("days").days * -1)
@@ -76,8 +64,18 @@ export class PatientStore extends UserStore {
         return this.selectedDate.toLocaleString(DateTime.DATE_FULL)
     }
 
-    @computed get dailyActionsCompleted(){
+    @computed get dailyActionsCompleted() {
         return this.report.hasSubmittedPhoto && this.report.hasSubmitted
+    }
+
+    @computed get numberOfPhotoReports() {
+
+        return Object.values(toJS(this.savedReports)).reduce((total, report) => {
+            if (report.photoURL) {
+                return total += 1
+            }
+            return total
+        }, 0)
     }
 
     //Calendar Selection
@@ -87,6 +85,10 @@ export class PatientStore extends UserStore {
         return this.executeRequest('register', body).then(json => {
             this.setAccountInformation(json);
         });
+    }
+
+    @action toggleSymptomWarningVisibility() {
+        this.uiState.symptomWarningVisible = !this.uiState.symptomWarningVisible
     }
 
     @action saveNote(body) {
@@ -129,17 +131,17 @@ export class PatientStore extends UserStore {
         body.medicationWasTaken = this.report.tookMedication;
         body.dateTimeTaken = this.report.timeTaken;
 
-        if(this.isPhotoDay && this.report.photoString){
-            this.uploadPhoto().then( res => {
+        if (this.isPhotoDay && this.report.photoString) {
+            this.uploadPhoto().then(res => {
                 body.photoURL = res
                 this.executeRequest('dailyReport', body).then(json => {
                     this.report.hasSubmitted = true;
                     this.uiState.onTreatmentFlow = false;
                     this.getReports();
                 })
-                
+
             })
-        }else{
+        } else {
             this.executeRequest('dailyReport', body).then(json => {
                 this.report.hasSubmitted = true;
                 this.uiState.onTreatmentFlow = false;
@@ -151,7 +153,7 @@ export class PatientStore extends UserStore {
     @action getReports = () => {
 
         this.executeRequest('patientReports').then(json => {
-             (json)
+            (json)
             this.savedReports = json;
         })
     }
@@ -159,6 +161,18 @@ export class PatientStore extends UserStore {
     @action openReportConfirmation = () => {
         this.uiState.onTreatmentFlow = true;
         this.report.step = 4;
+    }
+
+    loadDailyReport() {
+        const json = localStorage.getItem(`medicationReport`);
+
+        if (json) {
+            const lsReport = JSON.parse(json);
+            if (lsReport.date && Math.floor(DateTime.fromISO(lsReport.date).diffNow("days").days * -1) === 0) {
+                this.report = lsReport
+            }
+
+        }
     }
 
     getReportFromDateTime = (date) => {
@@ -170,7 +184,7 @@ export class PatientStore extends UserStore {
         const imageString = this.report.photoString.replace(/^data:image\/\w+;base64,/, "")
         const file = new Buffer(imageString, 'base64')
 
-        return this.executeRequest('getPhotoUploadURL').then( (json) => {
+        return this.executeRequest('getPhotoUploadURL').then((json) => {
             return fetch(json.url, {
                 method: 'PUT',
                 body: file

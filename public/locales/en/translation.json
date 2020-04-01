@@ -52,7 +52,15 @@
         "title": "Log Today's Medication",
         "medicationTitle": "Medication",
         "symptomsTitle": "Symptoms?",
-        "photoTitle": "Strip Report"
+        "photoTitle": "Strip Report",
+        "symptoms": {
+            "warning": {
+                "title": "You logged a symptom that needs immediate follow up",
+                "subtitle": "Please seek emergency medical attention immediately. Your Coordinator will follow up with you.",   
+                "button": "Okay",
+                "moreInformation": "More Information"
+            }
+        }
     },
 
     "reportConfirmation":{
