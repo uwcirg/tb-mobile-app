@@ -13,8 +13,8 @@ const authenticatedRequest = (url, method, body) => {
     })
         .then(resolve => {
 
-            if(resolve.status == 401){
-                return new Error(401);
+            if(resolve.status >= 400){
+                return new Error(resolve.status);
             }
             return resolve.json()})
         .then(json => { return json })

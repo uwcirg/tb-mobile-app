@@ -11,7 +11,8 @@ const ROUTES = {
     addPatient:["/patient","POST"],
     getCurrentPractitioner:["/practitioner/me", "GET"],
     getOrganizations:["/organizations","GET"],
-    notifyAll: ["/notify_all", "POST"]
+    notifyAll: ["/notify_all", "POST"],
+    getParticipants: ["/practitioner/patients","GET"]
 }
 
 export class PractitionerStore extends UserStore {
@@ -90,6 +91,13 @@ export class PractitionerStore extends UserStore {
     @action
     setAccountInformation = () => {
         console.log("pracition set account info")
+    }
+
+
+    @action getParticipants = () => {
+        this.executeRequest('getParticipants').then( response => {
+            console.log(response)
+        })
     }
 
     sendNotificationToAll = () => {

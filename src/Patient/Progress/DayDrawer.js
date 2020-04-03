@@ -14,6 +14,9 @@ import Colors from '../../Basics/Colors';
 import PatientReport from '../../Basics/PatientReport';
 import ReportConfirmation from '../MedicationFlow/ReportConfirmation';
 import Styles from '../../Basics/Styles';
+import { useTranslation } from 'react-i18next';
+import NewButton from '../../Basics/NewButton';
+import Clipboard from '@material-ui/icons/Assignment'
 
 const Header = (props) => {
   const classes = useStyles();
@@ -28,7 +31,7 @@ const Header = (props) => {
 
 const DayDrawer = observer((props) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const { patientStore } = useStores();
 
   const date = patientStore.uiState.selectedCalendarDate
@@ -41,21 +44,25 @@ const DayDrawer = observer((props) => {
     setOpen(false);
   };
 
+  const complete=(patientStore.selectedDayReport && patientStore.selectedDayReport.medicationTaken)
+
   return (
-    <ExpansionPanel className={classes.drawer}>
+    <ExpansionPanel 
+      expanded={open} 
+      onClick={() => {
+        complete && setOpen(!open)
+      }} 
+      className={classes.drawer}>
       <ExpansionPanelSummary className={classes.collapsedDrawer}
-        expandIcon={<KeyboardArrowUpIcon />}
+        expandIcon={complete && <KeyboardArrowUpIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header">
         <div className={classes.container}>
-          <Header date={date} complete={patientStore.selectedDayReport && patientStore.selectedDayReport.medicationTaken } />
-          <div className={classes.preview}>
-            <Check />
-            <ClipBoard />
-            <Healing />
+          <Header date={date} complete={complete}  />
+            <Body complete={complete}  />
           </div>
-        </div>
       </ExpansionPanelSummary>
+      {complete && 
       <ExpansionPanelDetails className={classes.detail}>
         {patientStore.selectedDayReport ?
           <PatientReport
@@ -65,10 +72,30 @@ const DayDrawer = observer((props) => {
             isPhotoDay={true}
           /> : <p>Supress Warning</p>}
       </ExpansionPanelDetails>
+}
     </ExpansionPanel>
   )
 
 });
+
+
+const Body = (props) => {
+  const classes = useStyles();
+  const { t, i18n } = useTranslation('translation');
+
+  return (
+   <>
+      {props.complete ?
+        <div className={classes.preview}>
+      <Check />
+      <ClipBoard />
+      <Healing />
+      </div> :
+      <NewButton onClick={() => {}} icon={<Clipboard />} text={t("patient.home.todaysActions.logMedication")} />
+}
+    </>
+  )
+}
 
 const useStyles = makeStyles({
 

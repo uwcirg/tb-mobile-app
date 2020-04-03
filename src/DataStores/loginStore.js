@@ -13,6 +13,8 @@ export default class LoginStore extends APIStore {
         super(strategy, ROUTES);
     }
 
+    @observable error = 0;
+
     @observable identifier = "";
     @observable password = "";
 
@@ -44,8 +46,14 @@ export default class LoginStore extends APIStore {
             userType: userType
         }
 
-        return this.executeRequest('login', body).then(json => {
-            return this.handleAuthentication(json);
+        return this.executeRequest('login', body).then(response => {
+
+            if(response instanceof Error){
+                this.error = response.message;
+                return
+            }
+            
+            return this.handleAuthentication(response);
         })
     }
 
@@ -53,6 +61,10 @@ export default class LoginStore extends APIStore {
        return this.executeRequest('activatePatient',this.activationBody).then(json =>{
            return this.handleAuthentication
        })
+   }
+
+    @action clearError = () => {
+       this.error = "";
    }
 
     persistUserData = (json) => {

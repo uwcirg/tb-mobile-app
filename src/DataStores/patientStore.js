@@ -1,6 +1,6 @@
 import { action, observable, computed, autorun, toJS } from "mobx";
 import { UserStore } from './userStore';
-import { DateTime } from 'luxon';
+import { DateTime, Interval } from 'luxon';
 
 const ROUTES = {
     login: ["/authenticate", "POST"],
@@ -45,6 +45,10 @@ export class PatientStore extends UserStore {
         hasSubmittedPhoto: false
     }
 
+    @computed get datetimeTreatmentStart() {
+        return DateTime.fromISO(this.treatmentStart).startOf('day')
+    }
+
     @computed get selectedDayReport() {
         return this.savedReports[`${this.uiState.selectedCalendarDate.toISODate()}`]
     }
@@ -76,6 +80,18 @@ export class PatientStore extends UserStore {
             }
             return total
         }, 0)
+    }
+
+    @computed get incompleteDays(){
+        return (Interval.fromDateTimes(
+            this.datetimeTreatmentStart,
+            DateTime.local().startOf("day"))
+          .splitBy({days: 1}).filter(d => {
+            return !this.savedReports[d.start.toISODate()]
+          }).map(d => {
+              const isoDate = d.start.toISODate()
+              return d.start.toISODate()
+            }))
     }
 
     //Calendar Selection

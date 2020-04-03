@@ -28,9 +28,8 @@ const LeftDrawer = inject("uiStore", "patientStore")(observer(({ uiStore, patien
   };
 
   const handleLogout = () => {
+    uiStore.menuOpened = false;
     patientStore.logout();
-    patientStore.isLoggedIn = false;
-    uiStore.toggleMenu();
   }
 
   return (
@@ -42,7 +41,7 @@ const LeftDrawer = inject("uiStore", "patientStore")(observer(({ uiStore, patien
     >
       <div className={classes.contentContainer}>
         <HealthProfile />
-        <NewButton onClick={patientStore.logout} className={classes.logout} icon={<ExitToApp />} text={t("profile.logout")} />
+        <NewButton onClick={handleLogout} className={classes.logout} icon={<ExitToApp />} text={t("profile.logout")} />
       </div>
     </Drawer>
   );

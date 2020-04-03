@@ -12,6 +12,7 @@ const PasswordInput = (props) => {
     <div>
       <InputLabel htmlFor="input-with-icon-adornment">{props.confirmation?"Password Confirmation" : "Password"}</InputLabel>
       <Input
+        autoComplete="password"
         disableUnderline
         defaultValue={passwordText}
         onChange={(e) => { props.updatePassword(e) }}
@@ -21,7 +22,7 @@ const PasswordInput = (props) => {
           }
         }}
         type="password"
-        id="input-with-icon-adornment"
+        id="password"
         fullWidth
       />
     </div>)
@@ -32,13 +33,14 @@ const IdentifierInput = (props) => {
     <div>
     <InputLabel htmlFor="input-with-icon-adornment">{props.defaultValue}</InputLabel>
     <Input
+      autoComplete="username"
       defaultValue={ props.defaultValue}
       onChange={(e) => { props.updateIdentifier(e) }}
       onClick={(e) => { 
         if(identifierTextOptions.includes(e.target.value)){
           e.target.value = ""
         }}}
-      id="input-with-icon-adornment"
+      id="identifier"
       disableUnderline
       fullWidth/>
     </div>
