@@ -1,4 +1,4 @@
-import { action, observable } from "mobx";
+import { action, observable, computed } from "mobx";
 import APIStore from './apiStore';
 
 const ROUTES = {
@@ -32,9 +32,15 @@ export default class LoginStore extends APIStore {
     }
     
     @action verifyActivationCode = () => {
-        this.executeRequest('checkActivationCode',this.activationBody).then(json =>{
-            this.activationWasRequested = true;
-            this.activationWasSuccessful = json.validCode;
+        this.executeRequest('checkActivationCode',this.activationBody).then(response =>{
+
+            if(response instanceof Error){
+                this.error = response.message;
+                console.log(response.name)
+            }else{
+                this.activationWasRequested = true;
+                this.activationWasSuccessful = response.validCode;
+            }
         })
     }
 

@@ -29,7 +29,7 @@ const LeftDrawer = inject("uiStore", "patientStore")(observer(({ uiStore, patien
 
   const handleLogout = () => {
     uiStore.menuOpened = false;
-    patientStore.logout();
+    patientStore.logoutPatient();
   }
 
   return (

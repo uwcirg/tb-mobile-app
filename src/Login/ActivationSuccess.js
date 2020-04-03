@@ -15,6 +15,7 @@ const ActivationSuccess = observer(() => {
     const handleLogin = () => {
         loginStore.activatePatient().then( loginSuccess => {
             patientStore.isLoggedIn = loginSuccess;
+            patientStore.initalize();
         });
     }
 

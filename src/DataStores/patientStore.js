@@ -16,8 +16,6 @@ export class PatientStore extends UserStore {
     //Takes in a data fetching strategy, so you can swap out the API one for testing data
     constructor(strategy) {
         super(strategy, ROUTES, "Patient")
-
-        this.loadDailyReport()
     }
 
     @observable treatmentStart = ""
@@ -32,6 +30,7 @@ export class PatientStore extends UserStore {
     }
     @observable medicationSchedule = []
     @observable savedReports = [];
+
     @observable report = {
         date: DateTime.local().toISODate(),
         step: 0,
@@ -82,15 +81,15 @@ export class PatientStore extends UserStore {
         }, 0)
     }
 
-    @computed get incompleteDays(){
+    @computed get incompleteDays() {
         return (Interval.fromDateTimes(
             this.datetimeTreatmentStart,
             DateTime.local().startOf("day"))
-          .splitBy({days: 1}).filter(d => {
-            return !this.savedReports[d.start.toISODate()]
-          }).map(d => {
-              const isoDate = d.start.toISODate()
-              return d.start.toISODate()
+            .splitBy({ days: 1 }).filter(d => {
+                return !this.savedReports[d.start.toISODate()]
+            }).map(d => {
+                const isoDate = d.start.toISODate()
+                return d.start.toISODate()
             }))
     }
 
@@ -214,16 +213,13 @@ export class PatientStore extends UserStore {
 
     @action initalize() {
         super.initalize()
+        this.loadDailyReport();
         this.getReports();
     }
 
-    @action logout() {
-
-        super.logout();
-        //Remove persistant user information
-        this.clearLocalStorage();
-        //this.unsubscribeFromNotifications();
-
+    @action logoutPatient(){
+        console.log("here")
+        this.logout();
         //Clear MobX Session Data
         this.userID = ""
         this.token = ""
@@ -232,6 +228,32 @@ export class PatientStore extends UserStore {
         this.information = {}
         this.notes = []
         this.expired = false;
-        this.isLoggedIn = false;
+        this.report = {
+            date: DateTime.local().toISODate(),
+            step: 0,
+            timeTaken: DateTime.local().startOf('second').startOf("minute").toISOTime({ suppressSeconds: true }),
+            selectedSymptoms: [],
+            photoWasTaken: false,
+            photoString: "",
+            tookMedication: true,
+            headerText: "When did you take your medication?",
+            hasSubmitted: false,
+            hasSubmittedPhoto: false
+        }
+        this.uiState = {
+            onTreatmentFlow: false,
+            onPhotoFlow: false,
+            onCalendarView: false,
+            cameraIsOpen: false,
+            selectedCalendarDate: DateTime.local().startOf('day'),
+            symptomWarningVisible: false
+        }
+
+
+        
+        //Remove persistant user information
+        //this.unsubscribeFromNotifications();
+
     }
+
 }

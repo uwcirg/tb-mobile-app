@@ -7,9 +7,7 @@ import Alert from '../Basics/Alert';
 import Button from '@material-ui/core/Button';
 
 import {PasswordInput} from './StyledInputs'
-
 const USER_TYPES = ["Patient","Practitioner","Administrator"];
-
 const LoginForm = observer((props) => {
 
     const {patientStore,loginStore,practitionerStore} = useStores();
@@ -39,17 +37,6 @@ const LoginForm = observer((props) => {
             console.log("Invalid Login")
         }
       });
-  
-    }
-
-    const errorText = () => {
-      if(loginStore.error == 422){
-        return "User does not exist"
-      }else if(loginStore.error == 401){
-        return "Wrong Password"
-      }else{
-        return "Internal Server Error"
-      }
     }
   
     const isPatient = props.loginType == "Patient";
@@ -69,7 +56,6 @@ const LoginForm = observer((props) => {
             <a onClick={props.handleActivate}>Activate New Account</a>
             <a>Forgot Password</a>
           </BottomLinks>
-          {loginStore.error && <Alert open text={errorText()} onClose={loginStore.clearError} />}
       </Container>
     );
   });

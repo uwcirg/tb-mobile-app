@@ -38,9 +38,11 @@ export class UserStore extends APIStore{
   }
 
     @action logout = () => {
+        console.log("there")
         this.executeRequest('logout').then( (json) => {
           this.isLoggedIn = false;
         })
+        this.clearLocalStorage();
 
     }
 
@@ -60,6 +62,7 @@ export class UserStore extends APIStore{
       localStorage.removeItem("user.token");
       localStorage.removeItem("user.id");
       localStorage.removeItem("user.type");
+      localStorage.removeItem("medicationReport")
   }
 
   unsubscribeFromNotifications(){
