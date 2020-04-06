@@ -22,7 +22,7 @@ const Login = observer(() => {
     return(
         <>
         <LoginRouter />
-        {loginStore.error && <Alert open text={errorText()} onClose={loginStore.clearError} />}
+        {loginStore.error != 0 && <Alert open text={errorText()} onClose={loginStore.clearError} />}
         </>
 
     )
