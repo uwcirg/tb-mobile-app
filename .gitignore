@@ -3,6 +3,8 @@
 # Local configuration
 .env
 
+/public/env.js
+
 # vscode
 .vscode
 

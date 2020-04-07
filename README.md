@@ -23,6 +23,7 @@ Code: [tb-foundation](https://github.com/uwcirg/tb-foundation)
 Documenation: [Postman Docs](https://documenter.getpostman.com/view/8985648/SVtPYrMr?version=latest)
 
 **Deployment Organized via Docker-Compose**
+Make sure you have both .env and /public/env.js ( CRA Serviceworker Environment Workaround)
 
 ## Installation
 Coming Soon

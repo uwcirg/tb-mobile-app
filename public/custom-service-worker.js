@@ -1,5 +1,7 @@
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox-sw.js');
 
+importScripts('./env.js');
+
 const isLocalhost = Boolean(
   self.location.hostname === 'localhost' ||
     // [::1] is the IPv6 localhost address.
@@ -34,6 +36,9 @@ workbox.routing.registerRoute(
 
 
 self.addEventListener('push', function(event) {
+
+ console.log('log notification was delivered to server @ ' + env.url);
+ console.log(event)
 
  let data = event.data.json();
   
