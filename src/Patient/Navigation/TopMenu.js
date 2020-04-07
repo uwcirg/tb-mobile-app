@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import NewButton from '../../Basics/NewButton'
 import Styles from '../../Basics/Styles';
 
-const LeftDrawer = inject("uiStore", "patientStore")(observer(({ uiStore, patientStore, props }) => {
+const TopMenu = inject("uiStore", "patientStore")(observer(({ uiStore, patientStore, props }) => {
 
   const classes = useStyles();
   const theme = useTheme();
@@ -79,4 +79,4 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default LeftDrawer;
+export default TopMenu;

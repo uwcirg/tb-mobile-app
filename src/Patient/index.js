@@ -6,7 +6,7 @@ import Info from './Info'
 import Messaging from '../Messaging';
 import Progress from './Progress';
 import TopBar from './Navigation/TopBar';
-import Drawer from './Navigation/Drawer';
+import TopMenu from './Navigation/TopMenu';
 
 @inject("uiStore")
 @observer
@@ -19,7 +19,7 @@ class PatientHome extends Component {
     return (
       <div className="main-screen">
         <TopBar />
-        <Drawer />
+        <TopMenu />
           <div style={{paddingTop: "60px", paddingBottom:"60px"}}>
             {tabs[this.props.uiStore.activeTab]}
           </div>
