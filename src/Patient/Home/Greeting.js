@@ -27,6 +27,8 @@ const useStyles = makeStyles({
 
 const Greeting = () => {
 
+  console.log(DateTime.local().toISOTime())
+
     const classes = useStyles();
     const {patientStore} = useStores();
 

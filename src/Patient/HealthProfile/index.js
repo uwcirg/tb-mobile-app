@@ -10,6 +10,8 @@ import TimeIcon from '@material-ui/icons/AccessTime';
 import FlagIcon from '@material-ui/icons/FlagOutlined';
 import LocationIcon from '@material-ui/icons/LocationOn';
 import Options from './Options'
+import NewButton from '../../Basics/NewButton'
+import ExitToApp from '@material-ui/icons/ExitToApp';
 
 
 const HealthProfile = () => {
@@ -34,6 +36,11 @@ function PatientInfo() {
     const { patientStore, uiStore } = useStores();
     const { t, i18n } = useTranslation('translation');
 
+    const handleLogout = () => {
+        uiStore.menuOpened = false;
+        patientStore.logoutPatient();
+      }
+
     return (
         <div className={classes.container}>
             <div className={classes.header}>
@@ -42,7 +49,7 @@ function PatientInfo() {
                 </div>
                 <Typography className={classes.name} className={classes.name} variant="h2">{patientStore.givenName} {patientStore.familyName}</Typography>
             </div>
-
+            <NewButton onClick={handleLogout} className={classes.logout} icon={<ExitToApp />} text={t("profile.logout")} />
             <div className={classes.containedBox}>
                 <div>
                     <ProfileItem title={t("profile.startDate")} text="Feb 12" icon={<TimeIcon />} />
@@ -72,6 +79,9 @@ function ProfileItem(props) {
 }
 
 const useStyles = makeStyles({
+    logout:{
+        width: "90%"
+    },
     header: {
         ...Styles.flexColumn,
         alignContent: "center"

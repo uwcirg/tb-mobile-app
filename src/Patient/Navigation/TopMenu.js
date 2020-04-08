@@ -1,15 +1,9 @@
 import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import ExitToApp from '@material-ui/icons/ExitToApp';
-import ClearIcon from '@material-ui/icons/Clear';
 import { inject, observer } from 'mobx-react';
-import Colors from '../../Basics/Colors';
 import HealthProfile from '../HealthProfile';
 import { useTranslation } from 'react-i18next';
-import NewButton from '../../Basics/NewButton'
 import Styles from '../../Basics/Styles';
 
 const TopMenu = inject("uiStore", "patientStore")(observer(({ uiStore, patientStore, props }) => {
@@ -27,11 +21,6 @@ const TopMenu = inject("uiStore", "patientStore")(observer(({ uiStore, patientSt
     uiStore.toggleMenu();
   };
 
-  const handleLogout = () => {
-    uiStore.menuOpened = false;
-    patientStore.logoutPatient();
-  }
-
   return (
     <Drawer
       className={classes.drawer}
@@ -41,7 +30,6 @@ const TopMenu = inject("uiStore", "patientStore")(observer(({ uiStore, patientSt
     >
       <div className={classes.contentContainer}>
         <HealthProfile />
-        <NewButton onClick={handleLogout} className={classes.logout} icon={<ExitToApp />} text={t("profile.logout")} />
       </div>
     </Drawer>
   );

@@ -8,7 +8,8 @@ const ROUTES = {
     getVapidKey: ["/push_key", "GET"],
     dailyReport: ["/daily_report", "POST"],
     patientReports: ["/daily_reports", "GET"],
-    getPhotoUploadURL: ["/patient/daily_reports/photo_upload_url", "GET"]
+    getPhotoUploadURL: ["/patient/daily_reports/photo_upload_url", "GET"],
+    updateNotificationTime: ["/patient/reminder","PATCH"]
 }
 
 export class PatientStore extends UserStore {
@@ -17,6 +18,8 @@ export class PatientStore extends UserStore {
     constructor(strategy) {
         super(strategy, ROUTES, "Patient")
     }
+
+    @observable notificationTime = DateTime.fromISO("12:00:00").toISOTime();
 
     @observable treatmentStart = ""
 
@@ -176,6 +179,14 @@ export class PatientStore extends UserStore {
     @action openReportConfirmation = () => {
         this.uiState.onTreatmentFlow = true;
         this.report.step = 4;
+    }
+
+    @action updateNotificationTime = () => {
+        const body = {time: this.notificationTime}
+        this.executeRequest('updateNotificationTime',body).then(json => {
+            console.log(json)
+            console.log(DateTime.fromISO(json.test2).toISOTime())
+        });
     }
 
     loadDailyReport() {
