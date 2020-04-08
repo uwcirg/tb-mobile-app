@@ -17,6 +17,8 @@ export class UserStore extends APIStore{
     @observable expired = false;
     @observable isLoggedIn = false;
 
+    @observable reminderTime = "";
+
     constructor(strategy,routes,userType){
         const mergedRoutes = {...USER_ROUTES,...routes}
         super(strategy,mergedRoutes);
@@ -52,6 +54,7 @@ export class UserStore extends APIStore{
         if(json.identifier){
             this.setAccountInformation(json)
             this.isLoggedIn = true;
+            this.reminderTime = json.reminderTime;
             this.subscribeToNotifications();
         }
     });

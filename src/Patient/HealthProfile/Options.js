@@ -32,7 +32,7 @@ const Options = observer(() => {
     const classes = useStyles();
 
     const handleDate = (date) => {
-        patientStore.notificationTime = date.startOf('second').startOf("minute").toISOTime({ suppressSeconds: true });
+        patientStore.reminderTime = date.startOf('second').startOf("minute").toISOTime({ suppressSeconds: true });
     }
 
     return (
@@ -62,14 +62,14 @@ const Options = observer(() => {
                 <div className={classes.preference}>
                     <p>Remind Me</p>
                     {/*<ClickableText hideIcon className={classes.blueText} text={"13:40"} />*/}
-                    <TimePicker
+                    { patientStore.isReminderUpdating ? <p>Updating...</p> : <TimePicker
                        
                         className={classes.timeSelect}
                         clearable
                         ampm={false}
-                        value={DateTime.fromISO(patientStore.notificationTime)}
+                        value={DateTime.fromISO(patientStore.reminderTime)}
                         onChange={handleDate}
-                />
+                />}
                     <ClickableText hideIcon onClick={patientStore.updateNotificationTime} className={classes.blueText} text={"update"} />
                 </div>
             </div>

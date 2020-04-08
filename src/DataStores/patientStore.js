@@ -19,7 +19,8 @@ export class PatientStore extends UserStore {
         super(strategy, ROUTES, "Patient")
     }
 
-    @observable notificationTime = DateTime.fromISO("12:00:00").toISOTime();
+    //@observable notificationTime = DateTime.fromISO("12:00:00").toISOTime();
+    @observable isReminderUpdating = false;
 
     @observable treatmentStart = ""
 
@@ -182,10 +183,16 @@ export class PatientStore extends UserStore {
     }
 
     @action updateNotificationTime = () => {
-        const body = {time: this.notificationTime}
+        console.log(this.reminderTime)
+        const body = {time: this.reminderTime}
+        this.isReminderUpdating = true;
         this.executeRequest('updateNotificationTime',body).then(json => {
-            console.log(json)
-            console.log(DateTime.fromISO(json.test2).toISOTime())
+
+            if(json.isoTime){
+                this.reminderTime = json.isoTime
+                this.isReminderUpdating = false;
+            }
+            
         });
     }
 
