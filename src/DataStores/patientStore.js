@@ -72,7 +72,7 @@ export class PatientStore extends UserStore {
     }
 
     @computed get dailyActionsCompleted() {
-        return this.report.hasSubmittedPhoto && this.report.hasSubmitted
+        return (!this.isPhotoDay || this.report.hasSubmittedPhoto) && this.report.hasSubmitted
     }
 
     @computed get numberOfPhotoReports() {
