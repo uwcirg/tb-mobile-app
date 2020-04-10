@@ -183,7 +183,6 @@ export class PatientStore extends UserStore {
     }
 
     @action updateNotificationTime = () => {
-        console.log(this.reminderTime)
         const body = {time: this.reminderTime}
         this.isReminderUpdating = true;
         this.executeRequest('updateNotificationTime',body).then(json => {
