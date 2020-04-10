@@ -12,7 +12,7 @@ import LocationIcon from '@material-ui/icons/LocationOn';
 import Options from './Options'
 import NewButton from '../../Basics/NewButton'
 import ExitToApp from '@material-ui/icons/ExitToApp';
-
+import { DateTime } from 'luxon';
 
 const HealthProfile = () => {
 
@@ -21,14 +21,13 @@ const HealthProfile = () => {
     const { t, i18n } = useTranslation('translation');
 
     return (<>
-        <OverTopBar title={t("profile.title")} handleBack={() => { uiStore.menuOpened = false }} ></OverTopBar>
+        <OverTopBar title={t("patient.profile.title")} handleBack={() => { uiStore.menuOpened = false }} ></OverTopBar>
         <div className={classes.container}>
             <PatientInfo />
         </div>
     </>
     )
 }
-
 
 function PatientInfo() {
 
@@ -41,6 +40,9 @@ function PatientInfo() {
         patientStore.logoutPatient();
       }
 
+    const testDate = DateTime.local().plus({weeks: 2})
+    const testDateString = testDate.toLocaleString(DateTime.DATE_MED);
+
     return (
         <div className={classes.container}>
             <div className={classes.header}>
@@ -49,12 +51,12 @@ function PatientInfo() {
                 </div>
                 <Typography className={classes.name} className={classes.name} variant="h2">{patientStore.givenName} {patientStore.familyName}</Typography>
             </div>
-            <NewButton onClick={handleLogout} className={classes.logout} icon={<ExitToApp />} text={t("profile.logout")} />
+            <NewButton onClick={handleLogout} className={classes.logout} icon={<ExitToApp />} text={t("patient.profile.logout")} />
             <div className={classes.containedBox}>
                 <div>
-                    <ProfileItem title={t("profile.startDate")} text="Feb 12" icon={<TimeIcon />} />
-                    <ProfileItem title={t("profile.endDate")} text="Feb 12" icon={<FlagIcon />} />
-                    <ProfileItem title={t("profile.organization")} text={patientStore.managingOrganization} icon={<LocationIcon />} />
+                    <ProfileItem title={t("patient.profile.startDate")} text={testDateString} icon={<TimeIcon />} />
+                    <ProfileItem title={t("patient.profile.endDate")} text={testDateString} icon={<FlagIcon />} />
+                    <ProfileItem title={t("patient.profile.organization")} text={patientStore.managingOrganization} icon={<LocationIcon />} />
                 </div>
 
                <Options />

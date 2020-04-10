@@ -9,6 +9,7 @@ import Styles from '../../Basics/Styles'
 import ClickableText from '../../Basics/ClickableText'
 import {DateTime} from 'luxon'
 import { TimePicker } from "@material-ui/pickers/TimePicker";
+import { useTranslation } from 'react-i18next';
 
 
 const useStyles = makeStyles({
@@ -29,6 +30,7 @@ const useStyles = makeStyles({
 const Options = observer(() => {
 
     const { patientStore, uiStore } = useStores();
+    const { t, i18n } = useTranslation('translation');
     const classes = useStyles();
 
     const handleDate = (date) => {
@@ -38,18 +40,18 @@ const Options = observer(() => {
     return (
         <>
             <div>
-                <h1>Language</h1>
+                <h1>{t("patient.profile.options.language")}</h1>
                 <FormGroup className={classes.preference}>
                     <FormControlLabel
                         control={<Switch checked={uiStore.isSpanish} onChange={() => { }} name="checkedA" />}
-                        label="Spanish" />
+                        label={t("patient.profile.options.spanish")} />
                 </FormGroup>
             </div>
 
             <div>
-                <h1>Daily Notifications</h1>
+                <h1>{t("patient.profile.options.dailyNotifications")}</h1>
                 <div className={classes.preference}>
-                    <p>Medication Reminder</p>
+                    <p>{t("patient.profile.options.medicationReminder")}</p>
                     <Switch
                         checked={true}
                         onChange={() => { }}
@@ -60,9 +62,9 @@ const Options = observer(() => {
                 </div>
                 <span className={classes.line} />
                 <div className={classes.preference}>
-                    <p>Remind Me</p>
+                    <p>{t("patient.profile.options.remindMe")}</p>
                     {/*<ClickableText hideIcon className={classes.blueText} text={"13:40"} />*/}
-                    { patientStore.isReminderUpdating ? <p>Updating...</p> : <TimePicker
+                    { patientStore.isReminderUpdating ? <p>{t("updating")}...</p> : <TimePicker
                        
                         className={classes.timeSelect}
                         clearable
@@ -70,7 +72,7 @@ const Options = observer(() => {
                         value={DateTime.fromISO(patientStore.reminderTime)}
                         onChange={handleDate}
                 />}
-                    <ClickableText hideIcon onClick={patientStore.updateNotificationTime} className={classes.blueText} text={"update"} />
+                    <ClickableText hideIcon onClick={patientStore.updateNotificationTime} className={classes.blueText} text={t("patient.profile.options.update")} />
                 </div>
             </div>
         </>

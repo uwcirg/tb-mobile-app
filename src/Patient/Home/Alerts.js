@@ -7,6 +7,8 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Colors from '../../Basics/Colors';
+import { useTranslation } from 'react-i18next';
+
 
 const useStyles = makeStyles({
     expansionPanel: {
@@ -27,9 +29,10 @@ const useStyles = makeStyles({
 const Alerts = () => {
 
     const classes = useStyles();
+    const { t, i18n } = useTranslation('translation');
 
     return (
-        <InteractionCard upperText="Daily Education">
+        <InteractionCard upperText={t("patient.home.cardTitles.myLearning")}>
             <Alert summary="Week One" new />
             <Alert summary="Welcome" />
         </InteractionCard>)

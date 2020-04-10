@@ -88,7 +88,7 @@ const MedicationFlow = observer((props) => {
     return (
         <div className={classes.container}>
             {(patientStore.report.step != 2  || patientStore.uiState.onPhotoFlow)&& <NumberedTitle number={tabNumber} title={patientStore.report.headerText} />}
-            <OverTopBar title={t("report.title")} handleBack={handleBack} />
+            <OverTopBar title={t("patient.report.title")} handleBack={handleBack} />
            {patientStore.uiState.onPhotoFlow ? <ReportPhoto /> : React.cloneElement(Tabs[patientStore.report.step],{advance: advance})}
         </div>)
 });

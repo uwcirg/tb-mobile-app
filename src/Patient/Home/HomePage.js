@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ProgressGraph from './ProgressGraph';
+import Progress from './Progress';
 import ActionBox from './ActionBox';
 import Alerts from './Alerts';
 import Colors from '../../Basics/Colors';
@@ -13,9 +13,9 @@ const HomePage = () => {
         <Body>
             <Greeting />
             <ActionBox />
-            <ProgressGraph />
+            <Progress />
             <Alerts />
-            <p>Treatment Companion Version 04.1.20.12:20</p>
+            <p>Treatment Companion Version 04.10.20.12:20</p>
         </Body>
     )
 

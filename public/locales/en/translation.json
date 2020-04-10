@@ -2,72 +2,92 @@
     "title": "Treatment Companion",
     "online": "Online",
     "offline": "Offline",
-    "greeting": "Hello",
-
-    "userFields":{
-        "givenName": "Given Name",
-        "familyName": "Family Name",
-        "firstName": "First Name",
-        "lastName": "Last Name",
-        "password": "Password",
-        "treatmentStart": "Treatment Start Date",
-        "phoneNumber": "Phone Number"
-    },
-
-    "home": {
-        "greeting": "Hi",
-        "purpose": "Lets keep track of your medication and health!",
-        "today": "Today",
-        "actions":{
-            "logMedication": "Log Medication",
-            "uploadPhoto": "Upload Photo"
-        }
-    },
-
-    "profile": {
-        "title": "Health Profile",
-        "startDate": "Start Date",
-        "endDate": "End Date",
-        "totalTreatments": "Total Required Treatments",
-        "currentAdherence": "Current Adherence",
-        "logout": "Log Out",
-        "organization": "Organization"
-    },
-
-    "patient": {
-        "home":{
-            "todaysActions":{
-                "title": "Todays Tasks",
-                "logMedication": "Log Medication",
-                "uploadPhoto": "Upload Photo"
-            }
-        }
-    },
-
+    "greeting": "Hi",
+    "updating": "Updating",
     "messaging": {
         "nurseContact": "Need individual support? Contact your provider!"
     },
 
-    "report": {
-        "title": "Log Today's Medication",
-        "medicationTitle": "Medication",
-        "symptomsTitle": "Symptoms?",
-        "photoTitle": "Strip Report",
-        "symptoms": {
-            "warning": {
-                "title": "You logged a symptom that needs immediate follow up",
-                "subtitle": "Please seek emergency medical attention immediately. Your Coordinator will follow up with you.",   
-                "button": "Okay",
-                "moreInformation": "More Information"
+    "time": {
+        "day": "day",
+        "week": "week",
+        "days": "days",
+        "weeks": "weeks"
+    },
+
+    "patient": {
+        "userFields": {
+            "givenName": "Given Name",
+            "familyName": "Family Name",
+            "firstName": "First Name",
+            "lastName": "Last Name",
+            "password": "Password",
+            "treatmentStart": "Treatment Start Date",
+            "phoneNumber": "Phone Number"
+        },
+        "home": {
+            "purpose": "Lets keep track of your medication and health!",
+            "today": "Today",
+            "actions": {
+                "logMedication": "Log Medication",
+                "uploadPhoto": "Upload Photo"
+            },
+            "todaysActions": {
+                "logMedication": "Log Medication",
+                "uploadPhoto": "Upload Photo"
+            },
+
+            "completed": {
+                "title": "Complete",
+                "subtitle": "Todays Report Has Been Submitted",
+                "modify": "Modify Your Report"
+            },
+
+            "cardTitles":{
+                "todaysTasks": "Todays Tasks",
+                "myProgress": "My Progress",
+                "myLearning": "My Learning"
             }
+        },
+        "profile": {
+            "title": "Health Profile",
+            "startDate": "Start Date",
+            "endDate": "End Date",
+            "totalTreatments": "Total Required Treatments",
+            "currentAdherence": "Current Adherence",
+            "logout": "Log Out",
+            "organization": "Organization",
+            "options": {
+                "language": "Language",
+                "dailyNotifications": "Daily Notifications",
+                "medicationReminder": "Medication Reminder",
+                "remindMe": "Remind Me",
+                "spanish": "Español",
+                "english": "English",
+                "update": "Update"
+            }
+        },
+        "report": {
+            "title": "Log Today's Medication",
+            "medicationTitle": "Medication",
+            "symptomsTitle": "Symptoms?",
+            "photoTitle": "Strip Report",
+            "symptoms": {
+                "warning": {
+                    "title": "You logged a symptom that needs immediate follow up",
+                    "subtitle": "Please seek emergency medical attention immediately. Your Coordinator will follow up with you.",
+                    "button": "Okay",
+                    "moreInformation": "More Information"
+                }
+            }
+        },
+        "reportConfirmation": {
+            "goodJob": "Good Job",
+            "photoNeeded": "You also need to upload a photo of your test strip today",
+            "doLater": "Do Later Today"
         }
     },
 
-    "reportConfirmation":{
-        "goodJob": "Good Job",
-        "photoNeeded": "You also need to upload a photo of your test strip today",
-        "doLater": "Do Later Today"
-    },
     "symptoms": {
         "nausea": 
         {
@@ -136,6 +156,4 @@
         }
 
     }
-
 }
-

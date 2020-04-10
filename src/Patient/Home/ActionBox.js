@@ -59,7 +59,7 @@ const ActionBox = observer(() => {
     }
 
     return(
-        <InteractionCard upperText={t("patient.home.todaysActions.title")}>
+        <InteractionCard upperText={t("patient.home.cardTitles.todaysTasks")}>
             {patientStore.dailyActionsCompleted ? 
             <>
             <Confirmation onClick={patientStore.openReportConfirmation} />
@@ -75,14 +75,15 @@ const ActionBox = observer(() => {
 
 const Confirmation = (props) => {
     const classes = useStyles();
+    const { t, i18n } = useTranslation('translation');
 
     return(
         <div className={classes.confirmation}>
             <DoctorIcon />
             <div className={classes.confirmationText}>
-                <div className={classes.confirmationHeader}>Complete<CheckIcon /></div>
-                <p>Todays Report Has Been Submitted</p>
-                <ClickableText onClick={props.onClick} hideIcon text={"Modify your report"}/>
+                <div className={classes.confirmationHeader}>{t("patient.home.completed.title")}<CheckIcon /></div>
+                <p>{t("patient.home.completed.subtitle")}</p>
+                <ClickableText onClick={props.onClick} hideIcon text={t("patient.home.completed.modify")}/>
             </div>
         </div>
     )
