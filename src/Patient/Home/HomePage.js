@@ -15,7 +15,6 @@ const HomePage = () => {
             <ActionBox />
             <Progress />
             <Alerts />
-            <p>Treatment Companion Version 04.10.20.12:20</p>
         </Body>
     )
 

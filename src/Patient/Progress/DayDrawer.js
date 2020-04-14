@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import ClipBoard from '@material-ui/icons/Assignment';
 import Check from '@material-ui/icons/CheckCircle';
@@ -18,6 +18,8 @@ import { useTranslation } from 'react-i18next';
 import NewButton from '../../Basics/NewButton';
 import Clipboard from '@material-ui/icons/Assignment'
 
+import Camera from '@material-ui/icons/CameraAlt'
+
 const Header = (props) => {
   const classes = useStyles();
 
@@ -31,48 +33,40 @@ const Header = (props) => {
 
 const DayDrawer = observer((props) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const { patientStore } = useStores();
 
   const date = patientStore.uiState.selectedCalendarDate
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
-  const complete=(patientStore.selectedDayReport && patientStore.selectedDayReport.medicationTaken)
+  const complete = (patientStore.selectedDayReport && patientStore.selectedDayReport.medicationTaken)
 
   return (
-    <ExpansionPanel 
-      expanded={open} 
+    <ExpansionPanel
+      expanded={open}
       onClick={() => {
         complete && setOpen(!open)
-      }} 
+      }}
       className={classes.drawer}>
       <ExpansionPanelSummary className={classes.collapsedDrawer}
         expandIcon={complete && <KeyboardArrowUpIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header">
         <div className={classes.container}>
-          <Header date={date} complete={complete}  />
-            <Body complete={complete}  />
-          </div>
+          <Header date={date} complete={complete} />
+          {!open && <Body complete={complete} />}
+        </div>
       </ExpansionPanelSummary>
-      {complete && 
-      <ExpansionPanelDetails className={classes.detail}>
-        {patientStore.selectedDayReport ?
-          <PatientReport
-            timeTaken={patientStore.selectedDayReport.takenAt}
-            selectedSymptoms={patientStore.selectedDayReport.symptoms}
-            photoString={patientStore.selectedDayReport.photoURL}
-            isPhotoDay={true}
-          /> : <p>Supress Warning</p>}
-      </ExpansionPanelDetails>
-}
+      {complete &&
+        <ExpansionPanelDetails className={classes.detail}>
+          {patientStore.selectedDayReport ?
+            <PatientReport
+              timeTaken={patientStore.selectedDayReport.takenAt}
+              selectedSymptoms={patientStore.selectedDayReport.symptoms}
+              photoString={patientStore.selectedDayReport.photoURL}
+              isPhotoDay={true}
+            /> : <p>Supress Warning</p>}
+        </ExpansionPanelDetails>
+      }
     </ExpansionPanel>
   )
 
@@ -84,15 +78,15 @@ const Body = (props) => {
   const { t, i18n } = useTranslation('translation');
 
   return (
-   <>
+    <>
       {props.complete ?
         <div className={classes.preview}>
-      <Check />
-      <ClipBoard />
-      <Healing />
-      </div> :
-      <NewButton onClick={() => {}} icon={<Clipboard />} text={t("patient.home.todaysActions.logMedication")} />
-}
+          <div className={classes.previewItem}><Check /><p>Check</p></div>
+          <div className={classes.previewItem}><ClipBoard /><p>Symptoms</p></div>
+          <div className={classes.previewItem}><Camera /><p>Photo</p></div>
+        </div> :
+        <NewButton onClick={() => { }} icon={<Clipboard />} text={t("patient.home.todaysActions.logMedication")} />
+      }
     </>
   )
 }
@@ -128,24 +122,23 @@ const useStyles = makeStyles({
   },
   preview: {
     display: "flex",
-    width: "20%",
-    justifyContent: "space-between",
-    "& > svg": {
-      fontSize: "1.8em",
-      color: Colors.textGray
-    },
-    "& > svg:first-of-type": {
-      color: Colors.approvedGreen
-    }
+    flexDirection: "column",
+    width: "100%",
+    alignItems: "flex-start"
   },
   previewItem: {
-    width: "50px",
-    height: "50px",
-    backgroundColor: "lightgray",
     display: "flex",
-    marginLeft: "5px",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    "& > svg": {
+      fontSize: "1em",
+      color: Colors.approvedGreen
+    },
+    "& > p": {
+      margin: 0,
+      padding: 0,
+      marginLeft: ".5em"
+    }
 
   },
   container: {

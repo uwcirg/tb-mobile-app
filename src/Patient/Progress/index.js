@@ -37,8 +37,6 @@ const Progress = observer(() => {
     const classes = useStyles();
     const {patientStore} = useStores();
 
-    console.log(patientStore.incompleteDays)
-
     return(<>
         <div className={`${classes.container} ${patientStore.uiState.onCalendarView && classes.centerContainer + ' ' + classes.fullHeight}`} >  
             {!patientStore.uiState.onCalendarView ?
