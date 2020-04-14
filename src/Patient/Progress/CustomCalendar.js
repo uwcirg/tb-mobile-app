@@ -85,6 +85,20 @@ const useStyles = makeStyles({
             borderRadius: "2vh"
         }
     },
+    selectedDay: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: "20px",
+        height: "40px",
+        width: "40px",
+        backgroundColor: "#4285F4",
+        "& > p": {
+            color: "white",
+            padding: 0,
+            margin: 0
+        }
+    }
 
 })
 
@@ -125,9 +139,7 @@ const CustomCalendar = () => {
             onChange={handleChange}
         />
     )
-
 }
-
 
 const Day = observer((props) => {
     const classes = useStyles();
@@ -137,39 +149,34 @@ const Day = observer((props) => {
 
     let compositeClass;
 
-    if (dt.startOf('day').equals(patientStore.uiState.selectedCalendarDate)) {
-        compositeClass += ' ' + classes.selected
+    const selectedDay = dt.startOf('day').equals(patientStore.uiState.selectedCalendarDate);
+
+    if (selectedDay) {
+        //compositeClass += ' ' + classes.selected
     }
 
     const dayBefore = patientStore.savedReports[`${dt.startOf('day').minus(1, 'day').toISODate()}`]
     const dayFromServer = patientStore.savedReports[`${dt.startOf('day').toISODate()}`]
     const dayAfter = patientStore.savedReports[`${dt.endOf('day').plus(1, 'day').toISODate()}`]
 
-    //if(dayBefore && dayAfter) console.log(dayBefore.date + ' ' + dayFromServer.date +  ' ' + dayAfter.date)
-
     if (dayFromServer && dayFromServer.medicationTaken){compositeClass += ' ' + classes.positive}
     else if(dayFromServer && !dayFromServer.medicationTaken ){ compositeClass += ' ' + classes.negative + ' ' }
 
-    //if (!dayBefore || !dayAfter) compositeClass += ' ' + classes.single;
-
     if (dayBefore && dayAfter && dayFromServer) {
         if (dayBefore.medicationTaken != dayFromServer.medicationTaken) compositeClass += ' ' + classes.start;
-
         if (dayAfter.medicationTaken != dayFromServer.medicationTaken) compositeClass += ' ' + classes.end;
-
-        //if(dayFromServer.medicationTaken == dayAfter.medicationTaken && dayFromServer.medicationTaken == dayBefore.medicationTakena) += ' ' + classes.
-
         if (!dayFromServer.medicationTaken) compositeClass += ' ' + classes.didntTake;
-
         if (dayFromServer.medicationTaken && !dayBefore.medicationTaken && !dayAfter.medicationTaken) compositeClass += ' ' + classes.single;
     }
 
     if(dayFromServer && !dayAfter) compositeClass += ' ' + classes.end;
     if(dayFromServer && !dayBefore) compositeClass += ' ' + classes.start;
 
-    
-
-    return <div className={`${classes.day} ${compositeClass}`}><p>{props.date}</p></div>
+    return(
+        <div className={`${classes.day} ${compositeClass}`}>
+            {selectedDay ? <div className={classes.selectedDay}><p>{props.date}</p> </div> : <p>{props.date}</p>}
+        </div>
+    )
 });
 
 export default CustomCalendar;

@@ -39,12 +39,12 @@ const ReportPopUp = observer(() => {
         <PopUp handleClickAway={handleExit}>
             <img src="/img/list.svg" />
             <h1 className={classes.title}>
-                {t("reportConfirmation.goodJob")} {" "}
+                {t("patient.reportConfirmation.goodJob")} {" "}
                 {patientStore.givenName}!
                 </h1>
-            <p>{t("reportConfirmation.photoNeeded")}</p>
-            <NewButton onClick={handleClick} icon={<Camera />} text={t("home.actions.uploadPhoto")} />
-            <Button className={classes.basicButton} onClick={handleExit}>{t("reportConfirmation.doLater")}</Button>
+            <p>{t("patient.reportConfirmation.photoNeeded")}</p>
+            <NewButton onClick={handleClick} icon={<Camera />} text={t("patient.home.actions.uploadPhoto")} />
+            <Button className={classes.basicButton} onClick={handleExit}>{t("patient.reportConfirmation.doLater")}</Button>
         </PopUp>
     )
 });
