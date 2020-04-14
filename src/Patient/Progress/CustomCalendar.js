@@ -62,11 +62,13 @@ const useStyles = makeStyles({
     },
 
     start: {
-        borderRadius: "2vh 0 0 2vh"
+        borderTopLeftRadius: "2vh",
+        borderBottomLeftRadius: "2vh"
     },
 
     end: {
-        borderRadius: "0 2vh 2vh 0"
+        borderTopRightRadius: "2vh",
+        borderBottomRightRadius: "2vh"
     },
     single: {
         borderRadius: "2vh"
@@ -146,19 +148,24 @@ const Day = observer((props) => {
     //if(dayBefore && dayAfter) console.log(dayBefore.date + ' ' + dayFromServer.date +  ' ' + dayAfter.date)
 
     if (dayFromServer && dayFromServer.medicationTaken){compositeClass += ' ' + classes.positive}
-    else if(dayFromServer && !dayFromServer.medicationTaken ){ compositeClass += ' ' + classes.negative + ' ' + classes.single}
+    else if(dayFromServer && !dayFromServer.medicationTaken ){ compositeClass += ' ' + classes.negative + ' ' }
 
-    if (!dayBefore || !dayAfter) compositeClass += ' ' + classes.single;
+    //if (!dayBefore || !dayAfter) compositeClass += ' ' + classes.single;
 
     if (dayBefore && dayAfter && dayFromServer) {
-        if (!dayBefore.medicationTaken && dayFromServer.medicationTaken) compositeClass += ' ' + classes.start;
+        if (dayBefore.medicationTaken != dayFromServer.medicationTaken) compositeClass += ' ' + classes.start;
 
-        if (!dayAfter.medicationTaken && dayFromServer.medicationTaken) compositeClass += ' ' + classes.end;
+        if (dayAfter.medicationTaken != dayFromServer.medicationTaken) compositeClass += ' ' + classes.end;
+
+        //if(dayFromServer.medicationTaken == dayAfter.medicationTaken && dayFromServer.medicationTaken == dayBefore.medicationTakena) += ' ' + classes.
 
         if (!dayFromServer.medicationTaken) compositeClass += ' ' + classes.didntTake;
 
         if (dayFromServer.medicationTaken && !dayBefore.medicationTaken && !dayAfter.medicationTaken) compositeClass += ' ' + classes.single;
     }
+
+    if(dayFromServer && !dayAfter) compositeClass += ' ' + classes.end;
+    if(dayFromServer && !dayBefore) compositeClass += ' ' + classes.start;
 
     
 

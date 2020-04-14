@@ -68,14 +68,15 @@ const useStyles = makeStyles({
 const PatientReport = (props) => {
 
     const classes = useStyles();
+    const { t, i18n } = useTranslation('translation');
 
     return( <div className={`${classes.container}`}>
-        <ListItem icon={<PillIcon />} title={"Medication"} >
+        <ListItem icon={<PillIcon />} title={t("commonWords.medication")} >
             <p>Taken at {DateTime.fromISO(props.timeTaken).toLocaleString(DateTime.TIME_24_SIMPLE)}</p>
         </ListItem>
-        <ListItem icon={<HealingIcon />} title={"Symptoms"}>
+        <ListItem icon={<HealingIcon />} title={t("commonWords.symptoms")}>
             <SymptomList symptoms={props.selectedSymptoms} />
-            <ClickableText hideIcon text={"+ Add More"} />
+            <ClickableText hideIcon text={`${t("patient.report.confirmation.addMore")}+`} />
         </ListItem>
         <PhotoListItem isPhotoDay={props.isPhotoDay} photoString={props.photoString} />
     </div>)
@@ -93,17 +94,18 @@ const SymptomList = (props) => {
 
 const PhotoListItem = (props) => {
     const classes = useStyles();
-
+    const { t, i18n } = useTranslation('translation');
+    
     if (props.isPhotoDay) {
         return (
-            <ListItem icon={<CameraIcon />} title={"Strip Photo"}>
+            <ListItem icon={<CameraIcon />} title={t('commonWords.stripPhoto')}>
                 <img className={classes.stripPhoto} src={props.photoString}/>
             </ListItem>
         )
     }else{
         return(
-            <ListItem icon={<CameraIcon />} title={"Strip Photo"}>
-            <p>No Photo Needed Today</p>
+            <ListItem icon={<CameraIcon />} title={t('commonWords.stripPhoto')}>
+            <p>{t('patient.report.confirmation.noPhoto')}</p>
         </ListItem>
         )
     }

@@ -26,13 +26,13 @@ const ProgressGraph = observer((props) => {
                     rotation: 3 / 4,
                     strokeLinecap: "round"
                 })}>
-                    <p className={classes.progressText}>{patientStore.daysSinceTreatmentStart} of <br /> 180 Days</p>
+                    <p className={classes.progressText}>{patientStore.daysSinceTreatmentStart} of <br /> 180 {t('time.days')}</p>
                 </CircularProgressbar>
             </div>
             <div className={classes.stats}>
-                <StatBox title='4 Days' text="Current Streak" />
-                <StatBox title='Feb 28' text="Next Check In" />
-                <StatBox title='Oct 2' text="Estimated End Date" />
+                <StatBox title={`4 ${t('time.days')}`} text={t('patient.home.progress.currentStreak')} />
+                <StatBox title='Feb 28' text={t('patient.home.progress.nextCheckin')} />
+                <StatBox title='Oct 2' text={t('patient.home.progress.endDate')}/>
             </div>
         </InteractionCard>
     )

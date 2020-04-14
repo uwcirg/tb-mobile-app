@@ -4,6 +4,30 @@
     "offline": "Offline",
     "greeting": "Hi",
     "updating": "Updating",
+
+    "commonWords":{
+        "medication": "Medication",
+        "symptoms": "Symptoms",
+        "stripPhoto": "Strip Photo"
+    },
+
+    "userTypes": {
+        "patient": "Patient",
+        "coordinator": "Coordinator",
+        "administrator": "Administrator"
+
+    },
+
+    "login": {
+        "activateAccount": "Activate New Account",
+        "forgotPassword": "Forgot Password",
+        "phoneNumber": "Phone Number",
+        "email": "Email",
+        "password": "Password",
+        "logIn": "Log In"
+
+    },
+
     "messaging": {
         "nurseContact": "Need individual support? Contact your provider!"
     },
@@ -37,6 +61,11 @@
                 "uploadPhoto": "Upload Photo"
             },
 
+            "progress":{
+                "currentStreak": "Current Streak",
+                "nextCheckin": "Next Check In",
+                "endDate": "Estimated End Date"
+            },
             "completed": {
                 "title": "Complete",
                 "subtitle": "Todays Report Has Been Submitted",
@@ -79,6 +108,11 @@
                     "button": "Okay",
                     "moreInformation": "More Information"
                 }
+            },
+            "confirmation":{
+                "title": "Confirm and Submit",
+                "addMore": "Add More",
+                "noPhoto": "No Photo Needed Today"
             }
         },
         "reportConfirmation": {
@@ -87,7 +121,6 @@
             "doLater": "Do Later Today"
         }
     },
-
     "symptoms": {
         "nausea": 
         {
