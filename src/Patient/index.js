@@ -7,26 +7,27 @@ import Messaging from '../Messaging';
 import Progress from './Progress';
 import TopBar from './Navigation/TopBar';
 import TopMenu from './Navigation/TopMenu';
+import Intro from './Intro';
+import useStores from '../Basics/UseStores';
 
-@inject("uiStore")
-@observer
-class PatientHome extends Component {
+const PatientHome = observer((props) => {
 
-  render(){
-
+    const {uiStore} = useStores();
     const tabs = [<Home />, <Progress />, <Messaging />  ,<Info />]
 
     return (
       <div className="main-screen">
         <TopBar />
+        {uiStore.introEnabled && <Intro /> }
         <TopMenu />
           <div style={{paddingTop: "60px", paddingBottom:"60px"}}>
-            {tabs[this.props.uiStore.activeTab]}
+            {tabs[uiStore.activeTab]}
           </div>
         <BottomBar />
       </div>
     );
   }
-}
+);
+
 
 export default PatientHome;

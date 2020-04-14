@@ -67,6 +67,12 @@ export class PatientStore extends UserStore {
         return (this.photoSchedule[weekSinceStart].includes(weekday));
     }
 
+    checkPhotoDay(date){
+        let weekday = date.weekday;
+        let weekSinceStart = Math.floor(DateTime.fromISO(this.treatmentStart).endOf('day').diffNow("weeks").weeks * -1)
+        return (this.photoSchedule[weekSinceStart].includes(weekday));
+    }
+
     @computed get selectedDateForDisplay() {
         return this.selectedDate.toLocaleString(DateTime.DATE_FULL)
     }

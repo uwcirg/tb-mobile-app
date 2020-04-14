@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import useStores from '../../Basics/UseStores'
 import { observer } from 'mobx-react'
-import {makeStyles} from '@material-ui/core/styles/'
+import { makeStyles } from '@material-ui/core/styles/'
 import Styles from '../../Basics/Styles'
 import ClickableText from '../../Basics/ClickableText'
-import {DateTime} from 'luxon'
+import { DateTime } from 'luxon'
 import { TimePicker } from "@material-ui/pickers/TimePicker";
 import { useTranslation } from 'react-i18next';
 
@@ -25,6 +25,11 @@ const useStyles = makeStyles({
         margin: "auto"
 
     },
+    blueText: {
+        padding: "1em",
+        fontSize: "1em",
+        margin: "auto"
+    }
 })
 
 const Options = observer(() => {
@@ -33,8 +38,11 @@ const Options = observer(() => {
     const { t, i18n } = useTranslation('translation');
     const classes = useStyles();
 
-    const handleDate = (date) => {
+    const [timeOpen, setTimeOpen] = useState(false);
+
+    const handleChange = (date) => {
         patientStore.reminderTime = date.startOf('second').startOf("minute").toISOTime({ suppressSeconds: true });
+        patientStore.updateNotificationTime();
     }
 
     return (
@@ -62,17 +70,24 @@ const Options = observer(() => {
                 </div>
                 <span className={classes.line} />
                 <div className={classes.preference}>
-                    <p>{t("patient.profile.options.remindMe")}</p>
-                    {/*<ClickableText hideIcon className={classes.blueText} text={"13:40"} />*/}
-                    { patientStore.isReminderUpdating ? <p>{t("updating")}...</p> : <TimePicker
-                       
+                    <ClickableText
+                        hideIcon
+                        onClick={() => { setTimeOpen(true) }}
+                        className={classes.blueText} 
+                        text={`${t("patient.profile.options.remindMe")} ${DateTime.fromISO(patientStore.reminderTime).toLocaleString(DateTime.TIME_24_SIMPLE)}`}
+                    />
+
+                    {timeOpen && <TimePicker
+                        open={timeOpen}
                         className={classes.timeSelect}
                         clearable
                         ampm={false}
                         value={DateTime.fromISO(patientStore.reminderTime)}
-                        onChange={handleDate}
-                />}
-                    <ClickableText hideIcon onClick={patientStore.updateNotificationTime} className={classes.blueText} text={t("patient.profile.options.update")} />
+                        onChange={(e) => {
+                            setTimeOpen(false);
+                            handleChange(e);
+                        }}
+                    />}
                 </div>
             </div>
         </>

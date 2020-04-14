@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import ClipBoard from '@material-ui/icons/Assignment';
 import Check from '@material-ui/icons/CheckCircle';
-import Healing from '@material-ui/icons/Healing';
 import { DateTime } from 'luxon'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -12,7 +11,6 @@ import { makeStyles } from '@material-ui/core';
 import { observer } from 'mobx-react';
 import Colors from '../../Basics/Colors';
 import PatientReport from '../../Basics/PatientReport';
-import ReportConfirmation from '../MedicationFlow/ReportConfirmation';
 import Styles from '../../Basics/Styles';
 import { useTranslation } from 'react-i18next';
 import NewButton from '../../Basics/NewButton';
@@ -36,7 +34,7 @@ const DayDrawer = observer((props) => {
   const [open, setOpen] = useState(false);
   const { patientStore } = useStores();
 
-  const date = patientStore.uiState.selectedCalendarDate
+  const date = patientStore.uiState.selectedCalendarDate;
 
   const complete = (patientStore.selectedDayReport && patientStore.selectedDayReport.medicationTaken)
 
@@ -47,13 +45,14 @@ const DayDrawer = observer((props) => {
         complete && setOpen(!open)
       }}
       className={classes.drawer}>
-      <ExpansionPanelSummary className={classes.collapsedDrawer}
+      <ExpansionPanelSummary
+        className={classes.collapsedDrawer}
         expandIcon={complete && <KeyboardArrowUpIcon />}
-        aria-controls="panel1a-content"
-        id="panel1a-header">
+        aria-controls="calendar-day-preview"
+        id="calendar-day-preview">
         <div className={classes.container}>
           <Header date={date} complete={complete} />
-          {!open && <Body complete={complete} />}
+          {!open && <Body report={patientStore.selectedDayReport} photoDay={patientStore.checkPhotoDay(date)} complete={complete} />}
         </div>
       </ExpansionPanelSummary>
       {complete &&
@@ -63,7 +62,7 @@ const DayDrawer = observer((props) => {
               timeTaken={patientStore.selectedDayReport.takenAt}
               selectedSymptoms={patientStore.selectedDayReport.symptoms}
               photoString={patientStore.selectedDayReport.photoURL}
-              isPhotoDay={true}
+              isPhotoDay={patientStore.checkPhotoDay(date)}
             /> : <p>Supress Warning</p>}
         </ExpansionPanelDetails>
       }
@@ -76,14 +75,14 @@ const DayDrawer = observer((props) => {
 const Body = (props) => {
   const classes = useStyles();
   const { t, i18n } = useTranslation('translation');
-
+  //@TRANSLATION
   return (
     <>
       {props.complete ?
         <div className={classes.preview}>
           <div className={classes.previewItem}><Check /><p>Check</p></div>
           <div className={classes.previewItem}><ClipBoard /><p>Symptoms</p></div>
-          <div className={classes.previewItem}><Camera /><p>Photo</p></div>
+          {props.photoDay && <div className={classes.previewItem}><Camera /><p>Photo</p></div>}
         </div> :
         <NewButton onClick={() => { }} icon={<Clipboard />} text={t("patient.home.todaysActions.logMedication")} />
       }
@@ -162,7 +161,7 @@ const useStyles = makeStyles({
     marginLeft: "2em"
   },
   incomplete: {
-    color: Colors.red
+    color: `${Colors.red} !important`
   }
 })
 

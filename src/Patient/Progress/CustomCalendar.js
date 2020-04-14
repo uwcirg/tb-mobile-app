@@ -75,7 +75,7 @@ const useStyles = makeStyles({
         borderRadius: "2vh"
     },
     negative: {
-        backgroundColor: "rgba(238,2,2,.32)",
+        backgroundColor: Colors.calendarRed,
     },
     selected: {
         "& > p":{
