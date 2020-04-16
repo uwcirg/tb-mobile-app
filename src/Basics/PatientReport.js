@@ -10,7 +10,7 @@ import { DateTime } from 'luxon';
 import ClickableText from './ClickableText';
 import { useTranslation } from 'react-i18next';
 
-import { ReactComponent as TempIcon } from './Icons/thermometer.svg'
+import TempIcon from './Icons/Temp'
 
 
 const useStyles = makeStyles({

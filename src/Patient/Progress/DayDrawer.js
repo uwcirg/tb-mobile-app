@@ -15,6 +15,8 @@ import Styles from '../../Basics/Styles';
 import { useTranslation } from 'react-i18next';
 import NewButton from '../../Basics/NewButton';
 import Clipboard from '@material-ui/icons/Assignment'
+import  TempIcon from '../../Basics/Icons/Temp.js'
+import SvgIcon from '@material-ui/core/SvgIcon'
 
 import Camera from '@material-ui/icons/CameraAlt'
 
@@ -81,7 +83,7 @@ const Body = (props) => {
       {props.complete ?
         <div className={classes.preview}>
           <div className={classes.previewItem}><Check /><p>Check</p></div>
-          <div className={classes.previewItem}><ClipBoard /><p>Symptoms</p></div>
+          <div className={classes.previewItem}><TempIcon /><p>Symptoms</p></div>
           {props.photoDay && <div className={classes.previewItem}><Camera /><p>Photo</p></div>}
         </div> :
         <NewButton onClick={() => { }} icon={<Clipboard />} text={t("patient.home.todaysActions.logMedication")} />
