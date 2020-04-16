@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 import NewButton from '../../Basics/NewButton';
 import Clipboard from '@material-ui/icons/Assignment'
 import  TempIcon from '../../Basics/Icons/Temp.js'
-import SvgIcon from '@material-ui/core/SvgIcon'
+import PillIcon from '../../Basics/Icons/Pill.js'
 
 import Camera from '@material-ui/icons/CameraAlt'
 
@@ -62,6 +62,7 @@ const DayDrawer = observer((props) => {
 
 const Header = (props) => {
   const classes = useStyles();
+  const { t, i18n } = useTranslation('translation');
 
   return (
     <div className={classes.header}>
@@ -80,11 +81,11 @@ const Body = (props) => {
     <>
       {props.complete ?
         <div className={classes.preview}>
-          <div className={classes.previewItem}><Check /><p>Check</p></div>
-          <div className={classes.previewItem}><TempIcon /><p>Symptoms</p></div>
-          {props.photoDay && <div className={classes.previewItem}><Camera /><p>Photo</p></div>}
+          <div className={classes.previewItem}><PillIcon /><p>{t("commonWords.medication")}</p></div>
+          <div className={classes.previewItem}><TempIcon /><p>{t("commonWords.symptoms")}</p></div>
+          {props.photoDay && <div className={classes.previewItem}><Camera /><p>{t('commonWords.stripPhoto')}</p></div>}
         </div> :
-        <NewButton onClick={() => { }} icon={<Clipboard />} text={t("patient.home.todaysActions.logMedication")} />
+        <NewButton onClick={() => { }} icon={<PillIcon />} text={t("patient.home.todaysActions.logMedication")} />
       }
     </>
   )

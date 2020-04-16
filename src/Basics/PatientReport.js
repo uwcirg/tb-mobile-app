@@ -5,7 +5,7 @@ import Colors from './Colors';
 import CheckIcon from '@material-ui/icons/Check';
 import CameraIcon from '@material-ui/icons/PhotoCamera';
 import HealingIcon from '@material-ui/icons/Healing';
-import { ReactComponent as PillIcon } from './Icons/pill.svg'
+import PillIcon from './Icons/Pill.js'
 import { DateTime } from 'luxon';
 import ClickableText from './ClickableText';
 import { useTranslation } from 'react-i18next';
@@ -23,7 +23,6 @@ const useStyles = makeStyles({
         "& > div:last-child":{
             borderBottom: "none"
         },
-        marginBottom: "1em"
     },
     parent: {
         margin: "auto",

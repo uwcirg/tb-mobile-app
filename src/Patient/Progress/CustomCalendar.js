@@ -166,23 +166,19 @@ const Day = observer((props) => {
     const dayAfter = patientStore.savedReports[`${dt.endOf('day').plus(1, 'day').toISODate()}`]
 
     if (dayFromServer && dayFromServer.medicationTaken){compositeClass += ' ' + classes.positive}
-    else if(dayFromServer && !dayFromServer.medicationTaken ){ 
-        compositeClass += ' ' + classes.negative + ' ' 
-    }
+    else if(dayFromServer && !dayFromServer.medicationTaken ){ modifier = "red" }
+    else if (!dayFromServer && !props.disabled){compositeClass += ' ' + classes.negative}
 
     if (dayBefore && dayAfter && dayFromServer) {
         if (dayBefore.medicationTaken != dayFromServer.medicationTaken) compositeClass += ' ' + classes.start;
         if (dayAfter.medicationTaken != dayFromServer.medicationTaken) compositeClass += ' ' + classes.end;
-        if (!dayFromServer.medicationTaken) compositeClass += ' ' + classes.didntTake;
         if (dayFromServer.medicationTaken && !dayBefore.medicationTaken && !dayAfter.medicationTaken) compositeClass += ' ' + classes.single;
     }
 
-    if(dayFromServer && !dayAfter) compositeClass += ' ' + classes.end;
-    if(dayFromServer && !dayBefore) compositeClass += ' ' + classes.start;
+    if( (dayFromServer && !dayAfter) || (!dayFromServer && dayAfter) ) compositeClass += ' ' + classes.end;
+    if( (dayFromServer && !dayBefore) || (!dayFromServer && dayBefore) ) compositeClass += ' ' + classes.start;
 
-    if(!dayFromServer && !props.disabled){
-        modifier = "red";
-    }
+
 
     return(
         <div className={`${classes.day} ${compositeClass}`}>
