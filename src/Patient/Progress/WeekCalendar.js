@@ -14,7 +14,7 @@ const WeekCalendar = () => {
     const classes = useStyles();
     const {patientStore} = useStores();
 
-    return(<div className={classes.container}>
+    return(<div className={classes.container + ' intro-weekcalendar'}>
         <Grid className={classes.monthContainer} container direction="row" justify="flex-end" alignItems="center">
             <Typography className={classes.month} variant="h2" >{DateTime.local().monthLong}</Typography>
             <Calendar size="1.5em" />

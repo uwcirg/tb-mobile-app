@@ -1,128 +1,128 @@
 {
-    "title": "Compañero de tratamiento",
-    "online": "Online",
-    "offline": "Offline",
-    "greeting": "Hi",
-    "updating": "Updating",
+    "title": "Compañero de Tratamiento",
+    "online": "Conectado",
+    "offline": "Desconectado",
+    "greeting": "Hola",
+    "updating": "Actualizando",
 
     "commonWords":{
-        "medication": "Medication",
-        "symptoms": "Symptoms",
-        "stripPhoto": "Strip Photo"
+        "medication": "Medicamento",
+        "symptoms": "Sintomas",
+        "stripPhoto": "Tira Reactiva"
     },
 
     "userTypes": {
-        "patient": "Patient",
-        "coordinator": "Coordinator",
-        "administrator": "Administrator"
+        "patient": "Paciente",
+        "coordinator": "Coordinador",
+        "administrator": "Administrador"
 
     },
 
     "login": {
-        "activateAccount": "Activate New Account",
-        "forgotPassword": "Forgot Password",
-        "phoneNumber": "Phone Number",
-        "email": "Email",
-        "password": "Password",
-        "logIn": "Log In"
+        "activateAccount": "Activar su Cuenta",
+        "forgotPassword": "¿Olvidaste su Contraseña?",
+        "phoneNumber": "Número de Teléfono",
+        "email": "Correo Electrónico",
+        "password": "Contraseña",
+        "logIn": "Iniciar Sesión"
 
     },
 
     "messaging": {
-        "nurseContact": "Need individual support? Contact your provider!"
+        "nurseContact": "Necesita asistencia personal? Contacte a su coordinador!"
     },
 
     "time": {
-        "day": "day",
-        "week": "week",
-        "days": "days",
-        "weeks": "weeks"
+        "day": "día",
+        "week": "semana",
+        "days": "días",
+        "weeks": "semanas"
     },
 
     "patient": {
         "userFields": {
-            "givenName": "Given Name",
-            "familyName": "Family Name",
-            "firstName": "First Name",
-            "lastName": "Last Name",
-            "password": "Password",
-            "treatmentStart": "Treatment Start Date",
-            "phoneNumber": "Phone Number"
+            "givenName": "Nombre Preferido",
+            "familyName": "Apellido",
+            "firstName": "Primer Nombre",
+            "lastName": "Apellido",
+            "password": "Contraseña",
+            "treatmentStart": "Primer Dia de Tratamiento",
+            "phoneNumber": "Número de Teléfono"
         },
         "home": {
-            "purpose": "Lets keep track of your medication and health!",
-            "today": "Today",
+            "purpose": "Vamos a hacer un seguimiento de tus medicamentos y tu salud!",
+            "today": "Hoy",
             "actions": {
-                "logMedication": "Log Medication",
-                "uploadPhoto": "Upload Photo"
+                "logMedication": "Iniciar Nuevo Reporte Médico",
+                "uploadPhoto": "Subir Foto de la Tira Reactiva "
             },
             "todaysActions": {
-                "logMedication": "Log Medication",
-                "uploadPhoto": "Upload Photo"
+                "logMedication": "Iniciar Nuevo Reporte Médico",
+                "uploadPhoto": "Subir Foto de la Tira Reactiva "
             },
 
             "progress":{
                 "currentStreak": "Current Streak",
-                "nextCheckin": "Next Check In",
-                "endDate": "Estimated End Date"
+                "nextCheckin": "Proxima Visita Clinica",
+                "endDate": "Estimado Día Final de Tratamiento"
             },
             "completed": {
-                "title": "Complete",
-                "subtitle": "Todays Report Has Been Submitted",
-                "modify": "Modify Your Report"
+                "title": "Completo",
+                "subtitle": "El Reporte de Hoy Fue Recibido",
+                "modify": "Editar su Reporte"
             },
 
             "cardTitles":{
-                "todaysTasks": "Todays Tasks",
-                "myProgress": "My Progress",
-                "myLearning": "My Learning"
+                "todaysTasks": "Objetivos de Hoy",
+                "myProgress": "Mi Progreso",
+                "myLearning": "Educación para Mi"
             }
         },
         "profile": {
-            "title": "Health Profile",
-            "startDate": "Start Date",
-            "endDate": "End Date",
-            "totalTreatments": "Total Required Treatments",
-            "currentAdherence": "Current Adherence",
-            "logout": "Log Out",
+            "title": "Perfil de Salud",
+            "startDate": "Primer Dia de Tratamiento",
+            "endDate": "Último Dia de Tratamiento",
+            "totalTreatments": "Numero de Reportes Requeridos",
+            "currentAdherence": "Adherencia de Medicamento",
+            "logout": "Salir de Aplicación",
             "organization": "Organization",
             "options": {
-                "language": "Language",
-                "dailyNotifications": "Daily Notifications",
-                "medicationReminder": "Medication Reminder",
-                "remindMe": "Remind Me",
+                "language": "Idioma",
+                "dailyNotifications": "Notificaciones Diarias",
+                "medicationReminder": "Recordatorio de Medicamento",
+                "remindMe": "Recordatorios Personales",
                 "spanish": "Español",
-                "english": "English",
-                "update": "Update"
+                "english": "Inglés",
+                "update": "	Actualizar App"
             }
         },
         "report": {
-            "title": "Log Today's Medication",
-            "medicationTitle": "Medication",
-            "symptomsTitle": "Symptoms?",
-            "photoTitle": "Strip Report",
+            "title": "Vos Reporte Medico para Hoy",
+            "medicationTitle": "Confirmación de Medicamento",
+            "symptomsTitle": "¿Malestares?",
+            "photoTitle": "Foto de la Tira Reactiva ",
             "symptoms": {
                 "warning": {
-                    "title": "You logged a symptom that needs immediate follow up",
-                    "subtitle": "Please seek emergency medical attention immediately. Your Coordinator will follow up with you.",
-                    "button": "Okay",
-                    "moreInformation": "More Information"
+                    "title": "Usted  ha reportado un sintoma que requiere inmediata atención médica",
+                    "subtitle": "Por favor busqué atención médica inmediatamente! Su coordinador se comunicará con ud. para confirmar que esté bien.",
+                    "button": "Entiendo",
+                    "moreInformation": "Ver Más Información"
                 }
             },
             "confirmation":{
-                "title": "Confirm and Submit",
-                "addMore": "Add More",
-                "noPhoto": "No Photo Needed Today"
+                "title": "Confirmar y Subir",
+                "addMore": "Reportar Mas Information",
+                "noPhoto": "Hoy no necesitas subir una foto."
             }
         },
         "reportConfirmation": {
-            "goodJob": "Good Job",
-            "photoNeeded": "You also need to upload a photo of your test strip today",
-            "doLater": "Do Later Today"
+            "goodJob": "Bien Hecho",
+            "photoNeeded": "Aun tenes que subir una foto de la tira reactiva." ,
+            "doLater": "Lo Haré Más Tarde"
         }
     },
     "symptoms": {
-        "nausea": 
+        "nausea":
         {
             "title": "Nausea or Vomiting",
             "subtitle": "Feeling nauscious or unable to put food down"

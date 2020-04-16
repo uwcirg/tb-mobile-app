@@ -31,8 +31,10 @@
     "react-code-input": "^3.9.0",
     "react-dom": "^16.11.0",
     "react-i18next": "^11.2.5",
+    "react-joyride": "^2.2.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
+    "react-swipeable-views": "^0.13.9",
     "react-text-mask": "^5.4.3",
     "styled-components": "^4.4.1"
   },

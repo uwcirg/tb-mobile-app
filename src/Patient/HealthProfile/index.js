@@ -13,6 +13,7 @@ import Options from './Options'
 import NewButton from '../../Basics/NewButton'
 import ExitToApp from '@material-ui/icons/ExitToApp';
 import { DateTime } from 'luxon';
+import ClickableText from '../../Basics/ClickableText';
 
 const HealthProfile = () => {
 
@@ -40,6 +41,12 @@ function PatientInfo() {
         patientStore.logoutPatient();
       }
 
+    const handleDemo = () => {
+        uiStore.menuOpened = false;
+        uiStore.activeTab = 0;
+        patientStore.introEnabled = true
+    }
+
     const testDate = DateTime.local().plus({weeks: 2})
     const testDateString = testDate.toLocaleString(DateTime.DATE_MED);
 
@@ -52,6 +59,7 @@ function PatientInfo() {
                 <Typography className={classes.name} className={classes.name} variant="h2">{patientStore.givenName} {patientStore.familyName}</Typography>
             </div>
             <NewButton onClick={handleLogout} className={classes.logout} icon={<ExitToApp />} text={t("patient.profile.logout")} />
+            <ClickableText className={classes.demoButton} big onClick={handleDemo} text={t("patient.demo.showDemo")}></ClickableText>
             <div className={classes.containedBox}>
                 <div>
                     <ProfileItem title={t("patient.profile.startDate")} text={testDateString} icon={<TimeIcon />} />
@@ -162,6 +170,9 @@ const useStyles = makeStyles({
                 }
         }
         
+    },
+    demoButton: {
+        marginBottom: "1em"
     }
 
 

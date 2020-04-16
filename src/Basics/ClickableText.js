@@ -13,6 +13,9 @@ const useStyles = makeStyles({
   },
   icon:{
       marginRight: ".25em"
+  },
+  big: {
+      fontSize: "1em"
   }
 })
 
@@ -20,9 +23,15 @@ const ClickableText = (props) => {
 
     const classes = useStyles();
 
+
     return(
+    !props.big ?
     <ButtonBase className={`${classes.text} ${props.className}`} onClick={props.onClick}>
         { !props.hideIcon && <ErrorOutlineIcon className={classes.icon} /> }
+        {props.text}
+    </ButtonBase>
+    :
+    <ButtonBase className={`${classes.text} ${classes.big} ${props.className}`} onClick={props.onClick}>
         {props.text}
     </ButtonBase>
     )

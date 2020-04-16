@@ -1,7 +1,7 @@
 {
-  "short_name": "Assistant",
-  "name": "Treatment Assistant",
-  "theme_color": "#2196F3",
+  "short_name": "Compañero de Tratamiento",
+  "name": "Compañero",
+  "theme_color": "white",
   "icons": [
     {
       "src": "favicon.ico",

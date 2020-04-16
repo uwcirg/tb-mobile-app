@@ -24,6 +24,9 @@ export class PatientStore extends UserStore {
 
     @observable treatmentStart = ""
 
+    //For intro to UI
+    @observable introEnabled = false;
+
     @observable uiState = {
         onTreatmentFlow: false,
         onPhotoFlow: false,

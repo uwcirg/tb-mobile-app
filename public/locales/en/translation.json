@@ -40,6 +40,10 @@
     },
 
     "patient": {
+
+        "demo":{
+            "showDemo": "Show Demo"
+        },
         "userFields": {
             "givenName": "Given Name",
             "familyName": "Family Name",

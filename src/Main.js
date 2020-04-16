@@ -93,16 +93,30 @@ export default class Main extends React.Component {
       this.props.uiStore.offline = true;
     });
 
-    window.onhashchange = (e) => {
-      if (e.newURL.includes("#messages")) {
+    
+    window.addEventListener('appinstalled', (evt) => {
+      console.log('a2hs installed');
+    });
 
-        alert("Notification was clicked")
-        this.props.uiStore.activeTab = 2;
-        console.log(e)
+    window.addEventListener('load', () => {
+      if (navigator.standalone) {
+        console.log('Launched: Installed (iOS)');
+      } else if (matchMedia('(display-mode: standalone)').matches) {
+        console.log('Launched: Installed');
+      } else {
+        console.log('Launched: Browser Tab');
       }
-
-
-    }
+    });
+/*
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Prevent the mini-infobar from appearing on mobile
+      e.preventDefault();
+      // Stash the event so it can be triggered later.
+      deferredPrompt = e;
+      // Update UI notify the user they can install the PWA
+      alert("INSTALLABLE PWA")
+    });
+    */
   }
 
   initalizeApplicationState() {

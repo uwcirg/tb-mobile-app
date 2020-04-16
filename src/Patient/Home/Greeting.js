@@ -30,8 +30,6 @@ const Greeting = () => {
 
   const { t, i18n } = useTranslation('translation');
 
-  console.log(DateTime.local().toISOTime())
-
     const classes = useStyles();
     const {patientStore} = useStores();
 

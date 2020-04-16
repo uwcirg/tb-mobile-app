@@ -10,6 +10,8 @@ import { DateTime } from 'luxon';
 import ClickableText from './ClickableText';
 import { useTranslation } from 'react-i18next';
 
+import { ReactComponent as TempIcon } from './Icons/thermometer.svg'
+
 
 const useStyles = makeStyles({
     container: {
@@ -17,6 +19,9 @@ const useStyles = makeStyles({
         width: "100%",
         "& > div": {
             borderBottom: "1px solid lightgray"
+        },
+        "& > div:last-child":{
+            borderBottom: "none"
         },
         marginBottom: "1em"
     },
@@ -74,7 +79,7 @@ const PatientReport = (props) => {
         <ListItem icon={<PillIcon />} title={t("commonWords.medication")} >
             <p>Taken at {DateTime.fromISO(props.timeTaken).toLocaleString(DateTime.TIME_24_SIMPLE)}</p>
         </ListItem>
-        <ListItem icon={<HealingIcon />} title={t("commonWords.symptoms")}>
+        <ListItem icon={<TempIcon />} title={t("commonWords.symptoms")}>
             <SymptomList symptoms={props.selectedSymptoms} />
             <ClickableText hideIcon text={`${t("patient.report.confirmation.addMore")}+`} />
         </ListItem>

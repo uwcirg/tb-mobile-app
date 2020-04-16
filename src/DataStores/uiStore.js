@@ -15,8 +15,6 @@ export class UIStore {
 
     @observable locale = "en-US"
 
-    @observable introEnabled = false;
-
 
     @computed get isSpanish(){
         return this.language == "es"

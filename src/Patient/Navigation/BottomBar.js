@@ -35,8 +35,8 @@ const BottomBar = inject("uiStore","patientStore")(observer(({ uiStore,patientSt
       showLabels
       className={classes.root}
     >
-      <BottomNavigationAction icon={<HomeIcon />} />
-      <BottomNavigationAction icon={<EventAvailableIcon />} />
+      <BottomNavigationAction className="intro-home-button" icon={<HomeIcon />} />
+      <BottomNavigationAction className="intro-progress-button" icon={<EventAvailableIcon />} />
       <BottomNavigationAction icon={<ForumIcon />} />
       <BottomNavigationAction icon={<InfoIcon  />} />
     </BottomNavigation>
