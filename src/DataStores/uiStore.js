@@ -21,6 +21,9 @@ export class UIStore {
     }
 
     @action toggleLanguage = () => {
+
+        let prevState = this.getPrevState();
+
         if(this.language == "en"){
             this.language = "es"
             this.locale = "es-ar"
@@ -28,6 +31,12 @@ export class UIStore {
             this.language = "en"
             this.locale = "en-US"
         }
+
+        prevState.language = this.language;
+        prevState.locale = this.locale;
+        this.updateStoredState(prevState);
+
+        
     }
 
     syncLuxon = autorun(() => {
@@ -40,16 +49,9 @@ export class UIStore {
 
     @action updateTab = (tabNumber) => {
         this.activeTab = tabNumber;
-        
-        let prevState = localStorage.getItem("uiState");
-        if(!prevState){
-            prevState = {}
-        }else{
-            prevState = JSON.parse(prevState);
-        }
-
+        let prevState = this.getPrevState();
         prevState.tab = tabNumber;
-        localStorage.setItem("uiState",JSON.stringify(prevState));
+        this.updateStoredState(prevState);
     }
 
     @action initalize = (uiState) => {
@@ -57,9 +59,31 @@ export class UIStore {
         if(uiState && uiState.tab){
             this.activeTab = uiState.tab;
         }
+
+        if(uiState.language){
+            this.language = uiState.language;
+        }
+
+        if(uiState.locale){
+            this.locale = uiState.locale;
+        }
     }
 
     @action toggleTreatmentFlow = () =>{
         this.onTreatmentFlow = false;
+    }
+
+    updateStoredState(prevState){
+        localStorage.setItem("uiState",JSON.stringify(prevState));
+    }
+
+    getPrevState(){
+        let prevState = localStorage.getItem("uiState");
+        if(!prevState){
+            prevState = {}
+        }else{
+            prevState = JSON.parse(prevState);
+        }
+        return prevState;
     }
 }

@@ -20,7 +20,8 @@ const useStyles = makeStyles({
         marginLeft: "auto"
     },
     text:{
-        margin: "0 1em 0 1em"
+        margin: "0 1em 0 1em",
+        textAlign: "left"
     },
     positive: {
         color: Colors.approvedGreen,

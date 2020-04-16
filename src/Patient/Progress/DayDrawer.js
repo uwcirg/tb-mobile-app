@@ -20,17 +20,6 @@ import SvgIcon from '@material-ui/core/SvgIcon'
 
 import Camera from '@material-ui/icons/CameraAlt'
 
-const Header = (props) => {
-  const classes = useStyles();
-
-  return (
-    <div className={classes.header}>
-      <h2 className={classes.drawerTitle}>{props.date.toLocaleString(DateTime.DATE_FULL)}</h2>
-      <p className={`${classes.status} ${!props.complete && classes.incomplete}`}>{props.complete ? "Complete" : "Incomplete"}</p>
-    </div>
-  )
-}
-
 const DayDrawer = observer((props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -43,16 +32,14 @@ const DayDrawer = observer((props) => {
   return (
     <ExpansionPanel
       expanded={open}
-      onClick={() => {
-        complete && setOpen(!open)
-      }}
+      onClick={() => {complete && setOpen(!open)}}
       className={classes.drawer}>
       <ExpansionPanelSummary
         className={classes.collapsedDrawer}
         expandIcon={complete && <KeyboardArrowUpIcon />}
         aria-controls="calendar-day-preview"
         id="calendar-day-preview">
-        <div className={classes.container}>
+        <div className={`${classes.container}`}>
           <Header date={date} complete={complete} />
           {!open && <Body report={patientStore.selectedDayReport} photoDay={patientStore.checkPhotoDay(date)} complete={complete} />}
         </div>
@@ -72,6 +59,17 @@ const DayDrawer = observer((props) => {
   )
 
 });
+
+const Header = (props) => {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.header}>
+      <h2 className={classes.drawerTitle}>{props.date.toLocaleString(DateTime.DATE_FULL)}</h2>
+      <p className={`${classes.status} ${!props.complete && classes.incomplete}`}>{props.complete ? "Complete" : "Incomplete"}</p>
+    </div>
+  )
+}
 
 
 const Body = (props) => {
@@ -100,7 +98,8 @@ const useStyles = makeStyles({
     padding: "0px",
     width: "100vw",
     borderBottom: "unset",
-    boxShadow: "unset",
+    borderTop: "unset",
+    boxShadow: "0px 0 15px rgba(0, 0, 0, 0.2)",
     zIndex: "10",
     minHeight: "18vh"
   },
@@ -113,7 +112,6 @@ const useStyles = makeStyles({
     fontSize: "1.25em"
   },
   collapsedDrawer: {
-
     margin: 0,
   },
   test: {
@@ -146,7 +144,7 @@ const useStyles = makeStyles({
     width: "100%"
   },
   detail: {
-    maxHeight: "85vh",
+    minHeight: "75vh",
     overflow: "scroll",
     padding: 0,
     margin: 0,
@@ -154,7 +152,7 @@ const useStyles = makeStyles({
   },
   header: {
     ...Styles.flexRow,
-    alignItems: "center"
+    alignItems: "center",
   },
   status: {
     textTransform: "uppercase",

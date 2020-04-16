@@ -61,14 +61,6 @@ export default class Main extends React.Component {
 
   }
 
-  handleTest = () => {
-    if (this.props.uiStore.language == "en") {
-      this.props.uiStore.language = "es";
-    } else {
-      this.props.uiStore.language = "en";
-    }
-  }
-
   handleBack = () => {
     this.props.uiStore.isLoggedIn = false;
     this.props.uiStore.userType = ""
@@ -107,22 +99,10 @@ export default class Main extends React.Component {
         console.log('Launched: Browser Tab');
       }
     });
-/*
-    window.addEventListener('beforeinstallprompt', (e) => {
-      // Prevent the mini-infobar from appearing on mobile
-      e.preventDefault();
-      // Stash the event so it can be triggered later.
-      deferredPrompt = e;
-      // Update UI notify the user they can install the PWA
-      alert("INSTALLABLE PWA")
-    });
-    */
   }
 
   initalizeApplicationState() {
-    //Get Notificaiton Authenticaiton key from Server
-    //this.props.patientStore.getVapidKeyFromServerAndStoreLocally();      
-
+    
     const userType = localStorage.getItem("user.type");
     const uiState = localStorage.getItem("uiState");
 
@@ -135,24 +115,5 @@ export default class Main extends React.Component {
 
     this.props.uiStore.initalize(JSON.parse(uiState));
 
-
-
-
-    /*
-    const token =  localStorage.getItem("user.token")
-    const id = localStorage.getItem("user.id")
-    const uiState = localStorage.getItem("uiState");
-    *'/
-
-
-    /*
-    //Initalize User Identifiers
-    this.props.patientStore.initalize().then( (userAuthorization) => {
-      this.props.uiStore.isLoggedIn = true;
-    })
- 
-    
-    this.props.uiStore.initalize(JSON.parse(uiState));
-  */
   }
 }

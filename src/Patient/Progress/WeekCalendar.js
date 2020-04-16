@@ -8,13 +8,15 @@ import Calendar from '@material-ui/icons/Event';
 import Dot from '@material-ui/icons/FiberManualRecord';
 import useStores from '../../Basics/UseStores';
 import ClickableText from '../../Basics/ClickableText';
+import { observer } from 'mobx-react';
 
-const WeekCalendar = () => {
+const WeekCalendar = observer(() => {
 
     const classes = useStyles();
-    const {patientStore} = useStores();
+    const {patientStore,uiStore} = useStores();
 
     return(<div className={classes.container + ' intro-weekcalendar'}>
+        {/* rerender when language changes*/uiStore.locale && <span></span>}
         <Grid className={classes.monthContainer} container direction="row" justify="flex-end" alignItems="center">
             <Typography className={classes.month} variant="h2" >{DateTime.local().monthLong}</Typography>
             <Calendar size="1.5em" />
@@ -22,7 +24,7 @@ const WeekCalendar = () => {
         <Days />
         <ClickableText onClick={() => {patientStore.uiState.onCalendarView = true}} className={classes.clickableText} hideIcon text="View Your Calendar" />
     </div>)
-};
+});
 
 function Days(){
 

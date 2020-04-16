@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme =>({
         backgroundColor: Colors.backgroundGray
     },
     fullHeight:{
-        height: "80vh",
+        height: "70vh",
         position: "fixed",
         zIndex: "10",
         backgroundColor: "white",

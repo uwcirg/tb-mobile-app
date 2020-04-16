@@ -51,7 +51,7 @@ const Options = observer(() => {
                 <h1>{t("patient.profile.options.language")}</h1>
                 <FormGroup className={classes.preference}>
                     <FormControlLabel
-                        control={<Switch checked={uiStore.isSpanish} onChange={() => { }} name="checkedA" />}
+                        control={<Switch checked={uiStore.isSpanish} onChange={() => {uiStore.toggleLanguage()}} name="checkedA" />}
                         label={t("patient.profile.options.spanish")} />
                 </FormGroup>
             </div>

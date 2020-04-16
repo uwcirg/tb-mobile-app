@@ -39,13 +39,14 @@ const useStyles = makeStyles({
     one: {
         gridArea: "1 / 1 / 2 / 3",
         justifyContent: "flex-start",
-        padding: "1em",
+        paddingLeft: "1em",
         "& > h2": {
             ...Styles.flexRow,
             alignItems: "center",
             fontSize: "1em",
+            marginBottom: "5px",
             "& > svg": {
-                margin: "0 .5em 0 .5em"
+                margin: "0 .5em 0 0"
             }
         },
     },
@@ -55,7 +56,7 @@ const useStyles = makeStyles({
         alignItems: "flex-start",
         paddingLeft: "1em",
         "& > p": {
-            margin: "5px"
+            margin: "0 0 2px 0"
         }
     },
     three: {
@@ -81,7 +82,7 @@ const PatientReport = (props) => {
         </ListItem>
         <ListItem icon={<TempIcon />} title={t("commonWords.symptoms")}>
             <SymptomList symptoms={props.selectedSymptoms} />
-            <ClickableText hideIcon text={`${t("patient.report.confirmation.addMore")}+`} />
+            <ClickableText big text={`${t("patient.report.confirmation.addMore")} +`} />
         </ListItem>
         <PhotoListItem isPhotoDay={props.isPhotoDay} photoString={props.photoString} />
     </div>)
