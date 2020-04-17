@@ -165,6 +165,9 @@ const Day = observer((props) => {
     const dayFromServer = patientStore.savedReports[`${dt.startOf('day').toISODate()}`]
     const dayAfter = patientStore.savedReports[`${dt.endOf('day').plus(1, 'day').toISODate()}`]
 
+    const today = dt.startOf('day').equals(DateTime.local().startOf('day'));
+    const start = dt.startOf('day').equals(DateTime.fromISO(patientStore.treatmentStart).startOf('day'));
+
     if (dayFromServer && dayFromServer.medicationTaken){compositeClass += ' ' + classes.positive}
     else if(dayFromServer && !dayFromServer.medicationTaken ){ modifier = "red" }
     else if (!dayFromServer && !props.disabled){compositeClass += ' ' + classes.negative}
@@ -175,8 +178,8 @@ const Day = observer((props) => {
         if (dayFromServer.medicationTaken && !dayBefore.medicationTaken && !dayAfter.medicationTaken) compositeClass += ' ' + classes.single;
     }
 
-    if( (dayFromServer && !dayAfter) || (!dayFromServer && dayAfter) ) compositeClass += ' ' + classes.end;
-    if( (dayFromServer && !dayBefore) || (!dayFromServer && dayBefore) ) compositeClass += ' ' + classes.start;
+    if( (dayFromServer && !dayAfter) || (!dayFromServer && dayAfter) || today ) compositeClass += ' ' + classes.end;
+    if( (dayFromServer && !dayBefore) || (!dayFromServer && dayBefore) || start ) compositeClass += ' ' + classes.start;
 
 
 
