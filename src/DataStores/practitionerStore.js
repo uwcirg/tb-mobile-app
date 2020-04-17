@@ -12,7 +12,8 @@ const ROUTES = {
     getCurrentPractitioner:["/practitioner/me", "GET"],
     getOrganizations:["/organizations","GET"],
     notifyAll: ["/notify_all", "POST"],
-    getParticipants: ["/practitioner/patients","GET"]
+    getPatients: ["/practitioner/patients","GET"],
+    getTemporaryPatients: ["/practitioner/temporary_patients","GET"]
 }
 
 export class PractitionerStore extends UserStore {
@@ -45,6 +46,9 @@ export class PractitionerStore extends UserStore {
         startDate: new Date().toISOString()
     }
 
+    @observable patients = [];
+    @observable temporaryPatients = [];
+
     @action
     addNewPatient = () => {
         this.newPatientLoading = true;
@@ -67,6 +71,7 @@ export class PractitionerStore extends UserStore {
     @action
     initalize(){
         this.getOrganizations();
+        this.getPatients();
         super.initalize();
     }
 
@@ -94,9 +99,13 @@ export class PractitionerStore extends UserStore {
     }
 
 
-    @action getParticipants = () => {
-        this.executeRequest('getParticipants').then( response => {
-            console.log(response)
+    @action getPatients = () => {
+        this.executeRequest('getPatients').then( response => {
+            this.patients = response;
+        })
+
+        this.executeRequest('getTemporaryPatients').then(response => {
+            this.temporaryPatients = response;
         })
     }
 

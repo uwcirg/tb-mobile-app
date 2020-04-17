@@ -56,6 +56,8 @@ export class UIStore {
 
     @action initalize = (uiState) => {
 
+        if(!uiState) return
+
         if(uiState && uiState.tab){
             this.activeTab = uiState.tab;
         }

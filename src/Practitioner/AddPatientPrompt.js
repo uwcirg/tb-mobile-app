@@ -9,10 +9,13 @@ import AddIcon from '@material-ui/icons/Add';
 
 
 
+
+
 const AddPatient = observer(() => {
 
-    const {practitionerStore} = useStores();
+    const {practitionerStore,routingStore} = useStores();
     const {t, i18n} = useTranslation('translation');
+    const { location, push, goBack } = routingStore;
 
     const handleAddPatient = () =>{
         practitionerStore.onNewPatientFlow = true;
@@ -22,7 +25,7 @@ const AddPatient = observer(() => {
 
         <Container>
             <h2>Add a new patient</h2>
-            <Fab onClick={handleAddPatient} id="add-patient">
+            <Fab size="small" onClick={() => {push('/patients/add')}} id="add-patient">
                 <AddIcon />
             </Fab>
         </Container>
@@ -33,10 +36,9 @@ const AddPatient = observer(() => {
 
 
 const Container = styled.div`
-position: fixed;
-bottom: 1em;
-right: 1em;
 display: flex;
+margin-top: 1em;
+margin-left: auto;
 
 #add-patient{
 margin-left: 2em;
@@ -44,7 +46,7 @@ margin-left: 2em;
 
 h2{
     font-weight: 200;
-    font-size: 1.5em;
+    font-size: 1em;
     text-align: center;
     padding: 0;
 }

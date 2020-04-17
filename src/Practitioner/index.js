@@ -104,7 +104,6 @@ const PractitionerHome = observer(() => {
             <MenuItem onClick={handleClose}>Profile</MenuItem>
             <MenuItem onClick={handleClose}>My account</MenuItem>
             <MenuItem onClick={practitionerStore.logout}>Logout</MenuItem>
-            <MenuItem onClick={practitionerStore.getParticipants}>GetP</MenuItem>
         </Menu>
             </div>
     )

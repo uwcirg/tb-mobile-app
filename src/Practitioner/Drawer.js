@@ -61,6 +61,11 @@ const PractitionerDrawer = observer(() => {
               <ListItemIcon><MailIcon /></ListItemIcon>
               <ListItemText primary={"Messaging"} />
             </ListItem>
+
+            <ListItem button key={"Patients"} onClick={() => {push('/patients')}}>
+              <ListItemIcon><MailIcon /></ListItemIcon>
+              <ListItemText primary={"Patients"} />
+            </ListItem>
            
            
 

@@ -52,6 +52,7 @@ const useStyles = makeStyles({
     customButton: {
         width: "50%",
         textAlign: "center",
+        justifyContent: "center",
         "& > span":{
             width: "100%"
         },

@@ -1,22 +1,27 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components'
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 import useStores from '../Basics/UseStores';
 import Colors from '../Basics/Colors';
 import AddPatientPrompt from './AddPatientPrompt'
 import AddPatientFlow from './AddPatientFlow'
 import Messages from '../Messaging'
+import makeStyles from '@material-ui/core/styles/makeStyles'
+import PatientsView from './PatientsView'
+
 
 const PractitionerBody = observer(() => {
-    const {practitionerStore,routingStore} = useStores();
+    const { practitionerStore, routingStore } = useStores();
     const { location, push, goBack } = routingStore;
-    const {t, i18n} = useTranslation('translation');
+    const { t, i18n } = useTranslation('translation');
 
-    return(
+    return (
         <Body>
             {location.pathname === "/messaging" && <Messages />}
-            {practitionerStore.onNewPatientFlow ? <AddPatientFlow /> : <AddPatientPrompt />}
+
+            {location.pathname === "/patients" && <PatientsView patientList={practitionerStore.patients} tempList={practitionerStore.temporaryPatients} />}
+            {location.pathname === "/patients/add" && <><button onClick={goBack}>Back</button><p>YERR</p></>}
         </Body>
     )
 });

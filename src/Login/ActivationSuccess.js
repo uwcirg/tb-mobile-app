@@ -26,7 +26,7 @@ const ActivationSuccess = observer(() => {
                 <PasswordInput updatePassword={(e) => {updateStore(e,"password")}}/>
                 <PasswordInput updatePassword={(e) => {updateStore(e,"passwordConfirmation")}} confirmation />
             </Card>
-            <Button fullWidth onClick={handleLogin} variant="contained" color={"primary"} >Complete!</Button>
+            <Button onClick={handleLogin} variant="contained" color={"primary"} >Complete!</Button>
         </ActivationForm>
     )
 });
