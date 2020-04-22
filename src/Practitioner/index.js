@@ -25,7 +25,7 @@ const useStyles = makeStyles({
     topBar: {
         position: "fixed",
         display: "flex",
-        justifyContent: "center",
+        justifyContent: "space-between",
         flexDirection: "row",
         alignContent: "center",
         alignItems: "center",
@@ -77,16 +77,7 @@ const PractitionerHome = observer(() => {
         <AppBar  className={classes.topBar}> 
             <IconButton className={classes.menu}  onClick={uiStore.toggleMenu} edge="start"  color="primary" aria-label="menu"> <MenuIcon/></IconButton>
             <Typography className={classes.appName}>{t("title")}</Typography>
-            <Autocomplete
-                fullWidth="false"
-                className={classes.input}
-                id="combo-box-demo"
-                options={["patient2","patient3"]}
-                getOptionLabel={option => option}
-                renderInput={params => (
-                    <TextField className={classes.textField}  {...params}  variant="outlined" fullWidth />
-                )}
-            />
+            
             <IconButton onClick={handleClick}>
                 <AccountCircle id="account-button"/>
             </IconButton>

@@ -1,4 +1,4 @@
-import { action, observable} from "mobx";
+import { action, observable, computed} from "mobx";
 import {UserStore} from './userStore'
 
 const ROUTES = {
@@ -13,7 +13,9 @@ const ROUTES = {
     getOrganizations:["/organizations","GET"],
     notifyAll: ["/notify_all", "POST"],
     getPatients: ["/practitioner/patients","GET"],
-    getTemporaryPatients: ["/practitioner/temporary_patients","GET"]
+    getTemporaryPatients: ["/practitioner/temporary_patients","GET"],
+    getPatientPhotos: ["/patients/photo_reports","GET"],
+    getProcessedPatientPhotos: ["/patients/photo_reports/processed","GET"]
 }
 
 export class PractitionerStore extends UserStore {
@@ -48,6 +50,17 @@ export class PractitionerStore extends UserStore {
 
     @observable patients = [];
     @observable temporaryPatients = [];
+    @observable photoReports = [];
+    @observable processedPhotoReports = [];
+
+    //Currently viewed patient
+    @observable selectedPatient = {
+        reports: []
+    }
+
+    getPatient = (id) => {
+        return this.patients.find(patient => { return patient.id == id})
+    }
 
     @action
     addNewPatient = () => {
@@ -112,6 +125,31 @@ export class PractitionerStore extends UserStore {
     sendNotificationToAll = () => {
         this.executeRequest("notifyAll").then( response => {
             console.log(response)
+        })
+    }
+
+    @action getPhotoReports = () => {
+        this.executeRequest("getPatientPhotos").then( response => {
+            this.photoReports = response;
+        })
+    }
+
+    @action getProcessedPhotoReports = () => {
+        this.executeRequest("getProcessedPatientPhotos").then( response => {
+            this.processedPhotoReports = response;
+        })
+    }
+
+    @action getPatientDailyReports = (id) => {
+        this.executeRawRequest(`/patient/${id}/reports`,"GET").then(response => {
+            this.selectedPatient.reports = response;
+        })
+    }
+
+    approvePhoto = (id) => {
+        let body = {approved: true}
+        this.executeRawRequest(`/photo_submission/${id}`,"PATCH").then(response => {
+            console.log(response);
         })
     }
 

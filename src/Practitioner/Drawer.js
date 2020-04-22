@@ -16,6 +16,10 @@ import HomeIcon from '@material-ui/icons/Home';
 import { observer } from 'mobx-react';
 import useStores from '../Basics/UseStores';
 
+import PatientsIcon from '@material-ui/icons/SupervisorAccount';
+
+import CameraIcon from '@material-ui/icons/CameraAlt'
+
 const drawerWidth = 200;
 
 const useStyles = makeStyles(theme => ({
@@ -52,6 +56,11 @@ const PractitionerDrawer = observer(() => {
       >
         <div className={classes.toolbar} />
         <List>
+        <ListItem button key={"Strip Photos"} onClick={() => {push('/photos')}}>
+              <ListItemIcon><CameraIcon /></ListItemIcon>
+              <ListItemText primary={"Strip Photos"} />
+            </ListItem>
+
             <ListItem button key={"Home"} onClick={() => {push('/')}}>
               <ListItemIcon><HomeIcon /></ListItemIcon>
               <ListItemText primary={"Home"} />
@@ -63,7 +72,7 @@ const PractitionerDrawer = observer(() => {
             </ListItem>
 
             <ListItem button key={"Patients"} onClick={() => {push('/patients')}}>
-              <ListItemIcon><MailIcon /></ListItemIcon>
+              <ListItemIcon><PatientsIcon /></ListItemIcon>
               <ListItemText primary={"Patients"} />
             </ListItem>
            

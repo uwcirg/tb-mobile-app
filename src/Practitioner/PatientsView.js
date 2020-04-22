@@ -2,6 +2,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { DateTime } from 'luxon';
 import AddPatientPrompt from './AddPatientPrompt'
+import Colors from '../Basics/Colors';
 
 const useStyles = makeStyles({
 
@@ -38,7 +39,9 @@ const useStyles = makeStyles({
             "&:first-child": {
                 paddingLeft: "1em"
             },
-            "& > p": {
+            "& > p,a,a:visited": {
+                color: Colors.buttonBlue,
+                cursor: "pointer",
                 padding: 0,
                 margin: 0,
                 width: "100%",
@@ -61,7 +64,7 @@ const useStyles = makeStyles({
 const PatientsView = (props) => {
     return (
         <>
-            <Patients list={props.patientList} />
+            <Patients list={props.patientList} handlePatientClick={props.handlePatientClick} />
             <Patients temporary list={props.tempList} />
         </>
     )
@@ -75,9 +78,9 @@ const Patients = (props) => {
         return (
             <div className={classes.singlePatient}>
                 <div className={classes.name}>
-                    <p>
+                    <a onClick={() => {props.handlePatientClick(patient.identifier[0].value)}}>
                         {patient.givenName} {patient.familyName}
-                    </p>
+                    </a>
                 </div>
                 <div className={classes.name}>
                     {patient.phoneNumber}

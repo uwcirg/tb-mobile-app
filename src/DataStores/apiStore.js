@@ -11,4 +11,10 @@ export default class APIStore {
         })
     }
 
+    executeRawRequest(url,method,body){
+        return this.strategy.executeRawRequest(url,method,body).then(response => {
+            return response
+        })
+    }
+
 }
