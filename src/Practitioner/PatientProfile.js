@@ -13,7 +13,15 @@ const useStyles = makeStyles({
         textTransform: "capitalize"
     },
     profile: {
-        width: "50vw"
+
+    },
+    patientContainer:{
+        padding: "2em",
+        display: "flex",
+        justifyContent: "space-between",
+        "& > div": {
+            width: "40%"
+        }
     }
 })
 
@@ -31,12 +39,12 @@ const Profile = observer((props) => {
 
     if (props.patient) {
         test = Object.keys(props.patient).map(each => {
-            return <p><span className={classes.listItem}>{each}</span>: {JSON.stringify(props.patient[each])}</p>
+            return <p><span className={classes.listItem}>{each}</span>: {typeof(props.patient[each]) == "string" && props.patient[each] }</p>
         })
     }
 
     return (
-        <div>
+        <div className={classes.patientContainer}>
             <div className={classes.profile}>
                 {props.patient && <h1>{props.patient.givenName} {props.patient.familyName}</h1>}
                 {test}

@@ -146,10 +146,10 @@ export class PractitionerStore extends UserStore {
         })
     }
 
-    approvePhoto = (id) => {
-        let body = {approved: true}
-        this.executeRawRequest(`/photo_submission/${id}`,"PATCH").then(response => {
-            console.log(response);
+    processPhoto = (id, approved) => {
+        let body = {approved: approved}
+        this.executeRawRequest(`/photo_submission/${id}`,"PATCH",body).then(response => {
+
         })
     }
 

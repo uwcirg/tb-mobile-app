@@ -1,13 +1,10 @@
 import IconButton from '@material-ui/core/IconButton'
 import CheckIcon from '@material-ui/icons/CheckCircle'
 import XIcon from '@material-ui/icons/HighlightOff'
-
 import React, { useEffect } from 'react';
 import { observer } from 'mobx-react'
 import useStores from '../Basics/UseStores';
 import makeStyles from '@material-ui/core/styles/makeStyles'
-
-
 
 const useStyles = makeStyles({
     stripPhoto: {
@@ -18,13 +15,14 @@ const useStyles = makeStyles({
 
 const PhotoList = observer((props) => {
 
-    const { practitionerStore } = useStores();
+    const { practitionerStore,routingStore} = useStores();
     const classes = useStyles();
+
+    const { location, push, goBack } = routingStore;
 
     useEffect(() => {
         practitionerStore.getPhotoReports();
     }, []);
-
 
     let list = "";
     if(practitionerStore.photoReports.length > 0){
@@ -34,8 +32,8 @@ const PhotoList = observer((props) => {
             <div>
             {report.photo_id}
             </div>
-            <IconButton onClick={() => {practitionerStore.approvePhoto(report.photo_id)}}><CheckIcon /> </IconButton>
-            <IconButton> <XIcon /></IconButton>
+            <IconButton onClick={() => {practitionerStore.processPhoto(report.photo_id,true)}}><CheckIcon /> </IconButton>
+            <IconButton onClick={() => {practitionerStore.processPhoto(report.photo_id,false)}}> <XIcon /></IconButton>
             
         </div>
     })}else{
@@ -44,24 +42,24 @@ const PhotoList = observer((props) => {
 
     return (
         <>
+        <button onClick={() => {push('/photos/historical')}}> View Old Reports</button>
         <button onClick={practitionerStore.getPhotoReports}>Update</button>
         <div>
             {list}
         </div>
         </>
     )
-
 });
 
 const ProcessedPhotoList = observer((props) => {
 
-    const { practitionerStore } = useStores();
+    const { practitionerStore,routingStore} = useStores();
     const classes = useStyles();
+    const { location, push, goBack } = routingStore;
 
     useEffect(() => {
         practitionerStore.getProcessedPhotoReports();
     }, []);
-
 
     let list = "";
     if(practitionerStore.processedPhotoReports.length > 0)list = practitionerStore.processedPhotoReports.map(report => {
@@ -77,15 +75,14 @@ const ProcessedPhotoList = observer((props) => {
 
     return (
         <>
+        <button onClick={() => {goBack()}}> Back</button>
         <button onClick={practitionerStore.getProcessedPhotoReports}>Update</button>
         <div>
             {list}
         </div>
         </>
     )
-
 });
-
 
 export default function PhotoView(props){
     if(props.processed) return <ProcessedPhotoList />
