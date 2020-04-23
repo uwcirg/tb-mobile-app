@@ -9,6 +9,8 @@ import Colors from '../../Basics/Colors'
 import useStores from '../../Basics/UseStores';
 import ClickableText from '../../Basics/ClickableText';
 import { makeStyles } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
+
 
 
 
@@ -24,9 +26,10 @@ const useStyles = makeStyles({
 const ReportPhoto = observer((props) => {
 
     const classes = useStyles();
+    const {t, i18n} = useTranslation('translation');
 
     const {patientStore} = useStores();
-    patientStore.report.headerText = "Please capture photo of test strip"
+    patientStore.report.headerText = t("patient.report.photoTitle")
 
     const handlePhoto = (photo) => {
         patientStore.report.photoString = photo;

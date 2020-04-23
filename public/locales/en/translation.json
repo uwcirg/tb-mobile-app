@@ -8,7 +8,10 @@
     "commonWords":{
         "medication": "Medication",
         "symptoms": "Symptoms",
-        "stripPhoto": "Strip Photo"
+        "stripPhoto": "Strip Photo",
+        "report": "Report",
+        "no": "no",
+        "yes": "yes"
     },
 
     "userTypes": {
@@ -101,10 +104,15 @@
             }
         },
         "report": {
+            "next": "Next",
             "title": "Log Today's Medication",
-            "medicationTitle": "Medication",
-            "symptomsTitle": "Symptoms?",
-            "photoTitle": "Strip Report",
+            "medicationTitle": "Please Log Your Medication",
+            "medicationTime": "What time did you take your medication?",
+            "didTake": "I took my medication",
+            "didNotTake": "I didn't take my medication",
+            "whyNotTaken": "Why didn't you take your medication?",
+            "symptomsTitle": "Did you have any symptoms?",
+            "photoTitle": "Capture Strip Photo",
             "symptoms": {
                 "warning": {
                     "title": "You logged a symptom that needs immediate follow up",

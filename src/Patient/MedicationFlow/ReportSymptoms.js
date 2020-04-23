@@ -19,7 +19,7 @@ const ReportSymptoms = observer((props) => {
     const {patientStore} = useStores();
     const {t, i18n} = useTranslation('translation');
 
-    patientStore.report.headerText = "Did you have any symptoms?"
+    patientStore.report.headerText = t("patient.report.symptomsTitle")
 
     return (
         <div>
@@ -30,7 +30,7 @@ const ReportSymptoms = observer((props) => {
                 <SymptomsList severe />
             </InteractionCard>
             <SimpleButton alignRight className={classes.button} onClick={props.advance}>
-                Report {patientStore.report.selectedSymptoms.length === 0 ? "No" : patientStore.report.selectedSymptoms.length} Symptoms
+                {t("commonWords.report")} {patientStore.report.selectedSymptoms.length === 0 ? t("commonWords.no") : patientStore.report.selectedSymptoms.length} {t("commonWords.symptoms")}
             </SimpleButton>
             {patientStore.uiState.symptomWarningVisible && <SymptomWarning />}
         </div>)

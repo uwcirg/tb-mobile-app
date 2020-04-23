@@ -75,7 +75,7 @@ const MedicationFlow = observer((props) => {
     let Tabs;
 
     if(patientStore.isPhotoDay){
-        Tabs = [<ReportMedication />, <ReportSymptoms />,<ReportPopUp />,<ReportConfirmation />]
+        Tabs = [<ReportMedication />, <ReportSymptoms />,<ReportPhoto />,<ReportConfirmation />]
     }else{
         Tabs = [<ReportMedication />, <ReportSymptoms />,<ReportConfirmation />]
     }
@@ -87,9 +87,9 @@ const MedicationFlow = observer((props) => {
     const tabNumber = (patientStore.uiState.onPhotoFlow ? 3 : patientStore.report.step + 1);
     return (
         <div className={classes.container}>
-            {(patientStore.report.step != 2  || patientStore.uiState.onPhotoFlow)&& <NumberedTitle number={tabNumber} title={patientStore.report.headerText} />}
+            <NumberedTitle number={tabNumber} title={patientStore.report.headerText} />
             <OverTopBar title={t("patient.report.title")} handleBack={handleBack} />
-           {patientStore.uiState.onPhotoFlow ? <ReportPhoto /> : React.cloneElement(Tabs[patientStore.report.step],{advance: advance})}
+           {React.cloneElement(Tabs[patientStore.report.step],{advance: advance})}
         </div>)
 });
 

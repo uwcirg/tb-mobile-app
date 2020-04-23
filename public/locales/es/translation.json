@@ -8,7 +8,11 @@
     "commonWords":{
         "medication": "Medicamento",
         "symptoms": "Sintomas",
-        "stripPhoto": "Tira Reactiva"
+        "stripPhoto": "Tira Reactiva",
+        "report": "Reportar",
+        "no": "no",
+        "yes": "sí"
+
     },
 
     "userTypes": {
@@ -96,9 +100,14 @@
             }
         },
         "report": {
+            "next": "Seguir",
             "title": "Vos Reporte Medico para Hoy",
             "medicationTitle": "Confirmación de Medicamento",
-            "symptomsTitle": "¿Malestares?",
+            "medicationTime": "TRANSLATION NEEDED",
+            "didTake": "TRANSLATION NEEDED",
+            "didNotTake": "TRANSLATION NEEDED",
+            "whyNotTaken": "TRANSLATION NEEDED",
+            "symptomsTitle": "¿Tiene Malestares?",
             "photoTitle": "Foto de la Tira Reactiva ",
             "symptoms": {
                 "warning": {
@@ -123,68 +132,68 @@
     "symptoms": {
         "nausea":
         {
-            "title": "Nausea or Vomiting",
+            "title": "Náuseas o vómitos",
             "subtitle": "Feeling nauscious or unable to put food down"
         },
 
         "redness":{
-            "title": "Redness",
-            "subtitle": "Swelling, redness, itching of skin"
+            "title": "Enrojectimiento",
+            "subtitle": "Enrojectimiento de la piel, granitos, picazón"
         },
 
         "hives": {
-            "title": "Hives",
+            "title": "Urticaria",
             "subtitle": "Itchy spots on skin"
         },
 
         "fever":{
-            "title": "Fever",
+            "title": "Fiebre",
             "subtitle": "Body temperature over 37.5"
         },
 
         "appetite_loss":{
-            "title": "Appetite Loss",
+            "title": "Pérdida de apetito",
             "subtitle": "Loss of appetite"
         },
 
         "blurred_vision":{
-            "title": "Blur in Vision",
+            "title": "Visión borrosa",
             "subtitle": "Blurred vision or changes in the way you see colors"
         },
 
         "sore_belly":{
-            "title": "Upset Stomach",
+            "title": "Dolor de la panza",
             "subtitle": "Soreness of belly"
         },
 
         "yellow_coloration":{
-            "title": "Yellow Coloration",
-            "subtitle": "Yellowing of the skin or whites of the eyes"
+            "title": "Coloración amarillenta",
+            "subtitle": "Coloración amarillenta en la piel o en la parte blanca de los ojos"
         },
 
         "difficulty_breathing":{
-            "title": "Difficulty Breathing",
+            "title": "Dificultad para respirar",
             "subtitle": "Shortness of breath or difficulty breathing"
         },
 
         "facial_swelling":{
-            "title": "Facial Swelling",
-            "subtitle": "Swelling of the face, lips, tongue, or throat"
+            "title": "Hinchazón de la cara",
+            "subtitle": "Hinchazón de la cara, los labios, la lengua, o la garganta"
         },
 
         "dizziness":{
-            "title": "Dizziness",
+            "title": "Mareos",
             "subtitle": ""
         },
 
         "headache":{
-            "title": "Headache",
+            "title": "Dolor de cabeza",
             "subtitle": ""
         },
 
         "other":{
-            "title": "Other",
-            "subtitle": "Click here to list additional side effects"
+            "title": "Otros síntomas",
+            "subtitle": "Registrar otros síntomas no mencionados anteriormente"
         }
 
     }

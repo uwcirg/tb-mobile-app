@@ -11,7 +11,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { observe } from 'mobx';
 
 /*
 Object that maps all symptoms to strings which are used to fetch thier locations
@@ -26,17 +25,17 @@ nausea: {
 */
 
 const Symptoms = [
+  "sore_belly",
   "nausea",
   "redness",
   "hives",
   "fever",
-  "appetite_loss",
-  "blurred_vision",
+  "appetite_loss"
 
 ]
 
 const SevereSymptoms = [
-  "sore_belly",
+  "blurred_vision",
   "yellow_coloration",
   "difficulty_breathing",
   "facial_swelling"

@@ -88,36 +88,41 @@ const TimeQuestion = observer(() => {
 });
 
 function DidTakeMedication(props) {
+    const { t, i18n } = useTranslation('translation');
     return (
         <>
             <TimeQuestion />
             <div className="clickable-container">
-                <ClickableText onClick={props.toggle} text="I didnt take my medication" />
+                <ClickableText onClick={props.toggle} text={t("patient.report.didNotTake")} />
             </div>
         </>
     )
 }
 
 function DidntTakeMedication(props) {
+    
     const classes = useStyles();
+    const { t, i18n } = useTranslation('translation');
+
     return (
         <><TextField multiline className={classes.textArea} variant="outlined" />
             <div className="clickable-container">
-                <ClickableText onClick={props.toggle} text="I did take my medication" />
+                <ClickableText onClick={props.toggle} text={t("patient.report.didTake")} />
             </div>
         </>
     )
 }
 
 const ReportMedication = observer((props) => {
-
+    
     const { patientStore } = useStores();
+    const { t, i18n } = useTranslation('translation');
 
     useEffect(() => {
         if (patientStore.report.tookMedication) {
-            patientStore.report.headerText = "When did you take your medication?"
+            patientStore.report.headerText = t("patient.report.medicationTime")
         } else {
-            patientStore.report.headerText = "Why didn't you take your medication?"
+            patientStore.report.headerText = t("patient.report.whyNotTaken")
         }
     })
 
@@ -133,7 +138,7 @@ const ReportMedication = observer((props) => {
         <>
             <Container>
                 {patientStore.report.tookMedication ? <DidTakeMedication toggle={toggle} /> : <DidntTakeMedication toggle={toggle} />}
-                <SimpleButton alignRight onClick={handleNext}>Next</SimpleButton>
+    <SimpleButton alignRight onClick={handleNext}>{t("patient.report.next")}</SimpleButton>
             </Container>
         </>
     )
