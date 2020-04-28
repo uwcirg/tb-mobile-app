@@ -1,6 +1,4 @@
 import React, {useState} from 'react'
-import { DatePicker } from "@material-ui/pickers/DatePicker/";
-import {DateTime} from 'luxon';
 import { makeStyles } from '@material-ui/core';
 import ButtonBase from '@material-ui/core/ButtonBase'
 import Colors from '../../Basics/Colors';
@@ -16,7 +14,7 @@ import MileStones from './Milestones'
 const useStyles = makeStyles(theme =>({
     container: {
         width: "100vw",
-        minHeight: "80vh",
+        minHeight: "100vh",
         display: "flex",
         justifyContent: "flex-start",
         alignItems: "center",
@@ -24,11 +22,12 @@ const useStyles = makeStyles(theme =>({
         backgroundColor: Colors.backgroundGray
     },
     fullHeight:{
-        height: "70vh",
+        height: "100vh",
         position: "fixed",
         zIndex: "10",
         backgroundColor: "white",
-        justifyContent: "center"
+        justifyContent: "flex-start",
+        paddingTop: "120px"
     }
 }));
 

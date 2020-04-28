@@ -11,7 +11,8 @@
         "stripPhoto": "Strip Photo",
         "report": "Report",
         "no": "no",
-        "yes": "yes"
+        "yes": "yes",
+        "other": "Other"
     },
 
     "userTypes": {
@@ -131,6 +132,15 @@
             "goodJob": "Good Job",
             "photoNeeded": "You also need to upload a photo of your test strip today",
             "doLater": "Do Later Today"
+        },
+        "addMilestone":{
+            "barTitle": "Add Milestone",
+            "titles":[
+                "What milestone would you like to add?", 
+                "Whats the date of your milestone?",
+                "Whats the time of your milestone?",
+                "Where is your appointment?"
+            ]
         }
     },
     "symptoms": {
@@ -199,6 +209,13 @@
             "title": "Other",
             "subtitle": "Click here to list additional side effects"
         }
-
+    },
+    "milestones":{
+        "sputumTest": "Sputum Test",
+        "intensivePhase": "End of Intensive Phase",
+        "testingFU": "Follow Up Testing",
+        "appointmentFU": "Follow Up Appointment",
+        "medPickup": "Medication pick-up",
+        "housematesTested": "All housemates tested"
     }
 }

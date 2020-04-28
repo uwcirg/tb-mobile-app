@@ -10,47 +10,16 @@ import useStores from '../../Basics/UseStores';
 import { makeStyles } from '@material-ui/core/styles';
 import Styles from '../../Basics/Styles'
 import Colors from '../../Basics/Colors';
-
 import ReportConfirmation from './ReportConfirmation'
+import NumberedTitle from '../Navigation/NumberedTitle'
 
 const useStyles = makeStyles({
-    title: {
-        ...Styles.flexRow,
-        alignItems: "center",
-        marginBottom: "1em"
-    },
-    titleText: {
-        marginLeft: "1em"
-    },
-    number: {
-        ...Styles.flexCenter,
-        height: "30px",
-        width: "30px",
-        borderRadius: "15px",
-        backgroundColor: Colors.accentBlue,
-        color: "white",
-        marginLeft: "1em"
-    },
-    innerNumber: {
-        display: "block",
-        textAlign: "center"
-    },
     container:{
         marginTop: "1em",
         marginBottom: "60px"
     }
 });
 
-
-const NumberedTitle = (props) => {
-    const classes = useStyles();
-    return (
-        <div className={classes.title}>
-            <div className={classes.number}><span className={classes.innerNumber} >{props.number}</span></div>
-            <span className={classes.titleText}>{props.title}</span>
-        </div>
-    )
-}
 
 const MedicationFlow = observer((props) => {
     const classes = useStyles();
@@ -89,7 +58,7 @@ const MedicationFlow = observer((props) => {
         <div className={classes.container}>
             <NumberedTitle number={tabNumber} title={patientStore.report.headerText} />
             <OverTopBar title={t("patient.report.title")} handleBack={handleBack} />
-           {React.cloneElement(Tabs[patientStore.report.step],{advance: advance})}
+           {React.cloneElement(Tabs[patientStore.report.step],{advance: advance})} 
         </div>)
 });
 

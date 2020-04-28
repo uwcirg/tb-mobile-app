@@ -1,7 +1,8 @@
 import { action, observable,toJS, computed} from "mobx";
 
 const ROUTES = {
-    getChannels: ["/channels","GET"]
+    getChannels: ["/channels","GET"],
+    getUnreadMessages: ["/messages/unread","GET"]
 }
 
 export class MessagingStore {
@@ -73,7 +74,6 @@ export class MessagingStore {
         this.strategy.executeRawRequest(url,"GET").then((response) => {
            
                 this.selectedChannelInfo.messages = this.selectedChannelInfo.messages.concat(response);
-                console.log(this.selectedChannelInfo.messages)
           
             
         })
@@ -99,6 +99,12 @@ export class MessagingStore {
 
         })
 
+    }
+
+    @action getUnreadMessages = () => {
+        this.strategy.executeRequest(ROUTES,"getUnreadMessages").then((response) => {
+            console.log(response)
+        })
     }
 
    

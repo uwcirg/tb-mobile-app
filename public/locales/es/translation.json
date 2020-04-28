@@ -196,5 +196,8 @@
             "subtitle": "Registrar otros síntomas no mencionados anteriormente"
         }
 
-    }
+    },
+    "test":[
+        "Uno","Dos","Tres"
+    ]
 }

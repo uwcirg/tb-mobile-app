@@ -4,15 +4,14 @@ import Colors from '../Basics/Colors'
 
 const ChannelPreview = (props) => {
     return (
-
         <Container onClick={props.onClick} altColor={props.isPersonalChannel}>
             <div className="display"><span>{props.title[0]}</span></div>
             <BorderedPart>
-            <div className="text">
-                <h1>{props.title}</h1>
-                <h2> {props.subtitle}</h2>
-            </div>
-            <span id="time" >{props.time}</span>
+                <div className="text">
+                    <h1>{props.title}</h1>
+                    <h2> {props.subtitle} <span id="unread">{props.number}</span></h2>
+                </div>
+                <span id="time" >{props.time}</span>
             </BorderedPart>
         </Container>
     )
@@ -36,6 +35,7 @@ const BorderedPart = styled.div`
     h2, h1{
         margin: 0;
         padding: 0;
+
     }
 
     h1{
@@ -48,8 +48,12 @@ const BorderedPart = styled.div`
         color: gray;
         font-weight: normal;
     }
+}
 
-
+#unread{
+    background-color: red;
+    padding: 2px;
+    color: white;
 }
 `
 
@@ -68,7 +72,7 @@ const Container = styled.div`
         margin: 0em .5em 0em .5em;
         height: 50px;
         width: 50px;
-        background-color: ${props =>  props.altColor? Colors.green : Colors.babyBlue};
+        background-color: ${props => props.altColor ? Colors.green : Colors.babyBlue};
         display: flex;
         justify-content: center;
         align-items: center;

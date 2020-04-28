@@ -53,6 +53,7 @@ const Messaging = observer(() => {
                     isPersonalChannel={patientStore.userID == channel.user_id}
                     subtitle={channel.subtitle} 
                     time={DateTime.fromISO(channel.updated_at).toLocaleString(DateTime.TIME_24_SIMPLE)}
+                    number={channel.unreadMessages}
                     onClick={() => {
                         messagingStore.selectedChannelInfo.creator = channel.user_id
                         messagingStore.selectedChannel = channel.id

@@ -29,7 +29,7 @@ const SimpleButton = (props) => {
     const Base = <Button className={classes.button} onClick={props.onClick} variant="contained" disabled={props.disabled}><div className={classes.inner}>{props.children}</div></Button>;
     
       return(
-        <div className={props.alignRight && classes.aligned} >
+        <div className={`${props.alignRight && classes.aligned} ${props.className && props.className}`} >
           {Base}
         </div>
       )

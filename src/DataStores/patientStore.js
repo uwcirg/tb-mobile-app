@@ -33,10 +33,11 @@ export class PatientStore extends UserStore {
         onCalendarView: false,
         cameraIsOpen: false,
         selectedCalendarDate: DateTime.local().startOf('day'),
-        symptomWarningVisible: false
+        symptomWarningVisible: false,
     }
     @observable medicationSchedule = []
     @observable savedReports = [];
+    @observable milestones = [];
 
     @observable report = {
         date: DateTime.local().toISODate(),
@@ -49,6 +50,13 @@ export class PatientStore extends UserStore {
         headerText: "When did you take your medication?",
         hasSubmitted: false,
         hasSubmittedPhoto: false
+    }
+
+    @observable newMilestone = {
+        datetime: DateTime.local(),
+        title: "",
+        location: "",
+        allDay: false
     }
 
     @computed get datetimeTreatmentStart() {
@@ -202,6 +210,14 @@ export class PatientStore extends UserStore {
             }
             
         });
+    }
+
+    @action postMilestone = () => {
+
+        this.executeRawRequest(`/patient/${this.userID}/milestones`,"POST").then(response => {
+            console.log(response)
+        })
+
     }
 
     loadDailyReport() {

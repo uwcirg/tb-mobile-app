@@ -100,7 +100,7 @@ function DidTakeMedication(props) {
 }
 
 function DidntTakeMedication(props) {
-    
+
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
 
@@ -114,7 +114,7 @@ function DidntTakeMedication(props) {
 }
 
 const ReportMedication = observer((props) => {
-    
+
     const { patientStore } = useStores();
     const { t, i18n } = useTranslation('translation');
 
@@ -138,7 +138,7 @@ const ReportMedication = observer((props) => {
         <>
             <Container>
                 {patientStore.report.tookMedication ? <DidTakeMedication toggle={toggle} /> : <DidntTakeMedication toggle={toggle} />}
-    <SimpleButton alignRight onClick={handleNext}>{t("patient.report.next")}</SimpleButton>
+                <SimpleButton alignRight onClick={handleNext}>{t("patient.report.next")}</SimpleButton>
             </Container>
         </>
     )

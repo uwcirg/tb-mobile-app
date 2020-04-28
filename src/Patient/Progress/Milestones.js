@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import InteractionCard from '../Home/InteractionCard';
 import Styles from '../../Basics/Styles';
-import ClickableText from '../../Basics/ClickableText';
 import { DateTime } from 'luxon';
 import Colors from '../../Basics/Colors';
+import useStores from '../../Basics/UseStores';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import AddMilestone from './AddMilestone';
+import AddMilestones from './AddMilestone';
 
 const useStyles = makeStyles({
     body: {
@@ -24,7 +28,7 @@ const useStyles = makeStyles({
         display: "flex",
         alignItems: "flex-start",
         marginBottom: "1em",
-        "& > p":{
+        "& > p": {
             margin: 0,
             padding: 0,
         }
@@ -39,37 +43,50 @@ const useStyles = makeStyles({
     month: {
         fontSize: ".75em",
         marginBottom: "3px"
+    },
+    addButton: {
+        backgroundColor: Colors.buttonBlue,
+        color: "white",
+        boxShadow: "none"
     }
 })
 
 const MileStones = () => {
 
     const classes = useStyles();
+    const { patientStore } = useStores();
+    const [onAddFlow, setOnFlow] = useState(false)
 
-    return (<InteractionCard upperText="Milestones">
-        <div className={classes.body}>
-            <div className={classes.header}><h2>Upcoming</h2><ClickableText hideIcon text="Edit" /></div>
-            <MileStoneList />
-        </div>
-    </InteractionCard>)
+    return (
+        <>
+            { onAddFlow ? <AddMilestones handleBack={() => {setOnFlow(false)}} /> :
+                <InteractionCard upperText="Milestones">
+                    <div className={classes.body}>
+                        <div className={classes.header}><h2>Upcoming</h2><Fab onClick={() => { setOnFlow(true) }} className={classes.addButton} size="small"><AddIcon /></Fab></div>
+                        <MileStoneList milestones={patientStore.milestones} />
+                    </div>
+                </InteractionCard>
+            }
+        </>
+    )
 
 }
 
-const MileStoneList = () => {
+const MileStoneList = (props) => {
     const base = DateTime.local();
+
+    const list = props.milestones.map(milestone => {
+        return (<MileStone
+            date={base.plus({ days: 1 })}
+            name="Treatment Phase 2"
+        />)
+    })
+
+
+
     return (
         <>
-            <MileStone
-                date={base.plus({days: 1})}
-                name="Treatment Phase 2"
-            />
-            <MileStone
-                date={base.plus({days: 5})}
-                name="Medication Pickup" />
-            <MileStone
-                date={base.plus({weeks: 5})}
-                name="Follow Up" />
-
+            {props.milestones.length > 0 ? list : <p>No Milestones Saved</p>}
         </>
     )
 }

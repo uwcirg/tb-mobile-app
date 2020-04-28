@@ -12,7 +12,6 @@ import SelectionList from '../Basics/SelectionList';
 import Button from '@material-ui/core/Button'
 import {
     MuiPickersUtilsProvider,
-    KeyboardTimePicker,
     KeyboardDatePicker,
   } from '@material-ui/pickers';
   import DateFnsUtils from '@date-io/luxon';

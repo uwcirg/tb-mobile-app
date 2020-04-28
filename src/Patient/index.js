@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import BottomBar from './Navigation/BottomBar';
 import { inject, observer } from 'mobx-react';
 import Home from './Home'
@@ -12,8 +12,9 @@ import useStores from '../Basics/UseStores';
 
 const PatientHome = observer((props) => {
 
-  const { uiStore } = useStores();
+  const { uiStore, messagingStore } = useStores();
   const tabs = [<Home />, <Progress />, <Messaging />, <Info />]
+
 
   return (
     <div className="main-screen">
