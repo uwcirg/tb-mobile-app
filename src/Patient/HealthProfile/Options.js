@@ -37,7 +37,6 @@ const Options = observer(() => {
     const { patientStore, uiStore } = useStores();
     const { t, i18n } = useTranslation('translation');
     const classes = useStyles();
-
     const [timeOpen, setTimeOpen] = useState(false);
 
     const handleChange = (date) => {
@@ -61,7 +60,7 @@ const Options = observer(() => {
                 <div className={classes.preference}>
                     <p>{t("patient.profile.options.medicationReminder")}</p>
                     <Switch
-                        checked={true}
+                        checked={patientStore.reminderTime !== ""}
                         onChange={() => { }}
                         color="primary"
                         name="notification enabled"
@@ -74,7 +73,7 @@ const Options = observer(() => {
                         hideIcon
                         onClick={() => { setTimeOpen(true) }}
                         className={classes.blueText} 
-                        text={`${t("patient.profile.options.remindMe")} ${DateTime.fromISO(patientStore.reminderTime).toLocaleString(DateTime.TIME_24_SIMPLE)}`}
+                        text={ patientStore.reminderTime === "" ? t("patient.profile.options.addNewReminder") : `${t("patient.profile.options.remindMe")} ${DateTime.fromISO(patientStore.reminderTime).toLocaleString(DateTime.TIME_24_SIMPLE)}`}
                     />
 
                     {timeOpen && <TimePicker
