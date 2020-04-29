@@ -1,14 +1,18 @@
 import React from 'react';
 import styled from 'styled-components'
 import Colors from '../Basics/Colors'
+import {useTranslation} from 'react-i18next'
 
 const ChannelPreview = (props) => {
+
+    const {t, i18n} = useTranslation('translation');
+
     return (
         <Container onClick={props.onClick} altColor={props.isPersonalChannel}>
             <div className="display"><span>{props.title[0]}</span></div>
             <BorderedPart>
                 <div className="text">
-                    <h1>{props.title}</h1>
+                <h1>{props.isPersonalChannel ? `Su ${t("userTypes.coordinator")}` : props.title }</h1>
                     <h2> {props.subtitle} {/*<span id="unread">{props.number}</span>*/}</h2>
                 </div>
                 <span id="time" >{props.time}</span>

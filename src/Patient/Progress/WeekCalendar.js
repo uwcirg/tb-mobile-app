@@ -28,37 +28,51 @@ const WeekCalendar = observer(() => {
     </div>)
 });
 
-function Days(){
+const Days = observer(() => {
 
     const classes = useStyles();
-    const {patientStore} = useStores();
+    const {patientStore,uiStore} = useStores();
 
     let list = []
     for(let i = 4; i >= 0; i--){
         const today = i == 0;
         const date = DateTime.local().minus({days: i})
+
+        const report = patientStore.savedReports[`${date.startOf('day').toISODate()}`]
+
+        const missedDay = (report && report.medicationTaken == false );
+        const disabled = date.startOf('day') <= (DateTime.fromISO(patientStore.treatmentStart).startOf('day'));
+        console.log(disabled)
+
         const component = (
-            //TODO Add Patient Data
+            
             <div 
                 key={`week-calendar-${date.weekdayShort}`}
-                className={`${classes.day} ${today && classes.today} ${i==3 && classes.missedDay}`}
+                className={`${classes.day} 
+                ${today && !patientStore.dailyActionsCompleted && classes.today} 
+                ${missedDay && classes.missedDay}
+                ${disabled && classes.disabled}
+                `}
+                
                 onClick={() => {
-                    if(today){
+                    if(today && !patientStore.dailyActionsCompleted){
                         patientStore.uiState.onTreatmentFlow = true;
+                        uiStore.activeTab = 0;
+
                     }else{
                         patientStore.uiState.onCalendarView = true;
                     }
                 }}>
                 <p>{date.weekdayShort}</p>
                 <p>{date.day}</p>
-                {i==3 && <Dot className={classes.dot} />}
+                {(report && report.medicationTaken == false )&& <Dot className={classes.dot} />}
             </div>
         )
         list.push(component)
     }
 
     return(<div className={classes.week}>{list}</div>)
-}
+});
 
 const useStyles = makeStyles({
     container:{
@@ -114,6 +128,10 @@ const useStyles = makeStyles({
         textAlign: "center",
         display: "block",
         margin: "1em auto .5em auto"
+    },
+    disabled:{
+        backgroundColor: Colors.lightgray,
+        color: Colors.gray
     }
   
 })

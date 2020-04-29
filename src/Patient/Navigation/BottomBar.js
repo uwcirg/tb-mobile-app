@@ -23,14 +23,14 @@ const useStyles = makeStyles({
 
 const BottomBar = inject("uiStore","patientStore")(observer(({ uiStore,patientStore, props }) => {
   const classes = useStyles();
-  const [value, setValue] = React.useState(uiStore.activeTab);
+  //const [value, setValue] = React.useState(uiStore.activeTab);
 
   return (
     <BottomNavigation
-      value={value}
+      value={uiStore.activeTab}
       onChange={(event, newValue) => {
         uiStore.updateTab(newValue);
-        setValue(newValue);
+        //setValue(newValue);
       }}
       showLabels
       className={classes.root}
