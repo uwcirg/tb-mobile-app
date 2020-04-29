@@ -38,7 +38,7 @@ const ReportSymptoms = observer((props) => {
 
 const useStyles = makeStyles({
     button:{
-        margin: "2em"
+        marginRight: "2em"
     }
 })
 

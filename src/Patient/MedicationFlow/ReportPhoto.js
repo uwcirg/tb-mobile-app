@@ -49,19 +49,19 @@ const ReportPhoto = observer((props) => {
                 {patientStore.report.photoWasTaken ?
                 <>
                 <StripPhoto><img src={patientStore.report.photoString}/> </StripPhoto>
-                <ClickableText className={classes.info} hideIcon onClick={handleRetake} text="Retake" />
+                <ClickableText className={classes.info} hideIcon onClick={handleRetake} text={t("patient.report.photo.retakePhoto")} />
                 </>
                     : 
                 <>
                 <ButtonBase style={{width:"90%",margin:"5%"}}>
                     <PhotoPrompt onClick={() => {patientStore.uiState.cameraIsOpen = true}}>
                         <CameraAltIcon />
-                        Open Camera
+                        {t("patient.report.photo.openCamera")}
                     </PhotoPrompt>
                 </ButtonBase>
-                <ClickableText className={classes.info} hideIcon onClick={props.toggle} text="Show Me How" />
+                <ClickableText className={classes.info} hideIcon onClick={props.toggle} text={t("patient.report.photo.showMe")} />
                 </>}
-             <SimpleButton alignRight onClick={patientStore.photoSubmission} disabled={!patientStore.report.photoWasTaken} backgroundColor={Colors.green}>Continute</SimpleButton>
+             <SimpleButton alignRight onClick={patientStore.photoSubmission} disabled={!patientStore.report.photoWasTaken} backgroundColor={Colors.green}>{t("patient.report.next")}</SimpleButton>
             {patientStore.uiState.cameraIsOpen ? <Camera handleExit={handleExit} returnPhoto={handlePhoto} /> : ""}
         </div>
         )

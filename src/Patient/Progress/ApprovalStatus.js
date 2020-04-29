@@ -10,6 +10,7 @@ import useStores from '../../Basics/UseStores';
 
 import {observer} from 'mobx-react'
 import ClickableText from '../../Basics/ClickableText';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
     textContainer:{
@@ -44,9 +45,10 @@ const ApprovalStatus = observer(() => {
     const classes = useStyles();
     const {patientStore} = useStores();
     const numberOfPhotoReports = patientStore.numberOfPhotoReports;
+    const {t, i18n} = useTranslation('translation');
 
     return (
-        <InteractionCard className={classes.card} upperText="Approval Status">
+        <InteractionCard className={classes.card} upperText={t("patient.progress.approvalStatus")}>
             <div className={classes.textContainer}>
                 <p>{`${numberOfPhotoReports}/${numberOfPhotoReports + 1}`} Test Strips Approved</p>
                  <CheckIcon className={classes.checkIcon}/>

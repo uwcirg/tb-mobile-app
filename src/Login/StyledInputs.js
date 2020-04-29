@@ -5,7 +5,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 
 const passwordText = "********"
-const identifierTextOptions = ["Phone Number","Email","Username"];
+const identifierTextOptions = ["Phone Number","Email","Username","Correo Electrónico","Número de Teléfono"];
 
 const PasswordInput = (props) => {
   return (

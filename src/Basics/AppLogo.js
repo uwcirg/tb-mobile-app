@@ -1,11 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
+import {useTranslation} from 'react-i18next'
 
 const AppLogo = (props) => {
+    const { t, i18n } = useTranslation('translation');
     return(
     <Title className={props.className}>
     <img src="icon.svg"></img>
-    <h1> Asistiante de Tratamiento</h1>
+    <h1>{t("title")}</h1>
     </Title>
     )
 }

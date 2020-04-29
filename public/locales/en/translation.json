@@ -12,14 +12,14 @@
         "report": "Report",
         "no": "no",
         "yes": "yes",
+        "of": "of",
         "other": "Other"
     },
 
     "userTypes": {
         "patient": "Patient",
         "coordinator": "Coordinator",
-        "administrator": "Administrator"
-
+        "admin": "Administrator"
     },
 
     "login": {
@@ -28,7 +28,8 @@
         "phoneNumber": "Phone Number",
         "email": "Email",
         "password": "Password",
-        "logIn": "Log In"
+        "logIn": "Log In",
+        "selectType": "Select your user type"
 
     },
 
@@ -44,7 +45,6 @@
     },
 
     "patient": {
-
         "demo":{
             "showDemo": "Show Demo"
         },
@@ -114,6 +114,13 @@
             "whyNotTaken": "Why didn't you take your medication?",
             "symptomsTitle": "Did you have any symptoms?",
             "photoTitle": "Capture Strip Photo",
+            "photo": {
+                "usePhoto": "Use Photo",
+                "retakePhoto": "Retake Photo",
+                "openCamera": "Open Camera",
+                "showMe": "Show Me How"
+
+            },
             "symptoms": {
                 "warning": {
                     "title": "You logged a symptom that needs immediate follow up",
@@ -132,6 +139,13 @@
             "goodJob": "Good Job",
             "photoNeeded": "You also need to upload a photo of your test strip today",
             "doLater": "Do Later Today"
+        },
+        "progress":{
+            "viewCalendar": "View Your Calendar",
+            "viewPhotos": "View Your Photo Submissions",
+            "approvalStatus": "Approval Status",
+            "milestones": "Milestones",
+            "upcoming": "Upcoming"
         },
         "addMilestone":{
             "barTitle": "Add Milestone",

@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme =>({
         zIndex: "10",
         backgroundColor: "white",
         justifyContent: "flex-start",
-        paddingTop: "120px"
+        paddingTop: "60px"
     }
 }));
 

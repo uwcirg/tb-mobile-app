@@ -11,7 +11,8 @@
         "stripPhoto": "Tira Reactiva",
         "report": "Reportar",
         "no": "no",
-        "yes": "sí"
+        "yes": "sí",
+        "of": "de"
 
     },
 
@@ -28,7 +29,8 @@
         "phoneNumber": "Número de Teléfono",
         "email": "Correo Electrónico",
         "password": "Contraseña",
-        "logIn": "Iniciar Sesión"
+        "logIn": "Iniciar Sesión",
+        "selectType": "Bienvenido. Iniciar sesión para:"
     },
 
     "messaging": {
@@ -103,12 +105,19 @@
             "next": "Seguir",
             "title": "Vos Reporte Medico para Hoy",
             "medicationTitle": "Confirmación de Medicamento",
-            "medicationTime": "TRANSLATION NEEDED",
-            "didTake": "TRANSLATION NEEDED",
-            "didNotTake": "TRANSLATION NEEDED",
-            "whyNotTaken": "TRANSLATION NEEDED",
+            "medicationTime": "A qué hora tomó su medicamento? ",
+            "didTake": "Tomé mi medicamento.",
+            "didNotTake": "No tomé mi medicamento.",
+            "whyNotTaken": "Porque no tomó su medicamento?",
             "symptomsTitle": "¿Tiene Malestares?",
-            "photoTitle": "Foto de la Tira Reactiva ",
+            "photoTitle": "Tomar Foto de Tira Reactiva",
+            "photo":{
+                "usePhoto": "Seguir",
+                "retakePhoto": "Volver a Tomar",
+                "openCamera": "Abrir Camera",
+                "showMe": "Enseñame como"
+
+            },
             "symptoms": {
                 "warning": {
                     "title": "Usted  ha reportado un sintoma que requiere inmediata atención médica",
@@ -127,6 +136,13 @@
             "goodJob": "Bien Hecho",
             "photoNeeded": "Aun tenes que subir una foto de la tira reactiva." ,
             "doLater": "Lo Haré Más Tarde"
+        },
+        "progress":{
+            "viewCalendar": "Ver su Calendario",
+            "viewPhotos": "Ver Todas sus Fotos",
+            "approvalStatus": "Estado de Fotos",
+            "milestones": "Fechas Importantes",
+            "upcoming": "Próximos Eventos"
         }
     },
     "symptoms": {

@@ -9,6 +9,9 @@ import Colors from '../Basics/Colors'
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import Fab from '@material-ui/core/Fab';
 
+import { useTranslation } from 'react-i18next';
+
+
 export default class Camera extends Component {
     constructor() {
         super();
@@ -101,11 +104,10 @@ export default class Camera extends Component {
 
         const buttons = this.state.captured ?
             <div className="camera-buttons">
-                <Button variant="contained" color="secondary" onClick={this.discardImage} > Retake Photo </Button>
-                <Button variant="contained" backgroundColor={Colors.green} onClick={this.handleUsePhoto} > Use Photo</Button>
+                <Button variant="contained" color="secondary" onClick={this.discardImage} > <RetakePhoto /> </Button>
+                <Button variant="contained" backgroundColor={Colors.green} onClick={this.handleUsePhoto} ><UsePhoto /></Button>
             </div> :
             <div className="camera-buttons">
-                {/*<Button variant="contained"  color="primary" onClick={this.captureImage} > Take Picture </Button>*/}
                 <Fab onClick={this.captureImage}><CameraAltIcon /></Fab>
             </div>
 
@@ -128,6 +130,16 @@ export default class Camera extends Component {
             </Container>
         )
     }
+}
+
+function RetakePhoto(){
+    const {t, i18n} = useTranslation('translation');
+    return <> {t("patient.report.photo.retakePhoto")} </>
+}
+
+function UsePhoto(){
+    const {t, i18n} = useTranslation('translation');
+    return <> {t("patient.report.photo.usePhoto")} </>
 }
 
 const CameraButton = styled.div`

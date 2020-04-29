@@ -15,7 +15,6 @@ const ProgressGraph = observer((props) => {
     const { patientStore } = useStores();
     const dayValue = (patientStore.daysSinceTreatmentStart / 180) * 100;
     const { t, i18n } = useTranslation('translation');
-    t("patient.profile.startDate")
 
     return (
         <InteractionCard upperText={t("patient.home.cardTitles.myProgress")}>
@@ -26,7 +25,7 @@ const ProgressGraph = observer((props) => {
                     rotation: 3 / 4,
                     strokeLinecap: "round"
                 })}>
-                    <p className={classes.progressText}>{patientStore.daysSinceTreatmentStart} of <br /> 180 {t('time.days')}</p>
+                    <p className={classes.progressText}>{patientStore.daysSinceTreatmentStart} {t("commonWords.of")} <br /> 180 {t('time.days')}</p>
                 </CircularProgressbar>
             </div>
             <div className={classes.stats}>

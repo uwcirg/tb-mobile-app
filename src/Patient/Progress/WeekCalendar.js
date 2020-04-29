@@ -1,6 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import {DateTime,Interval} from 'luxon'
+import {DateTime} from 'luxon'
 import Styles from '../../Basics/Styles';
 import Colors from '../../Basics/Colors';
 import { Typography, Grid, Container } from '@material-ui/core';
@@ -9,11 +9,13 @@ import Dot from '@material-ui/icons/FiberManualRecord';
 import useStores from '../../Basics/UseStores';
 import ClickableText from '../../Basics/ClickableText';
 import { observer } from 'mobx-react';
+import {useTranslation} from 'react-i18next'
 
 const WeekCalendar = observer(() => {
 
     const classes = useStyles();
     const {patientStore,uiStore} = useStores();
+    const {t, i18n} = useTranslation('translation');
 
     return(<div className={classes.container + ' intro-weekcalendar'}>
         {/* rerender when language changes*/uiStore.locale && <span></span>}
@@ -22,7 +24,7 @@ const WeekCalendar = observer(() => {
             <Calendar size="1.5em" />
         </Grid>
         <Days />
-        <ClickableText onClick={() => {patientStore.uiState.onCalendarView = true}} className={classes.clickableText} hideIcon text="View Your Calendar" />
+        <ClickableText onClick={() => {patientStore.uiState.onCalendarView = true}} className={classes.clickableText} hideIcon text={t("patient.progress.viewCalendar")} />
     </div>)
 });
 

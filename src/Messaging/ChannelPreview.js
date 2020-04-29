@@ -9,7 +9,7 @@ const ChannelPreview = (props) => {
             <BorderedPart>
                 <div className="text">
                     <h1>{props.title}</h1>
-                    <h2> {props.subtitle} <span id="unread">{props.number}</span></h2>
+                    <h2> {props.subtitle} {/*<span id="unread">{props.number}</span>*/}</h2>
                 </div>
                 <span id="time" >{props.time}</span>
             </BorderedPart>

@@ -16,6 +16,8 @@ import Colors from '../Basics/Colors'
 import ChevronLeftOutlined from '@material-ui/icons/ChevronLeftOutlined';
 import DeveloperModeIcon from '@material-ui/icons/DeveloperMode';
 
+import {useTranslation} from 'react-i18next'
+
 const useStyles = makeStyles({
     container: {
         width: "100%",
@@ -59,14 +61,14 @@ const useStyles = makeStyles({
 
 const Selection = (props) => {
     const classes = useStyles();
+    const { t, i18n } = useTranslation('translation');
+
     return (
     <div className={classes.selectionContainer}>
-        <h2 className={classes.subtitle}>Select your user type:</h2>
-        <LargeSelector onClick={props.handleSelection} id="Patient" backgroundColor={Colors.blue}><AccountBoxIcon /><span>Patient</span></LargeSelector>
-        <LargeSelector onClick={props.handleSelection} id="Practitioner" backgroundColor={Colors.blue}><SupervisorAccountIcon /><span>Provider</span></LargeSelector>
-        <LargeSelector onClick={props.handleSelection} id="Administrator" backgroundColor={Colors.blue}><SupervisedUserCircleIcon /><span>Administrator</span></LargeSelector>
-        <LargeSelector onClick={props.handleSelection} id="Administrator" backgroundColor={Colors.blue}><AddAPhotoIcon /><span>Bio Engineer</span></LargeSelector>
-        <LargeSelector onClick={props.handleSelection} id="Test" backgroundColor={Colors.blue}><DeveloperModeIcon /><span>Test</span></LargeSelector>
+        <h2 className={classes.subtitle}>{t("login.selectType")}:</h2>
+    <LargeSelector onClick={props.handleSelection} id="Patient" backgroundColor={Colors.blue}><AccountBoxIcon /><span>{t("userTypes.patient")}</span></LargeSelector>
+        <LargeSelector onClick={props.handleSelection} id="Practitioner" backgroundColor={Colors.blue}><SupervisorAccountIcon /><span>{t("userTypes.coordinator")}</span></LargeSelector>
+        <LargeSelector onClick={props.handleSelection} id="Administrator" backgroundColor={Colors.blue}><SupervisedUserCircleIcon /><span>{t("userTypes.admin")}</span></LargeSelector>
     </div>)
 }
 

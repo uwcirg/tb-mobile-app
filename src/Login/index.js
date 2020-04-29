@@ -1,31 +1,36 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import LoginRouter from './LoginRouter';
-import LoginPage from './LoginPage';
 import Alert from '../Basics/Alert';
 import useStores from '../Basics/UseStores';
-import {observer} from 'mobx-react';
+import { observer } from 'mobx-react';
 
 const Login = observer(() => {
 
-    const {loginStore} = useStores();
+  const { loginStore, uiStore } = useStores();
+  //Load Spanish For User Tests
+  useEffect(() => {
+    console.log("set locale")
+    uiStore.language = "es"
+  }, [])
 
-    const errorText = () => {
-        if(loginStore.error == 422){
-          return "Incorrect Phone Number / Email"
-        }else if(loginStore.error == 401){
-          return "Incorrect Password"
-        }else{
-          return "Internal Server Error"
-        }
-      }
 
-    return(
-        <>
-        <LoginRouter />
-        {loginStore.error != 0 && <Alert open text={errorText()} onClose={loginStore.clearError} />}
-        </>
+  const errorText = () => {
+    if (loginStore.error == 422) {
+      return "Incorrect Phone Number / Email"
+    } else if (loginStore.error == 401) {
+      return "Incorrect Password"
+    } else {
+      return "Internal Server Error"
+    }
+  }
 
-    )
+  return (
+    <>
+      <LoginRouter />
+      {loginStore.error != 0 && <Alert open text={errorText()} onClose={loginStore.clearError} />}
+    </>
+
+  )
 
 });
 

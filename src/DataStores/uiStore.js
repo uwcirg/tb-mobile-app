@@ -8,12 +8,12 @@ export class UIStore {
 
     @observable isLoggedIn = false;
 
-    @observable language = "en";
+    @observable language = "es";
     @observable activeTab = 0;
     @observable menuOpened = false;
     @observable offline = !navigator.onLine;
 
-    @observable locale = "en-US"
+    @observable locale = "es-ar"
 
 
     @computed get isSpanish(){
