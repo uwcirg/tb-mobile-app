@@ -34,6 +34,7 @@ const MedicationFlow = observer((props) => {
         } else {
             patientStore.uiState.onTreatmentFlow = false;
             patientStore.uiState.onPhotoFlow = false;
+            patientStore.uiState.onHistoricalTreatmentFlow = false;
         }
     }
 
@@ -43,7 +44,7 @@ const MedicationFlow = observer((props) => {
 
     let Tabs;
 
-    if(patientStore.isPhotoDay){
+    if(patientStore.isPhotoDay && !patientStore.uiState.onHistoricalTreatmentFlow){
         Tabs = [<ReportMedication />, <ReportSymptoms />,<ReportPhoto />,<ReportConfirmation />]
     }else{
         Tabs = [<ReportMedication />, <ReportSymptoms />,<ReportConfirmation />]

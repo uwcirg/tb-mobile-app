@@ -55,13 +55,9 @@ const useStyles = makeStyles({
 const TimeQuestion = observer(() => {
 
     const classes = useStyles();
-
     const { patientStore } = useStores();
-
     const [selectedDate, handleDateChange] = useState(DateTime.local());
     const [onTime, changeTime] = useState(false);
-
-
     patientStore.medicationTime = selectedDate.toISO();
 
     const toggleTime = () => {
@@ -105,7 +101,8 @@ function DidntTakeMedication(props) {
     const { t, i18n } = useTranslation('translation');
 
     return (
-        <><TextField multiline className={classes.textArea} variant="outlined" />
+        <>
+            <TextField multiline className={classes.textArea} variant="outlined" />
             <div className="clickable-container">
                 <ClickableText onClick={props.toggle} text={t("patient.report.didTake")} />
             </div>

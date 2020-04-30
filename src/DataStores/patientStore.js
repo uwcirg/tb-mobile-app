@@ -29,6 +29,7 @@ export class PatientStore extends UserStore {
 
     @observable uiState = {
         onTreatmentFlow: false,
+        onHistoricalTreatmentFlow: false,
         onPhotoFlow: false,
         onCalendarView: false,
         cameraIsOpen: false,
@@ -49,7 +50,8 @@ export class PatientStore extends UserStore {
         tookMedication: true,
         headerText: "When did you take your medication?",
         hasSubmitted: false,
-        hasSubmittedPhoto: false
+        hasSubmittedPhoto: false,
+        isHistoricalReport: false
     }
 
     @observable newMilestone = {
@@ -146,7 +148,8 @@ export class PatientStore extends UserStore {
     }
 
     saveReportingState = autorun(() => {
-        if (this.report.step > 0 || this.report.hasSubmitted) {
+        //Update Locally Saved Report State on step change or on submit. Do not do this for historical reports
+        if (!this.uiState.onHistoricalTreatmentFlow && (this.report.step > 0 || this.report.hasSubmitted) ) {
             localStorage.setItem(`medicationReport`, JSON.stringify(this.report));
         }
     });
@@ -181,6 +184,7 @@ export class PatientStore extends UserStore {
             this.executeRequest('dailyReport', body).then(json => {
                 this.report.hasSubmitted = true;
                 this.uiState.onTreatmentFlow = false;
+                this.uiState.onHistoricalTreatmentFlow = false;
                 this.getReports();
             })
         }
@@ -217,6 +221,27 @@ export class PatientStore extends UserStore {
         this.executeRawRequest(`/patient/${this.userID}/milestones`,"POST").then(response => {
             console.log(response)
         })
+
+    }
+
+    @action startHistoricalReport = () => {
+
+        //Set The date for the report and reset other stuff
+        const newDate = this.uiState.selectedCalendarDate.set({hour: 12, minute: 0});
+
+        this.report = {
+            date: newDate.toISODate(),
+            step: 0,
+            timeTaken: newDate.toISOTime({ suppressSeconds: true }),
+            selectedSymptoms: [],
+            photoWasTaken: false,
+            photoString: "",
+            tookMedication: true,
+            headerText: "When did you take your medication?",
+            hasSubmitted: false,
+            hasSubmittedPhoto: false,
+        }
+
 
     }
 

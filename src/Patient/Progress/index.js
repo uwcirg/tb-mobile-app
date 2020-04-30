@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { makeStyles } from '@material-ui/core';
 import ButtonBase from '@material-ui/core/ButtonBase'
 import Colors from '../../Basics/Colors';
@@ -10,6 +10,7 @@ import CustomCalendar from './CustomCalendar';
 import OverTopBar from '../Navigation/OverTopBar';
 import ApprovalStatus from './ApprovalStatus';
 import MileStones from './Milestones'
+import MedicationFlow from '../MedicationFlow';
 
 const useStyles = makeStyles(theme =>({
     container: {
@@ -31,12 +32,31 @@ const useStyles = makeStyles(theme =>({
     }
 }));
 
+const ReportOldMedication = () => {
+    const {patientStore} = useStores();
+    useEffect(() => {
+        patientStore.startHistoricalReport();
+
+        return function cleanup(){
+            patientStore.loadDailyReport();
+        }
+    })
+
+
+   return(<MedicationFlow />) 
+
+}
+
 const Progress = observer(() => {
 
     const classes = useStyles();
     const {patientStore} = useStores();
 
     return(<>
+
+
+        { patientStore.uiState.onHistoricalTreatmentFlow ? <ReportOldMedication /> :
+        
         <div className={`${classes.container} ${patientStore.uiState.onCalendarView && classes.centerContainer + ' ' + classes.fullHeight}`} >  
             {!patientStore.uiState.onCalendarView ?
             <>
@@ -49,7 +69,7 @@ const Progress = observer(() => {
                 <CustomCalendar />
                 <DayDrawer />
             </>}
-        </div>
+        </div>}
       </>)
 });
 
