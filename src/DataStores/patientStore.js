@@ -149,8 +149,11 @@ export class PatientStore extends UserStore {
 
     saveReportingState = autorun(() => {
         //Update Locally Saved Report State on step change or on submit. Do not do this for historical reports
-        if (!this.uiState.onHistoricalTreatmentFlow && (this.report.step > 0 || this.report.hasSubmitted) ) {
+        const reportIsFromToday = (this.report.date === DateTime.local().toISODate())
+        if (reportIsFromToday && (this.report.step > 0 || this.report.hasSubmitted) ) {
+            
             localStorage.setItem(`medicationReport`, JSON.stringify(this.report));
+
         }
     });
 
