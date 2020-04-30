@@ -17,14 +17,18 @@ const WeekCalendar = observer(() => {
     const {patientStore,uiStore} = useStores();
     const {t, i18n} = useTranslation('translation');
 
+    const goToCalendar = () => {
+        patientStore.uiState.onCalendarView = true;
+    }
+
     return(<div className={classes.container + ' intro-weekcalendar'}>
-        {/* rerender when language changes*/uiStore.locale && <span></span>}
-        <Grid className={classes.monthContainer} container direction="row" justify="flex-end" alignItems="center">
+        {/* rerender when language changes*/ uiStore.locale && <span></span>}
+        <Grid onClick={goToCalendar} className={classes.monthContainer} container direction="row" justify="flex-end" alignItems="center">
             <Typography className={classes.month} variant="h2" >{DateTime.local().monthLong}</Typography>
             <Calendar size="1.5em" />
         </Grid>
         <Days />
-        <ClickableText onClick={() => {patientStore.uiState.onCalendarView = true}} className={classes.clickableText} hideIcon text={t("patient.progress.viewCalendar")} />
+        <ClickableText onClick={goToCalendar} className={classes.clickableText} hideIcon text={t("patient.progress.viewCalendar")} />
     </div>)
 });
 
@@ -42,7 +46,6 @@ const Days = observer(() => {
 
         const missedDay = (report && report.medicationTaken == false );
         const disabled = date.startOf('day') <= (DateTime.fromISO(patientStore.treatmentStart).startOf('day'));
-        console.log(disabled)
 
         const component = (
             
@@ -61,6 +64,7 @@ const Days = observer(() => {
 
                     }else{
                         patientStore.uiState.onCalendarView = true;
+                        patientStore.uiState.selectedCalendarDate = date.startOf('day');
                     }
                 }}>
                 <p>{date.weekdayShort}</p>

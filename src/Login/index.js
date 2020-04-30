@@ -9,7 +9,6 @@ const Login = observer(() => {
   const { loginStore, uiStore } = useStores();
   //Load Spanish For User Tests
   useEffect(() => {
-    console.log("set locale")
     uiStore.language = "es"
   }, [])
 
