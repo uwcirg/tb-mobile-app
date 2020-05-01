@@ -51,8 +51,11 @@ export class PatientStore extends UserStore {
         headerText: "When did you take your medication?",
         hasSubmitted: false,
         hasSubmittedPhoto: false,
+        hasConfirmedAndSubmitted: false,
         isHistoricalReport: false
     }
+
+    @observable treatmentFlowLength = 0;
 
     @observable newMilestone = {
         datetime: DateTime.local(),
@@ -67,6 +70,10 @@ export class PatientStore extends UserStore {
 
     @computed get selectedDayReport() {
         return this.savedReports[`${this.uiState.selectedCalendarDate.toISODate()}`]
+    }
+
+    @computed get requiresSubmission() {
+        return (this.report.hasSubmitted && this.report.hasSubmittedPhoto && !this.report.hasConfirmedAndSubmitted)
     }
 
 
@@ -91,7 +98,7 @@ export class PatientStore extends UserStore {
     }
 
     @computed get dailyActionsCompleted() {
-        return (!this.isPhotoDay || this.report.hasSubmittedPhoto) && this.report.hasSubmitted
+        return (this.report.hasConfirmedAndSubmitted)
     }
 
     @computed get numberOfPhotoReports() {
@@ -159,6 +166,9 @@ export class PatientStore extends UserStore {
 
     @action photoSubmission = () => {
         this.report.hasSubmittedPhoto = true;
+        if(this.report.hasSubmitted){
+
+        }
         this.uiState.onPhotoFlow = false;
         this.uiState.onTreatmentFlow = true;
         this.report.step = 3;
@@ -177,7 +187,7 @@ export class PatientStore extends UserStore {
             this.uploadPhoto().then(res => {
                 body.photoURL = res
                 this.executeRequest('dailyReport', body).then(json => {
-                    this.report.hasSubmitted = true;
+                    this.report.hasConfirmedAndSubmitted = true;
                     this.uiState.onTreatmentFlow = false;
                     this.getReports();
                 })
@@ -185,7 +195,7 @@ export class PatientStore extends UserStore {
             })
         } else {
             this.executeRequest('dailyReport', body).then(json => {
-                this.report.hasSubmitted = true;
+                this.report.hasConfirmedAndSubmitted = true;
                 this.uiState.onTreatmentFlow = false;
                 this.uiState.onHistoricalTreatmentFlow = false;
                 this.getReports();
@@ -246,6 +256,12 @@ export class PatientStore extends UserStore {
         }
 
 
+    }
+
+    @action skipToReportConfirmation = () => {
+        //Any Length Greater than the report will default to last step
+        this.report.step = 100
+        this.uiState.onTreatmentFlow = true;
     }
 
     loadDailyReport() {

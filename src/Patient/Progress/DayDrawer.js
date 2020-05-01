@@ -27,7 +27,7 @@ const DayDrawer = observer((props) => {
 
   const date = patientStore.uiState.selectedCalendarDate;
 
-  const complete = (patientStore.selectedDayReport && patientStore.selectedDayReport.medicationTaken)
+  const complete = (patientStore.selectedDayReport)
 
   return (
     <ExpansionPanel
@@ -82,7 +82,7 @@ const Body = (props) => {
     <>
       {props.complete ?
         <div className={classes.preview}>
-          <div className={classes.previewItem}><PillIcon /><p>{t("commonWords.medication")}</p></div>
+          <div className={`${classes.previewItem} ${!props.report.medicationTaken && classes.previewItemMissed}`}><PillIcon /><p>{t("commonWords.medication")}</p></div>
           <div className={classes.previewItem}><TempIcon /><p>{t("commonWords.symptoms")}</p></div>
           {props.photoDay && <div className={classes.previewItem}><Camera /><p>{t('commonWords.stripPhoto')}</p></div>}
         </div> :
@@ -140,7 +140,13 @@ const useStyles = makeStyles({
       padding: 0,
       marginLeft: ".5em"
     }
-
+  },
+  previewItemMissed:{
+    color: Colors.red,
+    "& > svg": {
+      fontSize: "1em",
+      color: Colors.red
+    },
   },
   container: {
     width: "100%"

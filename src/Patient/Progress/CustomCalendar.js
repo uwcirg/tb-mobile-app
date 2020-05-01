@@ -120,12 +120,15 @@ const CustomCalendar = () => {
         patientStore.uiState.selectedCalendarDate = DateTime.fromJSDate(date);
     }
 
+    const checkDisabled = (date) => {
+        return (DateTime.fromJSDate(date) > DateTime.local() || DateTime.fromJSDate(date).startOf('day') < DateTime.fromISO(patientStore.treatmentStart).startOf('day') )
+    }
+
     return (
         <Calendar
             tileDisabled={({ date }) => {
-                return (DateTime.fromJSDate(date) > DateTime.local() || DateTime.fromJSDate(date) < DateTime.fromISO(patientStore.treatmentStart) )
-            }
-            }
+                return  checkDisabled(date)
+            }}
             calendarType="US"
             minDetail="month"
             view="month"
@@ -138,11 +141,11 @@ const CustomCalendar = () => {
             }
             tileContent={({ date, view }) => (
                 view === "month"
-                    ? <Day dateObj={date} date={DateTime.fromJSDate(date).day} disabled={DateTime.fromJSDate(date) > DateTime.local() || DateTime.fromJSDate(date) < DateTime.fromISO(patientStore.treatmentStart)} />
+                    ? <Day dateObj={date} date={DateTime.fromJSDate(date).day} disabled={checkDisabled(date)} />
                     : null
             )}
-            next2Label={""}
-            prev2Label=""
+            next2Label={null}
+            prev2Label={null}
             nextLabel={<ChevronRight />}
             prevLabel={<ChevronLeft />}
             onChange={handleChange}
@@ -170,7 +173,7 @@ const Day = observer((props) => {
 
     if (dayFromServer && dayFromServer.medicationTaken){compositeClass += ' ' + classes.positive}
     else if(dayFromServer && !dayFromServer.medicationTaken ){ modifier = "red" }
-    else if (!dayFromServer && !props.disabled){compositeClass += ' ' + classes.negative}
+    else if (!dayFromServer && !props.disabled && !today){compositeClass += ' ' + classes.negative}
 
     if (dayBefore && dayAfter && dayFromServer) {
         if (dayBefore.medicationTaken != dayFromServer.medicationTaken) compositeClass += ' ' + classes.start;
@@ -180,8 +183,16 @@ const Day = observer((props) => {
 
     if( (dayFromServer && !dayAfter) || (!dayFromServer && dayAfter) || today ) compositeClass += ' ' + classes.end;
     if( (dayFromServer && !dayBefore) || (!dayFromServer && dayBefore) || start ) compositeClass += ' ' + classes.start;
-
-
+    
+   if(dt.toISODate() == "2020-03-21"){
+    console.log(JSON.stringify(dayBefore))
+       console.log(JSON.stringify(dayFromServer))
+   }
+/*
+    if(dt.toISODate() == "" ){
+        console.log("messup" + dt.toISODate())
+    }
+    */
 
     return(
         <div className={`${classes.day} ${compositeClass}`}>

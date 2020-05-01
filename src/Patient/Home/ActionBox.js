@@ -41,11 +41,17 @@ const useStyles = makeStyles({
             color: Colors.approvedGreen,
             marginLeft: ".5em"
         }
+    },
+    bottomButton:{
+        margin: "1em",
+        "& > svg":{
+            fontSize: "1.25em"
+        }
     }
 })
 
 const ActionBox = observer(() => {
-
+    const classes = useStyles();
     const {patientStore} = useStores();
     const { t, i18n } = useTranslation('translation');
 
@@ -55,7 +61,7 @@ const ActionBox = observer(() => {
 
     const handlePhotoClick = () =>{
         patientStore.uiState.onTreatmentFlow = true;
-        patientStore.uiState.onPhotoFlow = true;
+        patientStore.report.step = 2;
     }
 
     return(
@@ -70,6 +76,7 @@ const ActionBox = observer(() => {
             {patientStore.isPhotoDay && <NewButton positive={patientStore.report.hasSubmittedPhoto} onClick={handlePhotoClick} icon={<Camera />} text={t("patient.home.todaysActions.uploadPhoto")} />} 
             </>
             }
+            { patientStore.requiresSubmission && <ClickableText onClick={patientStore.skipToReportConfirmation} className={classes.bottomButton} text="Please Confirm and Submit Your Report" />}
         </InteractionCard>)
 });
 

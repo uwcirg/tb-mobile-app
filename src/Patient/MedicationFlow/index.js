@@ -27,7 +27,6 @@ const MedicationFlow = observer((props) => {
     const { t, i18n } = useTranslation('translation');
 
     const handleBack = () => {
-
         //If on photo flow exit to home
         if (!patientStore.uiState.onPhotoFlow && patientStore.report.step > 0) {
             patientStore.report.step -= 1;
@@ -55,6 +54,9 @@ const MedicationFlow = observer((props) => {
     }
 
     const tabNumber = (patientStore.uiState.onPhotoFlow ? 3 : patientStore.report.step + 1);
+
+
+
     return (
         <div className={classes.container}>
             <NumberedTitle number={tabNumber} title={patientStore.report.headerText} />
