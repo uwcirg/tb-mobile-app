@@ -36,7 +36,6 @@ export default class LoginStore extends APIStore {
 
             if(response instanceof Error){
                 this.error = response.message;
-                console.log(response.name)
             }else{
                 this.activationWasRequested = true;
                 this.activationWasSuccessful = response.validCode;

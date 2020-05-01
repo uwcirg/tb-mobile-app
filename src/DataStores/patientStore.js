@@ -304,9 +304,8 @@ export class PatientStore extends UserStore {
     }
 
     @action logoutPatient(){
-        console.log("here")
         this.logout();
-        //Clear MobX Session Data
+        //@TODO Cleanup this method with cookie update
         this.userID = ""
         this.token = ""
         this.name = ""

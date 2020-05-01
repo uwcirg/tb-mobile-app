@@ -67,7 +67,6 @@ export class PractitionerStore extends UserStore {
         this.newPatientLoading = true;
 
         return this.executeRequest('addPatient',this.newPatientInformation).then(json => {
-            console.log(json)
             this.newPatientLoading = false;
 
             if(json.error === 422){

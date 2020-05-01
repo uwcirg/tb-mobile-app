@@ -47,25 +47,16 @@ export default class LabPhotoStore extends APIStore {
 
         //Upload Photo to Bucket service
         this.uploadPhoto(this.photoRender).then( (key) =>{
-            console.log("key is" + key);
+
             //Use Url to build object on backend
             this.formResults.photoURL = key;
             this.executeRequest("postResult", this.formResults).then( res =>{
-                console.log("serverReceived")
+
                 this.serverResponse = res;
                 this.serverRecievedResult = true;
             })
 
         })
-      
-
-        /*
-        this.executeRequest('postResult',this.formResults).then( url => {
-            
-        })
-        */
-
-
     }
 
     clearStore = () => {

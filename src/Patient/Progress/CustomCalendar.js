@@ -183,16 +183,6 @@ const Day = observer((props) => {
 
     if( (dayFromServer && !dayAfter) || (!dayFromServer && dayAfter) || today ) compositeClass += ' ' + classes.end;
     if( (dayFromServer && !dayBefore) || (!dayFromServer && dayBefore) || start ) compositeClass += ' ' + classes.start;
-    
-   if(dt.toISODate() == "2020-03-21"){
-    console.log(JSON.stringify(dayBefore))
-       console.log(JSON.stringify(dayFromServer))
-   }
-/*
-    if(dt.toISODate() == "" ){
-        console.log("messup" + dt.toISODate())
-    }
-    */
 
     return(
         <div className={`${classes.day} ${compositeClass}`}>

@@ -40,7 +40,6 @@ export class UserStore extends APIStore{
   }
 
     @action logout = () => {
-        console.log("there")
         this.executeRequest('logout').then( (json) => {
           this.isLoggedIn = false;
         })

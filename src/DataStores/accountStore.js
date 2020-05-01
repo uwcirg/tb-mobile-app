@@ -42,7 +42,6 @@ export class AccountStore {
      getCurrentUserInformation = () => {
         console.log("in here")
         return this.strategy.executeRequest(ROUTES,'getCurrentUser').then( json => {
-            console.log(json)
             if(!json.uuid){
                 this.sessionExpired = true;
             }
