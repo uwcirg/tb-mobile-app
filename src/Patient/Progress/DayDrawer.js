@@ -29,6 +29,8 @@ const DayDrawer = observer((props) => {
 
   const complete = (patientStore.selectedDayReport)
 
+  console.log(patientStore.selectedDayReport)
+
   return (
     <ExpansionPanel
       expanded={open}
@@ -48,6 +50,8 @@ const DayDrawer = observer((props) => {
         <ExpansionPanelDetails className={classes.detail}>
           {patientStore.selectedDayReport ?
             <PatientReport
+              medicationNotTakenReason={patientStore.selectedDayReport.whyMedicationNotTaken}
+              medicationTaken={patientStore.selectedDayReport.medicationTaken}
               timeTaken={patientStore.selectedDayReport.takenAt}
               selectedSymptoms={patientStore.selectedDayReport.symptoms}
               photoString={patientStore.selectedDayReport.photoURL}

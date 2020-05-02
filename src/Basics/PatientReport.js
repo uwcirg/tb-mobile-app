@@ -75,9 +75,12 @@ const PatientReport = (props) => {
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
 
+    //@TRANSLATION Taken at vs not taken
+
     return( <div className={`${classes.container}`}>
         <ListItem icon={<PillIcon />} title={t("commonWords.medication")} >
-            <p>Taken at {DateTime.fromISO(props.timeTaken).toLocaleString(DateTime.TIME_24_SIMPLE)}</p>
+        <p> {props.medicationTaken ? `Taken at ${DateTime.fromISO(props.timeTaken).toLocaleString(DateTime.TIME_24_SIMPLE)}` : "Not Taken" }</p>
+        {props.medicationNotTakenReason && <p>{props.medicationNotTakenReason}</p>}
         </ListItem>
         <ListItem icon={<TempIcon />} title={t("commonWords.symptoms")}>
             <SymptomList symptoms={props.selectedSymptoms} />

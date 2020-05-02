@@ -95,20 +95,21 @@ function DidTakeMedication(props) {
     )
 }
 
-function DidntTakeMedication(props) {
+const DidntTakeMedication = observer((props) => {
 
+    const { patientStore } = useStores();
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
 
     return (
         <>
-            <TextField multiline className={classes.textArea} variant="outlined" />
+            <TextField multiline value={patientStore.report.whyMedicationNotTaken} onChange={(e) => {patientStore.report.whyMedicationNotTaken = e.target.value}} className={classes.textArea} variant="outlined" />
             <div className="clickable-container">
                 <ClickableText onClick={props.toggle} text={t("patient.report.didTake")} />
             </div>
         </>
     )
-}
+});
 
 const ReportMedication = observer((props) => {
 
