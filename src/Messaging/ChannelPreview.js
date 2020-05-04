@@ -8,7 +8,7 @@ const ChannelPreview = (props) => {
     const {t, i18n} = useTranslation('translation');
 
     return (
-        <Container onClick={props.onClick} altColor={props.isPersonalChannel}>
+        <Container onClick={props.onClick} altColor={props.private}>
             <div className="display"><span>{props.title[0]}</span></div>
             <BorderedPart>
                 <div className="text">
@@ -76,6 +76,7 @@ const Container = styled.div`
         margin: 0em .5em 0em .5em;
         height: 50px;
         width: 50px;
+        border-radius: 50px;
         background-color: ${props => props.altColor ? Colors.green : Colors.babyBlue};
         display: flex;
         justify-content: center;
