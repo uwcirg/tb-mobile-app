@@ -53,8 +53,9 @@ const Days = observer(() => {
                 key={`week-calendar-${date.weekdayShort}`}
                 className={`${classes.day} 
                 ${today && !patientStore.dailyActionsCompleted && classes.today} 
-                ${missedDay && classes.missedDay}
+                ${missedDay && classes.didntTake}
                 ${disabled && classes.disabled}
+                ${!report && classes.didntReport}
                 `}
                 
                 onClick={() => {
@@ -104,11 +105,7 @@ const useStyles = makeStyles({
             fontSize: "1.5em"
         }
     },
-    today:{
-        color: "white",
-        backgroundColor: Colors.buttonBlue
-    },
-    missedDay:{
+    didntTake:{
         backgroundColor: Colors.lightgray
     },
     week:{
@@ -136,7 +133,14 @@ const useStyles = makeStyles({
     disabled:{
         backgroundColor: Colors.lightgray,
         color: Colors.gray
-    }
+    },
+    didntReport:{
+        backgroundColor: Colors.calendarRed
+    },
+    today:{
+        color: "white",
+        backgroundColor: Colors.buttonBlue
+    },
   
 })
 
