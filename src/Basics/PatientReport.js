@@ -80,7 +80,7 @@ const PatientReport = (props) => {
 
     return (<div className={`${classes.container}`}>
         <ListItem negative={!props.medicationTaken} icon={<PillIcon />} title={t("commonWords.medication")} >
-            <p> {props.medicationTaken ? `Taken at ${DateTime.fromISO(props.timeTaken).toLocaleString(DateTime.TIME_24_SIMPLE)}` : "Not Taken"}</p>
+            <p> {props.medicationTaken ? `${t("patient.report.confirmation.takenAt")} ${DateTime.fromISO(props.timeTaken).toLocaleString(DateTime.TIME_24_SIMPLE)}` : `${t("patient.report.confirmation.notTaken")}:`}</p>
             {props.medicationNotTakenReason && <p>{props.medicationNotTakenReason}</p>}
         </ListItem>
 
@@ -109,7 +109,7 @@ const PhotoListItem = (props) => {
     if (props.isPhotoDay) {
         return (
             <ListItem negative={props.isPhotoDay && !props.photoString} icon={<CameraIcon />} title={t('commonWords.stripPhoto')}>
-                {!props.missingPhoto ? <img className={classes.stripPhoto} src={props.photoString} /> : <p>Missing Photo Report</p>}
+                {!props.missingPhoto ? <img className={classes.stripPhoto} src={props.photoString} /> : <p>{t('patient.report.confirmation.missingPhoto')}</p>}
             </ListItem>
         )
     } else {

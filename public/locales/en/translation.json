@@ -133,7 +133,10 @@
             "confirmation":{
                 "title": "Confirm and Submit",
                 "addMore": "Add More",
-                "noPhoto": "No Photo Needed Today"
+                "noPhoto": "No Photo Needed Today",
+                "missingPhoto": "Missing Photo",
+                "takenAt": "Taken at",
+                "notTaken": "Not taken because"
             }
         },
         "reportConfirmation": {
