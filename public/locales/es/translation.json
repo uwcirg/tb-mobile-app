@@ -130,7 +130,10 @@
             "confirmation":{
                 "title": "Confirmar y Subir",
                 "addMore": "Reportar Mas Information",
-                "noPhoto": "Hoy no necesitas subir una foto."
+                "noPhoto": "Hoy no necesitas subir una foto.",
+                "missingPhoto": "Missing foto",
+                "takenAt": "NEED TRANSLATION",
+                "notTaken": "NEED TRANSLATION"
             }
         },
         "reportConfirmation": {

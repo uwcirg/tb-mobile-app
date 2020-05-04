@@ -48,6 +48,7 @@ export class PatientStore extends UserStore {
         photoWasTaken: false,
         photoString: "",
         tookMedication: true,
+        whyMedicationNotTaken: "",
         headerText: "When did you take your medication?",
         hasSubmitted: false,
         hasSubmittedPhoto: false,
@@ -73,7 +74,13 @@ export class PatientStore extends UserStore {
     }
 
     @computed get requiresSubmission() {
-        return (this.report.hasSubmitted && this.report.hasSubmittedPhoto && !this.report.hasConfirmedAndSubmitted)
+        return (this.report.hasSubmitted && (!this.isPhotoDay || this.report.hasSubmittedPhoto) && !this.report.hasConfirmedAndSubmitted)
+    }
+
+    @computed get selectedDayWasPhotoDay(){
+        let weekday = this.uiState.selectedCalendarDate.weekday
+        let weekSinceStart = Math.floor(DateTime.fromISO(this.treatmentStart).endOf('day').diffNow("weeks").weeks * -1)
+        return (this.photoSchedule[weekSinceStart].includes(weekday));
     }
 
 
@@ -181,6 +188,7 @@ export class PatientStore extends UserStore {
         })
         body.date = this.report.date;
         body.medicationWasTaken = this.report.tookMedication;
+        body.whyMedicationNotTaken = this.report.whyMedicationNotTaken;
         body.dateTimeTaken = this.report.timeTaken;
 
         if (this.isPhotoDay && this.report.photoString) {

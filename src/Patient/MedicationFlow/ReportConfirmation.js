@@ -24,6 +24,7 @@ const ReportConfirmation = observer(() => {
     return (
         <div className={classes.superContainer}>
             <PatientReport
+                medicationTaken={patientStore.report.tookMedication}
                 timeTaken={patientStore.report.timeTaken}
                 selectedSymptoms={patientStore.report.selectedSymptoms}
                 photoString={patientStore.report.photoString}
