@@ -95,7 +95,7 @@ function DidTakeMedication(props) {
     )
 }
 
-const DidntTakeMedication = observer((props) => {
+const DidntTakeMedication = observer((props) =>  {
 
     const { patientStore } = useStores();
     const classes = useStyles();

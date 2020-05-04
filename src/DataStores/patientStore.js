@@ -77,6 +77,12 @@ export class PatientStore extends UserStore {
         return (this.report.hasSubmitted && (!this.isPhotoDay || this.report.hasSubmittedPhoto) && !this.report.hasConfirmedAndSubmitted)
     }
 
+    @computed get selectedDayWasPhotoDay(){
+        let weekday = this.uiState.selectedCalendarDate.weekday
+        let weekSinceStart = Math.floor(DateTime.fromISO(this.treatmentStart).endOf('day').diffNow("weeks").weeks * -1)
+        return (this.photoSchedule[weekSinceStart].includes(weekday));
+    }
+
 
     @computed get daysSinceTreatmentStart() {
         return Math.floor(DateTime.fromISO(this.treatmentStart).endOf('day').diffNow("days").days * -1)

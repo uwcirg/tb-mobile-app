@@ -4,7 +4,7 @@ import Styles from './Styles';
 import Colors from './Colors';
 import CheckIcon from '@material-ui/icons/Check';
 import CameraIcon from '@material-ui/icons/PhotoCamera';
-import HealingIcon from '@material-ui/icons/Healing';
+import ClearIcon from '@material-ui/icons/Clear';
 import PillIcon from './Icons/Pill.js'
 import { DateTime } from 'luxon';
 import ClickableText from './ClickableText';
@@ -20,7 +20,7 @@ const useStyles = makeStyles({
         "& > div": {
             borderBottom: "1px solid lightgray"
         },
-        "& > div:last-child":{
+        "& > div:last-child": {
             borderBottom: "none"
         },
     },
@@ -65,8 +65,11 @@ const useStyles = makeStyles({
     check: {
         color: Colors.approvedGreen
     },
-    stripPhoto:{
+    stripPhoto: {
         height: "10vh"
+    },
+    negative: {
+        color: Colors.calendarRed
     }
 })
 
@@ -75,18 +78,17 @@ const PatientReport = (props) => {
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
 
-    //@TRANSLATION Taken at vs not taken
-
-    return( <div className={`${classes.container}`}>
-        <ListItem icon={<PillIcon />} title={t("commonWords.medication")} >
-        <p> {props.medicationTaken ? `Taken at ${DateTime.fromISO(props.timeTaken).toLocaleString(DateTime.TIME_24_SIMPLE)}` : "Not Taken" }</p>
-        {props.medicationNotTakenReason && <p>{props.medicationNotTakenReason}</p>}
+    return (<div className={`${classes.container}`}>
+        <ListItem negative={!props.medicationTaken} icon={<PillIcon />} title={t("commonWords.medication")} >
+            <p> {props.medicationTaken ? `Taken at ${DateTime.fromISO(props.timeTaken).toLocaleString(DateTime.TIME_24_SIMPLE)}` : "Not Taken"}</p>
+            {props.medicationNotTakenReason && <p>{props.medicationNotTakenReason}</p>}
         </ListItem>
+
         <ListItem icon={<TempIcon />} title={t("commonWords.symptoms")}>
             <SymptomList symptoms={props.selectedSymptoms} />
-            <ClickableText big text={`${t("patient.report.confirmation.addMore")} +`} />
+            {!props.pastReport &&<ClickableText big text={`${t("patient.report.confirmation.addMore")} +`} />}
         </ListItem>
-        <PhotoListItem isPhotoDay={props.isPhotoDay} photoString={props.photoString} />
+        <PhotoListItem missingPhoto={props.missingPhoto} isPhotoDay={props.isPhotoDay} photoString={props.photoString} />
     </div>)
 }
 
@@ -94,7 +96,7 @@ const SymptomList = (props) => {
     const { t, i18n } = useTranslation('translation');
 
     return (
-        props.symptoms.map((each,index) => {
+        props.symptoms.map((each, index) => {
             return <p key={index}>{t(`symptoms.${each}.title`)}</p>
         })
     )
@@ -103,18 +105,18 @@ const SymptomList = (props) => {
 const PhotoListItem = (props) => {
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
-    
+
     if (props.isPhotoDay) {
         return (
-            <ListItem icon={<CameraIcon />} title={t('commonWords.stripPhoto')}>
-                <img className={classes.stripPhoto} src={props.photoString}/>
+            <ListItem negative={props.isPhotoDay && !props.photoString} icon={<CameraIcon />} title={t('commonWords.stripPhoto')}>
+                {!props.missingPhoto ? <img className={classes.stripPhoto} src={props.photoString} /> : <p>Missing Photo Report</p>}
             </ListItem>
         )
-    }else{
-        return(
+    } else {
+        return (
             <ListItem icon={<CameraIcon />} title={t('commonWords.stripPhoto')}>
-            <p>{t('patient.report.confirmation.noPhoto')}</p>
-        </ListItem>
+                <p>{t('patient.report.confirmation.noPhoto')}</p>
+            </ListItem>
         )
     }
 
@@ -134,7 +136,8 @@ function ListItem(props) {
                 {props.children}
             </div>
             <div className={classes.three}>
-                <CheckIcon className={classes.check} />
+                {props.negative ? <ClearIcon className={classes.negative} /> : <CheckIcon className={classes.check} />}
+
             </div>
         </div>
     )

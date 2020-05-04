@@ -26,10 +26,8 @@ const DayDrawer = observer((props) => {
   const { patientStore } = useStores();
 
   const date = patientStore.uiState.selectedCalendarDate;
-
   const complete = (patientStore.selectedDayReport)
-
-  console.log(patientStore.selectedDayReport)
+  const missingPhoto = (patientStore.selectedDayWasPhotoDay && !patientStore.selectedDayReport || !patientStore.selectedDayReport.photoURL);
 
   return (
     <ExpansionPanel
@@ -43,19 +41,22 @@ const DayDrawer = observer((props) => {
         id="calendar-day-preview">
         <div className={`${classes.container}`}>
           <Header date={date} complete={complete} />
-          {!open && <Body report={patientStore.selectedDayReport} photoDay={patientStore.checkPhotoDay(date)} complete={complete} />}
+          {!open && <Body missingPhoto={missingPhoto} report={patientStore.selectedDayReport} photoDay={patientStore.checkPhotoDay(date)} complete={complete} />}
         </div>
       </ExpansionPanelSummary>
       {complete &&
         <ExpansionPanelDetails className={classes.detail}>
           {patientStore.selectedDayReport ?
             <PatientReport
+              pastReport
+              isPhotoDay={patientStore.selectedDayWasPhotoDay}
               medicationNotTakenReason={patientStore.selectedDayReport.whyMedicationNotTaken}
               medicationTaken={patientStore.selectedDayReport.medicationTaken}
               timeTaken={patientStore.selectedDayReport.takenAt}
               selectedSymptoms={patientStore.selectedDayReport.symptoms}
               photoString={patientStore.selectedDayReport.photoURL}
               isPhotoDay={patientStore.checkPhotoDay(date)}
+              missingPhoto={missingPhoto}
             /> : <p>Supress Warning</p>}
         </ExpansionPanelDetails>
       }
@@ -88,7 +89,7 @@ const Body = (props) => {
         <div className={classes.preview}>
           <div className={`${classes.previewItem} ${!props.report.medicationTaken && classes.previewItemMissed}`}><PillIcon /><p>{t("commonWords.medication")}</p></div>
           <div className={classes.previewItem}><TempIcon /><p>{t("commonWords.symptoms")}</p></div>
-          {props.photoDay && <div className={classes.previewItem}><Camera /><p>{t('commonWords.stripPhoto')}</p></div>}
+          {props.photoDay && <div className={`${classes.previewItem} ${props.missingPhoto && classes.previewItemMissed}`}><Camera /><p>{t('commonWords.stripPhoto')}</p></div>}
         </div> :
         <NewButton onClick={()=>{patientStore.uiState.onHistoricalTreatmentFlow = true}} icon={<PillIcon />} text={t("patient.home.todaysActions.logMedication")} />
       }
