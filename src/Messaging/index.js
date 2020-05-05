@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import Paper from '@material-ui/core/Paper'
 import ChevronRight from '@material-ui/icons/ChevronRight'
 import WarningIcon from '@material-ui/icons/Warning';
@@ -9,11 +9,14 @@ import useStores from '../Basics/UseStores';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
+import OverTopBar from '../Patient/Navigation/OverTopBar';
+import SearchBar from '../Basics/SearchBar';
 
 const useStyles = makeStyles({
     root: {
         "& > div > h2": {
-            marginLeft: ".5em"
+            marginLeft: ".5em",
+            fontSize: "1.25em"
         }
     },
 
@@ -25,6 +28,10 @@ const useStyles = makeStyles({
         padding: ".5em",
         alignItems: "center",
         justifyContent: "space-between"
+    },
+    errorMessage:{
+        width: "100%",
+        textAlign: "center"
     }
 
 });
@@ -34,19 +41,29 @@ const Messaging = observer(() => {
     const { t, i18n } = useTranslation('translation');
     const { messagingStore, patientStore } = useStores();
     const classes = useStyles();
+    const [search,setSearch] = useState("");
 
 
-    const publicChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.filter((channel) => { return (!channel.is_private) }) : [];
-    const coordinatorChannel = (messagingStore.channels.length > 0) ? [messagingStore.channels.find((channel) => { return (channel.is_private) })] : [];
+    const handleSearch = (e) => {
+        setSearch(e.target.value)
+    }
+
+
+    const publicChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.filter((channel) => { 
+        return (!channel.isPrivate && channel.title.toLowerCase().includes(search)) 
+    }) : [];
+    const coordinatorChannel = (messagingStore.channels.length > 0) ? [messagingStore.channels.find((channel) => { return (channel.isPrivate) })] : [];
 
     useEffect(() => messagingStore.getChannels(), []);
 
     return (
         <div className={classes.root}>
+            
             {messagingStore.selectedChannel === 0 ? <div>
-                <h2>Private Channels</h2>
+                <h2>Private Chat</h2>
                 <Channels private channels={coordinatorChannel} />
-                <h2>Public Discussion</h2>
+                <h2>Patient Discussion</h2>
+                <SearchBar handleChange={handleSearch} placeholder={t("messaging.search")} />
                 <Channels channels={publicChannels} />
                 </div>:
                 <Channel isPersonalChannel={patientStore.userID == messagingStore.selectedChannelCreator}
@@ -57,24 +74,30 @@ const Messaging = observer(() => {
 });
 
 const Channels = (props) => {
+    const classes = useStyles();
+    const { messagingStore } = useStores();
+
     let channels = "";
     if (props.channels.length > 0) {
         channels = props.channels.map((channel) => {
+            
             return <ChannelPreview
                 private={props.private}
                 key={`channel${channel.id}`}
                 title={channel.title}
                 subtitle={channel.subtitle}
-                time={DateTime.fromISO(channel.updated_at).toLocaleString(DateTime.TIME_24_SIMPLE)}
-                number={channel.unreadMessages}
+                time={DateTime.fromISO(channel.lastMessageTime).toLocaleString(DateTime.DATETIME_24_SIMPLE)}
+                unread={channel.unreadMessages}
                 onClick={() => {
-                    messagingStore.selectedChannelInfo.creator = channel.user_id
+                    messagingStore.selectedChannelInfo.creator = channel.userId
                     messagingStore.selectedChannel = channel.id
                     messagingStore.selectedChannelInfo.title = channel.title
                     messagingStore.getSelectedChannel();
                 }}
             />
         })
+    }else{
+        channels = <p className={classes.errorMessage}>No Topics Found</p>
     }
 
 
@@ -82,5 +105,6 @@ const Channels = (props) => {
         <>{channels}</>
     )
 }
+
 
 export default Messaging;
