@@ -34,7 +34,9 @@
     },
 
     "messaging": {
-        "nurseContact": "Need individual support? Contact your provider!"
+        "nurseContact": "Need individual support? Contact your provider!",
+        "privateExplained": "Private chat with your coordinator",
+        "search": "Search By Topic"
     },
 
     "time": {

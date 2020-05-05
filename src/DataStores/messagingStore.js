@@ -11,6 +11,9 @@ export class MessagingStore {
         this.strategy = strategy;
     }
 
+    @observable numberUnread = 0;
+    @observable unreadInfo = {};
+
     @observable channels = [];
     @observable selectedChannel = 0;
     @observable selectedChannelInfo = {
@@ -103,7 +106,8 @@ export class MessagingStore {
 
     @action getUnreadMessages = () => {
         this.strategy.executeRequest(ROUTES,"getUnreadMessages").then((response) => {
-            console.log(response)
+            this.numberUnread = response.total
+            this.unreadInfo = response.channels
         })
     }
 

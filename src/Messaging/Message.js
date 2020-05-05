@@ -15,7 +15,7 @@ const useStyles = makeStyles({
         position: "absolute",
         bottom: 0,
         color: "gray",
-        fontSize: ".2em",
+        fontSize: ".6em",
         bottom: "-20px",
         width: "50vw"
     },

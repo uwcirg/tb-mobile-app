@@ -34,7 +34,9 @@
     },
 
     "messaging": {
-        "nurseContact": "Necesita asistencia personal? Contacte a su coordinador!"
+        "nurseContact": "Necesita asistencia personal? Contacte a su coordinador!",
+        "privateExplained": "NEED TRANSLATION",
+        "search": "NEED TRANSLATION"
     },
 
     "time": {

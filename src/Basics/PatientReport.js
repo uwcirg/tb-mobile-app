@@ -12,7 +12,6 @@ import { useTranslation } from 'react-i18next';
 
 import TempIcon from './Icons/Temp'
 
-
 const useStyles = makeStyles({
     container: {
         ...Styles.flexColumn,
@@ -137,7 +136,6 @@ function ListItem(props) {
             </div>
             <div className={classes.three}>
                 {props.negative ? <ClearIcon className={classes.negative} /> : <CheckIcon className={classes.check} />}
-
             </div>
         </div>
     )

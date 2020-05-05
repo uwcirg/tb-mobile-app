@@ -9,6 +9,8 @@ import InfoIcon from '@material-ui/icons/Info';
 import { inject, observer } from 'mobx-react';
 
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
+import useStores from '../../Basics/UseStores';
+import Colors from '../../Basics/Colors';
 
 const useStyles = makeStyles({
   root: {
@@ -17,13 +19,30 @@ const useStyles = makeStyles({
     position: "fixed",
     bottom: 0,
     borderTop: "1px solid lightgray",
+  },
+  newMessages:{
+    backgroundColor: Colors.red,
+    color: "white",
+    position: "absolute",
+    top: "-8px",
+    right: "-8px",
+    width: "15px",
+    height: "15px",
+    borderRadius: "15px"
+  },
+  messageContainer:{
+    position: "relative"
   }
 
 });
 
-const BottomBar = inject("uiStore","patientStore")(observer(({ uiStore,patientStore, props }) => {
+const BottomBar = observer((props) => {
+  const {patientStore,uiStore,messagingStore} = useStores();
   const classes = useStyles();
   //const [value, setValue] = React.useState(uiStore.activeTab);
+
+
+
 
   return (
     <BottomNavigation
@@ -37,10 +56,13 @@ const BottomBar = inject("uiStore","patientStore")(observer(({ uiStore,patientSt
     >
       <BottomNavigationAction className="intro-home-button" icon={<HomeIcon />} />
       <BottomNavigationAction className="intro-progress-button" icon={<EventAvailableIcon />} />
-      <BottomNavigationAction icon={<ForumIcon />} />
+      <BottomNavigationAction icon={<div className={classes.messageContainer}>
+        <ForumIcon />
+        {messagingStore.numberUnread > 0 && <div className={classes.newMessages}>{messagingStore.numberUnread}</div>}
+        </div>} />
       <BottomNavigationAction icon={<InfoIcon  />} />
     </BottomNavigation>
   );
-}));
+});
 
 export default BottomBar;
