@@ -72,7 +72,7 @@ const BorderedPart = styled.div`
     p{
       color: white;  
     }
-    
+    font-size: .75em;
     background-color: ${Colors.buttonBlue};
     border-radius: 15px;
     min-height: 20px;

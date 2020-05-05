@@ -27,7 +27,7 @@ const DayDrawer = observer((props) => {
 
   const date = patientStore.uiState.selectedCalendarDate;
   const complete = (patientStore.selectedDayReport)
-  const missingPhoto = (patientStore.selectedDayWasPhotoDay && !patientStore.selectedDayReport || !patientStore.selectedDayReport.photoURL);
+  const missingPhoto = (patientStore.selectedDayWasPhotoDay ) && !patientStore.selectedDayReport || (patientStore.selectedDayReport && !patientStore.selectedDayReport.photoURL);
 
   return (
     <ExpansionPanel

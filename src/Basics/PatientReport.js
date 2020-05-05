@@ -12,7 +12,6 @@ import { useTranslation } from 'react-i18next';
 
 import TempIcon from './Icons/Temp'
 
-
 const useStyles = makeStyles({
     container: {
         ...Styles.flexColumn,

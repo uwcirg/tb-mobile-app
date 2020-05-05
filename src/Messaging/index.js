@@ -43,14 +43,17 @@ const Messaging = observer(() => {
     const classes = useStyles();
     const [search,setSearch] = useState("");
 
+    useEffect(()=>{
+        messagingStore.getUnreadMessages();
+    })
+
 
     const handleSearch = (e) => {
         setSearch(e.target.value)
     }
 
-
     const publicChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.filter((channel) => { 
-        return (!channel.isPrivate && channel.title.toLowerCase().includes(search)) 
+        return (!channel.isPrivate && channel.title.toLowerCase().includes(search.toLowerCase())) 
     }) : [];
     const coordinatorChannel = (messagingStore.channels.length > 0) ? [messagingStore.channels.find((channel) => { return (channel.isPrivate) })] : [];
 
@@ -87,7 +90,7 @@ const Channels = (props) => {
                 title={channel.title}
                 subtitle={channel.subtitle}
                 time={DateTime.fromISO(channel.lastMessageTime).toLocaleString(DateTime.DATETIME_24_SIMPLE)}
-                unread={channel.unreadMessages}
+                unread={messagingStore.unreadInfo[channel.id] ? messagingStore.unreadInfo[channel.id].unreadMessages : 0}
                 onClick={() => {
                     messagingStore.selectedChannelInfo.creator = channel.userId
                     messagingStore.selectedChannel = channel.id
