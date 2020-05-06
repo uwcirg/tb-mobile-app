@@ -8,6 +8,8 @@ import Styles from '../../Basics/Styles';
 import InteractionCard from './InteractionCard';
 import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
+import ClickableText from '../../Basics/ClickableText';
+import ChevronRight from '@material-ui/icons/ChevronRight'
 
 
 const ProgressGraph = observer((props) => {
@@ -31,6 +33,7 @@ const ProgressGraph = observer((props) => {
             </div>
                 <StatBox title={`4 ${t('time.days')}`} text={t('patient.home.progress.currentStreak')} />
             </div>
+            <ClickableText className={classes.bottomText} hideIcon text={<>View Milestones <ChevronRight /></>} />
         </InteractionCard>
     )
 });
@@ -69,7 +72,7 @@ const useStyles = makeStyles({
     },
     statBox: {
         ...Styles.flexColumn,
-        width: "28vw",
+        width: "50%",
         alignContent: "center",
         alignItems: "center"
     },
@@ -96,8 +99,14 @@ const useStyles = makeStyles({
     container:{
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",
-        height: "24vw"
+        justifyContent: "flex-start",
+        height: "24vw",
+        padding: ".5em",
+        paddingLeft: "1em"
+    },
+    bottomText:{
+        fontSize: "1em",
+        margin: ".5em"
     }
 
 })

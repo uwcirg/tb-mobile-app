@@ -60,12 +60,15 @@ function PatientInfo() {
             </div>
             <NewButton onClick={handleLogout} className={classes.logout} icon={<ExitToApp />} text={t("patient.profile.logout")} />
             <ClickableText className={classes.demoButton} big onClick={handleDemo} text={t("patient.demo.showDemo")}></ClickableText>
+           
             <div className={classes.containedBox}>
+                {/*
                 <div>
                     <ProfileItem title={t("patient.profile.startDate")} text={testDateString} icon={<TimeIcon />} />
                     <ProfileItem title={t("patient.profile.endDate")} text={testDateString} icon={<FlagIcon />} />
                     <ProfileItem title={t("patient.profile.organization")} text={patientStore.managingOrganization} icon={<LocationIcon />} />
                 </div>
+                */}
 
                <Options />
 
