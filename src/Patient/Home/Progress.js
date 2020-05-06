@@ -18,6 +18,7 @@ const ProgressGraph = observer((props) => {
 
     return (
         <InteractionCard upperText={t("patient.home.cardTitles.myProgress")}>
+            <div className={classes.container}>
             <div className={classes.graph}>
                 <CircularProgressbar circleRatio={0.5} value={dayValue} styles={buildStyles({
                     transition: 'stroke-dashoffset 0.5s ease 0s',
@@ -28,10 +29,7 @@ const ProgressGraph = observer((props) => {
                     <p className={classes.progressText}>{patientStore.daysSinceTreatmentStart} {t("commonWords.of")} <br /> 180 {t('time.days')}</p>
                 </CircularProgressbar>
             </div>
-            <div className={classes.stats}>
                 <StatBox title={`4 ${t('time.days')}`} text={t('patient.home.progress.currentStreak')} />
-                <StatBox title='Feb 28' text={t('patient.home.progress.nextCheckin')} />
-                <StatBox title='Oct 2' text={t('patient.home.progress.endDate')}/>
             </div>
         </InteractionCard>
     )
@@ -41,8 +39,8 @@ function StatBox(props) {
     const classes = useStyles();
     return (
         <div className={classes.statBox}>
-            <h2 className={classes.statBoxTitle}>{props.title}</h2>
             <span className={classes.statBoxText}>{props.text}</span>
+            <h2 className={classes.statBoxTitle}>{props.title}</h2>
         </div>
     )
 }
@@ -59,8 +57,9 @@ const useStyles = makeStyles({
     },
     graph: {
         width: "50%",
-        margin: "auto",
-        maxWidth: "200px"
+        maxWidth: "200px",
+        position: "relative",
+        top: "1.5em"
     },
     stats: {
         ...Styles.flexRow,
@@ -72,13 +71,7 @@ const useStyles = makeStyles({
         ...Styles.flexColumn,
         width: "28vw",
         alignContent: "center",
-        alignItems: "center",
-        "&:first-child": {
-            borderRight: `1px solid ${Colors.gray}`
-        },
-        "&:last-child": {
-            borderLeft: `.5px solid ${Colors.gray}`
-        }
+        alignItems: "center"
     },
     statBoxTitle: {
         fontSize: "1em",
@@ -88,16 +81,23 @@ const useStyles = makeStyles({
         padding: 0,
     },
     statBoxText: {
-        width: "80%",
+        width: "100%",
         textAlign: "center",
         margin: 0,
         padding: 0,
         color: Colors.textGray,
-        fontWeight: 250
+        fontWeight: 250,
+        marginBottom: ".5em"
     },
     actionButton: {
         position: "relative",
         top: "-2em"
+    },
+    container:{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "24vw"
     }
 
 })

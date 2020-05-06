@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
@@ -28,7 +28,7 @@ const useStyles = makeStyles({
     right: "-8px",
     width: "15px",
     height: "15px",
-    borderRadius: "15px"
+    borderRadius: "15px",
   },
   messageContainer:{
     position: "relative"
@@ -40,6 +40,11 @@ const BottomBar = observer((props) => {
   const {patientStore,uiStore,messagingStore} = useStores();
   const classes = useStyles();
   //const [value, setValue] = React.useState(uiStore.activeTab);
+
+
+  useEffect(()=>{
+    messagingStore.getUnreadMessages();
+  },[])
 
 
 
