@@ -1,0 +1,22 @@
+  
+# docker continuous delivery
+# deliver docker images to configured repo with tags to match branches and git tags
+---
+name: Publish Docker
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout git commit
+        uses: actions/checkout@master
+
+      - name: Publish to Dockerhub registry
+        # todo: pin to hash
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          # https://help.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions
+          name: ${{ github.repository }}
+          # configured at repo settings/secrets
+          username: ${{ secrets.DH_USERNAME }}
+          password: ${{ secrets.DH_ACCESS_KEY }}
