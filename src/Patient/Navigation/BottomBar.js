@@ -39,8 +39,6 @@ const useStyles = makeStyles({
 const BottomBar = observer((props) => {
   const {patientStore,uiStore,messagingStore} = useStores();
   const classes = useStyles();
-  //const [value, setValue] = React.useState(uiStore.activeTab);
-
 
   useEffect(()=>{
     messagingStore.getUnreadMessages();
@@ -54,7 +52,6 @@ const BottomBar = observer((props) => {
       value={uiStore.activeTab}
       onChange={(event, newValue) => {
         uiStore.updateTab(newValue);
-        //setValue(newValue);
       }}
       showLabels
       className={classes.root}
