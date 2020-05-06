@@ -15,6 +15,7 @@ const HomePage = () => {
             <ActionBox />
             <Progress />
             <Alerts />
+            <p>Version 0.9.1</p>
         </Body>
     )
 
