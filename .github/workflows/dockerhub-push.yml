@@ -19,4 +19,4 @@ jobs:
           name: ${{ github.repository }}
           # configured at repo settings/secrets
           username: ${{ secrets.DH_USERNAME }}
-          password: ${{ secrets.DOCKER_ACCESS_KEY }}
+          password: ${{ secrets.DH_ACCESS_KEY }}
