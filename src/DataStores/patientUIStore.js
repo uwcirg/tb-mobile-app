@@ -3,19 +3,22 @@ import { observable, action, computed} from 'mobx';
 
 //Extends this file https://github.com/alisd23/mobx-react-router/blob/master/src/store.js
 
-export default class CustomRouteStore extends RouterStore{
+export default class PatientUIStore{
 
-    constructor() {
-        super();
+    constructor(routerStore) {
+        this.router = routerStore;
     }
 
+    //Patient Side Routes
     @computed get onReportFlow(){
-        this.location.pathname.startsWith("/patient/home/report")
+        this.router.location.pathname.startsWith("/patient/home/report")
     }
 
     @action moveToReportFlow(){
-        this.push("/patient/home/report")
+        this.router.push("/patient/home/report")
     }
+
+    //Coordinator Side Routes
 
 
 }

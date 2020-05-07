@@ -52,12 +52,12 @@ const useStyles = makeStyles({
 
 const ActionBox = observer(() => {
     const classes = useStyles();
-    const {patientStore,routingStore} = useStores();
+    const {patientStore,patientUIStore} = useStores();
     const { t, i18n } = useTranslation('translation');
 
     const handleReportClick = () =>{
         //patientStore.uiState.onTreatmentFlow = true;
-        routingStore.moveToReportFlow();
+        patientUIStore.moveToReportFlow();
 
     }
 
