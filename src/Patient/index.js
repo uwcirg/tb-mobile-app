@@ -12,23 +12,37 @@ import useStores from '../Basics/UseStores';
 
 const PatientHome = observer((props) => {
 
-  const { uiStore, messagingStore } = useStores();
-  const tabs = [<Home />, <Progress />, <Messaging />, <Info />]
-
-
+  const { uiStore, messagingStore,routingStore } = useStores();
+  const { location, push, goBack } = routingStore;
+  const splitPath = location.pathname.split("/");
+  const strings = ["home","progress","messaging","info"]
+  
   return (
     <div className="main-screen">
       <TopBar />
       <Intro />
       <TopMenu />
       <div style={{ paddingTop: "60px", paddingBottom: "60px" }}>
-        {tabs[uiStore.activeTab]}
+        {RouteTab(splitPath)}
       </div>
       <BottomBar />
     </div>
   );
 }
 );
+
+const RouteTab = (splitPath) => {
+
+  if( splitPath[1] === "patient"){
+    if(splitPath[2] === "home")return <Home />
+    if(splitPath[2] === "progress")return <Progress />
+    if(splitPath[2] === "messaging")return <Messaging />
+    if(splitPath[2] === "information")return <Info />
+  }
+
+  return <Home />
+
+}
 
 
 export default PatientHome;

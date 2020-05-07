@@ -59,7 +59,7 @@ export class UIStore {
         if(!uiState) return
 
         if(uiState && uiState.tab){
-            this.activeTab = uiState.tab;
+            //this.activeTab = uiState.tab;
         }
 
         if(uiState.language){

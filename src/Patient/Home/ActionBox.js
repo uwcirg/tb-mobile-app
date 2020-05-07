@@ -52,11 +52,13 @@ const useStyles = makeStyles({
 
 const ActionBox = observer(() => {
     const classes = useStyles();
-    const {patientStore} = useStores();
+    const {patientStore,routingStore} = useStores();
     const { t, i18n } = useTranslation('translation');
 
     const handleReportClick = () =>{
-        patientStore.uiState.onTreatmentFlow = true;
+        //patientStore.uiState.onTreatmentFlow = true;
+        routingStore.moveToReportFlow();
+
     }
 
     const handlePhotoClick = () =>{

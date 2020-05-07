@@ -37,32 +37,40 @@ const useStyles = makeStyles({
 });
 
 const BottomBar = observer((props) => {
-  const {patientStore,uiStore,messagingStore} = useStores();
+  const {patientStore,uiStore,messagingStore, routingStore} = useStores();
+  const { location, push, goBack } = routingStore;
   const classes = useStyles();
+
+
+  const getTab = () => {
+    const splitPath = location.pathname.split("/");
+    if( splitPath[1] === "patient"){
+      if(splitPath[2] === "home")return 0
+      if(splitPath[2] === "progress")return 1
+      if(splitPath[2] === "messaging")return 2
+      if(splitPath[2] === "information")return 3
+    }
+    return 0
+
+  }
 
   useEffect(()=>{
     messagingStore.getUnreadMessages();
   },[])
 
-
-
-
   return (
     <BottomNavigation
-      value={uiStore.activeTab}
-      onChange={(event, newValue) => {
-        uiStore.updateTab(newValue);
-      }}
+      value={getTab()}
       showLabels
       className={classes.root}
     >
-      <BottomNavigationAction className="intro-home-button" icon={<HomeIcon />} />
-      <BottomNavigationAction className="intro-progress-button" icon={<EventAvailableIcon />} />
-      <BottomNavigationAction icon={<div className={classes.messageContainer}>
+      <BottomNavigationAction onClick={() => {push("/patient/home")}} className="intro-home-button" icon={<HomeIcon />} />
+      <BottomNavigationAction onClick={() => {push("/patient/progress")}} className="intro-progress-button" icon={<EventAvailableIcon />} />
+      <BottomNavigationAction onClick={() => {push("/patient/messaging")}} icon={<div className={classes.messageContainer}>
         <ForumIcon />
         {messagingStore.numberUnread > 0 && <div className={classes.newMessages}>{messagingStore.numberUnread}</div>}
         </div>} />
-      <BottomNavigationAction icon={<InfoIcon  />} />
+      <BottomNavigationAction onClick={() => {push("/patient/information")}} icon={<InfoIcon  />} />
     </BottomNavigation>
   );
 });

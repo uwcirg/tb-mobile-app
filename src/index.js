@@ -27,8 +27,11 @@ import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
 import { Router } from 'react-router';
 import {createBrowserHistory} from 'history';
 
+
+import CustomRouteStore from './DataStores/customRouteStore'
+
 const browserHistory = createBrowserHistory();
-const routingStore = new RouterStore();
+const routingStore = new CustomRouteStore();
 const history = syncHistoryWithStore(browserHistory, routingStore);
 
 //This attaches the class containing the API fetch requests to the stores
