@@ -32,29 +32,26 @@ export class MessagingStore {
         return this.selectedChannel.messages[this.selectedChannel.messages.length - 1].id
     }
 
-    /*
     @computed
     get selectedChannelTitle(){
-        return this.selectedChannelInfo.title;
+        return this.selectedChannel.title;
     }
 
     @computed
     get selectedChannelMessages(){
-        return this.selectedChannelInfo.messages;
+        return this.selectedChannel.messages;
     }
 
     @computed
     get selectedChannelCreator(){
-        return this.selectedChannelInfo.creator;
+        return this.selectedChannel.creator;
     }
-    */
 
     @action getChannels(){
         this.strategy.executeRequest(ROUTES,"getChannels").then((response) => {
             this.channels = response;
         })
     }
-
 
     @action getSelectedChannel(){
 
@@ -78,13 +75,9 @@ export class MessagingStore {
         } 
 
         this.strategy.executeRawRequest(url,"GET").then((response) => {
-           
                 this.selectedChannel.messages = this.selectedChannel.messages.concat(response);
-          
-            
         })
     }
-
 
     @action clearSelection = () => {
         this.selectedChannel = {
@@ -104,7 +97,6 @@ export class MessagingStore {
             this.newMessage = "";
 
         })
-
     }
 
     @action getUnreadMessages = () => {

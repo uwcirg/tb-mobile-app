@@ -48,6 +48,11 @@ const Messaging = observer(() => {
         messagingStore.getUnreadMessages();
     })
 
+    const handleBackFromChannel = () => {
+       uiStore.goToMessaging();
+       messagingStore.clearSelection();
+    }
+
 
     const handleSearch = (e) => {
         setSearch(e.target.value)
@@ -74,6 +79,7 @@ const Messaging = observer(() => {
                 <Channel
                     userID={patientStore.id}
                     selectedChannel={messagingStore.selectedChannel}
+                    handleBack={handleBackFromChannel}
                     userID={patientStore.userID} />}
         </div>
     )

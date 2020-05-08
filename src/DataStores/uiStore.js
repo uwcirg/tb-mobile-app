@@ -79,6 +79,10 @@ export class UIStore {
         this.router.push("/messaging/channel")
     }
 
+    @action goToMessaging = () => {
+        this.router.push("/messaging/")
+    }
+
     @computed get onSpecificChannel(){
         return this.router.location.pathname.startsWith("/messaging/channel")
     }

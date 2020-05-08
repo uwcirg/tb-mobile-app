@@ -61,7 +61,10 @@ const ReportPhoto = observer((props) => {
                 </ButtonBase>
                 <ClickableText className={classes.info} hideIcon onClick={props.toggle} text={t("patient.report.photo.showMe")} />
                 </>}
-             <SimpleButton alignRight onClick={patientStore.photoSubmission} disabled={!patientStore.report.photoWasTaken} backgroundColor={Colors.green}>{t("patient.report.next")}</SimpleButton>
+             <SimpleButton alignRight onClick={() => {
+                 patientStore.photoSubmission();
+                 props.advance();
+            }} disabled={!patientStore.report.photoWasTaken} backgroundColor={Colors.green}>{t("patient.report.next")}</SimpleButton>
             {patientStore.uiState.cameraIsOpen ? <Camera handleExit={handleExit} returnPhoto={handlePhoto} /> : ""}
         </div>
         )

@@ -178,7 +178,6 @@ export class PatientStore extends UserStore {
         }
         this.uiState.onPhotoFlow = false;
         this.uiState.onTreatmentFlow = true;
-        this.report.step = 3;
     }
 
     @action submitReport = () => {
