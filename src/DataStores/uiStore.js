@@ -3,6 +3,10 @@ import {Settings} from 'luxon'
 
 export class UIStore {
 
+    constructor(routerStore) {
+        this.router = routerStore;
+    }
+
     @observable userInt = 0;
     @observable userType = "";
 
@@ -69,6 +73,14 @@ export class UIStore {
         if(uiState.locale){
             this.locale = uiState.locale;
         }
+    }
+
+    @action goToSpecificChannel = () => {
+        this.router.push("/messaging/channel")
+    }
+
+    @computed get onSpecificChannel(){
+        return this.router.location.pathname.startsWith("/messaging/channel")
     }
 
     @action toggleTreatmentFlow = () =>{

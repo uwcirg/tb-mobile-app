@@ -27,7 +27,7 @@ export const stores = {
     routingStore: routingStore,
     patientUIStore: new PatientUIStore(routingStore),
     loginStore: new LoginStore(apiHelper),
-    uiStore: new UIStore(),
+    uiStore: new UIStore(routingStore),
     labPhotoStore: new LabPhotoStore(apiHelper),
     accountStore: new AccountStore(apiHelper),
     practitionerStore: new PractitionerStore(apiHelper),

@@ -7,10 +7,9 @@ import useStores from '../../Basics/UseStores';
 
 const Home = observer((props) => {
 
-    const { uiStore, patientStore, routingStore } = useStores();
-    const { location, push, goBack } = routingStore;
+    const {patientUIStore} = useStores();
 
-    if (location.pathname.startsWith("/patient/home/report")) {
+    if (patientUIStore.onReportFlow) {
         return (<MedicationFlow />)
     } else {
         return (<HomePage />)

@@ -37,22 +37,8 @@ const useStyles = makeStyles({
 });
 
 const BottomBar = observer((props) => {
-  const {patientStore,uiStore,messagingStore, routingStore} = useStores();
-  const { location, push, goBack } = routingStore;
+  const {messagingStore, patientUIStore} = useStores();
   const classes = useStyles();
-
-
-  const getTab = () => {
-    const splitPath = location.pathname.split("/");
-    if( splitPath[1] === "patient"){
-      if(splitPath[2] === "home")return 0
-      if(splitPath[2] === "progress")return 1
-      if(splitPath[2] === "messaging")return 2
-      if(splitPath[2] === "information")return 3
-    }
-    return 0
-
-  }
 
   useEffect(()=>{
     messagingStore.getUnreadMessages();
@@ -60,17 +46,17 @@ const BottomBar = observer((props) => {
 
   return (
     <BottomNavigation
-      value={getTab()}
+      value={patientUIStore.tabNumber}
       showLabels
       className={classes.root}
     >
-      <BottomNavigationAction onClick={() => {push("/patient/home")}} className="intro-home-button" icon={<HomeIcon />} />
-      <BottomNavigationAction onClick={() => {push("/patient/progress")}} className="intro-progress-button" icon={<EventAvailableIcon />} />
-      <BottomNavigationAction onClick={() => {push("/patient/messaging")}} icon={<div className={classes.messageContainer}>
+      <BottomNavigationAction onClick={patientUIStore.goToHome} className="intro-home-button" icon={<HomeIcon />} />
+      <BottomNavigationAction onClick={patientUIStore.goToProgress} className="intro-progress-button" icon={<EventAvailableIcon />} />
+      <BottomNavigationAction onClick={patientUIStore.goToMessaging} icon={<div className={classes.messageContainer}>
         <ForumIcon />
         {messagingStore.numberUnread > 0 && <div className={classes.newMessages}>{messagingStore.numberUnread}</div>}
         </div>} />
-      <BottomNavigationAction onClick={() => {push("/patient/information")}} icon={<InfoIcon  />} />
+      <BottomNavigationAction onClick={patientUIStore.goToInformation} icon={<InfoIcon  />} />
     </BottomNavigation>
   );
 });

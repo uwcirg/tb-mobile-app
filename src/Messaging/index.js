@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Paper from '@material-ui/core/Paper'
 import ChevronRight from '@material-ui/icons/ChevronRight'
 import WarningIcon from '@material-ui/icons/Warning';
@@ -29,7 +29,7 @@ const useStyles = makeStyles({
         alignItems: "center",
         justifyContent: "space-between"
     },
-    errorMessage:{
+    errorMessage: {
         width: "100%",
         textAlign: "center"
     }
@@ -39,11 +39,12 @@ const useStyles = makeStyles({
 const Messaging = observer(() => {
 
     const { t, i18n } = useTranslation('translation');
-    const { messagingStore, patientStore } = useStores();
-    const classes = useStyles();
-    const [search,setSearch] = useState("");
+    const { messagingStore, patientStore,uiStore} = useStores();
 
-    useEffect(()=>{
+    const classes = useStyles();
+    const [search, setSearch] = useState("");
+
+    useEffect(() => {
         messagingStore.getUnreadMessages();
     })
 
@@ -52,8 +53,8 @@ const Messaging = observer(() => {
         setSearch(e.target.value)
     }
 
-    const publicChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.filter((channel) => { 
-        return (!channel.isPrivate && channel.title.toLowerCase().includes(search.toLowerCase())) 
+    const publicChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.filter((channel) => {
+        return (!channel.isPrivate && channel.title.toLowerCase().includes(search.toLowerCase()))
     }) : [];
     const coordinatorChannel = (messagingStore.channels.length > 0) ? [messagingStore.channels.find((channel) => { return (channel.isPrivate) })] : [];
 
@@ -61,15 +62,18 @@ const Messaging = observer(() => {
 
     return (
         <div className={classes.root}>
-            
-            {messagingStore.selectedChannel === 0 ? <div>
+
+            {!uiStore.onSpecificChannel ? <div>
                 <h2>Private Chat</h2>
                 <Channels private channels={coordinatorChannel} />
                 <h2>Patient Discussion</h2>
                 <SearchBar handleChange={handleSearch} placeholder={t("messaging.search")} />
                 <Channels channels={publicChannels} />
-                </div>:
-                <Channel isPersonalChannel={patientStore.userID == messagingStore.selectedChannelCreator}
+            </div>
+                :
+                <Channel
+                    userID={patientStore.id}
+                    selectedChannel={messagingStore.selectedChannel}
                     userID={patientStore.userID} />}
         </div>
     )
@@ -78,12 +82,12 @@ const Messaging = observer(() => {
 
 const Channels = (props) => {
     const classes = useStyles();
-    const { messagingStore } = useStores();
+    const { messagingStore,uiStore} = useStores();
 
     let channels = "";
     if (props.channels.length > 0) {
         channels = props.channels.map((channel) => {
-            
+
             return <ChannelPreview
                 private={props.private}
                 key={`channel${channel.id}`}
@@ -92,14 +96,15 @@ const Channels = (props) => {
                 time={DateTime.fromISO(channel.lastMessageTime).toLocaleString(DateTime.DATETIME_24_SIMPLE)}
                 unread={messagingStore.unreadInfo[channel.id] ? messagingStore.unreadInfo[channel.id].unreadMessages : 0}
                 onClick={() => {
-                    messagingStore.selectedChannelInfo.creator = channel.userId
-                    messagingStore.selectedChannel = channel.id
-                    messagingStore.selectedChannelInfo.title = channel.title
+                    messagingStore.selectedChannel.creator = channel.userId
+                    messagingStore.selectedChannel.id = channel.id
+                    messagingStore.selectedChannel.title = channel.title
                     messagingStore.getSelectedChannel();
+                    uiStore.goToSpecificChannel();
                 }}
             />
         })
-    }else{
+    } else {
         channels = <p className={classes.errorMessage}>No Topics Found</p>
     }
 
