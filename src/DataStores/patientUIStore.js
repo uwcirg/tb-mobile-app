@@ -49,6 +49,10 @@ export default class PatientUIStore {
         this.router.push(`/progress/report/0`)
     }
 
+    @action openPhotoReport = () => {
+        this.router.push(`/home/report/2`)
+    }
+
     @action editReport = () => {
         this.router.push('home/report/0')
     }
@@ -59,6 +63,10 @@ export default class PatientUIStore {
             return
         }
         this.router.push('/home')
+    }
+
+    @action skipToReportConfirmation = () => {
+
     }
 
     @computed get reportStep(){
@@ -72,6 +80,8 @@ export default class PatientUIStore {
 
     @computed get tabNumber(){
         const splitPath = this.router.location.pathname.split("/");
+
+        //Get the tab the user is one. ie. if on baseURL/home they are on the first tab
         if (splitPath[1] === "home") return 0
         if (splitPath[1] === "progress") return 1
         if (splitPath[1] === "messaging") return 2

@@ -86,7 +86,7 @@ const Messaging = observer(() => {
 
 });
 
-const Channels = (props) => {
+const Channels = observer((props) => {
     const classes = useStyles();
     const { messagingStore,uiStore} = useStores();
 
@@ -118,7 +118,7 @@ const Channels = (props) => {
     return (
         <>{channels}</>
     )
-}
+});
 
 
 export default Messaging;

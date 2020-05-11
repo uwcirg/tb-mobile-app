@@ -62,8 +62,7 @@ const ActionBox = observer(() => {
     }
 
     const handlePhotoClick = () =>{
-        patientStore.uiState.onTreatmentFlow = true;
-        patientStore.report.step = 2;
+        patientUIStore.openPhotoReport();
     }
 
     return(
@@ -78,7 +77,7 @@ const ActionBox = observer(() => {
             {patientStore.isPhotoDay && <NewButton positive={patientStore.report.hasSubmittedPhoto} onClick={handlePhotoClick} icon={<Camera />} text={t("patient.home.todaysActions.uploadPhoto")} />} 
             </>
             }
-            { patientStore.requiresSubmission && <ClickableText onClick={patientStore.skipToReportConfirmation} className={classes.bottomButton} text="Please Confirm and Submit Your Report" />}
+            { patientStore.requiresSubmission && <ClickableText onClick={patientUIStore.skipToReportConfirmation} className={classes.bottomButton} text="Please Confirm and Submit Your Report" />}
         </InteractionCard>)
 });
 

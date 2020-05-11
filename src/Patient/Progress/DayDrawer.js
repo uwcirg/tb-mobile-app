@@ -81,7 +81,7 @@ const Header = (props) => {
 const Body = (props) => {
   const classes = useStyles();
   const { t, i18n } = useTranslation('translation');
-  const { patientStore,patientUIStore } = useStores();
+  const { patientUIStore } = useStores();
   
   return (
     <>
