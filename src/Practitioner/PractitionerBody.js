@@ -6,7 +6,7 @@ import useStores from '../Basics/UseStores';
 import Colors from '../Basics/Colors';
 import AddPatientPrompt from './AddPatientPrompt'
 import AddPatientFlow from './AddPatientFlow'
-import Messages from '../Messaging'
+import Messages from '../Messaging/PractitionerMessaging'
 import makeStyles from '@material-ui/core/styles/makeStyles'
 import PatientsView from './PatientsView'
 import PhotoList from './PhotoView'
@@ -45,7 +45,7 @@ const PractitionerBody = observer(() => {
             {location.pathname === "/" && <h1>Home Page</h1>}
             {location.pathname === "/photos" && <PhotoList />}
             {location.pathname === "/photos/historical" && <PhotoList processed />}
-            {location.pathname === "/messaging" && <Messages />}
+            {location.pathname.startsWith("/messaging") && <Messages />}
             {location.pathname === "/patients" && <PatientsView
                 patientList={practitionerStore.patients}
                 tempList={practitionerStore.temporaryPatients}
@@ -58,16 +58,15 @@ const PractitionerBody = observer(() => {
 });
 
 const Body = styled.div`
-margin-top: 10vh;
 width: 100%;
-min-height: 90vh;
+min-height: 100vh;
 background-color: ${Colors.lightgray};
-
 display: flex;
 flex-direction: column;
 justify-content: center;
-align-content: center;
-align-items: center;
+align-content: flex-start;
+align-items: flex-start;
+padding-left: 1em;
 
 `
 

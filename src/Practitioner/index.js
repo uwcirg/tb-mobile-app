@@ -50,7 +50,11 @@ const useStyles = makeStyles({
     menu:{
         fontSize: "1.2em",
         marginLeft: "1em"
-    } 
+    },
+    container:{
+        width: "100vw",
+        display: "flex"
+    }
 })
 
 
@@ -72,31 +76,10 @@ const PractitionerHome = observer(() => {
       };
 
     return(
-        <div>
-        <Drawer />
-        <AppBar  className={classes.topBar}> 
-            <IconButton className={classes.menu}  onClick={uiStore.toggleMenu} edge="start"  color="primary" aria-label="menu"> <MenuIcon/></IconButton>
-            <Typography className={classes.appName}>{t("title")}</Typography>
-            
-            <IconButton onClick={handleClick}>
-                <AccountCircle id="account-button"/>
-            </IconButton>
-        </AppBar>
-
-        <PractitionerBody />
-
-        <Menu
-            id="simple-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-            >
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={handleClose}>My account</MenuItem>
-            <MenuItem onClick={practitionerStore.logout}>Logout</MenuItem>
-        </Menu>
-            </div>
+        <div className={classes.container}>
+            <Drawer />
+            <PractitionerBody />
+        </div>
     )
  
 });

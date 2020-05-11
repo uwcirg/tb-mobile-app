@@ -1,85 +1,94 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import HomeIcon from '@material-ui/icons/Home';
 import { observer } from 'mobx-react';
 import useStores from '../Basics/UseStores';
-
 import PatientsIcon from '@material-ui/icons/SupervisorAccount';
-
 import CameraIcon from '@material-ui/icons/CameraAlt'
+import IconButton from '@material-ui/core/IconButton';
+
+import SettingsIcon from '@material-ui/icons/Settings';
+import LogOut from '@material-ui/icons/ExitToApp';
 
 const drawerWidth = 200;
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
+    width: "100%"
   },
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
-    position: "fixed",
     zIndex: 0,
-    paddingTop: "500px"
+    paddingTop: "500px",
+    width: "10%",
   },
   drawerPaper: {
-    width: drawerWidth,
-  },  
-  toolbar: {
-      paddingTop: "20vh"
+    width: "10%"
   },
+  list: {
+    height: "100%",
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "column",
+    "& > div > div > svg": {
+      fontSize: "3em",
+    },
+    "& > div > div": {
+      display: "flex",
+      width: "100%",
+      justifyContent: "center",
+    }
+  },
+  settingsIcon:{
+    width: "50%",
+    margin: "auto"
+  }
 }));
 
 const PractitionerDrawer = observer(() => {
   const classes = useStyles();
-  const {routingStore,uiStore} = useStores();
+  const { routingStore, uiStore,practitionerStore } = useStores();
   const { location, push, goBack } = routingStore;
 
+  const handleLogout = () => {
+    practitionerStore.logout()
+    push("/")
+  }
 
   return (
-      <Drawer
-        open={uiStore.menuOpened}
-        className={classes.drawer}
-        classes={{paper: classes.drawerPaper}}
-        onClose={uiStore.toggleMenu}
-      >
-        <div className={classes.toolbar} />
-        <List>
-        <ListItem button key={"Strip Photos"} onClick={() => {push('/photos')}}>
-              <ListItemIcon><CameraIcon /></ListItemIcon>
-              <ListItemText primary={"Strip Photos"} />
-            </ListItem>
+    <Drawer
+      variant="permanent"
+      className={classes.drawer}
+      classes={{ paper: classes.drawerPaper }}
+      onClose={uiStore.toggleMenu}
+    >
+      <List className={classes.list}>
+        <ListItem button key={"Strip Photos"} onClick={() => { push('/photos') }}>
+          <ListItemIcon><CameraIcon /></ListItemIcon>
+        </ListItem>
 
-            <ListItem button key={"Home"} onClick={() => {push('/')}}>
-              <ListItemIcon><HomeIcon /></ListItemIcon>
-              <ListItemText primary={"Home"} />
-            </ListItem>
+        <ListItem button key={"Home"} onClick={() => { push('/') }}>
+          <ListItemIcon><HomeIcon /></ListItemIcon>
+          {/*<ListItemText primary={"Home"} />*/}
+        </ListItem>
 
-            <ListItem button key={"Messaging"} onClick={() => {push('/messaging')}}>
-              <ListItemIcon><MailIcon /></ListItemIcon>
-              <ListItemText primary={"Messaging"} />
-            </ListItem>
+        <ListItem button key={"Messaging"} onClick={() => { push('/messaging') }}>
+          <ListItemIcon><MailIcon /></ListItemIcon>
+        </ListItem>
 
-            <ListItem button key={"Patients"} onClick={() => {push('/patients')}}>
-              <ListItemIcon><PatientsIcon /></ListItemIcon>
-              <ListItemText primary={"Patients"} />
-            </ListItem>
-           
-           
-
-        </List>
-      </Drawer>
+        <ListItem button key={"Patients"} onClick={() => { push('/patients') }}>
+          <ListItemIcon><PatientsIcon /></ListItemIcon>
+        </ListItem>
+      </List>
+      <IconButton onClick={handleLogout} className={classes.settingsIcon}><LogOut /></IconButton>
+    </Drawer>
   );
 });
 
