@@ -12,9 +12,9 @@ import useStores from '../Basics/UseStores';
 
 const PatientHome = observer((props) => {
 
-  const { uiStore, messagingStore } = useStores();
-  const tabs = [<Home />, <Progress />, <Messaging />, <Info />]
-
+  const { patientUIStore } = useStores();
+  const tabs = [<Home />, <Progress />, <Messaging />, <Info />];
+  const routeTab = tabs[patientUIStore.tabNumber]
 
   return (
     <div className="main-screen">
@@ -22,7 +22,7 @@ const PatientHome = observer((props) => {
       <Intro />
       <TopMenu />
       <div style={{ paddingTop: "60px", paddingBottom: "60px" }}>
-        {tabs[uiStore.activeTab]}
+        {routeTab}
       </div>
       <BottomBar />
     </div>

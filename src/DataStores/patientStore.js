@@ -28,9 +28,6 @@ export class PatientStore extends UserStore {
     @observable introEnabled = false;
 
     @observable uiState = {
-        onTreatmentFlow: false,
-        onHistoricalTreatmentFlow: false,
-        onPhotoFlow: false,
         onCalendarView: false,
         cameraIsOpen: false,
         selectedCalendarDate: DateTime.local().startOf('day'),
@@ -125,7 +122,6 @@ export class PatientStore extends UserStore {
             .splitBy({ days: 1 }).filter(d => {
                 return !this.savedReports[d.start.toISODate()]
             }).map(d => {
-                const isoDate = d.start.toISODate()
                 return d.start.toISODate()
             }))
     }
@@ -178,7 +174,6 @@ export class PatientStore extends UserStore {
         }
         this.uiState.onPhotoFlow = false;
         this.uiState.onTreatmentFlow = true;
-        this.report.step = 3;
     }
 
     @action submitReport = () => {

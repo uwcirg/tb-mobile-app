@@ -3,6 +3,10 @@ import {Settings} from 'luxon'
 
 export class UIStore {
 
+    constructor(routerStore) {
+        this.router = routerStore;
+    }
+
     @observable userInt = 0;
     @observable userType = "";
 
@@ -59,7 +63,7 @@ export class UIStore {
         if(!uiState) return
 
         if(uiState && uiState.tab){
-            this.activeTab = uiState.tab;
+            //this.activeTab = uiState.tab;
         }
 
         if(uiState.language){
@@ -69,6 +73,18 @@ export class UIStore {
         if(uiState.locale){
             this.locale = uiState.locale;
         }
+    }
+
+    @action goToSpecificChannel = () => {
+        this.router.push("/messaging/channel")
+    }
+
+    @action goToMessaging = () => {
+        this.router.push("/messaging/")
+    }
+
+    @computed get onSpecificChannel(){
+        return this.router.location.pathname.startsWith("/messaging/channel")
     }
 
     @action toggleTreatmentFlow = () =>{

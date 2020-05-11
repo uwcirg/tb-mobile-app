@@ -3,14 +3,17 @@ import { inject, observer } from 'mobx-react';
 import { useTranslation } from 'react-i18next';
 import HomePage from './HomePage'
 import MedicationFlow from '../MedicationFlow/'
+import useStores from '../../Basics/UseStores';
 
-const Home = inject("uiStore", "patientStore")(observer(({ uiStore, patientStore, props }) => {
+const Home = observer((props) => {
 
-    if(patientStore.uiState.onTreatmentFlow){
-        return (<MedicationFlow/>)
-    }else{
+    const {patientUIStore} = useStores();
+
+    if (patientUIStore.onReportFlow) {
+        return (<MedicationFlow />)
+    } else {
         return (<HomePage />)
     }
-}));
+});
 
 export default Home;

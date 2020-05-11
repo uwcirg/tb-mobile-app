@@ -50,15 +50,6 @@ export default class Main extends React.Component {
   componentDidMount() {
     this.initalizeApplicationState();
     this.listenForConnectivityChanges();
-
-    /*@TODO move this code to patientStore to simplify
-      Just move all of the logic from initalizeApplicationState to that file
-    
-    if( this.props.patientStore.isLoggedIn){
-      this.props.patientStore.getPatientInformation();
-    }
-    */
-
   }
 
   handleBack = () => {

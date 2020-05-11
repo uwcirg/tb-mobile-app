@@ -52,23 +52,24 @@ const useStyles = makeStyles({
 
 const ActionBox = observer(() => {
     const classes = useStyles();
-    const {patientStore} = useStores();
+    const {patientStore,patientUIStore} = useStores();
     const { t, i18n } = useTranslation('translation');
 
     const handleReportClick = () =>{
-        patientStore.uiState.onTreatmentFlow = true;
+        //patientStore.uiState.onTreatmentFlow = true;
+        patientUIStore.moveToReportFlow();
+
     }
 
     const handlePhotoClick = () =>{
-        patientStore.uiState.onTreatmentFlow = true;
-        patientStore.report.step = 2;
+        patientUIStore.openPhotoReport();
     }
 
     return(
         <InteractionCard upperText={t("patient.home.cardTitles.todaysTasks")} className="intro-tasks">
             {patientStore.dailyActionsCompleted ? 
             <>
-            <Confirmation onClick={patientStore.openReportConfirmation} />
+            <Confirmation onClick={patientUIStore.editReport} />
             </>
              :
             <>
@@ -76,7 +77,7 @@ const ActionBox = observer(() => {
             {patientStore.isPhotoDay && <NewButton positive={patientStore.report.hasSubmittedPhoto} onClick={handlePhotoClick} icon={<Camera />} text={t("patient.home.todaysActions.uploadPhoto")} />} 
             </>
             }
-            { patientStore.requiresSubmission && <ClickableText onClick={patientStore.skipToReportConfirmation} className={classes.bottomButton} text="Please Confirm and Submit Your Report" />}
+            { patientStore.requiresSubmission && <ClickableText onClick={patientUIStore.skipToReportConfirmation} className={classes.bottomButton} text="Please Confirm and Submit Your Report" />}
         </InteractionCard>)
 });
 

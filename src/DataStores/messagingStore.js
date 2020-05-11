@@ -15,8 +15,8 @@ export class MessagingStore {
     @observable unreadInfo = {};
 
     @observable channels = [];
-    @observable selectedChannel = 0;
-    @observable selectedChannelInfo = {
+    @observable selectedChannel = {
+        id: 0,
         title: "",
         messages: [],
         creator: ""
@@ -26,25 +26,25 @@ export class MessagingStore {
 
     @computed
     get lastMessageFetched(){
-        if(this.selectedChannelInfo.messages && this.selectedChannelInfo.messages.length < 1){
+        if(this.selectedChannel.messages && this.selectedChannel.messages.length < 1){
             return ""
         }
-        return this.selectedChannelInfo.messages[this.selectedChannelInfo.messages.length - 1].id
+        return this.selectedChannel.messages[this.selectedChannel.messages.length - 1].id
     }
 
     @computed
     get selectedChannelTitle(){
-        return this.selectedChannelInfo.title;
+        return this.selectedChannel.title;
     }
 
     @computed
     get selectedChannelMessages(){
-        return this.selectedChannelInfo.messages;
+        return this.selectedChannel.messages;
     }
 
     @computed
     get selectedChannelCreator(){
-        return this.selectedChannelInfo.creator;
+        return this.selectedChannel.creator;
     }
 
     @action getChannels(){
@@ -55,37 +55,33 @@ export class MessagingStore {
 
     @action getSelectedChannel(){
 
-        let url = `/channel/${this.selectedChannel}/messages`
+        let url = `/channel/${this.selectedChannel.id}/messages`
 
         if(this.lastMessageFetched != ""){
             url += `?lastMessageID=${this.lastMessageFetched}`
         } 
 
         this.strategy.executeRawRequest(url,"GET").then((response) => {
-            this.selectedChannelInfo.messages = response;
+            this.selectedChannel.messages = response;
         })
     }
 
     @action getNewMessages(){
 
-        let url = `/channel/${this.selectedChannel}/messages`
+        let url = `/channel/${this.selectedChannel.id}/messages`
 
         if(this.lastMessageFetched != ""){
             url += `?lastMessageID=${this.lastMessageFetched}`
         } 
 
         this.strategy.executeRawRequest(url,"GET").then((response) => {
-           
-                this.selectedChannelInfo.messages = this.selectedChannelInfo.messages.concat(response);
-          
-            
+                this.selectedChannel.messages = this.selectedChannel.messages.concat(response);
         })
     }
 
-
     @action clearSelection = () => {
-        this.selectedChannel = 0
-        this.selectedChannelInfo = {
+        this.selectedChannel = {
+            id: 0,
             title: "",
             messages: []
         };
@@ -96,12 +92,11 @@ export class MessagingStore {
             body: this.newMessage
         }
 
-        this.strategy.executeRawRequest(`/channel/${this.selectedChannel}/messages`,"POST",body).then((response) => {
+        this.strategy.executeRawRequest(`/channel/${this.selectedChannel.id}/messages`,"POST",body).then((response) => {
             this.getNewMessages();
             this.newMessage = "";
 
         })
-
     }
 
     @action getUnreadMessages = () => {

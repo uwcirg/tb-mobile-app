@@ -25,11 +25,10 @@ const Channel = observer((props) => {
     const { messagingStore } = useStores();
 
     let messages = [];
-    if (messagingStore.selectedChannelMessages &&
-        messagingStore.selectedChannelMessages.length > 0) {
+    if (props.selectedChannel.messages &&
+        props.selectedChannel.messages.length > 0) {
         messages = messagingStore.selectedChannelMessages.map( (message, index) => {
             const isUser = props.userID === message.user_id;
-
             return <Message key={`message ${index}`} message={message} isUser={isUser} />
         })
 
@@ -38,7 +37,7 @@ const Channel = observer((props) => {
 
     return (
         <>
-            <OverTopBar altColor={props.isPersonalChannel} handleBack={messagingStore.clearSelection} title={messagingStore.selectedChannelTitle} />
+            <OverTopBar altColor={props.isPersonalChannel} handleBack={props.handleBack} title={props.selectedChannel.title} />
             <div className={classes.messageList}>
                 {messages}
             </div>

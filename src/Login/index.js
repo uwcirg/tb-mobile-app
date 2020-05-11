@@ -6,10 +6,11 @@ import { observer } from 'mobx-react';
 
 const Login = observer(() => {
 
-  const { loginStore, uiStore } = useStores();
+  const { loginStore, uiStore,routingStore } = useStores();
   //Load Spanish For User Tests
   useEffect(() => {
     uiStore.language = "es"
+
   }, [])
 
 

@@ -37,32 +37,26 @@ const useStyles = makeStyles({
 });
 
 const BottomBar = observer((props) => {
-  const {patientStore,uiStore,messagingStore} = useStores();
+  const {messagingStore, patientUIStore} = useStores();
   const classes = useStyles();
 
   useEffect(()=>{
     messagingStore.getUnreadMessages();
   },[])
 
-
-
-
   return (
     <BottomNavigation
-      value={uiStore.activeTab}
-      onChange={(event, newValue) => {
-        uiStore.updateTab(newValue);
-      }}
+      value={patientUIStore.tabNumber}
       showLabels
       className={classes.root}
     >
-      <BottomNavigationAction className="intro-home-button" icon={<HomeIcon />} />
-      <BottomNavigationAction className="intro-progress-button" icon={<EventAvailableIcon />} />
-      <BottomNavigationAction icon={<div className={classes.messageContainer}>
+      <BottomNavigationAction onClick={patientUIStore.goToHome} className="intro-home-button" icon={<HomeIcon />} />
+      <BottomNavigationAction onClick={patientUIStore.goToProgress} className="intro-progress-button" icon={<EventAvailableIcon />} />
+      <BottomNavigationAction onClick={patientUIStore.goToMessaging} icon={<div className={classes.messageContainer}>
         <ForumIcon />
         {messagingStore.numberUnread > 0 && <div className={classes.newMessages}>{messagingStore.numberUnread}</div>}
         </div>} />
-      <BottomNavigationAction icon={<InfoIcon  />} />
+      <BottomNavigationAction onClick={patientUIStore.goToInformation} icon={<InfoIcon  />} />
     </BottomNavigation>
   );
 });

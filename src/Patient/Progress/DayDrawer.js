@@ -81,7 +81,7 @@ const Header = (props) => {
 const Body = (props) => {
   const classes = useStyles();
   const { t, i18n } = useTranslation('translation');
-  const { patientStore } = useStores();
+  const { patientUIStore } = useStores();
   
   return (
     <>
@@ -91,7 +91,7 @@ const Body = (props) => {
           <div className={classes.previewItem}><TempIcon /><p>{t("commonWords.symptoms")}</p></div>
           {props.photoDay && <div className={`${classes.previewItem} ${props.missingPhoto && classes.previewItemMissed}`}><Camera /><p>{t('commonWords.stripPhoto')}</p></div>}
         </div> :
-        <NewButton onClick={()=>{patientStore.uiState.onHistoricalTreatmentFlow = true}} icon={<PillIcon />} text={t("patient.home.todaysActions.logMedication")} />
+        <NewButton onClick={()=>{patientUIStore.startHistoricalReport()}} icon={<PillIcon />} text={t("patient.home.todaysActions.logMedication")} />
       }
     </>
   )
