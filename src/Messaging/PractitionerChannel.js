@@ -11,11 +11,13 @@ import Message from './Message';
 
 const useStyles = makeStyles({
     messageList: {
-        width: "100%",
+        margin: "auto",
+        width: "90%",
         height: "100%",
         display: "flex",
         flexDirection: "column",
         overflowY: "scroll",
+        overflowX: "hidden",
         backgroundColor: "white",
         "& > div:last-of-type":{
             marginBottom: "100px"
@@ -24,15 +26,14 @@ const useStyles = makeStyles({
     },
     container:{
         height: "100%",
-        width: "100%",
-        position: "relative"
+        position: "relative",
+        overflowX: "hidden"
     },
-    test: {
-        height: "40px",
+    input: {
         width: "100%",
         backgroundColor: "lightblue",
         position: "absolute",
-        bottom: "0"
+        bottom: "0",
     }
 
 });
@@ -57,7 +58,12 @@ const Channel = observer((props) => {
             <div className={classes.messageList}>
                 {messages}
             </div>
-            <div className={classes.test}></div>
+            <div className={classes.input}>
+                <MessageInput value={messagingStore.newMessage}
+                setValue={(value) => { messagingStore.newMessage = value }}
+                disableSend={messagingStore.newMessage == ""}
+                handleSend={messagingStore.sendMessage} />
+            </div>
         </div>
     )
 });

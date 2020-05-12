@@ -17,6 +17,12 @@ const useStyles = makeStyles({
         flexDirection: "column"
 
     },
+    inputContainer:{
+        position: "fixed",
+        bottom: "0px",
+        zIndex: "100",
+        width: "100%"
+    }
 
 });
 
@@ -41,11 +47,13 @@ const Channel = observer((props) => {
             <div className={classes.messageList}>
                 {messages}
             </div>
+            <div className={classes.inputContainer}>
             <MessageInput value={messagingStore.newMessage}
                 setValue={(value) => { messagingStore.newMessage = value }}
                 disableSend={messagingStore.newMessage == ""}
                 handleSend={messagingStore.sendMessage}
             />
+            </div>
         </>
     )
 });

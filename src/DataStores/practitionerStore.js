@@ -85,6 +85,7 @@ export class PractitionerStore extends UserStore {
 
     @action
     initalize(){
+        this.userType = "Practitioner"
         this.getOrganizations();
         this.getPatients();
         this.getPatientNames();
@@ -107,11 +108,6 @@ export class PractitionerStore extends UserStore {
         this.clearLocalStorage();
         this.isLoggedIn = false;
 
-    }
-
-    @action
-    setAccountInformation = () => {
-        console.log("pracition set account info")
     }
 
 

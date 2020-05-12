@@ -54,8 +54,6 @@ const Messaging = observer(() => {
     const [search, setSearch] = useState("");
     const [patientSearch, setPatientSearch] = useState("");
 
-    console.log("pracID  = " + practitionerStore.id)
-
     //Get unread every time this rerenders
     useEffect(() => {
         messagingStore.getUnreadMessages();
@@ -100,7 +98,7 @@ const Messaging = observer(() => {
                 {uiStore.onSpecificChannel &&
                     <Channel
                         coordinatorView
-                        userID={practitionerStore.id}
+                        userID={practitionerStore.userID}
                         selectedChannel={messagingStore.selectedChannel}
                         handleBack={handleBackFromChannel}
                          />
