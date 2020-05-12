@@ -8,11 +8,11 @@ const ChannelPreview = (props) => {
     const { t, i18n } = useTranslation('translation');
 
     return (
-        <Container onClick={props.onClick} altColor={props.private}>
-            <div className="display"><span>{props.title[0]}</span></div>
+        <Container onClick={props.onClick} altColor={props.private} selected={props.selected}>
+            <div className="display"><span>{props.title ? props.title[0] : "C"}</span></div>
             <BorderedPart>
                 <div className="text">
-                    <h2>{props.private ? `${t("userTypes.coordinator")}` : props.title}</h2>
+                    <h2>{props.title}</h2>
                     <p>{props.private ? `${t("messaging.privateExplained")}` : props.subtitle}</p>
                 </div>
                 <div className="rightSideContainer">
@@ -94,6 +94,8 @@ const Container = styled.div`
     min-height: 10vh;
     border: none;
     margin-top: 1em;
+    margin-right: 1em;
+    background-color: ${props => props.selected ? 'lightblue' : 'unset'};
 
     .display{
         padding: 0;

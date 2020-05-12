@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Paper from '@material-ui/core/Paper'
 import ChevronRight from '@material-ui/icons/ChevronRight'
 import WarningIcon from '@material-ui/icons/Warning';
-import Channel from './Channel';
+import Channel from './PractitionerChannel';
 import ChannelPreview from './ChannelPreview'
 import { DateTime } from 'luxon'
 import useStores from '../Basics/UseStores';
@@ -15,15 +15,15 @@ import SearchBar from '../Basics/SearchBar';
 const useStyles = makeStyles({
     container:{
         display: "flex",
-        width: "100%"
+        width: "100%",
+        backgroundColor: "white"
     },
     channelList: {
-        "& > div > h2": {
-            marginLeft: ".5em",
+        "& > h2": {
             fontSize: "1.25em"
-        }
+        },
+        borderRight: "solid lightgray 1px"
     },
-
     warning: {
         fontSize: ".8em",
         backgroundColor: "#f2f2f2",
@@ -38,9 +38,9 @@ const useStyles = makeStyles({
         textAlign: "center"
     },
     channelContainer: {
-        width: "30%",
-        overflow: "scroll",
-        height: "100vh"
+        flexBasis: "40%",
+        flexGrow: "1",
+        height: "100vh",
     }
 
 });
@@ -48,15 +48,18 @@ const useStyles = makeStyles({
 const Messaging = observer(() => {
 
     const { t, i18n } = useTranslation('translation');
-    const { messagingStore, patientStore, uiStore } = useStores();
+    const { messagingStore, practitionerStore, uiStore } = useStores();
 
     const classes = useStyles();
     const [search, setSearch] = useState("");
+    const [patientSearch, setPatientSearch] = useState("");
+
+    console.log("pracID  = " + practitionerStore.id)
 
     //Get unread every time this rerenders
     useEffect(() => {
         messagingStore.getUnreadMessages();
-    })
+    },[uiStore.onSpecificChannel])
 
     //Only get channels on the first render
     useEffect(() => {
@@ -68,22 +71,25 @@ const Messaging = observer(() => {
         messagingStore.clearSelection();
     }
 
-
     const handleSearch = (e) => {
         setSearch(e.target.value)
+    }
+
+    const handlePatientSearch = (e) => {
+        setPatientSearch(e.target.value)
     }
 
     const publicChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.filter((channel) => {
         return (!channel.isPrivate && channel.title.toLowerCase().includes(search.toLowerCase()))
     }) : [];
 
-    const coordinatorChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.filter((channel) => { return (channel.isPrivate) }) : [];
+    const coordinatorChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.filter((channel) => { return (channel.isPrivate && channel.title.toLowerCase().includes(patientSearch.toLowerCase())) }) : [];
 
     return (
             <div className={classes.container}>
             <div className={classes.channelList}>
                 <h2>Patients</h2>
-                <SearchBar handleChange={handleSearch} placeholder={t("messaging.search")} />
+                {/* Search not currently working - change api to send names as title for coordinator <SearchBar handleChange={handlePatientSearch} placeholder={t("messaging.search")} />*/}
                 <Channels private channels={coordinatorChannels} />
                 <h2>Discussions</h2>
                 <SearchBar handleChange={handleSearch} placeholder={t("messaging.search")} />
@@ -93,10 +99,11 @@ const Messaging = observer(() => {
             <div className={classes.channelContainer}>
                 {uiStore.onSpecificChannel &&
                     <Channel
-                        userID={patientStore.id}
+                        coordinatorView
+                        userID={practitionerStore.id}
                         selectedChannel={messagingStore.selectedChannel}
                         handleBack={handleBackFromChannel}
-                        userID={patientStore.userID} />
+                         />
                 }
             </div>
             </div>
@@ -106,16 +113,20 @@ const Messaging = observer(() => {
 
 const Channels = observer((props) => {
     const classes = useStyles();
-    const { messagingStore, uiStore } = useStores();
+    const { messagingStore, uiStore,practitionerStore } = useStores();
+
+
+    
 
     let channels = "";
     if (props.channels.length > 0) {
         channels = props.channels.map((channel) => {
-
+            const title = (channel.isPrivate && practitionerStore.patientNames) ? practitionerStore.patientNames[channel.userId] : channel.title
             return <ChannelPreview
+                selected={messagingStore.selectedChannel.id === channel.id}
                 private={props.private}
                 key={`channel${channel.id}`}
-                title={channel.title ? channel.title : "Undefined"}
+                title={title}
                 subtitle={channel.subtitle}
                 time={DateTime.fromISO(channel.lastMessageTime).toLocaleString(DateTime.DATETIME_24_SIMPLE)}
                 unread={messagingStore.unreadInfo[channel.id] ? messagingStore.unreadInfo[channel.id].unreadMessages : 0}
@@ -129,7 +140,7 @@ const Channels = observer((props) => {
             />
         })
     } else {
-        channels = <p className={classes.errorMessage}>No Topics Found</p>
+        channels = <p className={classes.errorMessage}>No {!props.private ? "Topics" : "Patients"} Found</p>
     }
 
 

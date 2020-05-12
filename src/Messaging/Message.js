@@ -32,7 +32,7 @@ const useStyles = makeStyles({
         alignSelf: "flex-end",
         marginRight: "5px",
         color: "white"
-   
+
     },
     myTimestamp: {
         right: "10px",
@@ -66,7 +66,7 @@ const useStyles = makeStyles({
     username: {
         color: "black"
     }
-  
+
 })
 
 const Message = (props) => {
@@ -74,17 +74,21 @@ const Message = (props) => {
     const classes = useStyles();
 
     const processTime = (time) => {
-        return(DateTime.fromISO(time).toLocaleString(DateTime.DATETIME_SHORT))
+        return (DateTime.fromISO(time).toLocaleString(DateTime.DATETIME_SHORT))
     }
 
-    return(<div className={classes.messageContainer}>
-                
+    return (<div className={classes.messageContainer}>
+
         <div key={props.message.id} className={`${classes.message} ${props.isUser ? classes.myMessage : classes.otherMessage}`}>
-            <div className={props.isUser ? classes.myTriangle: classes.triangle}></div>
+            <div className={props.isUser ? classes.myTriangle : classes.triangle}></div>
             {props.message.body}
-            <div className={`${classes.timestamp} ${props.isUser ? classes.myTimestamp: ""}`}><p><span className={classes.username}>username</span> at {processTime(props.message.created_at)}</p></div>
+            <div className={`${classes.timestamp} ${props.isUser ? classes.myTimestamp : ""}`}>
+                <p>
+                    <span className={classes.username}>{props.username ? props.username : "user" }</span> at {processTime(props.message.created_at)}
+                </p>
+            </div>
         </div>
-       
+
     </div>)
 
 }

@@ -60,13 +60,12 @@ const PractitionerBody = observer(() => {
 const Body = styled.div`
 width: 100%;
 min-height: 100vh;
-background-color: ${Colors.lightgray};
+padding-left: 1em;
 display: flex;
 flex-direction: column;
 justify-content: center;
 align-content: flex-start;
 align-items: flex-start;
-padding-left: 1em;
 
 `
 

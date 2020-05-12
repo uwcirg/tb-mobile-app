@@ -11,8 +11,6 @@ import useStores from '../Basics/UseStores';
 import PatientsIcon from '@material-ui/icons/SupervisorAccount';
 import CameraIcon from '@material-ui/icons/CameraAlt'
 import IconButton from '@material-ui/core/IconButton';
-
-import SettingsIcon from '@material-ui/icons/Settings';
 import LogOut from '@material-ui/icons/ExitToApp';
 
 const drawerWidth = 200;
@@ -27,10 +25,10 @@ const useStyles = makeStyles(theme => ({
     flexShrink: 0,
     zIndex: 0,
     paddingTop: "500px",
-    width: "10%",
+    width: "8%",
   },
   drawerPaper: {
-    width: "10%"
+    width: "8%"
   },
   list: {
     height: "100%",

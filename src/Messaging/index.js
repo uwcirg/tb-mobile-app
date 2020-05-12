@@ -89,6 +89,7 @@ const Messaging = observer(() => {
 const Channels = observer((props) => {
     const classes = useStyles();
     const { messagingStore,uiStore} = useStores();
+    const { t, i18n } = useTranslation('translation');
 
     let channels = "";
     if (props.channels.length > 0) {
@@ -97,7 +98,7 @@ const Channels = observer((props) => {
             return <ChannelPreview
                 private={props.private}
                 key={`channel${channel.id}`}
-                title={channel.title}
+                title={props.private ? `${t("userTypes.coordinator")}` : channel.title}
                 subtitle={channel.subtitle}
                 time={DateTime.fromISO(channel.lastMessageTime).toLocaleString(DateTime.DATETIME_24_SIMPLE)}
                 unread={messagingStore.unreadInfo[channel.id] ? messagingStore.unreadInfo[channel.id].unreadMessages : 0}

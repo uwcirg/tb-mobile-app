@@ -15,7 +15,8 @@ const ROUTES = {
     getPatients: ["/practitioner/patients","GET"],
     getTemporaryPatients: ["/practitioner/temporary_patients","GET"],
     getPatientPhotos: ["/patients/photo_reports","GET"],
-    getProcessedPatientPhotos: ["/patients/photo_reports/processed","GET"]
+    getProcessedPatientPhotos: ["/patients/photo_reports/processed","GET"],
+    getPatientNames: ["/practitioner/patients?namesOnly=true","GET"]
 }
 
 export class PractitionerStore extends UserStore {
@@ -47,6 +48,8 @@ export class PractitionerStore extends UserStore {
         organization: "",
         startDate: new Date().toISOString()
     }
+
+    @observable patientNames = {};
 
     @observable patients = [];
     @observable temporaryPatients = [];
@@ -84,6 +87,7 @@ export class PractitionerStore extends UserStore {
     initalize(){
         this.getOrganizations();
         this.getPatients();
+        this.getPatientNames();
         super.initalize();
     }
 
@@ -142,6 +146,12 @@ export class PractitionerStore extends UserStore {
     @action getPatientDailyReports = (id) => {
         this.executeRawRequest(`/patient/${id}/reports`,"GET").then(response => {
             this.selectedPatient.reports = response;
+        })
+    }
+
+    @action getPatientNames = () => {
+        this.executeRequest("getPatientNames").then( response => {
+            this.patientNames = response;
         })
     }
 
