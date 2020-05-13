@@ -33,7 +33,7 @@ function ButtonGroup(props) {
 
     const keys = Object.keys(props.options)
 
-    const options = keys.map( (option,index) => {
+    const options = keys.map((option, index) => {
         return <FormControlLabel key={`milestone-option-${index}`} value={option} control={<Radio color="primary" className={classes.radio} />} label={props.options[option]} />
     })
     options.push(<FormControlLabel key={`milestone-option-other`} value="other" control={<Radio color="primary" className={classes.radio} />} label={t("commonWords.other")} />)
@@ -58,7 +58,7 @@ function DateScreen(props) {
                 format="dd/MM/yyyy"
                 margin="normal"
                 id="date-picker-inline"
-                
+
                 value={props.date}
                 onChange={props.handleDate}
                 KeyboardButtonProps={{
@@ -75,20 +75,21 @@ function TimeScreen(props) {
     return (
         <div className={classes.inputContainer}>
             <div className={classes.time}>
-                <TimePicker value={DateTime.local()} handleChange={(e) => { 
-                    let newly = e.set({hour: 15, minute: 30})
-                    console.log(newly.toLocaleString(DateTime.DATETIME_FULL))}} />
+                <TimePicker value={DateTime.local()} handleChange={(e) => {
+                    let newly = e.set({ hour: 15, minute: 30 })
+                    console.log(newly.toLocaleString(DateTime.DATETIME_FULL))
+                }} />
             </div>
-                <FormControlLabel
-                    labelPlacement="start"
-                    control={
-                        <Switch
-                            checked={props.allDay}
-                            onChange={props.handleAllDay}
-                            name="checkedB"
-                            color="primary"
-                        />
-                    } label="All-day"/>
+            <FormControlLabel
+                labelPlacement="start"
+                control={
+                    <Switch
+                        checked={props.allDay}
+                        onChange={props.handleAllDay}
+                        name="checkedB"
+                        color="primary"
+                    />
+                } label="All-day" />
         </div>
     )
 }
@@ -96,32 +97,33 @@ function TimeScreen(props) {
 function LocationScreen(props) {
     const classes = useStyles();
 
-    return(
+    return (
         <div className={classes.locationScreen}>
-            <TextField className={classes.location} 
-                id="outlined-basic" 
-                abel="Location" 
-                variant="outlined" 
+            <TextField className={classes.location}
+                id="outlined-basic"
+                abel="Location"
+                variant="outlined"
                 value={props.location}
                 onChange={props.handleLocation}
-             />
+            />
             <FormControlLabel
-                    labelPlacement="start"
-                    control={
-                        <Switch
-                            checked={true}
-                            onChange={() => {}}
-                            name="not-applicable"
-                            color="primary"
-                        />
-                    } label="Not Applicable"/>
+                labelPlacement="start"
+                control={
+                    <Switch
+                        checked={true}
+                        onChange={() => { }}
+                        name="not-applicable"
+                        color="primary"
+                    />
+                } label="Not Applicable" />
         </div>
     )
 }
 
-function Summary(props){
-    return(
+function Summary(props) {
+    return (
         <div>
+            <h1>Confirm and submit</h1>
             <p>{JSON.stringify(props.milestone)}</p>
         </div>
     )
@@ -130,7 +132,7 @@ function Summary(props){
 const AddMilestones = observer((props) => {
 
     const [step, setStep] = useState(0);
-    const {patientStore} = useStores();
+    const { patientStore, patientUIStore } = useStores();
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
 
@@ -159,15 +161,24 @@ const AddMilestones = observer((props) => {
     }
 
     //Translated Elements
-    const translations = t("milestones", { returnObjects: true });
+    const translations = t("milestones.titles", { returnObjects: true });
     const titles = t("patient.addMilestone.titles", { returnObjects: true })
-    const handleNext = () => { setStep(step + 1) }
+
 
     const tabs = [<ButtonGroup options={translations} handleTitle={handleTitle} />,
-        <DateScreen date={patientStore.newMilestone.datetime} handleDate={handleDate} />,
-        <TimeScreen time={patientStore.newMilestone.datetime} allDay={patientStore.newMilestone.allDay} handleAllDay={handleAllDay} />,
-        <LocationScreen location={patientStore.newMilestone.location} handleLocation={handleLocation} />,
-        <Summary milestone={patientStore.newMilestone} />]
+    <DateScreen date={patientStore.newMilestone.datetime} handleDate={handleDate} />,
+    <TimeScreen time={patientStore.newMilestone.datetime} allDay={patientStore.newMilestone.allDay} handleAllDay={handleAllDay} />,
+    <LocationScreen location={patientStore.newMilestone.location} handleLocation={handleLocation} />,
+    <Summary milestone={patientStore.newMilestone} />]
+
+    const handleNext = () => {
+        if (step == tabs.length - 1) {
+            patientUIStore.goToProgress();
+            patientStore.postMilestone();
+            return
+        }
+        setStep(step + 1)
+    }
 
     return (
         <>
@@ -175,7 +186,7 @@ const AddMilestones = observer((props) => {
             <div className={classes.body}>
                 <NumberedTitle className={classes.title} number={step + 1} title={titles[step]} />
                 <div className={classes.main}>
-                {tabs[step]}
+                    {tabs[step]}
                 </div>
                 <SimpleButton alignRight className={classes.next} onClick={handleNext}>{t("patient.report.next")}</SimpleButton>
             </div>
@@ -185,10 +196,9 @@ const AddMilestones = observer((props) => {
 
 const useStyles = makeStyles({
     body: {
-        ...Styles.popOver,
         ...Styles.flexColumn,
         alignItems: "center",
-        paddingTop: "60px"
+        paddingTop: "30px",
     },
     radio: {
 
@@ -204,7 +214,8 @@ const useStyles = makeStyles({
         width: "90%"
     },
     next: {
-        marginTop: "1em"
+        marginTop: "1em",
+        marginBottom: "60px"
     },
     time: {
         width: "60%",
@@ -213,15 +224,15 @@ const useStyles = makeStyles({
     allDay: {
         display: "flex"
     },
-    location:{
+    location: {
         width: "80vw"
     },
-    locationScreen:{
+    locationScreen: {
         display: "flex",
         flexDirection: "column",
         alignContent: "center",
     },
-    main:{
+    main: {
         minHeight: "50vh",
         width: "100vw",
         display: "flex",

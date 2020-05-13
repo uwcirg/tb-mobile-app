@@ -11,6 +11,8 @@ import styled from 'styled-components'
 import PersonIcon from '@material-ui/icons/Person'
 import Colors from '../../Basics/Colors';
 
+import Settings from '../../Basics/Icons/Settings'
+
 const useStyles = makeStyles({
   personIcon:{
     color: Colors.buttonBlue,
@@ -41,7 +43,7 @@ const TopBar = inject("uiStore","patientStore")(observer(({ uiStore,patientStore
 
   //Conditional Logic to Display back button during treatment flow
   let buttonToDisplay = (
-    patientStore.isLoggedIn && <IconButton className={classes.menuContainer} onClick={uiStore.toggleMenu} edge="start"  color="inherit" aria-label="menu"> <PersonIcon className={classes.personIcon} /></IconButton>
+    patientStore.isLoggedIn && <IconButton className={classes.menuContainer} onClick={uiStore.toggleMenu} edge="start"  color="inherit" aria-label="menu"> <Settings className={classes.personIcon} /></IconButton>
   )
 
 

@@ -17,6 +17,11 @@ export default class PatientUIStore {
         this.router.push(`/home/report/0`)
     }
 
+
+    @action goToAddMilestone = () => {
+        this.router.push(`/progress/reminders/add`)
+    }
+
     @action goToHome = () => {
         this.router.push("/home")
     }
@@ -74,8 +79,8 @@ export default class PatientUIStore {
         return parseInt(parts[parts.length-1])
     }
 
-    @computed get onCalendar(){
-        this.router.push(`/home/report/${this.reportStep}`)
+    @computed get onAddMilestone(){
+        return this.router.location.pathname.startsWith("/progress/reminders/add")
     }
 
     @computed get tabNumber(){

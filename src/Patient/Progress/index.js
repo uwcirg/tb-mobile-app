@@ -11,6 +11,7 @@ import OverTopBar from '../Navigation/OverTopBar';
 import ApprovalStatus from './ApprovalStatus';
 import MileStones from './Milestones'
 import MedicationFlow from '../MedicationFlow';
+import AddMilestone from './AddMilestone'
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -53,10 +54,12 @@ const Progress = observer(() => {
     const classes = useStyles();
     const { patientStore,patientUIStore} = useStores();
 
+    useEffect(()=>{patientStore.getMilestones()},[])
+
+    if(patientUIStore.onHistoricalReport) return (<ReportOldMedication />)
+    if(patientUIStore.onAddMilestone) return (<AddMilestone handleBack={patientUIStore.goToProgress} />)
+
     return (<>
-
-        {patientUIStore.onHistoricalReport ? <ReportOldMedication /> :
-
             <div className={`${classes.container} ${patientStore.uiState.onCalendarView && classes.centerContainer + ' ' + classes.fullHeight}`} >
                 {!patientStore.uiState.onCalendarView ?
                     <>
@@ -69,7 +72,7 @@ const Progress = observer(() => {
                         <CustomCalendar />
                         <DayDrawer />
                     </>}
-            </div>}
+            </div>
     </>)
 });
 

@@ -1,7 +1,7 @@
 let Styles = {
 
     popOver:{
-        height: "100vh",
+        minHeight: "100vh",
         width: "100vw",
         backgroundColor: "white",
         position: "fixed"

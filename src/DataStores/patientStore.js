@@ -9,7 +9,8 @@ const ROUTES = {
     dailyReport: ["/daily_report", "POST"],
     patientReports: ["/daily_reports", "GET"],
     getPhotoUploadURL: ["/patient/daily_reports/photo_upload_url", "GET"],
-    updateNotificationTime: ["/patient/reminder","PATCH"]
+    updateNotificationTime: ["/patient/reminder","PATCH"],
+    getMilestones: ["/patient/me/milestones","GET"]
 }
 
 export class PatientStore extends UserStore {
@@ -232,10 +233,16 @@ export class PatientStore extends UserStore {
         });
     }
 
+    @action getMilestones(){
+        this.executeRequest('getMilestones').then((json) => {
+            this.milestones = json[0] ? json : []
+        })
+    }
+
     @action postMilestone = () => {
 
-        this.executeRawRequest(`/patient/${this.userID}/milestones`,"POST").then(response => {
-            console.log(response)
+        this.executeRawRequest(`/patient/${this.userID}/milestones`,"POST",this.newMilestone).then(response => {
+            this.milestones.push(response);
         })
 
     }
