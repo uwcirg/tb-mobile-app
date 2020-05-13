@@ -9,19 +9,22 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import AddMilestone from './AddMilestone';
 import AddMilestones from './AddMilestone';
+import { observer } from 'mobx-react'
+import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles({
     body: {
-        width: "90%"
-    },
-    header: {
-        ...Styles.flexRow,
-        alignContent: "center",
-        marginBottom: "1em",
-        "& > h2": {
+        width: "90%",
+        "& > h2, & > div > h2": {
             fontSize: "1em",
             marginRight: "auto"
         }
+    },
+    header: {
+        ...Styles.flexRow,
+        justifyContent: "flex-end",
+        marginBottom: "1em",
+        width: "100%"
     },
     milestone: {
         ...Styles.flexRow,
@@ -51,39 +54,45 @@ const useStyles = makeStyles({
     }
 })
 
-const MileStones = () => {
+const MileStones = observer(() => {
 
     const classes = useStyles();
-    const { patientStore } = useStores();
+    const { patientStore, patientUIStore } = useStores();
     const [onAddFlow, setOnFlow] = useState(false)
+    const { t, i18n } = useTranslation('translation');
+
+
+    const previous = patientStore.milestones.filter((m) => { return DateTime.fromISO(m.datetime).diffNow("minutes").minutes < 0 })
+    const upcoming = patientStore.milestones.filter((m) => { return DateTime.fromISO(m.datetime).diffNow("minutes").minutes > 0 })
 
     return (
         <>
-            { onAddFlow ? <AddMilestones handleBack={() => {setOnFlow(false)}} /> :
+            {onAddFlow ? <AddMilestones handleBack={() => { setOnFlow(false) }} /> :
                 <InteractionCard upperText="Milestones">
                     <div className={classes.body}>
-                        <div className={classes.header}><h2>Upcoming</h2><Fab onClick={() => { setOnFlow(true) }} className={classes.addButton} size="small"><AddIcon /></Fab></div>
-                        <MileStoneList milestones={patientStore.milestones} />
+                        <h2>{t("milestones.previous")}</h2>
+                        <MileStoneList milestones={upcoming} />
+                        <h2>{t("milestones.upcoming")}</h2>
+                        <MileStoneList milestones={previous} />
+                        <div className={classes.header}> <h2>{t("milestones.addReminder")}</h2><Fab onClick={patientUIStore.goToAddMilestone} className={classes.addButton} size="small"><AddIcon /></Fab></div>
                     </div>
                 </InteractionCard>
             }
         </>
     )
 
-}
+});
 
 const MileStoneList = (props) => {
-    const base = DateTime.local();
 
-    const list = props.milestones.map(milestone => {
+    const list = props.milestones.map((milestone, index) => {
+        const base = DateTime.fromISO(milestone.datetime);
         return (<MileStone
-            date={base.plus({ days: 1 })}
-            name="Treatment Phase 2"
+            key={`milestone-${index}`}
+            date={base}
+            name={milestone.title}
         />)
     })
-
-
-
     return (
         <>
             {props.milestones.length > 0 ? list : <p>No Milestones Saved</p>}

@@ -50,7 +50,7 @@ const ApprovalStatus = observer(() => {
     return (
         <InteractionCard className={classes.card} upperText={t("patient.progress.approvalStatus")}>
             <div className={classes.textContainer}>
-                <p>{`${numberOfPhotoReports}/${numberOfPhotoReports + 1}`} Test Strips Approved</p>
+                <p>{`${numberOfPhotoReports}/${numberOfPhotoReports}`} Test Strips Approved</p>
                  <CheckIcon className={classes.checkIcon}/>
             </div>
             <div className={classes.test}>

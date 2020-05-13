@@ -14,13 +14,9 @@ import ChevronRight from '@material-ui/icons/ChevronRight'
 
 const ProgressGraph = observer((props) => {
     const classes = useStyles();
-    const { patientStore,uiStore } = useStores();
+    const { patientStore,patientUIStore, } = useStores();
     const dayValue = (patientStore.daysSinceTreatmentStart / 180) * 100;
     const { t, i18n } = useTranslation('translation');
-
-    const handleClick = () => {
-        uiStore.activeTab = 1
-    }
 
     return (
         <InteractionCard upperText={t("patient.home.cardTitles.myProgress")}>
@@ -37,7 +33,7 @@ const ProgressGraph = observer((props) => {
             </div>
                 <StatBox title={`4 ${t('time.days')}`} text={t('patient.home.progress.currentStreak')} />
             </div>
-            <ClickableText onClick={handleClick} className={classes.bottomText} hideIcon text={<>View Milestones <ChevronRight /></>} />
+            <ClickableText onClick={patientUIStore.goToProgress} className={classes.bottomText} hideIcon text={<>View Milestones <ChevronRight /></>} />
         </InteractionCard>
     )
 });

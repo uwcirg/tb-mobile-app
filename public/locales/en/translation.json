@@ -230,12 +230,17 @@
             "subtitle": "Click here to list additional side effects"
         }
     },
-    "milestones":{
-        "sputumTest": "Sputum Test",
-        "intensivePhase": "End of Intensive Phase",
-        "testingFU": "Follow Up Testing",
-        "appointmentFU": "Follow Up Appointment",
-        "medPickup": "Medication pick-up",
-        "housematesTested": "All housemates tested"
+    "milestones": {
+        "titles": {
+            "sputumTest": "Sputum Test",
+            "intensivePhase": "End of Intensive Phase",
+            "testingFU": "Follow Up Testing",
+            "appointmentFU": "Follow Up Appointment",
+            "medPickup": "Medication pick-up",
+            "housematesTested": "All housemates tested"
+        },
+        "upcoming": "Upcoming",
+        "previous": "Previous"
     }
+
 }

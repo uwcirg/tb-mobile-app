@@ -2,12 +2,6 @@ import { action, observable, computed} from "mobx";
 import {UserStore} from './userStore'
 
 const ROUTES = {
-    login: ["/auth/login/coordinator","POST"],
-    post_resolution: ["/resolution","POST"],
-    get_records: ["/participant/all", "GET"],
-    get_coordinator: ["/coordinator/current", "GET"],
-    set_photo_status:["/photo"],
-    add_coordinator:["/coordinator", "POST"],
     addPatient:["/patient","POST"],
     getCurrentPractitioner:["/practitioner/me", "GET"],
     getOrganizations:["/organizations","GET"],
@@ -109,7 +103,6 @@ export class PractitionerStore extends UserStore {
         this.isLoggedIn = false;
 
     }
-
 
     @action getPatients = () => {
         this.executeRequest('getPatients').then( response => {
