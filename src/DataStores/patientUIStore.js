@@ -8,6 +8,8 @@ export default class PatientUIStore {
         this.router = routerStore;
     }
 
+    @observable onOnboarding = false;
+
     //Patient Side Routes
     @computed get onReportFlow() {
         return this.router.location.pathname.startsWith("/home/report")
@@ -55,7 +57,7 @@ export default class PatientUIStore {
     }
 
     @action openPhotoReport = () => {
-        this.router.push(`/home/report/2`)
+        this.updateStep(2)
     }
 
     @action editReport = () => {
@@ -98,7 +100,7 @@ export default class PatientUIStore {
         return this.router.location.pathname.startsWith("/progress/report")
     }
 
-    updateStep(step){
+    @action updateStep(step){
         const base = this.onHistoricalReport ? '/progress/report/' : '/home/report/'
         this.router.push(`${base}${step}`)
     }

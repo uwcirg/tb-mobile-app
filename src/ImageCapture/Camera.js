@@ -50,11 +50,14 @@ export default class Camera extends Component {
                     let reader = new FileReader();
                     reader.readAsDataURL(test[0]); // converts the blob to base64 and calls onload
                     reader.onload = () => {
+                        
                         this.setState({
                             captured: true,
                             capturedImage: reader.result,
                             capturing: false
                         })
+                        
+                       this.handleUsePhoto()
                     };
 
                 });
@@ -103,10 +106,15 @@ export default class Camera extends Component {
             <span />;
 
         const buttons = this.state.captured ?
+        <>
+        {/*
             <div className="camera-buttons">
                 <Button variant="contained" color="secondary" onClick={this.discardImage} > <RetakePhoto /> </Button>
                 <Button variant="contained" backgroundColor={Colors.green} onClick={this.handleUsePhoto} ><UsePhoto /></Button>
-            </div> :
+            </div> 
+        */}
+            </>
+            :
             <div className="camera-buttons">
                 <Fab onClick={this.captureImage}><CameraAltIcon /></Fab>
             </div>
