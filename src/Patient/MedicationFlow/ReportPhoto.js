@@ -42,6 +42,7 @@ const ReportPhoto = observer((props) => {
 
     const handleRetake = () => {
         patientStore.report.photoWasTaken = false;
+        patientStore.uiState.cameraIsOpen = true;
     }
 
     return(

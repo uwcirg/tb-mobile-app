@@ -9,6 +9,7 @@ import TopBar from './Navigation/TopBar';
 import TopMenu from './Navigation/TopMenu';
 import Intro from './Intro/';
 import useStores from '../Basics/UseStores';
+import Onboarding from './Onboarding';
 
 const PatientHome = observer((props) => {
 
@@ -18,6 +19,8 @@ const PatientHome = observer((props) => {
 
   return (
     <div className="main-screen">
+        
+      {patientUIStore.onOnboarding && <Onboarding />}
       <TopBar />
       <Intro />
       <TopMenu />

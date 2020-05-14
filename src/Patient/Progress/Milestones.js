@@ -44,13 +44,28 @@ const useStyles = makeStyles({
         width: "10%"
     },
     month: {
-        fontSize: ".75em",
+        fontSize: ".8em",
         marginBottom: "3px"
     },
     addButton: {
         backgroundColor: Colors.buttonBlue,
         color: "white",
         boxShadow: "none"
+    },
+    milestoneText:{
+        ...Styles.flexColumn,
+        "& > span": {
+            margin: 0,
+            padding: 0
+        },
+        "& > .title":{
+            fontWeight: "bold",
+            fontSize: ".9em",
+            marginBottom: "5px"
+        },
+        "& > .date":{
+            fontSize: ".75em"
+        }
     }
 })
 
@@ -68,13 +83,14 @@ const MileStones = observer(() => {
     return (
         <>
             {onAddFlow ? <AddMilestones handleBack={() => { setOnFlow(false) }} /> :
-                <InteractionCard upperText="Milestones">
+                <InteractionCard upperText={t("patient.progress.milestones")}>
                     <div className={classes.body}>
-                        <h2>{t("milestones.previous")}</h2>
+                        {/*<h2>{t("milestones.previous")}</h2>*/}
+                        <div className={classes.header}> <h2>{t("milestones.previous")}</h2><Fab onClick={patientUIStore.goToAddMilestone} className={classes.addButton} size="small"><AddIcon /></Fab></div>
                         <MileStoneList milestones={upcoming} />
                         <h2>{t("milestones.upcoming")}</h2>
                         <MileStoneList milestones={previous} />
-                        <div className={classes.header}> <h2>{t("milestones.addReminder")}</h2><Fab onClick={patientUIStore.goToAddMilestone} className={classes.addButton} size="small"><AddIcon /></Fab></div>
+                       
                     </div>
                 </InteractionCard>
             }
@@ -86,11 +102,10 @@ const MileStones = observer(() => {
 const MileStoneList = (props) => {
 
     const list = props.milestones.map((milestone, index) => {
-        const base = DateTime.fromISO(milestone.datetime);
+       
         return (<MileStone
             key={`milestone-${index}`}
-            date={base}
-            name={milestone.title}
+            milestone={milestone}
         />)
     })
     return (
@@ -102,16 +117,20 @@ const MileStoneList = (props) => {
 
 const MileStone = (props) => {
     const classes = useStyles();
-
+    const date = DateTime.fromISO(props.milestone.datetime);
     return (
         <div className={classes.milestone}>
             <div className={classes.date}>
-                <div className={classes.month}>{props.date.monthShort}</div>
-                <div className={classes.day}>{props.date.day}</div>
+                <div className={classes.month}>{date.monthShort}</div>
+                <div className={classes.day}>{date.day}</div>
             </div>
-            <p>{props.name}</p>
+            <div className={classes.milestoneText}>
+                <span className="title">{props.milestone.title}</span>
+                <span className="date">{date.toLocaleString(DateTime.DATE_SHORT)}</span>
+            </div>
         </div>
     )
 }
 
 export default MileStones;
+export {MileStone};

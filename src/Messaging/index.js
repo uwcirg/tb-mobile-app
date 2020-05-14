@@ -79,6 +79,7 @@ const Messaging = observer(() => {
                 <Channel
                     userID={patientStore.id}
                     selectedChannel={messagingStore.selectedChannel}
+                    isCoordinatorChannel={messagingStore.selectedChannel.isCoordinatorChannel}
                     handleBack={handleBackFromChannel}
                     userID={patientStore.userID} />}
         </div>
@@ -103,6 +104,10 @@ const Channels = observer((props) => {
                 time={DateTime.fromISO(channel.lastMessageTime).toLocaleString(DateTime.DATETIME_24_SIMPLE)}
                 unread={messagingStore.unreadInfo[channel.id] ? messagingStore.unreadInfo[channel.id].unreadMessages : 0}
                 onClick={() => {
+                    if(props.private){
+                      messagingStore.selectedChannel.isCoordinatorChannel = true;   
+                    }
+                    
                     messagingStore.selectedChannel.creator = channel.userId
                     messagingStore.selectedChannel.id = channel.id
                     messagingStore.selectedChannel.title = channel.title

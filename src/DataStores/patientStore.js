@@ -310,6 +310,7 @@ export class PatientStore extends UserStore {
     @action initalize() {
         super.initalize()
         this.loadDailyReport();
+        this.getMilestones();
         this.getReports();
     }
 
