@@ -29,6 +29,8 @@ const useStyles = makeStyles({
 const Channel = observer((props) => {
     const classes = useStyles();
     const { messagingStore } = useStores();
+    const { t, i18n } = useTranslation('translation');
+    
 
     let messages = [];
     if (props.selectedChannel.messages &&
@@ -43,7 +45,7 @@ const Channel = observer((props) => {
 
     return (
         <>
-            <OverTopBar altColor={props.isPersonalChannel} handleBack={props.handleBack} title={props.selectedChannel.title} />
+            <OverTopBar altColor={props.isPersonalChannel} handleBack={props.handleBack} title={props.isCoordinatorChannel ? t("userTypes.coordinator") : props.selectedChannel.title } />
             <div className={classes.messageList}>
                 {messages}
             </div>

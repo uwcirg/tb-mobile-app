@@ -136,7 +136,8 @@
             "viewCalendar": "Ver su Calendario de Reportes",
             "viewPhotos": "Ver Todas sus Fotos",
             "approvalStatus": "Estado de Fotos",
-            "milestones": "Fechas Importantes"
+            "milestones": "Fechas Importantes",
+            "calendar": "Calendario de Reportes"
         }
     },
     "symptoms": {

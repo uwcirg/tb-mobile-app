@@ -12,6 +12,7 @@ import ApprovalStatus from './ApprovalStatus';
 import MileStones from './Milestones'
 import MedicationFlow from '../MedicationFlow';
 import AddMilestone from './AddMilestone'
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -53,6 +54,7 @@ const Progress = observer(() => {
 
     const classes = useStyles();
     const { patientStore,patientUIStore} = useStores();
+    const { t, i18n } = useTranslation('translation');
 
     if(patientUIStore.onHistoricalReport) return (<ReportOldMedication />)
     if(patientUIStore.onAddMilestone) return (<AddMilestone handleBack={patientUIStore.goToProgress} />)
@@ -66,7 +68,7 @@ const Progress = observer(() => {
                         <ApprovalStatus />
                     </> :
                     <>
-                        <OverTopBar title="Calendar" handleBack={() => { patientStore.uiState.onCalendarView = false }} />
+                        <OverTopBar title={t("patient.progress.calendar")} handleBack={() => { patientStore.uiState.onCalendarView = false }} />
                         <CustomCalendar />
                         <DayDrawer />
                     </>}

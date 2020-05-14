@@ -147,11 +147,12 @@
             "doLater": "Do Later Today"
         },
         "progress":{
-            "viewCalendar": "View Your Calendar",
+            "viewCalendar": "View Your Calendar of Reports",
             "viewPhotos": "View Your Photo Submissions",
             "approvalStatus": "Approval Status",
             "milestones": "Milestones",
-            "upcoming": "Upcoming"
+            "upcoming": "Upcoming",
+            "calendar": "Calendar of Reports"
         },
         "addMilestone":{
             "barTitle": "Add Milestone",

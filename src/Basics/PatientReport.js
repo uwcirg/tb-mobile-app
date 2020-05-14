@@ -66,7 +66,7 @@ const useStyles = makeStyles({
         color: Colors.approvedGreen
     },
     stripPhoto: {
-        height: "10vh"
+        width: "90%"
     },
     negative: {
         color: Colors.calendarRed
@@ -88,7 +88,7 @@ const PatientReport = (props) => {
             <SymptomList symptoms={props.selectedSymptoms} />
             {!props.pastReport &&<ClickableText big text={`${t("patient.report.confirmation.addMore")} +`} />}
         </ListItem>
-        <PhotoListItem missingPhoto={props.missingPhoto} isPhotoDay={props.isPhotoDay} photoString={props.photoString} />
+        <PhotoListItem pastReport={props.pastReport} missingPhoto={props.missingPhoto} isPhotoDay={props.isPhotoDay} photoString={props.photoString} />
     </div>)
 }
 

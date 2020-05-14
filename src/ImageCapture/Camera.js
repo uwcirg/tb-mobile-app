@@ -26,8 +26,10 @@ export default class Camera extends Component {
     }
 
     myRotationFunction = async function (ArrayOfFilesToBeRotated) {
+        return ArrayOfFilesToBeRotated
         let blobOfArray = await fixRotation.fixRotation(ArrayOfFilesToBeRotated)
         return blobOfArray
+        
     }
 
     captureImage = async () => {

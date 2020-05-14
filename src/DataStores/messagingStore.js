@@ -19,7 +19,8 @@ export class MessagingStore {
         id: 0,
         title: "",
         messages: [],
-        creator: ""
+        creator: "",
+        isCoordinatorChannel: false
     };
 
     @observable newMessage = "";
