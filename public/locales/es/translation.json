@@ -60,9 +60,9 @@
                 "uploadPhoto": "Subir Foto"
             },
             "progress": {
-                "currentStreak": "Current Streak",
-                "nextCheckin": "Proxima Visita Clinica",
-                "endDate": "Estimado Día Final de Tratamiento"
+                "currentStreak": "días consecutivos",
+                "upcomingDate":  "Próximo fecha de tratamiento",
+                "viewAll": "Ver Todos"
             },
             "completed": {
                 "title": "Completo",
@@ -133,11 +133,10 @@
             "doLater": "Lo Haré Más Tarde"
         },
         "progress": {
-            "viewCalendar": "Ver su Calendario",
+            "viewCalendar": "Ver su Calendario de Reportes",
             "viewPhotos": "Ver Todas sus Fotos",
             "approvalStatus": "Estado de Fotos",
-            "milestones": "Fechas Importantes",
-            "upcoming": "Próximos Eventos"
+            "milestones": "Fechas Importantes"
         }
     },
     "symptoms": {
@@ -204,7 +203,7 @@
             "housematesTested": "All housemates tested"
         },
         "addReminder": "Agregar recordatorio",
-        "upcoming": "Pasado",
-        "previous": "Próximo"
+        "upcoming": "Fechas Pasadas",
+        "previous": "Fechas Siguientes"
     }
 }

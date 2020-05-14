@@ -73,8 +73,8 @@
 
             "progress":{
                 "currentStreak": "Current Streak",
-                "nextCheckin": "Next Check In",
-                "endDate": "Estimated End Date"
+                "upcomingDate":  "Upcoming Milestones",
+                "viewAll": "View All"
             },
             "completed": {
                 "title": "Complete",

@@ -54,8 +54,6 @@ const Progress = observer(() => {
     const classes = useStyles();
     const { patientStore,patientUIStore} = useStores();
 
-    useEffect(()=>{patientStore.getMilestones()},[])
-
     if(patientUIStore.onHistoricalReport) return (<ReportOldMedication />)
     if(patientUIStore.onAddMilestone) return (<AddMilestone handleBack={patientUIStore.goToProgress} />)
 
@@ -64,8 +62,8 @@ const Progress = observer(() => {
                 {!patientStore.uiState.onCalendarView ?
                     <>
                         <WeekCalendar />
-                        <ApprovalStatus />
                         <MileStones />
+                        <ApprovalStatus />
                     </> :
                     <>
                         <OverTopBar title="Calendar" handleBack={() => { patientStore.uiState.onCalendarView = false }} />

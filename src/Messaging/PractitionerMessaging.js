@@ -22,7 +22,8 @@ const useStyles = makeStyles({
         "& > h2": {
             fontSize: "1.25em"
         },
-        borderRight: "solid lightgray 1px"
+        borderRight: "solid lightgray 1px",
+        maxWidth: "30%"
     },
     warning: {
         fontSize: ".8em",
@@ -112,9 +113,6 @@ const Messaging = observer(() => {
 const Channels = observer((props) => {
     const classes = useStyles();
     const { messagingStore, uiStore,practitionerStore } = useStores();
-
-
-    
 
     let channels = "";
     if (props.channels.length > 0) {
