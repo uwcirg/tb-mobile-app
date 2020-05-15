@@ -1,5 +1,5 @@
 {
-  "short_name": "Compañero de Tratamiento",
+  "short_name": "Compañero De Tratamiento",
   "name": "Compañero",
   "theme_color": "white",
   "icons": [
@@ -19,6 +19,6 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "./",
   "display": "standalone"
 }

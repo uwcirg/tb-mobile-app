@@ -6,6 +6,22 @@ export default class PatientUIStore {
 
     constructor(routerStore) {
         this.router = routerStore;
+
+        //Allow UI Redirects from notifications
+        //event is sent from custom-service-worker.js
+        const channel = new BroadcastChannel('notifications');
+        channel.addEventListener('message', event => {
+            this.handleMessageFromServiceworker(event.data);
+          });
+    }
+
+    @observable onOnboarding = false;
+
+
+    handleMessageFromServiceworker(message){
+        if(message.url){
+            this.router.push(message.url)
+        }
     }
 
     @observable onOnboarding = false;
