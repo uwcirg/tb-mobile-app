@@ -3,7 +3,10 @@
 # deliver docker images to configured repo with tags to match branches and git tags
 ---
 name: Publish Docker
-on: [push]
+on:
+  push:
+    branches:
+      - develop
 jobs:
   build:
     runs-on: ubuntu-latest
