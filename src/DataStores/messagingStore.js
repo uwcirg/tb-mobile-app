@@ -9,6 +9,14 @@ export class MessagingStore {
 
     constructor(strategy) {
         this.strategy = strategy;
+
+        //Update Unread Messages when a push notification is recieved
+        //this uses the specific message channle messaging-notification
+        //which prevents other listeners from being called
+        const channel = new BroadcastChannel('messaging-notification');
+        channel.addEventListener('message', event => {
+            this.getUnreadMessages();
+          });
     }
 
     @observable numberUnread = 0;

@@ -4,12 +4,12 @@ importScripts('./env.js');
 
 const isLocalhost = Boolean(
   self.location.hostname === 'localhost' ||
-    // [::1] is the IPv6 localhost address.
-    self.location.hostname === '[::1]' ||
-    // 127.0.0.1/8 is considered localhost for IPv4.
-    self.location.hostname.match(
-      /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
-    )
+  // [::1] is the IPv6 localhost address.
+  self.location.hostname === '[::1]' ||
+  // 127.0.0.1/8 is considered localhost for IPv4.
+  self.location.hostname.match(
+    /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
+  )
 );
 
 const baseURL = (isLocalhost) ? "http://localhost:3000" : "https://tb-mobile-test.cirg.washington.edu";
@@ -17,12 +17,12 @@ const apiURL = (isLocalhost) ? "http://localhost:5061" : "https://tb-api-test.ci
 
 if (workbox) {
   console.log(`Yay! Workbox is loaded 🎉`);
-  
+
 } else {
   console.log(`Boo! Workbox didn't load 😬`);
 }
 
-workbox.setConfig({debug: false});
+workbox.setConfig({ debug: false });
 
 workbox.routing.registerRoute(
   /\.(?:js|css|json|html)$/,
@@ -35,77 +35,81 @@ workbox.routing.registerRoute(
 )
 
 
-self.addEventListener('push', function(event) {
+self.addEventListener('push', function (event) {
 
- console.log('log notification was delivered to server @ ' + env.url);
- console.log(event)
+  let data = event.data.json();
 
- let data = event.data.json();
-  
+  if(data.data.type && data.data.type == "messaging"){
+    //Send a message to the client to route to the proper state
+    const channel = new BroadcastChannel('messaging-notification');
+    channel.postMessage("update");
+  }
+
   const title = data.title;
   const options = {
     body: data.body,
     icon: data.icon,
     badge: 'images/badge.png',
     url: data.url,
-    click_action: data.url
+    click_action: data.url,
+    data: data.data.url
   };
-  
-
   event.waitUntil(self.registration.showNotification(title, options));
 });
 
 
-self.addEventListener('pushsubscriptionchange', function(event) {
-  console.log('Subscription expired');
-  event.waitUntil(
-    self.registration.pushManager.subscribe({ userVisibleOnly: true })
-    .then(function(subscription) {
-      console.log('Subscribed after expiration', subscription.endpoint);
-      return fetch(`${baseURL}/update_user_subscription`, {
-        method: 'patch',
-        headers: {
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify({
-          uuid: userID,
-          endpoint: subscription.endpoint,
-          auth: subscription.keys.auth,
-          p256dh: subscription.keys.p256dh
-        })
-      });
-    })
-  );
-});
+self.addEventListener('notificationclick', function (event) {
 
-self.addEventListener('notificationclick', function(event) {
-
-  const examplePage = `/#messages?event=${Math.random(10)}`;
-  console.log("NOTIF CLICK w")
-  const urlToOpen = new URL(examplePage, self.location.origin).href;
-
-  const promiseChain = clients.matchAll({
-    type: 'window',
-    includeUncontrolled: true
-  }).then((windowClients) => {
+  const promiseChain = clients.matchAll().then((windowClients) => {
     let matchingClient = null;
 
-    for (let i = 0; i < windowClients.length; i++) {
-      const windowClient = windowClients[i];
-      if (windowClient.url === urlToOpen) {
-        matchingClient = windowClient;
-        break;
-      }
+    if (windowClients.length > 0) {
+      matchingClient = windowClients[0]
     }
 
     if (matchingClient) {
+
+      //Send a message to the client to route to the proper state
+      const channel = new BroadcastChannel('notifications');
+      channel.postMessage({ url: event.notification.data });
+
+      //matchingClient.postMessage({msg: 'Hello from SW'})
+      event.notification.close();
       return matchingClient.focus();
     } else {
-      return clients.openWindow(urlToOpen);
+
+      //If the app / a tab of it is not open, then open it to the UI state
+      event.notification.close();
+      return clients.openWindow(event.notification.data);
     }
+
   });
 
   event.waitUntil(promiseChain);
 
 });
+
+self.addEventListener('pushsubscriptionchange', function (event) {
+  
+  console.log('Subscription expired');
+  event.waitUntil(
+    self.registration.pushManager.subscribe({ userVisibleOnly: true })
+      .then(function (subscription) {
+        console.log('Subscribed after expiration', subscription.endpoint);
+        return fetch(`${baseURL}/update_user_subscription`, {
+          method: 'patch',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            uuid: userID,
+            endpoint: subscription.endpoint,
+            auth: subscription.keys.auth,
+            p256dh: subscription.keys.p256dh
+          })
+        });
+      })
+  );
+});
+
 
