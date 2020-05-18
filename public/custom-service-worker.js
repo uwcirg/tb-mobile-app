@@ -1,6 +1,8 @@
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox-sw.js');
 
-importScripts('./env.js');
+importScripts('./config.js');
+
+console.log(react_env)
 
 const isLocalhost = Boolean(
   self.location.hostname === 'localhost' ||
@@ -12,8 +14,8 @@ const isLocalhost = Boolean(
   )
 );
 
-const baseURL = (isLocalhost) ? "http://localhost:3000" : "https://tb-mobile-test.cirg.washington.edu";
-const apiURL = (isLocalhost) ? "http://localhost:5061" : "https://tb-api-test.cirg.washington.edu";
+const baseURL = window._env.URL_CLIENT;
+const apiURL = window._env.URL_API;
 
 if (workbox) {
   console.log(`Yay! Workbox is loaded 🎉`);

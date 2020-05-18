@@ -1,6 +1,5 @@
 
-const baseURL = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') ? "http://localhost:5061" : "https://tb-api-test.cirg.washington.edu";
-//const baseURL = `${process.env.REACT_APP_URL_API}`
+const baseURL = window._env.URL_API;
 
 const authenticatedRequest = (url, method, body) => {
     return fetch(`${baseURL}${url}`, {
