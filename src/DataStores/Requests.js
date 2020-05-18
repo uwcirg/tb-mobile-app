@@ -1,5 +1,6 @@
 
-const baseURL = window._env.URL_API;
+
+const baseURL = window._env ? window._env.URL_API : "";
 
 const authenticatedRequest = (url, method, body) => {
     return fetch(`${baseURL}${url}`, {
