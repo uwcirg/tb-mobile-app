@@ -1,19 +1,9 @@
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox-sw.js');
 
-importScripts('./env.js');
-
-const isLocalhost = Boolean(
-  self.location.hostname === 'localhost' ||
-  // [::1] is the IPv6 localhost address.
-  self.location.hostname === '[::1]' ||
-  // 127.0.0.1/8 is considered localhost for IPv4.
-  self.location.hostname.match(
-    /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
-  )
-);
-
-const baseURL = (isLocalhost) ? "http://localhost:3000" : "https://tb-mobile-test.cirg.washington.edu";
-const apiURL = (isLocalhost) ? "http://localhost:5061" : "https://tb-api-test.cirg.washington.edu";
+//Loads variable named react_env
+importScripts('./config.js');
+const baseURL = react_env.URL_CLIENT;
+const apiURL = react_env.URL_API;
 
 if (workbox) {
   console.log(`Yay! Workbox is loaded 🎉`);
