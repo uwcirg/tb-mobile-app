@@ -4,7 +4,7 @@ import { DateTime } from 'luxon'
 import SymptomsList from './SymptomsList.js'
 import SimpleButton from '../../Basics/SimpleButton'
 import styled from 'styled-components';
-import InteractionCard from '../Home/InteractionCard.js';
+import InteractionCard from '../../Basics/InteractionCard';
 import useStores from '../../Basics/UseStores.js';
 import PopUp from '../Navigation/PopUp.js';
 import { makeStyles } from '@material-ui/core';

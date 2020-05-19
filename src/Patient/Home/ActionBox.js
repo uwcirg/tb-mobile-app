@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 import NewButton from '../../Basics/NewButton';
 import Clipboard from '@material-ui/icons/Assignment'
 import Camera from '@material-ui/icons/CameraAlt';
-import InteractionCard from './InteractionCard';
+import InteractionCard from '../../Basics/InteractionCard';
 import useStores from '../../Basics/UseStores';
 import {observer} from 'mobx-react'
 import { useTranslation } from 'react-i18next';
