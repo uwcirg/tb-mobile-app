@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import BottomBar from './Navigation/BottomBar';
 import { inject, observer } from 'mobx-react';
 import Home from './Home'
-import Info from './Info'
+import Info from './Information'
 import Messaging from '../Messaging';
 import Progress from './Progress';
 import TopBar from './Navigation/TopBar';
@@ -15,11 +15,15 @@ const PatientHome = observer((props) => {
 
   const { patientUIStore } = useStores();
   const tabs = [<Home />, <Progress />, <Messaging />, <Info />];
-  const routeTab = tabs[patientUIStore.tabNumber]
+  const routeTab = tabs[patientUIStore.tabNumber]  
+  
+  //When tab is changed, make sure that we scroll to the top so user doesnt get lost
+  useEffect(()=>{
+    window.scrollTo(0,0)
+  },[patientUIStore.tabNumber])
 
   return (
     <div className="main-screen">
-        
       {patientUIStore.onOnboarding && <Onboarding />}
       <TopBar />
       <Intro />
