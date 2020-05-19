@@ -162,6 +162,9 @@
                 "Whats the time of your milestone?",
                 "Where is your appointment?"
             ]
+        },
+        "information":{
+            "questions": "Questions and answers"
         }
     },
     "symptoms": {

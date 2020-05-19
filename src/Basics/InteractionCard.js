@@ -1,8 +1,8 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { DateTime } from 'luxon';
-import NewButton from '../../Basics/NewButton';
-import Styles from '../../Basics/Styles'
+import NewButton from './NewButton';
+import Styles from './Styles'
 
 import Clipboard from '@material-ui/icons/Assignment'
 import Paper from '@material-ui/core/Paper';

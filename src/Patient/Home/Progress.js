@@ -5,7 +5,7 @@ import { CircularProgressbarWithChildren as CircularProgressbar, buildStyles } f
 import 'react-circular-progressbar/dist/styles.css';
 import { makeStyles } from '@material-ui/core/styles'
 import Styles from '../../Basics/Styles';
-import InteractionCard from './InteractionCard';
+import InteractionCard from '../../Basics/InteractionCard';
 import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
 import ClickableText from '../../Basics/ClickableText';

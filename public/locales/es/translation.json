@@ -138,6 +138,9 @@
             "approvalStatus": "Estado de Fotos",
             "milestones": "Fechas Importantes",
             "calendar": "Calendario de Reportes"
+        },
+        "information":{
+            "questions": "Preguntas y respuestas"
         }
     },
     "symptoms": {
