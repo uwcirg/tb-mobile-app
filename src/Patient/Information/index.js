@@ -5,6 +5,7 @@ import MarkdownRender from './Panel'
 import Interactioncard from '../../Basics/InteractionCard'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next';
+import Colors from '../../Basics/Colors'
 const file = raw("./information.md");
 
 
@@ -12,7 +13,9 @@ const file = raw("./information.md");
 //Convert markdown file to expandable cards format
 const useStyles = makeStyles({
     container:{
-        marginTop: "2em"
+        paddingTop: "2em",
+        paddingBottom: "2em",
+        backgroundColor: Colors.lightgray
     }
 })
 

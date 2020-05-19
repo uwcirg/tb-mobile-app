@@ -24,7 +24,7 @@ const PatientHome = observer((props) => {
   },[patientUIStore.tabNumber])
 
   return (
-    <div className="main-screen" style={{backgroundColor: `${Colors.lightgray}`,minHeight: "100vh"}}>
+    <div className="main-screen" style={{backgroundColor: `${Colors.white}`,minHeight: "100vh"}}>
       {patientUIStore.onOnboarding && <Onboarding />}
       <TopBar />
       <Intro />
