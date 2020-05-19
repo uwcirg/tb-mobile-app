@@ -10,6 +10,7 @@ import TopMenu from './Navigation/TopMenu';
 import Intro from './Intro/';
 import useStores from '../Basics/UseStores';
 import Onboarding from './Onboarding';
+import Colors from '../Basics/Colors';
 
 const PatientHome = observer((props) => {
 
@@ -23,7 +24,7 @@ const PatientHome = observer((props) => {
   },[patientUIStore.tabNumber])
 
   return (
-    <div className="main-screen">
+    <div className="main-screen" style={{backgroundColor: `${Colors.lightgray}`,minHeight: "100vh"}}>
       {patientUIStore.onOnboarding && <Onboarding />}
       <TopBar />
       <Intro />
