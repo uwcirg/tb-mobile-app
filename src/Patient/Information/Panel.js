@@ -13,16 +13,20 @@ const useStyles = makeStyles({
         overflow: 'scroll'
     },
     panel: {
-        boxShadow: "none"
-    },
-    summary:{
-        paddingTop: 0,
-        paddingBottom: 0,
-        marginTop: 0,
-        marginBottom: 0
+        boxShadow: "none",
+        margin: 0
     },
     heading:{
-        backgroundColor: "lightblue"
+        fontWeight: "bold"
+    },
+    icon:{
+        padding:0,
+        margin: 0
+    },
+    body:{
+        "& > h1:first-of-type":{
+            display: "none"
+        }
     }
 })
 
@@ -46,14 +50,14 @@ function Panel(props) {
         <ExpansionPanel className={classes.panel}>
             <ExpansionPanelSummary
                 className={classes.summary}
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
+                expandIcon={<ExpandMoreIcon className={classes.icon} />}
+                aria-controls="panel-content"
+                id="expand-section"
             >
                 <Typography className={classes.heading}>{props.title}</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
-                <Typography>
+                <Typography className={classes.body}>
                     {props.children}
                 </Typography>
             </ExpansionPanelDetails>
