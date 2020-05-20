@@ -25,6 +25,7 @@
     "mobx": "^5.15.0",
     "mobx-react": "^6.1.4",
     "mobx-react-router": "^4.1.0",
+    "preval.macro": "^5.0.0",
     "raw.macro": "^0.3.0",
     "react": "^16.11.0",
     "react-app-rewire-mobx": "^1.0.9",
