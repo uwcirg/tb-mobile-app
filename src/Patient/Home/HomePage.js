@@ -5,7 +5,6 @@ import ActionBox from './ActionBox';
 import Alerts from './Alerts';
 import Colors from '../../Basics/Colors';
 import Greeting from './Greeting'
-import preval from 'preval.macro'
 
 const HomePage = () => {
 
@@ -16,7 +15,7 @@ const HomePage = () => {
             <ActionBox />
             <Progress />
             <Alerts />
-            <p>Built At: {preval`module.exports = new Date().toLocaleString();`}</p>
+            <p>Version 0.9.5-18-6:50</p>
         </Body>
     )
 
