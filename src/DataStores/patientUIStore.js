@@ -16,6 +16,7 @@ export default class PatientUIStore {
     }
 
     @observable onOnboarding = false;
+    @observable skippedToPhotoFlow = false;
 
 
     handleMessageFromServiceworker(message){
@@ -73,7 +74,6 @@ export default class PatientUIStore {
     }
 
     @action openPhotoReport = () => {
-        console.log(this.router)
         this.updateStep(2)
     }
 

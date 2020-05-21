@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
 
-    info:{
+    info: {
         marginLeft: "10%",
         fontSize: "1em"
     }
@@ -26,9 +26,9 @@ const useStyles = makeStyles({
 const ReportPhoto = observer((props) => {
 
     const classes = useStyles();
-    const {t, i18n} = useTranslation('translation');
+    const { t, i18n } = useTranslation('translation');
 
-    const {patientStore} = useStores();
+    const { patientStore, patientUIStore } = useStores();
     patientStore.report.headerText = t("patient.report.photoTitle")
 
     const handlePhoto = (photo) => {
@@ -45,30 +45,38 @@ const ReportPhoto = observer((props) => {
         patientStore.uiState.cameraIsOpen = true;
     }
 
-    return(
-        <div style={{width: "100%"}}>
-                {patientStore.report.photoWasTaken ?
+    const handleNext = () => {
+        patientStore.photoSubmission();
+
+        if (!patientUIStore.skippedToPhotoFlow) {
+            props.advance();
+        } else {
+            patientUIStore.goToHome();
+            patientUIStore.skippedToPhotoFlow = false;
+        }
+    }
+
+    return (
+        <div style={{ width: "100%" }}>
+            {patientStore.report.photoWasTaken ?
                 <>
-                <StripPhoto><img src={patientStore.report.photoString}/> </StripPhoto>
-                <ClickableText className={classes.info} hideIcon onClick={handleRetake} text={t("patient.report.photo.retakePhoto")} />
+                    <StripPhoto><img src={patientStore.report.photoString} /> </StripPhoto>
+                    <ClickableText className={classes.info} hideIcon onClick={handleRetake} text={t("patient.report.photo.retakePhoto")} />
                 </>
-                    : 
+                :
                 <>
-                <ButtonBase style={{width:"90%",margin:"5%"}}>
-                    <PhotoPrompt onClick={() => {patientStore.uiState.cameraIsOpen = true}}>
-                        <CameraAltIcon />
-                        {t("patient.report.photo.openCamera")}
-                    </PhotoPrompt>
-                </ButtonBase>
-                <ClickableText className={classes.info} hideIcon onClick={props.toggle} text={t("patient.report.photo.showMe")} />
+                    <ButtonBase style={{ width: "90%", margin: "5%" }}>
+                        <PhotoPrompt onClick={() => { patientStore.uiState.cameraIsOpen = true }}>
+                            <CameraAltIcon />
+                            {t("patient.report.photo.openCamera")}
+                        </PhotoPrompt>
+                    </ButtonBase>
+                    <ClickableText className={classes.info} hideIcon onClick={props.toggle} text={t("patient.report.photo.showMe")} />
                 </>}
-             <SimpleButton alignRight onClick={() => {
-                 patientStore.photoSubmission();
-                 props.advance();
-            }} disabled={!patientStore.report.photoWasTaken} backgroundColor={Colors.green}>{t("patient.report.next")}</SimpleButton>
+            <SimpleButton alignRight onClick={handleNext} disabled={!patientStore.report.photoWasTaken} backgroundColor={Colors.green}>{t("patient.report.next")}</SimpleButton>
             {patientStore.uiState.cameraIsOpen ? <Camera handleExit={handleExit} returnPhoto={handlePhoto} /> : ""}
         </div>
-        )
+    )
 });
 
 const PhotoPrompt = styled.div`
