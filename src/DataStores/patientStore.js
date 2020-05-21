@@ -9,8 +9,8 @@ const ROUTES = {
     dailyReport: ["/daily_report", "POST"],
     patientReports: ["/daily_reports", "GET"],
     getPhotoUploadURL: ["/patient/daily_reports/photo_upload_url", "GET"],
-    updateNotificationTime: ["/patient/reminder","PATCH"],
-    getMilestones: ["/patient/me/milestones","GET"]
+    updateNotificationTime: ["/patient/reminder", "PATCH"],
+    getMilestones: ["/patient/me/milestones", "GET"]
 }
 
 export class PatientStore extends UserStore {
@@ -75,7 +75,7 @@ export class PatientStore extends UserStore {
         return (this.report.hasSubmitted && (!this.isPhotoDay || this.report.hasSubmittedPhoto) && !this.report.hasConfirmedAndSubmitted)
     }
 
-    @computed get selectedDayWasPhotoDay(){
+    @computed get selectedDayWasPhotoDay() {
         let weekday = this.uiState.selectedCalendarDate.weekday
         let weekSinceStart = Math.floor(DateTime.fromISO(this.treatmentStart).endOf('day').diffNow("weeks").weeks * -1)
         return (this.photoSchedule[weekSinceStart].includes(weekday));
@@ -92,7 +92,7 @@ export class PatientStore extends UserStore {
         return (this.photoSchedule[weekSinceStart].includes(weekday));
     }
 
-    checkPhotoDay(date){
+    checkPhotoDay(date) {
         let weekday = date.weekday;
         let weekSinceStart = Math.floor(DateTime.fromISO(this.treatmentStart).endOf('day').diffNow("weeks").weeks * -1)
         return (this.photoSchedule[weekSinceStart].includes(weekday));
@@ -158,19 +158,13 @@ export class PatientStore extends UserStore {
         });
     }
 
-    saveReportingState = autorun(() => {
-        //Update Locally Saved Report State on step change or on submit. Do not do this for historical reports
-        const reportIsFromToday = (this.report.date === DateTime.local().toISODate())
-        if (reportIsFromToday && (this.report.step > 0 || this.report.hasSubmitted) ) {
-            
-            localStorage.setItem(`medicationReport`, JSON.stringify(this.report));
-
-        }
-    });
+    saveReportingState = () => {
+        localStorage.setItem(`medicationReport`, JSON.stringify(this.report));
+    };
 
     @action photoSubmission = () => {
         this.report.hasSubmittedPhoto = true;
-        if(this.report.hasSubmitted){
+        if (this.report.hasSubmitted) {
 
         }
         this.uiState.onPhotoFlow = false;
@@ -221,19 +215,19 @@ export class PatientStore extends UserStore {
     }
 
     @action updateNotificationTime = () => {
-        const body = {time: this.reminderTime}
+        const body = { time: this.reminderTime }
         this.isReminderUpdating = true;
-        this.executeRequest('updateNotificationTime',body).then(json => {
+        this.executeRequest('updateNotificationTime', body).then(json => {
 
-            if(json.isoTime){
+            if (json.isoTime) {
                 this.reminderTime = json.isoTime
                 this.isReminderUpdating = false;
             }
-            
+
         });
     }
 
-    @action getMilestones(){
+    @action getMilestones() {
         this.executeRequest('getMilestones').then((json) => {
             this.milestones = json[0] ? json : []
         })
@@ -241,7 +235,7 @@ export class PatientStore extends UserStore {
 
     @action postMilestone = () => {
 
-        this.executeRawRequest(`/patient/${this.userID}/milestones`,"POST",this.newMilestone).then(response => {
+        this.executeRawRequest(`/patient/${this.userID}/milestones`, "POST", this.newMilestone).then(response => {
             this.milestones.push(response);
         })
 
@@ -250,7 +244,7 @@ export class PatientStore extends UserStore {
     @action startHistoricalReport = () => {
 
         //Set The date for the report and reset other stuff
-        const newDate = this.uiState.selectedCalendarDate.set({hour: 12, minute: 0});
+        const newDate = this.uiState.selectedCalendarDate.set({ hour: 12, minute: 0 });
 
         this.report = {
             date: newDate.toISODate(),
@@ -314,7 +308,7 @@ export class PatientStore extends UserStore {
         this.getReports();
     }
 
-    @action logoutPatient(){
+    @action logoutPatient() {
         this.logout();
         //@TODO Cleanup this method with cookie update
         this.userID = ""
@@ -346,7 +340,7 @@ export class PatientStore extends UserStore {
         }
 
 
-        
+
         //Remove persistant user information
         //this.unsubscribeFromNotifications();
 

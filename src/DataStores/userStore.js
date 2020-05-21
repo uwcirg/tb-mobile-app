@@ -32,7 +32,7 @@ export class UserStore extends APIStore{
       this.managingOrganization = json.managingOrganization
 
       //TODO move this to to patient store and use Super call
-      if(this.userType = "Patient"){
+      if(this.userType === "Patient"){
         this.photoSchedule = JSON.parse(json.medicationSchedule)
         this.treatmentStart = json.treatmentStart
       }

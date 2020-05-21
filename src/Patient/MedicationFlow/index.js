@@ -29,6 +29,7 @@ const MedicationFlow = observer((props) => {
     }
 
     const advance = () => {
+        patientStore.saveReportingState();
         patientUIStore.nextReportStep();
     }
 

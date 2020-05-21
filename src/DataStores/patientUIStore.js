@@ -73,6 +73,7 @@ export default class PatientUIStore {
     }
 
     @action openPhotoReport = () => {
+        console.log(this.router)
         this.updateStep(2)
     }
 
