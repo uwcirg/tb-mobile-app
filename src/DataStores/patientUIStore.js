@@ -90,12 +90,13 @@ export default class PatientUIStore {
     }
 
     @action skipToReportConfirmation = () => {
-
+        this.router.push("/home/report/4")
     }
 
     @computed get reportStep(){
         const parts = this.router.location.pathname.split("/");
-        return parseInt(parts[parts.length-1])
+        const parsed = parseInt(parts[parts.length-1])
+        return parsed ? parsed : 0
     }
 
     @computed get onAddMilestone(){

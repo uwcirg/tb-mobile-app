@@ -12,7 +12,7 @@ import ReportConfirmation from './ReportConfirmation'
 import NumberedTitle from '../Navigation/NumberedTitle'
 
 const useStyles = makeStyles({
-    container:{
+    container: {
         marginTop: "1em",
         marginBottom: "60px"
     }
@@ -21,12 +21,8 @@ const useStyles = makeStyles({
 
 const MedicationFlow = observer((props) => {
     const classes = useStyles();
-    const {patientStore,patientUIStore} = useStores();
+    const { patientStore, patientUIStore } = useStores();
     const { t, i18n } = useTranslation('translation');
-
-    const handleBack = () => {
-       patientUIStore.previousReportStep();
-    }
 
     const advance = () => {
         patientStore.saveReportingState();
@@ -35,16 +31,24 @@ const MedicationFlow = observer((props) => {
 
     let Tabs;
 
-    if(patientStore.isPhotoDay && !patientUIStore.onHistoricalReport){
-        Tabs = [<ReportMedication />, <ReportSymptoms />,<ReportPhoto />,<ReportConfirmation />]
-    }else{
-        Tabs = [<ReportMedication />, <ReportSymptoms />,<ReportConfirmation />]
+    if (patientStore.isPhotoDay && !patientUIStore.onHistoricalReport) {
+        Tabs = [<ReportMedication />, <ReportSymptoms />, <ReportPhoto />, <ReportConfirmation />]
+    } else {
+        Tabs = [<ReportMedication />, <ReportSymptoms />, <ReportConfirmation />]
     }
 
     let step = patientUIStore.reportStep;
 
-    if(step > Tabs.length - 1){
-        step = Tabs.length - 1
+    if (step > Tabs.length - 1) {
+        step = Tabs.length - 1;
+    }
+
+    const handleBack = () => {
+        if(patientUIStore.reportStep > Tabs.length - 1){
+            patientUIStore.updateStep(Tabs.length - 2)
+            return
+        }
+        patientUIStore.previousReportStep();
     }
 
     const tabNumber = (patientStore.uiState.onPhotoFlow ? 3 : step + 1);
@@ -54,7 +58,7 @@ const MedicationFlow = observer((props) => {
         <div className={classes.container}>
             <NumberedTitle number={tabNumber} title={patientStore.report.headerText} />
             <OverTopBar title={t("patient.report.title")} handleBack={handleBack} />
-           {React.cloneElement(Tabs[step],{advance: advance})} 
+            {React.cloneElement(Tabs[step], { advance: advance })}
         </div>)
 });
 
