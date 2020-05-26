@@ -4,7 +4,7 @@ import useStores from '../Basics/UseStores'
 import { observer } from 'mobx-react'
 import HomePageCard from './Shared/HomePageCard'
 import Basicsidebar from './Shared/BasicSidebar'
-import {groupBy} from 'lodash';
+import { groupBy } from 'lodash';
 
 const useStyles = makeStyles({
     left: {
@@ -14,6 +14,9 @@ const useStyles = makeStyles({
         width: "100%",
         height: "100vh",
         display: "flex",
+    },
+    photoPreview: {
+        width: "100%"
     }
 
 })
@@ -35,8 +38,8 @@ const Home = observer(() => {
 
     return (
         <div className={classes.container}>
-
             <div className={classes.left}>
+                <h1>My Tasks</h1>
                 <button onClick={fetchData}>(dev) re-fetch data</button>
                 <Card
                     title="Patients with Symptoms"
@@ -50,10 +53,24 @@ const Home = observer(() => {
                 />
             </div>
 
-            {practitionerStore.selectedRow.visible != "" && <SymptomSidebar />}
+            {practitionerStore.selectedRow.visible != "" && <SideBarRouter />}
 
 
         </div>)
+
+});
+
+const SideBarRouter = observer((props) => {
+    const { practitionerStore } = useStores();
+
+    if(practitionerStore.selectedRow.type === "photo"){
+        return <PhotoSidebar />
+    }else{
+        return <SymptomSidebar />
+    }
+        
+    
+    
 
 });
 
@@ -67,6 +84,20 @@ const SymptomSidebar = observer((props) => {
             {Object.keys(symptomGroups).map(each => {
                 return <p>{each}: {symptomGroups[each].length}</p>
             })}
+        </Basicsidebar>
+    )
+});
+
+const PhotoSidebar = observer((props) => {
+    const { practitionerStore } = useStores();
+    const classes = useStyles();
+    const item = practitionerStore.photoReports[practitionerStore.selectedRow.id];
+
+    return (
+        <Basicsidebar>
+            <h2>{item.fullName}</h2>
+            <h2>Photo:</h2>
+            <img className={classes.photoPreview} src={item.url} />
         </Basicsidebar>
     )
 });
