@@ -7,7 +7,8 @@ import PropTypes from 'prop-types';
 
 const useStyles = makeStyles({
     container: {
-        minHeight: "200px"
+        minHeight: "200px",
+        backgroundColor: "lightblue"
     },
     superContainer: {
 
@@ -52,7 +53,7 @@ const SingleLine = (props) => {
     const classes = useStyles();
     return (
         <div className={classes.lineItem}>
-            <Checkbox color="black" className={classes.checkbox} checked={true} />
+            <Checkbox color="black" className={classes.checkbox} checked={false} />
             <div>{props.fullName}</div>
             <div></div>
         </div>

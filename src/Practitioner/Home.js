@@ -5,7 +5,19 @@ import {observer} from 'mobx-react'
 import HomePageCard from './Shared/HomePageCard'
 
 const useStyles = makeStyles({
-
+    left:{
+        flexGrow: "1",
+    },
+    container: {
+        width: "100%",
+        height: "100vh",
+        display: "flex"
+    },
+    right:{
+        width: "20%",
+        backgroundColor: "orange"
+    }
+    
 })
 
 const Home = observer(() => {
@@ -27,9 +39,17 @@ const Home = observer(() => {
     const classes = useStyles();
 
     return (
-        <div>
-            <button onClick={fetchData}>(dev) re-fetch data</button>
-            <HomePageCard patientList={practitionerStore.filteredPatients.severe} onComplete={handleClick} />
+        <div className={classes.container}>
+
+            <div className={classes.left}>
+                <button onClick={fetchData}>(dev) re-fetch data</button>
+                <HomePageCard patientList={practitionerStore.filteredPatients.severe} onComplete={handleClick} />
+            </div>
+
+            <div className={classes.right}>
+
+            </div>
+
         </div>)
 
 });

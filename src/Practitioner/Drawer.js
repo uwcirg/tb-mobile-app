@@ -13,28 +13,21 @@ import IconButton from '@material-ui/core/IconButton';
 import LogOut from '@material-ui/icons/ExitToApp';
 import Settings from '@material-ui/icons/Settings'
 import MessagingIcon from '@material-ui/icons/QuestionAnswer';
+import Colors from "../Basics/Colors";
 
 const drawerWidth = 200;
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-    width: "100%"
-  },
+const useStyles = makeStyles({
   drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-    zIndex: 0,
-    paddingTop: "500px",
-    width: "10%"
-    
-  },
-  drawerPaper: {
-    width: "8%"
+    margin: "0",
+    height: "100vh",
+    width: "10%",
+    display: "flex",
+    flexDirection: "column",
+    boxShadow: "5px 0px 5px 0px lightgray"
   },
   list: {
-    marginLeft:"10px",
-    height: "100%",
+    width: "100%",
     display: "flex",
     justifyContent: "flex-start",
     flexDirection: "column",
@@ -46,18 +39,24 @@ const useStyles = makeStyles(theme => ({
       display: "flex",
       width: "100%",
       justifyContent: "flex-end",
-    }
+    },
+    marginBottom: "auto"
   },
   settingsIcon: {
     width: "50%",
     margin: "auto"
   },
-  selected:{
+  selected: {
+    width: "110%",
+    backgroundColor: "white",
     borderRadius: "10px 0 0 10px",
     boxShadow: "inset 2px 0 2px gray",
-    backgroundColor: "none"
+    zIndex: "10",
+    "& > div > svg": {
+      fill: Colors.buttonBlue
+    }
   }
-}));
+});
 
 const PractitionerDrawer = observer(() => {
   const classes = useStyles();
@@ -70,16 +69,10 @@ const PractitionerDrawer = observer(() => {
   }
 
   return (
-    <Drawer
-      variant="permanent"
-      className={classes.drawer}
-      classes={{ paper: classes.drawerPaper }}
-      onClose={uiStore.toggleMenu}
-    >
+    <div className={classes.drawer}>
       <List className={classes.list}>
-
         <ListItem className={classes.selected} button key={"Home"} onClick={() => { push('/') }}>
-          <ListItemIcon><HomeIcon /></ListItemIcon>
+          <ListItemIcon><HomeIcon className={classes.test} /></ListItemIcon>
           {/*<ListItemText primary={"Home"} />*/}
         </ListItem>
 
@@ -94,14 +87,12 @@ const PractitionerDrawer = observer(() => {
         <ListItem button key={"Settings"} onClick={() => { push('/settings') }}>
           <ListItemIcon><Settings /></ListItemIcon>
         </ListItem>
-
-
-
-
       </List>
-      <IconButton onClick={() => { push('/photos')}} className={classes.settingsIcon}><CameraIcon /></IconButton>
-      <IconButton onClick={handleLogout} className={classes.settingsIcon}><LogOut /></IconButton>
-    </Drawer>
+      <div className={classes.bottomButtons}>
+        <IconButton onClick={() => { push('/photos') }} className={classes.settingsIcon}><CameraIcon /></IconButton>
+        <IconButton onClick={handleLogout} className={classes.settingsIcon}><LogOut /></IconButton>
+      </div>
+    </div>
   );
 });
 

@@ -61,7 +61,7 @@ const PractitionerBody = observer(() => {
 const Body = styled.div`
 width: 100%;
 min-height: 100vh;
-padding-left: 1em;
+padding-left: 2em;
 display: flex;
 flex-direction: column;
 justify-content: center;

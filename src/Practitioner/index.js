@@ -8,35 +8,6 @@ import PractitionerBody from './PractitionerBody';
 import Drawer from './Drawer'
 
 const useStyles = makeStyles({
-    topBar: {
-        position: "fixed",
-        display: "flex",
-        justifyContent: "space-between",
-        flexDirection: "row",
-        alignContent: "center",
-        alignItems: "center",
-        backgroundColor: "white",
-        color: Colors.blue,
-        height: "10vh",
-        fontFamily: "roboto, sans-serif",
-        zIndex: 20
-    },
-    appName:{
-        fontSize: "1.25em",
-        fontWeight: 600,
-        display: "block",
-        marginLeft: "2em"
-    },
-    input:{
-        marginLeft: "auto",
-        marginRight: "2em",
-        width: "300px",
-        display: "inline"
-    },
-    menu:{
-        fontSize: "1.2em",
-        marginLeft: "1em"
-    },
     container:{
         width: "100vw",
         display: "flex"
