@@ -2,24 +2,10 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {observer} from 'mobx-react'
 import useStores from '../Basics/UseStores';
-import AppBar from '@material-ui/core/AppBar';
 import {makeStyles} from '@material-ui/core/styles';
 import Colors from '../Basics/Colors'
-import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Autocomplete from '@material-ui/lab/Autocomplete';
 import PractitionerBody from './PractitionerBody';
-import SearchIcon from '@material-ui/icons/Search';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import MenuIcon from '@material-ui/icons/Menu';
-import IconButton from '@material-ui/core/IconButton'
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import { Typography } from '@material-ui/core';
-
 import Drawer from './Drawer'
-
 
 const useStyles = makeStyles({
     topBar: {
@@ -57,7 +43,6 @@ const useStyles = makeStyles({
     }
 })
 
-
 const PractitionerHome = observer(() => {
 
     const classes = useStyles();
@@ -83,52 +68,5 @@ const PractitionerHome = observer(() => {
     )
  
 });
-
-/*
-
-const StyledAutocomplete = styled(Autocomplete)`
-
-margin-left: auto;
-margin-right: 2em;
-width: 300px;
-
-input{
-    height: .5em;
-}
-
-`
-
-const AccountButton = styled.div`
-    margin-right: 2em;
-    
-
-    svg{
-        height: 1.25em;
-        width: 1.25em;  
-    }
-`
-const AppBarStyled = styled(AppBar)`
-
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    align-content: center;
-    align-items: center;
-    background-color: white;
-    color: ${Colors.blue};
-    height: 10vh;
-    font-family: roboto, sans-serif;
-
-    h1{
-        font-size: 1.25em;
-        font-weight: 600;
-        display: block;
-        margin-left: 2em;
-    }
-
-    
-
-`
-*/
 
 export default PractitionerHome;

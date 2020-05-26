@@ -91,7 +91,7 @@ const PractitionerDrawer = observer(() => {
           <ListItemIcon><MessagingIcon /></ListItemIcon>
         </ListItem>
 
-        <ListItem button key={"Strip Photos"} onClick={() => { push('/photos') }}>
+        <ListItem button key={"Settings"} onClick={() => { push('/settings') }}>
           <ListItemIcon><Settings /></ListItemIcon>
         </ListItem>
 
@@ -99,7 +99,7 @@ const PractitionerDrawer = observer(() => {
 
 
       </List>
-      <IconButton onClick={handleLogout} className={classes.settingsIcon}><CameraIcon /></IconButton>
+      <IconButton onClick={() => { push('/photos')}} className={classes.settingsIcon}><CameraIcon /></IconButton>
       <IconButton onClick={handleLogout} className={classes.settingsIcon}><LogOut /></IconButton>
     </Drawer>
   );

@@ -10,7 +10,8 @@ const ROUTES = {
     getTemporaryPatients: ["/practitioner/temporary_patients","GET"],
     getPatientPhotos: ["/patients/photo_reports","GET"],
     getProcessedPatientPhotos: ["/patients/photo_reports/processed","GET"],
-    getPatientNames: ["/practitioner/patients?namesOnly=true","GET"]
+    getPatientNames: ["/practitioner/patients?namesOnly=true","GET"],
+    getSeverePatients: ["/patients/severe","GET"]
 }
 
 export class PractitionerStore extends UserStore {
@@ -44,7 +45,6 @@ export class PractitionerStore extends UserStore {
     }
 
     @observable patientNames = {};
-
     @observable patients = [];
     @observable temporaryPatients = [];
     @observable photoReports = [];
@@ -53,6 +53,11 @@ export class PractitionerStore extends UserStore {
     //Currently viewed patient
     @observable selectedPatient = {
         reports: []
+    }
+
+    @observable filteredPatients = {
+        severe: [],
+        missed: []
     }
 
     getPatient = (id) => {
@@ -141,6 +146,12 @@ export class PractitionerStore extends UserStore {
     @action getPatientNames = () => {
         this.executeRequest("getPatientNames").then( response => {
             this.patientNames = response;
+        })
+    }
+
+    @action getSeverePatients = () => {
+        this.executeRequest("getSeverePatients").then( response => {
+           this.filteredPatients.severe = response;
         })
     }
 

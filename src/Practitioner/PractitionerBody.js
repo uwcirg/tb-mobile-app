@@ -10,6 +10,7 @@ import Messages from '../Messaging/PractitionerMessaging'
 import makeStyles from '@material-ui/core/styles/makeStyles'
 import PatientsView from './PatientsView'
 import PhotoList from './PhotoView'
+import Home from './Home'
 
 import PatientProfile from './PatientProfile'
 
@@ -42,7 +43,7 @@ const PractitionerBody = observer(() => {
 
     return (
         <Body>
-            {location.pathname === "/" && <h1>Home Page</h1>}
+            {location.pathname === "/" && <Home />}
             {location.pathname === "/photos" && <PhotoList />}
             {location.pathname === "/photos/historical" && <PhotoList processed />}
             {location.pathname.startsWith("/messaging") && <Messages />}
