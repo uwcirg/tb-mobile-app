@@ -8,12 +8,23 @@ import PropTypes from 'prop-types';
 const useStyles = makeStyles({
     container: {
         minHeight: "200px",
-        backgroundColor: "lightblue"
+        width: "50%",
+        border: "1px solid lightgray",
+        borderRadius: "1em",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center"
     },
     superContainer: {
 
     },
     lineItem: {
+        "&:hover": {
+            backgroundColor: "#cce6ff",
+            "& > div": {
+                fontWeight: "bold"
+            } 
+        },
         minHeight: "50px",
         borderTop: "solid 1px lightgray",
         "&:first-of-type":{
@@ -35,13 +46,17 @@ const HomePageCard = (props) => {
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
 
-    const patientList = props.patientList.map(each => {
-        return (<SingleLine fullName={each.fullName} />)
+    const handleClick = (id,type) => {  
+        props.setSidebar(id,type)
+    }
+
+    const patientList = props.patientList.map( (each,index) => {
+        return (<SingleLine id={each.id} key={`${each.type}-${each.id}`} onClick={() => handleClick(index,props.type)} fullName={each.fullName} />)
     })
 
     return (
         <div className={classes.superContainer}>
-            <h1 className={classes.title}>Patients With Symptoms</h1>
+            <h1 className={classes.title}>{props.title}</h1>
             <div className={classes.container}>
                 {patientList}
             </div>
@@ -52,8 +67,8 @@ const HomePageCard = (props) => {
 const SingleLine = (props) => {
     const classes = useStyles();
     return (
-        <div className={classes.lineItem}>
-            <Checkbox color="black" className={classes.checkbox} checked={false} />
+        <div className={classes.lineItem} onClick={props.onClick}>
+            <Checkbox color="default" className={classes.checkbox} checked={false} />
             <div>{props.fullName}</div>
             <div></div>
         </div>
@@ -61,12 +76,14 @@ const SingleLine = (props) => {
 }
 
 HomePageCard.propTypes = {
+    title: PropTypes.string,
     patientList: PropTypes.array,
     onComplete: PropTypes.func
 };
 
 SingleLine.propTypes = {
-    fullName: PropTypes.string.isRequired
+    fullName: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired
 };
 
 

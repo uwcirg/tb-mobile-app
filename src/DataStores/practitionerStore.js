@@ -56,8 +56,19 @@ export class PractitionerStore extends UserStore {
     }
 
     @observable filteredPatients = {
-        severe: [],
+        symptoms: [],
         missed: []
+    }
+
+    @observable selectedRow = {
+        visible: false,
+        type: "",
+        id: -1,
+        clearSelection: function(){
+            this.id = -1,
+            this.type = "",
+            this.visible = false
+        }
     }
 
     getPatient = (id) => {
@@ -151,7 +162,7 @@ export class PractitionerStore extends UserStore {
 
     @action getSeverePatients = () => {
         this.executeRequest("getSeverePatients").then( response => {
-           this.filteredPatients.severe = response;
+           this.filteredPatients.symptoms = response;
         })
     }
 

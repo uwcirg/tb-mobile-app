@@ -21,16 +21,6 @@ const PractitionerHome = observer(() => {
     const {practitionerStore,uiStore} = useStores();
     const {t, i18n} = useTranslation('translation');
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
-
-    const handleClick = event => {
-    setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-      };
-
     return(
         <div className={classes.container}>
             <Drawer />
