@@ -43,7 +43,7 @@ const PractitionerBody = observer(() => {
 
     return (
         <Body>
-            {location.pathname === "/" && <Home />}
+            {location.pathname.startsWith("/home") && <Home />}
             {location.pathname === "/photos" && <PhotoList />}
             {location.pathname === "/photos/historical" && <PhotoList processed />}
             {location.pathname.startsWith("/messaging") && <Messages />}

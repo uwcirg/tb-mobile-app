@@ -47,20 +47,22 @@ const useStyles = makeStyles({
     margin: "auto"
   },
   selected: {
-    width: "110%",
+    width: "80%",
+    alignSelf: "flex-end",
     backgroundColor: "white",
     borderRadius: "10px 0 0 10px",
-    boxShadow: "inset 2px 0 2px gray",
+    boxShadow: "inset 5px 0 5px gray",
     zIndex: "10",
     "& > div > svg": {
       fill: Colors.buttonBlue
-    }
+    },
+
   }
 });
 
 const PractitionerDrawer = observer(() => {
   const classes = useStyles();
-  const { routingStore, uiStore, practitionerStore } = useStores();
+  const { routingStore, uiStore, practitionerStore,practitionerUIStore } = useStores();
   const { location, push, goBack } = routingStore;
 
   const handleLogout = () => {
@@ -71,20 +73,20 @@ const PractitionerDrawer = observer(() => {
   return (
     <div className={classes.drawer}>
       <List className={classes.list}>
-        <ListItem className={classes.selected} button key={"Home"} onClick={() => { push('/') }}>
+        <ListItem className={practitionerUIStore.tabNumber === 0 && classes.selected} button key={"Home"} onClick={() => { push('/home') }}>
           <ListItemIcon><HomeIcon className={classes.test} /></ListItemIcon>
           {/*<ListItemText primary={"Home"} />*/}
         </ListItem>
 
-        <ListItem button key={"Patients"} onClick={() => { push('/patients') }}>
+        <ListItem button className={practitionerUIStore.tabNumber === 1 && classes.selected} key={"Patients"} onClick={() => { push('/patients') }}>
           <ListItemIcon><PatientsIcon /></ListItemIcon>
         </ListItem>
 
-        <ListItem button key={"Messaging"} onClick={() => { push('/messaging') }}>
+        <ListItem button className={practitionerUIStore.tabNumber === 2 && classes.selected} key={"Messaging"} onClick={() => { push('/messaging') }}>
           <ListItemIcon><MessagingIcon /></ListItemIcon>
         </ListItem>
 
-        <ListItem button key={"Settings"} onClick={() => { push('/settings') }}>
+        <ListItem button className={practitionerUIStore.tabNumber === 3 && classes.selected} key={"Settings"} onClick={() => { push('/settings') }}>
           <ListItemIcon><Settings /></ListItemIcon>
         </ListItem>
       </List>
