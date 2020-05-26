@@ -38,6 +38,9 @@ const useStyles = makeStyles({
     },
     checkbox:{
         
+    },
+    selected:{
+        backgroundColor: "#cce6ff"
     }
 })
 
@@ -49,9 +52,15 @@ const HomePageCard = (props) => {
     const handleClick = (id,type) => {  
         props.setSidebar(id,type)
     }
+    console.log(props.selectedId)
+    console.log(props.selectedType)
 
     const patientList = props.patientList.map( (each,index) => {
-        return (<SingleLine id={each.id} key={`${each.type}-${each.id}`} onClick={() => handleClick(index,props.type)} fullName={each.fullName} />)
+        return (<SingleLine 
+            selected={props.selectedType === props.type && props.selectedId === index } 
+            id={each.id} key={`${each.type}-${each.id}`} 
+            onClick={() => handleClick(index,props.type)} 
+            fullName={each.fullName} />)
     })
 
     return (
@@ -67,10 +76,9 @@ const HomePageCard = (props) => {
 const SingleLine = (props) => {
     const classes = useStyles();
     return (
-        <div className={classes.lineItem} onClick={props.onClick}>
+        <div className={`${classes.lineItem} ${props.selected ? classes.selected : ""}`} onClick={props.onClick}>
             <Checkbox color="default" className={classes.checkbox} checked={false} />
             <div>{props.fullName}</div>
-            <div></div>
         </div>
     )
 }

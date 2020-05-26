@@ -102,7 +102,7 @@ const PhotoSidebar = observer((props) => {
     )
 });
 
-const Card = (props) => {
+const Card = observer((props) => {
 
     const { practitionerStore } = useStores();
 
@@ -119,11 +119,13 @@ const Card = (props) => {
 
     return (
         <HomePageCard
+            selectedId={practitionerStore.selectedRow.id}
+            selectedType={practitionerStore.selectedRow.type}
             setSidebar={setSidebar}
             onComplete={handleClick}
             {...props} />
     )
-};
+});
 
 
 
