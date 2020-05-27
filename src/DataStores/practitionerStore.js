@@ -11,7 +11,9 @@ const ROUTES = {
     getPatientPhotos: ["/patients/photo_reports","GET"],
     getProcessedPatientPhotos: ["/patients/photo_reports/processed","GET"],
     getPatientNames: ["/practitioner/patients?namesOnly=true","GET"],
-    getSeverePatients: ["/patients/severe","GET"]
+    getSeverePatients: ["/patients/severe","GET"],
+    getMissingPatients: ["/patients/missed","GET"],
+    getPatientsTest: ["/test/patients","GET"]
 }
 
 export class PractitionerStore extends UserStore {
@@ -20,6 +22,8 @@ export class PractitionerStore extends UserStore {
     constructor(strategy) {
         super(strategy,ROUTES,"Practitioner")
     }
+
+    @observable testPatients = []
 
     DEFAULT_PHONE = 5412345678;
 
@@ -166,10 +170,22 @@ export class PractitionerStore extends UserStore {
         })
     }
 
+    @action getMissingPatients = () => {
+        this.executeRequest("getMissingPatients").then( response => {
+           this.filteredPatients.missed = response;
+        })
+    }
+
     processPhoto = (id, approved) => {
         let body = {approved: approved}
         this.executeRawRequest(`/photo_submission/${id}`,"PATCH",body).then(response => {
 
+        })
+    }
+
+    @action getPatientsTest = () =>{
+        this.executeRequest("getPatientsTest").then( response => {
+            this.testPatients = response;
         })
     }
 

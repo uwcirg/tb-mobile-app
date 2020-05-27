@@ -5,6 +5,7 @@ import { observer } from 'mobx-react'
 import HomePageCard from './Shared/HomePageCard'
 import Basicsidebar from './Shared/BasicSidebar'
 import { groupBy } from 'lodash';
+import Adherence from './AdherenceGraph';
 
 const useStyles = makeStyles({
     left: {
@@ -32,6 +33,8 @@ const Home = observer(() => {
     const fetchData = () => {
         practitionerStore.getSeverePatients();
         practitionerStore.getPhotoReports();
+        practitionerStore.getMissingPatients();
+        //console.log(JSON.stringify(practitionerStore.patients))
     }
 
     const classes = useStyles();
@@ -39,6 +42,7 @@ const Home = observer(() => {
     return (
         <div className={classes.container}>
             <div className={classes.left}>
+                <Adherence />
                 <h1>My Tasks</h1>
                 <button onClick={fetchData}>(dev) re-fetch data</button>
                 <Card
@@ -50,6 +54,11 @@ const Home = observer(() => {
                     title="Photos to Review"
                     patientList={practitionerStore.photoReports}
                     type="photo"
+                />
+                <Card
+                    title="Missed Report In Past Week"
+                    patientList={practitionerStore.filteredPatients.missed}
+                    type="missed"
                 />
             </div>
 
@@ -63,14 +72,15 @@ const Home = observer(() => {
 const SideBarRouter = observer((props) => {
     const { practitionerStore } = useStores();
 
-    if(practitionerStore.selectedRow.type === "photo"){
+    if (practitionerStore.selectedRow.type === "photo") {
         return <PhotoSidebar />
-    }else{
+    } else if(practitionerStore.selectedRow.type === "symptom") {
         return <SymptomSidebar />
     }
-        
-    
-    
+    return ""
+
+
+
 
 });
 

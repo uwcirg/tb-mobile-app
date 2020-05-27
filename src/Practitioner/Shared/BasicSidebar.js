@@ -7,6 +7,9 @@ import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles({
     container: {
+        position: "fixed",
+        right: 0,
+        height: "100vh",
         width: "25%",
         backgroundColor: "lightgray",
     },
