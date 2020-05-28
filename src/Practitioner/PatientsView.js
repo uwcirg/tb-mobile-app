@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { DateTime } from 'luxon';
 import AddPatientPrompt from './AddPatientPrompt'
 import Colors from '../Basics/Colors';
+import Adherence from './AdherenceGraph';
 
 const useStyles = makeStyles({
 
@@ -64,6 +65,7 @@ const useStyles = makeStyles({
 const PatientsView = (props) => {
     return (
         <>
+            <Adherence />
             <Patients list={props.patientList} handlePatientClick={props.handlePatientClick} />
             <Patients temporary list={props.tempList} />
         </>
@@ -78,7 +80,7 @@ const Patients = (props) => {
         return (
             <div className={classes.singlePatient}>
                 <div className={classes.name}>
-                    <a onClick={() => {props.handlePatientClick(patient.identifier[0].value)}}>
+                    <a onClick={() => { props.handlePatientClick(patient.identifier[0].value) }}>
                         {patient.givenName} {patient.familyName}
                     </a>
                 </div>
@@ -115,7 +117,7 @@ const Patients = (props) => {
     return (
 
         <div className={classes.superContainer}>
-            <h2>{props.temporary ? "Awaiting Activation" : "Active Patients" }</h2>
+            <h2>{props.temporary ? "Awaiting Activation" : "Active Patients"}</h2>
             <div className={classes.patientList}>
                 {props.list && list}
             </div>

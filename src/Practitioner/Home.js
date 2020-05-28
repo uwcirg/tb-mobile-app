@@ -5,7 +5,6 @@ import { observer } from 'mobx-react'
 import HomePageCard from './Shared/HomePageCard'
 import Basicsidebar from './Shared/BasicSidebar'
 import { groupBy } from 'lodash';
-import Adherence from './AdherenceGraph';
 
 const useStyles = makeStyles({
     left: {
@@ -42,8 +41,8 @@ const Home = observer(() => {
     return (
         <div className={classes.container}>
             <div className={classes.left}>
-                <Adherence />
-                <h1>My Tasks</h1>
+            <h1>My Tasks</h1>
+                
                 <button onClick={fetchData}>(dev) re-fetch data</button>
                 <Card
                     title="Patients with Symptoms"

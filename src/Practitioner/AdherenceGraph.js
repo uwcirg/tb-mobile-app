@@ -9,8 +9,9 @@ const GRAPH_MARKER_SIZE = 20;
 
 const useStyles = makeStyles({
   container:{
-      margin: "3em",
-      width: "80%",
+      margin: "auto",
+      marginTop: "4em",
+      width: "60%",
       height: "300px",
       display: "flex",
       position: "relative",
