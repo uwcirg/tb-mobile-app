@@ -4,21 +4,29 @@ import { makeStyles } from '@material-ui/core/styles';
 //import Colors from '../Basics/Colors'
 import Checkbox from '@material-ui/core/Checkbox';
 import PropTypes from 'prop-types';
+import Colors from '../../Basics/Colors';
 
 const useStyles = makeStyles({
     container: {
-        minHeight: "200px",
-        width: "50%",
+        minHeight: "50px",
+        width: "100%",
         border: "1px solid lightgray",
         borderRadius: "1em",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center"
+        justifyContent: "flex-start"
     },
     superContainer: {
-
+        backgroundColor: Colors.lightgray,
+        borderRadius: "1em",
+        width: "50%",
+        marginTop: "1em",
+        overflow: "hidden",
+        border: "solid 1px lightgray",
+        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.25)"
     },
     lineItem: {
+        backgroundColor: "white",
         "&:hover": {
             backgroundColor: "#cce6ff",
             "& > div": {
@@ -34,7 +42,13 @@ const useStyles = makeStyles({
         alignItems: "center"
     },
     title:{
-        fontSize: "1.25em"
+        margin: "0 0 0 1em",
+        display: "flex",
+        alignItems: "center",
+        "& > h2": {
+            marginLeft: ".5em",
+            fontSize: "1.25em"
+        }
     },
     checkbox:{
         
@@ -52,8 +66,6 @@ const HomePageCard = (props) => {
     const handleClick = (id,type) => {  
         props.setSidebar(id,type)
     }
-    console.log(props.selectedId)
-    console.log(props.selectedType)
 
     const patientList = props.patientList.map( (each,index) => {
         return (<SingleLine 
@@ -65,7 +77,7 @@ const HomePageCard = (props) => {
 
     return (
         <div className={classes.superContainer}>
-            <h1 className={classes.title}>{props.title}</h1>
+            <div className={classes.title}>{props.icon ? props.icon : ""}<h2>{props.title}</h2></div>
             <div className={classes.container}>
                 {patientList}
             </div>

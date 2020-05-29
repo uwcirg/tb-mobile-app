@@ -5,10 +5,18 @@ import { observer } from 'mobx-react'
 import HomePageCard from './Shared/HomePageCard'
 import Basicsidebar from './Shared/BasicSidebar'
 import { groupBy } from 'lodash';
+import AlertIcon from '@material-ui/icons/Error';
+import ListIcon from '@material-ui/icons/PlaylistAddCheck';
+import PillIcon from '../Basics/Icons/Pill.js'
 
 const useStyles = makeStyles({
     left: {
         flexGrow: "1",
+        "& > h1":{
+            fontSize: "2em",
+            fontStyle: "normal",
+            fontWeight: "bold"
+        }
     },
     container: {
         width: "100%",
@@ -45,17 +53,20 @@ const Home = observer(() => {
                 
                 <button onClick={fetchData}>(dev) re-fetch data</button>
                 <Card
+                    icon={<AlertIcon />}
                     title="Patients with Symptoms"
                     patientList={practitionerStore.filteredPatients.symptoms}
                     type="symptom"
                 />
                 <Card
+                    icon={<ListIcon />}
                     title="Photos to Review"
                     patientList={practitionerStore.photoReports}
                     type="photo"
                 />
                 <Card
-                    title="Missed Report In Past Week"
+                    icon={<PillIcon />}
+                    title="Missed Report Since Last Resolution"
                     patientList={practitionerStore.filteredPatients.missed}
                     type="missed"
                 />
