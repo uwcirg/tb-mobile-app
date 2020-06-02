@@ -16,7 +16,8 @@ const Colors = {
     approvedGreen: "#5EBA55",
     textGray: "#757575",
     calendarGreen: "rgba(114,195,106,.32)",
-    calendarRed: "rgba(238,2,2,.32)"
+    calendarRed: "rgba(238,2,2,.32)",
+    yellow: "#FCC419"
 
 }
 

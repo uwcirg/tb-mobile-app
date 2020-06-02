@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import useStores from '../Basics/UseStores'
+import useStores from '../../Basics/UseStores'
 import { observer } from 'mobx-react'
-import HomePageCard from './Shared/HomePageCard'
-import Basicsidebar from './Shared/BasicSidebar'
+import HomePageCard from '../Shared/HomePageCard'
+import Basicsidebar from '../Shared/BasicSidebar'
 import { groupBy } from 'lodash';
 import AlertIcon from '@material-ui/icons/Error';
 import ListIcon from '@material-ui/icons/PlaylistAddCheck';
-import PillIcon from '../Basics/Icons/Pill.js'
+import PillIcon from '../../Basics/Icons/Pill.js'
+import PhotoSidebar from './PhotoSideBar'
 
 const useStyles = makeStyles({
     left: {
@@ -41,7 +42,6 @@ const Home = observer(() => {
         practitionerStore.getSeverePatients();
         practitionerStore.getPhotoReports();
         practitionerStore.getMissingPatients();
-        //console.log(JSON.stringify(practitionerStore.patients))
     }
 
     const classes = useStyles();
@@ -88,10 +88,6 @@ const SideBarRouter = observer((props) => {
         return <SymptomSidebar />
     }
     return ""
-
-
-
-
 });
 
 const SymptomSidebar = observer((props) => {
@@ -104,20 +100,6 @@ const SymptomSidebar = observer((props) => {
             {Object.keys(symptomGroups).map(each => {
                 return <p>{each}: {symptomGroups[each].length}</p>
             })}
-        </Basicsidebar>
-    )
-});
-
-const PhotoSidebar = observer((props) => {
-    const { practitionerStore } = useStores();
-    const classes = useStyles();
-    const item = practitionerStore.photoReports[practitionerStore.selectedRow.id];
-
-    return (
-        <Basicsidebar>
-            <h2>{item.fullName}</h2>
-            <h2>Photo:</h2>
-            <img className={classes.photoPreview} src={item.url} />
         </Basicsidebar>
     )
 });
@@ -146,7 +128,5 @@ const Card = observer((props) => {
             {...props} />
     )
 });
-
-
 
 export default Home;

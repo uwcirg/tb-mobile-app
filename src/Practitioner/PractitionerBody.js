@@ -10,7 +10,7 @@ import Messages from '../Messaging/PractitionerMessaging'
 import makeStyles from '@material-ui/core/styles/makeStyles'
 import PatientsView from './PatientsView'
 import PhotoList from './PhotoView'
-import Home from './Home'
+import Home from './Home/'
 
 import PatientProfile from './PatientProfile'
 
