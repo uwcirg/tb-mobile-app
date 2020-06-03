@@ -36,8 +36,8 @@ const PhotoSidebar = observer((props) => {
     const { practitionerStore } = useStores();
     const classes = useStyles();
 
-    let patientID = practitionerStore.selectedRow.id;
-    const item = practitionerStore.photoReports[patientID];
+    let rowID = practitionerStore.selectedRow.id;
+    const item = practitionerStore.photoReports[rowID];
 
     return (
         <Basicsidebar>
@@ -46,12 +46,8 @@ const PhotoSidebar = observer((props) => {
                 <img className={classes.photoPreview} src={item.url} />
             </div>
             <div className={classes.buttonContainer}>
-                <SharedButton text={"Positive"} />
-                <SharedButton text={"Inconclusive"} color={Colors.yellow} icon={<QIcon />} />
-                {/*
-            <IconButton onClick={() => {practitionerStore.processPhoto(patientID,true)}}><CheckIcon /> </IconButton>
-            <IconButton onClick={() => {practitionerStore.processPhoto(patientID,false)}}> <XIcon /></IconButton>
-            */}
+                <SharedButton text={"Positive"} onClick={() => {practitionerStore.processPhoto(item.photoId,true)}} />
+                <SharedButton text={"Inconclusive"} onClick={() => {practitionerStore.processPhoto(item.photoId,false)}} color={Colors.yellow} icon={<QIcon />} />
             </div>
         </Basicsidebar>
     )

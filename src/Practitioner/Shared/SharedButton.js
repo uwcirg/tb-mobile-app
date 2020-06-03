@@ -40,7 +40,7 @@ const SharedButton = (props) => {
     const { practitionerStore } = useStores();
 
     return (
-        <ButtonBase className={classes.button}>
+        <ButtonBase className={classes.button} onClick={props.onClick}>
             <div className={classes.icon}>{props.icon ? props.icon :  <CheckIcon />}</div>
             <div className={classes.text}>{props.text ? props.text : "Button"}</div>
         </ButtonBase>

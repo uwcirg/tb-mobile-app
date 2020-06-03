@@ -6,7 +6,8 @@ import ClearIcon from '@material-ui/icons/Clear';
 import IconButton from '@material-ui/core/IconButton';
 import Colors from '../../Basics/Colors'
 import PatientPicture from '../../Basics/PatientIcon'
-import {DateTime} from 'luxon'
+import { DateTime } from 'luxon'
+import { observer } from 'mobx-react';
 
 const useStyles = makeStyles({
     container: {
@@ -18,7 +19,11 @@ const useStyles = makeStyles({
         backgroundColor: "white",
         borderLeft: "solid 5px lightgray"
     },
-    clear:{
+    filler: {
+        width: "400px",
+        height: "100vh"
+    },
+    clear: {
         width: "100%",
         display: "flex",
         justifyContent: "flex-end",
@@ -39,7 +44,7 @@ const useStyles = makeStyles({
     },
 })
 
-const Card = (props) => {
+const Card = observer((props) => {
 
     const classes = useStyles();
 
@@ -58,26 +63,34 @@ const Card = (props) => {
     }
 
     return (
-        <div className={classes.container}>
-            <div className={classes.clear}><IconButton onClick={handleClose}><ClearIcon /></IconButton></div>
-            <PatientPreview />
-            {props.children}
-        </div>
+        <>
+            {/* Filler to allow the flex displayed hompage to work with the sidebar being fixed position 
+        <div className={classes.filler} />*/}
+            <div className={classes.container}>
+                <div className={classes.clear}><IconButton onClick={handleClose}><ClearIcon /></IconButton></div>
+                <PatientPreview />
+                {props.children}
+            </div>
+        </>
     )
-}
+});
 
-const PatientPreview = (props) => {
+const PatientPreview = observer((props) => {
     const classes = useStyles();
+    const { practitionerStore } = useStores();
+
+    console.log(practitionerStore.selectedPatientInfo)
 
     return (
         <div className={classes.profile}>
-            <PatientPicture />
-            <h2>Patient Name</h2>
-            <p>Treatments Completed: 10/20</p>
+            <PatientPicture name={practitionerStore.selectedPatientInfo.givenName} />
+            <h2>{practitionerStore.selectedPatientInfo.givenName} {practitionerStore.selectedPatientInfo.familyName}</h2>
+            <p>Adherence: {practitionerStore.selectedPatientInfo.adherence}</p>
             <p>Last Contacted: {DateTime.local().toLocaleString()}</p>
             <p className="clickable">View Full Profile</p>
         </div>
+
     )
-}
+})
 
 export default Card;

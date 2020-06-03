@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import {observer} from 'mobx-react'
 import useStores from '../Basics/UseStores';
 import {makeStyles} from '@material-ui/core/styles';
-import Colors from '../Basics/Colors'
 import PractitionerBody from './PractitionerBody';
 import Drawer from './Drawer'
 

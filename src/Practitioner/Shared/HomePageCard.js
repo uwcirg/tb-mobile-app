@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import PropTypes from 'prop-types';
 import Colors from '../../Basics/Colors';
+import Card from './Card'
 
 const useStyles = makeStyles({
     container: {
@@ -31,17 +32,20 @@ const useStyles = makeStyles({
             backgroundColor: "#cce6ff",
             "& > div": {
                 fontWeight: "bold"
-            } 
+            }
         },
         minHeight: "50px",
         borderTop: "solid 1px lightgray",
-        "&:first-of-type":{
+        "&:first-of-type": {
             borderTop: "none"
         },
         display: "flex",
-        alignItems: "center"
+        alignItems: "center",
+        "& > p": {
+            marginLeft: "2em"
+        }
     },
-    title:{
+    title: {
         margin: "0 0 0 1em",
         display: "flex",
         alignItems: "center",
@@ -50,10 +54,7 @@ const useStyles = makeStyles({
             fontSize: "1.25em"
         }
     },
-    checkbox:{
-        
-    },
-    selected:{
+    selected: {
         backgroundColor: "#cce6ff"
     }
 })
@@ -63,25 +64,25 @@ const HomePageCard = (props) => {
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
 
-    const handleClick = (id,type) => {  
-        props.setSidebar(id,type)
+    const handleClick = (id, type, patientId) => {
+        props.setSidebar(id, type, patientId)
     }
 
-    const patientList = props.patientList.map( (each,index) => {
-        return (<SingleLine 
-            selected={props.selectedType === props.type && props.selectedId === index } 
-            id={each.id} key={`${each.type}-${each.id}`} 
-            onClick={() => handleClick(index,props.type)} 
+    const patientList = props.patientList.map((each, index) => {
+        return (<SingleLine
+            selected={props.selectedType === props.type && props.selectedId === index}
+            id={each.id} key={`${each.type}-${each.id}`}
+            patientId={each.id}
+            onClick={() => handleClick(index, props.type, each.id)}
             fullName={each.fullName} />)
     })
 
     return (
-        <div className={classes.superContainer}>
-            <div className={classes.title}>{props.icon ? props.icon : ""}<h2>{props.title}</h2></div>
+        <Card icon={props.icon} title={props.title}>
             <div className={classes.container}>
                 {patientList}
             </div>
-        </div>
+        </Card>
     )
 }
 
@@ -89,8 +90,7 @@ const SingleLine = (props) => {
     const classes = useStyles();
     return (
         <div className={`${classes.lineItem} ${props.selected ? classes.selected : ""}`} onClick={props.onClick}>
-            <Checkbox color="default" className={classes.checkbox} checked={false} />
-            <div>{props.fullName}</div>
+            <p>{props.fullName}</p>
         </div>
     )
 }

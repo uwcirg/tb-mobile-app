@@ -4,19 +4,22 @@ import useStores from '../../Basics/UseStores'
 import { observer } from 'mobx-react'
 import HomePageCard from '../Shared/HomePageCard'
 import Basicsidebar from '../Shared/BasicSidebar'
-import { groupBy } from 'lodash';
 import AlertIcon from '@material-ui/icons/Error';
 import ListIcon from '@material-ui/icons/PlaylistAddCheck';
 import PillIcon from '../../Basics/Icons/Pill.js'
 import PhotoSidebar from './PhotoSideBar'
+import SymptomSidebar from './SymptomSideBar'
 
 const useStyles = makeStyles({
     left: {
-        flexGrow: "1",
+        width: "60%",
         "& > h1":{
             fontSize: "2em",
             fontStyle: "normal",
             fontWeight: "bold"
+        },
+        "& > div":{
+            marginTop: "1.5em"
         }
     },
     container: {
@@ -46,12 +49,12 @@ const Home = observer(() => {
 
     const classes = useStyles();
 
+    console.log(practitionerStore.photoReports)
+
     return (
         <div className={classes.container}>
             <div className={classes.left}>
             <h1>My Tasks</h1>
-                
-                <button onClick={fetchData}>(dev) re-fetch data</button>
                 <Card
                     icon={<AlertIcon />}
                     title="Patients with Symptoms"
@@ -71,10 +74,7 @@ const Home = observer(() => {
                     type="missed"
                 />
             </div>
-
             {practitionerStore.selectedRow.visible != "" && <SideBarRouter />}
-
-
         </div>)
 
 });
@@ -90,28 +90,16 @@ const SideBarRouter = observer((props) => {
     return ""
 });
 
-const SymptomSidebar = observer((props) => {
-    const { practitionerStore } = useStores();
-    const symptomGroups = groupBy(practitionerStore.filteredPatients.symptoms[practitionerStore.selectedRow.id].symptomSummary);
-    return (
-        <Basicsidebar>
-            <h2>{practitionerStore.filteredPatients.symptoms[practitionerStore.selectedRow.id].fullName}</h2>
-            <h2>In the past week:</h2>
-            {Object.keys(symptomGroups).map(each => {
-                return <p>{each}: {symptomGroups[each].length}</p>
-            })}
-        </Basicsidebar>
-    )
-});
 
 const Card = observer((props) => {
 
     const { practitionerStore } = useStores();
 
-    const setSidebar = (id, type) => {
+    const setSidebar = (id, type, patientId) => {
         practitionerStore.selectedRow.visible = true;
         practitionerStore.selectedRow.id = id;
         practitionerStore.selectedRow.type = type;
+        practitionerStore.selectedRow.patientId = patientId;
 
     }
 

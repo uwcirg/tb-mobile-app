@@ -26,7 +26,7 @@ export default function Icon(props){
     return (
         <div className={classes.container}>
         <div className={classes.circle}>
-            <p className={classes.letter}>J</p>
+            <p className={classes.letter}>{props.name[0]}</p>
         </div>
         </div>
     )
