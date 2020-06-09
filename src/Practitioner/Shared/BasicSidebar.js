@@ -36,7 +36,11 @@ const useStyles = makeStyles({
         flexDirection: "column",
         justifyContent: "flex-start",
         "& > p": {
-            marginBottom: "0px"
+            margin: "0px"
+        },
+        "& > h2":{
+            margin: "2px",
+            fontSize: "1.25em"
         },
         "& > .clickable": {
             color: Colors.buttonBlue

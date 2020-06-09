@@ -9,6 +9,8 @@ import ListIcon from '@material-ui/icons/PlaylistAddCheck';
 import PillIcon from '../../Basics/Icons/Pill.js'
 import PhotoSidebar from './PhotoSideBar'
 import SymptomSidebar from './SymptomSideBar'
+import MedicationSideBar from './MedicationSideBar'
+import { DateTime } from 'luxon';
 
 const useStyles = makeStyles({
     left: {
@@ -64,14 +66,14 @@ const Home = observer(() => {
                 <Card
                     icon={<ListIcon />}
                     title="Photos to Review"
-                    patientList={practitionerStore.photoReports}
+                    patientList={practitionerStore.photoReports.slice().sort((a,b) =>{ return (DateTime.fromISO(b.date).diff(DateTime.fromISO(a.date))) })}
                     type="photo"
                 />
                 <Card
                     icon={<PillIcon />}
                     title="Missed Report Since Last Resolution"
                     patientList={practitionerStore.filteredPatients.missed}
-                    type="missed"
+                    type="missedMedication"
                 />
             </div>
             {practitionerStore.selectedRow.visible != "" && <SideBarRouter />}
@@ -86,6 +88,8 @@ const SideBarRouter = observer((props) => {
         return <PhotoSidebar />
     } else if(practitionerStore.selectedRow.type === "symptom") {
         return <SymptomSidebar />
+    }else if(practitionerStore.selectedRow.type === "missedMedication"){
+        return <MedicationSideBar />
     }
     return ""
 });

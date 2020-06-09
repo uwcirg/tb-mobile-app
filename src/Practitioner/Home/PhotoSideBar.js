@@ -16,7 +16,9 @@ const useStyles = makeStyles({
         ...Styles.flexColumn,
         alignItems: "center",
         "& > img": {
-            width: "100%"
+            height: "300px",
+            width: "90%",
+            objectFit: "contain"
         },
         "& > h2":{
             fontSize: "1em",
@@ -42,7 +44,7 @@ const PhotoSidebar = observer((props) => {
     return (
         <Basicsidebar>
             <div className={classes.photoContainer} >
-                <h2>Photo Submission</h2>
+                <h2>Photo Submission:</h2>
                 <img className={classes.photoPreview} src={item.url} />
             </div>
             <div className={classes.buttonContainer}>

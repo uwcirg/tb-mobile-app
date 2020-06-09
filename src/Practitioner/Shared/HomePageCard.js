@@ -71,7 +71,8 @@ const HomePageCard = (props) => {
     const patientList = props.patientList.map((each, index) => {
         return (<SingleLine
             selected={props.selectedType === props.type && props.selectedId === index}
-            id={each.id} key={`${each.type}-${each.id}`}
+            id={each.id} 
+            key={`${props.type}-${index}`}
             patientId={each.id}
             onClick={() => handleClick(index, props.type, each.id)}
             fullName={each.fullName} />)

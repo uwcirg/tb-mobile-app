@@ -49,7 +49,7 @@ export default class LabPhotoStore extends APIStore {
         this.uploadPhoto(this.photoRender).then( (key) =>{
 
             //Use Url to build object on backend
-            this.formResults.photoURL = key;
+            this.formResults.photoUrl = key;
             this.executeRequest("postResult", this.formResults).then( res =>{
 
                 this.serverResponse = res;

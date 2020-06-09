@@ -21,6 +21,7 @@ const useStyles = makeStyles({
         width: "80%",
         height: "250px",
         display: "flex",
+        flexDirection: "column",
         position: "relative"
 
     },
@@ -83,8 +84,20 @@ const useStyles = makeStyles({
         "& > div:last-of-type": {
             borderRight: "none"
         }
+    },
+    bottom: {
+        height: "50%",
+        width: "100%",
+        position: "relative"
+    },
+    top: {
+        height: "50%",
+        width: "100%",
+        position: "relative"
     }
 })
+
+const divider = .85;
 
 const Adherence = observer(() => {
 
@@ -103,30 +116,60 @@ const Adherence = observer(() => {
         console.log("mouse out")
     }
 
+    let goodPatients;
+    let badPatients;
+
+    const bottom = practitionerStore.testPatients.slice().filter((patient) => {
+        return patient.adherence < divider
+    })
+
+    const top = practitionerStore.testPatients.slice().filter((patient) => {
+        return patient.adherence > divider
+    })
+
+
+
     return (
         <Card title={"Overview Of Progress"}>
             <div className={classes.superContainer}>
-            <div className={classes.container}>
-                <Background />
-                {practitionerStore.testPatients.map(each => {
-                    const bottomCalc = each.adherence > 0 ? `calc(${each.adherence * 100}% - ${GRAPH_MARKER_SIZE}px)` : "0px";
-                    return (
-                        <Tooltip title={<><h1>{each.fullName}</h1>
-                            <p>Adherence: {Math.round(each.adherence * 100)}%</p>
-                            <p>Days In Treatment: {each.daysInTreatment}</p>
-                        </>} ><div
-                            style={{ bottom: bottomCalc, left: `${each.percentageComplete * 100}%` }}
-                            className={classes.box}> </div></Tooltip>)
-                })}
-            </div>
+                <div className={classes.container}>
+                    <Background />
+                    <div className={classes.top}>
+                        {top.map(each => { return (<DataPoint {...each} top />) })}
+                    </div>
+                    <div className={classes.bottom}>
+                        {bottom.map(each => { return (<DataPoint {...each} />) })}
+                    </div>
+                </div>
             </div>
         </Card>)
 
 });
 
+
+const DataPoint = (props) => {
+    const classes = useStyles();
+    let bottomCalc;
+    if (props.top) {
+        console.log(`${((props.adherence - divider) / (100 - divider)) * 100}`)
+        bottomCalc = props.adherence > 0 ? `calc(${((props.adherence - divider) / (1 - divider)) * 100}% - ${GRAPH_MARKER_SIZE}px)` : "0px";
+    } else {
+        bottomCalc = props.adherence > 0 ? `calc(${(props.adherence/divider) * 100}% - ${GRAPH_MARKER_SIZE}px)` : "0px";
+    }
+
+    return (
+        <Tooltip title={<><h1>{props.fullName}</h1>
+            <p>Adherence: {Math.round(props.adherence * 100)}%</p>
+            <p>Days In Treatment: {props.daysInTreatment}</p>
+        </>} ><div
+            style={{ bottom: bottomCalc, left: `${props.percentageComplete * 100}%` }}
+            className={classes.box}> </div></Tooltip>
+    )
+}
+
 const Background = () => {
 
-    const colors = ["#B2F1BE", "#D3FAD5", "#FEF5B8", "#FDA67D", "#F0715D"]
+    const colors = ["#B2F1BE", "#F0715D"]
     const classes = useStyles();
 
     let labels = []
@@ -134,7 +177,7 @@ const Background = () => {
     let column = []
 
     for (let step = 0; step < 10; step++) {
-        const color = step < colors.length - 1 ? colors[step] : colors[colors.length - 1];
+        const color = step < 5 ? colors[0] : colors[1];
         column.push(<div className="row" style={{ backgroundColor: color }} />)
         labels.push(<div className="yLabel">.{step * 10}</div>)
     }

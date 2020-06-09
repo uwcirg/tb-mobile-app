@@ -13,7 +13,8 @@ const ROUTES = {
     getPatientNames: ["/practitioner/patients?namesOnly=true", "GET"],
     getSeverePatients: ["/patients/severe", "GET"],
     getMissingPatients: ["/patients/missed", "GET"],
-    getPatientsTest: ["/test/patients", "GET"]
+    getPatientsTest: ["/test/patients", "GET"],
+    getRecentReports: ["/patients/reports/recent", "GET"],
 }
 
 export class PractitionerStore extends UserStore {
@@ -24,6 +25,13 @@ export class PractitionerStore extends UserStore {
     }
 
     @observable testPatients = []
+    @observable selectedPatientSymptoms = {
+       summary: [],
+       summaryLoading: false
+    }
+    
+    //Test
+    @observable recentReports = []
 
     DEFAULT_PHONE = 5412345678;
 
@@ -182,12 +190,18 @@ export class PractitionerStore extends UserStore {
         this.executeRawRequest(`/photo_submission/${id}`, "PATCH", body).then(response => {
             //TODO: Could update this to just remove the updated photo submission from list instead of fetching again
             this.getPhotoReports();
-            if( this.photoReports.length > 0){
+            if (this.photoReports.length > 0) {
                 this.selectedRow.id = 0;
-            }else{
+            } else {
                 this.selectedRow.clearSelection();
 
             }
+        })
+    }
+
+    @action getRecentReports = () => {
+        this.executeRequest("getRecentReports").then(response => {
+            this.recentReports = response;
         })
     }
 
@@ -197,6 +211,35 @@ export class PractitionerStore extends UserStore {
         })
     }
 
+    @action getSelectedPatientSymptoms = () => {
+        if (this.selectedRow.patientId > 0) {
+            this.selectedPatientSymptoms.loading = true;
+            this.executeRawRequest(`/patient/${this.selectedRow.patientId}/symptoms`, "GET").then(response => {
+                this.selectedPatientSymptoms.summary = response
+                this.selectedPatientSymptoms.loading = false;
+            })
+        }
+    }
+
+    resolveSymptoms(){
+        this.executeRawRequest(`/patient/${this.selectedRow.patientId}/resolutions?type=symptom`, "POST").then(response => {
+            this.getSeverePatients();
+        })
+    }
+
+    resolveMedication(){
+        this.executeRawRequest(`/patient/${this.selectedRow.patientId}/resolutions?type=medication`, "POST").then(response => {
+            this.getMissingPatients();
+        })
+    }
+
+    getPatientByID(id) {
+        let result = this.testPatients.find(each => {
+            return each.id === id
+        })
+        return result;
+    }
+
     @computed get selectedPatientInfo() {
 
         if (this.selectedRow.patientId < 0) {
@@ -204,11 +247,9 @@ export class PractitionerStore extends UserStore {
         }
 
         let result = this.patients.find(each => {
-                return each.id === this.selectedRow.patientId
+            return each.id === this.selectedRow.patientId
 
         })
-
-        console.log("Result is: " + result)
 
         return (result)
     }

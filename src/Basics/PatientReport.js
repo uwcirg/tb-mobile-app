@@ -95,6 +95,9 @@ const PatientReport = (props) => {
 const SymptomList = (props) => {
     const { t, i18n } = useTranslation('translation');
 
+    if( !(props.symptoms && props.symptoms.length > 0)){
+        return "No Symptoms Reported"
+    }
     return (
         props.symptoms.map((each, index) => {
             return <p key={index}>{t(`symptoms.${each}.title`)}</p>

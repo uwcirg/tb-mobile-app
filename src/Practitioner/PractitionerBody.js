@@ -11,6 +11,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles'
 import PatientsView from './PatientsView'
 import PhotoList from './PhotoView'
 import Home from './Home/'
+import Settings from './Settings'
 
 import PatientProfile from './PatientProfile'
 
@@ -43,6 +44,7 @@ const PractitionerBody = observer(() => {
 
     return (
         <Body>
+            {location.pathname.startsWith("/settings") && <Settings />}
             {location.pathname.startsWith("/home") && <Home />}
             {location.pathname === "/photos" && <PhotoList />}
             {location.pathname === "/photos/historical" && <PhotoList processed />}
@@ -64,7 +66,7 @@ min-height: 100vh;
 padding-left: 2em;
 display: flex;
 flex-direction: column;
-justify-content: center;
+justify-content: flex-start;
 align-content: flex-start;
 align-items: flex-start;
 

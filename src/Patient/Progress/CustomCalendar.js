@@ -171,14 +171,14 @@ const Day = observer((props) => {
     const today = dt.startOf('day').equals(DateTime.local().startOf('day'));
     const start = dt.startOf('day').equals(DateTime.fromISO(patientStore.treatmentStart).startOf('day'));
 
-    if (dayFromServer && dayFromServer.medicationTaken){compositeClass += ' ' + classes.positive}
-    else if(dayFromServer && !dayFromServer.medicationTaken ){ modifier = "red" }
+    if (dayFromServer && dayFromServer.medicationWasTaken){compositeClass += ' ' + classes.positive}
+    else if(dayFromServer && !dayFromServer.medicationWasTaken ){ modifier = "red" }
     else if (!dayFromServer && !props.disabled && !today){compositeClass += ' ' + classes.negative}
 
     if (dayBefore && dayAfter && dayFromServer) {
-        if (dayBefore.medicationTaken != dayFromServer.medicationTaken) compositeClass += ' ' + classes.start;
-        if (dayAfter.medicationTaken != dayFromServer.medicationTaken) compositeClass += ' ' + classes.end;
-        if (dayFromServer.medicationTaken && !dayBefore.medicationTaken && !dayAfter.medicationTaken) compositeClass += ' ' + classes.single;
+        if (dayBefore.medicationWasTaken != dayFromServer.medicationWasTaken) compositeClass += ' ' + classes.start;
+        if (dayAfter.medicationWasTaken != dayFromServer.medicationWasTaken) compositeClass += ' ' + classes.end;
+        if (dayFromServer.medicationWasTaken && !dayBefore.medicationWasTaken && !dayAfter.medicationWasTaken) compositeClass += ' ' + classes.single;
     }
 
     if( (dayFromServer && !dayAfter) || (!dayFromServer && dayAfter) || today ) compositeClass += ' ' + classes.end;

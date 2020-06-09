@@ -109,7 +109,7 @@ export class PatientStore extends UserStore {
     @computed get numberOfPhotoReports() {
 
         return Object.values(toJS(this.savedReports)).reduce((total, report) => {
-            if (report.photoURL) {
+            if (report.photoUrl) {
                 return total += 1
             }
             return total
@@ -183,7 +183,7 @@ export class PatientStore extends UserStore {
 
         if (this.isPhotoDay && this.report.photoString) {
             this.uploadPhoto().then(res => {
-                body.photoURL = res
+                body.photoUrl = res
                 this.executeRequest('dailyReport', body).then(json => {
                     this.report.hasConfirmedAndSubmitted = true;
                     this.uiState.onTreatmentFlow = false;
