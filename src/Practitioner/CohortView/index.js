@@ -1,28 +1,32 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { DateTime } from 'luxon';
-import AddPatientPrompt from './AddPatientPrompt'
-import Colors from '../Basics/Colors';
-import AdherenceGraph from './AdherenceGraph';
-import Card from './Shared/Card';
+import AddPatientPrompt from '../AddPatientPrompt'
+import Colors from '../../Basics/Colors';
+import AdherenceGraph from '../AdherenceGraph';
+import Card from '../Shared/Card';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PersonIcon from '@material-ui/icons/People'
+import BasicSidebar from '../Shared/BasicSidebar';
+import CohortSideBar from './Sidebar';
+import Search from '../../Basics/SearchBar'
 
 const useStyles = makeStyles({
     title: {
-        width: "100%",
+        width: "90%",
         textAlign: "left"
     },
     container: {
-        margin: "2em 0 2em 0",
-        width: "60%",
+        flexGrow: 1,
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-start",
         alignItems: "center",
         "& > div": {
             marginTop: "2em"
-        }
+        },
+        height: "100vh",
+        overflow: "scroll"
     },
     patientList: {
         backgroundColor: "white",
@@ -30,7 +34,8 @@ const useStyles = makeStyles({
         flexDirection: "column",
         alignContent: "center",
         fontFamily: "Roboto, sans-serif",
-        minWidth: "80%"
+        minWidth: "80%",
+        maxWidth: "98%"
     },
     singlePatient: {
         display: "flex",
@@ -65,13 +70,14 @@ const useStyles = makeStyles({
         }
     },
     superContainer: {
-        width: "80%",
-        backgroundColor: "lightgray",
-        "& > h2": {
-            fontSize: "2em",
-            width: "100%",
-            textAlign: "left"
-        }
+        width: "100%",
+        display: "flex",
+        flexDirection: "row"
+    },
+    search:{
+        width: "30%",
+        margin: "unset",
+        marginLeft: "auto"
     },
     priorityCircle:{
         width: "35px",
@@ -87,18 +93,22 @@ const useStyles = makeStyles({
 const PatientsView = (props) => {
     const classes = useStyles();
     return (
+        <div className={classes.superContainer}>
         <div className={classes.container}>
             <h1 className={classes.title}> My Patients</h1>
             <AdherenceGraph />
             <Patients icon={<PersonIcon />} title={"All Patients"} list={props.patientList} handlePatientClick={props.handlePatientClick} />
             <Patients icon={<PersonAddIcon />} title={"Awaiting Activation"} list={props.tempList} />
         </div>
+         <CohortSideBar />
+         </div>
     )
 }
 
 const Patients = (props) => {
     const classes = useStyles();
     const [sort,setSort] = useState("treatmentStart")
+    const [search,setSearch] = useState("")
 
     const sorted = props.list.slice().sort( (a,b) => {
 
@@ -111,6 +121,8 @@ const Patients = (props) => {
         }
 
         return 0
+    }).filter(each =>{
+        return each.fullName.toLowerCase().includes(search.toLowerCase())
     })
 
     let list = sorted.map((patient,index) => {
@@ -156,7 +168,7 @@ const Patients = (props) => {
     </div>))
 
     return (
-        <Card icon={props.icon} title={props.title}>
+        <Card icon={props.icon} headerChildren={<Search className={classes.search} handleChange={(event) => {setSearch(event.target.value)}} placeholder="Search by Name"/>} title={props.title}>
             <div className={classes.patientList}>
                 {props.list ? list : "No Patients Found"}
             </div>
@@ -164,5 +176,6 @@ const Patients = (props) => {
         </Card>
     )
 }
+
 
 export default PatientsView;

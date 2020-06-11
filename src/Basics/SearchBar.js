@@ -31,10 +31,9 @@ const SearchBar = (props) => {
     const classes = useStyles();
 
     return (
-        <div className={classes.container}>
+        <div className={`${classes.container} ${props.className && props.className}`}>
             <SearchIcon />
             <InputBase
-
                 placeholder={props.placeholder}
                 className={classes.search}
                 id={`search-input-${props.kind}`}

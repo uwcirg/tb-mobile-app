@@ -12,8 +12,7 @@ const useStyles = makeStyles({
 
     superContainer: {
         backgroundColor: "white",
-        width: "100%",
-        height: "100%",
+        width: "90%",
         padding: "4em 1em 4em 1em"
     },
     container: {
