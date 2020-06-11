@@ -10,6 +10,8 @@ import Messages from '../Messaging/PractitionerMessaging'
 import makeStyles from '@material-ui/core/styles/makeStyles'
 import PatientsView from './PatientsView'
 import PhotoList from './PhotoView'
+import Home from './Home/'
+import Settings from './Settings'
 
 import PatientProfile from './PatientProfile'
 
@@ -42,12 +44,13 @@ const PractitionerBody = observer(() => {
 
     return (
         <Body>
-            {location.pathname === "/" && <h1>Home Page</h1>}
+            {location.pathname.startsWith("/settings") && <Settings />}
+            {location.pathname.startsWith("/home") && <Home />}
             {location.pathname === "/photos" && <PhotoList />}
             {location.pathname === "/photos/historical" && <PhotoList processed />}
             {location.pathname.startsWith("/messaging") && <Messages />}
             {location.pathname === "/patients" && <PatientsView
-                patientList={practitionerStore.patients}
+                patientList={practitionerStore.patientList}
                 tempList={practitionerStore.temporaryPatients}
                 handlePatientClick={handlePatientClick}
             />}
@@ -60,10 +63,10 @@ const PractitionerBody = observer(() => {
 const Body = styled.div`
 width: 100%;
 min-height: 100vh;
-padding-left: 1em;
+padding-left: 2em;
 display: flex;
 flex-direction: column;
-justify-content: center;
+justify-content: flex-start;
 align-content: flex-start;
 align-items: flex-start;
 

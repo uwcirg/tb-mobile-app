@@ -109,7 +109,7 @@ export class PatientStore extends UserStore {
     @computed get numberOfPhotoReports() {
 
         return Object.values(toJS(this.savedReports)).reduce((total, report) => {
-            if (report.photoURL) {
+            if (report.photoUrl) {
                 return total += 1
             }
             return total
@@ -183,9 +183,10 @@ export class PatientStore extends UserStore {
 
         if (this.isPhotoDay && this.report.photoString) {
             this.uploadPhoto().then(res => {
-                body.photoURL = res
+                body.photoUrl = res
                 this.executeRequest('dailyReport', body).then(json => {
                     this.report.hasConfirmedAndSubmitted = true;
+                    this.saveReportingState();
                     this.uiState.onTreatmentFlow = false;
                     this.getReports();
                 })
@@ -194,6 +195,7 @@ export class PatientStore extends UserStore {
         } else {
             this.executeRequest('dailyReport', body).then(json => {
                 this.report.hasConfirmedAndSubmitted = true;
+                this.saveReportingState();
                 this.uiState.onTreatmentFlow = false;
                 this.uiState.onHistoricalTreatmentFlow = false;
                 this.getReports();
@@ -223,7 +225,6 @@ export class PatientStore extends UserStore {
                 this.reminderTime = json.isoTime
                 this.isReminderUpdating = false;
             }
-
         });
     }
 
@@ -234,11 +235,9 @@ export class PatientStore extends UserStore {
     }
 
     @action postMilestone = () => {
-
         this.executeRawRequest(`/patient/${this.userID}/milestones`, "POST", this.newMilestone).then(response => {
             this.milestones.push(response);
         })
-
     }
 
     @action startHistoricalReport = () => {
@@ -258,8 +257,6 @@ export class PatientStore extends UserStore {
             hasSubmitted: false,
             hasSubmittedPhoto: false,
         }
-
-
     }
 
     @action skipToReportConfirmation = () => {

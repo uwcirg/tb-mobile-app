@@ -6,6 +6,7 @@ import { PatientStore } from "./patientStore"
 import {UIStore} from "./uiStore"
 import {MessagingStore} from "./messagingStore"
 import LabPhotoStore from  "./labPhotoStore"
+import PractitionerUIStore from './practitionerUIStore'
 import APIHelper from './Requests'
 
 //Testing router option ( would improve usibility on coordinator side)
@@ -26,6 +27,7 @@ export const history = syncHistoryWithStore(browserHistory, routingStore);
 export const stores = {
     routingStore: routingStore,
     patientUIStore: new PatientUIStore(routingStore),
+    practitionerUIStore: new PractitionerUIStore(routingStore),
     loginStore: new LoginStore(apiHelper),
     uiStore: new UIStore(routingStore),
     labPhotoStore: new LabPhotoStore(apiHelper),
