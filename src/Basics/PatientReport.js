@@ -79,8 +79,8 @@ const PatientReport = (props) => {
     const { t, i18n } = useTranslation('translation');
 
     return (<div className={`${classes.container}`}>
-        <ListItem negative={!props.medicationTaken} icon={<PillIcon />} title={t("commonWords.medication")} >
-            <p> {props.medicationTaken ? `${t("patient.report.confirmation.takenAt")} ${DateTime.fromISO(props.timeTaken).toLocaleString(DateTime.TIME_24_SIMPLE)}` : `${t("patient.report.confirmation.notTaken")}:`}</p>
+        <ListItem negative={!props.medicationWasTaken} icon={<PillIcon />} title={t("commonWords.medication")} >
+            <p> {props.medicationWasTaken ? `${t("patient.report.confirmation.takenAt")} ${DateTime.fromISO(props.timeTaken).toLocaleString(DateTime.TIME_24_SIMPLE)}` : `${t("patient.report.confirmation.notTaken")}:`}</p>
             {props.medicationNotTakenReason && <p>{props.medicationNotTakenReason}</p>}
         </ListItem>
 

@@ -45,11 +45,11 @@ const SymptomsList = (props) => {
 
   const { t, i18n } = useTranslation('translation');
 
-  let selectedList = props.symptoms ? SevereSymptoms : Symptoms;
+  let selectedList = props.severe ? SevereSymptoms : Symptoms;
 
   const List = selectedList.map((name, index) => {
     return (
-      <Symptom severe={props.symptoms} key={`symptom-${index}`} name={name} subtitle={t(`symptoms.${name}.subtitle`)} title={t(`symptoms.${name}.title`)} />
+      <Symptom severe={props.severe} key={`symptom-${index}`} name={name} subtitle={t(`symptoms.${name}.subtitle`)} title={t(`symptoms.${name}.title`)} />
     )
   })
 
@@ -66,7 +66,7 @@ const Symptom = observer((props) => {
 
   const handleSelection = (e) => {
 
-    if(props.symptoms){
+    if(props.severe){
       patientStore.toggleSymptomWarningVisibility();
     }
 

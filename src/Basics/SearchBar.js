@@ -37,7 +37,7 @@ const SearchBar = (props) => {
 
                 placeholder={props.placeholder}
                 className={classes.search}
-                id="search-input"
+                id={`search-input-${props.kind}`}
                 onChange={props.handleChange}
             />
         </div>

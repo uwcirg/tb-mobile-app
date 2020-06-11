@@ -51,8 +51,6 @@ const Home = observer(() => {
 
     const classes = useStyles();
 
-    console.log(practitionerStore.photoReports)
-
     return (
         <div className={classes.container}>
             <div className={classes.left}>

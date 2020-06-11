@@ -50,7 +50,7 @@ const PractitionerBody = observer(() => {
             {location.pathname === "/photos/historical" && <PhotoList processed />}
             {location.pathname.startsWith("/messaging") && <Messages />}
             {location.pathname === "/patients" && <PatientsView
-                patientList={practitionerStore.patients}
+                patientList={practitionerStore.patientList}
                 tempList={practitionerStore.temporaryPatients}
                 handlePatientClick={handlePatientClick}
             />}

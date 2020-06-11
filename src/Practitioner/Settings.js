@@ -54,8 +54,9 @@ const Reports = observer((props) => {
     const list = props.reports.map((report) => {
         return (
             <div className={classes.report}>
-                <Patient {...practitionerStore.getPatientByID(report.userId)} />
+                <Patient {...practitionerStore.getPatient(report.userId)} />
                 <p>{report.tookMedication ? "Took Meds" : "Didnt Take Meds"}</p>
+                <p>{report.date}</p>
                 {report.photoUrl ? <img className={classes.image} src={report.photoUrl} /> : <p>N/A</p>}
             </div>
         )

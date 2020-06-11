@@ -28,8 +28,7 @@ export class UserStore extends APIStore{
     @action setAccountInformation(json){
       this.givenName = json.givenName;
       this.familyName = json.familyName;
-      this.userID = json.identifier[0].value;
-      this.managingOrganization = json.managingOrganization
+      this.userID = json.id;
 
       //TODO move this to to patient store and use Super call
       if(this.userType === "Patient"){
@@ -50,7 +49,7 @@ export class UserStore extends APIStore{
     initalize(){
 
       this.executeRequest(`getCurrent${this.userType}`).then( (json) => {
-        if(json.identifier){
+        if(json.id){
             this.setAccountInformation(json)
             this.isLoggedIn = true;
             this.reminderTime = json.reminderTime;
@@ -95,8 +94,6 @@ export class UserStore extends APIStore{
             alert("Push Unsupported")
             return
           }
-
-
           this.getVapidKeyFromServerAndStoreLocally().then(() => {
             registration.pushManager.subscribe({
               userVisibleOnly: true, //Always display notifications

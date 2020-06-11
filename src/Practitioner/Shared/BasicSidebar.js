@@ -83,12 +83,10 @@ const PatientPreview = observer((props) => {
     const classes = useStyles();
     const { practitionerStore } = useStores();
 
-    console.log(practitionerStore.selectedPatientInfo)
-
     return (
         <div className={classes.profile}>
-            <PatientPicture name={practitionerStore.selectedPatientInfo.givenName} />
-            <h2>{practitionerStore.selectedPatientInfo.givenName} {practitionerStore.selectedPatientInfo.familyName}</h2>
+            <PatientPicture name={practitionerStore.selectedPatientInfo.fullName} />
+            <h2>{practitionerStore.selectedPatientInfo.fullName}</h2>
             <p>Adherence: {practitionerStore.selectedPatientInfo.adherence}</p>
             <p>Last Contacted: {DateTime.local().toLocaleString()}</p>
             <p className="clickable">View Full Profile</p>

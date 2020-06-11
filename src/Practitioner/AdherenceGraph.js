@@ -56,7 +56,8 @@ const useStyles = makeStyles({
         display: "flex",
         width: "100%",
         "& > div": {
-            flexGrow: "1"
+            flexGrow: "1",
+            fontWeight: "bold"
         }
     },
     yLabel: {
@@ -65,11 +66,19 @@ const useStyles = makeStyles({
         left: "-3em",
         display: "flex",
         flexDirection: "column-reverse",
+        justifyContent: "space-between",
         "& > div": {
             flexGrow: "1",
             display: "flex",
+            alignItems: "flex-end"
+        },
+        "& > div:last-child":{
+            alignItems: "flex-start"
+        },
+        "& > div:nth-child(2)":{
             alignItems: "center"
-        }
+        },
+
     },
     xDivider: {
         width: "100%",
@@ -135,10 +144,10 @@ const Adherence = observer(() => {
                 <div className={classes.container}>
                     <Background />
                     <div className={classes.top}>
-                        {top.map(each => { return (<DataPoint {...each} top />) })}
+                        {top.map((each,i) => { return (<DataPoint key={`datapoint-top-${i}`} {...each} top />) })}
                     </div>
                     <div className={classes.bottom}>
-                        {bottom.map(each => { return (<DataPoint {...each} />) })}
+                        {bottom.map((each,i) => { return (<DataPoint key={`datapoint-bottom-${i}`} {...each} />) })}
                     </div>
                 </div>
             </div>
@@ -151,7 +160,6 @@ const DataPoint = (props) => {
     const classes = useStyles();
     let bottomCalc;
     if (props.top) {
-        console.log(`${((props.adherence - divider) / (100 - divider)) * 100}`)
         bottomCalc = props.adherence > 0 ? `calc(${((props.adherence - divider) / (1 - divider)) * 100}% - ${GRAPH_MARKER_SIZE}px)` : "0px";
     } else {
         bottomCalc = props.adherence > 0 ? `calc(${(props.adherence/divider) * 100}% - ${GRAPH_MARKER_SIZE}px)` : "0px";
@@ -169,7 +177,7 @@ const DataPoint = (props) => {
 
 const Background = () => {
 
-    const colors = ["#B2F1BE", "#F0715D"]
+    const colors = [Colors.green, Colors.red]
     const classes = useStyles();
 
     let labels = []
@@ -178,15 +186,19 @@ const Background = () => {
 
     for (let step = 0; step < 10; step++) {
         const color = step < 5 ? colors[0] : colors[1];
-        column.push(<div className="row" style={{ backgroundColor: color }} />)
-        labels.push(<div className="yLabel">.{step * 10}</div>)
+        column.push(<div className="row" key={`background-column-${step}`} style={{ backgroundColor: color }} />)
+        //labels.push(<div className="yLabel">.{step * 10}</div>)
     }
+
+    labels.push(<div key={`background-label-0`} className="yLabel">0%</div>)
+    labels.push(<div key={`background-label-1`} className="yLabel">85%</div>)
+    labels.push(<div key={`background-label-2`} className="yLabel">100%</div>)
 
     let months = []
 
     for (let step = 0; step < 6; step++) {
-        months.push(<div className="month">Month {step + 1}</div>)
-        dividers.push(<div></div>)
+        months.push(<div key={`background-month-${step}`} className="month">Month {step + 1}</div>)
+        dividers.push(<div key={`background-divider-${step}`}></div>)
     }
 
     return (

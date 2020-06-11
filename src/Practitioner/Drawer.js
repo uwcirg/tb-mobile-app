@@ -82,7 +82,7 @@ const PractitionerDrawer = observer(() => {
     <div className={classes.filler} />
     <div className={classes.drawer}>
       <List className={classes.list}>
-        <ListItem className={practitionerUIStore.tabNumber === 0 && classes.selected} button key={"Home"} onClick={() => { push('/home') }}>
+        <ListItem className={`${practitionerUIStore.tabNumber === 0 && classes.selected}`} button key={"Home"} onClick={() => { push('/home') }}>
           <ListItemIcon><HomeIcon className={classes.test} /></ListItemIcon>
           {/*<ListItemText primary={"Home"} />*/}
         </ListItem>
@@ -91,11 +91,11 @@ const PractitionerDrawer = observer(() => {
           <ListItemIcon><PatientsIcon /></ListItemIcon>
         </ListItem>
 
-        <ListItem button className={practitionerUIStore.tabNumber === 2 && classes.selected} key={"Messaging"} onClick={() => { push('/messaging') }}>
+        <ListItem button className={practitionerUIStore.tabNumber === 2 ? classes.selected : ""} key={"Messaging"} onClick={() => { push('/messaging') }}>
           <ListItemIcon><MessagingIcon /></ListItemIcon>
         </ListItem>
 
-        <ListItem button className={practitionerUIStore.tabNumber === 3 && classes.selected} key={"Settings"} onClick={() => { push('/settings') }}>
+        <ListItem button className={practitionerUIStore.tabNumber === 3 ? classes.selected : ""} key={"Settings"} onClick={() => { push('/settings') }}>
           <ListItemIcon><Settings /></ListItemIcon>
         </ListItem>
       </List>

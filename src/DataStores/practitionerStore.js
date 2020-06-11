@@ -84,8 +84,12 @@ export class PractitionerStore extends UserStore {
         }
     }
 
+    @computed get patientList(){
+        return Object.values(this.patients)
+    }
+
     getPatient = (id) => {
-        return this.patients.find(patient => { return patient.id == id })
+        return this.patients[id]
     }
 
     @action
@@ -233,23 +237,13 @@ export class PractitionerStore extends UserStore {
         })
     }
 
-    getPatientByID(id) {
-        let result = this.testPatients.find(each => {
-            return each.id === id
-        })
-        return result;
-    }
-
     @computed get selectedPatientInfo() {
 
         if (this.selectedRow.patientId < 0) {
             return {}
         }
 
-        let result = this.patients.find(each => {
-            return each.id === this.selectedRow.patientId
-
-        })
+        let result = this.getPatient(this.selectedRow.patientId);
 
         return (result)
     }

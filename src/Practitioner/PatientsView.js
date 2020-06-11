@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { DateTime } from 'luxon';
 import AddPatientPrompt from './AddPatientPrompt'
@@ -9,7 +9,7 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PersonIcon from '@material-ui/icons/People'
 
 const useStyles = makeStyles({
-    title:{
+    title: {
         width: "100%",
         textAlign: "left"
     },
@@ -72,6 +72,15 @@ const useStyles = makeStyles({
             width: "100%",
             textAlign: "left"
         }
+    },
+    priorityCircle:{
+        width: "35px",
+        height: "35px",
+        borderRadius: "50%",
+        backgroundColor: Colors.calendarGreen
+    },
+    highPriority:{
+        backgroundColor: Colors.calendarRed
     }
 })
 
@@ -89,17 +98,31 @@ const PatientsView = (props) => {
 
 const Patients = (props) => {
     const classes = useStyles();
+    const [sort,setSort] = useState("treatmentStart")
 
-    let list = props.list.map(patient => {
+    const sorted = props.list.slice().sort( (a,b) => {
+
+        if(sort === "treatmentStart"){
+            return DateTime.fromISO(a[sort]).diff(DateTime.fromISO(b[sort]))
+        }else{
+            if(a[sort] < b[sort]) { return -1; }
+            if(a[sort] > b[sort]) { return 1; }
+            return 0;
+        }
+
+        return 0
+    })
+
+    let list = sorted.map((patient,index) => {
         return (
-            <div className={classes.singlePatient}>
+            <div key={`patient-list-view-${index}`} className={classes.singlePatient}>
                 <div className={classes.name}>
-                    <a onClick={() => { props.handlePatientClick(patient.identifier[0].value) }}>
-                        {patient.givenName} {patient.familyName}
+                    <a onClick={() => { props.handlePatientClick(patient.id) }}>
+                       {patient.fullName}
                     </a>
                 </div>
-                <div className={classes.name}>
-                    {patient.phoneNumber}
+                <div>
+                    <div className={`${classes.priorityCircle} ${patient.adherence < .85 && classes.highPriority}`} />
                 </div>
                 <div>
                     {DateTime.fromISO(patient.treatmentStart).toLocaleString(DateTime.DATE_SHORT)}
@@ -107,22 +130,28 @@ const Patients = (props) => {
                 <div>
                     {patient.lastReport ? patient.lastReport.date : "No Reports"}
                 </div>
+                <div>
+                    {patient.adherence * 100}%
+                </div>
             </div>
         )
     })
 
-    list.unshift((<div className={classes.singlePatient}>
-        <div className={classes.name}>
+    list.unshift((<div key={`patient-list-view-top`} className={classes.singlePatient}>
+        <div className={classes.name} onClick={() => {setSort("fullName")}}>
             Name
                 </div>
         <div className={classes.name}>
-            Phone
+            Priority
                 </div>
         <div>
             Treatment Start
                 </div>
         <div>
             Last submission
+                </div>
+                <div onClick={() => {setSort("adherence")}}>
+            Adherence
                 </div>
     </div>))
 
