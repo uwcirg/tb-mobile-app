@@ -25,6 +25,9 @@ const useStyles = makeStyles({
         "& > div": {
             marginTop: "2em"
         },
+        "& > div:last-of-type":{
+            marginBottom: "2em"
+        },
         height: "100vh",
         overflow: "scroll"
     },
@@ -87,6 +90,10 @@ const useStyles = makeStyles({
     },
     highPriority:{
         backgroundColor: Colors.calendarRed
+    },
+    noPatients:{
+        width: "100%",
+        textAlign: "center"
     }
 })
 
@@ -149,7 +156,7 @@ const Patients = (props) => {
         )
     })
 
-    list.unshift((<div key={`patient-list-view-top`} className={classes.singlePatient}>
+    const labels = (<div key={`patient-list-view-top`} className={classes.singlePatient}>
         <div className={classes.name} onClick={() => {setSort("fullName")}}>
             Name
                 </div>
@@ -165,12 +172,13 @@ const Patients = (props) => {
                 <div onClick={() => {setSort("adherence")}}>
             Adherence
                 </div>
-    </div>))
+    </div>)
 
     return (
         <Card icon={props.icon} headerChildren={<Search className={classes.search} handleChange={(event) => {setSearch(event.target.value)}} placeholder="Search by Name"/>} title={props.title}>
             <div className={classes.patientList}>
-                {props.list ? list : "No Patients Found"}
+                {labels}
+                {list && list.length > 0  ? list : <p className={classes.noPatients}>No Patients Found</p>}
             </div>
             {props.temporary && <AddPatientPrompt />}
         </Card>

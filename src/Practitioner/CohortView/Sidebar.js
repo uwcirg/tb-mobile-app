@@ -15,7 +15,7 @@ const CohortSideBar = (props) =>{
 
     return(
         <div className={classes.sidebar}>
-
+            <p>Cohort overview</p>
         </div>
     )
 }
