@@ -21,11 +21,18 @@ const useStyles = makeStyles({
         "& > h1":{
             fontSize: "2em",
             fontStyle: "normal",
-            fontWeight: "bold"
+            fontWeight: "bold",
+            textAlign: "left",
+            width: "90%"
         },
         "& > div":{
-            marginTop: "1.5em"
-        }
+            marginTop: "1.5em",
+            "&:last-of-type": {marginBottom: "2em"}
+        },
+        alignItems: "center",
+        display: "flex",
+        flexDirection: "column"
+        
     },
     container: {
         width: "100%",

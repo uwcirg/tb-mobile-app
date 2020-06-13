@@ -152,6 +152,9 @@ const Patients = (props) => {
                 <div>
                     {patient.adherence * 100}%
                 </div>
+                <div>
+                    {patient.currentStreak} Days
+                </div>
             </div>
         )
     })
@@ -172,6 +175,10 @@ const Patients = (props) => {
                 <div onClick={() => {setSort("adherence")}}>
             Adherence
                 </div>
+                <div>
+                    Streak
+                </div>
+                
     </div>)
 
     return (
