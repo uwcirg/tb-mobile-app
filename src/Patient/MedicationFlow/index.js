@@ -25,7 +25,10 @@ const MedicationFlow = observer((props) => {
     const { t, i18n } = useTranslation('translation');
 
     const advance = () => {
-        patientStore.saveReportingState();
+        if(!patientUIStore.onHistoricalReport){
+           patientStore.saveReportingState(); 
+        }
+        
         patientUIStore.nextReportStep();
     }
 

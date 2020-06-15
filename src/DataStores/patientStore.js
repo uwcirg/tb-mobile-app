@@ -159,7 +159,10 @@ export class PatientStore extends UserStore {
     }
 
     saveReportingState = () => {
-        localStorage.setItem(`medicationReport`, JSON.stringify(this.report));
+        if (!this.report.isHistoricalReport) {
+            localStorage.setItem(`medicationReport`, JSON.stringify(this.report));
+        }
+
     };
 
     @action photoSubmission = () => {
@@ -185,22 +188,23 @@ export class PatientStore extends UserStore {
             this.uploadPhoto().then(res => {
                 body.photoUrl = res
                 this.executeRequest('dailyReport', body).then(json => {
-                    this.report.hasConfirmedAndSubmitted = true;
-                    this.saveReportingState();
-                    this.uiState.onTreatmentFlow = false;
-                    this.getReports();
+                    this.uploadReport(body);
                 })
-
             })
         } else {
             this.executeRequest('dailyReport', body).then(json => {
-                this.report.hasConfirmedAndSubmitted = true;
-                this.saveReportingState();
-                this.uiState.onTreatmentFlow = false;
-                this.uiState.onHistoricalTreatmentFlow = false;
-                this.getReports();
+                this.uploadReport(body);
             })
         }
+    }
+
+    @action uploadReport = (body) => {
+        this.executeRequest('dailyReport', body).then(json => {
+            this.report.hasConfirmedAndSubmitted = true;
+            this.saveReportingState();
+            this.getReports();
+        })
+
     }
 
     @action getReports = () => {
@@ -256,6 +260,7 @@ export class PatientStore extends UserStore {
             headerText: "When did you take your medication?",
             hasSubmitted: false,
             hasSubmittedPhoto: false,
+            isHistoricalReport: true
         }
     }
 
@@ -272,9 +277,10 @@ export class PatientStore extends UserStore {
             const lsReport = JSON.parse(json);
             if (lsReport.date && Math.floor(DateTime.fromISO(lsReport.date).diffNow("days").days * -1) === 0) {
                 this.report = lsReport
+                return
             }
-
         }
+        this.report = defaultReport();
     }
 
     getReportFromDateTime = (date) => {
@@ -315,18 +321,7 @@ export class PatientStore extends UserStore {
         this.information = {}
         this.notes = []
         this.expired = false;
-        this.report = {
-            date: DateTime.local().toISODate(),
-            step: 0,
-            timeTaken: DateTime.local().startOf('second').startOf("minute").toISOTime({ suppressSeconds: true }),
-            selectedSymptoms: [],
-            photoWasTaken: false,
-            photoString: "",
-            tookMedication: true,
-            headerText: "When did you take your medication?",
-            hasSubmitted: false,
-            hasSubmittedPhoto: false
-        }
+        this.report = defaultReport();
         this.uiState = {
             onTreatmentFlow: false,
             onPhotoFlow: false,
@@ -342,5 +337,24 @@ export class PatientStore extends UserStore {
         //this.unsubscribeFromNotifications();
 
     }
+
+    defaultReport = () => {
+        return {
+            date: DateTime.local().toISODate(),
+            step: 0,
+            timeTaken: DateTime.local().startOf('second').startOf("minute").toISOTime({ suppressSeconds: true }),
+            selectedSymptoms: [],
+            photoWasTaken: false,
+            photoString: "",
+            tookMedication: true,
+            whyMedicationNotTaken: "",
+            headerText: "When did you take your medication?",
+            hasSubmitted: false,
+            hasSubmittedPhoto: false,
+            hasConfirmedAndSubmitted: false,
+            isHistoricalReport: false
+        }
+    }
+
 
 }

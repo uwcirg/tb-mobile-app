@@ -10,6 +10,8 @@ import PersonIcon from '@material-ui/icons/People'
 import BasicSidebar from '../Shared/BasicSidebar';
 import CohortSideBar from './Sidebar';
 import Search from '../../Basics/SearchBar'
+import DownIcon from '@material-ui/icons/KeyboardArrowDown';
+import UpIcon from '@material-ui/icons/KeyboardArrowUp';
 
 const useStyles = makeStyles({
     title: {
@@ -117,6 +119,11 @@ const Patients = (props) => {
     const [sort,setSort] = useState("treatmentStart")
     const [search,setSearch] = useState("")
 
+
+    const isSortingAdherence = () => {
+        return sort === "adherence"
+    }
+
     const sorted = props.list.slice().sort( (a,b) => {
 
         if(sort === "treatmentStart"){
@@ -163,8 +170,8 @@ const Patients = (props) => {
         <div className={classes.name} onClick={() => {setSort("fullName")}}>
             Name
                 </div>
-        <div className={classes.name}>
-            Priority
+        <div className={classes.name} onClick={() => {setSort("adherence")}}>
+            Priority {isSortingAdherence() ? <DownIcon /> : <UpIcon />}
                 </div>
         <div>
             Treatment Start
@@ -173,7 +180,7 @@ const Patients = (props) => {
             Last submission
                 </div>
                 <div onClick={() => {setSort("adherence")}}>
-            Adherence
+            Adherence {isSortingAdherence() ? <DownIcon /> : <UpIcon />}
                 </div>
                 <div>
                     Streak
