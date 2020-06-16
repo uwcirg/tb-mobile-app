@@ -45,14 +45,16 @@ const Card = (props) => {
         setVisible(!visible)
     }
 
-    return (<div className={classes.superContainer}>
+    return (<div className={`${classes.superContainer} ${props.className} `}>
         <div className={classes.header}>
             {props.icon}
             <h2>{props.title}</h2>
             {props.headerChildren}
             <IconButton className={classes.collapse} onClick={toggleVisibility}>{visible ? <DownIcon /> : <UpIcon />}</IconButton>
         </div>
+        <div className={props.bodyClassName}>
         {visible && props.children}
+        </div>
     </div>)
 
 }

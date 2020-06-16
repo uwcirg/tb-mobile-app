@@ -17,7 +17,7 @@ import { MileStone } from '../Progress/Milestones'
 const ProgressGraph = observer((props) => {
     const classes = useStyles();
     const { patientStore, patientUIStore, } = useStores();
-    const dayValue = (patientStore.daysSinceTreatmentStart / 180) * 100;
+    const dayValue = (patientStore.patientInformation.daysInTreatment / 180) * 100;
     const { t, i18n } = useTranslation('translation');
 
     return (
@@ -31,10 +31,10 @@ const ProgressGraph = observer((props) => {
                             rotation: 3 / 4,
                             strokeLinecap: "round"
                         })}>
-                            <p className={classes.progressText}>{patientStore.daysSinceTreatmentStart} {t("commonWords.of")} <br /> 180 {t('time.days')}</p>
+                            <p className={classes.progressText}>{patientStore.patientInformation.daysInTreatment} {t("commonWords.of")} <br /> 180 {t('time.days')}</p>
                         </CircularProgressbar>
                     </div>
-                    <StatBox title={`4`} text={t('patient.home.progress.currentStreak')} />
+                    <StatBox title={patientStore.getCurrentStreak} text={t('patient.home.progress.currentStreak')} />
                 </div>
             </div>
             <div className={classes.bottomSection}>

@@ -32,7 +32,6 @@ const Settings = observer((props) => {
     const { practitionerStore } = useStores();
 
     useEffect(() => {
-        practitionerStore.getPatientsTest();
         practitionerStore.getRecentReports()
     }, [])
 

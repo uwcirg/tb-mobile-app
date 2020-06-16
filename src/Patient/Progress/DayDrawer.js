@@ -82,6 +82,12 @@ const Body = (props) => {
   const classes = useStyles();
   const { t, i18n } = useTranslation('translation');
   const { patientUIStore } = useStores();
+
+  console.log(props)
+  const handleDrawerClick = () => {
+    
+    patientUIStore.startHistoricalReport();
+  }
   
   return (
     <>
@@ -91,7 +97,7 @@ const Body = (props) => {
           <div className={classes.previewItem}><TempIcon /><p>{t("commonWords.symptoms")}</p></div>
           {props.photoDay && <div className={`${classes.previewItem} ${props.missingPhoto && classes.previewItemMissed}`}><Camera /><p>{t('commonWords.stripPhoto')}</p></div>}
         </div> :
-        <NewButton onClick={()=>{patientUIStore.startHistoricalReport()}} icon={<PillIcon />} text={t("patient.home.todaysActions.logMedication")} />
+        <NewButton onClick={handleDrawerClick} icon={<PillIcon />} text={t("patient.home.todaysActions.logMedication")} />
       }
     </>
   )

@@ -16,7 +16,7 @@ const CustomCalendar = (props) => {
 
     
     const handleChange = (date) => {
-        //patientStore.uiState.selectedCalendarDate = DateTime.fromJSDate(date);
+        props.handleChange(date);
     }
     
 
@@ -30,14 +30,14 @@ const CustomCalendar = (props) => {
             minDetail="month"
             view="month"
             onChange={() => { }}
-            value={new Date()}
+            value={props.selectedDay}
             className={classes.calendar}
             navigationLabel={(
                 { date }) => `${DateTime.fromJSDate(date).get("monthLong")} ${DateTime.fromJSDate(date).get("year")}`
             }
             tileContent={({ date, view }) => (
                 view === "month"
-                    ? <Day reports={props.reports} selectedCalendarDate={DateTime.local().startOf('day')} dateObj={date} date={DateTime.fromJSDate(date).day} disabled={DateTime.fromJSDate(date) > DateTime.local() || DateTime.fromJSDate(date) < DateTime.fromISO(props.treatmentStart)} />
+                    ? <Day reports={props.reports} selectedCalendarDate={DateTime.fromJSDate(props.selectedDay).startOf('day')} dateObj={date} date={DateTime.fromJSDate(date).day} disabled={DateTime.fromJSDate(date) > DateTime.local() || DateTime.fromJSDate(date) < DateTime.fromISO(props.treatmentStart)} />
                     : null
             )}
             next2Label={""}
