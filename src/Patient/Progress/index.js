@@ -42,7 +42,7 @@ const ReportOldMedication = () => {
 
         return function cleanup() {
             patientStore.loadDailyReport();
-            patientStore.uiState.onHistoricalTreatmentFlow = false;
+            patientStore.report.isHistoricalReport = false;
         }
     })
 

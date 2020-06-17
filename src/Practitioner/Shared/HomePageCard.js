@@ -11,7 +11,6 @@ const useStyles = makeStyles({
     container: {
         minHeight: "50px",
         width: "100%",
-        border: "1px solid lightgray",
         borderRadius: "1em",
         display: "flex",
         flexDirection: "column",
@@ -38,6 +37,9 @@ const useStyles = makeStyles({
         borderTop: "solid 1px lightgray",
         "&:first-of-type": {
             borderTop: "none"
+        },
+        "&:last-of-type":{
+            borderRadius: "0 0 1em 1em"
         },
         display: "flex",
         alignItems: "center",

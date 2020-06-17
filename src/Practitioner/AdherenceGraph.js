@@ -12,8 +12,7 @@ const useStyles = makeStyles({
 
     superContainer: {
         backgroundColor: "white",
-        width: "100%",
-        height: "100%",
+        width: "90%",
         padding: "4em 1em 4em 1em"
     },
     container: {
@@ -114,25 +113,14 @@ const Adherence = observer(() => {
     const classes = useStyles();
 
     useEffect(() => {
-        practitionerStore.getPatientsTest();
+        practitionerStore.getPatients();
     }, [])
 
-    const handleMouseIn = () => {
-        console.log("Mouse in")
-    }
-
-    const handleMouseOut = () => {
-        console.log("mouse out")
-    }
-
-    let goodPatients;
-    let badPatients;
-
-    const bottom = practitionerStore.testPatients.slice().filter((patient) => {
+    const bottom = practitionerStore.patientList.slice().filter((patient) => {
         return patient.adherence < divider
     })
 
-    const top = practitionerStore.testPatients.slice().filter((patient) => {
+    const top = practitionerStore.patientList.slice().filter((patient) => {
         return patient.adherence > divider
     })
 

@@ -20,6 +20,11 @@ export class PatientStore extends UserStore {
         super(strategy, ROUTES, "Patient")
     }
 
+    @observable patientInformation = {
+        daysInTreatment: 0,
+        currentStreak: 0
+    }
+
     //@observable notificationTime = DateTime.fromISO("12:00:00").toISOTime();
     @observable isReminderUpdating = false;
 
@@ -38,21 +43,7 @@ export class PatientStore extends UserStore {
     @observable savedReports = [];
     @observable milestones = [];
 
-    @observable report = {
-        date: DateTime.local().toISODate(),
-        step: 0,
-        timeTaken: DateTime.local().startOf('second').startOf("minute").toISOTime({ suppressSeconds: true }),
-        selectedSymptoms: [],
-        photoWasTaken: false,
-        photoString: "",
-        tookMedication: true,
-        whyMedicationNotTaken: "",
-        headerText: "When did you take your medication?",
-        hasSubmitted: false,
-        hasSubmittedPhoto: false,
-        hasConfirmedAndSubmitted: false,
-        isHistoricalReport: false
-    }
+    @observable report = this.defaultReport;
 
     @observable treatmentFlowLength = 0;
 
@@ -61,6 +52,17 @@ export class PatientStore extends UserStore {
         title: "",
         location: "",
         allDay: false
+    }
+
+
+    @action setAccountInformation(json){
+        
+        this.photoSchedule = JSON.parse(json.medicationSchedule)
+        this.treatmentStart = json.treatmentStart
+        this.patientInformation.daysInTreatment = json.daysInTreatment;
+        this.patientInformation.currentStreak = json.currentStreak;
+        super.setAccountInformation(json);
+      
     }
 
     @computed get datetimeTreatmentStart() {
@@ -116,6 +118,17 @@ export class PatientStore extends UserStore {
         }, 0)
     }
 
+    //Streak calculated on server can only produce streak from yesterday. 
+    //If the user has completed their treatment today, this will add oneday
+    @computed get getCurrentStreak(){
+        let streak = this.patientInformation.currentStreak;
+        if(this.report.hasConfirmedAndSubmitted && this.report.tookMedication){
+            streak += 1;
+        }
+
+        return streak;
+    }
+
     @computed get incompleteDays() {
         return (Interval.fromDateTimes(
             this.datetimeTreatmentStart,
@@ -159,7 +172,10 @@ export class PatientStore extends UserStore {
     }
 
     saveReportingState = () => {
-        localStorage.setItem(`medicationReport`, JSON.stringify(this.report));
+        if (!this.report.isHistoricalReport) {
+            localStorage.setItem(`medicationReport`, JSON.stringify(this.report));
+        }
+
     };
 
     @action photoSubmission = () => {
@@ -185,22 +201,23 @@ export class PatientStore extends UserStore {
             this.uploadPhoto().then(res => {
                 body.photoUrl = res
                 this.executeRequest('dailyReport', body).then(json => {
-                    this.report.hasConfirmedAndSubmitted = true;
-                    this.saveReportingState();
-                    this.uiState.onTreatmentFlow = false;
-                    this.getReports();
+                    this.uploadReport(body);
                 })
-
             })
         } else {
             this.executeRequest('dailyReport', body).then(json => {
-                this.report.hasConfirmedAndSubmitted = true;
-                this.saveReportingState();
-                this.uiState.onTreatmentFlow = false;
-                this.uiState.onHistoricalTreatmentFlow = false;
-                this.getReports();
+                this.uploadReport(body);
             })
         }
+    }
+
+    @action uploadReport = (body) => {
+        this.executeRequest('dailyReport', body).then(json => {
+            this.report.hasConfirmedAndSubmitted = true;
+            this.saveReportingState();
+            this.getReports();
+        })
+
     }
 
     @action getReports = () => {
@@ -256,6 +273,7 @@ export class PatientStore extends UserStore {
             headerText: "When did you take your medication?",
             hasSubmitted: false,
             hasSubmittedPhoto: false,
+            isHistoricalReport: true
         }
     }
 
@@ -272,9 +290,10 @@ export class PatientStore extends UserStore {
             const lsReport = JSON.parse(json);
             if (lsReport.date && Math.floor(DateTime.fromISO(lsReport.date).diffNow("days").days * -1) === 0) {
                 this.report = lsReport
+                return
             }
-
         }
+        this.report = this.defaultReport;
     }
 
     getReportFromDateTime = (date) => {
@@ -315,18 +334,7 @@ export class PatientStore extends UserStore {
         this.information = {}
         this.notes = []
         this.expired = false;
-        this.report = {
-            date: DateTime.local().toISODate(),
-            step: 0,
-            timeTaken: DateTime.local().startOf('second').startOf("minute").toISOTime({ suppressSeconds: true }),
-            selectedSymptoms: [],
-            photoWasTaken: false,
-            photoString: "",
-            tookMedication: true,
-            headerText: "When did you take your medication?",
-            hasSubmitted: false,
-            hasSubmittedPhoto: false
-        }
+        this.report = this.defaultReport;
         this.uiState = {
             onTreatmentFlow: false,
             onPhotoFlow: false,
@@ -342,5 +350,22 @@ export class PatientStore extends UserStore {
         //this.unsubscribeFromNotifications();
 
     }
+
+    defaultReport = {
+            date: DateTime.local().toISODate(),
+            step: 0,
+            timeTaken: DateTime.local().startOf('second').startOf("minute").toISOTime({ suppressSeconds: true }),
+            selectedSymptoms: [],
+            photoWasTaken: false,
+            photoString: "",
+            tookMedication: true,
+            whyMedicationNotTaken: "",
+            headerText: "When did you take your medication?",
+            hasSubmitted: false,
+            hasSubmittedPhoto: false,
+            hasConfirmedAndSubmitted: false,
+            isHistoricalReport: false
+    }
+
 
 }

@@ -17,7 +17,7 @@ const useStyles = makeStyles({
         width: "300px",
         padding: "2.5%",
         backgroundColor: "white",
-        borderLeft: "solid 5px lightgray"
+        borderLeft: "solid 1px lightgray"
     },
     filler: {
         width: "400px",
@@ -71,8 +71,8 @@ const Card = observer((props) => {
             {/* Filler to allow the flex displayed hompage to work with the sidebar being fixed position 
         <div className={classes.filler} />*/}
             <div className={classes.container}>
-                <div className={classes.clear}><IconButton onClick={handleClose}><ClearIcon /></IconButton></div>
-                <PatientPreview />
+                {!props.isCohortView &&<div className={classes.clear}><IconButton onClick={handleClose}><ClearIcon /></IconButton></div>}
+                {!props.isCohortView && <PatientPreview />}
                 {props.children}
             </div>
         </>

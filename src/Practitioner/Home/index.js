@@ -11,18 +11,28 @@ import PhotoSidebar from './PhotoSideBar'
 import SymptomSidebar from './SymptomSideBar'
 import MedicationSideBar from './MedicationSideBar'
 import { DateTime } from 'luxon';
+import RecentReports from './RecentReports';
 
 const useStyles = makeStyles({
     left: {
-        width: "60%",
+        height: "100vh",
+        overflow: "scroll",
+        flexGrow: "1",
         "& > h1":{
             fontSize: "2em",
             fontStyle: "normal",
-            fontWeight: "bold"
+            fontWeight: "bold",
+            textAlign: "left",
+            width: "90%"
         },
         "& > div":{
-            marginTop: "1.5em"
-        }
+            marginTop: "1.5em",
+            "&:last-of-type": {marginBottom: "2em"}
+        },
+        alignItems: "center",
+        display: "flex",
+        flexDirection: "column"
+        
     },
     container: {
         width: "100%",
@@ -74,7 +84,7 @@ const Home = observer(() => {
                     type="missedMedication"
                 />
             </div>
-            {practitionerStore.selectedRow.visible != "" && <SideBarRouter />}
+           <SideBarRouter />
         </div>)
 
 });
@@ -89,7 +99,7 @@ const SideBarRouter = observer((props) => {
     }else if(practitionerStore.selectedRow.type === "missedMedication"){
         return <MedicationSideBar />
     }
-    return ""
+    return <RecentReports />
 });
 
 

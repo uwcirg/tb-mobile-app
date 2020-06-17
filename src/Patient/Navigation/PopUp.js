@@ -5,6 +5,7 @@ import Styles from '../../Basics/Styles';
 import {Grid, IconButton } from '@material-ui/core';
 import Clear from '@material-ui/icons/Clear';
 
+
 const useStyles = makeStyles({
     container:{
         ...Styles.flexCenter,
@@ -39,7 +40,7 @@ const PopUp = (props) => {
 
     return (<div className={classes.container}>
     <ClickAwayListener onClickAway={props.handleClickAway}>
-        <div className={classes.popup}>
+        <div className={`${classes.popup} ${props.className}`}>
             <IconButton className={classes.exit} onClick={props.handleClickAway}><Clear /></IconButton>
             {props.children}
         </div>

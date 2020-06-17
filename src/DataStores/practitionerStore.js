@@ -13,7 +13,6 @@ const ROUTES = {
     getPatientNames: ["/practitioner/patients?namesOnly=true", "GET"],
     getSeverePatients: ["/patients/severe", "GET"],
     getMissingPatients: ["/patients/missed", "GET"],
-    getPatientsTest: ["/test/patients", "GET"],
     getRecentReports: ["/patients/reports/recent", "GET"],
 }
 
@@ -24,7 +23,7 @@ export class PractitionerStore extends UserStore {
         super(strategy, ROUTES, "Practitioner")
     }
 
-    @observable testPatients = []
+    @observable testPatients = "not here"
     @observable selectedPatientSymptoms = {
        summary: [],
        summaryLoading: false
@@ -56,7 +55,6 @@ export class PractitionerStore extends UserStore {
         startDate: new Date().toISOString()
     }
 
-    @observable patientNames = {};
     @observable patients = [];
     @observable temporaryPatients = [];
     @observable photoReports = [];
@@ -115,7 +113,6 @@ export class PractitionerStore extends UserStore {
         this.userType = "Practitioner"
         this.getOrganizations();
         this.getPatients();
-        this.getPatientNames();
         super.initalize();
     }
 
@@ -165,15 +162,14 @@ export class PractitionerStore extends UserStore {
         })
     }
 
-    @action getPatientDailyReports = (id) => {
+    @action getPatientDetails = (id) => {
+        this.executeRawRequest(`/practitioner/patient/${id}?`, "GET").then(response => {
+            this.selectedPatient = response
+        })
+
+        //Must fetch reports seperately due to key tranform in Rails::AMS removing dashes ISO date keys :(
         this.executeRawRequest(`/patient/${id}/reports`, "GET").then(response => {
             this.selectedPatient.reports = response;
-        })
-    }
-
-    @action getPatientNames = () => {
-        this.executeRequest("getPatientNames").then(response => {
-            this.patientNames = response;
         })
     }
 
@@ -206,12 +202,6 @@ export class PractitionerStore extends UserStore {
     @action getRecentReports = () => {
         this.executeRequest("getRecentReports").then(response => {
             this.recentReports = response;
-        })
-    }
-
-    @action getPatientsTest = () => {
-        this.executeRequest("getPatientsTest").then(response => {
-            this.testPatients = response;
         })
     }
 

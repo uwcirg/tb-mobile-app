@@ -23,7 +23,10 @@ const ReportSymptoms = observer((props) => {
 
     const handleNext = () => {
         props.advance()
-        patientStore.report.hasSubmitted = true;
+        if(!patientStore.report.isHistoricalReport){
+            patientStore.report.hasSubmitted = true;
+        }
+        
     }
 
     return (

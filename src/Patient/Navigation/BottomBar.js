@@ -7,10 +7,11 @@ import HomeIcon from '@material-ui/icons/Home'
 import ForumIcon from '@material-ui/icons/Forum';
 import InfoIcon from '@material-ui/icons/Info';
 import { inject, observer } from 'mobx-react';
-
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import useStores from '../../Basics/UseStores';
 import Colors from '../../Basics/Colors';
+
+import Badge from '@material-ui/core/Badge'
 
 const useStyles = makeStyles({
   root: {
@@ -52,10 +53,10 @@ const BottomBar = observer((props) => {
     >
       <BottomNavigationAction onClick={patientUIStore.goToHome} className="intro-home-button" icon={<HomeIcon />} />
       <BottomNavigationAction onClick={patientUIStore.goToProgress} className="intro-progress-button" icon={<EventAvailableIcon />} />
-      <BottomNavigationAction onClick={patientUIStore.goToMessaging} icon={<div className={classes.messageContainer}>
+      <BottomNavigationAction onClick={patientUIStore.goToMessaging} icon={
+      <Badge color={"primary"} invisible={messagingStore.numberUnread < 1} badgeContent={messagingStore.numberUnread} >
         <ForumIcon />
-        {messagingStore.numberUnread > 0 && <div className={classes.newMessages}>{messagingStore.numberUnread}</div>}
-        </div>} />
+        </Badge>} />
       <BottomNavigationAction onClick={patientUIStore.goToInformation} icon={<InfoIcon  />} />
     </BottomNavigation>
   );
