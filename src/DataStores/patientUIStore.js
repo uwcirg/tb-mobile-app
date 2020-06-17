@@ -9,10 +9,12 @@ export default class PatientUIStore {
 
         //Allow UI Redirects from notifications
         //event is sent from custom-service-worker.js
-        const channel = new BroadcastChannel('notifications');
-        channel.addEventListener('message', event => {
-            this.handleMessageFromServiceworker(event.data);
-          });
+        if(isBroadcastChannelSupported()){
+            const channel = new BroadcastChannel('notifications');
+            channel.addEventListener('message', event => {
+                this.handleMessageFromServiceworker(event.data);
+            });
+        }
     }
 
     @observable onOnboarding = false;
@@ -122,8 +124,16 @@ export default class PatientUIStore {
         const base = this.onHistoricalReport ? '/progress/report/' : '/home/report/'
         this.router.push(`${base}${step}`)
     }
-
-    
-
-
 }
+
+function isBroadcastChannelSupported() {
+    // When running in a sandboxed iframe, the BroadcastChannel API
+    // is not actually available and throws an exception
+    try {
+        const channel = new BroadcastChannel("feature_test");
+        channel.close();
+        return true;
+    } catch(err) {
+        return false;
+    }
+  }
