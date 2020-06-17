@@ -55,6 +55,15 @@ const useStyles = makeStyles({
         color: "white",
         height: "1.5em",
         width: "1.5em"
+    },
+    background:{
+        position: "fixed",
+        zIndex: "-1",
+        bottom: 0,
+        left: 0,
+        height: "5000px",
+        width: "5000px",
+        backgroundColor: "#0e3782"
     }
   });
 
@@ -81,6 +90,8 @@ const LoginRouter = () => {
     }
 
     return(
+        <>
+        <div className={classes.background} />
         <div className={`${classes.container} `}>
             {selection ? <IconButton onClick={() => {setSelection("")}} ><ChevronLeftOutlined className={classes.back}/></IconButton> : ""}
             <div className={classes.containerTop}>
@@ -90,6 +101,7 @@ const LoginRouter = () => {
             {!selection ? <Selection handleSelection={handleSelection} /> : <LoginPage loginType={selection}/>}
             </div>
         </div>
+        </>
     )
 }
 
