@@ -24,12 +24,11 @@ workbox.routing.registerRoute(
   workbox.strategies.networkFirst()
 )
 
-
 self.addEventListener('push', function (event) {
 
   let data = event.data.json();
 
-  if(data.data.type && data.data.type == "messaging"){
+  if(data.data.type && data.data.type == "messaging" && isBroadcastChannelSupported()){
     //Send a message to the client to route to the proper state
     const channel = new BroadcastChannel('messaging-notification');
     channel.postMessage("update");
@@ -59,9 +58,11 @@ self.addEventListener('notificationclick', function (event) {
 
     if (matchingClient) {
 
-      //Send a message to the client to route to the proper state
-      const channel = new BroadcastChannel('notifications');
-      channel.postMessage({ url: event.notification.data });
+      if(isBroadcastChannelSupported()){
+        //Send a message to the client to route to the proper state
+        const channel = new BroadcastChannel('notifications');
+        channel.postMessage({ url: event.notification.data });
+      }
 
       //matchingClient.postMessage({msg: 'Hello from SW'})
       event.notification.close();
@@ -101,5 +102,21 @@ self.addEventListener('pushsubscriptionchange', function (event) {
       })
   );
 });
+
+function isBroadcastChannelSupported() {
+  if (!("BroadcastChannel" in self)) {
+      return false;
+  }
+
+  // When running in a sandboxed iframe, the BroadcastChannel API
+  // is not actually available and throws an exception
+  try {
+      const channel = new BroadcastChannel("feature_test");
+      channel.close();
+      return true;
+  } catch(err) {
+      return false;
+  }
+}
 
 
