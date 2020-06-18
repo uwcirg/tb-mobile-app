@@ -59,7 +59,7 @@ const useStyles = makeStyles({
             padding: 0
         },
         "& > .title":{
-            fontWeight: "bold",
+            fontWeight: "medium",
             fontSize: ".9em",
             marginBottom: "5px"
         },

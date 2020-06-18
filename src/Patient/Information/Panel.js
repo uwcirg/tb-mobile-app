@@ -17,7 +17,7 @@ const useStyles = makeStyles({
         margin: 0
     },
     heading:{
-        fontWeight: "bold"
+        fontWeight: "medium"
     },
     icon:{
         padding:0,

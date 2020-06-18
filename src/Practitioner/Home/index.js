@@ -21,7 +21,7 @@ const useStyles = makeStyles({
         "& > h1":{
             fontSize: "2em",
             fontStyle: "normal",
-            fontWeight: "bold",
+            fontWeight: "medium",
             textAlign: "left",
             width: "90%"
         },

@@ -16,7 +16,7 @@ const useStyles = makeStyles({
       marginBottom: "1em"
   },
   greeting:{
-    fontWeight: "bold",
+    fontWeight: "medium",
     fontSize: "1.25em"
   },
   date:{

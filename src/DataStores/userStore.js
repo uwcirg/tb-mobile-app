@@ -83,7 +83,7 @@ export class UserStore extends APIStore {
     navigator.serviceWorker.ready.then(registration => {
 
       if (!registration.pushManager) {
-        alert("Push Unsupported")
+        //alert("Push Unsupported")
         return
       }
       this.getVapidKeyFromServerAndStoreLocally().then(() => {

@@ -17,7 +17,7 @@ const useStyles = makeStyles({
         ...Styles.flexRow,
         alignItems: "center",
         width: "90%",
-        fontWeight: "bold",
+        fontWeight: "medium",
         padding: 0,
         margin: 0
     },
