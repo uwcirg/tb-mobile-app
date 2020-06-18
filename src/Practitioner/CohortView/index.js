@@ -50,7 +50,7 @@ const useStyles = makeStyles({
             backgroundColor: "white",
             color: "gray",
             borderRadius: ".5em .5em 0 0",
-            fontWeight: "bold"
+            fontWeight: "medium"
         },
         "&:last-child": {
             borderBottom: "none"

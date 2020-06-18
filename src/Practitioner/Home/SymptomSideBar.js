@@ -26,7 +26,7 @@ const useStyles = makeStyles({
         }
     },
     day: {
-        fontWeight: "bold"
+        fontWeight: "medium"
     },
     symptomContainer: {
         width: "100%"

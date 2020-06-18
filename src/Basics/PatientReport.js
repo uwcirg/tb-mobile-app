@@ -27,16 +27,13 @@ const useStyles = makeStyles({
     parent: {
         margin: "auto",
         width: "100%",
-        display: "grid",
-        gridTemplateColumns: "repeat(3,1fr)",
-        gridTemplateRows: "auto auto",
-        gridColumnGap: "0",
-        gridRowGap: "0",
+        display: "flex",
         paddingBottom: ".5em",
 
     },
     one: {
-        gridArea: "1 / 1 / 2 / 3",
+        display: "flex",
+        flexDirection: "column",
         justifyContent: "flex-start",
         paddingLeft: "1em",
         "& > h2": {
@@ -50,17 +47,17 @@ const useStyles = makeStyles({
         },
     },
     two: {
-        gridArea: "2 / 1 / 3 / 3",
+        width: "100%",
         color: Colors.textGray,
-        alignItems: "flex-start",
         paddingLeft: "1em",
         "& > p": {
-            margin: "0 0 2px 0"
+            margin: "0"
         }
     },
     three: {
-        gridArea: "1 / 3 / 3 / 4",
-        ...Styles.flexCenter
+        marginLeft: "auto",
+        marginRight: "2em",
+        alignSelf: "center"
     },
     check: {
         color: Colors.approvedGreen
@@ -135,11 +132,8 @@ function ListItem(props) {
     return (
         <div className={`${classes.parent}`}>
             <div className={classes.one}>
-                <h2>{props.icon}
-                    {props.title}</h2>
-            </div>
-            <div className={classes.two}>
-                {props.children}
+                <h2>{props.icon} {props.title}</h2>
+                <div className={classes.two}>{props.children}</div>
             </div>
             <div className={classes.three}>
                 {props.negative ? <ClearIcon className={classes.negative} /> : <CheckIcon className={classes.check} />}

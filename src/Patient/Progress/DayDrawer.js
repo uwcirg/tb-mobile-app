@@ -45,7 +45,7 @@ const DayDrawer = observer((props) => {
         </div>
       </ExpansionPanelSummary>
       {complete &&
-        <ExpansionPanelDetails className={classes.detail}>
+        <ExpansionPanelDetails onClick={()=>{}} className={classes.detail}>
           {patientStore.selectedDayReport ?
             <PatientReport
               pastReport
@@ -83,7 +83,6 @@ const Body = (props) => {
   const { t, i18n } = useTranslation('translation');
   const { patientUIStore } = useStores();
 
-  console.log(props)
   const handleDrawerClick = () => {
     
     patientUIStore.startHistoricalReport();
@@ -163,7 +162,7 @@ const useStyles = makeStyles({
     width: "100%"
   },
   detail: {
-    minHeight: "75vh",
+    height: "75vh",
     overflow: "scroll",
     padding: 0,
     margin: 0,

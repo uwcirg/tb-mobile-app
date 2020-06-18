@@ -17,7 +17,7 @@ import ArchiveIcon from '@material-ui/icons/HowToReg';
 
 const useStyles = makeStyles({
     listItem: {
-        fontWeight: "bold",
+        fontWeight: "medium",
         textTransform: "capitalize"
     },
     header: {
@@ -54,7 +54,7 @@ const useStyles = makeStyles({
         width: "35%",
     },
     bold: {
-        fontWeight: "bold"
+        fontWeight: "medium"
     },
     reportsList: {
         ...Styles.flexColumn,

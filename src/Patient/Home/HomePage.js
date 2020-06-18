@@ -20,7 +20,7 @@ const HomePage = () => {
             <Greeting />
             <ActionBox />
             <Progress />
-            <button onClick={toggleEducationVisibility}> Test Education</button>
+            {/*<button onClick={toggleEducationVisibility}> Test Education</button>*/}
            {/*<Alerts />*/} 
         </Body>
     )
@@ -32,6 +32,7 @@ const Body = styled.div`
 padding-top: 1em;
 
 width: 100%;
+min-height: 90vh;
 display: flex;
 flex-direction: column;
 justify-content: flex-start;

@@ -137,7 +137,7 @@ const useStyles = makeStyles({
         ...Styles.flexCenter
     },
     today: {
-        fontWeight: "bold"
+        fontWeight: "medium"
     },
     positive: {
         backgroundColor: Colors.calendarGreen,
