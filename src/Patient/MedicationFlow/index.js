@@ -10,6 +10,7 @@ import useStores from '../../Basics/UseStores';
 import { makeStyles } from '@material-ui/core/styles';
 import ReportConfirmation from './ReportConfirmation'
 import NumberedTitle from '../Navigation/NumberedTitle'
+import ReportMood from './ReportMood';
 
 const useStyles = makeStyles({
     container: {
@@ -35,7 +36,7 @@ const MedicationFlow = observer((props) => {
     let Tabs;
 
     if (patientStore.isPhotoDay && !patientUIStore.onHistoricalReport) {
-        Tabs = [<ReportMedication />, <ReportSymptoms />, <ReportPhoto />, <ReportConfirmation />]
+        Tabs = [<ReportMedication />, <ReportSymptoms />,<ReportMood />, <ReportPhoto />, <ReportConfirmation />]
     } else {
         Tabs = [<ReportMedication />, <ReportSymptoms />, <ReportConfirmation />]
     }

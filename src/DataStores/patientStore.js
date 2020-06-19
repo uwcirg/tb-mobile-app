@@ -54,7 +54,6 @@ export class PatientStore extends UserStore {
         allDay: false
     }
 
-
     @action setAccountInformation(json){
         
         this.photoSchedule = JSON.parse(json.medicationSchedule)
@@ -196,6 +195,7 @@ export class PatientStore extends UserStore {
         body.medicationWasTaken = this.report.tookMedication;
         body.whyMedicationNotTaken = this.report.whyMedicationNotTaken;
         body.dateTimeTaken = this.report.timeTaken;
+        body.doingOkay = this.report.doingOkay;
 
         if (this.isPhotoDay && this.report.photoString) {
             this.uploadPhoto().then(res => {
@@ -364,7 +364,9 @@ export class PatientStore extends UserStore {
             hasSubmitted: false,
             hasSubmittedPhoto: false,
             hasConfirmedAndSubmitted: false,
-            isHistoricalReport: false
+            isHistoricalReport: false,
+            doingOkay: true,
+            doingOkaySelected: false
     }
 
 

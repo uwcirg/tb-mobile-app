@@ -31,11 +31,8 @@ const ReportSymptoms = observer((props) => {
 
     return (
         <div>
-            <InteractionCard upperText="Common Symptoms">
+            <InteractionCard upperText={t("commonWords.symptoms")}>
                 <SymptomsList />
-            </InteractionCard>
-            <InteractionCard upperText="Severe Symptoms">
-                <SymptomsList severe />
             </InteractionCard>
             <SimpleButton alignRight className={classes.button} onClick={handleNext}>
                 {t("commonWords.report")} {patientStore.report.selectedSymptoms.length === 0 ? t("commonWords.no") : patientStore.report.selectedSymptoms.length} {t("commonWords.symptoms")}

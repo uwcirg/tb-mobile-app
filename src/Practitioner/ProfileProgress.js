@@ -51,7 +51,7 @@ const ProgressGraphs = (props) => {
             <div className={classes.container}>
                 <SingleGraph color={Colors.accentBlue} value={.75} largeText={`${props.daysInTreatment}/180`} bottomText="Completed days" />
                 <SingleGraph color={Colors.red} value={props.adherence} largeText={`${props.adherence * 100}%`} bottomText="Adherence" />
-                <SingleGraph color={Colors.approvedGreen} value={.9} largeText={`${props.adherence * 100}%`} bottomText="Feeling Healthy" />
+                <SingleGraph color={Colors.approvedGreen} value={props.feelingHealthyDays/props.daysInTreatment} largeText={`${(props.feelingHealthyDays/props.daysInTreatment).toFixed(2) * 100}%`} bottomText="Doing Okay" />
                 <div className={classes.rightText}>
                     <div><TrendingUpIcon /><p>Current Streak: {props.currentStreak} Days</p></div>
                     <div> <p>Longest Streak: Coming Soon</p></div>

@@ -103,6 +103,7 @@
             "didNotTake": "No tomé mi medicamento.",
             "whyNotTaken": "Porque no tomó su medicamento?",
             "symptomsTitle": "¿Tiene Malestares?",
+            "moodTitle": "¿Cómo te sientes hoy?",
             "photoTitle": "Tomar Foto de Tira Reactiva",
             "photo": {
                 "usePhoto": "Seguir",
