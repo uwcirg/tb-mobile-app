@@ -174,6 +174,7 @@ const ReportingHistory = (props) => {
                             <div>Taken</div>
                             <div>Symptoms</div>
                             <div>Photo</div>
+                            <div>Mood</div>
                         </div>
                         <div className={classes.reportsList}>
                             {Object.values(props.reports).map((each,i) => {
@@ -203,6 +204,7 @@ const DailyReportPreview = (props) => {
         <div>{props.medicationWasTaken ? "true" : "false"}</div>
         <div><ul>{ props.symptoms && props.symptoms.length > 0 && props.symptoms.map((symptom) => {return <li>{t(`symptoms.${symptom}.title`)}</li>})}</ul></div>
         <div className={classes.stripPhoto}> {props.photoUrl ? <img src={props.photoUrl} /> : "No" }</div>
+        <div>{props.doingOkay ? "Okay" :  "Need Support"}</div>
     </div>)
 }
 
