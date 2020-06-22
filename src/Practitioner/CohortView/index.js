@@ -7,11 +7,12 @@ import AdherenceGraph from '../AdherenceGraph';
 import Card from '../Shared/Card';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PersonIcon from '@material-ui/icons/People'
-import BasicSidebar from '../Shared/BasicSidebar';
 import CohortSideBar from './Sidebar';
 import Search from '../../Basics/SearchBar'
 import DownIcon from '@material-ui/icons/KeyboardArrowDown';
 import UpIcon from '@material-ui/icons/KeyboardArrowUp';
+import { ButtonBase } from '@material-ui/core';
+import PlusIcon from '@material-ui/icons/AddOutlined'
 
 const useStyles = makeStyles({
     title: {
@@ -96,6 +97,21 @@ const useStyles = makeStyles({
     noPatients:{
         width: "100%",
         textAlign: "center"
+    },
+    addPatient:{
+        borderRadius: "1em",
+        color: "white",
+        backgroundColor: Colors.buttonBlue,
+        marginLeft: "auto",
+        display: "flex",
+        height: "3em",
+        padding: "1em",
+        flexGrow: '1'
+    },
+    header:{
+        width: "90%",
+        display: "flex",
+        alignItems: "center"
     }
 })
 
@@ -104,7 +120,10 @@ const PatientsView = (props) => {
     return (
         <div className={classes.superContainer}>
         <div className={classes.container}>
+            <div className={classes.header}>
             <h1 className={classes.title}> My Patients</h1>
+            <ButtonBase className={classes.addPatient}><PlusIcon /><p>Add Patient</p></ButtonBase>
+            </div>
             <AdherenceGraph />
             <Patients icon={<PersonIcon />} title={"All Patients"} list={props.patientList} handlePatientClick={props.handlePatientClick} />
             <Patients icon={<PersonAddIcon />} title={"Awaiting Activation"} list={props.tempList} />
