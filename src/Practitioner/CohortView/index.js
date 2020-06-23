@@ -13,6 +13,8 @@ import DownIcon from '@material-ui/icons/KeyboardArrowDown';
 import UpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { ButtonBase } from '@material-ui/core';
 import PlusIcon from '@material-ui/icons/AddOutlined'
+import useStores from '../../Basics/UseStores';
+import {observer} from 'mobx-react'
 
 const useStyles = makeStyles({
     title: {
@@ -106,7 +108,10 @@ const useStyles = makeStyles({
         display: "flex",
         height: "3em",
         padding: "1em",
-        flexGrow: '1'
+        width: "160px",
+        display: "flex",
+        justifyContent: "space-evenly",
+        fontSize: "1em"
     },
     header:{
         width: "90%",
@@ -115,14 +120,20 @@ const useStyles = makeStyles({
     }
 })
 
-const PatientsView = (props) => {
+const PatientsView = observer((props) => {
     const classes = useStyles();
+    const {practitionerStore} = useStores();
+
+    const toggleAddPatient = () => {
+        practitionerStore.onAddPatientFlow = !practitionerStore.onAddPatientFlow
+    }
+
     return (
         <div className={classes.superContainer}>
         <div className={classes.container}>
             <div className={classes.header}>
             <h1 className={classes.title}> My Patients</h1>
-            <ButtonBase className={classes.addPatient}><PlusIcon /><p>Add Patient</p></ButtonBase>
+            <ButtonBase onClick={toggleAddPatient} className={classes.addPatient}><PlusIcon /><p>Add Patient</p></ButtonBase>
             </div>
             <AdherenceGraph />
             <Patients icon={<PersonIcon />} title={"All Patients"} list={props.patientList} handlePatientClick={props.handlePatientClick} />
@@ -131,7 +142,7 @@ const PatientsView = (props) => {
          <CohortSideBar />
          </div>
     )
-}
+})
 
 const Patients = (props) => {
     const classes = useStyles();
@@ -176,7 +187,7 @@ const Patients = (props) => {
                     {patient.lastReport ? patient.lastReport.date : "No Reports"}
                 </div>
                 <div>
-                    {patient.adherence * 100}%
+                    {Math.round(patient.adherence * 100)}%
                 </div>
                 <div>
                     {patient.currentStreak} Days

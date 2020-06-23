@@ -2,7 +2,7 @@
 
 const baseURL = window._env ? window._env.URL_API : "";
 
-const authenticatedRequest = (url, method, body) => {
+const authenticatedRequest = (url, method, body, options) => {
     return fetch(`${baseURL}${url}`, {
         method: method,
         credentials: "include",
@@ -13,7 +13,8 @@ const authenticatedRequest = (url, method, body) => {
     })
         .then(resolve => {
 
-            if(resolve.status >= 400){
+            //Default Error Handling, or use options.allowErrors to accept the returned body of error from server
+            if(resolve.status >= 400 && (!options || options.allowErrors === false)){
                 return new Error(resolve.status);
             }
             return resolve.json()})
@@ -23,12 +24,12 @@ const authenticatedRequest = (url, method, body) => {
 export default class APIHelper {
 
     //Send network request from predefined object of routes
-    executeRequest(routes, route, body) {
+    executeRequest(routes, route, body, options) {
 
         let routeInfo = routes[route];
 
         if (routeInfo) {
-            return authenticatedRequest(...routeInfo, body);
+            return authenticatedRequest(...routeInfo, body, options);
         } else {
             throw new Error("Provided route not available.")
         }

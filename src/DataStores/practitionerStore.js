@@ -25,10 +25,10 @@ export class PractitionerStore extends UserStore {
 
     @observable testPatients = "not here"
     @observable selectedPatientSymptoms = {
-       summary: [],
-       summaryLoading: false
+        summary: [],
+        summaryLoading: false
     }
-    
+
     //Test
     @observable recentReports = []
 
@@ -51,7 +51,6 @@ export class PractitionerStore extends UserStore {
         givenName: "",
         familyName: "",
         phoneNumber: "",
-        organization: "",
         startDate: new Date().toISOString()
     }
 
@@ -82,7 +81,9 @@ export class PractitionerStore extends UserStore {
         }
     }
 
-    @computed get patientList(){
+    @observable onAddPatientFlow = false;
+
+    @computed get patientList() {
         return Object.values(this.patients)
     }
 
@@ -90,14 +91,13 @@ export class PractitionerStore extends UserStore {
         return this.patients[id]
     }
 
-    @action
-    addNewPatient = () => {
+    @action addNewPatient = () => {
         this.newPatientLoading = true;
 
-        return this.executeRequest('addPatient', this.newPatientInformation).then(json => {
+        this.executeRequest('addPatient', this.newPatientInformation,{allowErrors: true}).then(json => {
             this.newPatientLoading = false;
 
-            if (json.error === 422) {
+            if (json.error == 422) {
                 this.paramErrors = json.paramErrors;
                 this.errorReturned = true;
             }
@@ -105,7 +105,7 @@ export class PractitionerStore extends UserStore {
             if (json.code) {
                 this.newPatientCode = json.code;
             }
-        });
+        })
     }
 
     @action
@@ -215,13 +215,13 @@ export class PractitionerStore extends UserStore {
         }
     }
 
-    resolveSymptoms(){
+    resolveSymptoms() {
         this.executeRawRequest(`/patient/${this.selectedRow.patientId}/resolutions?type=symptom`, "POST").then(response => {
             this.getSeverePatients();
         })
     }
 
-    resolveMedication(){
+    resolveMedication() {
         this.executeRawRequest(`/patient/${this.selectedRow.patientId}/resolutions?type=medication`, "POST").then(response => {
             this.getMissingPatients();
         })
