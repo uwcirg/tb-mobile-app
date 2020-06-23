@@ -23,11 +23,11 @@ const useStyles = makeStyles({
 const Onboarding = () => {
 
     const classes = useStyles();
-    const {patientUIStore} = useStores();
+    const {patientUIStore,patientStore} = useStores();
 
     return(
     <div className={classes.container}>
-        <OverTopBar handleBack={() => {patientUIStore.onOnboarding = false}} title="Welcome" />
+        <OverTopBar handleBack={patientStore.logout} title="Welcome" />
         <div className={classes.body}>
             Welcome to the treatment app!
         </div>

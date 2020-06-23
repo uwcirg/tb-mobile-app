@@ -14,7 +14,7 @@ import Colors from '../Basics/Colors';
 
 const PatientHome = observer((props) => {
 
-  const { patientUIStore } = useStores();
+  const { patientUIStore,patientStore } = useStores();
   const tabs = [<Home />, <Progress />, <Messaging />, <Info />];
   const routeTab = tabs[patientUIStore.tabNumber]  
   
@@ -24,6 +24,8 @@ const PatientHome = observer((props) => {
   },[patientUIStore.tabNumber])
 
   return (
+    <>
+    {patientStore.status === "Active" ?
     <div className="main-screen" style={{backgroundColor: `${Colors.white}`,minHeight: "100vh"}}>
       {patientUIStore.onOnboarding && <Onboarding />}
       <TopBar />
@@ -33,7 +35,8 @@ const PatientHome = observer((props) => {
         {routeTab}
       </div>
       <BottomBar />
-    </div>
+    </div> : <Onboarding /> }
+    </>
   );
 }
 );

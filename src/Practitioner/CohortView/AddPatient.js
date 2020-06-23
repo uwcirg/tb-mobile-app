@@ -6,6 +6,8 @@ import SideBarTop from '../Shared/SideBarHeader';
 import Input from '@material-ui/core/Input';
 import TextField from '@material-ui/core/TextField'
 import { useTranslation } from 'react-i18next';
+import SimpleButton from '../../Basics/SimpleButton';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles({
     inputBody:{
@@ -13,6 +15,23 @@ const useStyles = makeStyles({
         flexDirection: "column",
         width: "50%",
         margin: "auto"
+    },
+    input: {
+        marginTop: "1em"
+    },
+    newPatientForm:{
+        display: "flex",
+        flexDirection: "column",
+        alignContent: "center"
+    },
+    submit:{
+        margin: "auto",
+        marginTop: "2em"
+    },
+    loading:{
+        width: "100%",
+        display: "flex",
+        justifyContent: "center"
     }
 })
 
@@ -20,23 +39,30 @@ const AddPatient = observer(() => {
 
     const {practitionerStore} = useStores();
     const classes = useStyles();
-
     const handleExit = () => {practitionerStore.onAddPatientFlow = !practitionerStore.onAddPatientFlow }
+
 
     return(<>
         <SideBarTop handleExit={handleExit}  title="Add Patient" />
-        <div className={classes.inputBody}>
-            {practitionerStore.errorReturned ? "True" : "False"}
-            {JSON.stringify(practitionerStore.paramErrors)}
-            <PatientInput id="givenName" />
-            <PatientInput id="familyName" />
-            <PatientInput id="phoneNumber" />
-            <button onClick={practitionerStore.addNewPatient}>Submit</button>
-        </div>
-
+        {practitionerStore.newPatientLoading ? <div className={classes.loading}><CircularProgress size="25%" /> </div>: <AddPatientForm submit={practitionerStore.addNewPatient} />}
+        {practitionerStore.newPatientCode && <p>{practitionerStore.newPatientCode}</p>}
     </>)
 
 })
+
+const AddPatientForm = (props) => {
+    const classes = useStyles();
+    return(
+        <div className={classes.newPatientForm}>
+        <form className={classes.inputBody} noValidate autoComplete="off">
+            <PatientInput id="givenName" />
+            <PatientInput id="familyName" />
+            <PatientInput id="phoneNumber" />
+        </form>
+        <SimpleButton className={classes.submit} onClick={props.submit}>Submit</SimpleButton>
+        </div>
+    )
+}
 
 const PatientInput = observer((props) => {
 

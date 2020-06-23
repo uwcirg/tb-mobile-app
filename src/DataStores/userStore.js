@@ -29,6 +29,7 @@ export class UserStore extends APIStore {
     this.givenName = json.givenName;
     this.familyName = json.familyName;
     this.userID = json.id;
+    this.status = json.status;
   }
 
   @action logout = () => {

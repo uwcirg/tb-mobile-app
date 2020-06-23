@@ -15,6 +15,7 @@ import { ButtonBase } from '@material-ui/core';
 import PlusIcon from '@material-ui/icons/AddOutlined'
 import useStores from '../../Basics/UseStores';
 import {observer} from 'mobx-react'
+import Button from '@material-ui/core/Button'
 
 const useStyles = makeStyles({
     title: {
@@ -117,6 +118,9 @@ const useStyles = makeStyles({
         width: "90%",
         display: "flex",
         alignItems: "center"
+    },
+    button:{
+        backgroundColor: Colors.buttonBlue
     }
 })
 
@@ -137,12 +141,45 @@ const PatientsView = observer((props) => {
             </div>
             <AdherenceGraph />
             <Patients icon={<PersonIcon />} title={"All Patients"} list={props.patientList} handlePatientClick={props.handlePatientClick} />
-            <Patients icon={<PersonAddIcon />} title={"Awaiting Activation"} list={props.tempList} />
+    {/*<Patients icon={<PersonAddIcon />} pending title={"Awaiting Activation"} list={props.tempList} /> */}
+        <PendingPatients  list={props.tempList} />
         </div>
          <CohortSideBar />
          </div>
     )
 })
+
+const PendingPatients = (props) => {
+    const classes = useStyles();
+    const {practitionerStore} = useStores();
+
+    let list = props.list.map((patient,index) => {
+        return (
+            <div key={`patient-list-view-${index}`} className={classes.singlePatient}>
+                <div className={classes.name}>
+                    <a onClick={() => { props.handlePatientClick(patient.id) }}>
+                       {patient.fullName}
+                    </a>
+                </div>
+
+                <div>
+                    {patient.phoneNumber}
+                </div>
+
+                <div>
+                    <Button onClick={() => {practitionerStore.resetActivationCode(patient.id)}} className={classes.button} variant="contained" > Reset Code</Button>
+                </div>
+            </div>
+        )
+    })
+
+    return(
+        <Card>
+            {list}
+        </Card>
+        
+    )
+}
 
 const Patients = (props) => {
     const classes = useStyles();
@@ -203,18 +240,10 @@ const Patients = (props) => {
         <div className={classes.name} onClick={() => {setSort("adherence")}}>
             Priority {isSortingAdherence() ? <DownIcon /> : <UpIcon />}
                 </div>
-        <div>
-            Treatment Start
-                </div>
-        <div>
-            Last submission
-                </div>
-                <div onClick={() => {setSort("adherence")}}>
-            Adherence {isSortingAdherence() ? <DownIcon /> : <UpIcon />}
-                </div>
-                <div>
-                    Streak
-                </div>
+        <div>Treatment Start</div>
+        <div>Last submission</div>
+        <div onClick={() => {setSort("adherence")}}>Adherence {isSortingAdherence() ? <DownIcon /> : <UpIcon />}</div>
+        <div>Streak</div>
                 
     </div>)
 

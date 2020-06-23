@@ -199,6 +199,12 @@ export class PractitionerStore extends UserStore {
         })
     }
 
+    @action resetActivationCode = (id) => {
+        this.executeRawRequest(`/patient/${id}/activation_code`, "PATCH").then(response => {
+            console.log(response.newCode)
+        })
+    }
+
     @action getRecentReports = () => {
         this.executeRequest("getRecentReports").then(response => {
             this.recentReports = response;
