@@ -7,6 +7,7 @@ import Styles from '../Basics/Styles';
 import DonutLargeIcon from '@material-ui/icons/DonutLarge';
 import Colors from '../Basics/Colors';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
     container: {
@@ -45,16 +46,17 @@ const useStyles = makeStyles({
 
 const ProgressGraphs = (props) => {
     const classes = useStyles();
+    const { t, i18n } = useTranslation('translation');
 
     return (
-        <Card icon={<DonutLargeIcon />} title="Current Status" >
+        <Card icon={<DonutLargeIcon />} title={t("coordinator.cardTitles.currentStatus")} >
             <div className={classes.container}>
-                <SingleGraph color={Colors.accentBlue} value={.75} largeText={`${props.daysInTreatment}/180`} bottomText="Completed days" />
-                <SingleGraph color={Colors.red} value={props.adherence} largeText={`${props.adherence * 100}%`} bottomText="Adherence" />
-                <SingleGraph color={Colors.approvedGreen} value={.9} largeText={`${props.adherence * 100}%`} bottomText="Feeling Healthy" />
+                <SingleGraph color={Colors.accentBlue} value={.75} largeText={`${props.daysInTreatment}/180`} bottomText={t("coordinator.patientProfile.completedDays")} />
+                <SingleGraph color={Colors.red} value={props.adherence} largeText={`${props.adherence * 100}%`} bottomText={t("coordinator.adherance")} />
+                <SingleGraph color={Colors.approvedGreen} value={.9} largeText={`${props.adherence * 100}%`} bottomText={t("coordinator.patientProfile.feelingHealthy")} />
                 <div className={classes.rightText}>
-                    <div><TrendingUpIcon /><p>Current Streak: {props.currentStreak} Days</p></div>
-                    <div> <p>Longest Streak: Coming Soon</p></div>
+                    <div><TrendingUpIcon /><p>{t("coordinator.patientProfile.currentStreak")}: {props.currentStreak} {t("time.days")}</p></div>
+                    <div> <p>{t("coordinator.patientProfile.longestStreak")}: Coming Soon</p></div>
                 </div>
             </div>
         </Card>

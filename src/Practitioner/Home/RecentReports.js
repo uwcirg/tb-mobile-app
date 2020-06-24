@@ -88,9 +88,10 @@ const RecentReports = observer((props) => {
 
 
     const classes = useStyles();
+    const { t, i18n } = useTranslation('translation');
 
     return (<div className={classes.container}>
-        <h1>Recent Reports</h1>
+        <h1>{t("coordinator.recentReports.title")}</h1>
         {practitionerStore.recentReports.length > 0 && <Reports reports={practitionerStore.recentReports} />}
     </div>)
 
@@ -99,6 +100,7 @@ const RecentReports = observer((props) => {
 const Reports = observer((props) => {
     const classes = useStyles();
     const { practitionerStore } = useStores();
+    const { t, i18n } = useTranslation('translation');
 
     let date = {};
     const list = props.reports.map((report) => {
@@ -115,9 +117,9 @@ const Reports = observer((props) => {
                     <p className={classes.reportTime}>{DateTime.fromISO(report.updatedAt).toLocaleString(DateTime.TIME_24_SIMPLE)}</p>
                     <div className={classes.report}>
                         <Patient {...practitionerStore.getPatient(report.userId)} medicationWasTaken={report.medicationWasTaken} />
-                        <p>{report.medicationWasTaken ? "Took Meds" : "Didnt Take Meds"}</p>
+                        <p>{report.medicationWasTaken ? t("coordinator.recentReports.tookMeds") : t("coordinator.recentReports.didntTakeMeds")}</p>
                         <Symptoms list={report.symptoms} />
-                        {report.photoUrl ? <img className={classes.image} src={report.photoUrl} /> : <p>No Photo</p>}
+                        {report.photoUrl ? <img className={classes.image} src={report.photoUrl} /> : <p>{t("coordinator.recentReports.noPhoto")}</p>}
                     </div>
                 </div>
             </>
@@ -136,7 +138,7 @@ const Symptoms = (props) => {
     const { t, i18n } = useTranslation('translation');
 
     if (props.list.length === 0) {
-        return <p>No Symptoms Reported</p>
+    return <p>{t("coordinator.recentReports.noSymptoms")}</p>
     }
 
     const symptomList = props.list.map(each => {

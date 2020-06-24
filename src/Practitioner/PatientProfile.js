@@ -117,6 +117,7 @@ const Profile = observer((props) => {
     }, [])
 
     const classes = useStyles();
+    const { t, i18n } = useTranslation('translation');
 
     const getDate = (iso) => {
         return (DateTime.fromISO(iso).toLocaleString(DateTime.DATE_MED))
@@ -127,8 +128,8 @@ const Profile = observer((props) => {
             <div className={classes.header}>
                 <div>
                     {practitionerStore.selectedPatient && <h1>{practitionerStore.selectedPatient.fullName}</h1>}
-                    <p><span className={classes.bold}>Phone Number: </span>{practitionerStore.selectedPatient.phoneNumber}</p>
-                    <p><span className={classes.bold}>Treatment Start: </span>{getDate(practitionerStore.selectedPatient.treatmentStart)}</p>
+                    <p><span className={classes.bold}>{t("coordinator.patientProfile.phoneNumber")}: </span>{practitionerStore.selectedPatient.phoneNumber}</p>
+                    <p><span className={classes.bold}>{t("coordinator.patientProfile.treatmentStart")}: </span>{getDate(practitionerStore.selectedPatient.treatmentStart)}</p>
                 </div>
                 <div className={classes.optionsContainer}>
                     <div><ChatIcon /></div>
@@ -150,6 +151,7 @@ const ReportingHistory = (props) => {
     //Uses JS date because thats the format that the calendar wants.
     const [day, setDay] = useState(DateTime.local().toJSDate());
     const classes = useStyles();
+    const { t, i18n } = useTranslation('translation');
 
     useEffect(() =>{
         //let el = document.getElementById(`day-list-${DateTime.fromJSDate(day).toISODate()}`)
@@ -157,7 +159,7 @@ const ReportingHistory = (props) => {
     },[day])
 
     return (
-        <Card bodyClassName={classes.history} icon={<CalendarIcon />} title="Reporting Calendar">
+        <Card bodyClassName={classes.history} icon={<CalendarIcon />} title={t("coordinator.cardTitles.reportingCalender")}>
             {props.loading ? <Loading /> :
                 <>
                     <div className={classes.calendarContainer}>
@@ -170,10 +172,10 @@ const ReportingHistory = (props) => {
                     </div>
                     <div className={classes.reports}>
                         <div className={classes.lineItem}>
-                            <div>Date</div>
-                            <div>Taken</div>
-                            <div>Symptoms</div>
-                            <div>Photo</div>
+                            <div>{t("coordinator.patientProfile.date")}</div>
+                            <div>{t("coordinator.patientProfile.taken")}</div>
+                            <div>{t("coordinator.patientProfile.symptoms")}</div>
+                            <div>{t("coordinator.patientProfile.photo")}</div>
                         </div>
                         <div className={classes.reportsList}>
                             {Object.values(props.reports).map((each,i) => {
@@ -200,9 +202,9 @@ const DailyReportPreview = (props) => {
     return (<div id={`day-list-${props.date}`} className={`${classes.lineItem} ${selectedDate && classes.highlight}`}
         onClick={handleClick}>
         <div>{`${date.day}/${date.month}`}</div>
-        <div>{props.medicationWasTaken ? "true" : "false"}</div>
+        <div>{props.medicationWasTaken ? t("coordinator.true") : t("coordinator.false")}</div>
         <div><ul>{ props.symptoms && props.symptoms.length > 0 && props.symptoms.map((symptom) => {return <li>{t(`symptoms.${symptom}.title`)}</li>})}</ul></div>
-        <div className={classes.stripPhoto}> {props.photoUrl ? <img src={props.photoUrl} /> : "No" }</div>
+        <div className={classes.stripPhoto}> {props.photoUrl ? <img src={props.photoUrl} /> : t("commonWords.no") }</div>
     </div>)
 }
 

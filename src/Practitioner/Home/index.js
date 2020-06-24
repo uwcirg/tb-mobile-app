@@ -12,6 +12,7 @@ import SymptomSidebar from './SymptomSideBar'
 import MedicationSideBar from './MedicationSideBar'
 import { DateTime } from 'luxon';
 import RecentReports from './RecentReports';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
     left: {
@@ -61,25 +62,27 @@ const Home = observer(() => {
 
     const classes = useStyles();
 
+    const { t, i18n } = useTranslation('translation');
+
     return (
         <div className={classes.container}>
             <div className={classes.left}>
-            <h1>My Tasks</h1>
+            <h1>{t("coordinator.titles.myTasks")}</h1>
                 <Card
                     icon={<AlertIcon />}
-                    title="Patients with Symptoms"
+                    title={t("coordinator.cardTitles.patientsWithSymptoms")}
                     patientList={practitionerStore.filteredPatients.symptoms}
                     type="symptom"
                 />
                 <Card
                     icon={<ListIcon />}
-                    title="Photos to Review"
+                    title={t("coordinator.cardTitles.photosToReview")}
                     patientList={practitionerStore.photoReports.slice().sort((a,b) =>{ return (DateTime.fromISO(b.date).diff(DateTime.fromISO(a.date))) })}
                     type="photo"
                 />
                 <Card
                     icon={<PillIcon />}
-                    title="Missed Report Since Last Resolution"
+                    title={t("coordinator.cardTitles.missedReport")}
                     patientList={practitionerStore.filteredPatients.missed}
                     type="missedMedication"
                 />

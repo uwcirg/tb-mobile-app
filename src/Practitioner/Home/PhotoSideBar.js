@@ -8,6 +8,7 @@ import Styles from '../../Basics/Styles';
 import Colors from '../../Basics/Colors';
 import SharedButton from '../Shared/SharedButton'
 import QIcon from '@material-ui/icons/HelpOutline';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
 
@@ -38,13 +39,15 @@ const PhotoSidebar = observer((props) => {
     const { practitionerStore } = useStores();
     const classes = useStyles();
 
+    const { t, i18n } = useTranslation('translation');
+
     let rowID = practitionerStore.selectedRow.id;
     const item = practitionerStore.photoReports[rowID];
 
     return (
         <Basicsidebar>
             <div className={classes.photoContainer} >
-                <h2>Photo Submission:</h2>
+                <h2>{t("coordinator.sideBar.photoSub")}:</h2>
                 <img className={classes.photoPreview} src={item.url} />
             </div>
             <div className={classes.buttonContainer}>

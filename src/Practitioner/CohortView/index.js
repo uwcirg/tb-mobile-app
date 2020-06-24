@@ -12,6 +12,7 @@ import CohortSideBar from './Sidebar';
 import Search from '../../Basics/SearchBar'
 import DownIcon from '@material-ui/icons/KeyboardArrowDown';
 import UpIcon from '@material-ui/icons/KeyboardArrowUp';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
     title: {
@@ -101,13 +102,15 @@ const useStyles = makeStyles({
 
 const PatientsView = (props) => {
     const classes = useStyles();
+    const { t, i18n } = useTranslation('translation');
+
     return (
         <div className={classes.superContainer}>
         <div className={classes.container}>
-            <h1 className={classes.title}> My Patients</h1>
+            <h1 className={classes.title}>{t("coordinator.titles.myPatients")}</h1>
             <AdherenceGraph />
-            <Patients icon={<PersonIcon />} title={"All Patients"} list={props.patientList} handlePatientClick={props.handlePatientClick} />
-            <Patients icon={<PersonAddIcon />} title={"Awaiting Activation"} list={props.tempList} />
+            <Patients icon={<PersonIcon />} title={t("coordinator.cardTitles.allPatients")} list={props.patientList} handlePatientClick={props.handlePatientClick} />
+            <Patients icon={<PersonAddIcon />} title={t("coordinator.cardTitles.awaitingActivation")} list={props.tempList} />
         </div>
          <CohortSideBar />
          </div>
@@ -118,6 +121,7 @@ const Patients = (props) => {
     const classes = useStyles();
     const [sort,setSort] = useState("treatmentStart")
     const [search,setSearch] = useState("")
+    const { t, i18n } = useTranslation('translation');
 
 
     const isSortingAdherence = () => {
@@ -160,7 +164,7 @@ const Patients = (props) => {
                     {patient.adherence * 100}%
                 </div>
                 <div>
-                    {patient.currentStreak} Days
+                    {patient.currentStreak} {t("time.days")}
                 </div>
             </div>
         )
@@ -168,22 +172,22 @@ const Patients = (props) => {
 
     const labels = (<div key={`patient-list-view-top`} className={classes.singlePatient}>
         <div className={classes.name} onClick={() => {setSort("fullName")}}>
-            Name
+        {t("coordinator.patientTableLabels.name")}
                 </div>
         <div className={classes.name} onClick={() => {setSort("adherence")}}>
-            Priority {isSortingAdherence() ? <DownIcon /> : <UpIcon />}
+        {t("coordinator.patientTableLabels.priority")} {isSortingAdherence() ? <DownIcon /> : <UpIcon />}
                 </div>
         <div>
-            Treatment Start
+        {t("coordinator.patientTableLabels.treatmentStart")}
                 </div>
         <div>
-            Last submission
+        {t("coordinator.patientTableLabels.lastSubmission")}
                 </div>
                 <div onClick={() => {setSort("adherence")}}>
-            Adherence {isSortingAdherence() ? <DownIcon /> : <UpIcon />}
+                {t("coordinator.patientTableLabels.adherance")} {isSortingAdherence() ? <DownIcon /> : <UpIcon />}
                 </div>
                 <div>
-                    Streak
+                {t("coordinator.patientTableLabels.streak")}
                 </div>
                 
     </div>)

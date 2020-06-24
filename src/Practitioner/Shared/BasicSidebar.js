@@ -82,14 +82,15 @@ const Card = observer((props) => {
 const PatientPreview = observer((props) => {
     const classes = useStyles();
     const { practitionerStore } = useStores();
+    const { t, i18n } = useTranslation('translation');
 
     return (
         <div className={classes.profile}>
             <PatientPicture name={practitionerStore.selectedPatientInfo.fullName} />
             <h2>{practitionerStore.selectedPatientInfo.fullName}</h2>
-            <p>Adherence: {practitionerStore.selectedPatientInfo.adherence}</p>
-            <p>Last Contacted: {DateTime.local().toLocaleString()}</p>
-            <p className="clickable">View Full Profile</p>
+            <p>{t("coordinator.adherance")}: {practitionerStore.selectedPatientInfo.adherence}</p>
+            <p>{t("coordinator.sideBar.lastContacted")}: {DateTime.local().toLocaleString()}</p>
+    <p className="clickable">{t("coordinator.sideBar.viewFullProfile")}</p>
         </div>
 
     )

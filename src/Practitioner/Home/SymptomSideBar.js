@@ -8,6 +8,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles'
 import Colors from '../../Basics/Colors';
 import SharedButton from '../Shared/SharedButton'
 import QIcon from '@material-ui/icons/HelpOutline';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
     header: {
@@ -42,6 +43,7 @@ const useStyles = makeStyles({
 const SymptomSidebar = observer((props) => {
     const { practitionerStore } = useStores();
     const classes = useStyles();
+    const { t, i18n } = useTranslation('translation');
 
     useEffect(() => {
         practitionerStore.getSelectedPatientSymptoms();
@@ -50,9 +52,9 @@ const SymptomSidebar = observer((props) => {
     return (
         <Basicsidebar>
             <div className={classes.symptomContainer}>
-                <h2 className={classes.header}>Symptoms Sice Last Resolution:</h2>
+                <h2 className={classes.header}>{t("coordinator.sideBar.symptomsSince")}:</h2>
                 {practitionerStore.selectedPatientSymptoms.loading ?
-                    <p> Loading...</p> : <div className={classes.symptoms}> {Object.keys(practitionerStore.selectedPatientSymptoms.summary).map((each) => {
+                    <p> {t("coordinator.sideBar.loading")}...</p> : <div className={classes.symptoms}> {Object.keys(practitionerStore.selectedPatientSymptoms.summary).map((each) => {
                         return (
                             <>
                                 <p className={classes.day}>{each}</p>

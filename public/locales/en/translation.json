@@ -245,6 +245,62 @@
         },
         "upcoming": "Upcoming",
         "previous": "Previous"
-    }
+    },
+    "coordinator": {
+         "titles": {
+            "myTasks": "My Tasks",
+            "myPatients": "My Patients"
+         },
+         "cardTitles": {
+            "patientsWithSymptoms": "Patients with Symptoms",
+            "photosToReview": "Photos to Review",
+            "missedReport": "Missed Report Since Last Resolution",
+            "overviewOfProgress": "Overview of Progress",
+            "allPatients": "All Patients",
+            "awaitingActivation": "Awaiting Activation",
+            "currentStatus": "Current Status",
+            "reportingCalender": "Reporting Calender"
+         },        
+         "recentReports": {
+            "title": "Recent Reports",
+            "noSymptoms": "No Symptoms Reported",
+            "tookMeds": "Took Meds",
+            "didntTakeMeds": "Didnt Take Meds",
+            "noPhoto": "No Photo"
+         },
+         "sideBar": {            
+            "lastContacted": "Last Contracted",
+            "viewFullProfile": "View Full Profile",
+            "daysMissed": "Days Missed",
+            "photoSub": "Photo Submission",
+            "symptomsSince": "Symptoms Since Last Resolution",
+            "loading": "Loading"
+         },
+         "patientTableLabels": {
+            "name": "Name",
+            "priority": "Priority",
+            "treatmentStart": "Treatment Start",
+            "lastSubmission": "Last Submission",
+            "adherance": "Adherance",
+            "streak": "Streak"
+         },
+         "adherance": "Adherance",
+         "months": "Months",
+         "true": "true",
+         "false": "false",
+         "daysInTreatment": "Days In Treatment",
+         "patientProfile": {
+            "phoneNumber": "Phone Number",
+            "treatmentStart": "Treatment Start",
+            "date": "Date",
+            "taken": "Taken",
+            "symptoms": "Symptoms",
+            "photo": "Photo",
+            "completedDays": "Completed Days",
+            "feelingHealthy": "Feeling Healthy",
+            "currentStreak": "Current Streak",
+            "longestStreak": "Longest Streak"
+         }
+   }
 
 }
