@@ -23,7 +23,6 @@ export class PractitionerStore extends UserStore {
         super(strategy, ROUTES, "Practitioner")
     }
 
-    @observable testPatients = "not here"
     @observable selectedPatientSymptoms = {
         summary: [],
         summaryLoading: false
@@ -82,6 +81,8 @@ export class PractitionerStore extends UserStore {
     }
 
     @observable onAddPatientFlow = false;
+
+    @observable newActivationCode = "";
 
     @computed get patientList() {
         return Object.values(this.patients)
@@ -201,7 +202,7 @@ export class PractitionerStore extends UserStore {
 
     @action resetActivationCode = (id) => {
         this.executeRawRequest(`/patient/${id}/activation_code`, "PATCH").then(response => {
-            console.log(response.newCode)
+            this.newActivationCode = response.newCode;
         })
     }
 

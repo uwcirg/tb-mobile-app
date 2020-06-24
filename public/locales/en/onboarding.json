@@ -1,0 +1,18 @@
+{
+    "landing": {
+        "welcome": "Welcome",
+        "message": "Thank you for signing up! This app will be where you report your medication. Reports are monitored by your Coordinator."
+    },
+    "coordinator":{
+        "title": "What is a Coordinator?",
+        "will": {
+            "title": "Your Coordinator will",
+            "items": ["Monitor your progress","Approve test strip photos"," Answer questions about treatment"]
+        },
+        "wont": {
+            "title": "Your Coordinator wont",
+            "items": ["Provide medical attention","Schedule your appointments"]
+        },
+        "outro": "Now please tell us a little about yourself."
+    }
+}

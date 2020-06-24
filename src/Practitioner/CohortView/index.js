@@ -11,11 +11,12 @@ import CohortSideBar from './Sidebar';
 import Search from '../../Basics/SearchBar'
 import DownIcon from '@material-ui/icons/KeyboardArrowDown';
 import UpIcon from '@material-ui/icons/KeyboardArrowUp';
-import { ButtonBase } from '@material-ui/core';
+import { ButtonBase, Popover } from '@material-ui/core';
 import PlusIcon from '@material-ui/icons/AddOutlined'
 import useStores from '../../Basics/UseStores';
 import {observer} from 'mobx-react'
 import Button from '@material-ui/core/Button'
+import PopUp from '../../Patient/Navigation/PopUp';
 
 const useStyles = makeStyles({
     title: {
@@ -133,6 +134,7 @@ const PatientsView = observer((props) => {
     }
 
     return (
+        
         <div className={classes.superContainer}>
         <div className={classes.container}>
             <div className={classes.header}>
@@ -143,9 +145,11 @@ const PatientsView = observer((props) => {
             <Patients icon={<PersonIcon />} title={"All Patients"} list={props.patientList} handlePatientClick={props.handlePatientClick} />
     {/*<Patients icon={<PersonAddIcon />} pending title={"Awaiting Activation"} list={props.tempList} /> */}
         <PendingPatients  list={props.tempList} />
+        {practitionerStore.newActivationCode && <PopUp handleClickAway={()=>{practitionerStore.newActivationCode = ""}}> {practitionerStore.newActivationCode} </PopUp>}
         </div>
          <CohortSideBar />
          </div>
+         
     )
 })
 
