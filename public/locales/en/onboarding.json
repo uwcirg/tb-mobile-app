@@ -14,5 +14,17 @@
             "items": ["Provide medical attention","Schedule your appointments"]
         },
         "outro": "Now please tell us a little about yourself."
+    },
+    "gender":{
+        "title": "What is your gender",
+        "male": "Male",
+        "female": "Female",
+        "other": "Other"
+    },
+    "age": "How old are you?",
+    "notification": {
+        "one": "Would you like to enable a daily reminder to take your medication?",
+        "two": "What time would you like to be reminded?"
+
     }
 }

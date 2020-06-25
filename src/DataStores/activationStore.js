@@ -1,5 +1,6 @@
 import { action, observable, computed, autorun, toJS } from "mobx";
 import APIStore from './apiStore'
+import { DateTime } from "luxon";
 
 const ROUTES = {
     activate: ["/patient/self/activate", "POST"],
@@ -14,8 +15,9 @@ export class ActivationStore extends APIStore {
 
     @observable onboardingInformation = {
        gender: "",
-       age: 0
-
+       age: 0,
+       enableNotifications: false,
+       notificationTime: DateTime.local().toISOTime()
     }
     
 
@@ -24,4 +26,6 @@ export class ActivationStore extends APIStore {
             this.setAccountInformation(json);
         });
     }
+
+
 }

@@ -10,12 +10,14 @@ import XIcon from '@material-ui/icons/Clear';
 import Styles from '../../Basics/Styles';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import Gender from './Gender'
+import Age from './Age';
+import Notification from './Notification'
 
 const useStyles = makeStyles({
     body: {
         minHeight: "90vh",
         width: "100vw",
-        backgroundColor: "white",
+        backgroundColor: "white"
     },
     navBarGhost:{
         width: "100%",
@@ -69,9 +71,13 @@ const useStyles = makeStyles({
     },
     stepper: {
         backgroundColor: "white",
+        padding: "1.5em",
         "& > div": {
             width: "100%"
         }
+    },
+    surveyBody:{
+        padding: "1.5em"
     }
 
 })
@@ -123,7 +129,7 @@ const CoordinatorFAQ = () => {
 }
 
 
-const Tabs = [<Landing />, <CoordinatorFAQ />, <Gender />, <Gender />, <Gender />]
+const Tabs = [<Landing />, <CoordinatorFAQ />, <Gender />, <Age />, <Notification />]
 
 const Onboarding = () => {
 
@@ -139,15 +145,15 @@ const Onboarding = () => {
         <div className={classes.container}>
             <OverTopBar handleBack={handleBack} title={t('landing.welcome')} />
             <div className={classes.navBarGhost}></div>
-            <MobileStepper
+            {index > 1 && <MobileStepper
                     className={classes.stepper}
                     variant="progress"
-                    steps={Tabs.length}
+                    steps={Tabs.length - 2}
                     position="static"
-                    activeStep={index}
-                />
+                    activeStep={index - 2}
+                />}
             <div className={classes.body}>
-                {React.cloneElement(Tabs[index], { index: index, length: Tabs.length })}
+                {React.cloneElement(Tabs[index], { index: index, length: Tabs.length, bodyClass: classes.surveyBody })}
                 <SimpleButton onClick={handleNext} className={classes.button} alignRight> Next</SimpleButton>
             </div>
         </div>)
