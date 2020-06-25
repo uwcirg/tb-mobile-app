@@ -23,6 +23,10 @@ const PatientHome = observer((props) => {
     window.scrollTo(0,0)
   },[patientUIStore.tabNumber])
 
+  useEffect(() => {
+    if(patientStore.status === "Pending") patientUIStore.goToOnboarding();
+  },[patientStore.status])
+
   return (
     <>
     {patientStore.status === "Active" ?

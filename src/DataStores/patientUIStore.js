@@ -27,6 +27,10 @@ export default class PatientUIStore {
         }
     }
 
+    @action goToOnboarding(){
+        this.router.push("/onboarding/0")
+    }
+
     @observable onOnboarding = false;
 
     //Patient Side Routes
@@ -123,6 +127,10 @@ export default class PatientUIStore {
     @action updateStep(step){
         const base = this.onHistoricalReport ? '/progress/report/' : '/home/report/'
         this.router.push(`${base}${step}`)
+    }
+
+    @action updateOnboardingStep(step){
+        this.router.push(`/onboarding/${step}`)
     }
 }
 

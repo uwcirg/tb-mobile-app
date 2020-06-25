@@ -14,6 +14,7 @@ import Age from './Age';
 import Notification from './Notification'
 import ContactTracing from './ContactTracing'
 import End from './End'
+import {observer} from 'mobx-react'
 
 const useStyles = makeStyles({
     body: {
@@ -129,22 +130,25 @@ const CoordinatorFAQ = () => {
 
 const Tabs = [<Landing />, <CoordinatorFAQ />, <Gender />, <Age />, <Notification />, <ContactTracing />, <End />]
 
-const Onboarding = () => {
+const Onboarding = observer(() => {
 
-    const [index, setIndex] = useState(0);
+    //const [index, setIndex] = useState(0);
     const classes = useStyles();
-    const { patientStore , activationStore} = useStores();
+    const { patientStore , activationStore,patientUIStore} = useStores();
     const { t, i18n } = useTranslation('onboarding');
 
+    const index = patientUIStore.reportStep
+
+
     const handleNext = () => { 
-        if( index === Tabs.length - 1){
+        if( patientUIStore.reportStep === Tabs.length - 1){
             activationStore.submitActivation();
-        }else{
-          setIndex(index + 1)   
+        }else{ 
+          patientUIStore.updateOnboardingStep( index + 1)
         }
         
     }
-    const handleBack = () => { index < 1 ? patientStore.logout() : setIndex(index - 1) }
+    const handleBack = () => { index < 1 ? patientStore.logout() : patientUIStore.updateOnboardingStep( index - 1) }
 
     return (
         <>
@@ -169,6 +173,6 @@ const Onboarding = () => {
         </>
         )
 
-}
+})
 
 export default Onboarding;

@@ -37,7 +37,7 @@ export class ActivationStore extends APIStore {
     }
 
     @action submitActivation(){
-
+        this.isLoading = true;
     }
 
 
