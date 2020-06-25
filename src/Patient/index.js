@@ -35,7 +35,9 @@ const PatientHome = observer((props) => {
         {routeTab}
       </div>
       <BottomBar />
-    </div> : <Onboarding /> }
+    </div> 
+    : 
+    <Onboarding /> }
     </>
   );
 }

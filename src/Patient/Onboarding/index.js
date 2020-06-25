@@ -12,6 +12,8 @@ import MobileStepper from '@material-ui/core/MobileStepper';
 import Gender from './Gender'
 import Age from './Age';
 import Notification from './Notification'
+import ContactTracing from './ContactTracing'
+import End from './End'
 
 const useStyles = makeStyles({
     body: {
@@ -79,7 +81,6 @@ const useStyles = makeStyles({
     surveyBody:{
         padding: "1.5em"
     }
-
 })
 
 const Landing = () => {
@@ -101,8 +102,6 @@ const CoordinatorFAQ = () => {
     const classes = useStyles();
     const { t, i18n } = useTranslation('onboarding');
 
-
-
     return (
         <div className={classes.faq}>
             <h1>{t('coordinator.title')}</h1>
@@ -112,7 +111,6 @@ const CoordinatorFAQ = () => {
                     return <li> <CheckIcon className={classes.green} /> {each}</li>
                 })}
             </ul>
-
 
             <h2>{t('coordinator.wont.title')}</h2>
             <ul>
@@ -129,21 +127,32 @@ const CoordinatorFAQ = () => {
 }
 
 
-const Tabs = [<Landing />, <CoordinatorFAQ />, <Gender />, <Age />, <Notification />]
+const Tabs = [<Landing />, <CoordinatorFAQ />, <Gender />, <Age />, <Notification />, <ContactTracing />, <End />]
 
 const Onboarding = () => {
 
     const [index, setIndex] = useState(0);
     const classes = useStyles();
-    const { patientStore } = useStores();
+    const { patientStore , activationStore} = useStores();
     const { t, i18n } = useTranslation('onboarding');
 
-    const handleNext = () => { setIndex(index + 1) }
+    const handleNext = () => { 
+        if( index === Tabs.length - 1){
+            activationStore.submitActivation();
+        }else{
+          setIndex(index + 1)   
+        }
+        
+    }
     const handleBack = () => { index < 1 ? patientStore.logout() : setIndex(index - 1) }
 
     return (
+        <>
+        {activationStore.isLoading ?
+        <p> Please wait...</p>
+        :
         <div className={classes.container}>
-            <OverTopBar handleBack={handleBack} title={t('landing.welcome')} />
+            <OverTopBar handleBack={handleBack} title={ index < 2 ? t('landing.welcome') : t('profileInformation')} />
             <div className={classes.navBarGhost}></div>
             {index > 1 && <MobileStepper
                     className={classes.stepper}
@@ -156,7 +165,9 @@ const Onboarding = () => {
                 {React.cloneElement(Tabs[index], { index: index, length: Tabs.length, bodyClass: classes.surveyBody })}
                 <SimpleButton onClick={handleNext} className={classes.button} alignRight> Next</SimpleButton>
             </div>
-        </div>)
+        </div>}
+        </>
+        )
 
 }
 

@@ -9,10 +9,6 @@ const Home = observer((props) => {
 
     const {patientUIStore,patientStore} = useStores();
 
-    if(patientStore.status === "Pending"){
-        return <p> Intro Flow</p>
-    }
-
     if (patientUIStore.onReportFlow) {
         return (<MedicationFlow />)
     } else {

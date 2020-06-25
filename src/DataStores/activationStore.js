@@ -13,11 +13,20 @@ export class ActivationStore extends APIStore {
         super(strategy, ROUTES);
     }
 
+    @observable isLoading = false;
+
     @observable onboardingInformation = {
        gender: "",
        age: 0,
        enableNotifications: false,
-       notificationTime: DateTime.local().toISOTime()
+       notificationTime: DateTime.local().toISOTime(),
+       numberOfContacts: 0
+
+    }
+
+    @action addToNumberOfContacts(value){
+        const temp = this.onboardingInformation.numberOfContacts + value;
+        if(temp >= 0) this.onboardingInformation.numberOfContacts += value;
     }
     
 
@@ -25,6 +34,10 @@ export class ActivationStore extends APIStore {
         return this.executeRequest('register', body).then(json => {
             this.setAccountInformation(json);
         });
+    }
+
+    @action submitActivation(){
+
     }
 
 

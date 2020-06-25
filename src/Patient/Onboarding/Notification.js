@@ -80,7 +80,7 @@ const DisableElevation = observer(() => {
     const {activationStore} = useStores();
 
     return (
-        <ButtonGroup className={classes.group} fullWidth disableElevation color="primary">
+        <ButtonGroup className={classes.group} fullWidth color="primary">
             <Button onClick={() => { activationStore.onboardingInformation.enableNotifications = true }} className={activationStore.onboardingInformation.enableNotifications ? classes.selected : classes.default}>Yes</Button>
             <Button onClick={() => { activationStore.onboardingInformation.enableNotifications = false }} className={!activationStore.onboardingInformation.enableNotifications ? classes.selected : classes.default}>No</Button>
         </ButtonGroup>
