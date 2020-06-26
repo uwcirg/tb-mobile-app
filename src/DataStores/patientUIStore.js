@@ -17,7 +17,7 @@ export default class PatientUIStore {
         }
     }
 
-    @observable onOnboarding = false;
+    @observable onWalkthrough = false;
     @observable skippedToPhotoFlow = false;
 
 
@@ -28,10 +28,8 @@ export default class PatientUIStore {
     }
 
     @action goToOnboarding(){
-        this.router.push("/onboarding/0")
+            if(!this.onOnboarding) this.router.push("/onboarding/0")
     }
-
-    @observable onOnboarding = false;
 
     //Patient Side Routes
     @computed get onReportFlow() {
@@ -131,6 +129,10 @@ export default class PatientUIStore {
 
     @action updateOnboardingStep(step){
         this.router.push(`/onboarding/${step}`)
+    }
+
+    @computed get onOnboarding(){
+        return this.router.location.pathname.startsWith("/onboarding/")
     }
 }
 

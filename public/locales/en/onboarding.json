@@ -16,6 +16,11 @@
         },
         "outro": "Now please tell us a little about yourself."
     },
+    "password": {
+        "title": "Choose a new password for your account",
+        "confirmation": "Confirm Password"
+
+    },
     "gender":{
         "title": "What is your gender",
         "male": "Male",
@@ -34,5 +39,6 @@
         "some": "Some of Them",
         "yes": "Yes",
         "no": "No"
-    }
+    },
+    "success": "Finalizing Account Setup"
 }

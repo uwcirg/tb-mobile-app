@@ -17,7 +17,8 @@ const useStyles = makeStyles((theme) => ({
     numberSelector: {
         display: "flex",
         width: "100%",
-        justifyContent: "center"
+        justifyContent: "center",
+        alignItems: "center"
     },
     form: {
         padding: "1em",
@@ -28,7 +29,9 @@ const useStyles = makeStyles((theme) => ({
         fontSize: ".75em"
     },
     button:{
-        fontSize: "2em"
+        "& > span > svg": {
+            fontSize: "2em"
+        }
     }
 }));
 

@@ -16,19 +16,21 @@ export class ActivationStore extends APIStore {
     @observable isLoading = false;
 
     @observable onboardingInformation = {
-       gender: "",
-       age: 0,
-       enableNotifications: false,
-       notificationTime: DateTime.local().toISOTime(),
-       numberOfContacts: 0
+        newPassword: "",
+        newPasswordConfirmation: "",
+        gender: "",
+        age: 0,
+        enableNotifications: false,
+        notificationTime: DateTime.local().toISOTime(),
+        numberOfContacts: 0
 
     }
 
-    @action addToNumberOfContacts(value){
+    @action addToNumberOfContacts(value) {
         const temp = this.onboardingInformation.numberOfContacts + value;
-        if(temp >= 0) this.onboardingInformation.numberOfContacts += value;
+        if (temp >= 0) this.onboardingInformation.numberOfContacts += value;
     }
-    
+
 
     @action register(body) {
         return this.executeRequest('register', body).then(json => {
@@ -36,8 +38,15 @@ export class ActivationStore extends APIStore {
         });
     }
 
-    @action submitActivation(){
+    @action submitActivation() {
         this.isLoading = true;
+    }
+
+    @computed get checkPasswords(){
+        const notEmpty = (this.onboardingInformation.newPassword != "" && this.onboardingInformation.newPasswordConfirmation != "")
+        const equal = (this.onboardingInformation.newPassword === this.onboardingInformation.newPasswordConfirmation)
+
+        return (notEmpty && equal)
     }
 
 

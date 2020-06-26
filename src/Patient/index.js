@@ -31,7 +31,7 @@ const PatientHome = observer((props) => {
     <>
     {patientStore.status === "Active" ?
     <div className="main-screen" style={{backgroundColor: `${Colors.white}`,minHeight: "100vh"}}>
-      {patientUIStore.onOnboarding && <Onboarding />}
+      {patientUIStore.onWalkthrough && <Onboarding />}
       <TopBar />
       <Intro />
       <TopMenu />

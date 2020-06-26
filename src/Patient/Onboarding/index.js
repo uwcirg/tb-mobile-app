@@ -14,7 +14,9 @@ import Age from './Age';
 import Notification from './Notification'
 import ContactTracing from './ContactTracing'
 import End from './End'
+import Password from './Password'
 import {observer} from 'mobx-react'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles({
     body: {
@@ -81,6 +83,12 @@ const useStyles = makeStyles({
     },
     surveyBody:{
         padding: "1.5em"
+    },
+    loading:{        
+        ...Styles.flexCenter,
+        width: "100vw",
+        height: "100vh",
+        alignItems: "center"
     }
 })
 
@@ -128,17 +136,15 @@ const CoordinatorFAQ = () => {
 }
 
 
-const Tabs = [<Landing />, <CoordinatorFAQ />, <Gender />, <Age />, <Notification />, <ContactTracing />, <End />]
+const Tabs = [<Landing />, <CoordinatorFAQ />,<Password overrideNext />, <Gender />, <Age />, <Notification />, <ContactTracing />, <End />]
 
 const Onboarding = observer(() => {
 
-    //const [index, setIndex] = useState(0);
     const classes = useStyles();
     const { patientStore , activationStore,patientUIStore} = useStores();
     const { t, i18n } = useTranslation('onboarding');
 
     const index = patientUIStore.reportStep
-
 
     const handleNext = () => { 
         if( patientUIStore.reportStep === Tabs.length - 1){
@@ -146,14 +152,18 @@ const Onboarding = observer(() => {
         }else{ 
           patientUIStore.updateOnboardingStep( index + 1)
         }
-        
     }
     const handleBack = () => { index < 1 ? patientStore.logout() : patientUIStore.updateOnboardingStep( index - 1) }
 
     return (
         <>
         {activationStore.isLoading ?
-        <p> Please wait...</p>
+        <div className={classes.loading}>
+            <div>
+            <p>{t('success')}</p>
+            <CircularProgress size="50vw" />
+            </div>
+            </div>
         :
         <div className={classes.container}>
             <OverTopBar handleBack={handleBack} title={ index < 2 ? t('landing.welcome') : t('profileInformation')} />
@@ -166,8 +176,9 @@ const Onboarding = observer(() => {
                     activeStep={index - 2}
                 />}
             <div className={classes.body}>
-                {React.cloneElement(Tabs[index], { index: index, length: Tabs.length, bodyClass: classes.surveyBody })}
-                <SimpleButton onClick={handleNext} className={classes.button} alignRight> Next</SimpleButton>
+                {/* Clone the element from the list of steps, pass in additonal props. Below code allows for overide of next button, and provides a default one */}
+                {React.cloneElement(Tabs[index], { index: index, length: Tabs.length, bodyClass: classes.surveyBody, button: <SimpleButton className={classes.button} alignRight> Next</SimpleButton>, handleNext: handleNext })}
+                {!Tabs[index].props.overrideNext && <SimpleButton onClick={handleNext} className={classes.button} alignRight> Next</SimpleButton>}
             </div>
         </div>}
         </>
