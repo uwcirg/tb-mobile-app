@@ -2,11 +2,6 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import SurveyHeader from './SurveyHeader';
 import { useTranslation } from 'react-i18next';
 import { Input } from '@material-ui/core';
@@ -19,24 +14,31 @@ const useStyles = makeStyles((theme) => ({
     },
     selectEmpty: {
         marginTop: theme.spacing(2),
+    },
+    inputContainer:{
+        width: "100%",
+        display: "flex",
+        justifyContent: "center"
     }
 }));
 
-const Age = (props) => {
+const Age = observer((props) => {
 
     const classes = useStyles();
-    const [age, setAge] = React.useState('');
     const { t, i18n } = useTranslation('onboarding');
+    const {activationStore} = useStores();
 
     //Limit to only reasonable ages here
-    const handleChange = () => { }
+    const handleChange = (e) => { activationStore.onboardingInformation.age = e.target.value}
 
     return (<div className={props.bodyClass}>
         <SurveyHeader number={2} title={t("age")} />
-        <Input placeholder="Age" type="number"></Input>
+        <div className={classes.inputContainer}>
+        <Input value={activationStore.onboardingInformation.age} onChange={handleChange} placeholder="Age" type="number"></Input>
+        </div>
     </div>)
 
-}
+});
 
 
 export default Age;

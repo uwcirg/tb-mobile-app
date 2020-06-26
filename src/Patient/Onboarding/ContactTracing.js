@@ -73,19 +73,19 @@ const Counter = observer(() => {
 const Survey = observer(() => {
     const { t, i18n } = useTranslation('onboarding');
     const classes = useStyles();
-    const [value, setValue] = useState("yes")
+    const { activationStore } = useStores();
 
     const handleChange = (event) => {
-        setValue(event.target.value);
+        activationStore.onboardingInformation.contactsTested = event.target.value;
     };
 
     return (
         <FormControl className={classes.form} component="fieldset">
             {/*<FormLabel component="legend">Gender</FormLabel>*/}
-            <RadioGroup aria-label="contact-tracing-options" name="contact-tracing" value={value} onChange={handleChange}>
-                <FormControlLabel value="yes" control={<Radio color="primary" />} label={t("contactTracing.yes")} />
-                <FormControlLabel value="no" control={<Radio color="primary" />} label={t("contactTracing.some")} />
-                <FormControlLabel value="some" control={<Radio color="primary" />} label={t("contactTracing.no")} />
+            <RadioGroup aria-label="contact-tracing-options" name="contact-tracing" value={activationStore.onboardingInformation.contactsTested} onChange={handleChange}>
+                <FormControlLabel value="Yes" control={<Radio color="primary" />} label={t("contactTracing.yes")} />
+                <FormControlLabel value="Some" control={<Radio color="primary" />} label={t("contactTracing.some")} />
+                <FormControlLabel value="No" control={<Radio color="primary" />} label={t("contactTracing.no")} />
             </RadioGroup>
         </FormControl>
     )

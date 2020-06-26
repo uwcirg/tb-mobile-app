@@ -4,6 +4,7 @@ import { DateTime } from "luxon";
 
 const ROUTES = {
     activate: ["/patient/self/activate", "POST"],
+    setPassword: ["/patient/self/password", "POST"]
 }
 
 export class ActivationStore extends APIStore {
@@ -16,15 +17,25 @@ export class ActivationStore extends APIStore {
     @observable isLoading = false;
 
     @observable onboardingInformation = {
-        newPassword: "",
-        newPasswordConfirmation: "",
-        gender: "",
-        age: 0,
+        gender: "Female",
+        age: 30,
         enableNotifications: false,
         notificationTime: DateTime.local().toISOTime(),
-        numberOfContacts: 0
-
+        numberOfContacts: 0,
+        contactsTested: "Yes"
     }
+
+    @observable activationError = false;
+    @observable activationSuccess = false;
+
+    @observable passwordUpdate = {
+        passwordAccepted: false,
+        passwordLoading: false,
+        password: "",
+        passwordConfirmation: ""
+  
+    }
+
 
     @action addToNumberOfContacts(value) {
         const temp = this.onboardingInformation.numberOfContacts + value;
@@ -40,13 +51,36 @@ export class ActivationStore extends APIStore {
 
     @action submitActivation() {
         this.isLoading = true;
+        return this.executeRequest('activate', this.onboardingInformation,{allowErrors: true}).then(json => {
+            if(json.error){
+                this.activationError = true;
+            }
+            this.isLoading = false;
+            this.activationSuccess = true;
+        })
     }
 
-    @computed get checkPasswords(){
-        const notEmpty = (this.onboardingInformation.newPassword != "" && this.onboardingInformation.newPasswordConfirmation != "")
-        const equal = (this.onboardingInformation.newPassword === this.onboardingInformation.newPasswordConfirmation)
+    @action submitPassword = () => {
+        const body = {
+            password: this.passwordUpdate.password,
+            passwordConfirmation: this.passwordUpdate.passwordConfirmation
+        }
+        this.passwordUpdate.passwordLoading = true;
+        this.executeRequest('setPassword',body).then((json) => {
+            this.passwordUpdate.passwordLoading = false;
+            this.passwordUpdate.passwordAccepted = true;
+        });
+    }
 
-        return (notEmpty && equal)
+    @computed get checkPasswords() {
+        const notEmpty = (this.passwordUpdate.password != "" && this.passwordUpdate.passwordConfirmation != "")
+
+
+        return (notEmpty && this.passwordsMatch)
+    }
+
+    @computed get passwordsMatch() {
+        return (this.passwordUpdate.password === this.passwordUpdate.passwordConfirmation)
     }
 
 

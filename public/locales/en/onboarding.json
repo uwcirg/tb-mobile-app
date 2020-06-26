@@ -40,5 +40,7 @@
         "yes": "Yes",
         "no": "No"
     },
-    "success": "Finalizing Account Setup"
+    "success": "Finalizing Account Setup",
+    "next": "Next",
+    "endText": "Thank you for your input, lets get started!"
 }

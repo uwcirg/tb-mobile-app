@@ -41,7 +41,7 @@ export class UserStore extends APIStore {
 
   initalize() {
 
-    this.executeRequest(`getCurrent${this.userType}`).then((json) => {
+   this.executeRequest(`getCurrent${this.userType}`).then((json) => {
       if (json.id) {
         this.setAccountInformation(json)
         this.isLoggedIn = true;

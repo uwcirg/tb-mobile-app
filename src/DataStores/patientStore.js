@@ -25,6 +25,8 @@ export class PatientStore extends UserStore {
         currentStreak: 0
     }
 
+    @observable status = "";
+
     //@observable notificationTime = DateTime.fromISO("12:00:00").toISOTime();
     @observable isReminderUpdating = false;
 
@@ -54,14 +56,22 @@ export class PatientStore extends UserStore {
         allDay: false
     }
 
-    @action setAccountInformation(json){
-        
+    @action getPatientInformation = () => {
+        return this.executeRequest(`getCurrentPatient`).then((json) => {
+            if (json.status) {
+                this.status = json.status;
+            }
+        });
+    }
+
+    @action setAccountInformation(json) {
+
         this.photoSchedule = JSON.parse(json.medicationSchedule)
         this.treatmentStart = json.treatmentStart
         this.patientInformation.daysInTreatment = json.daysInTreatment;
         this.patientInformation.currentStreak = json.currentStreak;
         super.setAccountInformation(json);
-      
+
     }
 
     @computed get datetimeTreatmentStart() {
@@ -119,9 +129,9 @@ export class PatientStore extends UserStore {
 
     //Streak calculated on server can only produce streak from yesterday. 
     //If the user has completed their treatment today, this will add oneday
-    @computed get getCurrentStreak(){
+    @computed get getCurrentStreak() {
         let streak = this.patientInformation.currentStreak;
-        if(this.report.hasConfirmedAndSubmitted && this.report.tookMedication){
+        if (this.report.hasConfirmedAndSubmitted && this.report.tookMedication) {
             streak += 1;
         }
 
@@ -352,21 +362,21 @@ export class PatientStore extends UserStore {
     }
 
     defaultReport = {
-            date: DateTime.local().toISODate(),
-            step: 0,
-            timeTaken: DateTime.local().startOf('second').startOf("minute").toISOTime({ suppressSeconds: true }),
-            selectedSymptoms: [],
-            photoWasTaken: false,
-            photoString: "",
-            tookMedication: true,
-            whyMedicationNotTaken: "",
-            headerText: "When did you take your medication?",
-            hasSubmitted: false,
-            hasSubmittedPhoto: false,
-            hasConfirmedAndSubmitted: false,
-            isHistoricalReport: false,
-            doingOkay: true,
-            doingOkaySelected: false
+        date: DateTime.local().toISODate(),
+        step: 0,
+        timeTaken: DateTime.local().startOf('second').startOf("minute").toISOTime({ suppressSeconds: true }),
+        selectedSymptoms: [],
+        photoWasTaken: false,
+        photoString: "",
+        tookMedication: true,
+        whyMedicationNotTaken: "",
+        headerText: "When did you take your medication?",
+        hasSubmitted: false,
+        hasSubmittedPhoto: false,
+        hasConfirmedAndSubmitted: false,
+        isHistoricalReport: false,
+        doingOkay: true,
+        doingOkaySelected: false
     }
 
 

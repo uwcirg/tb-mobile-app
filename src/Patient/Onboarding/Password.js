@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
@@ -6,6 +6,7 @@ import SurveyHeader from './SurveyHeader'
 import { useTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
+import Loading from './Loading'
 
 
 const useStyles = makeStyles({
@@ -23,14 +24,23 @@ const Password = observer((props) => {
     const { t, i18n } = useTranslation(['onboarding', 'translation']);
     const { activationStore } = useStores();
 
+    //Once password is accepted on the server move to next step
+    useEffect(() => {
+        if(activationStore.passwordUpdate.passwordAccepted ){
+            props.handleNext()
+            activationStore.passwordUpdate.passwordAccepted = false;
+        }
+
+    },[activationStore.passwordUpdate.passwordAccepted ])
+
     return (
         <>
-            <div className={props.bodyClass} >
+            {activationStore.passwordUpdate.passwordLoading ? <Loading /> : <div className={props.bodyClass} >
                 <SurveyHeader number={1} title={t("password.title")} />
                 <form>
                     <TextField
-                        onChange={(e) => {activationStore.onboardingInformation.newPassword = e.target.value }}
-                        value={activationStore.onboardingInformation.newPassword}
+                        onChange={(e) => {activationStore.passwordUpdate.password = e.target.value }}
+                        value={activationStore.passwordUpdate.password}
                         fullWidth
                         className={classes.password}
                         id="password-input"
@@ -40,8 +50,8 @@ const Password = observer((props) => {
                         variant="filled"
                     />
                     <TextField
-                        onChange={(e) => {activationStore.onboardingInformation.newPasswordConfirmation = e.target.value }}
-                        value={activationStore.onboardingInformation.newPasswordConfirmation}
+                        onChange={(e) => {activationStore.passwordUpdate.passwordConfirmation = e.target.value }}
+                        value={activationStore.passwordUpdate.passwordConfirmation}
                         fullWidth
                         className={classes.password}
                         id="password-confirmation-input"
@@ -51,11 +61,12 @@ const Password = observer((props) => {
                         variant="filled"
                     />
                 </form>
-            </div>
+                {!activationStore.passwordsMatch && <p>Passwords Do Not Match</p>}
+            </div>}
+           
             {React.cloneElement(props.button, {
                 onClick: () => {
-                    console.log("test")
-                    props.handleNext()
+                    activationStore.submitPassword();
                 }, disabled: !activationStore.checkPasswords
             })}
         </>

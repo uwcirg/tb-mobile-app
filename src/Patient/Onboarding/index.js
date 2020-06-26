@@ -136,7 +136,7 @@ const CoordinatorFAQ = () => {
 }
 
 
-const Tabs = [<Landing />, <CoordinatorFAQ />,<Password overrideNext />, <Gender />, <Age />, <Notification />, <ContactTracing />, <End />]
+const Tabs = [<Landing />, <CoordinatorFAQ />,<Password overrideNext />, <Gender />, <Age />, <Notification />, <ContactTracing />, <End overrideNext />]
 
 const Onboarding = observer(() => {
 
@@ -148,7 +148,7 @@ const Onboarding = observer(() => {
 
     const handleNext = () => { 
         if( patientUIStore.reportStep === Tabs.length - 1){
-            activationStore.submitActivation();
+            //activationStore.submitActivation();
         }else{ 
           patientUIStore.updateOnboardingStep( index + 1)
         }
@@ -178,7 +178,7 @@ const Onboarding = observer(() => {
             <div className={classes.body}>
                 {/* Clone the element from the list of steps, pass in additonal props. Below code allows for overide of next button, and provides a default one */}
                 {React.cloneElement(Tabs[index], { index: index, length: Tabs.length, bodyClass: classes.surveyBody, button: <SimpleButton className={classes.button} alignRight> Next</SimpleButton>, handleNext: handleNext })}
-                {!Tabs[index].props.overrideNext && <SimpleButton onClick={handleNext} className={classes.button} alignRight> Next</SimpleButton>}
+            {!Tabs[index].props.overrideNext && <SimpleButton onClick={handleNext} className={classes.button} alignRight>{t('next')}</SimpleButton>}
             </div>
         </div>}
         </>
