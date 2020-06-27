@@ -60,6 +60,7 @@ export class PatientStore extends UserStore {
         return this.executeRequest(`getCurrentPatient`).then((json) => {
             if (json.status) {
                 this.status = json.status;
+                this.reminderTime = json.dailyNotification.isoTime;
             }
         });
     }
