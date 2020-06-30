@@ -39,6 +39,9 @@
         "weeks": "semanas"
     },
     "patient": {
+        "reminders":{
+            "title": "Recordatorios"
+        },
         "userFields": {
             "givenName": "Nombre Preferido",
             "familyName": "Apellido",

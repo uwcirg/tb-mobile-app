@@ -47,6 +47,9 @@
     },
 
     "patient": {
+        "reminders":{
+            "title": "Reminders"
+        },
         "demo":{
             "showDemo": "Show Demo"
         },

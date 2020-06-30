@@ -6,6 +6,7 @@ import Alerts from './Alerts';
 import Colors from '../../Basics/Colors';
 import Greeting from './Greeting'
 import EducationalMessage from './EducationalMessage'
+import Reminders from './Reminders'
 
 const HomePage = () => {
     const [educationVisibility,setEducationVisibility ] = useState(false)
@@ -20,6 +21,7 @@ const HomePage = () => {
             <Greeting />
             <ActionBox />
             <Progress />
+            <Reminders />
             {/*<button onClick={toggleEducationVisibility}> Test Education</button>*/}
            {/*<Alerts />*/} 
         </Body>

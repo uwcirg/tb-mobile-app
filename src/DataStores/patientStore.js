@@ -101,7 +101,10 @@ export class PatientStore extends UserStore {
     @computed get isPhotoDay() {
         let weekday = DateTime.local().weekday;
         let weekSinceStart = Math.floor(DateTime.fromISO(this.treatmentStart).endOf('day').diffNow("weeks").weeks * -1)
-        return (this.photoSchedule[weekSinceStart].includes(weekday));
+        if(weekSinceStart < 0){
+            weekSinceStart = 0
+        }  
+        return (this.photoSchedule[weekSinceStart] && this.photoSchedule[weekSinceStart].includes(weekday));
     }
 
     checkPhotoDay(date) {

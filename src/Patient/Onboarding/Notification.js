@@ -64,7 +64,6 @@ const Notification = observer((props) => {
                 {timeOpen ?<TimePicker
                     open={timeOpen}
                     className={classes.timeSelect}
-                    clearable
                     ampm={false}
                     value={DateTime.fromISO(activationStore.onboardingInformation.notificationTime)}
                     onChange={(e) => {

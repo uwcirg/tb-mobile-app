@@ -210,7 +210,8 @@ const Patients = (props) => {
         return each.fullName.toLowerCase().includes(search.toLowerCase())
     })
 
-    let list = sorted.map((patient,index) => {
+    let list = ""
+    sorted.length > 0 && (list = sorted.map((patient,index) => {
         return (
             <div key={`patient-list-view-${index}`} className={classes.singlePatient}>
                 <div className={classes.name}>
@@ -235,7 +236,7 @@ const Patients = (props) => {
                 </div>
             </div>
         )
-    })
+    }))
 
     const labels = (<div key={`patient-list-view-top`} className={classes.singlePatient}>
         <div className={classes.name} onClick={() => {setSort("fullName")}}>

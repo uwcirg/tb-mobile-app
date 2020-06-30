@@ -120,9 +120,12 @@ export class PractitionerStore extends UserStore {
     @action
     getOrganizations = () => {
         this.executeRequest('getOrganizations').then(json => {
-            let list = json.map(each => {
+            
+            let list = []
+            json.length > 0 && (json.map(each => {
                 return (each.title)
-            })
+            }))
+
             this.organizationsList = list
             list.length > 0 && (this.newPatientInformation.organization = list[0]);
         })

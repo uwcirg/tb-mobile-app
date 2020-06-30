@@ -7,10 +7,10 @@ import Colors from '../../Basics/Colors';
 import useStores from '../../Basics/UseStores';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import AddMilestone from './AddMilestone';
 import AddMilestones from './AddMilestone';
 import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next'
+
 
 const useStyles = makeStyles({
     body: {

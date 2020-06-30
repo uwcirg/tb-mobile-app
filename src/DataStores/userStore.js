@@ -45,7 +45,7 @@ export class UserStore extends APIStore {
       if (json.id) {
         this.setAccountInformation(json)
         this.isLoggedIn = true;
-        json.dailyNotification && (this.reminderTime = json.dailyNotification.isoTime)
+        json.dailyNotificationTime && (this.reminderTime = json.dailyNotificationTime)
         this.subscribeToNotifications();
       }
     });
