@@ -9,8 +9,6 @@ import InteractionCard from '../../Basics/InteractionCard';
 import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
 import ClickableText from '../../Basics/ClickableText';
-import ChevronRight from '@material-ui/icons/ChevronRight'
-
 import { MileStone } from '../Progress/Milestones'
 
 
@@ -34,7 +32,7 @@ const ProgressGraph = observer((props) => {
                             <p className={classes.progressText}>{patientStore.patientInformation.daysInTreatment} {t("commonWords.of")} <br /> 180 {t('time.days')}</p>
                         </CircularProgressbar>
                     </div>
-                    <StatBox title={patientStore.getCurrentStreak} text={t('patient.home.progress.currentStreak')} />
+                    <StatBox title={patientStore.getCurrentStreak } text={t('patient.home.progress.currentStreak')} />
                 </div>
             </div>
             <div className={classes.bottomSection}>

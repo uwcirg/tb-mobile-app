@@ -32,9 +32,6 @@ export class PatientStore extends UserStore {
 
     @observable treatmentStart = ""
 
-    //For intro to UI
-    @observable introEnabled = false;
-
     @observable uiState = {
         onCalendarView: false,
         cameraIsOpen: false,
@@ -60,7 +57,7 @@ export class PatientStore extends UserStore {
         return this.executeRequest(`getCurrentPatient`).then((json) => {
             if (json.status) {
                 this.status = json.status;
-                this.reminderTime = json.dailyNotification.isoTime;
+                this.reminderTime = json.dailyNotificationTime
             }
         });
     }
@@ -135,6 +132,7 @@ export class PatientStore extends UserStore {
     //If the user has completed their treatment today, this will add oneday
     @computed get getCurrentStreak() {
         let streak = this.patientInformation.currentStreak;
+        if(streak === null) streak = 0;
         if (this.report.hasConfirmedAndSubmitted && this.report.tookMedication) {
             streak += 1;
         }

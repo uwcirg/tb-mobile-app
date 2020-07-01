@@ -11,9 +11,7 @@ const styles = {
     justifyContent: "center"
   },
   container:{
-    width: "100%",
-    position: "absolute",
-    top: "1em",
+    margin: "auto"
   }
 };
 

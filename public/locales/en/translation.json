@@ -29,7 +29,9 @@
         "email": "Email",
         "password": "Password",
         "logIn": "Log In",
-        "selectType": "Select your user type"
+        "selectType": "Select your user type",
+        "haveAccount": "Already have an account?",
+        "activate": "Activate"
 
     },
 

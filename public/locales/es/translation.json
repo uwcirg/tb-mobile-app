@@ -25,7 +25,8 @@
         "email": "Correo Electrónico",
         "password": "Contraseña",
         "logIn": "Iniciar Sesión",
-        "selectType": "Bienvenido. Iniciar sesión para:"
+        "selectType": "Bienvenido. Iniciar sesión para:",
+        "activate": "Activar"
     },
     "messaging": {
         "nurseContact": "Necesita asistencia personal? Contacte a su coordinador!",

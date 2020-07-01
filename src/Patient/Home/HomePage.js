@@ -20,6 +20,7 @@ const HomePage = () => {
             <EducationalMessage handleClickAway={toggleEducationVisibility} visible={educationVisibility} />
             <Greeting />
             <ActionBox />
+            <div id="intro-greeting" style={{visibility: "hidden"}} />
             <Progress />
             <Reminders />
             {/*<button onClick={toggleEducationVisibility}> Test Education</button>*/}

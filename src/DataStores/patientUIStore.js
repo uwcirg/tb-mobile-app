@@ -17,7 +17,7 @@ export default class PatientUIStore {
         }
     }
 
-    @observable onWalkthrough = false;
+    @observable onWalkthrough = true;
     @observable skippedToPhotoFlow = false;
 
 
@@ -25,6 +25,11 @@ export default class PatientUIStore {
         if(message.url){
             this.router.push(message.url)
         }
+    }
+
+    @action goToWalkThrough(){
+        this.goToHome();
+        this.onWalkthrough = true;
     }
 
     @action goToOnboarding(){

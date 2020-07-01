@@ -126,7 +126,7 @@ const MileStone = (props) => {
             </div>
             <div className={classes.milestoneText}>
                 <span className="title">{props.milestone.title}</span>
-                <span className="date">{date.toLocaleString(DateTime.DATE_SHORT)}</span>
+                <span className="date">{date.toLocaleString(DateTime.TIME_24_SIMPLE)}</span>
             </div>
         </div>
     )

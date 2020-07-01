@@ -1,6 +1,6 @@
 {
     "reminders": "Reminders",
-    "daily": "Daily Medication Reminder",
-    "upcoming": "Upcoming Reminders"
+    "daily": "Medication Reminder",
+    "appointments": "Appointments"
 
 }
