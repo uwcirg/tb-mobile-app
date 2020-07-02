@@ -21,36 +21,35 @@ const Intro = observer(() => {
   const [step, setStep] = useState(0);
 
   const classes = useStyles();
-  const { patientUIStore } = useStores();
+  const { patientUIStore, routingStore } = useStores();
 
   const exit = () => {
-    patientUIStore.onWalkthrough = false; 
+    patientUIStore.onWalkthrough = false;
     setStep(0);
   }
 
   const handleJoyrideCallback = data => {
     const { action, index, status, type } = data;
-
+    //console.log(data)
     /*
     console.log(action)    
     console.log(type)
     console.log(index)
     */
+    console.log(type)
 
-    if (type === "tooltip") {
-      //index === 1 && window.scrollTo(0, 0);
-      //index === 2 && window.scrollTo(0, document.body.scrollHeight);
-    }
-
+    //This might be firing too many times
   };
 
 
   const changeStep = (index) => {
-
+    Steps[index] && routingStore.push(Steps[index].push)
     if (index < 0) {
+      
       setStep(0)
       return
     } else if (index > Steps.length - 1) {
+      setStep(Steps.length - 1)
       return
     }
 
@@ -75,7 +74,7 @@ const Intro = observer(() => {
         stepIndex={step}
         styles={{
           options: {
-            overlayColor: 'rgba(0, 0, 0, 0.8)',
+            overlayColor: 'rgba(0,0,0,.85)',
             zIndex: 150
           }
         }}
@@ -95,12 +94,20 @@ const Tooltip = ({
 }) => {
   const classes = useStyles();
   const { t, i18n } = useTranslation('walkthrough');
+  const { routingStore } = useStores();
 
 
   useEffect(() => {
-    if (!step.preventScroll) {
+    //If the step includes a new route, go to that route
+    if (step.scrollToTop) {
+      window.scrollTo(0, 0)
+      return
+    }
+
+    //Scroll to the item
+    if (step.target !== "" && !step.preventScroll) {
       let element = document.querySelector(step.target);
-      let headerOffset = 60;
+      let headerOffset = step.scrollOffset ? step.scrollOffset : 60;
       let elementPosition = element.getBoundingClientRect().top;
       let offsetPosition = elementPosition - headerOffset;
 
@@ -109,25 +116,32 @@ const Tooltip = ({
         behavior: "smooth"
       });
     }
-  }, [])
+
+  }, [index])
 
 
   return (
 
     <TooltipBody step={step} {...tooltipProps}>
-      {step.component ? <>{step.component}</> :
-        <>
-          {step.title && <span>{step.title}</span>}
-          <div className={classes.stepContent}>{t(step.translationString)}</div></>}
+      <div>
+        {step.component ? <>{step.component}</> :
+          <>
+            {step.title && <span>{step.title}</span>}
+            <div className={classes.stepContent}>{t(step.translationString)}</div></>}
+      </div>
     </TooltipBody>
   )
 };
 
 const TooltipBody = styled.div`
-  background-color: none;
-  padding: ${props => { props.step.component ? "0" : "2em" }};
-  box-sizing: border-box;
+  
   color: white;
+
+  div{
+    margin: auto;
+    padding: 1em;
+    backdrop-filter: blur(2px);
+  }
   `
 
 const styles = {
@@ -171,7 +185,7 @@ const SwipeContainer = (props) => {
 };
 
 const useStyles = makeStyles({
-  controls:{
+  controls: {
     display: "flex",
     alignItems: "center",
     width: "100%",
@@ -210,10 +224,6 @@ const useStyles = makeStyles({
     "& > button": {
       color: "white",
     }
-  },
-  stepContent: {
-    width: "80%",
-    margin: "auto"
   }
 })
 

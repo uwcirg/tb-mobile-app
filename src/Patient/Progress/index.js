@@ -60,15 +60,15 @@ const Progress = observer(() => {
     if(patientUIStore.onAddMilestone) return (<AddMilestone handleBack={patientUIStore.goToProgress} />)
 
     return (<>
-            <div className={`${classes.container} ${patientStore.uiState.onCalendarView && classes.centerContainer + ' ' + classes.fullHeight}`} >
-                {!patientStore.uiState.onCalendarView ?
+            <div id="intro-progress" className={`${classes.container} ${patientUIStore.onCalendar && classes.centerContainer + ' ' + classes.fullHeight}`} >
+                {!patientUIStore.onCalendar ?
                     <>
                         <WeekCalendar />
                         <MileStones />
                         <ApprovalStatus />
                     </> :
                     <>
-                        <OverTopBar title={t("patient.progress.calendar")} handleBack={() => { patientStore.uiState.onCalendarView = false }} />
+                        <OverTopBar title={t("patient.progress.calendar")} handleBack={() => { patientUIStore.goToProgress() }} />
                         <CustomCalendar />
                         <DayDrawer />
                     </>}

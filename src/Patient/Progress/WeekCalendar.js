@@ -14,14 +14,14 @@ import {useTranslation} from 'react-i18next'
 const WeekCalendar = observer(() => {
 
     const classes = useStyles();
-    const {patientStore,uiStore} = useStores();
+    const {patientStore,uiStore,patientUIStore} = useStores();
     const {t, i18n} = useTranslation('translation');
 
     const goToCalendar = () => {
-        patientStore.uiState.onCalendarView = true;
+        patientUIStore.goToCalendar();
     }
 
-    return(<div className={classes.container + ' intro-weekcalendar'}>
+    return(<div id="intro-cal" className={classes.container + ' intro-weekcalendar'}>
         {/* rerender when language changes*/ uiStore.locale && <span></span>}
         <Grid onClick={goToCalendar} className={classes.monthContainer} container direction="row" justify="flex-end" alignItems="center">
             <Typography className={classes.month} variant="h2" >{DateTime.local().monthLong}</Typography>

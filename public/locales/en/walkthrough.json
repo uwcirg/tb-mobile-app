@@ -1,6 +1,14 @@
 {
 "revisit": "If you wish to revisit this walkthrough, you can find it on the information tab",
+"exit": "You can exit this walkthrough at any time by clicking the X in the top right",
 "tasks": "These are your daily tasks, you can click Start Report to begin logging your daily treatment",
 "progress": "The progress card shows you a quick preview of where you are at in your treatment.",
-"reminders": "Finally, the reminders card allows you to change your medication reminder, and add reminders for appointments"
+"reminders": "Finally, the reminders card allows you to change your medication reminder, and add reminders for appointments",
+"navigation":{
+    "text": "The app has 4 main screens. To toggle between them select the icon in the bottom navigation bar",
+    "one": "Home + My Tasks",
+    "two": "Progress + Calendar",
+    "three": "Chat",
+    "four": "Information"
+}
 }

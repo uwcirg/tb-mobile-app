@@ -11,6 +11,7 @@ const useStyles = makeStyles({
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+        backgroundColor: "rgba(0,0,0,.8)",
         "& > div": {
             width: "90%",
             boxSizing: "border-box",

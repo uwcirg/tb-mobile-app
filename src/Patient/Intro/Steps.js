@@ -8,66 +8,51 @@ import Navigation from './Navigation'
 
 let steps = [
     {
+        push: "/home",
         title: "",
-        target: "#intro-greeting",
+        target: "#notreal",
         content: "",
         spotlightPadding: 10,
-        preventScroll: true
+        preventScroll: true,
     },
     {
+        push: "/home",
         title: "",
         target: "#intro-information-button",
         translationString: "revisit",
         preventScroll: true
     },
     {
+        push: "/home",
         title: "",
         target: "#intro-tasks",
         placement: 'top',
         translationString: "tasks"
     },
     {
-        scroll: true,
-        title: "",
-        target: "#intro-progress",
-        translationString: "progress"
-    },
-    {
-        title: "",
+        push: "/home",
         scroll: true,
         target: "#intro-reminders-card",
         translationString: "reminders"
     },
     {
+        push: "/home",
         title: "This is the navigation Bar",
         target: ".MuiBottomNavigation-root",
-        content: "Clicking each icon will take you to differnet pages",
         component: (<Navigation />)
     },
     {
-        title: "Progress",
-        target: ".intro-progress-button",
-        content: "Clicking here will take you to your progress",
+        scrollToTop: true,
+        push: "/progress",
+        target: "#intro-cal",
+        translationString: "progress"
     },
     {
-        title: "Progress",
-        target: ".intro-progress-button",
-        content: "Clicking here will take you to your progress",
-    },
-    {
-        title: "Progress",
-        target: ".intro-progress-button",
-        content: "Clicking here will take you to your progress",
-    },
-    {
-        title: "Progress",
-        target: ".intro-progress-button",
-        content: "Clicking here will take you to your progress",
-    },
-    {
-        title: "Progress",
-        target: ".intro-progress-button",
-        content: "Clicking here will take you to your progress",
+        scrollToTop: true,
+        push: "/progress/calendar",
+        target: ".intro-calendar-full",
+        translationString: "progress",
+        spotlightPadding: 10,
     }
 ];
 
