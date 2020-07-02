@@ -13,6 +13,10 @@ const styles = {
   },
   container:{
    
+  },
+  text:{
+    color: "white",
+    display: "inline"
   }
 };
 
@@ -26,16 +30,19 @@ class Pagination extends React.Component {
 
     const children = [];
 
+    /*
+
     for (let i = 0; i < dots; i += 1) {
       children.push(
         <PaginationDot key={i} index={i} active={i === index} onClick={this.handleClick} />,
       );
     }
+    */
 
     return (
       <div style={styles.container}>
-        <div style={styles.root}>
-          {children}
+        <div style={styles.text}>
+          {index} / {dots -1}
         </div>
       </div>);
   }

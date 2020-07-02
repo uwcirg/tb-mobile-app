@@ -17,7 +17,7 @@ export default class PatientUIStore {
         }
     }
 
-    @observable onWalkthrough = false;
+    @observable onWalkthrough = true;
     @observable skippedToPhotoFlow = false;
 
 

@@ -34,7 +34,7 @@ const Greeting = () => {
     const classes = useStyles();
     const {patientStore} = useStores();
 
-    return(<div id="greeting" className={classes.container}>
+    return(<div id="intro-greeting" className={classes.container}>
         <div className={classes.greeting}>{t("greeting")} {patientStore.givenName} 👋 </div> 
         <div className={classes.date}>{DateTime.local().toLocaleString(DateTime.DATE_FULL)}</div>
     </div>)

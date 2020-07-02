@@ -15,7 +15,7 @@ i18n.use(XHR)
 .use(LanguageDetector)
 .init({
   fallbackLng: "en",
-  ns: ['translation','onboarding','reminders'],
+  ns: ['translation','onboarding','reminders','walkthrough'],
   load: "languageOnly",
   debug: false
 });

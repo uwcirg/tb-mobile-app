@@ -12,6 +12,9 @@ import ClearIcon from '@material-ui/icons/Clear';
 import Steps from './Steps'
 import Back from '@material-ui/icons/ChevronLeft'
 import Next from '@material-ui/icons/ChevronRight'
+import Welcome from './Welcome'
+import { useTranslation } from 'react-i18next';
+
 
 const Intro = observer(() => {
 
@@ -20,17 +23,25 @@ const Intro = observer(() => {
   const classes = useStyles();
   const { patientUIStore } = useStores();
 
+  const exit = () => {
+    patientUIStore.onWalkthrough = false; 
+    setStep(0);
+  }
+
   const handleJoyrideCallback = data => {
     const { action, index, status, type } = data;
 
-    console.log(action)
-
-    if (type === "tooltip") {
-      index === 1 && window.scrollTo(0, 0);
-      index === 2 && window.scrollTo(0, document.body.scrollHeight);
-    }
+    /*
+    console.log(action)    
     console.log(type)
     console.log(index)
+    */
+
+    if (type === "tooltip") {
+      //index === 1 && window.scrollTo(0, 0);
+      //index === 2 && window.scrollTo(0, document.body.scrollHeight);
+    }
+
   };
 
 
@@ -44,20 +55,14 @@ const Intro = observer(() => {
     }
 
     setStep(index);
-
-    if (index == 3) {
-      //patientUIStore.goToProgress();
-    } else {
-      patientUIStore.goToHome();
-    }
   }
 
   return (
     patientUIStore.onWalkthrough ? <div className={classes.container}>
-      <IconButton className={classes.exit} onClick={() => { patientUIStore.onWalkthrough = false; setStep(0) }}><ClearIcon /> </IconButton>
-      <SwipeContainer index={step} changeIndex={changeStep} />
+      <SwipeContainer exit={exit} index={step} changeIndex={changeStep} />
       <ReactJoyride
         disableOverlayClose
+        disableScrolling
         spotlightPadding={2}
         floaterProps={{ hideArrow: true }}
         tooltipComponent={Tooltip}
@@ -65,7 +70,6 @@ const Intro = observer(() => {
         run={true}
         continuous
         callback={handleJoyrideCallback}
-        disableScrolling
         showProgress
         showSkipButton
         stepIndex={step}
@@ -90,20 +94,38 @@ const Tooltip = ({
   tooltipProps,
 }) => {
   const classes = useStyles();
+  const { t, i18n } = useTranslation('walkthrough');
+
+
+  useEffect(() => {
+    if (!step.preventScroll) {
+      let element = document.querySelector(step.target);
+      let headerOffset = 60;
+      let elementPosition = element.getBoundingClientRect().top;
+      let offsetPosition = elementPosition - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+  }, [])
 
 
   return (
-    <TooltipBody disableAnimation {...tooltipProps}>
-      {step.title && <span>{step.title}</span>}
-      <div>{step.content}</div>
 
+    <TooltipBody step={step} {...tooltipProps}>
+      {step.component ? <>{step.component}</> :
+        <>
+          {step.title && <span>{step.title}</span>}
+          <div className={classes.stepContent}>{t(step.translationString)}</div></>}
     </TooltipBody>
   )
 };
 
 const TooltipBody = styled.div`
   background-color: none;
-  padding: 2em;
+  padding: ${props => { props.step.component ? "0" : "2em" }};
   box-sizing: border-box;
   color: white;
   `
@@ -127,10 +149,13 @@ const SwipeContainer = (props) => {
 
   return (
     <div className={classes.swipeContainer}>
-      <div className={classes.paginationContainer}>
-        <IconButton onClick={() => { handleChangeIndex(props.index - 1) }} ><Back /></IconButton>
-        <Pagination className={classes.dots} dots={Steps.length} index={props.index} onChangeIndex={handleChangeIndex} />
-        <Button onClick={() => { handleChangeIndex(props.index + 1) }} ><Next /></Button>
+      <div className={classes.controls}>
+        <div className={classes.paginationContainer}>
+          <IconButton onClick={() => { handleChangeIndex(props.index - 1) }} ><Back /></IconButton>
+          <Pagination className={classes.dots} dots={Steps.length} index={props.index} onChangeIndex={props.changeIndex} />
+          <Button onClick={() => { handleChangeIndex(props.index + 1) }} ><Next /></Button>
+        </div>
+        <IconButton className={classes.exit} onClick={props.exit}><ClearIcon /> </IconButton>
       </div>
 
       {props.index == 0 && <div className={classes.bottomText}>
@@ -138,21 +163,26 @@ const SwipeContainer = (props) => {
 
       </div>}
       <SwipeableViews index={props.index} onChangeIndex={handleChangeIndex}>
-          {props.index == 0 && <div className={classes.customPopOver}> <div>Thanks for signing up to use treatment assistant. We will now guide you through some of the core features of the application.</div> </div>}
-          {views && views}
+        {props.index == 0 && <Welcome />}
+        {views && views}
       </SwipeableViews>
 
     </div>)
 };
 
 const useStyles = makeStyles({
-  exit: {
+  controls:{
+    display: "flex",
+    alignItems: "center",
+    width: "100%",
     position: "fixed",
-    top: 0,
-    right: 0,
-    zIndex: 1005,
+    top: "0",
+    zIndex: "1003",
+    backgroundColor: "black"
+  },
+  exit: {
     color: "white",
-    padding: "1em",
+    marginLeft: "auto"
   },
   swipeContainer: {
     position: "fixed",
@@ -165,7 +195,7 @@ const useStyles = makeStyles({
     position: "fixed",
     bottom: "100px",
     color: "white",
-    zIndex: 1002,
+    zIndex: 1,
     width: "100%",
     "& > p": {
       margin: "auto",
@@ -176,30 +206,14 @@ const useStyles = makeStyles({
   paginationContainer: {
     display: "flex",
     alignItems: "center",
-    width: "100%",
-    position: "fixed",
-    top: "0",
-    zIndex: "1003",
 
     "& > button": {
       color: "white",
     }
   },
-  customPopOver: {
-    height: "100vh",
-    width: "100vw",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    "& > div": {
-      width: "90%",
-      boxSizing: "border-box",
-      minHeight: "200px",
-      backgroundColor: "white",
-      borderRadius: "1em",
-      padding: "1em"
-    }
+  stepContent: {
+    width: "80%",
+    margin: "auto"
   }
 })
 
