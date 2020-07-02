@@ -13,6 +13,7 @@ import { MileStone } from '../Progress/Milestones'
 import ClickableText from '../../Basics/ClickableText';
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
+import { TimePicker } from "@material-ui/pickers/TimePicker";
 
 
 const useStyles = makeStyles({
@@ -88,7 +89,13 @@ const CompName = observer(() => {
     const { patientStore, patientUIStore } = useStores();
     const [open,setOpen] = useState(false)
 
-    return (<InteractionCard upperText={t('reminders')}>
+    const handleChange = (date) => {
+        patientStore.reminderTime = date.startOf('second').startOf("minute").toISOTime({ suppressSeconds: true });
+        patientStore.updateNotificationTime();
+    }
+
+
+    return (<InteractionCard upperText={t('reminders')} id="intro-reminders-card">
         <div className={classes.daily}>
             <Header>{t('daily')}</Header>
             {patientStore.reminderTime ? <>
@@ -97,21 +104,34 @@ const CompName = observer(() => {
                 </div>
                 <div className={classes.buttonContainer}>
                     <ButtonGroup className={classes.timeButtonGroup} fullWidth>
-                        <Button>Change Time</Button>
-                        <Button>Disable</Button>
+                        <Button onClick={() => {setOpen(true)}}>Change Time</Button>
+                        <Button onClick={() =>{patientStore.updateNotificationTime(true)}}>Disable</Button>
                     </ButtonGroup>
                 </div>
             </> : <>
 
                     <div className={classes.enable}>
                         <p> Once enabled, a push notification will remind you to take your medication at the specified time.</p>
-                        <Button className={classes.timeButton}>Enable</Button>
+                        <Button onClick={()=>{setOpen(true)}} className={classes.timeButton}>Enable</Button>
                     </div>  </>}
         </div>
+
+        {open && <TimePicker
+                        open={open}
+                        className={classes.timeSelect}
+                        clearable
+                        ampm={false}
+                        value={DateTime.fromISO(patientStore.reminderTime)}
+                        onChange={(e) => {
+                            setOpen(false);
+                            handleChange(e);
+                        }}
+                    />}
 
         <div className={classes.upcoming}>
             <Header>{t('appointments')}</Header>
             <div className={classes.reminder}>
+            <p>This functionality is still in progress</p>
                 {patientStore.milestones[0] && <MileStone milestone={patientStore.milestones[0]} />}
             </div>
             <div className={classes.addContainer}>

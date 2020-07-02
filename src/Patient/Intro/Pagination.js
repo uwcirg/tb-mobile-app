@@ -8,10 +8,11 @@ const styles = {
     display: 'flex',
     flexDirection: 'row',
     width: "30%",
-    justifyContent: "center"
+    justifyContent: "center",
+
   },
   container:{
-    margin: "auto"
+   
   }
 };
 

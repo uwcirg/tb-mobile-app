@@ -59,7 +59,6 @@ function PatientInfo() {
                 <Typography className={classes.name} className={classes.name} variant="h2">{patientStore.givenName} {patientStore.familyName}</Typography>
             </div>
             <NewButton onClick={handleLogout} className={classes.logout} icon={<ExitToApp />} text={t("patient.profile.logout")} />
-            <ClickableText className={classes.demoButton} big onClick={handleDemo} text={t("patient.demo.showDemo")}></ClickableText>
            
             <div className={classes.containedBox}>
                 {/*
@@ -70,7 +69,6 @@ function PatientInfo() {
                 </div>
                 */}
 
-               <Options />
 
             </div>
         </div>

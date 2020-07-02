@@ -16,7 +16,10 @@ import Colors from './Basics/Colors';
 const theme = createMuiTheme({
 
   typography: {
-    fontFamily: "'Roboto', sans-serif"
+    fontFamily: "'Roboto', sans-serif",
+    h1:{
+      fontSize: "1.25em"
+    }
 
   },
   palette: {

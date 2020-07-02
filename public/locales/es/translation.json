@@ -100,7 +100,7 @@
         },
         "report": {
             "next": "Seguir",
-            "title": "Vos Reporte Medico para Hoy",
+            "title": "Reporte Medico Para Hoy",
             "medicationTitle": "Confirmación de Medicamento",
             "medicationTime": "A qué hora tomó su medicamento? ",
             "didTake": "Tomé mi medicamento.",

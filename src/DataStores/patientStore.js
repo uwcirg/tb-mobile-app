@@ -245,14 +245,21 @@ export class PatientStore extends UserStore {
         this.report.step = 4;
     }
 
-    @action updateNotificationTime = () => {
-        const body = { time: this.reminderTime }
+    @action updateNotificationTime = (turnOff) => {
+        let body = { time: this.reminderTime }
+
+        if(turnOff){
+            body.enabled = false;
+        }
+
         this.isReminderUpdating = true;
         this.executeRequest('updateNotificationTime', body).then(json => {
 
             if (json.isoTime) {
                 this.reminderTime = json.isoTime
                 this.isReminderUpdating = false;
+            }else{
+                this.reminderTime = null;
             }
         });
     }
@@ -293,6 +300,10 @@ export class PatientStore extends UserStore {
         //Any Length Greater than the report will default to last step
         this.report.step = 100
         this.uiState.onTreatmentFlow = true;
+    }
+
+    @action disableMedicationReminder = () => {
+
     }
 
     loadDailyReport() {
