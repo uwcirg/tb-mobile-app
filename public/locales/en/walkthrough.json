@@ -26,5 +26,16 @@
     },
     "weekCalendar": "This is a preview of your last 5 reports. You can click to view your full calendar",
     "calendar": "Your full calendar gives a visual overview of your streak, and shows days you have missed in red",
-    "calendarBottom": "You can click the bottom drawer to show what you reported for that day"
+    "calendarBottom": "You can click the bottom drawer to show what you reported for that day",
+    "milestones": "Back on the main progress page, you can manage your milestones here",
+    "messaging":{
+        "header": "This is the messaging page",
+        "text": "This page allows you to communicate with your coordinator and other patients",
+        "one": "Click here to directly and privately message your coordinator",
+        "two": "Here you can chat publically with other patients about your treatment. These discussions are organized by topic"
+    },
+    "outro":{
+        "header": "Thats all for now!",
+        "one": "If you have any more questions check the information tab or reach out to your coordinator"
+    }
 }

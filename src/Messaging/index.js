@@ -14,7 +14,8 @@ import SearchBar from '../Basics/SearchBar';
 
 const useStyles = makeStyles({
     root: {
-        "& > div > h2": {
+        backgroundColor: "white",
+        "& > div > div > h2": {
             marginLeft: ".5em",
             fontSize: "1.25em"
         }
@@ -68,12 +69,16 @@ const Messaging = observer(() => {
     return (
         <div className={classes.root}>
 
-            {!uiStore.onSpecificChannel ? <div>
+            {!uiStore.onSpecificChannel ? <div id="intro-messaging">
+                <div id="intro-chat">
                 <h2>Private Chat</h2>
                 <Channels private channels={coordinatorChannel} />
+                </div>
+                <div id="intro-chat-public">
                 <h2>Patient Discussion</h2>
                 <SearchBar handleChange={handleSearch} placeholder={t("messaging.search")} />
                 <Channels channels={publicChannels} />
+                </div>
             </div>
                 :
                 <Channel

@@ -2,6 +2,8 @@ import React from 'react'
 import Navigation from './Navigation'
 import Welcome from './Welcome'
 import Progress from './Progress'
+import Messaging from './Messaging'
+import Outro from './Outro'
 
 
 /*
@@ -62,20 +64,50 @@ let steps = [
         scrollToTop: true,
         push: "/progress",
         target: "#intro-week",
-        translationString: "progress"
+        translationString: "weekCalendar"
     },
     {
         scrollToTop: true,
         push: "/progress/calendar",
         target: ".intro-calendar-full",
-        translationString: "progress",
+        translationString: "calendar",
         spotlightPadding: 10
     },
     {
         push: "/progress/calendar",
         target: "#calendar-day-preview",
         translationString: "calendarBottom"
-    }
+    },
+    {
+        push: "/progress",
+        target: "#intro-milestones",
+        translationString: "milestones"
+    },
+    {
+        push: "/messaging",
+        target: "#intro-messaging",
+        placement: "center",
+        fillBackground: true,
+        component: (<Messaging />)
+        
+    },
+    {
+        push: "/messaging",
+        target: "#intro-chat",
+        translationString: "messaging.one"
+    },
+    {
+        push: "/messaging",
+        target: "#intro-chat-public",
+        translationString: "messaging.two"
+    },
+    {
+        push: "/home",
+        target: "#intro-greeting",
+        placement: "center",
+        fillBackground: true,
+        component: (<Outro />)
+    },
 ];
 
 steps = steps.map((each) => {

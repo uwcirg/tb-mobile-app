@@ -83,7 +83,7 @@ const MileStones = observer(() => {
     return (
         <>
             {onAddFlow ? <AddMilestones handleBack={() => { setOnFlow(false) }} /> :
-                <InteractionCard upperText={t("patient.progress.milestones")}>
+                <InteractionCard id="intro-milestones" upperText={t("patient.progress.milestones")}>
                     <div className={classes.body}>
                         {/*<h2>{t("milestones.previous")}</h2>*/}
                         <div className={classes.header}> <h2>{t("milestones.previous")}</h2><Fab onClick={patientUIStore.goToAddMilestone} className={classes.addButton} size="small"><AddIcon /></Fab></div>
