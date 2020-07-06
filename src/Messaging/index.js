@@ -46,7 +46,7 @@ const Messaging = observer(() => {
 
     useEffect(() => {
         messagingStore.getUnreadMessages();
-    })
+    },[])
 
     const handleBackFromChannel = () => {
        uiStore.goToMessaging();
@@ -58,7 +58,7 @@ const Messaging = observer(() => {
         setSearch(e.target.value)
     }
 
-    const publicChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.filter((channel) => {
+    const publicChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.slice().filter((channel) => {
         return (!channel.isPrivate && channel.title.toLowerCase().includes(search.toLowerCase()))
     }) : [];
     const coordinatorChannel = (messagingStore.channels.length > 0) ? [messagingStore.channels.find((channel) => { return (channel.isPrivate) })] : [];

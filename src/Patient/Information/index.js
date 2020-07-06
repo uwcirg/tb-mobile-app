@@ -50,12 +50,12 @@ export default function Info() {
             <div className={classes.appInfo}>
                 
                     <Button onClick={patientUIStore.goToWalkThrough}> Launch App Walkthrough</Button>
-                    <Button onClick={patientUIStore.goToWalkThrough}> Watch Tutorial Video</Button>
+                    <Button onClick={patientUIStore.goToTreatmentWalkThrough}>Treatment Walkthrough</Button>
                     <Button onClick={patientUIStore.goToWalkThrough}> Contact Coordinator On WhatsApp</Button>
 
             </div>
             <Typography variant="h1">Information about Tuberculosis</Typography>
-            <Interactioncard className={classes.topCard} upperText={t("patient.information.questions")}>
+            <Interactioncard className={classes.topCard} >
                 <Markdown options={{ overrides: { Drawer: { component: MarkdownRender } } }} children={file} />
             </Interactioncard>
         </div>

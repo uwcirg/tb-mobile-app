@@ -62,11 +62,11 @@ const Progress = observer(() => {
     return (<>
             <div id="intro-progress" className={`${classes.container} ${patientUIStore.onCalendar && classes.centerContainer + ' ' + classes.fullHeight}`} >
                 {!patientUIStore.onCalendar ?
-                    <>
+                    <div id="intro-progress-full">
                         <WeekCalendar />
                         <MileStones />
                         <ApprovalStatus />
-                    </> :
+                    </div> :
                     <>
                         <OverTopBar title={t("patient.progress.calendar")} handleBack={() => { patientUIStore.goToProgress() }} />
                         <CustomCalendar />

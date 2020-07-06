@@ -17,7 +17,8 @@ export default class PatientUIStore {
         }
     }
 
-    @observable onWalkthrough = true;
+    @observable onWalkthrough = false;
+    @observable onTreatmentWalkthrough = false;
     @observable skippedToPhotoFlow = false;
 
 
@@ -29,6 +30,7 @@ export default class PatientUIStore {
 
     @action goToWalkThrough = () => {
         this.goToHome();
+        this.onTreatmentWalkthrough = false;
         this.onWalkthrough = true;
     }
 
@@ -104,6 +106,13 @@ export default class PatientUIStore {
 
     @action skipToReportConfirmation = () => {
         this.router.push("/home/report/4")
+    }
+
+    @action goToTreatmentWalkThrough = () => {
+        this.router.push("/home/report/0")
+        this.onTreatmentWalkthrough = true;
+        this.onWalkthrough = true;
+        
     }
 
     @computed get reportStep(){

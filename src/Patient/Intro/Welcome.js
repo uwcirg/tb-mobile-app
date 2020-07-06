@@ -1,44 +1,24 @@
 import React, { useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import useStores from '../../Basics/UseStores';
-import { observer } from 'mobx-react'
+import { useTranslation } from 'react-i18next';
+import Information from '@material-ui/icons/InfoRounded'
+
 
 const useStyles = makeStyles({
-    customPopOver: {
-        height: "100vh",
-        width: "100vw",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "rgba(0,0,0,.8)",
-        "& > div": {
-            width: "90%",
-            boxSizing: "border-box",
-            minHeight: "200px",
-            backgroundColor: "white",
-            borderRadius: "1em",
-            padding: "1em"
-        }
-    }
 
 })
 
 const Welcome = () => {
-
+    const { t, i18n } = useTranslation('walkthrough');
     const classes = useStyles();
 
-    useEffect(() => {
-        window.scrollTo(0,0)
-    },)
-
-    return (<div className={classes.customPopOver}>
+    return (<>
         <div>
-            <p>Thanks for signing up to use Treatment Assistant!. We will now guide you through some of the core features of the application.</p>
-            <p> Feel Free to Exit and revisit this tutorial at any time</p>
-            <p>We are currently on the home page.</p>
+            <h1>{t('welcome.header')} 🎉</h1>
+            <p>{t('welcome.one')}</p>
+            <p>{t('welcome.two')}</p>
         </div>
-    </div>)
+    </>)
 
 }
 

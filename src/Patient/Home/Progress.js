@@ -19,7 +19,7 @@ const ProgressGraph = observer((props) => {
     const { t, i18n } = useTranslation('translation');
 
     return (
-        <InteractionCard id="intro-progress" upperText={t("patient.home.cardTitles.myProgress")}>
+        <InteractionCard id="intro-progress-card" upperText={t("patient.home.cardTitles.myProgress")}>
             <div className={classes.container}>
                 <div className={classes.topSection}>
                     <div className={classes.graph}>

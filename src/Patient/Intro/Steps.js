@@ -1,5 +1,7 @@
 import React from 'react'
 import Navigation from './Navigation'
+import Welcome from './Welcome'
+import Progress from './Progress'
 
 
 /*
@@ -10,17 +12,18 @@ let steps = [
     {
         push: "/home",
         title: "",
-        target: "#notreal",
-        content: "",
+        target: "#intro-greeting",
+        component: (<Welcome />),
         spotlightPadding: 10,
-        preventScroll: true,
+        placement: "center",
+        fillBackground: true
     },
     {
         push: "/home",
+        preventScroll: true,
         title: "",
         target: "#intro-information-button",
         translationString: "revisit",
-        preventScroll: true
     },
     {
         push: "/home",
@@ -32,6 +35,12 @@ let steps = [
     {
         push: "/home",
         scroll: true,
+        target: "#intro-progress-card",
+        translationString: "progressCard"
+    },
+    {
+        push: "/home",
+        scroll: true,
         target: "#intro-reminders-card",
         translationString: "reminders"
     },
@@ -39,12 +48,20 @@ let steps = [
         push: "/home",
         title: "This is the navigation Bar",
         target: ".MuiBottomNavigation-root",
+        preventScroll: true,
         component: (<Navigation />)
+    },
+    {
+        push: "/progress",
+        target: "#intro-progress-full",
+        fillBackground: true,
+        placement: "center",
+        component: (<Progress />)
     },
     {
         scrollToTop: true,
         push: "/progress",
-        target: "#intro-cal",
+        target: "#intro-week",
         translationString: "progress"
     },
     {
@@ -52,7 +69,12 @@ let steps = [
         push: "/progress/calendar",
         target: ".intro-calendar-full",
         translationString: "progress",
-        spotlightPadding: 10,
+        spotlightPadding: 10
+    },
+    {
+        push: "/progress/calendar",
+        target: "#calendar-day-preview",
+        translationString: "calendarBottom"
     }
 ];
 

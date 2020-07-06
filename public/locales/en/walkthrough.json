@@ -1,14 +1,30 @@
 {
-"revisit": "If you wish to revisit this walkthrough, you can find it on the information tab",
-"exit": "You can exit this walkthrough at any time by clicking the X in the top right",
-"tasks": "These are your daily tasks, you can click Start Report to begin logging your daily treatment",
-"progress": "The progress card shows you a quick preview of where you are at in your treatment.",
-"reminders": "Finally, the reminders card allows you to change your medication reminder, and add reminders for appointments",
-"navigation":{
-    "text": "The app has 4 main screens. To toggle between them select the icon in the bottom navigation bar",
-    "one": "Home + My Tasks",
-    "two": "Progress + Calendar",
-    "three": "Chat",
-    "four": "Information"
-}
+    "swipe": "Swipe To See More",
+    "welcome": {
+        "header": "Welcome",
+        "one": "Thank you for signing up for Treatment Assistant!",
+        "two": "We will now guide you through some of the core features"
+    },
+    "revisit": "If you wish to revisit this walkthrough, you can find it on the information tab",
+    "exit": "You can exit this walkthrough at any time by clicking the X in the top right",
+    "tasks": "These are your daily tasks, you can click Start Report to begin logging your daily treatment",
+    "progressCard": "The progress card shows you a quick preview of where you are at in your treatment.",
+    "reminders": "Lastly, the reminders card allows you to change your daily medication reminder, and add reminders for appointments",
+    "navigation": {
+        "text": "The app has 4 main screens. To toggle between them select the icon in the bottom navigation bar",
+        "one": "Home + My Tasks",
+        "two": "Progress + Calendar",
+        "three": "Chat",
+        "four": "Information"
+    },
+    "progress": {
+        "header": "We are now on the progress page",
+        "here": "Here you can",
+        "one": "View past reports",
+        "two": "View and edit milestones",
+        "three": "Check the status of your photo submissions"
+    },
+    "weekCalendar": "This is a preview of your last 5 reports. You can click to view your full calendar",
+    "calendar": "Your full calendar gives a visual overview of your streak, and shows days you have missed in red",
+    "calendarBottom": "You can click the bottom drawer to show what you reported for that day"
 }

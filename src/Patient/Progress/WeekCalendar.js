@@ -21,7 +21,7 @@ const WeekCalendar = observer(() => {
         patientUIStore.goToCalendar();
     }
 
-    return(<div id="intro-cal" className={classes.container + ' intro-weekcalendar'}>
+    return(<div id="intro-week" className={classes.container + ' intro-weekcalendar'}>
         {/* rerender when language changes*/ uiStore.locale && <span></span>}
         <Grid onClick={goToCalendar} className={classes.monthContainer} container direction="row" justify="flex-end" alignItems="center">
             <Typography className={classes.month} variant="h2" >{DateTime.local().monthLong}</Typography>

@@ -33,7 +33,7 @@ const PatientHome = observer((props) => {
     <div className="main-screen" style={{backgroundColor: `${Colors.white}`,minHeight: "100vh"}}>
       
       <TopBar />
-      <Intro />
+      {patientUIStore.onWalkthrough && <Intro />}
       <TopMenu />
       <div style={{ paddingTop: "60px", paddingBottom: "60px" }}>
         {routeTab}
