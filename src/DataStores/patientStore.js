@@ -85,9 +85,7 @@ export class PatientStore extends UserStore {
     }
 
     @computed get selectedDayWasPhotoDay() {
-        let weekday = this.uiState.selectedCalendarDate.weekday
-        let weekSinceStart = Math.floor(DateTime.fromISO(this.treatmentStart).endOf('day').diffNow("weeks").weeks * -1)
-        return (this.photoSchedule[weekSinceStart].includes(weekday));
+        return this.checkPhotoDay(this.uiState.selectedCalendarDate)
     }
 
 
@@ -96,17 +94,15 @@ export class PatientStore extends UserStore {
     }
 
     @computed get isPhotoDay() {
-        let weekday = DateTime.local().weekday;
-        let weekSinceStart = Math.floor(DateTime.fromISO(this.treatmentStart).endOf('day').diffNow("weeks").weeks * -1)
-        if(weekSinceStart < 0){
-            weekSinceStart = 0
-        }  
-        return (this.photoSchedule[weekSinceStart] && this.photoSchedule[weekSinceStart].includes(weekday));
+        return this.checkPhotoDay(DateTime.local())
     }
 
     checkPhotoDay(date) {
         let weekday = date.weekday;
         let weekSinceStart = Math.floor(DateTime.fromISO(this.treatmentStart).endOf('day').diffNow("weeks").weeks * -1)
+        if(weekSinceStart < 0){
+            weekSinceStart = 0
+        }  
         return (this.photoSchedule[weekSinceStart].includes(weekday));
     }
 

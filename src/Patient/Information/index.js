@@ -51,7 +51,7 @@ export default function Info() {
                 
                     <Button onClick={patientUIStore.goToWalkThrough}> Launch App Walkthrough</Button>
                     <Button onClick={patientUIStore.goToTreatmentWalkThrough}>Treatment Walkthrough</Button>
-                    <Button onClick={patientUIStore.goToWalkThrough}> Contact Coordinator On WhatsApp</Button>
+                    <Button > Contact Coordinator On WhatsApp</Button>
 
             </div>
             <Typography variant="h1">Information about Tuberculosis</Typography>

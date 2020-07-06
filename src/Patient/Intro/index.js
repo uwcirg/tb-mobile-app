@@ -16,31 +16,32 @@ import { useTranslation } from 'react-i18next';
 import Steps from './Steps'
 import TreatmentSteps from './TreatmentSteps'
 import TestReport from './ExampleReport'
-import {DateTime} from 'luxon'
+import { DateTime } from 'luxon'
 
 const Wrapper = observer(() => {
-  const { patientUIStore,patientStore } = useStores();
+  const { patientUIStore, patientStore } = useStores();
 
   //Load Test Data for calendar example
-  useEffect( () => {
-    console.log("effect used")
+  useEffect(() => {
 
-      const today = DateTime.local().startOf('day')
-      let testReports = {}
+    const today = DateTime.local().startOf('day')
+    let testReports = {}
 
-      for(let i = 0; i < 7; i++){
-          let newDay = today.minus({days: i})
-          testReports[newDay.toISODate()] = TestReport;
-      }
-      
-     patientStore.savedReports = testReports;
+    for (let i = 0; i < 7; i++) {
+      let newDay = today.minus({ days: i })
+      testReports[newDay.toISODate()] = TestReport;
+    }
+    patientStore.tempTreatmentStart = patientStore.treatmentStart
+    patientStore.treatmentStart = today.minus({days: 8}).toISODate()
+    patientStore.savedReports = testReports;
 
-     return function cleanup(){
-       patientStore.getReports();
-     }
+    return function cleanup() {
+      patientStore.getReports();
+      patientStore.treatmentStart = patientStore.tempTreatmentStart;
+    }
 
 
-  },[])
+  }, [])
 
 
   return (
@@ -76,7 +77,7 @@ const Intro = observer((props) => {
   }
 
   return (
-     <div className={classes.container}>
+    <div className={classes.container}>
       <SwipeContainer stepsList={props.stepsList} exit={exit} index={step} changeIndex={changeStep} />
       <ReactJoyride
         disableOverlayClose
