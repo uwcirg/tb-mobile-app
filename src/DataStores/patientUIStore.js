@@ -17,7 +17,8 @@ export default class PatientUIStore {
         }
     }
 
-    @observable onOnboarding = false;
+    @observable onWalkthrough = false;
+    @observable onTreatmentWalkthrough = false;
     @observable skippedToPhotoFlow = false;
 
 
@@ -27,7 +28,15 @@ export default class PatientUIStore {
         }
     }
 
-    @observable onOnboarding = false;
+    @action goToWalkThrough = () => {
+        this.goToHome();
+        this.onTreatmentWalkthrough = false;
+        this.onWalkthrough = true;
+    }
+
+    @action goToOnboarding(){
+            if(!this.onOnboarding) this.router.push("/onboarding/0")
+    }
 
     //Patient Side Routes
     @computed get onReportFlow() {
@@ -45,6 +54,10 @@ export default class PatientUIStore {
 
     @action goToHome = () => {
         this.router.push("/home")
+    }
+
+    @action goToCalendar = () => {
+        this.router.push("/progress/calendar")
     }
 
     @action goToInformation = () => {
@@ -95,6 +108,13 @@ export default class PatientUIStore {
         this.router.push("/home/report/4")
     }
 
+    @action goToTreatmentWalkThrough = () => {
+        this.router.push("/home/report/0")
+        this.onTreatmentWalkthrough = true;
+        this.onWalkthrough = true;
+        
+    }
+
     @computed get reportStep(){
         const parts = this.router.location.pathname.split("/");
         const parsed = parseInt(parts[parts.length-1])
@@ -103,6 +123,10 @@ export default class PatientUIStore {
 
     @computed get onAddMilestone(){
         return this.router.location.pathname.startsWith("/progress/reminders/add")
+    }
+
+    @computed get onCalendar(){
+        return this.router.location.pathname.startsWith("/progress/calendar")
     }
 
     @computed get tabNumber(){
@@ -123,6 +147,14 @@ export default class PatientUIStore {
     @action updateStep(step){
         const base = this.onHistoricalReport ? '/progress/report/' : '/home/report/'
         this.router.push(`${base}${step}`)
+    }
+
+    @action updateOnboardingStep(step){
+        this.router.push(`/onboarding/${step}`)
+    }
+
+    @computed get onOnboarding(){
+        return this.router.location.pathname.startsWith("/onboarding/")
     }
 }
 

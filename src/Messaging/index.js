@@ -14,7 +14,8 @@ import SearchBar from '../Basics/SearchBar';
 
 const useStyles = makeStyles({
     root: {
-        "& > div > h2": {
+        backgroundColor: "white",
+        "& > div > div > h2": {
             marginLeft: ".5em",
             fontSize: "1.25em"
         }
@@ -46,7 +47,7 @@ const Messaging = observer(() => {
 
     useEffect(() => {
         messagingStore.getUnreadMessages();
-    })
+    },[])
 
     const handleBackFromChannel = () => {
        uiStore.goToMessaging();
@@ -58,7 +59,7 @@ const Messaging = observer(() => {
         setSearch(e.target.value)
     }
 
-    const publicChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.filter((channel) => {
+    const publicChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.slice().filter((channel) => {
         return (!channel.isPrivate && channel.title.toLowerCase().includes(search.toLowerCase()))
     }) : [];
     const coordinatorChannel = (messagingStore.channels.length > 0) ? [messagingStore.channels.find((channel) => { return (channel.isPrivate) })] : [];
@@ -68,12 +69,16 @@ const Messaging = observer(() => {
     return (
         <div className={classes.root}>
 
-            {!uiStore.onSpecificChannel ? <div>
+            {!uiStore.onSpecificChannel ? <div id="intro-messaging">
+                <div id="intro-chat">
                 <h2>Private Chat</h2>
                 <Channels private channels={coordinatorChannel} />
+                </div>
+                <div id="intro-chat-public">
                 <h2>Patient Discussion</h2>
                 <SearchBar handleChange={handleSearch} placeholder={t("messaging.search")} />
                 <Channels channels={publicChannels} />
+                </div>
             </div>
                 :
                 <Channel

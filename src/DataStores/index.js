@@ -14,6 +14,7 @@ import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
 import {createBrowserHistory} from 'history';
 
 import PatientUIStore from './patientUIStore';
+import { ActivationStore } from './activationStore'
 
 const browserHistory = createBrowserHistory();
 const routingStore = new RouterStore();
@@ -34,6 +35,7 @@ export const stores = {
     accountStore: new AccountStore(apiHelper),
     practitionerStore: new PractitionerStore(apiHelper),
     patientStore: new PatientStore(apiHelper),
-    messagingStore: new MessagingStore(apiHelper)
+    messagingStore: new MessagingStore(apiHelper),
+    activationStore: new ActivationStore(apiHelper)
 }
 

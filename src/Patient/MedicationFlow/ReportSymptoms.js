@@ -31,7 +31,7 @@ const ReportSymptoms = observer((props) => {
 
     return (
         <div>
-            <InteractionCard upperText={t("commonWords.symptoms")}>
+            <InteractionCard id="intro-symptoms" upperText={t("commonWords.symptoms")}>
                 <SymptomsList />
             </InteractionCard>
             <SimpleButton alignRight className={classes.button} onClick={handleNext}>

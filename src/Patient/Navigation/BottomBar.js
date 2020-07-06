@@ -57,7 +57,7 @@ const BottomBar = observer((props) => {
       <Badge color={"primary"} invisible={messagingStore.numberUnread < 1} badgeContent={messagingStore.numberUnread} >
         <ForumIcon />
         </Badge>} />
-      <BottomNavigationAction onClick={patientUIStore.goToInformation} icon={<InfoIcon  />} />
+      <BottomNavigationAction id="intro-information-button" onClick={patientUIStore.goToInformation} icon={<InfoIcon  />} />
     </BottomNavigation>
   );
 });

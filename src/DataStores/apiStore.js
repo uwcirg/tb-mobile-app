@@ -5,8 +5,8 @@ export default class APIStore {
         this.routes = routes;
     }
 
-    executeRequest(type, body) {
-        return this.strategy.executeRequest(this.routes, type, body).then(response => {
+    executeRequest(type, body, options) {
+        return this.strategy.executeRequest(this.routes, type, body, options).then(response => {
             return response
         })
     }

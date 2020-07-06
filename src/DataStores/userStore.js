@@ -29,6 +29,7 @@ export class UserStore extends APIStore {
     this.givenName = json.givenName;
     this.familyName = json.familyName;
     this.userID = json.id;
+    this.status = json.status;
   }
 
   @action logout = () => {
@@ -40,11 +41,11 @@ export class UserStore extends APIStore {
 
   initalize() {
 
-    this.executeRequest(`getCurrent${this.userType}`).then((json) => {
+   this.executeRequest(`getCurrent${this.userType}`).then((json) => {
       if (json.id) {
         this.setAccountInformation(json)
         this.isLoggedIn = true;
-        this.reminderTime = json.reminderTime;
+        json.dailyNotificationTime && (this.reminderTime = json.dailyNotificationTime)
         this.subscribeToNotifications();
       }
     });

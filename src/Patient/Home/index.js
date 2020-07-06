@@ -7,7 +7,7 @@ import useStores from '../../Basics/UseStores';
 
 const Home = observer((props) => {
 
-    const {patientUIStore} = useStores();
+    const {patientUIStore,patientStore} = useStores();
 
     if (patientUIStore.onReportFlow) {
         return (<MedicationFlow />)

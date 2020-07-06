@@ -25,7 +25,8 @@
         "email": "Correo Electrónico",
         "password": "Contraseña",
         "logIn": "Iniciar Sesión",
-        "selectType": "Bienvenido. Iniciar sesión para:"
+        "selectType": "Bienvenido. Iniciar sesión para:",
+        "activate": "Activar"
     },
     "messaging": {
         "nurseContact": "Necesita asistencia personal? Contacte a su coordinador!",
@@ -39,6 +40,9 @@
         "weeks": "semanas"
     },
     "patient": {
+        "reminders":{
+            "title": "Recordatorios"
+        },
         "userFields": {
             "givenName": "Nombre Preferido",
             "familyName": "Apellido",
@@ -96,7 +100,7 @@
         },
         "report": {
             "next": "Seguir",
-            "title": "Vos Reporte Medico para Hoy",
+            "title": "Reporte Medico Para Hoy",
             "medicationTitle": "Confirmación de Medicamento",
             "medicationTime": "A qué hora tomó su medicamento? ",
             "didTake": "Tomé mi medicamento.",

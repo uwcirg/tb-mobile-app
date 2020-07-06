@@ -15,7 +15,8 @@ import ReportMood from './ReportMood';
 const useStyles = makeStyles({
     container: {
         marginTop: "1em",
-        marginBottom: "60px"
+        marginBottom: "60px",
+        backgroundColor: "white"
     }
 });
 

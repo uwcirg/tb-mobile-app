@@ -3,26 +3,22 @@ import LoginForm from './LoginForm';
 import ActivateForm from './ActivationForm';
 import ActivationSuccess from './ActivationSuccess';
 import useStores from '../Basics/UseStores';
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
 const Login = observer((props) => {
 
-  const [onActivation, setActivation] = useState(false);
-  const {loginStore,patientStore} = useStores();
+  const { loginStore, patientStore } = useStores();
 
-  if(props.loginType == "Test"){
+  if (props.loginType == "Test") {
     patientStore.isLoggedIn = true;
     patientStore.givenName = "Test User";
   }
 
-  const Activation = (props) => { 
-    return(<div>{props.success ? <ActivationSuccess /> : <ActivateForm />}</div>)
-  };
 
-  return(
+  return (
     <div>
-    { onActivation ? <Activation success={loginStore.activationWasSuccessful} /> : <LoginForm handleActivate={ () => {setActivation(true)}} {...props} /> }
-  </div>
+      <LoginForm {...props} />
+    </div>
   )
 });
 
