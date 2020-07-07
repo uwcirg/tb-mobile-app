@@ -97,8 +97,8 @@ const LanguageQuestion = observer(() => {
 
             </div>
             <ButtonGroup className={classes.group} fullWidth color="primary">
-                <Button onClick={() => { uiStore.language = "en" }} className={uiStore.language === "en" ? classes.selected : classes.default}>{t("patient.profile.options.english")}</Button>
-                <Button onClick={() => { uiStore.language = "es" }} className={uiStore.language === "es" ? classes.selected : classes.default}>{t("patient.profile.options.spanish")}</Button>
+                <Button onClick={() => { uiStore.setLocale("en-US")}} className={uiStore.locale === "en-US" ? classes.selected : classes.default}>{t("patient.profile.options.english")}</Button>
+                <Button onClick={() => { uiStore.setLocale("es-AR")}} className={uiStore.locale === "es-AR" ? classes.selected : classes.default}>{t("patient.profile.options.spanish")}</Button>
             </ButtonGroup>
         </div>
     );

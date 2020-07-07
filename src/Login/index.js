@@ -7,12 +7,6 @@ import { observer } from 'mobx-react';
 const Login = observer(() => {
 
   const { loginStore, uiStore,routingStore } = useStores();
-  //Load Spanish For User Tests
-  useEffect(() => {
-    uiStore.language = "es"
-
-  }, [])
-
 
   const errorText = () => {
     if (loginStore.error == 422) {

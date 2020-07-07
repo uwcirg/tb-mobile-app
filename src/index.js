@@ -17,16 +17,12 @@ import  {stores,history} from './DataStores'
 import { Router } from 'react-router';
 import { Settings } from 'luxon';
 
+//Sync Language + Time Locale Changes 
 reaction(
-    () => stores.uiStore.language,
+    () => stores.uiStore.locale,
     locale => {
       i18n.changeLanguage(locale);
-
-      if(locale === "es"){
-        Settings.defaultLocale = "es-AR"
-      }else{
-        Settings.defaultLocale = "en-US"
-      }
+      Settings.defaultLocale = locale;
     }
   );
 
@@ -44,7 +40,4 @@ ReactDOM.render(
       </Provider>
         , document.getElementById('root'));
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.register();
