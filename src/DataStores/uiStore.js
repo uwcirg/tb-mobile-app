@@ -68,4 +68,13 @@ export class UIStore {
             this.setLocale(defaultLocale)
         }
     }
+
+    @action toggleLanguage = () => {
+        if(this.locale === "en"){
+            this.locale = "es-AR"
+        }else{
+            this.locale = "en"
+        }
+    }
+
 }

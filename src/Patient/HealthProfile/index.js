@@ -94,10 +94,9 @@ const LanguageQuestion = observer(() => {
             <div className={classes.language}>
                 <Globe />
                 <Typography variant="h2">{t("patient.profile.options.language")}</Typography>
-
             </div>
             <ButtonGroup className={classes.group} fullWidth color="primary">
-                <Button onClick={() => { uiStore.setLocale("en-US")}} className={uiStore.locale === "en-US" ? classes.selected : classes.default}>{t("patient.profile.options.english")}</Button>
+                <Button onClick={() => { uiStore.setLocale("en")}} className={uiStore.locale === "en" ? classes.selected : classes.default}>{t("patient.profile.options.english")}</Button>
                 <Button onClick={() => { uiStore.setLocale("es-AR")}} className={uiStore.locale === "es-AR" ? classes.selected : classes.default}>{t("patient.profile.options.spanish")}</Button>
             </ButtonGroup>
         </div>

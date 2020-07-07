@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import { DateTime } from 'luxon';
@@ -33,6 +33,11 @@ const Greeting = () => {
 
     const classes = useStyles();
     const {patientStore} = useStores();
+
+    //TODO: remove this is just a test
+    useEffect(()=>{
+      patientStore.getLocales();
+    },[])
 
     return(<div id="intro-greeting" className={classes.container}>
         <div className={classes.greeting}>{t("greeting")} {patientStore.givenName} 👋 </div> 

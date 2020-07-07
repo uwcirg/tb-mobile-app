@@ -19,6 +19,7 @@
         "administrator": "Administrador"
     },
     "login": {
+        "changeLanguage": "Click Here For English",
         "activateAccount": "Activar su Cuenta",
         "forgotPassword": "¿Olvidaste su Contraseña?",
         "phoneNumber": "Número de Teléfono",

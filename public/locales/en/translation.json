@@ -23,6 +23,7 @@
     },
 
     "login": {
+        "changeLanguage": "Haga Clic Aquí Para Español",
         "activateAccount": "Activate New Account",
         "forgotPassword": "Forgot Password",
         "phoneNumber": "Phone Number",
@@ -94,7 +95,7 @@
             }
         },
         "profile": {
-            "title": "Health Profile",
+            "title": "Settings",
             "startDate": "Start Date",
             "endDate": "End Date",
             "totalTreatments": "Total Required Treatments",

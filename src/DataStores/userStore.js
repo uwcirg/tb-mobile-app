@@ -4,7 +4,8 @@ import APIStore from './apiStore'
 const USER_ROUTES = {
   logout: ["/auth", "DELETE"],
   getVapidKey: ["/push_key", "GET"],
-  updateSubscription: ["/update_user_subscription", "PATCH"]
+  updateSubscription: ["/update_user_subscription", "PATCH"],
+  getLocales: ["/config/locales","GET"]
 }
 
 export class UserStore extends APIStore {
@@ -37,6 +38,12 @@ export class UserStore extends APIStore {
       this.isLoggedIn = false;
     })
     this.clearLocalStorage();
+  }
+
+  @action getLocales = () => {
+    this.executeRequest('getLocales').then((json) => {
+      console.log(json)
+    })
   }
 
   initalize() {
