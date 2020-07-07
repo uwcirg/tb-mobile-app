@@ -298,9 +298,6 @@ export class PatientStore extends UserStore {
         this.uiState.onTreatmentFlow = true;
     }
 
-    @action disableMedicationReminder = () => {
-
-    }
 
     loadDailyReport() {
         const json = localStorage.getItem(`medicationReport`);

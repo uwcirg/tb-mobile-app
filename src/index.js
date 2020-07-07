@@ -15,11 +15,18 @@ import DateFnsUtils from '@date-io/luxon';
 //Object Containing MobX Stores in ./Datastores file
 import  {stores,history} from './DataStores'
 import { Router } from 'react-router';
+import { Settings } from 'luxon';
 
 reaction(
     () => stores.uiStore.language,
     locale => {
       i18n.changeLanguage(locale);
+
+      if(locale === "es"){
+        Settings.defaultLocale = "es-AR"
+      }else{
+        Settings.defaultLocale = "en-US"
+      }
     }
   );
 

@@ -61,21 +61,3 @@ export default function Info() {
         </div>
     )
 }
-
-
-
-/*
-export default function Info(){
-    const { t, i18n } = useTranslation('translation');
-    const classes = useStyles();
-    const {patientUIStore} = useStores();
-        return (
-            <div className={classes.container}>
-            <Interactioncard className={classes.topCard} upperText={t("patient.information.questions")}>
-                <Markdown options={{overrides: {Drawer: {component: MarkdownRender}}}} children={file} />
-           </Interactioncard>
-           <Button onClick={patientUIStore.goToWalkThrough}> App Walkthrough</Button>
-           </div>
-        )
-}
-*/

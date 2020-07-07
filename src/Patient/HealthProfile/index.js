@@ -6,14 +6,14 @@ import { useTranslation } from 'react-i18next';
 import { Typography } from '@material-ui/core';
 import Styles from '../../Basics/Styles';
 import Colors from '../../Basics/Colors';
-import TimeIcon from '@material-ui/icons/AccessTime';
-import FlagIcon from '@material-ui/icons/FlagOutlined';
-import LocationIcon from '@material-ui/icons/LocationOn';
-import Options from './Options'
-import NewButton from '../../Basics/NewButton'
-import ExitToApp from '@material-ui/icons/ExitToApp';
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+import Button from "@material-ui/core/Button";
 import { DateTime } from 'luxon';
 import ClickableText from '../../Basics/ClickableText';
+import { observer } from 'mobx-react'
+import NewButton from '../../Basics/NewButton'
+import ExitToApp from '@material-ui/icons/ExitToApp'
+import Globe from '@material-ui/icons/Language';
 
 const HealthProfile = () => {
 
@@ -39,7 +39,7 @@ function PatientInfo() {
     const handleLogout = () => {
         uiStore.menuOpened = false;
         patientStore.logoutPatient();
-      }
+    }
 
     const handleDemo = () => {
         uiStore.menuOpened = false;
@@ -47,7 +47,7 @@ function PatientInfo() {
         patientStore.introEnabled = true
     }
 
-    const testDate = DateTime.local().plus({weeks: 2})
+    const testDate = DateTime.local().plus({ weeks: 2 })
     const testDateString = testDate.toLocaleString(DateTime.DATE_MED);
 
     return (
@@ -58,18 +58,13 @@ function PatientInfo() {
                 </div>
                 <Typography className={classes.name} className={classes.name} variant="h2">{patientStore.givenName} {patientStore.familyName}</Typography>
             </div>
-            <NewButton onClick={handleLogout} className={classes.logout} icon={<ExitToApp />} text={t("patient.profile.logout")} />
-           
-            <div className={classes.containedBox}>
-                {/*
-                <div>
-                    <ProfileItem title={t("patient.profile.startDate")} text={testDateString} icon={<TimeIcon />} />
-                    <ProfileItem title={t("patient.profile.endDate")} text={testDateString} icon={<FlagIcon />} />
-                    <ProfileItem title={t("patient.profile.organization")} text={patientStore.managingOrganization} icon={<LocationIcon />} />
-                </div>
-                */}
+
+            <LanguageQuestion />
 
 
+
+            <div className={classes.logoutContainer}>
+                <NewButton onClick={handleLogout} className={classes.logout} icon={<ExitToApp />} text={t("patient.profile.logout")} />
             </div>
         </div>
     )
@@ -89,8 +84,28 @@ function ProfileItem(props) {
     )
 }
 
+const LanguageQuestion = observer(() => {
+    const classes = useStyles();
+    const { uiStore } = useStores();
+    const { t, i18n } = useTranslation('translation');
+
+    return (
+        <div className={classes.languageContainer}>
+            <div className={classes.language}>
+                <Globe />
+                <Typography variant="h2">{t("patient.profile.options.language")}</Typography>
+
+            </div>
+            <ButtonGroup className={classes.group} fullWidth color="primary">
+                <Button onClick={() => { uiStore.language = "en" }} className={uiStore.language === "en" ? classes.selected : classes.default}>{t("patient.profile.options.english")}</Button>
+                <Button onClick={() => { uiStore.language = "es" }} className={uiStore.language === "es" ? classes.selected : classes.default}>{t("patient.profile.options.spanish")}</Button>
+            </ButtonGroup>
+        </div>
+    );
+})
+
 const useStyles = makeStyles({
-    logout:{
+    logout: {
         width: "90%"
     },
     header: {
@@ -157,23 +172,52 @@ const useStyles = makeStyles({
         width: "100%",
         borderBottom: "solid 1px lightgray"
     },
-    containedBox: {
+    logoutContainer: {
         width: "100%",
-        "& > div": {
-                margin: "auto",
-                width: "90%",
-                borderRadius: "5px",
-                border: "solid 1px lightgray",
-                marginBottom: "1em",
-                "& > h1": {
-                    fontSize: "1.25em",
-                    marginLeft: '1em'
-                }
-        }
-        
+        display: "flex",
+        position: "fixed",
+        justifyContent: "center",
+        bottom: "0px",
+        padding: "5px"
     },
-    demoButton: {
-        marginBottom: "1em"
+    selected: {
+        backgroundColor: Colors.buttonBlue,
+        color: "white",
+        "&:hover": {
+            color: Colors.white,
+            backgroundColor: Colors.accentBlue
+        }
+    },
+    default: {
+        backgroundColor: "white",
+        color: Colors.buttonBlue,
+        "&:hover": {
+            color: Colors.buttonBlue,
+            backgroundColor: Colors.accentBlue
+        }
+    },
+    group: {
+        width: "70%",
+        margin: "1em"
+    },
+    language: {
+        width: "100%",
+        marginLeft: "1em",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "flex-start",
+        "& > svg":{
+            fontSize: "1em"
+        },
+        "& > h2": {
+            fontSize: "1.25em",
+        }
+    },
+    languageContainer: {
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center"
     }
 
 

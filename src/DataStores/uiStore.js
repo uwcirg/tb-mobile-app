@@ -5,6 +5,7 @@ export class UIStore {
 
     constructor(routerStore) {
         this.router = routerStore;
+        Settings.defaultLocale = "es-ar"
     }
 
     @observable userInt = 0;
@@ -12,36 +13,12 @@ export class UIStore {
 
     @observable isLoggedIn = false;
 
-    @observable language = "es";
     @observable activeTab = 0;
     @observable menuOpened = false;
     @observable offline = !navigator.onLine;
 
-    @observable locale = "es-ar"
-
-
-    @computed get isSpanish(){
-        return this.language == "es"
-    }
-
-    @action toggleLanguage = () => {
-
-        let prevState = this.getPrevState();
-
-        if(this.language == "en"){
-            this.language = "es"
-            this.locale = "es-ar"
-        }else{
-            this.language = "en"
-            this.locale = "en-US"
-        }
-
-        prevState.language = this.language;
-        prevState.locale = this.locale;
-        this.updateStoredState(prevState);
-
-        
-    }
+    @observable locale = "es"
+    @observable language = "es"
 
     syncLuxon = autorun(() => {
         Settings.defaultLocale = this.locale;
@@ -51,12 +28,6 @@ export class UIStore {
         this.menuOpened = !this.menuOpened;
     }
 
-    @action updateTab = (tabNumber) => {
-        this.activeTab = tabNumber;
-        let prevState = this.getPrevState();
-        prevState.tab = tabNumber;
-        this.updateStoredState(prevState);
-    }
 
     @action initalize = (uiState) => {
 
@@ -67,11 +38,11 @@ export class UIStore {
         }
 
         if(uiState.language){
-            this.language = uiState.language;
+           // this.language = uiState.language;
         }
 
         if(uiState.locale){
-            this.locale = uiState.locale;
+           // this.locale = uiState.locale;
         }
     }
 
@@ -104,4 +75,10 @@ export class UIStore {
         }
         return prevState;
     }
+
+
+    reactToLanguageChange = autorun(() => {
+        console.log(this.language)
+        console.log("CHANGE")
+    });
 }
