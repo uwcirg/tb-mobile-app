@@ -263,6 +263,13 @@
             "password": "Incorrect Password",
             "other": "Unexpected Error. Please contact coordinator on WhatsApp"
         }
+    },
+    "settings":{
+        "updatePassword": "Update Password",
+        "currentPassword": "Current Password",
+        "newPassword": "New Password",
+        "confirmPassword": "Confirm New Password",
+        "submit": "Submit"
     }
 
 }

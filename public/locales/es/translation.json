@@ -224,5 +224,13 @@
             "password": "Incorrect Password",
             "other": "Unexpected Error!s"
         }
+    },
+    "settings":{
+        "updatePassword": "Actualiza contraseña",
+        "currentPassword": "Contraseña Actual",
+        "newPassword": "Nueva Contraseña",
+        "confirmPassword": "Confirmación de Contraseña",
+        "submit": "Enviar"
+        
     }
 }

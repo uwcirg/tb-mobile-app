@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores'
 import OverTopBar from '../Navigation/OverTopBar';
@@ -17,25 +17,26 @@ import PasswordUpdate from './PasswordUpdate'
 
 import PersonalInformation from './PersonalInformation'
 
-const HealthProfile = () => {
+const HealthProfile = observer(() => {
 
     const classes = useStyles();
-    const {patientUIStore} = useStores();
+    const { patientUIStore } = useStores();
     const { t, i18n } = useTranslation('translation');
 
+    let Component = <MainSettings />
+    if (patientUIStore.onPasswordUpdate) Component = <PasswordUpdate />
+
     return (<>
-        <OverTopBar title={t("patient.profile.title")} handleBack={patientUIStore.closeSettings} ></OverTopBar>
         <div className={classes.container}>
-            <MainSettings />
+            {Component}
         </div>
     </>
     )
-}
+})
 
-
-const MainSettings = observer(() => {
+const MainSettings = () => {
     const classes = useStyles();
-    const { patientStore, uiStore } = useStores();
+    const { patientStore, uiStore, patientUIStore} = useStores();
     const { t, i18n } = useTranslation('translation');
 
     const handleLogout = () => {
@@ -45,21 +46,21 @@ const MainSettings = observer(() => {
 
     return (
         <>
-        <div className={classes.header}>
-            <div className={classes.photoContainer}>
-                <div className={classes.photo}>{patientStore.givenName[0]}</div>
+            <OverTopBar title={t("patient.profile.title")} handleBack={patientUIStore.closeSettings} ></OverTopBar>
+            <div className={classes.header}>
+                <div className={classes.photoContainer}>
+                    <div className={classes.photo}>{patientStore.givenName[0]}</div>
+                </div>
+                <Typography className={classes.name} className={classes.name} variant="h2">{patientStore.givenName} {patientStore.familyName}</Typography>
             </div>
-            <Typography className={classes.name} className={classes.name} variant="h2">{patientStore.givenName} {patientStore.familyName}</Typography>
-        </div>
-        <LanguageQuestion />
-        <PersonalInformation />
-        <div className={classes.logoutContainer}>
-            <NewButton onClick={handleLogout} className={classes.logout} icon={<ExitToApp />} text={t("patient.profile.logout")} />
-        </div>
+            <LanguageQuestion />
+            <PersonalInformation />
+            <div className={classes.logoutContainer}>
+                <NewButton onClick={handleLogout} className={classes.logout} icon={<ExitToApp />} text={t("patient.profile.logout")} />
+            </div>
         </>
     )
-
-})
+}
 
 const LanguageQuestion = observer(() => {
     const classes = useStyles();

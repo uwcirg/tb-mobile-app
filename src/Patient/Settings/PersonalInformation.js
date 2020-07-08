@@ -39,7 +39,7 @@ const useStyles = makeStyles({
 
 const LanguageQuestion = () => {
     const classes = useStyles();
-    const { uiStore } = useStores();
+    const { patientUIStore } = useStores();
     const { t, i18n } = useTranslation('translation');
 
     return (
@@ -48,7 +48,7 @@ const LanguageQuestion = () => {
                 <Lock />
                 <Typography variant="h2">{t("patient.profile.personalInfo")}</Typography>
             </div>
-            <Button onClick={() => { }} >{t("patient.profile.changePassword")}</Button>
+            <Button onClick={patientUIStore.goToPasswordUpdate} >{t("patient.profile.changePassword")}</Button>
             <Button onClick={() => { }} >{t("patient.profile.editNotifications") } (Coming Soon)</Button>
             <Button onClick={() => { }} >{t("patient.profile.changeUsername")} (Coming Soon)</Button>
         </div>
