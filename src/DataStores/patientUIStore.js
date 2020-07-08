@@ -156,6 +156,20 @@ export default class PatientUIStore {
     @computed get onOnboarding(){
         return this.router.location.pathname.startsWith("/onboarding/")
     }
+
+    /* Settings getter + setter */
+    @action goToSettings = () =>{
+        this.router.push(`${this.router.location.pathname}?onSettings=true`)
+    }
+
+    @action closeSettings = () =>{
+        this.router.push(this.router.location.pathname)
+    }
+
+    @computed get onSettings(){
+        let search = this.router.location.search
+        return (search.includes("onSettings=true"))
+    }
 }
 
 function isBroadcastChannelSupported() {

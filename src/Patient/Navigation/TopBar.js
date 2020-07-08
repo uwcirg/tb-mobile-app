@@ -7,58 +7,53 @@ import OfflineBoltIcon from '@material-ui/icons/OfflineBolt';
 import { makeStyles } from '@material-ui/core/styles';
 import { inject, observer } from 'mobx-react';
 import { useTranslation } from 'react-i18next';
-import styled from 'styled-components'
-import PersonIcon from '@material-ui/icons/Person'
 import Colors from '../../Basics/Colors';
 
 import Settings from '../../Basics/Icons/Settings'
+import useStores from '../../Basics/UseStores';
 
 const useStyles = makeStyles({
-  personIcon:{
+  personIcon: {
     color: Colors.buttonBlue,
     fontSize: "1.5em"
   },
-  menuContainer:{
+  menuContainer: {
 
   },
-  appTitle:{
+  appTitle: {
     marginRight: "auto"
   },
-    bar:{
-      position: "fixed",
-      zIndex: "5",
-      boxShadow: "none",
-      borderBottom: `1px solid ${Colors.gray}`,
-      height: '60px'
+  bar: {
+    position: "fixed",
+    zIndex: "5",
+    boxShadow: "none",
+    borderBottom: `1px solid ${Colors.gray}`,
+    height: '60px'
   }
-
-
 })
 
-const TopBar = inject("uiStore","patientStore")(observer(({ uiStore,patientStore, props }) => {
+const TopBar = observer(() => {
 
   const classes = useStyles();
-
+  const {patientUIStore, patientStore,uiStore} = useStores();
   const { t, i18n } = useTranslation('translation');
 
   //Conditional Logic to Display back button during treatment flow
   let buttonToDisplay = (
-    patientStore.isLoggedIn && <IconButton className={classes.menuContainer} onClick={uiStore.toggleMenu} edge="start"  color="inherit" aria-label="menu"> <Settings className={classes.personIcon} /></IconButton>
+    patientStore.isLoggedIn && <IconButton className={classes.menuContainer} onClick={patientUIStore.goToSettings} edge="start" color="inherit" aria-label="menu"> <Settings className={classes.personIcon} /></IconButton>
   )
-
-
-    return(
-        <AppBar className={classes.bar} color={!uiStore.offline ? "secondary" : "primary"} >
-          <Toolbar>
-            <Typography variant="h6" className={classes.appTitle}> {t("title")}</Typography>
-            {buttonToDisplay}
-            <Typography variant="h6" color={!uiStore.offline ? "secondary" : "primary"} style={{color: "flex-end"}} >
-            {uiStore.offline ? <OfflineBoltIcon style={{color:"white"}} /> : ""}
-            </Typography>
-          </Toolbar>
-        </AppBar>
-    )
-}));
+  return (
+    <AppBar className={classes.bar} color={!uiStore.offline ? "secondary" : "primary"} >
+      <Toolbar>
+        <Typography variant="h6" className={classes.appTitle}> {t("title")}</Typography>
+        {buttonToDisplay}
+        <Typography variant="h6" color={!uiStore.offline ? "secondary" : "primary"} style={{ color: "flex-end" }} >
+          {uiStore.offline ? <OfflineBoltIcon style={{ color: "white" }} /> : ""}
+        </Typography>
+      </Toolbar>
+    </AppBar>
+  )
+});
 
 
 export default TopBar;

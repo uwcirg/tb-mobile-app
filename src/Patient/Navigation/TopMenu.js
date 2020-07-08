@@ -2,38 +2,28 @@ import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import { inject, observer } from 'mobx-react';
-import HealthProfile from '../Settings';
-import { useTranslation } from 'react-i18next';
+import Settings from '../Settings';
 import Styles from '../../Basics/Styles';
+import useStores from '../../Basics/UseStores';
 
-const TopMenu = inject("uiStore", "patientStore")(observer(({ uiStore, patientStore, props }) => {
+const TopMenu = observer(() => {
 
   const classes = useStyles();
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
-  const { t, i18n } = useTranslation('translation');
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    uiStore.toggleMenu();
-  };
+  const {patientUIStore} = useStores();
 
   return (
     <Drawer
       className={classes.drawer}
       variant="persistent"
       anchor="top"
-      open={uiStore.menuOpened}
+      open={patientUIStore.onSettings}
     >
       <div className={classes.contentContainer}>
-        <HealthProfile />
+        <Settings />
       </div>
     </Drawer>
   );
-}));
+});
 
 const drawerWidth = "100%";
 
@@ -47,7 +37,7 @@ const useStyles = makeStyles(theme => ({
     marginLeft: "1em"
   },
   contentContainer: {
-    minHeight: "100vh",
+    height: "100vh",
     marginTop: "60px",
     ...Styles.flexColumn,
     alignItems: "center"

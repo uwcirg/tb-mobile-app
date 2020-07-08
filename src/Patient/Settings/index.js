@@ -13,26 +13,27 @@ import { observer } from 'mobx-react'
 import NewButton from '../../Basics/NewButton'
 import ExitToApp from '@material-ui/icons/ExitToApp'
 import Globe from '@material-ui/icons/Language';
+import PasswordUpdate from './PasswordUpdate'
 
 import PersonalInformation from './PersonalInformation'
 
 const HealthProfile = () => {
 
     const classes = useStyles();
-    const { patientStore, uiStore } = useStores();
+    const {patientUIStore} = useStores();
     const { t, i18n } = useTranslation('translation');
 
     return (<>
-        <OverTopBar title={t("patient.profile.title")} handleBack={() => { uiStore.menuOpened = false }} ></OverTopBar>
+        <OverTopBar title={t("patient.profile.title")} handleBack={patientUIStore.closeSettings} ></OverTopBar>
         <div className={classes.container}>
-            <PatientInfo />
+            <MainSettings />
         </div>
     </>
     )
 }
 
-function PatientInfo() {
 
+const MainSettings = observer(() => {
     const classes = useStyles();
     const { patientStore, uiStore } = useStores();
     const { t, i18n } = useTranslation('translation');
@@ -42,45 +43,23 @@ function PatientInfo() {
         patientStore.logoutPatient();
     }
 
-    const handleDemo = () => {
-        uiStore.menuOpened = false;
-        uiStore.activeTab = 0;
-        patientStore.introEnabled = true
-    }
-
-    const testDate = DateTime.local().plus({ weeks: 2 })
-    const testDateString = testDate.toLocaleString(DateTime.DATE_MED);
-
     return (
-        <div className={classes.container}>
-            <div className={classes.header}>
-                <div className={classes.photoContainer}>
-                    <div className={classes.photo}>{patientStore.givenName[0]}</div>
-                </div>
-                <Typography className={classes.name} className={classes.name} variant="h2">{patientStore.givenName} {patientStore.familyName}</Typography>
+        <>
+        <div className={classes.header}>
+            <div className={classes.photoContainer}>
+                <div className={classes.photo}>{patientStore.givenName[0]}</div>
             </div>
-            <LanguageQuestion />
-            <PersonalInformation />
-            <div className={classes.logoutContainer}>
-                <NewButton onClick={handleLogout} className={classes.logout} icon={<ExitToApp />} text={t("patient.profile.logout")} />
-            </div>
+            <Typography className={classes.name} className={classes.name} variant="h2">{patientStore.givenName} {patientStore.familyName}</Typography>
         </div>
-    )
-}
-
-function ProfileItem(props) {
-
-    const classes = useStyles();
-    return (
-        <div className={classes.profileItem}>
-            {props.icon}
-            <div>
-                <h1>{props.title}</h1>
-                <p>{props.text}</p>
-            </div>
+        <LanguageQuestion />
+        <PersonalInformation />
+        <div className={classes.logoutContainer}>
+            <NewButton onClick={handleLogout} className={classes.logout} icon={<ExitToApp />} text={t("patient.profile.logout")} />
         </div>
+        </>
     )
-}
+
+})
 
 const LanguageQuestion = observer(() => {
     const classes = useStyles();
@@ -94,8 +73,8 @@ const LanguageQuestion = observer(() => {
                 <Typography variant="h2">{t("patient.profile.options.language")}</Typography>
             </div>
             <ButtonGroup className={classes.group} fullWidth color="primary">
-                <Button onClick={() => { uiStore.setLocale("en")}} className={uiStore.locale === "en" ? classes.selected : classes.default}>{t("patient.profile.options.english")}</Button>
-                <Button onClick={() => { uiStore.setLocale("es-AR")}} className={uiStore.locale === "es-AR" ? classes.selected : classes.default}>{t("patient.profile.options.spanish")}</Button>
+                <Button onClick={() => { uiStore.setLocale("en") }} className={uiStore.locale === "en" ? classes.selected : classes.default}>{t("patient.profile.options.english")}</Button>
+                <Button onClick={() => { uiStore.setLocale("es-AR") }} className={uiStore.locale === "es-AR" ? classes.selected : classes.default}>{t("patient.profile.options.spanish")}</Button>
             </ButtonGroup>
         </div>
     );
@@ -176,7 +155,8 @@ const useStyles = makeStyles({
         position: "fixed",
         justifyContent: "center",
         bottom: "0px",
-        padding: "5px"
+        padding: "5px",
+        backgroundColor: "white"
     },
     selected: {
         backgroundColor: Colors.buttonBlue,
@@ -204,7 +184,7 @@ const useStyles = makeStyles({
         display: "flex",
         alignItems: "center",
         justifyContent: "flex-start",
-        "& > svg":{
+        "& > svg": {
             fontSize: "1em",
             marginRight: "5px"
         },
