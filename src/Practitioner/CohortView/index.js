@@ -207,7 +207,8 @@ const Patients = (props) => {
 
         return 0
     }).filter(each =>{
-        return each.fullName.toLowerCase().includes(search.toLowerCase())
+        
+        return each.fullName && each.fullName.toLowerCase().includes(search.toLowerCase())
     })
 
     let list = ""

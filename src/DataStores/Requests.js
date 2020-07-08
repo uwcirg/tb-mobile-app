@@ -3,6 +3,7 @@
 const baseURL = window._env ? window._env.URL_API : "";
 
 const authenticatedRequest = (url, method, body, options) => {
+    let requestStatus = 0;
     return fetch(`${baseURL}${url}`, {
         method: method,
         credentials: "include",
@@ -12,13 +13,17 @@ const authenticatedRequest = (url, method, body, options) => {
         body: JSON.stringify(body)
     })
         .then(resolve => {
-
+            requestStatus = resolve.status;
             //Default Error Handling, or use options.allowErrors to accept the returned body of error from server
-            if(resolve.status >= 400 && (!options || options.allowErrors === false)){
+            if (resolve.status >= 400 && (!options || options.allowErrors === false)) {
                 return new Error(resolve.status);
             }
-            return resolve.json()})
-        .then(json => { return json })
+            return resolve.json()
+        })
+        .then(json => {
+            json.httpStatus = requestStatus;
+            return json
+        })
 }
 
 export default class APIHelper {
@@ -36,8 +41,8 @@ export default class APIHelper {
     }
 
     //When you need to use parameters in a request (routes are not always predefined)
-    executeRawRequest(route,method,body){
-        return authenticatedRequest(route,method,body)
+    executeRawRequest(route, method, body) {
+        return authenticatedRequest(route, method, body)
     }
 }
 

@@ -4,7 +4,10 @@ import APIStore from './apiStore'
 const USER_ROUTES = {
   logout: ["/auth", "DELETE"],
   getVapidKey: ["/push_key", "GET"],
-  updateSubscription: ["/update_user_subscription", "PATCH"]
+  //TODO change this path to /user/me/push_subscription
+  updateSubscription: ["/update_user_subscription", "PATCH"],
+  getLocales: ["/config/locales", "GET"],
+  updatePassword: ["/user/me/password", "PATCH"]
 }
 
 export class UserStore extends APIStore {
@@ -16,8 +19,9 @@ export class UserStore extends APIStore {
   @observable familyName = ""
   @observable expired = false;
   @observable isLoggedIn = false;
-
   @observable reminderTime = "";
+
+  @observable passwordUpdate = this.defaultPasswordUpdateState
 
   constructor(strategy, routes, userType) {
     const mergedRoutes = { ...USER_ROUTES, ...routes }
@@ -39,9 +43,15 @@ export class UserStore extends APIStore {
     this.clearLocalStorage();
   }
 
+  @action getLocales = () => {
+    this.executeRequest('getLocales').then((json) => {
+      
+    })
+  }
+
   initalize() {
 
-   this.executeRequest(`getCurrent${this.userType}`).then((json) => {
+    this.executeRequest(`getCurrent${this.userType}`).then((json) => {
       if (json.id) {
         this.setAccountInformation(json)
         this.isLoggedIn = true;
@@ -144,6 +154,40 @@ export class UserStore extends APIStore {
     }
 
   }
+
+  @action updatePassword = () => {
+    this.passwordUpdate.errors = []
+    this.passwordUpdate.message = ""
+    this.passwordUpdate.loading = true;
+    this.passwordUpdate.success = false;
+
+    this.executeRequest("updatePassword", this.passwordUpdate, { allowErrors: true }).then(json => {
+      this.passwordUpdate.loading = false;
+      if (json.httpStatus >= 400) {
+        this.passwordUpdate.errors = json.fields
+        this.passwordUpdate.message = json.error
+      } else {
+        this.passwordUpdate.success = true;
+        this.passwordUpdate.message = json.message;
+      }
+
+    });
+  }
+
+  @action resetPasswordUpdateState = () => {
+    this.passwordUpdate = this.defaultPasswordUpdateState
+  }
+
+  defaultPasswordUpdateState = {
+      currentPassword: "",
+      newPassword: "",
+      newPasswordConfirmation: "",
+      errors: [],
+      message: "",
+      loading: false,
+      success: false
+    }
+  
 
 
 }

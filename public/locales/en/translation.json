@@ -23,6 +23,7 @@
     },
 
     "login": {
+        "changeLanguage": "Haga Clic Aquí Para Español",
         "activateAccount": "Activate New Account",
         "forgotPassword": "Forgot Password",
         "phoneNumber": "Phone Number",
@@ -94,7 +95,11 @@
             }
         },
         "profile": {
-            "title": "Health Profile",
+            "title": "Settings",
+            "changePassword": "Update Password",
+            "editNotifications": "Edit Notification Preferences",
+            "changeUsername": "Edit Username",
+            "personalInfo": "Personal Information",
             "startDate": "Start Date",
             "endDate": "End Date",
             "totalTreatments": "Total Required Treatments",
@@ -251,6 +256,20 @@
         },
         "upcoming": "Upcoming",
         "previous": "Previous"
+    },
+    "errors":{
+        "login":{
+            "identifier": "Incorrect Phone Number / Email",
+            "password": "Incorrect Password",
+            "other": "Unexpected Error. Please contact coordinator on WhatsApp"
+        }
+    },
+    "settings":{
+        "updatePassword": "Update Password",
+        "currentPassword": "Current Password",
+        "newPassword": "New Password",
+        "confirmPassword": "Confirm New Password",
+        "submit": "Submit"
     }
 
 }

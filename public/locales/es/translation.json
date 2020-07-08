@@ -19,6 +19,7 @@
         "administrator": "Administrador"
     },
     "login": {
+        "changeLanguage": "Click Here For English",
         "activateAccount": "Activar su Cuenta",
         "forgotPassword": "¿Olvidaste su Contraseña?",
         "phoneNumber": "Número de Teléfono",
@@ -80,7 +81,9 @@
             }
         },
         "profile": {
-            "title": "Perfil de Salud",
+            "title": "Configuración",
+            "personalInfo": "Informacion Personal",
+            "changePassword": "Cambia la contraseña",
             "startDate": "Primer Dia de Tratamiento",
             "endDate": "Último Dia de Tratamiento",
             "totalTreatments": "Numero de Reportes Requeridos",
@@ -214,5 +217,20 @@
         "addReminder": "Agregar recordatorio",
         "upcoming": "Fechas Pasadas",
         "previous": "Fechas Siguientes"
+    },
+    "errors":{
+        "login":{
+            "identifier": "Incorrect Phone Number",
+            "password": "Incorrect Password",
+            "other": "Unexpected Error!s"
+        }
+    },
+    "settings":{
+        "updatePassword": "Actualiza contraseña",
+        "currentPassword": "Contraseña Actual",
+        "newPassword": "Nueva Contraseña",
+        "confirmPassword": "Confirmación de Contraseña",
+        "submit": "Enviar"
+        
     }
 }
