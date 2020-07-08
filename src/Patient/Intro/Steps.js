@@ -5,7 +5,6 @@ import Progress from './Progress'
 import Messaging from './Messaging'
 import Outro from './Outro'
 
-
 /*
     translationString is the key corresponding to the walkthrough.json file in the /public/locales folder
 */

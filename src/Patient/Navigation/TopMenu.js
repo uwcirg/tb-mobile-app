@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import { inject, observer } from 'mobx-react';
-import HealthProfile from '../HealthProfile';
+import HealthProfile from '../Settings';
 import { useTranslation } from 'react-i18next';
 import Styles from '../../Basics/Styles';
 

@@ -9,11 +9,12 @@ import Colors from '../../Basics/Colors';
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
 import { DateTime } from 'luxon';
-import ClickableText from '../../Basics/ClickableText';
 import { observer } from 'mobx-react'
 import NewButton from '../../Basics/NewButton'
 import ExitToApp from '@material-ui/icons/ExitToApp'
 import Globe from '@material-ui/icons/Language';
+
+import PersonalInformation from './PersonalInformation'
 
 const HealthProfile = () => {
 
@@ -58,11 +59,8 @@ function PatientInfo() {
                 </div>
                 <Typography className={classes.name} className={classes.name} variant="h2">{patientStore.givenName} {patientStore.familyName}</Typography>
             </div>
-
             <LanguageQuestion />
-
-
-
+            <PersonalInformation />
             <div className={classes.logoutContainer}>
                 <NewButton onClick={handleLogout} className={classes.logout} icon={<ExitToApp />} text={t("patient.profile.logout")} />
             </div>
@@ -103,6 +101,8 @@ const LanguageQuestion = observer(() => {
     );
 })
 
+
+
 const useStyles = makeStyles({
     logout: {
         width: "90%"
@@ -131,7 +131,6 @@ const useStyles = makeStyles({
         ...Styles.flexColumn,
         alignItems: "center",
         margin: "1em",
-        minHeight: "25vh",
         width: "100%",
     },
     name: {
@@ -200,13 +199,14 @@ const useStyles = makeStyles({
         margin: "1em"
     },
     language: {
-        width: "100%",
+        width: "90%",
         marginLeft: "1em",
         display: "flex",
         alignItems: "center",
         justifyContent: "flex-start",
         "& > svg":{
-            fontSize: "1em"
+            fontSize: "1em",
+            marginRight: "5px"
         },
         "& > h2": {
             fontSize: "1.25em",

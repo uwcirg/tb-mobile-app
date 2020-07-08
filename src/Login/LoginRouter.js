@@ -31,6 +31,8 @@ const useStyles = makeStyles({
         flexDirection: "column"
     },
     selectionContainer: {
+        maxWidth: "400px",
+        margin: "auto",
         display: "flex",
         height: "100%",
         flexDirection: "column",

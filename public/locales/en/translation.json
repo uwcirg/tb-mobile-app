@@ -96,6 +96,10 @@
         },
         "profile": {
             "title": "Settings",
+            "changePassword": "Update Password",
+            "editNotifications": "Edit Notification Preferences",
+            "changeUsername": "Edit Username",
+            "personalInfo": "Personal Information",
             "startDate": "Start Date",
             "endDate": "End Date",
             "totalTreatments": "Total Required Treatments",
@@ -252,6 +256,13 @@
         },
         "upcoming": "Upcoming",
         "previous": "Previous"
+    },
+    "errors":{
+        "login":{
+            "identifier": "Incorrect Phone Number / Email",
+            "password": "Incorrect Password",
+            "other": "Unexpected Error. Please contact coordinator on WhatsApp"
+        }
     }
 
 }
