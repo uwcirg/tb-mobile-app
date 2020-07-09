@@ -23,13 +23,16 @@
     },
 
     "login": {
+        "changeLanguage": "Haga Clic Aquí Para Español",
         "activateAccount": "Activate New Account",
         "forgotPassword": "Forgot Password",
         "phoneNumber": "Phone Number",
         "email": "Email",
         "password": "Password",
         "logIn": "Log In",
-        "selectType": "Select your user type"
+        "selectType": "Select your user type",
+        "haveAccount": "Already have an account?",
+        "activate": "Activate"
 
     },
 
@@ -47,6 +50,9 @@
     },
 
     "patient": {
+        "reminders":{
+            "title": "Reminders"
+        },
         "demo":{
             "showDemo": "Show Demo"
         },
@@ -89,7 +95,11 @@
             }
         },
         "profile": {
-            "title": "Health Profile",
+            "title": "Settings",
+            "changePassword": "Update Password",
+            "editNotifications": "Edit Notification Preferences",
+            "changeUsername": "Edit Username",
+            "personalInfo": "Personal Information",
             "startDate": "Start Date",
             "endDate": "End Date",
             "totalTreatments": "Total Required Treatments",
@@ -116,6 +126,7 @@
             "didNotTake": "I didn't take my medication",
             "whyNotTaken": "Why didn't you take your medication?",
             "symptomsTitle": "Did you have any symptoms?",
+            "moodTitle": "How are you feeling today?",
             "photoTitle": "Capture Strip Photo",
             "photo": {
                 "usePhoto": "Use Photo",
@@ -301,6 +312,20 @@
             "currentStreak": "Current Streak",
             "longestStreak": "Longest Streak"
          }
-   }
+   },
+    "errors":{
+        "login":{
+            "identifier": "Incorrect Phone Number / Email",
+            "password": "Incorrect Password",
+            "other": "Unexpected Error. Please contact coordinator on WhatsApp"
+        }
+    },
+    "settings":{
+        "updatePassword": "Update Password",
+        "currentPassword": "Current Password",
+        "newPassword": "New Password",
+        "confirmPassword": "Confirm New Password",
+        "submit": "Submit"
+    }
 
 }

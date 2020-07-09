@@ -7,10 +7,10 @@ import Colors from '../../Basics/Colors';
 import useStores from '../../Basics/UseStores';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import AddMilestone from './AddMilestone';
 import AddMilestones from './AddMilestone';
 import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next'
+
 
 const useStyles = makeStyles({
     body: {
@@ -59,7 +59,7 @@ const useStyles = makeStyles({
             padding: 0
         },
         "& > .title":{
-            fontWeight: "bold",
+            fontWeight: "medium",
             fontSize: ".9em",
             marginBottom: "5px"
         },
@@ -83,7 +83,7 @@ const MileStones = observer(() => {
     return (
         <>
             {onAddFlow ? <AddMilestones handleBack={() => { setOnFlow(false) }} /> :
-                <InteractionCard upperText={t("patient.progress.milestones")}>
+                <InteractionCard id="intro-milestones" upperText={t("patient.progress.milestones")}>
                     <div className={classes.body}>
                         {/*<h2>{t("milestones.previous")}</h2>*/}
                         <div className={classes.header}> <h2>{t("milestones.previous")}</h2><Fab onClick={patientUIStore.goToAddMilestone} className={classes.addButton} size="small"><AddIcon /></Fab></div>
@@ -126,7 +126,7 @@ const MileStone = (props) => {
             </div>
             <div className={classes.milestoneText}>
                 <span className="title">{props.milestone.title}</span>
-                <span className="date">{date.toLocaleString(DateTime.DATE_SHORT)}</span>
+                <span className="date">{date.toLocaleString(DateTime.TIME_24_SIMPLE)}</span>
             </div>
         </div>
     )

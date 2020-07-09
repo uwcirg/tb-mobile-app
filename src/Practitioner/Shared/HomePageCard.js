@@ -30,7 +30,7 @@ const useStyles = makeStyles({
         "&:hover": {
             backgroundColor: "#cce6ff",
             "& > div": {
-                fontWeight: "bold"
+                fontWeight: "medium"
             }
         },
         minHeight: "50px",

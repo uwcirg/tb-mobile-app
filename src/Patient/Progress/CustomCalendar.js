@@ -56,7 +56,7 @@ const useStyles = makeStyles({
         ...Styles.flexCenter
     },
     today: {
-        fontWeight: "bold"
+        fontWeight: "medium"
     },
     positive: {
         backgroundColor: Colors.calendarGreen,
@@ -126,6 +126,7 @@ const CustomCalendar = () => {
 
     return (
         <Calendar
+            
             tileDisabled={({ date }) => {
                 return  checkDisabled(date)
             }}
@@ -135,7 +136,7 @@ const CustomCalendar = () => {
             onChange={() => { }}
             value={new Date()}
             locale={uiStore.locale}
-            className={classes.calendar}
+            className={`${classes.calendar} intro-calendar-full`}
             navigationLabel={(
                 { date }) => `${DateTime.fromJSDate(date).get("monthLong")} ${DateTime.fromJSDate(date).get("year")}`
             }

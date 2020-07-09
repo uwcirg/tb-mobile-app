@@ -41,25 +41,33 @@ const SevereSymptoms = [
   "facial_swelling"
 ]
 
+//Renders whole list of symptoms
 const SymptomsList = (props) => {
 
   const { t, i18n } = useTranslation('translation');
 
-  let selectedList = props.severe ? SevereSymptoms : Symptoms;
-
-  const List = selectedList.map((name, index) => {
+  let list = Symptoms.map((name, index) => {
     return (
-      <Symptom severe={props.severe} key={`symptom-${index}`} name={name} subtitle={t(`symptoms.${name}.subtitle`)} title={t(`symptoms.${name}.title`)} />
+      <Symptom key={`symptom-${name}`} name={name} subtitle={t(`symptoms.${name}.subtitle`)} title={t(`symptoms.${name}.title`)} />
     )
   })
 
+  const severeList = SevereSymptoms.map((name, index) => {
+    return (
+      <Symptom severe key={`symptom-${name}`} name={name} subtitle={t(`symptoms.${name}.subtitle`)} title={t(`symptoms.${name}.title`)} />
+    )
+  })
+
+  list = list.concat(severeList)
+
   return (
     <>
-      {List}
+      {list}
     </>
   )
 };
 
+//Single Symptom in List
 const Symptom = observer((props) => {
   const classes = useStyles();
   const { patientStore } = useStores();

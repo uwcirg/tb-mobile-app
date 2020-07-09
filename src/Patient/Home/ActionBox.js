@@ -69,7 +69,7 @@ const ActionBox = observer(() => {
     }
 
     return(
-        <InteractionCard upperText={t("patient.home.cardTitles.todaysTasks")} className="intro-tasks">
+        <InteractionCard upperText={t("patient.home.cardTitles.todaysTasks")} id="intro-tasks">
             {patientStore.dailyActionsCompleted ? 
             <>
             <Confirmation onClick={patientUIStore.editReport} />

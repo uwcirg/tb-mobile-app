@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import BottomBar from './Navigation/BottomBar';
-import { inject, observer } from 'mobx-react';
+import {observer} from 'mobx-react';
 import Home from './Home'
 import Info from './Information'
 import Messaging from '../Messaging';
@@ -14,7 +14,7 @@ import Colors from '../Basics/Colors';
 
 const PatientHome = observer((props) => {
 
-  const { patientUIStore } = useStores();
+  const { patientUIStore, patientStore } = useStores();
   const tabs = [<Home />, <Progress />, <Messaging />, <Info />];
   const routeTab = tabs[patientUIStore.tabNumber]  
   
@@ -23,17 +23,26 @@ const PatientHome = observer((props) => {
     window.scrollTo(0,0)
   },[patientUIStore.tabNumber])
 
+  useEffect(() => {
+    if(patientStore.status === "Pending") patientUIStore.goToOnboarding();
+  },[patientStore.status])
+
   return (
+    <>
+    {patientStore.status === "Active" ?
     <div className="main-screen" style={{backgroundColor: `${Colors.white}`,minHeight: "100vh"}}>
-      {patientUIStore.onOnboarding && <Onboarding />}
+      
       <TopBar />
-      <Intro />
+      {patientUIStore.onWalkthrough && <Intro />}
       <TopMenu />
       <div style={{ paddingTop: "60px", paddingBottom: "60px" }}>
         {routeTab}
       </div>
       <BottomBar />
-    </div>
+    </div> 
+    : 
+    <Onboarding /> }
+    </>
   );
 }
 );

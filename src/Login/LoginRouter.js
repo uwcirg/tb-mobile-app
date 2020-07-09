@@ -1,6 +1,7 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import LargeSelector from '../Basics/LargeSelector'
-import {makeStyles, withTheme} from '@material-ui/core/styles'
+import { makeStyles, withTheme } from '@material-ui/core/styles'
+import useStores from '../Basics/UseStores'
 
 //Components
 import AppLogo from '../Basics/AppLogo'
@@ -10,27 +11,37 @@ import LoginPage from './LoginPage'
 //Icons
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
-import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
-import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import Colors from '../Basics/Colors'
 import ChevronLeftOutlined from '@material-ui/icons/ChevronLeftOutlined';
-import DeveloperModeIcon from '@material-ui/icons/DeveloperMode';
 
-import {useTranslation} from 'react-i18next'
+import { useTranslation } from 'react-i18next'
+import { ButtonBase } from '@material-ui/core'
+import Globe from '@material-ui/icons/Language';
 
 const useStyles = makeStyles({
+    backContainer:{
+        alignSelf: "flex-start"
+    },
     container: {
         width: "100%",
         height: "100vh",
         backgroundColor: "#0e3782",
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column"
     },
     selectionContainer: {
-        height: "100%",
+        maxWidth: "400px",
+        margin: "auto",
         display: "flex",
+        height: "100%",
         flexDirection: "column",
         justifyItems: "center",
         justifyContent: "center",
         alignContent: "center",
+        "& > h2": {
+            marginTop: "auto"
+        }
 
     },
     logo: {
@@ -54,9 +65,10 @@ const useStyles = makeStyles({
     back: {
         color: "white",
         height: "1.5em",
-        width: "1.5em"
+        width: "1.5em",
+        alignSelf: "flex-start"
     },
-    background:{
+    background: {
         position: "fixed",
         zIndex: "-1",
         bottom: 0,
@@ -64,43 +76,52 @@ const useStyles = makeStyles({
         height: "5000px",
         width: "5000px",
         backgroundColor: "#0e3782"
+    },
+    languageChange:{
+        color: "white",
+        marginTop: "auto",
+        fontSize: ".75em",
+        "& > svg":{
+            marginRight: "5px"
+        }
     }
-  });
+});
 
 
 const Selection = (props) => {
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
+    const {uiStore} = useStores();
 
     return (
-    <div className={classes.selectionContainer}>
-        <h2 className={classes.subtitle}>{t("login.selectType")}:</h2>
-    <LargeSelector onClick={props.handleSelection} id="Patient" backgroundColor={Colors.blue}><AccountBoxIcon /><span>{t("userTypes.patient")}</span></LargeSelector>
-        <LargeSelector onClick={props.handleSelection} id="Practitioner" backgroundColor={Colors.blue}><SupervisorAccountIcon /><span>{t("userTypes.coordinator")}</span></LargeSelector>
-        <LargeSelector onClick={props.handleSelection} id="Administrator" backgroundColor={Colors.blue}><SupervisedUserCircleIcon /><span>{t("userTypes.admin")}</span></LargeSelector>
-    </div>)
+        <div className={classes.selectionContainer}>
+            <h2 className={classes.subtitle}>{t("login.selectType")}:</h2>
+            <LargeSelector onClick={props.handleSelection} id="Patient" backgroundColor={Colors.blue}><AccountBoxIcon /><span>{t("userTypes.patient")}</span></LargeSelector>
+            <LargeSelector onClick={props.handleSelection} id="Practitioner" backgroundColor={Colors.blue}><SupervisorAccountIcon /><span>{t("userTypes.coordinator")}</span></LargeSelector>
+            <ButtonBase className={classes.languageChange} onClick={uiStore.toggleLanguage}><Globe />{t("login.changeLanguage")}</ButtonBase>
+        </div>)
 }
 
 const LoginRouter = () => {
     const classes = useStyles();
-    const [selection,setSelection] = useState("");
+    const [selection, setSelection] = useState("");
 
     const handleSelection = (id) => {
-            setSelection(id)
+        setSelection(id)
     }
 
-    return(
+    return (
         <>
-        <div className={classes.background} />
-        <div className={`${classes.container} `}>
-            {selection ? <IconButton onClick={() => {setSelection("")}} ><ChevronLeftOutlined className={classes.back}/></IconButton> : ""}
-            <div className={classes.containerTop}>
-                <AppLogo className={classes.logo}/>
+            <div className={classes.background} />
+            <div className={`${classes.container} `}>
+                {selection ? <IconButton className={classes.backContainer} onClick={() => { setSelection("") }} ><ChevronLeftOutlined className={classes.back} /></IconButton> : ""}
+                <div className={classes.containerTop}>
+                    <AppLogo className={classes.logo} />
+                </div>
+                <div className={classes.containerBottom}>
+                    {!selection ? <Selection handleSelection={handleSelection} /> : <LoginPage loginType={selection} />}
+                </div>
             </div>
-            <div className={classes.containerBottom}>
-            {!selection ? <Selection handleSelection={handleSelection} /> : <LoginPage loginType={selection}/>}
-            </div>
-        </div>
         </>
     )
 }

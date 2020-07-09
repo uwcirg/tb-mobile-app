@@ -9,7 +9,7 @@ export default class PatientUIStore {
 
         //Allow UI Redirects from notifications
         //event is sent from custom-service-worker.js
-        if(isBroadcastChannelSupported()){
+        if (isBroadcastChannelSupported()) {
             const channel = new BroadcastChannel('notifications');
             channel.addEventListener('message', event => {
                 this.handleMessageFromServiceworker(event.data);
@@ -17,17 +17,26 @@ export default class PatientUIStore {
         }
     }
 
-    @observable onOnboarding = false;
+    @observable onWalkthrough = false;
+    @observable onTreatmentWalkthrough = false;
     @observable skippedToPhotoFlow = false;
 
 
-    handleMessageFromServiceworker(message){
-        if(message.url){
+    handleMessageFromServiceworker(message) {
+        if (message.url) {
             this.router.push(message.url)
         }
     }
 
-    @observable onOnboarding = false;
+    @action goToWalkThrough = () => {
+        this.goToHome();
+        this.onTreatmentWalkthrough = false;
+        this.onWalkthrough = true;
+    }
+
+    @action goToOnboarding() {
+        if (!this.onOnboarding) this.router.push("/onboarding/0")
+    }
 
     //Patient Side Routes
     @computed get onReportFlow() {
@@ -47,6 +56,10 @@ export default class PatientUIStore {
         this.router.push("/home")
     }
 
+    @action goToCalendar = () => {
+        this.router.push("/progress/calendar")
+    }
+
     @action goToInformation = () => {
         this.router.push("/information")
     }
@@ -59,10 +72,10 @@ export default class PatientUIStore {
         this.router.push("/progress")
     }
 
-    @action previousReportStep = () =>{
-        if(this.reportStep > 0){
+    @action previousReportStep = () => {
+        if (this.reportStep > 0) {
             this.updateStep(this.reportStep - 1)
-        }else{
+        } else {
             this.goToHome();
         }
     }
@@ -84,7 +97,7 @@ export default class PatientUIStore {
     }
 
     @action endReport = () => {
-        if(this.onHistoricalReport){
+        if (this.onHistoricalReport) {
             this.router.push('/progress')
             return
         }
@@ -95,17 +108,28 @@ export default class PatientUIStore {
         this.router.push("/home/report/4")
     }
 
-    @computed get reportStep(){
+    @action goToTreatmentWalkThrough = () => {
+        this.router.push("/home/report/0")
+        this.onTreatmentWalkthrough = true;
+        this.onWalkthrough = true;
+
+    }
+
+    @computed get reportStep() {
         const parts = this.router.location.pathname.split("/");
-        const parsed = parseInt(parts[parts.length-1])
+        const parsed = parseInt(parts[parts.length - 1])
         return parsed ? parsed : 0
     }
 
-    @computed get onAddMilestone(){
+    @computed get onAddMilestone() {
         return this.router.location.pathname.startsWith("/progress/reminders/add")
     }
 
-    @computed get tabNumber(){
+    @computed get onCalendar() {
+        return this.router.location.pathname.startsWith("/progress/calendar")
+    }
+
+    @computed get tabNumber() {
         const splitPath = this.router.location.pathname.split("/");
 
         //Get the tab the user is one. ie. if on baseURL/home they are on the first tab
@@ -116,13 +140,48 @@ export default class PatientUIStore {
         return 0
     }
 
-    @computed get onHistoricalReport(){
+    @computed get onHistoricalReport() {
         return this.router.location.pathname.startsWith("/progress/report")
     }
 
-    @action updateStep(step){
+    @action updateStep(step) {
         const base = this.onHistoricalReport ? '/progress/report/' : '/home/report/'
         this.router.push(`${base}${step}`)
+    }
+
+    @action updateOnboardingStep(step) {
+        this.router.push(`/onboarding/${step}`)
+    }
+
+    @computed get onOnboarding() {
+        return this.router.location.pathname.startsWith("/onboarding/")
+    }
+
+    /* Settings getter + setter */
+    @action goToSettings = () => {
+        this.router.push(`${this.router.location.pathname}?onSettings=true`)
+    }
+
+    @action closeSettings = () => {
+        this.router.push(this.router.location.pathname)
+    }
+
+    @computed get onSettings() {
+        let search = this.router.location.search
+        return (search.includes("onSettings=true"))
+    }
+    /* Password Update Getter + Setter */
+    @computed get onPasswordUpdate() {
+        return this.router.location.search.includes("&onPassword=true")
+    }
+
+    
+    @action goToPasswordUpdate = () => {
+        this.router.push(`${this.router.location.pathname}?onSettings=true&onPassword=true`)
+    }
+
+    @action closePasswordUpdate = () => {
+        this.goToSettings();
     }
 }
 
@@ -133,7 +192,7 @@ function isBroadcastChannelSupported() {
         const channel = new BroadcastChannel("feature_test");
         channel.close();
         return true;
-    } catch(err) {
+    } catch (err) {
         return false;
     }
-  }
+}

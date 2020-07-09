@@ -3,24 +3,21 @@ import LoginRouter from './LoginRouter';
 import Alert from '../Basics/Alert';
 import useStores from '../Basics/UseStores';
 import { observer } from 'mobx-react';
+import { useTranslation } from 'react-i18next';
+
 
 const Login = observer(() => {
 
-  const { loginStore, uiStore,routingStore } = useStores();
-  //Load Spanish For User Tests
-  useEffect(() => {
-    uiStore.language = "es"
-
-  }, [])
-
+  const { t, i18n } = useTranslation('translation');
+  const { loginStore } = useStores();
 
   const errorText = () => {
     if (loginStore.error == 422) {
-      return "Incorrect Phone Number / Email"
+      return t("errors.login.identifier")
     } else if (loginStore.error == 401) {
-      return "Incorrect Password"
+      return t("errors.login.password")
     } else {
-      return "Internal Server Error"
+      return t("errors.login.other")
     }
   }
 

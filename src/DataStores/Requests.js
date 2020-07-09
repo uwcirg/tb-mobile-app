@@ -2,7 +2,8 @@
 
 const baseURL = window._env ? window._env.URL_API : "";
 
-const authenticatedRequest = (url, method, body) => {
+const authenticatedRequest = (url, method, body, options) => {
+    let requestStatus = 0;
     return fetch(`${baseURL}${url}`, {
         method: method,
         credentials: "include",
@@ -12,31 +13,36 @@ const authenticatedRequest = (url, method, body) => {
         body: JSON.stringify(body)
     })
         .then(resolve => {
-
-            if(resolve.status >= 400){
+            requestStatus = resolve.status;
+            //Default Error Handling, or use options.allowErrors to accept the returned body of error from server
+            if (resolve.status >= 400 && (!options || options.allowErrors === false)) {
                 return new Error(resolve.status);
             }
-            return resolve.json()})
-        .then(json => { return json })
+            return resolve.json()
+        })
+        .then(json => {
+            if(options && options.includeStatus)json.httpStatus = requestStatus;
+            return json
+        })
 }
 
 export default class APIHelper {
 
     //Send network request from predefined object of routes
-    executeRequest(routes, route, body) {
+    executeRequest(routes, route, body, options) {
 
         let routeInfo = routes[route];
 
         if (routeInfo) {
-            return authenticatedRequest(...routeInfo, body);
+            return authenticatedRequest(...routeInfo, body, options);
         } else {
             throw new Error("Provided route not available.")
         }
     }
 
     //When you need to use parameters in a request (routes are not always predefined)
-    executeRawRequest(route,method,body){
-        return authenticatedRequest(route,method,body)
+    executeRawRequest(route, method, body) {
+        return authenticatedRequest(route, method, body)
     }
 }
 

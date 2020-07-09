@@ -7,12 +7,17 @@ import AdherenceGraph from '../AdherenceGraph';
 import Card from '../Shared/Card';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PersonIcon from '@material-ui/icons/People'
-import BasicSidebar from '../Shared/BasicSidebar';
 import CohortSideBar from './Sidebar';
 import Search from '../../Basics/SearchBar'
 import DownIcon from '@material-ui/icons/KeyboardArrowDown';
 import UpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { useTranslation } from 'react-i18next';
+import { ButtonBase, Popover } from '@material-ui/core';
+import PlusIcon from '@material-ui/icons/AddOutlined'
+import useStores from '../../Basics/UseStores';
+import {observer} from 'mobx-react'
+import Button from '@material-ui/core/Button'
+import PopUp from '../../Patient/Navigation/PopUp';
 
 const useStyles = makeStyles({
     title: {
@@ -51,7 +56,7 @@ const useStyles = makeStyles({
             backgroundColor: "white",
             color: "gray",
             borderRadius: ".5em .5em 0 0",
-            fontWeight: "bold"
+            fontWeight: "medium"
         },
         "&:last-child": {
             borderBottom: "none"
@@ -97,23 +102,92 @@ const useStyles = makeStyles({
     noPatients:{
         width: "100%",
         textAlign: "center"
+    },
+    addPatient:{
+        borderRadius: "1em",
+        color: "white",
+        backgroundColor: Colors.buttonBlue,
+        marginLeft: "auto",
+        display: "flex",
+        height: "3em",
+        padding: "1em",
+        width: "160px",
+        display: "flex",
+        justifyContent: "space-evenly",
+        fontSize: "1em"
+    },
+    header:{
+        width: "90%",
+        display: "flex",
+        alignItems: "center"
+    },
+    button:{
+        backgroundColor: Colors.buttonBlue
     }
 })
 
-const PatientsView = (props) => {
+const PatientsView = observer((props) => {
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
+    const {practitionerStore} = useStores();
+
+    const toggleAddPatient = () => {
+        practitionerStore.onAddPatientFlow = !practitionerStore.onAddPatientFlow
+    }
 
     return (
+        
         <div className={classes.superContainer}>
         <div className={classes.container}>
             <h1 className={classes.title}>{t("coordinator.titles.myPatients")}</h1>
             <AdherenceGraph />
             <Patients icon={<PersonIcon />} title={t("coordinator.cardTitles.allPatients")} list={props.patientList} handlePatientClick={props.handlePatientClick} />
             <Patients icon={<PersonAddIcon />} title={t("coordinator.cardTitles.awaitingActivation")} list={props.tempList} />
+            <div className={classes.header}>
+            <h1 className={classes.title}> My Patients</h1>
+            <ButtonBase onClick={toggleAddPatient} className={classes.addPatient}><PlusIcon /><p>Add Patient</p></ButtonBase>
+            </div>
+            <AdherenceGraph />
+            <Patients icon={<PersonIcon />} title={"All Patients"} list={props.patientList} handlePatientClick={props.handlePatientClick} />
+    {/*<Patients icon={<PersonAddIcon />} pending title={"Awaiting Activation"} list={props.tempList} /> */}
+        <PendingPatients  list={props.tempList} />
+        {practitionerStore.newActivationCode && <PopUp handleClickAway={()=>{practitionerStore.newActivationCode = ""}}> {practitionerStore.newActivationCode} </PopUp>}
         </div>
          <CohortSideBar />
          </div>
+         
+    )
+})
+
+const PendingPatients = (props) => {
+    const classes = useStyles();
+    const {practitionerStore} = useStores();
+
+    let list = props.list.map((patient,index) => {
+        return (
+            <div key={`patient-list-view-${index}`} className={classes.singlePatient}>
+                <div className={classes.name}>
+                    <a onClick={() => { props.handlePatientClick(patient.id) }}>
+                       {patient.fullName}
+                    </a>
+                </div>
+
+                <div>
+                    {patient.phoneNumber}
+                </div>
+
+                <div>
+                    <Button onClick={() => {practitionerStore.resetActivationCode(patient.id)}} className={classes.button} variant="contained" > Reset Code</Button>
+                </div>
+            </div>
+        )
+    })
+
+    return(
+        <Card>
+            {list}
+        </Card>
+        
     )
 }
 
@@ -140,10 +214,12 @@ const Patients = (props) => {
 
         return 0
     }).filter(each =>{
-        return each.fullName.toLowerCase().includes(search.toLowerCase())
+        
+        return each.fullName && each.fullName.toLowerCase().includes(search.toLowerCase())
     })
 
-    let list = sorted.map((patient,index) => {
+    let list = ""
+    sorted.length > 0 && (list = sorted.map((patient,index) => {
         return (
             <div key={`patient-list-view-${index}`} className={classes.singlePatient}>
                 <div className={classes.name}>
@@ -161,14 +237,14 @@ const Patients = (props) => {
                     {patient.lastReport ? patient.lastReport.date : "No Reports"}
                 </div>
                 <div>
-                    {patient.adherence * 100}%
+                    {Math.round(patient.adherence * 100)}%
                 </div>
                 <div>
                     {patient.currentStreak} {t("time.days")}
                 </div>
             </div>
         )
-    })
+    }))
 
     const labels = (<div key={`patient-list-view-top`} className={classes.singlePatient}>
         <div className={classes.name} onClick={() => {setSort("fullName")}}>

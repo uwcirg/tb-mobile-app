@@ -1,78 +1,117 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
 import useStores from '../Basics/UseStores';
-import {Container,Card, IdentifierInput} from './StyledInputs'
+import { Container, Card, IdentifierInput } from './StyledInputs'
 import Button from '@material-ui/core/Button';
-import {useTranslation} from 'react-i18next'
-import {PasswordInput} from './StyledInputs'
+import { useTranslation } from 'react-i18next'
+import { PasswordInput } from './StyledInputs'
+import ReactCodeInput from 'react-code-input';
+import ButtonBase from '@material-ui/core/ButtonBase'
+import Globe from '@material-ui/icons/Language';
 
-const USER_TYPES = ["Patient","Practitioner","Administrator"];
+const USER_TYPES = ["Patient", "Practitioner", "Administrator"];
 const LoginForm = observer((props) => {
 
-    const { t, i18n } = useTranslation('translation');
+  const [onActivation, setOnActivation] = useState(false)
+  const { t, i18n } = useTranslation('translation');
 
-    const {patientStore,loginStore,practitionerStore} = useStores();
-  
-    let updatePassword = (e) => {
-      loginStore.password = e.target.value;
-    }
-  
-    let updateIdentifier = (e) => {
-      loginStore.identifier = e.target.value;
-    }
+  const { patientStore, loginStore, practitionerStore } = useStores();
 
-    //TODO refactor polymorphicly
-    let handleLogin = () => {
-      loginStore.login(props.loginType).then( res => {
-        switch(res) {
-          case USER_TYPES[2]:
-            console.log("Future admin login flow")
-            break;
-          case USER_TYPES[1]:
-            practitionerStore.initalize();
-            break;
-          case USER_TYPES[0]:
-            patientStore.initalize();
+  let updatePassword = (e) => {
+    loginStore.password = e.target.value;
+  }
+
+  let updateIdentifier = (e) => {
+    loginStore.identifier = e.target.value;
+  }
+
+  const handleCodeInput = (change) => {
+    loginStore.password = change;
+  }
+
+  const toggleActivate = () => {
+    setOnActivation(!onActivation)
+  }
+
+  //TODO refactor polymorphicly
+  let handleLogin = () => {
+    loginStore.login(props.loginType).then(res => {
+      switch (res) {
+        case USER_TYPES[2]:
+          console.log("Future admin login flow")
           break;
-          default:
-            console.log("Invalid Login")
-        }
-      });
-    }
-  
-    const isPatient = props.loginType == "Patient";
-  
-    return (
-      <Container>
-        <Card>
-        <form onSubmit={(e) => {e.preventDefault()}}>
-        <IdentifierInput defaultValue={isPatient? t("login.phoneNumber"): t("login.email")} updateIdentifier={updateIdentifier} />
+        case USER_TYPES[1]:
+          practitionerStore.initalize();
+          break;
+        case USER_TYPES[0]:
+          patientStore.initalize();
+          break;
+        default:
+          console.log("Invalid Login")
+      }
+    });
+  }
+
+  const isPatient = props.loginType == "Patient";
+
+  return (
+    <Container>
+      <Card>
+        <form onSubmit={(e) => { e.preventDefault() }}>
+          <IdentifierInput defaultValue={isPatient ? t("login.phoneNumber") : t("login.email")} updateIdentifier={updateIdentifier} />
           <br />
-        <PasswordInput updatePassword={updatePassword} />
+          {onActivation ? <Center><CodeInput onChange={handleCodeInput} id="activationCode" fields={5} /></Center> : <PasswordInput updatePassword={updatePassword} />}
           <br />
-          <Button id="login" fullWidth onClick={handleLogin} variant="contained" color={"primary"} >{t("login.logIn")}</Button>
-          </form>
-          </Card>
-          <BottomLinks>
-            <a onClick={props.handleActivate}>{t("login.activateAccount")}</a>
-            <a>{t("login.forgotPassword")}</a>
-          </BottomLinks>
-      </Container>
-    );
-  });
+          <Button id="login" fullWidth onClick={handleLogin} variant="contained" color={"primary"} >{onActivation ? t("login.activate") : t("login.logIn")}</Button>
+        </form>
+      </Card>
+      <BottomLinks>
+        <ButtonBase style={{ fontSize: "1em" }} onClick={toggleActivate}>{onActivation ? t("login.haveAccount") : t("login.activateAccount")}</ButtonBase>
+        <ButtonBase style={{ fontSize: "1em" }}>{t("login.forgotPassword")}</ButtonBase>
+      </BottomLinks>
+
+    </Container>
+  );
+});
 
 
 const BottomLinks = styled.div`
-margin-top: 3em;
-a{
+margin: 3em 0 3em 0;
+width: 100%;
+display: flex;
+flex-direction: column;
+align-content: center;
+
+button{
     margin-top: 1.25em;
     text-align: center;
     display: block;
-    width: 100%;
     color: #89b3f9;
   }
 
+`
+
+const Center = styled.div`
+width: 100%;
+justify-content: center;
+`
+
+const CodeInput = styled(ReactCodeInput)`
+    width: 100%;
+    display: flex !important;
+    justify-content: center;
+    margin: auto;
+    input{
+      width: 6vw;
+      height: 6vw;
+      margin: 1vw;
+      font-size: 1.5em;
+      border-radius: 5px;
+      border: none;
+      padding: .5em;
+      text-align: center;
+    }
 `
 
 export default LoginForm;

@@ -134,7 +134,7 @@ const ReportMedication = observer((props) => {
 
     return (
         <>
-            <Container>
+            <Container id="intro-medication-time">
                 {patientStore.report.tookMedication ? <DidTakeMedication toggle={toggleTookMedication} /> : <DidntTakeMedication toggle={toggleTookMedication} />}
                 <SimpleButton alignRight onClick={handleNext}>{t("patient.report.next")}</SimpleButton>
             </Container>

@@ -16,7 +16,10 @@ import Colors from './Basics/Colors';
 const theme = createMuiTheme({
 
   typography: {
-    fontFamily: "'Roboto', sans-serif"
+    fontFamily: "'Roboto', sans-serif",
+    h1:{
+      fontSize: "1.25em"
+    }
 
   },
   palette: {
@@ -93,9 +96,10 @@ export default class Main extends React.Component {
   }
 
   initalizeApplicationState() {
+
+    this.props.uiStore.initalizeLocale();
     
     const userType = localStorage.getItem("user.type");
-    const uiState = localStorage.getItem("uiState");
 
     if (userType === "Patient") {
       this.props.patientStore.initalize();
@@ -103,8 +107,6 @@ export default class Main extends React.Component {
     } else if (userType === "Practitioner") {
       this.props.practitionerStore.initalize();
     }
-
-    this.props.uiStore.initalize(JSON.parse(uiState));
 
   }
 }

@@ -25,13 +25,12 @@ export class PatientStore extends UserStore {
         currentStreak: 0
     }
 
+    @observable status = "";
+
     //@observable notificationTime = DateTime.fromISO("12:00:00").toISOTime();
     @observable isReminderUpdating = false;
 
     @observable treatmentStart = ""
-
-    //For intro to UI
-    @observable introEnabled = false;
 
     @observable uiState = {
         onCalendarView: false,
@@ -54,15 +53,23 @@ export class PatientStore extends UserStore {
         allDay: false
     }
 
+    @action getPatientInformation = () => {
+        return this.executeRequest(`getCurrentPatient`).then((json) => {
+            if (json.status) {
+                this.status = json.status;
+                this.reminderTime = json.dailyNotificationTime
+            }
+        });
+    }
 
-    @action setAccountInformation(json){
-        
+    @action setAccountInformation(json) {
+
         this.photoSchedule = JSON.parse(json.medicationSchedule)
         this.treatmentStart = json.treatmentStart
         this.patientInformation.daysInTreatment = json.daysInTreatment;
         this.patientInformation.currentStreak = json.currentStreak;
         super.setAccountInformation(json);
-      
+
     }
 
     @computed get datetimeTreatmentStart() {
@@ -78,9 +85,7 @@ export class PatientStore extends UserStore {
     }
 
     @computed get selectedDayWasPhotoDay() {
-        let weekday = this.uiState.selectedCalendarDate.weekday
-        let weekSinceStart = Math.floor(DateTime.fromISO(this.treatmentStart).endOf('day').diffNow("weeks").weeks * -1)
-        return (this.photoSchedule[weekSinceStart].includes(weekday));
+        return this.checkPhotoDay(this.uiState.selectedCalendarDate)
     }
 
 
@@ -89,14 +94,15 @@ export class PatientStore extends UserStore {
     }
 
     @computed get isPhotoDay() {
-        let weekday = DateTime.local().weekday;
-        let weekSinceStart = Math.floor(DateTime.fromISO(this.treatmentStart).endOf('day').diffNow("weeks").weeks * -1)
-        return (this.photoSchedule[weekSinceStart].includes(weekday));
+        return this.checkPhotoDay(DateTime.local())
     }
 
     checkPhotoDay(date) {
         let weekday = date.weekday;
         let weekSinceStart = Math.floor(DateTime.fromISO(this.treatmentStart).endOf('day').diffNow("weeks").weeks * -1)
+        if(weekSinceStart < 0){
+            weekSinceStart = 0
+        }  
         return (this.photoSchedule[weekSinceStart].includes(weekday));
     }
 
@@ -120,9 +126,10 @@ export class PatientStore extends UserStore {
 
     //Streak calculated on server can only produce streak from yesterday. 
     //If the user has completed their treatment today, this will add oneday
-    @computed get getCurrentStreak(){
+    @computed get getCurrentStreak() {
         let streak = this.patientInformation.currentStreak;
-        if(this.report.hasConfirmedAndSubmitted && this.report.tookMedication){
+        if(streak === null) streak = 0;
+        if (this.report.hasConfirmedAndSubmitted && this.report.tookMedication) {
             streak += 1;
         }
 
@@ -196,6 +203,7 @@ export class PatientStore extends UserStore {
         body.medicationWasTaken = this.report.tookMedication;
         body.whyMedicationNotTaken = this.report.whyMedicationNotTaken;
         body.dateTimeTaken = this.report.timeTaken;
+        body.doingOkay = this.report.doingOkay;
 
         if (this.isPhotoDay && this.report.photoString) {
             this.uploadPhoto().then(res => {
@@ -233,14 +241,21 @@ export class PatientStore extends UserStore {
         this.report.step = 4;
     }
 
-    @action updateNotificationTime = () => {
-        const body = { time: this.reminderTime }
+    @action updateNotificationTime = (turnOff) => {
+        let body = { time: this.reminderTime }
+
+        if(turnOff){
+            body.enabled = false;
+        }
+
         this.isReminderUpdating = true;
         this.executeRequest('updateNotificationTime', body).then(json => {
 
             if (json.isoTime) {
                 this.reminderTime = json.isoTime
                 this.isReminderUpdating = false;
+            }else{
+                this.reminderTime = null;
             }
         });
     }
@@ -282,6 +297,7 @@ export class PatientStore extends UserStore {
         this.report.step = 100
         this.uiState.onTreatmentFlow = true;
     }
+
 
     loadDailyReport() {
         const json = localStorage.getItem(`medicationReport`);
@@ -352,19 +368,21 @@ export class PatientStore extends UserStore {
     }
 
     defaultReport = {
-            date: DateTime.local().toISODate(),
-            step: 0,
-            timeTaken: DateTime.local().startOf('second').startOf("minute").toISOTime({ suppressSeconds: true }),
-            selectedSymptoms: [],
-            photoWasTaken: false,
-            photoString: "",
-            tookMedication: true,
-            whyMedicationNotTaken: "",
-            headerText: "When did you take your medication?",
-            hasSubmitted: false,
-            hasSubmittedPhoto: false,
-            hasConfirmedAndSubmitted: false,
-            isHistoricalReport: false
+        date: DateTime.local().toISODate(),
+        step: 0,
+        timeTaken: DateTime.local().startOf('second').startOf("minute").toISOTime({ suppressSeconds: true }),
+        selectedSymptoms: [],
+        photoWasTaken: false,
+        photoString: "",
+        tookMedication: true,
+        whyMedicationNotTaken: "",
+        headerText: "When did you take your medication?",
+        hasSubmitted: false,
+        hasSubmittedPhoto: false,
+        hasConfirmedAndSubmitted: false,
+        isHistoricalReport: false,
+        doingOkay: true,
+        doingOkaySelected: false
     }
 
 

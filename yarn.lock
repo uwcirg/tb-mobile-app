@@ -5284,6 +5284,11 @@ i18next-browser-languagedetector@^4.0.1:
   dependencies:
     "@babel/runtime" "^7.5.5"
 
+i18next-fs-backend@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/i18next-fs-backend/-/i18next-fs-backend-1.0.6.tgz#1cf5f78c7801bfcd4ff4c6989ac3b14b6ff1a252"
+  integrity sha512-/XC6e08DDWcTNZTUYL2KPPMFpCdksc1FDWJwJur+Nh9MlDVSTE7q1YsOApxhA+lX2iIdJbTAsN72l//vo7OcUw==
+
 i18next-xhr-backend@^3.2.2:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/i18next-xhr-backend/-/i18next-xhr-backend-3.2.2.tgz#769124441461b085291f539d91864e3691199178"

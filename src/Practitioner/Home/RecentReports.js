@@ -48,7 +48,7 @@ const useStyles = makeStyles({
             padding: 0,
             margin: 0,
             fontStyle: "normal",
-            fontWeight: "bold",
+            fontWeight: "medium",
             fontSize: "16px",
             lineHeight: "19px"
         }

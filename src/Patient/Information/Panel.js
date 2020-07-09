@@ -17,7 +17,7 @@ const useStyles = makeStyles({
         margin: 0
     },
     heading:{
-        fontWeight: "bold"
+        fontSize: "1em"
     },
     icon:{
         padding:0,
@@ -39,7 +39,7 @@ export default function Test(props) {
     })
 
     return (
-        <Panel title={title.props.children[0]} children={props.children} />
+        <Panel title={title.props.children[0]} children={props.children.slice(1)} />
     )
 }
 
@@ -54,12 +54,12 @@ function Panel(props) {
                 aria-controls="panel-content"
                 id="expand-section"
             >
-                <Typography className={classes.heading}>{props.title}</Typography>
+                <Typography variant="h2" className={classes.heading}>{props.title}</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
-                <Typography className={classes.body}>
+                <div className={classes.body}>
                     {props.children}
-                </Typography>
+                </div>
             </ExpansionPanelDetails>
         </ExpansionPanel>
     )

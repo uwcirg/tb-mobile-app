@@ -17,7 +17,7 @@ import ArchiveIcon from '@material-ui/icons/HowToReg';
 
 const useStyles = makeStyles({
     listItem: {
-        fontWeight: "bold",
+        fontWeight: "medium",
         textTransform: "capitalize"
     },
     header: {
@@ -54,7 +54,7 @@ const useStyles = makeStyles({
         width: "35%",
     },
     bold: {
-        fontWeight: "bold"
+        fontWeight: "medium"
     },
     reportsList: {
         ...Styles.flexColumn,
@@ -176,6 +176,7 @@ const ReportingHistory = (props) => {
                             <div>{t("coordinator.patientProfile.taken")}</div>
                             <div>{t("coordinator.patientProfile.symptoms")}</div>
                             <div>{t("coordinator.patientProfile.photo")}</div>
+                            <div>Mood</div>
                         </div>
                         <div className={classes.reportsList}>
                             {Object.values(props.reports).map((each,i) => {
@@ -205,6 +206,7 @@ const DailyReportPreview = (props) => {
         <div>{props.medicationWasTaken ? t("coordinator.true") : t("coordinator.false")}</div>
         <div><ul>{ props.symptoms && props.symptoms.length > 0 && props.symptoms.map((symptom) => {return <li>{t(`symptoms.${symptom}.title`)}</li>})}</ul></div>
         <div className={classes.stripPhoto}> {props.photoUrl ? <img src={props.photoUrl} /> : t("commonWords.no") }</div>
+        <div>{props.doingOkay ? "Okay" :  "Need Support"}</div>
     </div>)
 }
 

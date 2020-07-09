@@ -27,7 +27,7 @@ const useStyles = makeStyles({
         }
     },
     day: {
-        fontWeight: "bold"
+        fontWeight: "medium"
     },
     symptomContainer: {
         width: "100%"
@@ -58,7 +58,7 @@ const SymptomSidebar = observer((props) => {
                         return (
                             <>
                                 <p className={classes.day}>{each}</p>
-                                {practitionerStore.selectedPatientSymptoms.summary[each].map((symptom) => {
+                                {practitionerStore.selectedPatientSymptoms.summary[each] && practitionerStore.selectedPatientSymptoms.summary[each].map((symptom) => {
                                     return <p>{symptom}</p>
                                 })}
                             </>

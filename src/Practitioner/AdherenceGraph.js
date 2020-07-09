@@ -57,7 +57,7 @@ const useStyles = makeStyles({
         width: "100%",
         "& > div": {
             flexGrow: "1",
-            fontWeight: "bold"
+            fontWeight: "medium"
         }
     },
     yLabel: {
