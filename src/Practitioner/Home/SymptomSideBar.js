@@ -53,10 +53,11 @@ const SymptomSidebar = observer((props) => {
                 <h2 className={classes.header}>Symptoms Sice Last Resolution:</h2>
                 {practitionerStore.selectedPatientSymptoms.loading ?
                     <p> Loading...</p> : <div className={classes.symptoms}> {Object.keys(practitionerStore.selectedPatientSymptoms.summary).map((each) => {
+                        console.log(practitionerStore.selectedPatientSymptoms.summary[each])
                         return (
                             <>
                                 <p className={classes.day}>{each}</p>
-                                {practitionerStore.selectedPatientSymptoms.summary[each].map((symptom) => {
+                                {practitionerStore.selectedPatientSymptoms.summary[each] && practitionerStore.selectedPatientSymptoms.summary[each].map((symptom) => {
                                     return <p>{symptom}</p>
                                 })}
                             </>

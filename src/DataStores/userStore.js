@@ -161,7 +161,7 @@ export class UserStore extends APIStore {
     this.passwordUpdate.loading = true;
     this.passwordUpdate.success = false;
 
-    this.executeRequest("updatePassword", this.passwordUpdate, { allowErrors: true }).then(json => {
+    this.executeRequest("updatePassword", this.passwordUpdate, { allowErrors: true,includeStatus: true  }).then(json => {
       this.passwordUpdate.loading = false;
       if (json.httpStatus >= 400) {
         this.passwordUpdate.errors = json.fields
