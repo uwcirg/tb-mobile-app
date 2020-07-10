@@ -103,7 +103,7 @@ export class PatientStore extends UserStore {
         if(weekSinceStart < 0){
             weekSinceStart = 0
         }  
-        return (this.photoSchedule[weekSinceStart].includes(weekday));
+        return (this.photoSchedule[weekSinceStart] && this.photoSchedule[weekSinceStart].includes(weekday));
     }
 
     @computed get selectedDateForDisplay() {

@@ -13,7 +13,7 @@ import PhotoList from './PhotoView'
 import Home from './Home/'
 import Settings from './Settings'
 
-import PatientProfile from './PatientProfile'
+import PatientProfile from './PatientProfile/'
 
 const PractitionerBody = observer(() => {
     const { practitionerStore, routingStore } = useStores();
@@ -62,12 +62,12 @@ const PractitionerBody = observer(() => {
 const Body = styled.div`
 width: 100%;
 min-height: 100vh;
-padding-left: 2em;
 display: flex;
 flex-direction: column;
 justify-content: flex-start;
 align-content: flex-start;
 align-items: flex-start;
+margin-left: 1em;
 
 `
 

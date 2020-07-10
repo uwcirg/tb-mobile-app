@@ -41,8 +41,7 @@ const PhotoSidebar = observer((props) => {
 
     const { t, i18n } = useTranslation('translation');
 
-    let rowID = practitionerStore.selectedRow.id;
-    const item = practitionerStore.photoReports[rowID];
+    const item = practitionerStore.photoReports[practitionerStore.selectedRow.index];
 
     return (
         <Basicsidebar>

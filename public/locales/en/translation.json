@@ -301,6 +301,8 @@
          "false": "false",
          "daysInTreatment": "Days In Treatment",
          "patientProfile": {
+            "resetPassword": "Reset Password",
+            "resetPasswordExplanation": "Click here to reset a patients password. This generates a temporary password that you will have to send to them via WhatsApp. They will be asked to enter a new password after they use the temporary one.",
             "phoneNumber": "Phone Number",
             "treatmentStart": "Treatment Start",
             "date": "Date",

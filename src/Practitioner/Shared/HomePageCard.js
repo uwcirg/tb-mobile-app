@@ -2,10 +2,11 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 //import Colors from '../Basics/Colors'
-import Checkbox from '@material-ui/core/Checkbox';
+import {observer} from 'mobx-react';
 import PropTypes from 'prop-types';
 import Colors from '../../Basics/Colors';
 import Card from './Card'
+import useStores from '../../Basics/UseStores';
 
 const useStyles = makeStyles({
     container: {
@@ -66,18 +67,17 @@ const HomePageCard = (props) => {
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
 
-    const handleClick = (id, type, patientId) => {
-        props.setSidebar(id, type, patientId)
+    const handleClick = (type, index) => {
+        props.setSidebar(type,index)
     }
 
     const patientList = props.patientList.map((each, index) => {
         return (<SingleLine
             selected={props.selectedType === props.type && props.selectedId === index}
-            id={each.id} 
             key={`${props.type}-${index}`}
-            patientId={each.id}
-            onClick={() => handleClick(index, props.type, each.id)}
-            fullName={each.fullName} />)
+            patientId={each.patientId}
+            onClick={() => handleClick(props.type,index)}
+             />)
     })
 
     return (
@@ -89,14 +89,16 @@ const HomePageCard = (props) => {
     )
 }
 
-const SingleLine = (props) => {
+const SingleLine = observer((props) => {
     const classes = useStyles();
+    const {practitionerStore} = useStores();
+
     return (
         <div className={`${classes.lineItem} ${props.selected ? classes.selected : ""}`} onClick={props.onClick}>
-            <p>{props.fullName}</p>
+            <p>{practitionerStore.getPatientName(props.patientId)}</p>
         </div>
     )
-}
+})
 
 HomePageCard.propTypes = {
     title: PropTypes.string,

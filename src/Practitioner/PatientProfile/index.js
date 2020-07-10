@@ -1,19 +1,22 @@
-import React, { useEffect, useState, useRef,useLayoutEffect } from 'react'
+import React, { useEffect, useState} from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import useStores from '../Basics/UseStores';
+import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
-import Calendar from '../Basics/ReportCalendar';
-import Card from './Shared/Card';
+import Calendar from '../../Basics/ReportCalendar';
+import Card from '../Shared/Card';
 import CalendarIcon from '@material-ui/icons/Today';
-import ProgressGraphs from './ProfileProgress';
-import Styles from '../Basics/Styles';
+import ProgressGraphs from '../ProfileProgress';
+import Styles from '../../Basics/Styles';
 import { DateTime } from 'luxon';
-import Colors from '../Basics/Colors';
+import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
-import Loading from './Shared/CardLoading'
+import Loading from '../Shared/CardLoading'
 import ChatIcon from '@material-ui/icons/ChatBubble';
 import KeyIcon from '@material-ui/icons/VpnKey';
 import ArchiveIcon from '@material-ui/icons/HowToReg';
+
+import ResetPassword from './ResetPassword'
+
 
 const useStyles = makeStyles({
     listItem: {
@@ -77,21 +80,21 @@ const useStyles = makeStyles({
     highlight: {
         backgroundColor: Colors.accentBlue
     },
-    stripPhoto:{
+    stripPhoto: {
         display: "flex",
         justifyContent: "center",
         alignItems: "cener",
-        "& > img":{
+        "& > img": {
             width: "90%",
             maxWidth: "150px"
-        } 
+        }
     },
-    optionsContainer:{
+    optionsContainer: {
         display: "flex",
         marginLeft: "auto",
         height: "100%",
         alignItems: "center",
-        "& > div":{
+        "& > div": {
             border: `2px solid ${Colors.buttonBlue}`,
             color: Colors.buttonBlue,
             width: "75px",
@@ -100,7 +103,7 @@ const useStyles = makeStyles({
             justifyContent: "center",
             alignItems: "center",
             margin: ".5em",
-            "& > svg":{
+            "& > svg": {
                 fontSize: "2em"
             },
             borderRadius: "10%"
@@ -109,6 +112,8 @@ const useStyles = makeStyles({
 })
 
 const Profile = observer((props) => {
+
+    const [onReset,setReset] = useState(false);
 
     const { practitionerStore } = useStores();
 
@@ -124,26 +129,29 @@ const Profile = observer((props) => {
     }
 
     return (
-        <div className={classes.patientContainer}>
-            <div className={classes.header}>
-                <div>
-                    {practitionerStore.selectedPatient && <h1>{practitionerStore.selectedPatient.fullName}</h1>}
-                    <p><span className={classes.bold}>{t("coordinator.patientProfile.phoneNumber")}: </span>{practitionerStore.selectedPatient.phoneNumber}</p>
-                    <p><span className={classes.bold}>{t("coordinator.patientProfile.treatmentStart")}: </span>{getDate(practitionerStore.selectedPatient.treatmentStart)}</p>
+        <>
+            {onReset && <ResetPassword close={()=>{setReset(false)}} />}
+            <div className={classes.patientContainer}>
+                <div className={classes.header}>
+                    <div>
+                        {practitionerStore.selectedPatient && <h1>{practitionerStore.selectedPatient.fullName}</h1>}
+                        <p><span className={classes.bold}>{t("coordinator.patientProfile.phoneNumber")}: </span>{practitionerStore.selectedPatient.phoneNumber}</p>
+                        <p><span className={classes.bold}>{t("coordinator.patientProfile.treatmentStart")}: </span>{getDate(practitionerStore.selectedPatient.treatmentStart)}</p>
+                    </div>
+                    <div className={classes.optionsContainer}>
+                        <div><ChatIcon /></div>
+                        <div onClick={() => {setReset(true)}}><KeyIcon /></div>
+                        <div><ArchiveIcon /></div>
+                    </div>
                 </div>
-                <div className={classes.optionsContainer}>
-                    <div><ChatIcon /></div>
-                    <div><KeyIcon /></div>
-                    <div><ArchiveIcon /></div>
-                </div>
-            </div>
-            <ProgressGraphs {...props.patient} />
-            <ReportingHistory
-                loading={!(props.patient && practitionerStore.selectedPatient.reports)}
-                reports={practitionerStore.selectedPatient.reports}
-                treatmentStart={practitionerStore.selectedPatient.treatmentStart} />
+                <ProgressGraphs {...props.patient} />
+                <ReportingHistory
+                    loading={!(props.patient && practitionerStore.selectedPatient.reports)}
+                    reports={practitionerStore.selectedPatient.reports}
+                    treatmentStart={practitionerStore.selectedPatient.treatmentStart} />
 
-        </div>)
+            </div>
+        </>)
 });
 
 const ReportingHistory = (props) => {
@@ -153,10 +161,10 @@ const ReportingHistory = (props) => {
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
 
-    useEffect(() =>{
+    useEffect(() => {
         //let el = document.getElementById(`day-list-${DateTime.fromJSDate(day).toISODate()}`)
-       // el && el.scrollIntoView();
-    },[day])
+        // el && el.scrollIntoView();
+    }, [day])
 
     return (
         <Card bodyClassName={classes.history} icon={<CalendarIcon />} title={t("coordinator.cardTitles.reportingCalender")}>
@@ -179,7 +187,7 @@ const ReportingHistory = (props) => {
                             <div>Mood</div>
                         </div>
                         <div className={classes.reportsList}>
-                            {Object.values(props.reports).map((each,i) => {
+                            {Object.values(props.reports).map((each, i) => {
                                 return <DailyReportPreview index={i} selectedDay={day} setDay={setDay} {...each} />
                             })}
                         </div>
@@ -204,9 +212,9 @@ const DailyReportPreview = (props) => {
         onClick={handleClick}>
         <div>{`${date.day}/${date.month}`}</div>
         <div>{props.medicationWasTaken ? t("coordinator.true") : t("coordinator.false")}</div>
-        <div><ul>{ props.symptoms && props.symptoms.length > 0 && props.symptoms.map((symptom) => {return <li>{t(`symptoms.${symptom}.title`)}</li>})}</ul></div>
-        <div className={classes.stripPhoto}> {props.photoUrl ? <img src={props.photoUrl} /> : t("commonWords.no") }</div>
-        <div>{props.doingOkay ? "Okay" :  "Need Support"}</div>
+        <div><ul>{props.symptoms && props.symptoms.length > 0 && props.symptoms.map((symptom) => { return <li>{t(`symptoms.${symptom}.title`)}</li> })}</ul></div>
+        <div className={classes.stripPhoto}> {props.photoUrl ? <img src={props.photoUrl} /> : t("commonWords.no")}</div>
+        <div>{props.doingOkay ? "Okay" : "Need Support"}</div>
     </div>)
 }
 

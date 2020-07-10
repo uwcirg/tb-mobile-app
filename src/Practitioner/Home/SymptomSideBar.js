@@ -47,7 +47,7 @@ const SymptomSidebar = observer((props) => {
 
     useEffect(() => {
         practitionerStore.getSelectedPatientSymptoms();
-    }, [practitionerStore.selectedRow.patientId])
+    }, [practitionerStore.selectedRow.index])
 
     return (
         <Basicsidebar>

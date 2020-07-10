@@ -5,7 +5,6 @@ import DownIcon from '@material-ui/icons/KeyboardArrowDown';
 import UpIcon from '@material-ui/icons/KeyboardArrowUp';
 import IconButton from '@material-ui/core/IconButton'
 
-
 const useStyles = makeStyles({
     superContainer: {
         borderRadius: "1em",

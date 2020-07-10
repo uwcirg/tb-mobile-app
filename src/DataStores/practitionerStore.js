@@ -69,14 +69,11 @@ export class PractitionerStore extends UserStore {
     }
 
     @observable selectedRow = {
-        visible: false,
         type: "",
-        id: -1,
-        patientId: -1,
+        index: -1,
         clearSelection: function () {
-            this.id = -1,
-                this.type = "",
-                this.visible = false
+            this.index = -1,
+            this.type = ""
         }
     }
 
@@ -92,10 +89,14 @@ export class PractitionerStore extends UserStore {
         return this.patients[id]
     }
 
+    getPatientName = (id) => {
+        return this.patients[id] ? this.patients[id].fullName : "Patient Name"
+    }
+
     @action addNewPatient = () => {
         this.newPatientLoading = true;
 
-        this.executeRequest('addPatient', this.newPatientInformation,{allowErrors: true}).then(json => {
+        this.executeRequest('addPatient', this.newPatientInformation, { allowErrors: true }).then(json => {
             this.newPatientLoading = false;
 
             if (json.error == 422) {
@@ -120,7 +121,7 @@ export class PractitionerStore extends UserStore {
     @action
     getOrganizations = () => {
         this.executeRequest('getOrganizations').then(json => {
-            
+
             let list = []
             json.length > 0 && (json.map(each => {
                 return (each.title)
@@ -216,9 +217,9 @@ export class PractitionerStore extends UserStore {
     }
 
     @action getSelectedPatientSymptoms = () => {
-        if (this.selectedRow.patientId > 0) {
+        if (this.selectedRow.index >= 0) {
             this.selectedPatientSymptoms.loading = true;
-            this.executeRawRequest(`/patient/${this.selectedRow.patientId}/symptoms`, "GET").then(response => {
+            this.executeRawRequest(`/patient/${this.selectedPatientID}/symptoms`, "GET").then(response => {
                 this.selectedPatientSymptoms.summary = response
                 this.selectedPatientSymptoms.loading = false;
             })
@@ -226,26 +227,39 @@ export class PractitionerStore extends UserStore {
     }
 
     resolveSymptoms() {
-        this.executeRawRequest(`/patient/${this.selectedRow.patientId}/resolutions?type=symptom`, "POST").then(response => {
+        this.executeRawRequest(`/patient/${this.selectedPatientID}/resolutions?type=symptom`, "POST").then(response => {
+            this.selectedRow.index = 0;
             this.getSeverePatients();
         })
     }
 
     resolveMedication() {
-        this.executeRawRequest(`/patient/${this.selectedRow.patientId}/resolutions?type=medication`, "POST").then(response => {
+        this.executeRawRequest(`/patient/${this.selectedPatientID}/resolutions?type=medication`, "POST").then(response => {
             this.getMissingPatients();
         })
     }
 
-    @computed get selectedPatientInfo() {
+    @computed get getSelectedPatient() {
 
         if (this.selectedRow.patientId < 0) {
             return {}
         }
 
-        let result = this.getPatient(this.selectedRow.patientId);
+        if(this.selectedRow.type === "symptom"){
+            return this.patients[`${this.filteredPatients.symptoms[this.selectedRow.index].patientId}`];
+        }else{
+            return this.patients[`${this.photoReports[this.selectedRow.index].patientId}`];
+        }
 
-        return (result)
+        return {}
+    }
+    
+    @computed get selectedPatientID() {
+        return this.getSelectedPatient.id
+    }
+
+    resetPassword = () => {
+        this.resetActivationCode(this.selectedPatient.id);
     }
 
 

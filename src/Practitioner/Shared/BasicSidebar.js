@@ -86,9 +86,9 @@ const PatientPreview = observer((props) => {
 
     return (
         <div className={classes.profile}>
-            <PatientPicture name={practitionerStore.selectedPatientInfo.fullName} />
-            <h2>{practitionerStore.selectedPatientInfo.fullName}</h2>
-            <p>{t("coordinator.adherance")}: {practitionerStore.selectedPatientInfo.adherence}</p>
+            <PatientPicture name={practitionerStore.getSelectedPatient.fullName} />
+            <h2>{practitionerStore.getSelectedPatient.fullName}</h2>
+            <p>{t("coordinator.adherance")}: {practitionerStore.getSelectedPatient.adherence}</p>
             <p>{t("coordinator.sideBar.lastContacted")}: {DateTime.local().toLocaleString()}</p>
     <p className="clickable">{t("coordinator.sideBar.viewFullProfile")}</p>
         </div>

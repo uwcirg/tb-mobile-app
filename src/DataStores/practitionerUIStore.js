@@ -17,7 +17,7 @@ export default class PractitionerUIStore {
         if (splitPath[1] === "home") return 0
         if (splitPath[1] === "patients") return 1
         if (splitPath[1] === "messaging") return 2
-        if (splitPath[1] === "information") return 3
+        if (splitPath[1] === "settings") return 3
         return 0
     }
 }

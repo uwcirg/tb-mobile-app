@@ -74,18 +74,21 @@ const Home = observer(() => {
                     patientList={practitionerStore.filteredPatients.symptoms}
                     type="symptom"
                 />
+               
                 <Card
                     icon={<ListIcon />}
                     title={t("coordinator.cardTitles.photosToReview")}
-                    patientList={practitionerStore.photoReports.slice().sort((a,b) =>{ return (DateTime.fromISO(b.date).diff(DateTime.fromISO(a.date))) })}
+                    patientList={practitionerStore.photoReports}
                     type="photo"
                 />
+                 {/*
                 <Card
                     icon={<PillIcon />}
                     title={t("coordinator.cardTitles.missedReport")}
                     patientList={practitionerStore.filteredPatients.missed}
                     type="missedMedication"
                 />
+                */}
             </div>
            <SideBarRouter />
         </div>)
@@ -110,24 +113,17 @@ const Card = observer((props) => {
 
     const { practitionerStore } = useStores();
 
-    const setSidebar = (id, type, patientId) => {
-        practitionerStore.selectedRow.visible = true;
-        practitionerStore.selectedRow.id = id;
+    const setSidebar = (type, index) => {
         practitionerStore.selectedRow.type = type;
-        practitionerStore.selectedRow.patientId = patientId;
+        practitionerStore.selectedRow.index = index;
 
-    }
-
-    const handleClick = (id, type) => {
-        console.log(" " + id + " " + type)
     }
 
     return (
         <HomePageCard
-            selectedId={practitionerStore.selectedRow.id}
+            selectedId={practitionerStore.selectedRow.index}
             selectedType={practitionerStore.selectedRow.type}
             setSidebar={setSidebar}
-            onComplete={handleClick}
             {...props} />
     )
 });
