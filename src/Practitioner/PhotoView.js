@@ -25,8 +25,8 @@ const PhotoList = observer((props) => {
     }, []);
 
     let list = "";
-    if(practitionerStore.photoReports.length > 0){
-    list = practitionerStore.photoReports.map(report => {
+    if(practitionerStore.filteredPatients.photo.length > 0){
+    list = practitionerStore.filteredPatients.photo.map(report => {
         return <div>
             <img className={classes.stripPhoto} src={report.url} />
             <div>

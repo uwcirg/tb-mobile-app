@@ -5,7 +5,6 @@ const ROUTES = {
     addPatient: ["/patient", "POST"],
     getCurrentPractitioner: ["/practitioner/me", "GET"],
     getOrganizations: ["/organizations", "GET"],
-    notifyAll: ["/notify_all", "POST"],
     getPatients: ["/practitioner/patients", "GET"],
     getTemporaryPatients: ["/practitioner/temporary_patients", "GET"],
     getPatientPhotos: ["/patients/photo_reports", "GET"],
@@ -55,8 +54,6 @@ export class PractitionerStore extends UserStore {
 
     @observable patients = [];
     @observable temporaryPatients = [];
-    @observable photoReports = [];
-    @observable processedPhotoReports = [];
 
     //Currently viewed patient
     @observable selectedPatient = {
@@ -64,8 +61,9 @@ export class PractitionerStore extends UserStore {
     }
 
     @observable filteredPatients = {
-        symptoms: [],
-        missed: []
+        symptom: [],
+        missed: [],
+        photo: []
     }
 
     @observable selectedRow = {
@@ -149,21 +147,15 @@ export class PractitionerStore extends UserStore {
         })
     }
 
-    sendNotificationToAll = () => {
-        this.executeRequest("notifyAll").then(response => {
-            console.log(response)
-        })
-    }
-
     @action getPhotoReports = () => {
         this.executeRequest("getPatientPhotos").then(response => {
-            this.photoReports = response;
+            this.filteredPatients.photo = response;
         })
     }
 
     @action getProcessedPhotoReports = () => {
         this.executeRequest("getProcessedPatientPhotos").then(response => {
-            this.processedPhotoReports = response;
+            this.filteredPatients.photo = response;
         })
     }
 
@@ -180,7 +172,7 @@ export class PractitionerStore extends UserStore {
 
     @action getSeverePatients = () => {
         this.executeRequest("getSeverePatients").then(response => {
-            this.filteredPatients.symptoms = response;
+            this.filteredPatients.symptom = response;
         })
     }
 
@@ -194,13 +186,8 @@ export class PractitionerStore extends UserStore {
         let body = { approved: approved }
         this.executeRawRequest(`/photo_submission/${id}`, "PATCH", body).then(response => {
             //TODO: Could update this to just remove the updated photo submission from list instead of fetching again
+            this.adjustIndex();
             this.getPhotoReports();
-            if (this.photoReports.length > 0) {
-                this.selectedRow.id = 0;
-            } else {
-                this.selectedRow.clearSelection();
-
-            }
         })
     }
 
@@ -228,13 +215,24 @@ export class PractitionerStore extends UserStore {
 
     resolveSymptoms() {
         this.executeRawRequest(`/patient/${this.selectedPatientID}/resolutions?type=symptom`, "POST").then(response => {
-            this.selectedRow.index = 0;
+            this.adjustIndex();
             this.getSeverePatients();
         })
     }
 
+    @action adjustIndex(){
+        if(this.selectedRow.index > this.filteredPatients[this.selectedRow.type].length - 2){
+            this.selectedRow.index -= 1;
+        }
+
+        if(this.filteredPatients[this.selectedRow.type].length === 1){
+            this.selectedRow.clearSelection();
+        }
+    }
+
     resolveMedication() {
         this.executeRawRequest(`/patient/${this.selectedPatientID}/resolutions?type=medication`, "POST").then(response => {
+            this.adjustIndex();
             this.getMissingPatients();
         })
     }
@@ -245,13 +243,8 @@ export class PractitionerStore extends UserStore {
             return {}
         }
 
-        if(this.selectedRow.type === "symptom"){
-            return this.patients[`${this.filteredPatients.symptoms[this.selectedRow.index].patientId}`];
-        }else{
-            return this.patients[`${this.photoReports[this.selectedRow.index].patientId}`];
-        }
+        return this.patients[`${this.filteredPatients[this.selectedRow.type][this.selectedRow.index].patientId}`];
 
-        return {}
     }
     
     @computed get selectedPatientID() {

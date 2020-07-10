@@ -41,7 +41,7 @@ const PhotoSidebar = observer((props) => {
 
     const { t, i18n } = useTranslation('translation');
 
-    const item = practitionerStore.photoReports[practitionerStore.selectedRow.index];
+    const item = practitionerStore.filteredPatients.photo[practitionerStore.selectedRow.index];
 
     return (
         <Basicsidebar>

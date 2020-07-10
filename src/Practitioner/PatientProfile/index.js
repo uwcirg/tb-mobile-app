@@ -114,23 +114,29 @@ const useStyles = makeStyles({
 const Profile = observer((props) => {
 
     const [onReset,setReset] = useState(false);
-
     const { practitionerStore } = useStores();
-
-    useEffect(() => {
-        practitionerStore.getPatientDetails(props.id);
-    }, [])
-
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
-
     const getDate = (iso) => {
         return (DateTime.fromISO(iso).toLocaleString(DateTime.DATE_MED))
     }
 
+    const handleCloseReset = () =>{
+        setReset(false)
+        practitionerStore.newActivationCode = ""
+    }
+
+    useEffect(() => {
+        practitionerStore.getPatientDetails(props.id);
+        return function cleanup(){
+            handleCloseReset();
+        }
+    }, [])
+    
+
     return (
         <>
-            {onReset && <ResetPassword close={()=>{setReset(false)}} />}
+            {onReset && <ResetPassword close={handleCloseReset} />}
             <div className={classes.patientContainer}>
                 <div className={classes.header}>
                     <div>

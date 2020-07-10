@@ -18,17 +18,8 @@ import Colors from "../Basics/Colors";
 const drawerWidth = 200;
 
 const useStyles = makeStyles({
-  filler:{
-    height: "100vh",
-    width: "100px",
-    backgroundColor: "white"
-  },
   drawer: {
-    position: "fixed",
-    left: 0,
-    margin: "0",
     height: "100vh",
-    width: "100px",
     display: "flex",
     flexDirection: "column",
     boxShadow: "5px 0px 5px 0px lightgray",
@@ -74,7 +65,6 @@ const PractitionerDrawer = observer(() => {
 
   return (
     <>
-    <div className={classes.filler} />
     <div className={classes.drawer}>
       <List className={classes.list}>
         <ListItem className={`${practitionerUIStore.tabNumber === 0 && classes.selected}`} button key={"Home"} onClick={() => { push('/home') }}>

@@ -15,12 +15,12 @@ const useStyles = makeStyles({
         fontSize: "1.25em"
     },
     symptoms: {
+        margin: "auto",
         minHeight: "100px",
         maxHeight: "200px",
-        width: "100%",
+        width: "80%",
         backgroundColor: Colors.lightgray,
         overflow: "scroll",
-        paddingLeft: ".5em",
         borderRadius: ".5em",
         "& > p": {
             paddingLeft: "1em"
@@ -33,7 +33,6 @@ const useStyles = makeStyles({
         width: "100%"
     },
     buttonContainer:{
-        margin: "1em",
         width: "100%",
         display: "flex",
         justifyContent: "center"
@@ -47,7 +46,7 @@ const SymptomSidebar = observer((props) => {
 
     useEffect(() => {
         practitionerStore.getSelectedPatientSymptoms();
-    }, [practitionerStore.selectedRow.index])
+    }, [practitionerStore.selectedRow.index,practitionerStore.filteredPatients.symptoms])
 
     return (
         <Basicsidebar>

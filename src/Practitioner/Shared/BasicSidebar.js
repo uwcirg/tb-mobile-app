@@ -11,17 +11,11 @@ import { observer } from 'mobx-react';
 
 const useStyles = makeStyles({
     container: {
-        position: "fixed",
-        right: 0,
+        
         height: "100vh",
-        width: "300px",
-        padding: "2.5%",
+        width: "100%",
         backgroundColor: "white",
         borderLeft: "solid 1px lightgray"
-    },
-    filler: {
-        width: "400px",
-        height: "100vh"
     },
     clear: {
         width: "100%",
@@ -68,8 +62,6 @@ const Card = observer((props) => {
 
     return (
         <>
-            {/* Filler to allow the flex displayed hompage to work with the sidebar being fixed position 
-        <div className={classes.filler} />*/}
             <div className={classes.container}>
                 {!props.isCohortView &&<div className={classes.clear}><IconButton onClick={handleClose}><ClearIcon /></IconButton></div>}
                 {!props.isCohortView && <PatientPreview />}

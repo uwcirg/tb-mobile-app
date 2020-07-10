@@ -10,8 +10,6 @@ import PillIcon from '../../Basics/Icons/Pill.js'
 import PhotoSidebar from './PhotoSideBar'
 import SymptomSidebar from './SymptomSideBar'
 import MedicationSideBar from './MedicationSideBar'
-import { DateTime } from 'luxon';
-import RecentReports from './RecentReports';
 import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
@@ -37,11 +35,14 @@ const useStyles = makeStyles({
     },
     container: {
         width: "100%",
-        height: "100vh",
         display: "flex",
     },
     photoPreview: {
         width: "100%"
+    },
+    sidebar:{
+        width: "350px",
+        boxSizing: "border-box"
     }
 
 })
@@ -71,24 +72,22 @@ const Home = observer(() => {
                 <Card
                     icon={<AlertIcon />}
                     title={t("coordinator.cardTitles.patientsWithSymptoms")}
-                    patientList={practitionerStore.filteredPatients.symptoms}
+                    patientList={practitionerStore.filteredPatients.symptom}
                     type="symptom"
                 />
                
                 <Card
                     icon={<ListIcon />}
                     title={t("coordinator.cardTitles.photosToReview")}
-                    patientList={practitionerStore.photoReports}
+                    patientList={practitionerStore.filteredPatients.photo}
                     type="photo"
                 />
-                 {/*
                 <Card
                     icon={<PillIcon />}
                     title={t("coordinator.cardTitles.missedReport")}
                     patientList={practitionerStore.filteredPatients.missed}
-                    type="missedMedication"
+                    type="missed"
                 />
-                */}
             </div>
            <SideBarRouter />
         </div>)
@@ -97,15 +96,23 @@ const Home = observer(() => {
 
 const SideBarRouter = observer((props) => {
     const { practitionerStore } = useStores();
+    const classes = useStyles();
+
+    let component = ""
 
     if (practitionerStore.selectedRow.type === "photo") {
-        return <PhotoSidebar />
+        component = <PhotoSidebar />
     } else if(practitionerStore.selectedRow.type === "symptom") {
-        return <SymptomSidebar />
-    }else if(practitionerStore.selectedRow.type === "missedMedication"){
-        return <MedicationSideBar />
+        component =  <SymptomSidebar />
+    }else if(practitionerStore.selectedRow.type === "missed"){
+        component = <MedicationSideBar />
     }
-    return <RecentReports />
+
+    return(
+        <div className={classes.sidebar}>
+            {component}
+        </div>
+    )
 });
 
 

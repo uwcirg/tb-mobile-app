@@ -5,7 +5,6 @@ import AddPatientPrompt from '../AddPatientPrompt'
 import Colors from '../../Basics/Colors';
 import AdherenceGraph from '../AdherenceGraph';
 import Card from '../Shared/Card';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PersonIcon from '@material-ui/icons/People'
 import CohortSideBar from './Sidebar';
 import Search from '../../Basics/SearchBar'
@@ -17,7 +16,7 @@ import PlusIcon from '@material-ui/icons/AddOutlined'
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import Button from '@material-ui/core/Button'
-import PopUp from '../../Patient/Navigation/PopUp';
+import PopOver from '../Shared/PopOver';
 
 const useStyles = makeStyles({
     title: {
@@ -136,7 +135,8 @@ const PatientsView = observer((props) => {
     }
 
     return (
-
+        <>
+                        {practitionerStore.newActivationCode && <PopOver title={"New Activation Code"} close={() => { practitionerStore.newActivationCode = "" }}> <p>{practitionerStore.newActivationCode}</p> </PopOver>}
         <div className={classes.superContainer}>
             <div className={classes.container}>
                 <div className={classes.header}>
@@ -146,10 +146,10 @@ const PatientsView = observer((props) => {
                 <AdherenceGraph />
                 <Patients icon={<PersonIcon />} title={t("coordinator.cardTitles.allPatients")} list={props.patientList} handlePatientClick={props.handlePatientClick} />
                 <PendingPatients  list={props.tempList} />
-                {practitionerStore.newActivationCode && <PopUp handleClickAway={() => { practitionerStore.newActivationCode = "" }}> {practitionerStore.newActivationCode} </PopUp>}
             </div>
             <CohortSideBar />
         </div>
+        </>
 
     )
 })
