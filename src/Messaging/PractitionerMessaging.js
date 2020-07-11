@@ -11,6 +11,8 @@ import { useTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import OverTopBar from '../Patient/Navigation/OverTopBar';
 import SearchBar from '../Basics/SearchBar';
+import Tab from '@material-ui/core/Tab';
+import Tabs from '@material-ui/core/Tabs';
 
 const useStyles = makeStyles({
     container: {
@@ -56,6 +58,7 @@ const Messaging = observer(() => {
     const classes = useStyles();
     const [search, setSearch] = useState("");
     const [patientSearch, setPatientSearch] = useState("");
+    const [tab,setTab] = useState(0);
 
     //Get unread every time this rerenders
     useEffect(() => {
@@ -80,6 +83,10 @@ const Messaging = observer(() => {
         setPatientSearch(e.target.value)
     }
 
+    const handleChange = (event, newValue) => {
+        setTab(newValue);
+      };
+
     const publicChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.filter((channel) => {
         return (!channel.isPrivate && channel.title.toLowerCase().includes(search.toLowerCase()))
     }) : [];
@@ -89,12 +96,28 @@ const Messaging = observer(() => {
     return (
         <div className={classes.container}>
             <div className={classes.channelList}>
+                <Tabs
+                    value={tab}
+                    indicatorColor="primary"
+                    textColor="primary"
+                    onChange={handleChange}
+                    aria-label="disabled tabs example"
+                >
+                    <Tab label="Patients" />
+                    <Tab label="Public" />
+                </Tabs>
+
+                {tab === 0 ? 
+                <>
                 <h2>Patients</h2>
                 <SearchBar kind={"patient"} handleChange={handlePatientSearch} placeholder={t("messaging.search")} />
                 <Channels private channels={coordinatorChannels} />
+                </> :
+                <>
                 <h2>Discussions</h2>
                 <SearchBar kind={"discussion"} handleChange={handleSearch} placeholder={t("messaging.search")} />
                 <Channels channels={publicChannels} />
+                </>}
             </div>
 
             <div className={classes.channelContainer}>

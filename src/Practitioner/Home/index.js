@@ -11,6 +11,7 @@ import PhotoSidebar from './PhotoSideBar'
 import SymptomSidebar from './SymptomSideBar'
 import MedicationSideBar from './MedicationSideBar'
 import { useTranslation } from 'react-i18next';
+import { Badge } from '@material-ui/core';
 
 const useStyles = makeStyles({
     left: {
@@ -43,6 +44,9 @@ const useStyles = makeStyles({
     sidebar:{
         width: "350px",
         boxSizing: "border-box"
+    },
+    cardContainer:{
+        width: "100%"
     }
 
 })
@@ -119,6 +123,7 @@ const SideBarRouter = observer((props) => {
 const Card = observer((props) => {
 
     const { practitionerStore } = useStores();
+    const classes = useStyles();
 
     const setSidebar = (type, index) => {
         practitionerStore.selectedRow.type = type;
@@ -130,8 +135,10 @@ const Card = observer((props) => {
         <HomePageCard
             selectedId={practitionerStore.selectedRow.index}
             selectedType={practitionerStore.selectedRow.type}
+            badgeContent={props.patientList.length}
             setSidebar={setSidebar}
             {...props} />
+
     )
 });
 

@@ -118,7 +118,11 @@ const useStyles = makeStyles({
     header: {
         width: "90%",
         display: "flex",
-        alignItems: "center"
+        alignItems: "flex-start",
+        "& > h1":{
+            padding: 0,
+            margin: 0
+        }
     },
     button: {
         backgroundColor: Colors.buttonBlue
@@ -136,19 +140,19 @@ const PatientsView = observer((props) => {
 
     return (
         <>
-                        {practitionerStore.newActivationCode && <PopOver title={"New Activation Code"} close={() => { practitionerStore.newActivationCode = "" }}> <p>{practitionerStore.newActivationCode}</p> </PopOver>}
-        <div className={classes.superContainer}>
-            <div className={classes.container}>
-                <div className={classes.header}>
-                    <h1 className={classes.title}>{t("coordinator.titles.myPatients")}</h1>
-                    <ButtonBase onClick={toggleAddPatient} className={classes.addPatient}><PlusIcon /><p>Add Patient</p></ButtonBase>
+            {practitionerStore.newActivationCode && <PopOver title={"New Activation Code"} close={() => { practitionerStore.newActivationCode = "" }}> <p>{practitionerStore.newActivationCode}</p> </PopOver>}
+            <div className={classes.superContainer}>
+                <div className={classes.container}>
+                    <div className={classes.header}>
+                        <h1 className={classes.title}>{t("coordinator.titles.myPatients")}</h1>
+                        <ButtonBase onClick={toggleAddPatient} className={classes.addPatient}><PlusIcon /><p>Add Patient</p></ButtonBase>
+                    </div>
+                    <AdherenceGraph />
+                    <Patients icon={<PersonIcon />} title={t("coordinator.cardTitles.allPatients")} list={props.patientList} handlePatientClick={props.handlePatientClick} />
+                    <PendingPatients list={props.tempList} />
                 </div>
-                <AdherenceGraph />
-                <Patients icon={<PersonIcon />} title={t("coordinator.cardTitles.allPatients")} list={props.patientList} handlePatientClick={props.handlePatientClick} />
-                <PendingPatients  list={props.tempList} />
+                <CohortSideBar />
             </div>
-            <CohortSideBar />
-        </div>
         </>
 
     )

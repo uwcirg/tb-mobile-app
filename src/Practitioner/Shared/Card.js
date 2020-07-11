@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton'
 
 const useStyles = makeStyles({
     superContainer: {
+        position: "relative",
         borderRadius: "1em",
         backgroundColor: "white",
         width: "90%",
