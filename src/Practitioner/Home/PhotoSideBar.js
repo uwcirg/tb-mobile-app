@@ -21,7 +21,7 @@ const useStyles = makeStyles({
             width: "90%",
             objectFit: "contain"
         },
-        "& > h2":{
+        "& > h2": {
             fontSize: "1em",
             alignSelf: "flex-start"
         }
@@ -44,14 +44,14 @@ const PhotoSidebar = observer((props) => {
     const item = practitionerStore.filteredPatients.photo[practitionerStore.selectedRow.index];
 
     return (
-        <Basicsidebar>
+        <Basicsidebar buttons={
+            <>
+                <SharedButton text={"Inconclusive"} onClick={() => { practitionerStore.processPhoto(item.photoId, false) }} color={Colors.yellow} icon={<QIcon />} />
+                <SharedButton text={"Positive"} onClick={() => { practitionerStore.processPhoto(item.photoId, true) }} />
+            </>}>
             <div className={classes.photoContainer} >
                 <h2>{t("coordinator.sideBar.photoSub")}:</h2>
                 <img className={classes.photoPreview} src={item.url} />
-            </div>
-            <div className={classes.buttonContainer}>
-                <SharedButton text={"Positive"} onClick={() => {practitionerStore.processPhoto(item.photoId,true)}} />
-                <SharedButton text={"Inconclusive"} onClick={() => {practitionerStore.processPhoto(item.photoId,false)}} color={Colors.yellow} icon={<QIcon />} />
             </div>
         </Basicsidebar>
     )

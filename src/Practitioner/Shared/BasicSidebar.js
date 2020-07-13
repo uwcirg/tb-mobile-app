@@ -15,11 +15,13 @@ import Styles from '../../Basics/Styles';
 
 const useStyles = makeStyles({
     container: {
-
         height: "100vh",
         width: "100%",
         backgroundColor: "white",
-        borderLeft: "solid 1px lightgray"
+        borderLeft: "solid 1px lightgray",
+        ...Styles.flexColumn,
+        justifyContent: "flex-start",
+        alignItems: "center"
     },
     clear: {
         width: "100%",
@@ -27,7 +29,6 @@ const useStyles = makeStyles({
         justifyContent: "flex-end",
     },
     profile: {
-        margin: "auto",
         alignItems: "left",
         width: "80%",
         display: "flex",
@@ -53,10 +54,10 @@ const useStyles = makeStyles({
         justifyContent: "center",
         borderTop: "1px solid lightgray",
         marginTop: ".5em",
-        "& > button":{
+        "& > button": {
             borderRadius: 0
         },
-        "& > button > span":{
+        "& > button > span": {
             fontSize: ".5em",
             ...Styles.flexColumn
         }
@@ -73,17 +74,30 @@ const useStyles = makeStyles({
             margin: 0
         }
     },
-    profileItem:{
+    profileItem: {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        "& > span, & > p":{
+        "& > span, & > p": {
             margin: ".5em 0 0 0",
             padding: "0",
         },
         "& > span": {
             fontWeight: "bold"
         }
+    },
+    resolutionButtons:{
+        width: "50%",
+        marginTop: "auto",
+        marginBottom: "1em",
+        "& > button":{
+            width: "100%",
+            margin: ".5em"
+        }
+    },
+    childrenContainer:{
+        width: "100%",
+        margin: "auto"
     }
 })
 
@@ -110,7 +124,12 @@ const Card = observer((props) => {
             <div className={classes.container}>
                 {!props.isCohortView && <div className={classes.clear}><IconButton onClick={handleClose}><ClearIcon /></IconButton></div>}
                 {!props.isCohortView && <PatientPreview />}
+                <div className={classes.childrenContainer}>
                 {props.children}
+                </div>
+                <div className={classes.resolutionButtons}>
+                    {props.buttons}
+                </div>
             </div>
         </>
     )
@@ -145,11 +164,11 @@ const PatientPreview = observer((props) => {
 })
 
 
-const ProfileItem = (props) =>{
+const ProfileItem = (props) => {
     const classes = useStyles();
 
-    return(
-    <div className={classes.profileItem}><span>{props.text}:</span>  <p>{props.value}</p></div>
+    return (
+        <div className={classes.profileItem}><span>{props.text}:</span>  <p>{props.value}</p></div>
     )
 }
 
