@@ -24,7 +24,8 @@ export class PractitionerStore extends UserStore {
 
     @observable selectedPatientSymptoms = {
         summary: [],
-        summaryLoading: false
+        summaryLoading: false,
+        numberResolved: 0
     }
 
     //Test
@@ -71,7 +72,7 @@ export class PractitionerStore extends UserStore {
         index: -1,
         clearSelection: function () {
             this.index = -1,
-            this.type = ""
+                this.type = ""
         }
     }
 
@@ -171,7 +172,7 @@ export class PractitionerStore extends UserStore {
     }
 
     @action getSeverePatients = () => {
-        this.executeRequest("getSeverePatients").then(response => {
+        return this.executeRequest("getSeverePatients").then(response => {
             this.filteredPatients.symptom = response;
         })
     }
@@ -209,23 +210,29 @@ export class PractitionerStore extends UserStore {
             this.executeRawRequest(`/patient/${this.selectedPatientID}/symptoms`, "GET").then(response => {
                 this.selectedPatientSymptoms.summary = response
                 this.selectedPatientSymptoms.loading = false;
+                this.selectedPatientSymptoms.numberResolved += 1;
             })
         }
     }
 
-    resolveSymptoms() {
+    @action resolveSymptoms() {
         this.executeRawRequest(`/patient/${this.selectedPatientID}/resolutions?type=symptom`, "POST").then(response => {
             this.adjustIndex();
-            this.getSeverePatients();
+            this.getSeverePatients().then(() => {
+                this.getSelectedPatientSymptoms();
+            })
+
+
+
         })
     }
 
-    @action adjustIndex(){
-        if(this.selectedRow.index > this.filteredPatients[this.selectedRow.type].length - 2){
+    @action adjustIndex() {
+        if (this.selectedRow.index > this.filteredPatients[this.selectedRow.type].length - 2) {
             this.selectedRow.index -= 1;
         }
 
-        if(this.filteredPatients[this.selectedRow.type].length === 1){
+        if (this.filteredPatients[this.selectedRow.type].length === 1) {
             this.selectedRow.clearSelection();
         }
     }
@@ -246,7 +253,7 @@ export class PractitionerStore extends UserStore {
         return this.patients[`${this.filteredPatients[this.selectedRow.type][this.selectedRow.index].patientId}`];
 
     }
-    
+
     @computed get selectedPatientID() {
         return this.getSelectedPatient.id
     }
