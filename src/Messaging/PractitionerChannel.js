@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Colors from '../Basics/Colors';
@@ -40,11 +40,18 @@ const useStyles = makeStyles({
 
 const Channel = observer((props) => {
     const classes = useStyles();
-    const { messagingStore } = useStores();
+    const { messagingStore,uiStore } = useStores();
+
+    useEffect(() => {
+        console.log(uiStore.pathNumber)
+        messagingStore.selectedChannel.id = uiStore.pathNumber;
+        messagingStore.getSelectedChannel()
+
+    },[uiStore.pathNumber])
 
     let messages = [];
-    if (props.selectedChannel.messages &&
-        props.selectedChannel.messages.length > 0) {
+    if (messagingStore.selectedChannel.messages &&
+        messagingStore.selectedChannel.messages.length > 0) {
         messages = messagingStore.selectedChannelMessages.map( (message, index) => {
             const isUser = props.userID === message.user_id;
             return <Message username={`${message.user_id}`} key={`message ${index}`} message={message} isUser={isUser} />

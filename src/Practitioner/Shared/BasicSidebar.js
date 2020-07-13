@@ -8,10 +8,11 @@ import Colors from '../../Basics/Colors'
 import PatientPicture from '../../Basics/PatientIcon'
 import { DateTime } from 'luxon'
 import { observer } from 'mobx-react';
+import { ButtonBase } from '@material-ui/core';
 
 const useStyles = makeStyles({
     container: {
-        
+
         height: "100vh",
         width: "100%",
         backgroundColor: "white",
@@ -32,7 +33,7 @@ const useStyles = makeStyles({
         "& > p": {
             margin: "0px"
         },
-        "& > h2":{
+        "& > h2": {
             margin: "2px",
             fontSize: "1.25em"
         },
@@ -63,7 +64,7 @@ const Card = observer((props) => {
     return (
         <>
             <div className={classes.container}>
-                {!props.isCohortView &&<div className={classes.clear}><IconButton onClick={handleClose}><ClearIcon /></IconButton></div>}
+                {!props.isCohortView && <div className={classes.clear}><IconButton onClick={handleClose}><ClearIcon /></IconButton></div>}
                 {!props.isCohortView && <PatientPreview />}
                 {props.children}
             </div>
@@ -73,7 +74,7 @@ const Card = observer((props) => {
 
 const PatientPreview = observer((props) => {
     const classes = useStyles();
-    const { practitionerStore } = useStores();
+    const { practitionerStore, practitionerUIStore } = useStores();
     const { t, i18n } = useTranslation('translation');
 
     return (
@@ -81,8 +82,9 @@ const PatientPreview = observer((props) => {
             <PatientPicture name={practitionerStore.getSelectedPatient.fullName} />
             <h2>{practitionerStore.getSelectedPatient.fullName}</h2>
             <p>{t("coordinator.adherance")}: {practitionerStore.getSelectedPatient.adherence}</p>
-            <p>{t("coordinator.sideBar.lastContacted")}: {DateTime.local().toLocaleString()}</p>
-    <p className="clickable">{t("coordinator.sideBar.viewFullProfile")}</p>
+            <p>{t("coordinator.sideBar.lastContacted")}: {DateTime.fromISO(practitionerStore.getSelectedPatient.lastContacted).toLocaleString(DateTime.DATETIME_SHORT)}</p>
+            <ButtonBase onClick={() => {practitionerUIStore.goToPatient(practitionerStore.getSelectedPatient.id)}}> <p className="clickable">{t("coordinator.sideBar.viewFullProfile")}</p></ButtonBase>
+            <ButtonBase onClick={() => {practitionerUIStore.goToChannel(practitionerStore.getSelectedPatient.channelId)}}> <p className="clickable">{t("coordinator.sideBar.messagePatient")}</p></ButtonBase>
         </div>
 
     )

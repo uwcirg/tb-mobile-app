@@ -285,7 +285,8 @@
             "daysMissed": "Days Missed",
             "photoSub": "Photo Submission",
             "symptomsSince": "Symptoms Since Last Resolution",
-            "loading": "Loading"
+            "loading": "Loading",
+            "messagePatient": "Message Patient"
          },
          "patientTableLabels": {
             "name": "Name",

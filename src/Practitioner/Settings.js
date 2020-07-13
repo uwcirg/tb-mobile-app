@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     },
     container: {
         width: "100%",
-        marginLeft: "100px"
+        marginLeft: "1em"
     },
     reportContainer: {
         width: "50%"

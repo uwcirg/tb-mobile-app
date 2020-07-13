@@ -8,7 +8,7 @@ import { DateTime } from 'luxon'
 import useStores from '../Basics/UseStores';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import { observer } from 'mobx-react';
+import { observer, autorun } from 'mobx-react';
 import OverTopBar from '../Patient/Navigation/OverTopBar';
 import SearchBar from '../Basics/SearchBar';
 import Tab from '@material-ui/core/Tab';
@@ -46,6 +46,16 @@ const useStyles = makeStyles({
         flexBasis: "40%",
         flexGrow: "1",
         height: "100vh",
+    },
+    tabs:{
+        width: "50%"
+    },
+    selectChannel:{
+        display: "flex",
+        width: "100%",
+        height: "100%",
+        justifyContent: "center",
+        alignItems: "center"
     }
 
 });
@@ -58,7 +68,7 @@ const Messaging = observer(() => {
     const classes = useStyles();
     const [search, setSearch] = useState("");
     const [patientSearch, setPatientSearch] = useState("");
-    const [tab,setTab] = useState(0);
+    const [tab, setTab] = useState(0);
 
     //Get unread every time this rerenders
     useEffect(() => {
@@ -85,7 +95,7 @@ const Messaging = observer(() => {
 
     const handleChange = (event, newValue) => {
         setTab(newValue);
-      };
+    };
 
     const publicChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.filter((channel) => {
         return (!channel.isPrivate && channel.title.toLowerCase().includes(search.toLowerCase()))
@@ -101,39 +111,40 @@ const Messaging = observer(() => {
                     indicatorColor="primary"
                     textColor="primary"
                     onChange={handleChange}
-                    aria-label="disabled tabs example"
+                    aria-label="message-type-tab"
                 >
-                    <Tab label="Patients" />
-                    <Tab label="Public" />
+                    <Tab className={classes.tabs} label="Patients" />
+                    <Tab className={classes.tabs} label="Public" />
                 </Tabs>
 
-                {tab === 0 ? 
-                <>
-                <h2>Patients</h2>
-                <SearchBar kind={"patient"} handleChange={handlePatientSearch} placeholder={t("messaging.search")} />
-                <Channels private channels={coordinatorChannels} />
-                </> :
-                <>
-                <h2>Discussions</h2>
-                <SearchBar kind={"discussion"} handleChange={handleSearch} placeholder={t("messaging.search")} />
-                <Channels channels={publicChannels} />
-                </>}
+                {tab === 0 ?
+                    <>
+                        <h2>Patients</h2>
+                        <SearchBar kind={"patient"} handleChange={handlePatientSearch} placeholder={t("messaging.search")} />
+                        <Channels private channels={coordinatorChannels} />
+                    </> :
+                    <>
+                        <h2>Discussions</h2>
+                        <SearchBar kind={"discussion"} handleChange={handleSearch} placeholder={t("messaging.search")} />
+                        <Channels channels={publicChannels} />
+                    </>}
             </div>
 
             <div className={classes.channelContainer}>
-                {uiStore.onSpecificChannel &&
+                {uiStore.onSpecificChannel ?
                     <Channel
                         coordinatorView
                         userID={practitionerStore.userID}
-                        selectedChannel={messagingStore.selectedChannel}
+                        selectedChannel={uiStore.pathNumber}
                         handleBack={handleBackFromChannel}
-                    />
+                    /> : <div className={classes.selectChannel}><h1> Select A Channel To Get Started</h1></div>
                 }
             </div>
         </div>
     )
 
 });
+
 
 const Channels = observer((props) => {
     const classes = useStyles();
@@ -144,20 +155,14 @@ const Channels = observer((props) => {
         channels = props.channels.map((channel) => {
             const title = (channel.isPrivate && practitionerStore.getPatient(channel.userId)) ? practitionerStore.getPatient(channel.userId).fullName : channel.title
             return <ChannelPreview
-                selected={messagingStore.selectedChannel.id === channel.id}
+                selected={uiStore.pathNumber === channel.id}
                 private={props.private}
                 key={`channel${channel.id}`}
                 title={title}
                 subtitle={channel.subtitle}
                 time={DateTime.fromISO(channel.lastMessageTime).toLocaleString(DateTime.DATETIME_24_SIMPLE)}
                 unread={messagingStore.unreadInfo[channel.id] ? messagingStore.unreadInfo[channel.id].unreadMessages : 0}
-                onClick={() => {
-                    messagingStore.selectedChannel.creator = channel.userId
-                    messagingStore.selectedChannel.id = channel.id
-                    messagingStore.selectedChannel.title = channel.title
-                    messagingStore.getSelectedChannel();
-                    uiStore.goToSpecificChannel();
-                }}
+                onClick={() => { uiStore.goToSpecificChannel(channel.id)}}
             />
         })
     } else {

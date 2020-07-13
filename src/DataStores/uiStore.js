@@ -28,8 +28,8 @@ export class UIStore {
     }
 
 
-    @action goToSpecificChannel = () => {
-        this.router.push("/messaging/channel")
+    @action goToSpecificChannel = (channelID) => {
+        this.router.push(`/messaging/channel/${channelID}`)
     }
 
     @action goToMessaging = () => {
@@ -37,7 +37,7 @@ export class UIStore {
     }
 
     @computed get onSpecificChannel() {
-        return this.router.location.pathname.startsWith("/messaging/channel")
+        return this.router.location.pathname.startsWith("/messaging/channel/")
     }
 
     @action toggleTreatmentFlow = () => {
@@ -76,5 +76,12 @@ export class UIStore {
             this.locale = "en"
         }
     }
+
+    @computed get pathNumber(){
+        const parts = this.router.location.pathname.split("/");
+        const parsed = parseInt(parts[parts.length - 1])
+        return parsed ? parsed : 0
+    }
+
 
 }
