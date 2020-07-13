@@ -259,7 +259,7 @@ const Patients = (props) => {
             {t("coordinator.patientTableLabels.lastSubmission")}
         </div>
         <div onClick={() => { setSort("adherence") }}>
-            {t("coordinator.patientTableLabels.adherance")} {isSortingAdherence() ? <DownIcon /> : <UpIcon />}
+            {t("coordinator.patientTableLabels.adherence")} {isSortingAdherence() ? <DownIcon /> : <UpIcon />}
         </div>
         <div>
             {t("coordinator.patientTableLabels.streak")}

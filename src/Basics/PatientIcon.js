@@ -1,13 +1,13 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Styles from './Styles';
+import Colors from './Colors';
 
 const useStyles = makeStyles({
     circle: {
         background: "green",
         borderRadius: "50%",
-        height: "75px",
-        width: "75px"
+        height: "50px",
+        width: "50px"
     },
     letter:{
         color: "white",
@@ -17,7 +17,7 @@ const useStyles = makeStyles({
         paddingTop: "50%",
         textAlign: "center",
         width: "100%",
-        fontSize: "2em"
+        fontSize: "1.5em"
     }
 })
 

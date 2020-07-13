@@ -30,7 +30,11 @@ const useStyles = makeStyles({
         fontWeight: "medium"
     },
     symptomContainer: {
-        width: "100%"
+        width: "100%",
+        "& > h2": {
+            fontSize: "1.25em",
+            textAlign: "center"
+        }
     },
     buttonContainer:{
         width: "100%",

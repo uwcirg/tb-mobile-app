@@ -159,7 +159,7 @@ const DataPoint = (props) => {
 
     return (
         <Tooltip title={<><h1>{props.fullName}</h1>
-            <p>{t("coordinator.adherance")}: {Math.round(props.adherence * 100)}%</p>
+            <p>{t("coordinator.adherence")}: {Math.round(props.adherence * 100)}%</p>
             <p>{t("coordinator.daysInTreatment")}: {props.daysInTreatment}</p>
         </>} ><div
             style={{ bottom: bottomCalc, left: `${props.percentageComplete * 100}%` }}

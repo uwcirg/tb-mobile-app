@@ -52,7 +52,7 @@ const ProgressGraphs = (props) => {
         <Card icon={<DonutLargeIcon />} title={t("coordinator.cardTitles.currentStatus")} >
             <div className={classes.container}>
                 <SingleGraph color={Colors.accentBlue} value={.75} largeText={`${props.daysInTreatment}/180`} bottomText={t("coordinator.patientProfile.completedDays")} />
-                <SingleGraph color={Colors.red} value={props.adherence} largeText={`${props.adherence * 100}%`} bottomText={t("coordinator.adherance")} />
+                <SingleGraph color={Colors.red} value={props.adherence} largeText={`${props.adherence * 100}%`} bottomText={t("coordinator.adherence")} />
                 <SingleGraph color={Colors.approvedGreen} value={props.feelingHealthyDays/props.daysInTreatment} largeText={`${(props.feelingHealthyDays/props.daysInTreatment).toFixed(2) * 100}%`} bottomText={t("coordinator.patientProfile.feelingHealthy")} />
                 <div className={classes.rightText}>
                     <div><TrendingUpIcon /><p>{t("coordinator.patientProfile.currentStreak")}: {props.currentStreak} {t("time.days")}</p></div>
