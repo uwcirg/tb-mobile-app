@@ -5,14 +5,13 @@ import DownIcon from '@material-ui/icons/KeyboardArrowDown';
 import UpIcon from '@material-ui/icons/KeyboardArrowUp';
 import IconButton from '@material-ui/core/IconButton'
 
-
 const useStyles = makeStyles({
     superContainer: {
+        position: "relative",
         borderRadius: "1em",
         backgroundColor: "white",
         width: "90%",
-        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.25);",
-        paddingBottom: ".5em"
+        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.25);"
     },
     header: {
         display: "flex",

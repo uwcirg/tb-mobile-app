@@ -9,7 +9,7 @@ const useStyles = makeStyles({
         width: "100%",
         display: "flex",
         flexDirection: "column",
-        margin: '.5em'
+        margin: '.25em'
     },
     timestamp: {
         position: "absolute",
@@ -21,13 +21,12 @@ const useStyles = makeStyles({
     },
     message: {
         padding: "1em",
-        margin: ".5em 0 .5em 0",
         maxWidth: "75%",
         position: "relative",
         fontSize: ".85em",
     },
     myMessage: {
-        borderRadius: "15px 15px 0 15px",
+        borderRadius: "15px 15px 15px 15px",
         backgroundColor: Colors.messageBlue,
         alignSelf: "flex-end",
         marginRight: "5px",
@@ -80,13 +79,15 @@ const Message = (props) => {
     return (<div className={classes.messageContainer}>
 
         <div key={props.message.id} className={`${classes.message} ${props.isUser ? classes.myMessage : classes.otherMessage}`}>
-            <div className={props.isUser ? classes.myTriangle : classes.triangle}></div>
+           {/* <div className={props.isUser ? classes.myTriangle : classes.triangle}></div> */}
             {props.message.body}
+            {/*
             <div className={`${classes.timestamp} ${props.isUser ? classes.myTimestamp : ""}`}>
                 <p>
                     <span className={classes.username}>{props.username ? props.username : "user" }</span> at {processTime(props.message.created_at)}
                 </p>
             </div>
+            */}
         </div>
 
     </div>)

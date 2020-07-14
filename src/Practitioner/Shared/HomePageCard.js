@@ -2,10 +2,14 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 //import Colors from '../Basics/Colors'
-import Checkbox from '@material-ui/core/Checkbox';
+import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import Colors from '../../Basics/Colors';
 import Card from './Card'
+import useStores from '../../Basics/UseStores';
+import { Badge } from '@material-ui/core';
+import Styles from '../../Basics/Styles';
+
 
 const useStyles = makeStyles({
     container: {
@@ -38,7 +42,7 @@ const useStyles = makeStyles({
         "&:first-of-type": {
             borderTop: "none"
         },
-        "&:last-of-type":{
+        "&:last-of-type": {
             borderRadius: "0 0 1em 1em"
         },
         display: "flex",
@@ -58,6 +62,19 @@ const useStyles = makeStyles({
     },
     selected: {
         backgroundColor: "#cce6ff"
+    },
+    badge: {
+        position: "absolute",
+        "& > span": {
+            fontSize: "1em",
+            padding: ".5em"
+        },
+
+        top: "-10px",
+        left: "-10px"
+    },
+    noTasks:{
+        ...Styles.flexCenter
     }
 })
 
@@ -66,37 +83,40 @@ const HomePageCard = (props) => {
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
 
-    const handleClick = (id, type, patientId) => {
-        props.setSidebar(id, type, patientId)
+    const handleClick = (type, index) => {
+        props.setSidebar(type, index)
     }
 
     const patientList = props.patientList.map((each, index) => {
         return (<SingleLine
             selected={props.selectedType === props.type && props.selectedId === index}
-            id={each.id} 
             key={`${props.type}-${index}`}
-            patientId={each.id}
-            onClick={() => handleClick(index, props.type, each.id)}
-            fullName={each.fullName} />)
+            patientId={each.patientId}
+            onClick={() => handleClick(props.type, index)}
+        />)
     })
 
     return (
+
         <Card icon={props.icon} title={props.title}>
+            {props.badgeContent && <Badge overlap="circle" className={classes.badge} color="primary" badgeContent={props.badgeContent} />}
             <div className={classes.container}>
-                {patientList}
+                {props.patientList.length > 0 ? patientList : <div className={classes.noTasks}><p>{t("coordinator.noTasks")}</p></div> }
             </div>
         </Card>
     )
 }
 
-const SingleLine = (props) => {
+const SingleLine = observer((props) => {
     const classes = useStyles();
+    const { practitionerStore } = useStores();
+
     return (
         <div className={`${classes.lineItem} ${props.selected ? classes.selected : ""}`} onClick={props.onClick}>
-            <p>{props.fullName}</p>
+            <p>{practitionerStore.getPatientName(props.patientId)}</p>
         </div>
     )
-}
+})
 
 HomePageCard.propTypes = {
     title: PropTypes.string,

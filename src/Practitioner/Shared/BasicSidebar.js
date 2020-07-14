@@ -8,20 +8,20 @@ import Colors from '../../Basics/Colors'
 import PatientPicture from '../../Basics/PatientIcon'
 import { DateTime } from 'luxon'
 import { observer } from 'mobx-react';
+import ProfileButton from '@material-ui/icons/PersonRounded'
+import ChatIcon from '@material-ui/icons/Forum'
+import Styles from '../../Basics/Styles';
+
 
 const useStyles = makeStyles({
     container: {
-        position: "fixed",
-        right: 0,
         height: "100vh",
-        width: "300px",
-        padding: "2.5%",
+        width: "100%",
         backgroundColor: "white",
-        borderLeft: "solid 1px lightgray"
-    },
-    filler: {
-        width: "400px",
-        height: "100vh"
+        borderLeft: "solid 1px lightgray",
+        ...Styles.flexColumn,
+        justifyContent: "flex-start",
+        alignItems: "center"
     },
     clear: {
         width: "100%",
@@ -29,23 +29,76 @@ const useStyles = makeStyles({
         justifyContent: "flex-end",
     },
     profile: {
-        margin: "auto",
-        alignItems: "center",
+        alignItems: "left",
         width: "80%",
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-start",
-        "& > p": {
-            margin: "0px"
-        },
-        "& > h2":{
-            margin: "2px",
-            fontSize: "1.25em"
-        },
         "& > .clickable": {
             color: Colors.buttonBlue
         }
     },
+    picture: {
+        alignSelf: "center",
+    },
+    patientInfo: {
+        width: "100%",
+        padding: ".5em",
+        display: "flex",
+        flexDirection: "column"
+
+    },
+    buttonContainer: {
+        width: "100%",
+        ...Styles.flexRow,
+        justifyContent: "center",
+        borderTop: "1px solid lightgray",
+        marginTop: ".5em",
+        "& > button": {
+            borderRadius: 0
+        },
+        "& > button > span": {
+            fontSize: ".5em",
+            ...Styles.flexColumn
+        }
+
+    },
+    header: {
+        display: "flex",
+        flexDirection: "column",
+        width: "100%",
+        justifyContent: "center",
+        alignItems: "center",
+        "& > h2": {
+            padding: 0,
+            margin: 0
+        }
+    },
+    profileItem: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        "& > span, & > p": {
+            margin: ".5em 0 0 0",
+            padding: "0",
+        },
+        "& > span": {
+            fontWeight: "bold"
+        }
+    },
+    resolutionButtons:{
+        width: "50%",
+        marginTop: "auto",
+        marginBottom: "1em",
+        "& > button":{
+            width: "100%",
+            margin: ".5em"
+        }
+    },
+    childrenContainer:{
+        width: "100%",
+        margin: "auto"
+    }
 })
 
 const Card = observer((props) => {
@@ -68,12 +121,15 @@ const Card = observer((props) => {
 
     return (
         <>
-            {/* Filler to allow the flex displayed hompage to work with the sidebar being fixed position 
-        <div className={classes.filler} />*/}
             <div className={classes.container}>
-                {!props.isCohortView &&<div className={classes.clear}><IconButton onClick={handleClose}><ClearIcon /></IconButton></div>}
+                {!props.isCohortView && <div className={classes.clear}><IconButton onClick={handleClose}><ClearIcon /></IconButton></div>}
                 {!props.isCohortView && <PatientPreview />}
+                <div className={classes.childrenContainer}>
                 {props.children}
+                </div>
+                <div className={classes.resolutionButtons}>
+                    {props.buttons}
+                </div>
             </div>
         </>
     )
@@ -81,18 +137,39 @@ const Card = observer((props) => {
 
 const PatientPreview = observer((props) => {
     const classes = useStyles();
-    const { practitionerStore } = useStores();
+    const { practitionerStore, practitionerUIStore } = useStores();
+    const { t, i18n } = useTranslation('translation');
 
     return (
         <div className={classes.profile}>
-            <PatientPicture name={practitionerStore.selectedPatientInfo.fullName} />
-            <h2>{practitionerStore.selectedPatientInfo.fullName}</h2>
-            <p>Adherence: {practitionerStore.selectedPatientInfo.adherence}</p>
-            <p>Last Contacted: {DateTime.local().toLocaleString()}</p>
-            <p className="clickable">View Full Profile</p>
+            <div className={classes.header}>
+                <PatientPicture name={practitionerStore.getSelectedPatient.fullName} />
+                <h2>{practitionerStore.getSelectedPatient.fullName}</h2>
+            </div>
+
+            <div className={classes.buttonContainer}>
+                <IconButton onClick={() => { practitionerUIStore.goToPatient(practitionerStore.getSelectedPatient.id) }}> <ProfileButton />{t("coordinator.profile")}</IconButton>
+                <IconButton onClick={() => { practitionerUIStore.goToChannel(practitionerStore.getSelectedPatient.channelId) }}><ChatIcon />{t("coordinator.message")}</IconButton>
+            </div>
+
+            <div className={classes.patientInfo}>
+                <ProfileItem text={t("coordinator.adherence")} value={practitionerStore.getSelectedPatient.adherence} />
+                <ProfileItem text={t("coordinator.daysInTreatment")} value={practitionerStore.getSelectedPatient.daysInTreatment} />
+                <ProfileItem text={t("coordinator.sideBar.lastContacted")} value={DateTime.fromISO(practitionerStore.getSelectedPatient.lastContacted).toLocaleString(DateTime.DATETIME_SHORT)} />
+            </div>
+
         </div>
 
     )
 })
+
+
+const ProfileItem = (props) => {
+    const classes = useStyles();
+
+    return (
+        <div className={classes.profileItem}><span>{props.text}:</span>  <p>{props.value}</p></div>
+    )
+}
 
 export default Card;

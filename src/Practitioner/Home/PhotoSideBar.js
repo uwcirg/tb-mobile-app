@@ -8,6 +8,7 @@ import Styles from '../../Basics/Styles';
 import Colors from '../../Basics/Colors';
 import SharedButton from '../Shared/SharedButton'
 import QIcon from '@material-ui/icons/HelpOutline';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
 
@@ -20,9 +21,8 @@ const useStyles = makeStyles({
             width: "90%",
             objectFit: "contain"
         },
-        "& > h2":{
+        "& > h2": {
             fontSize: "1em",
-            alignSelf: "flex-start"
         }
     },
     buttonContainer: {
@@ -38,18 +38,19 @@ const PhotoSidebar = observer((props) => {
     const { practitionerStore } = useStores();
     const classes = useStyles();
 
-    let rowID = practitionerStore.selectedRow.id;
-    const item = practitionerStore.photoReports[rowID];
+    const { t, i18n } = useTranslation('translation');
+
+    const item = practitionerStore.filteredPatients.photo[practitionerStore.selectedRow.index];
 
     return (
-        <Basicsidebar>
+        <Basicsidebar buttons={
+            <>
+                <SharedButton text={"Inconclusive"} onClick={() => { practitionerStore.processPhoto(item.photoId, false) }} color={Colors.yellow} icon={<QIcon />} />
+                <SharedButton text={"Positive"} onClick={() => { practitionerStore.processPhoto(item.photoId, true) }} />
+            </>}>
             <div className={classes.photoContainer} >
-                <h2>Photo Submission:</h2>
+                <h2>{t("coordinator.sideBar.photoSub")}:</h2>
                 <img className={classes.photoPreview} src={item.url} />
-            </div>
-            <div className={classes.buttonContainer}>
-                <SharedButton text={"Positive"} onClick={() => {practitionerStore.processPhoto(item.photoId,true)}} />
-                <SharedButton text={"Inconclusive"} onClick={() => {practitionerStore.processPhoto(item.photoId,false)}} color={Colors.yellow} icon={<QIcon />} />
             </div>
         </Basicsidebar>
     )

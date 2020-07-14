@@ -21,7 +21,7 @@ const authenticatedRequest = (url, method, body, options) => {
             return resolve.json()
         })
         .then(json => {
-            json.httpStatus = requestStatus;
+            if(options && options.includeStatus)json.httpStatus = requestStatus;
             return json
         })
 }

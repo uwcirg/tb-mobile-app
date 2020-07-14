@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     },
     container: {
         width: "100%",
-        marginLeft: "100px"
+        marginLeft: "1em"
     },
     reportContainer: {
         width: "50%"
@@ -39,9 +39,7 @@ const Settings = observer((props) => {
     const classes = useStyles();
 
     return (<div className={classes.container}>
-        <h1>Recent Reports</h1>
-        <button onClick={() => { practitionerStore.getRecentReports() }}>test</button>
-        {practitionerStore.recentReports.length > 0 && <Reports reports={practitionerStore.recentReports} />}
+        <h1>Settings</h1>
     </div>)
 
 });
@@ -64,7 +62,6 @@ const Reports = observer((props) => {
     return (
         <div className={classes.reportContainer}>
             {list}
-            {/*JSON.stringify(props.reports)*/}
         </div>
     )
 });

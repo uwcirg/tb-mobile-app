@@ -18,20 +18,12 @@ import Colors from "../Basics/Colors";
 const drawerWidth = 200;
 
 const useStyles = makeStyles({
-  filler:{
-    height: "100vh",
-    width: "100px",
-    backgroundColor: "white"
-  },
   drawer: {
-    position: "fixed",
-    left: 0,
-    margin: "0",
     height: "100vh",
-    width: "100px",
     display: "flex",
     flexDirection: "column",
-    boxShadow: "5px 0px 5px 0px lightgray"
+    boxShadow: "5px 0px 5px 0px lightgray",
+    backgroundColor: "white"
   },
   list: {
     width: "100%",
@@ -54,12 +46,6 @@ const useStyles = makeStyles({
     margin: "auto"
   },
   selected: {
-    width: "80%",
-    alignSelf: "flex-end",
-    backgroundColor: "white",
-    borderRadius: "10px 0 0 10px",
-    boxShadow: "inset 5px 0 5px gray",
-    zIndex: "10",
     "& > div > svg": {
       fill: Colors.buttonBlue
     },
@@ -79,12 +65,10 @@ const PractitionerDrawer = observer(() => {
 
   return (
     <>
-    <div className={classes.filler} />
     <div className={classes.drawer}>
       <List className={classes.list}>
         <ListItem className={`${practitionerUIStore.tabNumber === 0 && classes.selected}`} button key={"Home"} onClick={() => { push('/home') }}>
           <ListItemIcon><HomeIcon className={classes.test} /></ListItemIcon>
-          {/*<ListItemText primary={"Home"} />*/}
         </ListItem>
 
         <ListItem button className={practitionerUIStore.tabNumber === 1 ? classes.selected : ""} key={"Patients"} onClick={() => { push('/patients') }}>

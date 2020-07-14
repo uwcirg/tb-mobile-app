@@ -17,7 +17,37 @@ export default class PractitionerUIStore {
         if (splitPath[1] === "home") return 0
         if (splitPath[1] === "patients") return 1
         if (splitPath[1] === "messaging") return 2
-        if (splitPath[1] === "information") return 3
+        if (splitPath[1] === "settings") return 3
         return 0
+    }
+
+    @computed get onMessaging(){
+        return this.router.location.pathname.startsWith("/messaging")
+    }
+
+    @computed get onSettings(){
+        return this.router.location.pathname.startsWith("/settings")
+    }
+
+    @computed get onPatients(){
+        return this.router.location.pathname.startsWith("/patients")
+    }
+
+    @computed get pathNumber(){
+        const parts = this.router.location.pathname.split("/");
+        const parsed = parseInt(parts[parts.length - 1])
+        return parsed ? parsed : 0
+    }
+
+    @computed get onSinglePatient(){
+        return this.router.location.pathname.startsWith("/patients/")
+    }
+
+    @action goToPatient = (id) =>{
+        this.router.push(`/patients/${id}`)
+    }
+
+    @action goToChannel = (id) => {
+        this.router.push(`/messaging/channel/${id}`)
     }
 }

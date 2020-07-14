@@ -10,8 +10,8 @@ import PillIcon from '../../Basics/Icons/Pill.js'
 import PhotoSidebar from './PhotoSideBar'
 import SymptomSidebar from './SymptomSideBar'
 import MedicationSideBar from './MedicationSideBar'
-import { DateTime } from 'luxon';
-import RecentReports from './RecentReports';
+import { useTranslation } from 'react-i18next';
+import { Badge } from '@material-ui/core';
 
 const useStyles = makeStyles({
     left: {
@@ -36,10 +36,16 @@ const useStyles = makeStyles({
     },
     container: {
         width: "100%",
-        height: "100vh",
         display: "flex",
     },
     photoPreview: {
+        width: "100%"
+    },
+    sidebar:{
+        width: "350px",
+        boxSizing: "border-box"
+    },
+    cardContainer:{
         width: "100%"
     }
 
@@ -61,27 +67,30 @@ const Home = observer(() => {
 
     const classes = useStyles();
 
+    const { t, i18n } = useTranslation('translation');
+
     return (
         <div className={classes.container}>
             <div className={classes.left}>
-            <h1>My Tasks</h1>
+            <h1>{t("coordinator.titles.myTasks")}</h1>
                 <Card
                     icon={<AlertIcon />}
-                    title="Patients with Symptoms"
-                    patientList={practitionerStore.filteredPatients.symptoms}
+                    title={t("coordinator.cardTitles.patientsWithSymptoms")}
+                    patientList={practitionerStore.filteredPatients.symptom}
                     type="symptom"
                 />
+               
                 <Card
                     icon={<ListIcon />}
-                    title="Photos to Review"
-                    patientList={practitionerStore.photoReports.slice().sort((a,b) =>{ return (DateTime.fromISO(b.date).diff(DateTime.fromISO(a.date))) })}
+                    title={t("coordinator.cardTitles.photosToReview")}
+                    patientList={practitionerStore.filteredPatients.photo}
                     type="photo"
                 />
                 <Card
                     icon={<PillIcon />}
-                    title="Missed Report Since Last Resolution"
+                    title={t("coordinator.cardTitles.missedReport")}
                     patientList={practitionerStore.filteredPatients.missed}
-                    type="missedMedication"
+                    type="missed"
                 />
             </div>
            <SideBarRouter />
@@ -91,41 +100,45 @@ const Home = observer(() => {
 
 const SideBarRouter = observer((props) => {
     const { practitionerStore } = useStores();
+    const classes = useStyles();
+
+    let component = ""
 
     if (practitionerStore.selectedRow.type === "photo") {
-        return <PhotoSidebar />
+        component = <PhotoSidebar />
     } else if(practitionerStore.selectedRow.type === "symptom") {
-        return <SymptomSidebar />
-    }else if(practitionerStore.selectedRow.type === "missedMedication"){
-        return <MedicationSideBar />
+        component =  <SymptomSidebar />
+    }else if(practitionerStore.selectedRow.type === "missed"){
+        component = <MedicationSideBar />
     }
-    return <RecentReports />
+
+    return(
+        <div className={classes.sidebar}>
+            {component}
+        </div>
+    )
 });
 
 
 const Card = observer((props) => {
 
     const { practitionerStore } = useStores();
+    const classes = useStyles();
 
-    const setSidebar = (id, type, patientId) => {
-        practitionerStore.selectedRow.visible = true;
-        practitionerStore.selectedRow.id = id;
+    const setSidebar = (type, index) => {
         practitionerStore.selectedRow.type = type;
-        practitionerStore.selectedRow.patientId = patientId;
+        practitionerStore.selectedRow.index = index;
 
-    }
-
-    const handleClick = (id, type) => {
-        console.log(" " + id + " " + type)
     }
 
     return (
         <HomePageCard
-            selectedId={practitionerStore.selectedRow.id}
+            selectedId={practitionerStore.selectedRow.index}
             selectedType={practitionerStore.selectedRow.type}
+            badgeContent={props.patientList.length > 0 && props.patientList.length }
             setSidebar={setSidebar}
-            onComplete={handleClick}
             {...props} />
+
     )
 });
 

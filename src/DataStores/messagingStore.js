@@ -77,6 +77,7 @@ export class MessagingStore {
 
         this.strategy.executeRawRequest(url,"GET").then((response) => {
             this.selectedChannel.messages = response;
+            this.getUnreadMessages();
         })
     }
 

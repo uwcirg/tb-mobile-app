@@ -5,6 +5,7 @@ import useStores from '../Basics/UseStores';
 import Colors from '../Basics/Colors';
 import Tooltip from '@material-ui/core/Tooltip';
 import Card from './Shared/Card';
+import { useTranslation } from 'react-i18next';
 
 const GRAPH_MARKER_SIZE = 20;
 
@@ -111,6 +112,7 @@ const Adherence = observer(() => {
 
     const { practitionerStore } = useStores();
     const classes = useStyles();
+    const { t, i18n } = useTranslation('translation');
 
     useEffect(() => {
         practitionerStore.getPatients();
@@ -127,7 +129,7 @@ const Adherence = observer(() => {
 
 
     return (
-        <Card title={"Overview Of Progress"}>
+        <Card title={t("coordinator.cardTitles.overviewOfProgress")}>
             <div className={classes.superContainer}>
                 <div className={classes.container}>
                     <Background />
@@ -146,6 +148,8 @@ const Adherence = observer(() => {
 
 const DataPoint = (props) => {
     const classes = useStyles();
+    const { t, i18n } = useTranslation('translation');
+
     let bottomCalc;
     if (props.top) {
         bottomCalc = props.adherence > 0 ? `calc(${((props.adherence - divider) / (1 - divider)) * 100}% - ${GRAPH_MARKER_SIZE}px)` : "0px";
@@ -155,8 +159,8 @@ const DataPoint = (props) => {
 
     return (
         <Tooltip title={<><h1>{props.fullName}</h1>
-            <p>Adherence: {Math.round(props.adherence * 100)}%</p>
-            <p>Days In Treatment: {props.daysInTreatment}</p>
+            <p>{t("coordinator.adherence")}: {Math.round(props.adherence * 100)}%</p>
+            <p>{t("coordinator.daysInTreatment")}: {props.daysInTreatment}</p>
         </>} ><div
             style={{ bottom: bottomCalc, left: `${props.percentageComplete * 100}%` }}
             className={classes.box}> </div></Tooltip>
@@ -167,6 +171,7 @@ const Background = () => {
 
     const colors = [Colors.green, Colors.red]
     const classes = useStyles();
+    const { t, i18n } = useTranslation('translation');
 
     let labels = []
     let dividers = []
@@ -185,7 +190,7 @@ const Background = () => {
     let months = []
 
     for (let step = 0; step < 6; step++) {
-        months.push(<div key={`background-month-${step}`} className="month">Month {step + 1}</div>)
+        months.push(<div key={`background-month-${step}`} className="month">{t("coordinator.months")} {step + 1}</div>)
         dividers.push(<div key={`background-divider-${step}`}></div>)
     }
 

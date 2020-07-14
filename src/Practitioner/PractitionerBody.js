@@ -3,20 +3,14 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components'
 import { observer } from 'mobx-react'
 import useStores from '../Basics/UseStores';
-import Colors from '../Basics/Colors';
-import AddPatientPrompt from './AddPatientPrompt'
-import AddPatientFlow from './AddPatientFlow'
 import Messages from '../Messaging/PractitionerMessaging'
-import makeStyles from '@material-ui/core/styles/makeStyles'
 import PatientsView from './CohortView/'
-import PhotoList from './PhotoView'
 import Home from './Home/'
 import Settings from './Settings'
-
-import PatientProfile from './PatientProfile'
+import PatientProfile from './PatientProfile/'
 
 const PractitionerBody = observer(() => {
-    const { practitionerStore, routingStore } = useStores();
+    const { practitionerStore, routingStore, practitionerUIStore } = useStores();
     const { location, push, goBack } = routingStore;
     const { t, i18n } = useTranslation('translation');
 
@@ -25,50 +19,26 @@ const PractitionerBody = observer(() => {
         push(`/patients/${id}`)
     }
 
-    let patientsPath;
+    let view = <Home />
 
-    if (location.pathname.startsWith("/patients/")) {
-
-        if (location.pathname === "/patients/add") {
-            patientsPath = <AddPatientFlow />
-        } else {
-            const parts = location.pathname.split("/");
-            const id = parts[2];
-
-            patientsPath = <PatientProfile id={id} patient={practitionerStore.getPatient(id)} />
-        }
-    } else {
-        patientsPath = ""
+    if (practitionerUIStore.onSettings) view = <Settings />
+    if (practitionerUIStore.onMessaging) view = <Messages />
+    if (practitionerUIStore.onPatients) {
+        view = <PatientsView
+            patientList={practitionerStore.patientList}
+            tempList={practitionerStore.temporaryPatients}
+            handlePatientClick={handlePatientClick} />
     }
+    if (practitionerUIStore.onSinglePatient) view = <PatientProfile id={practitionerUIStore.pathNumber} patient={practitionerStore.getPatient(practitionerUIStore.pathNumber)} />
 
     return (
         <Body>
-            {location.pathname.startsWith("/settings") && <Settings />}
-            {location.pathname.startsWith("/home") && <Home />}
-            {location.pathname === "/photos" && <PhotoList />}
-            {location.pathname === "/photos/historical" && <PhotoList processed />}
-            {location.pathname.startsWith("/messaging") && <Messages />}
-            {location.pathname === "/patients" && <PatientsView
-                patientList={practitionerStore.patientList}
-                tempList={practitionerStore.temporaryPatients}
-                handlePatientClick={handlePatientClick}
-            />}
-            {patientsPath}
-
+            {view}
         </Body>
     )
 });
 
 const Body = styled.div`
 width: 100%;
-min-height: 100vh;
-padding-left: 2em;
-display: flex;
-flex-direction: column;
-justify-content: flex-start;
-align-content: flex-start;
-align-items: flex-start;
-
 `
-
 export default PractitionerBody;

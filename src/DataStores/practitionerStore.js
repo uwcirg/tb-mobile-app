@@ -5,7 +5,6 @@ const ROUTES = {
     addPatient: ["/patient", "POST"],
     getCurrentPractitioner: ["/practitioner/me", "GET"],
     getOrganizations: ["/organizations", "GET"],
-    notifyAll: ["/notify_all", "POST"],
     getPatients: ["/practitioner/patients", "GET"],
     getTemporaryPatients: ["/practitioner/temporary_patients", "GET"],
     getPatientPhotos: ["/patients/photo_reports", "GET"],
@@ -13,7 +12,7 @@ const ROUTES = {
     getPatientNames: ["/practitioner/patients?namesOnly=true", "GET"],
     getSeverePatients: ["/patients/severe", "GET"],
     getMissingPatients: ["/patients/missed", "GET"],
-    getRecentReports: ["/patients/reports/recent", "GET"],
+    getRecentReports: ["/patients/reports/recent", "GET"]
 }
 
 export class PractitionerStore extends UserStore {
@@ -25,7 +24,8 @@ export class PractitionerStore extends UserStore {
 
     @observable selectedPatientSymptoms = {
         summary: [],
-        summaryLoading: false
+        summaryLoading: false,
+        numberResolved: 0
     }
 
     //Test
@@ -55,28 +55,35 @@ export class PractitionerStore extends UserStore {
 
     @observable patients = [];
     @observable temporaryPatients = [];
-    @observable photoReports = [];
-    @observable processedPhotoReports = [];
 
     //Currently viewed patient
     @observable selectedPatient = {
         reports: []
     }
 
+    @observable missedDays = {
+        days: [],
+        loading: false,
+        lastResolution: {},
+        clearSelection: function () {
+            this.days = []
+            this.loading = false
+            this.lastResolution = {}
+        }
+    }
+
     @observable filteredPatients = {
-        symptoms: [],
-        missed: []
+        symptom: [],
+        missed: [],
+        photo: []
     }
 
     @observable selectedRow = {
-        visible: false,
         type: "",
-        id: -1,
-        patientId: -1,
+        index: -1,
         clearSelection: function () {
-            this.id = -1,
-                this.type = "",
-                this.visible = false
+            this.index = -1,
+                this.type = ""
         }
     }
 
@@ -92,10 +99,14 @@ export class PractitionerStore extends UserStore {
         return this.patients[id]
     }
 
+    getPatientName = (id) => {
+        return this.patients[id] ? this.patients[id].fullName : "Patient Name"
+    }
+
     @action addNewPatient = () => {
         this.newPatientLoading = true;
 
-        this.executeRequest('addPatient', this.newPatientInformation,{allowErrors: true}).then(json => {
+        this.executeRequest('addPatient', this.newPatientInformation, { allowErrors: true }).then(json => {
             this.newPatientLoading = false;
 
             if (json.error == 422) {
@@ -120,7 +131,7 @@ export class PractitionerStore extends UserStore {
     @action
     getOrganizations = () => {
         this.executeRequest('getOrganizations').then(json => {
-            
+
             let list = []
             json.length > 0 && (json.map(each => {
                 return (each.title)
@@ -148,21 +159,15 @@ export class PractitionerStore extends UserStore {
         })
     }
 
-    sendNotificationToAll = () => {
-        this.executeRequest("notifyAll").then(response => {
-            console.log(response)
-        })
-    }
-
     @action getPhotoReports = () => {
         this.executeRequest("getPatientPhotos").then(response => {
-            this.photoReports = response;
+            this.filteredPatients.photo = response;
         })
     }
 
     @action getProcessedPhotoReports = () => {
         this.executeRequest("getProcessedPatientPhotos").then(response => {
-            this.processedPhotoReports = response;
+            this.filteredPatients.photo = response;
         })
     }
 
@@ -178,8 +183,8 @@ export class PractitionerStore extends UserStore {
     }
 
     @action getSeverePatients = () => {
-        this.executeRequest("getSeverePatients").then(response => {
-            this.filteredPatients.symptoms = response;
+        return this.executeRequest("getSeverePatients").then(response => {
+            this.filteredPatients.symptom = response;
         })
     }
 
@@ -193,13 +198,8 @@ export class PractitionerStore extends UserStore {
         let body = { approved: approved }
         this.executeRawRequest(`/photo_submission/${id}`, "PATCH", body).then(response => {
             //TODO: Could update this to just remove the updated photo submission from list instead of fetching again
+            this.adjustIndex();
             this.getPhotoReports();
-            if (this.photoReports.length > 0) {
-                this.selectedRow.id = 0;
-            } else {
-                this.selectedRow.clearSelection();
-
-            }
         })
     }
 
@@ -216,36 +216,67 @@ export class PractitionerStore extends UserStore {
     }
 
     @action getSelectedPatientSymptoms = () => {
-        if (this.selectedRow.patientId > 0) {
+        if (this.selectedRow.index >= 0) {
             this.selectedPatientSymptoms.loading = true;
-            this.executeRawRequest(`/patient/${this.selectedRow.patientId}/symptoms`, "GET").then(response => {
+            this.executeRawRequest(`/patient/${this.selectedPatientID}/symptoms`, "GET").then(response => {
                 this.selectedPatientSymptoms.summary = response
                 this.selectedPatientSymptoms.loading = false;
+                this.selectedPatientSymptoms.numberResolved += 1;
             })
         }
     }
 
-    resolveSymptoms() {
-        this.executeRawRequest(`/patient/${this.selectedRow.patientId}/resolutions?type=symptom`, "POST").then(response => {
-            this.getSeverePatients();
+    @action resolveSymptoms() {
+        this.executeRawRequest(`/patient/${this.selectedPatientID}/resolutions?type=symptom`, "POST").then(response => {
+            this.adjustIndex();
+            this.getSeverePatients().then(() => {
+                this.getSelectedPatientSymptoms();
+            })
         })
     }
 
+    @action getPatientMissedDays(){
+        this.missedDays.loading = true;
+        this.executeRawRequest(`/patient/${this.selectedPatientID}/missed_reports`, "GET").then(response => {
+            this.missedDays.loading = false;
+            this.missedDays.days = response.days;
+            this.missedDays.lastResolution = response.last_resolved;
+        })
+    }
+
+    @action adjustIndex() {
+        if (this.selectedRow.index > this.filteredPatients[this.selectedRow.type].length - 2) {
+            this.selectedRow.index -= 1;
+        }
+
+        if (this.filteredPatients[this.selectedRow.type].length === 1) {
+            this.selectedRow.clearSelection();
+        }
+    }
+
     resolveMedication() {
-        this.executeRawRequest(`/patient/${this.selectedRow.patientId}/resolutions?type=medication`, "POST").then(response => {
+        this.executeRawRequest(`/patient/${this.selectedPatientID}/resolutions?type=medication`, "POST").then(response => {
+            this.adjustIndex();
             this.getMissingPatients();
         })
     }
 
-    @computed get selectedPatientInfo() {
+    @computed get getSelectedPatient() {
 
         if (this.selectedRow.patientId < 0) {
             return {}
         }
 
-        let result = this.getPatient(this.selectedRow.patientId);
+        return this.patients[`${this.filteredPatients[this.selectedRow.type][this.selectedRow.index].patientId}`];
 
-        return (result)
+    }
+
+    @computed get selectedPatientID() {
+        return this.getSelectedPatient.id
+    }
+
+    resetPassword = () => {
+        this.resetActivationCode(this.selectedPatient.id);
     }
 
 
