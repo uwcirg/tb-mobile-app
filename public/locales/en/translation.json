@@ -282,7 +282,7 @@
          "sideBar": {            
             "lastContacted": "Last Contracted",
             "viewFullProfile": "View Full Profile",
-            "daysMissed": "Days Missed",
+            "daysMissed": "Days Missed Since Last Resolution",
             "photoSub": "Photo Submission",
             "symptomsSince": "Symptoms Reported",
             "loading": "Loading",
@@ -296,6 +296,7 @@
             "adherence": "Adherence",
             "streak": "Streak"
          },
+         "noTasks": "No Tasks Found",
          "profile": "Profile",
          "message": "Message",
          "adherence": "Adherence",

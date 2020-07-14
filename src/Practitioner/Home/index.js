@@ -135,7 +135,7 @@ const Card = observer((props) => {
         <HomePageCard
             selectedId={practitionerStore.selectedRow.index}
             selectedType={practitionerStore.selectedRow.type}
-            badgeContent={props.patientList.length}
+            badgeContent={props.patientList.length > 0 && props.patientList.length }
             setSidebar={setSidebar}
             {...props} />
 

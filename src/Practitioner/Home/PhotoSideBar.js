@@ -23,7 +23,6 @@ const useStyles = makeStyles({
         },
         "& > h2": {
             fontSize: "1em",
-            alignSelf: "flex-start"
         }
     },
     buttonContainer: {

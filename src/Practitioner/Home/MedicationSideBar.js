@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Basicsidebar from '../Shared/BasicSidebar'
 import useStores from '../../Basics/UseStores'
 import { observer } from 'mobx-react'
@@ -23,7 +23,9 @@ const useStyles = makeStyles({
         },
         "& > h2": {
             fontSize: "1em",
-            alignSelf: "flex-start"
+            display: "block",
+            width: "60%",
+            textAlign: "center"
         }
     },
     buttonContainer: {
@@ -32,16 +34,26 @@ const useStyles = makeStyles({
         margin: "auto",
         ...Styles.flexRow,
         justifyContent: "space-evenly"
+    },
+    daysList:{
+        width: "80%",
+        textAlign: "center",
+        borderRadius: "10px",
+        height: "200px",
+        overflow: "scroll",
+        backgroundColor: Colors.lightgray
     }
 })
 
 const MissedMedicationSidebar = observer((props) => {
     const { practitionerStore } = useStores();
     const classes = useStyles();
-
     const { t, i18n } = useTranslation('translation');
-
     const item = practitionerStore.filteredPatients.photo[practitionerStore.selectedRow.index];
+
+    useEffect(() => {
+        practitionerStore.getPatientMissedDays()
+    }, [practitionerStore.selectedRow.index])
 
     return (
         <Basicsidebar buttons={
@@ -50,7 +62,9 @@ const MissedMedicationSidebar = observer((props) => {
                 <SharedButton text={"Positive"} onClick={() => { practitionerStore.resolveMedication() }} />
             </>}>
             <div className={classes.photoContainer} >
-                <h2>{t("coordinator.sideBar.daysMissed")}:</h2>
+                <h2>{t("coordinator.sideBar.daysMissed")}: {practitionerStore.missedDays.days && practitionerStore.missedDays.days.length} </h2>
+                {practitionerStore.missedDays.loading ? "Loading" : <div className={classes.daysList}> {practitionerStore.missedDays.days && practitionerStore.missedDays.days.map((day) => { return <p>{DateTime.fromISO(day.date).toLocaleString(DateTime.DATE_SHORT)}</p> })} </div>}
+
             </div>
         </Basicsidebar>
     )
@@ -59,4 +73,4 @@ const MissedMedicationSidebar = observer((props) => {
 export default MissedMedicationSidebar;
 
 
-<SharedButton text={"Resolve"} onClick={() => {practitionerStore.resolveMedication()} } />
+<SharedButton text={"Resolve"} onClick={() => { practitionerStore.resolveMedication() }} />

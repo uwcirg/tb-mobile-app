@@ -12,7 +12,7 @@ const ROUTES = {
     getPatientNames: ["/practitioner/patients?namesOnly=true", "GET"],
     getSeverePatients: ["/patients/severe", "GET"],
     getMissingPatients: ["/patients/missed", "GET"],
-    getRecentReports: ["/patients/reports/recent", "GET"],
+    getRecentReports: ["/patients/reports/recent", "GET"]
 }
 
 export class PractitionerStore extends UserStore {
@@ -59,6 +59,17 @@ export class PractitionerStore extends UserStore {
     //Currently viewed patient
     @observable selectedPatient = {
         reports: []
+    }
+
+    @observable missedDays = {
+        days: [],
+        loading: false,
+        lastResolution: {},
+        clearSelection: function () {
+            this.days = []
+            this.loading = false
+            this.lastResolution = {}
+        }
     }
 
     @observable filteredPatients = {
@@ -221,9 +232,15 @@ export class PractitionerStore extends UserStore {
             this.getSeverePatients().then(() => {
                 this.getSelectedPatientSymptoms();
             })
+        })
+    }
 
-
-
+    @action getPatientMissedDays(){
+        this.missedDays.loading = true;
+        this.executeRawRequest(`/patient/${this.selectedPatientID}/missed_reports`, "GET").then(response => {
+            this.missedDays.loading = false;
+            this.missedDays.days = response.days;
+            this.missedDays.lastResolution = response.last_resolved;
         })
     }
 

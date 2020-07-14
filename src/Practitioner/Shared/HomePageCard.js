@@ -8,6 +8,7 @@ import Colors from '../../Basics/Colors';
 import Card from './Card'
 import useStores from '../../Basics/UseStores';
 import { Badge } from '@material-ui/core';
+import Styles from '../../Basics/Styles';
 
 
 const useStyles = makeStyles({
@@ -71,6 +72,9 @@ const useStyles = makeStyles({
 
         top: "-10px",
         left: "-10px"
+    },
+    noTasks:{
+        ...Styles.flexCenter
     }
 })
 
@@ -97,7 +101,7 @@ const HomePageCard = (props) => {
         <Card icon={props.icon} title={props.title}>
             {props.badgeContent && <Badge overlap="circle" className={classes.badge} color="primary" badgeContent={props.badgeContent} />}
             <div className={classes.container}>
-                {patientList}
+                {props.patientList.length > 0 ? patientList : <div className={classes.noTasks}><p>{t("coordinator.noTasks")}</p></div> }
             </div>
         </Card>
     )
