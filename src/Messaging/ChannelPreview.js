@@ -95,7 +95,7 @@ const Container = styled.div`
     border: none;
     margin-top: 1em;
     margin-right: 1em;
-    background-color: ${props => props.selected ? 'lightblue' : 'unset'};
+    background-color: ${props => props.selected ? 'lightgray' : 'unset'};
 
     .display{
         padding: 0;

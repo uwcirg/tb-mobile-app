@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../Basics/UseStores';
 import { observer } from 'mobx-react';
+import LanguageQuestion from '../Basics/LanguageQuestion';
 
 
 const useStyles = makeStyles({
@@ -40,39 +41,9 @@ const Settings = observer((props) => {
 
     return (<div className={classes.container}>
         <h1>Settings</h1>
+        <LanguageQuestion />
     </div>)
 
 });
-
-const Reports = observer((props) => {
-    const classes = useStyles();
-    const { practitionerStore } = useStores();
-
-    const list = props.reports.map((report) => {
-        return (
-            <div className={classes.report}>
-                <Patient {...practitionerStore.getPatient(report.userId)} />
-                <p>{report.tookMedication ? "Took Meds" : "Didnt Take Meds"}</p>
-                <p>{report.date}</p>
-                {report.photoUrl ? <img className={classes.image} src={report.photoUrl} /> : <p>N/A</p>}
-            </div>
-        )
-    })
-
-    return (
-        <div className={classes.reportContainer}>
-            {list}
-        </div>
-    )
-});
-
-const Patient = (props) => {
-    const classes = useStyles();
-    return (
-        <div className={classes.patient}>
-            <p>{props.fullName}</p>
-        </div>
-    )
-}
 
 export default Settings;

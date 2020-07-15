@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores'
 import { observer } from 'mobx-react'
 import HomePageCard from '../Shared/HomePageCard'
-import Basicsidebar from '../Shared/BasicSidebar'
 import AlertIcon from '@material-ui/icons/Error';
 import ListIcon from '@material-ui/icons/PlaylistAddCheck';
 import PillIcon from '../../Basics/Icons/Pill.js'
@@ -31,11 +30,13 @@ const useStyles = makeStyles({
         },
         alignItems: "center",
         display: "flex",
-        flexDirection: "column"
+        flexDirection: "column",
+        overflowX: "hidden",
         
     },
     container: {
         width: "100%",
+        overflowX: "hidden",
         display: "flex",
     },
     photoPreview: {

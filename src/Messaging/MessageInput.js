@@ -15,8 +15,12 @@ const useStyles = makeStyles({
         justifyContent: "flex-start",
         alignContent: "center",
         alignItems: "center",
-        padding: ".5em 1em .5em 1em" 
-    },
+        padding: ".5em 1em .5em 1em",
+        "& > *::-webkit-scrollbar":{
+            display: "none"
+        }
+
+  },
 
     input: {
         flex: 1,

@@ -34,24 +34,34 @@ export class PractitionerStore extends UserStore {
     DEFAULT_PHONE = 5412345678;
 
     @observable onNewPatientFlow = false;
-    @observable newPatientLoading = false;
-    @observable newPatientCode = "";
-    @observable errorReturned = false;
+
+    @observable newPatient = {
+        params: {
+            givenName: "",
+            familyName: "",
+            phoneNumber: "",
+            startDate: new Date().toISOString()
+        },
+        loading: false,
+        code: "",
+        errorReturned: false,
+        errors: {
+            givenName: undefined,
+            familyname: undefined,
+            phoneNumber: undefined
+        },
+        clear:  function() {
+            this.code ="";
+            this.errorReturned= false;
+            this.errors= {
+                givenName: undefined,
+                familyname: undefined,
+                phoneNumber: undefined
+            }
+        }
+    }
 
     @observable organizationsList = [];
-
-    @observable paramErrors = {
-        givenName: undefined,
-        familyname: undefined,
-        phoneNumber: undefined
-    };
-
-    @observable newPatientInformation = {
-        givenName: "",
-        familyName: "",
-        phoneNumber: "",
-        startDate: new Date().toISOString()
-    }
 
     @observable patients = [];
     @observable temporaryPatients = [];
@@ -104,18 +114,18 @@ export class PractitionerStore extends UserStore {
     }
 
     @action addNewPatient = () => {
-        this.newPatientLoading = true;
+        this.newPatient.loading = true;
 
-        this.executeRequest('addPatient', this.newPatientInformation, { allowErrors: true }).then(json => {
-            this.newPatientLoading = false;
+        this.executeRequest('addPatient', this.newPatient.params, { allowErrors: true }).then(json => {
+            this.newPatient.loading = false;
 
             if (json.error == 422) {
-                this.paramErrors = json.paramErrors;
-                this.errorReturned = true;
+                this.newPatient.errors = json.paramErrors;
+                this.newPatient.errorReturned = true;
             }
 
             if (json.code) {
-                this.newPatientCode = json.code;
+                this.newPatient.code = json.code;
             }
         })
     }
@@ -235,7 +245,7 @@ export class PractitionerStore extends UserStore {
         })
     }
 
-    @action getPatientMissedDays(){
+    @action getPatientMissedDays() {
         this.missedDays.loading = true;
         this.executeRawRequest(`/patient/${this.selectedPatientID}/missed_reports`, "GET").then(response => {
             this.missedDays.loading = false;
