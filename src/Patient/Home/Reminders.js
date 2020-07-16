@@ -15,7 +15,6 @@ import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
 import { TimePicker } from "@material-ui/pickers/TimePicker";
 
-
 const useStyles = makeStyles({
     header: { fontSize: "1em", fontWeight: "bold", textAlign: "left", width: "100%", paddingLeft: "1em" },
     daily: { width: "100%", marginBottom: "1em", borderBottom: "solid 1px lightgray" },
