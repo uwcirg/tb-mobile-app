@@ -63,8 +63,7 @@ export class PatientStore extends UserStore {
     }
 
     @action setAccountInformation(json) {
-
-        this.photoSchedule = JSON.parse(json.medicationSchedule)
+        this.photoSchedule = json.photoSchedule.reduce((a,b)=> (a[b]='true',a),{});
         this.treatmentStart = json.treatmentStart
         this.patientInformation.daysInTreatment = json.daysInTreatment;
         this.patientInformation.currentStreak = json.currentStreak;
@@ -98,12 +97,8 @@ export class PatientStore extends UserStore {
     }
 
     checkPhotoDay(date) {
-        let weekday = date.weekday;
-        let weekSinceStart = Math.floor(DateTime.fromISO(this.treatmentStart).endOf('day').diffNow("weeks").weeks * -1)
-        if(weekSinceStart < 0){
-            weekSinceStart = 0
-        }  
-        return (this.photoSchedule[weekSinceStart] && this.photoSchedule[weekSinceStart].includes(weekday));
+        date = date.toISODate();
+        return (this.photoSchedule[date])
     }
 
     @computed get selectedDateForDisplay() {
