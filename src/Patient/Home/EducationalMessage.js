@@ -2,8 +2,12 @@ import PopUp from '../Navigation/PopUp'
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import NewButton from '../../Basics/NewButton'
-import { Typography } from '@material-ui/core';
+import { Typography, ButtonGroup } from '@material-ui/core';
+import Button from '@material-ui/core/IconButton'
 import Styles from '../../Basics/Styles';
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import ThumbDownIcon from '@material-ui/icons/ThumbDown';
+import Colors from '../../Basics/Colors';
 
 const useStyles = makeStyles({
     container: {
@@ -29,10 +33,20 @@ const useStyles = makeStyles({
         fontWeight: "bold",
         marginTop: "1em"
     },
-    buttonContainer:{
+    thumbsContainer:{
+        width: "100%",
+        "& > p":{
+            fontWeight: "bold"
+        }
+    },
+    buttonGroup:{
         alignSelf: "center",
-        width: "50%",
-        marginTop: "auto"
+        width: "90%",
+        marginTop: "auto",
+        "& > button":{
+            width: "50%",
+            color: Colors.buttonBlue
+        }
     }
 })
 
@@ -50,8 +64,13 @@ const EducationalMessage = (props) => {
 
                     <p> This Information will be availble in the information tab in the future.</p>
                 </div>
-                <div className={classes.buttonContainer}>
-                        <NewButton text="Okay" />
+
+                <div className={classes.thumbsContainer}>
+                    <p>Was this helpful?</p>
+                <ButtonGroup className={classes.buttonGroup}>
+                       <Button> <ThumbDownIcon /></Button>   
+                       <Button><ThumbUpIcon /></Button>
+                    </ButtonGroup>
                     </div>
             </PopUp> : "")
 
