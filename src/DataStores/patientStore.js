@@ -25,6 +25,8 @@ export class PatientStore extends UserStore {
         currentStreak: 0
     }
 
+    @observable photoSchedule = {};
+
     @observable status = "";
 
     //@observable notificationTime = DateTime.fromISO("12:00:00").toISOTime();
@@ -96,6 +98,7 @@ export class PatientStore extends UserStore {
         return this.checkPhotoDay(DateTime.local())
     }
 
+    //Precondiditon - Requires a luxon datetime object
     checkPhotoDay(date) {
         date = date.toISODate();
         return (this.photoSchedule[date])

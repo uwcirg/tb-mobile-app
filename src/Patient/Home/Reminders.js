@@ -40,6 +40,12 @@ const useStyles = makeStyles({
             textTransform: "capitalize",
             borderTop: "none",
             borderBottom: "none"
+        },
+        "& > button:first-child":{
+            borderLeft: "none"
+        },
+        "& > button:nth-child(2)":{
+            borderRight: "none"
         }
     },
     buttonContainer: { width: "100%", display: "flex", justifyContent: "center" },
@@ -152,15 +158,3 @@ const Header = (props) => {
 }
 
 export default CompName;
-
-/*
-  {timeOpen ? <TimePicker
-                    open={timeOpen}
-                    className={classes.timeSelect}
-                    ampm={false}
-                    value={DateTime.fromISO(patientStore.notificationTime)}
-                    onChange={(e) => {
-                        setTimeOpen(false);
-                        handleTimeChange(e);
-                    }} /> : <Button className={classes.timeButton} onClick={() => { setTimeOpen(true) }}>{DateTime.fromISO(patientStore.reminderTime).toLocaleString(DateTime.TIME_24_SIMPLE)} </Button>}
-*/
