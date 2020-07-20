@@ -8,6 +8,9 @@ import Styles from '../../Basics/Styles';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import Colors from '../../Basics/Colors';
+import {observer} from 'mobx-react';
+import useStores from '../../Basics/UseStores';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
     container: {
@@ -50,23 +53,34 @@ const useStyles = makeStyles({
     }
 })
 
-const EducationalMessage = (props) => {
+const EducationalMessage = observer((props) => {
+
+    const { t, i18n } = useTranslation('education-messages');
+
+    const messages = t('messages',{ returnObjects: true})
 
     const classes = useStyles();
+    const  {educationStore: education} = useStores().patientStore;
+    //const [visible,setVisible] =  useState(education.educationMessage >= 0 && messages[education.educationMessage])
+    const [visible,setVisible] =  useState(false)
+    
+
+    const handleClose = () => {
+        setVisible(!visible)
+        education.markEducationAsRead();
+    }
 
     return (
-        props.visible ?
-            <PopUp className={classes.container} handleClickAway={props.handleClickAway}>
-                <Typography className={classes.header} variant="h1">Treatment Update</Typography>
+        visible ?
+            <PopUp className={classes.container} handleClickAway={handleClose}>
+                <Typography className={classes.header} variant="h1">{t("header")}</Typography>
                 <div className={classes.body}>
-                    <h2>Week 2:</h2>
-                    <p>La Tuberculosis Pulmonar se contagia cuando una persona enferma al toser, estornudar o al hablar elimina con la tos secreciones que contienen los bacilos que producen la enfermedad. Siempre tratar de toser en lugar bien ventilado, nunca cerrado, si es posible cubrirse la boca y/o utilizar barbijo.</p>
-
-                    <p> This Information will be availble in the information tab in the future.</p>
+                    <h2>{t("week")} {education.educationMessage}:</h2>
+                    <p>{messages[education.educationMessage]}</p>
                 </div>
 
                 <div className={classes.thumbsContainer}>
-                    <p>Was this helpful?</p>
+                    <p>{t("helpful")}</p>
                 <ButtonGroup className={classes.buttonGroup}>
                        <Button> <ThumbDownIcon /></Button>   
                        <Button><ThumbUpIcon /></Button>
@@ -74,6 +88,6 @@ const EducationalMessage = (props) => {
                     </div>
             </PopUp> : "")
 
-}
+})
 
 export default EducationalMessage;

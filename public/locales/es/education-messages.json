@@ -1,0 +1,13 @@
+{
+    "week": "Semana",
+    "header": "Información de Tratamiento",
+    "helpful": "¿Fue útil este mensaje?",
+    "messages": {
+        "0": "La Tuberculosis Pulmonar se contagia cuando una persona enferma al toser, estornudar o al hablar elimina con la tos secreciones que contienen los bacilos que producen la enfermedad. Siempre tratar de toser en lugar bien ventilado, nunca cerrado, si es posible cubrirse la boca y/o utilizar barbijo. ",
+        "1": "This will be the first weeks message",
+        "2": "This will be the second weeks message",
+        "3": "This will be the third weeks message",
+        "4": "This will be the fourth weeks message",
+        "5": "This will be the fifth weeks message"
+    }
+}

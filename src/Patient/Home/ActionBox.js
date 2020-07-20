@@ -14,7 +14,6 @@ import { ReactComponent as DoctorIcon } from '../../Basics/Icons/doctor.svg';
 import CheckIcon from '@material-ui/icons/Check';
 import Colors from '../../Basics/Colors';
 
-
 const useStyles = makeStyles({
     confirmation:{
         ...Styles.flexRow,
@@ -58,7 +57,6 @@ const ActionBox = observer(() => {
     const handleReportClick = () =>{
         //patientStore.uiState.onTreatmentFlow = true;
         patientUIStore.moveToReportFlow();
-
     }
 
     const handlePhotoClick = () =>{
@@ -67,6 +65,9 @@ const ActionBox = observer(() => {
         }
         patientUIStore.openPhotoReport();
     }
+
+    console.log("is photo day")
+    console.log(patientStore.isPhotoDay)
 
     return(
         <InteractionCard upperText={t("patient.home.cardTitles.todaysTasks")} id="intro-tasks">
@@ -98,8 +99,6 @@ const Confirmation = (props) => {
             </div>
         </div>
     )
-
-
 }
 
 export default ActionBox;
