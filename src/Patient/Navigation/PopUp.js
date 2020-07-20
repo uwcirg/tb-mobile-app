@@ -9,7 +9,7 @@ import Clear from '@material-ui/icons/Clear';
 const useStyles = makeStyles({
     container:{
         ...Styles.flexCenter,
-        backgroundColor: "rgba(1,1,1,.3)",
+        backgroundColor: "rgba(1,1,1,.5)",
         height: "100vh",
         width: "100vw",
         position: "fixed",

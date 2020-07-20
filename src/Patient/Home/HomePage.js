@@ -7,22 +7,17 @@ import Colors from '../../Basics/Colors';
 import Greeting from './Greeting'
 import EducationalMessage from './EducationalMessage'
 import Reminders from './Reminders'
+import Button from '@material-ui/core/Button';
 
 const HomePage = () => {
-    const [educationVisibility,setEducationVisibility ] = useState(false)
-
-    const toggleEducationVisibility = () => {
-        setEducationVisibility(!educationVisibility);
-    }
 
     return (
         <Body>
-            <EducationalMessage handleClickAway={toggleEducationVisibility} visible={educationVisibility} />
+            <EducationalMessage />
             <Greeting />
             <ActionBox />
             <Progress />
             <Reminders />
-            {/*<button onClick={toggleEducationVisibility}> Test Education</button>*/}
            {/*<Alerts />*/} 
         </Body>
     )

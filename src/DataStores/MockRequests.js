@@ -4,8 +4,10 @@ export default class TestHelper {
     executeRequest(routes, route, body) {
         return new Promise((resolve, reject) => {
         
-            process.nextTick(() =>
-                resolve("TEST VALUES")
+            process.nextTick(() =>{
+                return jest.mock("api")
+            }
+                
             
             );
           });

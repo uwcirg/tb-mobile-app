@@ -1,0 +1,13 @@
+{
+    "week": "Week",
+    "header": "Treatment Update",
+    "helpful": "Was this helpful?",
+    "messages": {
+        "0": "Inital message in english",
+        "1": "This will be the first weeks message",
+        "2": "This will be the second weeks message",
+        "3": "This will be the third weeks message",
+        "4": "This will be the fourth weeks message",
+        "5": "This will be the fifth weeks message"
+    }
+}

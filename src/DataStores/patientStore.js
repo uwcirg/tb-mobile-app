@@ -1,6 +1,7 @@
 import { action, observable, computed, autorun, toJS } from "mobx";
 import { UserStore } from './userStore';
 import { DateTime, Interval } from 'luxon';
+import EducationStore from './educationStore';
 
 const ROUTES = {
     login: ["/authenticate", "POST"],
@@ -10,7 +11,8 @@ const ROUTES = {
     patientReports: ["/daily_reports", "GET"],
     getPhotoUploadURL: ["/patient/daily_reports/photo_upload_url", "GET"],
     updateNotificationTime: ["/patient/reminder", "PATCH"],
-    getMilestones: ["/patient/me/milestones", "GET"]
+    getMilestones: ["/patient/me/milestones", "GET"],
+    updateEducationStatus: ["/patient/me/education_status","POST"]
 }
 
 export class PatientStore extends UserStore {
@@ -18,16 +20,19 @@ export class PatientStore extends UserStore {
     //Takes in a data fetching strategy, so you can swap out the API one for testing data
     constructor(strategy) {
         super(strategy, ROUTES, "Patient")
+        this.educationStore = new EducationStore(this)
     }
 
     @observable patientInformation = {
         daysInTreatment: 0,
-        currentStreak: 0
+        currentStreak: 0,
+        weeksInTreatment: 0
     }
 
-    @observable status = "";
+    @observable photoSchedule = {};
+    @observable educationStatus = [];
 
-    //@observable notificationTime = DateTime.fromISO("12:00:00").toISOTime();
+    @observable status = "";
     @observable isReminderUpdating = false;
 
     @observable treatmentStart = ""
@@ -57,17 +62,20 @@ export class PatientStore extends UserStore {
         return this.executeRequest(`getCurrentPatient`).then((json) => {
             if (json.status) {
                 this.status = json.status;
-                this.reminderTime = json.dailyNotificationTime
+                this.reminderTime = json.dailyNotificationTime;
+                this.patientInformation.weeksInTreatment = json.weeksInTreatment;
+                this.educationStore.educationStatus = json.educationStatus;
             }
         });
     }
 
     @action setAccountInformation(json) {
-
-        this.photoSchedule = JSON.parse(json.medicationSchedule)
+        this.photoSchedule = json.photoSchedule.reduce((a,b)=> (a[b]=true,a),{});
+        this.patientInformation.weeksInTreatment = json.weeksInTreatment;
         this.treatmentStart = json.treatmentStart
         this.patientInformation.daysInTreatment = json.daysInTreatment;
         this.patientInformation.currentStreak = json.currentStreak;
+        this.educationStore.educationStatus = json.educationStatus;
         super.setAccountInformation(json);
 
     }
@@ -97,13 +105,10 @@ export class PatientStore extends UserStore {
         return this.checkPhotoDay(DateTime.local())
     }
 
+    //Precondiditon - Requires a luxon datetime object
     checkPhotoDay(date) {
-        let weekday = date.weekday;
-        let weekSinceStart = Math.floor(DateTime.fromISO(this.treatmentStart).endOf('day').diffNow("weeks").weeks * -1)
-        if(weekSinceStart < 0){
-            weekSinceStart = 0
-        }  
-        return (this.photoSchedule[weekSinceStart] && this.photoSchedule[weekSinceStart].includes(weekday));
+        date = date.toISODate();
+        return (this.photoSchedule[date] !== undefined)
     }
 
     @computed get selectedDateForDisplay() {

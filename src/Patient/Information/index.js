@@ -28,15 +28,18 @@ const useStyles = makeStyles({
         paddingBottom: ".5em",
         marginBottom: "1em",
         paddingLeft: "1em",
-        "& > button": {
-            
-            color: Colors.buttonBlue,
-            textTransform: "capitalize"
-        },
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start"
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-start"
 
+    },
+    button: {
+
+        color: Colors.buttonBlue,
+        textTransform: "capitalize"
+    },
+    padding:{
+        paddingLeft: "1em"
     }
 })
 
@@ -48,13 +51,15 @@ export default function Info() {
         <div className={classes.container}>
             <Typography variant="h1">Help with Application</Typography>
             <div className={classes.appInfo}>
-                
-                    <Button onClick={patientUIStore.goToWalkThrough}> Launch App Walkthrough</Button>
-                    <Button onClick={patientUIStore.goToTreatmentWalkThrough}>Treatment Walkthrough</Button>
-                    <Button > Contact Coordinator On WhatsApp</Button>
-
+                <Button className={classes.button} onClick={patientUIStore.goToWalkThrough}> Launch App Walkthrough</Button>
+                <Button className={classes.button} onClick={patientUIStore.goToTreatmentWalkThrough}>Treatment Walkthrough</Button>
+                <Button className={classes.button} > Contact Coordinator On WhatsApp</Button>
             </div>
+
             <Typography variant="h1">Information about Tuberculosis</Typography>
+            <div className={classes.padding}>
+                <Button className={classes.button} >View Previous Treatment Messages</Button>
+            </div>
             <Interactioncard className={classes.topCard} >
                 <Markdown options={{ overrides: { Drawer: { component: MarkdownRender } } }} children={file} />
             </Interactioncard>
