@@ -10,7 +10,8 @@ const useStyles = makeStyles({
         width: "100%"
     },
     clear:{
-        marginLeft: "auto"
+        marginLeft: "auto",
+        borderRadius: "0"
     }
 
 })
@@ -21,7 +22,7 @@ const SideBarTop = (props) => {
 
     return (<div className={classes.sideBarTop}>
         <h2>{props.title}</h2>
-        <IconButton className={classes.clear} onClick={props.handleExit}><ClearIcon /></IconButton>
+        <IconButton className={classes.clear} onClick={props.handleExit}><ClearIcon  /></IconButton>
     </div>)
 
 }

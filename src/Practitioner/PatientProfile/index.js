@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
@@ -30,6 +30,8 @@ const useStyles = makeStyles({
     },
     patientContainer: {
         ...Styles.flexColumn,
+        height: "100vh",
+        overflowY: "scroll",
         width: "100%",
         alignItems: "center",
         "& > div + div": {
@@ -113,7 +115,7 @@ const useStyles = makeStyles({
 
 const Profile = observer((props) => {
 
-    const [onReset,setReset] = useState(false);
+    const [onReset, setReset] = useState(false);
     const { practitionerStore } = useStores();
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
@@ -121,18 +123,18 @@ const Profile = observer((props) => {
         return (DateTime.fromISO(iso).toLocaleString(DateTime.DATE_MED))
     }
 
-    const handleCloseReset = () =>{
+    const handleCloseReset = () => {
         setReset(false)
         practitionerStore.newActivationCode = ""
     }
 
     useEffect(() => {
         practitionerStore.getPatientDetails(props.id);
-        return function cleanup(){
+        return function cleanup() {
             handleCloseReset();
         }
     }, [])
-    
+
 
     return (
         <>
@@ -140,88 +142,84 @@ const Profile = observer((props) => {
             <div className={classes.patientContainer}>
                 <div className={classes.header}>
                     <div>
-                        {practitionerStore.selectedPatient && <h1>{practitionerStore.selectedPatient.fullName}</h1>}
-                        <p><span className={classes.bold}>{t("coordinator.patientProfile.phoneNumber")}: </span>{practitionerStore.selectedPatient.phoneNumber}</p>
-                        <p><span className={classes.bold}>{t("coordinator.patientProfile.treatmentStart")}: </span>{getDate(practitionerStore.selectedPatient.treatmentStart)}</p>
+                        {practitionerStore.selectedPatient.details && <h1>{practitionerStore.selectedPatient.details.fullName}</h1>}
+                        <p><span className={classes.bold}>{t("coordinator.patientProfile.phoneNumber")}: </span>{practitionerStore.selectedPatient.details.phoneNumber}</p>
+                        <p><span className={classes.bold}>{t("coordinator.patientProfile.treatmentStart")}: </span>{getDate(practitionerStore.selectedPatient.details.treatmentStart)}</p>
                     </div>
                     <div className={classes.optionsContainer}>
                         <div><ChatIcon /></div>
-                        <div onClick={() => {setReset(true)}}><KeyIcon /></div>
+                        <div onClick={() => { setReset(true) }}><KeyIcon /></div>
                         <div><ArchiveIcon /></div>
                     </div>
                 </div>
                 <ProgressGraphs {...props.patient} />
-                <ReportingHistory
-                    loading={!(props.patient && practitionerStore.selectedPatient.reports)}
-                    reports={practitionerStore.selectedPatient.reports}
-                    treatmentStart={practitionerStore.selectedPatient.treatmentStart} />
+                <ReportingHistory />
 
             </div>
         </>)
 });
 
-const ReportingHistory = (props) => {
+const ReportingHistory = observer(() => {
 
     //Uses JS date because thats the format that the calendar wants.
     const [day, setDay] = useState(DateTime.local().toJSDate());
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
-
-    useEffect(() => {
-        //let el = document.getElementById(`day-list-${DateTime.fromJSDate(day).toISODate()}`)
-        // el && el.scrollIntoView();
-    }, [day])
+    const { practitionerStore } = useStores();
 
     return (
         <Card bodyClassName={classes.history} icon={<CalendarIcon />} title={t("coordinator.cardTitles.reportingCalender")}>
-            {props.loading ? <Loading /> :
-                <>
-                    <div className={classes.calendarContainer}>
-                        <Calendar
-                            selectedDay={day}
-                            handleChange={(date) => { setDay(date) }}
-                            reports={props.reports}
-                            treatmentStart={props.treatmentStart}
-                        />
-                    </div>
-                    <div className={classes.reports}>
-                        <div className={classes.lineItem}>
-                            <div>{t("coordinator.patientProfile.date")}</div>
-                            <div>{t("coordinator.patientProfile.taken")}</div>
-                            <div>{t("coordinator.patientProfile.symptoms")}</div>
-                            <div>{t("coordinator.patientProfile.photo")}</div>
-                            <div>Mood</div>
+            {practitionerStore.selectedPatient.reportsLoading ? <Loading /> : <>
+
+                {(practitionerStore.selectedPatient.reports && Object.keys(practitionerStore.selectedPatient.reports).length > 0) ?
+                    <>
+                        <div className={classes.calendarContainer}>
+                            <Calendar
+                                selectedDay={day}
+                                handleChange={(date) => { setDay(date) }}
+                                reports={practitionerStore.selectedPatient.reports}
+                                treatmentStart={practitionerStore.selectedPatient.details.treatmentStart}
+                            />
                         </div>
-                        <div className={classes.reportsList}>
-                            {Object.values(props.reports).map((each, i) => {
-                                return <DailyReportPreview index={i} selectedDay={day} setDay={setDay} {...each} />
-                            })}
+                        <div className={classes.reports}>
+                            <div className={classes.lineItem}>
+                                <div>{t("coordinator.patientProfile.date")}</div>
+                                <div>{t("coordinator.patientProfile.taken")}</div>
+                                <div>{t("coordinator.patientProfile.symptoms")}</div>
+                                <div>{t("coordinator.patientProfile.photo")}</div>
+                                <div>Mood</div>
+                            </div>
+                            <div className={classes.reportsList}>
+                                {Object.values(practitionerStore.selectedPatient.reports).map((each, i) => {
+                                    return <DailyReportPreview index={i} selectedDay={day} setDay={setDay} {...each} />
+                                })}
+                            </div>
                         </div>
-                    </div>
-                </>}
-        </Card>)
-}
+                            </> : <p>No Reports Submitted Yet </p>} </> }
+                    
+            </Card>)
+})
 
 const DailyReportPreview = (props) => {
 
     const classes = useStyles();
     const date = DateTime.fromISO(props.date)
     const selectedDate = DateTime.fromISO(props.date).startOf('day').equals(DateTime.fromJSDate(props.selectedDay).startOf('day'))
-    const { t, i18n } = useTranslation('translation');
+    const { t, i18n} = useTranslation('translation');
 
     const handleClick = () => {
-        props.setDay(DateTime.fromISO(props.date).toJSDate())
+                props.setDay(DateTime.fromISO(props.date).toJSDate())
 
-    }
+            }
 
     return (<div id={`day-list-${props.date}`} className={`${classes.lineItem} ${selectedDate && classes.highlight}`}
-        onClick={handleClick}>
-        <div>{`${date.day}/${date.month}`}</div>
-        <div>{props.medicationWasTaken ? t("coordinator.true") : t("coordinator.false")}</div>
-        <div><ul>{props.symptoms && props.symptoms.length > 0 && props.symptoms.map((symptom) => { return <li>{t(`symptoms.${symptom}.title`)}</li> })}</ul></div>
-        <div className={classes.stripPhoto}> {props.photoUrl ? <img src={props.photoUrl} /> : t("commonWords.no")}</div>
-        <div>{props.doingOkay ? "Okay" : "Need Support"}</div>
-    </div>)
+                onClick={handleClick}>
+                <div>{`${date.day}/${date.month}`}</div>
+                <div>{props.medicationWasTaken ? t("coordinator.true") : t("coordinator.false")}</div>
+                <div><ul>{props.symptoms && props.symptoms.length > 0 && props.symptoms.map((symptom) => { return <li>{t(`symptoms.${symptom}.title`)}</li> })}</ul></div>
+                <div className={classes.stripPhoto}> {props.photoUrl ? <img src={props.photoUrl} /> : t("commonWords.no")}</div>
+                <div>{props.doingOkay ? "Okay" : "Need Support"}</div>
+            </div>)
 }
 
 

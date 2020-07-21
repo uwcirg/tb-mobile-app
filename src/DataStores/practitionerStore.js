@@ -60,7 +60,9 @@ export class PractitionerStore extends UserStore {
 
     //Currently viewed patient
     @observable selectedPatient = {
-        reports: []
+        reports: {},
+        reportsLoading: false,
+        details: {}
     }
 
     @observable missedDays = {
@@ -177,15 +179,8 @@ export class PractitionerStore extends UserStore {
         })
     }
 
-    @action getPatientDetails = (id) => {
-        this.executeRawRequest(`/practitioner/patient/${id}?`, "GET").then(response => {
-            this.selectedPatient = response
-        })
+    @action setPatientDetails = (id) => {
 
-        //Must fetch reports seperately due to key tranform in Rails::AMS removing dashes ISO date keys :(
-        this.executeRawRequest(`/patient/${id}/reports`, "GET").then(response => {
-            this.selectedPatient.reports = response;
-        })
     }
 
     @action getSeverePatients = () => {
@@ -300,6 +295,25 @@ export class PractitionerStore extends UserStore {
                 startDate: new Date().toISOString(),
                 isTester: false
             }
+    }
+
+    @action setPatientReports = (reports) => {
+        this.selectedPatient.reports = reports;
+        this.selectedPatient.reportsLoading = false;
+    }
+
+    @action setSelectedPatientDetails = (details) =>{
+        this.selectedPatient.details = details;
+    }
+
+    getPatientDetails = (id) => {
+        this.executeRawRequest(`/practitioner/patient/${id}?`, "GET").then(response => {
+           this.setSelectedPatientDetails(response);
+        })
+        //Must fetch reports seperately due to key tranform in Rails::AMS removing dashes ISO date keys :(
+        this.executeRawRequest(`/patient/${id}/reports`, "GET").then(response => {
+            this.setPatientReports(response);
+        })
     }
 
 
