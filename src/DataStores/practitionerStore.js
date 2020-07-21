@@ -40,7 +40,8 @@ export class PractitionerStore extends UserStore {
             givenName: "",
             familyName: "",
             phoneNumber: "",
-            startDate: new Date().toISOString()
+            startDate: new Date().toISOString(),
+            isTester: false
         },
         loading: false,
         code: "",
