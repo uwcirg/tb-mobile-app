@@ -118,6 +118,7 @@ export class PractitionerStore extends UserStore {
 
             if (json.code) {
                 this.newPatient.code = json.code;
+                this.getTemporaryPatients();
             }
         })
     }
@@ -155,7 +156,10 @@ export class PractitionerStore extends UserStore {
         this.executeRequest('getPatients').then(response => {
             this.patients = response;
         })
+        this.getTemporaryPatients();
+    }
 
+    @action getTemporaryPatients = () => {
         this.executeRequest('getTemporaryPatients').then(response => {
             this.temporaryPatients = response;
         })
