@@ -1,5 +1,5 @@
 {
-    "swipe": "Swipe To See More",
+    "swipe": "Swipe Right See More",
     "welcome": {
         "header": "Welcome",
         "one": "Thank you for signing up for Treatment Assistant!",
@@ -26,10 +26,10 @@
     },
     "weekCalendar": "This is a preview of your last 5 reports. You can click to view your full calendar",
     "calendar": "Your full calendar gives a visual overview of your streak, and shows days you have missed in red",
-    "calendarBottom": "You can click the bottom drawer to show what you reported for that day",
+    "calendarBottom": "You can click this area at the bottom to view details about your report",
     "milestones": "Back on the main progress page, you can manage your milestones here",
     "messaging":{
-        "header": "This is the messaging page",
+        "header": "Now we are on the messaging page",
         "text": "This page allows you to communicate with your coordinator and other patients",
         "one": "Click here to directly and privately message your coordinator",
         "two": "Here you can chat publically with other patients about your treatment. These discussions are organized by topic"

@@ -17,8 +17,10 @@ import { useTranslation } from 'react-i18next';
 const useStyles = makeStyles({
 
     info: {
-        marginLeft: "10%",
-        fontSize: "1em"
+        margin: "1em 0 1em 0",
+        fontSize: "1em",
+        width: "100%",
+        textAlign: "center"
     }
 
 })
@@ -71,7 +73,8 @@ const ReportPhoto = observer((props) => {
                             {t("patient.report.photo.openCamera")}
                         </PhotoPrompt>
                     </ButtonBase>
-                    <ClickableText className={classes.info} hideIcon onClick={props.toggle} text={t("patient.report.photo.showMe")} />
+            {/*<ClickableText className={classes.info} hideIcon onClick={props.toggle} text={t("patient.report.photo.showMe")} />*/}
+            
                 </>}
             <SimpleButton alignRight onClick={handleNext} disabled={!patientStore.report.photoWasTaken} backgroundColor={Colors.green}>{t("patient.report.next")}</SimpleButton>
             {patientStore.uiState.cameraIsOpen ? <Camera handleExit={handleExit} returnPhoto={handlePhoto} /> : ""}

@@ -53,10 +53,10 @@ let steps = [
         component: (<Navigation />)
     },
     {
+        scrollToTop: true,
         push: "/progress",
-        target: "#intro-progress-full",
+        target: ".intro-progress-button",
         fillBackground: true,
-        placement: "center",
         component: (<Progress />)
     },
     {
@@ -84,8 +84,8 @@ let steps = [
     },
     {
         push: "/messaging",
-        target: "#intro-messaging",
-        placement: "center",
+        target: ".intro-messaging-button",
+        placement: "top",
         fillBackground: true,
         component: (<Messaging />)
         
