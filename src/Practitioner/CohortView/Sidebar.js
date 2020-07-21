@@ -6,7 +6,7 @@ import AddPatient from './AddPatient';
 
 const useStyles = makeStyles({
     sidebar: {
-        width: "25vw",
+        width: "300px",
         height: "100vh",
         border: "solid 2px lightgray",
         marginLeft: "auto",

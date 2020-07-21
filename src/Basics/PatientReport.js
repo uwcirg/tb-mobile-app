@@ -112,7 +112,7 @@ const PhotoListItem = (props) => {
             <ListItem negative={props.isPhotoDay && !props.photoString} icon={<CameraIcon />} title={t('commonWords.stripPhoto')}>
                 {!props.missingPhoto ? <img className={classes.stripPhoto} src={props.photoString} /> : <p>{t('patient.report.confirmation.missingPhoto')}</p>}
                 <br />
-                {!props.pastReport && <ClickableText onClick={patientUIStore.openPhotoReport} big text={`Review Photo`} />}
+                {!props.pastReport && <ClickableText onClick={patientUIStore.openPhotoReport} big text={t('patient.report.confirmation.review')} />}
             </ListItem>
         )
     } else {

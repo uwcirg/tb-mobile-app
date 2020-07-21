@@ -9,16 +9,19 @@ import { useTranslation } from 'react-i18next';
 import SimpleButton from '../../Basics/SimpleButton';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import PopOver from '../Shared/PopOver'
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
 const useStyles = makeStyles({
     inputBody: {
         display: "flex",
         flexDirection: "column",
-        width: "50%",
+        width: "80%",
         margin: "auto"
     },
     input: {
-        marginTop: "1em"
+        marginTop: "1em",
+        width: "100%"
     },
     newPatientForm: {
         display: "flex",
@@ -33,6 +36,9 @@ const useStyles = makeStyles({
         width: "100%",
         display: "flex",
         justifyContent: "center"
+    },
+    checkbox:{
+        marginTop: "2em",
     }
 })
 
@@ -40,11 +46,15 @@ const AddPatient = observer(() => {
 
     const { practitionerStore } = useStores();
     const classes = useStyles();
-    const handleExit = () => { practitionerStore.onAddPatientFlow = !practitionerStore.onAddPatientFlow }
+    const handleExit = () => { 
+        practitionerStore.onAddPatientFlow = !practitionerStore.onAddPatientFlow 
+        practitionerStore.clearNewPatient();
+    }
+
 
 
     return (<>
-     {practitionerStore.newPatient.code && <PopOver title={"Patient Added"} close={practitionerStore.newPatient.clear}> <p>{practitionerStore.newPatient.code}</p> </PopOver>}
+        {practitionerStore.newPatient.code && <PopOver title={"Patient Added"} close={practitionerStore.clearNewPatient}><p>Code to send to patient:</p> <p>{practitionerStore.newPatient.code}</p> </PopOver>}
         {practitionerStore.newPatient.code ? <p>{practitionerStore.newPatient.code}</p> :
             <>
                 <SideBarTop handleExit={handleExit} title="Add Patient" />
@@ -64,11 +74,25 @@ const AddPatientForm = (props) => {
                 <PatientInput id="givenName" />
                 <PatientInput id="familyName" />
                 <PatientInput id="phoneNumber" />
+                <UsabilityTestQuestion />
             </form>
             <SimpleButton className={classes.submit} onClick={props.submit}>Submit</SimpleButton>
         </div>
     )
 }
+
+const UsabilityTestQuestion = observer(() => {
+    const { practitionerStore } = useStores();
+    const classes = useStyles();
+    return(
+        <FormControlLabel
+        control={<Checkbox color="primary" checked={practitionerStore.newPatient.params.isTester} onChange={()=>{practitionerStore.newPatient.params.isTester = !practitionerStore.newPatient.params.isTester }} name="checkedA" />}
+        className={classes.checkbox}
+        label="Usability Testing Patient"
+    />
+    )
+
+})
 
 const PatientInput = observer((props) => {
 

@@ -40,7 +40,8 @@ export class PractitionerStore extends UserStore {
             givenName: "",
             familyName: "",
             phoneNumber: "",
-            startDate: new Date().toISOString()
+            startDate: new Date().toISOString(),
+            isTester: false
         },
         loading: false,
         code: "",
@@ -49,15 +50,6 @@ export class PractitionerStore extends UserStore {
             givenName: undefined,
             familyname: undefined,
             phoneNumber: undefined
-        },
-        clear:  function() {
-            this.code ="";
-            this.errorReturned= false;
-            this.errors= {
-                givenName: undefined,
-                familyname: undefined,
-                phoneNumber: undefined
-            }
         }
     }
 
@@ -68,7 +60,9 @@ export class PractitionerStore extends UserStore {
 
     //Currently viewed patient
     @observable selectedPatient = {
-        reports: []
+        reports: {},
+        reportsLoading: false,
+        details: {}
     }
 
     @observable missedDays = {
@@ -126,6 +120,7 @@ export class PractitionerStore extends UserStore {
 
             if (json.code) {
                 this.newPatient.code = json.code;
+                this.getTemporaryPatients();
             }
         })
     }
@@ -163,7 +158,10 @@ export class PractitionerStore extends UserStore {
         this.executeRequest('getPatients').then(response => {
             this.patients = response;
         })
+        this.getTemporaryPatients();
+    }
 
+    @action getTemporaryPatients = () => {
         this.executeRequest('getTemporaryPatients').then(response => {
             this.temporaryPatients = response;
         })
@@ -181,15 +179,8 @@ export class PractitionerStore extends UserStore {
         })
     }
 
-    @action getPatientDetails = (id) => {
-        this.executeRawRequest(`/practitioner/patient/${id}?`, "GET").then(response => {
-            this.selectedPatient = response
-        })
+    @action setPatientDetails = (id) => {
 
-        //Must fetch reports seperately due to key tranform in Rails::AMS removing dashes ISO date keys :(
-        this.executeRawRequest(`/patient/${id}/reports`, "GET").then(response => {
-            this.selectedPatient.reports = response;
-        })
     }
 
     @action getSeverePatients = () => {
@@ -288,6 +279,43 @@ export class PractitionerStore extends UserStore {
     resetPassword = () => {
         this.resetActivationCode(this.selectedPatient.id);
     }
+
+    @action clearNewPatient = () => {
+        this.newPatient.code = "";
+        this.newPatient.errorReturned = false;
+        this.newPatient.errors = {
+            givenName: undefined,
+            familyname: undefined,
+            phoneNumber: undefined
+        },
+            this.newPatient.params = {
+                givenName: "",
+                familyName: "",
+                phoneNumber: "",
+                startDate: new Date().toISOString(),
+                isTester: false
+            }
+    }
+
+    @action setPatientReports = (reports) => {
+        this.selectedPatient.reports = reports;
+        this.selectedPatient.reportsLoading = false;
+    }
+
+    @action setSelectedPatientDetails = (details) =>{
+        this.selectedPatient.details = details;
+    }
+
+    getPatientDetails = (id) => {
+        this.executeRawRequest(`/practitioner/patient/${id}?`, "GET").then(response => {
+           this.setSelectedPatientDetails(response);
+        })
+        //Must fetch reports seperately due to key tranform in Rails::AMS removing dashes ISO date keys :(
+        this.executeRawRequest(`/patient/${id}/reports`, "GET").then(response => {
+            this.setPatientReports(response);
+        })
+    }
+
 
 
 }

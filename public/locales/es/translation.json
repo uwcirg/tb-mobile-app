@@ -132,7 +132,8 @@
                 "noPhoto": "Hoy no necesitas subir una foto.",
                 "missingPhoto": "Missing foto",
                 "takenAt": "Tomé a las",
-                "notTaken": "No tomado hoy"
+                "notTaken": "No tomado hoy",
+                "review": "Revisar la foto"
             }
         },
         "reportConfirmation": {
