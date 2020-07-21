@@ -149,7 +149,8 @@
                 "noPhoto": "No Photo Needed Today",
                 "missingPhoto": "Missing Photo",
                 "takenAt": "Taken at",
-                "notTaken": "Not taken because"
+                "notTaken": "Not taken because",
+                "review": "Review Photo"
             }
         },
         "reportConfirmation": {

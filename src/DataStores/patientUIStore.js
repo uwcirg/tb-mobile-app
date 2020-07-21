@@ -89,7 +89,7 @@ export default class PatientUIStore {
     }
 
     @action openPhotoReport = () => {
-        this.updateStep(2)
+        this.updateStep(3)
     }
 
     @action editReport = () => {
