@@ -50,15 +50,6 @@ export class PractitionerStore extends UserStore {
             givenName: undefined,
             familyname: undefined,
             phoneNumber: undefined
-        },
-        clear:  function() {
-            this.code ="";
-            this.errorReturned= false;
-            this.errors= {
-                givenName: undefined,
-                familyname: undefined,
-                phoneNumber: undefined
-            }
         }
     }
 
@@ -289,6 +280,24 @@ export class PractitionerStore extends UserStore {
     resetPassword = () => {
         this.resetActivationCode(this.selectedPatient.id);
     }
+
+    @action clearNewPatient = () => {
+        this.newPatient.code = "";
+        this.newPatient.errorReturned = false;
+        this.newPatient.errors = {
+            givenName: undefined,
+            familyname: undefined,
+            phoneNumber: undefined
+        },
+            this.newPatient.params = {
+                givenName: "",
+                familyName: "",
+                phoneNumber: "",
+                startDate: new Date().toISOString(),
+                isTester: false
+            }
+    }
+
 
 
 }

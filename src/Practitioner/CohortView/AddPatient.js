@@ -46,11 +46,15 @@ const AddPatient = observer(() => {
 
     const { practitionerStore } = useStores();
     const classes = useStyles();
-    const handleExit = () => { practitionerStore.onAddPatientFlow = !practitionerStore.onAddPatientFlow }
+    const handleExit = () => { 
+        practitionerStore.onAddPatientFlow = !practitionerStore.onAddPatientFlow 
+        practitionerStore.clearNewPatient();
+    }
+
 
 
     return (<>
-        {practitionerStore.newPatient.code && <PopOver title={"Patient Added"} close={practitionerStore.newPatient.clear}> <p>{practitionerStore.newPatient.code}</p> </PopOver>}
+        {practitionerStore.newPatient.code && <PopOver title={"Patient Added"} close={practitionerStore.clearNewPatient}><p>Code to send to patient:</p> <p>{practitionerStore.newPatient.code}</p> </PopOver>}
         {practitionerStore.newPatient.code ? <p>{practitionerStore.newPatient.code}</p> :
             <>
                 <SideBarTop handleExit={handleExit} title="Add Patient" />
