@@ -9,6 +9,7 @@ import Colors from '../../Basics/Colors'
 import { Button } from '@material-ui/core';
 import useStores from '../../Basics/UseStores';
 import Typography from '@material-ui/core/Typography';
+import Videos from './Videos';
 const file = raw("./information.md");
 
 
@@ -40,7 +41,7 @@ const useStyles = makeStyles({
     },
     padding:{
         paddingLeft: "1em"
-    }
+    }    
 })
 
 export default function Info() {
@@ -55,11 +56,11 @@ export default function Info() {
                 <Button className={classes.button} onClick={patientUIStore.goToTreatmentWalkThrough}>Treatment Walkthrough</Button>
                 <Button className={classes.button} > Contact Coordinator On WhatsApp</Button>
             </div>
-
             <Typography variant="h1">Information about Tuberculosis</Typography>
             <div className={classes.padding}>
                 <Button className={classes.button} >View Previous Treatment Messages</Button>
             </div>
+            <Videos></Videos>
             <Interactioncard className={classes.topCard} >
                 <Markdown options={{ overrides: { Drawer: { component: MarkdownRender } } }} children={file} />
             </Interactioncard>
