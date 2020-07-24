@@ -193,7 +193,7 @@ const SwipeContainer = (props) => {
         <IconButton className={classes.exit} onClick={props.exit}><ClearIcon /> </IconButton>
       </div>
       {props.index == 0 && <div className={classes.bottomText}>
-        <p>{t("walkthrough.swipe")}</p>
+        <p>{t("patient.walkthrough.swipe")}</p>
         <Next />
       </div>}
       <SwipeableViews index={props.index} onChangeIndex={handleChangeIndex}>

@@ -30,11 +30,11 @@ const NavInfo = () => {
 
     return (
         <div className={classes.container}>
-            <p> {t("navigation.text")} </p>
-            <Item icon={<HomeIcon />} text={t("navigation.one")} />
-            <Item icon={<CalIcon />} text={t("navigation.two")}  />
-            <Item icon={<ForumIcon />} text={t("navigation.three")} />
-            <Item icon={<InfoIcon />} text={t("navigation.four")}  />
+            <p> {t("patient.walkthrough.navigation.text")} </p>
+            <Item icon={<HomeIcon />} text={t("patient.walkthrough.navigation.one")} />
+            <Item icon={<CalIcon />} text={t("patient.walkthrough.navigation.two")}  />
+            <Item icon={<ForumIcon />} text={t("patient.walkthrough.navigation.three")} />
+            <Item icon={<InfoIcon />} text={t("patient.walkthrough.navigation.four")}  />
 
         </div>)
 

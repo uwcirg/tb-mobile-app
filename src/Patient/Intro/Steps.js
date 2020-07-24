@@ -6,7 +6,7 @@ import Messaging from './Messaging'
 import Outro from './Outro'
 
 /*
-    translationString is the key corresponding to the walkthrough.json file in the /public/locales folder
+    translationString is the key corresponding to the translation.json file in the /public/locales folder
 */
 
 let steps = [
@@ -24,26 +24,26 @@ let steps = [
         preventScroll: true,
         title: "",
         target: "#intro-information-button",
-        translationString: "revisit",
+        translationString: "patient.walkthrough.revisit",
     },
     {
         push: "/home",
         title: "",
         target: "#intro-tasks",
         placement: 'top',
-        translationString: "tasks"
+        translationString: "patient.walkthrough.tasks"
     },
     {
         push: "/home",
         scroll: true,
         target: "#intro-progress-card",
-        translationString: "progressCard"
+        translationString: "patient.walkthrough.progressCard"
     },
     {
         push: "/home",
         scroll: true,
         target: "#intro-reminders-card",
-        translationString: "reminders"
+        translationString: "patient.walkthrough.reminders"
     },
     {
         push: "/home",
@@ -63,24 +63,24 @@ let steps = [
         scrollToTop: true,
         push: "/progress",
         target: "#intro-week",
-        translationString: "weekCalendar"
+        translationString: "patient.walkthrough.weekCalendar"
     },
     {
         scrollToTop: true,
         push: "/progress/calendar",
         target: ".intro-calendar-full",
-        translationString: "calendar",
+        translationString: "patient.walkthrough.calendar",
         spotlightPadding: 10
     },
     {
         push: "/progress/calendar",
         target: "#calendar-day-preview",
-        translationString: "calendarBottom"
+        translationString: "patient.walkthrough.calendarBottom"
     },
     {
         push: "/progress",
         target: "#intro-milestones",
-        translationString: "milestones"
+        translationString: "patient.walkthrough.milestones"
     },
     {
         push: "/messaging",
@@ -93,12 +93,12 @@ let steps = [
     {
         push: "/messaging",
         target: "#intro-chat",
-        translationString: "messaging.one"
+        translationString: "patient.walkthrough.messaging.one"
     },
     {
         push: "/messaging",
         target: "#intro-chat-public",
-        translationString: "messaging.two"
+        translationString: "patient.walkthrough.messaging.two"
     },
     {
         push: "/home",

@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 const Notification = observer((props) => {
 
     const classes = useStyles();
-    const { t, i18n } = useTranslation('onboarding');
+    const { t, i18n } = useTranslation('translation');
     const [timeOpen, setTimeOpen] = useState(false)
     const {activationStore} = useStores();
 
@@ -50,11 +50,11 @@ const Notification = observer((props) => {
     }
 
     return (<div className={props.bodyClass}>
-        <SurveyHeader number={3} title={t("notification.one")} />
+        <SurveyHeader number={3} title={t("patient.onboarding.notification.one")} />
         <DisableElevation />
         {activationStore.onboardingInformation.enableNotifications &&
             <>
-                <SurveyHeader number={4} title={t("notification.two")} />
+                <SurveyHeader number={4} title={t("patient.onboarding.notification.two")} />
                 {timeOpen ?<TimePicker
                     open={timeOpen}
                     className={classes.timeSelect}

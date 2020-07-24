@@ -4,8 +4,7 @@
     "offline": "Offline",
     "greeting": "Hi",
     "updating": "Updating",
-
-    "commonWords":{
+    "commonWords": {
         "medication": "Medication",
         "symptoms": "Symptoms",
         "stripPhoto": "Strip Photo",
@@ -15,13 +14,11 @@
         "of": "of",
         "other": "Other"
     },
-
     "userTypes": {
         "patient": "Patient",
         "coordinator": "Coordinator",
         "admin": "Administrator"
     },
-
     "login": {
         "changeLanguage": "Haga Clic Aquí Para Español",
         "activateAccount": "Activate New Account",
@@ -33,24 +30,107 @@
         "selectType": "Select your user type",
         "haveAccount": "Already have an account?",
         "activate": "Activate"
-
     },
-
     "messaging": {
         "nurseContact": "Need individual support? Contact your provider!",
         "privateExplained": "Private chat with your coordinator",
         "search": "Search By Topic"
     },
-
     "time": {
         "day": "day",
         "week": "week",
         "days": "days",
         "weeks": "weeks"
     },
-
     "patient": {
-        "reminders":{
+        "onboarding":{
+            "landing": {
+                "welcome": "Welcome",
+                "message": "Thank you for signing up! This app will be where you report your medication. Reports are monitored by your Coordinator."
+            },
+            "profileInformation": "Add Profile Information",
+            "coordinator":{
+                "title": "What is a Coordinator?",
+                "will": {
+                    "title": "Your Coordinator will",
+                    "items": ["Monitor your progress","Approve test strip photos"," Answer questions about treatment"]
+                },
+                "wont": {
+                    "title": "Your Coordinator wont",
+                    "items": ["Provide medical attention","Schedule your appointments"]
+                },
+                "outro": "Now please tell us a little about yourself."
+            },
+            "password": {
+                "title": "Choose a new password for your account",
+                "confirmation": "Confirm Password"
+        
+            },
+            "gender":{
+                "title": "What is your gender",
+                "male": "Male",
+                "female": "Female",
+                "other": "Other"
+            },
+            "age": "How old are you?",
+            "notification": {
+                "one": "Would you like to enable a daily reminder to take your medication?",
+                "two": "What time would you like to be reminded?"
+        
+            },
+            "contactTracing":{
+                "one": "How many people do you live with?",
+                "two": "Have they been tested for TB?",
+                "some": "Some of Them",
+                "yes": "Yes",
+                "no": "No"
+            },
+            "success": "Finalizing Account Setup",
+            "next": "Next",
+            "endText": "Thank you for your input, lets get started!"
+        },
+        "walkthrough": {
+            "swipe": "Swipe Right See More",
+            "welcome": {
+                "header": "Welcome",
+                "one": "Thank you for signing up for Treatment Assistant!",
+                "two": "We will now guide you through some of the core features"
+            },
+            "revisit": "If you wish to revisit this walkthrough, you can find it on the information tab",
+            "exit": "You can exit this walkthrough at any time by clicking the X in the top right",
+            "tasks": "These are your daily tasks, you can click Start Report to begin logging your daily treatment",
+            "progressCard": "The progress card shows you a quick preview of where you are at in your treatment.",
+            "reminders": "Lastly, the reminders card allows you to change your daily medication reminder, and add reminders for appointments",
+            "navigation": {
+                "text": "The app has 4 main screens. To toggle between them select the icon in the bottom navigation bar",
+                "one": "Home + My Tasks",
+                "two": "Progress + Calendar",
+                "three": "Chat",
+                "four": "Information"
+            },
+            "progress": {
+                "header": "We are now on the progress page",
+                "here": "Here you can",
+                "one": "View past reports",
+                "two": "View and edit milestones",
+                "three": "Check the status of your photo submissions"
+            },
+            "weekCalendar": "This is a preview of your last 5 reports. You can click to view your full calendar",
+            "calendar": "Your full calendar gives a visual overview of your streak, and shows days you have missed in red",
+            "calendarBottom": "You can click this area at the bottom to view details about your report",
+            "milestones": "Back on the main progress page, you can manage your milestones here",
+            "messaging": {
+                "header": "Now we are on the messaging page",
+                "text": "This page allows you to communicate with your coordinator and other patients",
+                "one": "Click here to directly and privately message your coordinator",
+                "two": "Here you can chat publically with other patients about your treatment. These discussions are organized by topic"
+            },
+            "outro": {
+                "header": "Thats all for now!",
+                "one": "If you have any more questions check the information tab or reach out to your coordinator"
+            }
+        },
+        "reminders": {
             "title": "Reminders",
             "medicationReminder": "Medication Reminder",
             "appointments": "Appointments",
@@ -59,7 +139,7 @@
             "disable": "Disable",
             "changeTime": "Change Time"
         },
-        "demo":{
+        "demo": {
             "showDemo": "Show Demo"
         },
         "userFields": {
@@ -82,10 +162,9 @@
                 "logMedication": "Log Medication",
                 "uploadPhoto": "Upload Photo"
             },
-
-            "progress":{
+            "progress": {
                 "currentStreak": "Current Streak",
-                "upcomingDate":  "Upcoming Milestones",
+                "upcomingDate": "Upcoming Milestones",
                 "viewAll": "View All"
             },
             "completed": {
@@ -93,8 +172,7 @@
                 "subtitle": "Todays Report Has Been Submitted",
                 "modify": "Modify Your Report"
             },
-
-            "cardTitles":{
+            "cardTitles": {
                 "todaysTasks": "Todays Tasks",
                 "myProgress": "My Progress",
                 "myLearning": "My Learning"
@@ -139,7 +217,6 @@
                 "retakePhoto": "Retake Photo",
                 "openCamera": "Open Camera",
                 "showMe": "Show Me How"
-
             },
             "symptoms": {
                 "warning": {
@@ -149,7 +226,7 @@
                     "moreInformation": "More Information"
                 }
             },
-            "confirmation":{
+            "confirmation": {
                 "title": "Confirm and Submit",
                 "addMore": "Add More",
                 "noPhoto": "No Photo Needed Today",
@@ -164,7 +241,7 @@
             "photoNeeded": "You also need to upload a photo of your test strip today",
             "doLater": "Do Later Today"
         },
-        "progress":{
+        "progress": {
             "viewCalendar": "View Your Calendar of Reports",
             "viewPhotos": "View Your Photo Submissions",
             "approvalStatus": "Approval Status",
@@ -172,82 +249,69 @@
             "upcoming": "Upcoming",
             "calendar": "Calendar of Reports"
         },
-        "addMilestone":{
+        "addMilestone": {
             "barTitle": "Add Milestone",
-            "titles":[
-                "What milestone would you like to add?", 
+            "titles": [
+                "What milestone would you like to add?",
                 "Whats the date of your milestone?",
                 "Whats the time of your milestone?",
                 "Where is your appointment?"
             ]
         },
-        "information":{
+        "information": {
             "questions": "Questions and answers"
         }
     },
     "symptoms": {
-        "nausea": 
-        {
+        "nausea": {
             "title": "Nausea or Vomiting",
             "subtitle": "Feeling nauscious or unable to put food down"
         },
-
-        "redness":{
+        "redness": {
             "title": "Redness",
             "subtitle": "Swelling, redness, itching of skin"
         },
-
         "hives": {
             "title": "Hives",
             "subtitle": "Itchy spots on skin"
         },
-
-        "fever":{
+        "fever": {
             "title": "Fever",
             "subtitle": "Body temperature over 37.5"
         },
-
-        "appetite_loss":{
+        "appetite_loss": {
             "title": "Appetite Loss",
             "subtitle": "Loss of appetite"
         },
-
-        "blurred_vision":{
+        "blurred_vision": {
             "title": "Blur in Vision",
             "subtitle": "Blurred vision or changes in the way you see colors"
         },
-
-        "sore_belly":{
+        "sore_belly": {
             "title": "Upset Stomach",
             "subtitle": "Soreness of belly"
         },
-
-        "yellow_coloration":{
+        "yellow_coloration": {
             "title": "Yellow Coloration",
             "subtitle": "Yellowing of the skin or whites of the eyes"
         },
-
-        "difficulty_breathing":{
+        "difficulty_breathing": {
             "title": "Difficulty Breathing",
             "subtitle": "Shortness of breath or difficulty breathing"
         },
-
-        "facial_swelling":{
+        "facial_swelling": {
             "title": "Facial Swelling",
             "subtitle": "Swelling of the face, lips, tongue, or throat"
         },
-
-        "dizziness":{
+        "dizziness": {
             "title": "Dizziness",
             "subtitle": ""
         },
-
-        "headache":{
+        "headache": {
             "title": "Headache",
             "subtitle": ""
         },
-
-        "other":{
+        "other": {
             "title": "Other",
             "subtitle": "Click here to list additional side effects"
         }
@@ -265,11 +329,11 @@
         "previous": "Previous"
     },
     "coordinator": {
-         "titles": {
+        "titles": {
             "myTasks": "My Tasks",
             "myPatients": "My Patients"
-         },
-         "cardTitles": {
+        },
+        "cardTitles": {
             "patientsWithSymptoms": "Patients with Symptoms",
             "photosToReview": "Photos to Review",
             "missedReport": "Missed Report Since Last Resolution",
@@ -278,15 +342,15 @@
             "awaitingActivation": "Awaiting Activation",
             "currentStatus": "Current Status",
             "reportingCalender": "Reporting Calender"
-         },        
-         "recentReports": {
+        },
+        "recentReports": {
             "title": "Recent Reports",
             "noSymptoms": "No Symptoms Reported",
             "tookMeds": "Took Meds",
             "didntTakeMeds": "Didnt Take Meds",
             "noPhoto": "No Photo"
-         },
-         "sideBar": {            
+        },
+        "sideBar": {
             "lastContacted": "Last Contracted",
             "viewFullProfile": "View Full Profile",
             "daysMissed": "Days Missed Since Last Resolution",
@@ -294,24 +358,24 @@
             "symptomsSince": "Symptoms Reported",
             "loading": "Loading",
             "messagePatient": "Message Patient"
-         },
-         "patientTableLabels": {
+        },
+        "patientTableLabels": {
             "name": "Name",
             "priority": "Priority",
             "treatmentStart": "Treatment Start",
             "lastSubmission": "Last Submission",
             "adherence": "Adherence",
             "streak": "Streak"
-         },
-         "noTasks": "No Tasks Found",
-         "profile": "Profile",
-         "message": "Message",
-         "adherence": "Adherence",
-         "months": "Months",
-         "true": "true",
-         "false": "false",
-         "daysInTreatment": "Days In Treatment",
-         "patientProfile": {
+        },
+        "noTasks": "No Tasks Found",
+        "profile": "Profile",
+        "message": "Message",
+        "adherence": "Adherence",
+        "months": "Months",
+        "true": "true",
+        "false": "false",
+        "daysInTreatment": "Days In Treatment",
+        "patientProfile": {
             "resetPassword": "Reset Password",
             "resetPasswordExplanation": "Click here to reset a patients password. This generates a temporary password that you will have to send to them via WhatsApp. They will be asked to enter a new password after they use the temporary one.",
             "phoneNumber": "Phone Number",
@@ -324,24 +388,23 @@
             "feelingHealthy": "Feeling Healthy",
             "currentStreak": "Current Streak",
             "longestStreak": "Longest Streak"
-         }
-   },
-    "errors":{
-        "login":{
+        }
+    },
+    "errors": {
+        "login": {
             "identifier": "Incorrect Phone Number / Email",
             "password": "Incorrect Password",
             "other": "Unexpected Error. Please contact coordinator on WhatsApp"
         }
     },
-    "settings":{
+    "settings": {
         "updatePassword": "Update Password",
         "currentPassword": "Current Password",
         "newPassword": "New Password",
         "confirmPassword": "Confirm New Password",
         "submit": "Submit"
     },
-    "educationalMessages":
-    {
+    "educationalMessages": {
         "week": "Week",
         "header": "Treatment Update",
         "helpful": "Was this helpful?",
@@ -354,5 +417,4 @@
             "5": "This will be the fifth weeks message"
         }
     }
-
 }

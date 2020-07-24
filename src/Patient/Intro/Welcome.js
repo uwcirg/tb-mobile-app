@@ -14,9 +14,9 @@ const Welcome = () => {
 
     return (<>
         <div>
-            <h1>{t('welcome.header')} 🎉</h1>
-            <p>{t('welcome.one')}</p>
-            <p>{t('welcome.two')}</p>
+            <h1>{t('patient.walkthrough.welcome.header')} 🎉</h1>
+            <p>{t('patient.walkthrough.welcome.one')}</p>
+            <p>{t('patient.walkthrough.welcome.two')}</p>
         </div>
     </>)
 

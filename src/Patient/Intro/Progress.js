@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import useStores from '../../Basics/UseStores';
 import CalIcon from '@material-ui/icons/EventAvailable';
 import { useTranslation } from 'react-i18next';
 
@@ -27,12 +26,12 @@ const Progress = () => {
 
     return (
         <div className={classes.container}>
-            <h2> {t("progress.header")} <CalIcon /> </h2>
-            <p> {t("progress.here")}:</p>
+            <h2> {t("patient.walkthrough.progress.header")} <CalIcon /> </h2>
+            <p> {t("patient.walkthrough.progress.here")}:</p>
             <ol>
-                <li>{t("progress.one")} </li>
-                <li>{t("progress.two")}</li>
-                <li>{t("progress.three")}</li>
+                <li>{t("patient.walkthrough.progress.one")} </li>
+                <li>{t("patient.walkthrough.progress.two")}</li>
+                <li>{t("patient.walkthrough.progress.three")}</li>
             </ol>
 
         </div>)

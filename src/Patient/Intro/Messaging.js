@@ -24,8 +24,8 @@ const Welcome = () => {
 
     return (<>
         <div className={classes.container}>
-            <h2>{t('messaging.header')} <ForumIcon /> </h2>
-            <p>{t('messaging.text')}</p>
+            <h2>{t('patient.walkthrough.messaging.header')} <ForumIcon /> </h2>
+            <p>{t('patient.walkthrough.messaging.text')}</p>
         </div>
     </>)
 

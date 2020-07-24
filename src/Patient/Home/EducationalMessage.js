@@ -62,7 +62,7 @@ const EducationalMessage = observer((props) => {
     const classes = useStyles();
     const  {educationStore: education} = useStores().patientStore;
     //const [visible,setVisible] =  useState(education.educationMessage >= 0 && messages[education.educationMessage])
-    const [visible,setVisible] =  useState(true)
+    const [visible,setVisible] =  useState(false)
     
 
     const handleClose = () => {
