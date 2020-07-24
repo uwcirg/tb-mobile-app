@@ -14,13 +14,11 @@ import SymptomsIcon from '../../Basics/Icons/Temp';
 const useStyles = makeStyles({
     sidebar: {
         width: "300px",
-        overflowX: "hidden",
+        overflow: "hidden",
         height: "100vh",
         border: "solid 2px lightgray",
         marginLeft: "auto",
-        padding: "1em",
         boxSizing: "border-box",
-        paddingTop: "2em"
     },
     sectionHeader: {
         ...Styles.flexRow,
@@ -34,17 +32,21 @@ const useStyles = makeStyles({
             fontSize: "2.25em"
         }
     },
-    patientStatus:{
+    sectionHeaderContainer:{
+
+    },
+    patientStatus: {
         borderBottom: "solid 1px lightgray"
     },
     section: {
         width: "80%",
-        margin: "auto",
-        marginTop: "2em",
+        padding: "1em 0 1em 0",
         "& > p": {
+            margin: ".25em 0 0 0",
             alignItems: "center",
             display: 'flex',
             "& > span:first-child": {
+                textAlign: "center",
                 marginRight: "1em",
                 width: "25px"
             }
@@ -56,7 +58,7 @@ const useStyles = makeStyles({
     green: {
         color: Colors.green
     },
-    symptomList:{
+    symptomList: {
         marginTop: "2em",
         padding: 0,
         listStyle: "none",
@@ -68,15 +70,23 @@ const useStyles = makeStyles({
         }
 
     },
-    symptomExplanation:{
+    symptomExplanation: {
         fontSize: ".75em",
         textAlign: "center"
     },
-    priority:{
+    priority: {
         backgroundColor: props => props.backgroundColor,
         padding: ".5em",
         borderRadius: "5%",
-        color: "white"
+        color: props => props.textColor || "white",
+    },
+    contentContainer:{
+        height: "100vh",
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-evenly",
+        alignItems: "center"
     }
 
 })
@@ -94,20 +104,20 @@ const CohortSideBar = observer((props) => {
         <div className={classes.sidebar}>
             {practitionerStore.onAddPatientFlow ? <AddPatient /> :
                 <div>
-                    <SectionHeader title="Cohort Overview" icon={<PeopleIcon />} />
-                    {practitionerStore.cohortSummary.loading ? <Loading /> : <>
+                    
+                    {practitionerStore.cohortSummary.loading ? <Loading /> : <div className={classes.contentContainer}>
                         <PatientOverview />
                         <SymptomSummary />
 
-                    </>}
+                    </div>}
                 </div>}
         </div>
     )
 })
 
-const PriorityView = (props) =>{
+const LineItem = (props) => {
     const classes = useStyles(props);
-    return ( <p><span>{props.value || 0}</span> <span className={classes.priority}>{props.text}</span></p>)
+    return (<p><span>{props.value || 0}</span> <span className={classes.priority}>{props.text}</span></p>)
 }
 
 const PatientOverview = observer(() => {
@@ -115,35 +125,36 @@ const PatientOverview = observer(() => {
     const cohortSummary = useStores().practitionerStore.cohortSummary.data
 
     return (
-        <>
-        <div className={`${classes.section} ${classes.patientStatus}`} >
-            <p><span>{cohortSummary.status.active}</span>Active Patients</p>
-            <p><span>{cohortSummary.status.pending}</span>Pending Patients </p>
+        <div>
+        <SectionHeader title="Cohort Overview" icon={<PeopleIcon />} />
+            <div className={`${classes.section} ${classes.patientStatus}`} >
+                <LineItem textColor={"black"} text={"Active Patients"} value={cohortSummary.status.active} />
+                <LineItem textColor={"gray"} text={"Pending Patients"} value={cohortSummary.status.pending} />
+
+            </div>
+            <div className={`${classes.section} ${classes.patientStatus}`} >
+                <LineItem backgroundColor={Colors.red} text={"High Priority"} value={cohortSummary.priority.high} />
+                <LineItem backgroundColor={Colors.yellow} text={"Medium Priority"} value={cohortSummary.priority.medium} />
+                <LineItem backgroundColor={Colors.green} text={"Low Priority"} value={cohortSummary.priority.low} />
+            </div>
         </div>
-        <div className={`${classes.section} ${classes.patientStatus}`} >
-            <PriorityView backgroundColor={Colors.red} text={"High Priority"} value={cohortSummary.priority.high} />
-            <PriorityView backgroundColor={Colors.yellow} text={"Medium Priority"} value={cohortSummary.priority.medium} />
-            <PriorityView backgroundColor={Colors.green} text={"Low Priority"} value={cohortSummary.priority.low} />
-        </div>
-        </>
     )
 })
 
 const SymptomSummary = observer(() => {
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
-    
+
     const symptomSummaries = useStores().practitionerStore.cohortSummary.data.symptoms
 
-    return(
+    return (
         <div className={classes.section}>
-        <SectionHeader title="Symptoms" icon={<SymptomsIcon />} />
-        <p className={classes.symptomExplanation}>Reported In The Past 7 Days</p>
-        <ul className={classes.symptomList}>
-        {Object.keys(symptomSummaries).map(each => {
-           return symptomSummaries[each] ?  <li>{t(`symptoms.${each}.title`)}: <span>{symptomSummaries[each]}</span></li> : ""
-        })}
-        </ul>
+            <SectionHeader title="Symptoms" icon={<SymptomsIcon />} subtext="Reported In The Past 7 Days" />
+            <ul className={classes.symptomList}>
+                {Object.keys(symptomSummaries).map(each => {
+                    return symptomSummaries[each] ? <li>{t(`symptoms.${each}.title`)}: <span>{symptomSummaries[each]}</span></li> : ""
+                })}
+            </ul>
         </div>
     )
 
@@ -155,9 +166,11 @@ const SectionHeader = (props) => {
     const classes = useStyles();
 
     return (
+        <div className={classes.sectionHeaderContainer}>
         <div className={classes.sectionHeader}>
-            {props.icon}
-            <Typography variant="h2">{props.title}</Typography>
+            {props.icon}<Typography variant="h2">{props.title}</Typography>
+        </div>
+        {props.subtext &&  <p className={classes.symptomExplanation}>{props.subtext}</p>}
         </div>
     )
 }
