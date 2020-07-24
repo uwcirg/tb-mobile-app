@@ -42,9 +42,11 @@ const useStyles = makeStyles({
         margin: "auto",
         marginTop: "2em",
         "& > p": {
-            display: 'block',
-            "& > span": {
-                marginRight: "1em"
+            alignItems: "center",
+            display: 'flex',
+            "& > span:first-child": {
+                marginRight: "1em",
+                width: "25px"
             }
         }
     },
@@ -60,10 +62,21 @@ const useStyles = makeStyles({
         listStyle: "none",
         "& > li": {
             display: "flex",
+            flexDirection: "row-reverse",
             marginTop: ".5em",
             justifyContent: "space-between"
         }
 
+    },
+    symptomExplanation:{
+        fontSize: ".75em",
+        textAlign: "center"
+    },
+    priority:{
+        backgroundColor: props => props.backgroundColor,
+        padding: ".5em",
+        borderRadius: "5%",
+        color: "white"
     }
 
 })
@@ -92,15 +105,27 @@ const CohortSideBar = observer((props) => {
     )
 })
 
+const PriorityView = (props) =>{
+    const classes = useStyles(props);
+    return ( <p><span>{props.value || 0}</span> <span className={classes.priority}>{props.text}</span></p>)
+}
+
 const PatientOverview = observer(() => {
     const classes = useStyles();
     const cohortSummary = useStores().practitionerStore.cohortSummary.data
 
     return (
+        <>
         <div className={`${classes.section} ${classes.patientStatus}`} >
-            <p><span className={classes.blue}>{cohortSummary.status.active}</span>Active Patients</p>
-            <p><span className={classes.green}>{cohortSummary.status.pending}</span>Pending Patients </p>
+            <p><span>{cohortSummary.status.active}</span>Active Patients</p>
+            <p><span>{cohortSummary.status.pending}</span>Pending Patients </p>
         </div>
+        <div className={`${classes.section} ${classes.patientStatus}`} >
+            <PriorityView backgroundColor={Colors.red} text={"High Priority"} value={cohortSummary.priority.high} />
+            <PriorityView backgroundColor={Colors.yellow} text={"Medium Priority"} value={cohortSummary.priority.medium} />
+            <PriorityView backgroundColor={Colors.green} text={"Low Priority"} value={cohortSummary.priority.low} />
+        </div>
+        </>
     )
 })
 
@@ -113,6 +138,7 @@ const SymptomSummary = observer(() => {
     return(
         <div className={classes.section}>
         <SectionHeader title="Symptoms" icon={<SymptomsIcon />} />
+        <p className={classes.symptomExplanation}>Reported In The Past 7 Days</p>
         <ul className={classes.symptomList}>
         {Object.keys(symptomSummaries).map(each => {
            return symptomSummaries[each] ?  <li>{t(`symptoms.${each}.title`)}: <span>{symptomSummaries[each]}</span></li> : ""
