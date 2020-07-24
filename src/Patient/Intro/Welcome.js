@@ -9,7 +9,7 @@ const useStyles = makeStyles({
 })
 
 const Welcome = () => {
-    const { t, i18n } = useTranslation('walkthrough');
+    const { t, i18n } = useTranslation('translation');
     const classes = useStyles();
 
     return (<>

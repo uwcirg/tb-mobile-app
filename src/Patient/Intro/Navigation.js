@@ -26,7 +26,7 @@ const useStyles = makeStyles({
 const NavInfo = () => {
 
     const classes = useStyles();
-    const { t, i18n } = useTranslation('walkthrough');
+    const { t, i18n } = useTranslation('translation');
 
     return (
         <div className={classes.container}>

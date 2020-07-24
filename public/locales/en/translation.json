@@ -51,7 +51,13 @@
 
     "patient": {
         "reminders":{
-            "title": "Reminders"
+            "title": "Reminders",
+            "medicationReminder": "Medication Reminder",
+            "appointments": "Appointments",
+            "explanation": "Once enabled, a push notification will remind you to take your medication at the specified time",
+            "enable": "Enable",
+            "disable": "Disable",
+            "changeTime": "Change Time"
         },
         "demo":{
             "showDemo": "Show Demo"
