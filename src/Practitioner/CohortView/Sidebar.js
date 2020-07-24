@@ -13,7 +13,7 @@ import SymptomsIcon from '../../Basics/Icons/Temp';
 
 const useStyles = makeStyles({
     sidebar: {
-        width: "300px",
+        width: "350px",
         overflow: "hidden",
         height: "100vh",
         border: "solid 2px lightgray",
@@ -75,6 +75,7 @@ const useStyles = makeStyles({
         textAlign: "center"
     },
     priority: {
+        flexGrow: 1,
         backgroundColor: props => props.backgroundColor,
         padding: ".5em",
         borderRadius: "5%",

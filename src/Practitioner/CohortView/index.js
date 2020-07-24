@@ -95,8 +95,17 @@ const useStyles = makeStyles({
         borderRadius: "50%",
         backgroundColor: Colors.calendarGreen
     },
-    highPriority: {
-        backgroundColor: Colors.calendarRed
+    high: {
+        backgroundColor: Colors.red
+    },
+    middle: {
+        backgroundColor: Colors.yellow
+    },
+    low: {
+        backgroundColor: Colors.green
+    },
+    new:{
+        backgroundColor: Colors.accentBlue
     },
     noPatients: {
         width: "100%",
@@ -194,6 +203,7 @@ const Patients = (props) => {
     const classes = useStyles();
     const [sort, setSort] = useState("treatmentStart")
     const [search, setSearch] = useState("")
+    const [reverse, setReverse] = useState(false);
     const { t, i18n } = useTranslation('translation');
 
 
@@ -203,22 +213,36 @@ const Patients = (props) => {
 
     const sorted = props.list.slice().sort((a, b) => {
 
-        if (sort === "treatmentStart") {
-            return DateTime.fromISO(a[sort]).diff(DateTime.fromISO(b[sort]))
-        } else {
-            if (a[sort] < b[sort]) { return -1; }
-            if (a[sort] > b[sort]) { return 1; }
-            return 0;
-        }
+        let value = 0
 
-        return 0
+        if (sort === "treatmentStart") {
+            value = DateTime.fromISO(a[sort]).diff(DateTime.fromISO(b[sort]))
+        } else {
+            if (a[sort] < b[sort]) { value = -1; }
+            if (a[sort] > b[sort]) { value = 1; }
+        }
+        
+        reverse && ( value *= -1)
+
+        return value;
+
     }).filter(each => {
 
         return each.fullName && each.fullName.toLowerCase().includes(search.toLowerCase())
     })
 
+    const handlePrioritySort = () => {
+        if(sort === "priority"){
+            setReverse(!reverse)
+        }else{
+            setSort("priority")
+        }
+    }
+
+
     let list = ""
     sorted.length > 0 && (list = sorted.map((patient, index) => {
+        const priorityClasses = [classes.low,classes.middle,classes.high,classes.new]
         return (
             <div key={`patient-list-view-${index}`} className={classes.singlePatient}>
                 <div className={classes.name}>
@@ -227,7 +251,7 @@ const Patients = (props) => {
                     </a>
                 </div>
                 <div>
-                    <div className={`${classes.priorityCircle} ${patient.adherence < .85 && classes.highPriority}`} />
+                    <div className={`${classes.priorityCircle} ${priorityClasses[patient.priority]}`} />
                 </div>
                 <div>
                     {DateTime.fromISO(patient.treatmentStart).toLocaleString(DateTime.DATE_SHORT)}
@@ -249,7 +273,7 @@ const Patients = (props) => {
         <div className={classes.name} onClick={() => { setSort("fullName") }}>
             {t("coordinator.patientTableLabels.name")}
         </div>
-        <div className={classes.name} onClick={() => { setSort("adherence") }}>
+        <div className={classes.name} onClick={handlePrioritySort}>
             {t("coordinator.patientTableLabels.priority")} {isSortingAdherence() ? <DownIcon /> : <UpIcon />}
         </div>
         <div>
