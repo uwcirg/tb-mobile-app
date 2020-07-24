@@ -95,13 +95,13 @@ const useStyles = makeStyles({
 const Landing = () => {
     const { patientStore } = useStores();
     const classes = useStyles();
-    const { t, i18n } = useTranslation('onboarding');
+    const { t, i18n } = useTranslation('translation');
 
     return (
         <div className={classes.landing}>
             <DoctorIcon />
-            <h2>{t('landing.welcome')} {patientStore.givenName}</h2>
-            <p>{t('landing.message')}</p>
+            <h2>{t('patient.onboarding.landing.welcome')} {patientStore.givenName}</h2>
+            <p>{t('patient.onboarding.landing.message')}</p>
         </div>
     )
 }
@@ -109,27 +109,27 @@ const Landing = () => {
 const CoordinatorFAQ = () => {
     const { patientStore } = useStores();
     const classes = useStyles();
-    const { t, i18n } = useTranslation('onboarding');
+    const { t, i18n } = useTranslation('translation');
 
     return (
         <div className={classes.faq}>
-            <h1>{t('coordinator.title')}</h1>
-            <h2>{t('coordinator.will.title')}</h2>
+            <h1>{t('patient.onboarding.coordinator.title')}</h1>
+            <h2>{t('patient.onboarding.coordinator.will.title')}</h2>
             <ul>
-                {t('coordinator.will.items', { returnObjects: true }).map(each => {
+                {t('patient.onboarding.coordinator.will.items', { returnObjects: true }).map(each => {
                     return <li> <CheckIcon className={classes.green} /> {each}</li>
                 })}
             </ul>
 
-            <h2>{t('coordinator.wont.title')}</h2>
+            <h2>{t('patient.onboarding.coordinator.wont.title')}</h2>
             <ul>
-                {t('coordinator.wont.items', { returnObjects: true }).map(each => {
+                {t('patient.onboarding.coordinator.wont.items', { returnObjects: true }).map(each => {
                     return <li><XIcon className={classes.red} /> {each}</li>
                 })}
             </ul>
 
             <div className={classes.bottom}>
-                <p>{t('coordinator.outro')}</p>
+                <p>{t('patient.onboarding.coordinator.outro')}</p>
             </div>
         </div>
     )
@@ -142,7 +142,7 @@ const Onboarding = observer(() => {
 
     const classes = useStyles();
     const { patientStore , activationStore,patientUIStore} = useStores();
-    const { t, i18n } = useTranslation('onboarding');
+    const { t, i18n } = useTranslation('translation');
 
     const index = patientUIStore.reportStep
 
@@ -160,13 +160,13 @@ const Onboarding = observer(() => {
         {activationStore.isLoading ?
         <div className={classes.loading}>
             <div>
-            <p>{t('success')}</p>
+            <p>{t('patient.onboarding.success')}</p>
             <CircularProgress size="50vw" />
             </div>
             </div>
         :
         <div className={classes.container}>
-            <OverTopBar handleBack={handleBack} title={ index < 2 ? t('landing.welcome') : t('profileInformation')} />
+            <OverTopBar handleBack={handleBack} title={ index < 2 ? t('patient.onboarding.landing.welcome') : t('patient.onboarding.profileInformation')} />
             <div className={classes.navBarGhost}></div>
             {index > 1 && <MobileStepper
                     className={classes.stepper}

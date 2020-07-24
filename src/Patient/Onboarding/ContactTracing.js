@@ -38,15 +38,15 @@ const useStyles = makeStyles((theme) => ({
 const ContactTracing = observer((props) => {
 
     const classes = useStyles();
-    const { t, i18n } = useTranslation('onboarding');
+    const { t, i18n } = useTranslation('translation');
     const { activationStore } = useStores();
 
 
     return (<div className={props.bodyClass}>
-        <SurveyHeader number={5} title={t("contactTracing.one")} />
+        <SurveyHeader number={5} title={t("patient.onboarding.contactTracing.one")} />
         <Counter />
         {activationStore.onboardingInformation.numberOfContacts > 0 && <>
-            <SurveyHeader number={6} title={t("contactTracing.two")} />
+            <SurveyHeader number={6} title={t("patient.onboarding.contactTracing.two")} />
             <Survey />
         </>
         }
@@ -71,7 +71,7 @@ const Counter = observer(() => {
 })
 
 const Survey = observer(() => {
-    const { t, i18n } = useTranslation('onboarding');
+    const { t, i18n } = useTranslation('translation');
     const classes = useStyles();
     const { activationStore } = useStores();
 
@@ -83,9 +83,9 @@ const Survey = observer(() => {
         <FormControl className={classes.form} component="fieldset">
             {/*<FormLabel component="legend">Gender</FormLabel>*/}
             <RadioGroup aria-label="contact-tracing-options" name="contact-tracing" value={activationStore.onboardingInformation.contactsTested} onChange={handleChange}>
-                <FormControlLabel value="Yes" control={<Radio color="primary" />} label={t("contactTracing.yes")} />
-                <FormControlLabel value="Some" control={<Radio color="primary" />} label={t("contactTracing.some")} />
-                <FormControlLabel value="No" control={<Radio color="primary" />} label={t("contactTracing.no")} />
+                <FormControlLabel value="Yes" control={<Radio color="primary" />} label={t("patient.onboarding.contactTracing.yes")} />
+                <FormControlLabel value="Some" control={<Radio color="primary" />} label={t("patient.onboarding.contactTracing.some")} />
+                <FormControlLabel value="No" control={<Radio color="primary" />} label={t("patient.onboarding.contactTracing.no")} />
             </RadioGroup>
         </FormControl>
     )

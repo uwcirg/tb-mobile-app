@@ -90,7 +90,7 @@ const useStyles = makeStyles({
 const CompName = observer(() => {
 
     const classes = useStyles();
-    const { t, i18n } = useTranslation(['reminders', 'translation']);
+    const { t, i18n } = useTranslation('translation');
     const { patientStore, patientUIStore } = useStores();
     const [open,setOpen] = useState(false)
 
@@ -100,24 +100,24 @@ const CompName = observer(() => {
     }
 
 
-    return (<InteractionCard upperText={t('reminders')} id="intro-reminders-card">
+    return (<InteractionCard upperText={t('patient.reminders.title')} id="intro-reminders-card">
         <div className={classes.daily}>
-            <Header>{t('daily')}</Header>
+            <Header>{t('patient.reminders.medicationReminder')}</Header>
             {patientStore.reminderTime ? <>
                 <div className={classes.options}>
                     <p>a las <span>{DateTime.fromISO(patientStore.reminderTime).toLocaleString(DateTime.TIME_24_SIMPLE)}</span> cada día</p>
                 </div>
                 <div className={classes.buttonContainer}>
                     <ButtonGroup className={classes.timeButtonGroup} fullWidth>
-                        <Button onClick={() => {setOpen(true)}}>Change Time</Button>
-                        <Button onClick={() =>{patientStore.updateNotificationTime(true)}}>Disable</Button>
+                        <Button onClick={() => {setOpen(true)}}>{t('patient.reminders.changeTime')}</Button>
+                        <Button onClick={() =>{patientStore.updateNotificationTime(true)}}>{t('patient.reminders.disable')}</Button>
                     </ButtonGroup>
                 </div>
             </> : <>
 
                     <div className={classes.enable}>
-                        <p> Once enabled, a push notification will remind you to take your medication at the specified time.</p>
-                        <Button onClick={()=>{setOpen(true)}} className={classes.timeButton}>Enable</Button>
+                        <p>{t('patient.reminders.explanation')}</p>
+                        <Button onClick={()=>{setOpen(true)}} className={classes.timeButton}>{t('patient.reminders.enable')}</Button>
                     </div>  </>}
         </div>
 
@@ -134,7 +134,7 @@ const CompName = observer(() => {
                     />}
 
         <div className={classes.upcoming}>
-            <Header>{t('appointments')}</Header>
+            <Header>{t('patient.reminders.appointments')}</Header>
             <div className={classes.reminder}>
             <p>This functionality is still in progress</p>
                 {patientStore.milestones[0] && <MileStone milestone={patientStore.milestones[0]} />}

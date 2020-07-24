@@ -112,7 +112,7 @@ const Tooltip = ({
   tooltipProps,
 }) => {
   const classes = useStyles();
-  const { t, i18n } = useTranslation('walkthrough');
+  const { t, i18n } = useTranslation('translation');
   const { routingStore } = useStores();
 
 
@@ -174,7 +174,7 @@ const styles = {
 
 const SwipeContainer = (props) => {
   const classes = useStyles();
-  const { t, i18n } = useTranslation('walkthrough');
+  const { t, i18n } = useTranslation('translation');
 
   const handleChangeIndex = (index) => {
     props.changeIndex(index);
@@ -193,7 +193,7 @@ const SwipeContainer = (props) => {
         <IconButton className={classes.exit} onClick={props.exit}><ClearIcon /> </IconButton>
       </div>
       {props.index == 0 && <div className={classes.bottomText}>
-        <p>{t("swipe")}</p>
+        <p>{t("patient.walkthrough.swipe")}</p>
         <Next />
       </div>}
       <SwipeableViews index={props.index} onChangeIndex={handleChangeIndex}>

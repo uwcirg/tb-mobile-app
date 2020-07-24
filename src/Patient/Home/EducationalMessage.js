@@ -55,9 +55,9 @@ const useStyles = makeStyles({
 
 const EducationalMessage = observer((props) => {
 
-    const { t, i18n } = useTranslation('education-messages');
+    const { t, i18n } = useTranslation('translation');
 
-    const messages = t('messages',{ returnObjects: true})
+    const messages = t("educationalMessages.messages",{ returnObjects: true})
 
     const classes = useStyles();
     const  {educationStore: education} = useStores().patientStore;
@@ -73,14 +73,14 @@ const EducationalMessage = observer((props) => {
     return (
         visible ?
             <PopUp className={classes.container} handleClickAway={handleClose}>
-                <Typography className={classes.header} variant="h1">{t("header")}</Typography>
+                <Typography className={classes.header} variant="h1">{t("educationalMessages.header")}</Typography>
                 <div className={classes.body}>
-                    <h2>{t("week")} {education.educationMessage}:</h2>
+                    <h2>{t("educationalMessages.week")} {education.educationMessage}:</h2>
                     <p>{messages[education.educationMessage]}</p>
                 </div>
 
                 <div className={classes.thumbsContainer}>
-                    <p>{t("helpful")}</p>
+                    <p>{t("educationalMessages.helpful")}</p>
                 <ButtonGroup className={classes.buttonGroup}>
                        <Button> <ThumbDownIcon /></Button>   
                        <Button><ThumbUpIcon /></Button>

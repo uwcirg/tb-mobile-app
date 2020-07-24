@@ -1,23 +1,27 @@
 {
-    "title": "Compañero de Tratamiento",
+    "title": "Asistente de Tratamiento",
     "online": "Conectado",
     "offline": "Desconectado",
     "greeting": "Hola",
     "updating": "Actualizando",
-    "commonWords": {
+
+    "commonWords":{
         "medication": "Medicamento",
         "symptoms": "Sintomas",
         "stripPhoto": "Tira Reactiva",
         "report": "Reportar",
         "no": "no",
         "yes": "sí",
-        "of": "de"
+        "of": "de",
+        "other": "Other"
     },
+
     "userTypes": {
         "patient": "Paciente",
         "coordinator": "Coordinador",
-        "administrator": "Administrador"
+        "admin": "Administrator"
     },
+
     "login": {
         "changeLanguage": "Click Here For English",
         "activateAccount": "Activar su Cuenta",
@@ -27,22 +31,30 @@
         "password": "Contraseña",
         "logIn": "Iniciar Sesión",
         "selectType": "Bienvenido. Iniciar sesión para:",
+        "haveAccount": "Already have an account?",
         "activate": "Activar"
+
     },
+
     "messaging": {
         "nurseContact": "Necesita asistencia personal? Contacte a su coordinador!",
         "privateExplained": "Private messages with your coordinator",
         "search": "Search By Topic"
     },
+
     "time": {
         "day": "día",
         "week": "semana",
         "days": "días",
         "weeks": "semanas"
     },
+
     "patient": {
         "reminders":{
             "title": "Recordatorios"
+        },
+        "demo":{
+            "showDemo": "Show Demo"
         },
         "userFields": {
             "givenName": "Nombre Preferido",
@@ -64,7 +76,8 @@
                 "logMedication": "Iniciar Reporte",
                 "uploadPhoto": "Subir Foto"
             },
-            "progress": {
+
+            "progress":{
                 "currentStreak": "días consecutivos",
                 "upcomingDate":  "Próximo fecha de tratamiento",
                 "viewAll": "Ver Todos"
@@ -74,7 +87,8 @@
                 "subtitle": "El Reporte de Hoy Fue Recibido",
                 "modify": "Editar su Reporte"
             },
-            "cardTitles": {
+
+            "cardTitles":{
                 "todaysTasks": "Objetivos de Hoy",
                 "myProgress": "Mi Progreso",
                 "myLearning": "Educación para Mi"
@@ -82,8 +96,10 @@
         },
         "profile": {
             "title": "Configuración",
-            "personalInfo": "Informacion Personal",
             "changePassword": "Cambia la contraseña",
+            "editNotifications": "Edit Notification Preferences",
+            "changeUsername": "Edit Username",
+            "personalInfo": "Informacion Personal",
             "startDate": "Primer Dia de Tratamiento",
             "endDate": "Último Dia de Tratamiento",
             "totalTreatments": "Numero de Reportes Requeridos",
@@ -117,6 +133,7 @@
                 "retakePhoto": "Volver a Tomar",
                 "openCamera": "Abrir Camera",
                 "showMe": "Enseñame como"
+
             },
             "symptoms": {
                 "warning": {
@@ -126,7 +143,7 @@
                     "moreInformation": "Ver Más Información"
                 }
             },
-            "confirmation": {
+            "confirmation":{
                 "title": "Confirmar y Subir",
                 "addMore": "Reportar Mas Information",
                 "noPhoto": "Hoy no necesitas subir una foto.",
@@ -141,67 +158,86 @@
             "photoNeeded": "Aun tenes que subir una foto de la tira reactiva.",
             "doLater": "Lo Haré Más Tarde"
         },
-        "progress": {
+        "progress":{
             "viewCalendar": "Ver su Calendario de Reportes",
             "viewPhotos": "Ver Todas sus Fotos",
             "approvalStatus": "Estado de Fotos",
             "milestones": "Fechas Importantes",
+            "upcoming": "Upcoming",
             "calendar": "Calendario de Reportes"
+        },
+        "addMilestone":{
+            "barTitle": "Add Milestone",
+            "titles":[
+                "What milestone would you like to add?", 
+                "Whats the date of your milestone?",
+                "Whats the time of your milestone?",
+                "Where is your appointment?"
+            ]
         },
         "information":{
             "questions": "Preguntas y respuestas"
         }
     },
     "symptoms": {
-        "nausea": {
+        "nausea": 
+        {
             "title": "Náuseas o vómitos",
             "subtitle": "Feeling nauscious or unable to put food down"
         },
-        "redness": {
+
+        "redness":{
             "title": "Enrojectimiento",
             "subtitle": "Enrojectimiento de la piel, granitos, picazón"
         },
+
         "hives": {
             "title": "Urticaria",
             "subtitle": "Itchy spots on skin"
         },
-        "fever": {
+
+        "fever":{
             "title": "Fiebre",
             "subtitle": "Body temperature over 37.5"
         },
-        "appetite_loss": {
+
+        "appetite_loss":{
             "title": "Pérdida de apetito",
             "subtitle": "Loss of appetite"
         },
-        "blurred_vision": {
+
+        "blurred_vision":{
             "title": "Visión borrosa",
             "subtitle": "Blurred vision or changes in the way you see colors"
         },
-        "sore_belly": {
+
+        "sore_belly":{
             "title": "Dolor de la panza",
             "subtitle": "Soreness of belly"
         },
-        "yellow_coloration": {
+
+        "yellow_coloration":{
             "title": "Coloración amarillenta",
             "subtitle": "Coloración amarillenta en la piel o en la parte blanca de los ojos"
         },
-        "difficulty_breathing": {
+
+        "difficulty_breathing":{
             "title": "Dificultad para respirar",
             "subtitle": "Shortness of breath or difficulty breathing"
         },
-        "facial_swelling": {
+
+        "facial_swelling":{
             "title": "Hinchazón de la cara",
             "subtitle": "Hinchazón de la cara, los labios, la lengua, o la garganta"
         },
-        "dizziness": {
-            "title": "Mareos",
-            "subtitle": ""
-        },
-        "headache": {
-            "title": "Dolor de cabeza",
-            "subtitle": ""
-        },
-        "other": {
+
+        "dizziness":{
+            "title": "Mareos"},
+
+        "headache":{
+            "title": "Dolor de cabeza"},
+
+        "other":{
             "title": "Otros síntomas",
             "subtitle": "Registrar otros síntomas no mencionados anteriormente"
         }
@@ -215,10 +251,71 @@
             "medPickup": "Medication Pick-Up",
             "housematesTested": "All housemates tested"
         },
-        "addReminder": "Agregar recordatorio",
         "upcoming": "Fechas Pasadas",
         "previous": "Fechas Siguientes"
     },
+    "coordinator": {
+         "titles": {
+            "myTasks": "My Tasks",
+            "myPatients": "My Patients"
+         },
+         "cardTitles": {
+            "patientsWithSymptoms": "Patients with Symptoms",
+            "photosToReview": "Photos to Review",
+            "missedReport": "Missed Report Since Last Resolution",
+            "overviewOfProgress": "Overview of Progress",
+            "allPatients": "All Patients",
+            "awaitingActivation": "Awaiting Activation",
+            "currentStatus": "Current Status",
+            "reportingCalender": "Reporting Calender"
+         },        
+         "recentReports": {
+            "title": "Recent Reports",
+            "noSymptoms": "No Symptoms Reported",
+            "tookMeds": "Took Meds",
+            "didntTakeMeds": "Didnt Take Meds",
+            "noPhoto": "No Photo"
+         },
+         "sideBar": {            
+            "lastContacted": "Last Contracted",
+            "viewFullProfile": "View Full Profile",
+            "daysMissed": "Days Missed Since Last Resolution",
+            "photoSub": "Photo Submission",
+            "symptomsSince": "Symptoms Reported",
+            "loading": "Loading",
+            "messagePatient": "Message Patient"
+         },
+         "patientTableLabels": {
+            "name": "Name",
+            "priority": "Priority",
+            "treatmentStart": "Treatment Start",
+            "lastSubmission": "Last Submission",
+            "adherence": "Adherence",
+            "streak": "Streak"
+         },
+         "noTasks": "No Tasks Found",
+         "profile": "Profile",
+         "message": "Message",
+         "adherence": "Adherence",
+         "months": "Months",
+         "true": "true",
+         "false": "false",
+         "daysInTreatment": "Days In Treatment",
+         "patientProfile": {
+            "resetPassword": "Reset Password",
+            "resetPasswordExplanation": "Click here to reset a patients password. This generates a temporary password that you will have to send to them via WhatsApp. They will be asked to enter a new password after they use the temporary one.",
+            "phoneNumber": "Phone Number",
+            "treatmentStart": "Treatment Start",
+            "date": "Date",
+            "taken": "Taken",
+            "symptoms": "Symptoms",
+            "photo": "Photo",
+            "completedDays": "Completed Days",
+            "feelingHealthy": "Feeling Healthy",
+            "currentStreak": "Current Streak",
+            "longestStreak": "Longest Streak"
+         }
+   },
     "errors":{
         "login":{
             "identifier": "Incorrect Phone Number",
@@ -232,6 +329,6 @@
         "newPassword": "Nueva Contraseña",
         "confirmPassword": "Confirmación de Contraseña",
         "submit": "Enviar"
-        
     }
+
 }
