@@ -7,10 +7,10 @@ import Input from '@material-ui/core/Input';
 import TextField from '@material-ui/core/TextField'
 import { useTranslation } from 'react-i18next';
 import SimpleButton from '../../Basics/SimpleButton';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import PopOver from '../Shared/PopOver'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import Loading from '../Shared/Loading'
 
 const useStyles = makeStyles({
     inputBody: {
@@ -32,11 +32,6 @@ const useStyles = makeStyles({
         margin: "auto",
         marginTop: "2em"
     },
-    loading: {
-        width: "100%",
-        display: "flex",
-        justifyContent: "center"
-    },
     checkbox:{
         marginTop: "2em",
     }
@@ -51,20 +46,16 @@ const AddPatient = observer(() => {
         practitionerStore.clearNewPatient();
     }
 
-
-
     return (<>
         {practitionerStore.newPatient.code && <PopOver title={"Patient Added"} close={practitionerStore.clearNewPatient}><p>Code to send to patient:</p> <p>{practitionerStore.newPatient.code}</p> </PopOver>}
         {practitionerStore.newPatient.code ? <p>{practitionerStore.newPatient.code}</p> :
             <>
                 <SideBarTop handleExit={handleExit} title="Add Patient" />
-                {practitionerStore.newPatient.loading ? <div className={classes.loading}><CircularProgress size="25%" /> </div> : <AddPatientForm submit={practitionerStore.addNewPatient} />}
+                {practitionerStore.newPatient.loading ? <Loading /> : <AddPatientForm submit={practitionerStore.addNewPatient} />}
             </>}
     </>)
 
 })
-
-
 
 const AddPatientForm = (props) => {
     const classes = useStyles();

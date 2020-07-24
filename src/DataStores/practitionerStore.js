@@ -22,6 +22,11 @@ export class PractitionerStore extends UserStore {
         super(strategy, ROUTES, "Practitioner")
     }
 
+    @observable cohortSummary = {
+        loading: true,
+        data: {}
+    }
+
     @observable selectedPatientSymptoms = {
         summary: [],
         summaryLoading: false,
@@ -306,6 +311,13 @@ export class PractitionerStore extends UserStore {
         this.selectedPatient.details = details;
     }
 
+    @action setCohortSummary = (response) => {
+        this.cohortSummary.loading = false;
+        this.cohortSummary.data = response;
+    }
+
+
+    //Testing Idea of Refactoring async code out of actions, as reccomending by docs
     getPatientDetails = (id) => {
         this.executeRawRequest(`/practitioner/patient/${id}?`, "GET").then(response => {
            this.setSelectedPatientDetails(response);
@@ -316,6 +328,10 @@ export class PractitionerStore extends UserStore {
         })
     }
 
-
+    getCohortSummary = () => {
+        this.executeRawRequest(`/organizations/1/cohort_summary`).then(response =>{
+            this.setCohortSummary(response);
+        })
+    }
 
 }
