@@ -126,7 +126,7 @@ const PatientOverview = observer(() => {
     const cohortSummary = useStores().practitionerStore.cohortSummary.data
 
     return (
-        <div>
+        <>
         <SectionHeader title="Cohort Overview" icon={<PeopleIcon />} />
             <div className={`${classes.section} ${classes.patientStatus}`} >
                 <LineItem textColor={"black"} text={"Active Patients"} value={cohortSummary.status.active} />
@@ -137,8 +137,9 @@ const PatientOverview = observer(() => {
                 <LineItem backgroundColor={Colors.red} text={"High Priority"} value={cohortSummary.priority.high} />
                 <LineItem backgroundColor={Colors.yellow} text={"Medium Priority"} value={cohortSummary.priority.medium} />
                 <LineItem backgroundColor={Colors.green} text={"Low Priority"} value={cohortSummary.priority.low} />
+                <LineItem backgroundColor={Colors.accentBlue} text={"New Patients"} value={cohortSummary.priority.new} />
             </div>
-        </div>
+        </>
     )
 })
 
@@ -151,11 +152,10 @@ const SymptomSummary = observer(() => {
     return (
         <div className={classes.section}>
             <SectionHeader title="Symptoms" icon={<SymptomsIcon />} subtext="Reported In The Past 7 Days" />
-            <ul className={classes.symptomList}>
                 {Object.keys(symptomSummaries).map(each => {
-                    return symptomSummaries[each] ? <li>{t(`symptoms.${each}.title`)}: <span>{symptomSummaries[each]}</span></li> : ""
+                    return symptomSummaries[each] ? <LineItem textColor="black" text={t(`symptoms.${each}.title`)} value={symptomSummaries[each]} /> : ""
+                    
                 })}
-            </ul>
         </div>
     )
 
