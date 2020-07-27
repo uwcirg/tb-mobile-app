@@ -11,6 +11,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import NauseaPopUp from './NauseaPopUp';
 
 /*
 Object that maps all symptoms to strings which are used to fetch thier locations
@@ -42,9 +43,10 @@ const SevereSymptoms = [
 ]
 
 //Renders whole list of symptoms
-const SymptomsList = (props) => {
+const SymptomsList = observer((props) => {
 
   const { t, i18n } = useTranslation('translation');
+  const {patientStore} = useStores();
 
   let list = Symptoms.map((name, index) => {
     return (
@@ -62,10 +64,11 @@ const SymptomsList = (props) => {
 
   return (
     <>
+      {patientStore.nasueaSelected && <NauseaPopUp />}
       {list}
     </>
   )
-};
+});
 
 //Single Symptom in List
 const Symptom = observer((props) => {
@@ -81,10 +84,17 @@ const Symptom = observer((props) => {
     let symptomName = e.target.id
     let index = patientStore.report.selectedSymptoms.indexOf(symptomName);
 
+    
+
     if (index === -1) {
       patientStore.report.selectedSymptoms.push(symptomName);
     } else {
+      //Remove from list
       patientStore.report.selectedSymptoms.splice(index, 1);
+
+      if(symptomName === "nausea"){
+        patientStore.report.nauseaRating = ""
+      }
     }
   }
 

@@ -219,6 +219,7 @@
                 "showMe": "Show Me How"
             },
             "symptoms": {
+                "nauseaRating": "How bad is your nausea?",
                 "warning": {
                     "title": "You logged a symptom that needs immediate follow up",
                     "subtitle": "Please seek emergency medical attention immediately. Your Coordinator will follow up with you.",

@@ -152,6 +152,12 @@ export class PatientStore extends UserStore {
             }))
     }
 
+    @computed get nasueaSelected(){
+        return(
+            this.report.selectedSymptoms.includes('nausea') && this.report.nauseaRating === ""
+        )
+    }
+
     //Calendar Selection
     @observable selectedDate = DateTime.local();
 
@@ -211,6 +217,7 @@ export class PatientStore extends UserStore {
         body.dateTimeTaken = this.report.timeTaken;
         body.doingOkay = this.report.doingOkay;
         body.isHistoricalReport = this.report.isHistoricalReport;
+        body.nauseaRating = this.report.nauseaRating;
 
         if (this.isPhotoDay && this.report.photoString) {
             this.uploadPhoto().then(res => {
@@ -392,7 +399,8 @@ export class PatientStore extends UserStore {
         hasConfirmedAndSubmitted: false,
         isHistoricalReport: false,
         doingOkay: true,
-        doingOkaySelected: false
+        doingOkaySelected: false,
+        nauseaRating: ""
     }
 
 
