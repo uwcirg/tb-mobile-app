@@ -9,7 +9,9 @@ import Colors from '../../Basics/Colors'
 import { Button } from '@material-ui/core';
 import useStores from '../../Basics/UseStores';
 import Typography from '@material-ui/core/Typography';
+import TreatmentTimeline from '../../Basics/TreatmentTimeline'
 const file = raw("./information.md");
+
 
 
 
@@ -49,6 +51,8 @@ export default function Info() {
     const { patientUIStore } = useStores();
     return (
         <div className={classes.container}>
+            <Typography variant="h1">Treatment Timeline</Typography>
+             <TreatmentTimeline />
             <Typography variant="h1">Help with Application</Typography>
             <div className={classes.appInfo}>
                 <Button className={classes.button} onClick={patientUIStore.goToWalkThrough}> Launch App Walkthrough</Button>
@@ -63,6 +67,7 @@ export default function Info() {
             <Interactioncard className={classes.topCard} >
                 <Markdown options={{ overrides: { Drawer: { component: MarkdownRender } } }} children={file} />
             </Interactioncard>
+           
         </div>
     )
 }
