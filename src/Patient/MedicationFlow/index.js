@@ -39,7 +39,7 @@ const MedicationFlow = observer((props) => {
     if (patientStore.isPhotoDay && !patientUIStore.onHistoricalReport) {
         Tabs = [<ReportMedication />, <ReportSymptoms />,<ReportMood />, <ReportPhoto />, <ReportConfirmation />]
     } else {
-        Tabs = [<ReportMedication />, <ReportSymptoms />, <ReportConfirmation />]
+        Tabs = [<ReportMedication />, <ReportSymptoms />,<ReportMood />, <ReportConfirmation />]
     }
 
     let step = patientUIStore.reportStep;

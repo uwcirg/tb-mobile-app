@@ -184,6 +184,7 @@ export class PatientStore extends UserStore {
     }
 
     saveReportingState = () => {
+        console.log(!this.report.isHistoricalReport)
         if (!this.report.isHistoricalReport) {
             localStorage.setItem(`medicationReport`, JSON.stringify(this.report));
         }
@@ -209,6 +210,7 @@ export class PatientStore extends UserStore {
         body.whyMedicationNotTaken = this.report.whyMedicationNotTaken;
         body.dateTimeTaken = this.report.timeTaken;
         body.doingOkay = this.report.doingOkay;
+        body.isHistoricalReport = this.report.isHistoricalReport;
 
         if (this.isPhotoDay && this.report.photoString) {
             this.uploadPhoto().then(res => {
@@ -225,9 +227,12 @@ export class PatientStore extends UserStore {
     }
 
     @action uploadReport = (body) => {
+        
         this.executeRequest('dailyReport', body).then(json => {
-            this.report.hasConfirmedAndSubmitted = true;
-            this.saveReportingState();
+            if(!body.isHistoricalReport){
+                this.report.hasConfirmedAndSubmitted = true;
+                this.saveReportingState();
+            }
             this.getReports();
         })
 
