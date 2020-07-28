@@ -78,11 +78,11 @@ const ReportMood = observer((props) => {
             <div className={classes.choiceContainer}>
                 <ButtonBase className={`${classes.faceButton} ${goodSelected && classes.selected}`} onClick={selectGood}>
                     <GoodFace className={classes.icon} />
-                    <p>Doing Okay</p>
+                    <p>{t("patient.report.doingWell")}</p>
                 </ButtonBase>
                 <ButtonBase className={`${classes.faceButton} ${badSelected && classes.selected}`} onClick={selectBad}>
                     <BadFace className={classes.icon} />
-                    <p>Need Support</p>
+                    <p>{t("patient.report.needSupport")}</p>
                 </ButtonBase>
             </div>
         </div>

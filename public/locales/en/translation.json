@@ -216,6 +216,8 @@
             "whyNotTaken": "Why didn't you take your medication?",
             "symptomsTitle": "Did you have any symptoms?",
             "moodTitle": "How are you feeling today?",
+            "doingWell": "Doing Well",
+            "needSupport": "Need Support",
             "photoTitle": "Capture Strip Photo",
             "photo": {
                 "usePhoto": "Use Photo",
