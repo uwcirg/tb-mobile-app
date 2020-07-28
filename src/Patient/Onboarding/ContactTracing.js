@@ -83,9 +83,9 @@ const Survey = observer(() => {
         <FormControl className={classes.form} component="fieldset">
             {/*<FormLabel component="legend">Gender</FormLabel>*/}
             <RadioGroup aria-label="contact-tracing-options" name="contact-tracing" value={activationStore.onboardingInformation.contactsTested} onChange={handleChange}>
-                <FormControlLabel value="Yes" control={<Radio color="primary" />} label={t("patient.onboarding.contactTracing.yes")} />
+                <FormControlLabel value="Yes" control={<Radio color="primary" />} label={t("patient.onboarding.contactTracing.all")} />
                 <FormControlLabel value="Some" control={<Radio color="primary" />} label={t("patient.onboarding.contactTracing.some")} />
-                <FormControlLabel value="No" control={<Radio color="primary" />} label={t("patient.onboarding.contactTracing.no")} />
+                <FormControlLabel value="No" control={<Radio color="primary" />} label={t("patient.onboarding.contactTracing.none")} />
             </RadioGroup>
         </FormControl>
     )

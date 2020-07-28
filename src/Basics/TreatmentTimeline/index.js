@@ -9,6 +9,8 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Down from '@material-ui/icons/KeyboardArrowDown'
 import Typography from '@material-ui/core/Typography'
 import Styles from '../Styles';
+import { useTranslation } from 'react-i18next';
+
 
 const useStyles = makeStyles({
 
@@ -48,9 +50,11 @@ const useStyles = makeStyles({
     },
     panelContainer: {
         marginLeft: "1em",
+        flexGrow: "1"
 
     },
     summary: {
+        textTransform: "capitalize",
         "&.Mui-expanded": {
             minHeight: "unset"
 
@@ -67,12 +71,14 @@ const useStyles = makeStyles({
     },
     subtitle: {
         fontSize: ".8em",
-        color: Colors.textGray
+        color: Colors.textGray,
+        textTransform: "capitalize"
 
     },
     timeline: {
         ...Styles.flexColumn,
         minWidth: "50px",
+        maxWidth: "50px",
         alignItems: "center"
     },
     icon: {
@@ -81,13 +87,16 @@ const useStyles = makeStyles({
     monthLabel: {
         fontSize: "1em"
     },
-    currentMonth:{
+    currentMonth: {
         color: "white",
         borderRadius: "50%",
         ...Styles.flexCenter,
         height: "32px",
         width: "32px",
         backgroundColor: Colors.accentBlue
+    },
+    details: {
+        width: "auto"
     }
 })
 
@@ -95,38 +104,41 @@ const useStyles = makeStyles({
 const Timeline = () => {
 
     const classes = useStyles();
+    const { t, i18n } = useTranslation('translation');
 
     return (<div className={classes.container}>
-        <Month first number={0}>
-            <Panel title="Start of treatment" subtitle="Week 0" />
-            <Panel title="Intensive Phase" subtitle="Week 1-8" />
+        <Month first month={0}>
+            <Panel title={t('timeline.start')} weekValue={0} week="0" />
+            <Panel title="Intensive Phase" weekValue={8} week="0-8" />
         </Month>
-        <Month number={1}>
-            <Panel backgroundColor={Colors.timelineYellow} title="Intensive Phase" subtitle="Week 1-8" />
+        <Month month={1}>
+            <Panel title={`${t('commonWords.first')} ${t('timeline.sputumTest')}`} weekValue={8} week="8" />
         </Month>
-        <Month number={2} />
-        <Month number={3} />
-        <Month number={4}>
-            <Panel backgroundColor={Colors.lightgray} title="Intensive Phase" subtitle="Week 1-8" />
+        <Month month={2} >
+            <Panel title={`${t('timeline.sputumTest')}`} weekValue={24} week="8-24" />
         </Month>
-        <Month number={5} />
-        <Month number={6} />
+        <Month month={3} />
+        <Month month={4}>
+
+        </Month>
+        <Month month={5} />
+        <Month month={6} />
     </div>)
 
 };
 
 const Month = observer((props) => {
+    const { t, i18n } = useTranslation('translation');
     const classes = useStyles();
-    //const isCurrentMonth = Math.floor(useStores().patientStore.patientInformation.weeksInTreatment / 4) === props.number;
-    let isCurrentMonth = props.number == 1
+    let isCurrentMonth = Math.floor((useStores().patientStore.patientInformation.weeksInTreatment < 6 || 6) / 4) === props.month;
 
     return (
         <>
             <div className={classes.monthContainer}>
                 <div className={classes.timeline}>
-                    {props.first && <div className={`${classes.monthNumber} ${classes.monthLabel}`}>Month</div>}
-                    <div className={`${classes.monthNumber} ${isCurrentMonth && classes.currentMonth}`}>{props.number}</div>
-                    {props.number !==6 && <div className={classes.line} />}
+    {props.first && <div className={`${classes.monthNumber} ${classes.monthLabel}`}>{t('time.month')}</div>}
+                    <div className={`${classes.monthNumber} ${isCurrentMonth && classes.currentMonth}`}>{props.month}</div>
+                    {props.month !== 6 && <div className={classes.line} />}
                 </div>
                 <div className={classes.panelContainer}>
                     {props.children}
@@ -135,8 +147,14 @@ const Month = observer((props) => {
         </>)
 });
 
-const Panel = (props) => {
-    const classes = useStyles(props);
+const Panel = observer((props) => {
+
+    const {patientStore} = useStores();
+
+    const styleProps = {backgroundColor: patientStore.patientInformation.weeksInTreatment < props.weekValue ? Colors.lightgray : Colors.calendarGreen}
+
+    const classes = useStyles(styleProps);
+    const { t, i18n } = useTranslation('translation');
     return (
         <ExpansionPanel className={classes.panel}>
             <ExpansionPanelSummary
@@ -147,16 +165,17 @@ const Panel = (props) => {
             >
                 <div className="titles">
                     <Typography className={classes.title}>{props.title}</Typography>
-                    <Typography className={classes.subtitle}>{props.subtitle}</Typography>
+                    <Typography className={classes.subtitle}>
+                        {props.week && <>{t('time.week')} {props.week}</>}
+                    </Typography>
                 </div>
             </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
+            <ExpansionPanelDetails className={classes.details}>
                 <Typography>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                    sit amet blandit leo lobortis eget.
+                    Coming Soon
         </Typography>
             </ExpansionPanelDetails>
         </ExpansionPanel>)
-}
+});
 
 export default Timeline;

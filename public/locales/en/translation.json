@@ -12,7 +12,10 @@
         "no": "no",
         "yes": "yes",
         "of": "of",
-        "other": "Other"
+        "other": "Other",
+        "first": "first",
+        "second": "second",
+        "final": "final"
     },
     "userTypes": {
         "patient": "Patient",
@@ -40,7 +43,8 @@
         "day": "day",
         "week": "week",
         "days": "days",
-        "weeks": "weeks"
+        "weeks": "weeks",
+        "month": "month"
     },
     "patient": {
         "onboarding":{
@@ -67,7 +71,7 @@
         
             },
             "gender":{
-                "title": "What is your gender",
+                "title": "Select your preferred gender",
                 "male": "Male",
                 "female": "Female",
                 "other": "Other"
@@ -81,9 +85,9 @@
             "contactTracing":{
                 "one": "How many people do you live with?",
                 "two": "Have they been tested for TB?",
-                "some": "Some of Them",
-                "yes": "Yes",
-                "no": "No"
+                "some": "Some of them",
+                "all": "All of them",
+                "none": "None of them"
             },
             "success": "Finalizing Account Setup",
             "next": "Next",
@@ -417,5 +421,12 @@
             "4": "This will be the fourth weeks message",
             "5": "This will be the fifth weeks message"
         }
+    },
+    "timeline":{
+        "sputumTest": "Sputum Test",
+        "start": "Start of Treatment",
+        "intensive": "Intensive Phase",
+        "continuous": "Continuous Phase",
+        "folowUp": "Follow Up Appointments"
     }
 }
