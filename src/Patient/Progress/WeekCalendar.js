@@ -60,7 +60,7 @@ const Days = observer(() => {
                 
                 onClick={() => {
                     if(today && !patientStore.dailyActionsCompleted){
-                        patientUIStore.startHistoricalReport();
+                        patientUIStore.moveToReportFlow();
 
                     }else{
                         patientUIStore.goToCalendar();
