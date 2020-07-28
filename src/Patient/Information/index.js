@@ -49,13 +49,13 @@ export default function Info() {
     const { patientUIStore, patientStore } = useStores();
     return (
         <div className={classes.container}>
-            <Typography variant="h1">Help with Application</Typography>
+            <Typography variant="h1">{t('patient.information.helpSection')}</Typography>
             <div className={classes.appInfo}>
-                <Button className={classes.button} onClick={patientUIStore.goToWalkThrough}>Launch App Walkthrough</Button>
-                <Button className={classes.button} onClick={patientUIStore.goToWalkThrough}>Watch Video</Button>
+                <Button className={classes.button} onClick={patientUIStore.goToWalkThrough}>{t('patient.information.launchWalkthrough')}</Button>
+                <Button className={classes.button} onClick={patientUIStore.goToWalkThrough}>{t('patient.information.video')}</Button>
             </div>
 
-            <Typography variant="h1">Information about Tuberculosis</Typography>
+            <Typography variant="h1">{t('patient.information.infoSection')}</Typography>
             <Section title={t('timeline.title')}>
                 <TreatmentTimeline weeksInTreatment={patientStore.patientInformation.weeksInTreatment} />
             </Section>
