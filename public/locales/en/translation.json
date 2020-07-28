@@ -423,10 +423,12 @@
         }
     },
     "timeline":{
+        "title": "Treatment Timeline",
         "sputumTest": "Sputum Test",
         "start": "Start of Treatment",
         "intensive": "Intensive Phase",
         "continuous": "Continuous Phase",
-        "folowUp": "Follow Up Appointments"
+        "followUp": "Follow Up Appointments",
+        "end": "End of Treatment"
     }
 }

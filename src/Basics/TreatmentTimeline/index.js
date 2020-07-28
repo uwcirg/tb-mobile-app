@@ -1,6 +1,5 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import Colors from '../Colors';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -21,8 +20,6 @@ const useStyles = makeStyles({
         "& > first-child": {
             backgroundColor: "gray"
         }
-
-
     },
     line: {
         flexGrow: "1",
@@ -101,36 +98,42 @@ const useStyles = makeStyles({
 })
 
 
-const Timeline = () => {
+const Timeline = (props) => {
 
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
 
     return (<div className={classes.container}>
-        <Month first month={0}>
-            <Panel title={t('timeline.start')} weekValue={0} week="0" />
-            <Panel title="Intensive Phase" weekValue={8} week="0-8" />
+        <Month weeksInTreatment={props.weeksInTreatment} first month={0}>
+            <Panel weeksInTreatment={props.weeksInTreatment} title={t('timeline.start')} weekValue={0} week="0" />
+            <Panel weeksInTreatment={props.weeksInTreatment} title={t('timeline.intensive')} weekValue={8} week="0-8" />
         </Month>
-        <Month month={1}>
-            <Panel title={`${t('commonWords.first')} ${t('timeline.sputumTest')}`} weekValue={8} week="8" />
+        <Month weeksInTreatment={props.weeksInTreatment} month={1}>
+            <Panel weeksInTreatment={props.weeksInTreatment} title={`${t('commonWords.first')} ${t('timeline.sputumTest')}`} weekValue={8} week="8" />
         </Month>
-        <Month month={2} >
-            <Panel title={`${t('timeline.sputumTest')}`} weekValue={24} week="8-24" />
+        <Month weeksInTreatment={props.weeksInTreatment} month={2} >
+            <Panel weeksInTreatment={props.weeksInTreatment} title={`${t('timeline.sputumTest')}`} weekValue={24} week="8-24" />
         </Month>
-        <Month month={3} />
+        <Month weeksInTreatment={props.weeksInTreatment} month={3}>
+        <Panel weeksInTreatment={props.weeksInTreatment} title={`${t('timeline.followUp')}`} weekValue={24} noWeek week="Every 2 Months" />
+        </Month>
         <Month month={4}>
-
+        <Panel weeksInTreatment={props.weeksInTreatment} title={`${t('commonWords.second')} ${t('timeline.sputumTest')}`} weekValue={24} noWeek week="During Continuous Phase" />
         </Month>
-        <Month month={5} />
-        <Month month={6} />
+        <Month weeksInTreatment={props.weeksInTreatment} month={5} />
+        
+        <Month weeksInTreatment={props.weeksInTreatment} month={6}>
+        <Panel weeksInTreatment={props.weeksInTreatment} title={`${t('commonWords.final')} ${t('timeline.sputumTest')}`} weekValue={24} week="24" />
+        <Panel weeksInTreatment={props.weeksInTreatment} title={t('timeline.end')} weekValue={24} week="24" />
+            </Month>
     </div>)
 
 };
 
-const Month = observer((props) => {
+const Month = (props) => {
     const { t, i18n } = useTranslation('translation');
     const classes = useStyles();
-    let isCurrentMonth = Math.floor((useStores().patientStore.patientInformation.weeksInTreatment < 6 || 6) / 4) === props.month;
+    let isCurrentMonth = Math.floor(props.weeksInTreatment / 4) === props.month;
 
     return (
         <>
@@ -138,20 +141,18 @@ const Month = observer((props) => {
                 <div className={classes.timeline}>
     {props.first && <div className={`${classes.monthNumber} ${classes.monthLabel}`}>{t('time.month')}</div>}
                     <div className={`${classes.monthNumber} ${isCurrentMonth && classes.currentMonth}`}>{props.month}</div>
-                    {props.month !== 6 && <div className={classes.line} />}
+                    <div className={classes.line} />
                 </div>
                 <div className={classes.panelContainer}>
                     {props.children}
                 </div>
             </div>
         </>)
-});
+};
 
-const Panel = observer((props) => {
+const Panel = (props) => {
 
-    const {patientStore} = useStores();
-
-    const styleProps = {backgroundColor: patientStore.patientInformation.weeksInTreatment < props.weekValue ? Colors.lightgray : Colors.calendarGreen}
+    const styleProps = {backgroundColor: props.weeksInTreatment === props.weekValue ? Colors.timelineYellow : props.weeksInTreatment < props.weekValue ? Colors.lightgray : Colors.calendarGreen}
 
     const classes = useStyles(styleProps);
     const { t, i18n } = useTranslation('translation');
@@ -166,7 +167,7 @@ const Panel = observer((props) => {
                 <div className="titles">
                     <Typography className={classes.title}>{props.title}</Typography>
                     <Typography className={classes.subtitle}>
-                        {props.week && <>{t('time.week')} {props.week}</>}
+                        {props.week && <>{!props.noWeek && t('time.week')} {props.week}</>}
                     </Typography>
                 </div>
             </ExpansionPanelSummary>
@@ -176,6 +177,6 @@ const Panel = observer((props) => {
         </Typography>
             </ExpansionPanelDetails>
         </ExpansionPanel>)
-});
+};
 
 export default Timeline;

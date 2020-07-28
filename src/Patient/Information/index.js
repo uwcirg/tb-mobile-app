@@ -48,11 +48,11 @@ const useStyles = makeStyles({
 export default function Info() {
     const { t, i18n } = useTranslation('translation');
     const classes = useStyles();
-    const { patientUIStore } = useStores();
+    const { patientUIStore,patientStore } = useStores();
     return (
         <div className={classes.container}>
-            <Typography variant="h1">Treatment Timeline</Typography>
-             <TreatmentTimeline />
+            <Typography variant="h1">{t('timeline.title')}</Typography>
+             <TreatmentTimeline weeksInTreatment={patientStore.patientInformation.weeksInTreatment} />
             <Typography variant="h1">Help with Application</Typography>
             <div className={classes.appInfo}>
                 <Button className={classes.button} onClick={patientUIStore.goToWalkThrough}> Launch App Walkthrough</Button>
