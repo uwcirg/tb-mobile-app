@@ -264,7 +264,10 @@
             ]
         },
         "information": {
-            "questions": "Questions and answers"
+            "questions": "Questions and answers",
+            "education": "Previous Weekly Updates",
+            "helpSection": "Help With Application",
+            "infoSection": "Information About Treatment"
         }
     },
     "symptoms": {

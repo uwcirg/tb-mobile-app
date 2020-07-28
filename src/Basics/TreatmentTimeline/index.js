@@ -97,7 +97,6 @@ const useStyles = makeStyles({
     }
 })
 
-
 const Timeline = (props) => {
 
     const classes = useStyles();
