@@ -21,10 +21,24 @@ let steps = [
     },
     {
         push: "/home",
+        title: "This is the navigation Bar",
+        target: ".MuiBottomNavigation-root",
+        preventScroll: true,
+        component: (<Navigation />)
+    },
+    {
+        push: "/home",
         preventScroll: true,
         title: "",
         target: "#intro-information-button",
         translationString: "patient.walkthrough.revisit",
+    },
+    {
+        push: "/home",
+        preventScroll: true,
+        title: "",
+        target: "#intro-home-button",
+        translationString: "patient.walkthrough.homescreen",
     },
     {
         push: "/home",
@@ -44,13 +58,6 @@ let steps = [
         scroll: true,
         target: "#intro-reminders-card",
         translationString: "patient.walkthrough.reminders"
-    },
-    {
-        push: "/home",
-        title: "This is the navigation Bar",
-        target: ".MuiBottomNavigation-root",
-        preventScroll: true,
-        component: (<Navigation />)
     },
     {
         scrollToTop: true,
