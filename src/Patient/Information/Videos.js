@@ -10,6 +10,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
     preview:{
@@ -40,6 +41,7 @@ const useStyles = makeStyles({
 export default function Videos() {
 
     const classes = useStyles();
+    const { t, i18n } = useTranslation('translation');
 
     return (
         <Interactioncard className={classes.topCard} >
@@ -50,7 +52,7 @@ export default function Videos() {
                     aria-controls="panel-content"
                     id="expand-section"
                 >
-                    <Typography variant="h2" className={classes.heading}>Videos</Typography>
+                    <Typography variant="h2" className={classes.heading}>{t("patient.information.videos")}</Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
                 <div>

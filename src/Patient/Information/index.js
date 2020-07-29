@@ -60,7 +60,7 @@ export default function Info() {
             <div className={classes.padding}>
                 <Button className={classes.button} >View Previous Treatment Messages</Button>
             </div>
-            <Videos></Videos>
+            <Videos />
             <Interactioncard className={classes.topCard} >
                 <Markdown options={{ overrides: { Drawer: { component: MarkdownRender } } }} children={file} />
             </Interactioncard>

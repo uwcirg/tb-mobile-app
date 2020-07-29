@@ -176,7 +176,8 @@
             ]
         },
         "information":{
-            "questions": "Questions and answers"
+            "questions": "Questions and answers",
+            "videos": "Videos"
         }
     },
     "symptoms": {
