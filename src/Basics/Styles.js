@@ -62,7 +62,9 @@ let Styles = {
     },
     profileCard:{
         boxShadow: "0px 4px 16px rgba(0, 0, 0, 0.1)",
-        borderRadius: "4px"
+        borderRadius: "4px",
+        "& > h2": { textTransform: "uppercase",
+    marginBottom:"1em" }
     }
 
 }

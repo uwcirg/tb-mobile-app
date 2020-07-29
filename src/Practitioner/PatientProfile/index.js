@@ -22,6 +22,7 @@ import SymptomSummary from './SymptomSummary'
 
 import TreatmentTimeline from '../../Basics/TreatmentTimeline'
 import ReportingHistory from './ReportingHistory'
+import { Typography } from '@material-ui/core';
 
 
 const useStyles = makeStyles({
@@ -38,7 +39,6 @@ const useStyles = makeStyles({
         "& > div": {
 
             ...Styles.profileCard,
-            "& > h2": { textTransform: "uppercase" },
             margin: "0 .5em 0 .5em",
         },
         paddingTop: "1em",
@@ -107,6 +107,7 @@ const Profile = observer((props) => {
                     <ReportingHistory />
 
                     <div className={classes.treatmentTimeline}>
+                        <Typography variant={"h2"}>Treatment Timeline</Typography>
                         <TreatmentTimeline weeksInTreatment={practitionerStore.selectedPatient.details.weeksInTreatment} />
                     </div>
                 </div>
