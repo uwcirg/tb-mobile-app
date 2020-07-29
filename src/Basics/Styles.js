@@ -58,7 +58,7 @@ let Styles = {
         fontWeight: 'normal',
         fontSize: '.85em',
         letterSpacing: '0.15px',
-        color: Colors.textGray
+        color: Colors.textDarkGray
     },
     profileCard:{
         boxShadow: "0px 4px 16px rgba(0, 0, 0, 0.1)",

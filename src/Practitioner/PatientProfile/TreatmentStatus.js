@@ -75,24 +75,26 @@ const useStyles = makeStyles({
 
 })
 
-const TreatmentStatus = () => {
+const TreatmentStatus = observer((props) => {
 
+    const patient = useStores().practitionerStore.selectedPatient.details;
+    console.log(JSON.stringify(patient))
     const classes = useStyles();
 
     return (<div className={classes.container}>
         <Typography variant={"h2"}>Treatment Status</Typography>
-        <Adherence />
+        <Adherence value={patient.adherence} />
         <div className={classes.middle}>
             <Item top={"80%"} bottom={"Feeling Healthy"} />
             <Item top={"0 out of 5"} bottom={"Contact Traces"} />
         </div>
         <div className={classes.bottom}>
-            <Item top={"90/180"} bottom={"Days Completed"} />
+            <Item top={`${patient.daysInTreatment}/180`} bottom={"Days Completed"} />
             <Item top={<><Trend style={{color: Colors.green}} />90/180</>} bottom={"Days Completed"} />
         </div>
     </div>)
 
-}
+});
 
 const Item = (props) => {
     const classes = useStyles();
@@ -105,13 +107,14 @@ const Item = (props) => {
 }
 
 const Adherence = (props) => {
+    console.log("adherence " + props.value)
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
     return(
         <div className={classes.graph}>
                         <CircularProgressbar
                         strokeWidth={6}
-                         circleRatio={0.5} value={10} styles={buildStyles({
+                         circleRatio={0.5} value={props.value * 100} styles={buildStyles({
                             transition: 'stroke-dashoffset 0.5s ease 0s',
                             pathColor: Colors.blue,
                             rotation: 3 / 4,
@@ -119,7 +122,7 @@ const Adherence = (props) => {
                             
                         })}>
                             <div className={classes.visText}>
-                                <span>50%</span>
+                                <span>{props.value * 100}%</span>
                                 <p>Adherence</p>
                             </div> 
                         </CircularProgressbar>

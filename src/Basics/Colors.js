@@ -26,7 +26,8 @@ const Colors = {
         milestone: "rgba(242, 153, 74, .35)",
         task: "rgba(45, 156, 219, .35)",
         appointment: "rgba(187, 107, 217, .35)"
-    }
+    },
+    textDarkGray: "#333333"
 
 }
 

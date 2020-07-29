@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import ReportsView from './ReportList';
 import Typography from '@material-ui/core/Typography';
+import Colors from '../../Basics/Colors';
 
 const useStyles = makeStyles({
     reportingHistoryContainer: {
@@ -28,6 +29,12 @@ const useStyles = makeStyles({
         "& > h2": {
             marginRight: "1em",
             textTransform: "uppercase"
+        }
+    },
+    buttonGroup:{
+        "& > button.selected":{
+            color: "white",
+            backgroundColor: Colors.textDarkGray
         }
     }
   
@@ -56,8 +63,8 @@ const ReportingHistoryLabel = () => {
     return(
     <div className={classes.reportsHeader}>
         <Typography variant="h2">Reporting History View</Typography>
-        <ButtonGroup size="small">
-            <Button>List</Button>
+        <ButtonGroup className={classes.buttonGroup} size="small">
+            <Button className="selected">List</Button>
             <Button>Calendar</Button>
         </ButtonGroup>
     </div>)
