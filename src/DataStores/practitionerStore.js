@@ -316,6 +316,10 @@ export class PractitionerStore extends UserStore {
         this.cohortSummary.data = response;
     }
 
+    @computed get selectedPatientReports(){
+        return Object.values(this.selectedPatient.reports)
+    }
+
 
     //Testing Idea of Refactoring async code out of actions, as reccomending by docs
     getPatientDetails = (id) => {

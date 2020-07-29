@@ -7,7 +7,7 @@ import CalendarTest from './Calendar';
 
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import ReportsView from './ReportsView';
+import ReportsView from './ReportList';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
@@ -21,15 +21,13 @@ const useStyles = makeStyles({
     reportingHistory: {
         width: "100%"
     },
-    treatmentTimeline: {
-        marginLeft: "auto"
-    },
     reportsHeader:{
         padding: ".5em",
         display: "flex",
         alignItems: "center",
         "& > h2": {
-            marginRight: "1em"
+            marginRight: "1em",
+            textTransform: "uppercase"
         }
     }
   

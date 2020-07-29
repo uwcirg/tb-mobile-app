@@ -45,6 +45,7 @@ const useStyles = makeStyles({
     },
     treatmentTimeline:{
         ...Styles.profileCard,
+        alignSelf: "flex-start",
         backgroundColor: "white",
         marginRight: ".5em",
         minWidth: "300px",
