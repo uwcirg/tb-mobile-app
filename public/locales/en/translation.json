@@ -443,7 +443,11 @@
     },
     "report":{
         "medicationTaken": "Medication Taken",
-        "time": "Time"
+        "time": "Time",
+        "conclusive": "Conclusive",
+        "inconclusive": "Inconclusive",
+        "pending": "Pending",
+        "photoNotNeeded": "Photo Not Required"
     }
 
 }
