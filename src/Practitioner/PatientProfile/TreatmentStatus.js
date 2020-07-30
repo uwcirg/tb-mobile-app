@@ -78,7 +78,6 @@ const useStyles = makeStyles({
 const TreatmentStatus = observer((props) => {
 
     const patient = useStores().practitionerStore.selectedPatient.details;
-    console.log(JSON.stringify(patient))
     const classes = useStyles();
 
     return (<div className={classes.container}>
@@ -107,14 +106,14 @@ const Item = (props) => {
 }
 
 const Adherence = (props) => {
-    console.log("adherence " + props.value)
+
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
     return(
         <div className={classes.graph}>
                         <CircularProgressbar
                         strokeWidth={6}
-                         circleRatio={0.5} value={props.value * 100} styles={buildStyles({
+                         circleRatio={0.5} value={(props.value || 0) * 100} styles={buildStyles({
                             transition: 'stroke-dashoffset 0.5s ease 0s',
                             pathColor: Colors.blue,
                             rotation: 3 / 4,
@@ -122,7 +121,7 @@ const Adherence = (props) => {
                             
                         })}>
                             <div className={classes.visText}>
-                                <span>{props.value * 100}%</span>
+                                <span>{(props.value || 0) * 100}%</span>
                                 <p>Adherence</p>
                             </div> 
                         </CircularProgressbar>

@@ -15,7 +15,7 @@
         "other": "Otra opción",
         "first": "primero",
         "second": "segundo",
-        "final": "final"
+        "final": "final "
     },
     "userTypes": {
         "patient": "Paciente",
@@ -100,7 +100,7 @@
                 "one": "¡Gracias por registrarse para el Asistente de Tratamiento!",
                 "two": "Ahora te vamos a enseñar las funciones principales de la aplicación "
             },
-            "homescreen": "We will start by showing you the homescreen",
+            "homescreen": "Comenzaremos mostrando la pantalla de inicio",
             "revisit": "Si gustas regresar a esta guía, la puedes encontrar en la sección de información ",
             "exit": "Para salir de esta guía, puedes tocar la X al extremo superior derecho",
             "tasks": "Éstas son tus tareas diarias, puedes tocar Iniciar Reporte para comenzar su reporte de hoy. ",
@@ -169,7 +169,7 @@
             },
             "progress": {
                 "currentStreak": "días consecutivos",
-                "upcomingDate": "Próximo fecha de tratamiento",
+                "upcomingDate": "Próxima Visita",
                 "viewAll": "Ver Todos"
             },
             "completed": {
@@ -217,7 +217,7 @@
             "symptomsTitle": "¿Tiene Malestares?",
             "moodTitle": "¿Cómo te sientes hoy?",
             "doingWell": "Doing Well",
-            "needSupport": "Need Support",
+            "needSupport": "Necesito ayuda ",
             "photoTitle": "Tomar Foto de Tira Reactiva",
             "photo": {
                 "usePhoto": "Seguir",
@@ -260,7 +260,7 @@
         "addMilestone": {
             "barTitle": "Añadir Hito",
             "titles": [
-                "What milestone would you like to add?",
+                "¿Qué hito le gustaría añadir?",
                 "Whats the date of your milestone?",
                 "Whats the time of your milestone?",
                 "¿Donde esta tu cita?"
@@ -357,7 +357,8 @@
             "noSymptoms": "Ningún Malestar Reportado",
             "tookMeds": "Tomó Medicación ",
             "didntTakeMeds": "No Tomó Medicación",
-            "noPhoto": "Sin Foto"
+            "noPhoto": "Sin Foto",
+            "none": "Ninguna"
         },
         "sideBar": {
             "lastContacted": "Último vez de Contacto",
@@ -389,6 +390,7 @@
             "resetPasswordExplanation": "Haga clic aquí para restablecer la contraseña de el paciente. Una contraseña temporal va a ser generada, tu necesitas mandar la nueva contraseña a el paciente por WhatsApp. Después de usar la contraseña temporal, la aplicación requerirá que el paciente cambie la contraseña. ",
             "phoneNumber": "número de teléfono",
             "treatmentStart": "Fecha de inicio del tratamiento",
+            "lastContacted": "Last Contacted",
             "date": "Fecha",
             "taken": "Última fecha de medicación reportado",
             "symptoms": "síntomas",
@@ -427,12 +429,17 @@
         }
     },
     "timeline":{
-        "title": "Treatment Timeline",
+        "title": " Cronología de Tratamiento ",
         "sputumTest": "Sputum Test",
         "start": "Start of Treatment",
-        "intensive": "Intensive Phase",
+        "intensive": "fase intensiva",
         "continuous": "Continuous Phase",
         "followUp": "Follow Up Appointments",
         "end": "Fin del Tratamiento"
+    },
+    "report":{
+        "medicationTaken": "Tomó Medicación ",
+        "time": "A Las"
     }
+
 }

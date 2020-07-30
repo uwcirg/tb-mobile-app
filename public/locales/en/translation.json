@@ -361,7 +361,8 @@
             "noSymptoms": "No Symptoms Reported",
             "tookMeds": "Took Meds",
             "didntTakeMeds": "Didnt Take Meds",
-            "noPhoto": "No Photo"
+            "noPhoto": "No Photo",
+            "none": "None"
         },
         "sideBar": {
             "lastContacted": "Last Contracted",
@@ -439,5 +440,10 @@
         "continuous": "Continuous Phase",
         "followUp": "Follow Up Appointments",
         "end": "End of Treatment"
+    },
+    "report":{
+        "medicationTaken": "Medication Taken",
+        "time": "Time"
     }
+
 }

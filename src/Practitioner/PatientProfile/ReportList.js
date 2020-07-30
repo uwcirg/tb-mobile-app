@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
@@ -7,6 +7,11 @@ import Styles from '../../Basics/Styles';
 import { DateTime } from 'luxon';
 import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
+import IconButton from '@material-ui/core/IconButton'
+import ExpandButton from '@material-ui/icons/KeyboardArrowDown'
+import CollapseButton from '@material-ui/icons/KeyboardArrowUp'
+import Collapse from '@material-ui/core/Collapse';
+
 
 
 const useStyles = makeStyles({
@@ -15,29 +20,35 @@ const useStyles = makeStyles({
         maxHeight: "78vh",
         overflow: "scroll"
     },
-    report: {
+    report:{
         ...Styles.profileCard,
         boxSizing: "border-box",
-        padding: ".5em 1em .5em 1em",
         width: "95%",
-        minHeight: "85px",
         backgroundColor: "white",
         marginBottom: "1em",
         marginLeft: ".5em",
+    },
+    preview: {
+        minHeight: "85px",
+        transition: "all 2s ease",
         display: "flex",
+        padding: ".5em 1em .5em 1em",
         alignItems: "center",
         "& > div.section":{
             marginLeft: "1em",
             paddingRight: ".5em",
             borderRight: "solid 1px gray"
         },
-        "& > div.section:last-child":{
+        "& > div.section:last-of-type":{
             borderRight: "none"
+        },
+        "& > button.expand":{
+            marginLeft: "auto"
         }
     },
     time: {
         height: "auto",
-        flexBasis: "10%",
+        marginRight: "1em",
         ...Styles.flexColumn,
         justifyContent: "center",
         alignItems: "center",
@@ -60,21 +71,22 @@ const useStyles = makeStyles({
     },
     reportItem: {
         ...Styles.flexColumn,
-        flexBasis: "15%",
+        justifyContent: "flex-start",
         fontSize: ".875em",
         letterSpacing: ".15px",
         color: Colors.textDarkGray,
         "& > span":{
-            fontWeight: "bold"
+            fontWeight: "bold",
+            textTransform: "capitalize"
         },
         "& > span, & > p":{
             margin: 0,
             padding: 0
-        }
-
-
+        },
+        "& > p":{
+            marginBottom: "3px"
+        },
     }
-
 })
 
 const ReportView = observer(() => {
@@ -91,6 +103,7 @@ const ReportView = observer(() => {
 })
 
 const Report = (props) => {
+    const [expanded,setExpanded] = useState(false);
     const { report } = props;
     const classes = useStyles();
     const date = DateTime.fromISO(report.date);
@@ -99,16 +112,35 @@ const Report = (props) => {
     console.log(report)
 
     return (
+        
         <div className={classes.report}>
+        <div className={classes.preview}>
             <div className={classes.time}>
                 <span>{date.day}</span>
                 <p>{date.monthShort}</p>
             </div>
             <Tag backgroundColor={Colors.patientHistory.report}>Report</Tag>
-            <ReportItem title={t('commonWords.medication')} content={report.medicationWasTaken ? "Took Medication" : "Didnt take medication"} />
-            <ReportItem title={t('patient.report.confirmation.takenAt')} content={DateTime.fromISO(report.takenAt).toLocaleString(DateTime.TIME_24_SIMPLE)} />
+            <ReportItem title={t('report.medicationTaken')} content={report.medicationWasTaken ? t('commonWords.yes') : t('commonWords.no')} />
+            <ReportItem title={t('report.time')} content={DateTime.fromISO(report.takenAt).toLocaleString(DateTime.TIME_24_SIMPLE)} />
+            <ReportItem title={t('commonWords.symptoms')} content={<SymptomList list={report.symptoms} />} />
+            <IconButton className="expand" onClick={() => {setExpanded(!expanded)}}>{expanded ?<CollapseButton /> : <ExpandButton />}</IconButton>
         </div>
+        <Collapse in={expanded}>
+            <ReportItem title={t('report.medicationTaken')} content={report.medicationWasTaken ? t('commonWords.yes') : t('commonWords.no')} />
+            <ReportItem title={t('report.time')} content={DateTime.fromISO(report.takenAt).toLocaleString(DateTime.TIME_24_SIMPLE)} />
+            <ReportItem title={t('commonWords.symptoms')} content={<SymptomList list={report.symptoms} />} />
+         </Collapse>
+        </div>
+        
     )
+}
+
+const SymptomList = (props) => {
+    const { t, i18n } = useTranslation('translation');
+    return (<>
+        {props.list.length > 0 ? t(`symptoms.${props.list[0]}.title`) : t('coordinator.recentReports.none')}  
+        {props.list.length > 1 && ` +${props.list.length - 1}`}
+    </>)
 }
 
 const Tag = (props) => {
@@ -117,6 +149,7 @@ const Tag = (props) => {
 }
 
 const ReportItem = (props) => {
+
     const classes = useStyles(props);
     return (
         <div className={`section ${classes.reportItem}`}>

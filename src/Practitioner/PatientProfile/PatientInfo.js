@@ -24,8 +24,12 @@ const useStyles = makeStyles({
         marginRight: ".5em",
         marginTop: "1em",
         "& > span": {
+            
             margin: 0,
             ...Styles.profileItem
+        },
+        "& > span:nth-child(1)": {
+            textTransform: "capitalize"
         },
         "& > span:nth-child(2)": {
             fontWeight: "bold",
@@ -34,8 +38,11 @@ const useStyles = makeStyles({
     },
     detailGroup: {
         display: "flex",
+        flexWrap: "true",
         width: "100%",
-        justifyContent: "space-between",
+        "& > div":{
+            marginRight: "2em"
+        },
         marginBottom: "1em"
     },
     children:{
