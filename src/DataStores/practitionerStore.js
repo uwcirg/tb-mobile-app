@@ -320,7 +320,6 @@ export class PractitionerStore extends UserStore {
         return Object.values(this.selectedPatient.reports)
     }
 
-
     //Testing Idea of Refactoring async code out of actions, as reccomending by docs
     getPatientDetails = (id) => {
         this.executeRawRequest(`/practitioner/patient/${id}?`, "GET").then(response => {

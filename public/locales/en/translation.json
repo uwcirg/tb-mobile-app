@@ -447,7 +447,10 @@
         "conclusive": "Conclusive",
         "inconclusive": "Inconclusive",
         "pending": "Pending",
-        "photoNotNeeded": "Photo Not Required"
+        "photoNotNeeded": "Photo Not Required",
+        "submittedAt": "Submitted At",
+        "feeling": "Mood",
+        "photoSubmitted": "Photo Submitted"
     }
 
 }

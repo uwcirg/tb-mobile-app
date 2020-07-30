@@ -16,6 +16,9 @@ import Check from '@material-ui/icons/Check'
 import Clear from '@material-ui/icons/Clear'
 import Pending from '@material-ui/icons/Help';
 
+import FeelingGood from '@material-ui/icons/Mood'
+import FeelingBad from '@material-ui/icons/MoodBad'
+
 
 
 const useStyles = makeStyles({
@@ -81,7 +84,10 @@ const useStyles = makeStyles({
         color: Colors.textDarkGray,
         "& > span": {
             fontWeight: "bold",
-            textTransform: "capitalize"
+            textTransform: "capitalize",
+            "& > svg":{
+                fontSize: '4em'
+            }
         },
         "& > span, & > p": {
             margin: 0,
@@ -92,11 +98,14 @@ const useStyles = makeStyles({
         },
     },
     details: {
-        display: "flex"
+        display: "flex",
+        padding: "1em",
+        "& > div.section":{
+            marginRight: "2em"
+        }
     },
     reportPhoto: {
         flexBasis: "25%",
-        marginLeft: "auto",
         "& > img": {
             width: "100%"
         }
@@ -132,8 +141,6 @@ const Report = (props) => {
     const date = DateTime.fromISO(report.date);
     const { t, i18n } = useTranslation('translation');
 
-    console.log(report)
-
     return (
 
         <div className={classes.report}>
@@ -145,14 +152,15 @@ const Report = (props) => {
                 <Tag backgroundColor={Colors.patientHistory.report}>Report</Tag>
                 <ReportItem title={t('report.medicationTaken')} content={report.medicationWasTaken ? t('commonWords.yes') : t('commonWords.no')} />
                 <ReportItem title={t('report.time')} content={DateTime.fromISO(report.takenAt).toLocaleString(DateTime.TIME_24_SIMPLE)} />
-                <ReportItem title={t('commonWords.symptoms')} content={<SymptomList list={report.symptoms} />} />
+                <ReportItem title={t('commonWords.symptoms')} content={<SymptomListPreview list={report.symptoms} />} />
+                {report.photoWasRequired && <ReportItem title={t('report.photoSubmitted')} content={report.photoDetails ? "Yes" : "No"} />}
                 <IconButton className="expand" onClick={() => { setExpanded(!expanded) }}>{expanded ? <CollapseButton /> : <ExpandButton />}</IconButton>
             </div>
             <Collapse in={expanded}>
                 <div className={classes.details}>
-                    <ReportItem title={t('report.medicationTaken')} content={report.medicationWasTaken ? t('commonWords.yes') : t('commonWords.no')} />
-                    <ReportItem title={t('report.time')} content={DateTime.fromISO(report.takenAt).toLocaleString(DateTime.TIME_24_SIMPLE)} />
-                    <ReportItem title={t('commonWords.symptoms')} content={<SymptomList list={report.symptoms} />} />
+                    <ReportItem title={t('commonWords.symptoms')} content={<FullSymptomList list={report.symptoms} />} />
+                    <ReportItem title={t('report.submittedAt')} content={<p>{DateTime.fromISO(report.updatedAt).toLocaleString(DateTime.DATETIME_SHORT)}</p>} />
+                    <ReportItem title={t('report.feeling')} content={<Feeling doingOkay={report.doingOkay} />} />
                     <ReportPhoto approval={report.photoDetails && report.photoDetails.approvalStatus} url={report.photoUrl} />
                 </div>
             </Collapse>
@@ -183,11 +191,19 @@ const ReportPhoto = (props) => {
     </div>)
 }
 
-const SymptomList = (props) => {
+const SymptomListPreview = (props) => {
     const { t, i18n } = useTranslation('translation');
     return (<>
         {props.list.length > 0 ? t(`symptoms.${props.list[0]}.title`) : t('coordinator.recentReports.none')}
         {props.list.length > 1 && ` +${props.list.length - 1}`}
+    </>)
+}
+
+const FullSymptomList = (props) =>{
+        const { t, i18n } = useTranslation('translation');
+    return (<>
+        {props.list.length > 0 ? <div> {props.list.map(each => {
+            return(<p>{t(`symptoms.${each}.title`)}</p>)})} </div> : <p>{t('coordinator.recentReports.none')}</p>}
     </>)
 }
 
@@ -206,6 +222,15 @@ const ReportItem = (props) => {
         </div>
     )
 
+}
+
+const Feeling = (props) => {
+    
+    return(
+        <>
+        {props.doingOkay ? <FeelingGood style={{color: Colors.green}} /> : <FeelingBad style={{color: Colors.red}} /> }
+        </>
+    )
 }
 
 export default ReportView;
