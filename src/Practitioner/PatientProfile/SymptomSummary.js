@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import {observer} from 'mobx-react'
@@ -16,20 +16,25 @@ const useStyles = makeStyles({
   }
 })
 
-const SymptomSummary = () => {
+const SymptomSummary = observer(() => {
 
     const classes = useStyles();
-    const { practitionerStore } = useStores();
+    const symptomSummary = useStores().practitionerStore.selectedPatient.symptomSummary
     const { t, i18n } = useTranslation('translation');
+    const [selection,setSelection] = useState("week");
 
+    const options = ["week","month","all"]
 
     return(
     <div className={classes.container}>
         <Typography variant={"h2"}>Symptoms</Typography>
-        <p><span className={classes.bold}>{t("coordinator.patientProfile.phoneNumber")}: </span>{practitionerStore.selectedPatient.details.phoneNumber}</p>
+
+       {Object.keys(symptomSummary).length > 0 && Object.keys(symptomSummary[selection]).map(each => {
+           return (symptomSummary[selection][each] > 0 ? <p>{t(`symptoms.${each}.title`)}: {symptomSummary[selection][each]} </p> : "")
+       })}
 
     </div>)
 
-}
+});
 
 export default SymptomSummary;

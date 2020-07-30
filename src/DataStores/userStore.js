@@ -20,6 +20,7 @@ export class UserStore extends APIStore {
   @observable expired = false;
   @observable isLoggedIn = false;
   @observable reminderTime = "";
+  @observable organizationID = 0;
 
   @observable passwordUpdate = this.defaultPasswordUpdateState
 
@@ -32,6 +33,7 @@ export class UserStore extends APIStore {
   @action setAccountInformation(json) {
     this.givenName = json.givenName;
     this.familyName = json.familyName;
+    this.organizationID = json.organizationId;
     this.userID = json.id;
     this.status = json.status;
   }

@@ -67,7 +67,8 @@ export class PractitionerStore extends UserStore {
     @observable selectedPatient = {
         reports: {},
         reportsLoading: false,
-        details: {}
+        details: {},
+        symptomSummary: {}
     }
 
     @observable missedDays = {
@@ -316,23 +317,31 @@ export class PractitionerStore extends UserStore {
         this.cohortSummary.data = response;
     }
 
+    @action setPatientSymptomSummary = (symptoms) => {
+        this.selectedPatient.symptomSummary = symptoms
+    }
+
     @computed get selectedPatientReports(){
         return Object.values(this.selectedPatient.reports)
     }
 
-    //Testing Idea of Refactoring async code out of actions, as reccomending by docs
+    //Testing Idea of Refactoring async code out of actions, as reccomended by docs
     getPatientDetails = (id) => {
-        this.executeRawRequest(`/practitioner/patient/${id}?`, "GET").then(response => {
+        this.executeRawRequest(`/practitioner/patient/${id}`, "GET").then(response => {
            this.setSelectedPatientDetails(response);
         })
         //Must fetch reports seperately due to key tranform in Rails::AMS removing dashes ISO date keys :(
         this.executeRawRequest(`/patient/${id}/reports`, "GET").then(response => {
             this.setPatientReports(response);
         })
+
+        this.executeRawRequest(`/patient/${id}/symptom_summary`).then(response =>{
+            this.setPatientSymptomSummary(response);
+        })
     }
 
     getCohortSummary = () => {
-        this.executeRawRequest(`/organizations/1/cohort_summary`).then(response =>{
+        this.executeRawRequest(`/organizations/${this.organizationID}/cohort_summary`).then(response =>{
             this.setCohortSummary(response);
         })
     }
