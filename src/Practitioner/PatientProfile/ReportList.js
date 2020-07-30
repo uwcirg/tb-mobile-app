@@ -86,6 +86,21 @@ const useStyles = makeStyles({
         "& > p":{
             marginBottom: "3px"
         },
+    },
+    details:{
+        display: "flex"
+    },
+    reportPhoto:{
+        flexBasis: "25%",
+        marginLeft: "auto",
+        "& > img":{
+            width: "100%"
+        }
+    },
+    noPhoto:{
+        ...Styles.flexCenter,
+        height: "100px",
+        backgroundColor: Colors.lightgray
     }
 })
 
@@ -126,13 +141,23 @@ const Report = (props) => {
             <IconButton className="expand" onClick={() => {setExpanded(!expanded)}}>{expanded ?<CollapseButton /> : <ExpandButton />}</IconButton>
         </div>
         <Collapse in={expanded}>
+            <div className={classes.details}>
             <ReportItem title={t('report.medicationTaken')} content={report.medicationWasTaken ? t('commonWords.yes') : t('commonWords.no')} />
             <ReportItem title={t('report.time')} content={DateTime.fromISO(report.takenAt).toLocaleString(DateTime.TIME_24_SIMPLE)} />
             <ReportItem title={t('commonWords.symptoms')} content={<SymptomList list={report.symptoms} />} />
+            <ReportPhoto url={report.photoUrl} />
+            </div>
          </Collapse>
         </div>
         
     )
+}
+
+const ReportPhoto = (props) =>{
+    const classes = useStyles();
+    return (<div className={classes.reportPhoto}>
+        {props.url ? <img src={props.url} /> : <div className={classes.noPhoto}>Photo Not Required</div>}
+    </div>)
 }
 
 const SymptomList = (props) => {

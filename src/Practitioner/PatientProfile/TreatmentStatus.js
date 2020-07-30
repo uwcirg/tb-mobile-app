@@ -89,7 +89,7 @@ const TreatmentStatus = observer((props) => {
         </div>
         <div className={classes.bottom}>
             <Item top={`${patient.daysInTreatment}/180`} bottom={"Days Completed"} />
-            <Item top={<><Trend style={{color: Colors.green}} />90/180</>} bottom={"Days Completed"} />
+            {/*<Item top={<><Trend style={{color: Colors.green}} />90/180</>} bottom={"Days Completed"} />*/}
         </div>
     </div>)
 

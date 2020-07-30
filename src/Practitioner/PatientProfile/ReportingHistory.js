@@ -10,6 +10,7 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import ReportsView from './ReportList';
 import Typography from '@material-ui/core/Typography';
 import Colors from '../../Basics/Colors';
+import Styles from '../../Basics/Styles';
 
 const useStyles = makeStyles({
     reportingHistoryContainer: {
@@ -28,7 +29,7 @@ const useStyles = makeStyles({
         alignItems: "center",
         "& > h2": {
             marginRight: "1em",
-            textTransform: "uppercase"
+            ...Styles.patientPageTitle
         }
     },
     buttonGroup:{

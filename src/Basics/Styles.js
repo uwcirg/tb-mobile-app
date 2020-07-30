@@ -1,5 +1,11 @@
 import Colors from "./Colors";
 
+const patientPageTitle = {
+    textTransform: "uppercase",
+    marginBottom: "1em",
+    fontSize: "1em"
+}
+
 let Styles = {
 
     popOver: {
@@ -60,11 +66,15 @@ let Styles = {
         letterSpacing: '0.15px',
         color: Colors.textDarkGray
     },
-    profileCard:{
+    profileCard: {
         boxShadow: "0px 4px 16px rgba(0, 0, 0, 0.1)",
         borderRadius: "4px",
-        "& > h2": { textTransform: "uppercase",
-    marginBottom:"1em" }
+        "& > h2": {
+            ...patientPageTitle
+        }
+    },
+    patientPageTitle:{
+        ...patientPageTitle
     }
 
 }

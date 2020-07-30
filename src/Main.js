@@ -20,10 +20,7 @@ const theme = createMuiTheme({
     h1:{
       fontSize: "1.25em"
     },
-    h2:{
-      fontSize: "1em",
-      fontWeight: "bold"
-    }
+
 
   },
   palette: {
