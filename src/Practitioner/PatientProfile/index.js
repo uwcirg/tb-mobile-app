@@ -2,10 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
-import Calendar from '../../Basics/ReportCalendar';
-import Card from '../Shared/Card';
-import CalendarIcon from '@material-ui/icons/Today';
-import ProgressGraphs from '../ProfileProgress';
 import Styles from '../../Basics/Styles';
 import { DateTime } from 'luxon';
 import Colors from '../../Basics/Colors';

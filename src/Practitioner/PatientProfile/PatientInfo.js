@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
@@ -9,6 +9,10 @@ import Colors from '../../Basics/Colors';
 import ProfileButton from './ProfileButton'
 import Message from '@material-ui/icons/ChatBubble';
 import Add from '@material-ui/icons/AddCircle';
+import IconButton from '@material-ui/core/IconButton';
+import Settings from '@material-ui/icons/Settings';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const useStyles = makeStyles({
 
@@ -17,10 +21,15 @@ const useStyles = makeStyles({
         flexBasis: "33%",
         flexGrow: 1,
         backgroundColor: "white",
-        padding: "1em",
+        padding: "1em"
+    },
+    profileHeader: {
+        display: "flex",
+        alignItems: "center",
         "& > h1": {
             ...Styles.header,
-            marginTop: 0
+            margin: 0,
+            marginRight: "auto"
         }
     },
     item: {
@@ -64,13 +73,35 @@ const PatientInfo = observer((props) => {
     const classes = useStyles();
     const { practitionerStore } = useStores();
     const { t, i18n } = useTranslation('translation');
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    const handleMenu = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+  
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
 
     const getDate = (iso) => {
         return (DateTime.fromISO(iso).toLocaleString(DateTime.DATE_MED))
     }
 
     return (<div className={classes.container}>
-        {practitionerStore.selectedPatient.details && <h1>{practitionerStore.selectedPatient.details.fullName}</h1>}
+        {practitionerStore.selectedPatient.details && <div className={classes.profileHeader}>
+            <h1>{practitionerStore.selectedPatient.details.fullName}</h1>
+            <IconButton aria-controls="patient-options" aria-haspopup="true" onClick={handleMenu}>
+                <Settings />
+            </IconButton>
+            <Menu
+                    id="patient-options"
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                >
+                    <MenuItem > Archive Patient</MenuItem>
+                </Menu> </div>}
         <div className={classes.detailGroup}>
             <Item top={"Age"} bottom={"55 Years"} />
             <Item top={"Gender"} bottom={"Male"} />
@@ -86,7 +117,7 @@ const PatientInfo = observer((props) => {
 })
 
 const Buttons = observer(() => {
-    const {practitionerUIStore, practitionerStore} = useStores();
+    const { practitionerUIStore, practitionerStore } = useStores();
     const classes = useStyles();
 
     const messagePatient = () => {

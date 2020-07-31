@@ -113,11 +113,11 @@ const useStyles = makeStyles({
     },
     mainReportContent:{
         display: "flex",
-        flexGrow: 1,
+        marginLeft: "2em",
         "& > div.section": {
-            flexGrow: 1,
+            
             marginLeft: "1em",
-            paddingRight: ".5em",
+            paddingRight: "1em",
             borderRight: "solid 1px gray"
         },
         "& > div.section:last-of-type": {
@@ -148,7 +148,7 @@ const Report = (props) => {
 
     return (
 
-        <div key={props.key} className={classes.report}>
+        <div className={classes.report}>
             <div className={classes.preview}>
                 <div className={classes.time}>
                     <span>{date.day}</span>
