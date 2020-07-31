@@ -41,14 +41,6 @@ const useStyles = makeStyles({
         display: "flex",
         padding: ".5em 1em .5em 1em",
         alignItems: "center",
-        "& > div.section": {
-            marginLeft: "1em",
-            paddingRight: ".5em",
-            borderRight: "solid 1px gray"
-        },
-        "& > div.section:last-of-type": {
-            borderRight: "none"
-        },
         "& > button.expand": {
             marginLeft: "auto"
         }
@@ -118,6 +110,19 @@ const useStyles = makeStyles({
     photoStatus:{
         display: "flex",
         alignItems: "center"
+    },
+    mainReportContent:{
+        display: "flex",
+        flexGrow: 1,
+        "& > div.section": {
+            flexGrow: 1,
+            marginLeft: "1em",
+            paddingRight: ".5em",
+            borderRight: "solid 1px gray"
+        },
+        "& > div.section:last-of-type": {
+            borderRight: "none"
+        },
     }
 })
 
@@ -150,10 +155,12 @@ const Report = (props) => {
                     <p>{date.monthShort}</p>
                 </div>
                 <Tag backgroundColor={Colors.patientHistory.report}>Report</Tag>
+                <div className={classes.mainReportContent}>
                 <ReportItem title={t('report.medicationTaken')} content={report.medicationWasTaken ? t('commonWords.yes') : t('commonWords.no')} />
                 <ReportItem title={t('report.time')} content={DateTime.fromISO(report.takenAt).toLocaleString(DateTime.TIME_24_SIMPLE)} />
                 <ReportItem title={t('commonWords.symptoms')} content={<SymptomListPreview list={report.symptoms} />} />
                 {report.photoWasRequired && <ReportItem title={t('report.photoSubmitted')} content={report.photoDetails ? t('commonWords.yes') : t('commonWords.no')} />}
+                </div>
                 <IconButton className="expand" onClick={() => { setExpanded(!expanded) }}>{expanded ? <CollapseButton /> : <ExpandButton />}</IconButton>
             </div>
             <Collapse in={expanded}>

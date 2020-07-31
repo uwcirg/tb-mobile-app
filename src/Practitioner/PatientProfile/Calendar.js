@@ -147,7 +147,9 @@ const useStyles = makeStyles({
                 color: "black"
             }
         },
-        width: "100%"
+        width: "90%",
+        backgroundColor: "white",
+        ...Styles.profileCard
 
     },
     day: {
