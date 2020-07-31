@@ -406,7 +406,8 @@
             "currentStreak": "Current Streak",
             "longestStreak": "Longest Streak",
             "symptomSummary":{
-                "timeSelect":{
+                "noneReported": "No symptoms reported for selected time period",
+                "timeOptions":{
                     "week": "Past 7 Days",
                     "month": "Past 30 Days",
                     "all": "All Reports"

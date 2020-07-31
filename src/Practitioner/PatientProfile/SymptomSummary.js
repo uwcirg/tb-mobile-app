@@ -10,6 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Colors from '../../Basics/Colors';
 import { SevereSymptoms } from '../../Basics/SymptomsSeperation';
+import { ReactComponent as DoctorIcon } from '../../Basics/Icons/doctor.svg';
 
 const BorderLinearProgress = withStyles((theme) => ({
     root: {
@@ -39,8 +40,9 @@ const useStyles = makeStyles({
         display: "flex",
         alignItems: "center",
         "& > h2": {
-            margin: "0 auto 0 0",
-            ...Styles.patientPageTitle
+            ...Styles.patientPageTitle,
+            margin: "0",
+            marginRight: "auto"
         }
     },
     barLabel: {
@@ -61,9 +63,19 @@ const useStyles = makeStyles({
     barContainer: {
         width: "80%",
     },
-    select:{
+    select: {
         fontSize: ".875em",
-        "& > div": {padding: ".5em"}
+        "& > div": { padding: ".5em" }
+    },
+    noSymptoms: {
+        width: "100%",
+        ...Styles.flexColumn,
+        alignItems: "center",
+        textAlign: "center",
+        "& > p": { 
+            width: "70%",
+        textTransform: "capitalize"
+    }
     }
 })
 
@@ -85,34 +97,44 @@ const SymptomSummary = observer(() => {
 
     return (
         <div className={classes.container}>
-            <Typography variant={"h2"}>Symptoms</Typography>
+            <div className={classes.top}>
+                <Typography variant={"h2"}>Symptoms</Typography>
+                <Select
+                    className={classes.select}
+                    variant="outlined"
+                    labelId="interval-select-label"
+                    id="interval-select"
+                    value={selection}
+                    onChange={handleChange}
+                >
+                    {options.map(each => {
+                        return <MenuItem value={each}><span className={classes.menuItem}>{t(`coordinator.patientProfile.symptomSummary.timeOptions.${each}`)}</span></MenuItem>
+                    })}
 
-            <Select
-                className={classes.select}
-                variant="outlined"
-                labelId="interval-select-label"
-                id="interval-select"
-                value={selection}
-                onChange={handleChange}
-            >
-                {options.map(each => {
-                    return <MenuItem value={each}><span className={classes.menuItem}>{t(`coordinator.patientProfile.symptomSummary.timeSelect.${each}`)}</span></MenuItem>
-                })}
-
-            </Select>
+                </Select>
+            </div>
 
             <div className={classes.barContainer}>
-                {list.map(each => {
+                {total > 0 ? list.map(each => {
                     const value = symptomSummary[selection][each]
                     return (symptomSummary[selection][each] > 0 ? <>
                         <div className={classes.barLabel}><p>{t(`symptoms.${each}.title`)}</p> <p>{value} | {total}</p></div>
                         <BorderLinearProgress severe={SevereSymptoms.includes(each)} variant="determinate" value={(value / total) * 100} />
                     </> : "")
-                })}
+                }) : <NoSymptoms />}
             </div>
-
         </div>)
-
 });
+
+const NoSymptoms = () => {
+    const classes = useStyles();
+    const { t, i18n } = useTranslation('translation');
+    return (
+        <div className={classes.noSymptoms}>
+            <DoctorIcon />
+            <p>{t('coordinator.patientProfile.symptomSummary.noneReported')}</p>
+        </div>
+    )
+}
 
 export default SymptomSummary;
