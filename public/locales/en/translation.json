@@ -44,7 +44,9 @@
         "week": "week",
         "days": "days",
         "weeks": "weeks",
-        "month": "month"
+        "month": "month",
+        "all": "all"
+
     },
     "patient": {
         "onboarding":{
@@ -402,7 +404,14 @@
             "completedDays": "Completed Days",
             "feelingHealthy": "Feeling Healthy",
             "currentStreak": "Current Streak",
-            "longestStreak": "Longest Streak"
+            "longestStreak": "Longest Streak",
+            "symptomSummary":{
+                "timeSelect":{
+                    "week": "Past 7 Days",
+                    "month": "Past 30 Days",
+                    "all": "All Reports"
+                }
+            }
         }
     },
     "errors": {
