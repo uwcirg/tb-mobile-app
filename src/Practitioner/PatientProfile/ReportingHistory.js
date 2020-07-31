@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import {observer} from 'mobx-react'
@@ -11,6 +11,7 @@ import ReportsView from './ReportList';
 import Typography from '@material-ui/core/Typography';
 import Colors from '../../Basics/Colors';
 import Styles from '../../Basics/Styles';
+import { DateTime } from 'luxon';
 
 const useStyles = makeStyles({
     reportingHistoryContainer: {
@@ -41,23 +42,37 @@ const useStyles = makeStyles({
   
 })
 
-const ReportingHistory = () => {
+const ReportingHistory = observer(() => {
+    const [calendarVisible,setCalendarVisible] = useState(false);
+    const [day,setDay] = useState(new Date())
     const classes = useStyles();
+    const {practitionerStore} = useStores();
+
+    const handleChange = (change) =>{
+        setDay(change)
+    }
     return (
         <div className={classes.reportingHistoryContainer}>
-            <ReportingHistoryLabel />
+                <div className={classes.reportsHeader}>
+        <Typography variant="h2">Reporting History View</Typography>
+        <ButtonGroup className={classes.buttonGroup} size="small">
+            <Button onClick={()=>{setCalendarVisible(false)}} className={!calendarVisible && "selected"}>List</Button>
+            <Button onClick={()=>{setCalendarVisible(true)}} className={calendarVisible && "selected"}>Calendar</Button>
+        </ButtonGroup>
+    </div>
             <div className={classes.reportingHistory}>
-                {false ? <CalendarTest
+                {calendarVisible && <CalendarTest
                     selectedDay={day}
-                    handleChange={(date) => { setDay(date) }}
+                    handleChange={handleChange}
                     reports={practitionerStore.selectedPatient.reports}
                     treatmentStart={practitionerStore.selectedPatient.details.treatmentStart}
-                /> : <ReportsView />}
+                />}
+                {!calendarVisible && <ReportsView />}
             </div>
         </div>
     )
 
-}
+})
 
 const ReportingHistoryLabel = () => {
     const classes = useStyles();
@@ -65,8 +80,8 @@ const ReportingHistoryLabel = () => {
     <div className={classes.reportsHeader}>
         <Typography variant="h2">Reporting History View</Typography>
         <ButtonGroup className={classes.buttonGroup} size="small">
-            <Button className="selected">List</Button>
-            <Button>Calendar</Button>
+            <Button onClick={()=>{setCalendarVisible(false)}} className={!calendarVisible && "selected"}>List</Button>
+            <Button onClick={()=>{setCalendarVisible(true)}} className={calendarVisible && "selected"}>Calendar</Button>
         </ButtonGroup>
     </div>)
 }

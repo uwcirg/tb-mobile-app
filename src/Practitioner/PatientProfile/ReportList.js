@@ -128,7 +128,7 @@ const ReportView = observer(() => {
 
     return (<div className={classes.container}>
         {practitionerStore.selectedPatientReports.length > 0 && practitionerStore.selectedPatientReports.map(report => {
-            return <Report report={report} />
+            return <Report key={`patient-report-${report.id}`} report={report} />
         })}
     </div>)
 
@@ -143,7 +143,7 @@ const Report = (props) => {
 
     return (
 
-        <div className={classes.report}>
+        <div key={props.key} className={classes.report}>
             <div className={classes.preview}>
                 <div className={classes.time}>
                     <span>{date.day}</span>
@@ -153,7 +153,7 @@ const Report = (props) => {
                 <ReportItem title={t('report.medicationTaken')} content={report.medicationWasTaken ? t('commonWords.yes') : t('commonWords.no')} />
                 <ReportItem title={t('report.time')} content={DateTime.fromISO(report.takenAt).toLocaleString(DateTime.TIME_24_SIMPLE)} />
                 <ReportItem title={t('commonWords.symptoms')} content={<SymptomListPreview list={report.symptoms} />} />
-                {report.photoWasRequired && <ReportItem title={t('report.photoSubmitted')} content={report.photoDetails ? "Yes" : "No"} />}
+                {report.photoWasRequired && <ReportItem title={t('report.photoSubmitted')} content={report.photoDetails ? t('commonWords.yes') : t('commonWords.no')} />}
                 <IconButton className="expand" onClick={() => { setExpanded(!expanded) }}>{expanded ? <CollapseButton /> : <ExpandButton />}</IconButton>
             </div>
             <Collapse in={expanded}>
