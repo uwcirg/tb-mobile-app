@@ -15,7 +15,8 @@
         "other": "Other",
         "first": "first",
         "second": "second",
-        "final": "final"
+        "final": "final",
+        "total": "total"
     },
     "userTypes": {
         "patient": "Patient",
@@ -406,6 +407,7 @@
             "currentStreak": "Current Streak",
             "longestStreak": "Longest Streak",
             "symptomSummary":{
+                "title": "Symptom Summary",
                 "noneReported": "No symptoms reported for selected time period",
                 "timeOptions":{
                     "week": "Past 7 Days",

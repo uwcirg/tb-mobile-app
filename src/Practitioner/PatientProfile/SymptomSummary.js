@@ -61,7 +61,7 @@ const useStyles = makeStyles({
         }
     },
     barContainer: {
-        width: "80%",
+        width: "70%",
     },
     select: {
         fontSize: ".875em",
@@ -76,6 +76,29 @@ const useStyles = makeStyles({
             width: "70%",
         textTransform: "capitalize"
     }
+    },
+    totalContainer:{
+        display: "flex",
+        justifyContent: "space-between",
+        width: "100%",
+        "& > div.total":{
+            padding: "1em",
+            alignSelf: "center",
+            "& > p":{
+                textAlign: "center",
+                margin: 0,
+                padding: 0,
+                textTransform: "capitalize"
+            },
+            ...Styles.flexColumn,
+            "& > p:nth-of-type(2)":{
+                fontWeight: "bold"
+            },
+            "& > p:nth-of-type(1)":{
+                fontSize: "2em"
+            },
+            
+        }
     }
 })
 
@@ -98,7 +121,7 @@ const SymptomSummary = observer(() => {
     return (
         <div className={classes.container}>
             <div className={classes.top}>
-                <Typography variant={"h2"}>Symptoms</Typography>
+                <Typography variant={"h2"}>{t('coordinator.patientProfile.symptomSummary.title')}</Typography>
                 <Select
                     className={classes.select}
                     variant="outlined"
@@ -114,16 +137,14 @@ const SymptomSummary = observer(() => {
                 </Select>
             </div>
 
-            <div className={classes.barContainer}>
-                {total > 0 ? list.map(each => {
+                {total > 0 ? <div className={classes.totalContainer}><div className={classes.barContainer}> {list.map(each => {
                     const value = symptomSummary[selection][each]
                     return (symptomSummary[selection][each] > 0 ? <>
-                        <div className={classes.barLabel}><p>{t(`symptoms.${each}.title`)}</p> <p>{value} | {total}</p></div>
+                        <div className={classes.barLabel}><p>{t(`symptoms.${each}.title`)}</p> <p>{value}</p></div>
                         <BorderLinearProgress severe={SevereSymptoms.includes(each)} variant="determinate" value={(value / total) * 100} />
                     </> : "")
-                }) : <NoSymptoms />}
-            </div>
-        </div>)
+                })} </div> <div className="total"><p>{total}</p><p>{t('commonWords.total')}</p></div> </div> : <NoSymptoms />}
+            </div>)
 });
 
 const NoSymptoms = () => {
