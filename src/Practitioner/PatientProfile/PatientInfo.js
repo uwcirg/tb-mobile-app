@@ -5,6 +5,10 @@ import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon'
 import Styles from '../../Basics/Styles';
+import Colors from '../../Basics/Colors';
+import ProfileButton from './ProfileButton'
+import Message from '@material-ui/icons/ChatBubble';
+import Add from '@material-ui/icons/AddCircle';
 
 const useStyles = makeStyles({
 
@@ -24,7 +28,7 @@ const useStyles = makeStyles({
         marginRight: ".5em",
         marginTop: "1em",
         "& > span": {
-            
+
             margin: 0,
             ...Styles.profileItem
         },
@@ -40,13 +44,17 @@ const useStyles = makeStyles({
         display: "flex",
         flexWrap: "true",
         width: "100%",
-        "& > div":{
+        "& > div": {
             marginRight: "2em"
         },
         marginBottom: "1em"
     },
-    children:{
-        marginTop:"auto"
+    buttons: {
+        marginTop: "auto",
+        display: "flex",
+        "& > button": {
+            marginRight: "1em"
+        }
     }
 
 })
@@ -71,12 +79,25 @@ const PatientInfo = observer((props) => {
         <Item top={t("coordinator.patientProfile.treatmentStart")} bottom={getDate(practitionerStore.selectedPatient.details.treatmentStart)} />
         <Item top={t("coordinator.patientProfile.lastContacted")} bottom={getDate(practitionerStore.selectedPatient.details.lastContacted)} />
 
-        <div className={classes.children}>
-            {props.children}
-        </div>
+        <Buttons />
 
     </div>)
 
+})
+
+const Buttons = observer(() => {
+    const {practitionerUIStore, practitionerStore} = useStores();
+    const classes = useStyles();
+
+    const messagePatient = () => {
+        practitionerUIStore.goToChannel(practitionerStore.selectedPatient.details.channelId);
+    }
+    return (
+        <div className={classes.buttons}>
+            <ProfileButton onClick={messagePatient}><Message />Message</ProfileButton>
+            <ProfileButton backgroundColor={"white"} border color={Colors.buttonBlue}><Add />Add Note</ProfileButton>
+        </div>
+    )
 })
 
 const Item = (props) => {
