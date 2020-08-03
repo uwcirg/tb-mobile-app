@@ -66,9 +66,6 @@ const ActionBox = observer(() => {
         patientUIStore.openPhotoReport();
     }
 
-    console.log("is photo day")
-    console.log(patientStore.isPhotoDay)
-
     return(
         <InteractionCard upperText={t("patient.home.cardTitles.todaysTasks")} id="intro-tasks">
             {patientStore.dailyActionsCompleted ? 

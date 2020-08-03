@@ -12,6 +12,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import NauseaPopUp from './NauseaPopUp';
+import {Symptoms,SevereSymptoms} from '../../Basics/SymptomsSeperation'
 
 /*
 Object that maps all symptoms to strings which are used to fetch thier locations
@@ -24,23 +25,6 @@ nausea: {
     subtitle: "symptoms.nausea.subtitle"
 }
 */
-
-const Symptoms = [
-  "sore_belly",
-  "nausea",
-  "redness",
-  "hives",
-  "fever",
-  "appetite_loss"
-
-]
-
-const SevereSymptoms = [
-  "blurred_vision",
-  "yellow_coloration",
-  "difficulty_breathing",
-  "facial_swelling"
-]
 
 //Renders whole list of symptoms
 const SymptomsList = observer((props) => {

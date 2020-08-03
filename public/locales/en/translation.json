@@ -15,7 +15,8 @@
         "other": "Other",
         "first": "first",
         "second": "second",
-        "final": "final"
+        "final": "final",
+        "total": "total"
     },
     "userTypes": {
         "patient": "Patient",
@@ -35,16 +36,21 @@
         "activate": "Activate"
     },
     "messaging": {
+        "selectChannel": "Select a Patient or Discussion To Get Started",
         "nurseContact": "Need individual support? Contact your provider!",
         "privateExplained": "Private chat with your coordinator",
-        "search": "Search By Topic"
+        "search": "Search By Topic",
+        "patients": "Patients",
+        "discussions": "Discussions"
     },
     "time": {
         "day": "day",
         "week": "week",
         "days": "days",
         "weeks": "weeks",
-        "month": "month"
+        "month": "month",
+        "all": "all"
+
     },
     "patient": {
         "onboarding":{
@@ -361,7 +367,8 @@
             "noSymptoms": "No Symptoms Reported",
             "tookMeds": "Took Meds",
             "didntTakeMeds": "Didnt Take Meds",
-            "noPhoto": "No Photo"
+            "noPhoto": "No Photo",
+            "none": "None"
         },
         "sideBar": {
             "lastContacted": "Last Contracted",
@@ -389,10 +396,13 @@
         "false": "false",
         "daysInTreatment": "Days In Treatment",
         "patientProfile": {
+            "age": "age",
+            "gender": "gender",
             "resetPassword": "Reset Password",
             "resetPasswordExplanation": "Click here to reset a patients password. This generates a temporary password that you will have to send to them via WhatsApp. They will be asked to enter a new password after they use the temporary one.",
             "phoneNumber": "Phone Number",
             "treatmentStart": "Treatment Start",
+            "lastContacted": "Last Contacted",
             "date": "Date",
             "taken": "Taken",
             "symptoms": "Symptoms",
@@ -400,7 +410,27 @@
             "completedDays": "Completed Days",
             "feelingHealthy": "Feeling Healthy",
             "currentStreak": "Current Streak",
-            "longestStreak": "Longest Streak"
+            "longestStreak": "Longest Streak",
+            "symptomSummary":{
+                "title": "Symptom Summary",
+                "noneReported": "No symptoms reported for selected time period",
+                "timeOptions":{
+                    "week": "Past 7 Days",
+                    "month": "Past 30 Days",
+                    "all": "All Reports"
+                }
+            },
+            "treatmentStatus": "Treatment Status",
+            "feelingWell": "Feeling Well",
+            "contactTracing": "Contact Traces",
+            "reportingHistory": "Patient History",
+            "listReports": "List",
+            "calendarReports": "Calendar",
+            "options":{
+                "archive": "Archive Patient",
+                "message": "Message",
+                "note": "Add Note"
+            }
         }
     },
     "errors": {
@@ -438,5 +468,19 @@
         "continuous": "Continuous Phase",
         "followUp": "Follow Up Appointments",
         "end": "End of Treatment"
+    },
+    "report":{
+        "tag": "Report",
+        "medicationTaken": "Medication Taken",
+        "time": "Time",
+        "conclusive": "Conclusive",
+        "inconclusive": "Inconclusive",
+        "pending": "Pending",
+        "photoNotNeeded": "Photo Not Required",
+        "missedPhoto": "Photo Not Submitted",
+        "submittedAt": "Submitted At",
+        "feeling": "Feeling",
+        "photoSubmitted": "Photo Submitted"
     }
+
 }
