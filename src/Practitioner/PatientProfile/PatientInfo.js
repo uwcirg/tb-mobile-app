@@ -100,7 +100,7 @@ const PatientInfo = observer((props) => {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                 >
-                    <MenuItem > Archive Patient</MenuItem>
+                    <MenuItem >{t("coordinator.patientProfile.options.archive")}</MenuItem>
                 </Menu> </div>}
         <div className={classes.detailGroup}>
             <Item top={t("coordinator.patientProfile.age")} bottom={practitionerStore.selectedPatient.details.age || "N/A"} />
@@ -119,14 +119,15 @@ const PatientInfo = observer((props) => {
 const Buttons = observer(() => {
     const { practitionerUIStore, practitionerStore } = useStores();
     const classes = useStyles();
+    const { t, i18n } = useTranslation('translation');
 
     const messagePatient = () => {
         practitionerUIStore.goToChannel(practitionerStore.selectedPatient.details.channelId);
     }
     return (
         <div className={classes.buttons}>
-            <ProfileButton onClick={messagePatient}><Message />Message</ProfileButton>
-            <ProfileButton backgroundColor={"white"} border color={Colors.buttonBlue}><Add />Add Note</ProfileButton>
+            <ProfileButton onClick={messagePatient}><Message />{t("coordinator.patientProfile.options.message")}</ProfileButton>
+            <ProfileButton backgroundColor={"white"} border color={Colors.buttonBlue}><Add />{t("coordinator.patientProfile.options.note")}</ProfileButton>
         </div>
     )
 })

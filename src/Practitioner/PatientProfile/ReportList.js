@@ -11,11 +11,9 @@ import IconButton from '@material-ui/core/IconButton'
 import ExpandButton from '@material-ui/icons/KeyboardArrowDown'
 import CollapseButton from '@material-ui/icons/KeyboardArrowUp'
 import Collapse from '@material-ui/core/Collapse';
-
 import Check from '@material-ui/icons/Check'
 import Clear from '@material-ui/icons/Clear'
 import Pending from '@material-ui/icons/Help';
-
 import FeelingGood from '@material-ui/icons/Mood'
 import FeelingBad from '@material-ui/icons/MoodBad'
 

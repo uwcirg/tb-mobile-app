@@ -85,8 +85,6 @@ const Profile = observer((props) => {
         }
     }, [])
 
-
-    const [day, setDay] = useState(DateTime.local().toJSDate());
     return (
         <>
             {onReset && <ResetPassword close={handleCloseReset} />}
@@ -104,7 +102,7 @@ const Profile = observer((props) => {
                     <ReportingHistory />
 
                     <div className={classes.treatmentTimeline}>
-                        <Typography variant={"h2"}>Treatment Timeline</Typography>
+                        <Typography variant={"h2"}>{t('timeline.title')}</Typography>
                         <TreatmentTimeline weeksInTreatment={practitionerStore.selectedPatient.details.weeksInTreatment} />
                     </div>
                 </div>

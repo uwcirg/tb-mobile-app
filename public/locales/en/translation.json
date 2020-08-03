@@ -423,7 +423,14 @@
             "treatmentStatus": "Treatment Status",
             "feelingWell": "Feeling Well",
             "contactTracing": "Contact Traces",
-            "reportingHistory": "Patient History"
+            "reportingHistory": "Patient History",
+            "listReports": "List",
+            "calendarReports": "Calendar",
+            "options":{
+                "archive": "Archive Patient",
+                "message": "Message",
+                "note": "Add Note"
+            }
         }
     },
     "errors": {
@@ -472,7 +479,7 @@
         "photoNotNeeded": "Photo Not Required",
         "missedPhoto": "Photo Not Submitted",
         "submittedAt": "Submitted At",
-        "feeling": "Mood",
+        "feeling": "Feeling",
         "photoSubmitted": "Photo Submitted"
     }
 
