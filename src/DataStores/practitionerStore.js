@@ -12,7 +12,8 @@ const ROUTES = {
     getPatientNames: ["/practitioner/patients?namesOnly=true", "GET"],
     getSeverePatients: ["/patients/severe", "GET"],
     getMissingPatients: ["/patients/missed", "GET"],
-    getRecentReports: ["/patients/reports/recent", "GET"]
+    getRecentReports: ["/patients/reports/recent", "GET"],
+    getCompletedResolutionsSummary: ["/practitioner/resolutions/summary","GET"]
 }
 
 export class PractitionerStore extends UserStore {
@@ -20,6 +21,10 @@ export class PractitionerStore extends UserStore {
     //Takes in a data fetching strategy, so you can swap out the API one for testing data
     constructor(strategy) {
         super(strategy, ROUTES, "Practitioner")
+    }
+
+    @observable resolutionSummary = {
+        dailyCount: 0
     }
 
     @observable cohortSummary = {
@@ -321,8 +326,20 @@ export class PractitionerStore extends UserStore {
         this.selectedPatient.symptomSummary = symptoms
     }
 
+    @action setResolutionsSummary = (count) => {
+        this.resolutionSummary.dailyCount = count;
+    }
+
     @computed get selectedPatientReports(){
         return Object.values(this.selectedPatient.reports)
+    }
+
+    @computed get totalTasks(){
+        let total = 0
+        Object.keys(this.filteredPatients).forEach( (each) => {
+            total += this.filteredPatients[each].length
+        })
+        return total
     }
 
     //Testing Idea of Refactoring async code out of actions, as reccomended by docs
@@ -343,6 +360,12 @@ export class PractitionerStore extends UserStore {
     getCohortSummary = () => {
         this.executeRawRequest(`/organizations/${this.organizationID}/cohort_summary`).then(response =>{
             this.setCohortSummary(response);
+        })
+    }
+
+    getCompletedResolutionsSummary = () => {
+        this.executeRequest("getCompletedResolutionsSummary").then(response => {
+            this.setResolutionsSummary(response.count)
         })
     }
 

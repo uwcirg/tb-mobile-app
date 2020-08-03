@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
@@ -22,10 +22,12 @@ const useStyles = makeStyles({
         boxSizing: 'border-box'
     },
     patientListContainer: {
-        "& > h2": { ...Styles.patientPageTitle },
+        marginTop: "auto",
+        marginBottom: "2em",
+
     },
     patientList: {
-        maxHeight: "400px",
+        height: "400px",
         overflow: "scroll"
     },
     patientCard: {
@@ -39,12 +41,14 @@ const useStyles = makeStyles({
         "& > p": {
             fontSize: ".875em",
             marginLeft: "1em",
+            textAlign: "center"
         },
         "&  > *": {
             flexBasis: "20%"
         },
         "& > p:first-child": {
-            flexBasis: "30%"
+            flexBasis: "25%",
+            textAlign: "left"
         }
     },
     notSubmitted: {
@@ -55,6 +59,17 @@ const useStyles = makeStyles({
             marginLeft: "1em",
             fontSize: ".875em"
         }
+    },
+    labels:{
+        borderRadius: "0",
+        backgroundColor: "none",
+        "& > p": {
+            textAlign: "left"
+        }
+    },
+    header:{
+        fontWeight: "bold",
+        fontSize: "1.5em"
     }
 })
 
@@ -64,13 +79,17 @@ const PatientList = observer(() => {
     const { practitionerStore } = useStores();
     const { t, i18n } = useTranslation('translation');
 
+    useEffect(() => {
+        practitionerStore.getCompletedResolutionsSummary();
+    },[])
+
     const patientList  = practitionerStore.patientList.sort( each => {
         if(each.reportingStatus.today.reported) return -1
         return 1
     })
 
     return (<div className={classes.patientListContainer}>
-        <Typography variant="h2">{t('coordinator.titles.reportingStatus')}</Typography>
+        <Typography className={classes.header} variant="h2">{t('coordinator.titles.reportingStatus')}</Typography>
         <div className={`${classes.patientCard} ${classes.labels}`}>
             <p className={classes.names}>Name</p>
             <p>Medicine Taken</p>
@@ -117,10 +136,22 @@ const Pending = () => {
     )
 }
 
+const Summary = observer(() => {
+    const {dailyCount} = useStores().practitionerStore.resolutionSummary
+    const {practitionerStore} = useStores();
+    return (
+        <div>
+            {dailyCount} / {dailyCount + practitionerStore.totalTasks}
+        </div>
+    )
+});
+
 const TaskBar = () => {
     const classes = useStyles();
     return (
         <div className={classes.container}>
+            <Typography className={classes.header} variant="h2">Overview</Typography>
+            <Summary />
             <PatientList />
         </div>
     )
