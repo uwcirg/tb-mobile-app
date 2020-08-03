@@ -350,7 +350,8 @@
     "coordinator": {
         "titles": {
             "myTasks": "My Tasks",
-            "myPatients": "My Patients"
+            "myPatients": "My Patients",
+            "reportingStatus": "Reporting Status"
         },
         "cardTitles": {
             "patientsWithSymptoms": "Patients with Symptoms",

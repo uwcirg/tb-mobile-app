@@ -11,6 +11,7 @@ import SymptomSidebar from './SymptomSideBar'
 import MedicationSideBar from './MedicationSideBar'
 import { useTranslation } from 'react-i18next';
 import { Badge } from '@material-ui/core';
+import TaskSideBar from './TaskSidebar'
 
 const useStyles = makeStyles({
     left: {
@@ -103,7 +104,7 @@ const SideBarRouter = observer((props) => {
     const { practitionerStore } = useStores();
     const classes = useStyles();
 
-    let component = ""
+    let component = <TaskSideBar />
 
     if (practitionerStore.selectedRow.type === "photo") {
         component = <PhotoSidebar />
