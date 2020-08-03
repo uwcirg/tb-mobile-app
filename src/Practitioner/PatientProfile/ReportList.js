@@ -91,10 +91,9 @@ const useStyles = makeStyles({
     },
     details: {
         display: "flex",
-        padding: "1em",
-        "& > div.section":{
-            marginRight: "2em"
-        }
+        width: "90%",
+        justifyContent: "space-between",
+        padding: "1em"
     },
     reportPhoto: {
         flexBasis: "25%",
@@ -123,6 +122,9 @@ const useStyles = makeStyles({
         "& > div.section:last-of-type": {
             borderRight: "none"
         },
+    },
+    red:{
+        color: "red"
     }
 })
 
@@ -154,7 +156,7 @@ const Report = (props) => {
                     <span>{date.day}</span>
                     <p>{date.monthShort}</p>
                 </div>
-                <Tag backgroundColor={Colors.patientHistory.report}>Report</Tag>
+                <Tag backgroundColor={Colors.patientHistory.report}>{t('report.tag')}</Tag>
                 <div className={classes.mainReportContent}>
                 <ReportItem title={t('report.medicationTaken')} content={report.medicationWasTaken ? t('commonWords.yes') : t('commonWords.no')} />
                 <ReportItem title={t('report.time')} content={DateTime.fromISO(report.takenAt).toLocaleString(DateTime.TIME_24_SIMPLE)} />
@@ -168,7 +170,7 @@ const Report = (props) => {
                     <ReportItem title={t('commonWords.symptoms')} content={<FullSymptomList list={report.symptoms} />} />
                     <ReportItem title={t('report.submittedAt')} content={<p>{DateTime.fromISO(report.updatedAt).toLocaleString(DateTime.DATETIME_SHORT)}</p>} />
                     <ReportItem title={t('report.feeling')} content={<Feeling doingOkay={report.doingOkay} />} />
-                    <ReportPhoto approval={report.photoDetails && report.photoDetails.approvalStatus} url={report.photoUrl} />
+                    <ReportPhoto required={report.photoWasRequired} approval={report.photoDetails && report.photoDetails.approvalStatus} url={report.photoUrl} />
                 </div>
             </Collapse>
         </div>
@@ -194,7 +196,7 @@ const ReportPhoto = (props) => {
                     <Clear style={{ color: Colors.red }} />
                     {t('report.inconclusive')} </>)}</div>
                 </>
-            : <div className={classes.noPhoto}>{t('report.photoNotNeeded')}</div>}
+            : <div className={classes.noPhoto}>{props.required ? <span className={classes.red}>{t('report.missedPhoto')}</span> : t('report.photoNotNeeded')}</div>}
     </div>)
 }
 

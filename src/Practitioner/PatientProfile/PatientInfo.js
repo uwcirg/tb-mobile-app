@@ -103,8 +103,8 @@ const PatientInfo = observer((props) => {
                     <MenuItem > Archive Patient</MenuItem>
                 </Menu> </div>}
         <div className={classes.detailGroup}>
-            <Item top={"Age"} bottom={"55 Years"} />
-            <Item top={"Gender"} bottom={"Male"} />
+            <Item top={t("coordinator.patientProfile.age")} bottom={practitionerStore.selectedPatient.details.age || "N/A"} />
+            <Item top={t("coordinator.patientProfile.gender")} bottom={practitionerStore.selectedPatient.details.gender|| "N/A"} />
             <Item top={t("coordinator.patientProfile.phoneNumber")} bottom={practitionerStore.selectedPatient.details.phoneNumber} />
         </div>
         <Item top={t("coordinator.patientProfile.treatmentStart")} bottom={getDate(practitionerStore.selectedPatient.details.treatmentStart)} />

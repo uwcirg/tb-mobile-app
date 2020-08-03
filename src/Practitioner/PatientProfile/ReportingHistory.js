@@ -12,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import Colors from '../../Basics/Colors';
 import Styles from '../../Basics/Styles';
 import { DateTime } from 'luxon';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
     reportingHistoryContainer: {
@@ -53,13 +54,7 @@ const ReportingHistory = observer(() => {
     }
     return (
         <div className={classes.reportingHistoryContainer}>
-                <div className={classes.reportsHeader}>
-        <Typography variant="h2">Reporting History View</Typography>
-        <ButtonGroup className={classes.buttonGroup} size="small">
-            <Button onClick={()=>{setCalendarVisible(false)}} className={!calendarVisible && "selected"}>List</Button>
-            <Button onClick={()=>{setCalendarVisible(true)}} className={calendarVisible && "selected"}>Calendar</Button>
-        </ButtonGroup>
-    </div>
+        <ReportingHistoryLabel setCalendarVisible={setCalendarVisible} calendarVisible={calendarVisible} />
             <div className={classes.reportingHistory}>
                 {calendarVisible && <CalendarTest
                     selectedDay={day}
@@ -74,14 +69,15 @@ const ReportingHistory = observer(() => {
 
 })
 
-const ReportingHistoryLabel = () => {
+const ReportingHistoryLabel = (props) => {
     const classes = useStyles();
+    const { t, i18n } = useTranslation('translation');
     return(
     <div className={classes.reportsHeader}>
-        <Typography variant="h2">Reporting History View</Typography>
+        <Typography variant="h2">{t('coordinator.patientProfile.reportingHistory')}</Typography>
         <ButtonGroup className={classes.buttonGroup} size="small">
-            <Button onClick={()=>{setCalendarVisible(false)}} className={!calendarVisible && "selected"}>List</Button>
-            <Button onClick={()=>{setCalendarVisible(true)}} className={calendarVisible && "selected"}>Calendar</Button>
+            <Button onClick={()=>{props.setCalendarVisible(false)}} className={!props.calendarVisible && "selected"}>List</Button>
+            <Button onClick={()=>{props.setCalendarVisible(true)}} className={props.calendarVisible && "selected"}>Calendar</Button>
         </ButtonGroup>
     </div>)
 }

@@ -36,9 +36,12 @@
         "activate": "Activate"
     },
     "messaging": {
+        "selectChannel": "Select a Patient or Discussion To Get Started",
         "nurseContact": "Need individual support? Contact your provider!",
         "privateExplained": "Private chat with your coordinator",
-        "search": "Search By Topic"
+        "search": "Search By Topic",
+        "patients": "Patients",
+        "discussions": "Discussions"
     },
     "time": {
         "day": "day",
@@ -393,6 +396,8 @@
         "false": "false",
         "daysInTreatment": "Days In Treatment",
         "patientProfile": {
+            "age": "age",
+            "gender": "gender",
             "resetPassword": "Reset Password",
             "resetPasswordExplanation": "Click here to reset a patients password. This generates a temporary password that you will have to send to them via WhatsApp. They will be asked to enter a new password after they use the temporary one.",
             "phoneNumber": "Phone Number",
@@ -414,7 +419,11 @@
                     "month": "Past 30 Days",
                     "all": "All Reports"
                 }
-            }
+            },
+            "treatmentStatus": "Treatment Status",
+            "feelingWell": "Feeling Well",
+            "contactTracing": "Contact Traces",
+            "reportingHistory": "Patient History"
         }
     },
     "errors": {
@@ -454,12 +463,14 @@
         "end": "End of Treatment"
     },
     "report":{
+        "tag": "Report",
         "medicationTaken": "Medication Taken",
         "time": "Time",
         "conclusive": "Conclusive",
         "inconclusive": "Inconclusive",
         "pending": "Pending",
         "photoNotNeeded": "Photo Not Required",
+        "missedPhoto": "Photo Not Submitted",
         "submittedAt": "Submitted At",
         "feeling": "Mood",
         "photoSubmitted": "Photo Submitted"

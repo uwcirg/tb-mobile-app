@@ -77,18 +77,19 @@ const useStyles = makeStyles({
 
 const TreatmentStatus = observer((props) => {
 
+    const { t, i18n } = useTranslation('translation');
     const patient = useStores().practitionerStore.selectedPatient.details;
     const classes = useStyles();
 
     return (<div className={classes.container}>
-        <Typography variant={"h2"}>Treatment Status</Typography>
+        <Typography variant={"h2"}>{t('coordinator.patientProfile.treatmentStatus')}</Typography>
         <Adherence value={patient.adherence} />
         <div className={classes.middle}>
-            <Item top={"80%"} bottom={"Feeling Healthy"} />
-            <Item top={"0 out of 5"} bottom={"Contact Traces"} />
+            <Item top={"80%"} bottom={t('coordinator.patientProfile.feelingWell')} />
+            <Item top={"0 out of 5"} bottom={t('coordinator.patientProfile.contactTracing')} />
         </div>
         <div className={classes.bottom}>
-            <Item top={`${patient.daysInTreatment}/180`} bottom={"Days Completed"} />
+            <Item top={`${patient.daysInTreatment}/180`} bottom={t('coordinator.patientProfile.completedDays')} />
             {/*<Item top={<><Trend style={{color: Colors.green}} />90/180</>} bottom={"Days Completed"} />*/}
         </div>
     </div>)
@@ -121,8 +122,8 @@ const Adherence = (props) => {
                             
                         })}>
                             <div className={classes.visText}>
-                                <span>{(props.value || 0) * 100}%</span>
-                                <p>Adherence</p>
+                                <span>{String((props.value || 0) * 100).substr(0,4)}%</span>
+                                <p>{t('coordinator.adherence')}</p>
                             </div> 
                         </CircularProgressbar>
                     </div>
