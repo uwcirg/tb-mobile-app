@@ -9,6 +9,7 @@ import Card from './Card'
 import useStores from '../../Basics/UseStores';
 import { Badge } from '@material-ui/core';
 import Styles from '../../Basics/Styles';
+import {DateTime} from 'luxon';
 
 
 const useStyles = makeStyles({
@@ -47,7 +48,8 @@ const useStyles = makeStyles({
         },
         display: "flex",
         alignItems: "center",
-        "& > p": {
+        "& > p:first-child": {
+            flexBasis: "25%",
             marginLeft: "2em"
         }
     },
@@ -73,8 +75,21 @@ const useStyles = makeStyles({
         top: "-10px",
         left: "-10px"
     },
-    noTasks:{
+    noTasks: {
         ...Styles.flexCenter
+    },
+    rowLoading: {
+        display: "flex",
+        marginLeft: "1em"
+    },
+    symptomList: {
+        fontStyle: "italic",
+        color: Colors.textGray
+    },
+    reportDate: {
+        marginLeft: "auto",
+        marginRight:"1em",
+        color: Colors.textGray
     }
 })
 
@@ -89,6 +104,7 @@ const HomePageCard = (props) => {
 
     const patientList = props.patientList.map((each, index) => {
         return (<SingleLine
+            type={props.type}
             selected={props.selectedType === props.type && props.selectedId === index}
             key={`${props.type}-${index}`}
             patientId={each.patientId}
@@ -101,7 +117,7 @@ const HomePageCard = (props) => {
         <Card icon={props.icon} title={props.title}>
             {props.badgeContent && <Badge overlap="circle" className={classes.badge} color="primary" badgeContent={props.badgeContent} />}
             <div className={classes.container}>
-                {props.patientList.length > 0 ? patientList : <div className={classes.noTasks}><p>{t("coordinator.noTasks")}</p></div> }
+                {props.patientList.length > 0 ? patientList : <div className={classes.noTasks}><p>{t("coordinator.noTasks")}</p></div>}
             </div>
         </Card>
     )
@@ -109,14 +125,42 @@ const HomePageCard = (props) => {
 
 const SingleLine = observer((props) => {
     const classes = useStyles();
+    const { t, i18n } = useTranslation('translation');
     const { practitionerStore } = useStores();
+
+    const patient = practitionerStore.getPatient(props.patientId)
 
     return (
         <div className={`${classes.lineItem} ${props.selected ? classes.selected : ""}`} onClick={props.onClick}>
-            <p>{practitionerStore.getPatientName(props.patientId)}</p>
+            {patient ?
+                <>
+                    <p>{patient.fullName} </p>
+                    <TaskInfo {...patient} type={props.type} />
+                </> :
+                <p>{t('coordinator.sideBar.loading')}...</p>}
         </div>
     )
 })
+
+const TaskInfo = (props) => {
+    const { t, i18n } = useTranslation('translation');
+    const classes = useStyles();
+
+    if (props.type === 'symptom') {
+
+        const displayedSymptom = t(`symptoms.${props.lastSymptoms.symptomList[0]}.title`)
+        const more = props.lastSymptoms.symptomList.length - 1
+
+        return (
+            <>
+                <p className={classes.symptomList}>{displayedSymptom} {more > 0 && <>+{more}</>}</p>
+                <p className={classes.reportDate}>{props.lastSymptoms.date ? <>{t('report.submittedAt')} {DateTime.fromISO(props.lastSymptoms.date).toLocaleString(DateTime.DATETIME_SHORT)} </> : "N/A"}</p>
+            </>
+        )
+    } else {
+        return ""
+    }
+}
 
 HomePageCard.propTypes = {
     title: PropTypes.string,

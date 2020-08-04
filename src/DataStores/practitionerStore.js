@@ -115,7 +115,7 @@ export class PractitionerStore extends UserStore {
     }
 
     getPatientName = (id) => {
-        return this.patients[id] ? this.patients[id].fullName : "Patient Name"
+        return this.patients[id] ? this.patients[id].fullName : ""
     }
 
     @action addNewPatient = () => {

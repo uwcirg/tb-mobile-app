@@ -38,14 +38,15 @@ const useStyles = makeStyles({
     container: {
         width: "100%",
         overflowX: "hidden",
-        display: "flex",
+        display: "flex"
     },
     photoPreview: {
         width: "100%"
     },
     sidebar:{
         width: "400px",
-        boxSizing: "border-box"
+        boxSizing: "border-box",
+        marginRight: "1em"
     },
     cardContainer:{
         width: "100%"

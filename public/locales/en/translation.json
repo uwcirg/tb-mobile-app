@@ -372,6 +372,11 @@
             "none": "None"
         },
         "sideBar": {
+            "overview:":{
+                "title": "Overview",
+                "doneToday": "Completed Today",
+                "unresolved": "Unresolved"
+            },
             "lastContacted": "Last Contracted",
             "viewFullProfile": "View Full Profile",
             "daysMissed": "Days Missed Since Last Resolution",
