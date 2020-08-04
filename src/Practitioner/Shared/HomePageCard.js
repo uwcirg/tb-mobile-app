@@ -88,12 +88,15 @@ const useStyles = makeStyles({
     },
     reportDate: {
         marginLeft: "auto",
-        marginRight:"1em",
+        marginRight:"2em",
         color: Colors.textGray
     }
 })
 
 const HomePageCard = (props) => {
+
+    console.log(props.type)
+    console.log(props.patientList)
 
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
@@ -108,6 +111,7 @@ const HomePageCard = (props) => {
             selected={props.selectedType === props.type && props.selectedId === index}
             key={`${props.type}-${index}`}
             patientId={each.patientId}
+            photoDate={props.type === "photo" && each.createdAt}
             onClick={() => handleClick(props.type, index)}
         />)
     })
@@ -135,7 +139,7 @@ const SingleLine = observer((props) => {
             {patient ?
                 <>
                     <p>{patient.fullName} </p>
-                    <TaskInfo {...patient} type={props.type} />
+                    <TaskInfo photoDate={props.photoDate} {...patient} type={props.type} />
                 </> :
                 <p>{t('coordinator.sideBar.loading')}...</p>}
         </div>
@@ -154,10 +158,16 @@ const TaskInfo = (props) => {
         return (
             <>
                 <p className={classes.symptomList}>{displayedSymptom} {more > 0 && <>+{more}</>}</p>
-                <p className={classes.reportDate}>{props.lastSymptoms.date ? <>{t('report.submittedAt')} {DateTime.fromISO(props.lastSymptoms.date).toLocaleString(DateTime.DATETIME_SHORT)} </> : "N/A"}</p>
+                <p className={classes.reportDate}>{props.lastSymptoms.date ? DateTime.fromISO(props.lastSymptoms.date).toLocaleString(DateTime.DATETIME_SHORT) : "N/A"}</p>
             </>
         )
-    } else {
+    } else if (props.type === 'photo'){
+        return(
+            <p className={classes.reportDate}>{props.photoDate ? DateTime.fromISO(props.photoDate).toLocaleString(DateTime.DATETIME_SHORT) : "N/A"}</p>
+        )
+    }
+    
+    else {
         return ""
     }
 }

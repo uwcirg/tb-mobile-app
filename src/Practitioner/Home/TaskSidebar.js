@@ -119,7 +119,7 @@ const useStyles = makeStyles({
 const PatientList = observer(() => {
 
     const classes = useStyles();
-    const { practitionerStore } = useStores();
+    const { practitionerStore,practitionerUIStore } = useStores();
     const { t, i18n } = useTranslation('translation');
 
     useEffect(() => {
@@ -142,7 +142,7 @@ const PatientList = observer(() => {
         <div className={classes.patientList}>
             {practitionerStore.patientList && practitionerStore.patientList.map(patient => {
                 return (
-                    <div className={classes.patientCard}>
+                    <div className={classes.patientCard} onClick={() => {practitionerUIStore.goToPatient(patient.id)}}>
                         <p key={patient.id}>{patient.givenName} {patient.familyName[0]}.</p>
                         {patient.reportingStatus.today.reported ? <Report data={patient.reportingStatus.today} /> : <Pending />}
 
