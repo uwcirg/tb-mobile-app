@@ -87,12 +87,17 @@ const useStyles = makeStyles({
         }
     },
     resolutionButtons:{
-        width: "50%",
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
         marginTop: "auto",
         marginBottom: "1em",
         "& > button":{
-            width: "100%",
-            margin: ".5em"
+           flexBasis: "40%",
+           display: "flex",
+           alignItems: "center",
+            margin: ".5em",
+            padding: '.5em'
         }
     },
     childrenContainer:{
