@@ -109,7 +109,7 @@ const HomePageCard = (props) => {
         return (<SingleLine
             type={props.type}
             selected={props.selectedType === props.type && props.selectedId === index}
-            key={`${props.type}-${index}`}
+            key={`${props.type}-${index}-line`}
             patientId={each.patientId}
             photoDate={props.type === "photo" && each.createdAt}
             onClick={() => handleClick(props.type, index)}
@@ -179,7 +179,6 @@ HomePageCard.propTypes = {
 };
 
 SingleLine.propTypes = {
-    fullName: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired
 };
 

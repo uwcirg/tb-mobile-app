@@ -60,8 +60,9 @@ const SymptomSidebar = observer((props) => {
     return (
         <Basicsidebar buttons={
             <>
-                <SharedButton icon={<Question />} color="#FFD951" text={"Pending"} onClick={() => { /* TODO: Pending */ }} />
                 <SharedButton text={"Resolve"} onClick={() => { practitionerStore.resolveSymptoms() }} />
+                <SharedButton icon={<Question />} color="#F2C94C" text={"Pending"} onClick={() => { /* TODO: Pending */ }} />
+
             </>
 
         }>
@@ -70,12 +71,12 @@ const SymptomSidebar = observer((props) => {
                 {practitionerStore.selectedPatientSymptoms.loading ?
                     <p> {t("coordinator.sideBar.loading")}...</p> : <div className={classes.symptoms}> {Object.keys(practitionerStore.selectedPatientSymptoms.summary).map((each) => {
                         return (
-                            <>
+                            <div key={`symptom-sidebar-container-${each}`}>
                                 <p className={classes.day}>{DateTime.fromISO(each).toLocaleString(DateTime.DATE_MED)}</p>
                                 {practitionerStore.selectedPatientSymptoms.summary[each] && practitionerStore.selectedPatientSymptoms.summary[each].map((symptom) => {
-                                    return <p>{t(`symptoms.${symptom}.title`)}</p>
+                                    return <p key={`symptom-sidebar-${symptom}`}>{t(`symptoms.${symptom}.title`)}</p>
                                 })}
-                            </>
+                            </div>
                         )
                     })} </div>}
             </div>

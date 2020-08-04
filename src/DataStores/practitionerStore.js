@@ -65,7 +65,7 @@ export class PractitionerStore extends UserStore {
 
     @observable organizationsList = [];
 
-    @observable patients = [];
+    @observable patients = {};
     @observable temporaryPatients = [];
 
     //Currently viewed patient

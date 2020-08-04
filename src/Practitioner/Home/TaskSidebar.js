@@ -144,8 +144,8 @@ const PatientList = observer(() => {
         <div className={classes.patientList}>
             {practitionerStore.patientList && practitionerStore.patientList.map(patient => {
                 return (
-                    <div className={classes.patientCard} onClick={() => {practitionerUIStore.goToPatient(patient.id)}}>
-                        <p key={patient.id}>{patient.givenName} {patient.familyName[0]}.</p>
+                    <div key={patient.id} className={classes.patientCard} onClick={() => {practitionerUIStore.goToPatient(patient.id)}}>
+                        <p>{patient.givenName} {patient.familyName[0]}.</p>
                         {patient.reportingStatus.today.reported ? <Report data={patient.reportingStatus.today} /> : <Pending />}
 
                     </div>

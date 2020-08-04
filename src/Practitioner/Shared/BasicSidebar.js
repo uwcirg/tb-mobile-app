@@ -86,21 +86,24 @@ const useStyles = makeStyles({
             fontWeight: "bold"
         }
     },
-    resolutionButtons:{
+    resolutionButtons: {
         width: "100%",
         display: "flex",
         justifyContent: "center",
         marginTop: "auto",
         marginBottom: "1em",
-        "& > button":{
-           flexBasis: "40%",
-           display: "flex",
-           alignItems: "center",
+        "& > button": {
+            flexBasis: "40%",
             margin: ".5em",
-            padding: '.5em'
+            padding: '.5em',
+            "& > span": {
+                fontSize: "1em",
+                display: "flex",
+                alignItems: "center",
+            },
         }
     },
-    childrenContainer:{
+    childrenContainer: {
         width: "100%",
         margin: "auto"
     }
@@ -130,7 +133,7 @@ const Card = observer((props) => {
                 {!props.isCohortView && <div className={classes.clear}><IconButton onClick={handleClose}><ClearIcon /></IconButton></div>}
                 {!props.isCohortView && <PatientPreview />}
                 <div className={classes.childrenContainer}>
-                {props.children}
+                    {props.children}
                 </div>
                 <div className={classes.resolutionButtons}>
                     {props.buttons}

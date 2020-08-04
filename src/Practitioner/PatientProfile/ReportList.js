@@ -210,7 +210,7 @@ const FullSymptomList = (props) =>{
         const { t, i18n } = useTranslation('translation');
     return (<>
         {props.list.length > 0 ? <div> {props.list.map(each => {
-            return(<p>{t(`symptoms.${each}.title`)}</p>)})} </div> : <p>{t('coordinator.recentReports.none')}</p>}
+            return(<p key={each}>{t(`symptoms.${each}.title`)}</p>)})} </div> : <p>{t('coordinator.recentReports.none')}</p>}
     </>)
 }
 
