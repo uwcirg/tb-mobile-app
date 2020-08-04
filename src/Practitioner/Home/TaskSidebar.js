@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import BasicSidebar from '../Shared/BasicSidebar'
@@ -10,6 +10,23 @@ import TimeIcon from '@material-ui/icons/AccessTime';
 import Check from '@material-ui/icons/Check';
 import Clear from '@material-ui/icons/Clear';
 import Colors from '../../Basics/Colors';
+import LinearProgress from '@material-ui/core/LinearProgress';
+
+const BorderLinearProgress = withStyles((theme) => ({
+    root: {
+        margin: "auto",
+        marginTop: "2em",
+        height: 13,
+        borderRadius: 9,
+    },
+    colorPrimary: {
+        backgroundColor: Colors.lightgray,
+    },
+    bar: {
+        borderRadius: 9,
+        backgroundColor: Colors.accentBlue
+    },
+}))(LinearProgress);
 
 const useStyles = makeStyles({
 
@@ -18,12 +35,12 @@ const useStyles = makeStyles({
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        padding: ".5em",
+        padding: "1em",
         boxSizing: 'border-box'
     },
     patientListContainer: {
         marginTop: "auto",
-        marginBottom: "2em",
+        marginBottom: ".5em"
 
     },
     patientList: {
@@ -35,7 +52,7 @@ const useStyles = makeStyles({
         alignItems: "center",
         padding: ".25em",
         borderRadius: "4px",
-        boxShadow: "0px 4px 16px rgba(204, 188, 252, 0.15)",
+        boxShadow: "0px 4px 16px rgba(0, 0, 0, 0.1)",
         backgroundColor: "white",
         marginTop: ".5em",
         "& > p": {
@@ -70,6 +87,32 @@ const useStyles = makeStyles({
     header:{
         fontWeight: "bold",
         fontSize: "1.5em"
+    },
+    taskStatus:{
+        display: "flex",
+        width: "100%",
+        justifyContent: "space-between",
+        "& > div":{
+            display: "felx",
+            flexDirection: "column",
+            alignItems: "flex-start",
+            "& > span":{
+                color: Colors.accentBlue,
+                fontSize: "1.8em"
+            },
+            "& > span.unfinished":{
+                color: Colors.textGray
+            },
+            "& > p":{
+                fontSize: ".875em",
+                margin: 0
+            }
+        }
+    },
+    progress:{
+        ...Styles.profileCard,
+        padding: "1em",
+        marginTop: "1em"
     }
 })
 
@@ -137,11 +180,24 @@ const Pending = () => {
 }
 
 const Summary = observer(() => {
+    const classes = useStyles();
     const {dailyCount} = useStores().practitionerStore.resolutionSummary
     const {practitionerStore} = useStores();
     return (
-        <div>
-            {dailyCount} / {dailyCount + practitionerStore.totalTasks}
+        <div className={classes.progress}>
+            <BorderLinearProgress variant="determinate" value={(dailyCount/(dailyCount + practitionerStore.totalTasks))  * 100} />
+            <div className={classes.taskStatus}>
+            <div>
+                <span>{dailyCount}</span>
+                <p>Complete</p>
+            </div>
+
+            <div>
+                <span className={'unfinished'}>{practitionerStore.totalTasks}</span>
+                <p>Unfinished</p>
+            </div>
+            </div>
+                
         </div>
     )
 });
