@@ -165,9 +165,9 @@ const TaskInfo = (props) => {
         return(
             <p className={classes.reportDate}>{props.photoDate ? DateTime.fromISO(props.photoDate).toLocaleString(DateTime.DATETIME_SHORT) : "N/A"}</p>
         )
-    }
-    
-    else {
+    } else if(props.type === 'missed'){
+        return <p className={classes.reportDate}>{props.lastMissedDay ? DateTime.fromISO(props.lastMissedDay).toLocaleString(DateTime.DATE_SHORT) : "N/A"}</p>
+    }else {
         return ""
     }
 }

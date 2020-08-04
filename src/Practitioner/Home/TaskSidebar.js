@@ -92,16 +92,18 @@ const useStyles = makeStyles({
         display: "flex",
         width: "100%",
         justifyContent: "space-between",
+        marginTop: ".5em",
         "& > div":{
-            display: "felx",
+            display: "flex",
             flexDirection: "column",
             alignItems: "flex-start",
             "& > span":{
                 color: Colors.accentBlue,
-                fontSize: "1.8em"
+                fontSize: "1.8em",
+                alignSelf: "center"
             },
             "& > span.unfinished":{
-                color: Colors.textGray
+                color: Colors.textGray,
             },
             "& > p":{
                 fontSize: ".875em",
