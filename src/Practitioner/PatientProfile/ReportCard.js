@@ -1,8 +1,8 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Styles from '../../Basics/Styles';
 import Collapse from '@material-ui/core/Collapse';
-import {DateTime} from 'luxon';
+import { DateTime } from 'luxon';
 import IconButton from '@material-ui/core/IconButton'
 import ExpandButton from '@material-ui/icons/KeyboardArrowDown'
 import CollapseButton from '@material-ui/icons/KeyboardArrowUp'
@@ -22,7 +22,7 @@ const useStyles = makeStyles({
             padding: ".5em 1em .5em 1em",
             alignItems: "center",
             "& > button.expand": {
-                marginLeft: "auto"
+                marginLeft: "auto",
             },
             "& > .time": {
                 height: "auto",
@@ -41,6 +41,19 @@ const useStyles = makeStyles({
                 }
             }
         }
+    },
+    mainReportContent: {
+        display: "flex",
+        marginLeft: "2em",
+        "& > div.section": {
+
+            marginLeft: "1em",
+            paddingRight: "1em",
+            borderRight: "solid 1px gray"
+        },
+        "& > div.section:last-of-type": {
+            borderRight: "none"
+        },
     },
     tag: {
         backgroundColor: props => props.backgroundColor,
@@ -70,7 +83,9 @@ const ReportCard = (props) => {
                     <p>{date.monthShort}</p>
                 </div>
                 <Tag backgroundColor={props.tagColor}>{props.tagText}</Tag>
-                {props.children}
+                <div className={classes.mainReportContent}>
+                    {props.children}
+                </div>
                 {props.expandedContent && <IconButton className="expand" onClick={() => { setExpanded(!expanded) }}>{expanded ? <CollapseButton /> : <ExpandButton />}</IconButton>}
             </div>
             {props.expandedContent && <Collapse in={expanded}>

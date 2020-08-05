@@ -73,14 +73,18 @@ const Profile = observer((props) => {
     const { t, i18n } = useTranslation('translation');
 
 
-    const handleCloseReset = () => {
+    const closeResetPassword = () => {
         setReset(false)
         practitionerStore.newActivationCode = ""
     }
 
+    const openResetPassword = () => {
+        setReset(true);
+    }
+
     useEffect(() => {
         practitionerStore.getPatientDetails(props.id);
-        practitionerStore.getPatientNotes();
+
         return function cleanup() {
             handleCloseReset();
         }
@@ -88,13 +92,10 @@ const Profile = observer((props) => {
 
     return (
         <>
-            {onReset && <ResetPassword close={handleCloseReset} />}
+            {onReset && <ResetPassword close={closeResetPassword} />}
             <div className={classes.patientContainer}>
                 <div className={classes.top}>
-                    <PatientInfo>
-                        <div onClick={() => { setReset(true) }}><KeyIcon /></div>
-                    </PatientInfo>
-
+                    <PatientInfo openResetPassword={openResetPassword} />
                     <TreatmentStatus />
                     <SymptomSummary />
                 </div>

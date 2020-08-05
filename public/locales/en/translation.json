@@ -433,6 +433,7 @@
             "listReports": "List",
             "calendarReports": "Calendar",
             "options":{
+                "resetPassword": "Reset Password",
                 "archive": "Archive Patient",
                 "message": "Message",
                 "note": "Add Note"

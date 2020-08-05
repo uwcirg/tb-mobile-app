@@ -100,7 +100,11 @@ const PatientInfo = observer((props) => {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                 >
-                    <MenuItem >{t("coordinator.patientProfile.options.archive")}</MenuItem>
+                    {/*<MenuItem >{t("coordinator.patientProfile.options.archive")}</MenuItem>*/}
+                    <MenuItem onClick={()=>{
+                        handleClose()
+                        props.openResetPassword()
+                        }} >{t("coordinator.patientProfile.options.resetPassword")}</MenuItem>
                 </Menu> </div>}
         <div className={classes.detailGroup}>
             <Item top={t("coordinator.patientProfile.age")} bottom={practitionerStore.selectedPatient.details.age || "N/A"} />

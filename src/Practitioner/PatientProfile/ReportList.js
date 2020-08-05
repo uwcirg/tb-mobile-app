@@ -13,35 +13,13 @@ import Pending from '@material-ui/icons/Help';
 import FeelingGood from '@material-ui/icons/Mood'
 import FeelingBad from '@material-ui/icons/MoodBad'
 import ReportCard from './ReportCard';
-
-
+import ReportItem from './ReportCardItem';
 
 const useStyles = makeStyles({
     container: {
         flexGrow: "1",
         maxHeight: "78vh",
         overflow: "scroll"
-    },
-    reportItem: {
-        ...Styles.flexColumn,
-        justifyContent: "flex-start",
-        fontSize: ".875em",
-        letterSpacing: ".15px",
-        color: Colors.textDarkGray,
-        "& > span": {
-            fontWeight: "bold",
-            textTransform: "capitalize",
-            "& > svg": {
-                fontSize: '4em'
-            }
-        },
-        "& > span, & > p": {
-            margin: 0,
-            padding: 0
-        },
-        "& > p": {
-            marginBottom: "3px"
-        },
     },
     details: {
         display: "flex",
@@ -63,19 +41,6 @@ const useStyles = makeStyles({
     photoStatus: {
         display: "flex",
         alignItems: "center"
-    },
-    mainReportContent: {
-        display: "flex",
-        marginLeft: "2em",
-        "& > div.section": {
-
-            marginLeft: "1em",
-            paddingRight: "1em",
-            borderRight: "solid 1px gray"
-        },
-        "& > div.section:last-of-type": {
-            borderRight: "none"
-        },
     },
     red: {
         color: "red"
@@ -116,12 +81,11 @@ const Report = (props) => {
                     <ReportPhoto required={report.photoWasRequired} approval={report.photoDetails && report.photoDetails.approvalStatus} url={report.photoUrl} />
                 </div>
             }>
-            <div className={classes.mainReportContent}>
+
                 <ReportItem title={t('report.medicationTaken')} content={report.medicationWasTaken ? t('commonWords.yes') : t('commonWords.no')} />
                 <ReportItem title={t('report.time')} content={DateTime.fromISO(report.takenAt).toLocaleString(DateTime.TIME_24_SIMPLE)} />
                 <ReportItem title={t('commonWords.symptoms')} content={<SymptomListPreview list={report.symptoms} />} />
                 {report.photoWasRequired && <ReportItem title={t('report.photoSubmitted')} content={report.photoDetails ? t('commonWords.yes') : t('commonWords.no')} />}
-            </div>
         </ReportCard >
 
     )
@@ -164,18 +128,6 @@ const FullSymptomList = (props) => {
             return (<p key={each}>{t(`symptoms.${each}.title`)}</p>)
         })} </div> : <p>{t('coordinator.recentReports.none')}</p>}
     </>)
-}
-
-const ReportItem = (props) => {
-
-    const classes = useStyles(props);
-    return (
-        <div className={`section ${classes.reportItem}`}>
-            <p>{props.title}</p>
-            <span>{props.content}</span>
-        </div>
-    )
-
 }
 
 const Feeling = (props) => {

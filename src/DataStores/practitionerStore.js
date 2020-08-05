@@ -73,7 +73,8 @@ export class PractitionerStore extends UserStore {
         reports: {},
         reportsLoading: false,
         details: {},
-        symptomSummary: {}
+        symptomSummary: {},
+        notes: []
     }
 
     @observable missedDays = {
@@ -288,7 +289,7 @@ export class PractitionerStore extends UserStore {
     }
 
     resetPassword = () => {
-        this.resetActivationCode(this.selectedPatient.id);
+        this.resetActivationCode(this.selectedPatient.details.id);
     }
 
     @action clearNewPatient = () => {
@@ -342,7 +343,11 @@ export class PractitionerStore extends UserStore {
         return total
     }
 
-    //Testing Idea of Refactoring async code out of actions, as reccomended by docs
+    @action setPatientNotes(notes){
+        this.selectedPatient.notes = notes;
+    }
+
+    //Get detials to fill in patient profile information
     getPatientDetails = (id) => {
         this.executeRawRequest(`/practitioner/patient/${id}`, "GET").then(response => {
             this.setSelectedPatientDetails(response);
@@ -355,6 +360,8 @@ export class PractitionerStore extends UserStore {
         this.executeRawRequest(`/patient/${id}/symptom_summary`).then(response => {
             this.setPatientSymptomSummary(response);
         })
+
+        this.getPatientNotes(id);
     }
 
     getCohortSummary = () => {
@@ -369,9 +376,9 @@ export class PractitionerStore extends UserStore {
         })
     }
 
-    getPatientNotes = () => {
-        this.executeRawRequest(`/patients/3/notes`).then(response => {
-            console.log(response)
+    getPatientNotes = (patientID) => {
+        return this.executeRawRequest(`/patients/${patientID}/notes`).then(response => {
+            this.setPatientNotes(response)
         })
     }
 
