@@ -6,10 +6,6 @@ import Styles from '../../Basics/Styles';
 import { DateTime } from 'luxon';
 import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
-import Loading from '../Shared/CardLoading'
-import ChatIcon from '@material-ui/icons/ChatBubble';
-import KeyIcon from '@material-ui/icons/VpnKey';
-import ArchiveIcon from '@material-ui/icons/HowToReg';
 import ResetPassword from './ResetPassword'
 
 import PatientInfo from './PatientInfo'
@@ -19,6 +15,7 @@ import SymptomSummary from './SymptomSummary'
 import TreatmentTimeline from '../../Basics/TreatmentTimeline'
 import ReportingHistory from './ReportingHistory'
 import { Typography } from '@material-ui/core';
+import AddNote from './AddNote'
 
 
 const useStyles = makeStyles({
@@ -39,13 +36,13 @@ const useStyles = makeStyles({
         },
         paddingTop: "1em",
     },
-    treatmentTimeline:{
+    treatmentTimeline: {
         ...Styles.profileCard,
         alignSelf: "flex-start",
         backgroundColor: "white",
         marginRight: ".5em",
         minWidth: "300px",
-        padding:  "1em"
+        padding: "1em"
     },
 
     patientContainer: {
@@ -68,7 +65,8 @@ const useStyles = makeStyles({
 const Profile = observer((props) => {
 
     const [onReset, setReset] = useState(false);
-    const { practitionerStore } = useStores();
+    const [onNote,setNote] = useState(true);
+    const { practitionerStore,practitionerUIStore} = useStores();
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
 
@@ -82,38 +80,38 @@ const Profile = observer((props) => {
         setReset(true);
     }
 
+    const closeNote = () => {
+        practitionerUIStore.closeAddPatientNote();
+    }
+
     useEffect(() => {
         practitionerStore.getPatientDetails(props.id);
 
         return function cleanup() {
-            handleCloseReset();
+            closeResetPassword();
         }
     }, [])
 
     return (
         <>
             {onReset && <ResetPassword close={closeResetPassword} />}
-            <div className={classes.patientContainer}>
-                <div className={classes.top}>
-                    <PatientInfo openResetPassword={openResetPassword} />
-                    <TreatmentStatus />
-                    <SymptomSummary />
-                </div>
-
-                <div className={classes.bottom}>
-                    <ReportingHistory />
-
-                    <div className={classes.treatmentTimeline}>
-                        <Typography variant={"h2"}>{t('timeline.title')}</Typography>
-                        <TreatmentTimeline weeksInTreatment={practitionerStore.selectedPatient.details.weeksInTreatment} />
+            {practitionerUIStore.onAddPatientNote && <AddNote close={closeNote} />}
+                <div className={classes.patientContainer}>
+                    <div className={classes.top}>
+                        <PatientInfo openResetPassword={openResetPassword} />
+                        <TreatmentStatus />
+                        <SymptomSummary />
+                    </div>
+                    <div className={classes.bottom}>
+                        <ReportingHistory />
+                        <div className={classes.treatmentTimeline}>
+                            <Typography variant={"h2"}>{t('timeline.title')}</Typography>
+                            <TreatmentTimeline weeksInTreatment={practitionerStore.selectedPatient.details.weeksInTreatment} />
+                        </div>
                     </div>
                 </div>
-            </div>
 
         </>)
 });
-
-
-
 
 export default Profile;

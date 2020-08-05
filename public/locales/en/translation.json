@@ -402,6 +402,9 @@
         "false": "false",
         "daysInTreatment": "Days In Treatment",
         "patientProfile": {
+            "addNote":{
+                "title": "New Note"
+            },
             "age": "age",
             "gender": "gender",
             "resetPassword": "Reset Password",

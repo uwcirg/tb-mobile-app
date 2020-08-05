@@ -134,7 +134,7 @@ const Buttons = observer(() => {
     return (
         <div className={classes.buttons}>
             <ProfileButton onClick={messagePatient}><Message />{t("coordinator.patientProfile.options.message")}</ProfileButton>
-            <ProfileButton onClick={practitionerStore.postPatientNote} backgroundColor={"white"} border color={Colors.buttonBlue}><Add />{t("coordinator.patientProfile.options.note")}</ProfileButton>
+            <ProfileButton onClick={practitionerUIStore.openAddPatientNote} backgroundColor={"white"} border color={Colors.buttonBlue}><Add />{t("coordinator.patientProfile.options.note")}</ProfileButton>
         </div>
     )
 })

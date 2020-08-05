@@ -67,19 +67,17 @@ const useStyles = makeStyles({
             borderLeft: "1px solid black",
             flexGrow: "1"
         },
-        "& > .day":{
+        "& > .day": {
             display: "flex",
             alignItems: "center",
-            "& > .circle":{
+            "& > .circle": {
                 width: "10px",
                 height: "10px",
                 borderRadius: "50%",
                 backgroundColor: Colors.green,
                 marginRight: "1em"
             }
-
         },
-
     }
 })
 
@@ -100,12 +98,8 @@ const SymptomSidebar = observer((props) => {
             <>
                 <SharedButton text={"Resolve"} onClick={() => { practitionerStore.resolveSymptoms() }} />
                 <SharedButton icon={<Question />} color="#F2C94C" text={"Pending"} onClick={() => { /* TODO: Pending */ }} />
-
             </>
-
         }>
-
-
             <h2 className={classes.header}>{t("coordinator.sideBar.symptomsSince")}:</h2>
             {practitionerStore.selectedPatientSymptoms.loading ?
                 <p> {t("coordinator.sideBar.loading")}...</p> :
@@ -115,18 +109,18 @@ const SymptomSidebar = observer((props) => {
                             <div className={classes.day}>
                                 <div className="day">
                                     <div className="circle" > </div>
-                                    {DateTime.fromISO(each).toLocaleString(DateTime.DATE_MED)}
-                                    </div>
+                                    {DateTime.fromISO(each).toLocaleString(DateTime.DATE_SHORT)}
+                                </div>
                                 <div className="line" />
-                        </div>
-                        <div className="list">
-                            {practitionerStore.selectedPatientSymptoms.summary[each] && practitionerStore.selectedPatientSymptoms.summary[each].map((symptom) => {
-                                return <p key={`symptom-sidebar-${symptom}`}>{t(`symptoms.${symptom}.title`)}</p>
-                            })}
-                        </div>
                             </div>
-                        )
-                    })} </div>}
+                            <div className="list">
+                                {practitionerStore.selectedPatientSymptoms.summary[each] && practitionerStore.selectedPatientSymptoms.summary[each].map((symptom) => {
+                                    return <p key={`symptom-sidebar-${symptom}`}>{t(`symptoms.${symptom}.title`)}</p>
+                                })}
+                            </div>
+                        </div>
+                    )
+                })} </div>}
 
         </Basicsidebar >
     )
