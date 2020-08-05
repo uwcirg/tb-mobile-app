@@ -124,10 +124,13 @@ const Buttons = observer(() => {
     const messagePatient = () => {
         practitionerUIStore.goToChannel(practitionerStore.selectedPatient.details.channelId);
     }
+
+
+
     return (
         <div className={classes.buttons}>
             <ProfileButton onClick={messagePatient}><Message />{t("coordinator.patientProfile.options.message")}</ProfileButton>
-            <ProfileButton backgroundColor={"white"} border color={Colors.buttonBlue}><Add />{t("coordinator.patientProfile.options.note")}</ProfileButton>
+            <ProfileButton onClick={practitionerStore.postPatientNote} backgroundColor={"white"} border color={Colors.buttonBlue}><Add />{t("coordinator.patientProfile.options.note")}</ProfileButton>
         </div>
     )
 })

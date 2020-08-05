@@ -13,7 +13,7 @@ const ROUTES = {
     getSeverePatients: ["/patients/severe", "GET"],
     getMissingPatients: ["/patients/missed", "GET"],
     getRecentReports: ["/patients/reports/recent", "GET"],
-    getCompletedResolutionsSummary: ["/practitioner/resolutions/summary","GET"]
+    getCompletedResolutionsSummary: ["/practitioner/resolutions/summary", "GET"]
 }
 
 export class PractitionerStore extends UserStore {
@@ -313,7 +313,7 @@ export class PractitionerStore extends UserStore {
         this.selectedPatient.reportsLoading = false;
     }
 
-    @action setSelectedPatientDetails = (details) =>{
+    @action setSelectedPatientDetails = (details) => {
         this.selectedPatient.details = details;
     }
 
@@ -330,13 +330,13 @@ export class PractitionerStore extends UserStore {
         this.resolutionSummary.dailyCount = count;
     }
 
-    @computed get selectedPatientReports(){
+    @computed get selectedPatientReports() {
         return Object.values(this.selectedPatient.reports)
     }
 
-    @computed get totalTasks(){
+    @computed get totalTasks() {
         let total = 0
-        Object.keys(this.filteredPatients).forEach( (each) => {
+        Object.keys(this.filteredPatients).forEach((each) => {
             total += this.filteredPatients[each].length
         })
         return total
@@ -345,20 +345,20 @@ export class PractitionerStore extends UserStore {
     //Testing Idea of Refactoring async code out of actions, as reccomended by docs
     getPatientDetails = (id) => {
         this.executeRawRequest(`/practitioner/patient/${id}`, "GET").then(response => {
-           this.setSelectedPatientDetails(response);
+            this.setSelectedPatientDetails(response);
         })
         //Must fetch reports seperately due to key tranform in Rails::AMS removing dashes ISO date keys :(
         this.executeRawRequest(`/patient/${id}/reports`, "GET").then(response => {
             this.setPatientReports(response);
         })
 
-        this.executeRawRequest(`/patient/${id}/symptom_summary`).then(response =>{
+        this.executeRawRequest(`/patient/${id}/symptom_summary`).then(response => {
             this.setPatientSymptomSummary(response);
         })
     }
 
     getCohortSummary = () => {
-        this.executeRawRequest(`/organizations/${this.organizationID}/cohort_summary`).then(response =>{
+        this.executeRawRequest(`/organizations/${this.organizationID}/cohort_summary`).then(response => {
             this.setCohortSummary(response);
         })
     }
@@ -366,6 +366,18 @@ export class PractitionerStore extends UserStore {
     getCompletedResolutionsSummary = () => {
         this.executeRequest("getCompletedResolutionsSummary").then(response => {
             this.setResolutionsSummary(response.count)
+        })
+    }
+
+    getPatientNotes = () => {
+        this.executeRawRequest(`/patients/3/notes`).then(response => {
+            console.log(response)
+        })
+    }
+
+    postPatientNote = () => {
+        this.executeRawRequest(`/patients/3/notes`, 'POST', { note: "First test note", title: "Test" }).then(response => {
+            
         })
     }
 

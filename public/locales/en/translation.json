@@ -100,7 +100,7 @@
             "endText": "Thank you for your input, lets get started!"
         },
         "walkthrough": {
-            "swipe": "Swipe Right See More",
+            "swipe": "Swipe Left See More",
             "welcome": {
                 "header": "Welcome",
                 "one": "Thank you for signing up for Treatment Assistant!",

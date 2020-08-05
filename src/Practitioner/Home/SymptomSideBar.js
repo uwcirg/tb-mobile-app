@@ -20,17 +20,11 @@ const useStyles = makeStyles({
         margin: "auto",
         minHeight: "100px",
         maxHeight: "200px",
-        width: "80%",
-        backgroundColor: Colors.lightgray,
+        width: "90%",
         overflow: "scroll",
-        borderRadius: ".5em",
         "& > p": {
             paddingLeft: "1em"
         }
-    },
-    day: {
-        fontWeight: "medium",
-        textDecoration: "underline"
     },
     symptomContainer: {
         width: "100%",
@@ -44,10 +38,54 @@ const useStyles = makeStyles({
         display: "flex",
         justifyContent: "center",
         marginTop: ".5em"
+    },
+    listContainer: {
+        marginTop: "5px",
+        display: "flex",
+        "& > .list": {
+            "& > p": { margin: "0 0 .5em 0" },
+            display: "flex",
+            flexDirection: "column",
+            paddingLeft: ".5em"
+        }
+    },
+    circle: {
+        width: "10px",
+        height: "10px",
+        borderRadius: "5px",
+        color: "red"
+    },
+    day: {
+        display: "flex",
+        flexDirection: "column",
+        fontWeight: "medium",
+        "& > p": {
+            margin: 0
+        },
+        "& > .line": {
+            marginLeft: "5px",
+            borderLeft: "1px solid black",
+            flexGrow: "1"
+        },
+        "& > .day":{
+            display: "flex",
+            alignItems: "center",
+            "& > .circle":{
+                width: "10px",
+                height: "10px",
+                borderRadius: "50%",
+                backgroundColor: Colors.green,
+                marginRight: "1em"
+            }
+
+        },
+
     }
 })
 
 const SymptomSidebar = observer((props) => {
+
+
     const { practitionerStore } = useStores();
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
@@ -66,21 +104,31 @@ const SymptomSidebar = observer((props) => {
             </>
 
         }>
-            <div className={classes.symptomContainer}>
-                <h2 className={classes.header}>{t("coordinator.sideBar.symptomsSince")}:</h2>
-                {practitionerStore.selectedPatientSymptoms.loading ?
-                    <p> {t("coordinator.sideBar.loading")}...</p> : <div className={classes.symptoms}> {Object.keys(practitionerStore.selectedPatientSymptoms.summary).map((each) => {
-                        return (
-                            <div key={`symptom-sidebar-container-${each}`}>
-                                <p className={classes.day}>{DateTime.fromISO(each).toLocaleString(DateTime.DATE_MED)}</p>
-                                {practitionerStore.selectedPatientSymptoms.summary[each] && practitionerStore.selectedPatientSymptoms.summary[each].map((symptom) => {
-                                    return <p key={`symptom-sidebar-${symptom}`}>{t(`symptoms.${symptom}.title`)}</p>
-                                })}
+
+
+            <h2 className={classes.header}>{t("coordinator.sideBar.symptomsSince")}:</h2>
+            {practitionerStore.selectedPatientSymptoms.loading ?
+                <p> {t("coordinator.sideBar.loading")}...</p> :
+                <div className={classes.symptoms}> {Object.keys(practitionerStore.selectedPatientSymptoms.summary).map((each) => {
+                    return (
+                        <div className={classes.listContainer} key={`symptom-sidebar-container-${each}`}>
+                            <div className={classes.day}>
+                                <div className="day">
+                                    <div className="circle" > </div>
+                                    {DateTime.fromISO(each).toLocaleString(DateTime.DATE_MED)}
+                                    </div>
+                                <div className="line" />
+                        </div>
+                        <div className="list">
+                            {practitionerStore.selectedPatientSymptoms.summary[each] && practitionerStore.selectedPatientSymptoms.summary[each].map((symptom) => {
+                                return <p key={`symptom-sidebar-${symptom}`}>{t(`symptoms.${symptom}.title`)}</p>
+                            })}
+                        </div>
                             </div>
                         )
                     })} </div>}
-            </div>
-        </Basicsidebar>
+
+        </Basicsidebar >
     )
 });
 

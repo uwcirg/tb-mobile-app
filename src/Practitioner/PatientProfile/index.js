@@ -80,6 +80,7 @@ const Profile = observer((props) => {
 
     useEffect(() => {
         practitionerStore.getPatientDetails(props.id);
+        practitionerStore.getPatientNotes();
         return function cleanup() {
             handleCloseReset();
         }
