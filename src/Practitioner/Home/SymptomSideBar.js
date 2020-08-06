@@ -24,6 +24,7 @@ const useStyles = makeStyles({
         maxHeight: "200px",
         width: "90%",
         overflow: "scroll",
+        overflowX: "hidden",
         "& > p": {
             paddingLeft: "1em"
         }
@@ -45,11 +46,14 @@ const useStyles = makeStyles({
         marginTop: "5px",
         display: "flex",
         "& > .list": {
-            "& > p": { margin: "0 0 .5em 0" },
+            "& > p": {
+                margin: "0 0 .5em 0",
+            },
+            flexBasis: "50%",
             display: "flex",
             flexDirection: "column",
-            paddingLeft: ".5em"
-        }
+        },
+        justifyContent: "space-between"
     },
     circle: {
         width: "10px",
@@ -75,7 +79,7 @@ const useStyles = makeStyles({
             alignItems: "center"
         }
     },
-    severe:{
+    severe: {
         backgroundColor: `${Colors.warningRed}`
     }
 })
@@ -94,9 +98,9 @@ const SymptomSidebar = observer((props) => {
 
     }, [practitionerStore.selectedRow.index])
 
-    const findCommonElements = (arr1, arr2) => { 
-        return arr1.some(item => arr2.includes(item)) 
-    } 
+    const findCommonElements = (arr1, arr2) => {
+        return arr1.some(item => arr2.includes(item))
+    }
 
     return (
         <Basicsidebar buttons={
