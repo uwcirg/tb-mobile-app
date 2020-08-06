@@ -403,7 +403,10 @@
         "daysInTreatment": "Days In Treatment",
         "patientProfile": {
             "addNote":{
-                "title": "New Note"
+                "header": "New note for",
+                "title": "Title",
+                "note": "Note",
+                "button": "Submit Note"
             },
             "age": "age",
             "gender": "gender",
