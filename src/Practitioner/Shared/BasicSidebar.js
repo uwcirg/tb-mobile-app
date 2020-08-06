@@ -159,8 +159,14 @@ const PatientPreview = observer((props) => {
                     {practitionerStore.getSelectedPatient.fullName}
                 </h2>
                 <div className={classes.buttonContainer}>
-                <ProfileButton ><Message />{t("coordinator.patientProfile.options.message")}</ProfileButton>
-                <ProfileButton backgroundColor={"white"} border color={Colors.buttonBlue}><Add />{t("coordinator.patientProfile.options.note")}</ProfileButton>
+                <ProfileButton onClick={() => { practitionerUIStore.goToChannel(practitionerStore.getSelectedPatient.channelId) }} ><Message />{t("coordinator.patientProfile.options.message")}</ProfileButton>
+                <ProfileButton backgroundColor={"white"}
+                 border color={Colors.buttonBlue}
+                 onClick={() => { 
+                     practitionerUIStore.goToPatient(practitionerStore.getSelectedPatient.id) 
+                    practitionerUIStore.openAddPatientNote();
+                    }}
+                 ><Add />{t("coordinator.patientProfile.options.note")}</ProfileButton>
                 </div>
             </div>
 
