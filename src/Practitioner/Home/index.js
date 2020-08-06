@@ -11,42 +11,44 @@ import SymptomSidebar from './SymptomSideBar'
 import MedicationSideBar from './MedicationSideBar'
 import { useTranslation } from 'react-i18next';
 import { Badge } from '@material-ui/core';
+import TaskSideBar from './TaskSidebar'
+import SupportSidebar from './SupportSidebar';
 
 const useStyles = makeStyles({
     left: {
         height: "100vh",
         overflow: "scroll",
         flexGrow: "1",
-        "& > h1":{
+        "& > h1": {
             fontSize: "2em",
             fontStyle: "normal",
             fontWeight: "medium",
             textAlign: "left",
             width: "90%"
         },
-        "& > div":{
+        "& > div": {
             marginTop: "1.5em",
-            "&:last-of-type": {marginBottom: "2em"}
+            "&:last-of-type": { marginBottom: "2em" }
         },
         alignItems: "center",
         display: "flex",
         flexDirection: "column",
         overflowX: "hidden",
-        
+
     },
     container: {
         width: "100%",
         overflowX: "hidden",
-        display: "flex",
+        display: "flex"
     },
     photoPreview: {
         width: "100%"
     },
-    sidebar:{
-        width: "350px",
+    sidebar: {
+        width: "400px",
         boxSizing: "border-box"
     },
-    cardContainer:{
+    cardContainer: {
         width: "100%"
     }
 
@@ -64,6 +66,7 @@ const Home = observer(() => {
         practitionerStore.getSeverePatients();
         practitionerStore.getPhotoReports();
         practitionerStore.getMissingPatients();
+        practitionerStore.getSupportRequests();
     }
 
     const classes = useStyles();
@@ -73,28 +76,38 @@ const Home = observer(() => {
     return (
         <div className={classes.container}>
             <div className={classes.left}>
-            <h1>{t("coordinator.titles.myTasks")}</h1>
+                <h1>{t("coordinator.titles.myTasks")}</h1>
                 <Card
+                    key={'symptoms-review'}
                     icon={<AlertIcon />}
                     title={t("coordinator.cardTitles.patientsWithSymptoms")}
                     patientList={practitionerStore.filteredPatients.symptom}
                     type="symptom"
                 />
-               
                 <Card
+                    key={'symptoms-review'}
+                    icon={<AlertIcon />}
+                    title={t("Requested Support")}
+                    patientList={practitionerStore.filteredPatients.support}
+                    type="support"
+                />
+
+                <Card
+                    key={'photo-review'}
                     icon={<ListIcon />}
                     title={t("coordinator.cardTitles.photosToReview")}
                     patientList={practitionerStore.filteredPatients.photo}
                     type="photo"
                 />
                 <Card
+                    key={'missed-review'}
                     icon={<PillIcon />}
                     title={t("coordinator.cardTitles.missedReport")}
                     patientList={practitionerStore.filteredPatients.missed}
                     type="missed"
                 />
             </div>
-           <SideBarRouter />
+            <SideBarRouter />
         </div>)
 
 });
@@ -103,17 +116,19 @@ const SideBarRouter = observer((props) => {
     const { practitionerStore } = useStores();
     const classes = useStyles();
 
-    let component = ""
+    let component = <TaskSideBar />
 
     if (practitionerStore.selectedRow.type === "photo") {
         component = <PhotoSidebar />
-    } else if(practitionerStore.selectedRow.type === "symptom") {
-        component =  <SymptomSidebar />
-    }else if(practitionerStore.selectedRow.type === "missed"){
+    } else if (practitionerStore.selectedRow.type === "symptom") {
+        component = <SymptomSidebar />
+    } else if (practitionerStore.selectedRow.type === "missed") {
         component = <MedicationSideBar />
+    } else if(practitionerStore.selectedRow.type === "support"){
+        component = <SupportSidebar />
     }
 
-    return(
+    return (
         <div className={classes.sidebar}>
             {component}
         </div>
@@ -136,7 +151,7 @@ const Card = observer((props) => {
         <HomePageCard
             selectedId={practitionerStore.selectedRow.index}
             selectedType={practitionerStore.selectedRow.type}
-            badgeContent={props.patientList.length > 0 && props.patientList.length }
+            badgeContent={props.patientList.length > 0 && props.patientList.length}
             setSidebar={setSidebar}
             {...props} />
 

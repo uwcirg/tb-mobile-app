@@ -183,6 +183,10 @@ export default class PatientUIStore {
     @action closePasswordUpdate = () => {
         this.goToSettings();
     }
+
+    @action clearURL = () =>{
+        this.router.push("")
+    }
 }
 
 function isBroadcastChannelSupported() {

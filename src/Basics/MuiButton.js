@@ -20,7 +20,7 @@ const MuiButton = (props) => {
 
     const classes = useStyles();
 
-    return (<Button className={`${classes.button} ${props.className}`} onClick={props.onClick}>{props.children}</Button>)
+    return (<Button disabled={props.disabled} className={`${classes.button} ${props.className}`} onClick={props.onClick}>{props.children}</Button>)
 
 }
 

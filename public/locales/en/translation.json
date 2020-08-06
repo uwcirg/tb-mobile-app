@@ -100,7 +100,7 @@
             "endText": "Thank you for your input, lets get started!"
         },
         "walkthrough": {
-            "swipe": "Swipe Right See More",
+            "swipe": "Swipe Left See More",
             "welcome": {
                 "header": "Welcome",
                 "one": "Thank you for signing up for Treatment Assistant!",
@@ -350,7 +350,8 @@
     "coordinator": {
         "titles": {
             "myTasks": "My Tasks",
-            "myPatients": "My Patients"
+            "myPatients": "My Patients",
+            "reportingStatus": "Reporting Status"
         },
         "cardTitles": {
             "patientsWithSymptoms": "Patients with Symptoms",
@@ -371,13 +372,19 @@
             "none": "None"
         },
         "sideBar": {
+            "overview:":{
+                "title": "Overview",
+                "doneToday": "Completed Today",
+                "unresolved": "Unresolved"
+            },
             "lastContacted": "Last Contracted",
             "viewFullProfile": "View Full Profile",
             "daysMissed": "Days Missed Since Last Resolution",
             "photoSub": "Photo Submission",
             "symptomsSince": "Symptoms Reported",
             "loading": "Loading",
-            "messagePatient": "Message Patient"
+            "messagePatient": "Message Patient",
+            "contactedPatient": "Contacted Patient"
         },
         "patientTableLabels": {
             "name": "Name",
@@ -396,6 +403,12 @@
         "false": "false",
         "daysInTreatment": "Days In Treatment",
         "patientProfile": {
+            "addNote":{
+                "header": "New note for",
+                "title": "Title",
+                "note": "Note",
+                "button": "Submit Note"
+            },
             "age": "age",
             "gender": "gender",
             "resetPassword": "Reset Password",
@@ -427,10 +440,18 @@
             "listReports": "List",
             "calendarReports": "Calendar",
             "options":{
+                "resetPassword": "Reset Password",
                 "archive": "Archive Patient",
                 "message": "Message",
                 "note": "Add Note"
             }
+        },
+        "tasksSidebar":{
+            "complete": "Complete",
+            "unfinished": "Unfinished",
+            "overview": "Tasks Overview",
+            "patientStatus": "Patient Report Status",
+            "noReport": "No Report Today"
         }
     },
     "errors": {

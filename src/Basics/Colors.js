@@ -11,6 +11,7 @@ const Colors = {
     darkBlue: "#0e3782",
     themeBlue: "#1f4a94",
     babyBlue: "#74C1FF",
+    noteBlue: "rgba(45, 156, 219, .35)",
     messageBlue: "rgba(42,91,173,.7)",
     buttonBlue: "#4285F4",
     accentBlue: "#80B2FF",
@@ -27,7 +28,8 @@ const Colors = {
         task: "rgba(45, 156, 219, .35)",
         appointment: "rgba(187, 107, 217, .35)"
     },
-    textDarkGray: "#333333"
+    textDarkGray: "#333333",
+    warningRed: "#EB5757"
 
 }
 

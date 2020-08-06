@@ -1,4 +1,4 @@
-import { action, observable, computed } from "mobx";
+import { action, observable, computed, toJS } from "mobx";
 import { UserStore } from './userStore'
 
 const ROUTES = {
@@ -12,7 +12,9 @@ const ROUTES = {
     getPatientNames: ["/practitioner/patients?namesOnly=true", "GET"],
     getSeverePatients: ["/patients/severe", "GET"],
     getMissingPatients: ["/patients/missed", "GET"],
-    getRecentReports: ["/patients/reports/recent", "GET"]
+    getRecentReports: ["/patients/reports/recent", "GET"],
+    getCompletedResolutionsSummary: ["/practitioner/resolutions/summary", "GET"],
+    getSupportRequests: ["/patients/need_support","GET"]
 }
 
 export class PractitionerStore extends UserStore {
@@ -20,6 +22,10 @@ export class PractitionerStore extends UserStore {
     //Takes in a data fetching strategy, so you can swap out the API one for testing data
     constructor(strategy) {
         super(strategy, ROUTES, "Practitioner")
+    }
+
+    @observable resolutionSummary = {
+        dailyCount: 0
     }
 
     @observable cohortSummary = {
@@ -60,7 +66,7 @@ export class PractitionerStore extends UserStore {
 
     @observable organizationsList = [];
 
-    @observable patients = [];
+    @observable patients = {};
     @observable temporaryPatients = [];
 
     //Currently viewed patient
@@ -68,7 +74,8 @@ export class PractitionerStore extends UserStore {
         reports: {},
         reportsLoading: false,
         details: {},
-        symptomSummary: {}
+        symptomSummary: {},
+        notes: []
     }
 
     @observable missedDays = {
@@ -85,7 +92,8 @@ export class PractitionerStore extends UserStore {
     @observable filteredPatients = {
         symptom: [],
         missed: [],
-        photo: []
+        photo: [],
+        support: []
     }
 
     @observable selectedRow = {
@@ -110,7 +118,7 @@ export class PractitionerStore extends UserStore {
     }
 
     getPatientName = (id) => {
-        return this.patients[id] ? this.patients[id].fullName : "Patient Name"
+        return this.patients[id] ? this.patients[id].fullName : ""
     }
 
     @action addNewPatient = () => {
@@ -283,7 +291,7 @@ export class PractitionerStore extends UserStore {
     }
 
     resetPassword = () => {
-        this.resetActivationCode(this.selectedPatient.id);
+        this.resetActivationCode(this.selectedPatient.details.id);
     }
 
     @action clearNewPatient = () => {
@@ -308,7 +316,7 @@ export class PractitionerStore extends UserStore {
         this.selectedPatient.reportsLoading = false;
     }
 
-    @action setSelectedPatientDetails = (details) =>{
+    @action setSelectedPatientDetails = (details) => {
         this.selectedPatient.details = details;
     }
 
@@ -321,29 +329,80 @@ export class PractitionerStore extends UserStore {
         this.selectedPatient.symptomSummary = symptoms
     }
 
-    @computed get selectedPatientReports(){
+    @action setResolutionsSummary = (count) => {
+        this.resolutionSummary.dailyCount = count;
+    }
+
+    @computed get selectedPatientReports() {
         return Object.values(this.selectedPatient.reports)
     }
 
-    //Testing Idea of Refactoring async code out of actions, as reccomended by docs
+    @computed get totalTasks() {
+        let total = 0
+        Object.keys(this.filteredPatients).forEach((each) => {
+            total += this.filteredPatients[each].length
+        })
+        return total
+    }
+
+    @action setPatientNotes(notes) {
+        this.selectedPatient.notes = notes;
+    }
+
+    //Get detials to fill in patient profile information
     getPatientDetails = (id) => {
         this.executeRawRequest(`/practitioner/patient/${id}`, "GET").then(response => {
-           this.setSelectedPatientDetails(response);
+            this.setSelectedPatientDetails(response);
         })
         //Must fetch reports seperately due to key tranform in Rails::AMS removing dashes ISO date keys :(
         this.executeRawRequest(`/patient/${id}/reports`, "GET").then(response => {
             this.setPatientReports(response);
         })
 
-        this.executeRawRequest(`/patient/${id}/symptom_summary`).then(response =>{
+        this.executeRawRequest(`/patient/${id}/symptom_summary`).then(response => {
             this.setPatientSymptomSummary(response);
         })
+
+        this.getPatientNotes(id);
     }
 
     getCohortSummary = () => {
-        this.executeRawRequest(`/organizations/${this.organizationID}/cohort_summary`).then(response =>{
+        this.executeRawRequest(`/organizations/${this.organizationID}/cohort_summary`).then(response => {
             this.setCohortSummary(response);
         })
+    }
+
+    getCompletedResolutionsSummary = () => {
+        this.executeRequest("getCompletedResolutionsSummary").then(response => {
+            this.setResolutionsSummary(response.count)
+        })
+    }
+
+    getPatientNotes = (patientID) => {
+        return this.executeRawRequest(`/patients/${patientID || this.selectedPatient.details.id }/notes`).then(response => {
+            this.setPatientNotes(response)
+        })
+    }
+
+    postPatientNote = (title, note) => {
+        const body = { title: title, note: note }
+        this.executeRawRequest(`/patients/${this.selectedPatient.details.id}/notes`, 'POST', body).then(response => {
+            this.getPatientNotes();
+            return response
+        })
+    }
+
+    getSupportRequests = () => {
+        this.executeRequest("getSupportRequests").then(response => {
+            this.filteredPatients.support = response.map(each => {return {patientId: each}})
+        })
+    }
+
+    resolveSupportRequest = () => {
+            this.executeRawRequest(`/patient/${this.selectedPatientID}/resolutions?type=support`, "POST").then(response => {
+                this.adjustIndex();
+                this.getSupportRequests();
+            })
     }
 
 }

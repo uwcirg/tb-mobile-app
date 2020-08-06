@@ -5,7 +5,7 @@ import Colors from '../../Basics/Colors';
 
 const useStyles = makeStyles({
     button: {
-        padding: ".2em .5em .2em .5em",
+        padding: ".15em .5em .15em .5em",
         borderRadius: "4px",
         fontSize: ".875em",
         color: props => props.color || "white",
@@ -19,6 +19,9 @@ const useStyles = makeStyles({
         "& > span  > svg": {
             fontSize: "1em",
             marginRight: ".5em"
+        },
+        "&:hover":{
+            backgroundColor: Colors.accentBlue
         }
     }
 

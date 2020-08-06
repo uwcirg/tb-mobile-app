@@ -9,13 +9,13 @@ import { inject, observer } from 'mobx-react';
 import { useTranslation } from 'react-i18next';
 import Colors from '../../Basics/Colors';
 
-import Settings from '../../Basics/Icons/Settings'
+import Settings from '@material-ui/icons/Settings'
 import useStores from '../../Basics/UseStores';
 
 const useStyles = makeStyles({
   personIcon: {
     color: Colors.buttonBlue,
-    fontSize: "1.5em"
+    fontSize: "1em"
   },
   menuContainer: {
 

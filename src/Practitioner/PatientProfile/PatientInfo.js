@@ -100,7 +100,11 @@ const PatientInfo = observer((props) => {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                 >
-                    <MenuItem >{t("coordinator.patientProfile.options.archive")}</MenuItem>
+                    {/*<MenuItem >{t("coordinator.patientProfile.options.archive")}</MenuItem>*/}
+                    <MenuItem onClick={()=>{
+                        handleClose()
+                        props.openResetPassword()
+                        }} >{t("coordinator.patientProfile.options.resetPassword")}</MenuItem>
                 </Menu> </div>}
         <div className={classes.detailGroup}>
             <Item top={t("coordinator.patientProfile.age")} bottom={practitionerStore.selectedPatient.details.age || "N/A"} />
@@ -124,10 +128,13 @@ const Buttons = observer(() => {
     const messagePatient = () => {
         practitionerUIStore.goToChannel(practitionerStore.selectedPatient.details.channelId);
     }
+
+
+
     return (
         <div className={classes.buttons}>
             <ProfileButton onClick={messagePatient}><Message />{t("coordinator.patientProfile.options.message")}</ProfileButton>
-            <ProfileButton backgroundColor={"white"} border color={Colors.buttonBlue}><Add />{t("coordinator.patientProfile.options.note")}</ProfileButton>
+            <ProfileButton onClick={practitionerUIStore.openAddPatientNote} backgroundColor={"white"} border color={Colors.buttonBlue}><Add />{t("coordinator.patientProfile.options.note")}</ProfileButton>
         </div>
     )
 })

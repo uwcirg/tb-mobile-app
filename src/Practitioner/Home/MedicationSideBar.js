@@ -49,7 +49,6 @@ const MissedMedicationSidebar = observer((props) => {
     const { practitionerStore } = useStores();
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
-    const item = practitionerStore.filteredPatients.photo[practitionerStore.selectedRow.index];
 
     useEffect(() => {
         practitionerStore.getPatientMissedDays()

@@ -1,10 +1,8 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
-import {observer} from 'mobx-react'
-
+import { observer } from 'mobx-react'
 import CalendarTest from './Calendar';
-
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import ReportsView from './ReportList';
@@ -13,6 +11,7 @@ import Colors from '../../Basics/Colors';
 import Styles from '../../Basics/Styles';
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
+import NotesView from './NotesView'
 
 const useStyles = makeStyles({
     reportingHistoryContainer: {
@@ -25,7 +24,7 @@ const useStyles = makeStyles({
     reportingHistory: {
         width: "100%"
     },
-    reportsHeader:{
+    reportsHeader: {
         padding: ".5em",
         display: "flex",
         alignItems: "center",
@@ -34,35 +33,37 @@ const useStyles = makeStyles({
             ...Styles.patientPageTitle
         }
     },
-    buttonGroup:{
-        "& > button.selected":{
+    buttonGroup: {
+        "& > button.selected": {
             color: "white",
             backgroundColor: Colors.textDarkGray
         }
     }
-  
+
 })
 
 const ReportingHistory = observer(() => {
-    const [calendarVisible,setCalendarVisible] = useState(false);
-    const [day,setDay] = useState(new Date())
+    const [visible, setVisible] = useState('list');
+    const [day, setDay] = useState(new Date())
     const classes = useStyles();
-    const {practitionerStore} = useStores();
+    const { practitionerStore } = useStores();
 
-    const handleChange = (change) =>{
+    const handleChange = (change) => {
         setDay(change)
     }
     return (
         <div className={classes.reportingHistoryContainer}>
-        <ReportingHistoryLabel setCalendarVisible={setCalendarVisible} calendarVisible={calendarVisible} />
+            <ReportingHistoryLabel setVisible={setVisible} visible={visible} />
             <div className={classes.reportingHistory}>
-                {calendarVisible && <CalendarTest
+                {visible === "calendar" && <CalendarTest
                     selectedDay={day}
                     handleChange={handleChange}
                     reports={practitionerStore.selectedPatient.reports}
                     treatmentStart={practitionerStore.selectedPatient.details.treatmentStart}
                 />}
-                {!calendarVisible && <ReportsView />}
+                {visible === "list" && <ReportsView />}
+                {visible === "notes" && <NotesView />}
+
             </div>
         </div>
     )
@@ -72,14 +73,15 @@ const ReportingHistory = observer(() => {
 const ReportingHistoryLabel = (props) => {
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
-    return(
-    <div className={classes.reportsHeader}>
-        <Typography variant="h2">{t('coordinator.patientProfile.reportingHistory')}</Typography>
-        <ButtonGroup className={classes.buttonGroup} size="small">
-    <Button onClick={()=>{props.setCalendarVisible(false)}} className={!props.calendarVisible && "selected"}>{t('coordinator.patientProfile.listReports')}</Button>
-            <Button onClick={()=>{props.setCalendarVisible(true)}} className={props.calendarVisible && "selected"}>{t('coordinator.patientProfile.calendarReports')}</Button>
-        </ButtonGroup>
-    </div>)
+    return (
+        <div className={classes.reportsHeader}>
+            <Typography variant="h2">{t('coordinator.patientProfile.reportingHistory')}</Typography>
+            <ButtonGroup className={classes.buttonGroup} size="small">
+                <Button onClick={() => { props.setVisible('list') }} className={!props.visible === 'list' && "selected"}>{t('coordinator.patientProfile.listReports')}</Button>
+                <Button onClick={() => { props.setVisible('calendar') }} className={props.visible  === 'calendar' && "selected"}>{t('coordinator.patientProfile.calendarReports')}</Button>
+                <Button onClick={() => { props.setVisible('notes') }} className={props.visible === 'notes' && "selected"}>{t('notes')}</Button>
+            </ButtonGroup>
+        </div>)
 }
 
 export default ReportingHistory;
