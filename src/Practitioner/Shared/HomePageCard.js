@@ -9,7 +9,7 @@ import Card from './Card'
 import useStores from '../../Basics/UseStores';
 import { Badge } from '@material-ui/core';
 import Styles from '../../Basics/Styles';
-import {DateTime} from 'luxon';
+import { DateTime } from 'luxon';
 
 
 const useStyles = makeStyles({
@@ -69,10 +69,10 @@ const useStyles = makeStyles({
         position: "absolute",
         ...Styles.flexCenter,
         height: "40px",
-        width:"40px",
+        width: "40px",
         color: "white",
         backgroundColor: "#FF6B6B",
-        borderRadius:"50%",
+        borderRadius: "50%",
         top: "-15px",
         left: "-15px",
         boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
@@ -90,7 +90,7 @@ const useStyles = makeStyles({
     },
     reportDate: {
         marginLeft: "auto",
-        marginRight:"2em",
+        marginRight: "2em",
         color: Colors.textGray
     }
 })
@@ -160,13 +160,15 @@ const TaskInfo = (props) => {
                 <p className={classes.reportDate}>{props.lastSymptoms.date ? DateTime.fromISO(props.lastSymptoms.date).toLocaleString(DateTime.DATETIME_SHORT) : "N/A"}</p>
             </>
         )
-    } else if (props.type === 'photo'){
-        return(
+    } else if (props.type === 'photo') {
+        return (
             <p className={classes.reportDate}>{props.photoDate ? DateTime.fromISO(props.photoDate).toLocaleString(DateTime.DATETIME_SHORT) : "N/A"}</p>
         )
-    } else if(props.type === 'missed'){
+    } else if (props.type === 'missed') {
         return <p className={classes.reportDate}>{props.lastMissedDay ? DateTime.fromISO(props.lastMissedDay).toLocaleString(DateTime.DATE_SHORT) : "N/A"}</p>
-    }else {
+    } else if (props.type === 'support') {
+        return <p className={classes.reportDate}>{(props.supportRequests && props.supportRequests.length > 0) ? DateTime.fromISO(props.supportRequests[0].date).toLocaleString(DateTime.DATE_SHORT) : "N/A"}</p>
+    } else {
         return ""
     }
 }

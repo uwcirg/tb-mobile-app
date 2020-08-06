@@ -12,21 +12,11 @@ import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
 
-    photoContainer: {
-        width: "100%",
-        ...Styles.flexColumn,
-        alignItems: "center",
-        "& > img": {
-            height: "300px",
-            width: "90%",
-            objectFit: "contain"
-        },
-        "& > h2": {
-            fontSize: "1em",
-            display: "block",
-            width: "60%",
-            textAlign: "center"
-        }
+    supportContent: {
+        width: "90%",
+        margin: "auto",
+        height: "300px",
+        overflow: "scroll"
     },
     buttonContainer: {
         marginTop: "2em",
@@ -35,13 +25,9 @@ const useStyles = makeStyles({
         ...Styles.flexRow,
         justifyContent: "space-evenly"
     },
-    daysList: {
-        width: "80%",
-        textAlign: "center",
-        borderRadius: "10px",
-        height: "200px",
-        overflow: "scroll",
-        backgroundColor: Colors.lightgray
+    date:{
+        fontWeight: "bold",
+        color: Colors.textGray
     }
 })
 
@@ -60,12 +46,11 @@ const SupportSidebar = observer((props) => {
 
             </>}>
 
-            {show && <div>
-                {console.log(patient.supportRequests)}
+            {show && <div className={classes.supportContent}>
                 {patient.supportRequests.map(each => {
                     return (<div>
-                        <p>{DateTime.fromISO(each.date).toLocaleString(DateTime.DATETIME_SHORT)}</p>
-                        <p>text here</p>
+                        <p className={classes.date}>{DateTime.fromISO(each.date).toLocaleString(DateTime.DATE_FULL)}</p>
+                        <p>{each.doing_okay_reason || "No Reason Submitted"}</p>
                     </div>)
                 })}
             </div>}

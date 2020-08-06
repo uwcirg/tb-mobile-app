@@ -48,7 +48,11 @@ const useStyles = makeStyles({
     patientInfo: {
         width: "100%",
         display: "flex",
-        flexDirection: "column"
+        flexDirection: "column",
+        borderTop: "1px solid lightgray",
+        borderBottom: "1px solid lightgray",
+        padding: ".5em 0 .5em 0"
+
 
     },
     buttonContainer: {

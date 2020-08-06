@@ -398,7 +398,7 @@ export class PractitionerStore extends UserStore {
         })
     }
 
-    resolveLastSupportRequest = () => {
+    resolveSupportRequest = () => {
             this.executeRawRequest(`/patient/${this.selectedPatientID}/resolutions?type=support`, "POST").then(response => {
                 this.adjustIndex();
                 this.getSupportRequests();
