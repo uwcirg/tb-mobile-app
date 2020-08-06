@@ -52,11 +52,11 @@ const useStyles = makeStyles({
 
     },
     buttonContainer: {
-        margin:"1em",
+        margin: "1em",
         width: "100%",
         ...Styles.flexRow,
         justifyContent: "center",
-        "& > button:first-child":{
+        "& > button:first-child": {
             marginRight: ".5em"
         }
     },
@@ -159,18 +159,18 @@ const PatientPreview = observer((props) => {
                     {practitionerStore.getSelectedPatient.fullName}
                 </h2>
                 <div className={classes.buttonContainer}>
-                <ProfileButton onClick={() => { practitionerUIStore.goToChannel(practitionerStore.getSelectedPatient.channelId) }} ><Message />{t("coordinator.patientProfile.options.message")}</ProfileButton>
-                <ProfileButton backgroundColor={"white"}
-                 border color={Colors.buttonBlue}
-                 onClick={() => { 
-                     practitionerUIStore.goToPatient(practitionerStore.getSelectedPatient.id) 
-                    practitionerUIStore.openAddPatientNote();
-                    }}
-                 ><Add />{t("coordinator.patientProfile.options.note")}</ProfileButton>
+                    <ProfileButton onClick={() => { practitionerUIStore.goToChannel(practitionerStore.getSelectedPatient.channelId) }} ><Message />{t("coordinator.patientProfile.options.message")}</ProfileButton>
+                    <ProfileButton backgroundColor={"white"}
+                        border color={Colors.buttonBlue}
+                        onClick={() => {
+                            practitionerUIStore.goToPatient(practitionerStore.getSelectedPatient.id)
+                            practitionerUIStore.openAddPatientNote();
+                        }}
+                    ><Add />{t("coordinator.patientProfile.options.note")}</ProfileButton>
                 </div>
             </div>
 
-                {/*
+            {/*
                 <IconButton onClick={() => { practitionerUIStore.goToPatient(practitionerStore.getSelectedPatient.id) }}> <PersonButton />{t("coordinator.profile")}</IconButton>
                 <IconButton onClick={() => { practitionerUIStore.goToChannel(practitionerStore.getSelectedPatient.channelId) }}><ChatIcon />{t("coordinator.message")}</IconButton>
                 */}

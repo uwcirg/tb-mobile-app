@@ -67,13 +67,14 @@ const useStyles = makeStyles({
     },
     badge: {
         position: "absolute",
-        "& > span": {
-            fontSize: "1em",
-            padding: ".5em"
-        },
-
-        top: "-10px",
-        left: "-10px"
+        ...Styles.flexCenter,
+        height: "40px",
+        width:"40px",
+        color: "white",
+        backgroundColor: "#FF6B6B",
+        borderRadius:"50%",
+        top: "-15px",
+        left: "-15px"
     },
     noTasks: {
         ...Styles.flexCenter
@@ -119,7 +120,7 @@ const HomePageCard = (props) => {
     return (
 
         <Card icon={props.icon} title={props.title}>
-            {props.badgeContent && <Badge overlap="circle" className={classes.badge} color="primary" badgeContent={props.badgeContent} />}
+            {(props.badgeContent && props.badgeContent > 0) && <div className={classes.badge} color="primary"><p>{props.badgeContent} </p></div>}
             <div className={classes.container}>
                 {props.patientList.length > 0 ? patientList : <div className={classes.noTasks}><p>{t("coordinator.noTasks")}</p></div>}
             </div>

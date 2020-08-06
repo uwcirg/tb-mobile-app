@@ -10,6 +10,7 @@ import Loading from '../Shared/Loading';
 import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
 import SymptomsIcon from '../../Basics/Icons/Temp';
+import Symptom from '../Shared/Symptom'
 
 const useStyles = makeStyles({
     sidebar: {
@@ -137,7 +138,6 @@ const PatientOverview = observer(() => {
                 <LineItem backgroundColor={Colors.red} text={"High Priority"} value={cohortSummary.priority.high} />
                 <LineItem backgroundColor={Colors.yellow} text={"Medium Priority"} value={cohortSummary.priority.medium} />
                 <LineItem backgroundColor={Colors.green} text={"Low Priority"} value={cohortSummary.priority.low} />
-                <LineItem backgroundColor={Colors.accentBlue} text={"New Patients"} value={cohortSummary.priority.new} />
             </div>
         </>
     )
@@ -153,7 +153,7 @@ const SymptomSummary = observer(() => {
         <div className={classes.section}>
             <SectionHeader title="Symptoms" icon={<SymptomsIcon />} subtext="Reported In The Past 7 Days" />
                 {Object.keys(symptomSummaries).map(each => {
-                    return symptomSummaries[each] ? <LineItem textColor="black" text={t(`symptoms.${each}.title`)} value={symptomSummaries[each]} /> : ""
+                    return symptomSummaries[each] ? <LineItem textColor="black" text={<Symptom string={each} />} value={symptomSummaries[each]} /> : ""
                     
                 })}
         </div>
