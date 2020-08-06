@@ -74,7 +74,8 @@ const useStyles = makeStyles({
         backgroundColor: "#FF6B6B",
         borderRadius:"50%",
         top: "-15px",
-        left: "-15px"
+        left: "-15px",
+        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
     },
     noTasks: {
         ...Styles.flexCenter

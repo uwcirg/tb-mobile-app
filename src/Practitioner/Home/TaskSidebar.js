@@ -53,9 +53,12 @@ const useStyles = makeStyles({
         alignItems: "center",
         padding: ".25em",
         borderRadius: "4px",
-        boxShadow: "0px 4px 16px rgba(0, 0, 0, 0.1)",
+        boxShadow: "0px 4px 16px rgba(204, 188, 252, 0.15)",
         backgroundColor: "white",
         marginTop: ".5em",
+        "&:hover":{
+            cursor: "pointer"
+        },
         "& > p": {
             fontSize: ".875em",
             marginLeft: "1em",
@@ -71,48 +74,53 @@ const useStyles = makeStyles({
     },
     notSubmitted: {
         display: "flex",
-        alignItems: "center",
+        alignItems: "flex-start",
         flexGrow: "1",
         "& >  p": {
+            margin: 0,
             marginLeft: "1em",
             fontSize: ".875em"
         }
     },
-    labels:{
+    labels: {
         borderRadius: "0",
+        boxShadow: "none",
         backgroundColor: "none",
         "& > p": {
-            textAlign: "left"
-        }
+            textAlign: "center"
+        },
+        "&:hover":{
+            cursor: "unset"
+        },
     },
-    header:{
+    header: {
         fontWeight: "bold",
         fontSize: "1.5em"
     },
-    taskStatus:{
+    taskStatus: {
         display: "flex",
         width: "100%",
         justifyContent: "space-between",
         marginTop: ".5em",
-        "& > div":{
+        "& > div": {
             display: "flex",
             flexDirection: "column",
             alignItems: "flex-start",
-            "& > span":{
+            "& > span": {
                 color: Colors.accentBlue,
                 fontSize: "1.8em",
                 alignSelf: "center"
             },
-            "& > span.unfinished":{
+            "& > span.unfinished": {
                 color: Colors.textGray,
             },
-            "& > p":{
+            "& > p": {
                 fontSize: ".875em",
                 margin: 0
             }
         }
     },
-    progress:{
+    progress: {
         ...Styles.profileCard,
         padding: "1em",
         marginTop: "1em"
@@ -122,30 +130,30 @@ const useStyles = makeStyles({
 const PatientList = observer(() => {
 
     const classes = useStyles();
-    const { practitionerStore,practitionerUIStore } = useStores();
+    const { practitionerStore, practitionerUIStore } = useStores();
     const { t, i18n } = useTranslation('translation');
 
     useEffect(() => {
         practitionerStore.getCompletedResolutionsSummary();
-    },[])
+    }, [])
 
-    const patientList  = practitionerStore.patientList.sort( each => {
-        if(each.reportingStatus.today.reported) return -1
+    const patientList = practitionerStore.patientList.sort(each => {
+        if (each.reportingStatus.today.reported) return -1
         return 1
     })
 
     return (<div className={classes.patientListContainer}>
         <Typography className={classes.header} variant="h2">{t('coordinator.titles.reportingStatus')}</Typography>
         <div className={`${classes.patientCard} ${classes.labels}`}>
-            <p className={classes.names}>Name</p>
-            <p>Medicine Taken</p>
-            <p>Photo Submitted</p>
-            <p>Symptoms Reported</p>
+            <p className={classes.names}>{t('coordinator.patientTableLabels.name')}</p>
+            <p>{t('report.medicationTaken')}</p>
+            <p>{t('report.photoSubmitted')}</p>
+            <p>{t('commonWords.symptoms')}</p>
         </div>
         <div className={classes.patientList}>
             {practitionerStore.patientList && practitionerStore.patientList.map(patient => {
                 return (
-                    <div key={patient.id} className={classes.patientCard} onClick={() => {practitionerUIStore.goToPatient(patient.id)}}>
+                    <div key={patient.id} className={classes.patientCard} onClick={() => { practitionerUIStore.goToPatient(patient.id) }}>
                         <p>{patient.givenName} {patient.familyName[0]}.</p>
                         {patient.reportingStatus.today.reported ? <Report data={patient.reportingStatus.today} /> : <Pending />}
 
@@ -173,34 +181,36 @@ const Report = (props) => {
 }
 
 const Pending = () => {
+    const { t, i18n } = useTranslation('translation');
     const classes = useStyles();
     return (
         <div className={classes.notSubmitted}>
             <TimeIcon style={{ color: Colors.yellow }} />
-            <p>Not Submitted</p>
+            <p>{t('coordinator.tasksSidebar.noReport')}</p>
         </div>
     )
 }
 
 const Summary = observer(() => {
     const classes = useStyles();
-    const {dailyCount} = useStores().practitionerStore.resolutionSummary
-    const {practitionerStore} = useStores();
+    const { dailyCount } = useStores().practitionerStore.resolutionSummary
+    const { practitionerStore } = useStores();
+    const { t, i18n } = useTranslation('translation');
     return (
         <div className={classes.progress}>
-            <BorderLinearProgress variant="determinate" value={(dailyCount/(dailyCount + practitionerStore.totalTasks))  * 100} />
+            <BorderLinearProgress variant="determinate" value={(dailyCount / (dailyCount + practitionerStore.totalTasks)) * 100} />
             <div className={classes.taskStatus}>
-            <div>
-                <span>{dailyCount}</span>
-                <p>Complete</p>
+                <div>
+                    <span>{dailyCount}</span>
+                    <p>{t('coordinator.tasksSidebar.complete')}</p>
+                </div>
+
+                <div>
+                    <span className={'unfinished'}>{practitionerStore.totalTasks}</span>
+                    <p>{t('coordinator.tasksSidebar.unfinished')}</p>
+                </div>
             </div>
 
-            <div>
-                <span className={'unfinished'}>{practitionerStore.totalTasks}</span>
-                <p>Unfinished</p>
-            </div>
-            </div>
-                
         </div>
     )
 });

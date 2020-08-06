@@ -445,6 +445,13 @@
                 "message": "Message",
                 "note": "Add Note"
             }
+        },
+        "tasksSidebar":{
+            "complete": "Complete",
+            "unfinished": "Unfinished",
+            "overview": "Tasks Overview",
+            "patientStatus": "Patient Report Status",
+            "noReport": "No Report Today"
         }
     },
     "errors": {

@@ -42,6 +42,7 @@ const MainSettings = () => {
     const handleLogout = () => {
         uiStore.menuOpened = false;
         patientStore.logoutPatient();
+        patientUIStore.clearURL();
     }
 
     return (
