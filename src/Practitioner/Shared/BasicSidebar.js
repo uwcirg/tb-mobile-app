@@ -8,9 +8,13 @@ import Colors from '../../Basics/Colors'
 import PatientPicture from '../../Basics/PatientIcon'
 import { DateTime } from 'luxon'
 import { observer } from 'mobx-react';
-import ProfileButton from '@material-ui/icons/PersonRounded'
+import PersonButton from '@material-ui/icons/PersonRounded'
 import ChatIcon from '@material-ui/icons/Forum'
 import Styles from '../../Basics/Styles';
+import ProfileButton from '../PatientProfile/ProfileButton'
+
+import Message from '@material-ui/icons/ChatBubbleOutlineRounded';
+import Add from '@material-ui/icons/AddCircle';
 
 
 const useStyles = makeStyles({
@@ -30,7 +34,7 @@ const useStyles = makeStyles({
     },
     profile: {
         alignItems: "left",
-        width: "80%",
+        width: "90%",
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-start",
@@ -43,25 +47,18 @@ const useStyles = makeStyles({
     },
     patientInfo: {
         width: "100%",
-        padding: ".5em",
         display: "flex",
         flexDirection: "column"
 
     },
     buttonContainer: {
+        margin:"1em",
         width: "100%",
         ...Styles.flexRow,
         justifyContent: "center",
-        borderTop: "1px solid lightgray",
-        marginTop: ".5em",
-        "& > button": {
-            borderRadius: 0
-        },
-        "& > button > span": {
-            fontSize: ".5em",
-            ...Styles.flexColumn
+        "& > button:first-child":{
+            marginRight: ".5em"
         }
-
     },
     header: {
         display: "flex",
@@ -71,7 +68,11 @@ const useStyles = makeStyles({
         alignItems: "center",
         "& > h2": {
             padding: 0,
-            margin: 0
+            margin: 0,
+            color: Colors.buttonBlue
+        },
+        "& > h2:hover": {
+            cursor: "pointer"
         }
     },
     profileItem: {
@@ -83,7 +84,8 @@ const useStyles = makeStyles({
             padding: "0",
         },
         "& > span": {
-            fontWeight: "bold"
+            fontSize: "1em",
+            fontWeight: "500"
         }
     },
     resolutionButtons: {
@@ -152,18 +154,25 @@ const PatientPreview = observer((props) => {
         <div className={classes.profile}>
             <div className={classes.header}>
                 <PatientPicture name={practitionerStore.getSelectedPatient.fullName} />
-                <h2>{practitionerStore.getSelectedPatient.fullName}</h2>
+                <h2
+                    onClick={() => { practitionerUIStore.goToPatient(practitionerStore.getSelectedPatient.id) }}>
+                    {practitionerStore.getSelectedPatient.fullName}
+                </h2>
+                <div className={classes.buttonContainer}>
+                <ProfileButton ><Message />{t("coordinator.patientProfile.options.message")}</ProfileButton>
+                <ProfileButton backgroundColor={"white"} border color={Colors.buttonBlue}><Add />{t("coordinator.patientProfile.options.note")}</ProfileButton>
+                </div>
             </div>
 
-            <div className={classes.buttonContainer}>
-                <IconButton onClick={() => { practitionerUIStore.goToPatient(practitionerStore.getSelectedPatient.id) }}> <ProfileButton />{t("coordinator.profile")}</IconButton>
+                {/*
+                <IconButton onClick={() => { practitionerUIStore.goToPatient(practitionerStore.getSelectedPatient.id) }}> <PersonButton />{t("coordinator.profile")}</IconButton>
                 <IconButton onClick={() => { practitionerUIStore.goToChannel(practitionerStore.getSelectedPatient.channelId) }}><ChatIcon />{t("coordinator.message")}</IconButton>
-            </div>
+                */}
 
             <div className={classes.patientInfo}>
                 <ProfileItem text={t("coordinator.adherence")} value={practitionerStore.getSelectedPatient.adherence} />
                 <ProfileItem text={t("coordinator.daysInTreatment")} value={practitionerStore.getSelectedPatient.daysInTreatment} />
-                <ProfileItem text={t("coordinator.sideBar.lastContacted")} value={DateTime.fromISO(practitionerStore.getSelectedPatient.lastContacted).toLocaleString(DateTime.DATETIME_SHORT)} />
+                <ProfileItem text={t("coordinator.sideBar.lastContacted")} value={DateTime.fromISO(practitionerStore.getSelectedPatient.lastContacted).toLocaleString(DateTime.DATE_SHORT)} />
             </div>
 
         </div>

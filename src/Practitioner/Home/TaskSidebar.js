@@ -32,6 +32,7 @@ const useStyles = makeStyles({
 
     container: {
         height: "100vh",
+        overflow: "hidden",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
@@ -44,7 +45,7 @@ const useStyles = makeStyles({
 
     },
     patientList: {
-        height: "400px",
+        height: "300px",
         overflow: "scroll"
     },
     patientCard: {

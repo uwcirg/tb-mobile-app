@@ -45,8 +45,7 @@ const useStyles = makeStyles({
     },
     sidebar: {
         width: "400px",
-        boxSizing: "border-box",
-        marginRight: "1em"
+        boxSizing: "border-box"
     },
     cardContainer: {
         width: "100%"

@@ -21,6 +21,9 @@ const useStyles = makeStyles({
         "& > span > svg":{
             fontSize: ".95em",
             marginRight: "5px"
+        },
+        "&:hover":{
+            backgroundColor: Colors.accentBlue
         }
     },
     text: {

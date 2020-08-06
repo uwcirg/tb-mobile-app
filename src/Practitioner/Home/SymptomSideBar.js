@@ -16,7 +16,10 @@ import { SevereSymptoms } from '../../Basics/SymptomsSeperation';
 
 const useStyles = makeStyles({
     header: {
-        fontSize: "1.25em"
+        fontSize: "1.25em",
+        width: "90%",
+        margin: "auto",
+        marginBottom: ".5em"
     },
     symptoms: {
         margin: "auto",
@@ -107,8 +110,7 @@ const SymptomSidebar = observer((props) => {
     return (
         <Basicsidebar buttons={
             <>
-                <SharedButton text={"Resolve"} onClick={() => { practitionerStore.resolveSymptoms() }} />
-                <SharedButton icon={<Question />} color="#F2C94C" text={"Pending"} onClick={() => { /* TODO: Pending */ }} />
+                <SharedButton text={t('coordinator.sideBar.contactedPatient')} onClick={() => { practitionerStore.resolveSymptoms() }} />
             </>
         }>
             <h2 className={classes.header}>{t("coordinator.sideBar.symptomsSince")}:</h2>

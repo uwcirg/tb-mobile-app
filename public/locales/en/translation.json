@@ -383,7 +383,8 @@
             "photoSub": "Photo Submission",
             "symptomsSince": "Symptoms Reported",
             "loading": "Loading",
-            "messagePatient": "Message Patient"
+            "messagePatient": "Message Patient",
+            "contactedPatient": "Contacted Patient"
         },
         "patientTableLabels": {
             "name": "Name",
