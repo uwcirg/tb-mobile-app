@@ -97,9 +97,6 @@ const useStyles = makeStyles({
 
 const HomePageCard = (props) => {
 
-    console.log(props.type)
-    console.log(props.patientList)
-
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
 

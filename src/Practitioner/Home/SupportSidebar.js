@@ -35,7 +35,7 @@ const useStyles = makeStyles({
         ...Styles.flexRow,
         justifyContent: "space-evenly"
     },
-    daysList:{
+    daysList: {
         width: "80%",
         textAlign: "center",
         borderRadius: "10px",
@@ -45,31 +45,32 @@ const useStyles = makeStyles({
     }
 })
 
-const MissedMedicationSidebar = observer((props) => {
+const SupportSidebar = observer((props) => {
     const { practitionerStore } = useStores();
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
 
-    useEffect(() => {
-        practitionerStore.getPatientMissedDays()
-    }, [practitionerStore.selectedRow.index])
+    const patient = practitionerStore.getSelectedPatient;
 
+    const show = (patient && patient.supportRequests && patient.supportRequests.length > 0)
     return (
         <Basicsidebar buttons={
             <>
-                <SharedButton text={"Inconclusive"} onClick={() => { /* Pending */ }} color={Colors.yellow} icon={<QIcon />} />
-                <SharedButton text={"Positive"} onClick={() => { practitionerStore.resolveMedication() }} />
-            </>}>
-            <div className={classes.photoContainer} >
-                <h2>{t("coordinator.sideBar.daysMissed")}: {practitionerStore.missedDays.days && practitionerStore.missedDays.days.length} </h2>
-                {practitionerStore.missedDays.loading ? "Loading" : <div className={classes.daysList}> {practitionerStore.missedDays.days && practitionerStore.missedDays.days.map((day) => { return <p>{DateTime.fromISO(day.date).toLocaleString(DateTime.DATE_SHORT)}</p> })} </div>}
+                <SharedButton text={"Contacted"} onClick={() => { practitionerStore.resolveSupportRequest() }} />
 
-            </div>
+            </>}>
+
+            {show && <div>
+                {console.log(patient.supportRequests)}
+                {patient.supportRequests.map(each => {
+                    return (<div>
+                        <p>{DateTime.fromISO(each.date).toLocaleString(DateTime.DATETIME_SHORT)}</p>
+                        <p>text here</p>
+                    </div>)
+                })}
+            </div>}
         </Basicsidebar>
     )
 });
 
-export default MissedMedicationSidebar;
-
-
-<SharedButton text={"Resolve"} onClick={() => { practitionerStore.resolveMedication() }} />
+export default SupportSidebar;

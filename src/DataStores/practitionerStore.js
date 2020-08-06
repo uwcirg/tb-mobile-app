@@ -1,4 +1,4 @@
-import { action, observable, computed } from "mobx";
+import { action, observable, computed, toJS } from "mobx";
 import { UserStore } from './userStore'
 
 const ROUTES = {
@@ -13,7 +13,8 @@ const ROUTES = {
     getSeverePatients: ["/patients/severe", "GET"],
     getMissingPatients: ["/patients/missed", "GET"],
     getRecentReports: ["/patients/reports/recent", "GET"],
-    getCompletedResolutionsSummary: ["/practitioner/resolutions/summary", "GET"]
+    getCompletedResolutionsSummary: ["/practitioner/resolutions/summary", "GET"],
+    getSupportRequests: ["/patients/need_support","GET"]
 }
 
 export class PractitionerStore extends UserStore {
@@ -91,7 +92,8 @@ export class PractitionerStore extends UserStore {
     @observable filteredPatients = {
         symptom: [],
         missed: [],
-        photo: []
+        photo: [],
+        support: []
     }
 
     @observable selectedRow = {
@@ -388,6 +390,19 @@ export class PractitionerStore extends UserStore {
             this.getPatientNotes();
             return response
         })
+    }
+
+    getSupportRequests = () => {
+        this.executeRequest("getSupportRequests").then(response => {
+            this.filteredPatients.support = response.map(each => {return {patientId: each}})
+        })
+    }
+
+    resolveLastSupportRequest = () => {
+            this.executeRawRequest(`/patient/${this.selectedPatientID}/resolutions?type=support`, "POST").then(response => {
+                this.adjustIndex();
+                this.getSupportRequests();
+            })
     }
 
 }

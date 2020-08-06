@@ -12,6 +12,7 @@ import MedicationSideBar from './MedicationSideBar'
 import { useTranslation } from 'react-i18next';
 import { Badge } from '@material-ui/core';
 import TaskSideBar from './TaskSidebar'
+import SupportSidebar from './SupportSidebar';
 
 const useStyles = makeStyles({
     left: {
@@ -65,6 +66,7 @@ const Home = observer(() => {
         practitionerStore.getSeverePatients();
         practitionerStore.getPhotoReports();
         practitionerStore.getMissingPatients();
+        practitionerStore.getSupportRequests();
     }
 
     const classes = useStyles();
@@ -81,6 +83,13 @@ const Home = observer(() => {
                     title={t("coordinator.cardTitles.patientsWithSymptoms")}
                     patientList={practitionerStore.filteredPatients.symptom}
                     type="symptom"
+                />
+                <Card
+                    key={'symptoms-review'}
+                    icon={<AlertIcon />}
+                    title={t("Requested Support")}
+                    patientList={practitionerStore.filteredPatients.support}
+                    type="support"
                 />
 
                 <Card
@@ -115,6 +124,8 @@ const SideBarRouter = observer((props) => {
         component = <SymptomSidebar />
     } else if (practitionerStore.selectedRow.type === "missed") {
         component = <MedicationSideBar />
+    } else if(practitionerStore.selectedRow.type === "support"){
+        component = <SupportSidebar />
     }
 
     return (
