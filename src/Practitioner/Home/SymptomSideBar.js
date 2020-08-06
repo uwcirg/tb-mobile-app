@@ -11,6 +11,7 @@ import QIcon from '@material-ui/icons/HelpOutline';
 import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
 import Question from '@material-ui/icons/HelpOutline';
+import Symptom from '../Shared/Symptom'
 
 const useStyles = makeStyles({
     header: {
@@ -115,7 +116,7 @@ const SymptomSidebar = observer((props) => {
                             </div>
                             <div className="list">
                                 {practitionerStore.selectedPatientSymptoms.summary[each] && practitionerStore.selectedPatientSymptoms.summary[each].map((symptom) => {
-                                    return <p key={`symptom-sidebar-${symptom}`}>{t(`symptoms.${symptom}.title`)}</p>
+                                    return <p key={`symptom-sidebar-${symptom}`}><Symptom string={symptom} /></p>
                                 })}
                             </div>
                         </div>
