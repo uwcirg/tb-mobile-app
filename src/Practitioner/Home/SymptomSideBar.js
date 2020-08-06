@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
 import Question from '@material-ui/icons/HelpOutline';
 import Symptom from '../Shared/Symptom'
+import { SevereSymptoms } from '../../Basics/SymptomsSeperation';
 
 const useStyles = makeStyles({
     header: {
@@ -53,8 +54,9 @@ const useStyles = makeStyles({
     circle: {
         width: "10px",
         height: "10px",
-        borderRadius: "5px",
-        color: "red"
+        borderRadius: "50%",
+        backgroundColor: Colors.yellow,
+        marginRight: "1em"
     },
     day: {
         display: "flex",
@@ -70,15 +72,11 @@ const useStyles = makeStyles({
         },
         "& > .day": {
             display: "flex",
-            alignItems: "center",
-            "& > .circle": {
-                width: "10px",
-                height: "10px",
-                borderRadius: "50%",
-                backgroundColor: Colors.green,
-                marginRight: "1em"
-            }
-        },
+            alignItems: "center"
+        }
+    },
+    severe:{
+        backgroundColor: `${Colors.warningRed}`
     }
 })
 
@@ -89,10 +87,16 @@ const SymptomSidebar = observer((props) => {
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
 
+    const dates = Object.keys(practitionerStore.selectedPatientSymptoms.summary);
+
     useEffect(() => {
         practitionerStore.getSelectedPatientSymptoms();
 
     }, [practitionerStore.selectedRow.index])
+
+    const findCommonElements = (arr1, arr2) => { 
+        return arr1.some(item => arr2.includes(item)) 
+    } 
 
     return (
         <Basicsidebar buttons={
@@ -104,12 +108,12 @@ const SymptomSidebar = observer((props) => {
             <h2 className={classes.header}>{t("coordinator.sideBar.symptomsSince")}:</h2>
             {practitionerStore.selectedPatientSymptoms.loading ?
                 <p> {t("coordinator.sideBar.loading")}...</p> :
-                <div className={classes.symptoms}> {Object.keys(practitionerStore.selectedPatientSymptoms.summary).map((each) => {
+                <div className={classes.symptoms}> {dates.map((each) => {
                     return (
                         <div className={classes.listContainer} key={`symptom-sidebar-container-${each}`}>
                             <div className={classes.day}>
                                 <div className="day">
-                                    <div className="circle" > </div>
+                                    <div className={`${classes.circle} ${findCommonElements(practitionerStore.selectedPatientSymptoms.summary[each], SevereSymptoms) && classes.severe}`} > </div>
                                     {DateTime.fromISO(each).toLocaleString(DateTime.DATE_SHORT)}
                                 </div>
                                 <div className="line" />
