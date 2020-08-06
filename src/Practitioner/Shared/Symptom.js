@@ -4,10 +4,16 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Colors from '../../Basics/Colors';
 import {SevereSymptoms} from '../../Basics/SymptomsSeperation'
+import WarningIcon from '@material-ui/icons/WarningOutlined';
 
 const useStyles = makeStyles({
   severe:{
-      color: Colors.warningRed
+      color: Colors.warningRed,
+      fontWeight: "500"
+  },
+  base:{
+      display: "flex",
+      alignItems: "center"
   }
 })
 
@@ -16,7 +22,10 @@ const Symptom = (props) => {
     const { t, i18n } = useTranslation('translation');
     const classes = useStyles();
 
-    return(<span className={`${SevereSymptoms.includes(string) && classes.severe}`} >
+    const isSevere = SevereSymptoms.includes(string);
+
+    return(<span className={`${classes.base} ${isSevere && classes.severe}`} >
+        {props.icon && isSevere && <WarningIcon style={{fontSize: ".9em"}} /> }
         {t(`symptoms.${string}.title`)}
     </span>)
 

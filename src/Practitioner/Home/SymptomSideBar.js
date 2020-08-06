@@ -48,6 +48,7 @@ const useStyles = makeStyles({
         "& > .list": {
             "& > p": {
                 margin: "0 0 .5em 0",
+                color: Colors.textDarkGray
             },
             flexBasis: "50%",
             display: "flex",
@@ -67,16 +68,17 @@ const useStyles = makeStyles({
         flexDirection: "column",
         fontWeight: "medium",
         "& > p": {
-            margin: 0
+            margin: 0,
         },
         "& > .line": {
             marginLeft: "5px",
-            borderLeft: "1px solid black",
+            borderLeft: `1px solid lightgray`,
             flexGrow: "1"
         },
         "& > .day": {
             display: "flex",
-            alignItems: "center"
+            alignItems: "center",
+            color: Colors.textGray
         }
     },
     severe: {
@@ -124,7 +126,7 @@ const SymptomSidebar = observer((props) => {
                             </div>
                             <div className="list">
                                 {practitionerStore.selectedPatientSymptoms.summary[each] && practitionerStore.selectedPatientSymptoms.summary[each].map((symptom) => {
-                                    return <p key={`symptom-sidebar-${symptom}`}><Symptom string={symptom} /></p>
+                                    return <p key={`symptom-sidebar-${symptom}`}><Symptom icon string={symptom} /></p>
                                 })}
                             </div>
                         </div>
