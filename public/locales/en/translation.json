@@ -437,7 +437,7 @@
             "feelingWell": "Feeling Well",
             "contactTracing": "Contact Traces",
             "reportingHistory": "Patient History",
-            "listReports": "List",
+            "listReports": "Reports",
             "calendarReports": "Calendar",
             "options":{
                 "resetPassword": "Reset Password",

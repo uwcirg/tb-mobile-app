@@ -43,7 +43,7 @@ const useStyles = makeStyles({
 })
 
 const ReportingHistory = observer(() => {
-    const [visible, setVisible] = useState('list');
+    const [visible, setVisible] = useState('reports');
     const [day, setDay] = useState(new Date())
     const classes = useStyles();
     const { practitionerStore } = useStores();
@@ -61,7 +61,7 @@ const ReportingHistory = observer(() => {
                     reports={practitionerStore.selectedPatient.reports}
                     treatmentStart={practitionerStore.selectedPatient.details.treatmentStart}
                 />}
-                {visible === "list" && <ReportsView />}
+                {visible === "reports" && <ReportsView />}
                 {visible === "notes" && <NotesView />}
 
             </div>
@@ -77,7 +77,7 @@ const ReportingHistoryLabel = (props) => {
         <div className={classes.reportsHeader}>
             <Typography variant="h2">{t('coordinator.patientProfile.reportingHistory')}</Typography>
             <ButtonGroup className={classes.buttonGroup} size="small">
-                <Button onClick={() => { props.setVisible('list') }} className={!props.visible === 'list' && "selected"}>{t('coordinator.patientProfile.listReports')}</Button>
+                <Button onClick={() => { props.setVisible('reports') }} className={props.visible === 'reports' && "selected"}>{t('coordinator.patientProfile.listReports')}</Button>
                 <Button onClick={() => { props.setVisible('calendar') }} className={props.visible  === 'calendar' && "selected"}>{t('coordinator.patientProfile.calendarReports')}</Button>
                 <Button onClick={() => { props.setVisible('notes') }} className={props.visible === 'notes' && "selected"}>{t('notes')}</Button>
             </ButtonGroup>

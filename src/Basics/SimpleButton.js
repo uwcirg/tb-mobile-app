@@ -11,7 +11,10 @@ const useStyles = makeStyles({
       color: "white",
       fontSize: "1em",
       textTransform: "capitalize",
-      padding: ".5em"
+      padding: ".5em",
+      "&:focus": {
+        background: Colors.buttonBlue
+      }
     },
     inner:{
       padding: "0 .75em 0 .75em"
