@@ -15,7 +15,8 @@
         "other": "Otra opción",
         "first": "primero",
         "second": "segundo",
-        "final": "final "
+        "final": "final ",
+        "total": "total"
     },
     "userTypes": {
         "patient": "Paciente",
@@ -35,16 +36,21 @@
         "activate": "Activar"
     },
     "messaging": {
+        "selectChannel": "Select a Patient or Discussion To Get Started",
         "nurseContact": "¿Necesita asistencia personal? ¡Contacte a su coordinador!¿",
         "privateExplained": "Private messages with your coordinator",
-        "search": "Search By Topic"
+        "search": "Search By Topic",
+        "patients": "Pacientes",
+        "discussions": "Discussions"
     },
     "time": {
         "day": "día",
         "week": "semana",
         "days": "días",
         "weeks": "semanas",
-        "month": "mes"
+        "month": "mes",
+        "all": "Todas"
+
     },
     "patient": {
         "onboarding":{
@@ -94,7 +100,7 @@
             "endText": "¡Gracias por su respuesta, ahora empecemos usando la aplicación! "
         },
         "walkthrough": {
-            "swipe": "Deslizar al derecho para ver más  ",
+            "swipe": "Swipe Left See More",
             "welcome": {
                 "header": "Bienvenido",
                 "one": "¡Gracias por registrarse para el Asistente de Tratamiento!",
@@ -216,7 +222,7 @@
             "whyNotTaken": "Porque no tomó su medicamento?",
             "symptomsTitle": "¿Tiene Malestares?",
             "moodTitle": "¿Cómo te sientes hoy?",
-            "doingWell": "Doing Well",
+            "doingWell": "Estando Bien",
             "needSupport": "Necesito ayuda ",
             "photoTitle": "Tomar Foto de Tira Reactiva",
             "photo": {
@@ -226,7 +232,7 @@
                 "showMe": "Enseñame como"
             },
             "symptoms": {
-                "nauseaRating": "How bad is your nausea?",
+                "nauseaRating": "¿Que fuerte es tu náusea?",
                 "warning": {
                     "title": "Usted  ha reportado un sintoma que requiere inmediata atención médica",
                     "subtitle": "Por favor busqué atención médica inmediatamente! Su coordinador se comunicará con ud. para confirmar que esté bien.",
@@ -254,25 +260,25 @@
             "viewPhotos": "Ver Todas sus Fotos",
             "approvalStatus": "Estado de Fotos",
             "milestones": "Fechas Importantes",
-            "upcoming": "Upcoming",
+            "upcoming": "Próximos",
             "calendar": "Calendario de Reportes"
         },
         "addMilestone": {
             "barTitle": "Añadir Hito",
             "titles": [
                 "¿Qué hito le gustaría añadir?",
-                "Whats the date of your milestone?",
-                "Whats the time of your milestone?",
+                "¿En qué fecha es el hito?",
+                "¿A qué hora es el hito?",
                 "¿Donde esta tu cita?"
             ]
         },
         "information": {
             "questions": "Preguntas y respuestas",
-            "education": "Previous Weekly Updates",
-            "helpSection": "Help With Application",
-            "infoSection": "Information About Treatment",
-            "launchWalkthrough": "Launch Walkthrough",
-            "video": "Watch Video"
+            "education": "Mensajes de Semanas Anteriores",
+            "helpSection": "Ayuda con la Aplicación",
+            "infoSection": "Información Sobre el Tratamiento",
+            "launchWalkthrough": "Abrir Guía de la Aplicación",
+            "video": "Ver Vídeo"
         }
     },
     "symptoms": {
@@ -340,7 +346,8 @@
     "coordinator": {
         "titles": {
             "myTasks": "Mis Tareas",
-            "myPatients": "Mis Pacientes "
+            "myPatients": "Mis Pacientes ",
+            "reportingStatus": "Reporting Status"
         },
         "cardTitles": {
             "patientsWithSymptoms": "Pacientes con Malestares",
@@ -358,16 +365,22 @@
             "tookMeds": "Tomó Medicación ",
             "didntTakeMeds": "No Tomó Medicación",
             "noPhoto": "Sin Foto",
-            "none": "Ninguna"
+            "none": "None"
         },
         "sideBar": {
+            "overview:":{
+                "title": "Overview",
+                "doneToday": "Completed Today",
+                "unresolved": "Unresolved"
+            },
             "lastContacted": "Último vez de Contacto",
             "viewFullProfile": "Ver Perfil Completo",
             "daysMissed": "Días Sin Reporte Desde la Última Actualización",
             "photoSub": "Sumisión de Foto",
             "symptomsSince": "Malestares Reportados",
             "loading": "Cargando",
-            "messagePatient": "Enviar Mensaje a Paciente"
+            "messagePatient": "Enviar Mensaje a Paciente",
+            "contactedPatient": "Contacted Patient"
         },
         "patientTableLabels": {
             "name": "Nombre",
@@ -386,11 +399,19 @@
         "false": "Falso",
         "daysInTreatment": "Días en Tratamiento",
         "patientProfile": {
+            "addNote":{
+                "header": "New note for",
+                "title": "Title",
+                "note": "Note",
+                "button": "Submit Note"
+            },
+            "age": "años",
+            "gender": "gender",
             "resetPassword": "Restablecer Contraseña",
             "resetPasswordExplanation": "Haga clic aquí para restablecer la contraseña de el paciente. Una contraseña temporal va a ser generada, tu necesitas mandar la nueva contraseña a el paciente por WhatsApp. Después de usar la contraseña temporal, la aplicación requerirá que el paciente cambie la contraseña. ",
             "phoneNumber": "número de teléfono",
             "treatmentStart": "Fecha de inicio del tratamiento",
-            "lastContacted": "Last Contacted",
+            "lastContacted": "Último vez de Contacto",
             "date": "Fecha",
             "taken": "Última fecha de medicación reportado",
             "symptoms": "síntomas",
@@ -398,7 +419,35 @@
             "completedDays": "Días Completos",
             "feelingHealthy": "Sintiéndome con Salud",
             "currentStreak": "Racha Presente",
-            "longestStreak": "Racha Más Larga"
+            "longestStreak": "Racha Más Larga",
+            "symptomSummary":{
+                "title": "Symptom Summary",
+                "noneReported": "No symptoms reported for selected time period",
+                "timeOptions":{
+                    "week": "Past 7 Days",
+                    "month": "Past 30 Days",
+                    "all": "All Reports"
+                }
+            },
+            "treatmentStatus": "Treatment Status",
+            "feelingWell": "Feeling Well",
+            "contactTracing": "Contact Traces",
+            "reportingHistory": "Patient History",
+            "listReports": "List",
+            "calendarReports": "Calendar",
+            "options":{
+                "resetPassword": "Reset Password",
+                "archive": "Archive Patient",
+                "message": "Message",
+                "note": "Add Note"
+            }
+        },
+        "tasksSidebar":{
+            "complete": "Complete",
+            "unfinished": "Unfinished",
+            "overview": "Tasks Overview",
+            "patientStatus": "Patient Report Status",
+            "noReport": "No Report Today"
         }
     },
     "errors": {
@@ -421,25 +470,34 @@
         "helpful": "¿Fue útil este mensaje?",
         "messages": {
             "0": "Inital message in english",
-            "1": "This will be the first weeks message",
-            "2": "This will be the second weeks message",
-            "3": "This will be the third weeks message",
-            "4": "This will be the fourth weeks message",
-            "5": "This will be the fifth weeks message"
+            "1": "Este va ser el mensaje de la primera semana",
+            "2": "Este va ser el mensaje de la segunda semana",
+            "3": "Este va ser el mensaje de la tercero semana",
+            "4": "Este va ser el mensaje de la cuarta semana",
+            "5": "Este va ser el mensaje de la quinta semana"
         }
     },
     "timeline":{
         "title": " Cronología de Tratamiento ",
-        "sputumTest": "Sputum Test",
-        "start": "Start of Treatment",
-        "intensive": "fase intensiva",
-        "continuous": "Continuous Phase",
-        "followUp": "Follow Up Appointments",
+        "sputumTest": "Prueba de Esputo ",
+        "start": "Inicio de Tratamiento",
+        "intensive": "Fase Intensiva",
+        "continuous": "Fase de Continuación ",
+        "followUp": "Citas de Chequeo",
         "end": "Fin del Tratamiento"
     },
     "report":{
-        "medicationTaken": "Tomó Medicación ",
-        "time": "A Las"
+        "tag": "Report",
+        "medicationTaken": "Medication Taken",
+        "time": "Time",
+        "conclusive": "Conclusive",
+        "inconclusive": "Inconclusive",
+        "pending": "Pending",
+        "photoNotNeeded": "Photo Not Required",
+        "missedPhoto": "Photo Not Submitted",
+        "submittedAt": "Submitted At",
+        "feeling": "Feeling",
+        "photoSubmitted": "Photo Submitted"
     }
 
 }

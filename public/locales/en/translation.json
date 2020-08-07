@@ -134,7 +134,7 @@
                 "header": "Now we are on the messaging page",
                 "text": "This page allows you to communicate with your coordinator and other patients",
                 "one": "Click here to directly and privately message your coordinator",
-                "two": "Here you can chat publically with other patients about your treatment. These discussions are organized by topic"
+                "two": "Here you can chat publicly with other patients about your treatment. These discussions are organized by topic"
             },
             "outro": {
                 "header": "Thats all for now!",
@@ -284,7 +284,7 @@
     "symptoms": {
         "nausea": {
             "title": "Nausea or Vomiting",
-            "subtitle": "Feeling nauscious or unable to put food down"
+            "subtitle": "Feeling nauseous or unable to put food down"
         },
         "redness": {
             "title": "Redness",

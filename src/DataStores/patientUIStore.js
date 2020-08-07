@@ -170,12 +170,13 @@ export default class PatientUIStore {
         let search = this.router.location.search
         return (search.includes("onSettings=true"))
     }
+
     /* Password Update Getter + Setter */
     @computed get onPasswordUpdate() {
         return this.router.location.search.includes("&onPassword=true")
     }
 
-    
+
     @action goToPasswordUpdate = () => {
         this.router.push(`${this.router.location.pathname}?onSettings=true&onPassword=true`)
     }
@@ -184,8 +185,23 @@ export default class PatientUIStore {
         this.goToSettings();
     }
 
-    @action clearURL = () =>{
+    @action clearURL = () => {
         this.router.push("")
+    }
+
+    //Reminders
+    /* Settings getter + setter */
+    @action goToAddReminder = () => {
+        this.router.push(`${this.router.location.pathname}?onAddReminders=true`)
+    }
+
+    @action closeAddReminder = () => {
+        this.router.push(this.router.location.pathname)
+    }
+
+    @computed get onAddReminder() {
+        let search = this.router.location.search
+        return (search.includes("onAddReminder=true"))
     }
 }
 

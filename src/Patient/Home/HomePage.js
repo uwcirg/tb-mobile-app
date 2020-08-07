@@ -18,7 +18,6 @@ const HomePage = () => {
             <ActionBox />
             <Progress />
             <Reminders />
-           {/*<Alerts />*/} 
         </Body>
     )
 
