@@ -25,7 +25,9 @@ export class PractitionerStore extends UserStore {
     }
 
     @observable resolutionSummary = {
-        dailyCount: 0
+        dailyCount: 0,
+        takenMedication: 0,
+        notTakenMedication: 0
     }
 
     @observable cohortSummary = {
@@ -329,8 +331,10 @@ export class PractitionerStore extends UserStore {
         this.selectedPatient.symptomSummary = symptoms
     }
 
-    @action setResolutionsSummary = (count) => {
-        this.resolutionSummary.dailyCount = count;
+    @action setResolutionsSummary = (response) => {
+        this.resolutionSummary.dailyCount = response.count;
+        this.resolutionSummary.takenMedication = response.medicationReporting.true
+        this.resolutionSummary.notTakenMedication = response.medicationReporting.false
     }
 
     @computed get selectedPatientReports() {
@@ -374,7 +378,7 @@ export class PractitionerStore extends UserStore {
 
     getCompletedResolutionsSummary = () => {
         this.executeRequest("getCompletedResolutionsSummary").then(response => {
-            this.setResolutionsSummary(response.count)
+            this.setResolutionsSummary(response)
         })
     }
 
@@ -404,5 +408,15 @@ export class PractitionerStore extends UserStore {
                 this.getSupportRequests();
             })
     }
+
+    @computed get numberOfCompletedTasks(){
+        return this.resolutionSummary.dailyCount;
+    
+    }
+
+    @computed get totalReported(){
+        return this.resolutionSummary.takenMedication + this.resolutionSummary.notTakenMedication
+    }
+
 
 }
