@@ -11,9 +11,7 @@ import Check from '@material-ui/icons/Check';
 import Clear from '@material-ui/icons/Clear';
 import Colors from '../../Basics/Colors';
 import LinearProgress from '@material-ui/core/LinearProgress';
-
-import { CircularProgressbar, CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
+import SubmittedVisual from './SubmittedVisual';
 
 const BorderLinearProgress = withStyles((theme) => ({
     root: {
@@ -127,31 +125,6 @@ const useStyles = makeStyles({
         ...Styles.profileCard,
         padding: "1em",
         marginTop: "1em"
-    },
-    halfCircle: {
-        width: "50%",
-        height: "100px",
-        overflow: "hidden",
-        margin: "auto"
-    },
-    dialText: {
-        "& > span": {
-            display: "block",
-            width: "100%",
-            fontSize: "2em",
-            textAlign: "center",
-            marginBottom: 0
-        },
-        position: "relative",
-        top: "-20px"
-    },
-    visContainer: {
-        "& > p": {
-            margin: 0,
-            display: "block",
-            width: "100%",
-            textAlign: "center"
-        },
     }
 })
 
@@ -237,7 +210,7 @@ const Summary = observer(() => {
                     <p>{t('coordinator.tasksSidebar.unfinished')}</p>
                 </div>
             </div>
-            <TestComp />
+            <SubmittedVisual />
         </div>
     )
 });
@@ -253,47 +226,5 @@ const TaskBar = () => {
     )
 }
 
-const TestComp = observer(() => {
-    const classes = useStyles();
-    const { practitionerStore } = useStores();
-
-    const percentage = ((practitionerStore.totalReported / (practitionerStore.patientList.length || 1)) * 100).toString().slice(0, 2)
-
-    return (
-        <div className={classes.visContainer}>
-            <div className={classes.halfCircle}>
-                <CircularProgressbarWithChildren
-                    value={(practitionerStore.totalReported / practitionerStore.patientList.length) * 100}
-                    circleRatio={.5}
-                    strokeWidth={8}
-                    styles={buildStyles({
-                        rotation: 3 / 4,
-                        pathColor: Colors.yellow,
-                        trailColor: "#eee",
-                        strokeLinecap: "butt"
-                    })}
-                >
-
-                    {/* Foreground path */}
-                    <CircularProgressbarWithChildren
-                        circleRatio={.5}
-                        strokeWidth={8}
-                        value={(practitionerStore.resolutionSummary.takenMedication / practitionerStore.patientList.length) * 100}
-                        styles={buildStyles({
-                            rotation: 3 / 4,
-                            pathColor: Colors.green,
-                            trailColor: "transparent",
-                            strokeLinecap: "butt"
-                        })}
-                    > <div className={classes.dialText}>
-                            <span>{percentage}%</span>
-                        </div> </CircularProgressbarWithChildren>
-                </CircularProgressbarWithChildren>
-            </div>
-            <p>Submitted Today</p>
-        </div>
-    )
-
-})
 
 export default TaskBar;
