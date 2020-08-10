@@ -8,6 +8,7 @@ import {MessagingStore} from "./messagingStore"
 import LabPhotoStore from  "./labPhotoStore"
 import PractitionerUIStore from './practitionerUIStore'
 import APIHelper from './Requests'
+import ReminderStore from './reminderStore'
 
 //Testing router option ( would improve usibility on coordinator side)
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
@@ -36,6 +37,7 @@ export const stores = {
     practitionerStore: new PractitionerStore(apiHelper),
     patientStore: new PatientStore(apiHelper),
     messagingStore: new MessagingStore(apiHelper),
-    activationStore: new ActivationStore(apiHelper)
+    activationStore: new ActivationStore(apiHelper),
+    reminderStore: new ReminderStore(apiHelper)
 }
 

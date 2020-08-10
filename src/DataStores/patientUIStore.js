@@ -190,7 +190,6 @@ export default class PatientUIStore {
     }
 
     //Reminders
-    /* Settings getter + setter */
     @action goToAddReminder = () => {
         this.router.push(`${this.router.location.pathname}?onAddReminders=true`)
     }
@@ -201,7 +200,7 @@ export default class PatientUIStore {
 
     @computed get onAddReminder() {
         let search = this.router.location.search
-        return (search.includes("onAddReminder=true"))
+        return (search.includes("onAddReminders=true"))
     }
 }
 

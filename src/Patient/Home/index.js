@@ -9,10 +9,6 @@ const Home = observer((props) => {
 
     const {patientUIStore,patientStore,practitionerStore} = useStores();
 
-    useEffect(()=>{
-        practitionerStore.getReminders();
-    })
-
     if (patientUIStore.onReportFlow) {
         return (<MedicationFlow />)
     } else {
