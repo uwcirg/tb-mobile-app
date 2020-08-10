@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Styles from '../../../Basics/Styles';
 import OverTopBar from '../../Navigation/OverTopBar'
@@ -12,6 +12,9 @@ import { DatePicker, TimePicker } from "@material-ui/pickers";
 
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/luxon';
+
+import { useTranslation } from 'react-i18next';
+
 
 const useStyles = makeStyles({
     container: {
@@ -45,15 +48,24 @@ const useStyles = makeStyles({
 const AddMilestones = observer(() => {
 
     const classes = useStyles();
-    const { patientUIStore, reminderStore } = useStores()
+    const { patientUIStore, reminderStore,patientStore } = useStores()
+    const { t, i18n } = useTranslation('translation');
 
     const handleChange = (e) => {
         reminderStore.setType(e.target.value)
     }
 
-    const handleDateTimeChange = (date) =>{
+    const handleDateTimeChange = (date) => {
         reminderStore.setDate(date)
     }
+
+    const handleSubmit = () => {
+        reminderStore.create(patientStore.userID)
+    }
+
+    useEffect(() => {
+        reminderStore.type = Object.keys(t('reminderTypes',{returnObjects: true}))[0];
+    },[])
 
     return (<div className={classes.container}>
 
@@ -76,7 +88,7 @@ const AddMilestones = observer(() => {
                     onChange={handleDateTimeChange}
                 />
             </MuiPickersUtilsProvider>
-            <Button>Submit</Button>
+            <Button onClick={handleSubmit}>Submit</Button>
         </form>
 
 
@@ -85,6 +97,11 @@ const AddMilestones = observer(() => {
 })
 
 const TypeSelect = (props) => {
+
+    const { t, i18n } = useTranslation('translation');
+
+    const categories = Object.keys(t('reminderTypes',{returnObjects: true}));
+
     return (
         <Select
             labelId="demo-simple-select-label"
@@ -92,10 +109,13 @@ const TypeSelect = (props) => {
             value={props.value}
             onChange={props.handleChange}
         >
-            <MenuItem value={"appointment"}>Appointment</MenuItem>
-            <MenuItem value={"medication"}>Medication Pickup</MenuItem>
-            <MenuItem value={"sputum"}>Sputum Test</MenuItem>
-            <MenuItem value={"other"}>Other</MenuItem>
+
+            {categories.map( (each) => {
+                return(
+                <MenuItem value={each}>{t(`reminderTypes.${each}`)}</MenuItem>
+                )
+            })}
+
         </Select>
     )
 }

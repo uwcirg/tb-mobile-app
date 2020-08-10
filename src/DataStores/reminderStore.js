@@ -9,7 +9,7 @@ const ROUTES = {
 const initalizeReport = {
     type: "appointment",
     customType: "",
-    date: DateTime.local()
+    datetime: DateTime.local()
 
 }
 
@@ -29,8 +29,8 @@ export default class ReminderStore extends APIStore {
         this.newReminder.type = type
     }
 
-    @action setDate = (date) => {
-        this.newReminder.date = date
+    @action setDate = (datetime) => {
+        this.newReminder.datetime = datetime
     }
 
     getReminders = (id) => {
@@ -38,6 +38,22 @@ export default class ReminderStore extends APIStore {
             this.reminders = response;
         })
 
+    }
+
+    @action create = (id) => {
+        const body = {
+            category: this.newReminder.type,
+            datetime: this.newReminder.datetime
+        }
+        this.executeRawRequest(`/patients/${id}/reminders`,"POST",body).then(res => {
+            console.log(res)
+        })
+    }
+
+    getReminders = (id) => {
+        this.executeRawRequest(`/patients/${id}/reminders`, "GET").then(response => {
+
+        })
     }
 
 
