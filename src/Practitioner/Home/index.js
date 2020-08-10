@@ -63,6 +63,7 @@ const Home = observer(() => {
     }, [])
 
     const fetchData = () => {
+        practitionerStore.getReminders();
         practitionerStore.getSeverePatients();
         practitionerStore.getPhotoReports();
         practitionerStore.getMissingPatients();

@@ -410,12 +410,18 @@ export class PractitionerStore extends UserStore {
     }
 
     @computed get numberOfCompletedTasks(){
-        return this.resolutionSummary.dailyCount;
+        return this.resolutionSummary.dailyCount || 0;
     
     }
 
     @computed get totalReported(){
-        return this.resolutionSummary.takenMedication + this.resolutionSummary.notTakenMedication
+        return (this.resolutionSummary.takenMedication || 0) + (this.resolutionSummary.notTakenMedication || 0)
+    }
+
+    getReminders = () => {
+        this.executeRawRequest(`/patients/87/reminders`, "GET").then(response => {
+
+        })
     }
 
 
