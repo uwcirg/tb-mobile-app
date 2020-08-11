@@ -513,7 +513,11 @@
     "appointments":{
         "typeQuestion": "What type of appointment would you like to add?",
         "selectDate": "Select a date and time",
+<<<<<<< HEAD
         "addApointment": "Add Appointment",
+=======
+        "addAppointment": "Add Appointment",
+>>>>>>> feature/reminders
         "otherType": "What type of appointment?",
         "remindedAt": "You will be reminded at",
         "dayBefore": "the day before your appointment",
@@ -522,6 +526,12 @@
             "medication_pickup": "Medication Pickup",
             "sputum_test": "Sputum Test",
             "other": "Other"
+<<<<<<< HEAD
         }
+=======
+        },
+        "showAll": "Show All",
+        "showLess": "Show Less"
+>>>>>>> feature/reminders
     }
 }

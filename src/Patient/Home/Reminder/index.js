@@ -80,7 +80,11 @@ const AddMilestones = observer(() => {
     return (<div className={classes.container}>
 
         <form onSubmit={(event) => { event.preventDefault() }} className={classes.form}>
+<<<<<<< HEAD
             <OverTopBar title={t('appointments.addApointment')} handleBack={patientUIStore.closeAddReminder} />
+=======
+            <OverTopBar title={t('appointments.addAppointment')} handleBack={patientUIStore.closeAddReminder} />
+>>>>>>> feature/reminders
             <Typography variant="p">{t('appointments.typeQuestion')}</Typography>
             <TypeSelect handleChange={handleChange} value={reminderStore.newReminder.type} />
             {reminderStore.newReminder.type === "other" && <Input placeholder={t("appointments.otherType")}></Input>}
@@ -91,6 +95,10 @@ const AddMilestones = observer(() => {
                     value={reminderStore.newReminder.datetime}
                     onChange={handleDateTimeChange}
                     animateYearScrolling
+<<<<<<< HEAD
+=======
+                    disablePast
+>>>>>>> feature/reminders
                 />
                 <TimePicker
                     clearable
@@ -102,7 +110,11 @@ const AddMilestones = observer(() => {
             </MuiPickersUtilsProvider>
             <Typography className={classes.bottomText} variant="p">{t('appointments.remindedAt')} {t('time.noon')}  {t('appointments.dayBefore')} </Typography>
             {reminderStore.loading && <p>Loading</p>}
+<<<<<<< HEAD
             <Button onClick={handleSubmit}>{t('appointments.addApointment')}</Button>
+=======
+            <Button onClick={handleSubmit}>{t('appointments.addAppointment')}</Button>
+>>>>>>> feature/reminders
         </form>
 
 
