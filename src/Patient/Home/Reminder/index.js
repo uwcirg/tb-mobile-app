@@ -14,6 +14,8 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/luxon';
 
 import { useTranslation } from 'react-i18next';
+import Typography from '@material-ui/core/Typography';
+import Colors from '../../../Basics/Colors';
 
 
 const useStyles = makeStyles({
@@ -39,9 +41,15 @@ const useStyles = makeStyles({
         width: "90%",
         "& > button": {
             alignSelf: "flex-end",
-            width: "30%",
+            width: "50%",
             marginTop: "auto"
+        },
+        "& > span": {
+            color: Colors.textGray
         }
+    },
+    bottomText:{
+        margin: "auto"
     }
 })
 
@@ -72,13 +80,14 @@ const AddMilestones = observer(() => {
     return (<div className={classes.container}>
 
         <form onSubmit={(event) => { event.preventDefault() }} className={classes.form}>
-            <OverTopBar title={"Add Reminder"} handleBack={patientUIStore.closeAddReminder} />
+            <OverTopBar title={t('appointments.addApointment')} handleBack={patientUIStore.closeAddReminder} />
+            <Typography variant="p">{t('appointments.typeQuestion')}</Typography>
             <TypeSelect handleChange={handleChange} value={reminderStore.newReminder.type} />
-            {reminderStore.newReminder.type === "other" && <Input defaultValue={"What type?"}></Input>}
-            <p>Details</p>
+            {reminderStore.newReminder.type === "other" && <Input placeholder={t("appointments.otherType")}></Input>}
+            <Typography variant="p">{t('appointments.selectDate')}</Typography>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <DatePicker
-                    label="Basic example"
+                    label={t('coordinator.patientProfile.date')}
                     value={reminderStore.newReminder.datetime}
                     onChange={handleDateTimeChange}
                     animateYearScrolling
@@ -86,13 +95,14 @@ const AddMilestones = observer(() => {
                 <TimePicker
                     clearable
                     ampm={false}
-                    label="Remind me at"
+                    label={t('report.time')}
                     value={reminderStore.newReminder.datetime}
                     onChange={handleDateTimeChange}
                 />
             </MuiPickersUtilsProvider>
+            <Typography className={classes.bottomText} variant="p">{t('appointments.remindedAt')} {t('time.noon')}  {t('appointments.dayBefore')} </Typography>
             {reminderStore.loading && <p>Loading</p>}
-            <Button onClick={handleSubmit}>Submit</Button>
+            <Button onClick={handleSubmit}>{t('appointments.addApointment')}</Button>
         </form>
 
 
@@ -104,11 +114,10 @@ const TypeSelect = (props) => {
 
     const { t, i18n } = useTranslation('translation');
 
-    const categories = Object.keys(t('reminderTypes',{returnObjects: true}));
+    const categories = Object.keys(t('appointments.types',{returnObjects: true}));
 
     return (
         <>
-        <p>Select Type of Appointment</p>
         <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
@@ -118,7 +127,7 @@ const TypeSelect = (props) => {
 
             {categories.map( (each) => {
                 return(
-                <MenuItem value={each}>{t(`reminderTypes.${each}`)}</MenuItem>
+                <MenuItem value={each}>{t(`appointments.types.${each}`)}</MenuItem>
                 )
             })}
 

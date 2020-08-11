@@ -7,7 +7,7 @@ const ROUTES = {
 }
 
 const initalizeReport = {
-    type: "appointment",
+    type: "check_in",
     customType: "",
     datetime: DateTime.local()
 

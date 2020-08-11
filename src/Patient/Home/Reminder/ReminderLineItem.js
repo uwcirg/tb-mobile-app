@@ -69,7 +69,7 @@ const LineItem = (props) => {
                 <div className={classes.day}>{date.day}</div>
             </div>
             <div className={classes.milestoneText}>
-                <span className="title">{props.reminder.title || (props.reminder.category && t(`reminderTypes.${props.reminder.category}`))}</span>
+                <span className="title">{props.reminder.title || (props.reminder.category && t(`appointments.types.${props.reminder.category}`))}</span>
                 <span className="date">{date.toLocaleString(DateTime.TIME_24_SIMPLE)}</span>
             </div>
             <Options reminderID={props.reminder.id} />

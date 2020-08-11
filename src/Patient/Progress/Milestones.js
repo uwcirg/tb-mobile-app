@@ -86,9 +86,9 @@ const MileStones = observer(() => {
                 <InteractionCard id="intro-milestones" upperText={t("patient.progress.milestones")}>
                     <div className={classes.body}>
                         {/*<h2>{t("milestones.previous")}</h2>*/}
-                        <div className={classes.header}> <h2>{t("milestones.previous")}</h2><Fab onClick={patientUIStore.goToAddMilestone} className={classes.addButton} size="small"><AddIcon /></Fab></div>
+                        <div className={classes.header}> <h2>{t("milestones.upcoming")}</h2><Fab onClick={patientUIStore.goToAddMilestone} className={classes.addButton} size="small"><AddIcon /></Fab></div>
                         <MileStoneList milestones={upcoming} />
-                        <h2>{t("milestones.upcoming")}</h2>
+                        <h2>{t("milestones.previous")}</h2>
                         <MileStoneList milestones={previous} />
                        
                     </div>

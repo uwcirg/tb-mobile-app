@@ -16,7 +16,9 @@
         "first": "first",
         "second": "second",
         "final": "final",
-        "total": "total"
+        "total": "total",
+        "delete": "Delete",
+        "loading": "Loading"
     },
     "userTypes": {
         "patient": "Patient",
@@ -49,7 +51,8 @@
         "days": "days",
         "weeks": "weeks",
         "month": "month",
-        "all": "all"
+        "all": "all",
+        "noon": "noon"
     },
     "patient": {
         "onboarding": {
@@ -507,10 +510,18 @@
         "feeling": "Feeling",
         "photoSubmitted": "Photo Submitted"
     },
-    "reminderTypes": {
-        "appointment": "Appointment",
-        "medication_pickup": "Medication Pickup",
-        "sputum_test": "Sputum Test",
-        "other": "Other"
+    "appointments":{
+        "typeQuestion": "What type of appointment would you like to add?",
+        "selectDate": "Select a date and time",
+        "addApointment": "Add Appointment",
+        "otherType": "What type of appointment?",
+        "remindedAt": "You will be reminded at",
+        "dayBefore": "the day before your appointment",
+        "types": {
+            "check_in": "Check In",
+            "medication_pickup": "Medication Pickup",
+            "sputum_test": "Sputum Test",
+            "other": "Other"
+        }
     }
 }

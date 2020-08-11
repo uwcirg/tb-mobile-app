@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Colors from '../../../Basics/Colors';
 import useStores from '../../../Basics/UseStores';
 import {observer} from 'mobx-react'
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
     delete: {
@@ -20,6 +21,8 @@ const SimpleMenu = observer((props) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const patientID = useStores().patientStore.userID;
     const {reminderStore} = useStores();
+
+    const { t, i18n } = useTranslation('translation');
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -49,7 +52,7 @@ const SimpleMenu = observer((props) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                <MenuItem className={classes.delete} onClick={handleItemClick}>Delete</MenuItem>
+                <MenuItem className={classes.delete} onClick={handleItemClick}>{t('commonWords.delete')}</MenuItem>
             </Menu>
         </>
     );
