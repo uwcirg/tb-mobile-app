@@ -169,11 +169,7 @@ const Card = observer(() => {
         <div className={classes.upcoming}>
             <div className={classes.reminderTitle}>
                 <Header>{t('patient.reminders.appointments')}</Header>
-<<<<<<< HEAD
-                <ClickableText hideIcon text={!showAll ? "Show all" : "Show Less"}  onClick={() => { setShowAll(!showAll) }}></ClickableText>
-=======
                 <ClickableText hideIcon text={!showAll ? t('appointments.showAll') : t('appointments.showLess')}  onClick={() => { setShowAll(!showAll) }}></ClickableText>
->>>>>>> feature/reminders
             </div>
             <div className={classes.reminder}>
                 {showAll ? <RemindersList /> :
@@ -181,11 +177,7 @@ const Card = observer(() => {
 
             </div>
             <div className={classes.addContainer}>
-<<<<<<< HEAD
-                <p>Add Appointment</p>
-=======
                 <p>{t('appointments.addAppointment')}</p>
->>>>>>> feature/reminders
                 <Fab onClick={patientUIStore.goToAddReminder} className={classes.add}><AddIcon /></Fab>
             </div>
         </div>
