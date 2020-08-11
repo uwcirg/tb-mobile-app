@@ -43,7 +43,7 @@ export default class ReminderStore extends APIStore {
     }
 
     @action getReminders = (id) => {
-        this.executeRawRequest(`/patients/${id}/reminders`, "GET").then(response => {
+        this.executeRawRequest(`/patients/${id}/reminders?future=true`, "GET").then(response => {
             this.reminders = response;
         })
     }
