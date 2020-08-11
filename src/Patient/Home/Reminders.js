@@ -86,16 +86,24 @@ const useStyles = makeStyles({
         color: "white",
         boxShadow: "none",
         marginLeft: ".5em"
+    },
+    reminderTitle:{
+        display: "flex",
+        width: "100%",
+        justifyContent: "space-between",
+        "& > button":{
+            flexBasis: "50%"
+        }
     }
 
 })
 
 const Reminders = observer(() => {
-    const {patientUIStore } = useStores();
+    const { patientUIStore } = useStores();
 
     return (
         <>
-            {patientUIStore.onAddReminder && <AddReminder /> }
+            {patientUIStore.onAddReminder && <AddReminder />}
             <Card />
         </>
 
@@ -107,15 +115,16 @@ const Card = observer(() => {
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
     const { patientStore, reminderStore, patientUIStore } = useStores();
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(false);
+    const [showAll, setShowAll] = useState(false);
 
     useEffect(() => {
         reminderStore.getReminders(patientStore.userID)
     }, [])
 
     useEffect(() => {
-        if(reminderStore.deleteSuccess){
-          patientUIStore.setAlert("Deletion Successful","warning")  
+        if (reminderStore.deleteSuccess) {
+            patientUIStore.setAlert("Deletion Successful", "warning")
         }
     }, [reminderStore.deleteSuccess])
 
@@ -158,9 +167,14 @@ const Card = observer(() => {
         />}
 
         <div className={classes.upcoming}>
-            <Header>{t('patient.reminders.appointments')}</Header>
+            <div className={classes.reminderTitle}>
+                <Header>{t('patient.reminders.appointments')}</Header>
+                <ClickableText hideIcon text={!showAll ? "Show all" : "Show Less"}  onClick={() => { setShowAll(!showAll) }}></ClickableText>
+            </div>
             <div className={classes.reminder}>
-                {reminderStore.reminders[0] && <ReminderItem reminder={reminderStore.reminders[0]} />}
+                {showAll ? <RemindersList /> :
+                    <>{reminderStore.reminders[0] && <ReminderItem reminder={reminderStore.reminders[0]} />}</>}
+
             </div>
             <div className={classes.addContainer}>
                 <p>Add Appointment</p>
@@ -171,6 +185,18 @@ const Card = observer(() => {
 
     </InteractionCard>)
 
+})
+
+const RemindersList = observer(() => {
+    const reminders = useStores().reminderStore.reminders;
+
+    return (
+        <>
+            {reminders.length > 0 && reminders.map(each => {
+                return <ReminderItem reminder={each} />
+            })}
+        </>
+    )
 })
 
 const Header = (props) => {
