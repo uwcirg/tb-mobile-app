@@ -9,7 +9,7 @@ import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import { DateTime } from 'luxon';
 import Colors from '../../Basics/Colors'
-import { MileStone } from '../Progress/Milestones'
+import ReminderItem from './Reminder/ReminderLineItem'
 import ClickableText from '../../Basics/ClickableText';
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
@@ -113,6 +113,12 @@ const Card = observer(() => {
         reminderStore.getReminders(patientStore.userID)
     }, [])
 
+    useEffect(() => {
+        if(reminderStore.deleteSuccess){
+          patientUIStore.setAlert("Deletion Successful","warning")  
+        }
+    }, [reminderStore.deleteSuccess])
+
     const handleChange = (date) => {
         patientStore.reminderTime = date.startOf('second').startOf("minute").toISOTime({ suppressSeconds: true });
         patientStore.updateNotificationTime();
@@ -154,7 +160,7 @@ const Card = observer(() => {
         <div className={classes.upcoming}>
             <Header>{t('patient.reminders.appointments')}</Header>
             <div className={classes.reminder}>
-                {reminderStore.reminders[0] && <MileStone milestone={reminderStore.reminders[0]} />}
+                {reminderStore.reminders[0] && <ReminderItem reminder={reminderStore.reminders[0]} />}
             </div>
             <div className={classes.addContainer}>
                 <p>Add Appointment</p>

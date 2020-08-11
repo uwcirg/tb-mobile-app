@@ -30,7 +30,7 @@ const BottomAlert = observer(() => {
     return (
   
             <Snackbar className={classes.bar} open={patientUIStore.alertVisible} autoHideDuration={5000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity="success">
+                <Alert onClose={handleClose} severity={patientUIStore.alertType}>
                     {patientUIStore.alertText}
         </Alert>
             </Snackbar>

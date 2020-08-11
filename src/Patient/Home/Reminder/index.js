@@ -62,8 +62,7 @@ const AddMilestones = observer(() => {
     const handleSubmit = () => {
         reminderStore.create(patientStore.userID)
         patientUIStore.closeAddReminder();
-        patientUIStore.alertText = "Reminder Added"
-        patientUIStore.alertVisible = true;
+        patientUIStore.setAlert("Reminder Added","success");
     }
 
     useEffect(() => {
@@ -80,7 +79,7 @@ const AddMilestones = observer(() => {
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <DatePicker
                     label="Basic example"
-                    value={reminderStore.newReminder.date}
+                    value={reminderStore.newReminder.datetime}
                     onChange={handleDateTimeChange}
                     animateYearScrolling
                 />
@@ -88,10 +87,11 @@ const AddMilestones = observer(() => {
                     clearable
                     ampm={false}
                     label="Remind me at"
-                    value={reminderStore.newReminder.date}
+                    value={reminderStore.newReminder.datetime}
                     onChange={handleDateTimeChange}
                 />
             </MuiPickersUtilsProvider>
+            {reminderStore.loading && <p>Loading</p>}
             <Button onClick={handleSubmit}>Submit</Button>
         </form>
 

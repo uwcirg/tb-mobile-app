@@ -23,6 +23,7 @@ export default class PatientUIStore {
 
     @observable alertVisible = false;
     @observable alertText = "";
+    @observable alertType = "success";
 
     handleMessageFromServiceworker(message) {
         if (message.url) {
@@ -203,6 +204,12 @@ export default class PatientUIStore {
     @computed get onAddReminder() {
         let search = this.router.location.search
         return (search.includes("onAddReminders=true"))
+    }
+
+    @action setAlert = (text,type) =>{
+        this.alertVisible = true;
+        this.alertText = text;
+        this.alertType = type;
     }
 }
 
