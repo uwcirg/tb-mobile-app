@@ -125,6 +125,7 @@ const Card = observer(() => {
     useEffect(() => {
         if (reminderStore.deleteSuccess) {
             patientUIStore.setAlert("Deletion Successful", "warning")
+            reminderStore.deleteSuccess = false;
         }
     }, [reminderStore.deleteSuccess])
 

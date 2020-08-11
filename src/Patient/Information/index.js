@@ -56,9 +56,11 @@ export default function Info() {
             </div>
 
             <Typography variant="h1">{t('patient.information.infoSection')}</Typography>
+            {/*
             <Section title={t('timeline.title')}>
                 <TreatmentTimeline weeksInTreatment={patientStore.patientInformation.weeksInTreatment} />
             </Section>
+            */}
 
             <Section title={t('patient.information.education')}>
                 <p> Coming Soon</p>

@@ -13,6 +13,7 @@ import MileStones from './Milestones'
 import MedicationFlow from '../MedicationFlow';
 import AddMilestone from './AddMilestone'
 import { useTranslation } from 'react-i18next';
+import TimelineCard from './TimelineCard'
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -64,6 +65,7 @@ const Progress = observer(() => {
                 {!patientUIStore.onCalendar ?
                     <div id="intro-progress-full">
                         <WeekCalendar />
+                        <TimelineCard />
                         <MileStones />
                         <ApprovalStatus />
                     </div> :

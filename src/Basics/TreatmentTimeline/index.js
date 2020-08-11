@@ -105,7 +105,7 @@ const Timeline = (props) => {
     return (<div className={classes.container}>
         <Month weeksInTreatment={props.weeksInTreatment} first month={0}>
             <Panel weeksInTreatment={props.weeksInTreatment} title={t('timeline.start')} weekValue={0} week="0" />
-            <Panel weeksInTreatment={props.weeksInTreatment} title={t('timeline.intensive')} weekValue={8} week="0-8" />
+            <Panel weeksInTreatment={props.weeksInTreatment} title={t('timeline.medicationChange')} weekValue={8} week="0-8" />
         </Month>
         <Month weeksInTreatment={props.weeksInTreatment} month={1}>
             <Panel weeksInTreatment={props.weeksInTreatment} title={`${t('commonWords.first')} ${t('timeline.sputumTest')}`} weekValue={8} week="8" />
