@@ -21,6 +21,9 @@ export default class PatientUIStore {
     @observable onTreatmentWalkthrough = false;
     @observable skippedToPhotoFlow = false;
 
+    @observable alertVisible = false;
+    @observable alertText = "";
+    @observable alertType = "success";
 
     handleMessageFromServiceworker(message) {
         if (message.url) {
@@ -170,12 +173,13 @@ export default class PatientUIStore {
         let search = this.router.location.search
         return (search.includes("onSettings=true"))
     }
+
     /* Password Update Getter + Setter */
     @computed get onPasswordUpdate() {
         return this.router.location.search.includes("&onPassword=true")
     }
 
-    
+
     @action goToPasswordUpdate = () => {
         this.router.push(`${this.router.location.pathname}?onSettings=true&onPassword=true`)
     }
@@ -184,8 +188,28 @@ export default class PatientUIStore {
         this.goToSettings();
     }
 
-    @action clearURL = () =>{
+    @action clearURL = () => {
         this.router.push("")
+    }
+
+    //Reminders
+    @action goToAddReminder = () => {
+        this.router.push(`${this.router.location.pathname}?onAddReminders=true`)
+    }
+
+    @action closeAddReminder = () => {
+        this.router.push(this.router.location.pathname)
+    }
+
+    @computed get onAddReminder() {
+        let search = this.router.location.search
+        return (search.includes("onAddReminders=true"))
+    }
+
+    @action setAlert = (text,type) =>{
+        this.alertVisible = true;
+        this.alertText = text;
+        this.alertType = type;
     }
 }
 

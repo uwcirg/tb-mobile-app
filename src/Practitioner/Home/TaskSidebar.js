@@ -11,6 +11,7 @@ import Check from '@material-ui/icons/Check';
 import Clear from '@material-ui/icons/Clear';
 import Colors from '../../Basics/Colors';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import SubmittedVisual from './SubmittedVisual';
 
 const BorderLinearProgress = withStyles((theme) => ({
     root: {
@@ -56,7 +57,7 @@ const useStyles = makeStyles({
         boxShadow: "0px 4px 16px rgba(204, 188, 252, 0.15)",
         backgroundColor: "white",
         marginTop: ".5em",
-        "&:hover":{
+        "&:hover": {
             cursor: "pointer"
         },
         "& > p": {
@@ -89,7 +90,7 @@ const useStyles = makeStyles({
         "& > p": {
             textAlign: "center"
         },
-        "&:hover":{
+        "&:hover": {
             cursor: "unset"
         },
     },
@@ -193,15 +194,14 @@ const Pending = () => {
 
 const Summary = observer(() => {
     const classes = useStyles();
-    const { dailyCount } = useStores().practitionerStore.resolutionSummary
     const { practitionerStore } = useStores();
     const { t, i18n } = useTranslation('translation');
     return (
         <div className={classes.progress}>
-            <BorderLinearProgress variant="determinate" value={(dailyCount / (dailyCount + practitionerStore.totalTasks)) * 100} />
+            <BorderLinearProgress variant="determinate" value={(practitionerStore.numberOfCompletedTasks / (practitionerStore.numberOfCompletedTasks + practitionerStore.totalTasks)) * 100} />
             <div className={classes.taskStatus}>
                 <div>
-                    <span>{dailyCount}</span>
+                    <span>{practitionerStore.numberOfCompletedTasks}</span>
                     <p>{t('coordinator.tasksSidebar.complete')}</p>
                 </div>
 
@@ -210,7 +210,7 @@ const Summary = observer(() => {
                     <p>{t('coordinator.tasksSidebar.unfinished')}</p>
                 </div>
             </div>
-
+            <SubmittedVisual />
         </div>
     )
 });
@@ -225,5 +225,6 @@ const TaskBar = () => {
         </div>
     )
 }
+
 
 export default TaskBar;
