@@ -18,6 +18,7 @@ export default class ReminderStore extends APIStore {
     @observable reminders = []
     @observable loading = false;
     @observable sending = false;
+    @observable success = false;
 
     @observable newReminder = initalizeReport;
 
@@ -33,6 +34,12 @@ export default class ReminderStore extends APIStore {
         this.newReminder.datetime = datetime
     }
 
+    delete = (patientId,id) => {
+        this.executeRawRequest(`/patients/${patientId}/reminders/${id}`, "GET").then(response => {
+            
+        })
+    }
+
     getReminders = (id) => {
         this.executeRawRequest(`/patients/${id}/reminders`, "GET").then(response => {
             this.reminders = response;
@@ -45,18 +52,12 @@ export default class ReminderStore extends APIStore {
             category: this.newReminder.type,
             datetime: this.newReminder.datetime
         }
-        this.executeRawRequest(`/patients/${id}/reminders`,"POST",body).then(res => {
-            console.log(res)
+        this.loading = true;
+        this.executeRawRequest(`/patients/${id}/reminders`, "POST", body).then(res => {
+            this.loading = false;
+            this.success = true;
         })
     }
-
-    getReminders = (id) => {
-        this.executeRawRequest(`/patients/${id}/reminders`, "GET").then(response => {
-
-        })
-    }
-
-
 
 
 }

@@ -118,6 +118,8 @@ const MileStoneList = (props) => {
 const MileStone = (props) => {
     const classes = useStyles();
     const date = DateTime.fromISO(props.milestone.datetime);
+    const { t, i18n } = useTranslation('translation');
+    
     return (
         <div className={classes.milestone}>
             <div className={classes.date}>
@@ -125,7 +127,7 @@ const MileStone = (props) => {
                 <div className={classes.day}>{date.day}</div>
             </div>
             <div className={classes.milestoneText}>
-                <span className="title">{props.milestone.title}</span>
+                <span className="title">{props.milestone.title || (props.milestone.category && t(`reminderTypes.${props.milestone.category}`) )}</span>
                 <span className="date">{date.toLocaleString(DateTime.TIME_24_SIMPLE)}</span>
             </div>
         </div>

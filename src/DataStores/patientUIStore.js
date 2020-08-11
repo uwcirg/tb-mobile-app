@@ -21,6 +21,8 @@ export default class PatientUIStore {
     @observable onTreatmentWalkthrough = false;
     @observable skippedToPhotoFlow = false;
 
+    @observable alertVisible = false;
+    @observable alertText = "";
 
     handleMessageFromServiceworker(message) {
         if (message.url) {

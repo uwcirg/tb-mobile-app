@@ -48,7 +48,7 @@ const useStyles = makeStyles({
 const AddMilestones = observer(() => {
 
     const classes = useStyles();
-    const { patientUIStore, reminderStore,patientStore } = useStores()
+    const { patientUIStore, reminderStore,patientStore} = useStores()
     const { t, i18n } = useTranslation('translation');
 
     const handleChange = (e) => {
@@ -61,6 +61,9 @@ const AddMilestones = observer(() => {
 
     const handleSubmit = () => {
         reminderStore.create(patientStore.userID)
+        patientUIStore.closeAddReminder();
+        patientUIStore.alertText = "Reminder Added"
+        patientUIStore.alertVisible = true;
     }
 
     useEffect(() => {
@@ -73,6 +76,7 @@ const AddMilestones = observer(() => {
             <OverTopBar title={"Add Reminder"} handleBack={patientUIStore.closeAddReminder} />
             <TypeSelect handleChange={handleChange} value={reminderStore.newReminder.type} />
             {reminderStore.newReminder.type === "other" && <Input defaultValue={"What type?"}></Input>}
+            <p>Details</p>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <DatePicker
                     label="Basic example"
@@ -103,6 +107,8 @@ const TypeSelect = (props) => {
     const categories = Object.keys(t('reminderTypes',{returnObjects: true}));
 
     return (
+        <>
+        <p>Select Type of Appointment</p>
         <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
@@ -117,6 +123,7 @@ const TypeSelect = (props) => {
             })}
 
         </Select>
+        </>
     )
 }
 

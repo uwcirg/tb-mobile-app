@@ -154,10 +154,10 @@ const Card = observer(() => {
         <div className={classes.upcoming}>
             <Header>{t('patient.reminders.appointments')}</Header>
             <div className={classes.reminder}>
-                {patientStore.milestones[0] && <MileStone milestone={patientStore.milestones[0]} />}
+                {reminderStore.reminders[0] && <MileStone milestone={reminderStore.reminders[0]} />}
             </div>
             <div className={classes.addContainer}>
-                <p>Add Reminder</p>
+                <p>Add Appointment</p>
                 <Fab onClick={patientUIStore.goToAddReminder} className={classes.add}><AddIcon /></Fab>
             </div>
         </div>
