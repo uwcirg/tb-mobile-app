@@ -505,6 +505,7 @@
         "end": "End of Treatment"
     },
     "report": {
+        "noReportsYet": "No Reports",
         "tag": "Report",
         "medicationTaken": "Medication Taken",
         "time": "Time",

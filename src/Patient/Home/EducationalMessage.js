@@ -60,8 +60,9 @@ const EducationalMessage = observer((props) => {
     const messages = t("educationalMessages.messages",{ returnObjects: true})
 
     const classes = useStyles();
+    const {patientUIStore} = useStores();
     const  {educationStore: education} = useStores().patientStore;
-    const [visible,setVisible] =  useState(education.educationMessage >= 0 && messages[education.educationMessage])
+    const [visible,setVisible] =  useState(education.educationMessage >= 0 && messages[education.educationMessage && !patientUIStore.onWalkthrough])
     //const [visible,setVisible] =  useState(false)
     
 
