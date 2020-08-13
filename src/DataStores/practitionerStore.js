@@ -2,7 +2,7 @@ import { action, observable, computed, toJS } from "mobx";
 import { UserStore } from './userStore'
 
 const ROUTES = {
-    addPatient: ["/patient", "POST"],
+    addPatient: ["/patients", "POST"],
     getCurrentPractitioner: ["/practitioner/me", "GET"],
     getOrganizations: ["/organizations", "GET"],
     getPatients: ["/practitioner/patients", "GET"],
@@ -53,7 +53,7 @@ export class PractitionerStore extends UserStore {
             givenName: "",
             familyName: "",
             phoneNumber: "",
-            startDate: new Date().toISOString(),
+            treatmentStart: new Date().toISOString(),
             isTester: false
         },
         loading: false,
@@ -129,12 +129,12 @@ export class PractitionerStore extends UserStore {
         this.executeRequest('addPatient', this.newPatient.params, { allowErrors: true }).then(json => {
             this.newPatient.loading = false;
 
-            if (json.error == 422) {
+            if (json && json.error == 422) {
                 this.newPatient.errors = json.paramErrors;
                 this.newPatient.errorReturned = true;
             }
 
-            if (json.code) {
+            if (json && json.code) {
                 this.newPatient.code = json.code;
                 this.getTemporaryPatients();
             }
@@ -383,14 +383,14 @@ export class PractitionerStore extends UserStore {
     }
 
     getPatientNotes = (patientID) => {
-        return this.executeRawRequest(`/patients/${patientID || this.selectedPatient.details.id }/notes`).then(response => {
+        return this.executeRawRequest(`/patient/${patientID || this.selectedPatient.details.id }/notes`).then(response => {
             this.setPatientNotes(response)
         })
     }
 
     postPatientNote = (title, note) => {
         const body = { title: title, note: note }
-        this.executeRawRequest(`/patients/${this.selectedPatient.details.id}/notes`, 'POST', body).then(response => {
+        this.executeRawRequest(`/patient/${this.selectedPatient.details.id}/notes`, 'POST', body).then(response => {
             this.getPatientNotes();
             return response
         })

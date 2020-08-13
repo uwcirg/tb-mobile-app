@@ -6,13 +6,18 @@ import SideBarTop from '../Shared/SideBarHeader';
 import Input from '@material-ui/core/Input';
 import TextField from '@material-ui/core/TextField'
 import { useTranslation } from 'react-i18next';
-import SimpleButton from '../../Basics/SimpleButton';
+import SimpleButton from '../../Basics/MuiButton';
 import PopOver from '../Shared/PopOver'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Loading from '../Shared/Loading'
+import DatePicker from '../../Basics/DatePicker'
 
 const useStyles = makeStyles({
+
+    base:{
+        padding: "1em"
+    },
     inputBody: {
         display: "flex",
         flexDirection: "column",
@@ -21,6 +26,7 @@ const useStyles = makeStyles({
     },
     input: {
         marginTop: "1em",
+        marginBottom: "1em",
         width: "100%"
     },
     newPatientForm: {
@@ -29,11 +35,22 @@ const useStyles = makeStyles({
         alignContent: "center"
     },
     submit: {
-        margin: "auto",
-        marginTop: "2em"
+        margin: "1em 1em 0 auto",
+
     },
-    checkbox:{
+    checkbox: {
         marginTop: "2em",
+        "& > span":{
+           fontSize: ".75em" 
+        }
+        
+    },
+    datePicker: {
+        "& > div":{
+            width: "100%",
+        },
+        
+        margin: "1em 0 1em 0"
     }
 })
 
@@ -41,46 +58,61 @@ const AddPatient = observer(() => {
 
     const { practitionerStore } = useStores();
     const classes = useStyles();
-    const handleExit = () => { 
-        practitionerStore.onAddPatientFlow = !practitionerStore.onAddPatientFlow 
+    const handleExit = () => {
+        practitionerStore.onAddPatientFlow = !practitionerStore.onAddPatientFlow
         practitionerStore.clearNewPatient();
     }
+    const { t, i18n } = useTranslation('translation');
 
-    return (<>
-        {practitionerStore.newPatient.code && <PopOver title={"Patient Added"} close={practitionerStore.clearNewPatient}><p>Code to send to patient:</p> <p>{practitionerStore.newPatient.code}</p> </PopOver>}
+    return (<div className={classes.base}>
+        {practitionerStore.newPatient.code && <PopOver title={t('coordinator.addPatientFlow.addedPatient')} close={practitionerStore.clearNewPatient}><p>Code to send to patient:</p> <p>{practitionerStore.newPatient.code}</p> </PopOver>}
         {practitionerStore.newPatient.code ? <p>{practitionerStore.newPatient.code}</p> :
             <>
-                <SideBarTop handleExit={handleExit} title="Add Patient" />
+                <SideBarTop handleExit={handleExit} title={t('coordinator.addPatientFlow.title')} />
                 {practitionerStore.newPatient.loading ? <Loading /> : <AddPatientForm submit={practitionerStore.addNewPatient} />}
             </>}
-    </>)
+    </div>)
 
 })
 
-const AddPatientForm = (props) => {
+const AddPatientForm = observer((props) => {
     const classes = useStyles();
+    const { t, i18n } = useTranslation('translation');
+    const { practitionerStore } = useStores();
+    const handleDateTimeChange = (datetime) => {
+
+    }
+
     return (
         <div className={classes.newPatientForm}>
             <form className={classes.inputBody} noValidate autoComplete="off">
                 <PatientInput id="givenName" />
                 <PatientInput id="familyName" />
                 <PatientInput id="phoneNumber" />
+                <div className={classes.datePicker}>
+                <DatePicker
+                    className={classes.datePicker}
+                    value={practitionerStore.newPatient.params.datetime}
+                    label={t('patient.userFields.treatmentStart')}
+                    onChange={handleDateTimeChange}
+                />
+                </div>
                 <UsabilityTestQuestion />
             </form>
-            <SimpleButton className={classes.submit} onClick={props.submit}>Submit</SimpleButton>
+            <SimpleButton className={classes.submit} onClick={props.submit}>{t('coordinator.addPatientFlow.title')}</SimpleButton>
         </div>
     )
-}
+})
 
 const UsabilityTestQuestion = observer(() => {
     const { practitionerStore } = useStores();
     const classes = useStyles();
-    return(
+    return (
         <FormControlLabel
-        control={<Checkbox color="primary" checked={practitionerStore.newPatient.params.isTester} onChange={()=>{practitionerStore.newPatient.params.isTester = !practitionerStore.newPatient.params.isTester }} name="checkedA" />}
-        className={classes.checkbox}
-        label="Usability Testing Patient"
-    />
+            control={<Checkbox color="primary" checked={practitionerStore.newPatient.params.isTester} onChange={() => { practitionerStore.newPatient.params.isTester = !practitionerStore.newPatient.params.isTester }} name="checkedA" />}
+            className={classes.checkbox}
+            label="Generate Random Treatment History (For Testing)"
+        />
     )
 
 })
