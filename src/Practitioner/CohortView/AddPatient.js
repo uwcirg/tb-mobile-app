@@ -79,8 +79,9 @@ const AddPatientForm = observer((props) => {
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
     const { practitionerStore } = useStores();
-    const handleDateTimeChange = (datetime) => {
 
+    const handleDateTimeChange = (datetime) => {
+        practitionerStore.newPatient.params.treatmentStart = datetime.toISO();
     }
 
     return (
@@ -92,9 +93,10 @@ const AddPatientForm = observer((props) => {
                 <div className={classes.datePicker}>
                 <DatePicker
                     className={classes.datePicker}
-                    value={practitionerStore.newPatient.params.datetime}
+                    value={practitionerStore.newPatient.params.treatmentStart}
                     label={t('patient.userFields.treatmentStart')}
                     onChange={handleDateTimeChange}
+                    disableFuture
                 />
                 </div>
                 <UsabilityTestQuestion />

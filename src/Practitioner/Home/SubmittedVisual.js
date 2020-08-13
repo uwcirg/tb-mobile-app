@@ -69,6 +69,7 @@ const Submitted = observer(() => {
 
     const percentage = ((practitionerStore.totalReported / (practitionerStore.patientList.length || 1)) * 100).toString().slice(0, 2)
 
+    console.log(practitionerStore.patientList.length)
     return (
         <div className={classes.container}>
             <div className={classes.visContainer}>
@@ -89,7 +90,7 @@ const Submitted = observer(() => {
                         <CircularProgressbarWithChildren
                             circleRatio={.5}
                             strokeWidth={8}
-                            value={(practitionerStore.resolutionSummary.takenMedication || 0 / practitionerStore.patientList.length) * 100}
+                            value={(practitionerStore.resolutionSummary.takenMedication / practitionerStore.patientList.length) * 100}
                             styles={buildStyles({
                                 rotation: 3 / 4,
                                 pathColor: Colors.green,
