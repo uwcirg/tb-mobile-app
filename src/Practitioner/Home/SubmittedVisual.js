@@ -67,9 +67,8 @@ const Submitted = observer(() => {
     const classes = useStyles();
     const { practitionerStore } = useStores();
 
-    const percentage = ((practitionerStore.totalReported / (practitionerStore.patientList.length || 1)) * 100).toString().slice(0, 2)
+    const percentage = Math.round(((practitionerStore.totalReported / (practitionerStore.patientList.length || 1)) * 100)).toString()
 
-    console.log(practitionerStore.patientList.length)
     return (
         <div className={classes.container}>
             <div className={classes.visContainer}>

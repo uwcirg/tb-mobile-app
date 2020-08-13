@@ -86,6 +86,10 @@ const AddPatientForm = observer((props) => {
 
     return (
         <div className={classes.newPatientForm}>
+           {practitionerStore.newPatient.errors["phoneNumber"] && practitionerStore.newPatient.errors["phoneNumber"].includes("has already been taken") &&
+            <p>
+                Phone number must be unique
+            </p>}
             <form className={classes.inputBody} noValidate autoComplete="off">
                 <PatientInput id="givenName" />
                 <PatientInput id="familyName" />

@@ -1,5 +1,6 @@
 import { action, observable, computed, toJS } from "mobx";
 import { UserStore } from './userStore'
+import { DateTime } from "luxon";
 
 const ROUTES = {
     addPatient: ["/patients", "POST"],
@@ -53,7 +54,7 @@ export class PractitionerStore extends UserStore {
             givenName: "",
             familyName: "",
             phoneNumber: "",
-            treatmentStart: new Date().toISOString(),
+            treatmentStart: DateTime.local().toISO(),
             isTester: false
         },
         loading: false,
