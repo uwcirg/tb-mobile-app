@@ -39,9 +39,9 @@ const PopUp = (props) => {
     const classes = useStyles();
 
     return (<div className={classes.container}>
-    <ClickAwayListener onClickAway={props.handleClickAway}>
+    <ClickAwayListener onClickAway={() => {props.handleClickAway(false)}}>
         <div className={`${classes.popup} ${props.className}`}>
-            <IconButton className={classes.exit} onClick={props.handleClickAway}><Clear /></IconButton>
+            <IconButton className={classes.exit} onClick={() => {props.handleClickAway(true)}}><Clear /></IconButton>
             {props.children}
         </div>
     </ClickAwayListener>

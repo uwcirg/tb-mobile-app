@@ -33,7 +33,9 @@ export class PractitionerStore extends UserStore {
 
     @observable cohortSummary = {
         loading: true,
-        data: {}
+        data: {
+            symptoms: {}
+        }
     }
 
     @observable selectedPatientSymptoms = {

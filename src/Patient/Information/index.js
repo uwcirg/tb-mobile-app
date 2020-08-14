@@ -12,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import TreatmentTimeline from '../../Basics/TreatmentTimeline'
 import Section from './Section'
 const file = raw("./information.md");
+const messagesFile = raw("../../Content/TreatmentMessages.json")
 
 //Convert markdown file to expandable cards format
 const useStyles = makeStyles({
@@ -40,6 +41,14 @@ const useStyles = makeStyles({
     },
     padding: {
         paddingLeft: "1em"
+    },
+    treatmentMessages: {
+        display: "flex",
+        flexDirection: "column",
+        "& > span":{
+            textTransform: "capitalize",
+            color: Colors.textGray
+        }
     }
 })
 
@@ -63,14 +72,32 @@ export default function Info() {
             */}
 
             <Section title={t('patient.information.education')}>
-                <p> Coming Soon</p>
+                <TreatmentMessages />
             </Section>
             <Section title={t('patient.information.questions')}>
-            <Interactioncard className={classes.topCard} >
-                <Markdown options={{ overrides: { Drawer: { component: MarkdownRender } } }} children={file} />
-            </Interactioncard>
+                <Interactioncard className={classes.topCard} >
+                    <Markdown options={{ overrides: { Drawer: { component: MarkdownRender } } }} children={file} />
+                </Interactioncard>
             </Section>
 
+        </div>
+    )
+}
+
+const TreatmentMessages = () => {
+    const messages = JSON.parse(messagesFile)
+    const classes = useStyles();
+    const { t, i18n } = useTranslation('translation');
+
+    return (
+        <div className={classes.treatmentMessages}>
+            {Object.keys(messages).map(each => {
+                return (
+                    <>
+                        <span>{t('time.day')} {each}</span>
+                        <p>{messages[each]}</p>
+                    </>)
+            })}
         </div>
     )
 }

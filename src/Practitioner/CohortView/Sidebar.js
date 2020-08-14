@@ -108,7 +108,8 @@ const CohortSideBar = observer((props) => {
                 <div>
                     
                     {practitionerStore.cohortSummary.loading ? <Loading /> : <div className={classes.contentContainer}>
-                        <PatientOverview />
+
+                         <PatientOverview />
                         <SymptomSummary />
 
                     </div>}
@@ -147,7 +148,7 @@ const SymptomSummary = observer(() => {
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
 
-    const symptomSummaries = useStores().practitionerStore.cohortSummary.data.symptoms
+    const symptomSummaries = useStores().practitionerStore.cohortSummary.data.symptoms || {}
 
     return (
         <div className={classes.section}>
