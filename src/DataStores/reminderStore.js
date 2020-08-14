@@ -36,14 +36,14 @@ export default class ReminderStore extends APIStore {
     }
 
     delete = (patientId,id) => {
-        this.executeRawRequest(`/patients/${patientId}/reminders/${id}`, "DELETE").then(response => {
+        this.executeRawRequest(`/patient/${patientId}/reminders/${id}`, "DELETE").then(response => {
             this.getReminders(patientId);
             this.deleteSuccess = true;
         })
     }
 
     @action getReminders = (id) => {
-        this.executeRawRequest(`/patients/${id}/reminders?future=true`, "GET").then(response => {
+        this.executeRawRequest(`/patient/${id}/reminders?future=true`, "GET").then(response => {
             this.reminders = response;
         })
     }
@@ -54,7 +54,7 @@ export default class ReminderStore extends APIStore {
             datetime: this.newReminder.datetime
         }
         this.loading = true;
-        this.executeRawRequest(`/patients/${id}/reminders`, "POST", body).then(res => {
+        this.executeRawRequest(`/patient/${id}/reminders`, "POST", body).then(res => {
             this.loading = false;
             this.success = true;
             window.setTimeout(()=>{

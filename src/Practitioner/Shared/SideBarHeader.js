@@ -7,7 +7,10 @@ import IconButton from '@material-ui/core/IconButton';
 const useStyles = makeStyles({
     sideBarTop: {
         display: "flex",
-        width: "100%"
+        width: "100%",
+        "& > h2":{
+            marginLeft: "1em"
+        }
     },
     clear:{
         marginLeft: "auto",

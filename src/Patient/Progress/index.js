@@ -66,7 +66,7 @@ const Progress = observer(() => {
                     <div id="intro-progress-full">
                         <WeekCalendar />
                         <TimelineCard />
-                        <MileStones />
+                       {/* <MileStones /> */}
                         <ApprovalStatus />
                     </div> :
                     <>

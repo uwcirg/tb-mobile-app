@@ -7,16 +7,18 @@
     "commonWords": {
         "medication": "Medicamento",
         "symptoms": "Sintomas",
-        "stripPhoto": "Tira Reactiva",
+        "stripPhoto": "Foto de la Tira Reactiva",
         "report": "Reportar",
         "no": "no",
         "yes": "sí",
         "of": "de",
-        "other": "Otra opción",
+        "other": "Otra / otro",
         "first": "primero",
         "second": "segundo",
         "final": "final ",
-        "total": "total"
+        "total": "Total",
+        "delete": "Borrar",
+        "loading": "Cargando"
     },
     "userTypes": {
         "patient": "Paciente",
@@ -26,22 +28,22 @@
     "login": {
         "changeLanguage": "Click Here For English",
         "activateAccount": "Activar su Cuenta",
-        "forgotPassword": "¿Olvidaste su Contraseña?",
+        "forgotPassword": "¿Olvidó su contraseña?",
         "phoneNumber": "Número de Teléfono",
         "email": "Correo Electrónico",
         "password": "Contraseña",
         "logIn": "Iniciar Sesión",
-        "selectType": "Bienvenido. Iniciar sesión para:",
-        "haveAccount": "¿Ya tienes una cuenta?",
+        "selectType": "Seleccione su usuario",
+        "haveAccount": "¿Ya tiene una cuenta?",
         "activate": "Activar"
     },
     "messaging": {
-        "selectChannel": "Select a Patient or Discussion To Get Started",
-        "nurseContact": "¿Necesita asistencia personal? ¡Contacte a su coordinador!¿",
-        "privateExplained": "Private messages with your coordinator",
-        "search": "Search By Topic",
+        "selectChannel": "Seleccione un Paciente o una Discusión Para Comenzar",
+        "nurseContact": "¿Necesita asistencia personal? ¡Contacte a su asistente!",
+        "privateExplained": "Chat privado con su asistente",
+        "search": "Busqueda por tema",
         "patients": "Pacientes",
-        "discussions": "Discussions"
+        "discussions": "Discusiones"
     },
     "time": {
         "day": "día",
@@ -49,104 +51,109 @@
         "days": "días",
         "weeks": "semanas",
         "month": "mes",
-        "all": "Todas"
-
+        "all": "Todas",
+        "noon": "mediodía"
     },
     "patient": {
-        "onboarding":{
+        "onboarding": {
             "landing": {
                 "welcome": "Bienvenido",
-                "message": "¡Gracias por registrar! Esta aplicación será donde informe su toma de medicamentos. Los informes son monitoreados por su Asistente de tratamiento."
+                "message": "¡Gracias por registrarse! Esta aplicación será donde reporte la toma de los medicamentos. Estos reportes son monitoreados por su Asistente de tratamiento."
             },
             "profileInformation": "Añadir información de perfil",
-            "coordinator":{
+            "coordinator": {
                 "title": "Que es un Asistente de Tratamiento?",
                 "will": {
-                    "title": "Tu Asistente de Tratamiento va a: ",
-                    "items": ["Monitorear tu progreso","Aprobar tus fotos de las tiras reactivas","Contestar tus preguntas sobre el tratamiento"]
+                    "title": "Su Asistente de Tratamiento va a: ",
+                    "items": [
+                        "Acompañar su progreso",
+                        "Aprobar sus fotos de las tiras reactivas",
+                        "Contestar sus preguntas sobre el tratamiento"
+                    ]
                 },
                 "wont": {
-                    "title": "Tu Asistente de Tratamiento no va a ",
-                    "items": ["Brindar atención médica","Hacer citas médicas"]
+                    "title": "Su Asistente de Tratamiento no va a ",
+                    "items": [
+                        "Brindar atención médica",
+                        "Programar visitas médicas"
+                    ]
                 },
-                "outro": "Ahora cuéntanos un poco sobre ti"
+                "outro": "Ahora cuéntenos un poco sobre Ud."
             },
             "password": {
                 "title": "Elija una nueva contraseña para su cuenta",
                 "confirmation": "Confirmar contraseña"
-        
             },
-            "gender":{
-                "title": "Selecciona su género preferido",
-                "male": "varón",
+            "gender": {
+                "title": "Seleccione su género ",
+                "male": "Hombre",
                 "female": "mujer",
                 "other": "otro"
             },
             "age": "¿Cuantos años tiene?",
             "notification": {
-                "one": "¿Le gustaría realizar un recordatorio diario para tomar sus medicamentos?",
+                "one": "¿Le gustaría programar un recordatorio diario para tomar sus medicamentos?",
                 "two": "¿A qué hora quiere el recordatorio?"
-        
             },
-            "contactTracing":{
+            "contactTracing": {
                 "one": "¿Con cuántas personas vive?",
                 "two": "¿Cuántos han completado el control de la tuberculosis?",
                 "some": "Algunos",
                 "all": "Todos",
-                "none": "Ningunos"
+                "none": "Ninguno"
             },
-            "success": "Finalizando la Configuración de tu Cuenta",
-            "next": "Seguir",
-            "endText": "¡Gracias por su respuesta, ahora empecemos usando la aplicación! "
+            "success": "Finalizando la Configuración de su Cuenta",
+            "next": "Siguiente",
+            "endText": "¡Gracias por sus respuestas, ahora empecemos a usar la aplicación! "
         },
         "walkthrough": {
-            "swipe": "Swipe Left See More",
+            "swipe": "deslice hacia la izquierda para ver más",
             "welcome": {
                 "header": "Bienvenido",
                 "one": "¡Gracias por registrarse para el Asistente de Tratamiento!",
-                "two": "Ahora te vamos a enseñar las funciones principales de la aplicación "
+                "two": "Ahora le vamos a enseñar las funciones principales de la aplicación "
             },
             "homescreen": "Comenzaremos mostrando la pantalla de inicio",
-            "revisit": "Si gustas regresar a esta guía, la puedes encontrar en la sección de información ",
-            "exit": "Para salir de esta guía, puedes tocar la X al extremo superior derecho",
-            "tasks": "Éstas son tus tareas diarias, puedes tocar Iniciar Reporte para comenzar su reporte de hoy. ",
-            "progressCard": "La carta de progresso te enseña una vista previa de donde está en su tratamiento. ",
-            "reminders": "Finalmente, la carta de los recordatorio te permite cambiar tu alarma diaria de la medicina. También puedes añadir recordatorios para tus visitas clínicas.",
+            "revisit": "Si desea regresar a esta guía, la puede encontrar en la sección de información ",
+            "exit": "Para salir de esta guía, puede tocar la X en el extremo superior derecho de la pantalla",
+            "tasks": "Éstas son sus tareas diarias, puede tocar Iniciar Reporte para comenzar su reporte de hoy. ",
+            "progressCard": "El esquema de progreso le muestra una vista previa de donde está Ud. en su tratamiento. ",
+            "reminders": "Finalmente, la carta de los recordatorio le permite cambiar su alarma diaria para los medicamentos. También puede agregar recordatorios para las visitas clínicas u otras fechas importantes.",
             "navigation": {
-                "text": "La aplicación tiene 4 secciones principales. Para cambiar entre ellas, seleccione un icono en la parte inferior de la pantalla. ",
+                "text": "La aplicación tiene 4 secciones principales. Para cambiar entre ellas, seleccione los iconos en la parte inferior de la pantalla. ",
                 "one": "Principal + Mis Tareas",
                 "two": "Progreso + Calendario",
                 "three": "Mensajes",
-                "four": "Información"
+                "four": "Información "
             },
             "progress": {
-                "header": "Ahora estamos en la sección de tu progreso",
-                "here": "Aquí puedes:",
+                "header": "Ahora estamos en la sección de su progreso",
+                "here": "Aquí puede:",
                 "one": "Ver reportes anteriores",
-                "two": "Ver y editar eventos importantes de tratamiento",
+                "two": "Ver y editar eventos o fechas importantes del tratamiento",
                 "three": "Chequear el estado de sus fotos de las tiras reactivas "
             },
-            "weekCalendar": "Ese es una vista previa de tus últimos 5 reportes. Puedes tocar aquí para ver su calendario completo. ",
-            "calendar": "Tu calendario completo te da un visual de tu racha. Los días que has faltado están en rojo",
-            "calendarBottom": "Puedes tocar esta área en la parte inferior de la pantalla para ver los detalles de tu reporte",
-            "milestones": "De regreso a la sección de tu progreso, puedes manejar tus Milestone",
+            "weekCalendar": "Ese es una vista previa de sus últimos 5 reportes. Puede tocar aquí para ver su calendario completo. ",
+            "calendar": "El calendario completo le da un visual de su progreso. Los días que no ha reportado están en rojo",
+            "calendarBottom": "Puede tocar esta área en la parte inferior de la pantalla para ver los detalles de su reporte",
+            "milestones": "De regreso a la sección de su progreso, puede manejar sus eventos importantes",
             "messaging": {
                 "header": "Ahora estamos en la sección de los mensajes",
-                "text": "Esta sección te permite comunicar directamente con tu asistente y también con otros pacientes",
-                "one": "Toque aquí para comunicarse directamente y privadamente con su asistente",
-                "two": "Aquí puedes charlar públicamente con otros pacientes sobre su tratamiento. Estas discusiones son organizadas por tópico"
+                "text": "Esta sección le permite comunicarse directamente con su asistente y también con otros pacientes",
+                "one": "Toque aquí para comunicarse directamente y en forma privada con su asistente",
+                "two": "Aquí puede conversar públicamente con otros pacientes sobre su tratamiento. Este chat está organizado por temas."
             },
             "outro": {
-                "header": "¡Eso es todo para hora!",
-                "one": "Se tienes más preguntas, revise la sección de información o mande un mensaje a su asistente "
+                "header": "¡Eso es todo por ahora!",
+                "one": "Se tiene más preguntas, revise la sección de información o envíe un mensaje a su asistente "
             }
         },
         "reminders": {
             "title": "Recordatorios",
             "medicationReminder": "Recordatorios de Medicación",
             "appointments": "Citas medicas",
-            "explanation": "Cuando esté prendida, la aplicación te mandará una notificación a la hora que selecciones para tomar tu medicina. ",
-            "enable": "Configurar",
+            "explanation": "Cuando esté activada, la aplicación le mandará una notificación a la hora que seleccione para tomar sus medicamentos. ",
+            "enable": "Activar",
             "disable": "Apagar",
             "changeTime": "Cambiar la hora"
         },
@@ -154,7 +161,7 @@
             "showDemo": "Mostrar Demostración"
         },
         "userFields": {
-            "givenName": "Nombre Preferido",
+            "givenName": "Nombre preferido",
             "familyName": "Apellido",
             "firstName": "Primer Nombre",
             "lastName": "Apellido",
@@ -163,7 +170,7 @@
             "phoneNumber": "Número de Teléfono"
         },
         "home": {
-            "purpose": "Vamos a hacer un seguimiento de tus medicamentos y tu salud!",
+            "purpose": "Vamos a hacer un seguimiento de sus medicamentos y su salud!",
             "today": "Hoy",
             "actions": {
                 "logMedication": "Iniciar Reporte",
@@ -175,106 +182,106 @@
             },
             "progress": {
                 "currentStreak": "días consecutivos",
-                "upcomingDate": "Próxima Visita",
+                "upcomingDate": "Próximos eventos",
                 "viewAll": "Ver Todos"
             },
             "completed": {
                 "title": "Completo",
-                "subtitle": "El Reporte de Hoy Fue Recibido",
+                "subtitle": "El Reporte de hoy fue enviado",
                 "modify": "Editar su Reporte"
             },
             "cardTitles": {
-                "todaysTasks": "Objetivos de Hoy",
+                "todaysTasks": "Tareas de Hoy",
                 "myProgress": "Mi Progreso",
-                "myLearning": "Educación para Mi"
+                "myLearning": "Aprendizaje"
             }
         },
         "profile": {
             "title": "Configuración",
-            "changePassword": "Cambia la contraseña",
+            "changePassword": "actualizar la contraseña",
             "editNotifications": "Editar recordatorios",
             "changeUsername": "Editar nombre de usuario",
             "personalInfo": "Informacion Personal",
             "startDate": "Primer Dia de Tratamiento",
             "endDate": "Último Dia de Tratamiento",
-            "totalTreatments": "Numero de Reportes Requeridos",
+            "totalTreatments": "Numero de tratamientos Requeridos",
             "currentAdherence": "Porcentaje de adherencia a la medicación",
-            "logout": "Salir de Aplicación",
-            "organization": "Organization",
+            "logout": "Salir de la Aplicación",
+            "organization": "Organización",
             "options": {
                 "language": "Idioma",
                 "dailyNotifications": "Recordatorios diarios",
                 "medicationReminder": "Recordatorio de los medicamentos",
-                "addNewReminder": "Agregar un nuevo recordatorio de los medicamento",
-                "remindMe": "Recordatorios Personales",
+                "addNewReminder": "Agregar un nuevo recordatorio de medicación",
+                "remindMe": "Recuerdeme a las",
                 "spanish": "Español",
                 "english": "Inglés",
                 "update": "Actualizar App"
             }
         },
         "report": {
-            "next": "Seguir",
-            "title": "Reporte Medico Para Hoy",
-            "medicationTitle": "Confirmación de Medicamento",
+            "next": "Siguiente",
+            "title": "Reporte la medicación de Hoy",
+            "medicationTitle": "Por favor reporte la toma de Medicamentos",
             "medicationTime": "A qué hora tomó su medicamento? ",
             "didTake": "Tomé mi medicamento.",
-            "didNotTake": "No tomé mi medicamento.",
-            "whyNotTaken": "Porque no tomó su medicamento?",
-            "symptomsTitle": "¿Tiene Malestares?",
-            "moodTitle": "¿Cómo te sientes hoy?",
-            "doingWell": "Estando Bien",
+            "didNotTake": "No tomé mis medicamentos.",
+            "whyNotTaken": "Porque no tomó sus medicamentos?",
+            "symptomsTitle": "¿Tuvo algún síntoma o malestar?",
+            "moodTitle": "¿Cómo se siente hoy?",
+            "doingWell": "Estoy Bien",
             "needSupport": "Necesito ayuda ",
-            "photoTitle": "Tomar Foto de Tira Reactiva",
+            "photoTitle": "Tomar Foto de la Tira Reactiva",
             "photo": {
-                "usePhoto": "Seguir",
-                "retakePhoto": "Volver a Tomar",
-                "openCamera": "Abrir Camera",
-                "showMe": "Enseñame como"
+                "usePhoto": "Usar foto",
+                "retakePhoto": "Volver a Tomar la foto",
+                "openCamera": "Abrir la Camara",
+                "showMe": "Muestreme como"
             },
             "symptoms": {
-                "nauseaRating": "¿Que fuerte es tu náusea?",
+                "nauseaRating": "¿Cuán severa es su náusea?",
                 "warning": {
                     "title": "Usted  ha reportado un sintoma que requiere inmediata atención médica",
-                    "subtitle": "Por favor busqué atención médica inmediatamente! Su coordinador se comunicará con ud. para confirmar que esté bien.",
+                    "subtitle": "Por favor busque atención médica inmediatamente! Su asistente se comunicará con ud. más tarde para confirmar que esté bien.",
                     "button": "Entiendo",
                     "moreInformation": "Ver Más Información"
                 }
             },
             "confirmation": {
                 "title": "Confirmar y Subir",
-                "addMore": "Reportar Mas Information",
-                "noPhoto": "Hoy no necesitas subir una foto.",
-                "missingPhoto": "Missing foto",
+                "addMore": "Mas Informacion",
+                "noPhoto": "Hoy no necesita subir una foto.",
+                "missingPhoto": "Falta la foto",
                 "takenAt": "Tomé a las",
-                "notTaken": "No tomado hoy",
+                "notTaken": "No lo tomé porque",
                 "review": "Revisar la foto"
             }
         },
         "reportConfirmation": {
             "goodJob": "Bien Hecho",
-            "photoNeeded": "Aun tenes que subir una foto de la tira reactiva.",
+            "photoNeeded": "Hoy también tiene que subir una foto de la tira reactiva.",
             "doLater": "Lo Haré Más Tarde"
         },
         "progress": {
             "viewCalendar": "Ver su Calendario de Reportes",
             "viewPhotos": "Ver Todas sus Fotos",
-            "approvalStatus": "Estado de Fotos",
-            "milestones": "Fechas Importantes",
+            "approvalStatus": "Estado de sus Fotos",
+            "milestones": "Eventos Importantes",
             "upcoming": "Próximos",
             "calendar": "Calendario de Reportes"
         },
         "addMilestone": {
-            "barTitle": "Añadir Hito",
+            "barTitle": "Añadir Evento",
             "titles": [
-                "¿Qué hito le gustaría añadir?",
-                "¿En qué fecha es el hito?",
-                "¿A qué hora es el hito?",
-                "¿Donde esta tu cita?"
+                "¿Qué evento le gustaría añadir?",
+                "¿Cuál es la fecha del evento?",
+                "¿A qué hora es el evento?",
+                "¿Donde es su cita?"
             ]
         },
         "information": {
             "questions": "Preguntas y respuestas",
-            "education": "Mensajes de Semanas Anteriores",
+            "education": "Actualización de las Semanas Anteriores",
             "helpSection": "Ayuda con la Aplicación",
             "infoSection": "Información Sobre el Tratamiento",
             "launchWalkthrough": "Abrir Guía de la Aplicación",
@@ -284,31 +291,31 @@
     "symptoms": {
         "nausea": {
             "title": "Náuseas o vómitos",
-            "subtitle": "Feeling nauscious or unable to put food down"
+            "subtitle": "Se siente con náuseas o imposibilitado de comer"
         },
         "redness": {
-            "title": "Enrojectimiento",
-            "subtitle": "Enrojectimiento de la piel, granitos, picazón"
+            "title": "Enrojecimiento",
+            "subtitle": "Enrojecimiento de la piel, granitos, picazón"
         },
         "hives": {
             "title": "Urticaria",
-            "subtitle": "Itchy spots on skin"
+            "subtitle": "manchas y picazón en la piel "
         },
         "fever": {
             "title": "Fiebre",
-            "subtitle": "Body temperature over 37.5"
+            "subtitle": "Temperatura más de  37.5"
         },
         "appetite_loss": {
             "title": "Pérdida de apetito",
-            "subtitle": "Loss of appetite"
+            "subtitle": "Pérdida de apetito"
         },
         "blurred_vision": {
             "title": "Visión borrosa",
-            "subtitle": "Blurred vision or changes in the way you see colors"
+            "subtitle": "Visión borrosa o alteración en la visión de los colores"
         },
         "sore_belly": {
             "title": "Dolor de la panza",
-            "subtitle": "Soreness of belly"
+            "subtitle": "Dolor de la panza"
         },
         "yellow_coloration": {
             "title": "Coloración amarillenta",
@@ -316,7 +323,7 @@
         },
         "difficulty_breathing": {
             "title": "Dificultad para respirar",
-            "subtitle": "Shortness of breath or difficulty breathing"
+            "subtitle": "Falta de aire o dificultad para respirar"
         },
         "facial_swelling": {
             "title": "Hinchazón de la cara",
@@ -333,62 +340,62 @@
     },
     "milestones": {
         "titles": {
-            "sputumTest": "Sputum Test",
-            "intensivePhase": "Start New Medication Phase",
-            "testingFU": "Follow Up Testing",
-            "appointmentFU": "Appointment",
-            "medPickup": "Medication Pick-Up",
-            "housematesTested": "All housemates tested"
+            "sputumTest": "Prueba de catarro o esputo",
+            "intensivePhase": "Fin de la etapa intensiva",
+            "testingFU": "Prueba de seguimiento",
+            "appointmentFU": "Visita de seguimiento",
+            "medPickup": "Recoleccion de medicamentos",
+            "housematesTested": "Todos los convivientes evaluados"
         },
-        "upcoming": "Fechas Pasadas",
-        "previous": "Fechas Siguientes"
+        "upcoming": "Fechas Próximas",
+        "previous": "Fechas anteriores"
     },
     "coordinator": {
         "titles": {
             "myTasks": "Mis Tareas",
             "myPatients": "Mis Pacientes ",
-            "reportingStatus": "Reporting Status"
+            "reportingStatus": "Estado del Reporte "
         },
         "cardTitles": {
-            "patientsWithSymptoms": "Pacientes con Malestares",
+            "patientsWithSymptoms": "Pacientes con síntomas",
             "photosToReview": "Fotos para Revisar",
-            "missedReport": "Falta Reporte Desde el Último Actualización",
+            "missedReport": "Faltan Reportes Desde la Última Actualización",
             "overviewOfProgress": "Resumen de Progreso",
             "allPatients": "Todos los Pacientes",
             "awaitingActivation": "Esperando Activación",
-            "currentStatus": "Estado Presente",
+            "currentStatus": "Estado actual",
             "reportingCalender": "Calendario de Reportes"
         },
         "recentReports": {
             "title": "Reportes Recientes",
-            "noSymptoms": "Ningún Malestar Reportado",
+            "noSymptoms": "Ningún síntoma Reportado",
             "tookMeds": "Tomó Medicación ",
             "didntTakeMeds": "No Tomó Medicación",
             "noPhoto": "Sin Foto",
-            "none": "None"
+            "none": "Ninguno"
         },
         "sideBar": {
-            "overview:":{
-                "title": "Overview",
-                "doneToday": "Completed Today",
-                "unresolved": "Unresolved"
+            "overview:": {
+                "title": "Resumen",
+                "doneToday": "Completado Hoy",
+                "unresolved": "Sin Resolución"
             },
-            "lastContacted": "Último vez de Contacto",
+            "lastContacted": "Último  Contacto",
             "viewFullProfile": "Ver Perfil Completo",
             "daysMissed": "Días Sin Reporte Desde la Última Actualización",
-            "photoSub": "Sumisión de Foto",
-            "symptomsSince": "Malestares Reportados",
+            "photoSub": "Envío de Foto",
+            "symptomsSince": "Síntomas Reportados",
             "loading": "Cargando",
-            "messagePatient": "Enviar Mensaje a Paciente",
-            "contactedPatient": "Contacted Patient"
+            "messagePatient": "Enviar Mensaje al Paciente",
+            "contactedPatient": "Paciente Contactado"
         },
         "patientTableLabels": {
             "name": "Nombre",
             "priority": "Prioridad",
             "treatmentStart": "Inicio de Tratamiento",
-            "lastSubmission": "Última Sumisión",
+            "lastSubmission": "Último envío",
             "adherence": "Adherencia",
-            "streak": "Racha"
+            "streak": "ultimos dias"
         },
         "noTasks": "No Hay Tareas",
         "profile": "Perfil",
@@ -399,105 +406,121 @@
         "false": "Falso",
         "daysInTreatment": "Días en Tratamiento",
         "patientProfile": {
-            "addNote":{
-                "header": "New note for",
-                "title": "Title",
-                "note": "Note",
-                "button": "Submit Note"
+            "addNote": {
+                "header": "Nueva nota para",
+                "title": "Título",
+                "note": "Nota",
+                "button": "Enviar Nota"
             },
-            "age": "años",
-            "gender": "gender",
+            "age": "edad",
+            "gender": "género",
             "resetPassword": "Restablecer Contraseña",
-            "resetPasswordExplanation": "Haga clic aquí para restablecer la contraseña de el paciente. Una contraseña temporal va a ser generada, tu necesitas mandar la nueva contraseña a el paciente por WhatsApp. Después de usar la contraseña temporal, la aplicación requerirá que el paciente cambie la contraseña. ",
+            "resetPasswordExplanation": "Haga clic aquí para restablecer la contraseña del paciente. Necesita mandar esta contraseña temporaria al paciente por WhatsApp.  Después de usar la contraseña temporaria, la aplicación requerirá que el paciente cambie la contraseña. ",
             "phoneNumber": "número de teléfono",
             "treatmentStart": "Fecha de inicio del tratamiento",
-            "lastContacted": "Último vez de Contacto",
+            "lastContacted": "Último Contacto",
             "date": "Fecha",
-            "taken": "Última fecha de medicación reportado",
+            "taken": "Tomado",
             "symptoms": "síntomas",
             "photo": "Foto",
             "completedDays": "Días Completos",
-            "feelingHealthy": "Sintiéndome con Salud",
-            "currentStreak": "Racha Presente",
-            "longestStreak": "Racha Más Larga",
-            "symptomSummary":{
-                "title": "Symptom Summary",
-                "noneReported": "No symptoms reported for selected time period",
-                "timeOptions":{
-                    "week": "Past 7 Days",
-                    "month": "Past 30 Days",
-                    "all": "All Reports"
+            "feelingHealthy": "Sintiéndome bien",
+            "currentStreak": "período actual",
+            "longestStreak": "Período Más Largo",
+            "symptomSummary": {
+                "title": "Resumen de síntomas",
+                "noneReported": "No hay malestares dentro el período seleccionado",
+                "timeOptions": {
+                    "week": "Últimos 7 días",
+                    "month": "Últimos 30 días",
+                    "all": "Todos los Reportes"
                 }
             },
-            "treatmentStatus": "Treatment Status",
-            "feelingWell": "Feeling Well",
-            "contactTracing": "Contact Traces",
-            "reportingHistory": "Patient History",
-            "listReports": "List",
-            "calendarReports": "Calendar",
-            "options":{
-                "resetPassword": "Reset Password",
-                "archive": "Archive Patient",
-                "message": "Message",
-                "note": "Add Note"
+            "treatmentStatus": "Estado de Tratamiento",
+            "feelingWell": "Me Siento Bien ",
+            "contactTracing": "seguimiento de contactos",
+            "reportingHistory": "Historia Del Paciente",
+            "listReports": "Reportes",
+            "calendarReports": "Calendario",
+            "options": {
+                "resetPassword": "Cambiar la Contraseña",
+                "archive": "Archivar Paciente",
+                "message": "Mensaje",
+                "note": "Añadir Nota"
             }
         },
-        "tasksSidebar":{
-            "complete": "Complete",
-            "unfinished": "Unfinished",
-            "overview": "Tasks Overview",
-            "patientStatus": "Patient Report Status",
-            "noReport": "No Report Today"
+        "tasksSidebar": {
+            "complete": "Completo",
+            "unfinished": "no finalizado",
+            "overview": "Resumen de Tareas ",
+            "patientStatus": "Condición del Reporte del Paciente",
+            "noReport": "No Hay Reporte Para Hoy"
         }
     },
     "errors": {
         "login": {
-            "identifier": "Incorrect Phone Number",
+            "identifier": "Numero de telefono incorrecto",
             "password": "contraseña incorrecta",
-            "other": "Unexpected Error!s"
+            "other": "Error. Por favor contacte a su asistente por whatsapp"
         }
     },
     "settings": {
-        "updatePassword": "Actualiza contraseña",
+        "updatePassword": "Actualizar contraseña",
         "currentPassword": "Contraseña Actual",
         "newPassword": "Nueva Contraseña",
-        "confirmPassword": "Confirmación de Contraseña",
+        "confirmPassword": "Confirme la nueva Contraseña",
         "submit": "Enviar"
     },
     "educationalMessages": {
         "week": "Semana",
-        "header": "Información Sobre tu Tratamiento",
+        "header": "Actualización Sobre su Tratamiento",
         "helpful": "¿Fue útil este mensaje?",
         "messages": {
-            "0": "Inital message in english",
+            "0": "Primer mensaje en inglés",
             "1": "Este va ser el mensaje de la primera semana",
             "2": "Este va ser el mensaje de la segunda semana",
-            "3": "Este va ser el mensaje de la tercero semana",
+            "3": "Este va ser el mensaje de la tercera semana",
             "4": "Este va ser el mensaje de la cuarta semana",
             "5": "Este va ser el mensaje de la quinta semana"
         }
     },
-    "timeline":{
-        "title": " Cronología de Tratamiento ",
+    "timeline": {
+        "title": " Línea de tiempo del Tratamiento ",
         "sputumTest": "Prueba de Esputo ",
         "start": "Inicio de Tratamiento",
         "intensive": "Fase Intensiva",
-        "continuous": "Fase de Continuación ",
-        "followUp": "Citas de Chequeo",
+        "medicationChange": "Cambio de Medicación",
+        "continuous": "Fase de Consolidación ",
+        "followUp": "Visitas de control",
         "end": "Fin del Tratamiento"
     },
-    "report":{
-        "tag": "Report",
-        "medicationTaken": "Medication Taken",
-        "time": "Time",
-        "conclusive": "Conclusive",
-        "inconclusive": "Inconclusive",
-        "pending": "Pending",
-        "photoNotNeeded": "Photo Not Required",
-        "missedPhoto": "Photo Not Submitted",
-        "submittedAt": "Submitted At",
-        "feeling": "Feeling",
-        "photoSubmitted": "Photo Submitted"
+    "report": {
+        "tag": "Reporte",
+        "medicationTaken": "Tomó los Medicamentos",
+        "time": "Tiempo",
+        "conclusive": "Concluyente",
+        "inconclusive": "Dudoso",
+        "pending": "Pendiente",
+        "photoNotNeeded": "No Se Requiere Foto",
+        "missedPhoto": "Foto no enviada ",
+        "submittedAt": "Enviada a las",
+        "feeling": "Sintiendo",
+        "photoSubmitted": "Foto Enviada"
+    },
+    "appointments":{
+        "typeQuestion": "¿Qué tipo de cita quiere agregar?",
+        "selectDate": "Seleccione la fecha y la hora",
+        "addAppointment": "Añadir Cita",
+        "otherType": "Que tipo de cita?",
+        "remindedAt": "Recibirá un recordatorio a las",
+        "dayBefore": "el día antes de tu cita",
+        "types": {
+            "check_in": "registrarse",
+            "medication_pickup": "Recolección de Medicamentos",
+            "sputum_test": "Prueba de Esputo",
+            "other": "Otro"
+        },
+        "showAll": "Mostar Todos",
+        "showLess": "Mostar Menos"
     }
-
 }

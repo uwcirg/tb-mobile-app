@@ -355,6 +355,12 @@
         "previous": "Previous"
     },
     "coordinator": {
+        "addPatientFlow": {
+            "title": "Add Patient",
+            "addedPatient": "Added Patient",
+            "codeToSend": "Code to send to patient"
+
+        },
         "titles": {
             "myTasks": "My Tasks",
             "myPatients": "My Patients",
@@ -499,6 +505,7 @@
         "end": "End of Treatment"
     },
     "report": {
+        "noReportsYet": "No Reports",
         "tag": "Report",
         "medicationTaken": "Medication Taken",
         "time": "Time",
