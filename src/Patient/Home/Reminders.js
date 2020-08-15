@@ -114,7 +114,7 @@ const Card = observer(() => {
 
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
-    const { patientStore, reminderStore, patientUIStore } = useStores();
+    const { patientStore, reminderStore, patientUIStore,uiStore } = useStores();
     const [open, setOpen] = useState(false);
     const [showAll, setShowAll] = useState(false);
 
@@ -159,7 +159,7 @@ const Card = observer(() => {
             open={open}
             className={classes.timeSelect}
             clearable
-            ampm={false}
+            ampm={uiStore.locale == "en"}
             value={DateTime.fromISO(patientStore.reminderTime)}
             onChange={(e) => {
                 setOpen(false);

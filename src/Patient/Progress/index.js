@@ -14,6 +14,8 @@ import MedicationFlow from '../MedicationFlow';
 import AddMilestone from './AddMilestone'
 import { useTranslation } from 'react-i18next';
 import TimelineCard from './TimelineCard'
+import {DemoDay as Day} from './CustomCalendar'
+import PopUp from '../Navigation/PopUp';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -32,6 +34,14 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: "white",
         justifyContent: "flex-start",
         paddingTop: "60px"
+    },
+    key:{
+        "& > .days":{
+            "& > div":{
+                height: "40px",
+                width: "40px"
+            }
+        }
     }
 }));
 
@@ -56,6 +66,7 @@ const Progress = observer(() => {
     const classes = useStyles();
     const { patientStore,patientUIStore} = useStores();
     const { t, i18n } = useTranslation('translation');
+    const [showKey,setShowKey] = useState('false');
 
     if(patientUIStore.onHistoricalReport) return (<ReportOldMedication />)
     if(patientUIStore.onAddMilestone) return (<AddMilestone handleBack={patientUIStore.goToProgress} />)
@@ -71,6 +82,13 @@ const Progress = observer(() => {
                     </div> :
                     <>
                         <OverTopBar title={t("patient.progress.calendar")} handleBack={() => { patientUIStore.goToProgress() }} />
+                        {/*showKey ? <PopUp handleClickAway={()=>{setShowKey(false)}}><div className={classes.key}>
+                            <div className={"days"}>
+                            <Day test date={1}/>
+                            <Day date={3}/>
+                            <Day modifier date={4}/>
+                            </div>
+                </div></PopUp>: <button onClick={()=>{setShowKey(true)}}>Show Pop</button>*/}
                         <CustomCalendar />
                         <DayDrawer />
                     </>}

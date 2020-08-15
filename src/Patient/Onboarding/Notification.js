@@ -43,7 +43,7 @@ const Notification = observer((props) => {
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
     const [timeOpen, setTimeOpen] = useState(false)
-    const {activationStore} = useStores();
+    const {activationStore,uiStore} = useStores();
 
     const handleTimeChange = (dateTime) => {
         activationStore.onboardingInformation.notificationTime = dateTime.toISOTime();
@@ -58,7 +58,7 @@ const Notification = observer((props) => {
                 {timeOpen ?<TimePicker
                     open={timeOpen}
                     className={classes.timeSelect}
-                    ampm={false}
+                    ampm={uiStore.locale === "en"}
                     value={DateTime.fromISO(activationStore.onboardingInformation.notificationTime)}
                     onChange={(e) => {
                         setTimeOpen(false);

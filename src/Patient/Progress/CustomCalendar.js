@@ -193,4 +193,19 @@ const Day = observer((props) => {
     )
 });
 
+const DemoDay = (props) => {
+    const classes = useStyles();
+
+
+
+    return(
+        <div className={`${classes.day} ${classes.single} ${!props.modifier && (props.test ? classes.positive : classes.negative)}`}>
+            <p>{props.date}</p>
+            {props.modifier ? <div className={classes.modifier}> </div> : ""}
+        </div>
+    )
+
+}
+
 export default CustomCalendar;
+export {DemoDay};
