@@ -76,7 +76,7 @@ const ReportCard = (props) => {
     const date = DateTime.fromISO(props.date);
 
     return (
-        <div className={classes.report}>
+        <div className={classes.report} style={props.style}>
             <div className="preview">
                 <div className="time">
                     <span>{date.day}</span>
@@ -86,7 +86,9 @@ const ReportCard = (props) => {
                 <div className={classes.mainReportContent}>
                     {props.children}
                 </div>
-                {props.expandedContent && <IconButton className="expand" onClick={() => { setExpanded(!expanded) }}>{expanded ? <CollapseButton /> : <ExpandButton />}</IconButton>}
+                {props.expandedContent && <IconButton className="expand" onClick={() => { 
+                    props.setExpand();
+                    setExpanded(!expanded) }}>{expanded ? <CollapseButton /> : <ExpandButton />}</IconButton>}
             </div>
             {props.expandedContent && <Collapse in={expanded}>
                 {props.expandedContent}

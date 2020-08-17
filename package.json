@@ -40,6 +40,7 @@
     "react-scripts": "3.2.0",
     "react-swipeable-views": "^0.13.9",
     "react-text-mask": "^5.4.3",
+    "react-window": "^1.8.5",
     "styled-components": "^4.4.1"
   },
   "scripts": {

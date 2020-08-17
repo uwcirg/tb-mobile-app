@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
@@ -14,6 +14,10 @@ import FeelingGood from '@material-ui/icons/Mood'
 import FeelingBad from '@material-ui/icons/MoodBad'
 import ReportCard from './ReportCard';
 import ReportItem from './ReportCardItem';
+
+import { VariableSizeList as List } from 'react-window';
+
+const GUTTER_SIZE = 10;
 
 const useStyles = makeStyles({
     container: {
@@ -47,7 +51,74 @@ const useStyles = makeStyles({
     }
 })
 
+// These row heights are arbitrary.
+// Yours should be based on the content of the row.
+
+const Row = observer(({ data, index, style }) => {
+    const reports = useStores().practitionerStore.selectedPatientReports
+    return (
+        <Report setExpand={() => { data.expand(index) }} style={{
+            ...style,
+            left: style.left + GUTTER_SIZE,
+            top: style.top + GUTTER_SIZE,
+            width: style.width - GUTTER_SIZE,
+            height: style.height - GUTTER_SIZE
+        }} report={reports[index]} />
+    )
+});
+
 const ReportView = observer(() => {
+    const reports = useStores().practitionerStore.selectedPatientReports;
+    const [rowHeights,setRowHeights] = useState(new Array(reports.length).fill(false));
+
+    const listRef = React.useRef();
+
+    const calculateItemSize = (index) => {
+        let base = 100;
+        if (rowHeights[index]) base += 150
+        return base
+    }
+
+    const expand = (index) => {
+        console.log(rowHeights[index])
+        rowHeights[index] = true
+        console.log(rowHeights[index])
+    }
+
+    const updateFieldChanged = index => {
+        let newArr = [...rowHeights];
+        newArr[index] = !newArr[index];
+        setRowHeights(newArr);
+    }
+
+    const toggleSize = i => {
+        if (listRef.current) {
+          listRef.current.resetAfterIndex(i);
+        }
+        updateFieldChanged(i)
+      };
+
+    return (
+        <>
+            {reports.length > 0 &&
+                <List
+                    ref={listRef}
+                    height={400}
+                    itemCount={reports.length}
+                    width={"100%"}
+                    itemSize={calculateItemSize}
+                    itemData={{ expand: toggleSize }}
+                >
+                    {Row}
+                </List>}
+        </>
+    )
+}
+);
+
+
+
+const OldReportView = observer(() => {
 
     const { practitionerStore } = useStores();
     const classes = useStyles();
@@ -61,6 +132,7 @@ const ReportView = observer(() => {
 
 })
 
+
 const Report = (props) => {
     //const [expanded, setExpanded] = useState(false);
     const { report } = props;
@@ -70,6 +142,8 @@ const Report = (props) => {
     return (
 
         <ReportCard
+            setExpand={props.setExpand}
+            style={props.style}
             tagColor={Colors.patientHistory.report}
             tagText={t('report.tag')}
             date={report.date}
@@ -82,10 +156,10 @@ const Report = (props) => {
                 </div>
             }>
 
-                <ReportItem title={t('report.medicationTaken')} content={report.medicationWasTaken ? t('commonWords.yes') : t('commonWords.no')} />
-                <ReportItem title={t('report.time')} content={DateTime.fromISO(report.takenAt).toLocaleString(DateTime.TIME_24_SIMPLE)} />
-                <ReportItem title={t('commonWords.symptoms')} content={<SymptomListPreview list={report.symptoms} />} />
-                {report.photoWasRequired && <ReportItem title={t('report.photoSubmitted')} content={report.photoDetails ? t('commonWords.yes') : t('commonWords.no')} />}
+            <ReportItem title={t('report.medicationTaken')} content={report.medicationWasTaken ? t('commonWords.yes') : t('commonWords.no')} />
+            <ReportItem title={t('report.time')} content={DateTime.fromISO(report.takenAt).toLocaleString(DateTime.TIME_24_SIMPLE)} />
+            <ReportItem title={t('commonWords.symptoms')} content={<SymptomListPreview list={report.symptoms} />} />
+            {report.photoWasRequired && <ReportItem title={t('report.photoSubmitted')} content={report.photoDetails ? t('commonWords.yes') : t('commonWords.no')} />}
         </ReportCard >
 
     )
