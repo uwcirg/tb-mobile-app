@@ -102,11 +102,16 @@ const useStyles = makeStyles({
     },
     modifier: {
         backgroundColor: "red",
-        position: "absolute",
         height: "5px",
         width: "5px",
         borderRadius: "50%",
-        bottom: "1px"
+    },
+    bottomDots:{
+        bottom: "3px",
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        position: "absolute",
     }
 
 })
@@ -164,6 +169,7 @@ const Day = observer((props) => {
 
     const selectedDay = dt.startOf('day').equals(patientStore.uiState.selectedCalendarDate);
     let modifier = false;
+    let symptom = false;
 
     const dayBefore = patientStore.savedReports[`${dt.startOf('day').minus(1, 'day').toISODate()}`]
     const dayFromServer = patientStore.savedReports[`${dt.startOf('day').toISODate()}`]
@@ -185,10 +191,15 @@ const Day = observer((props) => {
     if( (dayFromServer && !dayAfter) || (!dayFromServer && dayAfter) || today ) compositeClass += ' ' + classes.end;
     if( (dayFromServer && !dayBefore) || (!dayFromServer && dayBefore) || start ) compositeClass += ' ' + classes.start;
 
+    if( dayFromServer && dayFromServer.symptoms.length > 0) symptom = true
+
     return(
         <div className={`${classes.day} ${compositeClass}`}>
             {selectedDay ? <div className={classes.selectedDay}><p>{props.date}</p> </div> : <p>{props.date}</p>}
+            <div className={classes.bottomDots}>
             {modifier ? <div className={classes.modifier}> </div> : ""}
+            {symptom ? <div style={{backgroundColor: Colors.yellow}} className={classes.modifier}> </div> : ""}
+            </div>
         </div>
     )
 });
@@ -199,9 +210,9 @@ const DemoDay = (props) => {
 
 
     return(
-        <div className={`${classes.day} ${classes.single} ${!props.modifier && (props.test ? classes.positive : classes.negative)}`}>
+        <div style={{width: "40px",height: "40px" }} className={`${classes.day} ${classes.single} ${!props.modifier && (props.tookMedication ? classes.positive : classes.negative)}`}>
             <p>{props.date}</p>
-            {props.modifier ? <div className={classes.modifier}> </div> : ""}
+            {props.modifier ? <div style={props.symptom && {backgroundColor: Colors.yellow}} className={classes.modifier}> </div> : ""}
         </div>
     )
 

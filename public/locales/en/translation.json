@@ -268,7 +268,16 @@
             "approvalStatus": "Approval Status",
             "milestones": "Milestones",
             "upcoming": "Upcoming",
-            "calendar": "Calendar of Reports"
+            "calendar": "Calendar of Reports",
+            "calendarKey":{
+                "button": "What do these colors mean",
+                "description": "This is the calendar, where you can review your submissions. The colors show the following:",
+                "good": "All parts submitted",
+                "missed": "No Report submitted. If you miss a day you can report up to 3 days in the past.",
+                "notTaken": "Reported not taking your medication",
+                "symptoms": "Reported symptoms"
+
+            }
         },
         "addMilestone": {
             "barTitle": "Add Milestone",
@@ -505,6 +514,7 @@
         "end": "End of Treatment"
     },
     "report": {
+        "incomplete": "Incomplete",
         "noReportsYet": "No Reports",
         "tag": "Report",
         "medicationTaken": "Medication Taken",

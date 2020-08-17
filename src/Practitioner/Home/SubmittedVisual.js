@@ -72,7 +72,7 @@ const Submitted = observer(() => {
     return (
         <div className={classes.container}>
             <div className={classes.visContainer}>
-                <div className={classes.halfCircle}>
+                {percentage > 0 ? <div className={classes.halfCircle}>
                     <CircularProgressbarWithChildren
                         value={(practitionerStore.totalReported / practitionerStore.patientList.length) * 100}
                         circleRatio={.5}
@@ -101,7 +101,7 @@ const Submitted = observer(() => {
                                 <p>Submitted <br /> Today</p>
                             </div> </CircularProgressbarWithChildren>
                     </CircularProgressbarWithChildren>
-                </div>
+                </div> : "No Reports Submitted Yet"}
             </div>
             <div className={classes.key}>
                 <KeyItem color={Colors.green} text={"Taken"} />
