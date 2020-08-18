@@ -60,8 +60,7 @@ const Symptom = observer((props) => {
   const { patientStore } = useStores();
 
   const handleSelection = (e) => {
-
-    if(props.severe){
+    if(props.severe && e.target.checked === true){
       patientStore.toggleSymptomWarningVisibility();
     }
 
@@ -99,9 +98,9 @@ const Symptom = observer((props) => {
       <ExpansionPanelSummary
         className={classes.summary}
         expandIcon={<ExpandMoreIcon />}
-        aria-label="Expand"
-        aria-controls="additional-actions1-content"
-        id="additional-actions1-header"
+        aria-label="expand"
+        aria-controls={`additional-${props.title.split()[0]}-content`}
+        id={`additional-${props.title.split()[0]}-header`}
       >
         <FormControlLabel
           aria-label="Acknowledge"

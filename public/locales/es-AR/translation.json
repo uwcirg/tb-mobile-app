@@ -268,7 +268,16 @@
             "approvalStatus": "Estado de sus Fotos",
             "milestones": "Eventos Importantes",
             "upcoming": "Próximos",
-            "calendar": "Calendario de Reportes"
+            "calendar": "Calendario de Reportes",
+            "calendarKey":{
+                "button": "What do these colors mean",
+                "description": "This is the calendar, where you can review your submissions. The colors show the following:",
+                "good": "All parts submitted",
+                "missed": "No Report submitted. If you miss a day you can report up to 3 days in the past.",
+                "notTaken": "Reported not taking your medication",
+                "symptoms": "Síntomas Reportados"
+
+            }
         },
         "addMilestone": {
             "barTitle": "Añadir Evento",
@@ -299,7 +308,7 @@
         },
         "hives": {
             "title": "Urticaria",
-            "subtitle": "manchas y picazón en la piel "
+            "subtitle": "Urticaria, manchas o bultos colorados "
         },
         "fever": {
             "title": "Fiebre",
@@ -351,6 +360,12 @@
         "previous": "Fechas anteriores"
     },
     "coordinator": {
+        "addPatientFlow": {
+            "title": "Add Patient",
+            "addedPatient": "Added Patient",
+            "codeToSend": "Code to send to patient"
+
+        },
         "titles": {
             "myTasks": "Mis Tareas",
             "myPatients": "Mis Pacientes ",
@@ -495,6 +510,8 @@
         "end": "Fin del Tratamiento"
     },
     "report": {
+        "incomplete": "Incomplete",
+        "noReportsYet": "No Reports",
         "tag": "Reporte",
         "medicationTaken": "Tomó los Medicamentos",
         "time": "Tiempo",

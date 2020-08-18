@@ -170,11 +170,11 @@ const Card = observer(() => {
         <div className={classes.upcoming}>
             <div className={classes.reminderTitle}>
                 <Header>{t('patient.reminders.appointments')}</Header>
-                <ClickableText hideIcon text={!showAll ? t('appointments.showAll') : t('appointments.showLess')}  onClick={() => { setShowAll(!showAll) }}></ClickableText>
+                {reminderStore.reminders.length > 0 && <ClickableText hideIcon text={!showAll ? t('appointments.showAll') : t('appointments.showLess')}  onClick={() => { setShowAll(!showAll) }}></ClickableText>}
             </div>
             <div className={classes.reminder}>
                 {showAll ? <RemindersList /> :
-                    <>{reminderStore.reminders[0] && <ReminderItem reminder={reminderStore.reminders[0]} />}</>}
+                    <>{reminderStore.reminders.length > 0 ? <ReminderItem reminder={reminderStore.reminders[0]} /> : <p>{t('appointments.noUpcoming')}</p>}</>}
 
             </div>
             <div className={classes.addContainer}>
@@ -194,7 +194,7 @@ const RemindersList = observer(() => {
     return (
         <>
             {reminders.length > 0 && reminders.map(each => {
-                return <ReminderItem reminder={each} />
+                return <ReminderItem key={`reminder-${each.datetime}`} reminder={each} />
             })}
         </>
     )

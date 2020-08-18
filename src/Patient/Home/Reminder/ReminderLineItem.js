@@ -46,6 +46,7 @@ const useStyles = makeStyles({
             padding: 0
         },
         "& > .title": {
+            textTransform: "capitalize",
             fontWeight: "medium",
             fontSize: ".9em",
             marginBottom: "5px"

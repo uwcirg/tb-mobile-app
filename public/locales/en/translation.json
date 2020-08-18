@@ -529,6 +529,7 @@
         "photoSubmitted": "Photo Submitted"
     },
     "appointments":{
+        "noUpcoming": "No Upcoming Appointments",
         "typeQuestion": "What type of appointment would you like to add?",
         "selectDate": "Select a date and time",
         "addAppointment": "Add Appointment",

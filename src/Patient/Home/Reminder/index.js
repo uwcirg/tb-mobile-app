@@ -8,7 +8,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Input from '@material-ui/core/Input';
 import Button from '../../../Basics/MuiButton'
 import { observer } from 'mobx-react'
-import { DatePicker, TimePicker } from "@material-ui/pickers";
+import { TimePicker } from "@material-ui/pickers";
+import DatePicker from '../../../Basics/DatePicker'
 
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/luxon';
