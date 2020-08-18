@@ -21,8 +21,10 @@ const authenticatedRequest = (url, method, body, options) => {
             return resolve.json()
         })
         .then(json => {
-            if(options && options.includeStatus)json.httpStatus = requestStatus;
+            if (options && options.includeStatus) json.httpStatus = requestStatus;
             return json
+        }).catch(error => {
+            console.log('Error with request. JSON body likely not valid ', error)
         })
 }
 
@@ -44,5 +46,6 @@ export default class APIHelper {
     executeRawRequest(route, method, body) {
         return authenticatedRequest(route, method, body)
     }
+
 }
 

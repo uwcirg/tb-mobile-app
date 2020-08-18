@@ -28,7 +28,7 @@ const ClickableText = (props) => {
     return(
     !props.big ?
     <ButtonBase className={`${classes.text} ${props.className}`} onClick={props.onClick}>
-        { !props.hideIcon && <ErrorOutlineIcon className={classes.icon} /> }
+        { !props.hideIcon && <>{props.icon ? <>{props.icon}</> : <ErrorOutlineIcon className={classes.icon} />}</> }
         {props.text}
     </ButtonBase>
     :

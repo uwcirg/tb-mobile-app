@@ -51,7 +51,7 @@ const BottomBar = observer((props) => {
       showLabels
       className={classes.root}
     >
-      <BottomNavigationAction onClick={patientUIStore.goToHome} className="intro-home-button" icon={<HomeIcon />} />
+      <BottomNavigationAction id="intro-home-button" onClick={patientUIStore.goToHome} className="intro-home-button" icon={<HomeIcon />} />
       <BottomNavigationAction onClick={patientUIStore.goToProgress} className="intro-progress-button" icon={<EventAvailableIcon />} />
       <BottomNavigationAction onClick={patientUIStore.goToMessaging} className="intro-messaging-button" icon={
       <Badge color={"primary"} invisible={messagingStore.numberUnread < 1} badgeContent={messagingStore.numberUnread} >

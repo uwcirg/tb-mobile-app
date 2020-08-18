@@ -1,0 +1,543 @@
+{
+    "title": "Asistente de Tratamiento",
+    "online": "Conectado",
+    "offline": "Desconectado",
+    "greeting": "Hola",
+    "updating": "Actualizando",
+    "commonWords": {
+        "medication": "Medicamento",
+        "symptoms": "Sintomas",
+        "stripPhoto": "Foto de la Tira Reactiva",
+        "report": "Reportar",
+        "no": "no",
+        "yes": "sí",
+        "of": "de",
+        "other": "Otra / otro",
+        "first": "primero",
+        "second": "segundo",
+        "final": "final ",
+        "total": "Total",
+        "delete": "Borrar",
+        "loading": "Cargando"
+    },
+    "userTypes": {
+        "patient": "Paciente",
+        "coordinator": "Coordinador",
+        "admin": "Administrador"
+    },
+    "login": {
+        "changeLanguage": "Click Here For English",
+        "activateAccount": "Activar su Cuenta",
+        "forgotPassword": "¿Olvidó su contraseña?",
+        "phoneNumber": "Número de Teléfono",
+        "email": "Correo Electrónico",
+        "password": "Contraseña",
+        "logIn": "Iniciar Sesión",
+        "selectType": "Seleccione su usuario",
+        "haveAccount": "¿Ya tiene una cuenta?",
+        "activate": "Activar"
+    },
+    "messaging": {
+        "selectChannel": "Seleccione un Paciente o una Discusión Para Comenzar",
+        "nurseContact": "¿Necesita asistencia personal? ¡Contacte a su asistente!",
+        "privateExplained": "Chat privado con su asistente",
+        "search": "Busqueda por tema",
+        "patients": "Pacientes",
+        "discussions": "Discusiones"
+    },
+    "time": {
+        "day": "día",
+        "week": "semana",
+        "days": "días",
+        "weeks": "semanas",
+        "month": "mes",
+        "all": "Todas",
+        "noon": "mediodía"
+    },
+    "patient": {
+        "onboarding": {
+            "landing": {
+                "welcome": "Bienvenido",
+                "message": "¡Gracias por registrarse! Esta aplicación será donde reporte la toma de los medicamentos. Estos reportes son monitoreados por su Asistente de tratamiento."
+            },
+            "profileInformation": "Añadir información de perfil",
+            "coordinator": {
+                "title": "Que es un Asistente de Tratamiento?",
+                "will": {
+                    "title": "Su Asistente de Tratamiento va a: ",
+                    "items": [
+                        "Acompañar su progreso",
+                        "Aprobar sus fotos de las tiras reactivas",
+                        "Contestar sus preguntas sobre el tratamiento"
+                    ]
+                },
+                "wont": {
+                    "title": "Su Asistente de Tratamiento no va a ",
+                    "items": [
+                        "Brindar atención médica",
+                        "Programar visitas médicas"
+                    ]
+                },
+                "outro": "Ahora cuéntenos un poco sobre Ud."
+            },
+            "password": {
+                "title": "Elija una nueva contraseña para su cuenta",
+                "confirmation": "Confirmar contraseña"
+            },
+            "gender": {
+                "title": "Seleccione su género ",
+                "male": "Hombre",
+                "female": "mujer",
+                "other": "otro"
+            },
+            "age": "¿Cuantos años tiene?",
+            "notification": {
+                "one": "¿Le gustaría programar un recordatorio diario para tomar sus medicamentos?",
+                "two": "¿A qué hora quiere el recordatorio?"
+            },
+            "contactTracing": {
+                "one": "¿Con cuántas personas vive?",
+                "two": "¿Cuántos han completado el control de la tuberculosis?",
+                "some": "Algunos",
+                "all": "Todos",
+                "none": "Ninguno"
+            },
+            "success": "Finalizando la Configuración de su Cuenta",
+            "next": "Siguiente",
+            "endText": "¡Gracias por sus respuestas, ahora empecemos a usar la aplicación! "
+        },
+        "walkthrough": {
+            "swipe": "deslice hacia la izquierda para ver más",
+            "welcome": {
+                "header": "Bienvenido",
+                "one": "¡Gracias por registrarse para el Asistente de Tratamiento!",
+                "two": "Ahora le vamos a enseñar las funciones principales de la aplicación "
+            },
+            "homescreen": "Comenzaremos mostrando la pantalla de inicio",
+            "revisit": "Si desea regresar a esta guía, la puede encontrar en la sección de información ",
+            "exit": "Para salir de esta guía, puede tocar la X en el extremo superior derecho de la pantalla",
+            "tasks": "Éstas son sus tareas diarias, puede tocar Iniciar Reporte para comenzar su reporte de hoy. ",
+            "progressCard": "El esquema de progreso le muestra una vista previa de donde está Ud. en su tratamiento. ",
+            "reminders": "Finalmente, la carta de los recordatorio le permite cambiar su alarma diaria para los medicamentos. También puede agregar recordatorios para las visitas clínicas u otras fechas importantes.",
+            "navigation": {
+                "text": "La aplicación tiene 4 secciones principales. Para cambiar entre ellas, seleccione los iconos en la parte inferior de la pantalla. ",
+                "one": "Principal + Mis Tareas",
+                "two": "Progreso + Calendario",
+                "three": "Mensajes",
+                "four": "Información "
+            },
+            "progress": {
+                "header": "Ahora estamos en la sección de su progreso",
+                "here": "Aquí puede:",
+                "one": "Ver reportes anteriores",
+                "two": "Ver y editar eventos o fechas importantes del tratamiento",
+                "three": "Chequear el estado de sus fotos de las tiras reactivas "
+            },
+            "weekCalendar": "Ese es una vista previa de sus últimos 5 reportes. Puede tocar aquí para ver su calendario completo. ",
+            "calendar": "El calendario completo le da un visual de su progreso. Los días que no ha reportado están en rojo",
+            "calendarBottom": "Puede tocar esta área en la parte inferior de la pantalla para ver los detalles de su reporte",
+            "milestones": "De regreso a la sección de su progreso, puede manejar sus eventos importantes",
+            "messaging": {
+                "header": "Ahora estamos en la sección de los mensajes",
+                "text": "Esta sección le permite comunicarse directamente con su asistente y también con otros pacientes",
+                "one": "Toque aquí para comunicarse directamente y en forma privada con su asistente",
+                "two": "Aquí puede conversar públicamente con otros pacientes sobre su tratamiento. Este chat está organizado por temas."
+            },
+            "outro": {
+                "header": "¡Eso es todo por ahora!",
+                "one": "Se tiene más preguntas, revise la sección de información o envíe un mensaje a su asistente "
+            }
+        },
+        "reminders": {
+            "title": "Recordatorios",
+            "medicationReminder": "Recordatorios de Medicación",
+            "appointments": "Citas medicas",
+            "explanation": "Cuando esté activada, la aplicación le mandará una notificación a la hora que seleccione para tomar sus medicamentos. ",
+            "enable": "Activar",
+            "disable": "Apagar",
+            "changeTime": "Cambiar la hora"
+        },
+        "demo": {
+            "showDemo": "Mostrar Demostración"
+        },
+        "userFields": {
+            "givenName": "Nombre preferido",
+            "familyName": "Apellido",
+            "firstName": "Primer Nombre",
+            "lastName": "Apellido",
+            "password": "Contraseña",
+            "treatmentStart": "Primer Dia de Tratamiento",
+            "phoneNumber": "Número de Teléfono"
+        },
+        "home": {
+            "purpose": "Vamos a hacer un seguimiento de sus medicamentos y su salud!",
+            "today": "Hoy",
+            "actions": {
+                "logMedication": "Iniciar Reporte",
+                "uploadPhoto": "Subir Foto"
+            },
+            "todaysActions": {
+                "logMedication": "Iniciar Reporte",
+                "uploadPhoto": "Subir Foto"
+            },
+            "progress": {
+                "currentStreak": "días consecutivos",
+                "upcomingDate": "Próximos eventos",
+                "viewAll": "Ver Todos"
+            },
+            "completed": {
+                "title": "Completo",
+                "subtitle": "El Reporte de hoy fue enviado",
+                "modify": "Editar su Reporte"
+            },
+            "cardTitles": {
+                "todaysTasks": "Tareas de Hoy",
+                "myProgress": "Mi Progreso",
+                "myLearning": "Aprendizaje"
+            }
+        },
+        "profile": {
+            "title": "Configuración",
+            "changePassword": "actualizar la contraseña",
+            "editNotifications": "Editar recordatorios",
+            "changeUsername": "Editar nombre de usuario",
+            "personalInfo": "Informacion Personal",
+            "startDate": "Primer Dia de Tratamiento",
+            "endDate": "Último Dia de Tratamiento",
+            "totalTreatments": "Numero de tratamientos Requeridos",
+            "currentAdherence": "Porcentaje de adherencia a la medicación",
+            "logout": "Salir de la Aplicación",
+            "organization": "Organización",
+            "options": {
+                "language": "Idioma",
+                "dailyNotifications": "Recordatorios diarios",
+                "medicationReminder": "Recordatorio de los medicamentos",
+                "addNewReminder": "Agregar un nuevo recordatorio de medicación",
+                "remindMe": "Recuerdeme a las",
+                "spanish": "Español",
+                "english": "Inglés",
+                "update": "Actualizar App"
+            }
+        },
+        "report": {
+            "next": "Siguiente",
+            "title": "Reporte la medicación de Hoy",
+            "medicationTitle": "Por favor reporte la toma de Medicamentos",
+            "medicationTime": "A qué hora tomó su medicamento? ",
+            "didTake": "Tomé mi medicamento.",
+            "didNotTake": "No tomé mis medicamentos.",
+            "whyNotTaken": "Porque no tomó sus medicamentos?",
+            "symptomsTitle": "¿Tuvo algún síntoma o malestar?",
+            "moodTitle": "¿Cómo se siente hoy?",
+            "doingWell": "Estoy Bien",
+            "needSupport": "Necesito ayuda ",
+            "photoTitle": "Tomar Foto de la Tira Reactiva",
+            "photo": {
+                "usePhoto": "Usar foto",
+                "retakePhoto": "Volver a Tomar la foto",
+                "openCamera": "Abrir la Camara",
+                "showMe": "Muestreme como"
+            },
+            "symptoms": {
+                "nauseaRating": "¿Cuán severa es su náusea?",
+                "warning": {
+                    "title": "Usted  ha reportado un sintoma que requiere inmediata atención médica",
+                    "subtitle": "Por favor busque atención médica inmediatamente! Su asistente se comunicará con ud. más tarde para confirmar que esté bien.",
+                    "button": "Entiendo",
+                    "moreInformation": "Ver Más Información"
+                }
+            },
+            "confirmation": {
+                "title": "Confirmar y Subir",
+                "addMore": "Mas Informacion",
+                "noPhoto": "Hoy no necesita subir una foto.",
+                "missingPhoto": "Falta la foto",
+                "takenAt": "Tomé a las",
+                "notTaken": "No lo tomé porque",
+                "review": "Revisar la foto"
+            }
+        },
+        "reportConfirmation": {
+            "goodJob": "Bien Hecho",
+            "photoNeeded": "Hoy también tiene que subir una foto de la tira reactiva.",
+            "doLater": "Lo Haré Más Tarde"
+        },
+        "progress": {
+            "viewCalendar": "Ver su Calendario de Reportes",
+            "viewPhotos": "Ver Todas sus Fotos",
+            "approvalStatus": "Estado de sus Fotos",
+            "milestones": "Eventos Importantes",
+            "upcoming": "Próximos",
+            "calendar": "Calendario de Reportes",
+            "calendarKey":{
+                "button": "What do these colors mean",
+                "description": "This is the calendar, where you can review your submissions. The colors show the following:",
+                "good": "All parts submitted",
+                "missed": "No Report submitted. If you miss a day you can report up to 3 days in the past.",
+                "notTaken": "Reported not taking your medication",
+                "symptoms": "Síntomas Reportados"
+
+            }
+        },
+        "addMilestone": {
+            "barTitle": "Añadir Evento",
+            "titles": [
+                "¿Qué evento le gustaría añadir?",
+                "¿Cuál es la fecha del evento?",
+                "¿A qué hora es el evento?",
+                "¿Donde es su cita?"
+            ]
+        },
+        "information": {
+            "questions": "Preguntas y respuestas",
+            "education": "Actualización de las Semanas Anteriores",
+            "helpSection": "Ayuda con la Aplicación",
+            "infoSection": "Información Sobre el Tratamiento",
+            "launchWalkthrough": "Abrir Guía de la Aplicación",
+            "video": "Ver Vídeo"
+        }
+    },
+    "symptoms": {
+        "nausea": {
+            "title": "Náuseas o vómitos",
+            "subtitle": "Se siente con náuseas o imposibilitado de comer"
+        },
+        "redness": {
+            "title": "Enrojecimiento",
+            "subtitle": "Enrojecimiento de la piel, granitos, picazón"
+        },
+        "hives": {
+            "title": "Urticaria",
+            "subtitle": "Urticaria, manchas o bultos colorados "
+        },
+        "fever": {
+            "title": "Fiebre",
+            "subtitle": "Temperatura más de  37.5"
+        },
+        "appetite_loss": {
+            "title": "Pérdida de apetito",
+            "subtitle": "Pérdida de apetito"
+        },
+        "blurred_vision": {
+            "title": "Visión borrosa",
+            "subtitle": "Visión borrosa o alteración en la visión de los colores"
+        },
+        "sore_belly": {
+            "title": "Dolor de la panza",
+            "subtitle": "Dolor de la panza"
+        },
+        "yellow_coloration": {
+            "title": "Coloración amarillenta",
+            "subtitle": "Coloración amarillenta en la piel o en la parte blanca de los ojos"
+        },
+        "difficulty_breathing": {
+            "title": "Dificultad para respirar",
+            "subtitle": "Falta de aire o dificultad para respirar"
+        },
+        "facial_swelling": {
+            "title": "Hinchazón de la cara",
+            "subtitle": "Hinchazón de la cara, los labios, la lengua, o la garganta"
+        },
+        "dizziness": {
+            "title": "Mareos"},
+        "headache": {
+            "title": "Dolor de cabeza"},
+        "other": {
+            "title": "Otros síntomas",
+            "subtitle": "Registrar otros síntomas no mencionados anteriormente"
+        }
+    },
+    "milestones": {
+        "titles": {
+            "sputumTest": "Prueba de catarro o esputo",
+            "intensivePhase": "Fin de la etapa intensiva",
+            "testingFU": "Prueba de seguimiento",
+            "appointmentFU": "Visita de seguimiento",
+            "medPickup": "Recoleccion de medicamentos",
+            "housematesTested": "Todos los convivientes evaluados"
+        },
+        "upcoming": "Fechas Próximas",
+        "previous": "Fechas anteriores"
+    },
+    "coordinator": {
+        "addPatientFlow": {
+            "title": "Add Patient",
+            "addedPatient": "Added Patient",
+            "codeToSend": "Code to send to patient"
+
+        },
+        "titles": {
+            "myTasks": "Mis Tareas",
+            "myPatients": "Mis Pacientes ",
+            "reportingStatus": "Estado del Reporte "
+        },
+        "cardTitles": {
+            "patientsWithSymptoms": "Pacientes con síntomas",
+            "photosToReview": "Fotos para Revisar",
+            "missedReport": "Faltan Reportes Desde la Última Actualización",
+            "overviewOfProgress": "Resumen de Progreso",
+            "allPatients": "Todos los Pacientes",
+            "awaitingActivation": "Esperando Activación",
+            "currentStatus": "Estado actual",
+            "reportingCalender": "Calendario de Reportes"
+        },
+        "recentReports": {
+            "title": "Reportes Recientes",
+            "noSymptoms": "Ningún síntoma Reportado",
+            "tookMeds": "Tomó Medicación ",
+            "didntTakeMeds": "No Tomó Medicación",
+            "noPhoto": "Sin Foto",
+            "none": "Ninguno"
+        },
+        "sideBar": {
+            "overview:": {
+                "title": "Resumen",
+                "doneToday": "Completado Hoy",
+                "unresolved": "Sin Resolución"
+            },
+            "lastContacted": "Último  Contacto",
+            "viewFullProfile": "Ver Perfil Completo",
+            "daysMissed": "Días Sin Reporte Desde la Última Actualización",
+            "photoSub": "Envío de Foto",
+            "symptomsSince": "Síntomas Reportados",
+            "loading": "Cargando",
+            "messagePatient": "Enviar Mensaje al Paciente",
+            "contactedPatient": "Paciente Contactado"
+        },
+        "patientTableLabels": {
+            "name": "Nombre",
+            "priority": "Prioridad",
+            "treatmentStart": "Inicio de Tratamiento",
+            "lastSubmission": "Último envío",
+            "adherence": "Adherencia",
+            "streak": "ultimos dias"
+        },
+        "noTasks": "No Hay Tareas",
+        "profile": "Perfil",
+        "message": "Mensaje",
+        "adherence": "Adherencia",
+        "months": "Meses",
+        "true": "Correcto",
+        "false": "Falso",
+        "daysInTreatment": "Días en Tratamiento",
+        "patientProfile": {
+            "addNote": {
+                "header": "Nueva nota para",
+                "title": "Título",
+                "note": "Nota",
+                "button": "Enviar Nota"
+            },
+            "age": "edad",
+            "gender": "género",
+            "resetPassword": "Restablecer Contraseña",
+            "resetPasswordExplanation": "Haga clic aquí para restablecer la contraseña del paciente. Necesita mandar esta contraseña temporaria al paciente por WhatsApp.  Después de usar la contraseña temporaria, la aplicación requerirá que el paciente cambie la contraseña. ",
+            "phoneNumber": "número de teléfono",
+            "treatmentStart": "Fecha de inicio del tratamiento",
+            "lastContacted": "Último Contacto",
+            "date": "Fecha",
+            "taken": "Tomado",
+            "symptoms": "síntomas",
+            "photo": "Foto",
+            "completedDays": "Días Completos",
+            "feelingHealthy": "Sintiéndome bien",
+            "currentStreak": "período actual",
+            "longestStreak": "Período Más Largo",
+            "symptomSummary": {
+                "title": "Resumen de síntomas",
+                "noneReported": "No hay malestares dentro el período seleccionado",
+                "timeOptions": {
+                    "week": "Últimos 7 días",
+                    "month": "Últimos 30 días",
+                    "all": "Todos los Reportes"
+                }
+            },
+            "treatmentStatus": "Estado de Tratamiento",
+            "feelingWell": "Me Siento Bien ",
+            "contactTracing": "seguimiento de contactos",
+            "reportingHistory": "Historia Del Paciente",
+            "listReports": "Reportes",
+            "calendarReports": "Calendario",
+            "options": {
+                "resetPassword": "Cambiar la Contraseña",
+                "archive": "Archivar Paciente",
+                "message": "Mensaje",
+                "note": "Añadir Nota"
+            }
+        },
+        "tasksSidebar": {
+            "complete": "Completo",
+            "unfinished": "no finalizado",
+            "overview": "Resumen de Tareas ",
+            "patientStatus": "Condición del Reporte del Paciente",
+            "noReport": "No Hay Reporte Para Hoy"
+        }
+    },
+    "errors": {
+        "login": {
+            "identifier": "Numero de telefono incorrecto",
+            "password": "contraseña incorrecta",
+            "other": "Error. Por favor contacte a su asistente por whatsapp"
+        }
+    },
+    "settings": {
+        "updatePassword": "Actualizar contraseña",
+        "currentPassword": "Contraseña Actual",
+        "newPassword": "Nueva Contraseña",
+        "confirmPassword": "Confirme la nueva Contraseña",
+        "submit": "Enviar"
+    },
+    "educationalMessages": {
+        "week": "Semana",
+        "header": "Actualización Sobre su Tratamiento",
+        "helpful": "¿Fue útil este mensaje?",
+        "messages": {
+            "0": "Primer mensaje en inglés",
+            "1": "Este va ser el mensaje de la primera semana",
+            "2": "Este va ser el mensaje de la segunda semana",
+            "3": "Este va ser el mensaje de la tercera semana",
+            "4": "Este va ser el mensaje de la cuarta semana",
+            "5": "Este va ser el mensaje de la quinta semana"
+        }
+    },
+    "timeline": {
+        "title": " Línea de tiempo del Tratamiento ",
+        "sputumTest": "Prueba de Esputo ",
+        "start": "Inicio de Tratamiento",
+        "intensive": "Fase Intensiva",
+        "medicationChange": "Cambio de Medicación",
+        "continuous": "Fase de Consolidación ",
+        "followUp": "Visitas de control",
+        "end": "Fin del Tratamiento"
+    },
+    "report": {
+        "incomplete": "Incomplete",
+        "noReportsYet": "No Reports",
+        "tag": "Reporte",
+        "medicationTaken": "Tomó los Medicamentos",
+        "time": "Tiempo",
+        "conclusive": "Concluyente",
+        "inconclusive": "Dudoso",
+        "pending": "Pendiente",
+        "photoNotNeeded": "No Se Requiere Foto",
+        "missedPhoto": "Foto no enviada ",
+        "submittedAt": "Enviada a las",
+        "feeling": "Sintiendo",
+        "photoSubmitted": "Foto Enviada"
+    },
+    "appointments":{
+        "typeQuestion": "¿Qué tipo de cita quiere agregar?",
+        "selectDate": "Seleccione la fecha y la hora",
+        "addAppointment": "Añadir Cita",
+        "otherType": "Que tipo de cita?",
+        "remindedAt": "Recibirá un recordatorio a las",
+        "dayBefore": "el día antes de tu cita",
+        "types": {
+            "check_in": "registrarse",
+            "medication_pickup": "Recolección de Medicamentos",
+            "sputum_test": "Prueba de Esputo",
+            "other": "Otro"
+        },
+        "showAll": "Mostar Todos",
+        "showLess": "Mostar Menos"
+    }
+}

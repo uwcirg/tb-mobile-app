@@ -41,24 +41,24 @@ const useStyles = makeStyles((theme) => ({
 const Notification = observer((props) => {
 
     const classes = useStyles();
-    const { t, i18n } = useTranslation('onboarding');
+    const { t, i18n } = useTranslation('translation');
     const [timeOpen, setTimeOpen] = useState(false)
-    const {activationStore} = useStores();
+    const {activationStore,uiStore} = useStores();
 
     const handleTimeChange = (dateTime) => {
         activationStore.onboardingInformation.notificationTime = dateTime.toISOTime();
     }
 
     return (<div className={props.bodyClass}>
-        <SurveyHeader number={3} title={t("notification.one")} />
+        <SurveyHeader number={3} title={t("patient.onboarding.notification.one")} />
         <DisableElevation />
         {activationStore.onboardingInformation.enableNotifications &&
             <>
-                <SurveyHeader number={4} title={t("notification.two")} />
+                <SurveyHeader number={4} title={t("patient.onboarding.notification.two")} />
                 {timeOpen ?<TimePicker
                     open={timeOpen}
                     className={classes.timeSelect}
-                    ampm={false}
+                    ampm={uiStore.locale === "en"}
                     value={DateTime.fromISO(activationStore.onboardingInformation.notificationTime)}
                     onChange={(e) => {
                         setTimeOpen(false);

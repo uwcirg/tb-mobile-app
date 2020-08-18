@@ -19,7 +19,8 @@ const theme = createMuiTheme({
     fontFamily: "'Roboto', sans-serif",
     h1:{
       fontSize: "1.25em"
-    }
+    },
+
 
   },
   palette: {

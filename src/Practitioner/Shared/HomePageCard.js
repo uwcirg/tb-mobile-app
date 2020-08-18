@@ -9,6 +9,8 @@ import Card from './Card'
 import useStores from '../../Basics/UseStores';
 import { Badge } from '@material-ui/core';
 import Styles from '../../Basics/Styles';
+import { DateTime } from 'luxon';
+import { getFirstSevereSymptomFromArray } from '../../Basics/SymptomsSeperation';
 
 
 const useStyles = makeStyles({
@@ -47,7 +49,8 @@ const useStyles = makeStyles({
         },
         display: "flex",
         alignItems: "center",
-        "& > p": {
+        "& > p:first-child": {
+            flexBasis: "25%",
             marginLeft: "2em"
         }
     },
@@ -65,16 +68,31 @@ const useStyles = makeStyles({
     },
     badge: {
         position: "absolute",
-        "& > span": {
-            fontSize: "1em",
-            padding: ".5em"
-        },
-
-        top: "-10px",
-        left: "-10px"
+        ...Styles.flexCenter,
+        height: "40px",
+        width: "40px",
+        color: "white",
+        backgroundColor: "#FF6B6B",
+        borderRadius: "50%",
+        top: "-15px",
+        left: "-15px",
+        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
     },
-    noTasks:{
+    noTasks: {
         ...Styles.flexCenter
+    },
+    rowLoading: {
+        display: "flex",
+        marginLeft: "1em"
+    },
+    symptomList: {
+        fontStyle: "italic",
+        color: Colors.textGray
+    },
+    reportDate: {
+        marginLeft: "auto",
+        marginRight: "2em",
+        color: Colors.textGray
     }
 })
 
@@ -89,9 +107,11 @@ const HomePageCard = (props) => {
 
     const patientList = props.patientList.map((each, index) => {
         return (<SingleLine
+            type={props.type}
             selected={props.selectedType === props.type && props.selectedId === index}
-            key={`${props.type}-${index}`}
+            key={`${props.type}-${index}-line`}
             patientId={each.patientId}
+            photoDate={props.type === "photo" && each.createdAt}
             onClick={() => handleClick(props.type, index)}
         />)
     })
@@ -99,9 +119,9 @@ const HomePageCard = (props) => {
     return (
 
         <Card icon={props.icon} title={props.title}>
-            {props.badgeContent && <Badge overlap="circle" className={classes.badge} color="primary" badgeContent={props.badgeContent} />}
+            {(props.badgeContent && props.badgeContent > 0) && <div className={classes.badge} color="primary"><p>{props.badgeContent} </p></div>}
             <div className={classes.container}>
-                {props.patientList.length > 0 ? patientList : <div className={classes.noTasks}><p>{t("coordinator.noTasks")}</p></div> }
+                {props.patientList.length > 0 ? patientList : <div className={classes.noTasks}><p>{t("coordinator.noTasks")}</p></div>}
             </div>
         </Card>
     )
@@ -109,14 +129,52 @@ const HomePageCard = (props) => {
 
 const SingleLine = observer((props) => {
     const classes = useStyles();
+    const { t, i18n } = useTranslation('translation');
     const { practitionerStore } = useStores();
+
+    const patient = practitionerStore.getPatient(props.patientId)
 
     return (
         <div className={`${classes.lineItem} ${props.selected ? classes.selected : ""}`} onClick={props.onClick}>
-            <p>{practitionerStore.getPatientName(props.patientId)}</p>
+            {patient ?
+                <>
+                    <p>{patient.fullName} </p>
+                    <TaskInfo photoDate={props.photoDate} {...patient} type={props.type} />
+                </> :
+                <p>{t('coordinator.sideBar.loading')}...</p>}
         </div>
     )
 })
+
+const TaskInfo = (props) => {
+    const { t, i18n } = useTranslation('translation');
+    const classes = useStyles();
+
+    if (props.type === 'symptom') {
+        if(!(props.lastSymptoms.symptomList.length > 0)) return ""
+        const symptomToDisplay = getFirstSevereSymptomFromArray(props.lastSymptoms.symptomList)
+
+        const displayedSymptom = t(`symptoms.${symptomToDisplay || props.lastSymptoms.symptomList[0]}.title`)
+        const more = props.lastSymptoms.symptomList.length - 1
+
+        return (
+            <>
+                <p style={{color: symptomToDisplay && Colors.red}} className={classes.symptomList}>{displayedSymptom} {more > 0 && <>+{more}</>}</p>
+                <p className={classes.reportDate}>{props.lastSymptoms.date ? DateTime.fromISO(props.lastSymptoms.date).toLocaleString(DateTime.DATE_SHORT) : "N/A"}</p>
+            </>
+        )
+    } else if (props.type === 'photo') {
+        return (
+            <p className={classes.reportDate}>{props.photoDate ? DateTime.fromISO(props.photoDate).toLocaleString(DateTime.DATETIME_SHORT) : "N/A"}</p>
+        )
+    } else if (props.type === 'missed') {
+        return <p className={classes.reportDate}>{props.lastMissedDay ? DateTime.fromISO(props.lastMissedDay).toLocaleString(DateTime.DATE_SHORT) : "N/A"}</p>
+    } else if (props.type === 'support') {
+        return <p className={classes.reportDate}>{(props.supportRequests && props.supportRequests.length > 0) ? DateTime.fromISO(props.supportRequests[0].date).toLocaleString(DateTime.DATE_SHORT) : "N/A"}</p>
+    } else {
+        return ""
+    }
+}
 
 HomePageCard.propTypes = {
     title: PropTypes.string,
@@ -125,7 +183,6 @@ HomePageCard.propTypes = {
 };
 
 SingleLine.propTypes = {
-    fullName: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired
 };
 

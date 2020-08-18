@@ -44,17 +44,6 @@ export default function Videos() {
     const { t, i18n } = useTranslation('translation');
 
     return (
-        <Interactioncard className={classes.topCard} >
-            <ExpansionPanel className={classes.panel}>
-                <ExpansionPanelSummary
-                    className={classes.summary}
-                    expandIcon={<ExpandMoreIcon className={classes.icon} />}
-                    aria-controls="panel-content"
-                    id="expand-section"
-                >
-                    <Typography variant="h2" className={classes.heading}>{t("patient.information.videos")}</Typography>
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
                 <div>
                     <div className={classes.video}>
                         <a href="https://www.youtube.com/watch?v=KizqF_HmI2w"><img className={classes.preview} src={PreviewOne}></img></a>
@@ -67,8 +56,5 @@ export default function Videos() {
                             Programa Tuberculosis Provincia de Misiones</Button>
                     </div>
                 </div>
-                </ExpansionPanelDetails>
-            </ExpansionPanel>             
-        </Interactioncard>
     )
 }

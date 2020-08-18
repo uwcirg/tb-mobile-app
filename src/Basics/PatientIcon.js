@@ -4,7 +4,7 @@ import Colors from './Colors';
 
 const useStyles = makeStyles({
     circle: {
-        background: "green",
+        background: Colors.green,
         borderRadius: "50%",
         height: "50px",
         width: "50px"

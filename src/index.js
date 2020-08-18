@@ -21,6 +21,7 @@ import { Settings } from 'luxon';
 reaction(
     () => stores.uiStore.locale,
     locale => {
+      console.log(locale)
       i18n.changeLanguage(locale);
       Settings.defaultLocale = locale;
     }

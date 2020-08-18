@@ -17,6 +17,7 @@ export class MessagingStore {
         const channel = new BroadcastChannel('messaging-notification');
         channel.addEventListener('message', event => {
             this.getUnreadMessages();
+            this.getSelectedChannel();
           });
         }catch(err){
             console.log(err)

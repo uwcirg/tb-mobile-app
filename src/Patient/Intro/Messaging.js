@@ -19,13 +19,13 @@ const useStyles = makeStyles({
 })
 
 const Welcome = () => {
-    const { t, i18n } = useTranslation('walkthrough');
+    const { t, i18n } = useTranslation('translation');
     const classes = useStyles();
 
     return (<>
         <div className={classes.container}>
-            <h2>{t('messaging.header')} <ForumIcon /> </h2>
-            <p>{t('messaging.text')}</p>
+            <h2>{t('patient.walkthrough.messaging.header')} <ForumIcon /> </h2>
+            <p>{t('patient.walkthrough.messaging.text')}</p>
         </div>
     </>)
 

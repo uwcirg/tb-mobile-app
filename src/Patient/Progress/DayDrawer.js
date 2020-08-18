@@ -57,7 +57,7 @@ const DayDrawer = observer((props) => {
               photoString={patientStore.selectedDayReport.photoUrl}
               isPhotoDay={patientStore.checkPhotoDay(date)}
               missingPhoto={missingPhoto}
-            /> : <p>Supress Warning</p>}
+            /> : <p>Error</p>}
         </ExpansionPanelDetails>
       }
     </ExpansionPanel>
@@ -72,7 +72,7 @@ const Header = (props) => {
   return (
     <div className={classes.header}>
       <h2 className={classes.drawerTitle}>{props.date.toLocaleString(DateTime.DATE_FULL)}</h2>
-      <p className={`${classes.status} ${!props.complete && classes.incomplete}`}>{props.complete ? "Complete" : "Incomplete"}</p>
+      <p className={`${classes.status} ${!props.complete && classes.incomplete}`}>{props.complete ? t('patient.home.completed.title') : t('report.incomplete')}</p>
     </div>
   )
 }

@@ -5,9 +5,10 @@ import ActionBox from './ActionBox';
 import Alerts from './Alerts';
 import Colors from '../../Basics/Colors';
 import Greeting from './Greeting'
-import EducationalMessage from './EducationalMessage'
+import EducationalMessage from './Education'
 import Reminders from './Reminders'
 import Button from '@material-ui/core/Button';
+
 
 const HomePage = () => {
 
@@ -18,7 +19,7 @@ const HomePage = () => {
             <ActionBox />
             <Progress />
             <Reminders />
-           {/*<Alerts />*/} 
+            <Alerts />
         </Body>
     )
 

@@ -23,7 +23,7 @@ const Gender = observer((props) => {
 
   const { activationStore } = useStores();
   const classes = useStyles();
-  const { t, i18n } = useTranslation('onboarding');
+  const { t, i18n } = useTranslation('translation');
 
   const handleChange = (event) => {
     activationStore.onboardingInformation.gender = event.target.value;
@@ -31,13 +31,13 @@ const Gender = observer((props) => {
 
   return (
     <div className={props.bodyClass}>
-      <SurveyHeader number={1} title={t("gender.title")} />
+      <SurveyHeader number={1} title={t("patient.onboarding.gender.title")} />
       <FormControl className={classes.form} component="fieldset">
         {/*<FormLabel component="legend">Gender</FormLabel>*/}
         <RadioGroup aria-label="gender" name="gender1" value={activationStore.onboardingInformation.gender} onChange={handleChange}>
-          <FormControlLabel value="Female" control={<Radio color="primary" />} label={t("gender.female")} />
-          <FormControlLabel value="Male" control={<Radio color="primary" />} label={t("gender.male")} />
-          <FormControlLabel value="Other" control={<Radio color="primary" />} label={t("gender.other")} />
+          <FormControlLabel value="Female" control={<Radio color="primary" />} label={t("patient.onboarding.gender.female")} />
+          <FormControlLabel value="Male" control={<Radio color="primary" />} label={t("patient.onboarding.gender.male")} />
+          <FormControlLabel value="Other" control={<Radio color="primary" />} label={t("patient.onboarding.gender.other")} />
         </RadioGroup>
       </FormControl>
     </div>

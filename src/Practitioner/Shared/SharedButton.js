@@ -11,34 +11,42 @@ const useStyles = makeStyles({
     button: {
         flexDirection: "row",
         display: "flex",
-        backgroundColor: props =>  props.color,
-        borderRadius: "10px", 
+        alignItems: "center",
+        backgroundColor: props => props.color,
+        borderRadius: "10px",
         width: "100%",
         textTransform: "capitalize",
         padding: "1em",
-        color:"white"
+        color: "white",
+        "& > span > svg":{
+            fontSize: ".95em",
+            marginRight: "5px"
+        },
+        "&:hover":{
+            backgroundColor: Colors.accentBlue
+        }
     },
-    text:{
-       marginLeft: "5px"
+    text: {
+        marginLeft: "5px"
     },
-    icon:{
+    icon: {
         marginLeft: "5px",
-        "& > svg":{
+        "& > svg": {
             fontSize: "1em"
         }
     }
 })
 
 const SharedButton = (props) => {
-    const styleProps = {color: props.color? props.color : Colors.buttonBlue}
+    const styleProps = { color: props.color ? props.color : Colors.buttonBlue }
     const classes = useStyles(styleProps);
 
     const { practitionerStore } = useStores();
 
     return (
         <Button className={`${classes.button} ${props.className}`} onClick={props.onClick}>
-            <div className={classes.icon}>{props.icon ? props.icon :  <CheckIcon />}</div>
-            <div className={classes.text}>{props.text ? props.text : "Button"}</div>
+            {props.icon ? props.icon : <CheckIcon />}
+            {props.text ? props.text : "Button"}
         </Button>
     )
 }

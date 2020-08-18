@@ -16,7 +16,6 @@ i18n.use(XHR)
 .init({
   fallbackLng: "en",
   ns: ['translation','onboarding','reminders','walkthrough'],
-  load: "languageOnly",
   debug: false
 });
 

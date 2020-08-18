@@ -25,14 +25,14 @@ const useStyles = makeStyles((theme) => ({
 const Age = observer((props) => {
 
     const classes = useStyles();
-    const { t, i18n } = useTranslation('onboarding');
+    const { t, i18n } = useTranslation('translation');
     const {activationStore} = useStores();
 
     //Limit to only reasonable ages here
     const handleChange = (e) => { activationStore.onboardingInformation.age = e.target.value}
 
     return (<div className={props.bodyClass}>
-        <SurveyHeader number={2} title={t("age")} />
+        <SurveyHeader number={2} title={t("patient.onboarding.age")} />
         <div className={classes.inputContainer}>
         <Input value={activationStore.onboardingInformation.age} onChange={handleChange} placeholder="Age" type="number"></Input>
         </div>

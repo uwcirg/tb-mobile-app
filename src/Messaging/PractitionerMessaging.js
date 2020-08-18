@@ -124,8 +124,8 @@ const Messaging = observer(() => {
                     onChange={handleChange}
                     aria-label="message-type-tab"
                 >
-                    <Tab className={classes.tabs} label="Patients" />
-                    <Tab className={classes.tabs} label="Public" />
+                    <Tab className={classes.tabs} label={t('messaging.patients')} />
+                    <Tab className={classes.tabs} label={t('messaging.discussions')} />
                 </Tabs>
 
                 {tab === 0 ?
@@ -147,7 +147,7 @@ const Messaging = observer(() => {
                         userID={practitionerStore.userID}
                         selectedChannel={uiStore.pathNumber}
                         handleBack={handleBackFromChannel}
-                    /> : <div className={classes.selectChannel}><h1> Select A Channel To Get Started</h1></div>
+                    /> : <div className={classes.selectChannel}><h1> {t('messaging.selectChannel')}</h1></div>
                 }
             </div>
             </div>

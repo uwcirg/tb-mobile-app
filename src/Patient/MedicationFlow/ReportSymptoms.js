@@ -1,16 +1,11 @@
 import React, { useEffect } from 'react';
 import { inject, observer } from 'mobx-react';
-import { DateTime } from 'luxon'
 import SymptomsList from './SymptomsList.js'
 import SimpleButton from '../../Basics/SimpleButton'
-import styled from 'styled-components';
 import InteractionCard from '../../Basics/InteractionCard';
 import useStores from '../../Basics/UseStores.js';
-import PopUp from '../Navigation/PopUp.js';
 import { makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import NewButton from '../../Basics/NewButton'
-import ReportPopUp from './ReportPopUp.js';
 import SymptomWarning from './SymptomWarning.js';
 
 const ReportSymptoms = observer((props) => {

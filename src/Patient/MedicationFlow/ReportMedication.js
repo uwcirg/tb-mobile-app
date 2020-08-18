@@ -30,7 +30,8 @@ const useStyles = makeStyles({
     time: {
         fontSize: "4em",
         color: Colors.buttonBlue,
-        borderBottom: `solid 5px ${Colors.buttonBlue}`
+        borderBottom: `solid 5px ${Colors.buttonBlue}`,
+        width: "80%"
     },
     popOver: {
         ...Styles.flexCenter,
@@ -44,9 +45,14 @@ const useStyles = makeStyles({
 
     },
     timeSelect: {
+        "& > div":{
+            width: props => props.wide && "100% !important",
+            textAlign: "center"
+        },
         "& > div > input": {
             color: Colors.buttonBlue,
-            fontSize: "4em"
+            fontSize: "4em",
+            textAlign: "center"
         }
     }
 });
@@ -54,8 +60,9 @@ const useStyles = makeStyles({
 
 const TimeQuestion = observer(() => {
 
-    const classes = useStyles();
-    const { patientStore } = useStores();
+
+    const { patientStore,uiStore } = useStores();
+    const classes = useStyles({wide: uiStore.locale === "en" });
     const [selectedDate, handleDateChange] = useState(DateTime.local());
     const [onTime, changeTime] = useState(false);
     patientStore.medicationTime = selectedDate.toISO();
@@ -75,7 +82,7 @@ const TimeQuestion = observer(() => {
                 <TimePicker
                     className={classes.timeSelect}
                     clearable
-                    ampm={false}
+                    ampm={uiStore.locale === "en"}
                     value={DateTime.fromISO(patientStore.report.timeTaken)}
                     onChange={handleDate}
                 />

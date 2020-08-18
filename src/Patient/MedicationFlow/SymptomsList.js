@@ -11,6 +11,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import NauseaPopUp from './NauseaPopUp';
+import {Symptoms,SevereSymptoms} from '../../Basics/SymptomsSeperation'
 
 /*
 Object that maps all symptoms to strings which are used to fetch thier locations
@@ -24,27 +26,11 @@ nausea: {
 }
 */
 
-const Symptoms = [
-  "sore_belly",
-  "nausea",
-  "redness",
-  "hives",
-  "fever",
-  "appetite_loss"
-
-]
-
-const SevereSymptoms = [
-  "blurred_vision",
-  "yellow_coloration",
-  "difficulty_breathing",
-  "facial_swelling"
-]
-
 //Renders whole list of symptoms
-const SymptomsList = (props) => {
+const SymptomsList = observer((props) => {
 
   const { t, i18n } = useTranslation('translation');
+  const {patientStore} = useStores();
 
   let list = Symptoms.map((name, index) => {
     return (
@@ -62,10 +48,11 @@ const SymptomsList = (props) => {
 
   return (
     <>
+      {patientStore.nasueaSelected && <NauseaPopUp />}
       {list}
     </>
   )
-};
+});
 
 //Single Symptom in List
 const Symptom = observer((props) => {
@@ -73,18 +60,24 @@ const Symptom = observer((props) => {
   const { patientStore } = useStores();
 
   const handleSelection = (e) => {
-
-    if(props.severe){
+    if(props.severe && e.target.checked === true){
       patientStore.toggleSymptomWarningVisibility();
     }
 
     let symptomName = e.target.id
     let index = patientStore.report.selectedSymptoms.indexOf(symptomName);
 
+    
+
     if (index === -1) {
       patientStore.report.selectedSymptoms.push(symptomName);
     } else {
+      //Remove from list
       patientStore.report.selectedSymptoms.splice(index, 1);
+
+      if(symptomName === "nausea"){
+        patientStore.report.nauseaRating = ""
+      }
     }
   }
 
@@ -105,9 +98,9 @@ const Symptom = observer((props) => {
       <ExpansionPanelSummary
         className={classes.summary}
         expandIcon={<ExpandMoreIcon />}
-        aria-label="Expand"
-        aria-controls="additional-actions1-content"
-        id="additional-actions1-header"
+        aria-label="expand"
+        aria-controls={`additional-${props.title.split()[0]}-content`}
+        id={`additional-${props.title.split()[0]}-header`}
       >
         <FormControlLabel
           aria-label="Acknowledge"

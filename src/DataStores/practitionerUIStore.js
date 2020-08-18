@@ -9,6 +9,7 @@ export default class PractitionerUIStore {
     }
 
     @observable onOnboarding = false;
+    @observable onAddPatientNote = false;
 
     @computed get tabNumber(){
         const splitPath = this.router.location.pathname.split("/");
@@ -49,5 +50,13 @@ export default class PractitionerUIStore {
 
     @action goToChannel = (id) => {
         this.router.push(`/messaging/channel/${id}`)
+    }
+
+    @action openAddPatientNote = () => {
+        this.onAddPatientNote = true;
+    }
+
+    @action closeAddPatientNote =() => {
+        this.onAddPatientNote = false;
     }
 }

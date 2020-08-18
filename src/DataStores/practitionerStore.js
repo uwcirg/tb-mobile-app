@@ -1,8 +1,9 @@
-import { action, observable, computed } from "mobx";
+import { action, observable, computed, toJS } from "mobx";
 import { UserStore } from './userStore'
+import { DateTime } from "luxon";
 
 const ROUTES = {
-    addPatient: ["/patient", "POST"],
+    addPatient: ["/patients", "POST"],
     getCurrentPractitioner: ["/practitioner/me", "GET"],
     getOrganizations: ["/organizations", "GET"],
     getPatients: ["/practitioner/patients", "GET"],
@@ -12,7 +13,9 @@ const ROUTES = {
     getPatientNames: ["/practitioner/patients?namesOnly=true", "GET"],
     getSeverePatients: ["/patients/severe", "GET"],
     getMissingPatients: ["/patients/missed", "GET"],
-    getRecentReports: ["/patients/reports/recent", "GET"]
+    getRecentReports: ["/patients/reports/recent", "GET"],
+    getCompletedResolutionsSummary: ["/practitioner/resolutions/summary", "GET"],
+    getSupportRequests: ["/patients/need_support","GET"]
 }
 
 export class PractitionerStore extends UserStore {
@@ -20,6 +23,19 @@ export class PractitionerStore extends UserStore {
     //Takes in a data fetching strategy, so you can swap out the API one for testing data
     constructor(strategy) {
         super(strategy, ROUTES, "Practitioner")
+    }
+
+    @observable resolutionSummary = {
+        dailyCount: 0,
+        takenMedication: 0,
+        notTakenMedication: 0
+    }
+
+    @observable cohortSummary = {
+        loading: true,
+        data: {
+            symptoms: {}
+        }
     }
 
     @observable selectedPatientSymptoms = {
@@ -40,7 +56,7 @@ export class PractitionerStore extends UserStore {
             givenName: "",
             familyName: "",
             phoneNumber: "",
-            startDate: new Date().toISOString(),
+            treatmentStart: DateTime.local().toISO(),
             isTester: false
         },
         loading: false,
@@ -55,14 +71,16 @@ export class PractitionerStore extends UserStore {
 
     @observable organizationsList = [];
 
-    @observable patients = [];
+    @observable patients = {};
     @observable temporaryPatients = [];
 
     //Currently viewed patient
     @observable selectedPatient = {
         reports: {},
         reportsLoading: false,
-        details: {}
+        details: {},
+        symptomSummary: {},
+        notes: []
     }
 
     @observable missedDays = {
@@ -79,7 +97,8 @@ export class PractitionerStore extends UserStore {
     @observable filteredPatients = {
         symptom: [],
         missed: [],
-        photo: []
+        photo: [],
+        support: []
     }
 
     @observable selectedRow = {
@@ -104,7 +123,7 @@ export class PractitionerStore extends UserStore {
     }
 
     getPatientName = (id) => {
-        return this.patients[id] ? this.patients[id].fullName : "Patient Name"
+        return this.patients[id] ? this.patients[id].fullName : ""
     }
 
     @action addNewPatient = () => {
@@ -113,12 +132,12 @@ export class PractitionerStore extends UserStore {
         this.executeRequest('addPatient', this.newPatient.params, { allowErrors: true }).then(json => {
             this.newPatient.loading = false;
 
-            if (json.error == 422) {
+            if (json && json.error == 422) {
                 this.newPatient.errors = json.paramErrors;
                 this.newPatient.errorReturned = true;
             }
 
-            if (json.code) {
+            if (json && json.code) {
                 this.newPatient.code = json.code;
                 this.getTemporaryPatients();
             }
@@ -277,7 +296,7 @@ export class PractitionerStore extends UserStore {
     }
 
     resetPassword = () => {
-        this.resetActivationCode(this.selectedPatient.id);
+        this.resetActivationCode(this.selectedPatient.details.id);
     }
 
     @action clearNewPatient = () => {
@@ -302,20 +321,111 @@ export class PractitionerStore extends UserStore {
         this.selectedPatient.reportsLoading = false;
     }
 
-    @action setSelectedPatientDetails = (details) =>{
+    @action setSelectedPatientDetails = (details) => {
         this.selectedPatient.details = details;
     }
 
+    @action setCohortSummary = (response) => {
+        this.cohortSummary.loading = false;
+        this.cohortSummary.data = response;
+    }
+
+    @action setPatientSymptomSummary = (symptoms) => {
+        this.selectedPatient.symptomSummary = symptoms
+    }
+
+    @action setResolutionsSummary = (response) => {
+        this.resolutionSummary.dailyCount = response.count;
+        this.resolutionSummary.takenMedication = response.medicationReporting.true
+        this.resolutionSummary.notTakenMedication = response.medicationReporting.false
+    }
+
+    @computed get selectedPatientReports() {
+        return Object.values(this.selectedPatient.reports)
+    }
+
+    @computed get totalTasks() {
+        let total = 0
+        Object.keys(this.filteredPatients).forEach((each) => {
+            total += this.filteredPatients[each].length
+        })
+        return total
+    }
+
+    @action setPatientNotes(notes) {
+        this.selectedPatient.notes = notes;
+    }
+
+    //Get detials to fill in patient profile information
     getPatientDetails = (id) => {
-        this.executeRawRequest(`/practitioner/patient/${id}?`, "GET").then(response => {
-           this.setSelectedPatientDetails(response);
+        this.executeRawRequest(`/practitioner/patient/${id}`, "GET").then(response => {
+            this.setSelectedPatientDetails(response);
         })
         //Must fetch reports seperately due to key tranform in Rails::AMS removing dashes ISO date keys :(
         this.executeRawRequest(`/patient/${id}/reports`, "GET").then(response => {
             this.setPatientReports(response);
         })
+
+        this.executeRawRequest(`/patient/${id}/symptom_summary`).then(response => {
+            this.setPatientSymptomSummary(response);
+        })
+
+        this.getPatientNotes(id);
     }
 
+    getCohortSummary = () => {
+        this.executeRawRequest(`/organizations/${this.organizationID}/cohort_summary`).then(response => {
+            this.setCohortSummary(response);
+        })
+    }
+
+    getCompletedResolutionsSummary = () => {
+        this.executeRequest("getCompletedResolutionsSummary").then(response => {
+            this.setResolutionsSummary(response)
+        })
+    }
+
+    getPatientNotes = (patientID) => {
+        return this.executeRawRequest(`/patient/${patientID || this.selectedPatient.details.id }/notes`).then(response => {
+            this.setPatientNotes(response)
+        })
+    }
+
+    postPatientNote = (title, note) => {
+        const body = { title: title, note: note }
+        this.executeRawRequest(`/patient/${this.selectedPatient.details.id}/notes`, 'POST', body).then(response => {
+            this.getPatientNotes();
+            return response
+        })
+    }
+
+    getSupportRequests = () => {
+        this.executeRequest("getSupportRequests").then(response => {
+            this.filteredPatients.support = response.map(each => {return {patientId: each}})
+        })
+    }
+
+    resolveSupportRequest = () => {
+            this.executeRawRequest(`/patient/${this.selectedPatientID}/resolutions?type=support`, "POST").then(response => {
+                this.adjustIndex();
+                this.getSupportRequests();
+            })
+    }
+
+    @computed get numberOfCompletedTasks(){
+        return this.resolutionSummary.dailyCount || 0;
+    
+    }
+
+    @computed get totalReported(){
+        return (this.resolutionSummary.takenMedication || 0) + (this.resolutionSummary.notTakenMedication || 0)
+    }
+
+    getReminders = () => {
+        this.executeRawRequest(`/patients/87/reminders`, "GET").then(response => {
+
+        })
+    }
 
 
 }

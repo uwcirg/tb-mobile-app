@@ -29,7 +29,7 @@ function Alert(props) {
   }
 
 const End = observer((props) => {
-    const { t, i18n } = useTranslation('onboarding');
+    const { t, i18n } = useTranslation('translation');
     const classes = useStyles();
     const { activationStore, patientStore, patientUIStore } = useStores();
 
@@ -47,7 +47,7 @@ const End = observer((props) => {
             <div className={props.bodyClass}>
                 <div>
                     <DoctorIcon />
-                    <Typography className={classes.text} variant="h2">{t('endText')}</Typography>
+                    <Typography className={classes.text} variant="h2">{t('patient.onboarding.endText')}</Typography>
                     {activationStore.activationError && <Alert handleClose={() => {activationStore.activationError = false}} severity="error">Error with account activation</Alert>}
                 </div>
             </div>

@@ -35,7 +35,7 @@ const WeekCalendar = observer(() => {
 const Days = observer(() => {
 
     const classes = useStyles();
-    const {patientStore,uiStore} = useStores();
+    const {patientStore,patientUIStore} = useStores();
 
     let list = []
     for(let i = 4; i >= 0; i--){
@@ -60,11 +60,10 @@ const Days = observer(() => {
                 
                 onClick={() => {
                     if(today && !patientStore.dailyActionsCompleted){
-                        patientStore.uiState.onTreatmentFlow = true;
-                        uiStore.activeTab = 0;
+                        patientUIStore.moveToReportFlow();
 
                     }else{
-                        patientStore.uiState.onCalendarView = true;
+                        patientUIStore.goToCalendar();
                         patientStore.uiState.selectedCalendarDate = date.startOf('day');
                     }
                 }}>

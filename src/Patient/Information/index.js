@@ -10,9 +10,13 @@ import { Button } from '@material-ui/core';
 import useStores from '../../Basics/UseStores';
 import Typography from '@material-ui/core/Typography';
 import Videos from './Videos';
+import TreatmentTimeline from '../../Basics/TreatmentTimeline'
+import Section from './Section'
+import VideoIcon from '@material-ui/icons/OndemandVideo';
+
+
 const file = raw("./information.md");
-
-
+const messagesFile = raw("../../Content/TreatmentMessages.json")
 
 //Convert markdown file to expandable cards format
 const useStyles = makeStyles({
@@ -39,31 +43,68 @@ const useStyles = makeStyles({
         color: Colors.buttonBlue,
         textTransform: "capitalize"
     },
-    padding:{
+    padding: {
         paddingLeft: "1em"
-    }    
+    },
+    treatmentMessages: {
+        display: "flex",
+        flexDirection: "column",
+        "& > span": {
+            textTransform: "capitalize",
+            color: Colors.textGray
+        }
+    }
 })
 
 export default function Info() {
     const { t, i18n } = useTranslation('translation');
     const classes = useStyles();
-    const { patientUIStore } = useStores();
+    const { patientUIStore, patientStore } = useStores();
     return (
         <div className={classes.container}>
-            <Typography variant="h1">Help with Application</Typography>
+
+            <Typography variant="h1">{t('patient.information.infoSection')}</Typography>
+            {/*
+            <Section title={t('timeline.title')}>
+                <TreatmentTimeline weeksInTreatment={patientStore.patientInformation.weeksInTreatment} />
+            </Section>
+            */}
+            <Section title={<><VideoIcon />{t('patient.information.videos')}</>}>
+                <Videos />
+            </Section>
+            <Section title={t('patient.information.education')}>
+                <TreatmentMessages />
+            </Section>
+            <Section title={t('patient.information.questions')}>
+                <Interactioncard className={classes.topCard} >
+                    <Markdown options={{ overrides: { Drawer: { component: MarkdownRender } } }} children={file} />
+                </Interactioncard>
+            </Section>
+
+            <Typography variant="h1">{t('patient.information.helpSection')}</Typography>
             <div className={classes.appInfo}>
-                <Button className={classes.button} onClick={patientUIStore.goToWalkThrough}> Launch App Walkthrough</Button>
-                <Button className={classes.button} onClick={patientUIStore.goToTreatmentWalkThrough}>Treatment Walkthrough</Button>
-                <Button className={classes.button} > Contact Coordinator On WhatsApp</Button>
+                <Button className={classes.button} onClick={patientUIStore.goToWalkThrough}>{t('patient.information.launchWalkthrough')}</Button>
+                <Button className={classes.button} onClick={patientUIStore.goToWalkThrough}>{t('patient.information.video')}</Button>
             </div>
-            <Typography variant="h1">Information about Tuberculosis</Typography>
-            <div className={classes.padding}>
-                <Button className={classes.button} >View Previous Treatment Messages</Button>
-            </div>
-            <Videos />
-            <Interactioncard className={classes.topCard} >
-                <Markdown options={{ overrides: { Drawer: { component: MarkdownRender } } }} children={file} />
-            </Interactioncard>
+
+        </div>
+    )
+}
+
+const TreatmentMessages = () => {
+    const messages = JSON.parse(messagesFile)
+    const classes = useStyles();
+    const { t, i18n } = useTranslation('translation');
+
+    return (
+        <div className={classes.treatmentMessages}>
+            {Object.keys(messages).map(each => {
+                return (
+                    <>
+                        <span>{t('time.day')} {each}</span>
+                        <p>{messages[each]}</p>
+                    </>)
+            })}
         </div>
     )
 }

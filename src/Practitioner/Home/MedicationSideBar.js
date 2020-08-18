@@ -49,7 +49,6 @@ const MissedMedicationSidebar = observer((props) => {
     const { practitionerStore } = useStores();
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
-    const item = practitionerStore.filteredPatients.photo[practitionerStore.selectedRow.index];
 
     useEffect(() => {
         practitionerStore.getPatientMissedDays()
@@ -58,8 +57,7 @@ const MissedMedicationSidebar = observer((props) => {
     return (
         <Basicsidebar buttons={
             <>
-                <SharedButton text={"Inconclusive"} onClick={() => { /* Pending */ }} color={Colors.yellow} icon={<QIcon />} />
-                <SharedButton text={"Positive"} onClick={() => { practitionerStore.resolveMedication() }} />
+                <SharedButton text={t('coordinator.sideBar.contactedPatient')} onClick={() => { practitionerStore.resolveMedication() }} />
             </>}>
             <div className={classes.photoContainer} >
                 <h2>{t("coordinator.sideBar.daysMissed")}: {practitionerStore.missedDays.days && practitionerStore.missedDays.days.length} </h2>

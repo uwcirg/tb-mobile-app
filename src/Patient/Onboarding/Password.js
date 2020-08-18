@@ -21,7 +21,7 @@ const useStyles = makeStyles({
 const Password = observer((props) => {
 
     const classes = useStyles();
-    const { t, i18n } = useTranslation(['onboarding', 'translation']);
+    const { t, i18n } = useTranslation('translation');
     const { activationStore } = useStores();
 
     //Once password is accepted on the server move to next step
@@ -36,7 +36,7 @@ const Password = observer((props) => {
     return (
         <>
             {activationStore.passwordUpdate.passwordLoading ? <Loading /> : <div className={props.bodyClass} >
-                <SurveyHeader number={1} title={t("password.title")} />
+                <SurveyHeader number={1} title={t("patient.onboarding.password.title")} />
                 <form>
                     <TextField
                         onChange={(e) => {activationStore.passwordUpdate.password = e.target.value }}
@@ -44,7 +44,7 @@ const Password = observer((props) => {
                         fullWidth
                         className={classes.password}
                         id="password-input"
-                        label={t("translation:login.password")}
+                        label={t("login.password")}
                         type="password"
                         autoComplete="current-password"
                         variant="filled"
@@ -55,7 +55,7 @@ const Password = observer((props) => {
                         fullWidth
                         className={classes.password}
                         id="password-confirmation-input"
-                        label={t("password.confirmation")}
+                        label={t("patient.onboarding.password.confirmation")}
                         type="password"
                         autoComplete="current-password"
                         variant="filled"

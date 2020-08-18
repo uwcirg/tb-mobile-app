@@ -17,6 +17,7 @@ import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import Button from '@material-ui/core/Button'
 import PopOver from '../Shared/PopOver';
+import MuiButton from '../../Basics/MuiButton'
 
 const useStyles = makeStyles({
     title: {
@@ -95,31 +96,30 @@ const useStyles = makeStyles({
         borderRadius: "50%",
         backgroundColor: Colors.calendarGreen
     },
-    highPriority: {
-        backgroundColor: Colors.calendarRed
+    high: {
+        backgroundColor: Colors.red
+    },
+    middle: {
+        backgroundColor: Colors.yellow
+    },
+    low: {
+        backgroundColor: Colors.green
+    },
+    new: {
+        backgroundColor: Colors.red
     },
     noPatients: {
         width: "100%",
         textAlign: "center"
     },
     addPatient: {
-        borderRadius: "1em",
-        color: "white",
-        backgroundColor: Colors.buttonBlue,
-        marginLeft: "auto",
-        display: "flex",
-        height: "3em",
-        padding: "1em",
-        width: "160px",
-        display: "flex",
-        justifyContent: "space-evenly",
-        fontSize: "1em"
+        flexBasis: "180px"
     },
     header: {
         width: "90%",
         display: "flex",
         alignItems: "flex-start",
-        "& > h1":{
+        "& > h1": {
             padding: 0,
             margin: 0
         }
@@ -145,7 +145,7 @@ const PatientsView = observer((props) => {
                 <div className={classes.container}>
                     <div className={classes.header}>
                         <h1 className={classes.title}>{t("coordinator.titles.myPatients")}</h1>
-                        <ButtonBase onClick={toggleAddPatient} className={classes.addPatient}><PlusIcon /><p>Add Patient</p></ButtonBase>
+                        {!practitionerStore.onAddPatientFlow && <MuiButton onClick={toggleAddPatient} className={classes.addPatient}><PlusIcon /><p>{t('coordinator.addPatientFlow.title')}</p></MuiButton>}
                     </div>
                     <AdherenceGraph />
                     <Patients icon={<PersonIcon />} title={t("coordinator.cardTitles.allPatients")} list={props.patientList} handlePatientClick={props.handlePatientClick} />
@@ -194,6 +194,7 @@ const Patients = (props) => {
     const classes = useStyles();
     const [sort, setSort] = useState("treatmentStart")
     const [search, setSearch] = useState("")
+    const [reverse, setReverse] = useState(false);
     const { t, i18n } = useTranslation('translation');
 
 
@@ -203,22 +204,36 @@ const Patients = (props) => {
 
     const sorted = props.list.slice().sort((a, b) => {
 
+        let value = 0
+
         if (sort === "treatmentStart") {
-            return DateTime.fromISO(a[sort]).diff(DateTime.fromISO(b[sort]))
+            value = DateTime.fromISO(a[sort]).diff(DateTime.fromISO(b[sort]))
         } else {
-            if (a[sort] < b[sort]) { return -1; }
-            if (a[sort] > b[sort]) { return 1; }
-            return 0;
+            if (a[sort] < b[sort]) { value = -1; }
+            if (a[sort] > b[sort]) { value = 1; }
         }
 
-        return 0
+        reverse && (value *= -1)
+
+        return value;
+
     }).filter(each => {
 
         return each.fullName && each.fullName.toLowerCase().includes(search.toLowerCase())
     })
 
+    const handlePrioritySort = () => {
+        if (sort === "priority") {
+            setReverse(!reverse)
+        } else {
+            setSort("priority")
+        }
+    }
+
+
     let list = ""
     sorted.length > 0 && (list = sorted.map((patient, index) => {
+        const priorityClasses = [classes.low, classes.middle, classes.high, classes.new]
         return (
             <div key={`patient-list-view-${index}`} className={classes.singlePatient}>
                 <div className={classes.name}>
@@ -227,19 +242,16 @@ const Patients = (props) => {
                     </a>
                 </div>
                 <div>
-                    <div className={`${classes.priorityCircle} ${patient.adherence < .85 && classes.highPriority}`} />
+                    <div className={`${classes.priorityCircle} ${priorityClasses[patient.priority]}`} />
                 </div>
                 <div>
                     {DateTime.fromISO(patient.treatmentStart).toLocaleString(DateTime.DATE_SHORT)}
                 </div>
                 <div>
-                    {patient.lastReport ? patient.lastReport.date : "No Reports"}
+                    {patient.lastReport ? DateTime.fromISO(patient.lastReport.date).toLocaleString(DateTime.DATE_SHORT) : t('report.noReportsYet')}
                 </div>
                 <div>
                     {Math.round(patient.adherence * 100)}%
-                </div>
-                <div>
-                    {patient.currentStreak} {t("time.days")}
                 </div>
             </div>
         )
@@ -249,7 +261,7 @@ const Patients = (props) => {
         <div className={classes.name} onClick={() => { setSort("fullName") }}>
             {t("coordinator.patientTableLabels.name")}
         </div>
-        <div className={classes.name} onClick={() => { setSort("adherence") }}>
+        <div className={classes.name} onClick={handlePrioritySort}>
             {t("coordinator.patientTableLabels.priority")} {isSortingAdherence() ? <DownIcon /> : <UpIcon />}
         </div>
         <div>
@@ -260,9 +272,6 @@ const Patients = (props) => {
         </div>
         <div onClick={() => { setSort("adherence") }}>
             {t("coordinator.patientTableLabels.adherence")} {isSortingAdherence() ? <DownIcon /> : <UpIcon />}
-        </div>
-        <div>
-            {t("coordinator.patientTableLabels.streak")}
         </div>
 
     </div>)

@@ -8,15 +8,14 @@ export default class EducationStore {
 
     @observable educationStatus = []
 
-    @computed get educationMessage() {
-        console.log(this.rootStore.patientInformation.weeksInTreatment)
-        return this.educationStatus.includes(this.rootStore.patientInformation.weeksInTreatment) ? -1 : this.rootStore.patientInformation.weeksInTreatment
+    @computed get messageNumber() {
+        return this.educationStatus.includes(this.rootStore.patientInformation.daysInTreatment) ? -1 : this.rootStore.patientInformation.daysInTreatment
     }
 
     @action markEducationAsRead() {
-        const body = { treatmentWeek: this.rootStore.patientInformation.weeksInTreatment }
+        const body = { treatmentDay: this.rootStore.patientInformation.daysInTreatment }
         this.rootStore.executeRequest('updateEducationStatus',body).then((json) => {
-           
+           this.educationStatus.push(this.rootStore.patientInformation.daysInTreatment)
         })
     }
 }
