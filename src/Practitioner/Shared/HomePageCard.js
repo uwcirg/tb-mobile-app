@@ -10,6 +10,7 @@ import useStores from '../../Basics/UseStores';
 import { Badge } from '@material-ui/core';
 import Styles from '../../Basics/Styles';
 import { DateTime } from 'luxon';
+import { getFirstSevereSymptomFromArray } from '../../Basics/SymptomsSeperation';
 
 
 const useStyles = makeStyles({
@@ -150,14 +151,16 @@ const TaskInfo = (props) => {
     const classes = useStyles();
 
     if (props.type === 'symptom') {
+        if(!(props.lastSymptoms.symptomList.length > 0)) return ""
+        const symptomToDisplay = getFirstSevereSymptomFromArray(props.lastSymptoms.symptomList)
 
-        const displayedSymptom = t(`symptoms.${props.lastSymptoms.symptomList[0]}.title`)
+        const displayedSymptom = t(`symptoms.${symptomToDisplay || props.lastSymptoms.symptomList[0]}.title`)
         const more = props.lastSymptoms.symptomList.length - 1
 
         return (
             <>
-                <p className={classes.symptomList}>{displayedSymptom} {more > 0 && <>+{more}</>}</p>
-                <p className={classes.reportDate}>{props.lastSymptoms.date ? DateTime.fromISO(props.lastSymptoms.date).toLocaleString(DateTime.DATETIME_SHORT) : "N/A"}</p>
+                <p style={{color: symptomToDisplay && Colors.red}} className={classes.symptomList}>{displayedSymptom} {more > 0 && <>+{more}</>}</p>
+                <p className={classes.reportDate}>{props.lastSymptoms.date ? DateTime.fromISO(props.lastSymptoms.date).toLocaleString(DateTime.DATE_SHORT) : "N/A"}</p>
             </>
         )
     } else if (props.type === 'photo') {

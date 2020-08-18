@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
 import Question from '@material-ui/icons/HelpOutline';
 import Symptom from '../Shared/Symptom'
-import { SevereSymptoms } from '../../Basics/SymptomsSeperation';
+import { SevereSymptoms, findCommonElements } from '../../Basics/SymptomsSeperation';
 
 const useStyles = makeStyles({
     header: {
@@ -102,10 +102,6 @@ const SymptomSidebar = observer((props) => {
         practitionerStore.getSelectedPatientSymptoms();
 
     }, [practitionerStore.selectedRow.index])
-
-    const findCommonElements = (arr1, arr2) => {
-        return arr1.some(item => arr2.includes(item))
-    }
 
     return (
         <Basicsidebar buttons={
