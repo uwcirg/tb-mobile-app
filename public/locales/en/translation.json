@@ -290,7 +290,7 @@
         },
         "information": {
             "questions": "Questions and answers",
-            "education": "Previous Weekly Updates",
+            "education": "Important Information To Know",
             "helpSection": "Help With Application",
             "infoSection": "Information About Treatment",
             "launchWalkthrough": "Launch Walkthrough",
@@ -492,8 +492,9 @@
         "submit": "Submit"
     },
     "educationalMessages": {
+        "feedback": "Thank you for your feedback",
         "week": "Week",
-        "header": "Treatment Update",
+        "header": "Important to know",
         "helpful": "Was this helpful?",
         "messages": {
             "0": "Inital message in english",

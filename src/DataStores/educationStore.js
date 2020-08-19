@@ -12,9 +12,10 @@ export default class EducationStore {
         return this.educationStatus.includes(this.rootStore.patientInformation.daysInTreatment) ? -1 : this.rootStore.patientInformation.daysInTreatment
     }
 
-    @action markEducationAsRead() {
-        const body = { treatmentDay: this.rootStore.patientInformation.daysInTreatment }
-        this.rootStore.executeRequest('updateEducationStatus',body).then((json) => {
+    @action markEducationAsRead(wasHelpful) {
+        const body = { treatmentDay: this.rootStore.patientInformation.daysInTreatment}
+        wasHelpful !== undefined && ( body.wasHelpful = wasHelpful)
+        this.rootStore.executeRawRequest(`/patient/${this.rootStore.userID}/education_statuses`,"POST", body).then((json) => {
            this.educationStatus.push(this.rootStore.patientInformation.daysInTreatment)
         })
     }

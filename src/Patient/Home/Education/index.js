@@ -39,7 +39,8 @@ const useStyles = makeStyles({
     header: {
         fontSize: "1.25em",
         fontWeight: "bold",
-        marginTop: "1em"
+        marginTop: "1em",
+        textTransform: "capitalize"
     },
     thumbsContainer:{
         width: "100%",
@@ -76,20 +77,25 @@ const EducationalMessage = observer((props) => {
         if(isExit) education.markEducationAsRead();
     }
 
+    const handleRate = (rate) => {
+        setVisible(!visible)
+        education.markEducationAsRead(rate);
+        patientUIStore.setAlert(t("educationalMessages.feedback"),"success")
+    }
+
     return (
         (visible && !patientUIStore.onWalkthrough) ?
             <PopUp className={classes.container} handleClickAway={handleClose}>
-                <Typography className={classes.header} variant="h1">{t("educationalMessages.header")}</Typography>
+                <Typography className={classes.header} variant="h1">{t("educationalMessages.header")}: {t("time.week")} {Math.round(education.messageNumber / 7)}</Typography>
                 <div className={classes.body}>
-                    <h2>{t("educationalMessages.week")} {education.educationMessage}:</h2>
                     <p>{messages[education.messageNumber]}</p>
                 </div>
 
                 <div className={classes.thumbsContainer}>
                     <p>{t("educationalMessages.helpful")}</p>
                 <ButtonGroup className={classes.buttonGroup}>
-                       <Button> <ThumbDownIcon /></Button>   
-                       <Button><ThumbUpIcon /></Button>
+                       <Button onClick={() =>{handleRate(false)}}> <ThumbDownIcon /></Button>   
+                       <Button onClick={() =>{handleRate(true)}}><ThumbUpIcon /></Button>
                     </ButtonGroup>
                     </div>
             </PopUp> : "")

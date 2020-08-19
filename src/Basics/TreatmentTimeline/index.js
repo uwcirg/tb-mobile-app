@@ -51,6 +51,9 @@ const useStyles = makeStyles({
 
     },
     summary: {
+        "&.Mui-disabled":{
+            opacity: 1
+        },
         textTransform: "capitalize",
         "&.Mui-expanded": {
             minHeight: "unset"
@@ -156,12 +159,15 @@ const Panel = (props) => {
     const classes = useStyles(styleProps);
     const { t, i18n } = useTranslation('translation');
     return (
+        <>
         <ExpansionPanel className={classes.panel}>
             <ExpansionPanelSummary
                 className={classes.summary}
-                expandIcon={<Down className={classes.icon} />}
+                expandIcon={<></>}
                 aria-controls="panel1a-content"
                 id="panel1a-header"
+                onClick={()=>{}}
+                disabled
             >
                 <div className="titles">
                     <Typography className={classes.title}>{props.title}</Typography>
@@ -170,12 +176,14 @@ const Panel = (props) => {
                     </Typography>
                 </div>
             </ExpansionPanelSummary>
-            <ExpansionPanelDetails className={classes.details}>
+            {/* <ExpansionPanelDetails className={classes.details}>
                 <Typography>
                     Coming Soon
         </Typography>
-            </ExpansionPanelDetails>
-        </ExpansionPanel>)
+            </ExpansionPanelDetails> */}
+        </ExpansionPanel>
+        </>
+        )
 };
 
 export default Timeline;
