@@ -10,9 +10,11 @@ import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
 import ClickableText from '../../Basics/ClickableText';
 import { MileStone } from '../Progress/Milestones'
-import TreatmentTimeline, { Panel } from '../../Basics/TreatmentTimeline'
+import TreatmentTimeline, { Panel, MonthPreview } from '../../Basics/TreatmentTimeline'
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+
+import Grow from '@material-ui/core/Grow';
 
 
 const ProgressGraph = observer((props) => {
@@ -23,7 +25,6 @@ const ProgressGraph = observer((props) => {
     const { t, i18n } = useTranslation('translation');
 
     const expand = () => {
-        console.log("expand")
         setShowTimeline(!showTimeline)
     }
 
@@ -51,6 +52,7 @@ const ProgressGraph = observer((props) => {
                 </div>
                 <div className={classes.timeline}>
                     {!showTimeline ? <div className="preview">
+                        <MonthPreview month={Math.floor(patientStore.patientInformation.weeksInTreatment / 4)} />
                         <Panel weeksInTreatment={props.weeksInTreatment} title={`${t('timeline.followUp')}`} weekValue={24} noWeek week="Every 2 Months" />
                     </div> :
                         <TreatmentTimeline weeksInTreatment={patientStore.patientInformation.weeksInTreatment} />}
@@ -151,7 +153,6 @@ const useStyles = makeStyles({
         justifyContent: "space-between"
     },
     timeline: {
-        margin: "0 1em 0 1em",
         boxSizing: "border-box",
         display: "flex",
         width: "100%",
@@ -159,8 +160,17 @@ const useStyles = makeStyles({
             marginLeft: "auto"
         },
         "& > .preview":{
-            width: "70%",
-            padding: ".5em"
+            display: "flex",
+            alignItems: "flex-start",
+            width: "100%",
+            padding: "0 1em .5em 1em",
+            "& > .monthPreview":{
+                marginRight: "1em"
+            },
+            "& > div:nth-of-type(2)":{
+                marginTop: 0
+            }
+            
         }
     },
     timelineHeader:{

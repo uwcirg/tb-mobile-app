@@ -48,7 +48,7 @@ const useStyles = makeStyles({
 
     },
     summary: {
-        "&.Mui-disabled":{
+        "&.Mui-disabled": {
             opacity: 1
         },
         textTransform: "capitalize",
@@ -94,6 +94,9 @@ const useStyles = makeStyles({
     },
     details: {
         width: "auto"
+    },
+    monthPreview:{
+        textAlign: "center"
     }
 })
 
@@ -114,17 +117,17 @@ const Timeline = (props) => {
             <Panel weeksInTreatment={props.weeksInTreatment} title={`${t('timeline.sputumTest')}`} weekValue={24} week="8-24" />
         </Month>
         <Month weeksInTreatment={props.weeksInTreatment} month={3}>
-        <Panel weeksInTreatment={props.weeksInTreatment} title={`${t('timeline.followUp')}`} weekValue={24} noWeek week="Every 2 Months" />
+            <Panel weeksInTreatment={props.weeksInTreatment} title={`${t('timeline.followUp')}`} weekValue={24} noWeek week="Every 2 Months" />
         </Month>
         <Month month={4}>
-        <Panel weeksInTreatment={props.weeksInTreatment} title={`${t('commonWords.second')} ${t('timeline.sputumTest')}`} weekValue={24} noWeek week="During Continuous Phase" />
+            <Panel weeksInTreatment={props.weeksInTreatment} title={`${t('commonWords.second')} ${t('timeline.sputumTest')}`} weekValue={24} noWeek week="During Continuous Phase" />
         </Month>
         <Month weeksInTreatment={props.weeksInTreatment} month={5} />
-        
+
         <Month weeksInTreatment={props.weeksInTreatment} month={6}>
-        <Panel weeksInTreatment={props.weeksInTreatment} title={`${t('commonWords.final')} ${t('timeline.sputumTest')}`} weekValue={24} week="24" />
-        <Panel weeksInTreatment={props.weeksInTreatment} title={t('timeline.end')} weekValue={24} week="24" />
-            </Month>
+            <Panel weeksInTreatment={props.weeksInTreatment} title={`${t('commonWords.final')} ${t('timeline.sputumTest')}`} weekValue={24} week="24" />
+            <Panel weeksInTreatment={props.weeksInTreatment} title={t('timeline.end')} weekValue={24} week="24" />
+        </Month>
     </div>)
 
 };
@@ -138,7 +141,7 @@ const Month = (props) => {
         <>
             <div className={classes.monthContainer}>
                 <div className={classes.timeline}>
-    {props.first && <div className={`${classes.monthNumber} ${classes.monthLabel}`}>{t('time.month')}</div>}
+                    {props.first && <div className={`${classes.monthNumber} ${classes.monthLabel}`}>{t('time.month')}</div>}
                     <div className={`${classes.monthNumber} ${isCurrentMonth && classes.currentMonth}`}>{props.month}</div>
                     <div className={classes.line} />
                 </div>
@@ -151,37 +154,49 @@ const Month = (props) => {
 
 const Panel = (props) => {
 
-    const styleProps = {backgroundColor: props.weeksInTreatment === props.weekValue ? Colors.timelineYellow : props.weeksInTreatment < props.weekValue ? Colors.lightgray : Colors.calendarGreen}
+    const styleProps = { backgroundColor: props.weeksInTreatment === props.weekValue ? Colors.timelineYellow : props.weeksInTreatment < props.weekValue ? Colors.lightgray : Colors.calendarGreen }
 
     const classes = useStyles(styleProps);
     const { t, i18n } = useTranslation('translation');
     return (
         <>
-        <ExpansionPanel className={classes.panel}>
-            <ExpansionPanelSummary
-                className={classes.summary}
-                expandIcon={<></>}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
-                onClick={()=>{}}
-                disabled
-            >
-                <div className="titles">
-                    <Typography className={classes.title}>{props.title}</Typography>
-                    <Typography className={classes.subtitle}>
-                        {props.week && <>{!props.noWeek && t('time.week')} {props.week}</>}
-                    </Typography>
-                </div>
-            </ExpansionPanelSummary>
-            {/* <ExpansionPanelDetails className={classes.details}>
+            <ExpansionPanel className={classes.panel}>
+                <ExpansionPanelSummary
+                    className={classes.summary}
+                    expandIcon={<></>}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                    onClick={() => { }}
+                    disabled
+                >
+                    <div className="titles">
+                        <Typography className={classes.title}>{props.title}</Typography>
+                        <Typography className={classes.subtitle}>
+                            {props.week && <>{!props.noWeek && t('time.week')} {props.week}</>}
+                        </Typography>
+                    </div>
+                </ExpansionPanelSummary>
+                {/* <ExpansionPanelDetails className={classes.details}>
                 <Typography>
                     Coming Soon
         </Typography>
             </ExpansionPanelDetails> */}
-        </ExpansionPanel>
+            </ExpansionPanel>
         </>
-        )
+    )
 };
 
+const MonthPreview = (props) => {
+    const classes = useStyles();
+    const { t, i18n } = useTranslation('translation');
+    
+    return (
+        <div className={`${classes.monthPreview} monthPreview`}>
+        <div className={`${classes.monthNumber} ${classes.monthLabel}`}>{t('time.month')}</div>
+            <div className={`${classes.monthNumber}`}>{props.month}</div>
+        </div>
+    )
+}
+
 export default Timeline;
-export {Panel};
+export { Panel, MonthPreview };
