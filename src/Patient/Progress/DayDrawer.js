@@ -17,14 +17,16 @@ import NewButton from '../../Basics/NewButton';
 import Clipboard from '@material-ui/icons/Assignment'
 import  TempIcon from '../../Basics/Icons/Temp.js'
 import PillIcon from '../../Basics/Icons/Pill.js'
-
 import Camera from '@material-ui/icons/CameraAlt'
 
 const DayDrawer = observer((props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const { patientStore } = useStores();
+  const [showKey, setShowKey] = useState(false);
 
+  const { t, i18n } = useTranslation('translation');
+  
   const date = patientStore.uiState.selectedCalendarDate;
   const complete = (patientStore.selectedDayReport)
   const missingPhoto = (patientStore.selectedDayWasPhotoDay ) && !patientStore.selectedDayReport || (patientStore.selectedDayReport && !patientStore.selectedDayReport.photoUrl);
