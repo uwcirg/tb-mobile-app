@@ -106,12 +106,12 @@ const useStyles = makeStyles({
 
   drawer: {
     position: "fixed",
-    bottom: "0",
+    bottom: "60px",
     padding: "0px",
     width: "100vw",
     borderBottom: "unset",
     borderTop: "unset",
-    boxShadow: "0px 0 15px rgba(0, 0, 0, 0.2)",
+    boxShadow: "none",
     zIndex: "10",
     minHeight: "18vh"
   },
