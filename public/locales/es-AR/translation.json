@@ -183,7 +183,8 @@
             "progress": {
                 "currentStreak": "días consecutivos",
                 "upcomingDate": "Próximos eventos",
-                "viewAll": "Ver Todos"
+                "viewAll": "Ver Todos",
+                "close": "Close"
             },
             "completed": {
                 "title": "Completo",
@@ -270,9 +271,9 @@
             "upcoming": "Próximos",
             "calendar": "Calendario de Reportes",
             "calendarKey":{
-                "button": "What do these colors mean",
-                "description": "This is the calendar, where you can review your submissions. The colors show the following:",
-                "good": "All parts submitted",
+                "button": "Qué significan estos colores",
+                "description": "Este es el calendario, donde tu puedes revisar tus sumisiones. Los colores representan lo siguiente:",
+                "good": "Todas las partes enviadas.",
                 "missed": "No Report submitted. If you miss a day you can report up to 3 days in the past.",
                 "notTaken": "Reported not taking your medication",
                 "symptoms": "Síntomas Reportados"
@@ -290,11 +291,12 @@
         },
         "information": {
             "questions": "Preguntas y respuestas",
-            "education": "Actualización de las Semanas Anteriores",
+            "education": "Important Information To Know",
             "helpSection": "Ayuda con la Aplicación",
             "infoSection": "Información Sobre el Tratamiento",
             "launchWalkthrough": "Abrir Guía de la Aplicación",
-            "video": "Ver Vídeo"
+            "video": "Ver Vídeo",
+            "videos": "Videos About Treatment"
         }
     },
     "symptoms": {
@@ -487,8 +489,9 @@
         "submit": "Enviar"
     },
     "educationalMessages": {
+        "feedback": "Thank you for your feedback",
         "week": "Semana",
-        "header": "Actualización Sobre su Tratamiento",
+        "header": "Important to know",
         "helpful": "¿Fue útil este mensaje?",
         "messages": {
             "0": "Primer mensaje en inglés",
@@ -500,14 +503,15 @@
         }
     },
     "timeline": {
-        "title": " Línea de tiempo del Tratamiento ",
+        "title": " Línea de tiempo",
         "sputumTest": "Prueba de Esputo ",
         "start": "Inicio de Tratamiento",
         "intensive": "Fase Intensiva",
         "medicationChange": "Cambio de Medicación",
         "continuous": "Fase de Consolidación ",
         "followUp": "Visitas de control",
-        "end": "Fin del Tratamiento"
+        "end": "Fin del Tratamiento",
+        "here": "You are here"
     },
     "report": {
         "incomplete": "Incomplete",
@@ -525,6 +529,7 @@
         "photoSubmitted": "Foto Enviada"
     },
     "appointments":{
+        "noUpcoming": "No Upcoming Appointments",
         "typeQuestion": "¿Qué tipo de cita quiere agregar?",
         "selectDate": "Seleccione la fecha y la hora",
         "addAppointment": "Añadir Cita",

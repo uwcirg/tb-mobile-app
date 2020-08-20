@@ -7,8 +7,7 @@ import Colors from '../../Basics/Colors';
 import Greeting from './Greeting'
 import EducationalMessage from './Education'
 import Reminders from './Reminders'
-import Button from '@material-ui/core/Button';
-import TreatmentTimeline from '../Progress/TimelineCard';
+import MedicationReminder from './MedicationReminder'
 
 const HomePage = () => {
 
@@ -18,6 +17,7 @@ const HomePage = () => {
             <Greeting />
             <ActionBox />
             <Progress />
+            <MedicationReminder />
             <Reminders />
             <Alerts />
         </Body>

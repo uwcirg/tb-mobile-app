@@ -31,48 +31,7 @@ const useStyles = makeStyles({
             padding: ".5em"
         }
     },
-    timeButtonGroup: {
-        marginBottom: ".5em",
-        border: `solid 1px ${Colors.buttonBlue}`,
-        color: Colors.buttonBlue,
-        fontSize: "1.5em",
-        width: "90%",
-        "& > button": {
-            color: "inherit",
-            textTransform: "capitalize",
-            borderTop: "none",
-            borderBottom: "none"
-        },
-        "& > button:first-child": {
-            borderLeft: "none"
-        },
-        "& > button:nth-child(2)": {
-            borderRight: "none"
-        }
-    },
-    buttonContainer: { width: "100%", display: "flex", justifyContent: "center" },
     reminder: { padding: "1em 1em 0 1em" },
-    enable: {
-        width: "90%",
-        margin: "auto",
-        display: "flex",
-        flexGrow: "1",
-        justifyContent: "flex-start",
-        alignItems: "center",
-        "& > p": {
-            fontSize: ".8em",
-            width: "60%",
-            padding: 0,
-            textAlign: "left",
-            marginRight: "auto"
-        },
-        "& > button": {
-            margin: "1em",
-            color: Colors.buttonBlue,
-            border: `solid 1px ${Colors.buttonBlue}`,
-            height: "50%"
-        }
-    },
     addContainer: {
         width: "100%",
         display: "flex",
@@ -115,7 +74,6 @@ const Card = observer(() => {
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
     const { patientStore, reminderStore, patientUIStore,uiStore } = useStores();
-    const [open, setOpen] = useState(false);
     const [showAll, setShowAll] = useState(false);
 
     useEffect(() => {
@@ -129,43 +87,7 @@ const Card = observer(() => {
         }
     }, [reminderStore.deleteSuccess])
 
-    const handleChange = (date) => {
-        patientStore.reminderTime = date.startOf('second').startOf("minute").toISOTime({ suppressSeconds: true });
-        patientStore.updateNotificationTime();
-    }
-
-    return (<InteractionCard upperText={t('patient.reminders.title')} id="intro-reminders-card">
-        <div className={classes.daily}>
-            <Header>{t('patient.reminders.medicationReminder')}</Header>
-            {patientStore.reminderTime ? <>
-                <div className={classes.options}>
-                    <p>a las <span>{DateTime.fromISO(patientStore.reminderTime).toLocaleString(DateTime.TIME_24_SIMPLE)}</span> cada día</p>
-                </div>
-                <div className={classes.buttonContainer}>
-                    <ButtonGroup className={classes.timeButtonGroup} fullWidth>
-                        <Button onClick={() => { setOpen(true) }}>{t('patient.reminders.changeTime')}</Button>
-                        <Button onClick={() => { patientStore.updateNotificationTime(true) }}>{t('patient.reminders.disable')}</Button>
-                    </ButtonGroup>
-                </div>
-            </> : <>
-
-                    <div className={classes.enable}>
-                        <p>{t('patient.reminders.explanation')}</p>
-                        <Button onClick={() => { setOpen(true) }} className={classes.timeButton}>{t('patient.reminders.enable')}</Button>
-                    </div>  </>}
-        </div>
-
-        {open && <TimePicker
-            open={open}
-            className={classes.timeSelect}
-            clearable
-            ampm={uiStore.locale == "en"}
-            value={DateTime.fromISO(patientStore.reminderTime)}
-            onChange={(e) => {
-                setOpen(false);
-                handleChange(e);
-            }}
-        />}
+    return (<InteractionCard upperText={t('patient.reminders.appointments').split(" ")[0]} id="intro-reminders-card">
 
         <div className={classes.upcoming}>
             <div className={classes.reminderTitle}>
