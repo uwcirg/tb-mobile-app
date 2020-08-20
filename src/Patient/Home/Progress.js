@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { observer } from 'mobx-react'
 import useStores from '../../Basics/UseStores'
 import { CircularProgressbarWithChildren as CircularProgressbar, buildStyles } from 'react-circular-progressbar';
@@ -9,14 +9,20 @@ import InteractionCard from '../../Basics/InteractionCard';
 import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
 import ClickableText from '../../Basics/ClickableText';
-import { MileStone } from '../Progress/Milestones'
+import TreatmentTimeline, { Panel, MonthPreview } from '../../Basics/TreatmentTimeline'
+import Typography from '@material-ui/core/Typography';
 
 
 const ProgressGraph = observer((props) => {
     const classes = useStyles();
+    const [showTimeline, setShowTimeline] = useState(false);
     const { patientStore, patientUIStore, } = useStores();
     const dayValue = (patientStore.patientInformation.daysInTreatment / 180) * 100;
     const { t, i18n } = useTranslation('translation');
+
+    const expand = () => {
+        setShowTimeline(!showTimeline)
+    }
 
     return (
         <InteractionCard id="intro-progress-card" upperText={t("patient.home.cardTitles.myProgress")}>
@@ -32,18 +38,30 @@ const ProgressGraph = observer((props) => {
                             <p className={classes.progressText}>{patientStore.patientInformation.daysInTreatment} {t("commonWords.of")} <br /> 180 {t('time.days')}</p>
                         </CircularProgressbar>
                     </div>
-                    <StatBox title={patientStore.getCurrentStreak } text={t('patient.home.progress.currentStreak')} />
+                    <StatBox title={patientStore.getCurrentStreak} text={t('patient.home.progress.currentStreak')} />
                 </div>
             </div>
             <div className={classes.bottomSection}>
-                <h2>{t("patient.home.progress.upcomingDate")}</h2>
+                <div className={classes.timelineHeader}>
+                <Typography variant="h2">{t('timeline.title')}</Typography>
+                <ClickableText onClick={expand} hideIcon text={showTimeline ? t('patient.home.progress.close') : t('patient.home.progress.viewAll')} />
+                </div>
+                <div className={classes.timeline}>
+                    {!showTimeline ? 
+                    <>
+                    <Typography variant="p">{t('timeline.here')} 📍</Typography>
+                    <div className="preview">
+                        <MonthPreview month={Math.floor(patientStore.patientInformation.weeksInTreatment / 4)} />
+                        <Panel weeksInTreatment={props.weeksInTreatment} title={`${t('timeline.followUp')}`} weekValue={24} noWeek week="Every 2 Months" />
+                    </div></> :
+                        <>
+                        <br />
+                        <TreatmentTimeline weeksInTreatment={patientStore.patientInformation.weeksInTreatment} />
+                        </>
+                        }
+                    {/* <button onClick={expand}>show all</button> */}     
+                </div>
             </div>
-
-            <div className={classes.milestone}>
-                {patientStore.milestones[0] && <MileStone milestone={patientStore.milestones[0]} />}
-                <ClickableText onClick={patientUIStore.goToProgress} className={classes.bottomText} hideIcon text={<>{t("patient.home.progress.viewAll")}</>} />
-            </div>
-
         </InteractionCard>
     )
 });
@@ -53,7 +71,7 @@ function StatBox(props) {
     return (
         <div className={classes.statBox}>
             <h2 className={classes.statBoxTitle}>{props.title}</h2>
-            <span className={classes.statBoxText}>{props.text}</span>  
+            <span className={classes.statBoxText}>{props.text}</span>
         </div>
     )
 }
@@ -118,13 +136,12 @@ const useStyles = makeStyles({
     },
     bottomSection: {
         ...Styles.flexColumn,
+        position: "relative",
         width: "100%",
         alignItems: "flex-start",
-        "& > h2": {
-            fontSize: "1em",
-            marginLeft: "5%",
-            marginBottom: "1em",
-            textTransform: "capitalize"
+        "& > button": {
+            position: "relative",
+            right: 0
         }
     },
     bottomText: {
@@ -132,11 +149,54 @@ const useStyles = makeStyles({
         margin: ".5em",
         textAlign: "right",
     },
-    milestone:{
+    milestone: {
         width: "85%",
         margin: "auto",
         display: "flex",
         justifyContent: "space-between"
+    },
+    timeline: {
+        boxSizing: "border-box",
+        width: "100%",
+        paddingBottom: ".5em",
+        "& > span":{
+            display: "block",
+            fontSize: ".8em",
+            color: Colors.textGray,
+            margin: "0 0 1em 5%",
+            padding: 0
+        },
+        "& > button": {
+            marginLeft: "auto"
+        },
+        "& > .preview":{
+            display: "flex",
+            alignItems: "flex-start",
+            width: "90%",
+            padding: "0 1em 0 1em",
+            "& > .monthPreview":{
+                marginRight: "1em"
+            },
+            "& > div:nth-of-type(2)":{
+                marginTop: 0
+            }
+        }
+    },
+    timelineHeader:{
+        boxSizing: "border-box",
+        width: "100%",
+        display: "flex",
+        margin: "1em 0 0 0",
+        "& > h2": {
+            marginLeft: "1em",
+            fontSize: "1em",
+            textTransform: "capitalize",
+            fontWeight:"bold",
+        },
+        "& >  button":{
+            marginLeft: "auto",
+            marginRight: "1em"
+        }
     }
 
 })

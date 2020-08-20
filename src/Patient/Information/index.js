@@ -13,6 +13,8 @@ import Videos from './Videos';
 import TreatmentTimeline from '../../Basics/TreatmentTimeline'
 import Section from './Section'
 import VideoIcon from '@material-ui/icons/OndemandVideo';
+import HelpIcon from '@material-ui/icons/Help';
+import InfoIcon from '@material-ui/icons/Info';
 
 
 const file = raw("./information.md");
@@ -72,10 +74,10 @@ export default function Info() {
             <Section title={<><VideoIcon />{t('patient.information.videos')}</>}>
                 <Videos />
             </Section>
-            <Section title={t('patient.information.education')}>
+            <Section title={<><InfoIcon />{t('patient.information.education')}</>}>
                 <TreatmentMessages />
             </Section>
-            <Section title={t('patient.information.questions')}>
+            <Section title={<><HelpIcon />{t('patient.information.questions')}</>}>
                 <Interactioncard className={classes.topCard} >
                     <Markdown options={{ overrides: { Drawer: { component: MarkdownRender } } }} children={file} />
                 </Interactioncard>

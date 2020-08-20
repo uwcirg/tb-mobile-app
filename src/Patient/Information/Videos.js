@@ -48,7 +48,7 @@ export default function Videos() {
                     <div className={classes.video}>
                         <a href="https://www.youtube.com/watch?v=KizqF_HmI2w"><img className={classes.preview} src={PreviewOne}></img></a>
                         <Button className={classes.button} href="https://www.youtube.com/watch?v=KizqF_HmI2w">
-                            Video educativo tuberculosis Ministerio de Salud</Button>
+                            Video de Ministerio de Salud</Button>
                     </div>
                     <div className={classes.video}>
                         <a href="https://www.youtube.com/watch?v=vaXrKW0ZGtg"><img className={classes.preview} src={PreviewTwo}></img></a>
