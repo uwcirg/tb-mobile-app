@@ -7,6 +7,7 @@ services:
       - $PORT_CLIENT:80
     image: uwcirg/tb-mobile-app:dockerized-v1
     environment:
+      DEFAULT_LOCALE: $LANGUAGE
       URL_API: $URL_API
       URL_CLIENT: $URL_CLIENT
       CONTACT_LINK: $CONTACT_LINK
