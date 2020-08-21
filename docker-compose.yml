@@ -18,7 +18,7 @@ services:
     image: postgres
 
   web:
-    image: kjgoodwins/foundation:production
+    image: uwcirg/tb-foundation:production
     environment:
       - DATA=postgres://postgres:postgres@db
       - PASSWORD
@@ -26,10 +26,6 @@ services:
       - RAILS_ENV=development
       - URL_API=$URL_API
       - URL_CORS=$URL_CORS
-      - WA_KEY=$WA_KEY
-      - WA_SID=$WA_SID
-      - VAPID_PUBLIC_KEY=$VAPID_PUBLIC_KEY
-      - VAPID_PRIVATE_KEY=$VAPID_PRIVATE_KEY
     ports:
       - $PORT_API:3000
     depends_on:
