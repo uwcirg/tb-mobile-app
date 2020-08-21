@@ -1,5 +1,5 @@
 const authenticatedRequest = (url, method, body) => {
-    return fetch(`${process.env.REACT_APP_URL_API}${url}`, {
+    return fetch(`${window._env.URL_API}${url}`, {
         method: method,
         headers: {
             "Authorization": localStorage.getItem("user.token"),

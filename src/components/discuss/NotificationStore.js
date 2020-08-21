@@ -8,7 +8,7 @@ export default class NotificationStore {
     @observable fetching = true;
 
     constructor(){
-        this.url = process.env.REACT_APP_MESSAGE_API;
+        this.url = window._env.URL_MESSAGE_API;
     }
 
     @action

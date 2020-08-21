@@ -1,29 +1,22 @@
 version: '3.3'
 
 services:
-  client:
+   client:
     restart: on-failure
     ports:
-      - $PORT_CLIENT:3000
-    build: .
-    stdin_open: true
-    tty: true
-    command: yarn start
+      - $PORT_CLIENT:80
+    image: 'uwcirg/tb-mobile-app:dockerized-v1'
     environment:
-      NODE_ENV: development
-      REACT_APP_URL_API: $URL_API
-      REACT_APP_CONTACT_LINK: $CONTACT_LINK
-      REACT_APP_MESSAGE_API: $URL_MESSAGE_API
-      CHOKIDAR_USEPOLLING: 'true'
-    volumes:
-      - .:/usr/src
+      URL_API: $URL_API
+      CONTACT_LINK: $CONTACT_LINK
+      URL_MESSAGE_API: $URL_MESSAGE_API
 
   db:
     restart: always
     image: postgres
 
   web:
-    image: kjgoodwins/foundation
+    image: kjgoodwins/foundation:production
     environment:
       - DATA=postgres://postgres:postgres@db
       - PASSWORD

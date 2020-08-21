@@ -462,7 +462,7 @@ class Assembly extends React.Component {
         timestamp: `${this.survey.date}T${this.survey.medication_time}:00.000`
       });
 
-    fetch(`${process.env.REACT_APP_URL_API}/photo`, {
+    fetch(`${window._env.URL_API}/photo`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
