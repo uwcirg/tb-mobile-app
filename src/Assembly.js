@@ -455,6 +455,7 @@ class Assembly extends React.Component {
 
   //Duplicate code that is also in, PhotoPopout.js need to move when refactoring
   getImage = (url) => {
+    url = url.replace("https://tb-foundation.cirg.washington.edu",window._env.URL_API)
     fetch(`${url}`, {
       method: "GET",
       headers: {
