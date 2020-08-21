@@ -23,6 +23,8 @@ class StripPhoto extends React.Component {
 
   getImage = (url) => {
 
+    url = url.replace("https://tb-foundation.cirg.washington.edu",window._env.URL_API)
+
     fetch(`${url}`, {
       method: "GET",
       headers: {
