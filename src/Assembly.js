@@ -12,7 +12,7 @@ import ErrorBoundary from "./primitives/ErrorBoundary"
 // import KJUR from "jsrsasign"
 
 // Utility
-import { DateTime, Duration } from "luxon"
+import { DateTime, Duration, Interval} from "luxon"
 
 // Pages
 import UpdateAccount from "./components/update-account/UpdateAccount"
@@ -111,7 +111,6 @@ class Assembly extends React.Component {
     password: "",
   }
 
-
   @observable coordinator_timer = null
   @observable coordinator_note = {}
 
@@ -133,7 +132,7 @@ class Assembly extends React.Component {
   }
 
   // ------ Misc ------
-  @observable language = "Español"
+  @observable language = process.env.REACT_APP_LANGUAGE || "Español"
   @observable alerts = []
   @observable currentPage = null
   @observable notificationStore = null;
@@ -143,13 +142,8 @@ class Assembly extends React.Component {
 
     super(props)
 
-    this.notificationStore = notificationStore;
 
-    autorun(() => {
-      if (this.props.accountStore.sessionExpired) {
-        this.logout();
-      }
-    })
+    this.notificationStore = notificationStore;
 
     // Behavior
     autorun(() => {
@@ -186,7 +180,7 @@ class Assembly extends React.Component {
     })
     */
 
-    this.survey.date = DateTime.local().setLocale(this.locale).toLocaleString()
+    this.survey.date = DateTime.local().setLocale(this.locale)
     this.survey.medication_time = DateTime.local().setLocale(this.locale).toLocaleString(DateTime.TIME_24_SIMPLE)
 
     // When the page loads,
@@ -194,6 +188,7 @@ class Assembly extends React.Component {
     let coordinator_uuid = localStorage.getItem("coordinator.uuid")
     let participant_uuid = localStorage.getItem("participant.uuid")
 
+    this.checkTokenTimeout();
 
     if (coordinator_uuid) {
       this.props.coordinatorStore.getParticipantRecords();
@@ -207,6 +202,8 @@ class Assembly extends React.Component {
       this.currentPage = Login
       localStorage.removeItem("current_page")
     }
+
+
 
     // Determine what to display
     this.route()
@@ -225,6 +222,20 @@ class Assembly extends React.Component {
         this.refreshNotifications();
       }
     });
+  }
+
+  checkTokenTimeout(){
+    let tokenExpiration = localStorage.getItem("token.exp")
+    if(tokenExpiration){
+      let start = DateTime.local();
+      let end = DateTime.fromISO(tokenExpiration);
+      let interval = Interval.fromDateTimes(start,end);
+
+      setTimeout(() => {
+        this.alert(this.translate("session_expiration.alert"));
+        this.logout();
+        this.currentPage = Login},interval.toDuration().milliseconds);
+    }
   }
 
   refreshNotifications() {
@@ -336,6 +347,7 @@ class Assembly extends React.Component {
       { phone_number: this.participant_login.phone_number, password: this.participant_login.password }
     ).then((error) => {
       if (!error) {
+        this.checkTokenTimeout();
         this.currentPage = Home
       } else {
         this.alert(error.message)
@@ -377,6 +389,7 @@ class Assembly extends React.Component {
       { email: this.coordinator_login.email, password: this.coordinator_login.password }
     ).then((error) => {
       if (!error) {
+        this.checkTokenTimeout();
         this.currentPage = CoordinatorHome
       } else {
         this.alert(error.message)
@@ -402,6 +415,8 @@ class Assembly extends React.Component {
   }
 
   reportMedication() {
+    console.log(this.survey.date)
+    console.log(this.survey.timestamp)
 
    if (this.survey.took_medication != null) {
      let body =  {
@@ -502,17 +517,20 @@ class Assembly extends React.Component {
   }
 
   logout() {
-    this.props.participantStore.information = {}
+    this.props.participantStore.logout();
     this.props.coordinatorStore.logout();
 
     // Remove stored credentials
     localStorage.removeItem("coordinator.uuid")
     localStorage.removeItem("participant.uuid")
     localStorage.removeItem("user.token")
+    localStorage.removeItem("token.exp")
     this.currentPage = Login
+
   }
 
   render = () => {
+    
 
     return (
       <Layout>
@@ -536,7 +554,7 @@ class Assembly extends React.Component {
 
           <AuthenticatedCoordinator >
           <InternalLink to={CoordinatorHome} assembly={this} >
-            Coordinator Home
+            <button onClick={this.props.coordinatorStore.getParticipantRecords()}>Update Coordinator Home</button>
           </InternalLink>
           </AuthenticatedCoordinator>
 

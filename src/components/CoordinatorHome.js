@@ -335,6 +335,7 @@ overflow: visible;
 `
 
 const last_resolution = (resolutions, participant) => {
+  if(resolutions){
   let ordered_resolutions = resolutions
     .filter(resolution => resolution.participant_uuid === participant.uuid)
     .sort((a, b) => DateTime.fromISO(b.created_at) - DateTime.fromISO(a.created_at))
@@ -343,6 +344,9 @@ const last_resolution = (resolutions, participant) => {
     return ordered_resolutions[0]
   else
     return null
+  }else{
+    return null
+  }
 }
 
 const resolved_in_last_day = (resolutions, participant) => {

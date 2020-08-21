@@ -1308,5 +1308,9 @@ export default {
     step_three: "Tap the ☰ button on the top right",
     step_four: "Tap Edit Account Information",
     step_five: "Pick a new password and update!"
+  },
+
+  session_expiration:{
+    alert: "Your session has expired. Please log in again"
   }
 }

@@ -88,6 +88,10 @@ const Calendar = styled(ReactCalendar)`
   border: none !important;
   overflow: hidden !important;
 
+  .react-calendar__tile abbr{
+    display: none;
+  }
+
   & .react-calendar__tile {
     padding: 0;
   }

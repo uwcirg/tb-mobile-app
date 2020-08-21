@@ -1296,5 +1296,9 @@ export default {
     step_three: "Clic el ☰ botón en la parte superior derecha",
     step_four: "Clic Actualiza tu cuenta",
     step_five: "¡Elija una nueva contraseña y clic Enviar"
+  },
+
+  session_expiration:{
+    alert: "Su sesión expiró. Por favor, vuelva a iniciar sesión."
   }
 }
