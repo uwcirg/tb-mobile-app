@@ -8,6 +8,7 @@ services:
     image: uwcirg/tb-mobile-app:dockerized-v1
     environment:
       URL_API: $URL_API
+      URL_CLIENT: $URL_CLIENT
       CONTACT_LINK: $CONTACT_LINK
       URL_MESSAGE_API: $URL_MESSAGE_API
 
