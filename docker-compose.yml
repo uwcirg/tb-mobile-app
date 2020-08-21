@@ -1,11 +1,11 @@
 version: '3.3'
 
 services:
-   client:
+  client:
     restart: on-failure
     ports:
       - $PORT_CLIENT:80
-    image: 'uwcirg/tb-mobile-app:dockerized-v1'
+    image: uwcirg/tb-mobile-app:dockerized-v1
     environment:
       URL_API: $URL_API
       CONTACT_LINK: $CONTACT_LINK
