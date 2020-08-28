@@ -126,19 +126,20 @@ const LineItem = (props) => {
 const PatientOverview = observer(() => {
     const classes = useStyles();
     const cohortSummary = useStores().practitionerStore.cohortSummary.data
+    const { t, i18n } = useTranslation('translation');
 
     return (
         <>
         <SectionHeader title="Cohort Overview" icon={<PeopleIcon />} />
             <div className={`${classes.section} ${classes.patientStatus}`} >
-                <LineItem textColor={"black"} text={"Active Patients"} value={cohortSummary.status.active} />
-                <LineItem textColor={"gray"} text={"Pending Patients"} value={cohortSummary.status.pending} />
+                <LineItem textColor={"black"} text={`${t('coordinator.cohortOverview.active')} ${t('commonWords.patients')}` } value={cohortSummary.status.active} />
+                <LineItem textColor={"gray"} text={`${t('coordinator.cohortOverview.pending')} ${t('commonWords.patients')}`} value={cohortSummary.status.pending} />
 
             </div>
             <div className={`${classes.section} ${classes.patientStatus}`} >
-                <LineItem backgroundColor={Colors.red} text={"High Priority"} value={cohortSummary.priority.high} />
-                <LineItem backgroundColor={Colors.yellow} text={"Medium Priority"} value={cohortSummary.priority.medium} />
-                <LineItem backgroundColor={Colors.green} text={"Low Priority"} value={cohortSummary.priority.low} />
+                <LineItem backgroundColor={Colors.red} text={t('coordinator.cohortOverview.high')} value={cohortSummary.priority.high} />
+                <LineItem backgroundColor={Colors.yellow} text={t('coordinator.cohortOverview.medium')} value={cohortSummary.priority.medium} />
+                <LineItem backgroundColor={Colors.green} text={t('coordinator.cohortOverview.low')} value={cohortSummary.priority.low} />
             </div>
         </>
     )
@@ -152,7 +153,7 @@ const SymptomSummary = observer(() => {
 
     return (
         <div className={classes.section}>
-            <SectionHeader title="Symptoms" icon={<SymptomsIcon />} subtext="Reported In The Past 7 Days" />
+            <SectionHeader title={t('commonWords.symptoms')} icon={<SymptomsIcon />} subtext={t('coordinator.cohortOverview.reportedTime')} />
                 {Object.keys(symptomSummaries).map(each => {
                     return symptomSummaries[each] ? <LineItem textColor="black" text={<Symptom string={each} />} value={symptomSummaries[each]} /> : ""
                     

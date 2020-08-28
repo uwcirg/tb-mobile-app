@@ -18,7 +18,8 @@
         "final": "final",
         "total": "total",
         "delete": "Delete",
-        "loading": "Loading"
+        "loading": "Loading",
+        "patients": "Patients"
     },
     "userTypes": {
         "patient": "Patient",
@@ -43,7 +44,8 @@
         "privateExplained": "Private chat with your coordinator",
         "search": "Search By Topic",
         "patients": "Patients",
-        "discussions": "Discussions"
+        "discussions": "Discussions",
+        "groupDiscussion": "Group Discussion"
     },
     "time": {
         "day": "day",
@@ -232,6 +234,7 @@
             "moodTitle": "How are you feeling today?",
             "doingWell": "Doing Well",
             "needSupport": "Need Support",
+            "whySupport": "How can we support you?",
             "photoTitle": "Capture Strip Photo",
             "photo": {
                 "usePhoto": "Use Photo",
@@ -366,10 +369,23 @@
         "previous": "Previous"
     },
     "coordinator": {
+        "cohortOverview":{
+            "title": "Cohort Overview",
+            "high": "High Priority",
+            "medium": "Medium Priority",
+            "low": "Low Priority",
+            "active": "Active",
+            "pending": "Pending",
+            "reportedTime": "Reported In The Past 7 Days",
+            "noPatientsFound": "No Patients Found",
+            "searchByName": "Search By Name"
+        },
         "addPatientFlow": {
             "title": "Add Patient",
             "addedPatient": "Added Patient",
-            "codeToSend": "Code to send to patient"
+            "codeToSend": "Code to send to patient",
+            "resetCode": "Reset Code",
+            "forPatient": "Activation Code For Patient"
 
         },
         "titles": {
@@ -385,7 +401,8 @@
             "allPatients": "All Patients",
             "awaitingActivation": "Awaiting Activation",
             "currentStatus": "Current Status",
-            "reportingCalender": "Reporting Calender"
+            "reportingCalender": "Reporting Calender",
+            "requestedSupport": "Requested Support"
         },
         "recentReports": {
             "title": "Recent Reports",

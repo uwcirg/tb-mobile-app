@@ -119,11 +119,11 @@ const Adherence = observer(() => {
     }, [])
 
     const bottom = practitionerStore.patientList.slice().filter((patient) => {
-        return patient.adherence < divider
+        return patient.adherence < divider && patient.daysInTreatment < 180
     })
 
     const top = practitionerStore.patientList.slice().filter((patient) => {
-        return patient.adherence > divider
+        return patient.adherence > divider && patient.daysInTreatment < 180
     })
 
 

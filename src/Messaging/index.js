@@ -71,11 +71,11 @@ const Messaging = observer(() => {
 
             {!uiStore.onSpecificChannel ? <div id="intro-messaging">
                 <div id="intro-chat">
-                <h2>Private Chat</h2>
+                <h2>{t("userTypes.coordinator")}</h2>
                 <Channels private channels={coordinatorChannel} />
                 </div>
                 <div id="intro-chat-public">
-                <h2>Patient Discussion</h2>
+                <h2>{t("messaging.groupDiscussion")}</h2>
                 <SearchBar handleChange={handleSearch} placeholder={t("messaging.search")} />
                 <Channels channels={publicChannels} />
                 </div>

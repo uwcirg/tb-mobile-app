@@ -11,7 +11,6 @@ import Search from '../../Basics/SearchBar'
 import DownIcon from '@material-ui/icons/KeyboardArrowDown';
 import UpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { useTranslation } from 'react-i18next';
-import { ButtonBase, Popover } from '@material-ui/core';
 import PlusIcon from '@material-ui/icons/AddOutlined'
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
@@ -140,7 +139,7 @@ const PatientsView = observer((props) => {
 
     return (
         <>
-            {practitionerStore.newActivationCode && <PopOver title={"New Activation Code"} close={() => { practitionerStore.newActivationCode = "" }}> <p>{practitionerStore.newActivationCode}</p> </PopOver>}
+            {practitionerStore.newActivationCode && <PopOver title={t('coordinator.addPatientFlow.forPatient')} close={() => { practitionerStore.newActivationCode = "" }}> <p>{practitionerStore.newActivationCode}</p> </PopOver>}
             <div className={classes.superContainer}>
                 <div className={classes.container}>
                     <div className={classes.header}>
@@ -159,6 +158,7 @@ const PatientsView = observer((props) => {
 })
 
 const PendingPatients = (props) => {
+    const { t, i18n } = useTranslation('translation');
     const classes = useStyles();
     const { practitionerStore } = useStores();
 
@@ -176,7 +176,7 @@ const PendingPatients = (props) => {
                 </div>
 
                 <div>
-                    <Button onClick={() => { practitionerStore.resetActivationCode(patient.id) }} className={classes.button} variant="contained" > Reset Code</Button>
+                    <Button onClick={() => { practitionerStore.resetActivationCode(patient.id) }} className={classes.button} variant="contained" >{t('coordinator.addPatientFlow.resetCode')}</Button>
                 </div>
             </div>
         )
@@ -277,10 +277,10 @@ const Patients = (props) => {
     </div>)
 
     return (
-        <Card icon={props.icon} headerChildren={<Search className={classes.search} handleChange={(event) => { setSearch(event.target.value) }} placeholder="Search by Name" />} title={props.title}>
+        <Card icon={props.icon} headerChildren={<Search className={classes.search} handleChange={(event) => { setSearch(event.target.value) }} placeholder={t('coordinator.cohortOverview.searchByName')} />} title={props.title}>
             <div className={classes.patientList}>
                 {labels}
-                {list && list.length > 0 ? list : <p className={classes.noPatients}>No Patients Found</p>}
+                {list && list.length > 0 ? list : <p className={classes.noPatients}>{t('coordinator.cohortOverview.noPatientsFound')}</p>}
             </div>
             {props.temporary && <AddPatientPrompt />}
         </Card>

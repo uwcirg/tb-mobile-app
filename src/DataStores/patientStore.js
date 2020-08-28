@@ -216,6 +216,7 @@ export class PatientStore extends UserStore {
         body.whyMedicationNotTaken = this.report.whyMedicationNotTaken;
         body.dateTimeTaken = this.report.timeTaken;
         body.doingOkay = this.report.doingOkay;
+        body.doingOkayReason = this.report.supportReason;
         body.isHistoricalReport = this.report.isHistoricalReport;
         body.nauseaRating = this.report.nauseaRating;
 
@@ -400,6 +401,7 @@ export class PatientStore extends UserStore {
         isHistoricalReport: false,
         doingOkay: true,
         doingOkaySelected: false,
+        supportReason: "",
         nauseaRating: ""
     }
 

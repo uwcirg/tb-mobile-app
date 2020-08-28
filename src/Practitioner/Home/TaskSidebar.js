@@ -107,6 +107,7 @@ const useStyles = makeStyles({
             display: "flex",
             flexDirection: "column",
             alignItems: "flex-start",
+            textTransform: "capitalize",
             "& > span": {
                 color: Colors.accentBlue,
                 fontSize: "1.8em",
@@ -217,9 +218,10 @@ const Summary = observer(() => {
 
 const TaskBar = () => {
     const classes = useStyles();
+    const { t, i18n } = useTranslation('translation');
     return (
         <div className={classes.container}>
-            <Typography className={classes.header} variant="h2">Overview</Typography>
+            <Typography className={classes.header} variant="h2">{t('coordinator.tasksSidebar.overview')}</Typography>
             <Summary />
             <PatientList />
         </div>
