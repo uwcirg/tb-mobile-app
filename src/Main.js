@@ -78,7 +78,7 @@ const Main = observer(() => {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        {loginStore.isLoggedIn ? <UserHome /> : <Login />}
+        {loginStore && loginStore.isLoggedIn ? <UserHome /> : <Login />}
       </ThemeProvider>
     </div>
   )
