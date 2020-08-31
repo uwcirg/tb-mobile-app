@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import {observer} from 'mobx-react'
 import ButtonBase from '@material-ui/core/ButtonBase'
 import Details from '@material-ui/icons/KeyboardArrowDown';
 import Row from './Row'
+import Colors from '../../Basics/Colors';
 
 const COLUMNS = ["name","priority","submitted","symptoms","feeling","medication","strip","action"]
 
@@ -23,6 +24,14 @@ const useStyles = makeStyles({
     title:{
         fontSize: "1em",
         textTransform: "capitalize"
+    },
+    expand:{
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        color: Colors.buttonBlue,
+        fontSize: "1.25em",
+        padding: "1em"
     }
   
 })
@@ -32,13 +41,20 @@ const Table = observer(() => {
 
     const classes = useStyles();
     const {practitionerStore} = useStores();
+    const [full,setFull] = useState(false);
+    const toggleShowFull = () => {
+        setFull(!full)
+    }
 
     return(<div className={classes.table}>
         <Titles />
         <>
-        {practitionerStore.patientList.map( patient => {
+        {practitionerStore.patientList.slice(0, full ? practitionerStore.patientList.length -1 : 5 ).map( patient => {
             return (<Row columns={COLUMNS} patient={patient} />)
         })}
+         <div className={classes.expand}>
+         <ButtonBase onClick={toggleShowFull}> {!full ? <>5 / {practitionerStore.patientList.length} Shown. Show All</> : <>Show Less</> }</ButtonBase>
+        </div>
         </>
     </div>)
 

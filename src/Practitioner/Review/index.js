@@ -46,6 +46,7 @@ const Review = () => {
         <Subtitle>Patients To Review</Subtitle>
         <Table />
         <Subtitle>Reviewed Patients</Subtitle>
+        <Table />
     </div>
     </div>)
 
