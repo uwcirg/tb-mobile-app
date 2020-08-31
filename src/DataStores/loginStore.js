@@ -92,6 +92,7 @@ export default class LoginStore extends APIStore {
 
     @action logout = () =>{
         this.userType = ""
+        localStorage.removeItem("user.type")
     }
 
 }

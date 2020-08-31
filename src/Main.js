@@ -1,16 +1,15 @@
 import React, { useEffect } from 'react';
 import PatientHome from './Patient/';
 import Login from './Login';
-
 import PractitionerHome from './Practitioner'
-
+import AdminHome from './Admin'
 import { ThemeProvider, styled } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { inject, observer } from 'mobx-react';
 import { Translation, withTranslation } from "react-i18next";
 import Colors from './Basics/Colors';
 import useStores from './Basics/UseStores';
-import LoginStore from './DataStores/loginStore';
+
 
 const theme = createMuiTheme({
 
@@ -33,12 +32,15 @@ const theme = createMuiTheme({
 });
 
 const UserHome = observer(() => {
-  const { loginStore, patientStore,practitionerStore } = useStores();
+  const { loginStore, patientStore,practitionerStore,adminStore } = useStores();
   if (loginStore.userType === "Patient") {
     patientStore.initalize()
     return <PatientHome />
   }
-  if (loginStore.userType === "Administrator") return (<p> ADMIN STUFF HERE YO</p>)
+  if (loginStore.userType === "Administrator") 
+    adminStore.initalize();
+    return <AdminHome />
+
   if (loginStore.userType === "Practitioner"){
     practitionerStore.initalize();
     return <PractitionerHome />
