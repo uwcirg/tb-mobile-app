@@ -62,32 +62,14 @@ let steps = [
     {
         scrollToTop: true,
         push: "/progress",
-        target: ".intro-progress-button",
-        fillBackground: true,
-        component: (<Progress />)
-    },
-    {
-        scrollToTop: true,
-        push: "/progress",
-        target: "#intro-week",
-        translationString: "patient.walkthrough.weekCalendar"
-    },
-    {
-        scrollToTop: true,
-        push: "/progress/calendar",
         target: ".intro-calendar-full",
         translationString: "patient.walkthrough.calendar",
         spotlightPadding: 10
     },
     {
-        push: "/progress/calendar",
+        push: "/progress",
         target: "#calendar-day-preview",
         translationString: "patient.walkthrough.calendarBottom"
-    },
-    {
-        push: "/progress",
-        target: "#intro-milestones",
-        translationString: "patient.walkthrough.milestones"
     },
     {
         push: "/messaging",

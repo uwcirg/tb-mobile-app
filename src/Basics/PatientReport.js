@@ -73,6 +73,7 @@ const useStyles = makeStyles({
 const PatientReport = (props) => {
 
     const classes = useStyles();
+    const {patientUIStore} = useStores();
     const { t, i18n } = useTranslation('translation');
 
     return (<div className={`${classes.container}`}>
@@ -83,7 +84,7 @@ const PatientReport = (props) => {
 
         <ListItem icon={<TempIcon />} title={t("commonWords.symptoms")}>
             <SymptomList symptoms={props.selectedSymptoms} />
-            {!props.pastReport &&<ClickableText big text={`${t("patient.report.confirmation.addMore")} +`} />}
+            {!props.pastReport &&<ClickableText onClick={patientUIStore.goToReportSymptoms} big text={`${t("patient.report.confirmation.addMore")} +`} />}
         </ListItem>
         <PhotoListItem pastReport={props.pastReport} missingPhoto={props.missingPhoto} isPhotoDay={props.isPhotoDay} photoString={props.photoString} />
     </div>)
