@@ -59,4 +59,8 @@ export default class PractitionerUIStore {
     @action closeAddPatientNote =() => {
         this.onAddPatientNote = false;
     }
+
+    @computed get onReview(){
+        return this.router.location.pathname.startsWith("/review")
+    }
 }
