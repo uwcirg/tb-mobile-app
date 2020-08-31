@@ -37,7 +37,6 @@ const Row = (props) => {
     const toggleExpanded = () => {
         setExpanded(!expanded)
     }
-
     return(
     <div className={classes.container}>
     <div className={classes.row}> 

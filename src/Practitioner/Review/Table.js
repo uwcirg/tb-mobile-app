@@ -49,7 +49,7 @@ const Table = observer(() => {
     return(<div className={classes.table}>
         <Titles />
         <>
-        {practitionerStore.patientList.slice(0, full ? practitionerStore.patientList.length -1 : 5 ).map( patient => {
+        {practitionerStore.patientList.slice(0, full ? practitionerStore.patientList.length : 5 ).map( patient => {
             return (<Row columns={COLUMNS} patient={patient} />)
         })}
          <div className={classes.expand}>
