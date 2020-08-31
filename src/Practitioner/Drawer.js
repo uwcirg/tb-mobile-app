@@ -17,12 +17,14 @@ import Colors from "../Basics/Colors";
 
 const drawerWidth = 200;
 
+//boxShadow: "5px 0px 5px 0px lightgray",
+
 const useStyles = makeStyles({
   drawer: {
     height: "100vh",
     display: "flex",
     flexDirection: "column",
-    boxShadow: "5px 0px 5px 0px lightgray",
+    boxShadow: "1px 0px 5px 0px lightgray",
     backgroundColor: "white"
   },
   list: {
