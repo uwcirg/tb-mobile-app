@@ -7,6 +7,7 @@ import Dashboard from './Dashboard'
 import Subtitle from './Subtitle'
 import Typography from '@material-ui/core/Typography'
 import Table from './Table'
+import Colors from '../../Basics/Colors';
 
 const useStyles = makeStyles({
     table:{
@@ -16,28 +17,36 @@ const useStyles = makeStyles({
     date:{
         fontSize: "1.5em",
         fontWeight: "bold",
-        margin: "1em 0 2em 0"
+        padding: "1em 0 2em 0"
     },
     reviewContainer:{
-        marginLeft: "2em"
+        width: "95%",
+        margin: "auto"
+    },
+    reviewSuperContainer:{
+        width: "100%",
+        backgroundColor: "#F2F2F2",
+        height: "100vh",
+        overflow: "scroll"
     }
   
 })
 
 const Review = () => {
-
-    //Titles 
-    //Table Layout
     //Pull in data
+    //Table Layout
+   
     const classes = useStyles();
 
-    return(<div className={classes.reviewContainer}>
+    return(
+        <div className={classes.reviewSuperContainer}>
+    <div className={classes.reviewContainer}>
         <Date />
         <Dashboard />
         <Subtitle>Patients To Review</Subtitle>
         <Table />
         <Subtitle>Reviewed Patients</Subtitle>
-        
+    </div>
     </div>)
 
 }

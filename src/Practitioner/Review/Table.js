@@ -4,19 +4,21 @@ import useStores from '../../Basics/UseStores';
 import {observer} from 'mobx-react'
 import ButtonBase from '@material-ui/core/ButtonBase'
 import Details from '@material-ui/icons/KeyboardArrowDown';
-import Colors from '../../Basics/Colors';
+import Row from './Row'
+
+const COLUMNS = ["name","priority","submitted","symptoms","feeling","medication","strip","action"]
 
 const useStyles = makeStyles({
     table:{
-        width: "90%",
-        margin: "auto",
+        width: "100%",
         minHeight: "200px"
     },
-    tableTitles:{
+    tableTitles:{ 
         width: "100%",
         display: "flex",
         alignItems: "center",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        marginBottom: "1em"
     },
     title:{
         fontSize: "1em",
@@ -25,17 +27,22 @@ const useStyles = makeStyles({
   
 })
 
-const COLUMNS = ["name","priority","submitted","symptoms","feeling","medication","strip","action"]
 
-const Table = () => {
+const Table = observer(() => {
 
     const classes = useStyles();
+    const {practitionerStore} = useStores();
 
     return(<div className={classes.table}>
         <Titles />
+        <>
+        {practitionerStore.patientList.map( patient => {
+            return (<Row columns={COLUMNS} patient={patient} />)
+        })}
+        </>
     </div>)
 
-}
+})
 
 
 const Titles = () => {
