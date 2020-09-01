@@ -19,11 +19,18 @@ const useStyles = makeStyles({
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        marginBottom: "1em"
+        marginBottom: "1em",
+        "& > .name":{
+            flexBasis: "120px"
+        }
     },
     title:{
+        textAlign: "left",
         fontSize: "1em",
         textTransform: "capitalize"
+    },
+    titleButton:{
+        justifyContent: "flex-start"
     },
     expand:{
         width: "100%",
@@ -40,7 +47,7 @@ const useStyles = makeStyles({
 const Table = observer(() => {
 
     const classes = useStyles();
-    const {practitionerStore} = useStores();
+    const {practitionerStore,dashboardStore} = useStores();
     const [full,setFull] = useState(false);
     const toggleShowFull = () => {
         setFull(!full)
@@ -49,11 +56,11 @@ const Table = observer(() => {
     return(<div className={classes.table}>
         <Titles />
         <>
-        {practitionerStore.patientList.slice(0, full ? practitionerStore.patientList.length : 5 ).map( patient => {
+        {dashboardStore.patientList.length > 0 && dashboardStore.patientList.slice(0, full ? dashboardStore.patients.length : 5 ).map( patient => {
             return (<Row columns={COLUMNS} patient={patient} />)
         })}
          <div className={classes.expand}>
-         <ButtonBase onClick={toggleShowFull}> {!full ? <>5 / {practitionerStore.patientList.length} Shown. Show All</> : <>Show Less</> }</ButtonBase>
+         <ButtonBase onClick={toggleShowFull}> {!full ? <>5 / {dashboardStore.patientList.length} Shown. Show All</> : <>Show Less</> }</ButtonBase>
         </div>
         </>
     </div>)
@@ -75,7 +82,7 @@ const Titles = () => {
 const Title = (props) => {
     const classes = useStyles();
     return(
-        <ButtonBase>
+        <ButtonBase className={`${classes.titleButton} ${props.text}`}>
             <span className={classes.title}>{props.text}</span>
             <Details className={classes.details} />
         </ButtonBase>

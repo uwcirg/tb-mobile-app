@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import {observer} from 'mobx-react'
@@ -32,18 +32,30 @@ const useStyles = makeStyles({
   
 })
 
+const NumberOfPatients = observer(() => {
+    const {dashboardStore} = useStores();
+    return(
+        <>{dashboardStore.patientList.length}</>
+    )
+})
+
 const Review = () => {
     //Pull in data
     //Table Layout
    
     const classes = useStyles();
+    const {dashboardStore,practitionerStore} = useStores();
+
+    useEffect(()=>{
+        dashboardStore.getPatients(practitionerStore.organizationID);
+    },[])
 
     return(
         <div className={classes.reviewSuperContainer}>
     <div className={classes.reviewContainer}>
         <Date />
         <Dashboard />
-        <Subtitle>Patients To Review</Subtitle>
+        <Subtitle>Patients To Review (<NumberOfPatients />)</Subtitle>
         <Table />
         <Subtitle>Reviewed Patients</Subtitle>
         <Table />

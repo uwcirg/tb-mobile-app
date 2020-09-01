@@ -16,7 +16,7 @@ const Dashboard = () => {
 
     return(<div className={classes.dashboard}>
         <Subtitle>Dashboard</Subtitle>
-        <Submitted />
+
     </div>)
 
 }

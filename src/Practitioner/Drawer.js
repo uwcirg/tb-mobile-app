@@ -14,6 +14,7 @@ import LogOut from '@material-ui/icons/ExitToApp';
 import Settings from '@material-ui/icons/Settings'
 import MessagingIcon from '@material-ui/icons/QuestionAnswer';
 import Colors from "../Basics/Colors";
+import LabIcon from '@material-ui/icons/FormatListNumbered'
 
 const drawerWidth = 200;
 
@@ -83,6 +84,9 @@ const PractitionerDrawer = observer(() => {
 
         <ListItem button className={practitionerUIStore.tabNumber === 3 ? classes.selected : ""} key={"Settings"} onClick={() => { push('/settings') }}>
           <ListItemIcon><Settings /></ListItemIcon>
+        </ListItem>
+        <ListItem button className={practitionerUIStore.tabNumber === 3 ? classes.selected : ""} key={"Settings"} onClick={() => { push('/review') }}>
+          <ListItemIcon><LabIcon /></ListItemIcon>
         </ListItem>
       </List>
       <div className={classes.bottomButtons}>
