@@ -19,13 +19,15 @@ const useStyles = makeStyles({
         justifyContent: "left",
         alignItems: "center",
         "& > div":{
-            marginRight: ".5em",
-            width: `${100/9}%`
+            paddingRight: ".5em",
+            display: "flex",
+            justifyContent: "flex-start",
+            alignItems: "center",
+            flexGrow: 1
         }
     },
     name: {
         display: "flex",
-        padding: ".5em",
         "& > span": {
             marginLeft: "auto"
         }
@@ -47,10 +49,8 @@ const useStyles = makeStyles({
         fontSize: ".875em",
     },
     reportTime: {
-        paddingLeft: "1em",
-        display: "flex",
-        flexDirection: "column",
         "& > span": {
+            textAlign: 'left',
             color: Colors.textGray,
             fontSize: ".875em",
             margin: 0
@@ -60,25 +60,15 @@ const useStyles = makeStyles({
     symptoms: {
         display: "flex",
         flexDirection: "column",
+        alignItems: "flex-start !important",
         fontSize: ".875em",
         margin: 0,
         padding: 0,
         color: Colors.textGray
     },
-    common:{
-        flexBasis: "15%",
-        display: "flex",
-        alignItems: "center",
-        "& > div":{
-            flexBasis: "50%"
-        }
-    },
-    report:{
-        flexGrow: "1",
-        display: "flex",
-        "& > div":{
-            flexGrow: 1,
-        }
+    actions:{
+        margin: 0,
+        padding: 0
     }
 })
 
@@ -95,14 +85,11 @@ const Row = (props) => {
         <div className={classes.container}>
             <div className={classes.row}>
                 <IconButton onClick={toggleExpanded}>{expanded ? <Up /> : <Down />}</IconButton>
-                <div className={classes.common}>
                 <div className={`${classes.name} name`}>
                     {patient.givenName} {patient.familyName && patient.familyName[0]}.
-                    <span >({Object.keys(patient.reportingSummary).length})</span>
+                    {/*<span >({Object.keys(patient.reportingSummary).length})</span>*/}
                 </div>
                 <div className={`${classes.priority} priority`}><Priority index={patient.priority} /></div>
-                </div>
-
                 <ReportPreview report={patient.reportingSummary[DateTime.local().toISODate()]} />
             </div>
             {expanded && <div>
@@ -130,18 +117,17 @@ const ReportPreview = (props) => {
     const more = report.symptoms.length - 1
 
     return (
-        <div className={classes.report}>
+        <>
             <ReportTime time={report.takenAt} />
             <div className={`symptoms ${classes.symptoms}`}>
                 {report.symptoms.length > 0 ? <span>{displayedSymptom} </span> : <span>No Symptoms</span>}
                 {report.symptoms.length > 1 && <span>+{more} More</span>}
                 </div>
-            <div>Doing Okay<Feeling doingOkay={true} /></div>
+            <div><Feeling doingOkay={true} /></div>
             <div>Tst</div>
             <div>Test</div>
-            <div>Test</div>
-            <IconButton><Dots /></IconButton>
-        </div>
+            <IconButton className={classes.actions}><Dots /></IconButton>
+        </>
     )
 }
 

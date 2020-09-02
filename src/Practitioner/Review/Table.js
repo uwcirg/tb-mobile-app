@@ -7,26 +7,52 @@ import Details from '@material-ui/icons/KeyboardArrowDown';
 import Row from './Row'
 import Colors from '../../Basics/Colors';
 
-const COLUMNS = ["expand", "name", "priority", "submitted", "symptoms", "feeling", "medication", "strip"]
+const COLUMNS = ["name", "priority", "submitted", "symptoms", "feeling", "medication", "strip"]
 
 const useStyles = makeStyles({
     table: {
         width: "100%",
         minHeight: "200px",
-        "& > * .submitted": {
-            width: '5%'
-        },
-        "& > * .symptoms": {
+        "& > * .name": {
+            padding: 0,
+            flexGrow: 0,
+            width: "10%",
+            justifyContent: "flex-start"
 
         },
+        "& > * .priority": {
+            flexGrow: 0,
+            width: "10%",
+            justifyContent: "flex-start"
+        },
+        "& > * .submitted": {
+            flexGrow: 0,
+            width: "10%",
+            justifyContent: "center"
+        },
+        "& > * .symptoms": {
+            flexGrow: 0,
+            width: "15%",
+            justifyContent: "center"
+        },
+        "& > * .feeling":{
+            flexGrow: 0,
+            width: '10%',
+            justifyContent: "center"
+        }
 
     },
     tableTitles: {
-        width: "100%",
+        flexGrow: 1,
         display: "flex",
         alignItems: "center",
-        justifyContent: "space-evenly",
         marginBottom: "1em",
+        "& > button": {
+            flexGrow: 1,
+            display: "flex",
+            justifyContent: "center"
+        },
+        padding: "0 48px 0 48px"
     },
     title: {
         textAlign: "left",
@@ -92,19 +118,7 @@ const Titles = () => {
     const classes = useStyles();
     return (
         <div className={classes.tableTitles}>
-            <Title text="Expand" disabled />
-            <div className={classes.common}>
-
-                {COLUMNS.slice(1, 3).map(each => {
-                    return <Title text={each} />
-                })}
-            </div>
-
-            <div className={classes.report}>
-                {COLUMNS.slice(3, COLUMNS.length).map(each => {
-                    return <Title text={each} />
-                })}
-            </div>
+            {COLUMNS.map(each => { return <Title text={each} /> })}
         </div>
     )
 }
