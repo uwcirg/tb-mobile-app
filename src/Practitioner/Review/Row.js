@@ -6,24 +6,31 @@ import IconButton from '@material-ui/core/IconButton'
 import Down from '@material-ui/icons/KeyboardArrowDown'
 import Up from '@material-ui/icons/KeyboardArrowUp'
 import { DateTime } from 'luxon';
+import { getFirstSevereSymptomFromArray } from '../../Basics/SymptomsSeperation';
+import { useTranslation } from 'react-i18next';
+import FeelingGood from '@material-ui/icons/Mood'
+import FeelingBad from '@material-ui/icons/MoodBad'
+import Dots from '@material-ui/icons/MoreVert';
 
 const useStyles = makeStyles({
     row: {
         height: "60px",
         display: "flex",
-        justifyContent: "flex-start",
+        justifyContent: "left",
         alignItems: "center",
+        "& > div":{
+            marginRight: ".5em",
+            width: `${100/9}%`
+        }
     },
     name: {
-        flexBasis: "120px",
         display: "flex",
         padding: ".5em",
-        "& > span":{
-            paddingLeft: "1em"
+        "& > span": {
+            marginLeft: "auto"
         }
     },
     priority: {
-        flexBasis: "80px",
         "& > div": {
             width: "100%"
         }
@@ -35,7 +42,9 @@ const useStyles = makeStyles({
         marginBottom: "1em"
     },
     noSubmission: {
-        marginLeft: "1em"
+        paddingLeft: "1em",
+        color: Colors.textGray,
+        fontSize: ".875em",
     },
     reportTime: {
         paddingLeft: "1em",
@@ -48,18 +57,29 @@ const useStyles = makeStyles({
         }
 
     },
-    badge: {
-        color: "white",
+    symptoms: {
         display: "flex",
-        justifyContent: "center",
+        flexDirection: "column",
+        fontSize: ".875em",
+        margin: 0,
+        padding: 0,
+        color: Colors.textGray
+    },
+    common:{
+        flexBasis: "15%",
+        display: "flex",
         alignItems: "center",
-        backgroundColor: Colors.accentBlue,
-        borderRadius: "50%",
-        width: "25px",
-        height: "25px",
-        marginRight: "1em"
+        "& > div":{
+            flexBasis: "50%"
+        }
+    },
+    report:{
+        flexGrow: "1",
+        display: "flex",
+        "& > div":{
+            flexGrow: 1,
+        }
     }
-
 })
 
 
@@ -75,11 +95,14 @@ const Row = (props) => {
         <div className={classes.container}>
             <div className={classes.row}>
                 <IconButton onClick={toggleExpanded}>{expanded ? <Up /> : <Down />}</IconButton>
-                <div className={classes.name}>
+                <div className={classes.common}>
+                <div className={`${classes.name} name`}>
                     {patient.givenName} {patient.familyName && patient.familyName[0]}.
                     <span >({Object.keys(patient.reportingSummary).length})</span>
                 </div>
-                <div className={classes.priority}><Priority index={patient.priority} /></div>
+                <div className={`${classes.priority} priority`}><Priority index={patient.priority} /></div>
+                </div>
+
                 <ReportPreview report={patient.reportingSummary[DateTime.local().toISODate()]} />
             </div>
             {expanded && <div>
@@ -97,27 +120,47 @@ const ReportPreview = (props) => {
 
     const { report } = props
     const classes = useStyles();
+    const { t, i18n } = useTranslation('translation');
 
-    if (!report) return <p className={classes.noSubmission}>No Submission Today</p>
+    if (!report) return (<>
+        <div className={classes.noSubmission}>No Submission Today</div>
+    </>)
+    const symptomToDisplay = getFirstSevereSymptomFromArray(report.symptoms)
+    const displayedSymptom = t(`symptoms.${symptomToDisplay || report.symptoms[0]}.title`)
+    const more = report.symptoms.length - 1
 
     return (
-        <>
+        <div className={classes.report}>
             <ReportTime time={report.takenAt} />
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </>
+            <div className={`symptoms ${classes.symptoms}`}>
+                {report.symptoms.length > 0 ? <span>{displayedSymptom} </span> : <span>No Symptoms</span>}
+                {report.symptoms.length > 1 && <span>+{more} More</span>}
+                </div>
+            <div>Doing Okay<Feeling doingOkay={true} /></div>
+            <div>Tst</div>
+            <div>Test</div>
+            <div>Test</div>
+            <IconButton><Dots /></IconButton>
+        </div>
     )
 }
 
 const ReportTime = (props) => {
     const classes = useStyles();
     const dt = DateTime.fromISO(props.time)
-    return (<div className={classes.reportTime}>
+    return (<div className={`submitted ${classes.reportTime}`}>
         {/*<span>{dt.toLocaleString(DateTime.DATE_SHORT)}</span>*/}
         <span>{dt.toLocaleString(DateTime.TIME_24_SIMPLE)}</span>
     </div>)
+}
+
+const Feeling = (props) => {
+
+    return (
+        <>
+            {props.doingOkay ? <FeelingGood style={{ color: Colors.green }} /> : <FeelingBad style={{ color: Colors.red }} />}
+        </>
+    )
 }
 
 export default Row;
