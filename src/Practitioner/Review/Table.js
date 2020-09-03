@@ -13,33 +13,8 @@ const useStyles = makeStyles({
     table: {
         width: "100%",
         minHeight: "200px",
-        "& > * .name": {
-            padding: 0,
-            flexGrow: 0,
-            width: "10%",
-            justifyContent: "flex-start"
-
-        },
-        "& > * .priority": {
-            flexGrow: 0,
-            width: "10%",
-            justifyContent: "flex-start"
-        },
-        "& > * .submitted": {
-            flexGrow: 0,
-            width: "10%",
-            justifyContent: "center"
-        },
-        "& > * .symptoms": {
-            flexGrow: 0,
-            width: "15%",
-            justifyContent: "center"
-        },
-        "& > * .feeling":{
-            flexGrow: 0,
-            width: '10%',
-            justifyContent: "center"
-        }
+        justifyContent: "center"
+        
 
     },
     tableTitles: {
@@ -48,11 +23,10 @@ const useStyles = makeStyles({
         alignItems: "center",
         marginBottom: "1em",
         "& > button": {
-            flexGrow: 1,
+            flex: "1 1 0px",
             display: "flex",
-            justifyContent: "center"
-        },
-        padding: "0 48px 0 48px"
+            justifyContent: "flex-start"
+        }
     },
     title: {
         textAlign: "left",

@@ -23,7 +23,13 @@ const useStyles = makeStyles({
             display: "flex",
             justifyContent: "flex-start",
             alignItems: "center",
-            flexGrow: 1
+            flex: "1 1 0px"
+        },
+        "& > *":{
+            fontSize: ".875em",
+            margin: 0,
+            padding: 0,
+            color: Colors.textGray
         }
     },
     name: {
@@ -44,7 +50,6 @@ const useStyles = makeStyles({
         marginBottom: "1em"
     },
     noSubmission: {
-        paddingLeft: "1em",
         color: Colors.textGray,
         fontSize: ".875em",
     },
@@ -61,14 +66,11 @@ const useStyles = makeStyles({
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-start !important",
-        fontSize: ".875em",
-        margin: 0,
-        padding: 0,
-        color: Colors.textGray
     },
     actions:{
         margin: 0,
-        padding: 0
+        padding: "0 .5em 0 0",
+        flexBasis: "1em"
     }
 })
 
@@ -90,17 +92,42 @@ const Row = (props) => {
                     {/*<span >({Object.keys(patient.reportingSummary).length})</span>*/}
                 </div>
                 <div className={`${classes.priority} priority`}><Priority index={patient.priority} /></div>
-                <ReportPreview report={patient.reportingSummary[DateTime.local().toISODate()]} />
+                <ReportPreview report={(patient.reportingSummary.length > 0 && patient.reportingSummary[0].date === DateTime.local().toISODate()) ? patient.reportingSummary[0] : null } />
             </div>
             {expanded && <div>
-                {Object.values(patient.reportingSummary).map(each => {
+                <OldReports reports={patient.reportingSummary.slice(1)} date={DateTime.fromISO(patient.lastResolution).startOf("day")} />
+                {/*Object.values(patient.reportingSummary).map(each => {
                     if (!each) return <p>Missed Day</p>
                     if (each) return <p>{each.date}</p>
-                })}
+                })*/}
             </div>}
         </div>
     )
 
+}
+const OldReports = (props) => {
+    let lastResolved = props.date;
+    let dates = []
+   
+    let i = 0;
+    let d = DateTime.local().minus({day: 1})
+    while(d.diff(lastResolved,"days").days > 0){
+        if(props.reports && props.reports.length > 0 && props.reports[i] && props.reports[i].date === d.toISODate()){
+            dates.push(<div>{props.reports[i].medicationWasTaken ? "Taken" : "Not Taken"}</div>)
+            i++;
+        }else{
+            dates.push(<div>No Report</div>)
+        }
+        d = d.minus({days: 1})
+        
+
+    }
+
+    return(
+        <>
+       {dates}
+        </>
+    )
 }
 
 const ReportPreview = (props) => {
@@ -111,6 +138,11 @@ const ReportPreview = (props) => {
 
     if (!report) return (<>
         <div className={classes.noSubmission}>No Submission Today</div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <IconButton className={classes.actions}><Dots /></IconButton>
     </>)
     const symptomToDisplay = getFirstSevereSymptomFromArray(report.symptoms)
     const displayedSymptom = t(`symptoms.${symptomToDisplay || report.symptoms[0]}.title`)
@@ -123,7 +155,7 @@ const ReportPreview = (props) => {
                 {report.symptoms.length > 0 ? <span>{displayedSymptom} </span> : <span>No Symptoms</span>}
                 {report.symptoms.length > 1 && <span>+{more} More</span>}
                 </div>
-            <div><Feeling doingOkay={true} /></div>
+            <div><span>Okay </span><Feeling doingOkay={true} /></div>
             <div>Tst</div>
             <div>Test</div>
             <IconButton className={classes.actions}><Dots /></IconButton>
