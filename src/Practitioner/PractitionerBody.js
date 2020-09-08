@@ -8,6 +8,7 @@ import PatientsView from './CohortView/'
 import Home from './Home/'
 import Settings from './Settings'
 import PatientProfile from './PatientProfile/'
+import Review from './Review';
 
 const PractitionerBody = observer(() => {
     const { practitionerStore, routingStore, practitionerUIStore } = useStores();
@@ -30,7 +31,8 @@ const PractitionerBody = observer(() => {
             handlePatientClick={handlePatientClick} />
     }
     if (practitionerUIStore.onSinglePatient) view = <PatientProfile id={practitionerUIStore.pathNumber} patient={practitionerStore.getPatient(practitionerUIStore.pathNumber)} />
-
+    if (practitionerUIStore.onReview) view = <Review />
+    
     return (
         <Body>
             {view}

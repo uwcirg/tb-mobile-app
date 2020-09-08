@@ -14,15 +14,18 @@ import LogOut from '@material-ui/icons/ExitToApp';
 import Settings from '@material-ui/icons/Settings'
 import MessagingIcon from '@material-ui/icons/QuestionAnswer';
 import Colors from "../Basics/Colors";
+import LabIcon from '@material-ui/icons/FormatListNumbered'
 
 const drawerWidth = 200;
+
+//boxShadow: "5px 0px 5px 0px lightgray",
 
 const useStyles = makeStyles({
   drawer: {
     height: "100vh",
     display: "flex",
     flexDirection: "column",
-    boxShadow: "5px 0px 5px 0px lightgray",
+    boxShadow: "1px 0px 5px 0px lightgray",
     backgroundColor: "white"
   },
   list: {
@@ -42,7 +45,7 @@ const useStyles = makeStyles({
     marginBottom: "auto"
   },
   settingsIcon: {
-    width: "50%",
+    width: "100%",
     margin: "auto"
   },
   selected: {
@@ -82,9 +85,13 @@ const PractitionerDrawer = observer(() => {
         <ListItem button className={practitionerUIStore.tabNumber === 3 ? classes.selected : ""} key={"Settings"} onClick={() => { push('/settings') }}>
           <ListItemIcon><Settings /></ListItemIcon>
         </ListItem>
+        {/*
+        <ListItem button className={practitionerUIStore.tabNumber === 3 ? classes.selected : ""} key={"Settings"} onClick={() => { push('/review') }}>
+          <ListItemIcon><LabIcon /></ListItemIcon>
+        </ListItem>
+        */}
       </List>
       <div className={classes.bottomButtons}>
-        <IconButton onClick={() => { push('/photos') }} className={classes.settingsIcon}><CameraIcon /></IconButton>
         <IconButton onClick={handleLogout} className={classes.settingsIcon}><LogOut /></IconButton>
       </div>
     </div>

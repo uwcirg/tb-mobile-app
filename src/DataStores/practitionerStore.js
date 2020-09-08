@@ -421,11 +421,5 @@ export class PractitionerStore extends UserStore {
         return (this.resolutionSummary.takenMedication || 0) + (this.resolutionSummary.notTakenMedication || 0)
     }
 
-    getReminders = () => {
-        this.executeRawRequest(`/patients/87/reminders`, "GET").then(response => {
-
-        })
-    }
-
 
 }

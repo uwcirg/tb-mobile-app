@@ -370,6 +370,11 @@
         "previous": "Previous"
     },
     "coordinator": {
+        "priority":{
+            "high": "High",
+            "medium": "Medium",
+            "low": "Low"
+        },
         "cohortOverview":{
             "title": "Cohort Overview",
             "high": "High Priority",
