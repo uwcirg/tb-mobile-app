@@ -49,16 +49,18 @@ const Channel = observer((props) => {
 
             let isNewDate = false;
             const isUser = props.userID === message.user_id;
+            const previousMessage = messagingStore.selectedChannelMessages[index-1]
+            const nextMessage = messagingStore.selectedChannelMessages[index+1]
+            const isMiddle = (previousMessage && previousMessage.user_id  === message.user_id && DateTime.fromISO(previousMessage.created_at).toISODate() === DateTime.fromISO(message.created_at).toISODate()) && (nextMessage && nextMessage.user_id === message.user_id && DateTime.fromISO(nextMessage.created_at).toISODate() === DateTime.fromISO(message.created_at).toISODate())
 
             if(DateTime.fromISO(message.created_at).toISODate() !== date){
-                console.log("New date")
                 date = DateTime.fromISO(message.created_at).toISODate()
                 isNewDate = true;
             }
             return (
                 <>
-                    {isNewDate && <h2 className={classes.dateSeperator}>{DateTime.fromISO(date).toLocaleString(DateTime.DATE_SHORT)}</h2>}
-                    <Message key={`message ${index}`} message={message} isUser={isUser} />
+                    {isNewDate && <h2 className={classes.dateSeperator}>{DateTime.fromISO(date).toLocaleString(DateTime.DATE_HUGE)}</h2>}
+                    <Message isMiddle={isMiddle} key={`message ${index}`} message={message} isUser={isUser} />
                 </>
             )
         })

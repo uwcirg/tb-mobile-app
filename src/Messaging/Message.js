@@ -8,8 +8,7 @@ const useStyles = makeStyles({
     messageContainer: {
         width: "100%",
         display: "flex",
-        flexDirection: "column",
-        margin: '.25em'
+        flexDirection: "column"
     },
     timestamp: {
         position: "absolute",
@@ -21,13 +20,13 @@ const useStyles = makeStyles({
     },
     message: {
         padding: ".7em",
-        minWidth: "80px",
         maxWidth: "75%",
         position: "relative",
         fontSize: ".85em",
+        borderRadius: "10px",
+        marginBottom: "2px"
     },
     myMessage: {
-        borderRadius: "15px 15px 15px 15px",
         backgroundColor: Colors.messageBlue,
         alignSelf: "flex-end",
         marginRight: "5px",
@@ -39,9 +38,8 @@ const useStyles = makeStyles({
         textAlign: "right"
     },
     otherMessage: {
-        borderRadius: "0px 15px 15px 15px",
         backgroundColor: Colors.lightgray,
-        alignSelf: "flex-start"
+        alignSelf: "flex-start",
     },
     triangle: {
         position: "absolute",
@@ -65,10 +63,10 @@ const useStyles = makeStyles({
     },
     time: {
         display: "block",
-        color: "white",
+        color: props => props.isUser ? "white" : "black",
         fontSize: ".5em",
         width: "100%",
-        textAlign: "right",
+        textAlign: props => props.isUser ? "right" : "left",
         marginTop: ".5em"
     }
 
@@ -76,7 +74,7 @@ const useStyles = makeStyles({
 
 const Message = (props) => {
 
-    const classes = useStyles();
+    const classes = useStyles({isUser: props.isUser});
 
     const processTime = (time) => {
         return (DateTime.fromISO(time).toLocaleString(DateTime.TIME_24_SIMPLE))

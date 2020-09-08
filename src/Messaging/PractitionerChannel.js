@@ -8,6 +8,7 @@ import OverTopBar from '../Patient/Navigation/OverTopBar';
 import MessageInput from './MessageInput';
 import ScrollRef from '../Basics/ScrollRef'
 import Message from './Message';
+import { DateTime } from 'luxon'
 
 const useStyles = makeStyles({
     messageList: {
@@ -19,12 +20,12 @@ const useStyles = makeStyles({
         overflowY: "scroll",
         overflowX: "hidden",
         backgroundColor: "white",
-        "& > div:last-of-type":{
+        "& > div:last-of-type": {
             marginBottom: "100px"
         }
 
     },
-    container:{
+    container: {
         height: "100%",
         position: "relative",
         overflowX: "hidden"
@@ -34,30 +35,46 @@ const useStyles = makeStyles({
         backgroundColor: "lightblue",
         position: "absolute",
         bottom: "0",
+    },
+    dateSeperator: {
+        width: "100%",
+        textAlign: "center",
+        fontSize: ".75em",
+        color: Colors.textGray
     }
 
 });
 
 const Channel = observer((props) => {
     const classes = useStyles();
-    const { messagingStore,uiStore } = useStores();
+    const { messagingStore, uiStore } = useStores();
 
     useEffect(() => {
-        console.log(uiStore.pathNumber)
         messagingStore.selectedChannel.id = uiStore.pathNumber;
         messagingStore.getSelectedChannel()
 
-    },[uiStore.pathNumber])
+    }, [uiStore.pathNumber])
 
     let messages = [];
+    let date = ""
+
     if (messagingStore.selectedChannel.messages &&
         messagingStore.selectedChannel.messages.length > 0) {
-        messages = messagingStore.selectedChannelMessages.map( (message, index) => {
+
+        messages = messagingStore.selectedChannelMessages.map((message, index) => {
+            let isNewDate = false;
+            if (DateTime.fromISO(message.created_at).toISODate() !== date) {
+                date = DateTime.fromISO(message.created_at).toISODate()
+                isNewDate = true;
+            }
             const isUser = props.userID === message.user_id;
-            return <Message username={`${message.user_id}`} key={`message ${index}`} message={message} isUser={isUser} />
+            return <>
+                {isNewDate && <h2 className={classes.dateSeperator}>{DateTime.fromISO(date).toLocaleString(DateTime.DATE_HUGE)}</h2>}
+                <Message username={`${message.user_id}`} key={`message ${index}`} message={message} isUser={isUser} />
+            </>
         })
 
-        messages.push(<ScrollRef key={'message -1'}/>)
+        messages.push(<ScrollRef key={'message -1'} />)
     }
 
     return (
@@ -67,9 +84,9 @@ const Channel = observer((props) => {
             </div>
             <div className={classes.input}>
                 <MessageInput value={messagingStore.newMessage}
-                setValue={(value) => { messagingStore.newMessage = value }}
-                disableSend={messagingStore.newMessage == ""}
-                handleSend={messagingStore.sendMessage} />
+                    setValue={(value) => { messagingStore.newMessage = value }}
+                    disableSend={messagingStore.newMessage == ""}
+                    handleSend={messagingStore.sendMessage} />
             </div>
         </div>
     )
