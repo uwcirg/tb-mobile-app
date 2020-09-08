@@ -14,9 +14,10 @@ import SearchBar from '../Basics/SearchBar';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import Styles from '../Basics/Styles';
+import AddTopic from './AddTopic';
 
 const useStyles = makeStyles({
-    superContainer:{
+    superContainer: {
         display: "flex"
     },
     container: {
@@ -27,14 +28,15 @@ const useStyles = makeStyles({
         height: "100vh",
     },
     channelList: {
-        height: "auto",
+        height: "100vh",
+        position: "relative",
         overflowY: "scroll",
         overflowX: "hidden",
         "& > h2": {
             fontSize: "1.25em"
         },
     },
-    header:{
+    header: {
         ...Styles.flexRow,
         margin: ".5em"
     },
@@ -65,8 +67,15 @@ const useStyles = makeStyles({
         display: "flex",
         width: "100%",
         height: "100%",
+        "& > h1":{
+            padding: "2em",
+            width: "60%"
+        },
         justifyContent: "center",
         alignItems: "center"
+    },
+    sideBar: {
+        width: "300px"
     }
 
 });
@@ -115,9 +124,9 @@ const Messaging = observer(() => {
     const coordinatorChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.filter((channel) => { return (channel.isPrivate && channel.title.toLowerCase().includes(patientSearch.toLowerCase())) }) : [];
 
     return (
-        <div className={classes.superContainer}>   
-        <div className={classes.container}>                
-        <Tabs
+        <div className={classes.superContainer}>
+            <div className={classes.container}>
+                <Tabs
                     value={tab}
                     indicatorColor="primary"
                     textColor="primary"
@@ -132,13 +141,14 @@ const Messaging = observer(() => {
                     <div className={classes.header}>
                         <SearchBar kind={"patient"} handleChange={handlePatientSearch} placeholder={t("messaging.search")} />
                     </div> :
-                     <div className={classes.header}>
+                    <div className={classes.header}>
                         <SearchBar kind={"discussion"} handleChange={handleSearch} placeholder={t("messaging.search")} />
 
                     </div>}
-            <div className={classes.channelList}>
-                {tab === 0 ? <Channels private channels={coordinatorChannels} /> : <Channels channels={publicChannels} /> }
-            </div>
+                <div className={classes.channelList}>
+                    {tab === 0 ? <Channels private channels={coordinatorChannels} /> : <Channels channels={publicChannels} />}
+                    {tab === 0 && <AddTopic />}
+                </div>
             </div>
             <div className={classes.channelContainer}>
                 {uiStore.onSpecificChannel ?
@@ -150,8 +160,9 @@ const Messaging = observer(() => {
                     /> : <div className={classes.selectChannel}><h1> {t('messaging.selectChannel')}</h1></div>
                 }
             </div>
-            </div>
-        
+            <div className={classes.sideBar} />
+        </div>
+
     )
 
 });
