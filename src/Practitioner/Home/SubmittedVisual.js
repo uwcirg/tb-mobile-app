@@ -39,6 +39,7 @@ const useStyles = makeStyles({
         display: "flex"
     },
     key:{
+        maxWidth: "50%",
         marginLeft: "1em",
         display: "flex",
         flexDirection: "column",
@@ -107,6 +108,7 @@ const Submitted = observer(() => {
             <div className={classes.key}>
                 <KeyItem color={Colors.green} text={t('coordinator.tasksSidebar.taken')} />
                 <KeyItem color={Colors.yellow} text={t('coordinator.tasksSidebar.notTaken')} />
+                <KeyItem color={Colors.gray} text={t('coordinator.tasksSidebar.noReport')} />
             </div>
         </div>
     )
