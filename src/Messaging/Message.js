@@ -8,8 +8,7 @@ const useStyles = makeStyles({
     messageContainer: {
         width: "100%",
         display: "flex",
-        flexDirection: "column",
-        margin: '.25em'
+        flexDirection: "column"
     },
     timestamp: {
         position: "absolute",
@@ -20,13 +19,14 @@ const useStyles = makeStyles({
         width: "50vw"
     },
     message: {
-        padding: "1em",
+        padding: ".7em",
         maxWidth: "75%",
         position: "relative",
         fontSize: ".85em",
+        borderRadius: "10px",
+        marginBottom: "2px"
     },
     myMessage: {
-        borderRadius: "15px 15px 15px 15px",
         backgroundColor: Colors.messageBlue,
         alignSelf: "flex-end",
         marginRight: "5px",
@@ -38,9 +38,8 @@ const useStyles = makeStyles({
         textAlign: "right"
     },
     otherMessage: {
-        borderRadius: "0px 15px 15px 15px",
         backgroundColor: Colors.lightgray,
-        alignSelf: "flex-start"
+        alignSelf: "flex-start",
     },
     triangle: {
         position: "absolute",
@@ -62,18 +61,23 @@ const useStyles = makeStyles({
         bottom: "-10px",
         right: "0"
     },
-    username: {
-        color: "black"
+    time: {
+        display: "block",
+        color: props => props.isUser ? "white" : "black",
+        fontSize: ".5em",
+        width: "100%",
+        textAlign: props => props.isUser ? "right" : "left",
+        marginTop: ".5em"
     }
 
 })
 
 const Message = (props) => {
 
-    const classes = useStyles();
+    const classes = useStyles({isUser: props.isUser});
 
     const processTime = (time) => {
-        return (DateTime.fromISO(time).toLocaleString(DateTime.DATETIME_SHORT))
+        return (DateTime.fromISO(time).toLocaleString(DateTime.TIME_24_SIMPLE))
     }
 
     return (<div className={classes.messageContainer}>
@@ -81,6 +85,7 @@ const Message = (props) => {
         <div key={props.message.id} className={`${classes.message} ${props.isUser ? classes.myMessage : classes.otherMessage}`}>
            {/* <div className={props.isUser ? classes.myTriangle : classes.triangle}></div> */}
             {props.message.body}
+            <span className={classes.time}>{processTime(props.message.created_at)}</span>
             {/*
             <div className={`${classes.timestamp} ${props.isUser ? classes.myTimestamp : ""}`}>
                 <p>

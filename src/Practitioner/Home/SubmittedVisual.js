@@ -5,6 +5,7 @@ import { observer } from 'mobx-react'
 import { CircularProgressbar, CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import Colors from '../../Basics/Colors';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
     halfCircle: {
@@ -38,6 +39,7 @@ const useStyles = makeStyles({
         display: "flex"
     },
     key:{
+        maxWidth: "50%",
         marginLeft: "1em",
         display: "flex",
         flexDirection: "column",
@@ -66,7 +68,7 @@ const useStyles = makeStyles({
 const Submitted = observer(() => {
     const classes = useStyles();
     const { practitionerStore } = useStores();
-
+    const { t, i18n } = useTranslation('translation'); 
     const percentage = Math.round(((practitionerStore.totalReported / (practitionerStore.patientList.length || 1)) * 100)).toString()
 
     return (
@@ -98,14 +100,15 @@ const Submitted = observer(() => {
                             })}
                         > <div className={classes.dialText}>
                                 <span>{percentage}%</span>
-                                <p>Submitted <br /> Today</p>
+                                <p>{t('coordinator.tasksSidebar.submitted')} <br /> {t('patient.home.today')}</p>
                             </div> </CircularProgressbarWithChildren>
                     </CircularProgressbarWithChildren>
-                </div> : "No Reports Submitted Yet"}
+                </div> : t('coordinator.tasksSideBar.noneYet')}
             </div>
             <div className={classes.key}>
-                <KeyItem color={Colors.green} text={"Taken"} />
-                <KeyItem color={Colors.yellow} text={"Not Taken"} />
+                <KeyItem color={Colors.green} text={t('coordinator.tasksSidebar.taken')} />
+                <KeyItem color={Colors.yellow} text={t('coordinator.tasksSidebar.notTaken')} />
+                <KeyItem color={Colors.gray} text={t('coordinator.tasksSidebar.noReport')} />
             </div>
         </div>
     )

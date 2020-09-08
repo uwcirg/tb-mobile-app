@@ -39,6 +39,7 @@
         "activate": "Activate"
     },
     "messaging": {
+        "begining": "Begining Of Chat",
         "selectChannel": "Select a Patient or Discussion To Get Started",
         "nurseContact": "Need individual support? Contact your provider!",
         "privateExplained": "Private chat with your coordinator",
@@ -420,9 +421,7 @@
         },
         "sideBar": {
             "overview:": {
-                "title": "Overview",
-                "doneToday": "Completed Today",
-                "unresolved": "Unresolved"
+
             },
             "lastContacted": "Last Contracted",
             "viewFullProfile": "View Full Profile",
@@ -498,7 +497,14 @@
             "unfinished": "Unfinished",
             "overview": "Tasks Overview",
             "patientStatus": "Patient Report Status",
-            "noReport": "No Report Today"
+            "noReport": "No Report Today",
+            "title": "Overview",
+            "doneToday": "Completed Today",
+            "unresolved": "Unresolved",
+            "submitted": "Submitted",
+            "taken": "Taken",
+            "notTaken": "Not Taken",
+            "noneYet": "No Reports Submitted Yet"
         }
     },
     "errors": {

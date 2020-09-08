@@ -39,6 +39,7 @@
         "activate": "Activar"
     },
     "messaging": {
+        "begining": "Begining Of Chat",
         "selectChannel": "Seleccione un Paciente o una Discusión Para Comenzar",
         "nurseContact": "¿Necesita asistencia personal? ¡Contacte a su asistente!",
         "privateExplained": "Chat privado con su asistente",
@@ -366,6 +367,11 @@
         "previous": "Fechas anteriores"
     },
     "coordinator": {
+        "priority":{
+            "high": "High",
+            "medium": "Medium",
+            "low": "Low"
+        },
         "cohortOverview":{
             "title": "Visión general de los pacientes",
             "high": "Alta prioridad",
@@ -410,11 +416,6 @@
             "none": "Ninguno"
         },
         "sideBar": {
-            "overview:": {
-                "title": "Resumen",
-                "doneToday": "Completado Hoy",
-                "unresolved": "Sin Resolución"
-            },
             "lastContacted": "Último  Contacto",
             "viewFullProfile": "Ver Perfil Completo",
             "daysMissed": "Días Sin Reporte Desde la Última Actualización",
@@ -489,7 +490,14 @@
             "unfinished": "no finalizado",
             "overview": "Resumen de Tareas ",
             "patientStatus": "Condición del Reporte del Paciente",
-            "noReport": "No Hay Reporte Para Hoy"
+            "noReport": "No Hay Reporte Para Hoy",
+            "title": "Overview",
+            "doneToday": "Completed Today",
+            "unresolved": "Sin Resolución",
+            "submitted": "Submitted",
+            "taken": "Tomado",
+            "notTaken": "No Tomando",
+            "noneYet": "No Reports Submitted Yet"
         }
     },
     "errors": {
