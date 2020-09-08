@@ -20,7 +20,8 @@ const useStyles = makeStyles({
         width: "50vw"
     },
     message: {
-        padding: "1em",
+        padding: ".7em",
+        minWidth: "80px",
         maxWidth: "75%",
         position: "relative",
         fontSize: ".85em",
@@ -62,8 +63,13 @@ const useStyles = makeStyles({
         bottom: "-10px",
         right: "0"
     },
-    username: {
-        color: "black"
+    time: {
+        display: "block",
+        color: "white",
+        fontSize: ".5em",
+        width: "100%",
+        textAlign: "right",
+        marginTop: ".5em"
     }
 
 })
@@ -73,7 +79,7 @@ const Message = (props) => {
     const classes = useStyles();
 
     const processTime = (time) => {
-        return (DateTime.fromISO(time).toLocaleString(DateTime.DATETIME_SHORT))
+        return (DateTime.fromISO(time).toLocaleString(DateTime.TIME_24_SIMPLE))
     }
 
     return (<div className={classes.messageContainer}>
@@ -81,6 +87,7 @@ const Message = (props) => {
         <div key={props.message.id} className={`${classes.message} ${props.isUser ? classes.myMessage : classes.otherMessage}`}>
            {/* <div className={props.isUser ? classes.myTriangle : classes.triangle}></div> */}
             {props.message.body}
+            <span className={classes.time}>{processTime(props.message.created_at)}</span>
             {/*
             <div className={`${classes.timestamp} ${props.isUser ? classes.myTimestamp : ""}`}>
                 <p>

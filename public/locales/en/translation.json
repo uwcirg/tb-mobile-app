@@ -39,6 +39,7 @@
         "activate": "Activate"
     },
     "messaging": {
+        "begining": "Begining Of Chat",
         "selectChannel": "Select a Patient or Discussion To Get Started",
         "nurseContact": "Need individual support? Contact your provider!",
         "privateExplained": "Private chat with your coordinator",

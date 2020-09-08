@@ -8,6 +8,7 @@ import OverTopBar from '../Patient/Navigation/OverTopBar';
 import MessageInput from './MessageInput';
 import ScrollRef from '../Basics/ScrollRef'
 import Message from './Message';
+import { DateTime } from 'luxon';
 
 const useStyles = makeStyles({
     messageList: {
@@ -17,11 +18,17 @@ const useStyles = makeStyles({
         flexDirection: "column"
 
     },
-    inputContainer:{
+    inputContainer: {
         position: "fixed",
         bottom: "0px",
         zIndex: "100",
         width: "100%"
+    },
+    dateSeperator:{
+        width: "100%",
+        textAlign: "center",
+        fontSize: ".75em",
+        color: Colors.textGray
     }
 
 });
@@ -30,31 +37,47 @@ const Channel = observer((props) => {
     const classes = useStyles();
     const { messagingStore } = useStores();
     const { t, i18n } = useTranslation('translation');
-    
+
 
     let messages = [];
+
     if (props.selectedChannel.messages &&
         props.selectedChannel.messages.length > 0) {
-        messages = messagingStore.selectedChannelMessages.map( (message, index) => {
-            const isUser = props.userID === message.user_id;
-            return <Message key={`message ${index}`} message={message} isUser={isUser} />
-        })
+        let date = ""
+        
+        messages = messagingStore.selectedChannelMessages.map((message, index) => {
 
-        messages.push(<ScrollRef  key={'message -1'}/>)
+            let isNewDate = false;
+            const isUser = props.userID === message.user_id;
+
+            if(DateTime.fromISO(message.created_at).toISODate() !== date){
+                console.log("New date")
+                date = DateTime.fromISO(message.created_at).toISODate()
+                isNewDate = true;
+            }
+            return (
+                <>
+                    {isNewDate && <h2 className={classes.dateSeperator}>{DateTime.fromISO(date).toLocaleString(DateTime.DATE_SHORT)}</h2>}
+                    <Message key={`message ${index}`} message={message} isUser={isUser} />
+                </>
+            )
+        })
+        messages.unshift(<p className={classes.dateSeperator}>{t("messaging.begining")}</p>)
+        messages.push(<ScrollRef key={'message -1'} />)
     }
 
     return (
         <>
-            <OverTopBar altColor={props.isPersonalChannel} handleBack={props.handleBack} title={props.isCoordinatorChannel ? t("userTypes.coordinator") : props.selectedChannel.title } />
+            <OverTopBar altColor={props.isPersonalChannel} handleBack={props.handleBack} title={props.isCoordinatorChannel ? t("userTypes.coordinator") : props.selectedChannel.title} />
             <div className={classes.messageList}>
                 {messages}
             </div>
             <div className={classes.inputContainer}>
-            <MessageInput value={messagingStore.newMessage}
-                setValue={(value) => { messagingStore.newMessage = value }}
-                disableSend={messagingStore.newMessage == ""}
-                handleSend={messagingStore.sendMessage}
-            />
+                <MessageInput value={messagingStore.newMessage}
+                    setValue={(value) => { messagingStore.newMessage = value }}
+                    disableSend={messagingStore.newMessage == ""}
+                    handleSend={messagingStore.sendMessage}
+                />
             </div>
         </>
     )
