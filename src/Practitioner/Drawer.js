@@ -45,7 +45,7 @@ const useStyles = makeStyles({
     marginBottom: "auto"
   },
   settingsIcon: {
-    width: "50%",
+    width: "100%",
     margin: "auto"
   },
   selected: {
@@ -85,12 +85,13 @@ const PractitionerDrawer = observer(() => {
         <ListItem button className={practitionerUIStore.tabNumber === 3 ? classes.selected : ""} key={"Settings"} onClick={() => { push('/settings') }}>
           <ListItemIcon><Settings /></ListItemIcon>
         </ListItem>
+        {/*
         <ListItem button className={practitionerUIStore.tabNumber === 3 ? classes.selected : ""} key={"Settings"} onClick={() => { push('/review') }}>
           <ListItemIcon><LabIcon /></ListItemIcon>
         </ListItem>
+        */}
       </List>
       <div className={classes.bottomButtons}>
-        <IconButton onClick={() => { push('/photos') }} className={classes.settingsIcon}><CameraIcon /></IconButton>
         <IconButton onClick={handleLogout} className={classes.settingsIcon}><LogOut /></IconButton>
       </div>
     </div>

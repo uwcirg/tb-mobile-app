@@ -18,6 +18,9 @@ const useStyles = makeStyles({
         display: "flex",
         justifyContent: "left",
         alignItems: "center",
+        "& > button:disabled":{
+            opacity: 0
+        },
         "& > div":{
             paddingRight: ".5em",
             display: "flex",
@@ -86,7 +89,7 @@ const Row = (props) => {
     return (
         <div className={classes.container}>
             <div className={classes.row}>
-                <IconButton onClick={toggleExpanded}>{expanded ? <Up /> : <Down />}</IconButton>
+                <IconButton disabled={patient.reportingSummary.length === 0} onClick={toggleExpanded}>{expanded ? <Up /> : <Down />}</IconButton>
                 <div className={`${classes.name} name`}>
                     {patient.givenName} {patient.familyName && patient.familyName[0]}.
                     {/*<span >({Object.keys(patient.reportingSummary).length})</span>*/}
