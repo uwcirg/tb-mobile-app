@@ -2,7 +2,7 @@ import { action, observable,toJS, computed} from "mobx";
 
 const ROUTES = {
     getChannels: ["/channels","GET"],
-    getUnreadMessages: ["/messages/unread","GET"]
+    getUnreadMessages: ["/unread_messages","GET"]
 }
 
 export class MessagingStore {
@@ -71,7 +71,7 @@ export class MessagingStore {
 
     @action getSelectedChannel(){
 
-        let url = `/channel/${this.selectedChannel.id}/messages`
+        let url = `/channels/${this.selectedChannel.id}/messages`
 
         /*
         if(this.lastMessageFetched != ""){
@@ -86,7 +86,7 @@ export class MessagingStore {
 
     @action getNewMessages(){
 
-        let url = `/channel/${this.selectedChannel.id}/messages`
+        let url = `/channels/${this.selectedChannel.id}/messages`
 
         if(this.lastMessageFetched != ""){
             url += `?lastMessageID=${this.lastMessageFetched}`
@@ -111,7 +111,7 @@ export class MessagingStore {
             body: this.newMessage
         }
 
-        this.strategy.executeRawRequest(`/channel/${this.selectedChannel.id}/messages`,"POST",body).then((response) => {
+        this.strategy.executeRawRequest(`/channels/${this.selectedChannel.id}/messages`,"POST",body).then((response) => {
             this.getNewMessages();
             this.newMessage = "";
 

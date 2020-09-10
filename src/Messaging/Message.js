@@ -24,7 +24,8 @@ const useStyles = makeStyles({
         position: "relative",
         fontSize: ".85em",
         borderRadius: "10px",
-        marginBottom: "2px"
+        marginBottom: "2px",
+        overflowWrap: "break-word"
     },
     myMessage: {
         backgroundColor: Colors.messageBlue,
@@ -40,6 +41,7 @@ const useStyles = makeStyles({
     otherMessage: {
         backgroundColor: Colors.lightgray,
         alignSelf: "flex-start",
+        margin: ".5em 0 .5em 0"
     },
     triangle: {
         position: "absolute",
