@@ -7,8 +7,6 @@ import PlusIcon from '@material-ui/icons/Add'
 const useStyles = makeStyles({
     addTopic:{
         padding: "1em 0 1em 0",
-        position: "absolute",
-        bottom: 0,
         backgroundColor: "white",
         width: "100%",
         display: "flex",

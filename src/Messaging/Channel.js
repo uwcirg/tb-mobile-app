@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Colors from '../Basics/Colors';
@@ -9,34 +9,92 @@ import MessageInput from './MessageInput';
 import ScrollRef from '../Basics/ScrollRef'
 import Message from './Message';
 import { DateTime } from 'luxon';
+import IconButton from '@material-ui/core/IconButton'
+import Clear from '@material-ui/icons/Clear'
 
 const useStyles = makeStyles({
     messageList: {
-        marginBottom: "100px",
-        margin: ".5em",
+        marginTop: "60px",
+        flexGrow: 1,
         display: "flex",
-        flexDirection: "column"
+        flexDirection: "column",
+        overflowY: "scroll",
+        overflowX: "hidden",
+        padding: "1em .5em 1em .5em"
 
     },
     inputContainer: {
-        position: "fixed",
-        bottom: "0px",
-        zIndex: "100",
-        width: "100%"
+        width: "100%",
+        flexBasis: props => props.open ? "85px" : "70px"
     },
     dateSeperator:{
         width: "100%",
         textAlign: "center",
-        fontSize: ".75em",
+        fontSize: ".75em !important",
         color: Colors.textGray
+    },
+    combined:{
+        position: "fixed",
+        top: 0,
+        width: "100%",
+        maxHeight: "100vh",
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        zIndex: 2
+    },
+    imagePopover:{
+        position: "fixed",
+        zIndex: "100 !important",
+        backgroundColor: "rgba(0,0,0,.5)",
+        top: 0,
+        left: 0,
+        height: "100vh",
+        width: "100vw",
+        "& > img":{
+            width: "100%",
+            height: "100%",
+            objectFit: "contain",
+        }
+    },
+    imagePreviewButton:{
+        width: "100%",
+        display: "flex",
+        flexDirection: "row-reverse",
+        "& > button > svg":{
+            color: "white"
+        }
     }
 
 });
+
+const ImagePreview = observer((props) => {
+    const {messagingStore} = useStores();
+    const classes = useStyles();
+
+    return(
+        <div className={classes.imagePopover}>
+            <div className={classes.imagePreviewButton}>
+            <IconButton onClick={messagingStore.toggleImagePreview}>
+                <Clear />
+            </IconButton>
+            </div>
+            <img src={messagingStore.file} />
+        </div>
+
+    )
+})
 
 const Channel = observer((props) => {
     const classes = useStyles();
     const { messagingStore } = useStores();
     const { t, i18n } = useTranslation('translation');
+
+    useEffect(()=>{
+        messagingStore.getUploadUrl();
+    },[])
+
+    
 
 
     let messages = [];
@@ -70,7 +128,9 @@ const Channel = observer((props) => {
 
     return (
         <>
+            {messagingStore.showImagePreview && <ImagePreview />}
             <OverTopBar altColor={props.isPersonalChannel} handleBack={props.handleBack} title={props.isCoordinatorChannel ? t("userTypes.coordinator") : props.selectedChannel.title} />
+            <div className={classes.combined}>
             <div className={classes.messageList}>
                 {messages}
             </div>
@@ -80,6 +140,7 @@ const Channel = observer((props) => {
                     disableSend={messagingStore.newMessage == ""}
                     handleSend={messagingStore.sendMessage}
                 />
+            </div>
             </div>
         </>
     )

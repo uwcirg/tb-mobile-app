@@ -1,58 +1,133 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+import useStores from '../Basics/UseStores'
+import {observer} from 'mobx-react'
 import InputBase from '@material-ui/core/InputBase'
 import SendIcon from '@material-ui/icons/Send'
 import IconButton from '@material-ui/core/IconButton'
 import Colors from '../Basics/Colors'
+import Photo from '@material-ui/icons/PhotoLibrary';
+import Clear from '@material-ui/icons/Clear'
+import ButtonBase from '@material-ui/core/ButtonBase'
 
 const useStyles = makeStyles({
-    container: {
+    container:{
+        display: "flex",
+        flexDirection: "column",
+        boxShadow: "5px 0px 5px 0px rgba(0, 0, 0, 0.2)",
         backgroundColor: "white",
+    },
+    base: {
         display: "flex",
         width: "100%",
         minHeight: "62px",
-        boxShadow: "5px 0px 5px 0px rgba(0, 0, 0, 0.2)",
         justifyContent: "flex-start",
         alignContent: "center",
         alignItems: "center",
         padding: ".5em 1em .5em 1em",
-        "& > *::-webkit-scrollbar":{
+        "& > *::-webkit-scrollbar": {
+            display: "none"
+        },
+        "& > input":{
             display: "none"
         }
 
-  },
+    },
 
     input: {
         flex: 1,
         overflow: "scroll",
         marginRight: "auto"
-      },
-    send:{
+    },
+    send: {
         marginRight: "1em",
         color: Colors.lightBlue,
         backgroundColor: Colors.lightgray
+    },
+    imagePreview:{
+        display: "flex",
+        width: "100%",
+        "& > img":{
+            width: "50px",
+            height: "50px"
+        },
+        "& > button":{
+            marginLeft: "auto"
+        }
+
+    },
+    imageText:{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-evenly",
+        marginLeft: "1em",
+        "& > p":{
+            fontSize: ".75em",
+            color: Colors.textGray,
+            margin: 0,
+            padding: 0
+        }
+    },
+    viewLarger:{
+        color: Colors.buttonBlue,
+        justifyContent: "flex-start",
+        textAlign: "left",
+        fontSize: ".75em"
+
     }
 })
 
-const MessageInput = (props) => {
+const MessageInput = observer((props) => {
+
+    const [preview,setPreview] = useState(false);
 
     const classes = useStyles();
     const handleChange = (event) => {
         props.setValue(event.target.value)
     }
+    const {messagingStore} = useStores();
 
-    return (<div className={classes.container}>
+    const handleFileInput = (event) =>{
+        if(event.target.files.length > 0){
+         messagingStore.setFile(URL.createObjectURL(event.target.files[0]))   
+        }
+    }
+
+    return (
+    <>
+    {preview && <ImagePreview close={()=>{setPreview(true)}} />}
+    <div className={classes.container}>
+        {messagingStore.file && 
+        <div className={classes.imagePreview}><img src={messagingStore.file} ></img>
+        <div className={classes.imageText}>
+            <p>Image will be sent with message</p>
+            <ButtonBase onClick={messagingStore.toggleImagePreview} className={classes.viewLarger}>View Larger</ButtonBase>
+        </div>
+        <IconButton onClick={messagingStore.clearFile}>
+            <Clear />
+        </IconButton>
+        </div>}
+    <div className={classes.base}>
+      <input accept="image/*" className={classes.input} onChange={handleFileInput} id="icon-button-file" type="file" />
+      <label htmlFor="icon-button-file">
+        <IconButton onClick={messagingStore.getUploadUrl}  color="primary" aria-label="upload picture" component="span">
+          <Photo />
+        </IconButton>
+      </label>
         <InputBase
             value={props.value}
             className={classes.input}
             placeholder="Type message here"
             inputProps={{ 'aria-label': 'message input' }}
             multiline
-            onChange={handleChange} 
+            onChange={handleChange}
         />
         <IconButton disabled={props.disableSend} onClick={props.handleSend} className={classes.send}><SendIcon /></IconButton>
-    </div>)
+        </div>
+    </div>
+    </>
+    )
 
-}
+})
 
 export default MessageInput;

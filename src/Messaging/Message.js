@@ -66,7 +66,7 @@ const useStyles = makeStyles({
         color: props => props.isUser ? "white" : "black",
         fontSize: ".5em",
         width: "100%",
-        textAlign: props => props.isUser ? "right" : "left",
+        textAlign: "right",
         marginTop: ".5em"
     }
 

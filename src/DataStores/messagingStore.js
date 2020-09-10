@@ -37,6 +37,8 @@ export class MessagingStore {
     };
 
     @observable newMessage = "";
+    @observable file = "";
+    @observable showImagePreview = false;
 
     @computed
     get lastMessageFetched(){
@@ -101,6 +103,7 @@ export class MessagingStore {
             title: "",
             messages: []
         };
+        this.file =  ""
     }
 
     @action sendMessage = () => {
@@ -120,6 +123,25 @@ export class MessagingStore {
             this.numberUnread = response.total
             this.unreadInfo = response.channels
         })
+    }
+
+    @action setFile = (file) => {
+        this.file = file;
+    }
+
+    @action clearFile = () => {
+        this.file = ""
+    }
+
+    getUploadUrl = () => {
+
+        this.strategy.executeRawRequest(`/photo_uploaders/messaging?channelId=${this.selectedChannel.id}`).then( res => {
+            console.log(res)
+        })
+    }
+
+    @action toggleImagePreview = () => {
+        this.showImagePreview = !this.showImagePreview;
     }
 
    

@@ -20,7 +20,7 @@ const useStyles = makeStyles({
     superContainer: {
         display: "flex"
     },
-    container: {
+    leftContainer: {
         display: "flex",
         flexDirection: "column",
         width: "300px",
@@ -28,7 +28,7 @@ const useStyles = makeStyles({
         height: "100vh",
     },
     channelList: {
-        height: "100vh",
+        flexGrow: 1,
         position: "relative",
         overflowY: "scroll",
         overflowX: "hidden",
@@ -54,8 +54,7 @@ const useStyles = makeStyles({
         textAlign: "center"
     },
     channelContainer: {
-        flexBasis: "40%",
-        flexGrow: "1",
+        width: "40%",
         height: "100vh",
     },
     tabs: {
@@ -125,7 +124,7 @@ const Messaging = observer(() => {
 
     return (
         <div className={classes.superContainer}>
-            <div className={classes.container}>
+            <div className={classes.leftContainer}>
                 <Tabs
                     value={tab}
                     indicatorColor="primary"
@@ -147,8 +146,8 @@ const Messaging = observer(() => {
                     </div>}
                 <div className={classes.channelList}>
                     {tab === 0 ? <Channels private channels={coordinatorChannels} /> : <Channels channels={publicChannels} />}
-                    {tab === 0 && <AddTopic />}
                 </div>
+                {tab === 0 && <AddTopic />}
             </div>
             <div className={classes.channelContainer}>
                 {uiStore.onSpecificChannel ?
