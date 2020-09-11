@@ -93,7 +93,7 @@ export class MessagingStore {
         let url = `/channels/${this.selectedChannel.id}/messages`
 
         if (this.lastMessageFetched != "") {
-            url += `?lastMessageID=${this.lastMessageFetched}`
+            url += `?lastMessageId=${this.lastMessageFetched}`
         }
 
         this.strategy.executeRawRequest(url, "GET").then((response) => {

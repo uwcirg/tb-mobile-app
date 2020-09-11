@@ -126,8 +126,6 @@ const Channel = observer((props) => {
 
 const MessageList = observer((props) => {
 
-    console.log('message list render')
-
     const classes = useStyles();
     const { messagingStore } = useStores();
     const { t, i18n } = useTranslation('translation');

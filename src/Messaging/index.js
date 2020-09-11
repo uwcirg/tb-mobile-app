@@ -91,7 +91,6 @@ const Messaging = observer(() => {
                     <Channel
                         userID={patientStore.id}
                         selectedChannel={messagingStore.selectedChannel}
-                        isCoordinatorChannel={messagingStore.selectedChannel.isCoordinatorChannel}
                         handleBack={handleBackFromChannel}
                         userID={patientStore.userID} />
                 </div>

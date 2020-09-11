@@ -66,7 +66,7 @@ const useStyles = makeStyles({
         display: "flex",
         width: "100%",
         height: "100%",
-        "& > h1":{
+        "& > h1": {
             padding: "2em",
             width: "60%"
         },
@@ -76,7 +76,7 @@ const useStyles = makeStyles({
     sideBar: {
         width: "300px"
     },
-    newContainer:{
+    newContainer: {
         width: "100%",
         height: "100vh"
     }
@@ -117,13 +117,13 @@ const Messaging = observer(() => {
             <ChannelNavigation />
             <div className={classes.channelContainer}>
                 {uiStore.onSpecificChannel && messagingStore.selectedChannel.id !== "" ?
-                <div className={classes.newContainer}>
-                    <Channel
-                        coordinatorView
-                        userID={practitionerStore.userID}
-                        selectedChannel={messagingStore.selectedChannel}
-                        handleBack={handleBackFromChannel}
-                    /> 
+                    <div className={classes.newContainer}>
+                        <Channel
+                            coordinatorView
+                            userID={practitionerStore.userID}
+                            selectedChannel={messagingStore.selectedChannel}
+                            handleBack={handleBackFromChannel}
+                        />
                     </div> : <div className={classes.selectChannel}><h1> {t('messaging.selectChannel')}</h1></div>
                 }
             </div>
@@ -142,8 +142,6 @@ const ChannelNavigation = observer((props) => {
     const [search, setSearch] = useState("");
     const [patientSearch, setPatientSearch] = useState("");
     const [tab, setTab] = useState(0);
-
-
 
     const publicChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.filter((channel) => {
         return (!channel.isPrivate && channel.title.toLowerCase().includes(search.toLowerCase()))
@@ -164,32 +162,32 @@ const ChannelNavigation = observer((props) => {
     };
 
 
-    return(
-    <div className={classes.leftContainer}>
-    <Tabs
-        value={tab}
-        indicatorColor="primary"
-        textColor="primary"
-        onChange={handleChange}
-        aria-label="message-type-tab"
-    >
-        <Tab className={classes.tabs} label={t('messaging.patients')} />
-        <Tab className={classes.tabs} label={t('messaging.discussions')} />
-    </Tabs>
+    return (
+        <div className={classes.leftContainer}>
+            <Tabs
+                value={tab}
+                indicatorColor="primary"
+                textColor="primary"
+                onChange={handleChange}
+                aria-label="message-type-tab"
+            >
+                <Tab className={classes.tabs} label={t('messaging.patients')} />
+                <Tab className={classes.tabs} label={t('messaging.discussions')} />
+            </Tabs>
 
-    {tab === 0 ?
-        <div className={classes.header}>
-            <SearchBar kind={"patient"} handleChange={handlePatientSearch} placeholder={t("messaging.search")} />
-        </div> :
-        <div className={classes.header}>
-            <SearchBar kind={"discussion"} handleChange={handleSearch} placeholder={t("messaging.search")} />
+            {tab === 0 ?
+                <div className={classes.header}>
+                    <SearchBar kind={"patient"} handleChange={handlePatientSearch} placeholder={t("messaging.search")} />
+                </div> :
+                <div className={classes.header}>
+                    <SearchBar kind={"discussion"} handleChange={handleSearch} placeholder={t("messaging.search")} />
 
-        </div>}
-    <div className={classes.channelList}>
-        {tab === 0 ? <Channels private channels={coordinatorChannels} /> : <Channels channels={publicChannels} />}
-    </div>
-    {tab === 1 && <AddTopic />}
-</div>)
+                </div>}
+            <div className={classes.channelList}>
+                {tab === 0 ? <Channels private channels={coordinatorChannels} /> : <Channels channels={publicChannels} />}
+            </div>
+            {tab === 1 && <AddTopic />}
+        </div>)
 })
 
 
