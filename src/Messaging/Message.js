@@ -70,13 +70,18 @@ const useStyles = makeStyles({
         width: "100%",
         textAlign: "right",
         marginTop: ".5em"
+    },
+    messageImage:{
+        width: "100%",
+        maxHeight: "200px",
+        objectFit: "contain"
     }
 
 })
 
 const Message = (props) => {
 
-    const classes = useStyles({isUser: props.isUser});
+    const classes = useStyles({ isUser: props.isUser });
 
     const processTime = (time) => {
         return (DateTime.fromISO(time).toLocaleString(DateTime.TIME_24_SIMPLE))
@@ -85,16 +90,9 @@ const Message = (props) => {
     return (<div className={classes.messageContainer}>
 
         <div key={props.message.id} className={`${classes.message} ${props.isUser ? classes.myMessage : classes.otherMessage}`}>
-           {/* <div className={props.isUser ? classes.myTriangle : classes.triangle}></div> */}
+            {props.message.photoUrl && <img className={classes.messageImage} src={props.message.photoUrl} />}
             {props.message.body}
-            <span className={classes.time}>{processTime(props.message.created_at)}</span>
-            {/*
-            <div className={`${classes.timestamp} ${props.isUser ? classes.myTimestamp : ""}`}>
-                <p>
-                    <span className={classes.username}>{props.username ? props.username : "user" }</span> at {processTime(props.message.created_at)}
-                </p>
-            </div>
-            */}
+            <span className={classes.time}>{processTime(props.message.createdAt)}</span>
         </div>
 
     </div>)

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Colors from '../Basics/Colors';
@@ -90,13 +90,6 @@ const Channel = observer((props) => {
     const { messagingStore } = useStores();
     const { t, i18n } = useTranslation('translation');
 
-    useEffect(()=>{
-        messagingStore.getUploadUrl();
-    },[])
-
-    
-
-
     let messages = [];
 
     if (props.selectedChannel.messages &&
@@ -106,13 +99,13 @@ const Channel = observer((props) => {
         messages = messagingStore.selectedChannelMessages.map((message, index) => {
 
             let isNewDate = false;
-            const isUser = props.userID === message.user_id;
+            const isUser = props.userID === message.userId;
             const previousMessage = messagingStore.selectedChannelMessages[index-1]
             const nextMessage = messagingStore.selectedChannelMessages[index+1]
-            const isMiddle = (previousMessage && previousMessage.user_id  === message.user_id && DateTime.fromISO(previousMessage.created_at).toISODate() === DateTime.fromISO(message.created_at).toISODate()) && (nextMessage && nextMessage.user_id === message.user_id && DateTime.fromISO(nextMessage.created_at).toISODate() === DateTime.fromISO(message.created_at).toISODate())
+            const isMiddle = (previousMessage && previousMessage.userId  === message.userId && DateTime.fromISO(previousMessage.createdAt).toISODate() === DateTime.fromISO(message.createdAt).toISODate()) && (nextMessage && nextMessage.userId === message.userId && DateTime.fromISO(nextMessage.createdAt).toISODate() === DateTime.fromISO(message.createdAt).toISODate())
 
-            if(DateTime.fromISO(message.created_at).toISODate() !== date){
-                date = DateTime.fromISO(message.created_at).toISODate()
+            if(DateTime.fromISO(message.createdAt).toISODate() !== date){
+                date = DateTime.fromISO(message.createdAt).toISODate()
                 isNewDate = true;
             }
             return (
@@ -138,7 +131,7 @@ const Channel = observer((props) => {
                 <MessageInput value={messagingStore.newMessage}
                     setValue={(value) => { messagingStore.newMessage = value }}
                     disableSend={messagingStore.newMessage == ""}
-                    handleSend={messagingStore.sendMessage}
+                    handleSend={messagingStore.uploadFileAndSendMessage}
                 />
             </div>
             </div>
