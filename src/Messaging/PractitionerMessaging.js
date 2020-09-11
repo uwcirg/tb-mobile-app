@@ -89,14 +89,12 @@ const Messaging = observer(() => {
     const { messagingStore, practitionerStore, uiStore } = useStores();
 
     const classes = useStyles();
-    const [search, setSearch] = useState("");
-    const [patientSearch, setPatientSearch] = useState("");
-    const [tab, setTab] = useState(0);
 
-    //Get unread every time this rerenders
-    useEffect(() => {
-        messagingStore.getUnreadMessages();
-    }, [uiStore.onSpecificChannel])
+
+    // //Get unread every time this rerenders
+    // useEffect(() => {
+    //     messagingStore.getUnreadMessages();
+    // }, [uiStore.onSpecificChannel])
 
     //Only get channels on the first render
     useEffect(() => {
@@ -114,51 +112,9 @@ const Messaging = observer(() => {
         messagingStore.clearSelection();
     }
 
-    const handleSearch = (e) => {
-        setSearch(e.target.value)
-    }
-
-    const handlePatientSearch = (e) => {
-        setPatientSearch(e.target.value)
-    }
-
-    const handleChange = (event, newValue) => {
-        setTab(newValue);
-    };
-
-    const publicChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.filter((channel) => {
-        return (!channel.isPrivate && channel.title.toLowerCase().includes(search.toLowerCase()))
-    }) : [];
-
-    const coordinatorChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.filter((channel) => { return (channel.isPrivate && channel.title.toLowerCase().includes(patientSearch.toLowerCase())) }) : [];
-
     return (
         <div className={classes.superContainer}>
-            <div className={classes.leftContainer}>
-                <Tabs
-                    value={tab}
-                    indicatorColor="primary"
-                    textColor="primary"
-                    onChange={handleChange}
-                    aria-label="message-type-tab"
-                >
-                    <Tab className={classes.tabs} label={t('messaging.patients')} />
-                    <Tab className={classes.tabs} label={t('messaging.discussions')} />
-                </Tabs>
-
-                {tab === 0 ?
-                    <div className={classes.header}>
-                        <SearchBar kind={"patient"} handleChange={handlePatientSearch} placeholder={t("messaging.search")} />
-                    </div> :
-                    <div className={classes.header}>
-                        <SearchBar kind={"discussion"} handleChange={handleSearch} placeholder={t("messaging.search")} />
-
-                    </div>}
-                <div className={classes.channelList}>
-                    {tab === 0 ? <Channels private channels={coordinatorChannels} /> : <Channels channels={publicChannels} />}
-                </div>
-                {tab === 0 && <AddTopic />}
-            </div>
+            <ChannelNavigation />
             <div className={classes.channelContainer}>
                 {uiStore.onSpecificChannel && messagingStore.selectedChannel.id !== "" ?
                 <div className={classes.newContainer}>
@@ -177,6 +133,64 @@ const Messaging = observer(() => {
     )
 
 });
+
+const ChannelNavigation = observer((props) => {
+    const classes = useStyles();
+    const { messagingStore } = useStores();
+
+    const { t, i18n } = useTranslation('translation');
+    const [search, setSearch] = useState("");
+    const [patientSearch, setPatientSearch] = useState("");
+    const [tab, setTab] = useState(0);
+
+
+
+    const publicChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.filter((channel) => {
+        return (!channel.isPrivate && channel.title.toLowerCase().includes(search.toLowerCase()))
+    }) : [];
+
+    const coordinatorChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.filter((channel) => { return (channel.isPrivate && channel.title.toLowerCase().includes(patientSearch.toLowerCase())) }) : [];
+
+    const handleSearch = (e) => {
+        setSearch(e.target.value)
+    }
+
+    const handlePatientSearch = (e) => {
+        setPatientSearch(e.target.value)
+    }
+
+    const handleChange = (event, newValue) => {
+        setTab(newValue);
+    };
+
+
+    return(
+    <div className={classes.leftContainer}>
+    <Tabs
+        value={tab}
+        indicatorColor="primary"
+        textColor="primary"
+        onChange={handleChange}
+        aria-label="message-type-tab"
+    >
+        <Tab className={classes.tabs} label={t('messaging.patients')} />
+        <Tab className={classes.tabs} label={t('messaging.discussions')} />
+    </Tabs>
+
+    {tab === 0 ?
+        <div className={classes.header}>
+            <SearchBar kind={"patient"} handleChange={handlePatientSearch} placeholder={t("messaging.search")} />
+        </div> :
+        <div className={classes.header}>
+            <SearchBar kind={"discussion"} handleChange={handleSearch} placeholder={t("messaging.search")} />
+
+        </div>}
+    <div className={classes.channelList}>
+        {tab === 0 ? <Channels private channels={coordinatorChannels} /> : <Channels channels={publicChannels} />}
+    </div>
+    {tab === 1 && <AddTopic />}
+</div>)
+})
 
 
 const Channels = observer((props) => {

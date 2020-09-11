@@ -4,9 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Colors from '../Basics/Colors';
 import { observer } from 'mobx-react';
 import useStores from '../Basics/UseStores';
-import OverTopBar from '../Patient/Navigation/OverTopBar';
 import MessageInput from './MessageInput';
-import ScrollRef from '../Basics/ScrollRef'
 import Message from './Message';
 import { DateTime } from 'luxon';
 import IconButton from '@material-ui/core/IconButton'
