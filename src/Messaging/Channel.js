@@ -1,4 +1,4 @@
-import React,{useRef,useEffect,useState} from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Colors from '../Basics/Colors';
@@ -67,27 +67,27 @@ const useStyles = makeStyles({
 function useOnScreen(ref, rootMargin = '0px') {
     // State and setter for storing whether element is visible
     const [isIntersecting, setIntersecting] = useState(false);
-  
+
     useEffect(() => {
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          // Update our state when observer callback fires
-          setIntersecting(entry.isIntersecting);
-        },
-        {
-          rootMargin
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                // Update our state when observer callback fires
+                setIntersecting(entry.isIntersecting);
+            },
+            {
+                rootMargin
+            }
+        );
+        if (ref.current) {
+            observer.observe(ref.current);
         }
-      );
-      if (ref.current) {
-        observer.observe(ref.current);
-      }
-      return () => {
-        observer.unobserve(ref.current);
-      };
+        return () => {
+            observer.unobserve(ref.current);
+        };
     }, []); // Empty array ensures that effect is only run on mount and unmount
-  
+
     return isIntersecting;
-  }
+}
 
 const ImagePreview = observer((props) => {
     const { messagingStore } = useStores();
@@ -111,14 +111,37 @@ const Channel = observer((props) => {
     const { messagingStore } = useStores();
     const { t, i18n } = useTranslation('translation');
 
+
+    return (
+        <div className={classes.combined}>
+            <MessageList selectedChannel={props.selectedChannel} userID={props.userID} />
+            <div className={classes.inputContainer}>
+                <MessageInput value={messagingStore.newMessage}
+                    setValue={(value) => { messagingStore.newMessage = value }}
+                    disableSend={messagingStore.newMessage === "" && messagingStore.file === ""}
+                    handleSend={messagingStore.uploadFileAndSendMessage}
+                />
+            </div>
+        </div>
+    )
+});
+
+const MessageList = observer((props) => {
+
+    console.log('message list render')
+
+    const classes = useStyles();
+    const { messagingStore } = useStores();
+    const { t, i18n } = useTranslation('translation');
+
     const messagesEndRef = useRef(null)
-    const onScreen = useOnScreen(messagesEndRef,"10%")
+    const onScreen = useOnScreen(messagesEndRef, "10%")
 
     const scrollToBottom = () => {
-    if(!onScreen){
-        messagesEndRef.current.scrollIntoView() 
-    }
-     
+        if (!onScreen) {
+            messagesEndRef.current.scrollIntoView()
+        }
+
     }
 
     let messages = [];
@@ -126,7 +149,6 @@ const Channel = observer((props) => {
     if (props.selectedChannel.messages &&
         props.selectedChannel.messages.length > 0) {
         let date = ""
-
         messages = messagingStore.selectedChannelMessages.map((message, index) => {
 
             let isNewDate = false;
@@ -151,21 +173,12 @@ const Channel = observer((props) => {
 
     useEffect(scrollToBottom, [messages]);
 
-    return (
-            <div className={classes.combined}>
-                <div className={classes.messageList}>
-                    {messages}
-                    <div ref={messagesEndRef} />
-                </div>
-                <div className={classes.inputContainer}>
-                    <MessageInput value={messagingStore.newMessage}
-                        setValue={(value) => { messagingStore.newMessage = value }}
-                        disableSend={messagingStore.newMessage === "" && messagingStore.file === ""}
-                        handleSend={messagingStore.uploadFileAndSendMessage}
-                    />
-                </div>
-            </div>
+    return(
+    <div className={classes.messageList}>
+        {messages}
+        <div ref={messagesEndRef} />
+    </div>
     )
-});
+})
 
 export default Channel;
