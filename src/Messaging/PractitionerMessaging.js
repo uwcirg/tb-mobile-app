@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Paper from '@material-ui/core/Paper'
 import ChevronRight from '@material-ui/icons/ChevronRight'
 import WarningIcon from '@material-ui/icons/Warning';
-import Channel from './PractitionerChannel';
+import Channel from './Channel';
 import ChannelPreview from './ChannelPreview'
 import { DateTime } from 'luxon'
 import useStores from '../Basics/UseStores';
@@ -75,6 +75,10 @@ const useStyles = makeStyles({
     },
     sideBar: {
         width: "300px"
+    },
+    newContainer:{
+        width: "100%",
+        height: "100vh"
     }
 
 });
@@ -98,6 +102,12 @@ const Messaging = observer(() => {
     useEffect(() => {
         messagingStore.getChannels();
     }, [])
+
+    useEffect(() => {
+        messagingStore.selectedChannel.id = uiStore.pathNumber;
+        messagingStore.getSelectedChannel()
+
+    }, [uiStore.pathNumber])
 
     const handleBackFromChannel = () => {
         uiStore.goToMessaging();
@@ -150,13 +160,15 @@ const Messaging = observer(() => {
                 {tab === 0 && <AddTopic />}
             </div>
             <div className={classes.channelContainer}>
-                {uiStore.onSpecificChannel ?
+                {uiStore.onSpecificChannel && messagingStore.selectedChannel.id !== "" ?
+                <div className={classes.newContainer}>
                     <Channel
                         coordinatorView
                         userID={practitionerStore.userID}
-                        selectedChannel={uiStore.pathNumber}
+                        selectedChannel={messagingStore.selectedChannel}
                         handleBack={handleBackFromChannel}
-                    /> : <div className={classes.selectChannel}><h1> {t('messaging.selectChannel')}</h1></div>
+                    /> 
+                    </div> : <div className={classes.selectChannel}><h1> {t('messaging.selectChannel')}</h1></div>
                 }
             </div>
             <div className={classes.sideBar} />

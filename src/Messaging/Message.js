@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Colors from '../Basics/Colors'
 import { makeStyles } from '@material-ui/core/styles';
 import { DateTime } from 'luxon';
@@ -72,8 +72,9 @@ const useStyles = makeStyles({
         marginTop: ".5em"
     },
     messageImage:{
-        width: "100%",
-        maxHeight: "200px",
+        height: props => props.imageLoaded? "unset" : "300px",
+        maxWidth: "100%",
+        maxHeight: "300px",
         objectFit: "contain"
     }
 
@@ -81,7 +82,8 @@ const useStyles = makeStyles({
 
 const Message = (props) => {
 
-    const classes = useStyles({ isUser: props.isUser });
+    const [imageLoaded,setImageLoaded] = useState(false)
+    const classes = useStyles({ isUser: props.isUser, imageLoaded: imageLoaded });
 
     const processTime = (time) => {
         return (DateTime.fromISO(time).toLocaleString(DateTime.TIME_24_SIMPLE))
@@ -90,7 +92,7 @@ const Message = (props) => {
     return (<div className={classes.messageContainer}>
 
         <div key={props.message.id} className={`${classes.message} ${props.isUser ? classes.myMessage : classes.otherMessage}`}>
-            {props.message.photoUrl && <img className={classes.messageImage} src={props.message.photoUrl} />}
+            {props.message.photoUrl && <img onLoad={()=>{setImageLoaded(true)}} className={classes.messageImage} src={props.message.photoUrl} />}
             {props.message.body}
             <span className={classes.time}>{processTime(props.message.createdAt)}</span>
         </div>

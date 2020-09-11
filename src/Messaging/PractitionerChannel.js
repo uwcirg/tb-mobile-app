@@ -85,8 +85,8 @@ const Channel = observer((props) => {
             <div className={classes.input}>
                 <MessageInput value={messagingStore.newMessage}
                     setValue={(value) => { messagingStore.newMessage = value }}
-                    disableSend={messagingStore.newMessage == ""}
-                    handleSend={messagingStore.sendMessage} />
+                    disableSend={messagingStore.newMessage == "" && messagingStore.file === ""}
+                    handleSend={messagingStore.uploadFileAndSendMessage} />
             </div>
         </div>
     )
