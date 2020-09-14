@@ -2,13 +2,18 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../Basics/UseStores';
 import {observer} from 'mobx-react'
-import PatientPicture from '../Basics/PatientIcon'
 import Profile from '../Practitioner/Shared/PatientProfile';
 
 const useStyles = makeStyles({
   container:{
+      height: "100%",
+      width: "100%",
+      alignItems: "center",
       display: "flex",
-      flexDirection: "column"
+      flexDirection: "column",
+      "& > div":{
+          marginTop: "4em"
+      }
   }
 })
 
@@ -20,7 +25,7 @@ const PatientMessageSidebar = observer(() => {
     const id = messagingStore.coordinatorSelectedChannel && messagingStore.coordinatorSelectedChannel.userId
 
     return(<div className={classes.container}>
-        {id && <Profile id={id} />}
+        {id != 0 ? <Profile id={id} /> : <p> Loading</p>}
     </div>)
 
 })

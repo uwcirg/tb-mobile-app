@@ -45,7 +45,8 @@ export class MessagingStore {
     @observable showImagePreview = false;
 
     @observable coordinatorSelectedChannel = {
-        title: ""
+        title: "",
+        userId: 0
     }
 
     @computed

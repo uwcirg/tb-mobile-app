@@ -78,7 +78,7 @@ const useStyles = makeStyles({
         alignItems: "center"
     },
     sideBar: {
-        width: "300px"
+        flexGrow: 1
     }
 
 });
@@ -194,7 +194,7 @@ const ChannelNavigation = observer((props) => {
 
 const Channels = observer((props) => {
     const classes = useStyles();
-    const { messagingStore, uiStore, practitionerStore } = useStores();
+    const { messagingStore, uiStore, practitionerStore, practitionerUIStore } = useStores();
 
     let channels = "";
     if (props.channels.length > 0) {
@@ -209,7 +209,7 @@ const Channels = observer((props) => {
                 time={DateTime.fromISO(channel.lastMessageTime).toLocaleString(DateTime.DATETIME_24_SIMPLE)}
                 unread={messagingStore.unreadInfo[channel.id] ? messagingStore.unreadInfo[channel.id].unreadMessages : 0}
                 onClick={() => { 
-                    uiStore.goToSpecificChannel(channel.id)
+                    practitionerUIStore.goToChannel(channel.id)
                 }}
             />
         })

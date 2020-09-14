@@ -50,6 +50,7 @@ export default class PractitionerUIStore {
 
     @action goToChannel = (id) => {
         this.router.push(`/messaging/channel/${id}`)
+        localStorage.setItem('lastChannelID',id)
     }
 
     @action openAddPatientNote = () => {

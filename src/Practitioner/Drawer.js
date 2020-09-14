@@ -15,6 +15,7 @@ import Settings from '@material-ui/icons/Settings'
 import MessagingIcon from '@material-ui/icons/QuestionAnswer';
 import Colors from "../Basics/Colors";
 import LabIcon from '@material-ui/icons/FormatListNumbered'
+import Badge from '@material-ui/core/Badge'
 
 const drawerWidth = 200;
 
@@ -34,6 +35,10 @@ const useStyles = makeStyles({
     justifyContent: "flex-start",
     flexDirection: "column",
     "& > div > div > svg": {
+      fontSize: "3em",
+      color: "black"
+    },
+    "& > div > div > span > svg": {
       fontSize: "3em",
       color: "black"
     },
@@ -58,7 +63,7 @@ const useStyles = makeStyles({
 
 const PractitionerDrawer = observer(() => {
   const classes = useStyles();
-  const { routingStore, uiStore, practitionerStore,practitionerUIStore } = useStores();
+  const { routingStore, uiStore, practitionerStore,practitionerUIStore,messagingStore } = useStores();
   const { location, push, goBack } = routingStore;
 
   const handleLogout = () => {
@@ -79,7 +84,11 @@ const PractitionerDrawer = observer(() => {
         </ListItem>
 
         <ListItem button className={practitionerUIStore.tabNumber === 2 ? classes.selected : ""} key={"Messaging"} onClick={() => { push('/messaging') }}>
-          <ListItemIcon><MessagingIcon /></ListItemIcon>
+          <ListItemIcon>
+            <Badge color="primary" badgeContent={messagingStore.numberUnread}>
+            <MessagingIcon />
+            </Badge>
+            </ListItemIcon>
         </ListItem>
 
         <ListItem button className={practitionerUIStore.tabNumber === 3 ? classes.selected : ""} key={"Settings"} onClick={() => { push('/settings') }}>
