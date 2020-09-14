@@ -27,7 +27,10 @@ const useStyles = makeStyles({
         height: "300px",
         width: "100%",
         padding: "1em",
-        boxSizing: "border-box"
+        boxSizing: "border-box",
+        "& > div":{
+            marginTop: "1em"
+        }
     },
     title: {
         alignSelf: "flex-start",
@@ -63,7 +66,7 @@ const AddDiscussion = () => {
     return (<div className={classes.base}>
         <h2 className={classes.title}>Add New Discussion</h2>
         <TextField fullWidth variant="outlined" label="Discussion Title" placeholder="hello"></TextField>
-        <TextField placeholder="title"></TextField>
+        <TextField multiline rows={2} fullWidth variant="outlined" placeholder="Description"></TextField>
 
 
 

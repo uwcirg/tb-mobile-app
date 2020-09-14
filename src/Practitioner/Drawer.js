@@ -1,6 +1,5 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -8,14 +7,14 @@ import HomeIcon from '@material-ui/icons/Home';
 import { observer } from 'mobx-react';
 import useStores from '../Basics/UseStores';
 import PatientsIcon from '@material-ui/icons/SupervisorAccount';
-import CameraIcon from '@material-ui/icons/CameraAlt'
 import IconButton from '@material-ui/core/IconButton';
 import LogOut from '@material-ui/icons/ExitToApp';
 import Settings from '@material-ui/icons/Settings'
 import MessagingIcon from '@material-ui/icons/QuestionAnswer';
 import Colors from "../Basics/Colors";
-import LabIcon from '@material-ui/icons/FormatListNumbered'
 import Badge from '@material-ui/core/Badge'
+import Tooltip from '@material-ui/core/Tooltip'
+import { useTranslation } from 'react-i18next';
 
 const drawerWidth = 200;
 
@@ -51,10 +50,11 @@ const useStyles = makeStyles({
   },
   settingsIcon: {
     width: "100%",
-    margin: "auto"
+    margin: "auto",
+    borderRadius: 0
   },
   selected: {
-    "& > div > svg": {
+    "& > div > svg, & > div > span > svg": {
       fill: Colors.buttonBlue
     },
 
@@ -65,6 +65,7 @@ const PractitionerDrawer = observer(() => {
   const classes = useStyles();
   const { routingStore, uiStore, practitionerStore,practitionerUIStore,messagingStore } = useStores();
   const { location, push, goBack } = routingStore;
+  const { t, i18n } = useTranslation('translation');
 
   const handleLogout = () => {
     practitionerStore.logout()
@@ -94,14 +95,12 @@ const PractitionerDrawer = observer(() => {
         <ListItem button className={practitionerUIStore.tabNumber === 3 ? classes.selected : ""} key={"Settings"} onClick={() => { push('/settings') }}>
           <ListItemIcon><Settings /></ListItemIcon>
         </ListItem>
-        {/*
-        <ListItem button className={practitionerUIStore.tabNumber === 3 ? classes.selected : ""} key={"Settings"} onClick={() => { push('/review') }}>
-          <ListItemIcon><LabIcon /></ListItemIcon>
-        </ListItem>
-        */}
       </List>
       <div className={classes.bottomButtons}>
+      <Tooltip title={t('patient.profile.logout')}>
+
         <IconButton onClick={handleLogout} className={classes.settingsIcon}><LogOut /></IconButton>
+        </Tooltip>
       </div>
     </div>
     </>

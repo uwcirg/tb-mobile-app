@@ -11,7 +11,7 @@ import PatientProfile from './PatientProfile/'
 import Review from './Review';
 
 const PractitionerBody = observer(() => {
-    const { practitionerStore, routingStore, practitionerUIStore } = useStores();
+    const { practitionerStore, routingStore, practitionerUIStore,messagingStore } = useStores();
     const { location, push, goBack } = routingStore;
     const { t, i18n } = useTranslation('translation');
 
@@ -19,6 +19,10 @@ const PractitionerBody = observer(() => {
     const handlePatientClick = (id) => {
         push(`/patients/${id}`)
     }
+
+    useEffect(()=>{
+        messagingStore.getUnreadMessages();
+    },[])
 
     let view = <Home />
 
