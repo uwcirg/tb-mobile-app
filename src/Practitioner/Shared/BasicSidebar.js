@@ -174,11 +174,6 @@ const PatientPreview = observer((props) => {
                 </div>
             </div>
 
-            {/*
-                <IconButton onClick={() => { practitionerUIStore.goToPatient(practitionerStore.getSelectedPatient.id) }}> <PersonButton />{t("coordinator.profile")}</IconButton>
-                <IconButton onClick={() => { practitionerUIStore.goToChannel(practitionerStore.getSelectedPatient.channelId) }}><ChatIcon />{t("coordinator.message")}</IconButton>
-                */}
-
             <div className={classes.patientInfo}>
                 <ProfileItem text={t("coordinator.adherence")} value={practitionerStore.getSelectedPatient.adherence} />
                 <ProfileItem text={t("coordinator.daysInTreatment")} value={practitionerStore.getSelectedPatient.daysInTreatment} />

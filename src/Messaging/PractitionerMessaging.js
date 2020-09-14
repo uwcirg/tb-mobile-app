@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Paper from '@material-ui/core/Paper'
-import ChevronRight from '@material-ui/icons/ChevronRight'
-import WarningIcon from '@material-ui/icons/Warning';
 import Channel from './Channel';
 import ChannelPreview from './ChannelPreview'
 import { DateTime } from 'luxon'
@@ -24,8 +21,11 @@ const useStyles = makeStyles({
         display: "flex",
         flexDirection: "column",
         width: "300px",
+        overflowX: "hidden",
         backgroundColor: "white",
         height: "100vh",
+        borderRight: "solid 1px lightgray",
+        borderLeft: "solid 1px lightgray"
     },
     channelList: {
         flexGrow: 1,
@@ -55,7 +55,8 @@ const useStyles = makeStyles({
     },
     channelContainer: {
         width: "40%",
-        height: "100vh",
+        maxWidth:"40%",
+        height: "100vh"
     },
     tabs: {
         minWidth: "50px",
@@ -75,10 +76,6 @@ const useStyles = makeStyles({
     },
     sideBar: {
         width: "300px"
-    },
-    newContainer: {
-        width: "100%",
-        height: "100vh"
     }
 
 });
@@ -117,17 +114,21 @@ const Messaging = observer(() => {
             <ChannelNavigation />
             <div className={classes.channelContainer}>
                 {uiStore.onSpecificChannel && messagingStore.selectedChannel.id !== "" ?
-                    <div className={classes.newContainer}>
                         <Channel
                             coordinatorView
                             userID={practitionerStore.userID}
                             selectedChannel={messagingStore.selectedChannel}
                             handleBack={handleBackFromChannel}
                         />
-                    </div> : <div className={classes.selectChannel}><h1> {t('messaging.selectChannel')}</h1></div>
+                  : <div className={classes.selectChannel}><h1> {t('messaging.selectChannel')}</h1></div>
                 }
             </div>
-            <div className={classes.sideBar} />
+            <div className={classes.sideBar}>
+                Sidbar Contnet herer
+                <p>SideBar</p>
+                <p>Content</p>
+                <p>Here</p>
+                </div>
         </div>
 
     )

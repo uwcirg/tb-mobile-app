@@ -10,14 +10,6 @@ const useStyles = makeStyles({
         display: "flex",
         flexDirection: "column"
     },
-    timestamp: {
-        position: "absolute",
-        bottom: 0,
-        color: "gray",
-        fontSize: ".6em",
-        bottom: "-20px",
-        width: "50vw"
-    },
     message: {
         padding: ".7em",
         maxWidth: "75%",

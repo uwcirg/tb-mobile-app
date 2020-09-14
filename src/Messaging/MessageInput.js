@@ -14,8 +14,9 @@ const useStyles = makeStyles({
     container: {
         display: "flex",
         flexDirection: "column",
-        boxShadow: "5px 0px 5px 0px rgba(0, 0, 0, 0.2)",
+        boxShadow: "0px 2px 5px 0px rgba(0, 0, 0, 0.2)",
         backgroundColor: "white",
+        height: "100%",
     },
     base: {
         display: "flex",
@@ -24,7 +25,6 @@ const useStyles = makeStyles({
         justifyContent: "flex-start",
         alignContent: "center",
         alignItems: "center",
-        padding: ".5em 1em .5em 1em",
         "& > *::-webkit-scrollbar": {
             display: "none"
         },

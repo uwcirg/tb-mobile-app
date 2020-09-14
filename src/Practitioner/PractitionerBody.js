@@ -42,5 +42,6 @@ const PractitionerBody = observer(() => {
 
 const Body = styled.div`
 width: 100%;
+overflow-x: hidden;
 `
 export default PractitionerBody;
