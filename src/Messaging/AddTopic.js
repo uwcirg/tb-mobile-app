@@ -7,6 +7,8 @@ import Collapse from '@material-ui/core/Collapse'
 import { Button } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import { useTranslation } from 'react-i18next';
+import {observer} from 'mobx-react'
+import useStores from '../Basics/UseStores'
 
 
 const useStyles = makeStyles({
@@ -28,7 +30,7 @@ const useStyles = makeStyles({
         width: "100%",
         padding: "1em",
         boxSizing: "border-box",
-        "& > div":{
+        "& > div": {
             marginTop: "1em"
         }
     },
@@ -37,42 +39,65 @@ const useStyles = makeStyles({
         fontSize: "1.25em",
         fontWeight: "normal",
     },
-    addTopic:{
+    addTopic: {
+    },
+    cancel: {
+        color: Colors.red
+    },
+    create: {
+        color: Colors.green
     }
 })
 
-const AddTopic = () => {
+const AddTopic = observer(() => {
 
     const [add, setAdd] = useState(false);
-
     const classes = useStyles();
+    const { t, i18n } = useTranslation('translation');
+    const {messagingStore} = useStores();
 
     return (<div className={classes.addTopic}>
         <Collapse in={add}><AddDiscussion /></Collapse>
-        <div className={classes.main}>{!add ? <>Add Discussion Topic <Fab size="small" style={{ backgroundColor: Colors.buttonBlue, boxShadow: "none" }} onClick={() => { setAdd(true) }}><PlusIcon style={{ color: "white" }} /></Fab></> :
-            <><Button onClick={() => { setAdd(false) }}>Cancel</Button>
-                <Button>Submit</Button>
+        <div className={classes.main}>{!add ? <>{t("messaging.creation.fab")} <Fab size="small" style={{ backgroundColor: Colors.buttonBlue, boxShadow: "none" }} onClick={() => { setAdd(true) }}><PlusIcon style={{ color: "white" }} /></Fab></> :
+            <>
+                <Button className={classes.cancel} onClick={() => { setAdd(false) }}>{t("messaging.creation.cancel")}</Button>
+                <Button onClick={messagingStore.submitNewChannel} className={classes.create}>{t("messaging.creation.create")}</Button>
             </>
         }</div>
     </div>)
 
-}
+})
 
-const AddDiscussion = () => {
+const AddDiscussion = observer(() => {
 
     const { t, i18n } = useTranslation('translation');
     const classes = useStyles();
+    const {newChannel, updateNewTitle,updateNewSubtitle} = useStores().messagingStore;
 
     return (<div className={classes.base}>
-        <h2 className={classes.title}>Add New Discussion</h2>
-        <TextField fullWidth variant="outlined" label="Discussion Title" placeholder="hello"></TextField>
-        <TextField multiline rows={2} fullWidth variant="outlined" placeholder="Description"></TextField>
+        <h2 className={classes.title}>{t("messaging.creation.header")}</h2>
+        <TextField
+            value={newChannel.title}
+            onChange={(e)=>{updateNewTitle(e.target.value)}}
+            fullWidth
+            variant="outlined"
+            label={t("messaging.creation.title")}
+            placeholder={t("messaging.creation.title")} />
+        <TextField
+            value={newChannel.subtitle}
+            onChange={(e)=>{updateNewSubtitle(e.target.value)}}
+            multiline
+            rows={2}
+            fullWidth
+            variant="outlined"
+            label={t("messaging.creation.description")}
+            placeholder={t("messaging.creation.description")} />
 
 
 
     </div>)
 
-}
+})
 
 
 export default AddTopic;

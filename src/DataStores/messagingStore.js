@@ -3,7 +3,8 @@ import uploadPhoto from '../Basics/PhotoUploader';
 
 const ROUTES = {
     getChannels: ["/channels", "GET"],
-    getUnreadMessages: ["/unread_messages", "GET"]
+    getUnreadMessages: ["/unread_messages", "GET"],
+    postNewChannel: ["/channels", "POST"]
 }
 
 export class MessagingStore {
@@ -47,6 +48,12 @@ export class MessagingStore {
     @observable coordinatorSelectedChannel = {
         title: "",
         userId: 0
+    }
+
+    @observable newChannel = {
+        title: "",
+        subtitle: "",
+        errors: {}
     }
 
     @computed
@@ -172,6 +179,21 @@ export class MessagingStore {
 
     @action updateSelectedChannel = () => {
         this.coordinatorSelectedChannel = this.channels.find( element => { return element.id == this.selectedChannel.id})
+    }
+
+    @action updateNewSubtitle = (value) => {
+        this.newChannel.subtitle = value;
+    }
+
+    @action updateNewTitle = (value) => {
+        this.newChannel.title = value;
+    }
+
+    submitNewChannel = () => {
+        const body = this.newChannel;
+        this.strategy.executeRequest(ROUTES, "postNewChannel",body).then((response) => {
+            
+        })
     }
 
 

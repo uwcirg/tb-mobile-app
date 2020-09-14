@@ -39,6 +39,14 @@
         "activate": "Activate"
     },
     "messaging": {
+        "creation":{
+            "fab": "Add New Discussion",
+            "header": "Add a new discussion topic",
+            "create": "Create",
+            "cancel": "Cancel",
+            "title": "Discussion Title",
+            "description": "Description"
+        },
         "typeHere": "Type message here",
         "begining": "Begining Of Chat",
         "selectChannel": "Select a Patient or Discussion To Get Started",
