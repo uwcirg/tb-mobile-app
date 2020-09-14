@@ -5,8 +5,7 @@ import { DateTime } from 'luxon'
 import useStores from '../Basics/UseStores';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import { observer, autorun } from 'mobx-react';
-import OverTopBar from '../Patient/Navigation/OverTopBar';
+import { observer } from 'mobx-react';
 import SearchBar from '../Basics/SearchBar';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
@@ -21,7 +20,7 @@ const useStyles = makeStyles({
     leftContainer: {
         display: "flex",
         flexDirection: "column",
-        width: "300px",
+        width: "320px",
         overflowX: "hidden",
         backgroundColor: "white",
         height: "100vh",
@@ -57,7 +56,7 @@ const useStyles = makeStyles({
     },
     channelContainer: {
         minWidth: "50%",
-        maxWidth:"50% !important",
+        maxWidth: "50% !important",
         height: "100vh",
         borderRight: "1px solid lightgray"
     },
@@ -112,12 +111,12 @@ const Messaging = observer(() => {
             <ChannelNavigation />
             <div className={classes.channelContainer}>
                 {messagingStore.selectedChannel.id !== "" ?
-                        <Channel
-                            coordinatorView
-                            userID={practitionerStore.userID}
-                            selectedChannel={messagingStore.selectedChannel}
-                        />
-                  : <div className={classes.selectChannel}><h1> {t('messaging.selectChannel')}</h1></div>
+                    <Channel
+                        coordinatorView
+                        userID={practitionerStore.userID}
+                        selectedChannel={messagingStore.selectedChannel}
+                    />
+                    : <div className={classes.selectChannel}><h1> {t('messaging.selectChannel')}</h1></div>
                 }
             </div>
             <div className={classes.sideBar}>
@@ -132,7 +131,6 @@ const Messaging = observer(() => {
 const ChannelNavigation = observer((props) => {
     const classes = useStyles();
     const { messagingStore } = useStores();
-
     const { t, i18n } = useTranslation('translation');
     const [search, setSearch] = useState("");
     const [patientSearch, setPatientSearch] = useState("");
@@ -179,9 +177,10 @@ const ChannelNavigation = observer((props) => {
 
                 </div>}
             <div className={classes.channelList}>
-                {tab === 0 ? <Channels private channels={coordinatorChannels} /> : <Channels channels={publicChannels} />}
+
+                        {tab === 0 ? <Channels private channels={coordinatorChannels} /> : <Channels channels={publicChannels} />}
             </div>
-            {tab === 1 && <AddTopic />}
+            {tab === 0 && <AddTopic />}
         </div>)
 })
 
@@ -195,6 +194,7 @@ const Channels = observer((props) => {
         channels = props.channels.map((channel) => {
             const title = (channel.isPrivate && practitionerStore.getPatient(channel.userId)) ? practitionerStore.getPatient(channel.userId).fullName : channel.title
             return <ChannelPreview
+                coordinator
                 selected={uiStore.pathNumber === channel.id}
                 private={props.private}
                 key={`channel${channel.id}`}
@@ -202,7 +202,7 @@ const Channels = observer((props) => {
                 subtitle={channel.subtitle}
                 time={DateTime.fromISO(channel.lastMessageTime).toLocaleString(DateTime.DATETIME_24_SIMPLE)}
                 unread={messagingStore.unreadInfo[channel.id] ? messagingStore.unreadInfo[channel.id].unreadMessages : 0}
-                onClick={() => { 
+                onClick={() => {
                     practitionerUIStore.goToChannel(channel.id)
                 }}
             />

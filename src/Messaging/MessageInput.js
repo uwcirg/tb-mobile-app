@@ -9,6 +9,7 @@ import Colors from '../Basics/Colors'
 import Photo from '@material-ui/icons/PhotoLibrary';
 import Clear from '@material-ui/icons/Clear'
 import ButtonBase from '@material-ui/core/ButtonBase'
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
     container: {
@@ -87,6 +88,9 @@ export const toBase64 = file => new Promise((resolve, reject) => {
 
 const MessageInput = observer((props) => {
 
+   
+    const { t, i18n } = useTranslation('translation');
+
     const [preview, setPreview] = useState(false);
 
     const classes = useStyles();
@@ -128,7 +132,7 @@ const MessageInput = observer((props) => {
                     <InputBase
                         value={props.value}
                         className={classes.input}
-                        placeholder="Type message here"
+                        placeholder={t('messaging.typeHere')}
                         inputProps={{ 'aria-label': 'message input' }}
                         multiline
                         onChange={handleChange}

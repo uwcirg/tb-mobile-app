@@ -39,6 +39,7 @@
         "activate": "Activate"
     },
     "messaging": {
+        "typeHere": "Type message here",
         "begining": "Begining Of Chat",
         "selectChannel": "Select a Patient or Discussion To Get Started",
         "nurseContact": "Need individual support? Contact your provider!",
