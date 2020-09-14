@@ -44,6 +44,10 @@ export class MessagingStore {
 
     @observable showImagePreview = false;
 
+    @observable coordinatorSelectedChannel = {
+        title: ""
+    }
+
     @computed
     get lastMessageFetched() {
         if (this.selectedChannel.messages && this.selectedChannel.messages.length < 1) {
@@ -85,6 +89,7 @@ export class MessagingStore {
         this.strategy.executeRawRequest(url, "GET").then((response) => {
             this.selectedChannel.messages = response;
             this.getUnreadMessages();
+            this.updateSelectedChannel();
         })
     }
 
@@ -162,6 +167,10 @@ export class MessagingStore {
 
     @action toggleImagePreview = () => {
         this.showImagePreview = !this.showImagePreview;
+    }
+
+    @action updateSelectedChannel = () => {
+        this.coordinatorSelectedChannel = this.channels.find( element => { return element.id == this.selectedChannel.id})
     }
 
 

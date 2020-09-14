@@ -12,6 +12,7 @@ import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import Styles from '../Basics/Styles';
 import AddTopic from './AddTopic';
+import Sidebar from './Sidebar'
 
 const useStyles = makeStyles({
     superContainer: {
@@ -33,7 +34,8 @@ const useStyles = makeStyles({
         overflowY: "scroll",
         overflowX: "hidden",
         "& > h2": {
-            fontSize: "1.25em"
+            fontSize: "1.25em",
+            textAlign: "center"
         },
     },
     header: {
@@ -54,9 +56,10 @@ const useStyles = makeStyles({
         textAlign: "center"
     },
     channelContainer: {
-        width: "40%",
-        maxWidth:"40%",
-        height: "100vh"
+        minWidth: "50%",
+        maxWidth:"50% !important",
+        height: "100vh",
+        borderRight: "1px solid lightgray"
     },
     tabs: {
         minWidth: "50px",
@@ -124,11 +127,8 @@ const Messaging = observer(() => {
                 }
             </div>
             <div className={classes.sideBar}>
-                Sidbar Contnet herer
-                <p>SideBar</p>
-                <p>Content</p>
-                <p>Here</p>
-                </div>
+                <Sidebar />
+            </div>
         </div>
 
     )
@@ -208,7 +208,9 @@ const Channels = observer((props) => {
                 subtitle={channel.subtitle}
                 time={DateTime.fromISO(channel.lastMessageTime).toLocaleString(DateTime.DATETIME_24_SIMPLE)}
                 unread={messagingStore.unreadInfo[channel.id] ? messagingStore.unreadInfo[channel.id].unreadMessages : 0}
-                onClick={() => { uiStore.goToSpecificChannel(channel.id) }}
+                onClick={() => { 
+                    uiStore.goToSpecificChannel(channel.id)
+                }}
             />
         })
     } else {

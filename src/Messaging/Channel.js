@@ -36,7 +36,7 @@ const useStyles = makeStyles({
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        overflowX: "hidden"
+        overflow: "hidden"
     },
     imagePopover: {
         position: "fixed",
@@ -150,8 +150,8 @@ const MessageList = observer((props) => {
 
             let isNewDate = false;
             const isUser = props.userID === message.userId;
-            const previousMessage = messagingStore.selectedChannelMessages[index - 1]
-            const nextMessage = messagingStore.selectedChannelMessages[index + 1]
+            const previousMessage = index > 0 && messagingStore.selectedChannelMessages[index - 1]
+            const nextMessage = messagingStore.selectedChannelMessages.length > index + 1 && messagingStore.selectedChannelMessages[index + 1]
             const isMiddle = (previousMessage && previousMessage.userId === message.userId && DateTime.fromISO(previousMessage.createdAt).toISODate() === DateTime.fromISO(message.createdAt).toISODate()) && (nextMessage && nextMessage.userId === message.userId && DateTime.fromISO(nextMessage.createdAt).toISODate() === DateTime.fromISO(message.createdAt).toISODate())
 
             if (DateTime.fromISO(message.createdAt).toISODate() !== date) {
