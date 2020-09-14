@@ -83,7 +83,7 @@ const PractitionerDrawer = observer(() => {
           <ListItemIcon><PatientsIcon /></ListItemIcon>
         </ListItem>
 
-        <ListItem button className={practitionerUIStore.tabNumber === 2 ? classes.selected : ""} key={"Messaging"} onClick={() => { push('/messaging') }}>
+        <ListItem button className={practitionerUIStore.tabNumber === 2 ? classes.selected : ""} key={"Messaging"} onClick={practitionerUIStore.goToMessaging}>
           <ListItemIcon>
             <Badge color="primary" badgeContent={messagingStore.numberUnread}>
             <MessagingIcon />

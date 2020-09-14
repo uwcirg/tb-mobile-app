@@ -107,21 +107,15 @@ const Messaging = observer(() => {
 
     }, [uiStore.pathNumber])
 
-    const handleBackFromChannel = () => {
-        uiStore.goToMessaging();
-        messagingStore.clearSelection();
-    }
-
     return (
         <div className={classes.superContainer}>
             <ChannelNavigation />
             <div className={classes.channelContainer}>
-                {uiStore.onSpecificChannel && messagingStore.selectedChannel.id !== "" ?
+                {messagingStore.selectedChannel.id !== "" ?
                         <Channel
                             coordinatorView
                             userID={practitionerStore.userID}
                             selectedChannel={messagingStore.selectedChannel}
-                            handleBack={handleBackFromChannel}
                         />
                   : <div className={classes.selectChannel}><h1> {t('messaging.selectChannel')}</h1></div>
                 }

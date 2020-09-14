@@ -33,6 +33,7 @@ export class UIStore {
     }
 
     @action goToMessaging = () => {
+
         this.router.push("/messaging/")
     }
 
@@ -70,14 +71,14 @@ export class UIStore {
     }
 
     @action toggleLanguage = () => {
-        if(this.locale === "en"){
+        if (this.locale === "en") {
             this.locale = "es-AR"
-        }else{
+        } else {
             this.locale = "en"
         }
     }
 
-    @computed get pathNumber(){
+    @computed get pathNumber() {
         const parts = this.router.location.pathname.split("/");
         const parsed = parseInt(parts[parts.length - 1])
         return parsed ? parsed : 0

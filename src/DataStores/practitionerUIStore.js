@@ -53,6 +53,15 @@ export default class PractitionerUIStore {
         localStorage.setItem('lastChannelID',id)
     }
 
+    @action goToMessaging = () =>{
+        const lastID = localStorage.getItem('lastChannelID')
+
+        if(lastID){
+            this.router.push(`/messaging/channels/${lastID}`)
+            return
+        }
+    }
+
     @action openAddPatientNote = () => {
         this.onAddPatientNote = true;
     }
