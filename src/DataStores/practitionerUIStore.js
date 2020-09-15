@@ -8,6 +8,8 @@ export default class PractitionerUIStore {
         this.router = routerStore;
     }
 
+    @observable alert = "";
+
     @observable onOnboarding = false;
     @observable onAddPatientNote = false;
 

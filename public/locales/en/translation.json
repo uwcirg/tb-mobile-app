@@ -40,6 +40,8 @@
     },
     "messaging": {
         "creation":{
+            "errorInfo": "Title must exist and be less than 50 characters. Subtitle must be less than 100 characters.",
+            "error": "Error Creating New Discussion",
             "fab": "Add New Discussion",
             "header": "Add a new discussion topic",
             "create": "Create",

@@ -9,6 +9,7 @@ import Home from './Home/'
 import Settings from './Settings'
 import PatientProfile from './PatientProfile/'
 import Review from './Review';
+import Alert from '../Basics/Alert'
 
 const PractitionerBody = observer(() => {
     const { practitionerStore, routingStore, practitionerUIStore,messagingStore } = useStores();
@@ -38,9 +39,12 @@ const PractitionerBody = observer(() => {
     if (practitionerUIStore.onReview) view = <Review />
     
     return (
+        <>
         <Body>
             {view}
         </Body>
+        {practitionerUIStore.alert && <Alert onClose={()=>{practitionerUIStore.alert = ""}} text={practitionerUIStore.alert} />}
+        </>
     )
 });
 

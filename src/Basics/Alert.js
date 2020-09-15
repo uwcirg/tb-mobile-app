@@ -9,7 +9,8 @@ function Alert(props) {
 
 const useStyles = makeStyles((theme) => ({
 alert:{
-    marginTop: "1em"
+    marginTop: "1em",
+    textTransform: "capitalize"
 }
 }));
 
@@ -31,7 +32,7 @@ export default function CustomizedSnackbar(props) {
   };
 
   return (
-      <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} className={classes.alert} open={open} autoHideDuration={10000} onClose={handleClose}>
+      <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} className={classes.alert} open={open} autoHideDuration={7000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="error">
           {props.text}
         </Alert>

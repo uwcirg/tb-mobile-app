@@ -53,7 +53,9 @@ export class MessagingStore {
     @observable newChannel = {
         title: "",
         subtitle: "",
-        errors: {}
+        errors: {},
+        success: false,
+        visible: false
     }
 
     @computed
@@ -189,10 +191,29 @@ export class MessagingStore {
         this.newChannel.title = value;
     }
 
-    submitNewChannel = () => {
-        const body = this.newChannel;
-        this.strategy.executeRequest(ROUTES, "postNewChannel",body).then((response) => {
-            
+    @action clearNewChannel = () => {
+        this.newChannel = {
+            title: "",
+            subtitle: "",
+            success: false,
+            errors: {},
+            visible: false
+        }
+    }
+
+    @action submitNewChannel = () => {
+        const body = {
+            title: this.newChannel.title,
+            subtitle: this.newChannel.subtitle
+        }
+        this.strategy.executeRequest(ROUTES, "postNewChannel",body,{allowErrors: true}).then((response) => {
+            if(response.error){
+                this.newChannel.errors = response.paramErrors 
+            }else{
+                this.getChannels();
+                this.success = true;
+                this.clearNewChannel();
+            }
         })
     }
 

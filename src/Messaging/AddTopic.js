@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Colors from '../Basics/Colors'
 import Fab from '@material-ui/core/Fab'
@@ -7,7 +7,7 @@ import Collapse from '@material-ui/core/Collapse'
 import { Button } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import { useTranslation } from 'react-i18next';
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 import useStores from '../Basics/UseStores'
 
 
@@ -46,21 +46,24 @@ const useStyles = makeStyles({
     },
     create: {
         color: Colors.green
+    },
+    errorInfo:{
+        fontSize: ".75em"
     }
 })
 
 const AddTopic = observer(() => {
 
-    const [add, setAdd] = useState(false);
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
-    const {messagingStore} = useStores();
+    const { messagingStore } = useStores();
+    const add = messagingStore.newChannel.visible;
 
     return (<div className={classes.addTopic}>
         <Collapse in={add}><AddDiscussion /></Collapse>
-        <div className={classes.main}>{!add ? <>{t("messaging.creation.fab")} <Fab size="small" style={{ backgroundColor: Colors.buttonBlue, boxShadow: "none" }} onClick={() => { setAdd(true) }}><PlusIcon style={{ color: "white" }} /></Fab></> :
+        <div className={classes.main}>{!add ? <>{t("messaging.creation.fab")} <Fab size="small" style={{ backgroundColor: Colors.buttonBlue, boxShadow: "none" }} onClick={() => {messagingStore.newChannel.visible = true  }}><PlusIcon style={{ color: "white" }} /></Fab></> :
             <>
-                <Button className={classes.cancel} onClick={() => { setAdd(false) }}>{t("messaging.creation.cancel")}</Button>
+                <Button className={classes.cancel} onClick={() => { messagingStore.newChannel.visible = false }}>{t("messaging.creation.cancel")}</Button>
                 <Button onClick={messagingStore.submitNewChannel} className={classes.create}>{t("messaging.creation.create")}</Button>
             </>
         }</div>
@@ -72,26 +75,40 @@ const AddDiscussion = observer(() => {
 
     const { t, i18n } = useTranslation('translation');
     const classes = useStyles();
-    const {newChannel, updateNewTitle,updateNewSubtitle} = useStores().messagingStore;
+    const {practitionerUIStore} = useStores();
+    const { newChannel, updateNewTitle, updateNewSubtitle } = useStores().messagingStore;
+
+    const values = Object.values(newChannel.errors)
+
+    useEffect(() => {
+        if (values.length > 0) {
+           practitionerUIStore.alert = t('messaging.creation.error')
+        }
+
+    }, [newChannel.errors])
 
     return (<div className={classes.base}>
         <h2 className={classes.title}>{t("messaging.creation.header")}</h2>
         <TextField
+            error={newChannel.errors.title}
             value={newChannel.title}
-            onChange={(e)=>{updateNewTitle(e.target.value)}}
+            onChange={(e) => { updateNewTitle(e.target.value) }}
             fullWidth
             variant="outlined"
             label={t("messaging.creation.title")}
             placeholder={t("messaging.creation.title")} />
         <TextField
+            error={newChannel.errors.subtitle}
             value={newChannel.subtitle}
-            onChange={(e)=>{updateNewSubtitle(e.target.value)}}
+            onChange={(e) => { updateNewSubtitle(e.target.value) }}
             multiline
             rows={2}
             fullWidth
             variant="outlined"
             label={t("messaging.creation.description")}
             placeholder={t("messaging.creation.description")} />
+
+    {values.length > 0 && <p className={classes.errorInfo}>{t("messaging.creation.errorInfo")}</p>}
 
 
 
