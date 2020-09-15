@@ -9,9 +9,10 @@ import Home from './Home/'
 import Settings from './Settings'
 import PatientProfile from './PatientProfile/'
 import Review from './Review';
+import Alert from '../Basics/Alert'
 
 const PractitionerBody = observer(() => {
-    const { practitionerStore, routingStore, practitionerUIStore } = useStores();
+    const { practitionerStore, routingStore, practitionerUIStore,messagingStore } = useStores();
     const { location, push, goBack } = routingStore;
     const { t, i18n } = useTranslation('translation');
 
@@ -19,6 +20,10 @@ const PractitionerBody = observer(() => {
     const handlePatientClick = (id) => {
         push(`/patients/${id}`)
     }
+
+    useEffect(()=>{
+        messagingStore.getUnreadMessages();
+    },[])
 
     let view = <Home />
 
@@ -34,13 +39,17 @@ const PractitionerBody = observer(() => {
     if (practitionerUIStore.onReview) view = <Review />
     
     return (
+        <>
         <Body>
             {view}
         </Body>
+        {practitionerUIStore.alert && <Alert onClose={()=>{practitionerUIStore.alert = ""}} text={practitionerUIStore.alert} />}
+        </>
     )
 });
 
 const Body = styled.div`
 width: 100%;
+overflow-x: hidden;
 `
 export default PractitionerBody;

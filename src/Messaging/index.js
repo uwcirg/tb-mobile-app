@@ -33,25 +33,30 @@ const useStyles = makeStyles({
     errorMessage: {
         width: "100%",
         textAlign: "center"
+    },
+    singleChannelContainer: {
+        position: "fixed",
+        top: 0,
+        width: "100vw",
+        height: "100vh",
+        zIndex: "3"
     }
-
 });
 
 const Messaging = observer(() => {
 
-    const { t, i18n } = useTranslation('translation');
-    const { messagingStore, patientStore,uiStore} = useStores();
-
     const classes = useStyles();
+    const { t, i18n } = useTranslation('translation');
+    const { messagingStore, patientStore, uiStore } = useStores();
     const [search, setSearch] = useState("");
 
     useEffect(() => {
         messagingStore.getUnreadMessages();
-    },[])
+    }, [])
 
     const handleBackFromChannel = () => {
-       uiStore.goToMessaging();
-       messagingStore.clearSelection();
+        uiStore.goToMessaging();
+        messagingStore.clearSelection();
     }
 
 
@@ -68,25 +73,29 @@ const Messaging = observer(() => {
 
     return (
         <div className={classes.root}>
-
             {!uiStore.onSpecificChannel ? <div id="intro-messaging">
                 <div id="intro-chat">
-                <h2>{t("userTypes.coordinator")}</h2>
-                <Channels private channels={coordinatorChannel} />
+                    <h2>{t("userTypes.coordinator")}</h2>
+                    <Channels private channels={coordinatorChannel} />
                 </div>
                 <div id="intro-chat-public">
-                <h2>{t("messaging.groupDiscussion")}</h2>
-                <SearchBar handleChange={handleSearch} placeholder={t("messaging.search")} />
-                <Channels channels={publicChannels} />
+                    <h2>{t("messaging.groupDiscussion")}</h2>
+                    <SearchBar handleChange={handleSearch} placeholder={t("messaging.search")} />
+                    <Channels channels={publicChannels} />
                 </div>
             </div>
                 :
-                <Channel
-                    userID={patientStore.id}
-                    selectedChannel={messagingStore.selectedChannel}
-                    isCoordinatorChannel={messagingStore.selectedChannel.isCoordinatorChannel}
-                    handleBack={handleBackFromChannel}
-                    userID={patientStore.userID} />}
+                <>
+                 <OverTopBar handleBack={handleBackFromChannel} title={messagingStore.selectedChannel.isCoordinatorChannel ? t("userTypes.coordinator") : messagingStore.selectedChannel.title} />
+                <div className={classes.singleChannelContainer}>
+                    <Channel
+                        userID={patientStore.id}
+                        selectedChannel={messagingStore.selectedChannel}
+                        handleBack={handleBackFromChannel}
+                        userID={patientStore.userID} />
+                </div>
+                </>
+                }
         </div>
     )
 
@@ -94,7 +103,7 @@ const Messaging = observer(() => {
 
 const Channels = observer((props) => {
     const classes = useStyles();
-    const { messagingStore,uiStore} = useStores();
+    const { messagingStore, uiStore } = useStores();
     const { t, i18n } = useTranslation('translation');
 
     let channels = "";
@@ -109,10 +118,10 @@ const Channels = observer((props) => {
                 time={DateTime.fromISO(channel.lastMessageTime).toLocaleString(DateTime.DATETIME_24_SIMPLE)}
                 unread={messagingStore.unreadInfo[channel.id] ? messagingStore.unreadInfo[channel.id].unreadMessages : 0}
                 onClick={() => {
-                    if(props.private){
-                      messagingStore.selectedChannel.isCoordinatorChannel = true;   
+                    if (props.private) {
+                        messagingStore.selectedChannel.isCoordinatorChannel = true;
                     }
-                    
+
                     messagingStore.selectedChannel.creator = channel.userId
                     messagingStore.selectedChannel.id = channel.id
                     messagingStore.selectedChannel.title = channel.title

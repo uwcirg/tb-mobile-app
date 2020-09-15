@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Colors from '../Basics/Colors'
 import { makeStyles } from '@material-ui/core/styles';
 import { DateTime } from 'luxon';
@@ -10,21 +10,14 @@ const useStyles = makeStyles({
         display: "flex",
         flexDirection: "column"
     },
-    timestamp: {
-        position: "absolute",
-        bottom: 0,
-        color: "gray",
-        fontSize: ".6em",
-        bottom: "-20px",
-        width: "50vw"
-    },
     message: {
         padding: ".7em",
         maxWidth: "75%",
         position: "relative",
         fontSize: ".85em",
         borderRadius: "10px",
-        marginBottom: "2px"
+        marginBottom: "2px",
+        overflowWrap: "break-word"
     },
     myMessage: {
         backgroundColor: Colors.messageBlue,
@@ -40,6 +33,7 @@ const useStyles = makeStyles({
     otherMessage: {
         backgroundColor: Colors.lightgray,
         alignSelf: "flex-start",
+        margin: ".5em 0 .5em 0"
     },
     triangle: {
         position: "absolute",
@@ -66,15 +60,22 @@ const useStyles = makeStyles({
         color: props => props.isUser ? "white" : "black",
         fontSize: ".5em",
         width: "100%",
-        textAlign: props => props.isUser ? "right" : "left",
+        textAlign: "right",
         marginTop: ".5em"
+    },
+    messageImage:{
+        height: props => props.imageLoaded? "unset" : "300px",
+        maxWidth: "100%",
+        maxHeight: "300px",
+        objectFit: "contain"
     }
 
 })
 
 const Message = (props) => {
 
-    const classes = useStyles({isUser: props.isUser});
+    const [imageLoaded,setImageLoaded] = useState(false)
+    const classes = useStyles({ isUser: props.isUser, imageLoaded: imageLoaded });
 
     const processTime = (time) => {
         return (DateTime.fromISO(time).toLocaleString(DateTime.TIME_24_SIMPLE))
@@ -83,16 +84,9 @@ const Message = (props) => {
     return (<div className={classes.messageContainer}>
 
         <div key={props.message.id} className={`${classes.message} ${props.isUser ? classes.myMessage : classes.otherMessage}`}>
-           {/* <div className={props.isUser ? classes.myTriangle : classes.triangle}></div> */}
+            {props.message.photoUrl && <img onLoad={()=>{setImageLoaded(true)}} className={classes.messageImage} src={props.message.photoUrl} />}
             {props.message.body}
-            <span className={classes.time}>{processTime(props.message.created_at)}</span>
-            {/*
-            <div className={`${classes.timestamp} ${props.isUser ? classes.myTimestamp : ""}`}>
-                <p>
-                    <span className={classes.username}>{props.username ? props.username : "user" }</span> at {processTime(props.message.created_at)}
-                </p>
-            </div>
-            */}
+            <span className={classes.time}>{processTime(props.message.createdAt)}</span>
         </div>
 
     </div>)
