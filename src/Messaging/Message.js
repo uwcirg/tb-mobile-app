@@ -84,7 +84,11 @@ const Message = (props) => {
     return (<div className={classes.messageContainer}>
 
         <div key={props.message.id} className={`${classes.message} ${props.isUser ? classes.myMessage : classes.otherMessage}`}>
-            {props.message.photoUrl && <img onLoad={()=>{setImageLoaded(true)}} className={classes.messageImage} src={props.message.photoUrl} />}
+            {props.message.photoUrl && <>
+            <img onLoad={()=>{setImageLoaded(true)}} className={classes.messageImage} src={props.message.photoUrl} />
+            <br />
+            </>
+            }
             {props.message.body}
             <span className={classes.time}>{processTime(props.message.createdAt)}</span>
         </div>

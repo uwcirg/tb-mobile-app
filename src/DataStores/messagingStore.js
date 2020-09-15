@@ -42,6 +42,8 @@ export class MessagingStore {
     @observable file = "";
     @observable rawFile = "";
     @observable fileType = "jpeg";
+    @observable newMessageLoading = false;
+    @observable fileUploading = false;
 
     @observable showImagePreview = false;
 
@@ -126,11 +128,15 @@ export class MessagingStore {
     }
 
     @action uploadFileAndSendMessage = () => {
+        
         if (this.file !== "") {
+            this.fileUploading = true;
             this.getUploadUrl().then(photoRepsonse => {
                 uploadPhoto(photoRepsonse.url, this.rawFile,this.fileType).then(uploadResponse => {
                     this.sendMessage(photoRepsonse.path)
+                    this.fileUploading = false;
                 })
+                
             })
         }else{
             this.sendMessage();
@@ -138,7 +144,7 @@ export class MessagingStore {
     }
 
     @action sendMessage = (photoPath) => {
-
+        this.newMessageLoading = true;
         let object = {
             body: this.newMessage
         }
@@ -151,7 +157,7 @@ export class MessagingStore {
             this.getNewMessages();
             this.newMessage = "";
             this.file = "";
-
+            this.newMessageLoading = false;
         })
     }
 
