@@ -62,6 +62,7 @@ export default class PractitionerUIStore {
             this.router.push(`/messaging/channels/${lastID}`)
             return
         }
+        this.router.push(`/messaging`)
     }
 
     @action openAddPatientNote = () => {
