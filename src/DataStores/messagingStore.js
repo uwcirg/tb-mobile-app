@@ -128,7 +128,7 @@ export class MessagingStore {
     @action uploadFileAndSendMessage = () => {
         if (this.file !== "") {
             this.getUploadUrl().then(photoRepsonse => {
-                uploadPhoto(photoRepsonse.url, this.rawFile).then(uploadResponse => {
+                uploadPhoto(photoRepsonse.url, this.rawFile,this.fileType).then(uploadResponse => {
                     this.sendMessage(photoRepsonse.path)
                 })
             })
@@ -215,6 +215,10 @@ export class MessagingStore {
                 this.clearNewChannel();
             }
         })
+    }
+
+    @action setFileType = (fileType) => {
+        this.fileType = fileType
     }
 
 

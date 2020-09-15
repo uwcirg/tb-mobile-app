@@ -168,7 +168,7 @@ const MessageList = observer((props) => {
         messages.unshift(<p className={classes.dateSeperator}>{t("messaging.begining")}</p>)
     }
 
-    useEffect(scrollToBottom, [messages]);
+    useEffect(scrollToBottom, []);
 
     return(
     <div className={classes.messageList}>

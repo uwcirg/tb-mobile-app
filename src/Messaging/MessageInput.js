@@ -102,7 +102,8 @@ const MessageInput = observer((props) => {
     const handleFileInput = (event) => {
 
         if (event.target.files.length > 0) {
-            messagingStore.fileType = event.target.files[0].name.slice((Math.max(0, event.target.files[0].name.lastIndexOf(".")) || Infinity) + 1);
+            const fileType = event.target.files[0].name.slice((Math.max(0, event.target.files[0].name.lastIndexOf(".")) || Infinity) + 1);
+            messagingStore.setFileType(fileType)
             messagingStore.rawFile = event.target.files[0]
             messagingStore.setFile(URL.createObjectURL(event.target.files[0]))
         }
