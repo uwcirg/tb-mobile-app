@@ -16,7 +16,6 @@ const useStyles = makeStyles({
     container: {
         display: "flex",
         flexDirection: "column",
-
         backgroundColor: "white",
         height: "100%",
         borderTop: "1px solid lightgray"
