@@ -16,7 +16,7 @@ const useStyles = makeStyles({
     container: {
         display: "flex",
         flexDirection: "column",
-        boxShadow: "0px 2px 5px 0px rgba(0, 0, 0, 0.2)",
+
         backgroundColor: "white",
         height: "100%",
         borderTop: "1px solid lightgray"

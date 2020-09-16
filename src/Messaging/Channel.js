@@ -23,7 +23,8 @@ const useStyles = makeStyles({
     },
     inputContainer: {
         width: "100%",
-        flexBasis: props => props.open ? "85px" : "70px"
+        flexBasis: props => props.open ? "85px" : "70px",
+        marginBottom: "1em"
     },
     dateSeperator: {
         width: "100%",
@@ -144,7 +145,6 @@ const MessageList = observer((props) => {
         if(messagingStore.selectedChannelMessages.length > 0){
             scrollToBottom()
         }
-        console.log("use effect scroll to bottom")
     });
 
     let messages = [];
