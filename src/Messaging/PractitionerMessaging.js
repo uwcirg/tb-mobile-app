@@ -112,7 +112,7 @@ const Messaging = observer(() => {
             <div className={classes.channelContainer}>
                 {messagingStore.selectedChannel.id !== "" ?
                     <Channel
-                        coordinatorView
+                        isCoordinator
                         userID={practitionerStore.userID}
                         selectedChannel={messagingStore.selectedChannel}
                     />

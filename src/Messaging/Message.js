@@ -2,20 +2,40 @@ import React, { useState } from 'react'
 import Colors from '../Basics/Colors'
 import { makeStyles } from '@material-ui/core/styles';
 import { DateTime } from 'luxon';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import IconButton from '@material-ui/core/IconButton'
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import ToolTip from '@material-ui/core/Tooltip'
+import useStores from '../Basics/UseStores';
 
 const useStyles = makeStyles({
 
     messageContainer: {
+        flexShrink: 0,
         width: "100%",
         display: "flex",
-        flexDirection: "column"
+        flexDirection: "column",
+        "& > div > .expand": {
+            display: "none"
+        },
+        "&:hover": {
+            "& > div > .expand": {
+                display: "block",
+                position: "absolute",
+                top: 0,
+                right: props => props.isUser ? "unset" : "-1.5em",
+                left: props => props.isUser ? "-1.5em" : "unset",
+            }
+        }
     },
     message: {
+        position: "relative",
         padding: ".7em",
+        paddingBottom: "0",
         maxWidth: "75%",
         position: "relative",
         fontSize: ".85em",
-        borderRadius: "10px",
+        borderRadius: "8px",
         marginBottom: "2px",
         overflowWrap: "break-word"
     },
@@ -26,14 +46,9 @@ const useStyles = makeStyles({
         color: "white"
 
     },
-    myTimestamp: {
-        right: "10px",
-        textAlign: "right"
-    },
     otherMessage: {
         backgroundColor: Colors.lightgray,
         alignSelf: "flex-start",
-        margin: ".5em 0 .5em 0"
     },
     triangle: {
         position: "absolute",
@@ -59,22 +74,36 @@ const useStyles = makeStyles({
         display: "block",
         color: props => props.isUser ? "white" : "black",
         fontSize: ".5em",
-        width: "100%",
         textAlign: "right",
-        marginTop: ".5em"
+        marginTop: ".5em",
+        padding: "2px",
+        width: "100%"
     },
-    messageImage:{
-        height: props => props.imageLoaded? "unset" : "300px",
+    messageImage: {
+        height: props => props.imageLoaded ? "unset" : "300px",
         maxWidth: "100%",
         maxHeight: "300px",
         objectFit: "contain"
+    },
+    hide: {
+        fontSize: ".75em",
+        color: Colors.textGray
+
+    },
+    moreButton: {
+        padding: "5px"
+    },
+    bottomContent: {
+        alignItems: "center",
+        justifyContent: "flex-end",
+        display: "flex"
     }
 
 })
 
 const Message = (props) => {
 
-    const [imageLoaded,setImageLoaded] = useState(false)
+    const [imageLoaded, setImageLoaded] = useState(false)
     const classes = useStyles({ isUser: props.isUser, imageLoaded: imageLoaded });
 
     const processTime = (time) => {
@@ -82,17 +111,17 @@ const Message = (props) => {
     }
 
     return (<div className={classes.messageContainer}>
-
         <div key={props.message.id} className={`${classes.message} ${props.isUser ? classes.myMessage : classes.otherMessage}`}>
             {props.message.photoUrl && <>
-            <img onLoad={()=>{setImageLoaded(true)}} className={classes.messageImage} src={props.message.photoUrl} />
-            <br />
-            </>
-            }
+                <img onLoad={() => { setImageLoaded(true) }} className={classes.messageImage} src={props.message.photoUrl} />
+                <br />
+            </>}
             {props.message.body}
             <span className={classes.time}>{processTime(props.message.createdAt)}</span>
+            {props.isCoordinator && <ToolTip title="Hide Message">
+                <IconButton onClick={props.hide} className={`expand ${classes.moreButton}`}><VisibilityOffIcon className={classes.hide} /></IconButton>
+            </ToolTip>}
         </div>
-
     </div>)
 
 }

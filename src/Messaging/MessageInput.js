@@ -10,6 +10,7 @@ import Photo from '@material-ui/icons/PhotoLibrary';
 import Clear from '@material-ui/icons/Clear'
 import ButtonBase from '@material-ui/core/ButtonBase'
 import { useTranslation } from 'react-i18next';
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const useStyles = makeStyles({
     container: {
@@ -111,6 +112,8 @@ const MessageInput = observer((props) => {
 
     return (
         <>
+        { !(messagingStore.fileUploading || messagingStore.newMessageLoading) ?
+        <>
             {preview && <ImagePreview close={() => { setPreview(true) }} />}
             <div className={classes.container}>
                 {messagingStore.file &&
@@ -141,6 +144,10 @@ const MessageInput = observer((props) => {
                     <IconButton disabled={props.disableSend} onClick={props.handleSend} className={classes.send}><SendIcon /></IconButton>
                 </div>
             </div>
+        </> : <div>
+            <span>Sending...</span>
+            <CircularProgress color="secondary" />
+            </div>}
         </>
     )
 

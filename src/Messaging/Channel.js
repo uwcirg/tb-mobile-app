@@ -110,10 +110,9 @@ const Channel = observer((props) => {
     const { messagingStore } = useStores();
     const { t, i18n } = useTranslation('translation');
 
-
     return (
         <div className={classes.combined}>
-            <MessageList selectedChannel={props.selectedChannel} userID={props.userID} />
+            <MessageList isCoordinator={props.isCoordinator} selectedChannel={props.selectedChannel} userID={props.userID} />
             <div className={classes.inputContainer}>
                 <MessageInput value={messagingStore.newMessage}
                     setValue={(value) => { messagingStore.newMessage = value }}
@@ -141,6 +140,13 @@ const MessageList = observer((props) => {
 
     }
 
+    useEffect(() => {
+        if(messagingStore.selectedChannelMessages.length > 0){
+            scrollToBottom()
+        }
+        console.log("use effect scroll to bottom")
+    });
+
     let messages = [];
 
     if (props.selectedChannel.messages &&
@@ -161,20 +167,24 @@ const MessageList = observer((props) => {
             return (
                 <>
                     {isNewDate && <h2 className={classes.dateSeperator}>{DateTime.fromISO(date).toLocaleString(DateTime.DATE_HUGE)}</h2>}
-                    <Message isMiddle={isMiddle} key={`message ${index}`} message={message} isUser={isUser} />
+                    <Message 
+                        hide={() => {messagingStore.hideMessage(message.id)}}
+                        isCoordinator={props.isCoordinator}
+                        isMiddle={isMiddle}
+                        key={`message ${index}`}
+                        message={message}
+                        isUser={isUser} />
                 </>
             )
         })
         messages.unshift(<p className={classes.dateSeperator}>{t("messaging.begining")}</p>)
     }
 
-    useEffect(scrollToBottom, []);
-
-    return(
-    <div className={classes.messageList}>
-        {messages}
-        <div ref={messagesEndRef} />
-    </div>
+    return (
+        <div className={classes.messageList}>
+            {messages}
+            <div ref={messagesEndRef} />
+        </div>
     )
 })
 

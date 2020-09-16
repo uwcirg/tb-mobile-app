@@ -136,7 +136,6 @@ export class MessagingStore {
                     this.sendMessage(photoRepsonse.path)
                     this.fileUploading = false;
                 })
-                
             })
         }else{
             this.sendMessage();
@@ -225,6 +224,13 @@ export class MessagingStore {
 
     @action setFileType = (fileType) => {
         this.fileType = fileType
+    }
+
+    hideMessage = (id) => {
+        this.strategy.executeRawRequest(`/message/${id}`,"PATCH",{isHidden: true}).then( response => {
+            console.log(response)
+        })
+
     }
 
 
