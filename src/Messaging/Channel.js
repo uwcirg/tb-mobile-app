@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect, useState, Fragment } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Colors from '../Basics/Colors';
@@ -15,8 +15,7 @@ const useStyles = makeStyles({
         flexGrow: 1,
         display: "flex",
         flexDirection: "column",
-        overflowY: "scroll",
-        overflowX: "hidden",
+        overflow: "scroll",
         padding: "1em .5em 1em .5em",
         backgroundColor: "white"
 
@@ -132,20 +131,11 @@ const MessageList = observer((props) => {
     const { t, i18n } = useTranslation('translation');
 
     const messagesEndRef = useRef(null)
-    const onScreen = useOnScreen(messagesEndRef, "10%")
 
     const scrollToBottom = () => {
-        if (!onScreen) {
-            messagesEndRef.current.scrollIntoView()
-        }
-
+        //messagesEndRef.current.scrollIntoView()
+ 
     }
-
-    useEffect(() => {
-        if(messagingStore.selectedChannelMessages.length > 0){
-            scrollToBottom()
-        }
-    });
 
     let messages = [];
 
@@ -165,19 +155,21 @@ const MessageList = observer((props) => {
                 isNewDate = true;
             }
             return (
-                <>
-                    {isNewDate && <h2 className={classes.dateSeperator}>{DateTime.fromISO(date).toLocaleString(DateTime.DATE_HUGE)}</h2>}
-                    <Message 
-                        hide={() => {messagingStore.hideMessage(message.id)}}
+                <Fragment key={`message-fragment-${index}`} >
+                    {isNewDate && <h2 key={`date-${index}`} className={classes.dateSeperator}>{DateTime.fromISO(date).toLocaleString(DateTime.DATE_HUGE)}</h2>}
+                    <Message
+                        scrollToBottom={()=>{messagesEndRef.current.scrollIntoView()}}
+                        isLast={ index === props.selectedChannel.messages.length - 1}
+                        hide={() => { messagingStore.hideMessage(message.id) }}
                         isCoordinator={props.isCoordinator}
                         isMiddle={isMiddle}
-                        key={`message ${index}`}
+                        key={`message-${index}`}
                         message={message}
                         isUser={isUser} />
-                </>
+                </Fragment>
             )
         })
-        messages.unshift(<p className={classes.dateSeperator}>{t("messaging.begining")}</p>)
+        messages.unshift(<p key={`messages-begining`} className={classes.dateSeperator}>{t("messaging.begining")}</p>)
     }
 
     return (

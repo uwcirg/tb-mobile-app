@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Colors from '../Basics/Colors'
 import { makeStyles } from '@material-ui/core/styles';
 import { DateTime } from 'luxon';
@@ -109,6 +109,14 @@ const Message = (props) => {
     const processTime = (time) => {
         return (DateTime.fromISO(time).toLocaleString(DateTime.TIME_24_SIMPLE))
     }
+
+
+        useEffect(()=>{
+            if(props.isLast){
+            props.scrollToBottom();
+            }
+        },[])
+    
 
     return (<div className={classes.messageContainer}>
         <div key={props.message.id} className={`${classes.message} ${props.isUser ? classes.myMessage : classes.otherMessage}`}>
