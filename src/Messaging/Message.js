@@ -123,8 +123,6 @@ const useStyles = makeStyles({
 
 const Message = (props) => {
 
-    console.log(props.isPrivate)
-
     const [imageLoaded, setImageLoaded] = useState(false)
     const classes = useStyles({ isUser: props.isUser, imageLoaded: imageLoaded });
 
