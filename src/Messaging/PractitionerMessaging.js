@@ -204,6 +204,7 @@ const Channels = observer((props) => {
                 unread={messagingStore.unreadInfo[channel.id] ? messagingStore.unreadInfo[channel.id].unreadMessages : 0}
                 onClick={() => {
                     practitionerUIStore.goToChannel(channel.id)
+                    //messagingStore.selectChannel(channel.id)
                 }}
             />
         })
