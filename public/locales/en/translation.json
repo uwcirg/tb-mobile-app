@@ -39,6 +39,14 @@
         "activate": "Activate"
     },
     "messaging": {
+        "moderation":{
+            "hideUI": "Hide",
+            "hide": "Hide from patients",
+            "unhide": "Unhide message",
+            "isHidden": "This message has been hidden form patients",
+            "view": "View Message"
+
+        },
         "creation":{
             "errorInfo": "Title must exist and be less than 50 characters. Subtitle must be less than 100 characters.",
             "error": "Error Creating New Discussion",
@@ -54,10 +62,12 @@
         "selectChannel": "Select a Patient or Discussion To Get Started",
         "nurseContact": "Need individual support? Contact your provider!",
         "privateExplained": "Private chat with your coordinator",
-        "search": "Search By Topic",
+        "searchTheme": "Search By Topic",
+        "searchPatient": "Search By Patient",
         "patients": "Patients",
         "discussions": "Discussions",
-        "groupDiscussion": "Group Discussion"
+        "groupDiscussion": "Group Discussion",
+        "found": "Found"
     },
     "time": {
         "day": "day",

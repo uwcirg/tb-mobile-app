@@ -103,7 +103,7 @@ const Submitted = observer(() => {
                                 <p>{t('coordinator.tasksSidebar.submitted')} <br /> {t('patient.home.today')}</p>
                             </div> </CircularProgressbarWithChildren>
                     </CircularProgressbarWithChildren>
-                </div> : t('coordinator.tasksSideBar.noneYet')}
+                </div> : t('coordinator.tasksSidebar.noneYet')}
             </div>
             <div className={classes.key}>
                 <KeyItem color={Colors.green} text={t('coordinator.tasksSidebar.taken')} />

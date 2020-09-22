@@ -59,7 +59,6 @@ const Messaging = observer(() => {
         messagingStore.clearSelection();
     }
 
-
     const handleSearch = (e) => {
         setSearch(e.target.value)
     }
@@ -89,6 +88,7 @@ const Messaging = observer(() => {
                  <OverTopBar handleBack={handleBackFromChannel} title={messagingStore.selectedChannel.isCoordinatorChannel ? t("userTypes.coordinator") : messagingStore.selectedChannel.title} />
                 <div className={classes.singleChannelContainer}>
                     <Channel
+                        isPrivate={messagingStore.selectedChannel.isCoordinatorChannel}
                         userID={patientStore.id}
                         selectedChannel={messagingStore.selectedChannel}
                         handleBack={handleBackFromChannel}

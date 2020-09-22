@@ -86,22 +86,15 @@ const Messaging = observer(() => {
 
     const { t, i18n } = useTranslation('translation');
     const { messagingStore, practitionerStore, uiStore } = useStores();
-
     const classes = useStyles();
 
-
-    // //Get unread every time this rerenders
-    // useEffect(() => {
-    //     messagingStore.getUnreadMessages();
-    // }, [uiStore.onSpecificChannel])
-
-    //Only get channels on the first render
     useEffect(() => {
         messagingStore.getChannels();
     }, [])
 
     useEffect(() => {
         messagingStore.selectedChannel.id = uiStore.pathNumber;
+        messagingStore.updateSelectedChannel();
         messagingStore.getSelectedChannel()
 
     }, [uiStore.pathNumber])
@@ -110,9 +103,10 @@ const Messaging = observer(() => {
         <div className={classes.superContainer}>
             <ChannelNavigation />
             <div className={classes.channelContainer}>
-                {messagingStore.selectedChannel.id !== "" ?
+                {messagingStore.selectedChannel && messagingStore.selectedChannel.id !== "" ?
                     <Channel
                         isCoordinator
+                        isPrivate={messagingStore.coordinatorSelectedChannel && messagingStore.coordinatorSelectedChannel.isPrivate}
                         userID={practitionerStore.userID}
                         selectedChannel={messagingStore.selectedChannel}
                     />
@@ -123,9 +117,7 @@ const Messaging = observer(() => {
                 <Sidebar />
             </div>
         </div>
-
     )
-
 });
 
 const ChannelNavigation = observer((props) => {
@@ -154,7 +146,6 @@ const ChannelNavigation = observer((props) => {
         setTab(newValue);
     };
 
-
     return (
         <div className={classes.leftContainer}>
             <Tabs
@@ -170,15 +161,15 @@ const ChannelNavigation = observer((props) => {
 
             {tab === 0 ?
                 <div className={classes.header}>
-                    <SearchBar kind={"patient"} handleChange={handlePatientSearch} placeholder={t("messaging.search")} />
+                    <SearchBar kind={"patient"} handleChange={handlePatientSearch} placeholder={t("messaging.searchPatient")} />
                 </div> :
                 <div className={classes.header}>
-                    <SearchBar kind={"discussion"} handleChange={handleSearch} placeholder={t("messaging.search")} />
+                    <SearchBar kind={"discussion"} handleChange={handleSearch} placeholder={t("messaging.searchTheme")} />
 
                 </div>}
             <div className={classes.channelList}>
 
-                        {tab === 0 ? <Channels private channels={coordinatorChannels} /> : <Channels channels={publicChannels} />}
+                {tab === 0 ? <Channels private channels={coordinatorChannels} /> : <Channels channels={publicChannels} />}
             </div>
             {tab === 1 && <AddTopic />}
         </div>)
@@ -186,6 +177,8 @@ const ChannelNavigation = observer((props) => {
 
 
 const Channels = observer((props) => {
+
+    const { t } = useTranslation('translation');
     const classes = useStyles();
     const { messagingStore, uiStore, practitionerStore, practitionerUIStore } = useStores();
 
@@ -204,13 +197,13 @@ const Channels = observer((props) => {
                 unread={messagingStore.unreadInfo[channel.id] ? messagingStore.unreadInfo[channel.id].unreadMessages : 0}
                 onClick={() => {
                     practitionerUIStore.goToChannel(channel.id)
+                    //messagingStore.selectChannel(channel.id)
                 }}
             />
         })
     } else {
-        channels = <p className={classes.errorMessage}>No {!props.private ? "Topics" : "Patients"} Found</p>
+    channels = <p className={classes.errorMessage}>No {!props.private ? t('messaging.patients') : t('messaging.discussions')} {t('messaging.found')}</p>
     }
-
 
     return (
         <>{channels}</>

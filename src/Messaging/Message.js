@@ -2,11 +2,16 @@ import React, { useState, useEffect } from 'react'
 import Colors from '../Basics/Colors'
 import { makeStyles } from '@material-ui/core/styles';
 import { DateTime } from 'luxon';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import IconButton from '@material-ui/core/IconButton'
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import Visibility from '@material-ui/icons/Visibility';
 import ToolTip from '@material-ui/core/Tooltip'
-import useStores from '../Basics/UseStores';
+import ButtonBase from '@material-ui/core/Button';
+import Down from '@material-ui/icons/KeyboardArrowDown'
+import Up from '@material-ui/icons/KeyboardArrowUp'
+import { useTranslation } from 'react-i18next';
+import { observer } from 'mobx-react'
+import useStores from '../Basics/UseStores'
 
 const useStyles = makeStyles({
 
@@ -49,6 +54,9 @@ const useStyles = makeStyles({
     otherMessage: {
         backgroundColor: Colors.lightgray,
         alignSelf: "flex-start",
+        "& > span": {
+            textAlign: "left"
+        }
     },
     triangle: {
         position: "absolute",
@@ -97,6 +105,18 @@ const useStyles = makeStyles({
         alignItems: "center",
         justifyContent: "flex-end",
         display: "flex"
+    },
+    expand: {
+        color: Colors.buttonBlue,
+        textTransform: "capitalize"
+    },
+    hidden: {
+        fontSize: ".75em",
+        color: Colors.textGray,
+        display: "flex",
+        width: "100%",
+        justifyContent: "center",
+        alignItems: "center"
     }
 
 })
@@ -105,18 +125,19 @@ const Message = (props) => {
 
     const [imageLoaded, setImageLoaded] = useState(false)
     const classes = useStyles({ isUser: props.isUser, imageLoaded: imageLoaded });
+    const { t} = useTranslation('translation');
 
     const processTime = (time) => {
         return (DateTime.fromISO(time).toLocaleString(DateTime.TIME_24_SIMPLE))
     }
 
-
-        useEffect(()=>{
-            if(props.isLast){
-            props.scrollToBottom();
-            }
-        },[])
-    
+    const toggleVisibility = () => {
+        if (props.message.isHidden) {
+            props.unhide()
+        } else {
+            props.hide()
+        }
+    }
 
     return (<div className={classes.messageContainer}>
         <div key={props.message.id} className={`${classes.message} ${props.isUser ? classes.myMessage : classes.otherMessage}`}>
@@ -125,13 +146,71 @@ const Message = (props) => {
                 <br />
             </>}
             {props.message.body}
-            <span className={classes.time}>{processTime(props.message.createdAt)}</span>
-            {props.isCoordinator && <ToolTip title="Hide Message">
-                <IconButton onClick={props.hide} className={`expand ${classes.moreButton}`}><VisibilityOffIcon className={classes.hide} /></IconButton>
+            <br />
+            <span className={classes.time}>
+                {!props.isPrivate && <SenderInfo type={props.message.userType} id={props.message.userId} />}
+                {processTime(props.message.createdAt)}
+            </span>
+            {props.isCoordinator && <ToolTip title={props.message.isHidden ? t('messaging.moderation.unhide') : t('messaging.moderation.hide')}>
+                <IconButton onClick={toggleVisibility} className={`expand ${classes.moreButton}`}>
+                    {props.message.isHidden ? <Visibility className={classes.hide} /> : <VisibilityOffIcon className={classes.hide} />}
+                </IconButton>
             </ToolTip>}
         </div>
     </div>)
 
 }
 
-export default Message;
+const SenderInfo = (props) => {
+    const { t, i18n } = useTranslation('translation');
+    return (
+        <>{props.type === "Practitioner" ? t('userTypes.coordinator') : <PatientName id={props.id} />} - </>
+    )
+}
+
+const PatientName = observer((props) => {
+    const { practitionerStore } = useStores();
+    const patient = practitionerStore.getPatient(props.id);
+    const { t, i18n } = useTranslation('translation');
+
+    return (
+        <>{patient ? patient.fullName : t('userTypes.patient')}</>
+    )
+})
+
+const WrappedMessage = (props) => {
+
+    const [showHidden, setShowHidden] = useState(false);
+    const classes = useStyles();
+    const { t } = useTranslation('translation');
+
+    useEffect(() => {
+        if (props.isLast) {
+            props.scrollToBottom();
+        }
+    }, [])
+
+    if (!props.message.isHidden) {
+        return <Message {...props} />
+    }
+
+    return (
+        <>
+            {props.isCoordinator &&
+                <>
+                    <div className={classes.hidden}>
+                        <span>{t('messaging.moderation.isHidden')}</span>
+                        <ButtonBase className={classes.expand} onClick={() => { setShowHidden(!showHidden) }}>
+                            {showHidden ? t('messaging.moderation.hideUI') : t('messaging.moderation.view')}
+                            {showHidden ? <Up /> : <Down />}
+                        </ButtonBase>
+                    </div>
+                    {showHidden && <Message {...props} />}
+                </>}
+
+
+        </>
+    )
+}
+
+export default WrappedMessage;

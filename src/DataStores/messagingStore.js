@@ -185,7 +185,8 @@ export class MessagingStore {
     }
 
     @action updateSelectedChannel = () => {
-        this.coordinatorSelectedChannel = this.channels.find( element => { return element.id == this.selectedChannel.id})
+        const element = this.channels.find( element => { return element.id == this.selectedChannel.id})
+        this.coordinatorSelectedChannel = element
     }
 
     @action updateNewSubtitle = (value) => {
@@ -226,9 +227,14 @@ export class MessagingStore {
         this.fileType = fileType
     }
 
-    hideMessage = (id) => {
-        this.strategy.executeRawRequest(`/message/${id}`,"PATCH",{isHidden: true}).then( response => {
-            console.log(response)
+    @action setMessageHidden = (id,state) => {
+        this.strategy.executeRawRequest(`/message/${id}`,"PATCH",{isHidden: state}).then( response => {
+            this.selectedChannel.messages.forEach((each,index) => {
+                if(each.id === response.id){
+                    this.selectedChannel.messages[index] = response
+                }
+            })
+            
         })
 
     }

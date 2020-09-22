@@ -63,30 +63,6 @@ const useStyles = makeStyles({
 
 });
 
-function useOnScreen(ref, rootMargin = '0px') {
-    // State and setter for storing whether element is visible
-    const [isIntersecting, setIntersecting] = useState(false);
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                // Update our state when observer callback fires
-                setIntersecting(entry.isIntersecting);
-            },
-            {
-                rootMargin
-            }
-        );
-        if (ref.current) {
-            observer.observe(ref.current);
-        }
-        return () => {
-            observer.unobserve(ref.current);
-        };
-    }, []); // Empty array ensures that effect is only run on mount and unmount
-
-    return isIntersecting;
-}
 
 const ImagePreview = observer((props) => {
     const { messagingStore } = useStores();
@@ -112,7 +88,7 @@ const Channel = observer((props) => {
 
     return (
         <div className={classes.combined}>
-            <MessageList isCoordinator={props.isCoordinator} selectedChannel={props.selectedChannel} userID={props.userID} />
+            <MessageList isPrivate={props.isPrivate} isCoordinator={props.isCoordinator} selectedChannel={props.selectedChannel} userID={props.userID} />
             <div className={classes.inputContainer}>
                 <MessageInput value={messagingStore.newMessage}
                     setValue={(value) => { messagingStore.newMessage = value }}
@@ -129,14 +105,7 @@ const MessageList = observer((props) => {
     const classes = useStyles();
     const { messagingStore } = useStores();
     const { t, i18n } = useTranslation('translation');
-
     const messagesEndRef = useRef(null)
-
-    const scrollToBottom = () => {
-        //messagesEndRef.current.scrollIntoView()
- 
-    }
-
     let messages = [];
 
     if (props.selectedChannel.messages &&
@@ -160,8 +129,10 @@ const MessageList = observer((props) => {
                     <Message
                         scrollToBottom={()=>{messagesEndRef.current.scrollIntoView()}}
                         isLast={ index === props.selectedChannel.messages.length - 1}
-                        hide={() => { messagingStore.hideMessage(message.id) }}
+                        hide={() => { messagingStore.setMessageHidden(message.id,true) }}
+                        unhide={() => { messagingStore.setMessageHidden(message.id,false) }}
                         isCoordinator={props.isCoordinator}
+                        isPrivate={props.isPrivate}
                         isMiddle={isMiddle}
                         key={`message-${index}`}
                         message={message}
