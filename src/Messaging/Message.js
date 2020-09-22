@@ -125,6 +125,7 @@ const Message = (props) => {
 
     const [imageLoaded, setImageLoaded] = useState(false)
     const classes = useStyles({ isUser: props.isUser, imageLoaded: imageLoaded });
+    const { t} = useTranslation('translation');
 
     const processTime = (time) => {
         return (DateTime.fromISO(time).toLocaleString(DateTime.TIME_24_SIMPLE))
@@ -148,9 +149,9 @@ const Message = (props) => {
             <br />
             <span className={classes.time}>
                 {!props.isPrivate && <SenderInfo type={props.message.userType} id={props.message.userId} />}
-                 {processTime(props.message.createdAt)}
+                {processTime(props.message.createdAt)}
             </span>
-            {props.isCoordinator && <ToolTip title={props.message.isHidden ? "Unhide" : "Hide from patients"}>
+            {props.isCoordinator && <ToolTip title={props.message.isHidden ? t('messaging.moderation.unhide') : t('messaging.moderation.hide')}>
                 <IconButton onClick={toggleVisibility} className={`expand ${classes.moreButton}`}>
                     {props.message.isHidden ? <Visibility className={classes.hide} /> : <VisibilityOffIcon className={classes.hide} />}
                 </IconButton>
@@ -181,6 +182,7 @@ const WrappedMessage = (props) => {
 
     const [showHidden, setShowHidden] = useState(false);
     const classes = useStyles();
+    const { t } = useTranslation('translation');
 
     useEffect(() => {
         if (props.isLast) {
@@ -197,9 +199,9 @@ const WrappedMessage = (props) => {
             {props.isCoordinator &&
                 <>
                     <div className={classes.hidden}>
-                        <span>This message has been hidden from patients</span>
+                        <span>{t('messaging.moderation.isHidden')}</span>
                         <ButtonBase className={classes.expand} onClick={() => { setShowHidden(!showHidden) }}>
-                            {showHidden ? "Hide" : "View"}
+                            {showHidden ? t('messaging.moderation.hideUI') : t('messaging.moderation.view')}
                             {showHidden ? <Up /> : <Down />}
                         </ButtonBase>
                     </div>

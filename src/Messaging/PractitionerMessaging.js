@@ -161,10 +161,10 @@ const ChannelNavigation = observer((props) => {
 
             {tab === 0 ?
                 <div className={classes.header}>
-                    <SearchBar kind={"patient"} handleChange={handlePatientSearch} placeholder={t("messaging.search")} />
+                    <SearchBar kind={"patient"} handleChange={handlePatientSearch} placeholder={t("messaging.searchPatient")} />
                 </div> :
                 <div className={classes.header}>
-                    <SearchBar kind={"discussion"} handleChange={handleSearch} placeholder={t("messaging.search")} />
+                    <SearchBar kind={"discussion"} handleChange={handleSearch} placeholder={t("messaging.searchTheme")} />
 
                 </div>}
             <div className={classes.channelList}>
@@ -177,6 +177,8 @@ const ChannelNavigation = observer((props) => {
 
 
 const Channels = observer((props) => {
+
+    const { t } = useTranslation('translation');
     const classes = useStyles();
     const { messagingStore, uiStore, practitionerStore, practitionerUIStore } = useStores();
 
@@ -200,7 +202,7 @@ const Channels = observer((props) => {
             />
         })
     } else {
-        channels = <p className={classes.errorMessage}>No {!props.private ? "Topics" : "Patients"} Found</p>
+    channels = <p className={classes.errorMessage}>No {!props.private ? t('messaging.patients') : t('messaging.discussions')} {t('messaging.found')}</p>
     }
 
     return (
