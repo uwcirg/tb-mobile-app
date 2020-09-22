@@ -178,7 +178,7 @@ const ChannelNavigation = observer((props) => {
                 </div>}
             <div className={classes.channelList}>
 
-                        {tab === 0 ? <Channels private channels={coordinatorChannels} /> : <Channels channels={publicChannels} />}
+                {tab === 0 ? <Channels private channels={coordinatorChannels} /> : <Channels channels={publicChannels} />}
             </div>
             {tab === 1 && <AddTopic />}
         </div>)

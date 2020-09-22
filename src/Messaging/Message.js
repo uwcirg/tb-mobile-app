@@ -2,13 +2,10 @@ import React, { useState, useEffect } from 'react'
 import Colors from '../Basics/Colors'
 import { makeStyles } from '@material-ui/core/styles';
 import { DateTime } from 'luxon';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import IconButton from '@material-ui/core/IconButton'
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import Visibility from '@material-ui/icons/Visibility';
 import ToolTip from '@material-ui/core/Tooltip'
-import useStores from '../Basics/UseStores';
-import Collapse from '@material-ui/core/Collapse'
 import ButtonBase from '@material-ui/core/Button';
 import Down from '@material-ui/icons/KeyboardArrowDown'
 import Up from '@material-ui/icons/KeyboardArrowUp'
@@ -146,7 +143,7 @@ const Message = (props) => {
             <span className={classes.time}>{processTime(props.message.createdAt)}</span>
             {props.isCoordinator && <ToolTip title={props.message.isHidden ? "Unhide" : "Hide from patients"}>
                 <IconButton onClick={toggleVisibility} className={`expand ${classes.moreButton}`}>
-                    {props.isHidden ? <VisibilityOffIcon className={classes.hide} /> : <Visibility className={classes.hide} />}
+                    {props.message.isHidden ? <Visibility className={classes.hide} /> :<VisibilityOffIcon className={classes.hide} />}
                 </IconButton>
             </ToolTip>}
         </div>

@@ -131,12 +131,6 @@ const MessageList = observer((props) => {
     const { t, i18n } = useTranslation('translation');
 
     const messagesEndRef = useRef(null)
-
-    const scrollToBottom = () => {
-        //messagesEndRef.current.scrollIntoView()
- 
-    }
-
     let messages = [];
 
     if (props.selectedChannel.messages &&
