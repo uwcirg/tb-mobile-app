@@ -11,6 +11,7 @@ import useStores from '../Basics/UseStores';
 import Collapse from '@material-ui/core/Collapse'
 import ButtonBase from '@material-ui/core/Button';
 import Down from '@material-ui/icons/KeyboardArrowDown'
+import Up from '@material-ui/icons/KeyboardArrowUp'
 
 const useStyles = makeStyles({
 
@@ -105,6 +106,14 @@ const useStyles = makeStyles({
     expand: {
         color: Colors.buttonBlue,
         textTransform: "capitalize"
+    },
+    hidden:{
+        fontSize: ".75em",
+        color: Colors.textGray,
+        display: "flex",
+        width: "100%",
+        justifyContent: "center",
+        alignItems: "center"
     }
 
 })
@@ -164,9 +173,12 @@ const Tst = (props) => {
         <>
             {props.isCoordinator &&
                 <>
-                    <div>
-                        <span>This message has been hiden from patients</span>
-                        <ButtonBase className={classes.expand} onClick={() => { setShowHidden(!showHidden) }}>View<Down /></ButtonBase>
+                    <div className={classes.hidden}>
+                        <span>This message has been hidden from patients</span>
+                        <ButtonBase className={classes.expand} onClick={() => { setShowHidden(!showHidden) }}>
+                            {showHidden ? "Hide" : "View"}
+                            {showHidden ? <Up /> : <Down />}
+                            </ButtonBase>
                     </div>
                     {showHidden && <Message {...props} />}
                 </>}
