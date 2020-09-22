@@ -39,7 +39,18 @@
         "activate": "Activar"
     },
     "messaging": {
-        "begining": "Begining Of Chat",
+        "creation":{
+            "errorInfo": "El título debe existir y tener menos de 50 caracteres. El subtítulo debe tener menos de 100 caracteres.",
+            "error": "Error Creando La Discusión",
+            "fab": "Añadir Una Nueva Discusión",
+            "header": "Añadir un Nuevo Tema de Discusión ",
+            "create": "Crear",
+            "cancel": "Cancelar",
+            "title": "Título de la Discusión",
+            "description": "Descripción"
+        },
+        "typeHere": "Escriba el mensaje aquí ",
+        "begining": "Comienzo del chat",
         "selectChannel": "Seleccione un Paciente o una Discusión Para Comenzar",
         "nurseContact": "¿Necesita asistencia personal? ¡Contacte a su asistente!",
         "privateExplained": "Chat privado con su asistente",
@@ -274,7 +285,7 @@
             "milestones": "Eventos Importantes",
             "upcoming": "Próximos",
             "calendar": "Calendario de Reportes",
-            "submissionLimit": "Solo puedes enviar para los 3 días anteriores",
+            "submissionLimit": "Solo puede reportar hasta 3 días anteriores",
             "calendarKey":{
                 "button": "Qué significan estos colores",
                 "description": "Este es el calendario, donde puede revisar sus reportes. Los colores representan lo siguiente:",
@@ -368,9 +379,9 @@
     },
     "coordinator": {
         "priority":{
-            "high": "High",
-            "medium": "Medium",
-            "low": "Low"
+            "high": "Alto",
+            "medium": "Mediano",
+            "low": "Bajo"
         },
         "cohortOverview":{
             "title": "Visión general de los pacientes",
@@ -491,13 +502,13 @@
             "overview": "Resumen de Tareas ",
             "patientStatus": "Condición del Reporte del Paciente",
             "noReport": "No Hay Reporte Para Hoy",
-            "title": "Overview",
-            "doneToday": "Completed Today",
-            "unresolved": "Sin Resolución",
-            "submitted": "Submitted",
+            "title": "Resumen",
+            "doneToday": "Completado Hoy",
+            "unresolved": "Sin Resolver",
+            "submitted": "Enviado",
             "taken": "Tomado",
-            "notTaken": "No Tomando",
-            "noneYet": "No Reports Submitted Yet"
+            "notTaken": "No Tomado",
+            "noneYet": "No se han enviado reportes todavía"
         }
     },
     "errors": {
