@@ -185,7 +185,8 @@ export class MessagingStore {
     }
 
     @action updateSelectedChannel = () => {
-        this.coordinatorSelectedChannel = this.channels.find( element => { return element.id == this.selectedChannel.id})
+        const element = this.channels.find( element => { return element.id == this.selectedChannel.id})
+        this.coordinatorSelectedChannel = element
     }
 
     @action updateNewSubtitle = (value) => {

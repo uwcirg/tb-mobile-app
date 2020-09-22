@@ -197,10 +197,6 @@ export class PractitionerStore extends UserStore {
         })
     }
 
-    @action setPatientDetails = (id) => {
-
-    }
-
     @action getSeverePatients = () => {
         return this.executeRequest("getSeverePatients").then(response => {
             this.filteredPatients.symptom = response;

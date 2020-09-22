@@ -86,22 +86,15 @@ const Messaging = observer(() => {
 
     const { t, i18n } = useTranslation('translation');
     const { messagingStore, practitionerStore, uiStore } = useStores();
-
     const classes = useStyles();
 
-
-    // //Get unread every time this rerenders
-    // useEffect(() => {
-    //     messagingStore.getUnreadMessages();
-    // }, [uiStore.onSpecificChannel])
-
-    //Only get channels on the first render
     useEffect(() => {
         messagingStore.getChannels();
     }, [])
 
     useEffect(() => {
         messagingStore.selectedChannel.id = uiStore.pathNumber;
+        messagingStore.updateSelectedChannel();
         messagingStore.getSelectedChannel()
 
     }, [uiStore.pathNumber])
@@ -110,9 +103,10 @@ const Messaging = observer(() => {
         <div className={classes.superContainer}>
             <ChannelNavigation />
             <div className={classes.channelContainer}>
-                {messagingStore.selectedChannel.id !== "" ?
+                {messagingStore.selectedChannel && messagingStore.selectedChannel.id !== "" ?
                     <Channel
                         isCoordinator
+                        isPrivate={messagingStore.coordinatorSelectedChannel && messagingStore.coordinatorSelectedChannel.isPrivate}
                         userID={practitionerStore.userID}
                         selectedChannel={messagingStore.selectedChannel}
                     />
@@ -123,9 +117,7 @@ const Messaging = observer(() => {
                 <Sidebar />
             </div>
         </div>
-
     )
-
 });
 
 const ChannelNavigation = observer((props) => {
@@ -153,7 +145,6 @@ const ChannelNavigation = observer((props) => {
     const handleChange = (event, newValue) => {
         setTab(newValue);
     };
-
 
     return (
         <div className={classes.leftContainer}>
@@ -211,7 +202,6 @@ const Channels = observer((props) => {
     } else {
         channels = <p className={classes.errorMessage}>No {!props.private ? "Topics" : "Patients"} Found</p>
     }
-
 
     return (
         <>{channels}</>
