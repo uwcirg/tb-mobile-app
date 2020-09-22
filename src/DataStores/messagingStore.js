@@ -226,9 +226,14 @@ export class MessagingStore {
         this.fileType = fileType
     }
 
-    hideMessage = (id) => {
-        this.strategy.executeRawRequest(`/message/${id}`,"PATCH",{isHidden: true}).then( response => {
-            console.log(response)
+    @action setMessageHidden = (id,state) => {
+        this.strategy.executeRawRequest(`/message/${id}`,"PATCH",{isHidden: state}).then( response => {
+            this.selectedChannel.messages.forEach((each,index) => {
+                if(each.id === response.id){
+                    this.selectedChannel.messages[index] = response
+                }
+            })
+            
         })
 
     }

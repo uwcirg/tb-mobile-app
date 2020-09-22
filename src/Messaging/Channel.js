@@ -160,8 +160,10 @@ const MessageList = observer((props) => {
                     <Message
                         scrollToBottom={()=>{messagesEndRef.current.scrollIntoView()}}
                         isLast={ index === props.selectedChannel.messages.length - 1}
-                        hide={() => { messagingStore.hideMessage(message.id) }}
+                        hide={() => { messagingStore.setMessageHidden(message.id,true) }}
+                        unhide={() => { messagingStore.setMessageHidden(message.id,false) }}
                         isCoordinator={props.isCoordinator}
+                        isPrivate={props.selectedChannel.isPrivate}
                         isMiddle={isMiddle}
                         key={`message-${index}`}
                         message={message}

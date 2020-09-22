@@ -5,8 +5,12 @@ import { DateTime } from 'luxon';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import IconButton from '@material-ui/core/IconButton'
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import Visibility from '@material-ui/icons/Visibility';
 import ToolTip from '@material-ui/core/Tooltip'
 import useStores from '../Basics/UseStores';
+import Collapse from '@material-ui/core/Collapse'
+import ButtonBase from '@material-ui/core/Button';
+import Down from '@material-ui/icons/KeyboardArrowDown'
 
 const useStyles = makeStyles({
 
@@ -97,6 +101,10 @@ const useStyles = makeStyles({
         alignItems: "center",
         justifyContent: "flex-end",
         display: "flex"
+    },
+    expand: {
+        color: Colors.buttonBlue,
+        textTransform: "capitalize"
     }
 
 })
@@ -110,13 +118,13 @@ const Message = (props) => {
         return (DateTime.fromISO(time).toLocaleString(DateTime.TIME_24_SIMPLE))
     }
 
-
-        useEffect(()=>{
-            if(props.isLast){
-            props.scrollToBottom();
-            }
-        },[])
-    
+    const toggleVisibility = () => {
+        if (props.message.isHidden) {
+            props.unhide()
+        } else {
+            props.hide()
+        }
+    }
 
     return (<div className={classes.messageContainer}>
         <div key={props.message.id} className={`${classes.message} ${props.isUser ? classes.myMessage : classes.otherMessage}`}>
@@ -125,13 +133,47 @@ const Message = (props) => {
                 <br />
             </>}
             {props.message.body}
+            <br />
             <span className={classes.time}>{processTime(props.message.createdAt)}</span>
-            {props.isCoordinator && <ToolTip title="Hide Message">
-                <IconButton onClick={props.hide} className={`expand ${classes.moreButton}`}><VisibilityOffIcon className={classes.hide} /></IconButton>
+            {props.isCoordinator && <ToolTip title={props.message.isHidden ? "Unhide" : "Hide from patients"}>
+                <IconButton onClick={toggleVisibility} className={`expand ${classes.moreButton}`}>
+                    {props.isHidden ? <VisibilityOffIcon className={classes.hide} /> : <Visibility className={classes.hide} />}
+                </IconButton>
             </ToolTip>}
         </div>
     </div>)
 
 }
 
-export default Message;
+const Tst = (props) => {
+
+    const [showHidden, setShowHidden] = useState(false);
+    const classes = useStyles();
+
+    useEffect(() => {
+        if (props.isLast) {
+            props.scrollToBottom();
+        }
+    }, [])
+
+    if (!props.message.isHidden) {
+        return <Message {...props} />
+    }
+
+    return (
+        <>
+            {props.isCoordinator &&
+                <>
+                    <div>
+                        <span>This message has been hiden from patients</span>
+                        <ButtonBase className={classes.expand} onClick={() => { setShowHidden(!showHidden) }}>View<Down /></ButtonBase>
+                    </div>
+                    {showHidden && <Message {...props} />}
+                </>}
+                    
+                    
+            </>
+    )
+}
+
+export default Tst;
