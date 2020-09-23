@@ -151,7 +151,7 @@ const Message = (props) => {
                 {!props.isPrivate && <SenderInfo type={props.message.userType} id={props.message.userId} />}
                 {processTime(props.message.createdAt)}
             </span>
-            {props.isCoordinator && <ToolTip title={props.message.isHidden ? t('messaging.moderation.unhide') : t('messaging.moderation.hide')}>
+            {(props.isCoordinator && !props.isPrivate) && <ToolTip title={props.message.isHidden ? t('messaging.moderation.unhide') : t('messaging.moderation.hide')}>
                 <IconButton onClick={toggleVisibility} className={`expand ${classes.moreButton}`}>
                     {props.message.isHidden ? <Visibility className={classes.hide} /> : <VisibilityOffIcon className={classes.hide} />}
                 </IconButton>
