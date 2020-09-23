@@ -33,9 +33,6 @@ const useStyles = makeStyles({
             fontSize: "2.25em"
         }
     },
-    sectionHeaderContainer:{
-
-    },
     patientStatus: {
         borderBottom: "solid 1px lightgray"
     },
@@ -83,6 +80,9 @@ const useStyles = makeStyles({
         color: props => props.textColor || "white",
     },
     contentContainer:{
+        "& > *":{
+            textTransform: "capitalize"
+        },
         height: "100vh",
         width: "100%",
         display: "flex",
