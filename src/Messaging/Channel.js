@@ -23,7 +23,7 @@ const useStyles = makeStyles({
     inputContainer: {
         width: "100%",
         flexBasis: props => props.open ? "85px" : "70px",
-        marginBottom: "1em"
+        marginBottom: ".5em"
     },
     dateSeperator: {
         width: "100%",

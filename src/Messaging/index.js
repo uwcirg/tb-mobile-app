@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import OverTopBar from '../Patient/Navigation/OverTopBar';
 import SearchBar from '../Basics/SearchBar';
+import Div100vh from 'react-div-100vh'
 
 const useStyles = makeStyles({
     root: {
@@ -38,7 +39,6 @@ const useStyles = makeStyles({
         position: "fixed",
         top: 0,
         width: "100vw",
-        height: "100vh",
         zIndex: "3"
     }
 });
@@ -86,14 +86,14 @@ const Messaging = observer(() => {
                 :
                 <>
                  <OverTopBar handleBack={handleBackFromChannel} title={messagingStore.selectedChannel.isCoordinatorChannel ? t("userTypes.coordinator") : messagingStore.selectedChannel.title} />
-                <div className={classes.singleChannelContainer}>
+                <Div100vh className={classes.singleChannelContainer}>
                     <Channel
                         isPrivate={messagingStore.selectedChannel.isCoordinatorChannel}
                         userID={patientStore.id}
                         selectedChannel={messagingStore.selectedChannel}
                         handleBack={handleBackFromChannel}
                         userID={patientStore.userID} />
-                </div>
+                </Div100vh>
                 </>
                 }
         </div>
