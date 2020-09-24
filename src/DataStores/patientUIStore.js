@@ -99,6 +99,10 @@ export default class PatientUIStore {
         this.router.push('home/report/0')
     }
 
+    @action goToReportSymptoms = () => {
+        this.router.push('home/report/1')
+    }
+
     @action endReport = () => {
         if (this.onHistoricalReport) {
             this.router.push('/progress')
@@ -129,7 +133,7 @@ export default class PatientUIStore {
     }
 
     @computed get onCalendar() {
-        return this.router.location.pathname.startsWith("/progress/calendar")
+        return false
     }
 
     @computed get tabNumber() {

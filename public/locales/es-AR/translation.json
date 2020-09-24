@@ -18,7 +18,8 @@
         "final": "final ",
         "total": "Total",
         "delete": "Borrar",
-        "loading": "Cargando"
+        "loading": "Cargando",
+        "patients": "pacientes"
     },
     "userTypes": {
         "patient": "Paciente",
@@ -38,12 +39,25 @@
         "activate": "Activar"
     },
     "messaging": {
+        "creation":{
+            "errorInfo": "El título debe existir y tener menos de 50 caracteres. El subtítulo debe tener menos de 100 caracteres.",
+            "error": "Error Creando La Discusión",
+            "fab": "Añadir Una Nueva Discusión",
+            "header": "Añadir un Nuevo Tema de Discusión ",
+            "create": "Crear",
+            "cancel": "Cancelar",
+            "title": "Título de la Discusión",
+            "description": "Descripción"
+        },
+        "typeHere": "Escriba el mensaje aquí ",
+        "begining": "Comienzo del chat",
         "selectChannel": "Seleccione un Paciente o una Discusión Para Comenzar",
         "nurseContact": "¿Necesita asistencia personal? ¡Contacte a su asistente!",
         "privateExplained": "Chat privado con su asistente",
         "search": "Busqueda por tema",
         "patients": "Pacientes",
-        "discussions": "Discusiones"
+        "discussions": "Discusiones",
+        "groupDiscussion": "Discusión del grupo"
     },
     "time": {
         "day": "día",
@@ -184,7 +198,7 @@
                 "currentStreak": "días consecutivos",
                 "upcomingDate": "Próximos eventos",
                 "viewAll": "Ver Todos",
-                "close": "Close"
+                "close": "Cerrar"
             },
             "completed": {
                 "title": "Completo",
@@ -232,6 +246,7 @@
             "moodTitle": "¿Cómo se siente hoy?",
             "doingWell": "Estoy Bien",
             "needSupport": "Necesito ayuda ",
+            "whySupport": "¿como podemos ayudarlo?",
             "photoTitle": "Tomar Foto de la Tira Reactiva",
             "photo": {
                 "usePhoto": "Usar foto",
@@ -270,12 +285,13 @@
             "milestones": "Eventos Importantes",
             "upcoming": "Próximos",
             "calendar": "Calendario de Reportes",
+            "submissionLimit": "Solo puede reportar hasta 3 días anteriores",
             "calendarKey":{
                 "button": "Qué significan estos colores",
-                "description": "Este es el calendario, donde tu puedes revisar tus sumisiones. Los colores representan lo siguiente:",
+                "description": "Este es el calendario, donde puede revisar sus reportes. Los colores representan lo siguiente:",
                 "good": "Todas las partes enviadas.",
-                "missed": "No Report submitted. If you miss a day you can report up to 3 days in the past.",
-                "notTaken": "Reported not taking your medication",
+                "missed": "No se envió el reporte. Si Ud no envió algún reporte puede completar los correspondientes a los últimos 3 días.",
+                "notTaken": "Reportó que no tomó la medicación",
                 "symptoms": "Síntomas Reportados"
 
             }
@@ -291,12 +307,12 @@
         },
         "information": {
             "questions": "Preguntas y respuestas",
-            "education": "Important Information To Know",
+            "education": "Información Importante Para Conocer",
             "helpSection": "Ayuda con la Aplicación",
             "infoSection": "Información Sobre el Tratamiento",
             "launchWalkthrough": "Abrir Guía de la Aplicación",
             "video": "Ver Vídeo",
-            "videos": "Videos About Treatment"
+            "videos": "Videos Sobre el Tratamiento"
         }
     },
     "symptoms": {
@@ -362,10 +378,28 @@
         "previous": "Fechas anteriores"
     },
     "coordinator": {
+        "priority":{
+            "high": "Alto",
+            "medium": "Mediano",
+            "low": "Bajo"
+        },
+        "cohortOverview":{
+            "title": "Visión general de los pacientes",
+            "high": "Alta prioridad",
+            "medium": "prioridad intermedia",
+            "low": "Baja prioridad",
+            "active": "Activo",
+            "pending": "Pendiente",
+            "reportedTime": "Reportado en los últimos 7 días",
+            "noPatientsFound": "No se encuentran pacientes",
+            "searchByName": "Busqueda por nombre"
+        },
         "addPatientFlow": {
-            "title": "Add Patient",
-            "addedPatient": "Added Patient",
-            "codeToSend": "Code to send to patient"
+            "title": "Agregar Paciente",
+            "addedPatient": "Paciente Agregado",
+            "codeToSend": "Código para enviar al paciente",
+            "resetCode": "Reiniciar código",
+            "forPatient": "Código de activación del paciente"
 
         },
         "titles": {
@@ -381,7 +415,8 @@
             "allPatients": "Todos los Pacientes",
             "awaitingActivation": "Esperando Activación",
             "currentStatus": "Estado actual",
-            "reportingCalender": "Calendario de Reportes"
+            "reportingCalender": "Calendario de Reportes",
+            "requestedSupport": "Ayuda solicitada"
         },
         "recentReports": {
             "title": "Reportes Recientes",
@@ -392,11 +427,6 @@
             "none": "Ninguno"
         },
         "sideBar": {
-            "overview:": {
-                "title": "Resumen",
-                "doneToday": "Completado Hoy",
-                "unresolved": "Sin Resolución"
-            },
             "lastContacted": "Último  Contacto",
             "viewFullProfile": "Ver Perfil Completo",
             "daysMissed": "Días Sin Reporte Desde la Última Actualización",
@@ -471,7 +501,14 @@
             "unfinished": "no finalizado",
             "overview": "Resumen de Tareas ",
             "patientStatus": "Condición del Reporte del Paciente",
-            "noReport": "No Hay Reporte Para Hoy"
+            "noReport": "No Hay Reporte Para Hoy",
+            "title": "Resumen",
+            "doneToday": "Completado Hoy",
+            "unresolved": "Sin Resolver",
+            "submitted": "Enviado",
+            "taken": "Tomado",
+            "notTaken": "No Tomado",
+            "noneYet": "No se han enviado reportes todavía"
         }
     },
     "errors": {
@@ -489,9 +526,9 @@
         "submit": "Enviar"
     },
     "educationalMessages": {
-        "feedback": "Thank you for your feedback",
+        "feedback": "Gracias por sus comentarios",
         "week": "Semana",
-        "header": "Important to know",
+        "header": "Importante conocer",
         "helpful": "¿Fue útil este mensaje?",
         "messages": {
             "0": "Primer mensaje en inglés",
@@ -511,11 +548,11 @@
         "continuous": "Fase de Consolidación ",
         "followUp": "Visitas de control",
         "end": "Fin del Tratamiento",
-        "here": "You are here"
+        "here": "Ud. está aquí"
     },
     "report": {
-        "incomplete": "Incomplete",
-        "noReportsYet": "No Reports",
+        "incomplete": "Incompleto",
+        "noReportsYet": "No Hay Reportes",
         "tag": "Reporte",
         "medicationTaken": "Tomó los Medicamentos",
         "time": "Tiempo",
@@ -529,7 +566,7 @@
         "photoSubmitted": "Foto Enviada"
     },
     "appointments":{
-        "noUpcoming": "No Upcoming Appointments",
+        "noUpcoming": "No Hay visitas agendadas",
         "typeQuestion": "¿Qué tipo de cita quiere agregar?",
         "selectDate": "Seleccione la fecha y la hora",
         "addAppointment": "Añadir Cita",

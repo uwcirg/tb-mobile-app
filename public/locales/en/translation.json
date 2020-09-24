@@ -39,13 +39,35 @@
         "activate": "Activate"
     },
     "messaging": {
+        "moderation":{
+            "hideUI": "Hide",
+            "hide": "Hide from patients",
+            "unhide": "Unhide message",
+            "isHidden": "This message has been hidden form patients",
+            "view": "View Message"
+
+        },
+        "creation":{
+            "errorInfo": "Title must exist and be less than 50 characters. Subtitle must be less than 100 characters.",
+            "error": "Error Creating New Discussion",
+            "fab": "Add New Discussion",
+            "header": "Add a new discussion topic",
+            "create": "Create",
+            "cancel": "Cancel",
+            "title": "Discussion Title",
+            "description": "Description"
+        },
+        "typeHere": "Type message here",
+        "begining": "Begining Of Chat",
         "selectChannel": "Select a Patient or Discussion To Get Started",
         "nurseContact": "Need individual support? Contact your provider!",
         "privateExplained": "Private chat with your coordinator",
-        "search": "Search By Topic",
+        "searchTheme": "Search By Topic",
+        "searchPatient": "Search By Patient",
         "patients": "Patients",
         "discussions": "Discussions",
-        "groupDiscussion": "Group Discussion"
+        "groupDiscussion": "Group Discussion",
+        "found": "Found"
     },
     "time": {
         "day": "day",
@@ -273,6 +295,7 @@
             "milestones": "Milestones",
             "upcoming": "Upcoming",
             "calendar": "Calendar of Reports",
+            "submissionLimit": "You can only submit for the 3 previous days",
             "calendarKey":{
                 "button": "What do these colors mean",
                 "description": "This is the calendar, where you can review your submissions. The colors show the following:",
@@ -369,6 +392,11 @@
         "previous": "Previous"
     },
     "coordinator": {
+        "priority":{
+            "high": "High",
+            "medium": "Medium",
+            "low": "Low"
+        },
         "cohortOverview":{
             "title": "Cohort Overview",
             "high": "High Priority",
@@ -414,9 +442,7 @@
         },
         "sideBar": {
             "overview:": {
-                "title": "Overview",
-                "doneToday": "Completed Today",
-                "unresolved": "Unresolved"
+
             },
             "lastContacted": "Last Contracted",
             "viewFullProfile": "View Full Profile",
@@ -492,7 +518,14 @@
             "unfinished": "Unfinished",
             "overview": "Tasks Overview",
             "patientStatus": "Patient Report Status",
-            "noReport": "No Report Today"
+            "noReport": "No Report Today",
+            "title": "Overview",
+            "doneToday": "Completed Today",
+            "unresolved": "Unresolved",
+            "submitted": "Submitted",
+            "taken": "Taken",
+            "notTaken": "Not Taken",
+            "noneYet": "No Reports Submitted Yet"
         }
     },
     "errors": {

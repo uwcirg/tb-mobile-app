@@ -49,8 +49,10 @@ const LanguageQuestion = () => {
                 <Typography variant="h2">{t("patient.profile.personalInfo")}</Typography>
             </div>
             <Button onClick={patientUIStore.goToPasswordUpdate} >{t("patient.profile.changePassword")}</Button>
+            {/*
             <Button onClick={() => { }} >{t("patient.profile.editNotifications") } (Coming Soon)</Button>
             <Button onClick={() => { }} >{t("patient.profile.changeUsername")} (Coming Soon)</Button>
+            */}
         </div>
     );
 }

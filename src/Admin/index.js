@@ -28,7 +28,7 @@ const AdminHome = observer(() => {
     const classes = useStyles();
 
     useEffect(()=>{
-        adminStore.getSites();
+        //adminStore.getSites();
     },[])
 
     return(
@@ -39,10 +39,10 @@ const AdminHome = observer(() => {
 
         <div className={classes.cardContainer}>
         {adminStore.sites && adminStore.sites.map( each => {
-            return <Card className={classes.organization}>
+            return (<Card className={classes.organization}>
                 <Typography className={classes.title} variant="h2">{each.title}</Typography>
                 <p>{each.id}</p>
-                </Card>
+                </Card>)
         })}
 
         <AddOrganization />

@@ -71,7 +71,7 @@ const Progress = observer(() => {
     if (patientUIStore.onHistoricalReport) return (<ReportOldMedication />)
     if (patientUIStore.onAddMilestone) return (<AddMilestone handleBack={patientUIStore.goToProgress} />)
 
-    return (<div id="intro-progress" className={`${classes.container} ${patientUIStore.onCalendar && classes.centerContainer + ' ' + classes.fullHeight}`} >
+    return (<div id="intro-progress" className={`${classes.container}`} >
         {showKey && <Key close={() => { setShowKey(false) }} />}
         <ClickableText className={classes.keyButton} icon={<QuestionIcon />} text={t('patient.progress.calendarKey.button')} onClick={() => { setShowKey(true) }} />
         <CustomCalendar />

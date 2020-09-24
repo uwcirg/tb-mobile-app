@@ -33,9 +33,6 @@ const useStyles = makeStyles({
             fontSize: "2.25em"
         }
     },
-    sectionHeaderContainer:{
-
-    },
     patientStatus: {
         borderBottom: "solid 1px lightgray"
     },
@@ -83,6 +80,9 @@ const useStyles = makeStyles({
         color: props => props.textColor || "white",
     },
     contentContainer:{
+        "& > *":{
+            textTransform: "capitalize"
+        },
         height: "100vh",
         width: "100%",
         display: "flex",
@@ -130,7 +130,7 @@ const PatientOverview = observer(() => {
 
     return (
         <>
-        <SectionHeader title="Cohort Overview" icon={<PeopleIcon />} />
+        <SectionHeader title={t('commonWords.patients')} icon={<PeopleIcon />} />
             <div className={`${classes.section} ${classes.patientStatus}`} >
                 <LineItem textColor={"black"} text={`${t('coordinator.cohortOverview.active')} ${t('commonWords.patients')}` } value={cohortSummary.status.active} />
                 <LineItem textColor={"gray"} text={`${t('coordinator.cohortOverview.pending')} ${t('commonWords.patients')}`} value={cohortSummary.status.pending} />

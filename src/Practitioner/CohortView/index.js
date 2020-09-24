@@ -17,6 +17,7 @@ import { observer } from 'mobx-react'
 import Button from '@material-ui/core/Button'
 import PopOver from '../Shared/PopOver';
 import MuiButton from '../../Basics/MuiButton'
+import Priority from '../Shared/Priority';
 
 const useStyles = makeStyles({
     title: {
@@ -183,7 +184,7 @@ const PendingPatients = (props) => {
     })
 
     return (
-        <Card>
+        <Card title={t("coordinator.cardTitles.awaitingActivation")}>
             {list}
         </Card>
 
@@ -242,7 +243,7 @@ const Patients = (props) => {
                     </a>
                 </div>
                 <div>
-                    <div className={`${classes.priorityCircle} ${priorityClasses[patient.priority]}`} />
+                    <Priority index={patient.priority} />
                 </div>
                 <div>
                     {DateTime.fromISO(patient.treatmentStart).toLocaleString(DateTime.DATE_SHORT)}

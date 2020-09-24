@@ -8,6 +8,8 @@ export default class PractitionerUIStore {
         this.router = routerStore;
     }
 
+    @observable alert = "";
+
     @observable onOnboarding = false;
     @observable onAddPatientNote = false;
 
@@ -50,6 +52,17 @@ export default class PractitionerUIStore {
 
     @action goToChannel = (id) => {
         this.router.push(`/messaging/channel/${id}`)
+        localStorage.setItem('lastChannelID',id)
+    }
+
+    @action goToMessaging = () =>{
+        const lastID = localStorage.getItem('lastChannelID')
+
+        if(lastID){
+            this.router.push(`/messaging/channels/${lastID}`)
+            return
+        }
+        this.router.push(`/messaging`)
     }
 
     @action openAddPatientNote = () => {
@@ -58,5 +71,9 @@ export default class PractitionerUIStore {
 
     @action closeAddPatientNote =() => {
         this.onAddPatientNote = false;
+    }
+
+    @computed get onReview(){
+        return this.router.location.pathname.startsWith("/review")
     }
 }

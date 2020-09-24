@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import ClipBoard from '@material-ui/icons/Assignment';
 import Check from '@material-ui/icons/CheckCircle';
-import { DateTime } from 'luxon'
+import { DateTime, Interval } from 'luxon'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
@@ -30,6 +30,7 @@ const DayDrawer = observer((props) => {
   const date = patientStore.uiState.selectedCalendarDate;
   const complete = (patientStore.selectedDayReport)
   const missingPhoto = (patientStore.selectedDayWasPhotoDay ) && !patientStore.selectedDayReport || (patientStore.selectedDayReport && !patientStore.selectedDayReport.photoUrl);
+  const inSubmissionRange = Interval.fromDateTimes(date.startOf("day"),DateTime.local().startOf("day")).length("days") < 3
 
   return (
     <ExpansionPanel
@@ -43,7 +44,7 @@ const DayDrawer = observer((props) => {
         id="calendar-day-preview">
         <div className={`${classes.container}`}>
           <Header date={date} complete={complete} />
-          {!open && <Body missingPhoto={missingPhoto} report={patientStore.selectedDayReport} photoDay={patientStore.checkPhotoDay(date)} complete={complete} />}
+          {!open && <Body canSubmit={inSubmissionRange} missingPhoto={missingPhoto} report={patientStore.selectedDayReport} photoDay={patientStore.checkPhotoDay(date)} complete={complete} />}
         </div>
       </ExpansionPanelSummary>
       {complete &&
@@ -86,7 +87,6 @@ const Body = (props) => {
   const { patientUIStore } = useStores();
 
   const handleDrawerClick = () => {
-    
     patientUIStore.startHistoricalReport();
   }
   
@@ -98,7 +98,10 @@ const Body = (props) => {
           <div className={classes.previewItem}><TempIcon /><p>{t("commonWords.symptoms")}</p></div>
           {props.photoDay && <div className={`${classes.previewItem} ${props.missingPhoto && classes.previewItemMissed}`}><Camera /><p>{t('commonWords.stripPhoto')}</p></div>}
         </div> :
-        <NewButton onClick={handleDrawerClick} icon={<PillIcon />} text={t("patient.home.todaysActions.logMedication")} />
+        <>
+        {props.canSubmit ? <NewButton onClick={handleDrawerClick} icon={<PillIcon />} text={t("patient.home.todaysActions.logMedication")} /> :
+         <p>{t('patient.progress.submissionLimit')}</p>}
+        </>
       }
     </>
   )

@@ -8,9 +8,9 @@ const ChannelPreview = (props) => {
     const { t, i18n } = useTranslation('translation');
 
     return (
-        <Container onClick={props.onClick} altColor={props.private} selected={props.selected}>
+        <Container coordinator={props.coordinator} onClick={props.onClick} altColor={props.private} selected={props.selected}>
             <div className="display"><span>{props.title ? props.title[0] : "C"}</span></div>
-            <BorderedPart>
+            <BorderedPart hideBorder={props.coordinator}>
                 <div className="text">
                     <h2>{props.title}</h2>
                     <p>{props.private ? `${t("messaging.privateExplained")}` : props.subtitle}</p>
@@ -25,7 +25,7 @@ const ChannelPreview = (props) => {
 }
 
 const BorderedPart = styled.div`
-    border-bottom: solid 1px lightgray;
+    border-bottom: ${props => !props.hideBorder ? 'solid 1px lightgray' : 'unset'};
     display: flex;
     flex-grow: 1;
     padding: .5em;
@@ -90,12 +90,13 @@ const Container = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    width: 100%;
+    width: 95%;
+    margin: auto;
     min-height: 10vh;
     border: none;
-    margin-top: 1em;
-    margin-right: 1em;
-    background-color: ${props => props.selected ? 'lightgray' : 'unset'};
+    margin-top: ${props => props.coordinator ? 0 : '1em'};
+    background-color: ${props => props.selected ? Colors.lightgray : 'unset'};
+    border-radius: 5px;
 
     .display{
         padding: 0;
