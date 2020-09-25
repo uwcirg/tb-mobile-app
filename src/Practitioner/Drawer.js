@@ -63,12 +63,13 @@ const useStyles = makeStyles({
 
 const PractitionerDrawer = observer(() => {
   const classes = useStyles();
-  const { routingStore, uiStore, practitionerStore,practitionerUIStore,messagingStore } = useStores();
+  const { routingStore, practitionerStore,practitionerUIStore,messagingStore,loginStore } = useStores();
   const { location, push, goBack } = routingStore;
   const { t, i18n } = useTranslation('translation');
 
   const handleLogout = () => {
-    practitionerStore.logout()
+    practitionerStore.logout();
+    loginStore.logout();
     push("/")
   }
 

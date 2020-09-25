@@ -11,6 +11,7 @@ import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
 import SymptomsIcon from '../../Basics/Icons/Temp';
 import Symptom from '../Shared/Symptom'
+import ErrorBoundary from '../../Basics/ErrorBoundary'
 
 const useStyles = makeStyles({
     sidebar: {
@@ -79,8 +80,8 @@ const useStyles = makeStyles({
         borderRadius: "5%",
         color: props => props.textColor || "white",
     },
-    contentContainer:{
-        "& > *":{
+    contentContainer: {
+        "& > *": {
             textTransform: "capitalize"
         },
         height: "100vh",
@@ -99,18 +100,21 @@ const CohortSideBar = observer((props) => {
     const { practitionerStore } = useStores();
 
     useEffect(() => {
-        practitionerStore.getCohortSummary();
-    }, [])
+        if(practitionerStore.organizationID > 0){
+            practitionerStore.getCohortSummary();
+        }   
+    }, [practitionerStore.organizationID])
 
     return (
         <div className={classes.sidebar}>
             {practitionerStore.onAddPatientFlow ? <AddPatient /> :
                 <div>
-                    
-                    {practitionerStore.cohortSummary.loading ? <Loading /> : <div className={classes.contentContainer}>
 
-                         <PatientOverview />
-                        <SymptomSummary />
+                    {practitionerStore.cohortSummary.loading ? <Loading /> : <div className={classes.contentContainer}>
+                        <ErrorBoundary>
+                            <PatientOverview />
+                            <SymptomSummary />
+                        </ErrorBoundary>
 
                     </div>}
                 </div>}
@@ -130,9 +134,9 @@ const PatientOverview = observer(() => {
 
     return (
         <>
-        <SectionHeader title={t('commonWords.patients')} icon={<PeopleIcon />} />
+            <SectionHeader title={t('commonWords.patients')} icon={<PeopleIcon />} />
             <div className={`${classes.section} ${classes.patientStatus}`} >
-                <LineItem textColor={"black"} text={`${t('coordinator.cohortOverview.active')} ${t('commonWords.patients')}` } value={cohortSummary.status.active} />
+                <LineItem textColor={"black"} text={`${t('coordinator.cohortOverview.active')} ${t('commonWords.patients')}`} value={cohortSummary.status.active} />
                 <LineItem textColor={"gray"} text={`${t('coordinator.cohortOverview.pending')} ${t('commonWords.patients')}`} value={cohortSummary.status.pending} />
 
             </div>
@@ -154,10 +158,10 @@ const SymptomSummary = observer(() => {
     return (
         <div className={classes.section}>
             <SectionHeader title={t('commonWords.symptoms')} icon={<SymptomsIcon />} subtext={t('coordinator.cohortOverview.reportedTime')} />
-                {Object.keys(symptomSummaries).map(each => {
-                    return symptomSummaries[each] ? <LineItem textColor="black" text={<Symptom string={each} />} value={symptomSummaries[each]} /> : ""
-                    
-                })}
+            {Object.keys(symptomSummaries).map(each => {
+                return symptomSummaries[each] ? <LineItem textColor="black" text={<Symptom string={each} />} value={symptomSummaries[each]} /> : ""
+
+            })}
         </div>
     )
 
@@ -170,10 +174,10 @@ const SectionHeader = (props) => {
 
     return (
         <div className={classes.sectionHeaderContainer}>
-        <div className={classes.sectionHeader}>
-            {props.icon}<Typography variant="h2">{props.title}</Typography>
-        </div>
-        {props.subtext &&  <p className={classes.symptomExplanation}>{props.subtext}</p>}
+            <div className={classes.sectionHeader}>
+                {props.icon}<Typography variant="h2">{props.title}</Typography>
+            </div>
+            {props.subtext && <p className={classes.symptomExplanation}>{props.subtext}</p>}
         </div>
     )
 }

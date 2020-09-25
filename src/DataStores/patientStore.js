@@ -32,7 +32,7 @@ export class PatientStore extends UserStore {
     @observable photoSchedule = {};
     @observable educationStatus = [];
 
-    @observable status = "";
+    @observable status = "Active";
     @observable isReminderUpdating = false;
 
     @observable treatmentStart = ""

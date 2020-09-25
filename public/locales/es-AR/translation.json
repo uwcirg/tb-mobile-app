@@ -39,6 +39,14 @@
         "activate": "Activar"
     },
     "messaging": {
+        "moderation":{
+            "hideUI": "Esconder",
+            "hide": "Esconder para los pacientes",
+            "unhide": "Mostrar el mensaje",
+            "isHidden": "Este mensaje fue escondido para los pacientes",
+            "view": "Ver el Mensaje"
+
+        },
         "creation":{
             "errorInfo": "El título debe existir y tener menos de 50 caracteres. El subtítulo debe tener menos de 100 caracteres.",
             "error": "Error Creando La Discusión",
@@ -54,10 +62,12 @@
         "selectChannel": "Seleccione un Paciente o una Discusión Para Comenzar",
         "nurseContact": "¿Necesita asistencia personal? ¡Contacte a su asistente!",
         "privateExplained": "Chat privado con su asistente",
-        "search": "Busqueda por tema",
+        "searchTheme": "Buscar Por Tema ",
+        "searchPatient": "Buscar por Paciente ",
         "patients": "Pacientes",
         "discussions": "Discusiones",
-        "groupDiscussion": "Discusión del grupo"
+        "groupDiscussion": "Discusión del grupo",
+        "found": "Encontrado"
     },
     "time": {
         "day": "día",
@@ -378,6 +388,7 @@
         "previous": "Fechas anteriores"
     },
     "coordinator": {
+        "mobileWarning": "El diseño para móviles está incompleto. Puede ver sus tareas, pero no aprobarlas. El systema de mensajes está listo.",
         "priority":{
             "high": "Alto",
             "medium": "Mediano",

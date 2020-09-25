@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { Badge } from '@material-ui/core';
 import TaskSideBar from './TaskSidebar'
 import SupportSidebar from './SupportSidebar';
+import useResize from '../../Hooks/Resize'
 
 const useStyles = makeStyles({
     left: {
@@ -50,11 +51,16 @@ const useStyles = makeStyles({
     },
     cardContainer: {
         width: "100%"
+    },
+    mobile:{
+        padding: "0 1em 0 1em"
     }
 
 })
 
 const Home = observer(() => {
+
+    const { isMobile } = useResize();
 
     const { practitionerStore } = useStores();
 
@@ -77,6 +83,7 @@ const Home = observer(() => {
         <div className={classes.container}>
             <div className={classes.left}>
                 <h1>{t("coordinator.titles.myTasks")}</h1>
+                {isMobile && <p className={classes.mobile}>{t("coordinator.mobileWarning")}</p>}
                 <Card
                     key={'symptoms-review'}
                     icon={<AlertIcon />}
@@ -107,7 +114,7 @@ const Home = observer(() => {
                     type="missed"
                 />
             </div>
-            <SideBarRouter />
+            {!isMobile && <SideBarRouter />}
         </div>)
 
 });
@@ -124,7 +131,7 @@ const SideBarRouter = observer((props) => {
         component = <SymptomSidebar />
     } else if (practitionerStore.selectedRow.type === "missed") {
         component = <MedicationSideBar />
-    } else if(practitionerStore.selectedRow.type === "support"){
+    } else if (practitionerStore.selectedRow.type === "support") {
         component = <SupportSidebar />
     }
 

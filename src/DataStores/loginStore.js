@@ -4,14 +4,22 @@ import APIStore from './apiStore';
 const ROUTES = {
     login: ["/auth", "POST"],
     checkActivationCode: ["/patient/activation/check","POST"],
-    activatePatient: ["/patient/activation","POST"],
+    activatePatient: ["/patient/activation","POST"]
 }
+
+const ADMIN = "Administrator"
+const PATIENT = "Patient"
+const PRACTITIONER = "Practitioner"
 
 export default class LoginStore extends APIStore {
 
     constructor(strategy) {
         super(strategy, ROUTES);
+        this.userType = localStorage.getItem("user.type");
     }
+
+    @observable selectedUserType = "";
+    @observable userType = "";
 
     @observable error = 0;
 
@@ -30,25 +38,25 @@ export default class LoginStore extends APIStore {
         password: "",
         passwordConfirmation: ""
     }
-    
-    @action verifyActivationCode = () => {
-        this.executeRequest('checkActivationCode',this.activationBody).then(response =>{
 
-            if(response instanceof Error){
-                this.error = response.message;
-            }else{
-                this.activationWasRequested = true;
-                this.activationWasSuccessful = response.validCode;
-            }
-        })
+    @computed get isAdmin(){
+        return this.selectedUserType === ADMIN
     }
 
-    login = (userType) => {
+    @computed get isPatient(){
+        return this.selectedUserType === PATIENT
+    }
+
+    @computed get isLoggedIn(){
+        return this.userType !== "";
+    }
+
+    @action submit = () => {
 
         let body = {
             identifier: this.identifier,
             password: this.password,
-            userType: userType
+            userType: this.selectedUserType
         }
 
         return this.executeRequest('login', body).then(response => {
@@ -58,33 +66,33 @@ export default class LoginStore extends APIStore {
                 return
             }
             
-            return this.handleAuthentication(response);
+            this.userType = this.handleAuthentication(response);
         })
     }
-
-   activatePatient = () => {
-       return this.executeRequest('activatePatient',this.activationBody).then(json =>{
-           return this.handleAuthentication
-       })
-   }
 
     @action clearError = () => {
        this.error = "";
    }
 
     persistUserData = (json) => {
-        localStorage.setItem("user.token", json.token);
         localStorage.setItem("user.type", json.user_type);
-        localStorage.setItem(`userID`, json.user_id);
-        localStorage.setItem("token.exp", json.exp);
     }
 
-    handleAuthentication = (json) => {
+    @action handleAuthentication = (json) => {
         if (json && json.user_id) {
             this.persistUserData(json);
             return json.user_type
         }
         return false;
+    }
+
+    @action toggleAdmin = () => {
+      this.selectedUserType === ADMIN ? (this.selectedUserType = PRACTITIONER) : (this.selectedUserType = ADMIN);
+    }
+
+    @action logout = () =>{
+        this.userType = ""
+        localStorage.removeItem("user.type")
     }
 
 }

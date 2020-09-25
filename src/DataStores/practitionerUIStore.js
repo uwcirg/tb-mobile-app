@@ -50,6 +50,14 @@ export default class PractitionerUIStore {
         this.router.push(`/patients/${id}`)
     }
 
+    @action goToHome = () =>{
+        this.router.push(`/home`)
+    }
+
+    @action goToInfo = () =>{
+        this.router.push(`/info`)
+    }
+
     @action goToChannel = (id) => {
         this.router.push(`/messaging/channel/${id}`)
         localStorage.setItem('lastChannelID',id)
@@ -75,5 +83,19 @@ export default class PractitionerUIStore {
 
     @computed get onReview(){
         return this.router.location.pathname.startsWith("/review")
+    }
+
+    @action goToSettings = () =>{
+        this.router.push('/settings')
+    }
+
+    @computed get mobileTabNumber(){
+        if(this.onSettings) return 2
+        if(this.onMessaging) return 1
+        return 0
+    }
+
+    @action resetPath = () => {
+        this.router.push('/')
     }
 }

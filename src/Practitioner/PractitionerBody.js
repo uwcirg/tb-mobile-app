@@ -11,6 +11,7 @@ import PatientProfile from './PatientProfile/'
 import Review from './Review';
 import Alert from '../Basics/Alert'
 
+
 const PractitionerBody = observer(() => {
     const { practitionerStore, routingStore, practitionerUIStore,messagingStore } = useStores();
     const { location, push, goBack } = routingStore;
@@ -37,7 +38,7 @@ const PractitionerBody = observer(() => {
     }
     if (practitionerUIStore.onSinglePatient) view = <PatientProfile id={practitionerUIStore.pathNumber} patient={practitionerStore.getPatient(practitionerUIStore.pathNumber)} />
     if (practitionerUIStore.onReview) view = <Review />
-    
+
     return (
         <>
         <Body>

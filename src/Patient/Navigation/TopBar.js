@@ -40,7 +40,7 @@ const TopBar = observer(() => {
 
   //Conditional Logic to Display back button during treatment flow
   let buttonToDisplay = (
-    patientStore.isLoggedIn && <IconButton className={classes.menuContainer} onClick={patientUIStore.goToSettings} edge="start" color="inherit" aria-label="menu"> <Settings className={classes.personIcon} /></IconButton>
+    <IconButton className={classes.menuContainer} onClick={patientUIStore.goToSettings} edge="start" color="inherit" aria-label="menu"> <Settings className={classes.personIcon} /></IconButton>
   )
   return (
     <AppBar className={classes.bar} color={!uiStore.offline ? "secondary" : "primary"} >
