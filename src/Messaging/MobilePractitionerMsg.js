@@ -47,7 +47,8 @@ const MobileMessaging = observer(() => {
                         isPrivate={messagingStore.coordinatorSelectedChannel && messagingStore.coordinatorSelectedChannel.isPrivate}
                         userID={practitionerStore.userID}
                         selectedChannel={messagingStore.selectedChannel}
-                    /> </Div100vh>
+                    /> 
+                    </Div100vh>
                     : <ChannelNavigation />
                 }
     </div>)

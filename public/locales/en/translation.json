@@ -392,6 +392,7 @@
         "previous": "Previous"
     },
     "coordinator": {
+        "mobileWarning": "Mobile view still in progress. You can view your tasks, but not approve them. Messaging is functional.",
         "priority":{
             "high": "High",
             "medium": "Medium",
