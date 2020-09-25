@@ -94,4 +94,8 @@ export default class PractitionerUIStore {
         if(this.onMessaging) return 1
         return 0
     }
+
+    @action resetPath = () => {
+        this.router.push('/')
+    }
 }

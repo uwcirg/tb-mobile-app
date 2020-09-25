@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../Basics/UseStores';
 import { observer } from 'mobx-react';
 import LanguageQuestion from '../Basics/LanguageQuestion';
-
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
     image: {
@@ -29,7 +29,7 @@ const useStyles = makeStyles({
 })
 
 const Settings = observer((props) => {
-
+    const { t } = useTranslation('translation');
     const { practitionerStore } = useStores();
 
     useEffect(() => {
@@ -40,7 +40,7 @@ const Settings = observer((props) => {
     const classes = useStyles();
 
     return (<div className={classes.container}>
-        <h1>Settings</h1>
+        <h1>{t('patient.profile.title')}</h1>
         <LanguageQuestion />
     </div>)
 
