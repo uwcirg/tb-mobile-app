@@ -37,10 +37,10 @@ const UserHome = observer(() => {
     patientStore.initalize()
     return <PatientHome />
   }
-  if (loginStore.userType === "Administrator") 
+  if (loginStore.userType === "Administrator"){
     adminStore.initalize();
     return <AdminHome />
-
+  }
   if (loginStore.userType === "Practitioner"){
     practitionerStore.initalize();
     return <PractitionerHome />
