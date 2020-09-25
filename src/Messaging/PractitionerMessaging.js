@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Channel from './Channel';
 import ChannelPreview from './ChannelPreview'
 import { DateTime } from 'luxon'
@@ -12,6 +12,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Styles from '../Basics/Styles';
 import AddTopic from './AddTopic';
 import Sidebar from './Sidebar'
+import useResize from '../Hooks/Resize'
+import MobileMessages from './index'
 
 const useStyles = makeStyles({
     superContainer: {
@@ -83,7 +85,7 @@ const useStyles = makeStyles({
 });
 
 const Messaging = observer(() => {
-
+    const {isMobile} = useResize();
     const { t, i18n } = useTranslation('translation');
     const { messagingStore, practitionerStore, uiStore } = useStores();
     const classes = useStyles();
@@ -98,6 +100,11 @@ const Messaging = observer(() => {
         messagingStore.getSelectedChannel()
 
     }, [uiStore.pathNumber])
+
+
+    if(isMobile){
+        return <MobileMessages />
+    }
 
     return (
         <div className={classes.superContainer}>
