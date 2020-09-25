@@ -45,7 +45,7 @@ const LoginForm = observer((props) => {
           <br />
           {onActivation ? <Center><CodeInput onChange={handleCodeInput} id="activationCode" fields={5} /></Center> : <PasswordInput updatePassword={updatePassword} />}
           <br />
-          <AdminQuestion />
+          {/*<AdminQuestion />*/}
           <Button id="login" fullWidth onClick={loginStore.submit} variant="contained" color={"primary"} >{onActivation ? t("login.activate") : t("login.logIn")}</Button>
         </form>
       </Card>

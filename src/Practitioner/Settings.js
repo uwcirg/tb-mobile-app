@@ -36,7 +36,7 @@ const useStyles = makeStyles({
 
 const Settings = observer((props) => {
     const { t } = useTranslation('translation');
-    const { practitionerStore, loginStore } = useStores();
+    const { practitionerStore, loginStore,practitionerUIStore } = useStores();
 
     useEffect(() => {
         practitionerStore.getRecentReports()
@@ -45,7 +45,7 @@ const Settings = observer((props) => {
     const handleLogout = () => {
         practitionerStore.logout();
         loginStore.logout();
-        push("/")
+        practitionerUIStore.resetPath();
       }
 
 
