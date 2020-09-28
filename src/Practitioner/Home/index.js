@@ -92,7 +92,7 @@ const Home = observer(() => {
                     type="symptom"
                 />
                 <Card
-                    key={'symptoms-review'}
+                    key={'requested-support-review'}
                     icon={<AlertIcon />}
                     title={t("coordinator.cardTitles.requestedSupport")}
                     patientList={practitionerStore.filteredPatients.support}
