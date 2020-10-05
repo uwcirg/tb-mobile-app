@@ -23,6 +23,7 @@
     },
     "userTypes": {
         "patient": "Patient",
+        "provider": "Provider",
         "coordinator": "Coordinator",
         "admin": "Administrator"
     },
@@ -65,6 +66,7 @@
         "searchTheme": "Search By Topic",
         "searchPatient": "Search By Patient",
         "patients": "Patients",
+        "coordinators": "Coordinators",
         "discussions": "Discussions",
         "groupDiscussion": "Group Discussion",
         "found": "Found"

@@ -49,7 +49,7 @@ const useStyles = makeStyles({
 const Messaging = observer(() => {
     const {isMobile} = useResize();
     const { t, i18n } = useTranslation('translation');
-    const { messagingStore, practitionerStore, uiStore } = useStores();
+    const { messagingStore, practitionerStore, uiStore, userStore } = useStores();
     const classes = useStyles();
 
     useEffect(() => {
@@ -67,6 +67,7 @@ const Messaging = observer(() => {
     if(isMobile){
         return <MobileMessages />
     }
+
 
     return (
         <div className={classes.superContainer}>

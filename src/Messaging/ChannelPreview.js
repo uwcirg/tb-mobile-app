@@ -2,13 +2,17 @@ import React from 'react';
 import styled from 'styled-components'
 import Colors from '../Basics/Colors'
 import { useTranslation } from 'react-i18next'
+import useStores from '../Basics/UseStores';
+import {observer} from 'mobx-react'
 
-const ChannelPreview = (props) => {
+const ChannelPreview = observer((props) => {
 
     const { t, i18n } = useTranslation('translation');
+    const {loginStore} = useStores();
+    const isExpert = loginStore.userType === "Expert";
 
     return (
-        <Container coordinator={props.coordinator} onClick={props.onClick} altColor={props.private} selected={props.selected}>
+        <Container isExpert={isExpert} coordinator={props.coordinator} onClick={props.onClick} altColor={props.private} selected={props.selected}>
             <div className="display"><span>{props.title ? props.title[0] : "C"}</span></div>
             <BorderedPart hideBorder={props.coordinator}>
                 <div className="text">
@@ -22,7 +26,7 @@ const ChannelPreview = (props) => {
             </BorderedPart>
         </Container>
     )
-}
+});
 
 const BorderedPart = styled.div`
     border-bottom: ${props => !props.hideBorder ? 'solid 1px lightgray' : 'unset'};
@@ -106,7 +110,12 @@ const Container = styled.div`
         max-height: 50px;
         max-width: 50px;
         border-radius: 50px;
-        background-color: ${props => props.altColor ? Colors.green : Colors.babyBlue};
+            background-color: ${props => {
+                if(props.isExpert && props.altColor){
+                    return Colors.yellow
+                }
+                return props.altColor ? Colors.green : Colors.babyBlue
+                }};
         display: flex;
         justify-content: center;
         align-items: center;

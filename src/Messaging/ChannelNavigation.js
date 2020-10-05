@@ -59,11 +59,13 @@ const useStyles = makeStyles({
 
 const  ChannelNavigation = observer((props) => {
     const classes = useStyles();
-    const { messagingStore } = useStores();
+    const { messagingStore, loginStore } = useStores();
     const { t, i18n } = useTranslation('translation');
     const [search, setSearch] = useState("");
     const [patientSearch, setPatientSearch] = useState("");
     const [tab, setTab] = useState(0);
+
+    const isExpert = loginStore.userType === "Expert";
 
     const publicChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.filter((channel) => {
         return (!channel.isPrivate && channel.title.toLowerCase().includes(search.toLowerCase()))
@@ -92,7 +94,7 @@ const  ChannelNavigation = observer((props) => {
                 onChange={handleChange}
                 aria-label="message-type-tab"
             >
-                <Tab className={classes.tabs} label={t('messaging.patients')} />
+                <Tab className={classes.tabs} label={ isExpert ? t('messaging.coordinators') : t('messaging.patients')} />
                 <Tab className={classes.tabs} label={t('messaging.discussions')} />
             </Tabs>
 
@@ -118,7 +120,7 @@ const Channels = observer((props) => {
 
     const { t } = useTranslation('translation');
     const classes = useStyles();
-    const { messagingStore, uiStore, practitionerStore, practitionerUIStore } = useStores();
+    const { messagingStore, uiStore, practitionerStore, practitionerUIStore, loginStore } = useStores();
 
     let channels = "";
     if (props.channels.length > 0) {
@@ -135,7 +137,6 @@ const Channels = observer((props) => {
                 unread={messagingStore.unreadInfo[channel.id] ? messagingStore.unreadInfo[channel.id].unreadMessages : 0}
                 onClick={() => {
                     practitionerUIStore.goToChannel(channel.id)
-                    //messagingStore.selectChannel(channel.id)
                 }}
             />
         })

@@ -9,6 +9,7 @@ import { inject, observer } from 'mobx-react';
 import { Translation, withTranslation } from "react-i18next";
 import Colors from './Basics/Colors';
 import useStores from './Basics/UseStores';
+import ExpertView from './Expert';
 
 
 const theme = createMuiTheme({
@@ -44,6 +45,10 @@ const UserHome = observer(() => {
   if (loginStore.userType === "Practitioner"){
     practitionerStore.initalize();
     return <PractitionerHome />
+  }
+  if (loginStore.userType === "Expert"){
+    practitionerStore.initalize();
+    return <ExpertView />
   }
   return <Login />
 })

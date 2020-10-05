@@ -39,10 +39,6 @@ export default class LoginStore extends APIStore {
         passwordConfirmation: ""
     }
 
-    @computed get isAdmin(){
-        return this.selectedUserType === ADMIN
-    }
-
     @computed get isPatient(){
         return this.selectedUserType === PATIENT
     }
@@ -54,9 +50,13 @@ export default class LoginStore extends APIStore {
     @action submit = () => {
 
         let body = {
-            identifier: this.identifier,
             password: this.password,
-            userType: this.selectedUserType
+        }
+
+        if(this.selectedUserType === "Patient"){
+            body.phoneNumber = this.identifier
+        }else{
+            body.email = this.identifier
         }
 
         return this.executeRequest('login', body).then(response => {
@@ -84,10 +84,6 @@ export default class LoginStore extends APIStore {
             return json.user_type
         }
         return false;
-    }
-
-    @action toggleAdmin = () => {
-      this.selectedUserType === ADMIN ? (this.selectedUserType = PRACTITIONER) : (this.selectedUserType = ADMIN);
     }
 
     @action logout = () =>{

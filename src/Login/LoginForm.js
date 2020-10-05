@@ -45,7 +45,6 @@ const LoginForm = observer((props) => {
           <br />
           {onActivation ? <Center><CodeInput onChange={handleCodeInput} id="activationCode" fields={5} /></Center> : <PasswordInput updatePassword={updatePassword} />}
           <br />
-          {/*<AdminQuestion />*/}
           <Button id="login" fullWidth onClick={loginStore.submit} variant="contained" color={"primary"} >{onActivation ? t("login.activate") : t("login.logIn")}</Button>
         </form>
       </Card>
@@ -58,22 +57,6 @@ const LoginForm = observer((props) => {
   );
 });
 
-const AdminQuestion = observer(() => {
-
-  const { loginStore } = useStores();
-
-  return (
-    <AdminBox>
-      <Checkbox
-        checked={loginStore.isAdmin}
-        onClick={loginStore.toggleAdmin}
-        name="admin"
-        color="primary"
-      /> Admin
-    </AdminBox>
-  )
-
-})
 
 const AdminBox = styled.div`
 display: flex;
