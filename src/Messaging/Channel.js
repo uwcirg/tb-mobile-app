@@ -59,6 +59,12 @@ const useStyles = makeStyles({
         "& > button > svg": {
             color: "white"
         }
+    },
+    empty:{
+        width: "100%",
+        margin: "auto",
+        textAlign: "center",
+        color: Colors.textGray
     }
 
 });
@@ -145,7 +151,7 @@ const MessageList = observer((props) => {
 
     return (
         <div className={classes.messageList}>
-            {messages}
+            {messages.length > 0 ? <>{messages}</> : <p className={classes.empty}>{t("messaging.empty")}</p>}
             <div ref={messagesEndRef} />
         </div>
     )

@@ -68,8 +68,10 @@
         "patients": "Patients",
         "coordinators": "Coordinators",
         "discussions": "Discussions",
+        "expert": "TB Expert",
         "groupDiscussion": "Group Discussion",
-        "found": "Found"
+        "found": "Found",
+        "empty": "No messages have been sent yet. Send the first one!"
     },
     "time": {
         "day": "day",

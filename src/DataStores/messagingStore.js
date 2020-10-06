@@ -52,12 +52,19 @@ export class MessagingStore {
         userId: 0
     }
 
+    @observable tabNumber = 0;
+
     @observable newChannel = {
         title: "",
         subtitle: "",
         errors: {},
         success: false,
         visible: false
+    }
+
+    @computed 
+    get tab() {
+        return this.tabNumber;
     }
 
     @computed
@@ -237,6 +244,10 @@ export class MessagingStore {
             
         })
 
+    }
+
+    @action setTab = (index) => {
+        this.tabNumber = index;
     }
 
 

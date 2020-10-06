@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import ChannelPreview from './ChannelPreview'
 import { DateTime } from 'luxon'
 import useStores from '../Basics/UseStores';
@@ -50,28 +50,29 @@ const useStyles = makeStyles({
     },
     tabs: {
         minWidth: "50px",
-        width: "50%",
+        flex: 1,
         padding: "0"
     }
 
 });
 
 
-const  ChannelNavigation = observer((props) => {
+const ChannelNavigation = observer((props) => {
     const classes = useStyles();
     const { messagingStore, loginStore } = useStores();
     const { t, i18n } = useTranslation('translation');
     const [search, setSearch] = useState("");
     const [patientSearch, setPatientSearch] = useState("");
-    const [tab, setTab] = useState(0);
-
-    const isExpert = loginStore.userType === "Expert";
 
     const publicChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.filter((channel) => {
         return (!channel.isPrivate && channel.title.toLowerCase().includes(search.toLowerCase()))
     }) : [];
 
     const coordinatorChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.filter((channel) => { return (channel.isPrivate && channel.title.toLowerCase().includes(patientSearch.toLowerCase())) }) : [];
+
+
+    const expertChannels = (messagingStore.channels.length > 0) ? 
+    messagingStore.channels.filter((channel) => { return (channel.isPrivate && channel.userType === "Practitioner"  )}) : [];
 
     const handleSearch = (e) => {
         setSearch(e.target.value)
@@ -81,24 +82,12 @@ const  ChannelNavigation = observer((props) => {
         setPatientSearch(e.target.value)
     }
 
-    const handleChange = (event, newValue) => {
-        setTab(newValue);
-    };
-
     return (
         <div className={classes.container}>
-            <Tabs
-                value={tab}
-                indicatorColor="primary"
-                textColor="primary"
-                onChange={handleChange}
-                aria-label="message-type-tab"
-            >
-                <Tab className={classes.tabs} label={ isExpert ? t('messaging.coordinators') : t('messaging.patients')} />
-                <Tab className={classes.tabs} label={t('messaging.discussions')} />
-            </Tabs>
 
-            {tab === 0 ?
+            <TabLayout />
+
+            {messagingStore.tab === 0 ?
                 <div className={classes.header}>
                     <SearchBar kind={"patient"} handleChange={handlePatientSearch} placeholder={t("messaging.searchPatient")} />
                 </div> :
@@ -108,10 +97,41 @@ const  ChannelNavigation = observer((props) => {
                 </div>}
             <div className={classes.channelList}>
 
-                {tab === 0 ? <Channels private channels={coordinatorChannels} /> : <Channels channels={publicChannels} />}
+                {messagingStore.tab === 0 && <Channels private channels={coordinatorChannels} />}
+                {messagingStore.tab === 1 && <Channels channels={publicChannels} />}
+                {messagingStore.tab === 2 && <Channels channels={expertChannels} />}
             </div>
-            {tab === 1 && <AddTopic />}
+            {messagingStore.tab === 1 && <AddTopic />}
         </div>)
+})
+
+
+const TabLayout = observer(() => {
+    const { t, i18n } = useTranslation('translation');
+    const { messagingStore, loginStore} = useStores();
+    const classes = useStyles();
+    const handleChange = (event, newValue) => {
+        messagingStore.setTab(newValue);
+    };
+
+    const isCoordinator = loginStore.userType === "Practitioner";
+    const isExpert = loginStore.userType === "Expert";
+
+    console.log(isCoordinator)
+
+    return (
+        <Tabs
+            value={messagingStore.tab}
+            indicatorColor="primary"
+            textColor="primary"
+            onChange={handleChange}
+            aria-label="message-type-tab"
+        >
+            <Tab className={classes.tabs} label={isExpert ? t('messaging.coordinators') : t('messaging.patients')} />
+            <Tab className={classes.tabs} label={t('messaging.discussions')} />
+            {isCoordinator && <Tab className={classes.tabs} label={t('messaging.expert')} />}
+        </Tabs>
+    )
 })
 
 
@@ -125,8 +145,10 @@ const Channels = observer((props) => {
     let channels = "";
     if (props.channels.length > 0) {
         channels = props.channels.map((channel) => {
+            console.log(channel.userType === "Practitioner")
             const title = (channel.isPrivate && practitionerStore.getPatient(channel.userId)) ? practitionerStore.getPatient(channel.userId).fullName : channel.title
             return <ChannelPreview
+                isExpert={channel.userType === "Practitioner"}
                 coordinator
                 selected={uiStore.pathNumber === channel.id}
                 private={props.private}
@@ -141,7 +163,7 @@ const Channels = observer((props) => {
             />
         })
     } else {
-    channels = <p className={classes.errorMessage}>No {!props.private ? t('messaging.patients') : t('messaging.discussions')} {t('messaging.found')}</p>
+        channels = <p className={classes.errorMessage}>No {!props.private ? t('messaging.patients') : t('messaging.discussions')} {t('messaging.found')}</p>
     }
 
     return (

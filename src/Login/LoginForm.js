@@ -8,10 +8,6 @@ import { useTranslation } from 'react-i18next'
 import { PasswordInput } from './StyledInputs'
 import ReactCodeInput from 'react-code-input';
 import ButtonBase from '@material-ui/core/ButtonBase'
-import Globe from '@material-ui/icons/Language';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import { observable } from 'mobx';
 
 const USER_TYPES = ["Patient", "Practitioner", "Administrator"];
 const LoginForm = observer((props) => {
@@ -56,13 +52,6 @@ const LoginForm = observer((props) => {
     </Container>
   );
 });
-
-
-const AdminBox = styled.div`
-display: flex;
-align-items: center;
-`
-
 
 const BottomLinks = styled.div`
 margin: 3em 0 3em 0;

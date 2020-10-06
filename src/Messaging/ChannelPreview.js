@@ -7,16 +7,14 @@ import {observer} from 'mobx-react'
 
 const ChannelPreview = observer((props) => {
 
-    const { t, i18n } = useTranslation('translation');
-    const {loginStore} = useStores();
-    const isExpert = loginStore.userType === "Expert";
+    const {t} = useTranslation('translation');
 
     return (
-        <Container isExpert={isExpert} coordinator={props.coordinator} onClick={props.onClick} altColor={props.private} selected={props.selected}>
+        <Container isExpert={props.isExpert} coordinator={props.coordinator} onClick={props.onClick} altColor={props.private} selected={props.selected}>
             <div className="display"><span>{props.title ? props.title[0] : "C"}</span></div>
             <BorderedPart hideBorder={props.coordinator}>
                 <div className="text">
-                    <h2>{props.title}</h2>
+                    <h2>{props.title === "tb-expert-chat" ?  t('messaging.expert') : props.title }</h2>
                     <p>{props.private ? `${t("messaging.privateExplained")}` : props.subtitle}</p>
                 </div>
                 <div className="rightSideContainer">
@@ -111,7 +109,7 @@ const Container = styled.div`
         max-width: 50px;
         border-radius: 50px;
             background-color: ${props => {
-                if(props.isExpert && props.altColor){
+                if(props.isExpert){
                     return Colors.yellow
                 }
                 return props.altColor ? Colors.green : Colors.babyBlue
