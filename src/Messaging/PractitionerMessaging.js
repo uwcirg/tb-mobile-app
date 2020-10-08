@@ -68,7 +68,6 @@ const Messaging = observer(() => {
         return <MobileMessages />
     }
 
-
     return (
         <div className={classes.superContainer}>
             <div className={classes.navContainer}>
