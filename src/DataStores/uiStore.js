@@ -88,7 +88,10 @@ export class UIStore {
 
     @action setAuthError = () => {
         this.authError = true;
-        console.log("set atuh erro")
+    }
+
+    @action resetAuthError = () => {
+        this.authError = false;
     }
 
 

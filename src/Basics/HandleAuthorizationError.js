@@ -5,25 +5,16 @@ import Alert from './Alert'
 
 const CheckAuthorization = observer(() => {
 
-    // const { routingStore, practitionerStore, adminStore, patientStore, loginStore, uiStore } = useStores();
     const {uiStore, routingStore, loginStore} = useStores();
     const { push } = routingStore;
     
-    // const authError = practitionerStore.authorizationError || patientStore.authorizationError || adminStore.authorizationError;
-
-    // const close = () => {
-    //     practitionerStore.authorizationError = false;
-    //     patientStore.authorizationError = false;
-    //     adminStore.authorizationError = false;
-    // }
-// {uiStore.authError && <p> Auth error test</p>}
-
     const close = () => {
-        uiStore.authError = false;
+        uiStore.resetAuthError();
     }
 
     if (uiStore.authError) {
         loginStore.logout();
+        push("")
     }
 
     return (<>

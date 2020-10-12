@@ -1,5 +1,4 @@
 import { observable } from "mobx";
-import React from 'react'
 import {stores} from './index'
 
 export default class APIStore {
@@ -26,7 +25,7 @@ export default class APIStore {
     }
 
     checkAuth(response){
-        if(response && response.status === 401 || response.status === 422 ){
+        if(response && (response.status === 401 || response.status === 422) && !response.isLogin ){
             stores.uiStore.setAuthError();
         }
     }
