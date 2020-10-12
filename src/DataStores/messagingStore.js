@@ -1,5 +1,6 @@
-import { action, observable, toJS, computed } from "mobx";
+import { action, observable, computed } from "mobx";
 import uploadPhoto from '../Basics/PhotoUploader';
+import APIStore from './apiStore'
 
 const ROUTES = {
     getChannels: ["/channels", "GET"],
@@ -7,10 +8,10 @@ const ROUTES = {
     postNewChannel: ["/channels", "POST"]
 }
 
-export class MessagingStore {
+export class MessagingStore extends APIStore{
 
     constructor(strategy) {
-        this.strategy = strategy;
+        super(strategy, ROUTES);
 
         //Update Unread Messages when a push notification is recieved
         //this uses the specific message channle messaging-notification
@@ -91,7 +92,7 @@ export class MessagingStore {
     }
 
     @action getChannels() {
-        this.strategy.executeRequest(ROUTES, "getChannels").then((response) => {
+        this.executeRequest("getChannels").then((response) => {
             this.channels = response;
         })
     }
@@ -105,7 +106,7 @@ export class MessagingStore {
             url += `?lastMessageID=${this.lastMessageFetched}`
         } */
 
-        this.strategy.executeRawRequest(url, "GET").then((response) => {
+        this.executeRawRequest(url, "GET").then((response) => {
             this.selectedChannel.messages = response;
             this.getUnreadMessages();
             this.updateSelectedChannel();
@@ -120,7 +121,7 @@ export class MessagingStore {
             url += `?lastMessageId=${this.lastMessageFetched}`
         }
 
-        this.strategy.executeRawRequest(url, "GET").then((response) => {
+        this.executeRawRequest(url, "GET").then((response) => {
             this.selectedChannel.messages = this.selectedChannel.messages.concat(response);
         })
     }
@@ -159,7 +160,7 @@ export class MessagingStore {
             object.photoPath = photoPath
         }
 
-        this.strategy.executeRawRequest(`/channels/${this.selectedChannel.id}/messages`, "POST", object).then((response) => {
+        this.executeRawRequest(`/channels/${this.selectedChannel.id}/messages`, "POST", object).then((response) => {
             this.getNewMessages();
             this.newMessage = "";
             this.file = "";
@@ -168,7 +169,7 @@ export class MessagingStore {
     }
 
     @action getUnreadMessages = () => {
-        this.strategy.executeRequest(ROUTES, "getUnreadMessages").then((response) => {
+        this.executeRequest("getUnreadMessages").then((response) => {
             this.numberUnread = response.total
             this.unreadInfo = response.channels
         })
@@ -184,7 +185,7 @@ export class MessagingStore {
 
     getUploadUrl = () => {
 
-        return this.strategy.executeRawRequest(`/photo_uploaders/messaging?channelId=${this.selectedChannel.id}&fileType=${this.fileType}`)
+        return this.executeRawRequest(`/photo_uploaders/messaging?channelId=${this.selectedChannel.id}&fileType=${this.fileType}`)
     }
 
     @action toggleImagePreview = () => {
@@ -219,7 +220,7 @@ export class MessagingStore {
             title: this.newChannel.title,
             subtitle: this.newChannel.subtitle
         }
-        this.strategy.executeRequest(ROUTES, "postNewChannel",body,{allowErrors: true}).then((response) => {
+        this.executeRequest("postNewChannel",body,{allowErrors: true}).then((response) => {
             if(response.error){
                 this.newChannel.errors = response.paramErrors 
             }else{
@@ -235,7 +236,7 @@ export class MessagingStore {
     }
 
     @action setMessageHidden = (id,state) => {
-        this.strategy.executeRawRequest(`/message/${id}`,"PATCH",{isHidden: state}).then( response => {
+        this.executeRawRequest(`/message/${id}`,"PATCH",{isHidden: state}).then( response => {
             this.selectedChannel.messages.forEach((each,index) => {
                 if(each.id === response.id){
                     this.selectedChannel.messages[index] = response

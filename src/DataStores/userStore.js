@@ -1,4 +1,4 @@
-import { action, observable, computed } from "mobx";
+import { action, observable } from "mobx";
 import APIStore from './apiStore'
 
 const USER_ROUTES = {
@@ -11,8 +11,6 @@ const USER_ROUTES = {
 }
 
 export class UserStore extends APIStore {
-
-  @observable authorizationError = false;
 
   @observable userType = "";
   @observable userID = ""
