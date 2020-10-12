@@ -538,7 +538,8 @@
             "identifier": "Incorrect Phone Number / Email",
             "password": "Incorrect Password",
             "other": "Unexpected Error. Please contact coordinator on WhatsApp"
-        }
+        },
+        "sessionExpired": "Your session has expired. Please log back in."
     },
     "settings": {
         "updatePassword": "Update Password",
