@@ -12,6 +12,8 @@ const USER_ROUTES = {
 
 export class UserStore extends APIStore {
 
+  @observable authorizationError = false;
+
   @observable userType = "";
   @observable userID = ""
   @observable token = ""
@@ -53,7 +55,13 @@ export class UserStore extends APIStore {
 
  initalize () {
 
-    return this.executeRequest(`getCurrent${this.userType}`).then((json) => {
+    return this.executeRequest(`getCurrent${this.userType}`,{}, {allowErrors: true}).then((json) => {
+      if(json && json.errors && json.status === 401){
+        this.authorizationError = true;
+        return
+      }
+
+      this.authorizationError = false;
       if (json.id) {
         this.setAccountInformation(json)
         this.isLoggedIn = true;

@@ -7,6 +7,8 @@ export class UIStore {
         this.router = routerStore;
     }
 
+    @observable authError = false;
+
     @observable userInt = 0;
     @observable userType = "";
 
@@ -82,6 +84,11 @@ export class UIStore {
         const parts = this.router.location.pathname.split("/");
         const parsed = parseInt(parts[parts.length - 1])
         return parsed ? parsed : 0
+    }
+
+    @action setAuthError = () => {
+        this.authError = true;
+        console.log("set atuh erro")
     }
 
 

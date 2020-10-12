@@ -4,20 +4,27 @@ const baseURL = window._env ? window._env.URL_API : "";
 
 const authenticatedRequest = (url, method, body, options) => {
     let requestStatus = 0;
-    return fetch(`${baseURL}${url}`, {
+
+    let requestOptions = {
         method: method,
         credentials: "include",
         headers: {
             "Content-Type": "application/json"
-        },
-        body: JSON.stringify(body)
-    })
+        }
+    }
+
+    if(method && method != "GET"){
+        requestOptions.body = JSON.stringify(body)
+    }
+
+    return fetch(`${baseURL}${url}`, requestOptions )
         .then(resolve => {
             requestStatus = resolve.status;
             //Default Error Handling, or use options.allowErrors to accept the returned body of error from server
-            if (resolve.status >= 400 && (!options || options.allowErrors === false)) {
-                return new Error(resolve.status);
-            }
+            // if (resolve.status >= 400 && (!options || options.allowErrors === false)) {
+                // return new Error(resolve.status);
+            
+            // }
             return resolve.json()
         })
         .then(json => {
