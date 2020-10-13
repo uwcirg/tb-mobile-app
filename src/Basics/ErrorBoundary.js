@@ -6,9 +6,16 @@ import Colors from './Colors';
 import { ReactComponent as DoctorIcon } from './Icons/DoctorGroup.svg';
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import { useTranslation } from 'react-i18next';
+import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles({
+  background: {
+    minHeight: "100vh",
+    width: "100%",
+    height: "100%"
+  },
   container: {
+    marginBottom: "100px",
     width: "95%",
     margin: "auto",
     paddingTop: "1em",
@@ -18,7 +25,7 @@ const useStyles = makeStyles({
       textAlign: "center"
 
     },
-    "& > h2": {
+    "& > * > h2, & > h2": {
       fontSize: "1em"
     },
     "& > .header": {
@@ -34,13 +41,35 @@ const useStyles = makeStyles({
     },
     "& > ol": {
 
+    },
+    " & > .info-container": {
+      boxShadow: "0px 4px 16px rgba(0, 0, 0, 0.1)",
+      backgroundColor: Colors.lightgray,
+      color: 'black',
+      padding: ".75em",
+      borderRadius: "5px",
+      "& > .centered": {
+        textAlign: "center",
+        marginBottom: "1em"
+      }
     }
   },
-  buttons:{
-    "& > button > span":{
+  buttons: {
+    boxSizing: "border-box",
+    position: "fixed",
+    display: "flex",
+    justifyContent: "center",
+    bottom: 0,
+    right: 0,
+    width: "100%",
+    "& > button > span": {
       lineHeight: "1.25em"
+    },
+    "& > button": {
+      backgroundColor: "white",
+      color: Colors.buttonBlue
     }
-    
+
   }
 
 
@@ -69,20 +98,20 @@ export default class ErrorBoundary extends React.Component {
       return (<Container>
         <div className="header">
           <DoctorIcon />
-          <h1>Something went wrong with the application 😕</h1>
+          <Typography variant="h1">Something went wrong with the application 😕</Typography>
         </div>
-        <h2>Sorry about that. </h2>
-        <h2>Please try these steps to see if they resolve the issue (using the buttons below)</h2>
-        <ul>
-          <li>Refresh the page</li>
-          <li>Log Out and Log Back In</li>
-          <li>Close app from at a system level or close browser tab</li>
-        </ul>
+        <h2 className="centered" variant="h2">Sorry about that. </h2>
+        <div className="info-container">
+          <Typography variant="h2">Please try these steps to see if they resolve the issue (using the buttons below)</Typography>
+          <ul>
+            <li>Refresh the page</li>
+            <li>Log Out and Log Back In</li>
+            <li>Close app from at a system level or close browser tab</li>
+          </ul>
+        </div>
 
-        <h2>Click Here To:</h2>
+        <Contact />
         <Buttons />
-
-      <Contact />
       </Container >);
     }
 
@@ -92,15 +121,17 @@ export default class ErrorBoundary extends React.Component {
 
 const Contact = () => {
 
-  const { t} = useTranslation('translation');
-  return(
+  const { t } = useTranslation('translation');
+  return (
     <>
-  <h2>For Further Support Contact Us:</h2>
-  <ul>
-    <li>WhatsApp: <a href="https://wa.me/18014194928">+1(801)419-4928</a></li>
-    <li>{t('login.email')}: <a href="mailto:sjiribar@uw.edu?subject=%5BTB%20Application%20Issues%5D">sjiribar@uw.edu</a></li>
-  </ul>
-  </>
+    <h2>For Further Support Contact Us:</h2>
+    <div className="info-container">
+      <ul>
+        <li>WhatsApp: <a href="https://wa.me/18014194928">+1(801)419-4928</a></li>
+        <li>{t('login.email')}: <a href="mailto:sjiribar@uw.edu?subject=%5BTB%20Application%20Issues%5D">sjiribar@uw.edu</a></li>
+      </ul>
+    </div>
+    </>
   )
 }
 
@@ -109,10 +140,12 @@ const Buttons = () => {
   const { t } = useTranslation('translation');
   const classes = useStyles();
   return (
-    <ButtonGroup className={classes.buttons} fullWidth>
-      <Button onClick={() => { setOpen(true) }}>{t('patient.profile.logout')}</Button>
-      <Button onClick={() => { patientStore.updateNotificationTime(true) }}>{t('errors.reload')}</Button>
-    </ButtonGroup>
+    <div>
+      <ButtonGroup className={classes.buttons} fullWidth>
+        <Button onClick={() => { useLogout(); }}>{t('patient.profile.logout')}</Button>
+        <Button onClick={() => { location.reload(); }}>{t('errors.reload')}</Button>
+      </ButtonGroup>
+    </div>
   )
 }
 
@@ -132,8 +165,12 @@ const Container = (props) => {
 
   const classes = useStyles();
 
-  return (<div className={classes.container}>
-    {props.children}
-  </div>)
+  return (
+    <div className={classes.background}>
+      <div className={classes.container}>
+        {props.children}
+      </div>
+    </div>
+  )
 
 }
