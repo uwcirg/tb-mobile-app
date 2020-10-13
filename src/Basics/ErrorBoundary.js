@@ -1,3 +1,7 @@
+// This file had to be rushed due to a deadline, could use a cleanup to make components more clear
+// should refactor out reusable part, and seperate the actual error boundry
+// also "NonFixedButtons" needs to be renamed 
+
 import React from 'react'
 import useLogout from './Logout'
 import Button from '@material-ui/core/Button'
@@ -65,7 +69,6 @@ const useStyles = makeStyles({
           marginBottom: ".5em"
         }
       }
-
     }
   },
   buttonsContainer: {
@@ -87,10 +90,7 @@ const useStyles = makeStyles({
       backgroundColor: "white",
       color: Colors.buttonBlue
     }
-
   }
-
-
 })
 
 export default class ErrorBoundary extends React.Component {
@@ -141,16 +141,16 @@ const Header = () => {
 
 const Resolve = () => {
   const { t } = useTranslation('translation');
-  return(
+  return (
     <>
-    <h2 className="centered" variant="h2">{t('errors.page.try')}:</h2>
-    <div className="info-container">
-      <ul>
-        <li>{t('errors.page.reloadStep')}</li>
-        <li>{t('errors.page.loginStep')}</li>
-        <li>{t('errors.page.closeStep')}</li>
-      </ul>
-    </div>
+      <h2 className="centered" variant="h2">{t('errors.page.try')}:</h2>
+      <div className="info-container">
+        <ul>
+          <li>{t('errors.page.reloadStep')}</li>
+          <li>{t('errors.page.loginStep')}</li>
+          <li>{t('errors.page.closeStep')}</li>
+        </ul>
+      </div>
     </>
   )
 }
@@ -174,16 +174,21 @@ const Contact = () => {
 
 
 const Buttons = () => {
-  const { t } = useTranslation('translation');
   const classes = useStyles();
   return (
     <div className={classes.buttonsContainer}>
-      <ButtonGroup className={classes.buttons} fullWidth>
-        <Button onClick={() => { useLogout(); }}>{t('patient.profile.logout')}</Button>
-        <Button onClick={() => { location.reload(); }}>{t('errors.reload')}</Button>
-      </ButtonGroup>
+      <NonFixedButtons />
     </div>
   )
+}
+
+const NonFixedButtons = () => {
+  const { t } = useTranslation('translation');
+  const classes = useStyles();
+  return (<ButtonGroup className={classes.buttons} fullWidth>
+    <Button onClick={() => { useLogout(); }}>{t('patient.profile.logout')}</Button>
+    <Button onClick={() => { location.reload(); }}>{t('errors.reload')}</Button>
+  </ButtonGroup>)
 }
 
 const Container = (props) => {
@@ -199,3 +204,15 @@ const Container = (props) => {
   )
 
 }
+
+const StaticVersion = () => {
+  return (
+    <>
+      <Resolve />
+      <Contact />
+      <NonFixedButtons />
+    </>
+  )
+}
+
+export {StaticVersion}
