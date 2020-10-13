@@ -207,11 +207,13 @@ const Container = (props) => {
 
 const StaticVersion = () => {
   return (
-    <>
+    <Container>
       <Resolve />
-      <Contact />
+      <br />
       <NonFixedButtons />
-    </>
+      <br />
+      <Contact />
+    </Container>
   )
 }
 

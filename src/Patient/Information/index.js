@@ -15,6 +15,8 @@ import Section from './Section'
 import VideoIcon from '@material-ui/icons/OndemandVideo';
 import HelpIcon from '@material-ui/icons/Help';
 import InfoIcon from '@material-ui/icons/Info';
+import { StaticVersion as ErrorReporting } from '../../Basics/ErrorBoundary'
+import ErrorIcon from '@material-ui/icons/ReportProblem';
 
 
 const file = raw("./information.md");
@@ -81,6 +83,9 @@ export default function Info() {
                 <Interactioncard className={classes.topCard} >
                     <Markdown options={{ overrides: { Drawer: { component: MarkdownRender } } }} children={file} />
                 </Interactioncard>
+            </Section>
+        <Section title={<><ErrorIcon />{t('patient.information.techSupport')} / <br /> {t('patient.information.reportIssue')}</>}>
+                <ErrorReporting />
             </Section>
 
             <Typography variant="h1">{t('patient.information.helpSection')}</Typography>

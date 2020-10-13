@@ -326,7 +326,9 @@
             "infoSection": "Information About Treatment",
             "launchWalkthrough": "Launch Walkthrough",
             "video": "Watch Video",
-            "videos": "Videos About Treatment"
+            "videos": "Videos About Treatment",
+            "techSupport": "Technical Support",
+            "reportIssue": "Report Issue"
         }
     },
     "symptoms": {
