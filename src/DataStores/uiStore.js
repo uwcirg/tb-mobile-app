@@ -1,5 +1,4 @@
-import { action, observable, autorun, computed } from "mobx";
-import { Settings } from 'luxon'
+import { action, observable, computed } from "mobx";
 
 export class UIStore {
 

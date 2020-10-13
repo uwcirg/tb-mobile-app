@@ -539,7 +539,9 @@
             "password": "Incorrect Password",
             "other": "Unexpected Error. Please contact coordinator on WhatsApp"
         },
-        "sessionExpired": "Your session has expired. Please log back in."
+        "sessionExpired": "Your session has expired.",
+        "logBackIn": "Please log back in.",
+        "reload": "Reload Page"
     },
     "settings": {
         "updatePassword": "Update Password",

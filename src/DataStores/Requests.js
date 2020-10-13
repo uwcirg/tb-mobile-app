@@ -37,6 +37,16 @@ const authenticatedRequest = (url, method, body, options) => {
 
 export default class APIHelper {
 
+    constructor(uiStore){
+        this.uiStore = uiStore;
+    }
+
+    checkAuth(response){
+        if(response && (response.status === 401 || response.status === 422) && !response.isLogin ){
+            this.uiStore.setAuthError();
+        }
+    }
+
     //Send network request from predefined object of routes
     executeRequest(routes, route, body, options) {
 
