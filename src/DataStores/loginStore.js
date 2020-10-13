@@ -61,8 +61,8 @@ export default class LoginStore extends APIStore {
 
         return this.executeRequest('login', body).then(response => {
 
-            if(response instanceof Error){
-                this.error = response.message;
+            if(response.status > 400){
+                this.error = response.status;
                 return
             }
             

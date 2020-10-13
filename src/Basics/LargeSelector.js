@@ -36,6 +36,7 @@ color: white;
 span{
     margin-left: 2em;
     display: block;
+    text-transform: capitalize;
 }
 `
 

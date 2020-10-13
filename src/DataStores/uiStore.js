@@ -1,11 +1,12 @@
-import { action, observable, autorun, computed } from "mobx";
-import { Settings } from 'luxon'
+import { action, observable, computed } from "mobx";
 
 export class UIStore {
 
     constructor(routerStore) {
         this.router = routerStore;
     }
+
+    @observable authError = false;
 
     @observable userInt = 0;
     @observable userType = "";
@@ -82,6 +83,14 @@ export class UIStore {
         const parts = this.router.location.pathname.split("/");
         const parsed = parseInt(parts[parts.length - 1])
         return parsed ? parsed : 0
+    }
+
+    @action setAuthError = () => {
+        this.authError = true;
+    }
+
+    @action resetAuthError = () => {
+        this.authError = false;
     }
 
 

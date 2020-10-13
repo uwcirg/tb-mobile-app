@@ -126,7 +126,7 @@ const Card = observer((props) => {
     }
 
     const handleClick = (id, type) => {
-        console.log(" " + id + " " + type)
+
     }
 
     const handleClose = () => {

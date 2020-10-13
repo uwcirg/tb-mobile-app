@@ -117,8 +117,6 @@ const TabLayout = observer(() => {
     const isCoordinator = loginStore.userType === "Practitioner";
     const isExpert = loginStore.userType === "Expert";
 
-    console.log(isCoordinator)
-
     return (
         <Tabs
             value={messagingStore.tab}

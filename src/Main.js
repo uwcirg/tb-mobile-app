@@ -10,7 +10,8 @@ import { Translation, withTranslation } from "react-i18next";
 import Colors from './Basics/Colors';
 import useStores from './Basics/UseStores';
 import ExpertView from './Expert';
-
+import Boundry from './Basics/ErrorBoundary'
+import CheckAuthorization from './Basics/HandleAuthorizationError'
 
 const theme = createMuiTheme({
 
@@ -19,7 +20,6 @@ const theme = createMuiTheme({
     h1: {
       fontSize: "1.25em"
     },
-
 
   },
   palette: {
@@ -34,6 +34,7 @@ const theme = createMuiTheme({
 
 const UserHome = observer(() => {
   const { loginStore, patientStore,practitionerStore,adminStore } = useStores();
+
   if (loginStore.userType === "Patient") {
     patientStore.initalize()
     return <PatientHome />
@@ -61,10 +62,9 @@ const Main = observer(() => {
     listenForConnectivityChanges();
   }, [])
 
-  const handleBack = () => {
-    uiStore.isLoggedIn = false;
-    uiStore.userType = ""
-  }
+  useEffect(()=>{
+
+  },[])
 
   const listenForConnectivityChanges = () => {
     window.addEventListener('online', () => {
@@ -83,11 +83,14 @@ const Main = observer(() => {
 
 
   return (
+    <Boundry>
+    <CheckAuthorization />
     <div>
       <ThemeProvider theme={theme}>
         {loginStore && loginStore.isLoggedIn ? <UserHome /> : <Login />}
       </ThemeProvider>
     </div>
+    </Boundry>
   )
 
 })

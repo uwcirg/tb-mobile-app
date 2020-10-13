@@ -326,7 +326,9 @@
             "infoSection": "Information About Treatment",
             "launchWalkthrough": "Launch Walkthrough",
             "video": "Watch Video",
-            "videos": "Videos About Treatment"
+            "videos": "Videos About Treatment",
+            "techSupport": "Technical Support",
+            "reportIssue": "Report Issue"
         }
     },
     "symptoms": {
@@ -534,11 +536,25 @@
         }
     },
     "errors": {
+        "page":{
+            "header": "Something went wrong.",
+            "sorry": "Sorry about that",
+            "furtherSupport": "For Further Support Contact Us",
+            "contactDetails": "Please provide a detailed description of your issue and any steps that lead you to it.",
+            "try": "Try these steps",
+            "reloadStep": "Reload the page",
+            "loginStep": "Log Out and Log Back In",
+            "closeStep": "Close app from at a system level or close browser tab"
+
+        },
         "login": {
             "identifier": "Incorrect Phone Number / Email",
             "password": "Incorrect Password",
             "other": "Unexpected Error. Please contact coordinator on WhatsApp"
-        }
+        },
+        "sessionExpired": "Your session has expired.",
+        "logBackIn": "Please log back in.",
+        "reload": "Reload Page"
     },
     "settings": {
         "updatePassword": "Update Password",
