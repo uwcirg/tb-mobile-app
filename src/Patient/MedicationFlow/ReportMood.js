@@ -107,7 +107,6 @@ const ReportMood = observer((props) => {
 
         <SimpleButton disabled={!patientStore.report.doingOkaySelected} className={classes.button} alignRight onClick={() => {
             props.advance()
-            console.log(patientStore.report.doingOkay)
         }} backgroundColor={Colors.green}>{t("patient.report.next")}</SimpleButton>
     </div>)
 
