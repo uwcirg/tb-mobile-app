@@ -326,7 +326,9 @@
             "infoSection": "Información Sobre el Tratamiento",
             "launchWalkthrough": "Abrir Guía de la Aplicación",
             "video": "Ver Vídeo",
-            "videos": "Videos Sobre el Tratamiento"
+            "videos": "Videos Sobre el Tratamiento",
+            "techSupport": "Soporte Técnico ",
+            "reportIssue": "Reportar Problema"
         }
     },
     "symptoms": {
@@ -527,11 +529,25 @@
         }
     },
     "errors": {
+        "page":{
+            "header": "Algo fue mal.",
+            "sorry": "Perdón",
+            "furtherSupport": "Contáctenos Para Obtener Más Ayuda",
+            "contactDetails": "Proporcione una descripción detallada de su problema y los pasos que tomaste antes de que ocurriera.",
+            "try": "Trate estos pasos",
+            "reloadStep": "Volver a cargar la página ",
+            "loginStep": "Cerrar Su Sesión y a Iniciar Una Nueva Sesión",
+            "closeStep": "Cierre completamente la aplicación o cierre su navegador"
+
+        },
         "login": {
             "identifier": "Numero de Telefono incorrecto",
             "password": "Contraseña Incorrecta",
             "other": "Error. Por favor contacte a su asistente por whatsapp"
-        }
+        },
+        "sessionExpired": "Su sesión ha caducado.",
+        "logBackIn": "Por favor vuelva a iniciar su sesión.",
+        "reload": "Recargar la Página"
     },
     "settings": {
         "updatePassword": "Actualizar contraseña",
