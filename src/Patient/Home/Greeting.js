@@ -5,7 +5,7 @@ import { DateTime } from 'luxon';
 import Styles from '../../Basics/Styles';
 import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
-
+import {observer} from 'mobx-react'
 
 const useStyles = makeStyles({
   container:{
@@ -27,7 +27,7 @@ const useStyles = makeStyles({
   }
 })
 
-const Greeting = () => {
+const Greeting = observer(() => {
 
   const { t, i18n } = useTranslation('translation');
 
@@ -39,6 +39,6 @@ const Greeting = () => {
         <div className={classes.date}>{DateTime.local().toLocaleString(DateTime.DATE_FULL)}</div>
     </div>)
 
-}
+})
 
 export default Greeting;
