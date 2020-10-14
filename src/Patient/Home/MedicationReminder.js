@@ -109,8 +109,8 @@ const Card = observer(() => {
                 </div>
                 <div className={classes.buttonContainer}>
                     <ButtonGroup className={classes.timeButtonGroup} fullWidth>
-                        <Button onClick={() => {}}>{t('patient.profile.logout')}</Button>
-                        <Button onClick={() => {}}>{t('patient.errors.reload')}</Button>
+                        <Button onClick={() => { setOpen(true) }}>{t('patient.reminders.changeTime')}</Button>
+                        <Button onClick={() => { patientStore.updateNotificationTime(true) }}>{t('patient.reminders.disable')}</Button>
                     </ButtonGroup>
                 </div>
             </> : <>
