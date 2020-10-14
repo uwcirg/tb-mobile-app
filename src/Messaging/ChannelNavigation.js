@@ -68,11 +68,8 @@ const ChannelNavigation = observer((props) => {
         return (!channel.isPrivate && channel.title.toLowerCase().includes(search.toLowerCase()))
     }) : [];
 
-    const coordinatorChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.filter((channel) => { return (channel.isPrivate && channel.title.toLowerCase().includes(patientSearch.toLowerCase())) }) : [];
-
-
-    const expertChannels = (messagingStore.channels.length > 0) ? 
-    messagingStore.channels.filter((channel) => { return (channel.isPrivate && channel.userType === "Practitioner"  )}) : [];
+    const coordinatorChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.filter((channel) => { return (channel.isPrivate && channel.title.toLowerCase().includes(patientSearch.toLowerCase())) })
+    .sort((channel) =>{ return channel.userType === "Practitioner" ? -1 : 1}) : [];
 
     const handleSearch = (e) => {
         setSearch(e.target.value)
@@ -125,9 +122,8 @@ const TabLayout = observer(() => {
             onChange={handleChange}
             aria-label="message-type-tab"
         >
-            <Tab className={classes.tabs} label={isExpert ? t('messaging.coordinators') : t('messaging.patients')} />
+            <Tab className={classes.tabs} label={isExpert ? t('messaging.coordinators') : t('messaging.private')} />
             <Tab className={classes.tabs} label={t('messaging.discussions')} />
-            {isCoordinator && <Tab className={classes.tabs} label={t('messaging.expert')} />}
         </Tabs>
     )
 })

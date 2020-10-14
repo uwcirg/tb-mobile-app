@@ -24,7 +24,7 @@
     "userTypes": {
         "patient": "Paciente",
         "provider": "profesional",
-        "coordinator": "Coordinador",
+        "coordinator": "Asistente",
         "admin": "Administrador"
     },
     "login": {
@@ -66,12 +66,13 @@
         "searchTheme": "Buscar Por Tema ",
         "searchPatient": "Buscar por Paciente ",
         "patients": "Pacientes",
-        "coordinators": "Coordinadores",
+        "coordinators": "Asistentes",
         "discussions": "Discusiones",
-        "expert": "Experto en TB",
+        "expert": "Dr. Cristina Chirico",
         "groupDiscussion": "Discusión del grupo",
         "found": "Encontrado",
-        "empty": "No se han enviado mensajes todavia. Envie el primero!"
+        "empty": "No se han enviado mensajes todavia. Envie el primero!",
+        "private": "Privado"
     },
     "time": {
         "day": "día",
