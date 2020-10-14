@@ -42,7 +42,7 @@ export default class APIHelper {
     }
 
     checkAuth(response){
-        if(response && (response.status === 401 || response.status === 422) && !response.isLogin ){
+        if(response && (response.status === 401) && !response.isLogin ){
             this.uiStore.setAuthError();
         }
     }
