@@ -268,7 +268,7 @@
                 "usePhoto": "Use Photo",
                 "retakePhoto": "Retake Photo",
                 "openCamera": "Open Camera",
-                "showMe": "Show Me How"
+                "how": "How do I take the test?"
             },
             "symptoms": {
                 "nauseaRating": "How bad is your nausea?",
@@ -330,7 +330,8 @@
             "video": "Watch Video",
             "videos": "Videos About Treatment",
             "techSupport": "Technical Support",
-            "reportIssue": "Report Issue"
+            "reportIssue": "Report Issue",
+            "testInstructions": "Test Strip Instructions"
         }
     },
     "symptoms": {

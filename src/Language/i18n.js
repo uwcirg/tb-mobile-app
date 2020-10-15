@@ -1,6 +1,5 @@
 //From example https://itnext.io/ultimate-localization-of-react-mobx-app-with-i18next-efab77712149
 import i18n from 'i18next';
-import LanguageDetector from "i18next-browser-languagedetector";
 import English from "./Locales/en/translation.json"
 import Spanish from "./Locales/es-AR/translation.json"
 import { initReactI18next } from "react-i18next";
@@ -10,15 +9,20 @@ import { initReactI18next } from "react-i18next";
 //   loadPath: `/locales/{{lng}}/{{ns}}.json`
 // }
 
-
 const resources = {
   en: {translation: English }
   ,
   "es-AR": {translation: Spanish}
 };
 
-console.log(resources)
-
+// const getLanguage = () => {
+// if(!window || !window._env || !window._env.DEFAULT_LOCALE){
+//   return "en"
+// }else{
+//   return window._env.DEFAULT_LOCALE
+// }
+// }
+//  lng: getLanguage(),
 
 i18n.use(initReactI18next)
 .init({

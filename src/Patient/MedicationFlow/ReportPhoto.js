@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { inject, observer } from 'mobx-react';
 import SimpleButton from '../../Basics/SimpleButton';
 import ButtonBase from '@material-ui/core/ButtonBase'
@@ -10,18 +10,31 @@ import useStores from '../../Basics/UseStores';
 import ClickableText from '../../Basics/ClickableText';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-
-
-
+import PopUp from '../Navigation/PopUp';
+import Instructions from '../Information/TestInstructions';
 
 const useStyles = makeStyles({
 
     info: {
-        margin: "1em 0 1em 0",
+        paddingLeft: "1.5em",
         fontSize: "1em",
         width: "100%",
-        textAlign: "center"
-    }
+        "& > span": {
+            textAlign: "left",
+            width: "100%",
+            textTransform: "none"
+        }
+    },
+    popUp: {
+        height: "90vh",
+        width: "85%",
+        overflowY: "scroll"
+    },
+    title:{
+        fontSize: "1.25em",
+        textAlign: "left",
+        marginLeft: "1em"
+    },
 
 })
 
@@ -29,6 +42,7 @@ const ReportPhoto = observer((props) => {
 
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
+    const [showPopUp, setShowPopUp] = useState(false);
 
     const { patientStore, patientUIStore } = useStores();
     patientStore.report.headerText = t("patient.report.photoTitle")
@@ -47,6 +61,8 @@ const ReportPhoto = observer((props) => {
         patientStore.uiState.cameraIsOpen = true;
     }
 
+    const togglePopUp = () => { setShowPopUp(!showPopUp) }
+
     const handleNext = () => {
         patientStore.photoSubmission();
 
@@ -60,6 +76,10 @@ const ReportPhoto = observer((props) => {
 
     return (
         <div style={{ width: "100%" }}>
+            {showPopUp && <PopUp className={classes.popUp} handleClickAway={togglePopUp}>
+                <h1 className={classes.title}>Instrucciones</h1>
+                <Instructions />
+            </PopUp>}
             {patientStore.report.photoWasTaken ?
                 <>
                     <StripPhoto><img src={patientStore.report.photoString} /> </StripPhoto>
@@ -73,8 +93,8 @@ const ReportPhoto = observer((props) => {
                             {t("patient.report.photo.openCamera")}
                         </PhotoPrompt>
                     </ButtonBase>
-            {/*<ClickableText className={classes.info} hideIcon onClick={props.toggle} text={t("patient.report.photo.showMe")} />*/}
-            
+                    <ClickableText onClick={togglePopUp} className={classes.info} hideIcon text={<span>{t("patient.report.photo.how")}</span>} />
+
                 </>}
             <SimpleButton alignRight onClick={handleNext} disabled={!patientStore.report.photoWasTaken} backgroundColor={Colors.green}>{t("patient.report.next")}</SimpleButton>
             {patientStore.uiState.cameraIsOpen ? <Camera handleExit={handleExit} returnPhoto={handlePhoto} /> : ""}

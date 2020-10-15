@@ -15,6 +15,12 @@ const useStyles = makeStyles({
         "& > svg":{
             marginRight: ".5em"
         }
+    },
+    panel:{
+        
+        "&:last-of-type":{
+            boxShadow: "none"
+        }
     }
 })
 
