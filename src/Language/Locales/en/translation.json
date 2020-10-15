@@ -19,7 +19,8 @@
         "total": "total",
         "delete": "Delete",
         "loading": "Loading",
-        "patients": "Patients"
+        "patients": "Patients",
+        "expandPhoto": "Expand Photo"
     },
     "userTypes": {
         "patient": "Patient",
