@@ -41,6 +41,7 @@
         "activate": "Activate"
     },
     "messaging": {
+        "search": "Search",
         "moderation":{
             "hideUI": "Hide",
             "hide": "Hide from patients",
@@ -458,6 +459,7 @@
             "viewFullProfile": "View Full Profile",
             "daysMissed": "Days Missed Since Last Resolution",
             "photoSub": "Photo Submission",
+            "expandPhoto": "View Larger Size Photo",
             "symptomsSince": "Symptoms Reported",
             "loading": "Loading",
             "messagePatient": "Message Patient",

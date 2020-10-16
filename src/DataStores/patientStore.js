@@ -12,7 +12,7 @@ const ROUTES = {
     getPhotoUploadURL: ["/patient/daily_reports/photo_upload_url", "GET"],
     updateNotificationTime: ["/patient/reminder", "PATCH"],
     getMilestones: ["/patient/me/milestones", "GET"],
-    updateEducationStatus: ["/patient/me/education_status","POST"]
+    updateEducationStatus: ["/patient/me/education_status", "POST"]
 }
 
 export class PatientStore extends UserStore {
@@ -70,7 +70,7 @@ export class PatientStore extends UserStore {
     }
 
     @action setAccountInformation(json) {
-        this.photoSchedule = json.photoSchedule.reduce((a,b)=> (a[b]=true,a),{});
+        this.photoSchedule = json.photoSchedule.reduce((a, b) => (a[b] = true, a), {});
         this.patientInformation.weeksInTreatment = json.weeksInTreatment;
         this.treatmentStart = json.treatmentStart
         this.patientInformation.daysInTreatment = json.daysInTreatment;
@@ -133,7 +133,7 @@ export class PatientStore extends UserStore {
     //If the user has completed their treatment today, this will add oneday
     @computed get getCurrentStreak() {
         let streak = this.patientInformation.currentStreak;
-        if(streak === null) streak = 0;
+        if (streak === null) streak = 0;
         if (this.report.hasConfirmedAndSubmitted && this.report.tookMedication) {
             streak += 1;
         }
@@ -152,8 +152,8 @@ export class PatientStore extends UserStore {
             }))
     }
 
-    @computed get nasueaSelected(){
-        return(
+    @computed get nasueaSelected() {
+        return (
             this.report.selectedSymptoms.includes('nausea') && this.report.nauseaRating === ""
         )
     }
@@ -223,9 +223,7 @@ export class PatientStore extends UserStore {
         if (this.isPhotoDay && this.report.photoString) {
             this.uploadPhoto().then(res => {
                 body.photoUrl = res
-                this.executeRequest('dailyReport', body).then(json => {
-                    this.uploadReport(body);
-                })
+                this.uploadReport(body);
             })
         } else {
             this.executeRequest('dailyReport', body).then(json => {
@@ -235,9 +233,9 @@ export class PatientStore extends UserStore {
     }
 
     @action uploadReport = (body) => {
-        
+
         this.executeRequest('dailyReport', body).then(json => {
-            if(!body.isHistoricalReport){
+            if (!body.isHistoricalReport) {
                 this.report.hasConfirmedAndSubmitted = true;
                 this.saveReportingState();
             }
@@ -262,7 +260,7 @@ export class PatientStore extends UserStore {
     @action updateNotificationTime = (turnOff) => {
         let body = { time: this.reminderTime }
 
-        if(turnOff){
+        if (turnOff) {
             body.enabled = false;
         }
 
@@ -272,7 +270,7 @@ export class PatientStore extends UserStore {
             if (json.isoTime) {
                 this.reminderTime = json.isoTime
                 this.isReminderUpdating = false;
-            }else{
+            } else {
                 this.reminderTime = null;
             }
         });

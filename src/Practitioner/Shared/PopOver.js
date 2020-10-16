@@ -21,7 +21,7 @@ const useStyles = makeStyles({
     },
     container: {
         backgroundColor: "white",
-        width: "25%",
+        width: props => props.fullWidth ? "unset" : "25%",
         minHeight: "25%",
         padding: "1em",
     },
@@ -37,8 +37,7 @@ const useStyles = makeStyles({
 })
 
 const PopOver = (props) => {
-
-    const classes = useStyles();
+    const classes = useStyles({fullWidth: props.fullWidth});
 
     return (<div className={classes.superContainer}>
         <ClickAway onClickAway={props.close}>
