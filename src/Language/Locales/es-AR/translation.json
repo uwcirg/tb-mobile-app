@@ -19,7 +19,8 @@
         "total": "Total",
         "delete": "Borrar",
         "loading": "Cargando",
-        "patients": "pacientes"
+        "patients": "pacientes",
+        "expandPhoto": "Agrandar la Foto"
     },
     "userTypes": {
         "patient": "Paciente",
@@ -40,6 +41,7 @@
         "activate": "Activar"
     },
     "messaging": {
+        "search": "Buscar",
         "moderation":{
             "hideUI": "Esconder",
             "hide": "Ocultar para los pacientes",
@@ -267,7 +269,7 @@
                 "usePhoto": "Usar foto",
                 "retakePhoto": "Volver a Tomar la foto",
                 "openCamera": "Abrir la Camara",
-                "showMe": "Muestreme como"
+                "how": "¿Cómo puedo tomar el examen? "
             },
             "symptoms": {
                 "nauseaRating": "¿Que severa es su náusea?",
@@ -329,7 +331,8 @@
             "video": "Ver Vídeo",
             "videos": "Videos Sobre el Tratamiento",
             "techSupport": "Soporte Técnico ",
-            "reportIssue": "Reportar Problema"
+            "reportIssue": "Reportar Problema",
+            "testInstructions": "Instrucciones Para la Tira Reactiva"
         }
     },
     "symptoms": {
@@ -449,6 +452,7 @@
             "viewFullProfile": "Ver Perfil Completo",
             "daysMissed": "Días Sin Reporte Desde la Última Actualización",
             "photoSub": "Envío de Foto",
+            "expandPhoto": "Ver la Foto en Tamaño Grande",
             "symptomsSince": "Síntomas Reportados",
             "loading": "Cargando",
             "messagePatient": "Enviar Mensaje al Paciente",

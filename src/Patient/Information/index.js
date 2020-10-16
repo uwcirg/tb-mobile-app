@@ -18,6 +18,7 @@ import { StaticVersion as ErrorReporting } from '../../Basics/ErrorBoundary'
 import ErrorIcon from '@material-ui/icons/ReportProblem';
 import Instructions from './TestInstructions'
 import TestIcon from '@material-ui/icons/Colorize'
+import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 
 
 const file = raw("./information.md");
@@ -66,11 +67,10 @@ export default function Info() {
     const { patientUIStore, patientStore } = useStores();
     return (
         <div className={classes.container}>
-            <Typography variant="h1">{t('patient.information.helpSection')}</Typography>
-            <div className={classes.appInfo}>
+            <Section  title={<><LiveHelpIcon />{t('patient.information.helpSection')}</>}>
                 <Button className={classes.button} onClick={patientUIStore.goToWalkThrough}>{t('patient.information.launchWalkthrough')}</Button>
                 <Button className={classes.button} onClick={patientUIStore.goToWalkThrough}>{t('patient.information.video')}</Button>
-            </div>
+            </Section>
             <Section title={<><VideoIcon />{t('patient.information.videos')}</>}>
                 <Videos />
             </Section>
