@@ -14,7 +14,6 @@ jobs:
     steps:
       - name: Checkout git commit
         uses: actions/checkout@master
-#${GITHUB_REF##*/}
       - name: Get commit branch
         id: get_branch
         run: echo ::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF##*/})
@@ -27,3 +26,4 @@ jobs:
           # configured at repo settings/secrets
           username: ${{ secrets.DH_USERNAME }}
           password: ${{ secrets.DH_ACCESS_KEY }}
+          tags: "${{ env.BRANCH_NAME }}"
