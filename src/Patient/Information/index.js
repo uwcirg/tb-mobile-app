@@ -10,11 +10,15 @@ import { Button } from '@material-ui/core';
 import useStores from '../../Basics/UseStores';
 import Typography from '@material-ui/core/Typography';
 import Videos from './Videos';
-import TreatmentTimeline from '../../Basics/TreatmentTimeline'
 import Section from './Section'
 import VideoIcon from '@material-ui/icons/OndemandVideo';
 import HelpIcon from '@material-ui/icons/Help';
 import InfoIcon from '@material-ui/icons/Info';
+import { StaticVersion as ErrorReporting } from '../../Basics/ErrorBoundary'
+import ErrorIcon from '@material-ui/icons/ReportProblem';
+import Instructions from './TestInstructions'
+import TestIcon from '@material-ui/icons/Colorize'
+import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 
 
 const file = raw("./information.md");
@@ -31,7 +35,6 @@ const useStyles = makeStyles({
         boxSizing: "border-box"
     },
     appInfo: {
-        borderBottom: "solid gray 1px",
         paddingBottom: ".5em",
         marginBottom: "1em",
         paddingLeft: "1em",
@@ -64,30 +67,27 @@ export default function Info() {
     const { patientUIStore, patientStore } = useStores();
     return (
         <div className={classes.container}>
-
-            <Typography variant="h1">{t('patient.information.infoSection')}</Typography>
-            {/*
-            <Section title={t('timeline.title')}>
-                <TreatmentTimeline weeksInTreatment={patientStore.patientInformation.weeksInTreatment} />
+            <Section  title={<><LiveHelpIcon />{t('patient.information.helpSection')}</>}>
+                <Button className={classes.button} onClick={patientUIStore.goToWalkThrough}>{t('patient.information.launchWalkthrough')}</Button>
+                <Button className={classes.button} onClick={patientUIStore.goToWalkThrough}>{t('patient.information.video')}</Button>
             </Section>
-            */}
             <Section title={<><VideoIcon />{t('patient.information.videos')}</>}>
                 <Videos />
             </Section>
             <Section title={<><InfoIcon />{t('patient.information.education')}</>}>
                 <TreatmentMessages />
             </Section>
+            <Section title={<><TestIcon />{t('patient.information.testInstructions')}</>}>
+                <Instructions />
+            </Section>
             <Section title={<><HelpIcon />{t('patient.information.questions')}</>}>
                 <Interactioncard className={classes.topCard} >
                     <Markdown options={{ overrides: { Drawer: { component: MarkdownRender } } }} children={file} />
                 </Interactioncard>
             </Section>
-
-            <Typography variant="h1">{t('patient.information.helpSection')}</Typography>
-            <div className={classes.appInfo}>
-                <Button className={classes.button} onClick={patientUIStore.goToWalkThrough}>{t('patient.information.launchWalkthrough')}</Button>
-                <Button className={classes.button} onClick={patientUIStore.goToWalkThrough}>{t('patient.information.video')}</Button>
-            </div>
+            <Section title={<><ErrorIcon />{t('patient.information.techSupport')} / <br /> {t('patient.information.reportIssue')}</>}>
+                <ErrorReporting />
+            </Section>
 
         </div>
     )

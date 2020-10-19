@@ -6,8 +6,9 @@ import SimpleButton from '../../Basics/SimpleButton';
 import { useTranslation } from 'react-i18next';
 import Colors from '../../Basics/Colors'
 import useStores from '../../Basics/UseStores'
-import { ButtonBase } from '@material-ui/core';
+import { ButtonBase} from '@material-ui/core';
 import {observer} from 'mobx-react'
+import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles({
 
@@ -47,7 +48,17 @@ const useStyles = makeStyles({
     },
     selected:{
         backgroundColor: Colors.accentBlue
+    },
+    supportReason:{
+        marginTop: "2em",
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        "& > div":{
+            width: "80%"
+        }
     }
+
 })
 
 const ReportMood = observer((props) => {
@@ -85,12 +96,17 @@ const ReportMood = observer((props) => {
                     <p>{t("patient.report.needSupport")}</p>
                 </ButtonBase>
             </div>
+            <div className={classes.supportReason}>
+            {badSelected && <TextField variant="filled" 
+            rows={3} 
+            multiline 
+            label={t("patient.report.whySupport")} onChange={(e)=> patientStore.report.supportReason = e.target.value} value={patientStore.report.supportReason} ></TextField>}
+            </div>
         </div>
 
 
         <SimpleButton disabled={!patientStore.report.doingOkaySelected} className={classes.button} alignRight onClick={() => {
             props.advance()
-            console.log(patientStore.report.doingOkay)
         }} backgroundColor={Colors.green}>{t("patient.report.next")}</SimpleButton>
     </div>)
 

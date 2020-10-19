@@ -147,7 +147,6 @@ export class PractitionerStore extends UserStore {
     @action
     initalize() {
         this.userType = "Practitioner"
-        this.getOrganizations();
         this.getPatients();
         super.initalize();
     }
@@ -196,10 +195,6 @@ export class PractitionerStore extends UserStore {
         this.executeRequest("getProcessedPatientPhotos").then(response => {
             this.filteredPatients.photo = response;
         })
-    }
-
-    @action setPatientDetails = (id) => {
-
     }
 
     @action getSeverePatients = () => {
@@ -419,12 +414,6 @@ export class PractitionerStore extends UserStore {
 
     @computed get totalReported(){
         return (this.resolutionSummary.takenMedication || 0) + (this.resolutionSummary.notTakenMedication || 0)
-    }
-
-    getReminders = () => {
-        this.executeRawRequest(`/patients/87/reminders`, "GET").then(response => {
-
-        })
     }
 
 

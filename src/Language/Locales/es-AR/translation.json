@@ -18,11 +18,14 @@
         "final": "final ",
         "total": "Total",
         "delete": "Borrar",
-        "loading": "Cargando"
+        "loading": "Cargando",
+        "patients": "pacientes",
+        "expandPhoto": "Agrandar la Foto"
     },
     "userTypes": {
         "patient": "Paciente",
-        "coordinator": "Coordinador",
+        "provider": "profesional",
+        "coordinator": "Asistente",
         "admin": "Administrador"
     },
     "login": {
@@ -38,12 +41,40 @@
         "activate": "Activar"
     },
     "messaging": {
+        "search": "Buscar",
+        "moderation":{
+            "hideUI": "Esconder",
+            "hide": "Ocultar para los pacientes",
+            "unhide": "Mostrar el mensaje",
+            "isHidden": "Este mensaje fue ocultado para los pacientes",
+            "view": "Ver el Mensaje"
+
+        },
+        "creation":{
+            "errorInfo": "El título debe existir y tener menos de 50 caracteres. El subtítulo debe tener menos de 100 caracteres.",
+            "error": "Error Creando La Discusión",
+            "fab": "Añadir Una Nueva Discusión",
+            "header": "Añadir un Nuevo Tema de Discusión ",
+            "create": "Crear",
+            "cancel": "Cancelar",
+            "title": "Título de la Discusión",
+            "description": "Descripción"
+        },
+        "typeHere": "Escriba su mensaje aquí ",
+        "begining": "Comienzo del chat",
         "selectChannel": "Seleccione un Paciente o una Discusión Para Comenzar",
         "nurseContact": "¿Necesita asistencia personal? ¡Contacte a su asistente!",
         "privateExplained": "Chat privado con su asistente",
-        "search": "Busqueda por tema",
+        "searchTheme": "Buscar Por Tema ",
+        "searchPatient": "Buscar por Paciente ",
         "patients": "Pacientes",
-        "discussions": "Discusiones"
+        "coordinators": "Asistentes",
+        "discussions": "Discusiones",
+        "expert": "Dr. Cristina Chirico",
+        "groupDiscussion": "Discusión del grupo",
+        "found": "Encontrado",
+        "empty": "No se han enviado mensajes todavia. Envie el primero!",
+        "private": "Privado"
     },
     "time": {
         "day": "día",
@@ -184,7 +215,7 @@
                 "currentStreak": "días consecutivos",
                 "upcomingDate": "Próximos eventos",
                 "viewAll": "Ver Todos",
-                "close": "Close"
+                "close": "Cerrar"
             },
             "completed": {
                 "title": "Completo",
@@ -225,24 +256,25 @@
             "title": "Reporte la medicación de Hoy",
             "medicationTitle": "Por favor reporte la toma de Medicamentos",
             "medicationTime": "A qué hora tomó su medicamento? ",
-            "didTake": "Tomé mi medicamento.",
+            "didTake": "Tomé mi medicación.",
             "didNotTake": "No tomé mis medicamentos.",
             "whyNotTaken": "Porque no tomó sus medicamentos?",
             "symptomsTitle": "¿Tuvo algún síntoma o malestar?",
             "moodTitle": "¿Cómo se siente hoy?",
             "doingWell": "Estoy Bien",
-            "needSupport": "Necesito ayuda ",
+            "needSupport": "Necesito Apoyo",
+            "whySupport": "¿Como podemos ayudarlo?",
             "photoTitle": "Tomar Foto de la Tira Reactiva",
             "photo": {
                 "usePhoto": "Usar foto",
                 "retakePhoto": "Volver a Tomar la foto",
                 "openCamera": "Abrir la Camara",
-                "showMe": "Muestreme como"
+                "how": "¿Cómo puedo tomar el examen? "
             },
             "symptoms": {
-                "nauseaRating": "¿Cuán severa es su náusea?",
+                "nauseaRating": "¿Que severa es su náusea?",
                 "warning": {
-                    "title": "Usted  ha reportado un sintoma que requiere inmediata atención médica",
+                    "title": "Has reportado un malestar que requiere inmediata atención médica.",
                     "subtitle": "Por favor busque atención médica inmediatamente! Su asistente se comunicará con ud. más tarde para confirmar que esté bien.",
                     "button": "Entiendo",
                     "moreInformation": "Ver Más Información"
@@ -270,12 +302,13 @@
             "milestones": "Eventos Importantes",
             "upcoming": "Próximos",
             "calendar": "Calendario de Reportes",
+            "submissionLimit": "Solo puede reportar hasta 3 días anteriores",
             "calendarKey":{
                 "button": "Qué significan estos colores",
-                "description": "Este es el calendario, donde tu puedes revisar tus sumisiones. Los colores representan lo siguiente:",
+                "description": "Este es el calendario, donde puede revisar sus reportes. Los colores representan lo siguiente:",
                 "good": "Todas las partes enviadas.",
-                "missed": "No Report submitted. If you miss a day you can report up to 3 days in the past.",
-                "notTaken": "Reported not taking your medication",
+                "missed": "No se envió el reporte. Si Ud no envió algún reporte puede completar los correspondientes a los últimos 3 días.",
+                "notTaken": "Reportó que no tomó la medicación",
                 "symptoms": "Síntomas Reportados"
 
             }
@@ -291,17 +324,20 @@
         },
         "information": {
             "questions": "Preguntas y respuestas",
-            "education": "Important Information To Know",
+            "education": "Información Importante Para Conocer",
             "helpSection": "Ayuda con la Aplicación",
             "infoSection": "Información Sobre el Tratamiento",
             "launchWalkthrough": "Abrir Guía de la Aplicación",
             "video": "Ver Vídeo",
-            "videos": "Videos About Treatment"
+            "videos": "Videos Sobre el Tratamiento",
+            "techSupport": "Soporte Técnico ",
+            "reportIssue": "Reportar Problema",
+            "testInstructions": "Instrucciones Para la Tira Reactiva"
         }
     },
     "symptoms": {
         "nausea": {
-            "title": "Náuseas o vómitos",
+            "title": "Náuseas o Vómitos",
             "subtitle": "Se siente con náuseas o imposibilitado de comer"
         },
         "redness": {
@@ -362,10 +398,29 @@
         "previous": "Fechas anteriores"
     },
     "coordinator": {
+        "mobileWarning": "El diseño para móviles está incompleto. Puede ver sus tareas, pero no aprobarlas. El sistema de mensajes está listo.",
+        "priority":{
+            "high": "Alto",
+            "medium": "Mediano",
+            "low": "Bajo"
+        },
+        "cohortOverview":{
+            "title": "Visión General de los Pacientes",
+            "high": "Alta prioridad",
+            "medium": "prioridad intermedia",
+            "low": "Baja prioridad",
+            "active": "Activo",
+            "pending": "Pendiente",
+            "reportedTime": "Reportado en los últimos 7 días",
+            "noPatientsFound": "No se encuentran pacientes",
+            "searchByName": "Busqueda por nombre"
+        },
         "addPatientFlow": {
-            "title": "Add Patient",
-            "addedPatient": "Added Patient",
-            "codeToSend": "Code to send to patient"
+            "title": "Agregar Paciente",
+            "addedPatient": "Paciente Agregado",
+            "codeToSend": "Código para enviar al paciente",
+            "resetCode": "Reiniciar Código",
+            "forPatient": "Código de activación del paciente"
 
         },
         "titles": {
@@ -374,14 +429,15 @@
             "reportingStatus": "Estado del Reporte "
         },
         "cardTitles": {
-            "patientsWithSymptoms": "Pacientes con síntomas",
+            "patientsWithSymptoms": "Pacientes Con Síntomas",
             "photosToReview": "Fotos para Revisar",
             "missedReport": "Faltan Reportes Desde la Última Actualización",
             "overviewOfProgress": "Resumen de Progreso",
             "allPatients": "Todos los Pacientes",
             "awaitingActivation": "Esperando Activación",
             "currentStatus": "Estado actual",
-            "reportingCalender": "Calendario de Reportes"
+            "reportingCalender": "Calendario de Reportes",
+            "requestedSupport": "Solicitaron Apoyo"
         },
         "recentReports": {
             "title": "Reportes Recientes",
@@ -392,15 +448,11 @@
             "none": "Ninguno"
         },
         "sideBar": {
-            "overview:": {
-                "title": "Resumen",
-                "doneToday": "Completado Hoy",
-                "unresolved": "Sin Resolución"
-            },
             "lastContacted": "Último  Contacto",
             "viewFullProfile": "Ver Perfil Completo",
             "daysMissed": "Días Sin Reporte Desde la Última Actualización",
             "photoSub": "Envío de Foto",
+            "expandPhoto": "Ver la Foto en Tamaño Grande",
             "symptomsSince": "Síntomas Reportados",
             "loading": "Cargando",
             "messagePatient": "Enviar Mensaje al Paciente",
@@ -412,7 +464,7 @@
             "treatmentStart": "Inicio de Tratamiento",
             "lastSubmission": "Último envío",
             "adherence": "Adherencia",
-            "streak": "ultimos dias"
+            "streak": "Ultimos Dias"
         },
         "noTasks": "No Hay Tareas",
         "profile": "Perfil",
@@ -433,16 +485,16 @@
             "gender": "género",
             "resetPassword": "Restablecer Contraseña",
             "resetPasswordExplanation": "Haga clic aquí para restablecer la contraseña del paciente. Necesita mandar esta contraseña temporaria al paciente por WhatsApp.  Después de usar la contraseña temporaria, la aplicación requerirá que el paciente cambie la contraseña. ",
-            "phoneNumber": "número de teléfono",
-            "treatmentStart": "Fecha de inicio del tratamiento",
+            "phoneNumber": "Número de Teléfono",
+            "treatmentStart": "Fecha de Inicio del Tratamiento",
             "lastContacted": "Último Contacto",
             "date": "Fecha",
             "taken": "Tomado",
-            "symptoms": "síntomas",
+            "symptoms": "Síntomas",
             "photo": "Foto",
             "completedDays": "Días Completos",
-            "feelingHealthy": "Sintiéndome bien",
-            "currentStreak": "período actual",
+            "feelingHealthy": "Sintiéndome Bien",
+            "currentStreak": "Período Actual",
             "longestStreak": "Período Más Largo",
             "symptomSummary": {
                 "title": "Resumen de síntomas",
@@ -455,7 +507,7 @@
             },
             "treatmentStatus": "Estado de Tratamiento",
             "feelingWell": "Me Siento Bien ",
-            "contactTracing": "seguimiento de contactos",
+            "contactTracing": "Seguimiento de Contactos",
             "reportingHistory": "Historia Del Paciente",
             "listReports": "Reportes",
             "calendarReports": "Calendario",
@@ -468,18 +520,39 @@
         },
         "tasksSidebar": {
             "complete": "Completo",
-            "unfinished": "no finalizado",
+            "unfinished": "No Finalizado",
             "overview": "Resumen de Tareas ",
             "patientStatus": "Condición del Reporte del Paciente",
-            "noReport": "No Hay Reporte Para Hoy"
+            "noReport": "No Hay Reporte Para Hoy",
+            "title": "Resumen",
+            "doneToday": "Completado Hoy",
+            "unresolved": "Sin Resolver",
+            "submitted": "Enviado",
+            "taken": "Tomado",
+            "notTaken": "No Tomado",
+            "noneYet": "No Se Han Enviado Reportes Todavía"
         }
     },
     "errors": {
+        "page":{
+            "header": "Algo fue mal.",
+            "sorry": "Perdón",
+            "furtherSupport": "Contáctenos Para Obtener Más Ayuda",
+            "contactDetails": "Proporcione una descripción detallada de su problema y los pasos que tomaste antes de que ocurriera.",
+            "try": "Trate estos pasos",
+            "reloadStep": "Volver a cargar la página ",
+            "loginStep": "Cerrar Su Sesión y a Iniciar Una Nueva Sesión",
+            "closeStep": "Cierre completamente la aplicación o cierre su navegador"
+
+        },
         "login": {
-            "identifier": "Numero de telefono incorrecto",
-            "password": "contraseña incorrecta",
+            "identifier": "Numero de Telefono incorrecto",
+            "password": "Contraseña Incorrecta",
             "other": "Error. Por favor contacte a su asistente por whatsapp"
-        }
+        },
+        "sessionExpired": "Su sesión ha caducado.",
+        "logBackIn": "Por favor vuelva a iniciar su sesión.",
+        "reload": "Recargar la Página"
     },
     "settings": {
         "updatePassword": "Actualizar contraseña",
@@ -489,9 +562,9 @@
         "submit": "Enviar"
     },
     "educationalMessages": {
-        "feedback": "Thank you for your feedback",
+        "feedback": "Gracias por sus comentarios",
         "week": "Semana",
-        "header": "Important to know",
+        "header": "Importante conocer",
         "helpful": "¿Fue útil este mensaje?",
         "messages": {
             "0": "Primer mensaje en inglés",
@@ -511,33 +584,33 @@
         "continuous": "Fase de Consolidación ",
         "followUp": "Visitas de control",
         "end": "Fin del Tratamiento",
-        "here": "You are here"
+        "here": "Ud. está aquí"
     },
     "report": {
-        "incomplete": "Incomplete",
-        "noReportsYet": "No Reports",
+        "incomplete": "Incompleto",
+        "noReportsYet": "No Hay Reportes",
         "tag": "Reporte",
         "medicationTaken": "Tomó los Medicamentos",
         "time": "Tiempo",
         "conclusive": "Concluyente",
-        "inconclusive": "Dudoso",
+        "inconclusive": "Dudosa",
         "pending": "Pendiente",
         "photoNotNeeded": "No Se Requiere Foto",
-        "missedPhoto": "Foto no enviada ",
+        "missedPhoto": "Foto No Fue Enviada ",
         "submittedAt": "Enviada a las",
         "feeling": "Sintiendo",
         "photoSubmitted": "Foto Enviada"
     },
     "appointments":{
-        "noUpcoming": "No Upcoming Appointments",
-        "typeQuestion": "¿Qué tipo de cita quiere agregar?",
+        "noUpcoming": "No Hay Visitas Agendadas",
+        "typeQuestion": "¿Qué tipo de cita quiere añadir?",
         "selectDate": "Seleccione la fecha y la hora",
-        "addAppointment": "Añadir Cita",
+        "addAppointment": "Añadir Nueva Cita",
         "otherType": "Que tipo de cita?",
         "remindedAt": "Recibirá un recordatorio a las",
         "dayBefore": "el día antes de tu cita",
         "types": {
-            "check_in": "registrarse",
+            "check_in": "Visita de Control",
             "medication_pickup": "Recolección de Medicamentos",
             "sputum_test": "Prueba de Esputo",
             "other": "Otro"

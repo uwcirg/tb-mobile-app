@@ -3,7 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../Basics/UseStores';
 import { observer } from 'mobx-react';
 import LanguageQuestion from '../Basics/LanguageQuestion';
-
+import { useTranslation } from 'react-i18next';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles({
     image: {
@@ -25,23 +26,35 @@ const useStyles = makeStyles({
     },
     patient: {
         backgroundColor: "lightgray"
+    },
+    button:{
+        display:"block",
+        margin: "auto",
+        marginTop: "2em"
     }
 })
 
 const Settings = observer((props) => {
-
-    const { practitionerStore } = useStores();
+    const { t } = useTranslation('translation');
+    const { practitionerStore, loginStore,practitionerUIStore } = useStores();
 
     useEffect(() => {
         practitionerStore.getRecentReports()
     }, [])
 
+    const handleLogout = () => {
+        practitionerStore.logout();
+        loginStore.logout();
+        practitionerUIStore.resetPath();
+      }
+
 
     const classes = useStyles();
 
     return (<div className={classes.container}>
-        <h1>Settings</h1>
+        <h1>{t('patient.profile.title')}</h1>
         <LanguageQuestion />
+    <Button variant="contained" className={classes.button} onClick={handleLogout}>{t('patient.profile.logout')}</Button>
     </div>)
 
 });

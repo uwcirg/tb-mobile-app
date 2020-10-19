@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Basicsidebar from '../Shared/BasicSidebar'
 import useStores from '../../Basics/UseStores'
 import { observer } from 'mobx-react'
@@ -9,6 +9,9 @@ import Colors from '../../Basics/Colors';
 import SharedButton from '../Shared/SharedButton'
 import QIcon from '@material-ui/icons/HelpOutline';
 import { useTranslation } from 'react-i18next';
+import ImagePopUp from '../Shared/ImagePopUp';
+import ClickableText from '../../Basics/ClickableText';
+import ExpandIcon from '@material-ui/icons/AspectRatio';
 
 const useStyles = makeStyles({
 
@@ -23,6 +26,7 @@ const useStyles = makeStyles({
         },
         "& > h2": {
             fontSize: "1em",
+            width: "90%"
         }
     },
     buttonContainer: {
@@ -31,16 +35,26 @@ const useStyles = makeStyles({
         margin: "auto",
         ...Styles.flexRow,
         justifyContent: "space-evenly"
+    },
+    expand:{
+        width: "100%",
+        display: "flex",
+        paddingLeft: "10%"
+    },
+    expandIcon:{
+        marginRight: "5px"
     }
 })
 
 const PhotoSidebar = observer((props) => {
+    const [expand,setExpand] = useState(false);
+
     const { practitionerStore } = useStores();
     const classes = useStyles();
-
-    const { t, i18n } = useTranslation('translation');
-
+    const {t} = useTranslation('translation');
     const item = practitionerStore.filteredPatients.photo[practitionerStore.selectedRow.index];
+
+    const toggleExpanded = () => { setExpand(!expand)}
 
     return (
         <Basicsidebar buttons={
@@ -51,6 +65,10 @@ const PhotoSidebar = observer((props) => {
             <div className={classes.photoContainer} >
                 <h2>{t("coordinator.sideBar.photoSub")}:</h2>
                 <img className={classes.photoPreview} src={item.url} />
+                <div className={classes.expand}>
+                    <ClickableText onClick={toggleExpanded} hideIcon text={<><ExpandIcon className={classes.expandIcon} />{t('coordinator.sideBar.expandPhoto')}</>} />
+                </div>
+                {expand && <ImagePopUp close={toggleExpanded} imageSrc={item.url} />}
             </div>
         </Basicsidebar>
     )

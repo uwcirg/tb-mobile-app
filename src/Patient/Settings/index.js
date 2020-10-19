@@ -35,15 +35,16 @@ const HealthProfile = observer(() => {
     )
 })
 
-const MainSettings = () => {
+const MainSettings = observer(() => {
     const classes = useStyles();
-    const { patientStore, uiStore, patientUIStore} = useStores();
+    const { patientStore, uiStore, patientUIStore, loginStore} = useStores();
     const { t, i18n } = useTranslation('translation');
 
     const handleLogout = () => {
         uiStore.menuOpened = false;
         patientStore.logoutPatient();
         patientUIStore.clearURL();
+        loginStore.userType = "";
     }
 
     return (
@@ -63,7 +64,7 @@ const MainSettings = () => {
             </div>
         </>
     )
-}
+})
 
 const LanguageQuestion = observer(() => {
     const classes = useStyles();

@@ -77,7 +77,6 @@ function TimeScreen(props) {
             <div className={classes.time}>
                 <TimePicker value={DateTime.local()} handleChange={(e) => {
                     let newly = e.set({ hour: 15, minute: 30 })
-                    console.log(newly.toLocaleString(DateTime.DATETIME_FULL))
                 }} />
             </div>
             <FormControlLabel

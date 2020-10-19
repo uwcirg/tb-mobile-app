@@ -23,7 +23,6 @@ function uploadFileHelper(file, url) {
         method: 'PUT',
         body: file
     }).then(() => {
-        console.log("success")
         // If multiple files are uploaded, append upload status on the next line.
         //document.querySelector('#status').innerHTML += `<br>Uploaded ${file.name}.`;
     }).catch((e) => {

@@ -1,22 +1,35 @@
 //From example https://itnext.io/ultimate-localization-of-react-mobx-app-with-i18next-efab77712149
 import i18n from 'i18next';
-import XHR from 'i18next-xhr-backend';
-import LanguageDetector from "i18next-browser-languagedetector";
+import English from "./Locales/en/translation.json"
+import Spanish from "./Locales/es-AR/translation.json"
+import { initReactI18next } from "react-i18next";
 
-const backendOpts = {
-  loadPath: `/locales/{{lng}}/{{ns}}.json`
-}
+// import XHR from 'i18next-xhr-backend';
+// const backendOpts = {
+//   loadPath: `/locales/{{lng}}/{{ns}}.json`
+// }
 
-i18n.init({
-  backend: backendOpts
-})
+const resources = {
+  en: {translation: English }
+  ,
+  "es-AR": {translation: Spanish}
+};
 
-i18n.use(XHR)
-.use(LanguageDetector)
+// const getLanguage = () => {
+// if(!window || !window._env || !window._env.DEFAULT_LOCALE){
+//   return "en"
+// }else{
+//   return window._env.DEFAULT_LOCALE
+// }
+// }
+//  lng: getLanguage(),
+
+i18n.use(initReactI18next)
 .init({
+  resources,
   fallbackLng: "en",
-  ns: ['translation','onboarding','reminders','walkthrough'],
-  debug: false
+  ns: ['translation'],
+  debug: true
 });
 
 export default i18n;

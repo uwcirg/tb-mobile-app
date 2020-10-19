@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import LargeSelector from '../Basics/LargeSelector'
 import { makeStyles, withTheme } from '@material-ui/core/styles'
 import useStores from '../Basics/UseStores'
+import {observer} from 'mobx-react'
 
 //Components
 import AppLogo from '../Basics/AppLogo'
@@ -97,33 +98,33 @@ const Selection = (props) => {
         <div className={classes.selectionContainer}>
             <h2 className={classes.subtitle}>{t("login.selectType")}:</h2>
             <LargeSelector onClick={props.handleSelection} id="Patient" backgroundColor={Colors.blue}><AccountBoxIcon /><span>{t("userTypes.patient")}</span></LargeSelector>
-            <LargeSelector onClick={props.handleSelection} id="Practitioner" backgroundColor={Colors.blue}><SupervisorAccountIcon /><span>{t("userTypes.coordinator")}</span></LargeSelector>
+            <LargeSelector onClick={props.handleSelection} id="Practitioner" backgroundColor={Colors.blue}><SupervisorAccountIcon /><span>{t("userTypes.provider")}</span></LargeSelector>
             <ButtonBase className={classes.languageChange} onClick={uiStore.toggleLanguage}><Globe />{t("login.changeLanguage")}</ButtonBase>
         </div>)
 }
 
-const LoginRouter = () => {
+const LoginRouter = observer(() => {
     const classes = useStyles();
-    const [selection, setSelection] = useState("");
+    const {loginStore} = useStores();
 
     const handleSelection = (id) => {
-        setSelection(id)
+        loginStore.selectedUserType = id;
     }
 
     return (
         <>
             <div className={classes.background} />
             <div className={`${classes.container} `}>
-                {selection ? <IconButton className={classes.backContainer} onClick={() => { setSelection("") }} ><ChevronLeftOutlined className={classes.back} /></IconButton> : ""}
+                {loginStore.selectedUserType ? <IconButton className={classes.backContainer} onClick={() => {handleSelection("") }} ><ChevronLeftOutlined className={classes.back} /></IconButton> : ""}
                 <div className={classes.containerTop}>
                     <AppLogo className={classes.logo} />
                 </div>
                 <div className={classes.containerBottom}>
-                    {!selection ? <Selection handleSelection={handleSelection} /> : <LoginPage loginType={selection} />}
+                    {!loginStore.selectedUserType ? <Selection handleSelection={handleSelection} /> : <LoginPage />}
                 </div>
             </div>
         </>
     )
-}
+});
 
 export default LoginRouter;

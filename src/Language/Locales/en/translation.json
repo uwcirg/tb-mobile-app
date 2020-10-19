@@ -18,10 +18,13 @@
         "final": "final",
         "total": "total",
         "delete": "Delete",
-        "loading": "Loading"
+        "loading": "Loading",
+        "patients": "Patients",
+        "expandPhoto": "Expand Photo"
     },
     "userTypes": {
         "patient": "Patient",
+        "provider": "Provider",
         "coordinator": "Coordinator",
         "admin": "Administrator"
     },
@@ -38,12 +41,40 @@
         "activate": "Activate"
     },
     "messaging": {
+        "search": "Search",
+        "moderation":{
+            "hideUI": "Hide",
+            "hide": "Hide from patients",
+            "unhide": "Unhide message",
+            "isHidden": "This message has been hidden form patients",
+            "view": "View Message"
+
+        },
+        "creation":{
+            "errorInfo": "Title must exist and be less than 50 characters. Subtitle must be less than 100 characters.",
+            "error": "Error Creating New Discussion",
+            "fab": "Add New Discussion",
+            "header": "Add a new discussion topic",
+            "create": "Create",
+            "cancel": "Cancel",
+            "title": "Discussion Title",
+            "description": "Description"
+        },
+        "typeHere": "Type message here",
+        "begining": "Begining Of Chat",
         "selectChannel": "Select a Patient or Discussion To Get Started",
         "nurseContact": "Need individual support? Contact your provider!",
         "privateExplained": "Private chat with your coordinator",
-        "search": "Search By Topic",
+        "searchTheme": "Search By Topic",
+        "searchPatient": "Search By Patient",
         "patients": "Patients",
-        "discussions": "Discussions"
+        "coordinators": "Coordinators",
+        "discussions": "Discussions",
+        "expert": "TB Expert",
+        "groupDiscussion": "Group Discussion",
+        "found": "Found",
+        "empty": "No messages have been sent yet. Send the first one!",
+        "private": "Private"
     },
     "time": {
         "day": "day",
@@ -232,12 +263,13 @@
             "moodTitle": "How are you feeling today?",
             "doingWell": "Doing Well",
             "needSupport": "Need Support",
+            "whySupport": "How can we support you?",
             "photoTitle": "Capture Strip Photo",
             "photo": {
                 "usePhoto": "Use Photo",
                 "retakePhoto": "Retake Photo",
                 "openCamera": "Open Camera",
-                "showMe": "Show Me How"
+                "how": "How do I take the test?"
             },
             "symptoms": {
                 "nauseaRating": "How bad is your nausea?",
@@ -270,6 +302,7 @@
             "milestones": "Milestones",
             "upcoming": "Upcoming",
             "calendar": "Calendar of Reports",
+            "submissionLimit": "You can only submit for the 3 previous days",
             "calendarKey":{
                 "button": "What do these colors mean",
                 "description": "This is the calendar, where you can review your submissions. The colors show the following:",
@@ -296,7 +329,10 @@
             "infoSection": "Information About Treatment",
             "launchWalkthrough": "Launch Walkthrough",
             "video": "Watch Video",
-            "videos": "Videos About Treatment"
+            "videos": "Videos About Treatment",
+            "techSupport": "Technical Support",
+            "reportIssue": "Report Issue",
+            "testInstructions": "Test Strip Instructions"
         }
     },
     "symptoms": {
@@ -366,10 +402,29 @@
         "previous": "Previous"
     },
     "coordinator": {
+        "mobileWarning": "Mobile view still in progress. You can view your tasks, but not approve them. Messaging is functional.",
+        "priority":{
+            "high": "High",
+            "medium": "Medium",
+            "low": "Low"
+        },
+        "cohortOverview":{
+            "title": "Cohort Overview",
+            "high": "High Priority",
+            "medium": "Medium Priority",
+            "low": "Low Priority",
+            "active": "Active",
+            "pending": "Pending",
+            "reportedTime": "Reported In The Past 7 Days",
+            "noPatientsFound": "No Patients Found",
+            "searchByName": "Search By Name"
+        },
         "addPatientFlow": {
             "title": "Add Patient",
             "addedPatient": "Added Patient",
-            "codeToSend": "Code to send to patient"
+            "codeToSend": "Code to send to patient",
+            "resetCode": "Reset Code",
+            "forPatient": "Activation Code For Patient"
 
         },
         "titles": {
@@ -385,7 +440,8 @@
             "allPatients": "All Patients",
             "awaitingActivation": "Awaiting Activation",
             "currentStatus": "Current Status",
-            "reportingCalender": "Reporting Calender"
+            "reportingCalender": "Reporting Calender",
+            "requestedSupport": "Requested Support"
         },
         "recentReports": {
             "title": "Recent Reports",
@@ -397,14 +453,13 @@
         },
         "sideBar": {
             "overview:": {
-                "title": "Overview",
-                "doneToday": "Completed Today",
-                "unresolved": "Unresolved"
+
             },
             "lastContacted": "Last Contracted",
             "viewFullProfile": "View Full Profile",
             "daysMissed": "Days Missed Since Last Resolution",
             "photoSub": "Photo Submission",
+            "expandPhoto": "View Larger Size Photo",
             "symptomsSince": "Symptoms Reported",
             "loading": "Loading",
             "messagePatient": "Message Patient",
@@ -475,15 +530,36 @@
             "unfinished": "Unfinished",
             "overview": "Tasks Overview",
             "patientStatus": "Patient Report Status",
-            "noReport": "No Report Today"
+            "noReport": "No Report Today",
+            "title": "Overview",
+            "doneToday": "Completed Today",
+            "unresolved": "Unresolved",
+            "submitted": "Submitted",
+            "taken": "Taken",
+            "notTaken": "Not Taken",
+            "noneYet": "No Reports Submitted Yet"
         }
     },
     "errors": {
+        "page":{
+            "header": "Something went wrong.",
+            "sorry": "Sorry about that",
+            "furtherSupport": "For Further Support Contact Us",
+            "contactDetails": "Please provide a detailed description of your issue and any steps that lead you to it.",
+            "try": "Try these steps",
+            "reloadStep": "Reload the page",
+            "loginStep": "Log Out and Log Back In",
+            "closeStep": "Close app from at a system level or close browser tab"
+
+        },
         "login": {
             "identifier": "Incorrect Phone Number / Email",
             "password": "Incorrect Password",
             "other": "Unexpected Error. Please contact coordinator on WhatsApp"
-        }
+        },
+        "sessionExpired": "Your session has expired.",
+        "logBackIn": "Please log back in.",
+        "reload": "Reload Page"
     },
     "settings": {
         "updatePassword": "Update Password",

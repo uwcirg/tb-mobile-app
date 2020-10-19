@@ -8,6 +8,7 @@ import Card from './Shared/Card';
 import { useTranslation } from 'react-i18next';
 
 const GRAPH_MARKER_SIZE = 20;
+const divider = .9;
 
 const useStyles = makeStyles({
 
@@ -106,8 +107,6 @@ const useStyles = makeStyles({
     }
 })
 
-const divider = .85;
-
 const Adherence = observer(() => {
 
     const { practitionerStore } = useStores();
@@ -119,11 +118,11 @@ const Adherence = observer(() => {
     }, [])
 
     const bottom = practitionerStore.patientList.slice().filter((patient) => {
-        return patient.adherence < divider
+        return patient.adherence < divider && patient.daysInTreatment < 180
     })
 
     const top = practitionerStore.patientList.slice().filter((patient) => {
-        return patient.adherence > divider
+        return patient.adherence > divider && patient.daysInTreatment < 180
     })
 
 
@@ -184,7 +183,7 @@ const Background = () => {
     }
 
     labels.push(<div key={`background-label-0`} className="yLabel">0%</div>)
-    labels.push(<div key={`background-label-1`} className="yLabel">85%</div>)
+    labels.push(<div key={`background-label-1`} className="yLabel">90%</div>)
     labels.push(<div key={`background-label-2`} className="yLabel">100%</div>)
 
     let months = []

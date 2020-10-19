@@ -2,17 +2,19 @@ import React from 'react';
 import styled from 'styled-components'
 import Colors from '../Basics/Colors'
 import { useTranslation } from 'react-i18next'
+import useStores from '../Basics/UseStores';
+import {observer} from 'mobx-react'
 
-const ChannelPreview = (props) => {
+const ChannelPreview = observer((props) => {
 
-    const { t, i18n } = useTranslation('translation');
+    const {t} = useTranslation('translation');
 
     return (
-        <Container onClick={props.onClick} altColor={props.private} selected={props.selected}>
+        <Container isExpert={props.isExpert} coordinator={props.coordinator} onClick={props.onClick} altColor={props.private} selected={props.selected}>
             <div className="display"><span>{props.title ? props.title[0] : "C"}</span></div>
-            <BorderedPart>
+            <BorderedPart hideBorder={props.coordinator}>
                 <div className="text">
-                    <h2>{props.title}</h2>
+                    <h2>{props.title === "tb-expert-chat" ?  t('messaging.expert') : props.title }</h2>
                     <p>{props.private ? `${t("messaging.privateExplained")}` : props.subtitle}</p>
                 </div>
                 <div className="rightSideContainer">
@@ -22,10 +24,10 @@ const ChannelPreview = (props) => {
             </BorderedPart>
         </Container>
     )
-}
+});
 
 const BorderedPart = styled.div`
-    border-bottom: solid 1px lightgray;
+    border-bottom: ${props => !props.hideBorder ? 'solid 1px lightgray' : 'unset'};
     display: flex;
     flex-grow: 1;
     padding: .5em;
@@ -90,12 +92,13 @@ const Container = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    width: 100%;
+    width: 95%;
+    margin: auto;
     min-height: 10vh;
     border: none;
-    margin-top: 1em;
-    margin-right: 1em;
-    background-color: ${props => props.selected ? 'lightgray' : 'unset'};
+    margin-top: ${props => props.coordinator ? 0 : '1em'};
+    background-color: ${props => props.selected ? Colors.lightgray : 'unset'};
+    border-radius: 5px;
 
     .display{
         padding: 0;
@@ -105,7 +108,12 @@ const Container = styled.div`
         max-height: 50px;
         max-width: 50px;
         border-radius: 50px;
-        background-color: ${props => props.altColor ? Colors.green : Colors.babyBlue};
+            background-color: ${props => {
+                if(props.isExpert){
+                    return Colors.yellow
+                }
+                return props.altColor ? Colors.green : Colors.babyBlue
+                }};
         display: flex;
         justify-content: center;
         align-items: center;

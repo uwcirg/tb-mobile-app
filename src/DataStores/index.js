@@ -16,22 +16,27 @@ import {createBrowserHistory} from 'history';
 
 import PatientUIStore from './patientUIStore';
 import { ActivationStore } from './activationStore'
+import AdminStore from './adminStore'
+import DashboardStore from './dashboardStore'
 
 const browserHistory = createBrowserHistory();
 const routingStore = new RouterStore();
 
 //This attaches the class containing the API fetch requests to the stores
 //Doing it this way allows you to swap in other data retrival methods for testing
-const apiHelper = new APIHelper();
+const uiStore = new UIStore(routingStore)
+const apiHelper = new APIHelper(uiStore);
 
 export const history = syncHistoryWithStore(browserHistory, routingStore);
 
 export const stores = {
     routingStore: routingStore,
+    dashboardStore: new DashboardStore(apiHelper),
     patientUIStore: new PatientUIStore(routingStore),
+    adminStore: new AdminStore(apiHelper),
     practitionerUIStore: new PractitionerUIStore(routingStore),
     loginStore: new LoginStore(apiHelper),
-    uiStore: new UIStore(routingStore),
+    uiStore: uiStore,
     labPhotoStore: new LabPhotoStore(apiHelper),
     accountStore: new AccountStore(apiHelper),
     practitionerStore: new PractitionerStore(apiHelper),
@@ -40,4 +45,5 @@ export const stores = {
     activationStore: new ActivationStore(apiHelper),
     reminderStore: new ReminderStore(apiHelper)
 }
+
 

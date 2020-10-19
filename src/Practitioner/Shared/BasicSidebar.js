@@ -126,7 +126,7 @@ const Card = observer((props) => {
     }
 
     const handleClick = (id, type) => {
-        console.log(" " + id + " " + type)
+
     }
 
     const handleClose = () => {
@@ -173,11 +173,6 @@ const PatientPreview = observer((props) => {
                     ><Add />{t("coordinator.patientProfile.options.note")}</ProfileButton>
                 </div>
             </div>
-
-            {/*
-                <IconButton onClick={() => { practitionerUIStore.goToPatient(practitionerStore.getSelectedPatient.id) }}> <PersonButton />{t("coordinator.profile")}</IconButton>
-                <IconButton onClick={() => { practitionerUIStore.goToChannel(practitionerStore.getSelectedPatient.channelId) }}><ChatIcon />{t("coordinator.message")}</IconButton>
-                */}
 
             <div className={classes.patientInfo}>
                 <ProfileItem text={t("coordinator.adherence")} value={practitionerStore.getSelectedPatient.adherence} />
