@@ -7,6 +7,8 @@ const createHandlerBoundToURL = workbox.precaching.createHandlerBoundToURL
 const {NavigationRoute, registerRoute} = workbox.routing
 const {NetworkFirst} = workbox.strategies
 
+workbox.precaching.precacheAndRoute(self.__precacheManifest || []);
+
 //Loads variable named react_env
 importScripts('./config.js');
 
@@ -20,9 +22,9 @@ if (workbox) {
   console.log(`Boo! Workbox didn't load 😬`);
 }
 
-workbox.precaching.precacheAndRoute([
-  {url: '/index.html', revision: '383676' }
-]);
+// workbox.precaching.precacheAndRoute([
+//   {url: '/index.html', revision: '383676' }
+// ]);
 
 // workbox.routing.registerRoute(
 //   /\.(?:js|css)$/,
@@ -47,7 +49,7 @@ workbox.routing.registerRoute(
   new NetworkFirst()
 )
 
-workbox.routing.registerRoute(  'http://localhost:5000/logo.png',  workbox.strategies.networkFirst())
+workbox.routing.registerRoute(  '/logo.png',  new NetworkFirst())
 
 // This assumes /app-shell.html has been precached.
 const handler = createHandlerBoundToURL('/index.html');
