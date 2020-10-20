@@ -12,7 +12,22 @@ if (workbox) {
   console.log(`Boo! Workbox didn't load 😬`);
 }
 
-workbox.setConfig({ debug: false });
+workbox.setConfig({ debug: true });
+
+workbox.precaching.precacheAndRoute([]);
+
+workbox.routing.registerRoute(
+  /\.(?:js|css)$/,
+  workbox.strategies.staleWhileRevalidate({
+    cacheName: "static-resources",
+    plugins: [
+      new workbox.expiration.Plugin({
+        maxEntries: 60,
+        maxAgeSeconds: 20 * 24 * 60 * 60, // 20 Days
+      }),
+    ],
+  })
+);
 
 workbox.routing.registerRoute(
   /\.(?:js|css|json|html)$/,
@@ -24,11 +39,13 @@ workbox.routing.registerRoute(
   workbox.strategies.networkFirst()
 )
 
+workbox.routing.registerRoute(  'http://localhost:5000/',  workbox.strategies.networkFirst())
+
 self.addEventListener('push', function (event) {
 
   let data = event.data.json();
 
-  if(data.data.type && data.data.type == "messaging" && isBroadcastChannelSupported()){
+  if (data.data.type && data.data.type == "messaging" && isBroadcastChannelSupported()) {
     //Send a message to the client to route to the proper state
     const channel = new BroadcastChannel('messaging-notification');
     channel.postMessage("update");
@@ -58,7 +75,7 @@ self.addEventListener('notificationclick', function (event) {
 
     if (matchingClient) {
 
-      if(isBroadcastChannelSupported()){
+      if (isBroadcastChannelSupported()) {
         //Send a message to the client to route to the proper state
         const channel = new BroadcastChannel('notifications');
         channel.postMessage({ url: event.notification.data });
@@ -81,7 +98,7 @@ self.addEventListener('notificationclick', function (event) {
 });
 
 self.addEventListener('pushsubscriptionchange', function (event) {
-  
+
   console.log('Subscription expired');
   event.waitUntil(
     self.registration.pushManager.subscribe({ userVisibleOnly: true })
@@ -105,17 +122,17 @@ self.addEventListener('pushsubscriptionchange', function (event) {
 
 function isBroadcastChannelSupported() {
   if (!("BroadcastChannel" in self)) {
-      return false;
+    return false;
   }
 
   // When running in a sandboxed iframe, the BroadcastChannel API
   // is not actually available and throws an exception
   try {
-      const channel = new BroadcastChannel("feature_test");
-      channel.close();
-      return true;
-  } catch(err) {
-      return false;
+    const channel = new BroadcastChannel("feature_test");
+    channel.close();
+    return true;
+  } catch (err) {
+    return false;
   }
 }
 
