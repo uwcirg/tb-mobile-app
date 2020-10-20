@@ -86,6 +86,12 @@
         "noon": "noon"
     },
     "patient": {
+        "tabNames":{
+            "home": "Todays Tasks",
+            "calendar": "Calendar",
+            "messaging": "Messaging",
+            "information": "Information"
+        },
         "onboarding": {
             "landing": {
                 "welcome": "Welcome",
@@ -541,6 +547,7 @@
         }
     },
     "errors": {
+        "offline": "is unavailable offline. Please connect to the internet to use this function.",
         "page":{
             "header": "Something went wrong.",
             "sorry": "Sorry about that",

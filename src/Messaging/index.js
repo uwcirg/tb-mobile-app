@@ -12,6 +12,7 @@ import { observer } from 'mobx-react';
 import OverTopBar from '../Patient/Navigation/OverTopBar';
 import SearchBar from '../Basics/SearchBar';
 import Div100vh from 'react-div-100vh'
+import PreventOffline from '../Basics/PreventOffline';
 
 const useStyles = makeStyles({
     root: {
@@ -94,8 +95,8 @@ const Messaging = observer(() => {
                         handleBack={handleBackFromChannel}
                         userID={patientStore.userID} />
                 </Div100vh>
-                </>
-                }
+                </>}
+
         </div>
     )
 
@@ -140,5 +141,16 @@ const Channels = observer((props) => {
     )
 });
 
+const MessagingWithOfflineOverride = () => {
+    
+    const {t} = useTranslation('translation');
+    
+    return(
+        <PreventOffline type={t('patient.tabNames.messaging')}>
+            <Messaging />
+        </PreventOffline>
+    )
+}
 
-export default Messaging;
+
+export default MessagingWithOfflineOverride;

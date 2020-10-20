@@ -15,6 +15,7 @@ import ClickableText from '../../Basics/ClickableText';
 import QuestionIcon from '@material-ui/icons/HelpOutline';
 
 import Key from './Key'
+import PreventOffline from '../../Basics/PreventOffline';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -79,4 +80,15 @@ const Progress = observer(() => {
     </div>)
 });
 
-export default Progress;
+const ProgressWithOfflineOverride = () => {
+    
+    const {t} = useTranslation('translation');
+    
+    return(
+        <PreventOffline type={t('patient.tabNames.calendar')}>
+            <Progress />
+        </PreventOffline>
+    )
+}
+
+export default ProgressWithOfflineOverride;
