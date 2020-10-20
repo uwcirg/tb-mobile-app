@@ -66,8 +66,7 @@
     ]
   },
   "devDependencies": {
-    "react-app-rewired": "^2.1.6",
-    "workbox-build": "^5.1.4"
+    "react-app-rewired": "^2.1.6"
   },
   "jest": {
     "collectCoverageFrom": [
