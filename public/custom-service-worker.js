@@ -1,6 +1,6 @@
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
 
-workbox.setConfig({ debug: true });
+workbox.setConfig({ debug: false });
 
 const {precacheAndRoute} = workbox.precaching//
 const createHandlerBoundToURL = workbox.precaching.createHandlerBoundToURL
@@ -47,13 +47,15 @@ workbox.routing.registerRoute(
   new NetworkFirst()
 )
 
-//workbox.routing.registerRoute(  'http://localhost:5000/', new NetworkFirst())
-// workbox.routing.registerRoute(  'http://localhost:5000/logo.png',  workbox.strategies.networkFirst())
+workbox.routing.registerRoute(  'http://localhost:5000/logo.png',  workbox.strategies.networkFirst())
 
 // This assumes /app-shell.html has been precached.
 const handler = createHandlerBoundToURL('/index.html');
 const navigationRoute = new NavigationRoute(handler);
 registerRoute(navigationRoute);
+
+
+//Non-Workbox stuff (WebPush handlers, ect.)
 
 self.addEventListener('push', function (event) {
 
