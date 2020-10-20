@@ -1,7 +1,15 @@
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox-sw.js');
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
+
+workbox.setConfig({ debug: true });
+
+const {precacheAndRoute} = workbox.precaching//
+const createHandlerBoundToURL = workbox.precaching.createHandlerBoundToURL
+const {NavigationRoute, registerRoute} = workbox.routing
+const {NetworkFirst} = workbox.strategies
 
 //Loads variable named react_env
 importScripts('./config.js');
+
 const baseURL = react_env.URL_CLIENT;
 const apiURL = react_env.URL_API;
 
@@ -12,34 +20,40 @@ if (workbox) {
   console.log(`Boo! Workbox didn't load 😬`);
 }
 
-workbox.setConfig({ debug: true });
+workbox.precaching.precacheAndRoute([
+  {url: '/index.html', revision: '383676' }
+]);
 
-workbox.precaching.precacheAndRoute([]);
-
-workbox.routing.registerRoute(
-  /\.(?:js|css)$/,
-  workbox.strategies.staleWhileRevalidate({
-    cacheName: "static-resources",
-    plugins: [
-      new workbox.expiration.Plugin({
-        maxEntries: 60,
-        maxAgeSeconds: 20 * 24 * 60 * 60, // 20 Days
-      }),
-    ],
-  })
-);
+// workbox.routing.registerRoute(
+//   /\.(?:js|css)$/,
+//   workbox.strategies.staleWhileRevalidate({
+//     cacheName: "static-resources",
+//     plugins: [
+//       new workbox.expiration.ExpirationPlugin({
+//         maxEntries: 60,
+//         maxAgeSeconds: 20 * 24 * 60 * 60, // 20 Days
+//       }),
+//     ],
+//   })
+// );
 
 workbox.routing.registerRoute(
   /\.(?:js|css|json|html)$/,
-  workbox.strategies.networkFirst()
+  new NetworkFirst()
 )
 
 workbox.routing.registerRoute(
   `${baseURL}`,
-  workbox.strategies.networkFirst()
+  new NetworkFirst()
 )
 
-workbox.routing.registerRoute(  'http://localhost:5000/',  workbox.strategies.networkFirst())
+//workbox.routing.registerRoute(  'http://localhost:5000/', new NetworkFirst())
+// workbox.routing.registerRoute(  'http://localhost:5000/logo.png',  workbox.strategies.networkFirst())
+
+// This assumes /app-shell.html has been precached.
+const handler = createHandlerBoundToURL('/index.html');
+const navigationRoute = new NavigationRoute(handler);
+registerRoute(navigationRoute);
 
 self.addEventListener('push', function (event) {
 

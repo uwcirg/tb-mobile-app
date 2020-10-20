@@ -92,11 +92,11 @@ const Card = observer(() => {
         <div className={classes.upcoming}>
             <div className={classes.reminderTitle}>
                 <Header>{t('patient.reminders.appointments')}</Header>
-                {reminderStore.reminders.length > 0 && <ClickableText hideIcon text={!showAll ? t('appointments.showAll') : t('appointments.showLess')}  onClick={() => { setShowAll(!showAll) }}></ClickableText>}
+                {reminderStore.reminders && reminderStore.reminders.length > 0 && <ClickableText hideIcon text={!showAll ? t('appointments.showAll') : t('appointments.showLess')}  onClick={() => { setShowAll(!showAll) }}></ClickableText>}
             </div>
             <div className={classes.reminder}>
                 {showAll ? <RemindersList /> :
-                    <>{reminderStore.reminders.length > 0 ? <ReminderItem reminder={reminderStore.reminders[0]} /> : <p>{t('appointments.noUpcoming')}</p>}</>}
+                    <>{reminderStore.reminders && reminderStore.reminders.length > 0 ? <ReminderItem reminder={reminderStore.reminders[0]} /> : <p>{t('appointments.noUpcoming')}</p>}</>}
 
             </div>
             <div className={classes.addContainer}>
@@ -115,7 +115,7 @@ const RemindersList = observer(() => {
 
     return (
         <>
-            {reminders.length > 0 && reminders.map(each => {
+            {reminders && reminders.length > 0 && reminders.map(each => {
                 return <ReminderItem key={`reminder-${each.datetime}`} reminder={each} />
             })}
         </>
