@@ -77,6 +77,8 @@ export class PatientStore extends UserStore {
         if (cached && cached.photoSchedule) {
             this.photoSchedule = cached.photoSchedule
         }
+        cached.daysInTreatment && (this.patientInformation.daysInTreatment = cached.daysInTreatment)
+        cached.currentStreak && (this.currentStreak = cached.currentStreak)
     }
 
     @action getPatientInformation = () => {
@@ -102,7 +104,8 @@ export class PatientStore extends UserStore {
         localStorage.setItem("cachedProfile", JSON.stringify({
             photoSchedule: this.photoSchedule,
             givenName: json.givenName,
-            treatmentDays: this.daysSinceTreatmentStart
+            daysInTreatment: json.daysInTreatment,
+            currentStreak: json.currentStreak
         }))
 
         super.setAccountInformation(json);
@@ -219,7 +222,7 @@ export class PatientStore extends UserStore {
     }
 
     saveReportingState = () => {
-        console.log(!this.report.isHistoricalReport)
+        //console.log(!this.report.isHistoricalReport)
         if (!this.report.isHistoricalReport) {
             localStorage.setItem(`medicationReport`, JSON.stringify(this.report));
         }
@@ -237,8 +240,7 @@ export class PatientStore extends UserStore {
 
     @action submitReport = (offline) => {
 
-        if (!offline) {
-            let body = {};
+        let body = {};
             this.report.selectedSymptoms.map((value) => {
                 body[value] = true
             })
@@ -250,6 +252,8 @@ export class PatientStore extends UserStore {
             body.doingOkayReason = this.report.supportReason;
             body.isHistoricalReport = this.report.isHistoricalReport;
             body.nauseaRating = this.report.nauseaRating;
+
+        if (!offline) {
 
             if (this.isPhotoDay && this.report.photoString) {
                 this.uploadPhoto().then(res => {
@@ -431,6 +435,6 @@ export class PatientStore extends UserStore {
         supportReason: "",
         nauseaRating: ""
     }
-
+    
 
 }

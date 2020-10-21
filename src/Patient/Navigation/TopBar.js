@@ -22,6 +22,7 @@ const useStyles = makeStyles({
   },
   appTitle: {
     flexGrow: 1,
+    paddingLeft: "5px"
   },
   bar: {
     position: "fixed",
