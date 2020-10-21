@@ -87,7 +87,7 @@
     },
     "patient": {
         "tabNames":{
-            "home": "Todays Tasks",
+            "home": "Home",
             "calendar": "Calendar",
             "messaging": "Messaging",
             "information": "Information"

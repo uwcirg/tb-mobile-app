@@ -43,6 +43,7 @@ export class PatientStore extends UserStore {
         selectedCalendarDate: DateTime.local().startOf('day'),
         symptomWarningVisible: false,
     }
+
     @observable medicationSchedule = []
     @observable savedReports = [];
     @observable milestones = [];
@@ -58,7 +59,28 @@ export class PatientStore extends UserStore {
         allDay: false
     }
 
+    @action initalize() {
+        this.loadCachedProfile();
+        super.initalize()
+        this.loadDailyReport();
+        this.getReports();
+    }
+
+    //Load backup items for offline use 
+    @action loadCachedProfile = () => {
+        const cached = JSON.parse(localStorage.getItem("cachedProfile"));
+        if (cached && cached.givenName) {
+            console.log(cached.givenName)
+            this.givenName = cached.givenName
+        }
+
+        if (cached && cached.photoSchedule) {
+            this.photoSchedule = cached.photoSchedule
+        }
+    }
+
     @action getPatientInformation = () => {
+
         return this.executeRequest(`getCurrentPatient`).then((json) => {
             if (json.status) {
                 this.status = json.status;
@@ -76,6 +98,13 @@ export class PatientStore extends UserStore {
         this.patientInformation.daysInTreatment = json.daysInTreatment;
         this.patientInformation.currentStreak = json.currentStreak;
         this.educationStore.educationStatus = json.educationStatus;
+
+        localStorage.setItem("cachedProfile", JSON.stringify({
+            photoSchedule: this.photoSchedule,
+            givenName: json.givenName,
+            treatmentDays: this.daysSinceTreatmentStart
+        }))
+
         super.setAccountInformation(json);
 
     }
@@ -206,29 +235,36 @@ export class PatientStore extends UserStore {
         this.uiState.onTreatmentFlow = true;
     }
 
-    @action submitReport = () => {
-        let body = {};
-        this.report.selectedSymptoms.map((value) => {
-            body[value] = true
-        })
-        body.date = this.report.date;
-        body.medicationWasTaken = this.report.tookMedication;
-        body.whyMedicationNotTaken = this.report.whyMedicationNotTaken;
-        body.dateTimeTaken = this.report.timeTaken;
-        body.doingOkay = this.report.doingOkay;
-        body.doingOkayReason = this.report.supportReason;
-        body.isHistoricalReport = this.report.isHistoricalReport;
-        body.nauseaRating = this.report.nauseaRating;
+    @action submitReport = (offline) => {
 
-        if (this.isPhotoDay && this.report.photoString) {
-            this.uploadPhoto().then(res => {
-                body.photoUrl = res
-                this.uploadReport(body);
+        if (!offline) {
+            let body = {};
+            this.report.selectedSymptoms.map((value) => {
+                body[value] = true
             })
+            body.date = this.report.date;
+            body.medicationWasTaken = this.report.tookMedication;
+            body.whyMedicationNotTaken = this.report.whyMedicationNotTaken;
+            body.dateTimeTaken = this.report.timeTaken;
+            body.doingOkay = this.report.doingOkay;
+            body.doingOkayReason = this.report.supportReason;
+            body.isHistoricalReport = this.report.isHistoricalReport;
+            body.nauseaRating = this.report.nauseaRating;
+
+            if (this.isPhotoDay && this.report.photoString) {
+                this.uploadPhoto().then(res => {
+                    body.photoUrl = res
+                    this.uploadReport(body);
+                })
+            } else {
+                this.executeRequest('dailyReport', body).then(json => {
+                    this.uploadReport(body);
+                })
+            }
         } else {
-            this.executeRequest('dailyReport', body).then(json => {
-                this.uploadReport(body);
-            })
+            console.log("CATCH OFFLINE")
+            console.log(JSON.stringify(this.report))
+            this.report.hasConfirmedAndSubmitted = true;
         }
     }
 
@@ -347,13 +383,6 @@ export class PatientStore extends UserStore {
                 console.error(e);
             });
         })
-    }
-
-    @action initalize() {
-        super.initalize()
-        this.loadDailyReport();
-        this.getMilestones();
-        this.getReports();
     }
 
     @action logoutPatient() {

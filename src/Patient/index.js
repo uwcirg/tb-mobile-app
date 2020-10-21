@@ -11,10 +11,11 @@ import Intro from './Intro/';
 import useStores from '../Basics/UseStores';
 import Onboarding from './Onboarding';
 import Colors from '../Basics/Colors';
+import { autorun } from 'mobx';
 
 const PatientHome = observer((props) => {
 
-  const { patientUIStore, patientStore } = useStores();
+  const { patientUIStore, patientStore, uiStore } = useStores();
   const tabs = [<Home />, <Progress />, <Messaging />, <Info />];
   const routeTab = tabs[patientUIStore.tabNumber]  
   
@@ -26,6 +27,14 @@ const PatientHome = observer((props) => {
   useEffect(() => {
     if(patientStore.status === "Pending") patientUIStore.goToOnboarding();
   },[patientStore.status])
+
+  autorun(()=>{
+    if(uiStore.offline){
+      console.log("CONNECTIONCHANGE OFFLINE")
+    }else{
+      console.log("CONNECTIONCHANGE ONLINE")
+    }
+  })
 
   return (
     <>
