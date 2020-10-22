@@ -2,6 +2,7 @@ import { action, observable, computed, autorun, toJS } from "mobx";
 import { UserStore } from './userStore';
 import { DateTime, Interval } from 'luxon';
 import EducationStore from './educationStore';
+import {addReportToOfflineCache , getNumberOfCachedReports} from './SaveReportOffline'
 
 const ROUTES = {
     login: ["/authenticate", "POST"],
@@ -58,6 +59,8 @@ export class PatientStore extends UserStore {
         location: "",
         allDay: false
     }
+
+    @observable numberOfflineReports = 0;
 
     @action initalize() {
         this.loadCachedProfile();
@@ -264,10 +267,9 @@ export class PatientStore extends UserStore {
                 this.executeRequest('dailyReport', body).then(json => {
                     this.uploadReport(body);
                 })
-            }
+            }  
         } else {
-            console.log("CATCH OFFLINE")
-            console.log(JSON.stringify(this.report))
+            addReportToOfflineCache(this.report)
             this.report.hasConfirmedAndSubmitted = true;
         }
     }
@@ -386,6 +388,12 @@ export class PatientStore extends UserStore {
             }).catch((e) => {
                 console.error(e);
             });
+        })
+    }
+
+    @action checkNumberOfOfflineReports = () => {
+        getNumberOfCachedReports().then( value => {
+            this.numberOfflineReports = value;
         })
     }
 

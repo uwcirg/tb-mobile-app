@@ -30,9 +30,9 @@ const PatientHome = observer((props) => {
 
   autorun(()=>{
     if(uiStore.offline){
-      console.log("CONNECTIONCHANGE OFFLINE")
+       //TODO - upload offline reports
     }else{
-      console.log("CONNECTIONCHANGE ONLINE")
+     
     }
   })
 

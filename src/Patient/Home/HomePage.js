@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Progress from './Progress';
 import ActionBox from './ActionBox';
@@ -8,6 +8,7 @@ import Greeting from './Greeting'
 import EducationalMessage from './Education'
 import Reminders from './Reminders'
 import MedicationReminder from './MedicationReminder'
+import CachedReports from './CachedReports'
 
 const HomePage = () => {
 
@@ -16,6 +17,7 @@ const HomePage = () => {
             <EducationalMessage />
             <Greeting />
             <ActionBox />
+            <CachedReports />
             <Progress />
             <MedicationReminder />
             <Reminders />
