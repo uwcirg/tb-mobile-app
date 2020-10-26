@@ -29,7 +29,7 @@ const PatientHome = observer((props) => {
   },[patientStore.status])
 
   autorun(()=>{
-    if(!uiStore.offline){
+    if(!uiStore.offline && dailyReportStore.numberOfflineReports > 0){
       dailyReportStore.syncOfflineReports();
     }
   })

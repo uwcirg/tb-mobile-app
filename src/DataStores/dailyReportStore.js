@@ -32,4 +32,13 @@ export default class DailyReportStore extends APIStore{
             this.numberOfflineReports = Object.keys(value).length
         })
     }
+
+    @action uploadAllCachedReports = () => {
+        getListOfCachedReports().then(object => {
+            Object.values(object).map( each => {
+                console.log("REPORT UPLOADING")
+                console.log(each.date)
+            })
+        })
+    }
 }

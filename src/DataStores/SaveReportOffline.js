@@ -16,7 +16,6 @@ export function addReportToOfflineCache(report) {
         console.log("Error getting cached reports")
         console.log(err)
     })
-
 }
 
 export function getNumberOfCachedReports() {

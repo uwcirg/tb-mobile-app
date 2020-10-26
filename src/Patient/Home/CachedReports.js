@@ -35,11 +35,6 @@ const CachedReports = observer(() => {
 
     useEffect(() => {
         dailyReportStore.getCachedReports();
-    }, [])
-
-
-    useEffect(() => {
-        dailyReportStore.getCachedReports();
     }, [patientStore.lastSubmission]);
 
     return (<div className={classes.container}>
