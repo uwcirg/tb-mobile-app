@@ -243,37 +243,38 @@ export class PatientStore extends UserStore {
 
     @action submitReport = (offline) => {
 
-        let body = {};
-        this.report.selectedSymptoms.map((value) => {
-            body[value] = true
-        })
-        body.date = this.report.date;
-        body.medicationWasTaken = this.report.tookMedication;
-        body.whyMedicationNotTaken = this.report.whyMedicationNotTaken;
-        body.dateTimeTaken = this.report.timeTaken;
-        body.doingOkay = this.report.doingOkay;
-        body.doingOkayReason = this.report.supportReason;
-        body.isHistoricalReport = this.report.isHistoricalReport;
-        body.nauseaRating = this.report.nauseaRating;
-
         if (!offline) {
-
-            if (this.isPhotoDay && this.report.photoString) {
-                this.uploadPhoto().then(res => {
-                    body.photoUrl = res
-                    this.uploadReport(body);
-                })
-            } else {
-                this.executeRequest('dailyReport', body).then(json => {
-                    this.uploadReport(body);
-                })
-            }
+            this.modifyReportAndUpload(this.report)
         } else {
             addReportToOfflineCache(toJS(this.report)).then(value => {
                 this.report.hasConfirmedAndSubmitted = true;
                 this.saveReportingState();
             })
 
+        }
+    }
+
+    modifyReportAndUpload = (report) => {
+        let body = {};
+        report.selectedSymptoms.map((value) => {
+            body[value] = true
+        })
+        body.date = report.date;
+        body.medicationWasTaken = report.tookMedication;
+        body.whyMedicationNotTaken = report.whyMedicationNotTaken;
+        body.dateTimeTaken = report.timeTaken;
+        body.doingOkay = report.doingOkay;
+        body.doingOkayReason = report.supportReason;
+        body.isHistoricalReport = report.isHistoricalReport;
+        body.nauseaRating = report.nauseaRating;
+
+        if (report.photoString) {
+            this.uploadPhoto().then(res => {
+                body.photoUrl = res
+                this.uploadReport(body);
+            })
+        } else {
+            this.uploadReport(body);
         }
     }
 

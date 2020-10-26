@@ -2,7 +2,7 @@ import { observable } from "mobx";
 
 export default class APIStore {
 
-    constructor(strategy, routes, uiStore) {
+    constructor(strategy, routes) {
         this.strategy = strategy;
         this.routes = routes;
     }

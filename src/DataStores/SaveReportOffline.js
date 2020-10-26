@@ -4,8 +4,7 @@ const CACHE_KEY = 'cachedReports'
 
 export function addReportToOfflineCache(report) {
     return localforage.getItem(CACHE_KEY).then(value => {
-        let oldReports
-        oldReports = (value != null ? value : {})
+        let oldReports= (value != null ? value : {})
         oldReports[report.date] = report;
 
         if (oldReports) {
@@ -40,6 +39,10 @@ export function getListOfCachedReports() {
     return localforage.getItem(CACHE_KEY).then(value => {
         return (value !== null ? value : {})
     })
+}
+
+export function clearCache(){
+    return localforage.removeItem(CACHE_KEY)
 }
 
 export function testObject() {

@@ -5,7 +5,7 @@ import { observer } from 'mobx-react'
 import LinearProgress from '@material-ui/core/LinearProgress';
 import FinishedIcon from '@material-ui/icons/CheckCircle';
 import Colors from '../../Basics/Colors';
-import { autorun } from 'mobx';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
     container: {
@@ -32,6 +32,7 @@ const useStyles = makeStyles({
 const CachedReports = observer(() => {
     const classes = useStyles();
     const { patientStore, dailyReportStore, uiStore } = useStores();
+    const {t} = useTranslation('translation');
 
     useEffect(() => {
         dailyReportStore.getCachedReports();
@@ -39,11 +40,14 @@ const CachedReports = observer(() => {
 
     return (<div className={classes.container}>
         {!uiStore.offline && dailyReportStore.finished ? <div className={classes.finished}>
-            All offline reports have submitted <FinishedIcon style={{ color: Colors.approvedGreen, marginLeft: "5px" }} />
+            {t('patient.report.offline.allDone')} <FinishedIcon style={{ color: Colors.approvedGreen, marginLeft: "5px" }} />
         </div> : <>
-                {dailyReportStore.syncing && <LinearProgress className={classes.progressVisual} />}
-                {!dailyReportStore.syncing && dailyReportStore.numberOfflineReports > 0 && <p className={classes.message}>You completed {dailyReportStore.numberOfflineReports} offline that can be uploaded when you have an internet connection</p>}
-                {dailyReportStore.syncing && <p className={classes.message}>Uploading your offline reports</p>}
+                {dailyReportStore.syncing && <LinearProgress
+                    className={classes.progressVisual}
+                />}
+                {!dailyReportStore.syncing && dailyReportStore.numberOfflineReports > 0 && <p className={classes.message}>
+                    {t('patient.report.offline.youHave')} {dailyReportStore.numberOfflineReports} {t('patient.report.offline.report',{count: dailyReportStore.numberOfflineReports})}. {t('patient.report.offline.explanation')}</p>}
+                {dailyReportStore.syncing && <p className={classes.message}>{t('patient.report.offline.uploading')}... </p>}
             </>}
     </div>)
 
