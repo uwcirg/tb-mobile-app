@@ -2,7 +2,7 @@ import { action, observable, computed, autorun, toJS } from "mobx";
 import { UserStore } from './userStore';
 import { DateTime, Interval } from 'luxon';
 import EducationStore from './educationStore';
-import {addReportToOfflineCache , getNumberOfCachedReports} from './SaveReportOffline'
+import { addReportToOfflineCache, getNumberOfCachedReports } from './SaveReportOffline'
 
 const ROUTES = {
     login: ["/authenticate", "POST"],
@@ -60,7 +60,7 @@ export class PatientStore extends UserStore {
         allDay: false
     }
 
-    @observable numberOfflineReports = 0;
+    @observable lastSubmission = DateTime.local().toISO();
 
     @action initalize() {
         this.loadCachedProfile();
@@ -224,8 +224,8 @@ export class PatientStore extends UserStore {
         });
     }
 
-    saveReportingState = () => {
-        //console.log(!this.report.isHistoricalReport)
+    @action saveReportingState = () => {
+        this.lastSubmission = DateTime.local().toISO();
         if (!this.report.isHistoricalReport) {
             localStorage.setItem(`medicationReport`, JSON.stringify(this.report));
         }
@@ -244,17 +244,17 @@ export class PatientStore extends UserStore {
     @action submitReport = (offline) => {
 
         let body = {};
-            this.report.selectedSymptoms.map((value) => {
-                body[value] = true
-            })
-            body.date = this.report.date;
-            body.medicationWasTaken = this.report.tookMedication;
-            body.whyMedicationNotTaken = this.report.whyMedicationNotTaken;
-            body.dateTimeTaken = this.report.timeTaken;
-            body.doingOkay = this.report.doingOkay;
-            body.doingOkayReason = this.report.supportReason;
-            body.isHistoricalReport = this.report.isHistoricalReport;
-            body.nauseaRating = this.report.nauseaRating;
+        this.report.selectedSymptoms.map((value) => {
+            body[value] = true
+        })
+        body.date = this.report.date;
+        body.medicationWasTaken = this.report.tookMedication;
+        body.whyMedicationNotTaken = this.report.whyMedicationNotTaken;
+        body.dateTimeTaken = this.report.timeTaken;
+        body.doingOkay = this.report.doingOkay;
+        body.doingOkayReason = this.report.supportReason;
+        body.isHistoricalReport = this.report.isHistoricalReport;
+        body.nauseaRating = this.report.nauseaRating;
 
         if (!offline) {
 
@@ -267,10 +267,13 @@ export class PatientStore extends UserStore {
                 this.executeRequest('dailyReport', body).then(json => {
                     this.uploadReport(body);
                 })
-            }  
+            }
         } else {
-            addReportToOfflineCache(this.report)
-            this.report.hasConfirmedAndSubmitted = true;
+            addReportToOfflineCache(toJS(this.report)).then(value => {
+                this.report.hasConfirmedAndSubmitted = true;
+                this.saveReportingState();
+            })
+
         }
     }
 
@@ -392,7 +395,7 @@ export class PatientStore extends UserStore {
     }
 
     @action checkNumberOfOfflineReports = () => {
-        getNumberOfCachedReports().then( value => {
+        getNumberOfCachedReports().then(value => {
             this.numberOfflineReports = value;
         })
     }
@@ -443,6 +446,6 @@ export class PatientStore extends UserStore {
         supportReason: "",
         nauseaRating: ""
     }
-    
+
 
 }

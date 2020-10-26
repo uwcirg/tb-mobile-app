@@ -1,17 +1,15 @@
 import localforage from 'localforage'
 
+const CACHE_KEY = 'cachedReports'
+
 export function addReportToOfflineCache(report) {
-    localforage.getItem('cachedReports').then(value => {
+    return localforage.getItem(CACHE_KEY).then(value => {
         let oldReports
-        try {
-            oldReports = (value != null ? JSON.parse(value) : {})
-            oldReports[report.date] = report;
-        } catch (err) {
-            console.log("Error Reading JSON from IndexedDB ", err)
-        }
+        oldReports = (value != null ? value : {})
+        oldReports[report.date] = report;
 
         if (oldReports) {
-            return localforage.setItem('cachedReports', JSON.stringify(oldReports))
+            return localforage.setItem(CACHE_KEY, oldReports)
         }
 
     }).catch(err => {
@@ -22,20 +20,29 @@ export function addReportToOfflineCache(report) {
 }
 
 export function getNumberOfCachedReports() {
-    return localforage.getItem('cachedReports').then(value => {
+    return localforage.getItem(CACHE_KEY).then(value => {
         if (value === null) {
             return 0
         }
 
         try {
-            const reports = JSON.parse(value)
-            return(Object.keys(reports).length)
+            return (Object.keys(value).length)
 
         } catch (err) {
-           console.log("Error reacding JSON from IndexDB", err)
-           return 0
+            console.log("Error reacding JSON from IndexDB", err)
+            return 0
         }
 
     })
 
+}
+
+export function getListOfCachedReports() {
+    return localforage.getItem(CACHE_KEY).then(value => {
+        return (value !== null ? value : {})
+    })
+}
+
+export function testObject() {
+    return localforage.setItem("testObject", { plain: "object", letSee: { title: "not JSON stringify needed" } }).catch(err => { console.log("BIG ERROR") })
 }

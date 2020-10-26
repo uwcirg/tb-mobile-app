@@ -15,7 +15,7 @@ import { autorun } from 'mobx';
 
 const PatientHome = observer((props) => {
 
-  const { patientUIStore, patientStore, uiStore } = useStores();
+  const { patientUIStore, patientStore, uiStore, dailyReportStore } = useStores();
   const tabs = [<Home />, <Progress />, <Messaging />, <Info />];
   const routeTab = tabs[patientUIStore.tabNumber]  
   
@@ -29,10 +29,8 @@ const PatientHome = observer((props) => {
   },[patientStore.status])
 
   autorun(()=>{
-    if(uiStore.offline){
-       //TODO - upload offline reports
-    }else{
-     
+    if(!uiStore.offline){
+      dailyReportStore.syncOfflineReports();
     }
   })
 
