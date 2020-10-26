@@ -608,7 +608,9 @@
         "continuous": "Continuous Phase",
         "followUp": "Follow Up Appointments",
         "end": "End of Treatment",
-        "here": "You are here"
+        "here": "You are here",
+        "twoMonths": "Every two months",
+        "during": "During Continuous Phase"
     },
     "report": {
         "incomplete": "Incomplete",
