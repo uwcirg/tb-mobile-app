@@ -86,6 +86,12 @@
         "noon": "mediodía"
     },
     "patient": {
+        "tabNames":{
+            "home": "Principal",
+            "calendar": "Calendario",
+            "messaging": "Mensajes",
+            "information": "Información"
+        },
         "onboarding": {
             "landing": {
                 "welcome": "Bienvenido",
@@ -144,7 +150,7 @@
                 "one": "¡Gracias por registrarse para el Asistente de Tratamiento!",
                 "two": "Ahora le vamos a enseñar las funciones principales de la aplicación "
             },
-            "homescreen": "Comenzaremos mostrando la pantalla de inicio",
+            "homescreen": "Comenzaremos mostrando la pantalla de principal",
             "revisit": "Si desea regresar a esta guía, la puede encontrar en la sección de información ",
             "exit": "Para salir de esta guía, puede tocar la X en el extremo superior derecho de la pantalla",
             "tasks": "Éstas son sus tareas diarias, puede tocar Iniciar Reporte para comenzar su reporte de hoy. ",
@@ -226,7 +232,8 @@
                 "todaysTasks": "Tareas de Hoy",
                 "myProgress": "Mi Progreso",
                 "myLearning": "Aprendizaje"
-            }
+            },
+            "confirmAndSubmit": "Por Favor Confirme y Envíe su Reporte"
         },
         "profile": {
             "title": "Configuración",
@@ -269,7 +276,7 @@
                 "usePhoto": "Usar foto",
                 "retakePhoto": "Volver a Tomar la foto",
                 "openCamera": "Abrir la Camara",
-                "how": "¿Cómo puedo tomar el examen? "
+                "how": "¿Cómo hago la prueba? "
             },
             "symptoms": {
                 "nauseaRating": "¿Que severa es su náusea?",
@@ -288,6 +295,15 @@
                 "takenAt": "Tomé a las",
                 "notTaken": "No lo tomé porque",
                 "review": "Revisar la foto"
+            },
+            "offline":{
+                "report": "reportes sin conexión",
+                "report_plural": "reportes sin conexión",
+                "allDone": "Hemos recibido todos los reportes que completó sin conexión",
+                "youHave": "Usted tiene",
+                "explanation": "Se cargarán cuando tenga conexión a Internet",
+                "uploading": "Subiendo los reportes que completó sin conexión"
+
             }
         },
         "reportConfirmation": {
@@ -534,14 +550,15 @@
         }
     },
     "errors": {
+        "offline": "no está disponible. Conéctese a Internet para utilizar esta función.",
         "page":{
-            "header": "Algo fue mal.",
-            "sorry": "Perdón",
+            "header": "Algo anduvo mal.",
+            "sorry": "Disculpe",
             "furtherSupport": "Contáctenos Para Obtener Más Ayuda",
-            "contactDetails": "Proporcione una descripción detallada de su problema y los pasos que tomaste antes de que ocurriera.",
-            "try": "Trate estos pasos",
+            "contactDetails": "Por favor proporcione una descripción detallada de su problema y los pasos que llevaron a que ocurriera.",
+            "try": "Pruebe estos pasos",
             "reloadStep": "Volver a cargar la página ",
-            "loginStep": "Cerrar Su Sesión y a Iniciar Una Nueva Sesión",
+            "loginStep": "Cerrar Su Sesión e Iniciar Una Nueva Sesión",
             "closeStep": "Cierre completamente la aplicación o cierre su navegador"
 
         },
@@ -584,7 +601,9 @@
         "continuous": "Fase de Consolidación ",
         "followUp": "Visitas de control",
         "end": "Fin del Tratamiento",
-        "here": "Ud. está aquí"
+        "here": "Ud. está aquí",
+        "twoMonths": "Cada dos meses",
+        "during": "Durante la Fase Continua"
     },
     "report": {
         "incomplete": "Incompleto",

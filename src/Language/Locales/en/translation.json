@@ -87,7 +87,7 @@
     },
     "patient": {
         "tabNames":{
-            "home": "Todays Tasks",
+            "home": "Home",
             "calendar": "Calendar",
             "messaging": "Messaging",
             "information": "Information"
@@ -232,7 +232,8 @@
                 "todaysTasks": "Todays Tasks",
                 "myProgress": "My Progress",
                 "myLearning": "My Learning"
-            }
+            },
+            "confirmAndSubmit": "Please Confirm and Submit Your Report"
         },
         "profile": {
             "title": "Settings",
@@ -294,6 +295,15 @@
                 "takenAt": "Taken at",
                 "notTaken": "Not taken because",
                 "review": "Review Photo"
+            },
+            "offline":{
+                "report": "offline report",
+                "report_plural": "offline reports",
+                "allDone": "All offline reports have submitted",
+                "youHave": "You have",
+                "explanation": "They will be uploaded when you have an internet connection",
+                "uploading": "Uploading your offline reports"
+
             }
         },
         "reportConfirmation": {
@@ -598,7 +608,9 @@
         "continuous": "Continuous Phase",
         "followUp": "Follow Up Appointments",
         "end": "End of Treatment",
-        "here": "You are here"
+        "here": "You are here",
+        "twoMonths": "Every two months",
+        "during": "During Continuous Phase"
     },
     "report": {
         "incomplete": "Incomplete",

@@ -117,10 +117,10 @@ const Timeline = (props) => {
             <Panel weeksInTreatment={props.weeksInTreatment} title={`${t('timeline.sputumTest')}`} weekValue={24} week="8-24" />
         </Month>
         <Month weeksInTreatment={props.weeksInTreatment} month={3}>
-            <Panel weeksInTreatment={props.weeksInTreatment} title={`${t('timeline.followUp')}`} weekValue={24} noWeek week="Every 2 Months" />
+            <Panel weeksInTreatment={props.weeksInTreatment} title={`${t('timeline.followUp')}`} weekValue={24} noWeek week={t('timeline.twoMonths')} />
         </Month>
         <Month month={4}>
-            <Panel weeksInTreatment={props.weeksInTreatment} title={`${t('commonWords.second')} ${t('timeline.sputumTest')}`} weekValue={24} noWeek week="During Continuous Phase" />
+            <Panel weeksInTreatment={props.weeksInTreatment} title={`${t('commonWords.second')} ${t('timeline.sputumTest')}`} weekValue={24} noWeek week={t('timelineduring')} />
         </Month>
         <Month weeksInTreatment={props.weeksInTreatment} month={5} />
 

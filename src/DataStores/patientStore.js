@@ -2,6 +2,7 @@ import { action, observable, computed, autorun, toJS } from "mobx";
 import { UserStore } from './userStore';
 import { DateTime, Interval } from 'luxon';
 import EducationStore from './educationStore';
+import { addReportToOfflineCache, getNumberOfCachedReports } from './SaveReportOffline'
 
 const ROUTES = {
     login: ["/authenticate", "POST"],
@@ -43,6 +44,7 @@ export class PatientStore extends UserStore {
         selectedCalendarDate: DateTime.local().startOf('day'),
         symptomWarningVisible: false,
     }
+
     @observable medicationSchedule = []
     @observable savedReports = [];
     @observable milestones = [];
@@ -58,7 +60,32 @@ export class PatientStore extends UserStore {
         allDay: false
     }
 
+    @observable lastSubmission = DateTime.local().toISO();
+
+    @action initalize() {
+        this.loadCachedProfile();
+        super.initalize()
+        this.loadDailyReport();
+        this.getReports();
+    }
+
+    //Load backup items for offline use 
+    @action loadCachedProfile = () => {
+        const cached = JSON.parse(localStorage.getItem("cachedProfile"));
+        if (cached && cached.givenName) {
+            console.log(cached.givenName)
+            this.givenName = cached.givenName
+        }
+
+        if (cached && cached.photoSchedule) {
+            this.photoSchedule = cached.photoSchedule
+        }
+        cached.daysInTreatment && (this.patientInformation.daysInTreatment = cached.daysInTreatment)
+        cached.currentStreak && (this.currentStreak = cached.currentStreak)
+    }
+
     @action getPatientInformation = () => {
+
         return this.executeRequest(`getCurrentPatient`).then((json) => {
             if (json.status) {
                 this.status = json.status;
@@ -76,6 +103,14 @@ export class PatientStore extends UserStore {
         this.patientInformation.daysInTreatment = json.daysInTreatment;
         this.patientInformation.currentStreak = json.currentStreak;
         this.educationStore.educationStatus = json.educationStatus;
+
+        localStorage.setItem("cachedProfile", JSON.stringify({
+            photoSchedule: this.photoSchedule,
+            givenName: json.givenName,
+            daysInTreatment: json.daysInTreatment,
+            currentStreak: json.currentStreak
+        }))
+
         super.setAccountInformation(json);
 
     }
@@ -189,8 +224,8 @@ export class PatientStore extends UserStore {
         });
     }
 
-    saveReportingState = () => {
-        console.log(!this.report.isHistoricalReport)
+    @action saveReportingState = () => {
+        this.lastSubmission = DateTime.local().toISO();
         if (!this.report.isHistoricalReport) {
             localStorage.setItem(`medicationReport`, JSON.stringify(this.report));
         }
@@ -206,29 +241,40 @@ export class PatientStore extends UserStore {
         this.uiState.onTreatmentFlow = true;
     }
 
-    @action submitReport = () => {
+    @action submitReport = (offline) => {
+
+        if (!offline) {
+            this.modifyReportAndUpload(this.report)
+        } else {
+            addReportToOfflineCache(toJS(this.report)).then(value => {
+                this.report.hasConfirmedAndSubmitted = true;
+                this.saveReportingState();
+            })
+
+        }
+    }
+
+    modifyReportAndUpload = (report) => {
         let body = {};
-        this.report.selectedSymptoms.map((value) => {
+        report.selectedSymptoms.map((value) => {
             body[value] = true
         })
-        body.date = this.report.date;
-        body.medicationWasTaken = this.report.tookMedication;
-        body.whyMedicationNotTaken = this.report.whyMedicationNotTaken;
-        body.dateTimeTaken = this.report.timeTaken;
-        body.doingOkay = this.report.doingOkay;
-        body.doingOkayReason = this.report.supportReason;
-        body.isHistoricalReport = this.report.isHistoricalReport;
-        body.nauseaRating = this.report.nauseaRating;
+        body.date = report.date;
+        body.medicationWasTaken = report.tookMedication;
+        body.whyMedicationNotTaken = report.whyMedicationNotTaken;
+        body.dateTimeTaken = report.timeTaken;
+        body.doingOkay = report.doingOkay;
+        body.doingOkayReason = report.supportReason;
+        body.isHistoricalReport = report.isHistoricalReport;
+        body.nauseaRating = report.nauseaRating;
 
-        if (this.isPhotoDay && this.report.photoString) {
+        if (report.photoString) {
             this.uploadPhoto().then(res => {
                 body.photoUrl = res
                 this.uploadReport(body);
             })
         } else {
-            this.executeRequest('dailyReport', body).then(json => {
-                this.uploadReport(body);
-            })
+            this.uploadReport(body);
         }
     }
 
@@ -349,11 +395,10 @@ export class PatientStore extends UserStore {
         })
     }
 
-    @action initalize() {
-        super.initalize()
-        this.loadDailyReport();
-        this.getMilestones();
-        this.getReports();
+    @action checkNumberOfOfflineReports = () => {
+        getNumberOfCachedReports().then(value => {
+            this.numberOfflineReports = value;
+        })
     }
 
     @action logoutPatient() {

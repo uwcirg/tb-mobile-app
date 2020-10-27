@@ -15,13 +15,13 @@ const useStyles = makeStyles({
 const ReportConfirmation = observer(() => {
 
     const classes = useStyles();
-    const { patientStore,patientUIStore} = useStores();
+    const { patientStore,patientUIStore,uiStore} = useStores();
     const { t, i18n } = useTranslation('translation');
     
     patientStore.report.headerText = t("patient.report.confirmation.title")
 
     const handleSubmit = () => {
-        patientStore.submitReport();
+        patientStore.submitReport(uiStore.offline);
         patientUIStore.endReport();
     }
 

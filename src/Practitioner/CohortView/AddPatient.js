@@ -103,7 +103,7 @@ const AddPatientForm = observer((props) => {
                     disableFuture
                 />
                 </div>
-                <UsabilityTestQuestion />
+                {(window && window._env && window._env.DOCKER_TAG != "master") && <UsabilityTestQuestion />}
             </form>
             <SimpleButton className={classes.submit} onClick={props.submit}>{t('coordinator.addPatientFlow.title')}</SimpleButton>
         </div>

@@ -29,7 +29,7 @@ i18n.use(initReactI18next)
   resources,
   fallbackLng: "en",
   ns: ['translation'],
-  debug: true
+  debug: false
 });
 
 export default i18n;
