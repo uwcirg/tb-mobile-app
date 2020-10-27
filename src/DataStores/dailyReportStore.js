@@ -37,16 +37,17 @@ export default class DailyReportStore extends APIStore {
 
     @action uploadReport = (body) => {
 
-        this.executeRequest('dailyReport', body, {includeStatus: true}).then(json => {
-            if(!json || json.httpStatus >= 400){
+        this.executeRequest('dailyReport', body, { includeStatus: true }).then(json => {
+            if (!json || json.httpStatus >= 400) {
                 this.cacheUploadError = true;
-            }else{
+            } else {
                 this.numberUploaded += 1
 
-                if(this.numberUploaded === this.numberOfflineReports){
+                if (this.numberUploaded === this.numberOfflineReports) {
                     clearCache();
                     this.finished = true;
                     this.syncing = false;
+                    window.setTimeout(this.reinitalize, 5000)
                 }
             }
         })
@@ -110,5 +111,13 @@ export default class DailyReportStore extends APIStore {
         //Todo: removed when refactor method to be shared
 
         return body;
+    }
+
+    @action reinitalize = () => {
+        this.cachedReports = {}
+        this.syncing = false;
+        this.finished = false;
+        this.numberOfflineReports = 0;
+        this.numberUploaded = 0;
     }
 }
