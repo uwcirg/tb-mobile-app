@@ -23,7 +23,7 @@
     "jest": "^24.9.0",
     "localforage": "^1.9.0",
     "luxon": "^1.21.3",
-    "markdown-to-jsx": "^6.11.1",
+    "markdown-to-jsx": "^6.11.4",
     "minio": "^7.0.13",
     "mobx": "^5.15.0",
     "mobx-react": "^6.1.4",
