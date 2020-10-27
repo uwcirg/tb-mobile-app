@@ -80,8 +80,8 @@ export class PatientStore extends UserStore {
         if (cached && cached.photoSchedule) {
             this.photoSchedule = cached.photoSchedule
         }
-        cached.daysInTreatment && (this.patientInformation.daysInTreatment = cached.daysInTreatment)
-        cached.currentStreak && (this.currentStreak = cached.currentStreak)
+         (cached && cached.daysInTreatment) && (this.patientInformation.daysInTreatment = cached.daysInTreatment)
+        (cached && cached.currentStreak) && (this.currentStreak = cached.currentStreak)
     }
 
     @action getPatientInformation = () => {
