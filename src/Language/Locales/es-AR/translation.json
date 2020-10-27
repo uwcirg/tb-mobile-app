@@ -87,7 +87,7 @@
     },
     "patient": {
         "tabNames":{
-            "home": "Home",
+            "home": "Principal",
             "calendar": "Calendario",
             "messaging": "Mensajes",
             "information": "Información"
@@ -150,7 +150,7 @@
                 "one": "¡Gracias por registrarse para el Asistente de Tratamiento!",
                 "two": "Ahora le vamos a enseñar las funciones principales de la aplicación "
             },
-            "homescreen": "Comenzaremos mostrando la pantalla de inicio",
+            "homescreen": "Comenzaremos mostrando la pantalla de principal",
             "revisit": "Si desea regresar a esta guía, la puede encontrar en la sección de información ",
             "exit": "Para salir de esta guía, puede tocar la X en el extremo superior derecho de la pantalla",
             "tasks": "Éstas son sus tareas diarias, puede tocar Iniciar Reporte para comenzar su reporte de hoy. ",
@@ -233,7 +233,7 @@
                 "myProgress": "Mi Progreso",
                 "myLearning": "Aprendizaje"
             },
-            "confirmAndSubmit": "Please Confirm and Submit Your Report"
+            "confirmAndSubmit": "Por Favor Confirme y Envíe su Reporte"
         },
         "profile": {
             "title": "Configuración",
@@ -297,12 +297,12 @@
                 "review": "Revisar la foto"
             },
             "offline":{
-                "report": "offline report",
-                "report_plural": "offline reports",
-                "allDone": "All offline reports have submitted",
-                "youHave": "You have",
-                "explanation": "They will be uploaded when you have an internet connection",
-                "uploading": "Uploading your offline reports"
+                "report": "reportes sin conexión",
+                "report_plural": "reportes sin conexión",
+                "allDone": "Hemos recibido todos los reportes que completó sin conexión",
+                "youHave": "Usted tiene",
+                "explanation": "Se cargarán cuando tenga conexión a Internet",
+                "uploading": "Subiendo los reportes que completó sin conexión"
 
             }
         },
@@ -601,7 +601,9 @@
         "continuous": "Fase de Consolidación ",
         "followUp": "Visitas de control",
         "end": "Fin del Tratamiento",
-        "here": "Ud. está aquí"
+        "here": "Ud. está aquí",
+        "twoMonths": "Cada dos meses",
+        "during": "Durante la Fase Continua"
     },
     "report": {
         "incomplete": "Incompleto",
