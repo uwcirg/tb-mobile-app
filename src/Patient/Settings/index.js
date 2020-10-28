@@ -14,7 +14,7 @@ import { observer } from 'mobx-react'
 import NewButton from '../../Basics/NewButton'
 import ExitToApp from '@material-ui/icons/ExitToApp'
 import Globe from '@material-ui/icons/Language';
-import PasswordUpdate from './PasswordUpdate'
+import PasswordUpdate from '../../Shared/PasswordUpdate'
 import {testObject} from '../../DataStores/SaveReportOffline'
 
 import PersonalInformation from './PersonalInformation'

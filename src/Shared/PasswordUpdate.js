@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import useStores from '../../Basics/UseStores';
+import useStores from '../Basics/UseStores';
 import { observer } from 'mobx-react'
 import TextField from '@material-ui/core/TextField'
 import { useTranslation } from 'react-i18next';
-import OverTopBar from '../Navigation/OverTopBar';
+import OverTopBar from '../Patient/Navigation/OverTopBar';
 import { Button } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 
