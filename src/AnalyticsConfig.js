@@ -1,7 +1,7 @@
 import { MatomoProvider, createInstance } from '@datapunt/matomo-tracker-react'
 import React from 'react'
 
-const isProduction = window && window._env && window._env.MATOMO_URL
+const isProduction = window && window._env && window._env.DOCKER_TAG === "master"
 
 const instance = isProduction ? createInstance({
     urlBase: isProduction ? window._env.MATOMO_URL : "",
