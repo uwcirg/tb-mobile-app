@@ -1,17 +1,13 @@
 import React, {Suspense} from 'react';
-import ReactDOM from 'react-dom';
-import * as serviceWorker from './serviceWorker';
+import ReactDOM from 'react-dom';ß
 import Main from './Main';
 import { Provider } from 'mobx-react';
-import {reaction} from 'mobx';
 
 //Internationalization
 import i18n from "./Language/i18n";
 import { I18nextProvider} from 'react-i18next';
 
 //Stores 
-import {AccountStore} from './DataStores/accountStore'
-import {PractitionerStore} from './DataStores/practitionerStore'
 import { PatientStore } from "./DataStores/patientStore";
 import {UIStore} from "./DataStores/uiStore"
 
@@ -26,7 +22,6 @@ it('renders without crashing', () => {
   const div = document.createElement('div');
   const stores = {
     uiStore: new UIStore(),
-    accountStore: new AccountStore(apiHelper),
     patientStore: new PatientStore(apiHelper)
 }
 

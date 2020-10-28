@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import TextField from '@material-ui/core/TextField'
@@ -30,15 +30,15 @@ const useStyles = makeStyles({
     }
 })
 
-const CompName = observer(() => {
+const PasswordReset = observer(() => {
 
     const classes = useStyles();
-    const {patientStore,patientUIStore} = useStores();
-    const { t, i18n } = useTranslation('translation');
+    const {patientUIStore, passwordStore} = useStores();
+    const {t} = useTranslation('translation');
 
     useEffect(() => {
         return function cleanup() {
-            patientStore.resetPasswordUpdateState();
+            passwordStore.resetPasswordUpdateState();
         }
     },[])
 
@@ -47,8 +47,8 @@ const CompName = observer(() => {
         <div className={classes.container}>
         <form className={classes.form} >
             <TextField
-                onChange={(e) => { patientStore.passwordUpdate.currentPassword = e.target.value }}
-                value={patientStore.passwordUpdate.currentPassword}
+                onChange={(e) => { passwordStore.currentPassword = e.target.value }}
+                value={passwordStore.currentPassword}
                 fullWidth
                 className={classes.password}
                 id="currentPassword"
@@ -56,11 +56,11 @@ const CompName = observer(() => {
                 type="password"
                 autoComplete="current-password"
                 variant="filled"
-                error={patientStore.passwordUpdate.errors.slice().includes("currentPassword")}
+                error={passwordStore.errors.slice().includes("currentPassword")}
             />
             <TextField
-                onChange={(e) => { patientStore.passwordUpdate.newPassword = e.target.value }}
-                value={patientStore.passwordUpdate.newPassword}
+                onChange={(e) => { passwordStore.newPassword = e.target.value }}
+                value={passwordStore.newPassword}
                 fullWidth
                 className={classes.password}
                 id="newPassword"
@@ -68,11 +68,11 @@ const CompName = observer(() => {
                 type="password"
                 autoComplete="new-password"
                 variant="filled"
-                error={patientStore.passwordUpdate.errors.slice().includes("newPassword")}
+                error={passwordStore.errors.slice().includes("newPassword")}
             />
             <TextField
-                onChange={(e) => { patientStore.passwordUpdate.newPasswordConfirmation = e.target.value }}
-                value={patientStore.passwordUpdate.newPasswordConfirmation}
+                onChange={(e) => { passwordStore.newPasswordConfirmation = e.target.value }}
+                value={passwordStore.newPasswordConfirmation}
                 fullWidth
                 className={classes.password}
                 id="newPasswordConfirmation"
@@ -80,17 +80,17 @@ const CompName = observer(() => {
                 type="password"
                 autoComplete="new-password"
                 variant="filled"
-                error={patientStore.passwordUpdate.errors.slice().includes("newPasswordConfirmation")}
+                error={passwordStore.errors.slice().includes("newPasswordConfirmation")}
             />
             <div className={classes.buttonContainer}>
-            <Button onClick={patientStore.updatePassword}> {t("settings.submit")}</Button>
+            <Button onClick={passwordStore.updatePassword}> {t("settings.submit")}</Button>
             </div>
         </form>
-        {patientStore.passwordUpdate.message && <MuiAlert elevation={6} variant="filled" severity={ patientStore.passwordUpdate.success ? "success" : "error"}>{patientStore.passwordUpdate.message}</MuiAlert>}
+        {passwordStore.message && <MuiAlert elevation={6} variant="filled" severity={ passwordStore.success ? "success" : "error"}>{passwordStore.message}</MuiAlert>}
         </div>
 
     </>)
 
 })
 
-export default CompName;
+export default PasswordReset;

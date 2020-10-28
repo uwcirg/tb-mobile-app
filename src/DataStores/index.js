@@ -1,5 +1,5 @@
 //Stores 
-import {AccountStore} from './accountStore'
+import {PasswordStore} from './passwordStore'
 import LoginStore from './loginStore'
 import {PractitionerStore} from './practitionerStore'
 import { PatientStore } from "./patientStore"
@@ -33,13 +33,13 @@ export const history = syncHistoryWithStore(browserHistory, routingStore);
 export const stores = {
     routingStore: routingStore,
     dashboardStore: new DashboardStore(apiHelper),
+    passwordStore: new PasswordStore(apiHelper),
     patientUIStore: new PatientUIStore(routingStore),
     adminStore: new AdminStore(apiHelper),
     practitionerUIStore: new PractitionerUIStore(routingStore),
     loginStore: new LoginStore(apiHelper),
     uiStore: uiStore,
     labPhotoStore: new LabPhotoStore(apiHelper),
-    accountStore: new AccountStore(apiHelper),
     practitionerStore: new PractitionerStore(apiHelper),
     patientStore: new PatientStore(apiHelper),
     messagingStore: new MessagingStore(apiHelper),
