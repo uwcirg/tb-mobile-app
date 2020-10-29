@@ -15,7 +15,7 @@ import NewButton from '../../Basics/NewButton'
 import ExitToApp from '@material-ui/icons/ExitToApp'
 import Globe from '@material-ui/icons/Language';
 import PasswordUpdate from '../../Shared/PasswordUpdate'
-import {testObject} from '../../DataStores/SaveReportOffline'
+import { testObject } from '../../DataStores/SaveReportOffline'
 
 import PersonalInformation from './PersonalInformation'
 
@@ -26,7 +26,11 @@ const HealthProfile = observer(() => {
     const { t, i18n } = useTranslation('translation');
 
     let Component = <MainSettings />
-    if (patientUIStore.onPasswordUpdate) Component = <PasswordUpdate />
+    if (patientUIStore.onPasswordUpdate) Component = (
+        <>
+            <OverTopBar title={t("settings.updatePassword")} handleBack={patientUIStore.closePasswordUpdate} ></OverTopBar>
+            <PasswordUpdate />
+        </>)
 
     return (<>
         <div className={classes.container}>
@@ -38,7 +42,7 @@ const HealthProfile = observer(() => {
 
 const MainSettings = observer(() => {
     const classes = useStyles();
-    const { patientStore, uiStore, patientUIStore, loginStore} = useStores();
+    const { patientStore, uiStore, patientUIStore, loginStore } = useStores();
     const { t, i18n } = useTranslation('translation');
 
     const handleLogout = () => {
@@ -88,31 +92,29 @@ const LanguageQuestion = observer(() => {
 
 const Debugging = observer((props) => {
     const classes = useStyles();
-    const {patientStore} = useStores();
+    const { patientStore } = useStores();
 
-    return(
+    return (
         <>
-       {window._env.ENVIRONMENT === "development" ? 
-       <div className={classes.debugging}>
-            Debugging Mode Enabled (config.js or set with environment variable in docker)
+            {window._env.ENVIRONMENT === "development" ?
+                <div className={classes.debugging}>
+                    Debugging Mode Enabled (config.js or set with environment variable in docker)
             <Button onClick={testObject}>Seed Offline Reports</Button>
-            <TextField
-          id="standard-number"
-          label="Number"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          value={patientStore.patientInformation.daysInTreatment}
-          onChange={(e) => {patientStore.patientInformation.daysInTreatment = e.target.value}}
-        />
-        </div>:
-        ""}
+                    <TextField
+                        id="standard-number"
+                        label="Number"
+                        type="number"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        value={patientStore.patientInformation.daysInTreatment}
+                        onChange={(e) => { patientStore.patientInformation.daysInTreatment = e.target.value }}
+                    />
+                </div> :
+                ""}
         </>
     )
 })
-
-
 
 const useStyles = makeStyles({
     logout: {
@@ -230,7 +232,7 @@ const useStyles = makeStyles({
         flexDirection: "column",
         alignItems: "center"
     },
-    debugging:{
+    debugging: {
         padding: "1em"
     }
 

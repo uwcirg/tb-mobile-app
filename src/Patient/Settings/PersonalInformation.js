@@ -18,7 +18,7 @@ const useStyles = makeStyles({
             alignSelf: "flex-start",
             marginLeft: "5%",
             color: Colors.buttonBlue,
-            textTransform: "none"
+            textTransform: "capitalize"
         },
     },
     header: {

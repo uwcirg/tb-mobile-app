@@ -18,7 +18,7 @@ import TreatmentSteps from './TreatmentSteps'
 import TestReport from './ExampleReport'
 import { DateTime } from 'luxon'
 
-const Wrapper = observer(() => {
+const Wrapper = observer((props) => {
   const { patientUIStore, patientStore } = useStores();
 
   //Load Test Data for calendar example
@@ -45,13 +45,13 @@ const Wrapper = observer(() => {
 
 
   return (
-    <Intro stepsList={patientUIStore.onTreatmentWalkthrough ? TreatmentSteps : Steps} />
+    <Intro startOn={props.startOn} stepsList={patientUIStore.onTreatmentWalkthrough ? TreatmentSteps : Steps} />
   )
 })
 
 const Intro = observer((props) => {
 
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(props.startOn|| 0);
 
   const classes = useStyles();
   const { patientUIStore, routingStore } = useStores();

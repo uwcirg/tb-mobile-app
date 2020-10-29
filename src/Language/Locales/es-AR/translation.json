@@ -70,7 +70,7 @@
         "patients": "Pacientes",
         "coordinators": "Asistentes",
         "discussions": "Discusiones",
-        "expert": "Dr. Cristina Chirico",
+        "expert": "Dra. Cristina Chirico",
         "groupDiscussion": "Discusión del grupo",
         "found": "Encontrado",
         "empty": "No se han enviado mensajes todavia. Envie el primero!",
@@ -87,7 +87,7 @@
     },
     "patient": {
         "tabNames":{
-            "home": "Principal",
+            "home": "Asistente de Tratamiento",
             "calendar": "Calendario",
             "messaging": "Mensajes",
             "information": "Información"
@@ -225,7 +225,7 @@
             },
             "completed": {
                 "title": "Completo",
-                "subtitle": "El Reporte de hoy fue enviado",
+                "subtitle": "Su Reporte de Hoy Fue Enviado",
                 "modify": "Editar su Reporte"
             },
             "cardTitles": {
@@ -297,8 +297,8 @@
                 "review": "Revisar la foto"
             },
             "offline":{
-                "report": "reportes sin conexión",
-                "report_plural": "reportes sin conexión",
+                "report": "reportes completados sin conexión",
+                "report_plural": "reportes completados sin conexión",
                 "allDone": "Hemos recibido todos los reportes que completó sin conexión",
                 "youHave": "Usted tiene",
                 "explanation": "Se cargarán cuando tenga conexión a Internet",
@@ -579,7 +579,7 @@
         "submit": "Enviar"
     },
     "educationalMessages": {
-        "feedback": "Gracias por sus comentarios",
+        "feedback": "Gracias Por Su Respuesta",
         "week": "Semana",
         "header": "Importante conocer",
         "helpful": "¿Fue útil este mensaje?",

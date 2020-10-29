@@ -40,6 +40,7 @@ const PatientHome = observer((props) => {
     <div className="main-screen" style={{backgroundColor: `${Colors.white}`,minHeight: "100vh"}}>
       
       <TopBar />
+      {/* <Intro startOn={3} />} How to make table of contents work */}
       {patientUIStore.onWalkthrough && <Intro />}
       <TopMenu />
       <div style={{ paddingTop: "60px", paddingBottom: "60px" }}>

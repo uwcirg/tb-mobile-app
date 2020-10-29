@@ -42,8 +42,7 @@ const PasswordReset = observer(() => {
         }
     },[])
 
-    return (<>
-         <OverTopBar title={t("settings.updatePassword")} handleBack={patientUIStore.closePasswordUpdate} ></OverTopBar>
+    return (
         <div className={classes.container}>
         <form className={classes.form} >
             <TextField
@@ -87,9 +86,7 @@ const PasswordReset = observer(() => {
             </div>
         </form>
         {passwordStore.message && <MuiAlert elevation={6} variant="filled" severity={ passwordStore.success ? "success" : "error"}>{passwordStore.message}</MuiAlert>}
-        </div>
-
-    </>)
+        </div>)
 
 })
 
