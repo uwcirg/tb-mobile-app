@@ -54,17 +54,17 @@ const useStyles = makeStyles({
 
 
 
-const LanguageQuestion = observer(() => {
+const LanguageQuestion = observer((props) => {
     const classes = useStyles();
     const { uiStore } = useStores();
     const { t, i18n } = useTranslation('translation');
 
     return (
         <div className={classes.languageContainer}>
-            <div className={classes.language}>
+            {!props.noTitle && <div className={classes.language}>
                 <Globe />
                 <Typography variant="h2">{t("patient.profile.options.language")}</Typography>
-            </div>
+            </div>}
             <ButtonGroup className={classes.group} fullWidth color="primary">
                 <Button onClick={() => { uiStore.setLocale("en") }} className={uiStore.locale === "en" ? classes.selected : classes.default}>{t("patient.profile.options.english")}</Button>
                 <Button onClick={() => { uiStore.setLocale("es-AR") }} className={uiStore.locale === "es-AR" ? classes.selected : classes.default}>{t("patient.profile.options.spanish")}</Button>

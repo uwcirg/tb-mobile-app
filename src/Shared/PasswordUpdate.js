@@ -4,7 +4,6 @@ import useStores from '../Basics/UseStores';
 import { observer } from 'mobx-react'
 import TextField from '@material-ui/core/TextField'
 import { useTranslation } from 'react-i18next';
-import OverTopBar from '../Patient/Navigation/OverTopBar';
 import { Button } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 
@@ -18,8 +17,6 @@ const useStyles = makeStyles({
     container:{
         display: "flex",
         flexDirection: "column",
-        height: "80vh",
-        width: "100vw",
         justifyContent: "center",
         alignItems: "center"
     },
