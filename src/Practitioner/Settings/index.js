@@ -16,6 +16,8 @@ import PatientIcon from '@material-ui/icons/Accessibility';
 import DocIcon from '@material-ui/icons/Description';
 import PersonIcon from '@material-ui/icons/Person';
 
+import PatientInformation from '../../Patient/Information'
+
 import useLogout from '../../Basics/Logout'
 import Profile from './Profile';
 
@@ -49,7 +51,8 @@ const useStyles = makeStyles({
     },
     navigation: {
         boxSizing: "border-box",
-        flexBasis: "250px",
+        width: "250px",
+        minWidth: "250px",
         height: "100%",
         paddingTop: "1em",
         borderRight: "solid 1px lightgray"
@@ -93,6 +96,12 @@ const useStyles = makeStyles({
         borderTop: "1px solid black",
         marginTop: "1em",
         width: "100%"
+    },
+    patientInformation:{
+        width: "50%"
+    },
+    topInfo:{
+        padding: "1em"
     }
 })
 
@@ -118,8 +127,8 @@ const SettingsNav = (props) => {
         <div className={classes.navigation}>
             <Typography className={classes.header} variant="h2">{t('patient.tabNames.information')}</Typography>
             <ul className={classes.list}>
-                <NavItem id="documents" icon={<DocIcon />} text={"Documents"} />
-                <NavItem id="patientInformation" icon={<PatientIcon />} text={"Patient Information"} />
+                <NavItem id="documents" icon={<DocIcon />} text={t("coordinator.settingsPage.documents")} />
+                <NavItem id="patientInformation" icon={<PatientIcon />} text={t("coordinator.settingsPage.patientInformation")} />
             </ul>
             <br />
             <Typography className={classes.header} variant="h2">{t('patient.profile.title')}</Typography>
@@ -173,6 +182,10 @@ const BodyRouter = observer((props) => {
                 {practitionerUIStore.settingsTab === "documents" && <Documents />}
                 {practitionerUIStore.settingsTab === "updatePassword" && <PasswordReset />}
                 {practitionerUIStore.settingsTab === "account" && <Profile />}
+                {practitionerUIStore.settingsTab === "patientInformation" && <div className={classes.patientInformation}> 
+                <Typography className={classes.topInfo} variant="body1"> This is the information that the patients can see from their mobile application</Typography>
+                <PatientInformation /> 
+                </div>}
             </div>
         </div>
 
