@@ -13,7 +13,7 @@ export default class PractitionerUIStore {
     @observable onOnboarding = false;
     @observable onAddPatientNote = false;
 
-    @observable settingsTab = "treatment-information"
+    @observable settingsTab = ""
 
     @computed get tabNumber(){
         const splitPath = this.router.location.pathname.split("/");

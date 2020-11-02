@@ -248,6 +248,7 @@
             "logout": "Log Out",
             "organization": "Organization",
             "options": {
+                "account": "My Account",
                 "language": "Language",
                 "dailyNotifications": "Daily Notifications",
                 "medicationReminder": "Medication Reminder",
@@ -554,6 +555,14 @@
             "taken": "Taken",
             "notTaken": "Not Taken",
             "noneYet": "No Reports Submitted Yet"
+        },
+        "settingsPage":{
+            "account": "My Account",
+            "language": "Language Selection",
+            "updatePassword": "Update Password",
+            "documents": "Study Documents",
+            "patientInformation": "Patient Information",
+            "applicationHelp": "Application Help"
         }
     },
     "errors": {

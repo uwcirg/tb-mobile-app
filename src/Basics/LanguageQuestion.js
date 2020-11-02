@@ -52,8 +52,6 @@ const useStyles = makeStyles({
     }
 })
 
-
-
 const LanguageQuestion = observer((props) => {
     const classes = useStyles();
     const { uiStore } = useStores();

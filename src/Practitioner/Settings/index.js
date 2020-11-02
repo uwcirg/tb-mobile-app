@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import useStores from '../Basics/UseStores';
-import Colors from '../Basics/Colors';
+import useStores from '../../Basics/UseStores';
+import Colors from '../../Basics/Colors';
 import { observer } from 'mobx-react';
-import LanguageQuestion from '../Basics/LanguageQuestion';
+import LanguageQuestion from '../../Basics/LanguageQuestion';
 import { useTranslation } from 'react-i18next';
 import { Button, ButtonBase, Typography } from '@material-ui/core';
-import PasswordUpdate from '../Shared/PasswordUpdate'
+import PasswordUpdate from '../../Shared/PasswordUpdate'
 import GlobeIcon from '@material-ui/icons/Public';
 import PasswordIcon from '@material-ui/icons/Lock';
 import LogoutIcon from '@material-ui/icons/ExitToApp';
-import PasswordReset from '../Shared/PasswordUpdate';
+import PasswordReset from '../../Shared/PasswordUpdate';
+import Documents from './Documents'
+import PatientIcon from '@material-ui/icons/Accessibility';
+import DocIcon from '@material-ui/icons/Description';
+import PersonIcon from '@material-ui/icons/Person';
+
+import useLogout from '../../Basics/Logout'
+import Profile from './Profile';
 
 const useStyles = makeStyles({
     image: {
@@ -49,7 +56,7 @@ const useStyles = makeStyles({
     },
     navItemContainer: {
         listStyle: "none",
-        height: "2.5em",
+        height: "2.5em"
     },
     navItem: {
         height: "100%",
@@ -92,7 +99,10 @@ const useStyles = makeStyles({
 const Settings = (props) => {
 
     const classes = useStyles();
-    const [selection, setSelection] = useState("treatment-information")
+    const {practitionerUIStore} = useStores();
+
+    //Default To Account Page
+    useEffect(()=>{practitionerUIStore.settingsTab = "documents"},[])
 
     return (<div className={classes.container}>
         <SettingsNav />
@@ -108,14 +118,15 @@ const SettingsNav = (props) => {
         <div className={classes.navigation}>
             <Typography className={classes.header} variant="h2">{t('patient.tabNames.information')}</Typography>
             <ul className={classes.list}>
-                <NavItem id="treatment-information" icon={<GlobeIcon />} text={t('patient.profile.options.language')} />
-                <NavItem icon={<LogoutIcon />} text={t('patient.profile.logout')} />
+                <NavItem id="documents" icon={<DocIcon />} text={"Documents"} />
+                <NavItem id="patientInformation" icon={<PatientIcon />} text={"Patient Information"} />
             </ul>
             <br />
             <Typography className={classes.header} variant="h2">{t('patient.profile.title')}</Typography>
             <ul className={classes.list}>
+                <NavItem id="account" icon={<PersonIcon />} text={t('patient.profile.options.account')} />
                 <NavItem id="language" icon={<GlobeIcon />} text={t('patient.profile.options.language')} />
-                <NavItem id="password" icon={<PasswordIcon />} text={t('patient.profile.changePassword')} />
+                <NavItem id="updatePassword" icon={<PasswordIcon />} text={t('patient.profile.changePassword')} />
                 <NavItem id="logout" icon={<LogoutIcon />} text={t('patient.profile.logout')} />
             </ul>
         </div>
@@ -125,10 +136,25 @@ const SettingsNav = (props) => {
 const NavItem = observer((props) => {
     const { t } = useTranslation('translation');
     const { practitionerUIStore } = useStores();
-    const classes = useStyles({ selected: practitionerUIStore.settingsTab === props.id });
+    const classes = useStyles({
+        selected: practitionerUIStore.settingsTab === props.id,
+        isLogout: props.id === "logout"
+    });
+    const logout = useLogout();
+
+
+    const handleClick = (id) => {
+
+        if (id === "logout") {
+            logout();
+            return
+        }
+
+        practitionerUIStore.settingsTab = props.id
+    }
 
     return (<li className={classes.navItemContainer}>
-        <ButtonBase onClick={() => { practitionerUIStore.settingsTab = props.id }} className={classes.navItem}>
+        <ButtonBase onClick={() => { handleClick(props.id) }} className={classes.navItem}>
             {props.icon}
             <span>{props.text}</span>
         </ButtonBase>
@@ -137,50 +163,20 @@ const NavItem = observer((props) => {
 
 const BodyRouter = observer((props) => {
     const { practitionerUIStore } = useStores();
+    const { t } = useTranslation('translation');
     const classes = useStyles();
-
     return (
         <div className={classes.body}>
-            <Typography className={classes.header} variant="h2">{practitionerUIStore.settingsTab}</Typography>
+            <Typography className={classes.header} variant="h2">{t(`coordinator.settingsPage.${practitionerUIStore.settingsTab}`)}</Typography>
             <div className={classes.bodyContent}>
-            {practitionerUIStore.settingsTab === "language" && <LanguageQuestion noTitle />}
-            {practitionerUIStore.settingsTab === "treatment-information" && <p> Information</p>}
-            {practitionerUIStore.settingsTab === "password" && <PasswordReset />}
+                {practitionerUIStore.settingsTab === "language" && <LanguageQuestion noTitle />}
+                {practitionerUIStore.settingsTab === "documents" && <Documents />}
+                {practitionerUIStore.settingsTab === "updatePassword" && <PasswordReset />}
+                {practitionerUIStore.settingsTab === "account" && <Profile />}
             </div>
         </div>
 
     )
 })
-
-/*
-const SettingsBody = observer(() => {
-
-    const { t } = useTranslation('translation');
-    const classes = useStyles();
-
-    const { practitionerStore, loginStore, practitionerUIStore } = useStores();
-
-    useEffect(() => {
-        practitionerStore.getRecentReports()
-    }, [])
-
-    const handleLogout = () => {
-        practitionerStore.logout();
-        loginStore.logout();
-        practitionerUIStore.resetPath();
-    }
-
-    return (
-        <div className={classes.body}>
-            <BodyRouter selection={selection} />
-            <LanguageQuestion />
-            <Button variant="contained" className={classes.button} onClick={handleLogout}>{t('patient.profile.logout')}</Button>
-            <Button onClick={() => { setOnPassword(!onPassword) }}>Reset Password</Button>
-            {onPassword && <PasswordUpdate />}
-
-        </div>
-    )
-});
-*/
 
 export default Settings;

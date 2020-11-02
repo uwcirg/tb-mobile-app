@@ -10,6 +10,9 @@ import MuiAlert from '@material-ui/lab/Alert';
 const useStyles = makeStyles({
     form:{
         width: "80%",
+        maxWidth: "200px",
+        display: "flex",
+        flexDirection: "column",
         "& > div":{
             marginBottom: "1em"
         }
@@ -24,6 +27,10 @@ const useStyles = makeStyles({
         width: "100%",
         display: "flex",
         justifyContent: "flex-end"
+    },
+    password:{
+        maxWidth: "250px",
+        height: '1.5em'
     }
 })
 

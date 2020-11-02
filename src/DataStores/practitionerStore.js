@@ -114,6 +114,10 @@ export class PractitionerStore extends UserStore {
 
     @observable newActivationCode = "";
 
+    @computed get fullName(){
+        return (`${this.givenName} ${this.familyName}`)
+    }
+
     @computed get patientList() {
         return Object.values(this.patients)
     }

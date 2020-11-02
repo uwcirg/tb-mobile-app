@@ -185,8 +185,10 @@ const Buttons = () => {
 const NonFixedButtons = () => {
   const { t } = useTranslation('translation');
   const classes = useStyles();
+
+  const logout = useLogout();
   return (<ButtonGroup className={classes.buttons} fullWidth>
-    <Button onClick={() => { useLogout(); }}>{t('patient.profile.logout')}</Button>
+    <Button onClick={logout}>{t('patient.profile.logout')}</Button>
     <Button onClick={() => { location.reload(); }}>{t('errors.reload')}</Button>
   </ButtonGroup>)
 }

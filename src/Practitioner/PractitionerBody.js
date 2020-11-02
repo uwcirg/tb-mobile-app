@@ -6,7 +6,7 @@ import useStores from '../Basics/UseStores';
 import Messages from '../Messaging/PractitionerMessaging'
 import PatientsView from './CohortView/'
 import Home from './Home/'
-import Settings from './Settings'
+import Settings from './Settings/index'
 import PatientProfile from './PatientProfile/'
 import Review from './Review';
 import Alert from '../Basics/Alert'
