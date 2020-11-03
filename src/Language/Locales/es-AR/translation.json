@@ -248,6 +248,7 @@
             "logout": "Salir de la Aplicación",
             "organization": "Organización",
             "options": {
+                "account": "Mi Cuenta",
                 "language": "Idioma",
                 "dailyNotifications": "Recordatorios diarios",
                 "medicationReminder": "Recordatorio de los medicamentos",
@@ -547,6 +548,19 @@
             "taken": "Tomado",
             "notTaken": "No Tomado",
             "noneYet": "No Se Han Enviado Reportes Todavía"
+        },
+        "settingsPage":{
+            "account": "Mi Cuenta",
+            "language": "Selección de Idioma",
+            "updatePassword": "Actualizar Contraseña",
+            "documents": "Instrucciones y Manuales",
+            "patientInformation": "Información Para Pacientes",
+            "applicationHelp": "Ayuda Sobre La Aplicación",
+            "patientViewExplanation": "Esta es la información que los pacientes pueden ver desde la aplicación móvil."
+        },
+        "documents":{
+            "manual": "Manual de la Aplicación",
+            "instructions": "Instrucciones Para La Tira Reactiva"
         }
     },
     "errors": {
