@@ -9,7 +9,6 @@ import Styles from '../../Basics/Styles';
 import Colors from '../../Basics/Colors';
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
-import { DateTime } from 'luxon';
 import { observer } from 'mobx-react'
 import NewButton from '../../Basics/NewButton'
 import ExitToApp from '@material-ui/icons/ExitToApp'
@@ -27,10 +26,10 @@ const HealthProfile = observer(() => {
 
     let Component = <MainSettings />
     if (patientUIStore.onPasswordUpdate) Component = (
-        <>
+        <div className={classes.pwContainer} >
             <OverTopBar title={t("settings.updatePassword")} handleBack={patientUIStore.closePasswordUpdate} ></OverTopBar>
             <PasswordUpdate />
-        </>)
+        </div>)
 
     return (<>
         <div className={classes.container}>
@@ -234,6 +233,10 @@ const useStyles = makeStyles({
     },
     debugging: {
         padding: "1em"
+    },
+    pwContainer:{
+        width: "90%",
+        height: "100%"
     }
 
 

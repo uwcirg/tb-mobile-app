@@ -102,6 +102,9 @@ const useStyles = makeStyles({
     },
     topInfo:{
         padding: "1em"
+    },
+    password: {
+        width: "50%"
     }
 })
 
@@ -133,7 +136,7 @@ const SettingsNav = (props) => {
             <br />
             <Typography className={classes.header} variant="h2">{t('patient.profile.title')}</Typography>
             <ul className={classes.list}>
-                <NavItem id="account" icon={<PersonIcon />} text={t('patient.profile.options.account')} />
+                {/*<NavItem id="account" icon={<PersonIcon />} text={t('patient.profile.options.account')} /> */}
                 <NavItem id="language" icon={<GlobeIcon />} text={t('patient.profile.options.language')} />
                 <NavItem id="updatePassword" icon={<PasswordIcon />} text={t('patient.profile.changePassword')} />
                 <NavItem id="logout" icon={<LogoutIcon />} text={t('patient.profile.logout')} />
@@ -180,10 +183,12 @@ const BodyRouter = observer((props) => {
             <div className={classes.bodyContent}>
                 {practitionerUIStore.settingsTab === "language" && <LanguageQuestion noTitle />}
                 {practitionerUIStore.settingsTab === "documents" && <Documents />}
-                {practitionerUIStore.settingsTab === "updatePassword" && <PasswordReset />}
+                {practitionerUIStore.settingsTab === "updatePassword" && <div className={classes.password}><PasswordReset /></div>}
                 {practitionerUIStore.settingsTab === "account" && <Profile />}
                 {practitionerUIStore.settingsTab === "patientInformation" && <div className={classes.patientInformation}> 
-                <Typography className={classes.topInfo} variant="body1"> This is the information that the patients can see from their mobile application</Typography>
+                <Typography className={classes.topInfo} variant="body1"> 
+                {t('coordinator.settingsPage.patientViewExplanation')}
+                </Typography>
                 <PatientInformation /> 
                 </div>}
             </div>

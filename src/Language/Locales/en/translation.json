@@ -562,7 +562,12 @@
             "updatePassword": "Update Password",
             "documents": "Study Documents",
             "patientInformation": "Information for Patients",
-            "applicationHelp": "Application Help"
+            "applicationHelp": "Application Help",
+            "patientViewExplanation": "This is the information that the patients can see from their mobile application"
+        },
+        "documents":{
+            "manual": "Application Manual",
+            "instructions": "Test Strip Instructions"
         }
     },
     "errors": {

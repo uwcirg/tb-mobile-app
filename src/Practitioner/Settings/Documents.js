@@ -4,6 +4,7 @@ import ButtonBase from '@material-ui/core/ButtonBase'
 import DocIcon from '@material-ui/icons/Description';
 import Typography from '@material-ui/core/Typography';
 import Colors from '../../Basics/Colors'
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
     document: {
@@ -25,7 +26,8 @@ const useStyles = makeStyles({
         alignItems: "flex-end",
         justifyContent: "flex-start",
         "& > h3": {
-            fontSize: "1.5em"
+            fontSize: "1.5em",
+            marginLeft: "5px"
         }
     },
     container: {
@@ -36,17 +38,18 @@ const useStyles = makeStyles({
 const Documents = () => {
 
     const classes = useStyles();
+    const { t} = useTranslation('translation');
 
     return (<div className={classes.container}>
         <Document
             link="https://docs.google.com/document/d/14b8LLBAgWyF21isDdztHXOksvo5JC0LBDY6iyTKs13Y"
-            title="Application Manual"
+            title={t('coordinator.documents.manual')}
             subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam porta nulla quis libero consequat sodales."
         />
 
         <Document
             link="https://docs.google.com/document/d/1yQLsyVGQRLa7dHLCUTLedFA3a2XHFy9dmWssIti4BEA"
-            title="Test Strip Instructions"
+            title={t('coordinator.documents.instructions')}
             subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam porta nulla quis libero consequat sodales."
         />
     </div>)
@@ -61,9 +64,9 @@ const Document = (props) => {
                 <DocIcon style={{ fontSize: "2em" }} />
                 <Typography variant="h3">{props.title}</Typography>
             </div>
-            <Typography variant="body1">
+            {/*<Typography variant="body1">
                 {props.subtitle}
-            </Typography>
+            </Typography>*/}
 
         </ButtonBase>
     )
