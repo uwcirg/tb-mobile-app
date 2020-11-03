@@ -1,5 +1,5 @@
 import React, {Suspense} from 'react';
-import ReactDOM from 'react-dom';ß
+import ReactDOM from 'react-dom';
 import Main from './Main';
 import { Provider } from 'mobx-react';
 
