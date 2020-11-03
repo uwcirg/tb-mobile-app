@@ -32,11 +32,17 @@ const useStyles = makeStyles({
 const CachedReports = observer(() => {
     const classes = useStyles();
     const { patientStore, dailyReportStore, uiStore } = useStores();
-    const {t} = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
     useEffect(() => {
         dailyReportStore.getCachedReports();
     }, [patientStore.lastSubmission]);
+
+    useEffect(() => {
+        if (!uiStore.offline && dailyReportStore.finished) {
+            patientStore.getReports();
+        }
+    }, [dailyReportStore.finished])
 
     return (<div className={classes.container}>
         {!uiStore.offline && dailyReportStore.finished ? <div className={classes.finished}>
@@ -46,7 +52,7 @@ const CachedReports = observer(() => {
                     className={classes.progressVisual}
                 />}
                 {!dailyReportStore.syncing && dailyReportStore.numberOfflineReports > 0 && <p className={classes.message}>
-                    {t('patient.report.offline.youHave')} {dailyReportStore.numberOfflineReports} {t('patient.report.offline.report',{count: dailyReportStore.numberOfflineReports})}. {t('patient.report.offline.explanation')}</p>}
+                    {t('patient.report.offline.youHave')} {dailyReportStore.numberOfflineReports} {t('patient.report.offline.report', { count: dailyReportStore.numberOfflineReports })}. {t('patient.report.offline.explanation')}</p>}
                 {dailyReportStore.syncing && <p className={classes.message}>{t('patient.report.offline.uploading')}... </p>}
             </>}
     </div>)
