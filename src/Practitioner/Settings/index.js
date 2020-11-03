@@ -90,7 +90,10 @@ const useStyles = makeStyles({
     },
     body: {
         padding: "1em",
-        flex: 1
+        flex: 1,
+        height: "100vh",
+        overflow: "scroll",
+        boxSizing: "border-box"
     },
     bodyContent: {
         borderTop: "1px solid black",

@@ -22,10 +22,7 @@ import APIHelper from './DataStores/Requests'
 it('renders without crashing', () => {
   const apiHelper = new APIHelper();
   const div = document.createElement('div');
-//   const stores = {
-//     uiStore: new UIStore(),
-//     patientStore: new PatientStore(apiHelper)
-// }
+  
 
   ReactDOM.render(<Provider {...stores}>
     <I18nextProvider i18n={i18n}>
