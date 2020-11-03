@@ -123,8 +123,11 @@
             },
             "gender": {
                 "title": "Select your preferred gender",
-                "male": "Male",
-                "female": "Female",
+                "man": "Man",
+                "woman": "Woman",
+                "nonbinary": "Nonbinary",
+                "transMan": "Transgender Man",
+                "transWoman": "Transgender Woman",
                 "other": "Other"
             },
             "age": "How old are you?",

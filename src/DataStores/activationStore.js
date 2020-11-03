@@ -17,7 +17,7 @@ export class ActivationStore extends APIStore {
     @observable isLoading = false;
 
     @observable onboardingInformation = {
-        gender: "Female",
+        gender: "Woman",
         age: 30,
         enableNotifications: false,
         notificationTime: DateTime.local().toISOTime(),
