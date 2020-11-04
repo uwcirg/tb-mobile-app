@@ -86,6 +86,7 @@ const Survey = observer(() => {
                 <FormControlLabel value="Yes" control={<Radio color="primary" />} label={t("patient.onboarding.contactTracing.all")} />
                 <FormControlLabel value="Some" control={<Radio color="primary" />} label={t("patient.onboarding.contactTracing.some")} />
                 <FormControlLabel value="No" control={<Radio color="primary" />} label={t("patient.onboarding.contactTracing.none")} />
+                <FormControlLabel value="Unsure" control={<Radio color="primary" />} label={t("patient.onboarding.contactTracing.unsure")} />
             </RadioGroup>
         </FormControl>
     )

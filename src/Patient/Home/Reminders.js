@@ -77,8 +77,11 @@ const Card = observer(() => {
     const [showAll, setShowAll] = useState(false);
 
     useEffect(() => {
-        reminderStore.getReminders(patientStore.userID)
-    }, [])
+        if(patientStore.userID){
+             reminderStore.getReminders(patientStore.userID)
+        }
+       
+    }, [patientStore.userID])
 
     useEffect(() => {
         if (reminderStore.deleteSuccess) {

@@ -141,7 +141,8 @@
                 "two": "Have they been tested for TB?",
                 "some": "Some of them",
                 "all": "All of them",
-                "none": "None of them"
+                "none": "None of them",
+                "unsure": "Im not sure"
             },
             "success": "Finalizing Account Setup",
             "next": "Next",
