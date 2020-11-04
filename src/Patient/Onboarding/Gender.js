@@ -9,6 +9,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import { useTranslation } from 'react-i18next';
 import SurveyHeader from './SurveyHeader';
+import TextField from '@material-ui/core/TextField'
 
 
 const useStyles = makeStyles({
@@ -45,6 +46,11 @@ const Gender = observer((props) => {
           <Label value="TransMan" control={<Radio color="primary" />} label={t("patient.onboarding.gender.transMan")} />
           <Label value="Nonbinary" control={<Radio color="primary" />} label={t("patient.onboarding.gender.nonbinary")} />
           <Label value="Other" control={<Radio color="primary" />} label={t("patient.onboarding.gender.other")} />
+          {activationStore.onboardingInformation.gender === "Other" && <TextField 
+          value={activationStore.onboardingInformation.genderOther} 
+          label={t("patient.onboarding.gender.question")} 
+          onChange={(e)=>{activationStore.onboardingInformation.genderOther = e.target.value}}
+          />}
         </RadioGroup>
       </FormControl>
     </div>

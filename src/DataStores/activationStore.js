@@ -22,7 +22,8 @@ export class ActivationStore extends APIStore {
         enableNotifications: false,
         notificationTime: DateTime.local().toISOTime(),
         numberOfContacts: 0,
-        contactsTested: "Yes"
+        contactsTested: "Yes",
+        genderOther: ""
     }
 
     @observable activationError = false;

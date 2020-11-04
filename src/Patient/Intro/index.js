@@ -17,6 +17,7 @@ import Steps from './Steps'
 import TreatmentSteps from './TreatmentSteps'
 import TestReport from './ExampleReport'
 import { DateTime } from 'luxon'
+import Colors from '../../Basics/Colors'
 
 const Wrapper = observer((props) => {
   const { patientUIStore, patientStore } = useStores();
@@ -155,7 +156,7 @@ const Tooltip = ({
 const TooltipBody = styled.div`
   
   color: white;
-  background-color: ${props => props.fillBackground ? "rgba(0,0,0,.7)" : "none"};
+  background-color: ${Colors.blue};
   width: ${props => props.placement === "center" ? "100vw" : "inherit"};
 
   div{

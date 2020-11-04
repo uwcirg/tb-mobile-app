@@ -178,7 +178,7 @@ const Onboarding = observer(() => {
             <div className={classes.body}>
                 {/* Clone the element from the list of steps, pass in additonal props. Below code allows for overide of next button, and provides a default one */}
                 {React.cloneElement(Tabs[index], { index: index, length: Tabs.length, bodyClass: classes.surveyBody, button: <SimpleButton className={classes.button} alignRight> Next</SimpleButton>, handleNext: handleNext })}
-            {!Tabs[index].props.overrideNext && <SimpleButton rerender={index} onClick={handleNext} className={classes.button} alignRight>{t('next')}</SimpleButton>}
+            {!Tabs[index].props.overrideNext && <SimpleButton rerender={index} onClick={handleNext} className={classes.button} alignRight>{t('patient.onboarding.next')}</SimpleButton>}
             </div>
         </div>}
         </>

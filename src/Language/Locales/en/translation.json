@@ -128,7 +128,8 @@
                 "nonbinary": "Nonbinary",
                 "transMan": "Transgender Man",
                 "transWoman": "Transgender Woman",
-                "other": "Other"
+                "other": "Other",
+                "question": "How would you describe yourself?"
             },
             "age": "How old are you?",
             "notification": {
