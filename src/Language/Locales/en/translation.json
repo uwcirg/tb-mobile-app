@@ -215,11 +215,11 @@
             "purpose": "Lets keep track of your medication and health!",
             "today": "Today",
             "actions": {
-                "logMedication": "Log Medication",
+                "logMedication": "Begin Report",
                 "uploadPhoto": "Upload Photo"
             },
             "todaysActions": {
-                "logMedication": "Log Medication",
+                "logMedication": "Begin Report",
                 "uploadPhoto": "Upload Photo"
             },
             "progress": {
