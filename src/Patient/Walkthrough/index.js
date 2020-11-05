@@ -19,6 +19,9 @@ import TestReport from './ExampleReport'
 import { DateTime } from 'luxon'
 import Colors from '../../Basics/Colors'
 
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+
 const Wrapper = observer((props) => {
   const { patientUIStore, patientStore } = useStores();
 
@@ -33,7 +36,7 @@ const Wrapper = observer((props) => {
       testReports[newDay.toISODate()] = TestReport;
     }
     patientStore.tempTreatmentStart = patientStore.treatmentStart
-    patientStore.treatmentStart = today.minus({days: 8}).toISODate()
+    patientStore.treatmentStart = today.minus({ days: 8 }).toISODate()
     patientStore.savedReports = testReports;
 
     return function cleanup() {
@@ -52,50 +55,36 @@ const Wrapper = observer((props) => {
 
 const Intro = observer((props) => {
 
-  const [step, setStep] = useState(props.startOn|| 0);
-
   const classes = useStyles();
   const { patientUIStore, routingStore } = useStores();
 
   const exit = () => {
     patientUIStore.onWalkthrough = false;
-    setStep(0);
+    patientUIStore.setWalkthroughStep(0);
   }
 
 
-  const changeStep = (index) => {
-    props.stepsList[index] && routingStore.push(props.stepsList[index].push)
-    if (index < 0) {
-
-      setStep(0)
-      return
-    } else if (index > props.stepsList.length - 1) {
-      setStep(props.stepsList.length - 1)
-      return
-    }
-
-    setStep(index);
-  }
 
   return (
     <div className={classes.container}>
-      <SwipeContainer stepsList={props.stepsList} exit={exit} index={step} changeIndex={changeStep} />
+      {/*<SwipeContainer stepsList={props.stepsList} exit={exit} index={patientUIStore.walkthroughStep} changeIndex={changeStep} /> */}
       <ReactJoyride
         disableOverlayClose
         disableScrolling
         spotlightPadding={2}
-        floaterProps={{ hideArrow: true }}
+        floaterProps={{ hideArrow: false, disableAnimation: true}}
         tooltipComponent={Tooltip}
         steps={props.stepsList}
         run={true}
         continuous
         showProgress
         showSkipButton
-        stepIndex={step}
+        stepIndex={patientUIStore.walkthroughStep}
         styles={{
           options: {
-            overlayColor: props.stepsList[step].placement === 'center' ? 'rgba(0,0,0,.5)' : 'rgba(0,0,0,.85)',
-            zIndex: 150
+            overlayColor: props.stepsList[patientUIStore.walkthroughStep].placement === 'center' ? 'rgba(0,0,0,.5)' : 'rgba(0,0,0,.85)',
+            zIndex: 150,
+            arrowColor: Colors.blue
           }
         }}
       />
@@ -103,7 +92,7 @@ const Intro = observer((props) => {
 
 });
 
-const Tooltip = ({
+const Tooltip = observer(({
   continuous,
   index,
   step,
@@ -111,10 +100,27 @@ const Tooltip = ({
   closeProps,
   primaryProps,
   tooltipProps,
+  nextTest
 }) => {
+
   const classes = useStyles();
   const { t, i18n } = useTranslation('translation');
-  const { routingStore } = useStores();
+  const { routingStore, patientUIStore } = useStores();
+
+  const changeStep = (index) => {
+    routingStore.push(Steps[index].push)
+
+    if (index < 0) {
+      patientUIStore.setWalkthroughStep(0)
+      return
+    } else if (index > Steps.length - 1) {
+      patientUIStore.setWalkthroughStep(Steps.length - 1)
+      return
+    }
+
+    patientUIStore.setWalkthroughStep(index);
+  }
+
 
 
   useEffect(() => {
@@ -127,14 +133,17 @@ const Tooltip = ({
     //Scroll to the item
     if (step.target !== "" && !step.preventScroll) {
       let element = document.querySelector(step.target);
-      let headerOffset = step.scrollOffset ? step.scrollOffset : 60;
-      let elementPosition = element.getBoundingClientRect().top;
-      let offsetPosition = elementPosition - headerOffset;
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
+      if (element) {
+        let headerOffset = step.scrollOffset ? step.scrollOffset : 60;
+        let elementPosition = element.getBoundingClientRect().top;
+        let offsetPosition = elementPosition - headerOffset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth"
+        });
+      }
     }
 
   }, [index])
@@ -144,34 +153,47 @@ const Tooltip = ({
 
     <TooltipBody {...step} {...tooltipProps}>
       <div>
+        <div className="content">
         {step.component ? <>{step.component}</> :
           <>
             {step.title && <span>{step.title}</span>}
             <div className={classes.stepContent}>{t(step.translationString)}</div></>}
+            </div>
+        <div className={classes.navigation}>
+          <IconButton onClick={() => { changeStep(patientUIStore.walkthroughStep - 1) }}><ArrowBackIcon /></IconButton>
+          <span>{patientUIStore.walkthroughStep + 1}/{Steps.length}</span>
+          <IconButton onClick={() => { changeStep(patientUIStore.walkthroughStep + 1) }}><ArrowForwardIcon /></IconButton>
+        </div>
+
       </div>
     </TooltipBody>
   )
-};
+});
 
 const TooltipBody = styled.div`
   
   color: white;
   background-color: ${Colors.blue};
-  width: ${props => props.placement === "center" ? "100vw" : "inherit"};
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
 
   div{
-    margin: auto;
-    padding: 1em;
+    width: 95vw;
+    box-sizing: border-box;
+
+    .content{
+      width: 100%;
+      padding: 1em;
+
+      div{
+        width: 90%;
+      }
+
+    }
   }
   `
 
-const styles = {
-  slide: {
-    height: '100vh',
-    width: "100vw",
-    color: 'red',
-  }
-};
 
 const SwipeContainer = (props) => {
   const classes = useStyles();
@@ -197,9 +219,9 @@ const SwipeContainer = (props) => {
         <p>{t("patient.walkthrough.swipe")}</p>
         <Next />
       </div>}
-      <SwipeableViews index={props.index} onChangeIndex={handleChangeIndex}>
+      {/* <SwipeableViews index={props.index} onChangeIndex={handleChangeIndex}>
         {views && views}
-      </SwipeableViews>
+      </SwipeableViews> */}
 
     </div>)
 };
@@ -248,6 +270,15 @@ const useStyles = makeStyles({
 
     "& > button": {
       color: "white",
+    }
+  },
+  navigation: {
+    width: "90%",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    "& > button": {
+      color: "white"
     }
   }
 })

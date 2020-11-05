@@ -18,6 +18,9 @@ export default class PatientUIStore {
     }
 
     @observable onWalkthrough = false;
+    @observable walkthroughStep = 0;
+
+
     @observable onTreatmentWalkthrough = false;
     @observable skippedToPhotoFlow = false;
 
@@ -120,6 +123,10 @@ export default class PatientUIStore {
         this.onTreatmentWalkthrough = true;
         this.onWalkthrough = true;
 
+    }
+
+    @action setWalkthroughStep = (step) => {
+        this.walkthroughStep = step;
     }
 
     @computed get reportStep() {

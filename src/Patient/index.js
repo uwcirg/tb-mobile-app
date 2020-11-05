@@ -41,7 +41,7 @@ const PatientHome = observer((props) => {
       
       <TopBar />
       {/* <Intro startOn={3} />} How to make table of contents work */}
-      {patientUIStore.onWalkthrough && <Intro />}
+      {!patientUIStore.onWalkthrough && <Intro />}
       <TopMenu />
       <div style={{ paddingTop: "60px", paddingBottom: "60px" }}>
         {routeTab}
