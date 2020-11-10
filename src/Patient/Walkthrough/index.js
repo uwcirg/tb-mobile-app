@@ -67,13 +67,13 @@ const Intro = observer((props) => {
     patientUIStore.setWalkthroughStep(0);
   }
 
-  /*
+  //Reset the progress of walkthrough when it unmounts
   useEffect(()=>{
     return function cleanup(){
       patientUIStore.setWalkthroughStep(0);
     }
   },[])
-*/
+
 
 
   return (
