@@ -50,9 +50,9 @@ const Wrapper = observer((props) => {
   return (
     <>
       <div className={classes.exit}>
-        <IconButton onClick={() => { patientUIStore.onWalkthrough = false }}><ClearIcon /></IconButton>
+        {!Steps[patientUIStore.walkthroughStep].hideExit && <IconButton onClick={() => { patientUIStore.onWalkthrough = false }}><ClearIcon /></IconButton>}
       </div>
-      <Intro startOn={props.startOn} stepsList={patientUIStore.onTreatmentWalkthrough ? TreatmentSteps : Steps} />
+      <Intro startOn={props.startOn} stepsList={Steps} />
     </>
   )
 })
@@ -190,7 +190,6 @@ const Tooltip = observer(({
 });
 
 const TooltipBody = styled.div`
-  
   color: white;
   background-color: ${Colors.blue};
   border-radius: 10px;
@@ -225,7 +224,7 @@ const useStyles = makeStyles({
   },
   exit: {
     position: "fixed",
-    zIndex: "200",
+    zIndex: "151",
     width: "100%",
     height: "60px",
     display: "flex",

@@ -87,6 +87,7 @@ let steps = [
         translationString: "patient.walkthrough.messaging.one"
     },
     {
+        hideExit: true,
         push: "messaging",
         target: "#intro-chat-public",
         translationString: "patient.walkthrough.messaging.two"
