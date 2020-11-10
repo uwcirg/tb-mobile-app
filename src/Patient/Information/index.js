@@ -20,6 +20,10 @@ import Instructions from './TestInstructions'
 import TestIcon from '@material-ui/icons/Colorize'
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 
+import HomeIcon from '@material-ui/icons/Home'
+import ChatIcon from '@material-ui/icons/QuestionAnswer';
+import CalendarIcon from '@material-ui/icons/EventAvailable';
+
 
 const file = raw("./information.md");
 const messagesFile = raw("../../Content/TreatmentMessages.json")
@@ -46,7 +50,10 @@ const useStyles = makeStyles({
     button: {
 
         color: Colors.buttonBlue,
-        textTransform: "capitalize"
+        textTransform: "capitalize",
+        "& > span >  svg":{
+            marginRight: ".5em"
+        }
     },
     padding: {
         paddingLeft: "1em"
@@ -63,7 +70,7 @@ const useStyles = makeStyles({
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-start",
-        "& > h2":{
+        "& > h2": {
             fontSize: "1em"
         }
     }
@@ -77,7 +84,10 @@ export default function Info() {
         <div className={classes.container}>
             <Section title={<><LiveHelpIcon />{t('patient.information.helpSection')}</>}>
                 <div className={classes.help}>
-                    <Button className={classes.button} onClick={patientUIStore.goToWalkThrough}>{t('patient.information.launchWalkthrough')}</Button>
+                    <h2>Interactive Walkthrough</h2>
+                    <Button className={classes.button} onClick={patientUIStore.goToWalkThrough}>{<><HomeIcon />Start From Begining</>}</Button>
+                    <Button className={classes.button} onClick={patientUIStore.goToWalkThrough}>{<><CalendarIcon />Calendar Page</>}</Button>
+                    <Button className={classes.button} onClick={patientUIStore.goToWalkThrough}>{<><ChatIcon />Messaging Page</>}</Button>
                     <h2>Videos</h2>
                     <Button className={classes.button} href="https://youtu.be/6zq6E_COEYo">Instrucciones para hacer un reporte diaria </Button>
                     <Button className={classes.button} href="https://youtu.be/3xDBB3MVmeU">Instrucciones para hacer una prueba de las tiras reactivas</Button>

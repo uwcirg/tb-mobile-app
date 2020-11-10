@@ -4,6 +4,8 @@ import Welcome from './Welcome'
 import Progress from './Progress'
 import Messaging from './Messaging'
 import Outro from './Outro'
+import groupBy from 'lodash/groupBy';
+
 
 /*
     translationString is the key corresponding to the translation.json file in the /public/locales folder
@@ -11,7 +13,7 @@ import Outro from './Outro'
 
 let steps = [
     {
-        push: "/home",
+        push: "home",
         title: "",
         target: "#intro-greeting",
         component: (<Welcome />),
@@ -20,59 +22,59 @@ let steps = [
         fillBackground: true
     },
     {
-        push: "/home",
+        push: "home",
         title: "This is the navigation Bar",
         target: ".MuiBottomNavigation-root",
         preventScroll: true,
         component: (<Navigation />)
     },
     {
-        push: "/home",
+        push: "home",
         preventScroll: true,
         title: "",
         target: "#intro-information-button",
         translationString: "patient.walkthrough.revisit",
     },
     {
-        push: "/home",
+        push: "home",
         preventScroll: true,
         title: "",
         target: "#intro-home-button",
         translationString: "patient.walkthrough.homescreen",
     },
     {
-        push: "/home",
+        push: "home",
         title: "",
         target: "#intro-tasks",
         placement: 'top',
         translationString: "patient.walkthrough.tasks"
     },
     {
-        push: "/home",
+        push: "home",
         scroll: true,
         target: "#intro-progress-card",
         translationString: "patient.walkthrough.progressCard"
     },
     {
-        push: "/home",
+        push: "home",
         scroll: true,
         target: "#intro-reminders-card",
         translationString: "patient.walkthrough.reminders"
     },
     {
         scrollToTop: true,
-        push: "/progress",
+        push: "progress",
         target: ".intro-calendar-full",
         translationString: "patient.walkthrough.calendar",
         spotlightPadding: 10
     },
     {
-        push: "/progress",
+        push: "progress",
         target: "#calendar-day-preview",
         translationString: "patient.walkthrough.calendarBottom"
     },
     {
-        push: "/messaging",
+        push: "messaging",
         target: ".intro-messaging-button",
         placement: "top",
         fillBackground: true,
@@ -80,17 +82,17 @@ let steps = [
         
     },
     {
-        push: "/messaging",
+        push: "messaging",
         target: "#intro-chat",
         translationString: "patient.walkthrough.messaging.one"
     },
     {
-        push: "/messaging",
+        push: "messaging",
         target: "#intro-chat-public",
         translationString: "patient.walkthrough.messaging.two"
     },
     {
-        push: "/home",
+        push: "home",
         target: "#intro-greeting",
         placement: "center",
         fillBackground: true,
@@ -102,5 +104,9 @@ steps = steps.map((each) => {
     each.disableBeacon = true
     return each
 })
+
+
+const a = groupBy(steps, "push");
+export {a}
 
 export default steps;

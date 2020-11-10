@@ -13,7 +13,7 @@ import Back from '@material-ui/icons/ChevronLeft'
 import Next from '@material-ui/icons/ChevronRight'
 import Welcome from './Welcome'
 import { useTranslation } from 'react-i18next';
-import Steps from './Steps'
+import Steps, { a } from './Steps'
 import TreatmentSteps from './TreatmentSteps'
 import TestReport from './ExampleReport'
 import { DateTime } from 'luxon'
@@ -21,13 +21,14 @@ import Colors from '../../Basics/Colors'
 
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import ExitToApp from '@material-ui/icons/ExitToApp'
 
 const Wrapper = observer((props) => {
   const { patientUIStore, patientStore } = useStores();
+  const classes = useStyles();
 
   //Load Test Data for calendar example
   useEffect(() => {
-
     const today = DateTime.local().startOf('day')
     let testReports = {}
 
@@ -43,13 +44,16 @@ const Wrapper = observer((props) => {
       patientStore.getReports();
       patientStore.treatmentStart = patientStore.tempTreatmentStart;
     }
-
-
   }, [])
 
 
   return (
-    <Intro startOn={props.startOn} stepsList={patientUIStore.onTreatmentWalkthrough ? TreatmentSteps : Steps} />
+    <>
+      <div className={classes.exit}>
+        <IconButton onClick={() => { patientUIStore.onWalkthrough = false }}><ClearIcon /></IconButton>
+      </div>
+      <Intro startOn={props.startOn} stepsList={patientUIStore.onTreatmentWalkthrough ? TreatmentSteps : Steps} />
+    </>
   )
 })
 
@@ -63,6 +67,13 @@ const Intro = observer((props) => {
     patientUIStore.setWalkthroughStep(0);
   }
 
+  /*
+  useEffect(()=>{
+    return function cleanup(){
+      patientUIStore.setWalkthroughStep(0);
+    }
+  },[])
+*/
 
 
   return (
@@ -72,7 +83,7 @@ const Intro = observer((props) => {
         disableOverlayClose
         disableScrolling
         spotlightPadding={2}
-        floaterProps={{ hideArrow: false, disableAnimation: true}}
+        floaterProps={{ hideArrow: false, disableAnimation: true }}
         tooltipComponent={Tooltip}
         steps={props.stepsList}
         run={true}
@@ -107,18 +118,26 @@ const Tooltip = observer(({
   const { t, i18n } = useTranslation('translation');
   const { routingStore, patientUIStore } = useStores();
 
-  const changeStep = (index) => {
-    routingStore.push(Steps[index].push)
+  const isLastStep = patientUIStore.walkthroughStep === Steps.length - 1;
+  const isFirstStep = patientUIStore.walkthroughStep === 0;
 
-    if (index < 0) {
-      patientUIStore.setWalkthroughStep(0)
-      return
-    } else if (index > Steps.length - 1) {
-      patientUIStore.setWalkthroughStep(Steps.length - 1)
-      return
+  const goForward = () => {
+    if (!isLastStep) {
+      const newValue = patientUIStore.walkthroughStep + 1;
+      changePage(newValue)
     }
+  }
 
-    patientUIStore.setWalkthroughStep(index);
+  const goBackward = () => {
+    if (!isFirstStep) {
+      const newValue = patientUIStore.walkthroughStep - 1;
+      changePage(newValue)
+    }
+  }
+
+  const changePage = (newValue) => {
+    routingStore.push(Steps[newValue].push)
+    patientUIStore.setWalkthroughStep(newValue)
   }
 
 
@@ -154,15 +173,15 @@ const Tooltip = observer(({
     <TooltipBody {...step} {...tooltipProps}>
       <div>
         <div className="content">
-        {step.component ? <>{step.component}</> :
-          <>
-            {step.title && <span>{step.title}</span>}
-            <div className={classes.stepContent}>{t(step.translationString)}</div></>}
-            </div>
+          {step.component ? <>{step.component}</> :
+            <>
+              {step.title && <span>{step.title}</span>}
+              <div className={classes.stepContent}>{t(step.translationString)}</div></>}
+        </div>
         <div className={classes.navigation}>
-          <IconButton onClick={() => { changeStep(patientUIStore.walkthroughStep - 1) }}><ArrowBackIcon /></IconButton>
+          <IconButton disabled={isFirstStep} onClick={goBackward}><ArrowBackIcon /></IconButton>
           <span>{patientUIStore.walkthroughStep + 1}/{Steps.length}</span>
-          <IconButton onClick={() => { changeStep(patientUIStore.walkthroughStep + 1) }}><ArrowForwardIcon /></IconButton>
+          <IconButton disabled={isLastStep} onClick={goForward}><ArrowForwardIcon /></IconButton>
         </div>
 
       </div>
@@ -194,38 +213,6 @@ const TooltipBody = styled.div`
   }
   `
 
-
-const SwipeContainer = (props) => {
-  const classes = useStyles();
-  const { t, i18n } = useTranslation('translation');
-
-  const handleChangeIndex = (index) => {
-    props.changeIndex(index);
-  }
-
-  const views = props.stepsList.map(() => { return (<div style={styles.slide}></div>) })
-
-  return (
-    <div className={classes.swipeContainer}>
-      <div className={classes.controls}>
-        <div className={classes.paginationContainer}>
-          <IconButton onClick={() => { handleChangeIndex(props.index - 1) }} ><Back /></IconButton>
-          <Pagination className={classes.dots} dots={props.stepsList.length} index={props.index} onChangeIndex={props.changeIndex} />
-          <Button onClick={() => { handleChangeIndex(props.index + 1) }} ><Next /></Button>
-        </div>
-        <IconButton className={classes.exit} onClick={props.exit}><ClearIcon /> </IconButton>
-      </div>
-      {props.index == 0 && <div className={classes.bottomText}>
-        <p>{t("patient.walkthrough.swipe")}</p>
-        <Next />
-      </div>}
-      {/* <SwipeableViews index={props.index} onChangeIndex={handleChangeIndex}>
-        {views && views}
-      </SwipeableViews> */}
-
-    </div>)
-};
-
 const useStyles = makeStyles({
   controls: {
     display: "flex",
@@ -237,8 +224,19 @@ const useStyles = makeStyles({
     backgroundColor: "black"
   },
   exit: {
-    color: "white",
-    marginLeft: "auto"
+    position: "fixed",
+    zIndex: "200",
+    width: "100%",
+    height: "60px",
+    display: "flex",
+    alignItems: "center",
+    "& > button": {
+      marginLeft: ".5em",
+      backgroundColor: Colors.blue,
+      color: "white",
+    }
+
+
   },
   swipeContainer: {
     position: "fixed",
@@ -275,6 +273,7 @@ const useStyles = makeStyles({
   navigation: {
     width: "90%",
     display: "flex",
+    padding: "0 1em 1em 1em",
     justifyContent: "space-between",
     alignItems: "center",
     "& > button": {
