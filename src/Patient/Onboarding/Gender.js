@@ -36,7 +36,7 @@ const Gender = observer((props) => {
 
   return (
     <div className={props.bodyClass}>
-      <SurveyHeader number={1} title={t("patient.onboarding.gender.title")} />
+      <SurveyHeader index={props.index}title={t("patient.onboarding.gender.title")} />
       <FormControl className={classes.form} component="fieldset">
         {/*<FormLabel component="legend">Gender</FormLabel>*/}
         <RadioGroup aria-label="gender" name="gender1" value={activationStore.onboardingInformation.gender} onChange={handleChange}>

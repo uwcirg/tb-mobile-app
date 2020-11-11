@@ -43,7 +43,7 @@ const ContactTracing = observer((props) => {
 
 
     return (<div className={props.bodyClass}>
-        <SurveyHeader number={5} title={t("patient.onboarding.contactTracing.one")} />
+        <SurveyHeader index={props.index} title={t("patient.onboarding.contactTracing.one")} />
         <Counter />
         {activationStore.onboardingInformation.numberOfContacts > 0 && <>
             <SurveyHeader number={6} title={t("patient.onboarding.contactTracing.two")} />

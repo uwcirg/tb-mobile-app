@@ -36,7 +36,7 @@ const Password = observer((props) => {
     return (
         <>
             {activationStore.passwordUpdate.passwordLoading ? <Loading /> : <div className={props.bodyClass} >
-                <SurveyHeader number={1} title={t("patient.onboarding.password.title")} />
+                <SurveyHeader index={props.index} title={t("patient.onboarding.password.title")} />
                 <form>
                     <TextField
                         onChange={(e) => {activationStore.passwordUpdate.password = e.target.value }}

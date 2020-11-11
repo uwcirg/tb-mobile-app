@@ -50,11 +50,11 @@ const Notification = observer((props) => {
     }
 
     return (<div className={props.bodyClass}>
-        <SurveyHeader number={3} title={t("patient.onboarding.notification.one")} />
+        <SurveyHeader index={props.index} title={t("patient.onboarding.notification.one")} />
         <DisableElevation />
         {activationStore.onboardingInformation.enableNotifications &&
             <>
-                <SurveyHeader number={4} title={t("patient.onboarding.notification.two")} />
+                <SurveyHeader index={props.index} title={t("patient.onboarding.notification.two")} />
                 {timeOpen ?<TimePicker
                     open={timeOpen}
                     className={classes.timeSelect}

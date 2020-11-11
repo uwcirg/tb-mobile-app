@@ -128,7 +128,8 @@
                 "nonbinary": "No Binarie",
                 "transMan": "hombre transgénero",
                 "transWoman": "mujer transgénero",
-                "other": "otro"
+                "other": "otro",
+                "question": "¿Cómo se describiría?"
             },
             "age": "¿Cuantos años tiene?",
             "notification": {
@@ -140,7 +141,8 @@
                 "two": "¿Cuántos han completado el control de la tuberculosis?",
                 "some": "Algunos",
                 "all": "Todos",
-                "none": "Ninguno"
+                "none": "Ninguno",
+                "unsure": "No Estoy Seguro"
             },
             "success": "Finalizando la Configuración de su Cuenta",
             "next": "Siguiente",
@@ -350,9 +352,17 @@
             "launchWalkthrough": "Guía de la Aplicación",
             "video": "Ver Vídeo",
             "videos": "Videos Sobre el Tratamiento",
+            "helpVideos": "Video Instructions",
             "techSupport": "Soporte Técnico ",
             "reportIssue": "Reportar Problema",
-            "testInstructions": "Instrucciones Para la Tira Reactiva"
+            "testInstructions": "Instrucciones Para la Tira Reactiva",
+            "walkthrough": {
+                "title": "Interactive Walkthrough",
+                "start": "Start from begining",
+                "home": "Home Page",
+                "calendar": "Calendar Page",
+                "messaging": "Messaging Page"
+            }
         }
     },
     "symptoms": {
