@@ -120,7 +120,7 @@
             "password": {
                 "title": "Choose a new password for your account",
                 "confirmation": "Confirm Password",
-                "noMatch": "The passowrd and conformation do not match"
+                "noMatch": "The password and confirmation do not match"
             },
             "gender": {
                 "title": "Select your preferred gender",
