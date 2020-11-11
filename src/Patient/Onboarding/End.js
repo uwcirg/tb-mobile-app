@@ -37,7 +37,8 @@ const End = observer((props) => {
         //On Successful Activation re pull in patient info + move
         if(activationStore.activationSuccess){
            patientStore.getPatientInformation().then( () => {
-               patientUIStore.goToWalkThrough();
+            patientUIStore.goToHome();   
+            patientUIStore.goToWalkThrough();
            })
         } 
     },[activationStore.activationSuccess])
