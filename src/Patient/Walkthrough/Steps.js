@@ -62,6 +62,14 @@ let steps = [
         translationString: "patient.walkthrough.reminders"
     },
     {
+        push: "progress",
+        target: ".intro-progress-button",
+        placement: "top",
+        fillBackground: true,
+        component: (<Progress />)
+        
+    },
+    {
         scrollToTop: true,
         push: "progress",
         target: ".intro-calendar-full",

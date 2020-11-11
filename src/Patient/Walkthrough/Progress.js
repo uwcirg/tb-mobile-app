@@ -30,7 +30,6 @@ const Progress = () => {
             <p> {t("patient.walkthrough.progress.here")}:</p>
             <ol>
                 <li>{t("patient.walkthrough.progress.one")} </li>
-                <li>{t("patient.walkthrough.progress.two")}</li>
                 <li>{t("patient.walkthrough.progress.three")}</li>
             </ol>
 

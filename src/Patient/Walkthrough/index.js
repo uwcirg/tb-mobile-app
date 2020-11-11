@@ -24,7 +24,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ExitToApp from '@material-ui/icons/ExitToApp'
 
 const Wrapper = observer((props) => {
-  const { patientUIStore, patientStore } = useStores();
+  const { patientUIStore, patientStore, routingStore } = useStores();
   const classes = useStyles();
 
   //Load Test Data for calendar example
@@ -66,15 +66,6 @@ const Intro = observer((props) => {
     patientUIStore.onWalkthrough = false;
     patientUIStore.setWalkthroughStep(0);
   }
-
-  //Reset the progress of walkthrough when it unmounts
-  useEffect(()=>{
-    return function cleanup(){
-      patientUIStore.setWalkthroughStep(0);
-    }
-  },[])
-
-
 
   return (
     <div className={classes.container}>

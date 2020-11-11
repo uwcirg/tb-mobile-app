@@ -352,9 +352,17 @@
             "launchWalkthrough": "Launch Walkthrough",
             "video": "Watch Video",
             "videos": "Videos About Treatment",
+            "helpVideos": "Video Instructions",
             "techSupport": "Technical Support",
             "reportIssue": "Report Issue",
-            "testInstructions": "Test Strip Instructions"
+            "testInstructions": "Test Strip Instructions",
+            "walkthrough": {
+                "title": "Interactive Walkthrough",
+                "start": "Start from begining",
+                "home": "Home Page",
+                "calendar": "Calendar Page",
+                "messaging": "Messaging Page"
+            }
         }
     },
     "symptoms": {
