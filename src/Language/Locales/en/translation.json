@@ -119,7 +119,8 @@
             },
             "password": {
                 "title": "Choose a new password for your account",
-                "confirmation": "Confirm Password"
+                "confirmation": "Confirm Password",
+                "noMatch": "The passowrd and conformation do not match"
             },
             "gender": {
                 "title": "Select your preferred gender",

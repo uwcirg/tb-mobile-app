@@ -61,7 +61,7 @@ const Password = observer((props) => {
                         variant="filled"
                     />
                 </form>
-                {!activationStore.passwordsMatch && <p>Passwords Do Not Match</p>}
+                {!activationStore.passwordsMatch && <p>{t("patient.onboarding.password.noMatch")}</p>}
             </div>}
            
             {React.cloneElement(props.button, {
