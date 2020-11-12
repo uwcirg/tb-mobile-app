@@ -7,9 +7,10 @@ const ROUTES = {
 }
 
 const initalizeReport = {
-    type: "check_in",
-    customType: "",
-    datetime: DateTime.local()
+    category: "check_in",
+    otherCategory: "",
+    datetime: DateTime.local(),
+    note: ""
 
 }
 
@@ -27,8 +28,16 @@ export default class ReminderStore extends APIStore {
         super(strategy, ROUTES);
     }
 
-    @action setType = (type) => {
-        this.newReminder.type = type
+    @action setCategory = (category) => {
+        this.newReminder.category = category
+    }
+
+    @action setNote = (note) => {
+        this.newReminder.note = note;
+    }
+
+    @action setOther = (category) => {
+        this.newReminder.otherCategory = category;
     }
 
     @action setDate = (datetime) => {
@@ -43,18 +52,14 @@ export default class ReminderStore extends APIStore {
     }
 
     @action getReminders = (id) => {
-        this.executeRawRequest(`/patient/${id}/reminders?future=true`, "GET").then(response => {
+        this.executeRawRequest(`/patient/${id}/reminders`, "GET").then(response => {
             this.reminders = response;
         })
     }
 
     @action create = (id) => {
-        const body = {
-            category: this.newReminder.type,
-            datetime: this.newReminder.datetime
-        }
         this.loading = true;
-        this.executeRawRequest(`/patient/${id}/reminders`, "POST", body).then(res => {
+        this.executeRawRequest(`/patient/${id}/reminders`, "POST", this.newReminder).then(res => {
             this.loading = false;
             this.success = true;
             window.setTimeout(()=>{

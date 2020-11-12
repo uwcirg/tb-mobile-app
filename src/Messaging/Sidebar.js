@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../Basics/UseStores';
 import {observer} from 'mobx-react'
 import Profile from '../Practitioner/Shared/PatientProfile';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
   container:{
@@ -21,11 +22,12 @@ const PatientMessageSidebar = observer(() => {
 
     const classes = useStyles();
     const {messagingStore} = useStores();
+    const { t, i18n } = useTranslation('translation');
 
     const id = messagingStore.coordinatorSelectedChannel && messagingStore.coordinatorSelectedChannel.userId
 
     return(<div className={classes.container}>
-        {id != 0 ? <Profile id={id} /> : <p> Loading</p>}
+        {id != 0 ? <Profile id={id} /> : <p>{t('commonWords.loading')}</p>}
     </div>)
 
 })

@@ -9,6 +9,8 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import { useTranslation } from 'react-i18next';
 import SurveyHeader from './SurveyHeader';
+import TextField from '@material-ui/core/TextField'
+
 
 const useStyles = makeStyles({
   form: {
@@ -16,6 +18,9 @@ const useStyles = makeStyles({
     borderRadius: "1em",
     width: "90%",
     padding: "1em"
+  },
+  label:{
+    textTransform: "capitalize"
   }
 })
 
@@ -31,17 +36,33 @@ const Gender = observer((props) => {
 
   return (
     <div className={props.bodyClass}>
-      <SurveyHeader number={1} title={t("patient.onboarding.gender.title")} />
+      <SurveyHeader index={props.index}title={t("patient.onboarding.gender.title")} />
       <FormControl className={classes.form} component="fieldset">
         {/*<FormLabel component="legend">Gender</FormLabel>*/}
         <RadioGroup aria-label="gender" name="gender1" value={activationStore.onboardingInformation.gender} onChange={handleChange}>
-          <FormControlLabel value="Female" control={<Radio color="primary" />} label={t("patient.onboarding.gender.female")} />
-          <FormControlLabel value="Male" control={<Radio color="primary" />} label={t("patient.onboarding.gender.male")} />
-          <FormControlLabel value="Other" control={<Radio color="primary" />} label={t("patient.onboarding.gender.other")} />
+          <Label value="Woman" control={<Radio color="primary" />} label={t("patient.onboarding.gender.woman")} />
+          <Label value="Man" control={<Radio color="primary" />} label={t("patient.onboarding.gender.man")} />
+          <Label value="TransWoman" control={<Radio color="primary" />} label={t("patient.onboarding.gender.transWoman")} />
+          <Label value="TransMan" control={<Radio color="primary" />} label={t("patient.onboarding.gender.transMan")} />
+          <Label value="Nonbinary" control={<Radio color="primary" />} label={t("patient.onboarding.gender.nonbinary")} />
+          <Label value="Other" control={<Radio color="primary" />} label={t("patient.onboarding.gender.other")} />
+          {activationStore.onboardingInformation.gender === "Other" && <TextField 
+          value={activationStore.onboardingInformation.genderOther} 
+          label={t("patient.onboarding.gender.question")} 
+          onChange={(e)=>{activationStore.onboardingInformation.genderOther = e.target.value}}
+          />}
         </RadioGroup>
       </FormControl>
     </div>
   )
 });
+
+
+const Label = (props) => {
+  const classes = useStyles();
+  return (
+    <FormControlLabel className={classes.label} {...props}/>
+  )
+}
 
 export default Gender;

@@ -119,7 +119,7 @@ const PatientPreview = observer((props) => {
             </div>
 
             <div className={classes.patientInfo}>
-                <ProfileItem text={t("coordinator.adherence")} value={patient.adherence} />
+                <ProfileItem text={t("coordinator.adherence")} value={`${Math.floor(patient.adherence * 100)}%`} />
                 <ProfileItem text={t("coordinator.daysInTreatment")} value={patient.daysInTreatment} />
                 <ProfileItem text={t("coordinator.sideBar.lastContacted")} value={DateTime.fromISO(patient.lastContacted).toLocaleString(DateTime.DATE_SHORT)} />
             </div>

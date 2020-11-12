@@ -33,7 +33,7 @@ const SurveyHeader = (props) => {
     const classes = useStyles();
 
     return(<div className={classes.surveyHeader}> 
-    <div className={classes.circle}>{props.number}</div> <span>{props.title}</span>
+    <div className={classes.circle}>{props.index - 1}</div> <span>{props.title}</span>
     </div>)
 
 }

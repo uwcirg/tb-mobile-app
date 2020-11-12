@@ -1,4 +1,4 @@
-import { observable, action, computed, autorun } from 'mobx';
+import { observable, action, computed, autorun } from 'mobx'
 
 //Extends this file https://github.com/alisd23/mobx-react-router/blob/master/src/store.js
 
@@ -18,7 +18,7 @@ export default class PatientUIStore {
     }
 
     @observable onWalkthrough = false;
-    @observable onTreatmentWalkthrough = false;
+    @observable walkthroughStep = 0;
     @observable skippedToPhotoFlow = false;
 
     @observable alertVisible = false;
@@ -31,10 +31,9 @@ export default class PatientUIStore {
         }
     }
 
-    @action goToWalkThrough = () => {
-        this.goToHome();
-        this.onTreatmentWalkthrough = false;
+    @action goToWalkThrough = (step = 0) => {
         this.onWalkthrough = true;
+        this.walkthroughStep = step;
     }
 
     @action goToOnboarding() {
@@ -120,6 +119,10 @@ export default class PatientUIStore {
         this.onTreatmentWalkthrough = true;
         this.onWalkthrough = true;
 
+    }
+
+    @action setWalkthroughStep = (step) => {
+        this.walkthroughStep = step;
     }
 
     @computed get reportStep() {

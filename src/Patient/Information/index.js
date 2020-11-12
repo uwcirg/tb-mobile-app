@@ -21,6 +21,13 @@ import TestIcon from '@material-ui/icons/Colorize'
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 
 
+import PlayIcon from '@material-ui/icons/PlayCircleOutline';
+import HomeIcon from '@material-ui/icons/Home'
+import ChatIcon from '@material-ui/icons/QuestionAnswer';
+import CalendarIcon from '@material-ui/icons/EventAvailable';
+import steps from '../Walkthrough/Steps';
+
+
 const file = raw("./information.md");
 const messagesFile = raw("../../Content/TreatmentMessages.json")
 
@@ -46,7 +53,10 @@ const useStyles = makeStyles({
     button: {
 
         color: Colors.buttonBlue,
-        textTransform: "capitalize"
+        textTransform: "capitalize",
+        "& > span >  svg": {
+            marginRight: ".5em"
+        }
     },
     padding: {
         paddingLeft: "1em"
@@ -63,11 +73,32 @@ const useStyles = makeStyles({
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-start",
-        "& > h2":{
+        "& > h2": {
             fontSize: "1em"
+        },
+        "& > button": {
+            marginLeft: "2em"
+        },
+        "& > button:first-of-type": {
+            marginLeft: 0
         }
     }
 })
+
+const TCButton = (props) => {
+    const classes = useStyles();
+    const { patientUIStore } = useStores();
+
+    return (<Button
+        className={classes.button}
+        onClick={()=>{
+            patientUIStore.router.push(steps[props.step].push);
+            patientUIStore.goToWalkThrough(props.step)
+            
+            }}>
+        {props.children}
+    </Button>)
+}
 
 export default function Info() {
     const { t, i18n } = useTranslation('translation');
@@ -77,8 +108,12 @@ export default function Info() {
         <div className={classes.container}>
             <Section title={<><LiveHelpIcon />{t('patient.information.helpSection')}</>}>
                 <div className={classes.help}>
-                    <Button className={classes.button} onClick={patientUIStore.goToWalkThrough}>{t('patient.information.launchWalkthrough')}</Button>
-                    <h2>Videos</h2>
+                    <h2>{t('patient.information.walkthrough.title')}</h2>
+                    <TCButton step={0}><><PlayIcon />{t('patient.information.walkthrough.start')}</></TCButton>
+                    <TCButton step={3} ><HomeIcon />{t('patient.information.walkthrough.home')}</TCButton>
+                    <TCButton step={7} ><CalendarIcon />{t('patient.information.walkthrough.calendar')}</TCButton>
+                    <TCButton step={10} ><ChatIcon />{t('patient.information.walkthrough.messaging')}</TCButton>
+                    <h2>{t('patient.information.helpVideos')}</h2>
                     <Button className={classes.button} href="https://youtu.be/6zq6E_COEYo">Instrucciones para hacer un reporte diaria </Button>
                     <Button className={classes.button} href="https://youtu.be/3xDBB3MVmeU">Instrucciones para hacer una prueba de las tiras reactivas</Button>
                 </div>

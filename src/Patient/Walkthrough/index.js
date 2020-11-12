@@ -13,17 +13,22 @@ import Back from '@material-ui/icons/ChevronLeft'
 import Next from '@material-ui/icons/ChevronRight'
 import Welcome from './Welcome'
 import { useTranslation } from 'react-i18next';
-import Steps from './Steps'
+import Steps, { a } from './Steps'
 import TreatmentSteps from './TreatmentSteps'
 import TestReport from './ExampleReport'
 import { DateTime } from 'luxon'
+import Colors from '../../Basics/Colors'
+
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import ExitToApp from '@material-ui/icons/ExitToApp'
 
 const Wrapper = observer((props) => {
-  const { patientUIStore, patientStore } = useStores();
+  const { patientUIStore, patientStore, routingStore } = useStores();
+  const classes = useStyles();
 
   //Load Test Data for calendar example
   useEffect(() => {
-
     const today = DateTime.local().startOf('day')
     let testReports = {}
 
@@ -32,69 +37,56 @@ const Wrapper = observer((props) => {
       testReports[newDay.toISODate()] = TestReport;
     }
     patientStore.tempTreatmentStart = patientStore.treatmentStart
-    patientStore.treatmentStart = today.minus({days: 8}).toISODate()
+    patientStore.treatmentStart = today.minus({ days: 8 }).toISODate()
     patientStore.savedReports = testReports;
 
     return function cleanup() {
       patientStore.getReports();
       patientStore.treatmentStart = patientStore.tempTreatmentStart;
     }
-
-
   }, [])
 
 
   return (
-    <Intro startOn={props.startOn} stepsList={patientUIStore.onTreatmentWalkthrough ? TreatmentSteps : Steps} />
+    <>
+      <div className={classes.exit}>
+        {!Steps[patientUIStore.walkthroughStep].hideExit && <IconButton onClick={() => { patientUIStore.onWalkthrough = false }}><ClearIcon /></IconButton>}
+      </div>
+      <Intro startOn={props.startOn} stepsList={Steps} />
+    </>
   )
 })
 
 const Intro = observer((props) => {
-
-  const [step, setStep] = useState(props.startOn|| 0);
 
   const classes = useStyles();
   const { patientUIStore, routingStore } = useStores();
 
   const exit = () => {
     patientUIStore.onWalkthrough = false;
-    setStep(0);
-  }
-
-
-  const changeStep = (index) => {
-    props.stepsList[index] && routingStore.push(props.stepsList[index].push)
-    if (index < 0) {
-
-      setStep(0)
-      return
-    } else if (index > props.stepsList.length - 1) {
-      setStep(props.stepsList.length - 1)
-      return
-    }
-
-    setStep(index);
+    patientUIStore.setWalkthroughStep(0);
   }
 
   return (
     <div className={classes.container}>
-      <SwipeContainer stepsList={props.stepsList} exit={exit} index={step} changeIndex={changeStep} />
+      {/*<SwipeContainer stepsList={props.stepsList} exit={exit} index={patientUIStore.walkthroughStep} changeIndex={changeStep} /> */}
       <ReactJoyride
         disableOverlayClose
         disableScrolling
         spotlightPadding={2}
-        floaterProps={{ hideArrow: true }}
+        floaterProps={{ hideArrow: false, disableAnimation: true }}
         tooltipComponent={Tooltip}
         steps={props.stepsList}
         run={true}
         continuous
         showProgress
         showSkipButton
-        stepIndex={step}
+        stepIndex={patientUIStore.walkthroughStep}
         styles={{
           options: {
-            overlayColor: props.stepsList[step].placement === 'center' ? 'rgba(0,0,0,.5)' : 'rgba(0,0,0,.85)',
-            zIndex: 150
+            overlayColor: props.stepsList[patientUIStore.walkthroughStep].placement === 'center' ? 'rgba(0,0,0,.5)' : 'rgba(0,0,0,.85)',
+            zIndex: 150,
+            arrowColor: Colors.blue
           }
         }}
       />
@@ -102,7 +94,7 @@ const Intro = observer((props) => {
 
 });
 
-const Tooltip = ({
+const Tooltip = observer(({
   continuous,
   index,
   step,
@@ -110,10 +102,35 @@ const Tooltip = ({
   closeProps,
   primaryProps,
   tooltipProps,
+  nextTest
 }) => {
+
   const classes = useStyles();
   const { t, i18n } = useTranslation('translation');
-  const { routingStore } = useStores();
+  const { routingStore, patientUIStore } = useStores();
+
+  const isLastStep = patientUIStore.walkthroughStep === Steps.length - 1;
+  const isFirstStep = patientUIStore.walkthroughStep === 0;
+
+  const goForward = () => {
+    if (!isLastStep) {
+      const newValue = patientUIStore.walkthroughStep + 1;
+      changePage(newValue)
+    }
+  }
+
+  const goBackward = () => {
+    if (!isFirstStep) {
+      const newValue = patientUIStore.walkthroughStep - 1;
+      changePage(newValue)
+    }
+  }
+
+  const changePage = (newValue) => {
+    routingStore.push(Steps[newValue].push)
+    patientUIStore.setWalkthroughStep(newValue)
+  }
+
 
 
   useEffect(() => {
@@ -126,14 +143,17 @@ const Tooltip = ({
     //Scroll to the item
     if (step.target !== "" && !step.preventScroll) {
       let element = document.querySelector(step.target);
-      let headerOffset = step.scrollOffset ? step.scrollOffset : 60;
-      let elementPosition = element.getBoundingClientRect().top;
-      let offsetPosition = elementPosition - headerOffset;
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
+      if (element) {
+        let headerOffset = step.scrollOffset ? step.scrollOffset : 60;
+        let elementPosition = element.getBoundingClientRect().top;
+        let offsetPosition = elementPosition - headerOffset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth"
+        });
+      }
     }
 
   }, [index])
@@ -143,65 +163,45 @@ const Tooltip = ({
 
     <TooltipBody {...step} {...tooltipProps}>
       <div>
-        {step.component ? <>{step.component}</> :
-          <>
-            {step.title && <span>{step.title}</span>}
-            <div className={classes.stepContent}>{t(step.translationString)}</div></>}
+        <div className="content">
+          {step.component ? <>{step.component}</> :
+            <>
+              {step.title && <span>{step.title}</span>}
+              <div className={classes.stepContent}>{t(step.translationString)}</div></>}
+        </div>
+        <div className={classes.navigation}>
+          <IconButton disabled={isFirstStep} onClick={goBackward}><ArrowBackIcon /></IconButton>
+          <span>{patientUIStore.walkthroughStep + 1}/{Steps.length}</span>
+          <IconButton disabled={isLastStep} onClick={goForward}><ArrowForwardIcon /></IconButton>
+        </div>
+
       </div>
     </TooltipBody>
   )
-};
+});
 
 const TooltipBody = styled.div`
-  
   color: white;
-  background-color: ${props => props.fillBackground ? "rgba(0,0,0,.7)" : "none"};
-  width: ${props => props.placement === "center" ? "100vw" : "inherit"};
+  background-color: ${Colors.blue};
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
 
   div{
-    margin: auto;
-    padding: 1em;
+    width: 95vw;
+    box-sizing: border-box;
+
+    .content{
+      width: 100%;
+      padding: 1em;
+
+      div{
+        width: 90%;
+      }
+
+    }
   }
   `
-
-const styles = {
-  slide: {
-    height: '100vh',
-    width: "100vw",
-    color: 'red',
-  }
-};
-
-const SwipeContainer = (props) => {
-  const classes = useStyles();
-  const { t, i18n } = useTranslation('translation');
-
-  const handleChangeIndex = (index) => {
-    props.changeIndex(index);
-  }
-
-  const views = props.stepsList.map(() => { return (<div style={styles.slide}></div>) })
-
-  return (
-    <div className={classes.swipeContainer}>
-      <div className={classes.controls}>
-        <div className={classes.paginationContainer}>
-          <IconButton onClick={() => { handleChangeIndex(props.index - 1) }} ><Back /></IconButton>
-          <Pagination className={classes.dots} dots={props.stepsList.length} index={props.index} onChangeIndex={props.changeIndex} />
-          <Button onClick={() => { handleChangeIndex(props.index + 1) }} ><Next /></Button>
-        </div>
-        <IconButton className={classes.exit} onClick={props.exit}><ClearIcon /> </IconButton>
-      </div>
-      {props.index == 0 && <div className={classes.bottomText}>
-        <p>{t("patient.walkthrough.swipe")}</p>
-        <Next />
-      </div>}
-      <SwipeableViews index={props.index} onChangeIndex={handleChangeIndex}>
-        {views && views}
-      </SwipeableViews>
-
-    </div>)
-};
 
 const useStyles = makeStyles({
   controls: {
@@ -214,8 +214,19 @@ const useStyles = makeStyles({
     backgroundColor: "black"
   },
   exit: {
-    color: "white",
-    marginLeft: "auto"
+    position: "fixed",
+    zIndex: "151",
+    width: "100%",
+    height: "60px",
+    display: "flex",
+    alignItems: "center",
+    "& > button": {
+      marginLeft: ".5em",
+      backgroundColor: Colors.blue,
+      color: "white",
+    }
+
+
   },
   swipeContainer: {
     position: "fixed",
@@ -247,6 +258,16 @@ const useStyles = makeStyles({
 
     "& > button": {
       color: "white",
+    }
+  },
+  navigation: {
+    width: "90%",
+    display: "flex",
+    padding: "0 1em 1em 1em",
+    justifyContent: "space-between",
+    alignItems: "center",
+    "& > button": {
+      color: "white"
     }
   }
 })

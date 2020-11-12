@@ -25,7 +25,7 @@
     "userTypes": {
         "patient": "Patient",
         "provider": "Provider",
-        "coordinator": "Coordinator",
+        "coordinator": "Treatment Assistant",
         "admin": "Administrator"
     },
     "login": {
@@ -64,11 +64,11 @@
         "begining": "Begining Of Chat",
         "selectChannel": "Select a Patient or Discussion To Get Started",
         "nurseContact": "Need individual support? Contact your provider!",
-        "privateExplained": "Private chat with your coordinator",
+        "privateExplained": "Private chat with your treatment assistant",
         "searchTheme": "Search By Topic",
         "searchPatient": "Search By Patient",
         "patients": "Patients",
-        "coordinators": "Coordinators",
+        "coordinators": "Treatment assistants",
         "discussions": "Discussions",
         "expert": "TB Expert",
         "groupDiscussion": "Group Discussion",
@@ -95,13 +95,13 @@
         "onboarding": {
             "landing": {
                 "welcome": "Welcome",
-                "message": "Thank you for signing up! This app will be where you report your medication. Reports are monitored by your Coordinator."
+                "message": "Thank you for signing up! This app will be where you report your medication. Reports are monitored by your treatment assistant."
             },
             "profileInformation": "Add Profile Information",
             "coordinator": {
-                "title": "What is a Coordinator?",
+                "title": "What is a Treatment Assistant?",
                 "will": {
-                    "title": "Your Coordinator will",
+                    "title": "Your Treatment Assistant will",
                     "items": [
                         "Monitor your progress",
                         "Approve test strip photos",
@@ -109,7 +109,7 @@
                     ]
                 },
                 "wont": {
-                    "title": "Your Coordinator wont",
+                    "title": "Your Treatment Assistant will not",
                     "items": [
                         "Provide medical attention",
                         "Schedule your appointments"
@@ -119,13 +119,18 @@
             },
             "password": {
                 "title": "Choose a new password for your account",
-                "confirmation": "Confirm Password"
+                "confirmation": "Confirm Password",
+                "noMatch": "The password and confirmation do not match"
             },
             "gender": {
                 "title": "Select your preferred gender",
-                "male": "Male",
-                "female": "Female",
-                "other": "Other"
+                "man": "Man",
+                "woman": "Woman",
+                "nonbinary": "Nonbinary",
+                "transMan": "Transgender Man",
+                "transWoman": "Transgender Woman",
+                "other": "Other",
+                "question": "How would you describe yourself?"
             },
             "age": "How old are you?",
             "notification": {
@@ -137,7 +142,8 @@
                 "two": "Have they been tested for TB?",
                 "some": "Some of them",
                 "all": "All of them",
-                "none": "None of them"
+                "none": "None of them",
+                "unsure": "Im not sure"
             },
             "success": "Finalizing Account Setup",
             "next": "Next",
@@ -176,13 +182,13 @@
             "milestones": "Back on the main progress page, you can manage your milestones here",
             "messaging": {
                 "header": "Now we are on the messaging page",
-                "text": "This page allows you to communicate with your coordinator and other patients",
-                "one": "Click here to directly and privately message your coordinator",
+                "text": "This page allows you to communicate with your assistant and other patients",
+                "one": "Click here to directly and privately message your treatment assistant",
                 "two": "Here you can chat publicly with other patients about your treatment. These discussions are organized by topic"
             },
             "outro": {
                 "header": "Thats all for now!",
-                "one": "If you have any more questions check the information tab or reach out to your coordinator"
+                "one": "If you have any more questions check the information tab or reach out to your treatment assistant"
             }
         },
         "reminders": {
@@ -210,11 +216,11 @@
             "purpose": "Lets keep track of your medication and health!",
             "today": "Today",
             "actions": {
-                "logMedication": "Log Medication",
+                "logMedication": "Begin Report",
                 "uploadPhoto": "Upload Photo"
             },
             "todaysActions": {
-                "logMedication": "Log Medication",
+                "logMedication": "Begin Report",
                 "uploadPhoto": "Upload Photo"
             },
             "progress": {
@@ -283,7 +289,7 @@
                 "nauseaRating": "How bad is your nausea?",
                 "warning": {
                     "title": "You logged a symptom that needs immediate follow up",
-                    "subtitle": "Please seek emergency medical attention immediately. Your Coordinator will follow up with you.",
+                    "subtitle": "Please seek emergency medical attention immediately. Your treatment assistant will follow up with you.",
                     "button": "Okay",
                     "moreInformation": "More Information"
                 }
@@ -347,9 +353,17 @@
             "launchWalkthrough": "Launch Walkthrough",
             "video": "Watch Video",
             "videos": "Videos About Treatment",
+            "helpVideos": "Video Instructions",
             "techSupport": "Technical Support",
             "reportIssue": "Report Issue",
-            "testInstructions": "Test Strip Instructions"
+            "testInstructions": "Test Strip Instructions",
+            "walkthrough": {
+                "title": "Interactive Walkthrough",
+                "start": "Start from begining",
+                "home": "Home Page",
+                "calendar": "Calendar Page",
+                "messaging": "Messaging Page"
+            }
         }
     },
     "symptoms": {
@@ -374,7 +388,7 @@
             "subtitle": "Loss of appetite"
         },
         "blurred_vision": {
-            "title": "Blur in Vision",
+            "title": "Blurry Vision",
             "subtitle": "Blurred vision or changes in the way you see colors"
         },
         "sore_belly": {
@@ -586,7 +600,7 @@
         "login": {
             "identifier": "Incorrect Phone Number / Email",
             "password": "Incorrect Password",
-            "other": "Unexpected Error. Please contact coordinator on WhatsApp"
+            "other": "Unexpected Error. Please contact your treatment assistant on WhatsApp"
         },
         "sessionExpired": "Your session has expired.",
         "logBackIn": "Please log back in.",

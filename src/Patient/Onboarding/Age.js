@@ -32,7 +32,7 @@ const Age = observer((props) => {
     const handleChange = (e) => { activationStore.onboardingInformation.age = e.target.value}
 
     return (<div className={props.bodyClass}>
-        <SurveyHeader number={2} title={t("patient.onboarding.age")} />
+        <SurveyHeader index={props.index} title={t("patient.onboarding.age")} />
         <div className={classes.inputContainer}>
         <Input value={activationStore.onboardingInformation.age} onChange={handleChange} placeholder="Age" type="number"></Input>
         </div>

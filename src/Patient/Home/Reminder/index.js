@@ -5,7 +5,7 @@ import OverTopBar from '../../Navigation/OverTopBar'
 import useStores from '../../../Basics/UseStores';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import Input from '@material-ui/core/Input';
+import Input from '@material-ui/core/TextField';
 import Button from '../../../Basics/MuiButton'
 import { observer } from 'mobx-react'
 import { TimePicker } from "@material-ui/pickers";
@@ -15,7 +15,6 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/luxon';
 
 import { useTranslation } from 'react-i18next';
-import Typography from '@material-ui/core/Typography';
 import Colors from '../../../Basics/Colors';
 
 
@@ -49,7 +48,7 @@ const useStyles = makeStyles({
             color: Colors.textGray
         }
     },
-    bottomText:{
+    bottomText: {
         margin: "auto"
     }
 })
@@ -57,11 +56,11 @@ const useStyles = makeStyles({
 const AddMilestones = observer(() => {
 
     const classes = useStyles();
-    const { patientUIStore, reminderStore,patientStore} = useStores()
+    const { patientUIStore, reminderStore, patientStore } = useStores()
     const { t, i18n } = useTranslation('translation');
 
     const handleChange = (e) => {
-        reminderStore.setType(e.target.value)
+        reminderStore.setCategory(e.target.value)
     }
 
     const handleDateTimeChange = (date) => {
@@ -71,20 +70,21 @@ const AddMilestones = observer(() => {
     const handleSubmit = () => {
         reminderStore.create(patientStore.userID)
         patientUIStore.closeAddReminder();
-        patientUIStore.setAlert("Reminder Added","success");
+        patientUIStore.setAlert("Reminder Added", "success");
     }
 
     useEffect(() => {
-        reminderStore.type = Object.keys(t('reminderTypes',{returnObjects: true}))[0];
-    },[])
+        reminderStore.type = Object.keys(t('reminderTypes', { returnObjects: true }))[0];
+    }, [])
 
     return (<div className={classes.container}>
 
         <form onSubmit={(event) => { event.preventDefault() }} className={classes.form}>
             <OverTopBar title={t('appointments.addAppointment')} handleBack={patientUIStore.closeAddReminder} />
             <span>{t('appointments.typeQuestion')}</span>
-            <TypeSelect handleChange={handleChange} value={reminderStore.newReminder.type} />
-            {reminderStore.newReminder.type === "other" && <Input placeholder={t("appointments.otherType")}></Input>}
+            <TypeSelect handleChange={handleChange} value={reminderStore.newReminder.category} />
+            {reminderStore.newReminder.category === "other" && <Input onChange={(e) => {reminderStore.setOther(e.target.value)}} value={reminderStore.newReminder.otherCategory}  placeholder={t("appointments.otherType")}></Input>}
+            <Input onChange={(e) => {reminderStore.setNote(e.target.value)}} value={reminderStore.newReminder.note} placeholder="Add a note" />
             <span>{t('appointments.selectDate')}</span>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <DatePicker
@@ -103,7 +103,7 @@ const AddMilestones = observer(() => {
                 />
             </MuiPickersUtilsProvider>
             <span className={classes.bottomText}>{t('appointments.remindedAt')} {t('time.noon')}  {t('appointments.dayBefore')} </span>
-            {reminderStore.loading && <p>Loading</p>}
+            {reminderStore.loading && <p>{t('commonWords.loading')}</p>}
             <Button onClick={handleSubmit}>{t('appointments.addAppointment')}</Button>
         </form>
 
@@ -116,24 +116,24 @@ const TypeSelect = (props) => {
 
     const { t, i18n } = useTranslation('translation');
 
-    const categories = Object.keys(t('appointments.types',{returnObjects: true}));
+    const categories = Object.keys(t('appointments.types', { returnObjects: true }));
 
     return (
         <>
-        <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={props.value}
-            onChange={props.handleChange}
-        >
+            <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={props.value}
+                onChange={props.handleChange}
+            >
 
-            {categories.map( (each) => {
-                return(
-                <MenuItem value={each}>{t(`appointments.types.${each}`)}</MenuItem>
-                )
-            })}
+                {categories.map((each) => {
+                    return (
+                        <MenuItem value={each}>{t(`appointments.types.${each}`)}</MenuItem>
+                    )
+                })}
 
-        </Select>
+            </Select>
         </>
     )
 }

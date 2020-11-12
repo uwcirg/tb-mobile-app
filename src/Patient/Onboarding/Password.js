@@ -36,7 +36,7 @@ const Password = observer((props) => {
     return (
         <>
             {activationStore.passwordUpdate.passwordLoading ? <Loading /> : <div className={props.bodyClass} >
-                <SurveyHeader number={1} title={t("patient.onboarding.password.title")} />
+                <SurveyHeader index={props.index} title={t("patient.onboarding.password.title")} />
                 <form>
                     <TextField
                         onChange={(e) => {activationStore.passwordUpdate.password = e.target.value }}
@@ -61,7 +61,7 @@ const Password = observer((props) => {
                         variant="filled"
                     />
                 </form>
-                {!activationStore.passwordsMatch && <p>Passwords Do Not Match</p>}
+                {!activationStore.passwordsMatch && <p>{t("patient.onboarding.password.noMatch")}</p>}
             </div>}
            
             {React.cloneElement(props.button, {

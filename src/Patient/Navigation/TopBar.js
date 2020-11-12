@@ -52,7 +52,7 @@ const TopBar = observer(() => {
   return (
     <AppBar className={classes.bar} color={!uiStore.offline ? "secondary" : "primary"} >
       <Toolbar>
-        <img className={classes.logo} src="logo.png" />
+        <img className={classes.logo} src={`${window ? window._env.URL_CLIENT : ""}/logo.png`} />
         <GetTitle />
         {buttonToDisplay}
       </Toolbar>
