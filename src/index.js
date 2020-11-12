@@ -43,5 +43,6 @@ ReactDOM.render(
     </I18nextProvider>
   </Provider>
   , document.getElementById('root'));
-
-serviceWorker.register();
+  
+  serviceWorker.register();
+// Now Registering in Main -> ServiceWorkerWrapper.js serviceWorker.register();

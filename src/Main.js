@@ -5,13 +5,13 @@ import PractitionerHome from './Practitioner'
 import AdminHome from './Admin'
 import { ThemeProvider, styled } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
-import { inject, observer } from 'mobx-react';
-import { Translation, withTranslation } from "react-i18next";
+import { observer } from 'mobx-react';
 import Colors from './Basics/Colors';
 import useStores from './Basics/UseStores';
 import ExpertView from './Expert';
 import Boundry from './Basics/ErrorBoundary'
 import CheckAuthorization from './Basics/HandleAuthorizationError'
+import SWWrapper from './ServiceWorkerWrapper'
 
 const theme = createMuiTheme({
 
@@ -83,6 +83,7 @@ const Main = observer(() => {
 
 
   return (
+    <SWWrapper>
     <Boundry>
     <CheckAuthorization />
     <div>
@@ -91,6 +92,7 @@ const Main = observer(() => {
       </ThemeProvider>
     </div>
     </Boundry>
+    </SWWrapper>
   )
 
 })
