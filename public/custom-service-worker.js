@@ -2,10 +2,10 @@ importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox
 
 workbox.setConfig({ debug: false });
 
-const {precacheAndRoute} = workbox.precaching//
+const { precacheAndRoute } = workbox.precaching//
 const createHandlerBoundToURL = workbox.precaching.createHandlerBoundToURL
-const {NavigationRoute, registerRoute} = workbox.routing
-const {NetworkFirst} = workbox.strategies
+const { NavigationRoute, registerRoute } = workbox.routing
+const { NetworkFirst } = workbox.strategies
 
 workbox.precaching.precacheAndRoute(self.__precacheManifest || []);
 
@@ -39,23 +39,29 @@ if (workbox) {
 //   })
 // );
 
-workbox.routing.registerRoute(
-  /\.(?:js|css|json|html)$/,
-  new NetworkFirst()
-)
+try {
 
-workbox.routing.registerRoute(
-  `${baseURL}`,
-  new NetworkFirst()
-)
+  workbox.routing.registerRoute(
+    /\.(?:js|css|json|html)$/,
+    new NetworkFirst()
+  )
 
-workbox.routing.registerRoute(  '/logo.png',  new NetworkFirst())
+  workbox.routing.registerRoute(
+    `${baseURL}`,
+    new NetworkFirst()
+  )
 
-// This assumes /app-shell.html has been precached.
-const handler = createHandlerBoundToURL('/index.html');
-const navigationRoute = new NavigationRoute(handler);
-registerRoute(navigationRoute);
+  workbox.routing.registerRoute('/logo.png', new NetworkFirst())
 
+  // This assumes /app-shell.html has been precached.
+  const handler = createHandlerBoundToURL('/index.html');
+  const navigationRoute = new NavigationRoute(handler);
+  registerRoute(navigationRoute);
+
+  
+} catch (error) {
+  console.log("Error Caught - Offline Precaching will not work in CRA development mode. Edit gain  ")
+}
 
 //Non-Workbox stuff (WebPush handlers, ect.)
 
@@ -138,6 +144,15 @@ self.addEventListener('pushsubscriptionchange', function (event) {
   );
 });
 
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }else if(event.data && event.data.type === 'CHECK_WAITING'){
+    console.log("Check waiting message recieved")
+  }
+});
+
+
 function isBroadcastChannelSupported() {
   if (!("BroadcastChannel" in self)) {
     return false;
@@ -152,6 +167,18 @@ function isBroadcastChannelSupported() {
   } catch (err) {
     return false;
   }
+}
+
+
+function invokeServiceWorkerUpdateFlow(registration) {
+  // TODO implement your own UI notification element
+  notification.show("New version of the app is available. Refresh now?");
+  notification.addEventListener('click', () => {
+      if (registration.waiting) {
+          // let waiting Service Worker know it should became active
+          registration.waiting.postMessage('skip waiting')
+      }
+  })
 }
 
 

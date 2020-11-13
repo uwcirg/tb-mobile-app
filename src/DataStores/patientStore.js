@@ -73,7 +73,6 @@ export class PatientStore extends UserStore {
     @action loadCachedProfile = () => {
         const cached = JSON.parse(localStorage.getItem("cachedProfile"));
         if (cached && cached.givenName) {
-            console.log(cached.givenName)
             this.givenName = cached.givenName
         }
 
