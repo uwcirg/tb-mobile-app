@@ -671,5 +671,12 @@
         },
         "showAll": "Show All",
         "showLess": "Show Less"
+    },
+    "update":{
+        "update": "Update",
+        "updateAvailable": "Update Available",
+        "alreadyDownloaded": "It has already been downloaded and can be used immediately.",
+        "clickButton": "Click the button below to complete update",
+        "doLater": "Complete Later"
     }
 }

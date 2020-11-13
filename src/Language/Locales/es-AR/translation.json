@@ -120,7 +120,7 @@
             "password": {
                 "title": "Elija una nueva contraseña para su cuenta",
                 "confirmation": "Confirmar contraseña",
-                "noMatch": "The passowrd and conformation do not match"
+                "noMatch": "La contraseña y la confirmación no coinciden."
             },
             "gender": {
                 "title": "Seleccione su género ",
@@ -353,16 +353,16 @@
             "launchWalkthrough": "Guía de la Aplicación",
             "video": "Ver Vídeo",
             "videos": "Videos Sobre el Tratamiento",
-            "helpVideos": "Video Instructions",
+            "helpVideos": "Instrucciones de Vídeo",
             "techSupport": "Soporte Técnico ",
             "reportIssue": "Reportar Problema",
             "testInstructions": "Instrucciones Para la Tira Reactiva",
             "walkthrough": {
-                "title": "Interactive Walkthrough",
-                "start": "Start from begining",
-                "home": "Home Page",
-                "calendar": "Calendar Page",
-                "messaging": "Messaging Page"
+                "title": "Guía Interactiva",
+                "start": "Empezar desde el principio",
+                "home": "Página Principal",
+                "calendar": "Página del Calendario",
+                "messaging": "Página de Mensajes"
             }
         }
     },

@@ -1,8 +1,10 @@
 //Tutorial on https://felixgerschau.com/create-a-pwa-update-notification-with-create-react-app/
 
 import React, {useEffect, useState} from 'react'
-import { Snackbar, Button } from '@material-ui/core';
+import { Snackbar, Button, Typography } from '@material-ui/core';
 import * as serviceWorker from './serviceWorker';
+import UpdatePopUp from './Basics/UpdateAvailablePopUp'
+
 
 const SWWrapper = (props) => {
     const [showReload, setShowReload] = useState(false);
@@ -29,7 +31,8 @@ const SWWrapper = (props) => {
 
     return (<>
     {props.children}
-    <Snackbar
+    {/* <UpdatePopUp /> */}
+    {/* <Snackbar
       open={showReload}
       message="A new version is available!"
       onClick={reloadPage}
@@ -42,7 +45,7 @@ const SWWrapper = (props) => {
         >
           Reload Application
         </Button>
-      }
+      } */}
     />
     </>)
 }

@@ -1,3 +1,10 @@
+v2.0.5 - November 13th, 2020
+
+New Features:
+- Improved update experience. Previously required users to close all tabs of app, now they just click a button.
+- Added popup screen with update details
+- Updated translations for walkthrough table of contents
+
 v2.0.4 - November 11th, 2020
 
 Summary:
