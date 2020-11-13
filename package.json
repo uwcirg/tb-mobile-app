@@ -50,7 +50,8 @@
     "build": "react-app-rewired build",
     "test": "set CI=true && react-app-rewired test",
     "eject": "react-app-rewired eject",
-    "test:coverage": "set CI=true && react-app-rewired test --coverage"
+    "test:coverage": "set CI=true && react-app-rewired test --coverage",
+    "serve_build": "react-app-rewired build; serve ./build"
   },
   "eslintConfig": {
     "extends": "react-app"
