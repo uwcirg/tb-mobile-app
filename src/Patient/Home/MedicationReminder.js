@@ -100,9 +100,9 @@ const Card = observer(() => {
         patientStore.updateNotificationTime();
     }
 
-    return (<InteractionCard upperText={t('patient.reminders.title')} id="intro-reminders-card">
+    return (<InteractionCard upperText={t('patient.reminders.medicationReminder')} id="intro-reminders-card">
         <div className={classes.daily}>
-            <Header>{t('patient.reminders.medicationReminder')}</Header>
+            {/*<Header>{t('patient.reminders.medicationReminder')}</Header>*/}
             {patientStore.reminderTime ? <>
                 <div className={classes.options}>
                     <p>a las <span>{DateTime.fromISO(patientStore.reminderTime).toLocaleString(DateTime.TIME_24_SIMPLE)}</span> cada día</p>
