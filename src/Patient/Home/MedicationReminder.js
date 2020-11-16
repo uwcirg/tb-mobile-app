@@ -92,7 +92,7 @@ const Card = observer(() => {
 
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
-    const { patientStore, reminderStore, patientUIStore,uiStore } = useStores();
+    const { patientStore, uiStore } = useStores();
     const [open, setOpen] = useState(false);
 
     const handleChange = (date) => {
