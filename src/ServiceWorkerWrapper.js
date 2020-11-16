@@ -7,8 +7,10 @@ import UpdatePopUp from './Basics/UpdateAvailablePopUp'
 
 
 const SWWrapper = (props) => {
-    const [showReload, setShowReload] = useState(false);
+    //TODO! Update this to default to false - set to true for dev
+    const [showReload, setShowReload] = useState(true);
     const [waitingWorker, setWaitingWorker] = useState(null);
+    const [optOut,setOptOut] = useState(false);
   
     const setUpdateAvailable = (registration) => {
         setShowReload(true)
@@ -29,9 +31,14 @@ const SWWrapper = (props) => {
 
     }, []);
 
+    const showPopUp = showReload && !optOut;
+
     return (<>
     {props.children}
-    {/* <UpdatePopUp /> */}
+    {showPopUp && <UpdatePopUp
+        optOut={()=>{setOptOut(true)}}
+        completeUpdate={reloadPage}
+    />}
     {/* <Snackbar
       open={showReload}
       message="A new version is available!"

@@ -23,7 +23,6 @@ const useStyles = makeStyles({
         backgroundColor: "white",
         width: "75%",
         padding: "1em",
-        minHeight: "60vh",
         borderRadius: "1em",
         position: "relative"
     },

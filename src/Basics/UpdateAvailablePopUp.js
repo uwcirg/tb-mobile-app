@@ -11,6 +11,7 @@ import NewButton from './NewButton'
 const useStyles = makeStyles({
     body: {
         display: "flex",
+        justifyContent: "center",
         flexDirection: "column",
         alignItems: "center",
         padding: "1.5em",
@@ -35,19 +36,19 @@ const useStyles = makeStyles({
     }
 })
 
-const CompName = () => {
+const UpdatePopUp = (props) => {
     const { t, i18n } = useTranslation('translation');
     const classes = useStyles();
 
-    return (<PopUp className={classes.body}>
+    return (<PopUp handleClickAway={props.optOut} className={classes.body}>
         <DoctorIcon />
         <Typography variant="h1">{t('update.updateAvailable')}</Typography>
         <Typography variant="body1">{t('update.alreadyDownloaded')}</Typography>
     <Typography variant="body1">{t('update.clickButton')}</Typography>
-        <NewButton className={classes.button} text={t('update.update')} />
-        <ClickableText hideIcon text={t('update.doLater')} />
+        <NewButton onClick={props.completeUpdate} className={classes.button} text={t('update.update')} />
+        <ClickableText onClick={props.optOut} hideIcon text={t('update.doLater')} />
     </PopUp>)
 
 }
 
-export default CompName;
+export default UpdatePopUp;
