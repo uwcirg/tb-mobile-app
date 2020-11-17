@@ -20,7 +20,6 @@ jobs:
         # old version run: echo ::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF##*/})
       - name: Publish to Dockerhub registry
         # todo: pin to hash
-        run: echo "branch name = $branch_name"
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
           # https://help.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions
@@ -29,3 +28,4 @@ jobs:
           username: ${{ secrets.DH_USERNAME }}
           password: ${{ secrets.DH_ACCESS_KEY }}
           tags: $branch_name
+        run: echo "branch name = $branch_name"
