@@ -30,4 +30,4 @@ jobs:
           username: ${{ secrets.DH_USERNAME }}
           password: ${{ secrets.DH_ACCESS_KEY }}
           tags: ${{ env.branch_name }}
-          buildargs: "build_sha=${{github.sha}}""
+          buildargs: "build_sha=${{github.sha}}"
