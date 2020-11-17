@@ -135,7 +135,7 @@ export default function Info() {
             <Section title={<><ErrorIcon />{t('patient.information.techSupport')} / <br /> {t('patient.information.reportIssue')}</>}>
                 <ErrorReporting />
             </Section>
-
+            <div>Version: {process.env.REACT_APP_BUILD_NUMBER}</div>
         </div>
     )
 }

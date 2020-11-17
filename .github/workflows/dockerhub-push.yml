@@ -8,6 +8,7 @@ on:
     branches:
       - develop
       - master
+      - feature/version-number
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,6 +18,7 @@ jobs:
       - name: Get commit branch
         id: get_branch
         run: echo "branch_name=${GITHUB_REF##*/}" >> $GITHUB_ENV
+
         # old version run: echo ::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF##*/})
       - name: Publish to Dockerhub registry
         # todo: pin to hash
@@ -28,3 +30,4 @@ jobs:
           username: ${{ secrets.DH_USERNAME }}
           password: ${{ secrets.DH_ACCESS_KEY }}
           tags: ${{ env.branch_name }}
+          buildargs: "build_sha=${{github.sha}}""
