@@ -27,4 +27,4 @@ jobs:
           # configured at repo settings/secrets
           username: ${{ secrets.DH_USERNAME }}
           password: ${{ secrets.DH_ACCESS_KEY }}
-          tags: "${{ $branch_name }}"
+          tags: "$branch_name"
