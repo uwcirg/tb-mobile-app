@@ -22,6 +22,7 @@ jobs:
         # todo: pin to hash
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
+          run: echo "branch name = $branch_name"
           # https://help.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions
           name: ${{ github.repository }}
           # configured at repo settings/secrets
