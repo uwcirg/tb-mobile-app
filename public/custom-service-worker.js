@@ -9,6 +9,9 @@ const { NetworkFirst } = workbox.strategies
 
 workbox.precaching.precacheAndRoute(self.__precacheManifest || []);
 
+//Edit this to refresh the service worker
+
+
 //Loads variable named react_env
 importScripts('./config.js');
 

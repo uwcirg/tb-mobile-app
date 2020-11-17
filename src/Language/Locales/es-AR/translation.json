@@ -664,5 +664,12 @@
         },
         "showAll": "Mostar Todos",
         "showLess": "Mostar Menos"
+    },
+    "update":{
+        "update": "Actualizar",
+        "updateAvailable": "Actualización Disponible",
+        "alreadyDownloaded": "Ya se ha descargado y se puede utilizar inmediatamente.",
+        "clickButton": "Haga clic en el botón de abajo para completar la actualización.",
+        "doLater": "Completar Más Tarde"
     }
 }

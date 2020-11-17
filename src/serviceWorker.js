@@ -160,3 +160,5 @@ export function unregister() {
     });
   }
 }
+
+//Edit this to refresh the service worker

@@ -1,13 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Channel from './Channel';
-import ChannelPreview from './ChannelPreview'
-import { DateTime } from 'luxon'
 import useStores from '../Basics/UseStores';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
-import Styles from '../Basics/Styles';
-import AddTopic from './AddTopic';
 import useResize from '../Hooks/Resize'
 import MobileMessages from './MobilePractitionerMsg'
 import ChannelNavigation from './ChannelNavigation'
