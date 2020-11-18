@@ -13,10 +13,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout git commit
-        uses: actions/checkout@master
-      - name: Get commit timestamp and save to ENV
-        run: echo "github_version=$(git describe)" >> $GITHUB_ENV
+      - uses: actions/checkout@master
+      - run: echo "github_version=$(git describe)" >> $GITHUB_ENV
       - name: Get commit branch
         id: get_branch
         run: echo "branch_name=${GITHUB_REF##*/}" >> $GITHUB_ENV
