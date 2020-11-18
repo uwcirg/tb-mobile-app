@@ -37,7 +37,7 @@ const VersionNumber = () => {
 
     return (<p>
         {version}
-        Commit time:{process.env.REACT_APP_COMMIT_TIME}
+        Commit time:{process.env.REACT_APP_GITHUB_VERSION}
     </p>)
 
 }

@@ -13,10 +13,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Get commit timestamp and save to ENV
-        run: echo "commit_time=$(curl https://api.github.com/repos/uwcirg/tb-mobile-app/commits/${{github.sha}} | jq '.commit.author.date')" >> $GITHUB_ENV
       - name: Checkout git commit
         uses: actions/checkout@master
+      - name: Get commit timestamp and save to ENV
+        run: echo "github_version=$(git describe)" >> $GITHUB_ENV
       - name: Get commit branch
         id: get_branch
         run: echo "branch_name=${GITHUB_REF##*/}" >> $GITHUB_ENV
@@ -30,7 +30,7 @@ jobs:
           username: ${{ secrets.DH_USERNAME }}
           password: ${{ secrets.DH_ACCESS_KEY }}
           tags: ${{ env.branch_name }}
-          buildargs: "build_sha=${{github.sha}}, commit_time=${{env.commit_time}}"
+          buildargs: "build_sha=${{github.sha}}, github_version=${{env.github_version}}"
 
 
 
