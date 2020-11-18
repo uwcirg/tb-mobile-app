@@ -27,6 +27,8 @@ import ChatIcon from '@material-ui/icons/QuestionAnswer';
 import CalendarIcon from '@material-ui/icons/EventAvailable';
 import steps from '../Walkthrough/Steps';
 
+import VersionNumber from './VersionNumber'
+
 
 const file = raw("./information.md");
 const messagesFile = raw("../../Content/TreatmentMessages.json")
@@ -135,7 +137,7 @@ export default function Info() {
             <Section title={<><ErrorIcon />{t('patient.information.techSupport')} / <br /> {t('patient.information.reportIssue')}</>}>
                 <ErrorReporting />
             </Section>
-            <div>Version: {process.env.REACT_APP_BUILD_NUMBER}</div>
+            <VersionNumber />
         </div>
     )
 }
