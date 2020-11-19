@@ -31,6 +31,8 @@ import VersionNumber from './VersionNumber'
 
 
 const file = raw("./information.md");
+const enChangeLog = raw("../../Content/changelog/en.md")
+const esChangeLog = raw("../../Content/changelog/es-AR.md")
 const messagesFile = raw("../../Content/TreatmentMessages.json")
 
 //Convert markdown file to expandable cards format
@@ -84,6 +86,11 @@ const useStyles = makeStyles({
         "& > button:first-of-type": {
             marginLeft: 0
         }
+    },
+    changeLog:{
+        "& > div > h2":{
+            fontSize: "1em"
+        }
     }
 })
 
@@ -105,7 +112,7 @@ const TCButton = (props) => {
 export default function Info() {
     const { t, i18n } = useTranslation('translation');
     const classes = useStyles();
-    const { patientUIStore, patientStore } = useStores();
+    const { uiStore} = useStores();
     return (
         <div className={classes.container}>
             <Section title={<><LiveHelpIcon />{t('patient.information.helpSection')}</>}>
@@ -136,6 +143,11 @@ export default function Info() {
             </Section>
             <Section title={<><ErrorIcon />{t('patient.information.techSupport')} / <br /> {t('patient.information.reportIssue')}</>}>
                 <ErrorReporting />
+            </Section>
+            <Section title="Change Log">
+                <div className={ classes.changeLog}>
+            <Markdown children={uiStore.locale === "en" ? enChangeLog : esChangeLog} />
+            </div>
             </Section>
             <VersionNumber />
         </div>

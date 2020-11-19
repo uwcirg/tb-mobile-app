@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import useStores from '../../Basics/UseStores';
-import { observer } from 'mobx-react'
-import {DateTime} from 'luxon'
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
-
+    container:{
+        width:"100%",
+        textAlign: "center"
+    }
 })
 
 const VersionNumber = () => {
 
     const classes = useStyles();
-    const [version, setVersion] = useState("")
+    const { t, i18n } = useTranslation('translation');
 
-    return (<p>
-        Version {process.env.REACT_APP_GITHUB_VERSION}
+    return (<p className={classes.container}>
+        Version {process.env.REACT_APP_GITHUB_VERSION || "Unknown"}
     </p>)
 
 }
