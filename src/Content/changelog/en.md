@@ -8,12 +8,13 @@
  - Added Version number and Change log
 
 
-v2.0.4 - November 11th, 2020
+## v2.0.4 - November 11th, 2020
 
 Summary:
 Implement suggestions from usability testers. Add ability to track feature changes (in this document).
 
 New Features:
+
 - Add table of contents for walkthrough
 - Change design of walkthrough for easier navigation
 - Add more gender options in onboarding

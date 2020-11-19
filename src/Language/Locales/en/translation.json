@@ -346,6 +346,7 @@
             ]
         },
         "information": {
+            "changeLog": "Application Change Log",
             "questions": "Questions and answers",
             "education": "Important Information To Know",
             "helpSection": "Help With Application",

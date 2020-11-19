@@ -19,6 +19,7 @@ import ErrorIcon from '@material-ui/icons/ReportProblem';
 import Instructions from './TestInstructions'
 import TestIcon from '@material-ui/icons/Colorize'
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
+import TrackChangesIcon from '@material-ui/icons/TrackChanges';
 
 
 import PlayIcon from '@material-ui/icons/PlayCircleOutline';
@@ -29,10 +30,10 @@ import steps from '../Walkthrough/Steps';
 
 import VersionNumber from './VersionNumber'
 
+import ChangeLog from '../../Basics/Changelog'
+
 
 const file = raw("./information.md");
-const enChangeLog = raw("../../Content/changelog/en.md")
-const esChangeLog = raw("../../Content/changelog/es-AR.md")
 const messagesFile = raw("../../Content/TreatmentMessages.json")
 
 //Convert markdown file to expandable cards format
@@ -86,11 +87,6 @@ const useStyles = makeStyles({
         "& > button:first-of-type": {
             marginLeft: 0
         }
-    },
-    changeLog:{
-        "& > div > h2":{
-            fontSize: "1em"
-        }
     }
 })
 
@@ -112,7 +108,6 @@ const TCButton = (props) => {
 export default function Info() {
     const { t, i18n } = useTranslation('translation');
     const classes = useStyles();
-    const { uiStore} = useStores();
     return (
         <div className={classes.container}>
             <Section title={<><LiveHelpIcon />{t('patient.information.helpSection')}</>}>
@@ -144,10 +139,8 @@ export default function Info() {
             <Section title={<><ErrorIcon />{t('patient.information.techSupport')} / <br /> {t('patient.information.reportIssue')}</>}>
                 <ErrorReporting />
             </Section>
-            <Section title="Change Log">
-                <div className={ classes.changeLog}>
-            <Markdown children={uiStore.locale === "en" ? enChangeLog : esChangeLog} />
-            </div>
+            <Section title={<><TrackChangesIcon />{t('patient.information.changeLog')}</>}>
+                <ChangeLog />
             </Section>
             <VersionNumber />
         </div>
