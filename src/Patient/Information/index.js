@@ -19,6 +19,7 @@ import ErrorIcon from '@material-ui/icons/ReportProblem';
 import Instructions from './TestInstructions'
 import TestIcon from '@material-ui/icons/Colorize'
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
+import TrackChangesIcon from '@material-ui/icons/TrackChanges';
 
 
 import PlayIcon from '@material-ui/icons/PlayCircleOutline';
@@ -26,6 +27,10 @@ import HomeIcon from '@material-ui/icons/Home'
 import ChatIcon from '@material-ui/icons/QuestionAnswer';
 import CalendarIcon from '@material-ui/icons/EventAvailable';
 import steps from '../Walkthrough/Steps';
+
+import VersionNumber from './VersionNumber'
+
+import ChangeLog from '../../Basics/Changelog'
 
 
 const file = raw("./information.md");
@@ -103,7 +108,6 @@ const TCButton = (props) => {
 export default function Info() {
     const { t, i18n } = useTranslation('translation');
     const classes = useStyles();
-    const { patientUIStore, patientStore } = useStores();
     return (
         <div className={classes.container}>
             <Section title={<><LiveHelpIcon />{t('patient.information.helpSection')}</>}>
@@ -135,7 +139,10 @@ export default function Info() {
             <Section title={<><ErrorIcon />{t('patient.information.techSupport')} / <br /> {t('patient.information.reportIssue')}</>}>
                 <ErrorReporting />
             </Section>
-
+            <Section title={<><TrackChangesIcon />{t('patient.information.changeLog')}</>}>
+                <ChangeLog />
+            </Section>
+            <VersionNumber />
         </div>
     )
 }

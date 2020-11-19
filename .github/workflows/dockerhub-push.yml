@@ -8,16 +8,18 @@ on:
     branches:
       - develop
       - master
+      - feature/version-number
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout git commit
-        uses: actions/checkout@master
+      - uses: actions/checkout@master
+        with:
+          fetch-depth: 0
+      - run: echo "github_version=$(git describe)" >> $GITHUB_ENV
       - name: Get commit branch
         id: get_branch
         run: echo "branch_name=${GITHUB_REF##*/}" >> $GITHUB_ENV
-        # old version run: echo ::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF##*/})
       - name: Publish to Dockerhub registry
         # todo: pin to hash
         uses: elgohr/Publish-Docker-Github-Action@master
@@ -28,3 +30,8 @@ jobs:
           username: ${{ secrets.DH_USERNAME }}
           password: ${{ secrets.DH_ACCESS_KEY }}
           tags: ${{ env.branch_name }}
+          buildargs: "build_sha=${{github.sha}}, github_version=${{env.github_version}}"
+
+
+
+          #echo "commit_time=$(curl https://api.github.com/repos/uwcirg/tb-mobile-app/commits/7f046da22527dd28171bb7b00c1c3ccbd616acf1 | jq '.commit.author.date')"

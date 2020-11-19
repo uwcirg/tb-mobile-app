@@ -20,6 +20,9 @@ const useStyles = makeStyles({
         
         "&:last-of-type":{
             boxShadow: "none"
+        },
+        "&:nth-last-of-type(2)":{
+            boxShadow: "none"
         }
     }
 })
