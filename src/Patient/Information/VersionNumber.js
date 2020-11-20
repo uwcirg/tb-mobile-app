@@ -23,7 +23,6 @@ const useStyles = makeStyles({
 const VersionNumber = () => {
 
     let versionNumber = process.env.REACT_APP_GITHUB_VERSION || "Unknown";
-    versionNumber = versionNumber.split("-")[0]
 
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');

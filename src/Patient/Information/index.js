@@ -119,7 +119,7 @@ export default function Info() {
                     <h2>{t('patient.information.helpVideos')}</h2>
                     <Button className={classes.button} href="https://youtu.be/6zq6E_COEYo">Instrucciones para hacer un reporte diaria </Button>
                     <Button className={classes.button} href="https://youtu.be/3xDBB3MVmeU">Instrucciones para hacer una prueba de las tiras reactivas</Button>
-                    <Button className={classes.button} href="https://youtu.be/FGLdEW7cR0k">Otra funcionalidad</Button>
+                    <Button className={classes.button} href="https://youtu.be/FGLdEW7cR0k">Otras Partes de la Aplicación</Button>
                 </div>
             </Section>
             <Section title={<><VideoIcon />{t('patient.information.videos')}</>}>
