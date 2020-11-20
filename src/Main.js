@@ -84,14 +84,14 @@ const Main = observer(() => {
 
   return (
     <SWWrapper>
-    <Boundry>
-    <CheckAuthorization />
-    <div>
-      <ThemeProvider theme={theme}>
-        {loginStore && loginStore.isLoggedIn ? <UserHome /> : <Login />}
-      </ThemeProvider>
-    </div>
-    </Boundry>
+      <Boundry>
+        <CheckAuthorization />
+        <div>
+          <ThemeProvider theme={theme}>
+            {loginStore && loginStore.isLoggedIn ? <UserHome /> : <Login />}
+          </ThemeProvider>
+        </div>
+      </Boundry>
     </SWWrapper>
   )
 

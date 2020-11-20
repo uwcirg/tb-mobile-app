@@ -9,12 +9,9 @@ import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import { DateTime } from 'luxon';
 import Colors from '../../Basics/Colors'
-import ReminderItem from './Reminder/ReminderLineItem'
-import ClickableText from '../../Basics/ClickableText';
-import Fab from '@material-ui/core/Fab'
-import AddIcon from '@material-ui/icons/Add'
 import { TimePicker } from "@material-ui/pickers/TimePicker";
 import AddReminder from './Reminder/index'
+import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 
 const useStyles = makeStyles({
     header: { fontSize: "1em", fontWeight: "bold", textAlign: "left", width: "100%", paddingLeft: "1em" },
@@ -72,6 +69,13 @@ const useStyles = makeStyles({
             border: `solid 1px ${Colors.buttonBlue}`,
             height: "50%"
         }
+    },
+    container:{
+        display: "flex",
+        alignItems: "center",
+        "& > svg":{
+            fontSize: "3em"
+        }
     }
 
 })
@@ -100,7 +104,7 @@ const Card = observer(() => {
         patientStore.updateNotificationTime();
     }
 
-    return (<InteractionCard upperText={t('patient.reminders.medicationReminder')} id="intro-reminders-card">
+    return (<InteractionCard upperText={<><AccessAlarmIcon />{t('patient.reminders.medicationReminder')}</>} id="intro-reminders-card">
         <div className={classes.daily}>
             {/*<Header>{t('patient.reminders.medicationReminder')}</Header>*/}
             {patientStore.reminderTime ? <>

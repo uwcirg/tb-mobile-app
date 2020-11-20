@@ -165,7 +165,7 @@ const Contact = () => {
         <p>{t('errors.page.contactDetails')}</p>
         <ul className="contact-list">
           <li>WhatsApp <br /> <a href="https://wa.me/18014194928">+1(801)419-4928</a></li>
-          <li>{t('login.email')} <br /> <a href="mailto:sjiribar@uw.edu?subject=%5BTB%20Application%20Issues%5D">sjiribar@uw.edu</a></li>
+          <li>{t('login.email')} <br /> <a href="mailto:treatment.assistant@gmail.com?subject=%5BTB%20Application%20Issues%5D">treatment.assistant@gmail.com</a></li>
         </ul>
       </div>
     </>

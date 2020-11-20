@@ -15,6 +15,7 @@ import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
 import { TimePicker } from "@material-ui/pickers/TimePicker";
 import AddReminder from './Reminder/index'
+import EventIcon from '@material-ui/icons/Event';
 
 const useStyles = makeStyles({
     header: { fontSize: "1em", fontWeight: "bold", textAlign: "left", width: "100%", paddingLeft: "1em" },
@@ -94,7 +95,7 @@ const Card = observer(() => {
         }
     }, [reminderStore.deleteSuccess])
 
-    return (<InteractionCard upperText={t('patient.reminders.appointments').split(" ")[0]} id="intro-reminders-card">
+    return (<InteractionCard upperText={<><EventIcon />{t('patient.reminders.appointments').split(" ")[0]}</>} id="intro-reminders-card">
 
         <div className={classes.upcoming}>
             <div className={classes.reminderTitle}>

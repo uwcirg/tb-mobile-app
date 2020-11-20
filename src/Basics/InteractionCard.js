@@ -27,10 +27,16 @@ const useStyles = makeStyles({
     },
     upperText: {
         ...Styles.secondaryText,
+
         textAlign: "left",
         width: "85%",
         margin: "auto",
-        display: "block"
+        display: "flex",
+        alignItems: "center",
+        "& > svg":{
+            fontSize: "1.25em",
+            marginRight: ".25em"
+        }
     },
     noPadding: {
 

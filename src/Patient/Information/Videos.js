@@ -3,13 +3,7 @@ import makeStyles from '@material-ui/styles/makeStyles';
 import PreviewOne from './ministry-of-health-video.jpg';
 import PreviewTwo from './province-of-misiones-video.png';
 import { Button } from '@material-ui/core';
-import Interactioncard from '../../Basics/InteractionCard'
 import Colors from '../../Basics/Colors'
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({

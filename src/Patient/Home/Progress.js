@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import ClickableText from '../../Basics/ClickableText';
 import TreatmentTimeline, { Panel, MonthPreview } from '../../Basics/TreatmentTimeline'
 import Typography from '@material-ui/core/Typography';
+import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 
 
 const ProgressGraph = observer((props) => {
@@ -25,7 +26,7 @@ const ProgressGraph = observer((props) => {
     }
 
     return (
-        <InteractionCard id="intro-progress-card" upperText={t("patient.home.cardTitles.myProgress")}>
+        <InteractionCard id="intro-progress-card" upperText={<><TrendingUpIcon /> {t("patient.home.cardTitles.myProgress")}</>}>
             <div className={classes.container}>
                 <div className={classes.topSection}>
                     <div className={classes.graph}>

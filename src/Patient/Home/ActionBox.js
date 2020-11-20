@@ -13,6 +13,7 @@ import Styles from '../../Basics/Styles';
 import { ReactComponent as DoctorIcon } from '../../Basics/Icons/doctor.svg';
 import CheckIcon from '@material-ui/icons/Check';
 import Colors from '../../Basics/Colors';
+import ActionIcon from '@material-ui/icons/PlaylistAddCheck';
 
 const useStyles = makeStyles({
     confirmation:{
@@ -67,7 +68,7 @@ const ActionBox = observer(() => {
     }
 
     return(
-        <InteractionCard upperText={t("patient.home.cardTitles.todaysTasks")} id="intro-tasks">
+        <InteractionCard upperText={<><ActionIcon />{t("patient.home.cardTitles.todaysTasks")}</>} id="intro-tasks">
             {patientStore.dailyActionsCompleted ? 
             <>
             <Confirmation onClick={patientUIStore.editReport} />
