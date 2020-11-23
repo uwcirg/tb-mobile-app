@@ -91,7 +91,7 @@ const LanguageQuestion = observer(() => {
 
 const Debugging = observer((props) => {
     const classes = useStyles();
-    const { patientStore } = useStores();
+    const { patientStore,uiStore } = useStores();
 
     return (
         <>
@@ -109,6 +109,7 @@ const Debugging = observer((props) => {
                         value={patientStore.patientInformation.daysInTreatment}
                         onChange={(e) => { patientStore.patientInformation.daysInTreatment = e.target.value }}
                     />
+                            <p>Visibily Change Count{ uiStore.visibilityChangeCount}</p>
                 </div> :
                 ""}
         </>
