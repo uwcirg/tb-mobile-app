@@ -30,8 +30,9 @@ const VersionNumber = () => {
     return (<div className={classes.container}>
         <Typography variant="body1">{t('patient.information.version')}: </Typography> 
         <a href={`https://github.com/uwcirg/tb-mobile-app/commit/${process.env.REACT_APP_BUILD_NUMBER}`}>
-            {versionNumber}
+            Test: {versionNumber}
         </a>
+        
     </div>)
 
 }

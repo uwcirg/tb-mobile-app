@@ -33,7 +33,6 @@ const SWWrapper = (props) => {
 
   //Called On render
   useEffect( () => {
-    // Add this back in{ onUpdate: onSWUpdate }
     serviceWorker.register({ onUpdate: setUpdateAvailable }, setUpdateAvailable);
     document.addEventListener('visibilitychange', listener)
 
