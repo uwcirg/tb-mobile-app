@@ -346,6 +346,8 @@
             ]
         },
         "information": {
+            "changeLog": "Registro de Cambios de la Aplicación",
+            "version": "Versión",
             "questions": "Preguntas y respuestas",
             "education": "Información Importante Para Conocer",
             "helpSection": "Ayuda con la Aplicación",
