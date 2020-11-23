@@ -128,7 +128,7 @@ const useStyles = makeStyles({
         width: "50px",
         height: "50px",
         borderRadius: "25px",
-        backgroundColor: Colors.accentBlue,
+        backgroundColor: Colors.approvedGreen,
         position: "relative",
         color: "white",
         margin: "auto"

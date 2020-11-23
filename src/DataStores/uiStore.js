@@ -6,9 +6,6 @@ export class UIStore {
         this.router = routerStore;
     }
 
-    //TODO Remove this test variable
-    @observable visibilityChangeCount = 0;
-
     @observable authError = false;
 
     @observable userInt = 0;
