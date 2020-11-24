@@ -8,7 +8,6 @@ import { useTranslation } from 'react-i18next';
 import Colors from '../../Basics/Colors'
 import { Button } from '@material-ui/core';
 import useStores from '../../Basics/UseStores';
-import Typography from '@material-ui/core/Typography';
 import Videos from './Videos';
 import Section from './Section'
 import VideoIcon from '@material-ui/icons/OndemandVideo';
@@ -31,6 +30,7 @@ import steps from '../Walkthrough/Steps';
 import VersionNumber from './VersionNumber'
 
 import ChangeLog from '../../Basics/Changelog'
+import HelpVideos from './HelpVideos'
 
 const file = raw("./information.md");
 const messagesFile = raw("../../Content/TreatmentMessages.json")
@@ -117,9 +117,7 @@ export default function Info() {
                     <TCButton step={7} ><CalendarIcon />{t('patient.information.walkthrough.calendar')}</TCButton>
                     <TCButton step={10} ><ChatIcon />{t('patient.information.walkthrough.messaging')}</TCButton>
                     <h2>{t('patient.information.helpVideos')}</h2>
-                    <Button className={classes.button} href="https://youtu.be/6zq6E_COEYo">Instrucciones para hacer un reporte diaria </Button>
-                    <Button className={classes.button} href="https://youtu.be/3xDBB3MVmeU">Instrucciones para hacer una prueba de las tiras reactivas</Button>
-                    <Button className={classes.button} href="https://youtu.be/FGLdEW7cR0k">Otras Partes de la Aplicación</Button>
+                    <HelpVideos />
                 </div>
             </Section>
             <Section title={<><VideoIcon />{t('patient.information.videos')}</>}>

@@ -34,7 +34,7 @@ const NewButton = (props) => {
 
     const classes = useStyles();
 
-    return(<ButtonBase onClick={props.onClick} className={`${classes.button} ${props.positive && classes.positive} ${props.className && props.className}`}>
+    return(<ButtonBase onClick={props.onClick} href={props.href} className={`${classes.button} ${props.positive && classes.positive} ${props.className && props.className}`}>
         {props.icon}
         <span className={classes.text}>{props.text}</span>
         {props.positive ? <Check className={classes.rightIcon} /> : <ChevronRight className={classes.rightIcon} />}

@@ -9,6 +9,7 @@ import EducationalMessage from './Education'
 import Reminders from './Reminders'
 import MedicationReminder from './MedicationReminder'
 import CachedReports from './CachedReports'
+import VideoCard from './Videos'
 
 const HomePage = () => {
 
@@ -17,6 +18,7 @@ const HomePage = () => {
             <EducationalMessage />
             <Greeting />
             <ActionBox />
+            <VideoCard />
             <CachedReports />
             <Progress />
             <MedicationReminder />
