@@ -41,14 +41,14 @@ const useStyles = makeStyles({
     }
 })
 
-const VideoCard = () => {
+const VideoCard = (props) => {
 
     const classes = useStyles();
     const [showLinks, setShowLinks] = useState(false);
 
     return (
 
-        <InteractionCard bottomButton upperText={<><SmallVideoIcon /> Instructional Videos</>}>
+        <InteractionCard bottomButton hide={props.hide} upperText={<><SmallVideoIcon /> Instructional Videos</>}>
             <div className={classes.container}>
                 <div>
                     Need help using the app?

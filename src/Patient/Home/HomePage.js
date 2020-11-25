@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Progress from './Progress';
 import ActionBox from './ActionBox';
@@ -10,15 +10,36 @@ import Reminders from './Reminders'
 import MedicationReminder from './MedicationReminder'
 import CachedReports from './CachedReports'
 import VideoCard from './Videos'
+import localforage from 'localforage'
+
+const HIDE_VIDEO_KEY = "isVideoCardHidden"
 
 const HomePage = () => {
+
+    const [hideVideo,setHideVideo] = useState(true);
+
+    const checkVideosHiden = () => {
+        localforage.getItem(HIDE_VIDEO_KEY).then(value => {
+            setHideVideo(value === true)    
+        })
+    }
+
+    const hideVideos = () => {
+        localforage.setItem(HIDE_VIDEO_KEY,true).then(value =>{
+            setHideVideo(true);
+        })
+    }
+    
+    useEffect(()=>{
+        checkVideosHiden();
+    },[])
 
     return (
         <Body>
             <EducationalMessage />
             <Greeting />
             <ActionBox />
-            <VideoCard />
+            {!hideVideo && <VideoCard hide={hideVideos} />}
             <CachedReports />
             <Progress />
             <MedicationReminder />

@@ -53,7 +53,7 @@ const InteractionCard = (props) => {
             {props.children}
         </Paper>
         {props.bottomButton && <div className={classes.bottomText}>
-            <span onClick={()=>{alert("Hide")}}> Hide This</span>
+            <span onClick={props.hide}> Hide This</span>
             <HideIcon style={{fontSize: "1.25em", marginLeft: ".5em"}} />
             </div>}
             
