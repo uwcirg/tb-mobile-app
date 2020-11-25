@@ -48,7 +48,7 @@ const VideoCard = () => {
 
     return (
 
-        <InteractionCard upperText={<><SmallVideoIcon /> Instructional Videos</>}>
+        <InteractionCard bottomButton upperText={<><SmallVideoIcon /> Instructional Videos</>}>
             <div className={classes.container}>
                 <div>
                     Need help using the app?

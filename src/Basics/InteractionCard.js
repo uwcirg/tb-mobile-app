@@ -1,12 +1,8 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import { DateTime } from 'luxon';
-import NewButton from './NewButton';
 import Styles from './Styles'
-
-import Clipboard from '@material-ui/icons/Assignment'
 import Paper from '@material-ui/core/Paper';
-import Camera from '@material-ui/icons/CameraAlt';
+import HideIcon from '@material-ui/icons/VisibilityOff';
 
 
 
@@ -38,8 +34,12 @@ const useStyles = makeStyles({
             marginRight: ".25em"
         }
     },
-    noPadding: {
-
+    bottomText:{
+        ...Styles.secondaryText,
+        width: "90%",
+        display: "flex",
+        justifyContent: "flex-end",
+        alignItems: "center"
     }
 })
 
@@ -52,6 +52,11 @@ const InteractionCard = (props) => {
         <Paper id={props.id} className={`${classes.container}  ${props.noPadding && classes.noPadding} ${props.className}`}>
             {props.children}
         </Paper>
+        {props.bottomButton && <div className={classes.bottomText}>
+            <span onClick={()=>{alert("Hide")}}> Hide This</span>
+            <HideIcon style={{fontSize: "1.25em", marginLeft: ".5em"}} />
+            </div>}
+            
     </div>)
 
 }

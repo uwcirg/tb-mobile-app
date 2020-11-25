@@ -16,7 +16,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import { StaticVersion as ErrorReporting } from '../../Basics/ErrorBoundary'
 import ErrorIcon from '@material-ui/icons/ReportProblem';
 import Instructions from './TestInstructions'
-import TestIcon from '@material-ui/icons/Colorize'
+import TestIcon from '@material-ui/icons/FormatColorFill'
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 import TrackChangesIcon from '@material-ui/icons/TrackChanges';
 
