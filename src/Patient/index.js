@@ -32,7 +32,7 @@ const PatientHome = observer((props) => {
 
   useEffect(() => {
     if (patientStore.userID) {
-      pushInstruction('setUserId', patientStore.userID);
+      pushInstruction('setUserId', `P${patientStore.userID}`);
     }
   }, [patientStore.userID])
 
