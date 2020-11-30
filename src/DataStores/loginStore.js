@@ -30,8 +30,6 @@ export default class LoginStore extends APIStore {
     @observable activationWasSuccessful = false;
     @observable activationLoading = false;
 
-    @observable userId = "";
-
     activationBody = {
         phoneNumber: "",
         activationCode: "",
@@ -82,7 +80,6 @@ export default class LoginStore extends APIStore {
     @action handleAuthentication = (json) => {
         if (json && json.user_id) {
             this.persistUserData(json);
-            this.userId = json.user_id;
             return json.user_type
         }
         return false;
