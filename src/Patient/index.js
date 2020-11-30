@@ -19,7 +19,7 @@ const PatientHome = observer((props) => {
   const { patientUIStore, patientStore, uiStore, dailyReportStore } = useStores();
   const tabs = [<Home />, <Progress />, <Messaging />, <Info />];
   const routeTab = tabs[patientUIStore.tabNumber]
-  const { pushInstruction } = useMatomo();
+  const {trackPageView, pushInstruction } = useMatomo();
 
   //When tab is changed, make sure that we scroll to the top so user doesnt get lost
   useEffect(() => {
@@ -35,6 +35,12 @@ const PatientHome = observer((props) => {
       pushInstruction('setUserId', `P${patientStore.userID}`);
     }
   }, [patientStore.userID])
+
+  useEffect(()=>{
+    const TEXT_OPTIONS = ['Home','Progress', 'Messaging', 'Information'];
+    trackPageView({documentTitle: TEXT_OPTIONS[patientUIStore.tabNumber]
+  });
+  },[patientUIStore.tabNumber])
 
   autorun(() => {
     if (!uiStore.offline && dailyReportStore.numberOfflineReports > 0) {
