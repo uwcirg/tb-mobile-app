@@ -11,13 +11,6 @@ workbox.precaching.precacheAndRoute(self.__precacheManifest || []);
 
 //Edit this to refresh the service worker
 
-
-//Loads variable named react_env
-importScripts('./config.js');
-
-const baseURL = react_env.URL_CLIENT;
-const apiURL = react_env.URL_API;
-
 if (workbox) {
   console.log(`Yay! Workbox is loaded 🎉`);
 
@@ -25,25 +18,9 @@ if (workbox) {
   console.log(`Boo! Workbox didn't load 😬`);
 }
 
-// workbox.precaching.precacheAndRoute([
-//   {url: '/index.html', revision: '383676' }
-// ]);
-
-// workbox.routing.registerRoute(
-//   /\.(?:js|css)$/,
-//   workbox.strategies.staleWhileRevalidate({
-//     cacheName: "static-resources",
-//     plugins: [
-//       new workbox.expiration.ExpirationPlugin({
-//         maxEntries: 60,
-//         maxAgeSeconds: 20 * 24 * 60 * 60, // 20 Days
-//       }),
-//     ],
-//   })
-// );
-
 try {
 
+  /*
   workbox.routing.registerRoute(
     /\.(?:js|css|json|html)$/,
     new NetworkFirst()
@@ -53,6 +30,7 @@ try {
     `${baseURL}`,
     new NetworkFirst()
   )
+  */
 
   workbox.routing.registerRoute('/logo.png', new NetworkFirst())
 
