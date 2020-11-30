@@ -71,7 +71,7 @@ const VideoButton = (props) => {
         trackEvent({ category: 'help-videos', action: 'click-event', value: props.id })
     }
     return(
-        <NewButton href={props.link && null} positive={props.videoState[props.id]} className={classes.button} onClick={handleClick}  icon={props.icon} text={props.text} />
+        <NewButton href={props.link} positive={props.videoState[props.id]} className={classes.button} onClick={handleClick}  icon={props.icon} text={props.text} />
     )
 }
 

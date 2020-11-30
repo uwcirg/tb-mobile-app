@@ -55,12 +55,14 @@ try {
   )
 
   workbox.routing.registerRoute('/logo.png', new NetworkFirst())
-  workbox.routing.registerRoute('/config.js', new NetworkFirst())
 
   // This assumes /app-shell.html has been precached.
   const handler = createHandlerBoundToURL('/index.html');
   const navigationRoute = new NavigationRoute(handler);
   registerRoute(navigationRoute);
+
+  //Workaround to refresh config options
+  workbox.routing.registerRoute(`${react_env.URL_CLIENT}/config.js`, new NetworkFirst())
 
   
 } catch (error) {
