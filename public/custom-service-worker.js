@@ -40,7 +40,7 @@ try {
   registerRoute(navigationRoute);
 
   //Workaround to refresh config options
-  workbox.routing.registerRoute(`${react_env.URL_CLIENT}/config.js`, new NetworkFirst())
+  //workbox.routing.registerRoute(`${react_env.URL_CLIENT}/config.js`, new NetworkFirst())
 
   
 } catch (error) {

@@ -59,10 +59,18 @@ const Main = observer(() => {
   const { uiStore, loginStore } = useStores();
   const {trackPageView} = useMatomo();
 
+  let versionNumber = process.env.REACT_APP_GITHUB_VERSION || "Unknown";
+
   useEffect(() => {
     initalizeApplicationState();
     listenForConnectivityChanges();
-    trackPageView({documentTitle: 'Main App Render'});
+    trackPageView({documentTitle: 'Main App Render',
+    customDimensions: [
+      {
+        appVersionNumber: versionNumber
+      },
+    ]
+  });
   }, [])
 
   const listenForConnectivityChanges = () => {
