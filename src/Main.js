@@ -57,9 +57,16 @@ const UserHome = observer(() => {
 
 const Main = observer(() => {
   const { uiStore, loginStore } = useStores();
-  const {trackPageView} = useMatomo();
+  const {trackPageView,pushInstruction} = useMatomo();
 
   let versionNumber = process.env.REACT_APP_GITHUB_VERSION || "Unknown";
+
+  //Link Matomo Data to app user information
+  useEffect(()=>{
+    if(loginStore.userId){
+      pushInstruction('setUserId', loginStore.userId);
+    }
+  },[loginStore.userId])
 
   useEffect(() => {
     initalizeApplicationState();
