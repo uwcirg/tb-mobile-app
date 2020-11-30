@@ -12,6 +12,7 @@ import ExpertView from './Expert';
 import Boundry from './Basics/ErrorBoundary'
 import CheckAuthorization from './Basics/HandleAuthorizationError'
 import SWWrapper from './ServiceWorkerWrapper'
+import { useMatomo } from '@datapunt/matomo-tracker-react'
 
 const theme = createMuiTheme({
 
@@ -56,15 +57,13 @@ const UserHome = observer(() => {
 
 const Main = observer(() => {
   const { uiStore, loginStore } = useStores();
+  const {trackPageView} = useMatomo();
 
   useEffect(() => {
     initalizeApplicationState();
     listenForConnectivityChanges();
+    trackPageView({documentTitle: 'Main App Render'});
   }, [])
-
-  useEffect(()=>{
-
-  },[])
 
   const listenForConnectivityChanges = () => {
     window.addEventListener('online', () => {

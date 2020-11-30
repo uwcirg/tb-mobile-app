@@ -239,7 +239,14 @@
                 "myProgress": "My Progress",
                 "myLearning": "My Learning"
             },
-            "confirmAndSubmit": "Please Confirm and Submit Your Report"
+            "confirmAndSubmit": "Please Confirm and Submit Your Report",
+            "helpVieos":{
+                "needHelp": "Need help with the application?",
+                "hide": "Hide",
+                "seeAll": "Show All Videos",
+                "collapse": "Hide List",
+                "viewOnInfo": "You can always see these videos on the information page"
+            }
         },
         "profile": {
             "title": "Settings",

@@ -55,6 +55,7 @@ try {
   )
 
   workbox.routing.registerRoute('/logo.png', new NetworkFirst())
+  workbox.routing.registerRoute('/config.js', new NetworkFirst())
 
   // This assumes /app-shell.html has been precached.
   const handler = createHandlerBoundToURL('/index.html');

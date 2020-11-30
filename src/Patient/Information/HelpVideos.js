@@ -5,6 +5,7 @@ import NewButton from '../../Basics/NewButton'
 import Clipboard from '@material-ui/icons/Assignment'
 import ColorFill from '@material-ui/icons/FormatColorFill'
 import DeviceUnknown from '@material-ui/icons/DeviceUnknown'
+import { useMatomo } from '@datapunt/matomo-tracker-react'
 
 const CACHE_KEY = "helpVideoState";
 
@@ -63,12 +64,14 @@ const HelpVideos = () => {
 
 const VideoButton = (props) => {
     const classes = useStyles();
+    const {trackEvent} = useMatomo();
 
     const handleClick = () => {
-        updateVideoState(props.id).then(props.updateState)
+        updateVideoState(props.id).then(props.updateState);
+        trackEvent({ category: 'help-videos', action: 'click-event', value: props.id })
     }
     return(
-        <NewButton href={props.link} positive={props.videoState[props.id]} className={classes.button} onClick={handleClick}  icon={props.icon} text={props.text} />
+        <NewButton href={props.link && null} positive={props.videoState[props.id]} className={classes.button} onClick={handleClick}  icon={props.icon} text={props.text} />
     )
 }
 
