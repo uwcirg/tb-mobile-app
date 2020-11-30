@@ -240,10 +240,10 @@
                 "myLearning": "My Learning"
             },
             "confirmAndSubmit": "Please Confirm and Submit Your Report",
-            "helpVieos":{
+            "helpVideos":{
                 "needHelp": "Need help with the application?",
                 "hide": "Hide",
-                "seeAll": "Show All Videos",
+                "seeAll": "See All Video Tutorials",
                 "collapse": "Hide List",
                 "viewOnInfo": "You can always see these videos on the information page"
             }

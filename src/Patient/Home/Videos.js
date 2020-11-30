@@ -10,6 +10,8 @@ import Grow from '@material-ui/core/Collapse'
 import ClickableText from '../../Basics/ClickableText'
 import DownIcon from '@material-ui/icons/KeyboardArrowDown'
 import UpIcon from '@material-ui/icons/KeyboardArrowUp'
+import { useTranslation } from 'react-i18next';
+
 
 const useStyles = makeStyles({
     container: {
@@ -45,14 +47,15 @@ const VideoCard = (props) => {
 
     const classes = useStyles();
     const [showLinks, setShowLinks] = useState(false);
+    const { t, i18n } = useTranslation('translation');
 
     return (
 
-        <InteractionCard bottomButton hide={props.hide} upperText={<><SmallVideoIcon /> Instructional Videos</>}>
+        <InteractionCard bottomButton hide={props.hide} upperText={<><SmallVideoIcon /> {t('patient.information.helpVideos')}</>}>
             <div className={classes.container}>
                 <div>
-                    Need help using the app?
-    <ClickableText className={classes.showButton} hideIcon text={<>{ showLinks ? <UpIcon /> : <DownIcon />} {showLinks ? "Hide" : "See Video Tutorials"}</>} onClick={() => { setShowLinks(!showLinks) }} />
+                    {t('patient.home.helpVideos.needHelp')}
+    <ClickableText className={classes.showButton} hideIcon text={<>{ showLinks ? <UpIcon /> : <DownIcon />} {showLinks ? t('patient.home.helpVideos.hide'): t('patient.home.helpVideos.seeAll')}</>} onClick={() => { setShowLinks(!showLinks) }} />
                 </div>
                 <VideoIcon />
             </div>
