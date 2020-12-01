@@ -46,7 +46,7 @@
             "hideUI": "Hide",
             "hide": "Hide from patients",
             "unhide": "Unhide message",
-            "isHidden": "This message has been hidden form patients",
+            "isHidden": "This message has been hidden from patients",
             "view": "View Message"
 
         },
@@ -402,7 +402,7 @@
         },
         "sore_belly": {
             "title": "Upset Stomach",
-            "subtitle": "Soreness of belly"
+            "subtitle": "Having a stomach ache or other stomach irritability"
         },
         "yellow_coloration": {
             "title": "Yellow Coloration",

@@ -239,7 +239,14 @@
                 "myProgress": "Mi Progreso",
                 "myLearning": "Aprendizaje"
             },
-            "confirmAndSubmit": "Por Favor Confirme y Envíe su Reporte"
+            "confirmAndSubmit": "Por Favor Confirme y Envíe su Reporte",
+            "helpVideos":{
+                "needHelp": "¿Necesita ayuda con la aplicación?",
+                "hide": "Esconder",
+                "seeAll": "Ver Todos Los Vídeos",
+                "collapse": "Esconder Lista",
+                "viewOnInfo": "Siempre puedes ver estos videos en la página de información."
+            }
         },
         "profile": {
             "title": "Configuración",
