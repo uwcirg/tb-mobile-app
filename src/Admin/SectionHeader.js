@@ -5,7 +5,8 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles({
     sectionHeader:{
         width: "100%",
-        fontSize: "2em"
+        fontSize: "2em",
+        marginBottom: ".5em"
     }
 })
 

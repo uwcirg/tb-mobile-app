@@ -8,6 +8,7 @@ import AddOrganization from './AddOrganization';
 import TopBar from './TopBar'
 import Summary from './TrialSummary'
 import PhotoSummary from './PhotoSummary';
+import SiteSummary from './SiteSummary';
 
 const useStyles = makeStyles({
    dashboardContainer:{
@@ -29,6 +30,7 @@ const AdminHome = observer(() => {
         <div className={classes.dashboardContainer}>
             <TopBar />
             <Summary />
+            <SiteSummary />
             <PhotoSummary />
 
           {/*  <div className={classes.cardContainer}>

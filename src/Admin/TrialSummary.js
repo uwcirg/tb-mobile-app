@@ -38,9 +38,9 @@ const Cards = ({data}) => {
     
     return (<div className={classes.cardsContainer}>
         <SectionHeader>Patients</SectionHeader>
-        <SummaryCard title="Active" number={data.active} color={Colors.buttonBlue}  />
+        <SummaryCard title="Active" number={data.active}  />
         <SummaryCard title="High Priority" number={data.priorities.high} color={Colors.warningRed} />
-        <SummaryCard title="Low Priority" number={data.priorities.low || 0} color={Colors.calendarGreen} />
+        <SummaryCard title="Low Priority" number={data.priorities.low || 0} color={Colors.green} />
     </div>)
 
 }

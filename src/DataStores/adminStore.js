@@ -14,11 +14,13 @@ export default class AdminStore extends UserStore {
     @observable sites = []
     @observable summary = {
         data: {},
-        loading: true
+        loading: true,
+        error: false
     }
     @observable recentPhotos = {
         data: [],
-        loading: true
+        loading: true,
+        error: false
     }
 
     constructor(strategy) {

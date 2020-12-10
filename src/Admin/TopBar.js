@@ -7,12 +7,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import SettingsIcon from '@material-ui/icons/Settings';
 import Logout from '../Basics/Logout';
+import useStores from '../Basics/UseStores';
 
 const useStyles = makeStyles({
     topBar: {
+        backgroundColor: "white",
         position: "fixed",
         top: 0,
         left: 0,
+        zIndex: "10",
         width: "100%",
         display: "flex",
         justifyContent: "flex-start",
@@ -25,7 +28,8 @@ const useStyles = makeStyles({
         }
     },
     settings: {
-        marginLeft: "auto"
+        marginLeft: "auto",
+        marginRight: "1em"
     }
 })
 
@@ -35,7 +39,7 @@ const AdminTopBar = () => {
     return (
         <div className={classes.topBar}>
             <img src="/logo.png" />
-            <Typography variant="h1">Treatment Assistant Trial Dashboard</Typography>
+            <Typography variant="h1">Trial Dashboard</Typography>
             <Settings />
         </div>
     )
@@ -45,6 +49,7 @@ const AdminTopBar = () => {
 function Settings() {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+    const {uiStore} = useStores();
 
     const logout = Logout();
 
@@ -60,6 +65,11 @@ function Settings() {
         handleClose();
         logout();
     };
+
+    const handleLanguage = () => {
+        uiStore.toggleLanguage();
+        handleClose();
+    }
 
     const classes = useStyles();
 
@@ -82,6 +92,9 @@ function Settings() {
             >
                 <MenuItem onClick={handleLogout}>
                     Log Out
+                </MenuItem>
+                <MenuItem onClick={handleLanguage}>
+                    Toggle Language
                 </MenuItem>
             </Menu>
         </div>
