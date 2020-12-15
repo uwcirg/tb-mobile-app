@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
         paddingTop: "60px"
     },
     keyButton: {
-        fontSize: ".9em",
+        fontSize: "1em",
         margin: ".25em 0 .5em 0",
         "& > svg": {
             marginRight: "5px",
@@ -66,8 +66,8 @@ const Progress = observer(() => {
     const [showKey, setShowKey] = useState(false);
 
     const classes = useStyles();
-    const { patientStore, patientUIStore } = useStores();
-    const { t, i18n } = useTranslation('translation');
+    const { patientUIStore } = useStores();
+    const { t } = useTranslation('translation');
 
     if (patientUIStore.onHistoricalReport) return (<ReportOldMedication />)
     if (patientUIStore.onAddMilestone) return (<AddMilestone handleBack={patientUIStore.goToProgress} />)
