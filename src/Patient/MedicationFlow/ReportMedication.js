@@ -86,7 +86,7 @@ const TimeQuestion = observer(() => {
     }
 
     const handleChange = (timeType, newValue) => {
-        const isValidChange = (timeType === "hour" && newValue < 24) || (timeType === "minute" && newValue < 60)
+        const isValidChange = ((timeType === "hour" && newValue < 24) || (timeType === "minute" && newValue < 60)) && newValue >= 0
         if (isValidChange) {
             let changes = {}
             changes[timeType] = newValue;
@@ -170,7 +170,7 @@ const ReportMedication = observer((props) => {
             <Container id="intro-medication-time">
                 {patientStore.report.tookMedication ? <DidTakeMedication toggle={toggleTookMedication} /> : <DidntTakeMedication toggle={toggleTookMedication} />}
                 <SimpleButton alignRight onClick={handleNext}>{t("patient.report.next")}</SimpleButton>
-                <div>{DateTime.fromISO(patientStore.report.timeTaken).toLocaleString(DateTime.DATETIME_FULL)}</div>
+                {/*<div>{DateTime.fromISO(patientStore.report.timeTaken).toLocaleString(DateTime.DATETIME_FULL)}</div>*/}
             </Container>
         </>
     )

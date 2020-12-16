@@ -68,7 +68,7 @@ const SingleSide = (props) => {
     }
 
     const handleChange = (event) => {
-        props.handleChange(props.timeType, event.target.value)
+        props.handleChange(props.timeType, event.target.value);
     }
 
 

@@ -131,7 +131,6 @@ const CustomCalendar = () => {
 
     return (
         <Calendar
-            
             tileDisabled={({ date }) => {
                 return  checkDisabled(date)
             }}
@@ -207,15 +206,12 @@ const Day = observer((props) => {
 const DemoDay = (props) => {
     const classes = useStyles();
 
-
-
     return(
         <div style={{width: "40px",height: "40px" }} className={`${classes.day} ${classes.single} ${!props.modifier && (props.tookMedication ? classes.positive : classes.negative)}`}>
             <p>{props.date}</p>
             {props.modifier ? <div style={props.symptom && {backgroundColor: Colors.yellow}} className={classes.modifier}> </div> : ""}
         </div>
     )
-
 }
 
 export default CustomCalendar;

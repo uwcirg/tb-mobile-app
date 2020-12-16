@@ -369,6 +369,7 @@ export class PatientStore extends UserStore {
 
         if (json) {
             const lsReport = JSON.parse(json);
+            //Check if the report was from a previous day, if not load the default report
             if (lsReport.date && Math.floor(DateTime.fromISO(lsReport.date).diffNow("days").days * -1) === 0) {
                 this.report = lsReport
                 return

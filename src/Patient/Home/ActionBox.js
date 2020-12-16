@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import NewButton from '../../Basics/NewButton';
 import Clipboard from '@material-ui/icons/Assignment'
 import Camera from '@material-ui/icons/CameraAlt';
@@ -54,6 +54,19 @@ const ActionBox = observer(() => {
     const {patientStore,patientUIStore} = useStores();
     const { t, i18n } = useTranslation('translation');
 
+    const [counter, changeCounter] = useState(0);
+ 
+    //Once a minute refresh the local report check
+    //Prevents a bug where the old state can be shown until the page is refreshed
+    useEffect(() => {
+      const interval = setInterval(() => {
+        changeCounter(prevCounter => prevCounter + 1);
+        patientStore.loadDailyReport();
+      }, 60000);
+   
+      return () => clearInterval(interval);
+    }, []);
+
     const handleReportClick = () =>{
         //patientStore.uiState.onTreatmentFlow = true;
         patientUIStore.moveToReportFlow();
@@ -68,7 +81,7 @@ const ActionBox = observer(() => {
 
     return(
         <InteractionCard upperText={<><ActionIcon />{t("patient.home.cardTitles.todaysTasks")}</>} id="intro-tasks">
-            {patientStore.dailyActionsCompleted ? 
+            {counter >= 0 && patientStore.dailyActionsCompleted ? 
             <>
             <Confirmation onClick={patientUIStore.editReport} />
             </>
