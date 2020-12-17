@@ -147,7 +147,8 @@
             },
             "success": "Finalizing Account Setup",
             "next": "Next",
-            "endText": "Thank you for your input, lets get started!"
+            "endText": "Thank you for your input, lets get started!",
+            "activationError": "There was an error activating your account. Contact your coordinator for help."
         },
         "walkthrough": {
             "swipe": "Swipe Left See More",

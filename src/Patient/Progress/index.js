@@ -16,6 +16,7 @@ import QuestionIcon from '@material-ui/icons/HelpOutline';
 
 import Key from './Key'
 import PreventOffline from '../../Basics/PreventOffline';
+import { DateTime } from 'luxon';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -66,8 +67,10 @@ const Progress = observer(() => {
     const [showKey, setShowKey] = useState(false);
 
     const classes = useStyles();
-    const { patientUIStore } = useStores();
+    const { patientUIStore, patientStore } = useStores();
     const { t } = useTranslation('translation');
+
+    console.log(patientStore.datetimeTreatmentStart.toLocaleString(DateTime.DATETIME_FULL));
 
     if (patientUIStore.onHistoricalReport) return (<ReportOldMedication />)
     if (patientUIStore.onAddMilestone) return (<AddMilestone handleBack={patientUIStore.goToProgress} />)

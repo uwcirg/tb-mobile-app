@@ -1,4 +1,4 @@
-import { action, observable, computed, autorun, toJS } from "mobx";
+import { action, observable, computed} from "mobx";
 import APIStore from './apiStore'
 import { DateTime } from "luxon";
 
@@ -27,6 +27,7 @@ export class ActivationStore extends APIStore {
     }
 
     @observable activationError = false;
+    @observable activtionErrorDetail = "";
     @observable activationSuccess = false;
 
     @observable passwordUpdate = {
@@ -36,7 +37,6 @@ export class ActivationStore extends APIStore {
         passwordConfirmation: ""
   
     }
-
 
     @action addToNumberOfContacts(value) {
         const temp = this.onboardingInformation.numberOfContacts + value;
@@ -55,9 +55,11 @@ export class ActivationStore extends APIStore {
         return this.executeRequest('activate', this.onboardingInformation,{allowErrors: true}).then(json => {
             if(json.error){
                 this.activationError = true;
+                this.activtionErrorDetail = json.error;
+            }else{
+                this.activationSuccess = true;
             }
             this.isLoading = false;
-            this.activationSuccess = true;
         })
     }
 
@@ -71,6 +73,11 @@ export class ActivationStore extends APIStore {
             this.passwordUpdate.passwordLoading = false;
             this.passwordUpdate.passwordAccepted = true;
         });
+    }
+
+    @action clearActivationError = () => {
+        this.activationError = false;
+        this.activtionErrorDetail = "";
     }
 
     @computed get checkPasswords() {

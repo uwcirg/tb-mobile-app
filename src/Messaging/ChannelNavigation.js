@@ -30,6 +30,7 @@ const useStyles = makeStyles({
             fontSize: "1.25em",
             textAlign: "center"
         },
+        marginBottom: "60px"
     },
     header: {
         ...Styles.flexRow,

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { inject, observer } from 'mobx-react';
+import {observer } from 'mobx-react';
 import SimpleButton from '../../Basics/SimpleButton';
 import ButtonBase from '@material-ui/core/ButtonBase'
 import Camera from '../../ImageCapture/Camera';
@@ -12,6 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import PopUp from '../Navigation/PopUp';
 import Instructions from '../Information/TestInstructions';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
 
@@ -19,6 +20,7 @@ const useStyles = makeStyles({
         paddingLeft: "1.5em",
         fontSize: "1em",
         width: "100%",
+        justifyContent: "left",
         "& > span": {
             textAlign: "left",
             width: "100%",
@@ -35,6 +37,23 @@ const useStyles = makeStyles({
         textAlign: "left",
         marginLeft: "1em"
     },
+    button:{ 
+        width: "90%", 
+        margin: "5%",
+        color: Colors.buttonBlue,
+        "& > div":{
+            borderColor: Colors.buttonBlue,
+            border: "solid 2px",
+        },
+        borderRadius: "10px"
+    },
+    buttonText:{
+        width: "70%",
+        fontSize: "1em",
+        display: "flex",
+        alignItems: "center",
+        justifyContent:"center"
+    }
 
 })
 
@@ -87,10 +106,12 @@ const ReportPhoto = observer((props) => {
                 </>
                 :
                 <>
-                    <ButtonBase style={{ width: "90%", margin: "5%" }}>
+                    <ButtonBase className={classes.button}>
                         <PhotoPrompt onClick={() => { patientStore.uiState.cameraIsOpen = true }}>
                             <CameraAltIcon />
-                            {t("patient.report.photo.openCamera")}
+                            <Typography variant="body1" className={classes.buttonText}>
+                                {t("patient.report.photo.openCamera")}
+                                </Typography>
                         </PhotoPrompt>
                     </ButtonBase>
                     <ClickableText onClick={togglePopUp} className={classes.info} hideIcon text={<span>{t("patient.report.photo.how")}</span>} />

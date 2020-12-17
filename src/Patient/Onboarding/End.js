@@ -22,30 +22,29 @@ const useStyles = makeStyles({
 })
 
 function Alert(props) {
-    return(
-    <Snackbar open={open} anchorOrigin={{vertical: "top", horizontal: "center"}} onClose={props.handleClose} autoHideDuration={6000}>
-        <MuiAlert onClose={props.handleClose} elevation={6} variant="filled" {...props} />
-  </Snackbar>)
-  }
+    return (
+        <Snackbar open={open} anchorOrigin={{ vertical: "top", horizontal: "center" }} onClose={props.handleClose} autoHideDuration={6000}>
+            <MuiAlert onClose={props.handleClose} elevation={6} variant="filled" {...props} />
+        </Snackbar>)
+}
 
 const End = observer((props) => {
-    const { t, i18n } = useTranslation('translation');
+    const {t} = useTranslation('translation');
     const classes = useStyles();
     const { activationStore, patientStore, patientUIStore } = useStores();
 
     useEffect(() => {
         //On Successful Activation re pull in patient info + move
-        if(activationStore.activationSuccess){
-           patientStore.getPatientInformation().then( () => {
-            patientUIStore.goToHome();   
-            patientUIStore.goToWalkThrough();
-           })
+        if (activationStore.activationSuccess) {
+            patientStore.getPatientInformation().then(() => {
+                patientUIStore.goToHome();
+                patientUIStore.goToWalkThrough();
+            })
         }
-        return function cleanup(){
+        return function cleanup() {
             activationStore.activationSuccess = false;
-            activationStore.activationError = false;
         }
-    },[activationStore.activationSuccess])
+    }, [activationStore.activationSuccess])
 
     return (
         <>
@@ -53,7 +52,11 @@ const End = observer((props) => {
                 <div>
                     <DoctorIcon />
                     <Typography className={classes.text} variant="h2">{t('patient.onboarding.endText')}</Typography>
-                    {activationStore.activationError && <Alert handleClose={() => {activationStore.activationError = false}} severity="error">Error with account activation</Alert>}
+                    {activationStore.activationErrorDetail && <Typography variant="body1">Error:  {activationStore.activationErrorDetail} </Typography>}
+                    {activationStore.activationError &&
+                        <Alert handleClose={activationStore.clearActivationError} severity="error">
+                            {t("patient.onboarding.activationError")}
+                        </Alert>}
                 </div>
             </div>
             {React.cloneElement(props.button, {
