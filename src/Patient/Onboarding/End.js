@@ -40,7 +40,11 @@ const End = observer((props) => {
             patientUIStore.goToHome();   
             patientUIStore.goToWalkThrough();
            })
-        } 
+        }
+        return function cleanup(){
+            activationStore.activationSuccess = false;
+            activationStore.activationError = false;
+        }
     },[activationStore.activationSuccess])
 
     return (
