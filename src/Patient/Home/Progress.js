@@ -36,31 +36,39 @@ const ProgressGraph = observer((props) => {
                             rotation: 3 / 4,
                             strokeLinecap: "round"
                         })}>
-                            <p className={classes.progressText}>{patientStore.patientInformation.daysInTreatment} {t("commonWords.of")} <br /> 180 {t('time.days')}</p>
+                            <p className={classes.progressText}><span>{patientStore.patientInformation.daysInTreatment}</span> {t('time.days')}</p>
                         </CircularProgressbar>
                     </div>
                     <StatBox title={patientStore.getCurrentStreak} text={t('patient.home.progress.currentStreak')} />
                 </div>
+
+                {/*
+                <div className={classes.motivationalText}>
+                    <Typography variant="body1">{patientStore.getCurrentStreak === 0 ?
+                    <> Its important to take your medication every day. Please let us know if you need any support! </> : 
+                    <>Keep up the great work 👍</>} </Typography>
+                </div>
+                    */}
             </div>
             <div className={classes.bottomSection}>
                 <div className={classes.timelineHeader}>
-                <Typography variant="h2">{t('timeline.title')}</Typography>
-                <ClickableText onClick={expand} hideIcon text={showTimeline ? t('patient.home.progress.close') : t('patient.home.progress.viewAll')} />
+                    <Typography variant="h2">{t('timeline.title')}</Typography>
+                    <ClickableText onClick={expand} hideIcon text={showTimeline ? t('patient.home.progress.close') : t('patient.home.progress.viewAll')} />
                 </div>
                 <div className={classes.timeline}>
-                    {!showTimeline ? 
-                    <>
-                    <span>{t('timeline.here')} 📍</span>
-                    <div className="preview">
-                        <MonthPreview month={Math.floor(patientStore.patientInformation.weeksInTreatment / 4)} />
-                        <Panel weeksInTreatment={props.weeksInTreatment} title={`${t('timeline.followUp')}`} weekValue={24} noWeek week={t("timeline.twoMonths")} />
-                    </div></> :
+                    {!showTimeline ?
                         <>
-                        <br />
-                        <TreatmentTimeline weeksInTreatment={patientStore.patientInformation.weeksInTreatment} />
+                            <span>{t('timeline.here')} 📍</span>
+                            <div className="preview">
+                                <MonthPreview month={Math.floor(patientStore.patientInformation.weeksInTreatment / 4)} />
+                                <Panel weeksInTreatment={props.weeksInTreatment} title={`${t('timeline.followUp')}`} weekValue={24} noWeek week={t("timeline.twoMonths")} />
+                            </div></> :
+                        <>
+                            <br />
+                            <TreatmentTimeline weeksInTreatment={patientStore.patientInformation.weeksInTreatment} />
                         </>
-                        }
-                    {/* <button onClick={expand}>show all</button> */}     
+                    }
+                    {/* <button onClick={expand}>show all</button> */}
                 </div>
             </div>
         </InteractionCard>
@@ -85,7 +93,12 @@ const useStyles = makeStyles({
         margin: 0,
         position: "relative",
         top: "-1em",
-        fontSize: "110%"
+        fontSize: "100%",
+        width: "90%",
+        "& > span": {
+            fontSize: "2em",
+            fontWeight: "bold"
+        }
     },
     graph: {
         width: "50%",
@@ -109,7 +122,7 @@ const useStyles = makeStyles({
         fontSize: "2em",
         textAlign: "center",
         color: Colors.accentBlue,
-        margin: "0 .5em 0 0",
+        margin: "0",
         padding: 0,
     },
     statBoxText: {
@@ -133,7 +146,6 @@ const useStyles = makeStyles({
         height: "24vw",
         padding: ".5em",
         paddingLeft: "1em",
-        borderBottom: `solid 2px ${Colors.lightgray}`
     },
     bottomSection: {
         ...Styles.flexColumn,
@@ -160,7 +172,7 @@ const useStyles = makeStyles({
         boxSizing: "border-box",
         width: "100%",
         paddingBottom: ".5em",
-        "& > span":{
+        "& > span": {
             display: "block",
             fontSize: ".8em",
             color: Colors.textGray,
@@ -170,20 +182,20 @@ const useStyles = makeStyles({
         "& > button": {
             marginLeft: "auto"
         },
-        "& > .preview":{
+        "& > .preview": {
             display: "flex",
             alignItems: "flex-start",
             width: "90%",
             padding: "0 1em 0 1em",
-            "& > .monthPreview":{
+            "& > .monthPreview": {
                 marginRight: "1em"
             },
-            "& > div:nth-of-type(2)":{
+            "& > div:nth-of-type(2)": {
                 marginTop: 0
             }
         }
     },
-    timelineHeader:{
+    timelineHeader: {
         boxSizing: "border-box",
         width: "100%",
         display: "flex",
@@ -192,12 +204,27 @@ const useStyles = makeStyles({
             marginLeft: "1em",
             fontSize: "1em",
             textTransform: "capitalize",
-            fontWeight:"bold",
+            fontWeight: "bold",
         },
-        "& >  button":{
+        "& >  button": {
             marginLeft: "auto",
             marginRight: "1em"
         }
+    },
+    container: {
+        borderBottom: `solid 2px ${Colors.lightgray}`
+    },
+    motivationalText: {
+        width: "90%",
+        display: "flex",
+        justifyContent: "center",
+        fontSize: "1em",
+        color: Colors.textDarkGray,
+        "& > p":{
+            textAlign: "left"
+        },
+        margin: "auto",
+        marginBottom: "1em"
     }
 
 })

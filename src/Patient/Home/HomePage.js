@@ -36,7 +36,7 @@ const HomePage = () => {
 
     return (
         <Body>
-            <EducationalMessage />
+            <EducationalMessage/>
             <Greeting />
             <ActionBox />
             {!hideVideo && <VideoCard hide={hideVideos} />}
