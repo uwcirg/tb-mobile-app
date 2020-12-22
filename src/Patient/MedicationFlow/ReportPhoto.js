@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import SimpleButton from '../../Basics/SimpleButton';
 import ButtonBase from '@material-ui/core/ButtonBase'
 import Camera from '../../ImageCapture/Camera';
@@ -13,15 +13,21 @@ import { useTranslation } from 'react-i18next';
 import PopUp from '../Navigation/PopUp';
 import Instructions from '../Information/TestInstructions';
 import Typography from '@material-ui/core/Typography';
+import WarningBox from '../../Basics/WarningBox';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
 
 const useStyles = makeStyles({
 
     info: {
-        paddingLeft: "1.5em",
         fontSize: "1em",
         width: "100%",
+        display: "flex",
         justifyContent: "left",
+        alignItems: "center",
+        margin: ".5em 0 .5em 0",
         "& > span": {
+            alignItems: "center",
+            display: "flex",
             textAlign: "left",
             width: "100%",
             textTransform: "none"
@@ -32,27 +38,37 @@ const useStyles = makeStyles({
         width: "85%",
         overflowY: "scroll"
     },
-    title:{
+    title: {
         fontSize: "1.25em",
         textAlign: "left",
         marginLeft: "1em"
     },
-    button:{ 
-        width: "90%", 
-        margin: "5%",
+    button: {
+        width: "90%",
+        margin: "auto",
+        display: "flex",
         color: Colors.buttonBlue,
-        "& > div":{
+        "& > div": {
             borderColor: Colors.buttonBlue,
             border: "solid 2px",
         },
-        borderRadius: "10px"
+        borderRadius: "10px",
     },
-    buttonText:{
+    buttonText: {
         width: "70%",
         fontSize: "1em",
         display: "flex",
         alignItems: "center",
-        justifyContent:"center"
+        justifyContent: "center"
+    },
+    infoBox: {
+        width: "90%",
+        margin: "auto",
+        marginBottom: ".5em",
+        marginTop: ".5em"
+    },
+    leftMargin:{
+        marginLeft: "1.5em"
     }
 
 })
@@ -102,7 +118,7 @@ const ReportPhoto = observer((props) => {
             {patientStore.report.photoWasTaken ?
                 <>
                     <StripPhoto><img src={patientStore.report.photoString} /> </StripPhoto>
-                    <ClickableText className={classes.info} hideIcon onClick={handleRetake} text={t("patient.report.photo.retakePhoto")} />
+                    <ClickableText className={`${classes.info} ${classes.leftMargin}`} hideIcon onClick={handleRetake} text={t("patient.report.photo.retakePhoto")} />
                 </>
                 :
                 <>
@@ -111,11 +127,19 @@ const ReportPhoto = observer((props) => {
                             <CameraAltIcon />
                             <Typography variant="body1" className={classes.buttonText}>
                                 {t("patient.report.photo.openCamera")}
-                                </Typography>
+                            </Typography>
                         </PhotoPrompt>
                     </ButtonBase>
-                    <ClickableText onClick={togglePopUp} className={classes.info} hideIcon text={<span>{t("patient.report.photo.how")}</span>} />
-
+                    <WarningBox className={classes.infoBox}>
+                        <h2>Please remember to:</h2>
+                        <ul>
+                            <li>Let the test strip sit for 15 minutes</li>
+                            <li>Take the photo straight above</li>
+                            <li>Make sure the black and white marker is visible at the top of the photo</li>
+                            <li>Retake photo if blury</li>
+                            <ClickableText onClick={togglePopUp} className={classes.info} hideIcon text={<span>View Test Strip Instructions <KeyboardArrowRight /></span>} />
+                        </ul>
+                    </WarningBox>
                 </>}
             <SimpleButton alignRight onClick={handleNext} disabled={!patientStore.report.photoWasTaken} backgroundColor={Colors.green}>{t("patient.report.next")}</SimpleButton>
             {patientStore.uiState.cameraIsOpen ? <Camera handleExit={handleExit} returnPhoto={handlePhoto} /> : ""}
@@ -125,8 +149,8 @@ const ReportPhoto = observer((props) => {
 
 const PhotoPrompt = styled.div`
 width: 100%;
-height: 150px;
-background-color: lightgray;
+height: 100px;
+background-color: ${Colors.lightgray};
 display: flex;
 justify-content: center;
 flex-direction: column;
