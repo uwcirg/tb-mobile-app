@@ -67,7 +67,7 @@ const useStyles = makeStyles({
         marginBottom: ".5em",
         marginTop: ".5em"
     },
-    leftMargin:{
+    leftMargin: {
         marginLeft: "1.5em"
     }
 
@@ -134,11 +134,17 @@ const ReportPhoto = observer((props) => {
                         <h2>Please remember to:</h2>
                         <ul>
                             <li>Let the test strip sit for 15 minutes</li>
-                            <li>Take the photo straight above</li>
-                            <li>Make sure the black and white marker is visible at the top of the photo</li>
-                            <li>Retake photo if blury</li>
-                            <ClickableText onClick={togglePopUp} className={classes.info} hideIcon text={<span>View Test Strip Instructions <KeyboardArrowRight /></span>} />
+                            <li>Capture the photo straight above the test strip</li>
                         </ul>
+
+                        <h2>Retake picture if:</h2>
+                        <ul>
+                            <li>It is blurry</li>
+                            <li>Black and White Marker is not visible</li>
+                        </ul>
+
+
+                        <ClickableText onClick={togglePopUp} className={classes.info} hideIcon text={<span>View Test Strip Instructions <KeyboardArrowRight /></span>} />
                     </WarningBox>
                 </>}
             <SimpleButton alignRight onClick={handleNext} disabled={!patientStore.report.photoWasTaken} backgroundColor={Colors.green}>{t("patient.report.next")}</SimpleButton>

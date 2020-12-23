@@ -12,16 +12,23 @@ const useStyles = makeStyles({
         boxSizing: "border-box",
         "& > h2":{
             fontSize: "1em",
-            margin: 0,
-            marginBottom: ".5em"
+            margin: ".5em 0 .5em 0"
         },
         "& > ul":{
+            display: "block",
             margin: "0",
-            marginLeft: "1em",
             padding: 0,
+            marginLeft: "1em",
             "& > li":{
                 margin:0,
-                padding: 0
+                padding: 0,
+                "& > span": {
+                    fontWeight: "bold"
+                },
+                "& > li":{
+                    marginLeft: "1em",
+                }
+                
             }
         },
 
