@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import ClipBoard from '@material-ui/icons/Assignment';
-import Check from '@material-ui/icons/CheckCircle';
 import { DateTime, Interval } from 'luxon'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -14,7 +12,6 @@ import PatientReport from '../../Basics/PatientReport';
 import Styles from '../../Basics/Styles';
 import { useTranslation } from 'react-i18next';
 import NewButton from '../../Basics/NewButton';
-import Clipboard from '@material-ui/icons/Assignment'
 import  TempIcon from '../../Basics/Icons/Temp.js'
 import PillIcon from '../../Basics/Icons/Pill.js'
 import Camera from '@material-ui/icons/CameraAlt'
@@ -81,13 +78,20 @@ const Header = (props) => {
 }
 
 
-const Body = (props) => {
+const Body = observer((props) => {
   const classes = useStyles();
   const { t, i18n } = useTranslation('translation');
-  const { patientUIStore } = useStores();
+  const { patientUIStore, patientStore } = useStores();
 
   const handleDrawerClick = () => {
-    patientUIStore.startHistoricalReport();
+    console.log("pstore ",patientStore.uiState.selectedCalendarDate)
+    console.log("dt ",DateTime.local().toISODate())
+    if(patientStore.uiState.selectedCalendarDate === DateTime.local().toISODate()){
+      patientUIStore.moveToReportFlow();
+    }else{
+      patientUIStore.startHistoricalReport();
+    }
+
   }
   
   return (
@@ -105,7 +109,7 @@ const Body = (props) => {
       }
     </>
   )
-}
+});
 
 const useStyles = makeStyles({
 

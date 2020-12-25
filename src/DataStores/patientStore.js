@@ -41,7 +41,7 @@ export class PatientStore extends UserStore {
     @observable uiState = {
         onCalendarView: false,
         cameraIsOpen: false,
-        selectedCalendarDate: DateTime.local().startOf('day'),
+        selectedCalendarDate: DateTime.local().startOf('day').toISODate(),
         symptomWarningVisible: false,
     }
 

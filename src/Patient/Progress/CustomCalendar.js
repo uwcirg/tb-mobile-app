@@ -122,7 +122,7 @@ const CustomCalendar = () => {
     const { patientStore, uiStore } = useStores();
 
     const handleChange = (date) => {
-        patientStore.uiState.selectedCalendarDate = DateTime.fromJSDate(date);
+        patientStore.uiState.selectedCalendarDate = DateTime.fromJSDate(date).toISODate();
     }
 
     const checkDisabled = (date) => {
@@ -166,7 +166,7 @@ const Day = observer((props) => {
 
     let compositeClass;
 
-    const selectedDay = dt.startOf('day').equals(patientStore.uiState.selectedCalendarDate);
+    const selectedDay = dt.startOf('day').equals(DateTime.fromISO(patientStore.uiState.selectedCalendarDate));
     let modifier = false;
     let symptom = false;
 

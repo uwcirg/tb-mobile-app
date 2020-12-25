@@ -97,7 +97,7 @@ const ActionBox = observer(() => {
             <div className={classes.warning}><WarningOutlined /><span> {patientStore.missingReports.length} Missing Treatment Logs</span><IconButton onClick={toggleShow}> {show ? <Up /> : <Down />}</IconButton></div>
             <Grow in={show} className={classes.grow}>
                 {patientStore.missingReports.map(date => {
-                    return <NewButton key={`back-report-${date}`} positive={patientStore.report.hasSubmitted} onClick={()=>{handleReportClick(date)}} icon={<Clipboard />} text={DateTime.fromISO(date).toLocaleString(DateTime.DATE_MED)} />
+                    return <NewButton key={`back-report-${date}`} onClick={()=>{handleReportClick(date)}} icon={<Clipboard />} text={DateTime.fromISO(date).toLocaleString(DateTime.DATE_MED)} />
                 })}
             </Grow>
 

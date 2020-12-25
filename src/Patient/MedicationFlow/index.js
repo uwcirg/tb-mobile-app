@@ -57,7 +57,6 @@ const MedicationFlow = observer((props) => {
     }
 
     const tabNumber = (patientStore.uiState.onPhotoFlow ? 3 : step + 1);
-    console.log(patientStore.report.date)
 
     return (
         <div className={classes.container}>
