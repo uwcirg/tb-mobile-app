@@ -27,7 +27,7 @@ const DayDrawer = observer((props) => {
 
   const { t, i18n } = useTranslation('translation');
   
-  const date = patientStore.uiState.selectedCalendarDate;
+  const date = DateTime.fromISO(patientStore.uiState.selectedCalendarDate);
   const complete = (patientStore.selectedDayReport)
   const missingPhoto = (patientStore.selectedDayWasPhotoDay ) && !patientStore.selectedDayReport || (patientStore.selectedDayReport && !patientStore.selectedDayReport.photoUrl);
   const inSubmissionRange = Interval.fromDateTimes(date.startOf("day"),DateTime.local().startOf("day")).length("days") < 3

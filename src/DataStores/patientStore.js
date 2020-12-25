@@ -123,7 +123,7 @@ export class PatientStore extends UserStore {
     }
 
     @computed get selectedDayReport() {
-        return this.savedReports[`${this.uiState.selectedCalendarDate.toISODate()}`]
+        return this.savedReports[`${this.uiState.selectedCalendarDate}`]
     }
 
     @computed get requiresSubmission() {
@@ -131,7 +131,7 @@ export class PatientStore extends UserStore {
     }
 
     @computed get selectedDayWasPhotoDay() {
-        return this.checkPhotoDay(this.uiState.selectedCalendarDate)
+        return this.checkPhotoDay(DateTime.fromISO(this.uiState.selectedCalendarDate));
     }
 
 
@@ -338,9 +338,7 @@ export class PatientStore extends UserStore {
     }
 
     @action startHistoricalReport = () => {
-
-        //Set The date for the report and reset other stuff
-        const newDate = this.uiState.selectedCalendarDate.set({ hour: 12, minute: 0 });
+        const newDate = DateTime.fromISO(this.uiState.selectedCalendarDate).set({hour: 12,minute: 0})
 
         this.report = {
             date: newDate.toISODate(),
@@ -362,7 +360,6 @@ export class PatientStore extends UserStore {
         this.report.step = 100
         this.uiState.onTreatmentFlow = true;
     }
-
 
     loadDailyReport() {
         const json = localStorage.getItem(`medicationReport`);
@@ -405,6 +402,18 @@ export class PatientStore extends UserStore {
         })
     }
 
+    @computed get missingReports(){
+
+        let missedDays = [];
+        for(let i = 3; i > 0; i--){
+            const date = DateTime.local().minus({days: i}).toISODate();
+            if(!this.savedReports[date]){
+                missedDays.push(date)
+            }
+        }
+        return missedDays;
+    }
+
     @action logoutPatient() {
         this.logout();
         //@TODO Cleanup this method with cookie update
@@ -424,12 +433,6 @@ export class PatientStore extends UserStore {
             selectedCalendarDate: DateTime.local().startOf('day'),
             symptomWarningVisible: false
         }
-
-
-
-        //Remove persistant user information
-        //this.unsubscribeFromNotifications();
-
     }
 
     defaultReport = {

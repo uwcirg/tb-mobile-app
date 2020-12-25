@@ -1,22 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core';
-import ButtonBase from '@material-ui/core/ButtonBase'
-import Colors from '../../Basics/Colors';
 import DayDrawer from './DayDrawer'
-import WeekCalendar from '../Progress/WeekCalendar';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import CustomCalendar from './CustomCalendar';
 import MedicationFlow from '../MedicationFlow';
 import AddMilestone from './AddMilestone'
 import { useTranslation } from 'react-i18next';
-
 import ClickableText from '../../Basics/ClickableText';
 import QuestionIcon from '@material-ui/icons/HelpOutline';
-
 import Key from './Key'
 import PreventOffline from '../../Basics/PreventOffline';
-import { DateTime } from 'luxon';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -67,10 +61,8 @@ const Progress = observer(() => {
     const [showKey, setShowKey] = useState(false);
 
     const classes = useStyles();
-    const { patientUIStore, patientStore } = useStores();
+    const { patientUIStore } = useStores();
     const { t } = useTranslation('translation');
-
-    console.log(patientStore.datetimeTreatmentStart.toLocaleString(DateTime.DATETIME_FULL));
 
     if (patientUIStore.onHistoricalReport) return (<ReportOldMedication />)
     if (patientUIStore.onAddMilestone) return (<AddMilestone handleBack={patientUIStore.goToProgress} />)
@@ -84,10 +76,10 @@ const Progress = observer(() => {
 });
 
 const ProgressWithOfflineOverride = () => {
-    
-    const {t} = useTranslation('translation');
-    
-    return(
+
+    const { t } = useTranslation('translation');
+
+    return (
         <PreventOffline type={t('patient.tabNames.calendar')}>
             <Progress />
         </PreventOffline>

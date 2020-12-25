@@ -11,6 +11,7 @@ import MedicationReminder from './MedicationReminder'
 import CachedReports from './CachedReports'
 import VideoCard from './Videos'
 import localforage from 'localforage'
+import MissedReports from './MissedDays'
 
 const HIDE_VIDEO_KEY = "isVideoCardHidden"
 
@@ -39,6 +40,7 @@ const HomePage = () => {
             <EducationalMessage/>
             <Greeting />
             <ActionBox />
+            <MissedReports />
             {!hideVideo && <VideoCard hide={hideVideos} />}
             <CachedReports />
             <Progress />

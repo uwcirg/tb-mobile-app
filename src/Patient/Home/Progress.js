@@ -96,7 +96,7 @@ const useStyles = makeStyles({
         fontSize: "100%",
         width: "90%",
         "& > span": {
-            fontSize: "2em",
+            fontSize: "1.75em",
             fontWeight: "bold"
         }
     },

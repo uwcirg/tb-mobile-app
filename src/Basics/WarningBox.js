@@ -28,12 +28,9 @@ const useStyles = makeStyles({
                 "& > li":{
                     marginLeft: "1em",
                 }
-                
             }
         },
-
     }
-  
 })
 
 const WarningBox = (props) => {
