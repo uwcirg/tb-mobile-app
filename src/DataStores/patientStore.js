@@ -46,7 +46,10 @@ export class PatientStore extends UserStore {
     }
 
     @observable medicationSchedule = []
+    
     @observable savedReports = [];
+    @observable savedReportsLoaded = false;
+    
     @observable milestones = [];
 
     @observable report = this.defaultReport;
@@ -296,7 +299,7 @@ export class PatientStore extends UserStore {
     @action getReports = () => {
 
         this.executeRequest('patientReports').then(json => {
-            (json)
+            this.savedReportsLoaded = true;
             this.savedReports = json;
         })
     }
@@ -404,6 +407,11 @@ export class PatientStore extends UserStore {
 
     @computed get missingReports(){
 
+        //So that the missing days card stays hidden before the reports load from server
+        if(!this.savedReportsLoaded){
+            return 0;
+        }
+    
         let missedDays = [];
         for(let i = 3; i > 0; i--){
             const date = DateTime.local().minus({days: i}).toISODate();

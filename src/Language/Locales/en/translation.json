@@ -20,7 +20,8 @@
         "delete": "Delete",
         "loading": "Loading",
         "patients": "Patients",
-        "expandPhoto": "Expand Photo"
+        "expandPhoto": "Expand Photo",
+        "hideThis": "Hide This"
     },
     "userTypes": {
         "patient": "Patient",
@@ -237,6 +238,7 @@
             },
             "cardTitles": {
                 "todaysTasks": "Todays Tasks",
+                "actionNeeded": "Action Needed",
                 "myProgress": "My Progress",
                 "myLearning": "My Learning"
             },
@@ -247,6 +249,10 @@
                 "seeAll": "See All Video Tutorials",
                 "collapse": "Hide List",
                 "viewOnInfo": "You can always see these videos on the information page"
+            },
+            "missedDays":{
+                "missing": "Missing Treatment Log",
+                "missing_plural": "Missing Treatment Logs"
             }
         },
         "profile": {
@@ -285,6 +291,7 @@
             "moodTitle": "How are you feeling today?",
             "doingWell": "Doing Well",
             "needSupport": "Need Support",
+            "requireReason": "Please let us know how we can support you before continuing",
             "whySupport": "How can we support you?",
             "photoTitle": "Capture Strip Photo",
             "photo": {

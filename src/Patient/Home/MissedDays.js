@@ -15,7 +15,7 @@ import WarningOutlined from '@material-ui/icons/ReportProblemOutlined';
 import Down from '@material-ui/icons/KeyboardArrowDown'
 import Up from '@material-ui/icons/KeyboardArrowUp'
 import Grow from '@material-ui/core/Collapse'
-import { DateTime } from 'luxon';
+import { DateTime } from 'luxon'; 
 
 const useStyles = makeStyles({
     confirmation: {
@@ -79,7 +79,7 @@ const useStyles = makeStyles({
 
 const ActionBox = observer(() => {
     const classes = useStyles();
-    const { patientStore, patientUIStore } = useStores();
+    const { patientStore, patientUIStore,uiStore } = useStores();
     const { t } = useTranslation('translation');
     const [show, setShow] = useState(false)
 
@@ -93,15 +93,17 @@ const ActionBox = observer(() => {
     }
 
     return (
-        <InteractionCard className={classes.override} upperText={<><WarningIcon />{"Action Needed"}</>} id="intro-missed">
-            <div className={classes.warning}><WarningOutlined /><span> {patientStore.missingReports.length} Missing Treatment Logs</span><IconButton onClick={toggleShow}> {show ? <Up /> : <Down />}</IconButton></div>
+        <>
+        {patientStore.missingReports.length > 0 && <InteractionCard className={classes.override} upperText={<><WarningIcon />{t('patient.home.cardTitles.actionNeeded')}</>} id="intro-missed">
+            <div className={classes.warning}><WarningOutlined /><span> {patientStore.missingReports.length} {t('patient.home.missedDays.missing',{count: patientStore.missingReports.length })}</span><IconButton onClick={toggleShow}> {show ? <Up /> : <Down />}</IconButton></div>
+            {uiStore.locale && ""}
             <Grow in={show} className={classes.grow}>
                 {patientStore.missingReports.map(date => {
                     return <NewButton key={`back-report-${date}`} onClick={()=>{handleReportClick(date)}} icon={<Clipboard />} text={DateTime.fromISO(date).toLocaleString(DateTime.DATE_MED)} />
                 })}
             </Grow>
 
-        </InteractionCard>)
+        </InteractionCard>}</>)
 });
 
 export default ActionBox;

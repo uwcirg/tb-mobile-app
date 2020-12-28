@@ -21,7 +21,6 @@ const SimpleMenu = observer((props) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const patientID = useStores().patientStore.userID;
     const {reminderStore} = useStores();
-
     const { t, i18n } = useTranslation('translation');
 
     const handleClick = (event) => {
@@ -29,16 +28,13 @@ const SimpleMenu = observer((props) => {
     };
 
     const handleClose = () => {
-        setAnchorEl(null);
-        
+        setAnchorEl(null); 
     };
 
     const handleItemClick = () =>{
         handleClose();
         reminderStore.delete(patientID,props.reminderID);
     }
-
-    
 
     return (
         <>

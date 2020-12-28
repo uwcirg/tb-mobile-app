@@ -7,7 +7,7 @@ const useStyles = makeStyles({
         border: `2px solid ${Colors.yellow}`,
         backgroundColor: Colors.timelineYellow,
         borderRadius: "10px",
-        minHeight: "100px",
+        minHeight: "50px",
         padding: "1em",
         boxSizing: "border-box",
         "& > h2":{

@@ -4,16 +4,12 @@ import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import InteractionCard from '../../Basics/InteractionCard';
 import { useTranslation } from 'react-i18next';
-import { Typography, ButtonBase } from '@material-ui/core';
-import Button from "@material-ui/core/Button";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
-import { DateTime } from 'luxon';
+import Typography from '@material-ui/core/Typography';
 import Colors from '../../Basics/Colors'
 import ReminderItem from './Reminder/ReminderLineItem'
 import ClickableText from '../../Basics/ClickableText';
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
-import { TimePicker } from "@material-ui/pickers/TimePicker";
 import AddReminder from './Reminder/index'
 import EventIcon from '@material-ui/icons/Event';
 
@@ -99,13 +95,11 @@ const Card = observer(() => {
 
         <div className={classes.upcoming}>
             <div className={classes.reminderTitle}>
-                {/*<Header>{t('patient.reminders.appointments')}</Header>*/}
                 {reminderStore.reminders && reminderStore.reminders.length > 0 && <ClickableText hideIcon text={!showAll ? t('appointments.showAll') : t('appointments.showLess')}  onClick={() => { setShowAll(!showAll) }}></ClickableText>}
             </div>
             <div className={classes.reminder}>
                 {showAll ? <RemindersList /> :
                     <>{reminderStore.reminders && reminderStore.reminders.length > 0 ? <ReminderItem reminder={reminderStore.reminders[0]} /> : <p className={classes.noUpcoming}>{t('appointments.noUpcoming')}</p>}</>}
-
             </div>
             <div className={classes.addContainer}>
                 <p>{t('appointments.addAppointment')}</p>
