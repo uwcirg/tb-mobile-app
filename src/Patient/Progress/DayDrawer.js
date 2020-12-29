@@ -20,14 +20,14 @@ const DayDrawer = observer((props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const { patientStore } = useStores();
-  const [showKey, setShowKey] = useState(false);
 
-  const { t, i18n } = useTranslation('translation');
+  const {t} = useTranslation('translation');
   
-  const date = DateTime.fromISO(patientStore.uiState.selectedCalendarDate);
+  const date = DateTime.fromISO(patientStore.uiState.selectedCalendarDate).startOf("day")
   const complete = (patientStore.selectedDayReport)
   const missingPhoto = (patientStore.selectedDayWasPhotoDay ) && !patientStore.selectedDayReport || (patientStore.selectedDayReport && !patientStore.selectedDayReport.photoUrl);
-  const inSubmissionRange = Interval.fromDateTimes(date.startOf("day"),DateTime.local().startOf("day")).length("days") < 3
+
+  const inSubmissionRange = date.diffNow("days").days >= -3 
 
   return (
     <ExpansionPanel
@@ -57,7 +57,7 @@ const DayDrawer = observer((props) => {
               photoString={patientStore.selectedDayReport.photoUrl}
               isPhotoDay={patientStore.checkPhotoDay(date)}
               missingPhoto={missingPhoto}
-            /> : <p>Error</p>}
+          /> : <p>{t('commonWords.error')}</p>}
         </ExpansionPanelDetails>
       }
     </ExpansionPanel>
@@ -84,8 +84,6 @@ const Body = observer((props) => {
   const { patientUIStore, patientStore } = useStores();
 
   const handleDrawerClick = () => {
-    console.log("pstore ",patientStore.uiState.selectedCalendarDate)
-    console.log("dt ",DateTime.local().toISODate())
     if(patientStore.uiState.selectedCalendarDate === DateTime.local().toISODate()){
       patientUIStore.moveToReportFlow();
     }else{

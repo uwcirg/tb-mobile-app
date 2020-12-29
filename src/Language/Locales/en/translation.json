@@ -5,6 +5,7 @@
     "greeting": "Hi",
     "updating": "Updating",
     "commonWords": {
+        "error": "Error",
         "medication": "Medication",
         "symptoms": "Symptoms",
         "stripPhoto": "Strip Photo",
