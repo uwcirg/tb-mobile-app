@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import { DateTime, Interval } from 'luxon'
+import {DateTime} from 'luxon'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
@@ -26,8 +26,7 @@ const DayDrawer = observer((props) => {
   const date = DateTime.fromISO(patientStore.uiState.selectedCalendarDate).startOf("day")
   const complete = (patientStore.selectedDayReport)
   const missingPhoto = (patientStore.selectedDayWasPhotoDay ) && !patientStore.selectedDayReport || (patientStore.selectedDayReport && !patientStore.selectedDayReport.photoUrl);
-
-  const inSubmissionRange = date.diffNow("days").days >= -3 
+  const inSubmissionRange = ( date.diffNow("days").days >= -3 ) || date.diff(DateTime.fromISO(patientStore.treatmentStart),"weeks").weeks <= 2
 
   return (
     <ExpansionPanel
@@ -77,7 +76,6 @@ const Header = (props) => {
   )
 }
 
-
 const Body = observer((props) => {
   const classes = useStyles();
   const { t, i18n } = useTranslation('translation');
@@ -89,7 +87,6 @@ const Body = observer((props) => {
     }else{
       patientUIStore.startHistoricalReport();
     }
-
   }
   
   return (
