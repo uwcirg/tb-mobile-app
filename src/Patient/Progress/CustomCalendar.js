@@ -122,7 +122,7 @@ const CustomCalendar = () => {
     const { patientStore, uiStore } = useStores();
 
     const handleChange = (date) => {
-        patientStore.uiState.selectedCalendarDate = DateTime.fromJSDate(date);
+        patientStore.uiState.selectedCalendarDate = DateTime.fromJSDate(date).toISODate();
     }
 
     const checkDisabled = (date) => {
@@ -131,7 +131,6 @@ const CustomCalendar = () => {
 
     return (
         <Calendar
-            
             tileDisabled={({ date }) => {
                 return  checkDisabled(date)
             }}
@@ -167,7 +166,7 @@ const Day = observer((props) => {
 
     let compositeClass;
 
-    const selectedDay = dt.startOf('day').equals(patientStore.uiState.selectedCalendarDate);
+    const selectedDay = dt.startOf('day').equals(DateTime.fromISO(patientStore.uiState.selectedCalendarDate));
     let modifier = false;
     let symptom = false;
 
@@ -207,15 +206,12 @@ const Day = observer((props) => {
 const DemoDay = (props) => {
     const classes = useStyles();
 
-
-
     return(
         <div style={{width: "40px",height: "40px" }} className={`${classes.day} ${classes.single} ${!props.modifier && (props.tookMedication ? classes.positive : classes.negative)}`}>
             <p>{props.date}</p>
             {props.modifier ? <div style={props.symptom && {backgroundColor: Colors.yellow}} className={classes.modifier}> </div> : ""}
         </div>
     )
-
 }
 
 export default CustomCalendar;

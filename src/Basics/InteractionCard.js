@@ -3,8 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Styles from './Styles'
 import Paper from '@material-ui/core/Paper';
 import HideIcon from '@material-ui/icons/VisibilityOff';
-
-
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
 
@@ -23,7 +22,7 @@ const useStyles = makeStyles({
     },
     upperText: {
         ...Styles.secondaryText,
-
+        fontSize: ".8em",
         textAlign: "left",
         width: "85%",
         margin: "auto",
@@ -46,14 +45,15 @@ const useStyles = makeStyles({
 const InteractionCard = (props) => {
 
     const classes = useStyles();
+    const {t} = useTranslation('translation');
 
     return (<div className={classes.superContainer} >
         <span className={classes.upperText}>{props.upperText}</span>
         <Paper id={props.id} className={`${classes.container}  ${props.noPadding && classes.noPadding} ${props.className}`}>
             {props.children}
         </Paper>
-        {props.bottomButton && <div className={classes.bottomText}>
-            <span onClick={props.hide}> Hide This</span>
+        {props.bottomButton && <div className={classes.bottomText} onClick={props.hide}>
+            <span>{t('commonWords.hideThis')}</span>
             <HideIcon style={{fontSize: "1.25em", marginLeft: ".5em"}} />
             </div>}
             

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import SimpleButton from '../../Basics/SimpleButton';
 import ButtonBase from '@material-ui/core/ButtonBase'
 import Camera from '../../ImageCapture/Camera';
@@ -12,14 +12,22 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import PopUp from '../Navigation/PopUp';
 import Instructions from '../Information/TestInstructions';
+import Typography from '@material-ui/core/Typography';
+import WarningBox from '../../Basics/WarningBox';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
 
 const useStyles = makeStyles({
 
     info: {
-        paddingLeft: "1.5em",
         fontSize: "1em",
         width: "100%",
+        display: "flex",
+        justifyContent: "left",
+        alignItems: "center",
+        margin: ".5em 0 .5em 0",
         "& > span": {
+            alignItems: "center",
+            display: "flex",
             textAlign: "left",
             width: "100%",
             textTransform: "none"
@@ -30,11 +38,38 @@ const useStyles = makeStyles({
         width: "85%",
         overflowY: "scroll"
     },
-    title:{
+    title: {
         fontSize: "1.25em",
         textAlign: "left",
         marginLeft: "1em"
     },
+    button: {
+        width: "90%",
+        margin: "auto",
+        display: "flex",
+        color: Colors.buttonBlue,
+        "& > div": {
+            borderColor: Colors.buttonBlue,
+            border: "solid 2px",
+        },
+        borderRadius: "10px",
+    },
+    buttonText: {
+        width: "70%",
+        fontSize: "1em",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    infoBox: {
+        width: "90%",
+        margin: "auto",
+        marginBottom: ".5em",
+        marginTop: ".5em"
+    },
+    leftMargin: {
+        marginLeft: "1.5em"
+    }
 
 })
 
@@ -83,18 +118,32 @@ const ReportPhoto = observer((props) => {
             {patientStore.report.photoWasTaken ?
                 <>
                     <StripPhoto><img src={patientStore.report.photoString} /> </StripPhoto>
-                    <ClickableText className={classes.info} hideIcon onClick={handleRetake} text={t("patient.report.photo.retakePhoto")} />
+                    <ClickableText className={`${classes.info} ${classes.leftMargin}`} hideIcon onClick={handleRetake} text={t("patient.report.photo.retakePhoto")} />
                 </>
                 :
                 <>
-                    <ButtonBase style={{ width: "90%", margin: "5%" }}>
+                    <ButtonBase className={classes.button}>
                         <PhotoPrompt onClick={() => { patientStore.uiState.cameraIsOpen = true }}>
                             <CameraAltIcon />
-                            {t("patient.report.photo.openCamera")}
+                            <Typography variant="body1" className={classes.buttonText}>
+                                {t("patient.report.photo.openCamera")}
+                            </Typography>
                         </PhotoPrompt>
                     </ButtonBase>
-                    <ClickableText onClick={togglePopUp} className={classes.info} hideIcon text={<span>{t("patient.report.photo.how")}</span>} />
+                    <WarningBox className={classes.infoBox}>
+                        <h2>{t('patient.report.photo.help.remember')}:</h2>
+                        <ul>
+                            <li>{t('patient.report.photo.help.wait')}</li>
+                            <li>{t('patient.report.photo.help.straight')}</li>
+                        </ul>
+                        <h2>{t('patient.report.photo.help.retake')}</h2>
+                        <ul>
+                            <li>{t('patient.report.photo.help.blurry')}</li>
+                            <li>{t('patient.report.photo.help.marker')}</li>
+                        </ul>
 
+                        <ClickableText onClick={togglePopUp} className={classes.info} hideIcon text={<span>{t('patient.report.photo.help.instructions')}<KeyboardArrowRight /></span>} />
+                    </WarningBox>
                 </>}
             <SimpleButton alignRight onClick={handleNext} disabled={!patientStore.report.photoWasTaken} backgroundColor={Colors.green}>{t("patient.report.next")}</SimpleButton>
             {patientStore.uiState.cameraIsOpen ? <Camera handleExit={handleExit} returnPhoto={handlePhoto} /> : ""}
@@ -104,8 +153,8 @@ const ReportPhoto = observer((props) => {
 
 const PhotoPrompt = styled.div`
 width: 100%;
-height: 150px;
-background-color: lightgray;
+height: 100px;
+background-color: ${Colors.lightgray};
 display: flex;
 justify-content: center;
 flex-direction: column;

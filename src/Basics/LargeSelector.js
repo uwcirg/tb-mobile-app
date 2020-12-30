@@ -14,7 +14,7 @@ const LargeSelector = (props) => {
     }
 
     return (
-        <ButtonBase onClick={() => {window.setTimeout(() => {props.onClick(props.id)}, 350)}}
+        <ButtonBase onClick={() => {props.onClick(props.id)}}
             style={BaseStyles}>
             <Field id={props.id}>
                 {props.children}

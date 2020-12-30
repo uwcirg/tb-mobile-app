@@ -68,7 +68,7 @@ const useStyles = makeStyles({
     treatmentMessages: {
         display: "flex",
         flexDirection: "column",
-        "& > span": {
+        "& > div > span": {
             textTransform: "capitalize",
             color: Colors.textGray
         }
@@ -148,16 +148,16 @@ export default function Info() {
 const TreatmentMessages = () => {
     const messages = JSON.parse(messagesFile)
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const {t} = useTranslation('translation');
 
     return (
         <div className={classes.treatmentMessages}>
             {Object.keys(messages).map(each => {
                 return (
-                    <>
+                    <div key={each}>
                         <span>{t('time.day')} {each}</span>
                         <p>{messages[each]}</p>
-                    </>)
+                    </div>)
             })}
         </div>
     )

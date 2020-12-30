@@ -9,7 +9,7 @@ const useStyles = makeStyles({
       color: Colors.buttonBlue,
       background: "none",
       textTransform: "capitalize",
-      fontSize: ".8em",
+      fontSize: "1em",
       fontFamily: "Roboto, sans-serif"
   },
   icon:{

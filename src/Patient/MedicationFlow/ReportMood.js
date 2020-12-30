@@ -6,14 +6,16 @@ import SimpleButton from '../../Basics/SimpleButton';
 import { useTranslation } from 'react-i18next';
 import Colors from '../../Basics/Colors'
 import useStores from '../../Basics/UseStores'
-import { ButtonBase} from '@material-ui/core';
-import {observer} from 'mobx-react'
+import ButtonBase from '@material-ui/core/ButtonBase';
+import { observer } from 'mobx-react'
 import TextField from '@material-ui/core/TextField';
+import WarningBox from '../../Basics/WarningBox'
 
 const useStyles = makeStyles({
 
-    container: {
-
+    textBox: {
+        width: "90%",
+        borderRadius: "5px"
     },
     button: {
         marginTop: "auto"
@@ -26,6 +28,10 @@ const useStyles = makeStyles({
         width: "100px"
     },
     faceButton: {
+        "&::focus": {
+            outline: "3px solid orange"
+        },
+        width: "45%",
         padding: "2em 1em .5em 1em",
         border: "1px solid lightgray",
         borderRadius: "10px",
@@ -41,22 +47,34 @@ const useStyles = makeStyles({
         display: "flex",
         width: "90%",
         margin: "auto",
-        justifyContent: "space-evenly",
+        justifyContent: "space-between",
     },
     body: {
-        height: "50vh",
+        minHeight: "60vh"
     },
-    selected:{
+    selected: {
         backgroundColor: Colors.accentBlue
     },
-    supportReason:{
+    supportReason: {
         marginTop: "2em",
         width: "100%",
         display: "flex",
+        flexDirection: "column",
         justifyContent: "center",
-        "& > div":{
+        "& > div": {
             width: "80%"
         }
+    },
+    warning: {
+        width: "90%",
+        margin: "auto",
+        marginTop: ".5em"
+    },
+    bottom: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        margin: ".5em 0 0 0"
     }
 
 })
@@ -64,7 +82,7 @@ const useStyles = makeStyles({
 const ReportMood = observer((props) => {
 
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
     const { patientStore } = useStores();
 
     useEffect(() => {
@@ -81,31 +99,35 @@ const ReportMood = observer((props) => {
         patientStore.report.doingOkay = false;
     }
 
-    const goodSelected =  patientStore.report.doingOkaySelected && patientStore.report.doingOkay;
-    const badSelected =  patientStore.report.doingOkaySelected && !patientStore.report.doingOkay;
+    const continueIsDisabled = !patientStore.report.doingOkaySelected || (!patientStore.report.doingOkay && patientStore.report.supportReason === "")
+
+    const goodSelected = patientStore.report.doingOkaySelected && patientStore.report.doingOkay;
+    const badSelected = patientStore.report.doingOkaySelected && !patientStore.report.doingOkay;
 
     return (<div className={classes.container}>
         <div className={classes.body} >
             <div className={classes.choiceContainer}>
-                <ButtonBase className={`${classes.faceButton} ${goodSelected && classes.selected}`} onClick={selectGood}>
+                <ButtonBase focusRipple className={`${classes.faceButton} ${goodSelected && classes.selected}`} onClick={selectGood}>
                     <GoodFace className={classes.icon} />
                     <p>{t("patient.report.doingWell")}</p>
                 </ButtonBase>
-                <ButtonBase className={`${classes.faceButton} ${badSelected && classes.selected}`} onClick={selectBad}>
+                <ButtonBase focusRipple className={`${classes.faceButton} ${badSelected && classes.selected}`} onClick={selectBad}>
                     <BadFace className={classes.icon} />
                     <p>{t("patient.report.needSupport")}</p>
                 </ButtonBase>
             </div>
-            <div className={classes.supportReason}>
-            {badSelected && <TextField variant="filled" 
-            rows={3} 
-            multiline 
-            label={t("patient.report.whySupport")} onChange={(e)=> patientStore.report.supportReason = e.target.value} value={patientStore.report.supportReason} ></TextField>}
-            </div>
+
+            {badSelected && <div className={classes.bottom}><TextField className={classes.textBox} variant="filled"
+                rows={3}
+                multiline
+                label={t("patient.report.whySupport")} onChange={(e) => patientStore.report.supportReason = e.target.value} value={patientStore.report.supportReason} />
+                {continueIsDisabled && <WarningBox className={classes.warning}>
+                    {t('patient.report.requireReason')}
+                </WarningBox>}
+            </div>}
         </div>
 
-
-        <SimpleButton disabled={!patientStore.report.doingOkaySelected} className={classes.button} alignRight onClick={() => {
+        <SimpleButton disabled={continueIsDisabled} className={classes.button} alignRight onClick={() => {
             props.advance()
         }} backgroundColor={Colors.green}>{t("patient.report.next")}</SimpleButton>
     </div>)

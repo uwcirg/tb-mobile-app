@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {useTranslation} from 'react-i18next'
 
 const AppLogo = (props) => {
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
     return(
     <Title className={props.className}>
     <img src="logo.png"></img>

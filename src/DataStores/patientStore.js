@@ -41,12 +41,15 @@ export class PatientStore extends UserStore {
     @observable uiState = {
         onCalendarView: false,
         cameraIsOpen: false,
-        selectedCalendarDate: DateTime.local().startOf('day'),
+        selectedCalendarDate: DateTime.local().startOf('day').toISODate(),
         symptomWarningVisible: false,
     }
 
     @observable medicationSchedule = []
+    
     @observable savedReports = [];
+    @observable savedReportsLoaded = false;
+    
     @observable milestones = [];
 
     @observable report = this.defaultReport;
@@ -123,7 +126,7 @@ export class PatientStore extends UserStore {
     }
 
     @computed get selectedDayReport() {
-        return this.savedReports[`${this.uiState.selectedCalendarDate.toISODate()}`]
+        return this.savedReports[`${this.uiState.selectedCalendarDate}`]
     }
 
     @computed get requiresSubmission() {
@@ -131,7 +134,7 @@ export class PatientStore extends UserStore {
     }
 
     @computed get selectedDayWasPhotoDay() {
-        return this.checkPhotoDay(this.uiState.selectedCalendarDate)
+        return this.checkPhotoDay(DateTime.fromISO(this.uiState.selectedCalendarDate));
     }
 
 
@@ -296,7 +299,7 @@ export class PatientStore extends UserStore {
     @action getReports = () => {
 
         this.executeRequest('patientReports').then(json => {
-            (json)
+            this.savedReportsLoaded = true;
             this.savedReports = json;
         })
     }
@@ -338,9 +341,7 @@ export class PatientStore extends UserStore {
     }
 
     @action startHistoricalReport = () => {
-
-        //Set The date for the report and reset other stuff
-        const newDate = this.uiState.selectedCalendarDate.set({ hour: 12, minute: 0 });
+        const newDate = DateTime.fromISO(this.uiState.selectedCalendarDate).set({hour: 12,minute: 0})
 
         this.report = {
             date: newDate.toISODate(),
@@ -363,12 +364,12 @@ export class PatientStore extends UserStore {
         this.uiState.onTreatmentFlow = true;
     }
 
-
     loadDailyReport() {
         const json = localStorage.getItem(`medicationReport`);
 
         if (json) {
             const lsReport = JSON.parse(json);
+            //Check if the report was from a previous day, if not load the default report
             if (lsReport.date && Math.floor(DateTime.fromISO(lsReport.date).diffNow("days").days * -1) === 0) {
                 this.report = lsReport
                 return
@@ -404,6 +405,23 @@ export class PatientStore extends UserStore {
         })
     }
 
+    @computed get missingReports(){
+
+        //So that the missing days card stays hidden before the reports load from server
+        if(!this.savedReportsLoaded){
+            return 0;
+        }
+    
+        let missedDays = [];
+        for(let i = 3; i > 0; i--){
+            const date = DateTime.local().minus({days: i}).toISODate();
+            if(!this.savedReports[date]){
+                missedDays.push(date)
+            }
+        }
+        return missedDays;
+    }
+
     @action logoutPatient() {
         this.logout();
         //@TODO Cleanup this method with cookie update
@@ -423,12 +441,6 @@ export class PatientStore extends UserStore {
             selectedCalendarDate: DateTime.local().startOf('day'),
             symptomWarningVisible: false
         }
-
-
-
-        //Remove persistant user information
-        //this.unsubscribeFromNotifications();
-
     }
 
     defaultReport = {

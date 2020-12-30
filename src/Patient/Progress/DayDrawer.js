@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import ClipBoard from '@material-ui/icons/Assignment';
-import Check from '@material-ui/icons/CheckCircle';
-import { DateTime, Interval } from 'luxon'
+import {DateTime} from 'luxon'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
@@ -14,7 +12,6 @@ import PatientReport from '../../Basics/PatientReport';
 import Styles from '../../Basics/Styles';
 import { useTranslation } from 'react-i18next';
 import NewButton from '../../Basics/NewButton';
-import Clipboard from '@material-ui/icons/Assignment'
 import  TempIcon from '../../Basics/Icons/Temp.js'
 import PillIcon from '../../Basics/Icons/Pill.js'
 import Camera from '@material-ui/icons/CameraAlt'
@@ -23,14 +20,13 @@ const DayDrawer = observer((props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const { patientStore } = useStores();
-  const [showKey, setShowKey] = useState(false);
 
-  const { t, i18n } = useTranslation('translation');
+  const {t} = useTranslation('translation');
   
-  const date = patientStore.uiState.selectedCalendarDate;
+  const date = DateTime.fromISO(patientStore.uiState.selectedCalendarDate).startOf("day")
   const complete = (patientStore.selectedDayReport)
   const missingPhoto = (patientStore.selectedDayWasPhotoDay ) && !patientStore.selectedDayReport || (patientStore.selectedDayReport && !patientStore.selectedDayReport.photoUrl);
-  const inSubmissionRange = Interval.fromDateTimes(date.startOf("day"),DateTime.local().startOf("day")).length("days") < 3
+  const inSubmissionRange = ( date.diffNow("days").days >= -3 ) || date.diff(DateTime.fromISO(patientStore.treatmentStart),"weeks").weeks <= 2
 
   return (
     <ExpansionPanel
@@ -60,7 +56,7 @@ const DayDrawer = observer((props) => {
               photoString={patientStore.selectedDayReport.photoUrl}
               isPhotoDay={patientStore.checkPhotoDay(date)}
               missingPhoto={missingPhoto}
-            /> : <p>Error</p>}
+          /> : <p>{t('commonWords.error')}</p>}
         </ExpansionPanelDetails>
       }
     </ExpansionPanel>
@@ -80,14 +76,17 @@ const Header = (props) => {
   )
 }
 
-
-const Body = (props) => {
+const Body = observer((props) => {
   const classes = useStyles();
   const { t, i18n } = useTranslation('translation');
-  const { patientUIStore } = useStores();
+  const { patientUIStore, patientStore } = useStores();
 
   const handleDrawerClick = () => {
-    patientUIStore.startHistoricalReport();
+    if(patientStore.uiState.selectedCalendarDate === DateTime.local().toISODate()){
+      patientUIStore.moveToReportFlow();
+    }else{
+      patientUIStore.startHistoricalReport();
+    }
   }
   
   return (
@@ -105,7 +104,7 @@ const Body = (props) => {
       }
     </>
   )
-}
+});
 
 const useStyles = makeStyles({
 

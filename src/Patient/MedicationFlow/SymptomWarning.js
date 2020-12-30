@@ -31,7 +31,7 @@ const SymptomWarning = observer(() => {
             </h1>
             <p classes={classes.subtitle}>{t("patient.report.symptoms.warning.subtitle")}</p>
             <NewButton onClick={handleClick} className={classes.customButton} text={t("patient.report.symptoms.warning.button")} />
-            <Button className={classes.basicButton} onClick={handleExit}>{t("patient.report.symptoms.warning.moreInformation")}</Button>
+            {/*<Button className={classes.basicButton} onClick={handleExit}>{t("patient.report.symptoms.warning.moreInformation")}</Button>*/}
         </PopUp>
     )
 });

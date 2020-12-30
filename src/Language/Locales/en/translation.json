@@ -5,6 +5,7 @@
     "greeting": "Hi",
     "updating": "Updating",
     "commonWords": {
+        "error": "Error",
         "medication": "Medication",
         "symptoms": "Symptoms",
         "stripPhoto": "Strip Photo",
@@ -20,7 +21,8 @@
         "delete": "Delete",
         "loading": "Loading",
         "patients": "Patients",
-        "expandPhoto": "Expand Photo"
+        "expandPhoto": "Expand Photo",
+        "hideThis": "Hide This"
     },
     "userTypes": {
         "patient": "Patient",
@@ -147,7 +149,8 @@
             },
             "success": "Finalizing Account Setup",
             "next": "Next",
-            "endText": "Thank you for your input, lets get started!"
+            "endText": "Thank you for your input, lets get started!",
+            "activationError": "There was an error activating your account. Contact your coordinator for help."
         },
         "walkthrough": {
             "swipe": "Swipe Left See More",
@@ -236,6 +239,7 @@
             },
             "cardTitles": {
                 "todaysTasks": "Todays Tasks",
+                "actionNeeded": "Action Needed",
                 "myProgress": "My Progress",
                 "myLearning": "My Learning"
             },
@@ -246,6 +250,10 @@
                 "seeAll": "See All Video Tutorials",
                 "collapse": "Hide List",
                 "viewOnInfo": "You can always see these videos on the information page"
+            },
+            "missedDays":{
+                "missing": "Missing Treatment Log",
+                "missing_plural": "Missing Treatment Logs"
             }
         },
         "profile": {
@@ -284,13 +292,23 @@
             "moodTitle": "How are you feeling today?",
             "doingWell": "Doing Well",
             "needSupport": "Need Support",
+            "requireReason": "Please tell us how we can support you before continuing",
             "whySupport": "How can we support you?",
             "photoTitle": "Capture Strip Photo",
             "photo": {
                 "usePhoto": "Use Photo",
                 "retakePhoto": "Retake Photo",
                 "openCamera": "Open Camera",
-                "how": "How do I take the test?"
+                "how": "How do I take the test?",
+                "help":{
+                    "remember": "Please remember to",
+                    "wait": "Let the test strip sit for 15 minutes",
+                    "straight": "Capture the photo straight above the test strip",
+                    "retake": "Retake picture if:",
+                    "blurry": "It is blurry",
+                    "marker": "Black and White Marker is not visible",
+                    "instructions": "View Test Strip Instructions"
+                }
             },
             "symptoms": {
                 "nauseaRating": "How bad is your nausea?",
@@ -332,7 +350,7 @@
             "milestones": "Milestones",
             "upcoming": "Upcoming",
             "calendar": "Calendar of Reports",
-            "submissionLimit": "You can only submit for the 3 previous days",
+            "submissionLimit": "If you miss a day, you can only submit for the 3 previous days, and any days you missed in your first 2 weeks",
             "calendarKey":{
                 "button": "What do these colors mean",
                 "description": "This is the calendar, where you can review your submissions. The colors show the following:",

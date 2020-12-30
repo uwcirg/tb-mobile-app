@@ -14,6 +14,8 @@ import Colors from '../../Basics/Colors';
 import Styles from '../../Basics/Styles';
 import SimpleButton from '../../Basics/SimpleButton';
 
+import SimpleTimePicker from '../../Basics/SimpleTimePicker';
+
 const useStyles = makeStyles({
 
     textArea: {
@@ -45,7 +47,7 @@ const useStyles = makeStyles({
 
     },
     timeSelect: {
-        "& > div":{
+        "& > div": {
             width: props => props.wide && "100% !important",
             textAlign: "center"
         },
@@ -54,6 +56,14 @@ const useStyles = makeStyles({
             fontSize: "4em",
             textAlign: "center"
         }
+    },
+    timeContainer: {
+        width: "100%",
+        display: "flex",
+        justifyContent: "center"
+    },
+    addMargin: {
+        marginBottom: "1em"
     }
 });
 
@@ -61,11 +71,10 @@ const useStyles = makeStyles({
 const TimeQuestion = observer(() => {
 
 
-    const { patientStore,uiStore } = useStores();
-    const classes = useStyles({wide: uiStore.locale === "en" });
+    const { patientStore, uiStore } = useStores();
+    const classes = useStyles({ wide: uiStore.locale === "en" });
     const [selectedDate, handleDateChange] = useState(DateTime.local());
     const [onTime, changeTime] = useState(false);
-    patientStore.medicationTime = selectedDate.toISO();
 
     const toggleTime = () => {
         changeTime(!onTime)
@@ -76,9 +85,24 @@ const TimeQuestion = observer(() => {
         patientStore.report.timeTaken = date.startOf('second').startOf("minute").toISOTime({ suppressSeconds: true });
     }
 
+    const handleChange = (timeType, newValue) => {
+        const isValidChange = ((timeType === "hour" && newValue < 24) || (timeType === "minute" && newValue < 60)) && newValue >= 0
+        if (isValidChange) {
+            let changes = {}
+            changes[timeType] = newValue;
+            patientStore.report.timeTaken = DateTime.fromISO(patientStore.report.timeTaken).set(changes)
+        }
+    }
+
+
     return (
         <Fade timeout={1000} in={true}>
-            <div>
+            <div className={classes.timeContainer}>
+                <SimpleTimePicker
+                    timeTaken={patientStore.report.timeTaken}
+                    handleChange={handleChange}
+                />
+                {/*
                 <TimePicker
                     className={classes.timeSelect}
                     clearable
@@ -86,23 +110,25 @@ const TimeQuestion = observer(() => {
                     value={DateTime.fromISO(patientStore.report.timeTaken)}
                     onChange={handleDate}
                 />
+                */}
             </div>
         </Fade>)
 });
 
 function DidTakeMedication(props) {
     const { t, i18n } = useTranslation('translation');
+    const classes = useStyles();
     return (
         <>
             <TimeQuestion />
             <div className="clickable-container">
-                <ClickableText onClick={props.toggle} text={t("patient.report.didNotTake")} />
+                <ClickableText className={classes.addMargin} onClick={props.toggle} text={t("patient.report.didNotTake")} />
             </div>
         </>
     )
 }
 
-const DidntTakeMedication = observer((props) =>  {
+const DidntTakeMedication = observer((props) => {
 
     const { patientStore } = useStores();
     const classes = useStyles();
@@ -110,7 +136,7 @@ const DidntTakeMedication = observer((props) =>  {
 
     return (
         <>
-            <TextField multiline value={patientStore.report.whyMedicationNotTaken} onChange={(e) => {patientStore.report.whyMedicationNotTaken = e.target.value}} className={classes.textArea} variant="outlined" />
+            <TextField multiline value={patientStore.report.whyMedicationNotTaken} onChange={(e) => { patientStore.report.whyMedicationNotTaken = e.target.value }} className={classes.textArea} variant="outlined" />
             <div className="clickable-container">
                 <ClickableText onClick={props.toggle} text={t("patient.report.didTake")} />
             </div>
@@ -121,7 +147,7 @@ const DidntTakeMedication = observer((props) =>  {
 const ReportMedication = observer((props) => {
 
     const { patientStore } = useStores();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
     useEffect(() => {
         if (patientStore.report.tookMedication) {
@@ -144,6 +170,7 @@ const ReportMedication = observer((props) => {
             <Container id="intro-medication-time">
                 {patientStore.report.tookMedication ? <DidTakeMedication toggle={toggleTookMedication} /> : <DidntTakeMedication toggle={toggleTookMedication} />}
                 <SimpleButton alignRight onClick={handleNext}>{t("patient.report.next")}</SimpleButton>
+                {/*<div>{DateTime.fromISO(patientStore.report.timeTaken).toLocaleString(DateTime.DATETIME_FULL)}</div>*/}
             </Container>
         </>
     )

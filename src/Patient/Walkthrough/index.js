@@ -22,6 +22,7 @@ import Colors from '../../Basics/Colors'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ExitToApp from '@material-ui/icons/ExitToApp'
+import { useMatomo } from '@datapunt/matomo-tracker-react'
 
 const Wrapper = observer((props) => {
   const { patientUIStore, patientStore, routingStore } = useStores();
@@ -61,11 +62,14 @@ const Intro = observer((props) => {
 
   const classes = useStyles();
   const { patientUIStore, routingStore } = useStores();
+  const {trackPageView } = useMatomo();
 
-  const exit = () => {
-    patientUIStore.onWalkthrough = false;
-    patientUIStore.setWalkthroughStep(0);
-  }
+
+  useEffect(()=>{
+    console.log(`Walkthrough Step ${patientUIStore.walkthroughStep}`)
+    trackPageView({documentTitle: `Walkthrough Step ${patientUIStore.walkthroughStep}`})
+  },[patientUIStore.walkthroughStep])
+
 
   return (
     <div className={classes.container}>
