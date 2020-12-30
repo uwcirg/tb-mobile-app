@@ -350,7 +350,7 @@
             "milestones": "Milestones",
             "upcoming": "Upcoming",
             "calendar": "Calendar of Reports",
-            "submissionLimit": "You can only submit for the 3 previous days",
+            "submissionLimit": "If you miss a day, you can only submit for the 3 previous days, and any days you missed in your first 2 weeks",
             "calendarKey":{
                 "button": "What do these colors mean",
                 "description": "This is the calendar, where you can review your submissions. The colors show the following:",
