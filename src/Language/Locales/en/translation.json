@@ -292,14 +292,23 @@
             "moodTitle": "How are you feeling today?",
             "doingWell": "Doing Well",
             "needSupport": "Need Support",
-            "requireReason": "Please let us know how we can support you before continuing",
+            "requireReason": "Please tell us how we can support you before continuing",
             "whySupport": "How can we support you?",
             "photoTitle": "Capture Strip Photo",
             "photo": {
                 "usePhoto": "Use Photo",
                 "retakePhoto": "Retake Photo",
                 "openCamera": "Open Camera",
-                "how": "How do I take the test?"
+                "how": "How do I take the test?",
+                "help":{
+                    "remember": "Please remember to",
+                    "wait": "Let the test strip sit for 15 minutes",
+                    "straight": "Capture the photo straight above the test strip",
+                    "retake": "Retake picture if:",
+                    "blurry": "It is blurry",
+                    "marker": "Black and White Marker is not visible",
+                    "instructions": "View Test Strip Instructions"
+                }
             },
             "symptoms": {
                 "nauseaRating": "How bad is your nausea?",

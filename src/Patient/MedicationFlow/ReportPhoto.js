@@ -131,20 +131,18 @@ const ReportPhoto = observer((props) => {
                         </PhotoPrompt>
                     </ButtonBase>
                     <WarningBox className={classes.infoBox}>
-                        <h2>Please remember to:</h2>
+                        <h2>{t('patient.report.photo.help.remember')}:</h2>
                         <ul>
-                            <li>Let the test strip sit for 15 minutes</li>
-                            <li>Capture the photo straight above the test strip</li>
+                            <li>{t('patient.report.photo.help.wait')}</li>
+                            <li>{t('patient.report.photo.help.straight')}</li>
+                        </ul>
+                        <h2>{t('patient.report.photo.help.retake')}</h2>
+                        <ul>
+                            <li>{t('patient.report.photo.help.blurry')}</li>
+                            <li>{t('patient.report.photo.help.marker')}</li>
                         </ul>
 
-                        <h2>Retake picture if:</h2>
-                        <ul>
-                            <li>It is blurry</li>
-                            <li>Black and White Marker is not visible</li>
-                        </ul>
-
-
-                        <ClickableText onClick={togglePopUp} className={classes.info} hideIcon text={<span>View Test Strip Instructions <KeyboardArrowRight /></span>} />
+                        <ClickableText onClick={togglePopUp} className={classes.info} hideIcon text={<span>{t('patient.report.photo.help.instructions')}<KeyboardArrowRight /></span>} />
                     </WarningBox>
                 </>}
             <SimpleButton alignRight onClick={handleNext} disabled={!patientStore.report.photoWasTaken} backgroundColor={Colors.green}>{t("patient.report.next")}</SimpleButton>
