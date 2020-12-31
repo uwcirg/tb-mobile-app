@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import {DateTime} from 'luxon'
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import { DateTime } from 'luxon'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
@@ -12,26 +13,28 @@ import PatientReport from '../../Basics/PatientReport';
 import Styles from '../../Basics/Styles';
 import { useTranslation } from 'react-i18next';
 import NewButton from '../../Basics/NewButton';
-import  TempIcon from '../../Basics/Icons/Temp.js'
+import TempIcon from '../../Basics/Icons/Temp.js'
 import PillIcon from '../../Basics/Icons/Pill.js'
 import Camera from '@material-ui/icons/CameraAlt'
+import Collapse from '@material-ui/core/Collapse'
+import ClickableText from '../../Basics/ClickableText';
 
 const DayDrawer = observer((props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const { patientStore } = useStores();
 
-  const {t} = useTranslation('translation');
-  
+  const { t } = useTranslation('translation');
+
   const date = DateTime.fromISO(patientStore.uiState.selectedCalendarDate).startOf("day")
   const complete = (patientStore.selectedDayReport)
-  const missingPhoto = (patientStore.selectedDayWasPhotoDay ) && !patientStore.selectedDayReport || (patientStore.selectedDayReport && !patientStore.selectedDayReport.photoUrl);
-  const inSubmissionRange = ( date.diffNow("days").days >= -3 ) || date.diff(DateTime.fromISO(patientStore.treatmentStart),"weeks").weeks <= 2
+  const missingPhoto = (patientStore.selectedDayWasPhotoDay) && !patientStore.selectedDayReport || (patientStore.selectedDayReport && !patientStore.selectedDayReport.photoUrl);
+  const inSubmissionRange = (date.diffNow("days").days >= -3) || date.diff(DateTime.fromISO(patientStore.treatmentStart), "weeks").weeks <= 2
 
   return (
     <ExpansionPanel
       expanded={open}
-      onClick={() => {complete && setOpen(!open)}}
+      onClick={() => { complete && setOpen(!open) }}
       className={classes.drawer}>
       <ExpansionPanelSummary
         className={classes.collapsedDrawer}
@@ -44,7 +47,7 @@ const DayDrawer = observer((props) => {
         </div>
       </ExpansionPanelSummary>
       {complete &&
-        <ExpansionPanelDetails onClick={()=>{}} className={classes.detail}>
+        <ExpansionPanelDetails onClick={() => { }} className={classes.detail}>
           {patientStore.selectedDayReport ?
             <PatientReport
               pastReport
@@ -56,7 +59,7 @@ const DayDrawer = observer((props) => {
               photoString={patientStore.selectedDayReport.photoUrl}
               isPhotoDay={patientStore.checkPhotoDay(date)}
               missingPhoto={missingPhoto}
-          /> : <p>{t('commonWords.error')}</p>}
+            /> : <p>{t('commonWords.error')}</p>}
         </ExpansionPanelDetails>
       }
     </ExpansionPanel>
@@ -78,17 +81,17 @@ const Header = (props) => {
 
 const Body = observer((props) => {
   const classes = useStyles();
-  const { t, i18n } = useTranslation('translation');
+  const { t } = useTranslation('translation');
   const { patientUIStore, patientStore } = useStores();
 
   const handleDrawerClick = () => {
-    if(patientStore.uiState.selectedCalendarDate === DateTime.local().toISODate()){
+    if (patientStore.uiState.selectedCalendarDate === DateTime.local().toISODate()) {
       patientUIStore.moveToReportFlow();
-    }else{
+    } else {
       patientUIStore.startHistoricalReport();
     }
   }
-  
+
   return (
     <>
       {props.complete ?
@@ -98,16 +101,47 @@ const Body = observer((props) => {
           {props.photoDay && <div className={`${classes.previewItem} ${props.missingPhoto && classes.previewItemMissed}`}><Camera /><p>{t('commonWords.stripPhoto')}</p></div>}
         </div> :
         <>
-        {props.canSubmit ? <NewButton onClick={handleDrawerClick} icon={<PillIcon />} text={t("patient.home.todaysActions.logMedication")} /> :
-         <p>{t('patient.progress.submissionLimit')}</p>}
+          {props.canSubmit ? <NewButton onClick={handleDrawerClick} icon={<PillIcon />} text={t("patient.home.todaysActions.logMedication")} /> :
+            <MissedReportInfo />
+          }
+
         </>
       }
     </>
   )
 });
 
-const useStyles = makeStyles({
+const MissedReportInfo = () => {
 
+  const classes = useStyles();
+  const { t, i18n } = useTranslation('translation');
+  const [showDetail, setShowDetail] = useState(false);
+
+  const toggleDetail = () => {
+    setShowDetail(!showDetail)
+  }
+
+  return (
+    <div className={classes.noReport}>
+      <p>No report submitted</p>
+      <ClickableText className={classes.uncapitalize} hideIcon onClick={toggleDetail} text={<>When can I report if I missed a day? {showDetail ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}</>}></ClickableText>
+      <Collapse in={showDetail}>
+        <p>{t('patient.progress.submissionLimit')}</p>
+      </Collapse>
+    </div>
+  )
+}
+
+const useStyles = makeStyles({
+  uncapitalize:{
+    textTransform: "unset"
+  },
+  noReport: {
+    "& > p": {
+      margin: 0,
+      marginTop: "5px"
+    }
+  },
   drawer: {
     position: "fixed",
     bottom: "60px",
@@ -155,7 +189,7 @@ const useStyles = makeStyles({
       marginLeft: ".5em"
     }
   },
-  previewItemMissed:{
+  previewItemMissed: {
     color: Colors.red,
     "& > svg": {
       fontSize: "1em",

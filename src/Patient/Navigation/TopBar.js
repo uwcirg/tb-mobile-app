@@ -69,7 +69,7 @@ const GetTitle = observer(() => {
 
   return (
     <Typography variant="h6" className={classes.appTitle}>
-      {Object.values(t('patient.tabNames', { returnObjects: true }))[patientUIStore.tabNumber]}
+      {patientUIStore.tabNumber === 0 ? t('title') : Object.values(t('patient.tabNames', { returnObjects: true }))[patientUIStore.tabNumber]}
     </Typography>
   )
 

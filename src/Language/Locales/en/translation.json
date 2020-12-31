@@ -668,6 +668,7 @@
         "during": "During Continuous Phase"
     },
     "report": {
+        "for": "Report for",
         "incomplete": "Incomplete",
         "noReportsYet": "No Reports",
         "tag": "Report",

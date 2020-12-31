@@ -89,7 +89,7 @@
     },
     "patient": {
         "tabNames":{
-            "home": "Asistente de Tratamiento",
+            "home": "pantalla inicial",
             "calendar": "Calendario",
             "messaging": "Mensajes",
             "information": "Información"
@@ -128,7 +128,7 @@
                 "title": "Seleccione su género ",
                 "man": "Hombre",
                 "woman": "Mujer",
-                "nonbinary": "No Binarie",
+                "nonbinary": "No Binario",
                 "transMan": "hombre transgénero",
                 "transWoman": "mujer transgénero",
                 "other": "otro",
@@ -247,7 +247,7 @@
             "helpVideos":{
                 "needHelp": "¿Necesita ayuda con la aplicación?",
                 "hide": "Esconder",
-                "seeAll": "Ver Todos Los Vídeos",
+                "seeAll": "Ver Todos Los Vídeos tutoriales",
                 "collapse": "Esconder Lista",
                 "viewOnInfo": "Siempre puedes ver estos videos en la página de información."
             },
@@ -292,7 +292,7 @@
             "moodTitle": "¿Cómo se siente hoy?",
             "doingWell": "Estoy Bien",
             "needSupport": "Necesito Apoyo",
-            "requireReason": "Díganos cómo podemos ayudarte antes de continuar.",
+            "requireReason": "Díganos cómo podemos ayudarlo antes de continuar.",
             "whySupport": "¿Como podemos ayudarlo?",
             "photoTitle": "Tomar Foto de la Tira Reactiva",
             "photo": {
@@ -301,12 +301,12 @@
                 "openCamera": "Abrir la Camara",
                 "how": "¿Cómo hago la prueba? ",
                 "help":{
-                    "remember": "Por favor recuerde que necesita",
+                    "remember": "Por favor recuerde ",
                     "wait": "Dejar que la tira reactiva reaccione por 15 minutos.",
                     "straight": "Tome la foto directamente encima de la tira reactiva.",
                     "retake": "Vuelva a tomar la foto si:",
                     "blurry": "Está borrosa",
-                    "marker": "Los marcadores blancos y negros no están visible",
+                    "marker": "Los marcadores blancos y negros no están visibles",
                     "instructions": "Ver las instrucciones para las tiras reactivas."
                 }
             },
@@ -350,7 +350,7 @@
             "milestones": "Eventos Importantes",
             "upcoming": "Próximos",
             "calendar": "Calendario de Reportes",
-            "submissionLimit": "Si no completa un reporte, solo puede enviarlo para los 3 días anteriores. También puede enviar reportes para los días durante las primeras 2 semanas.",
+            "submissionLimit": "Durante las primeras dos semanas del tratamiento podrá completar los reportes de los días que no los haya enviado.\nA partir de las dos semanas, si algún día no envía un reporte solo podrá completar y enviar los reportes de los últimos 3 días. ",
             "calendarKey":{
                 "button": "Qué significan estos colores",
                 "description": "Este es el calendario, donde puede revisar sus reportes. Los colores representan lo siguiente:",
@@ -420,7 +420,7 @@
         },
         "sore_belly": {
             "title": "Dolor de la panza",
-            "subtitle": "Dolor de la panza"
+            "subtitle": "Dolor de panza"
         },
         "yellow_coloration": {
             "title": "Coloración amarillenta",
@@ -658,9 +658,10 @@
         "end": "Fin del Tratamiento",
         "here": "Ud. está aquí",
         "twoMonths": "Cada dos meses",
-        "during": "Durante la Fase Continua"
+        "during": "During Continuous Phase\n\nNOT SURE WHAT CONTINUOUS PHASE MEANS"
     },
     "report": {
+        "for": "Reporte para el dia",
         "incomplete": "Incompleto",
         "noReportsYet": "No Hay Reportes",
         "tag": "Reporte",

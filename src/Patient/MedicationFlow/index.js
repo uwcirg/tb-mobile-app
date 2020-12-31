@@ -11,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import ReportConfirmation from './ReportConfirmation'
 import NumberedTitle from '../Navigation/NumberedTitle'
 import ReportMood from './ReportMood';
+import {DateTime} from 'luxon';
 
 const useStyles = makeStyles({
     container: {
@@ -61,7 +62,7 @@ const MedicationFlow = observer((props) => {
     return (
         <div className={classes.container}>
             <NumberedTitle number={tabNumber} title={patientStore.report.headerText} />
-    <OverTopBar title={patientUIStore.onHistoricalReport ? <>Old {patientStore.report.date}</> : t("patient.report.title")} handleBack={handleBack} />
+    <OverTopBar title={patientUIStore.onHistoricalReport ? <>{t("report.for")} {DateTime.fromISO(patientStore.report.date).toLocaleString(DateTime.DATE_SHORT)}</> : t("patient.report.title")} handleBack={handleBack} />
             {React.cloneElement(Tabs[step], { advance: advance })}
         </div>)
 });
