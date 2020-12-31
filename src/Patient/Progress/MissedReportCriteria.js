@@ -29,7 +29,7 @@ const MissedReportInfo = (props) => {
   return (
     <div className={`${classes.noReport} ${props.className}`}>
       {!props.hideReport && <p>{t('patient.progress.noReport')}</p>}
-      <ClickableText className={classes.uncapitalize} hideIcon onClick={toggleDetail} text={<>When can I report if I missed a day? {showDetail ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}</>}></ClickableText>
+      <ClickableText className={classes.uncapitalize} hideIcon onClick={toggleDetail} text={<>{t('patient.progress.whenBackReport')} {showDetail ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}</>}></ClickableText>
       <Collapse in={showDetail}>
         <p>{t('patient.progress.submissionLimit')}</p>
       </Collapse>
