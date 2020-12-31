@@ -14,41 +14,11 @@ import WarningOutlined from '@material-ui/icons/ReportProblemOutlined';
 import Down from '@material-ui/icons/KeyboardArrowDown'
 import Up from '@material-ui/icons/KeyboardArrowUp'
 import Grow from '@material-ui/core/Collapse'
-import { DateTime } from 'luxon'; 
+import { DateTime } from 'luxon';
+import MissedReportInfo from '../Progress/MissedReportCriteria'
 
 const useStyles = makeStyles({
-    confirmation: {
-        ...Styles.flexRow,
-        marginBottom: "1em",
-        alignContent: "center"
-    },
-    confirmationText: {
-        ...Styles.flexColumn,
-        paddingLeft: "1em",
-        justifyContent: "center",
-        alignItems: "flex-start",
-        width: "50%",
-        textAlign: "left",
-    },
-    check: {
-        color: Colors.approvedGreen,
-        fontSize: "2.5em",
-    },
-    confirmationHeader: {
-        ...Styles.flexRow,
-        fontSize: "1.25em",
-        margin: 0,
-        "& > svg": {
-            color: Colors.approvedGreen,
-            marginLeft: ".5em"
-        }
-    },
-    bottomButton: {
-        margin: "1em",
-        "& > svg": {
-            fontSize: "1.25em"
-        }
-    },
+
     warning: {
         display: "flex",
         alignItems: "center",
@@ -62,9 +32,6 @@ const useStyles = makeStyles({
             color: Colors.red,
         }
     },
-    buttons: {
-
-    },
     grow: {
         width: "100%",
         "& > div > div > button": {
@@ -73,12 +40,20 @@ const useStyles = makeStyles({
     },
     override: {
         padding: "5px"
+    },
+    criteria: {
+        width: "100%",
+        padding: ".5em",
+        boxSizing: "border-box",
+        "& > button":{
+            width: "100%"
+        }
     }
 })
 
 const ActionBox = observer(() => {
     const classes = useStyles();
-    const { patientStore, patientUIStore,uiStore } = useStores();
+    const { patientStore, patientUIStore, uiStore } = useStores();
     const { t } = useTranslation('translation');
     const [show, setShow] = useState(false)
 
@@ -93,16 +68,16 @@ const ActionBox = observer(() => {
 
     return (
         <>
-        {patientStore.missingReports.length > 0 && <InteractionCard className={classes.override} upperText={<><WarningIcon />{t('patient.home.cardTitles.actionNeeded')}</>} id="intro-missed">
-            <div className={classes.warning}><WarningOutlined /><span> {patientStore.missingReports.length} {t('patient.home.missedDays.missing',{count: patientStore.missingReports.length })}</span><IconButton onClick={toggleShow}> {show ? <Up /> : <Down />}</IconButton></div>
-            {uiStore.locale && ""}
-            <Grow in={show} className={classes.grow}>
-                {patientStore.missingReports.map(date => {
-                    return <NewButton key={`back-report-${date}`} onClick={()=>{handleReportClick(date)}} icon={<Clipboard />} text={DateTime.fromISO(date).toLocaleString(DateTime.DATE_MED)} />
-                })}
-            </Grow>
-
-        </InteractionCard>}</>)
+            {patientStore.missingReports.length > 0 && <InteractionCard className={classes.override} upperText={<><WarningIcon />{t('patient.home.cardTitles.actionNeeded')}</>} id="intro-missed">
+                <div className={classes.warning}><WarningOutlined /><span> {patientStore.missingReports.length} {t('patient.home.missedDays.missing', { count: patientStore.missingReports.length })}</span><IconButton onClick={toggleShow}> {show ? <Up /> : <Down />}</IconButton></div>
+                {uiStore.locale && ""}
+                <Grow in={show} className={classes.grow}>
+                    <MissedReportInfo className={classes.criteria} hideReport />
+                    {patientStore.missingReports.map(date => {
+                        return <NewButton key={`back-report-${date}`} onClick={() => { handleReportClick(date) }} icon={<Clipboard />} text={DateTime.fromISO(date).toLocaleString(DateTime.DATE_MED)} />
+                    })}
+                </Grow>
+            </InteractionCard>}</>)
 });
 
 export default ActionBox;

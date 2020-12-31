@@ -76,7 +76,7 @@ const useStyles = makeStyles({
 const ReportPhoto = observer((props) => {
 
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const { t} = useTranslation('translation');
     const [showPopUp, setShowPopUp] = useState(false);
 
     const { patientStore, patientUIStore } = useStores();

@@ -344,6 +344,7 @@
             "doLater": "Do Later Today"
         },
         "progress": {
+            "noReport": "No report for this day",
             "viewCalendar": "View Your Calendar of Reports",
             "viewPhotos": "View Your Photo Submissions",
             "approvalStatus": "Approval Status",

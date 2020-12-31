@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { DateTime } from 'luxon'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -16,8 +14,7 @@ import NewButton from '../../Basics/NewButton';
 import TempIcon from '../../Basics/Icons/Temp.js'
 import PillIcon from '../../Basics/Icons/Pill.js'
 import Camera from '@material-ui/icons/CameraAlt'
-import Collapse from '@material-ui/core/Collapse'
-import ClickableText from '../../Basics/ClickableText';
+import MissedReportInfo from './MissedReportCriteria'
 
 const DayDrawer = observer((props) => {
   const classes = useStyles();
@@ -29,7 +26,7 @@ const DayDrawer = observer((props) => {
   const date = DateTime.fromISO(patientStore.uiState.selectedCalendarDate).startOf("day")
   const complete = (patientStore.selectedDayReport)
   const missingPhoto = (patientStore.selectedDayWasPhotoDay) && !patientStore.selectedDayReport || (patientStore.selectedDayReport && !patientStore.selectedDayReport.photoUrl);
-  const inSubmissionRange = (date.diffNow("days").days >= -3) || date.diff(DateTime.fromISO(patientStore.treatmentStart), "weeks").weeks <= 2
+  const inSubmissionRange = (date.diff(DateTime.local().startOf("day"), "days").days >= -3) || date.diff(DateTime.fromISO(patientStore.treatmentStart), "weeks").weeks <= 2
 
   return (
     <ExpansionPanel
@@ -71,9 +68,13 @@ const Header = (props) => {
   const classes = useStyles();
   const { t, i18n } = useTranslation('translation');
 
+  let newFormat = DateTime.DATE_FULL
+  delete newFormat.year
+  const dateString = props.date.toLocaleString(newFormat);
+
   return (
     <div className={classes.header}>
-      <h2 className={classes.drawerTitle}>{props.date.toLocaleString(DateTime.DATE_FULL)}</h2>
+      <h2 className={classes.drawerTitle}>{dateString}</h2>
       <p className={`${classes.status} ${!props.complete && classes.incomplete}`}>{props.complete ? t('patient.home.completed.title') : t('report.incomplete')}</p>
     </div>
   )
@@ -111,37 +112,8 @@ const Body = observer((props) => {
   )
 });
 
-const MissedReportInfo = () => {
-
-  const classes = useStyles();
-  const { t, i18n } = useTranslation('translation');
-  const [showDetail, setShowDetail] = useState(false);
-
-  const toggleDetail = () => {
-    setShowDetail(!showDetail)
-  }
-
-  return (
-    <div className={classes.noReport}>
-      <p>No report submitted</p>
-      <ClickableText className={classes.uncapitalize} hideIcon onClick={toggleDetail} text={<>When can I report if I missed a day? {showDetail ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}</>}></ClickableText>
-      <Collapse in={showDetail}>
-        <p>{t('patient.progress.submissionLimit')}</p>
-      </Collapse>
-    </div>
-  )
-}
 
 const useStyles = makeStyles({
-  uncapitalize:{
-    textTransform: "unset"
-  },
-  noReport: {
-    "& > p": {
-      margin: 0,
-      marginTop: "5px"
-    }
-  },
   drawer: {
     position: "fixed",
     bottom: "60px",

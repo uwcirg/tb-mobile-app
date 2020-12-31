@@ -413,12 +413,23 @@ export class PatientStore extends UserStore {
         }
     
         let missedDays = [];
+
+        //Past 3 days
         for(let i = 3; i > 0; i--){
             const date = DateTime.local().minus({days: i}).toISODate();
             if(!this.savedReports[date]){
                 missedDays.push(date)
             }
         }
+
+        for(let j = 0; j < 14; j++){
+            const date = DateTime.fromISO(this.treatmentStart).plus({days: j}).toISODate();
+            if(!this.savedReports[date]){
+                missedDays.push(date)
+            }
+        }
+
+
         return missedDays;
     }
 
