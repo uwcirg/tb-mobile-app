@@ -15,6 +15,7 @@ import TempIcon from '../../Basics/Icons/Temp.js'
 import PillIcon from '../../Basics/Icons/Pill.js'
 import Camera from '@material-ui/icons/CameraAlt'
 import MissedReportInfo from './MissedReportCriteria'
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
 
 const DayDrawer = observer((props) => {
   const classes = useStyles();
