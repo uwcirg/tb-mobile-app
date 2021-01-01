@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
-import ClickableText from '../../Basics/ClickableText'
 import Collapse from '@material-ui/core/Collapse'
 import { useTranslation } from 'react-i18next';
 import { ButtonBase } from '@material-ui/core'
@@ -41,7 +40,6 @@ const MissedReportInfo = (props) => {
   return (
     <div className={`${classes.noReport} ${props.className}`}>
       {!props.hideReport && <p>{t('patient.progress.noReport')}</p>}
-      {/*<ClickableText className={classes.uncapitalize} hideIcon onClick={toggleDetail} text={<>{t('patient.progress.whenBackReport')} {showDetail ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}</>}></ClickableText>*/}
       <ButtonBase onClick={toggleDetail} className={classes.description}>
         <span>{t('patient.progress.whenBackReport')}</span>
         {showDetail ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}

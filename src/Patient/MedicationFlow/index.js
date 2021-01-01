@@ -31,7 +31,6 @@ const MedicationFlow = observer((props) => {
         if (!patientUIStore.onHistoricalReport) {
             patientStore.saveReportingState();
         }
-
         patientUIStore.nextReportStep();
     }
 
@@ -59,10 +58,15 @@ const MedicationFlow = observer((props) => {
 
     const tabNumber = (patientStore.uiState.onPhotoFlow ? 3 : step + 1);
 
+    let format = {...DateTime.DATE_SHORT}
+    delete format.year;
+
+    const topDateString = DateTime.fromISO(patientStore.report.date).toLocaleString(format)
+
     return (
         <div className={classes.container}>
             <NumberedTitle number={tabNumber} title={patientStore.report.headerText} />
-            <OverTopBar title={patientUIStore.onHistoricalReport ? `${t("report.for")} ${DateTime.fromISO(patientStore.report.date).toLocaleString(DateTime.DATE_SHORT)}` : t("patient.report.title")} handleBack={handleBack} />
+            <OverTopBar title={patientUIStore.onHistoricalReport ? `${t("report.for")} ${topDateString}` : t("patient.report.title")} handleBack={handleBack} />
             {React.cloneElement(Tabs[step], { advance: advance })}
         </div>)
 });

@@ -42,8 +42,7 @@ const useStyles = makeStyles({
         padding: "5px"
     },
     criteria: {
-        width: "100%",
-        padding: ".5em",
+        padding: "1em",
         boxSizing: "border-box",
         "& > button":{
             width: "100%"
