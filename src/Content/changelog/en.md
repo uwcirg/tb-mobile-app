@@ -4,6 +4,7 @@
 ## v2.1 December 31st, 2020
 
 New Features:
+
 - Changed clock for treatment logging flow
 - Add updated video links
 - Allow patients to report for first two weeks to account for adjustment period
@@ -13,9 +14,9 @@ New Features:
 - Require a reason for patients submitting a "Need Support" request
 - Remove 180 days reference from progress card on home page
 - Admin Functions
-    - Veiw summary statistics about app use
-    - Show status of recent photo submissions
-    - ElastiAlert monitoring setup for server errors
+ - Veiw summary statistics about app use
+ - Show status of recent photo submissions
+ - ElastiAlert monitoring setup for server errors
 
 Resolved Bugs:
 
