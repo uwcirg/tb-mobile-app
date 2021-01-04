@@ -1,5 +1,31 @@
 
 
+
+## v2.1 December 31st, 2020
+
+New Features:
+- Changed clock for treatment logging flow
+- Add updated video links
+- Allow patients to report for first two weeks to account for adjustment period
+- Show days where report was missed (that are still reportable) on home page
+- Add tips for taking good photos on photo capture screen
+- Show date for old report at top of screen to prevent confusion
+- Require a reason for patients submitting a "Need Support" request
+- Remove 180 days reference from progress card on home page
+- Admin Functions
+    - Veiw summary statistics about app use
+    - Show status of recent photo submissions
+    - ElastiAlert monitoring setup for server errors
+
+Resolved Bugs:
+
+- Fix pluralization for symptoms page
+- Improve formatting for longer spanish translations
+- Deleting appointments working
+- Assistant mobile messaging missing channel bug fixed
+- Add error handling for onboarding survey to prevent infinite loop
+
+
 ## v2.0.5 - November 13th-24th, 2020
 
 New Features

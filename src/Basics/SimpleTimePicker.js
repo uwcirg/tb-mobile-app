@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     input: {
-        flex: 0,
         height: "300px",
         textAlign: "center",
         fontSize: "2em",
@@ -42,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
     clockSide: {
         width: "50%",
         display: "flex",
+        maxHeight:"150px",
         flexDirection: "column",
         "& > button": {
             alignSelf: "center"
