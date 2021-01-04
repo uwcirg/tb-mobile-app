@@ -86,7 +86,6 @@ const SingleSide = (props) => {
                     onBlur={toggleEditing}
                 /> :
                 <input
-                    readOnly
                     className={`${classes.input} ${classes.hour}`}
                     pattern="[0-9]*"
                     id={props.timeType}
