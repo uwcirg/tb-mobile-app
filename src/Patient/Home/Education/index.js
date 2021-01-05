@@ -1,5 +1,5 @@
 import PopUp from '../../Navigation/PopUp'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import NewButton from '../../../Basics/NewButton'
 import { Typography, ButtonGroup } from '@material-ui/core';
@@ -63,13 +63,17 @@ const messages = JSON.parse(file)
 
 const EducationalMessage = observer((props) => {
 
-    const { t, i18n } = useTranslation('translation');
+    const { t} = useTranslation('translation');
 
     const classes = useStyles();
-    const {patientUIStore} = useStores();
+    const {patientUIStore, patientStore} = useStores();
     const  {educationStore: education} = useStores().patientStore;
-    const [visible,setVisible] =  useState(education.messageNumber >= 0 && messages[education.messageNumber])
-    //const [visible,setVisible] =  useState(false)
+    const [visible,setVisible] =  useState(false);
+
+
+    useEffect(()=>{
+        setVisible(patientStore.patientInformation.loaded && education.messageNumber >= 0 && messages[education.messageNumber] != null)
+    },[education.messageNumber,patientStore.patientInformation.loaded])
 
 
     const handleClose = (isExit) => {
@@ -84,7 +88,8 @@ const EducationalMessage = observer((props) => {
     }
 
     return (
-        (visible && !patientUIStore.onWalkthrough) ?
+        <>
+        {visible && !patientUIStore.onWalkthrough ?
             <PopUp className={classes.container} handleClickAway={handleClose}>
                 <Typography className={classes.header} variant="h1">{t("educationalMessages.header")}: {t("time.week")} {Math.round(education.messageNumber / 7)}</Typography>
                 <div className={classes.body}>
@@ -98,7 +103,8 @@ const EducationalMessage = observer((props) => {
                        <Button onClick={() =>{handleRate(true)}}><ThumbUpIcon /></Button>
                     </ButtonGroup>
                     </div>
-            </PopUp> : "")
+            </PopUp> : ""}
+            </>)
 
 })
 

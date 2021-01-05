@@ -1,4 +1,4 @@
-import { action, observable, computed, autorun, toJS } from "mobx";
+import { action, observable, computed} from "mobx";
 
 export default class EducationStore {
 

@@ -52,6 +52,7 @@ const HomePage = () => {
 
 };
 
+
 const Body = styled.div`
 
 padding-top: 1em;

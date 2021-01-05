@@ -27,7 +27,8 @@ export class PatientStore extends UserStore {
     @observable patientInformation = {
         daysInTreatment: 0,
         currentStreak: 0,
-        weeksInTreatment: 0
+        weeksInTreatment: 0,
+        loaded: false
     }
 
     @observable photoSchedule = {};
@@ -91,7 +92,6 @@ export class PatientStore extends UserStore {
     }
 
     @action getPatientInformation = () => {
-
         return this.executeRequest(`getCurrentPatient`).then((json) => {
             if (json.status) {
                 this.status = json.status;
@@ -109,7 +109,8 @@ export class PatientStore extends UserStore {
         this.patientInformation.daysInTreatment = json.daysInTreatment;
         this.patientInformation.currentStreak = json.currentStreak;
         this.educationStore.educationStatus = json.educationStatus;
-
+        this.patientInformation.loaded = true;
+        
         localStorage.setItem("cachedProfile", JSON.stringify({
             photoSchedule: this.photoSchedule,
             givenName: json.givenName,
