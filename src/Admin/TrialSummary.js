@@ -40,6 +40,7 @@ const Cards = ({data}) => {
         <SectionHeader>Patients</SectionHeader>
         <SummaryCard title="Active" number={data.active}  />
         <SummaryCard title="High Priority" number={data.priorities.high} color={Colors.warningRed} />
+        <SummaryCard title="Medium Priority" number={data.priorities.medium} color={Colors.yellow} />
         <SummaryCard title="Low Priority" number={data.priorities.low || 0} color={Colors.green} />
     </div>)
 

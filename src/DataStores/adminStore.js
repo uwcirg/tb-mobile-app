@@ -6,12 +6,20 @@ const ROUTES = {
     getCurrentAdministrator: ["/user/current", "GET"],
     getSites: ["/organizations", "GET"],
     getSummary: ["/trial-summary","GET"],
-    getPhotos: ["/photo_reports","GET"]
+    getPhotos: ["/photo_reports","GET"],
+    getPatients: ["/study/patients","GET"]
 }
 
 export default class AdminStore extends UserStore {
 
     @observable sites = []
+
+    @observable patients = {
+        data: [],
+        loading: true,
+        error: false
+    }
+
     @observable summary = {
         data: {},
         loading: true,
@@ -41,6 +49,11 @@ export default class AdminStore extends UserStore {
         this.recentPhotos.data = photos;
     }
 
+    @action setPatients = (patients) => {
+        this.patients.loading = false;
+        this.patients.data = patients;
+    }
+
     getSites = () => {
         this.executeRequest('getSites').then(res => {
             this.setSites(res);
@@ -66,5 +79,13 @@ export default class AdminStore extends UserStore {
         this.getPhotos();
         this.getSummary();
     }
+
+    getPatients = () => {
+        this.executeRequest('getPatients').then(res => {
+            this.setPatients(res);
+        })
+    }
+
+
 
 }

@@ -50,7 +50,7 @@ const PhotoSummary = observer(() => {
         <SectionHeader>Test Strip Submissions</SectionHeader>
         <div className={classes.cardContainer}>
             {!adminStore.summary.loading && <SummaryCard number={`${adminStore.summary.data.photos.numberOfSubmissions}/${adminStore.summary.data.photos.numberRequested}`} title="Submitted / Requested Total" />}
-            <SummaryCard number={'4/5'} title="Submitted / Requested Today" />
+            {/*<SummaryCard number={'4/5'} title="Submitted / Requested Today" />*/}
         </div>
 
         {adminStore.recentPhotos.loading && adminStore.recentPhotos.data ? <p> Loading</p> : <Photos list={adminStore.recentPhotos.data} />}

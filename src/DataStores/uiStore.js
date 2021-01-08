@@ -34,7 +34,6 @@ export class UIStore {
     }
 
     @action goToMessaging = () => {
-
         this.router.push("/messaging/")
     }
 
@@ -44,6 +43,10 @@ export class UIStore {
 
     @action toggleTreatmentFlow = () => {
         this.onTreatmentFlow = false;
+    }
+
+    @action push = (url) => {
+        this.router.push(url)
     }
 
     updateStoredState(prevState) {

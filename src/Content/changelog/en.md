@@ -1,6 +1,11 @@
 
 
 
+## v2.1.2
+Bug Fix:
+
+- Treatment Messages (weekly timed messages) were showing up blank. Fixed
+
 ## v2.1 December 31st, 2020
 
 New Features:

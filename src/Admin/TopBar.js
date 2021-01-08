@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import SettingsIcon from '@material-ui/icons/Settings';
 import Logout from '../Basics/Logout';
 import useStores from '../Basics/UseStores';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles({
     topBar: {
@@ -36,10 +37,14 @@ const useStyles = makeStyles({
 
 const AdminTopBar = () => {
     const classes = useStyles();
+    const {uiStore} = useStores();
+
     return (
         <div className={classes.topBar}>
             <img src="/logo.png" />
             <Typography variant="h1">Trial Dashboard</Typography>
+            <Button onClick={()=>{uiStore.push("/")}}>Home</Button>
+            <Button onClick={()=>{uiStore.push("/patients")}}>Patients</Button>
             <Settings />
         </div>
     )
