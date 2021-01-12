@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { DateTime } from 'luxon'
-import { TimePicker } from "@material-ui/pickers/TimePicker";
 import Fade from '@material-ui/core/Fade';
 import ClickableText from '../../Basics/ClickableText';
 import useStores from '../../Basics/UseStores';
 import TextField from '@material-ui/core/OutlinedInput';
 import { makeStyles } from '@material-ui/core';
-
 import Colors from '../../Basics/Colors';
 import Styles from '../../Basics/Styles';
 import SimpleButton from '../../Basics/SimpleButton';
-
 import SimpleTimePicker from '../../Basics/SimpleTimePicker';
 
 const useStyles = makeStyles({
@@ -102,15 +99,6 @@ const TimeQuestion = observer(() => {
                     timeTaken={patientStore.report.timeTaken}
                     handleChange={handleChange}
                 />
-                {/*
-                <TimePicker
-                    className={classes.timeSelect}
-                    clearable
-                    ampm={uiStore.locale === "en"}
-                    value={DateTime.fromISO(patientStore.report.timeTaken)}
-                    onChange={handleDate}
-                />
-                */}
             </div>
         </Fade>)
 });
@@ -146,7 +134,7 @@ const DidntTakeMedication = observer((props) => {
 
 const ReportMedication = observer((props) => {
 
-    const { patientStore } = useStores();
+    const { patientStore,patientUIStore } = useStores();
     const { t } = useTranslation('translation');
 
     useEffect(() => {
@@ -162,6 +150,9 @@ const ReportMedication = observer((props) => {
     }
 
     const handleNext = () => {
+        if(!patientUIStore.onHistoricalReport){
+            patientStore.reportStore.submitMedication();
+        }
         props.advance()
     }
 

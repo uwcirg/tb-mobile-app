@@ -2,6 +2,7 @@ import { action, observable, computed, autorun, toJS } from "mobx";
 import { UserStore } from './userStore';
 import { DateTime, Interval } from 'luxon';
 import EducationStore from './educationStore';
+import ReportStore from './reportStore';
 import { addReportToOfflineCache, getNumberOfCachedReports } from './SaveReportOffline'
 
 const ROUTES = {
@@ -12,7 +13,6 @@ const ROUTES = {
     patientReports: ["/daily_reports", "GET"],
     getPhotoUploadURL: ["/patient/daily_reports/photo_upload_url", "GET"],
     updateNotificationTime: ["/patient/reminder", "PATCH"],
-    getMilestones: ["/patient/me/milestones", "GET"],
     updateEducationStatus: ["/patient/me/education_status", "POST"]
 }
 
@@ -22,6 +22,7 @@ export class PatientStore extends UserStore {
     constructor(strategy) {
         super(strategy, ROUTES, "Patient")
         this.educationStore = new EducationStore(this)
+        this.reportStore = new ReportStore(this)
     }
 
     @observable patientInformation = {
@@ -50,8 +51,6 @@ export class PatientStore extends UserStore {
     
     @observable savedReports = [];
     @observable savedReportsLoaded = false;
-    
-    @observable milestones = [];
 
     @observable report = this.defaultReport;
 
@@ -257,7 +256,6 @@ export class PatientStore extends UserStore {
                 this.report.hasConfirmedAndSubmitted = true;
                 this.saveReportingState();
             })
-
         }
     }
 
@@ -327,18 +325,6 @@ export class PatientStore extends UserStore {
                 this.reminderTime = null;
             }
         });
-    }
-
-    @action getMilestones() {
-        this.executeRequest('getMilestones').then((json) => {
-            this.milestones = json[0] ? json : []
-        })
-    }
-
-    @action postMilestone = () => {
-        this.executeRawRequest(`/patient/${this.userID}/milestones`, "POST", this.newMilestone).then(response => {
-            this.milestones.push(response);
-        })
     }
 
     @action startHistoricalReport = () => {
