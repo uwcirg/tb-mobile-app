@@ -47,10 +47,10 @@ export class PatientStore extends UserStore {
     }
 
     @observable medicationSchedule = []
-    
+
     @observable savedReports = [];
     @observable savedReportsLoaded = false;
-    
+
     @observable milestones = [];
 
     @observable report = this.defaultReport;
@@ -110,7 +110,7 @@ export class PatientStore extends UserStore {
         this.patientInformation.currentStreak = json.currentStreak;
         this.educationStore.educationStatus = json.educationStatus;
         this.patientInformation.loaded = true;
-        
+
         localStorage.setItem("cachedProfile", JSON.stringify({
             photoSchedule: this.photoSchedule,
             givenName: json.givenName,
@@ -342,7 +342,7 @@ export class PatientStore extends UserStore {
     }
 
     @action startHistoricalReport = () => {
-        const newDate = DateTime.fromISO(this.uiState.selectedCalendarDate).set({hour: 12,minute: 0})
+        const newDate = DateTime.fromISO(this.uiState.selectedCalendarDate).set({ hour: 12, minute: 0 })
 
         this.report = {
             date: newDate.toISODate(),
@@ -406,26 +406,30 @@ export class PatientStore extends UserStore {
         })
     }
 
-    @computed get missingReports(){
+    @computed get missingReports() {
 
         //So that the missing days card stays hidden before the reports load from server
-        if(!this.savedReportsLoaded){
+        if (!this.savedReportsLoaded) {
             return 0;
         }
-    
+
         let missedDays = [];
 
         //Past 3 days
-        for(let i = 3; i > 0; i--){
-            const date = DateTime.local().minus({days: i}).toISODate();
-            if(!this.savedReports[date]){
-                missedDays.push(date)
+        for (let i = 3; i > 0; i--) {
+            let date = DateTime.local().minus({ days: i })
+            const isoDate = date.toISODate();
+     
+            if (!this.savedReports[isoDate] && DateTime.fromISO(this.treatmentStart).diff(date,"days").days <= -1) {
+                missedDays.push(isoDate)
             }
         }
 
-        for(let j = 0; j < 14; j++){
-            const date = DateTime.fromISO(this.treatmentStart).plus({days: j}).toISODate();
-            if(!this.savedReports[date]){
+        for (let j = 0; j < 14; j++) {
+            let newDate = DateTime.fromISO(this.treatmentStart).plus({ days: j })
+            const date = newDate.toISODate();
+            //console.log(newDate.diffNow("days").days)
+            if (!this.savedReports[date] && newDate.diffNow("days").days < -1) {
                 missedDays.push(date)
             }
         }
