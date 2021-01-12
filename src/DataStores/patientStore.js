@@ -428,7 +428,6 @@ export class PatientStore extends UserStore {
         for (let j = 0; j < 14; j++) {
             let newDate = DateTime.fromISO(this.treatmentStart).plus({ days: j })
             const date = newDate.toISODate();
-            //console.log(newDate.diffNow("days").days)
             if (!this.savedReports[date] && newDate.diffNow("days").days < -1) {
                 missedDays.push(date)
             }

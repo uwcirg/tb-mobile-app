@@ -1,6 +1,13 @@
 
 
 
+## v2.1.4
+Bug Fix:
+
+- Newly signed up patients were being shown the "Action needed missed report" card for reports before their treatment start.
+- Fixed this error for the days in the future or before treatment start
+
+
 ## v2.1.2
 Bug Fix:
 
