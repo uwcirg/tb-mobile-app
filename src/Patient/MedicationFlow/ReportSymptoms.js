@@ -12,16 +12,16 @@ const ReportSymptoms = observer((props) => {
 
     const classes = useStyles();
     const {patientStore} = useStores();
-    const {t, i18n} = useTranslation('translation');
+    const {t} = useTranslation('translation');
 
     patientStore.report.headerText = t("patient.report.symptomsTitle")
 
     const handleNext = () => {
+        patientStore.reportStore.submitSymptoms();
         props.advance()
         if(!patientStore.report.isHistoricalReport){
             patientStore.report.hasSubmitted = true;
         }
-        
     }
 
     const symptoms = t("commonWords.symptoms");

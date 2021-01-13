@@ -89,6 +89,12 @@ const ReportMood = observer((props) => {
         patientStore.report.headerText = t("patient.report.moodTitle")
     }, [])
 
+    const handleNext = () => {
+        patientStore.reportStore.submitMood();
+        props.advance()
+
+    }
+
     const selectGood = () => {
         patientStore.report.doingOkaySelected = true;
         patientStore.report.doingOkay = true;
@@ -127,9 +133,7 @@ const ReportMood = observer((props) => {
             </div>}
         </div>
 
-        <SimpleButton disabled={continueIsDisabled} className={classes.button} alignRight onClick={() => {
-            props.advance()
-        }} backgroundColor={Colors.green}>{t("patient.report.next")}</SimpleButton>
+        <SimpleButton disabled={continueIsDisabled} className={classes.button} alignRight onClick={handleNext} backgroundColor={Colors.green}>{t("patient.report.next")}</SimpleButton>
     </div>)
 
 })
