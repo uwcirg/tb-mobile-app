@@ -59,6 +59,7 @@ label{
 const Card = styled.div`
   margin: auto;
   width: 80%;
+  max-width: 300px;
   color: white;
   flex-grow: 2;
 

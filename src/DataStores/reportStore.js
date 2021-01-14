@@ -6,16 +6,21 @@ export default class ReportStore {
         this.rootStore = rootStore;
     }
 
-    submitMedication = () => {
-        this.rootStore.executeRawRequest('/v2/medication_reports', "POST", this.getMedicationBody()).then((json) => {
-            console.log(json)
+    submitPhoto = () => {
+        let body = this.getPhotoBody();
+
+        this.rootStore.uploadPhoto().then(response => {
+            body.photoUrl = response;
+            this.rootStore.executeRawRequest('/v2/photo_reports', "POST", body);
         })
     }
 
+    submitMedication = () => {
+        this.rootStore.executeRawRequest('/v2/medication_reports', "POST", this.getMedicationBody())
+    }
+
     submitSymptoms = () => {
-        this.rootStore.executeRawRequest('/v2/symptom_reports', "POST", this.getSymptomBody()).then((json) => {
-            console.log(json)
-        })
+        this.rootStore.executeRawRequest('/v2/symptom_reports', "POST", this.getSymptomBody())
     }
 
     submitMood = () => {
@@ -27,6 +32,12 @@ export default class ReportStore {
             date: this.rootStore.report.date,
             doingOkay: this.rootStore.report.doingOkay,
             doingOkayReason: this.rootStore.report.supportReason
+        }
+    }
+
+    getPhotoBody = () => {
+        return {
+            date: this.rootStore.report.date,
         }
     }
 

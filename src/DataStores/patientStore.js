@@ -240,9 +240,6 @@ export class PatientStore extends UserStore {
 
     @action photoSubmission = () => {
         this.report.hasSubmittedPhoto = true;
-        if (this.report.hasSubmitted) {
-
-        }
         this.uiState.onPhotoFlow = false;
         this.uiState.onTreatmentFlow = true;
     }

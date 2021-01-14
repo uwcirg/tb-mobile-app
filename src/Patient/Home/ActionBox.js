@@ -4,7 +4,7 @@ import Clipboard from '@material-ui/icons/Assignment'
 import Camera from '@material-ui/icons/CameraAlt';
 import InteractionCard from '../../Basics/InteractionCard';
 import useStores from '../../Basics/UseStores';
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next';
 import ClickableText from '../../Basics/ClickableText';
 import { makeStyles } from '@material-ui/core';
@@ -13,14 +13,15 @@ import { ReactComponent as DoctorIcon } from '../../Basics/Icons/doctor.svg';
 import CheckIcon from '@material-ui/icons/Check';
 import Colors from '../../Basics/Colors';
 import ActionIcon from '@material-ui/icons/PlaylistAddCheck';
+import PatientReport from '../../Basics/PatientReport';
 
 const useStyles = makeStyles({
-    confirmation:{
+    confirmation: {
         ...Styles.flexRow,
         marginBottom: "1em",
         alignContent: "center"
     },
-    confirmationText:{
+    confirmationText: {
         ...Styles.flexColumn,
         paddingLeft: "1em",
         justifyContent: "center",
@@ -28,7 +29,7 @@ const useStyles = makeStyles({
         width: "50%",
         textAlign: "left",
     },
-    check:{
+    check: {
         color: Colors.approvedGreen,
         fontSize: "2.5em",
     },
@@ -41,55 +42,58 @@ const useStyles = makeStyles({
             marginLeft: ".5em"
         }
     },
-    bottomButton:{
+    bottomButton: {
         margin: "1em",
-        "& > svg":{
+        "& > svg": {
             fontSize: "1.25em"
         }
+    },
+    review: {
+        padding: ".5em"
     }
 })
 
 const ActionBox = observer(() => {
     const classes = useStyles();
-    const {patientStore,patientUIStore} = useStores();
-    const { t, i18n } = useTranslation('translation');
+    const { patientStore, patientUIStore } = useStores();
+    const { t } = useTranslation('translation');
 
     const [counter, changeCounter] = useState(0);
- 
+
     //Once a minute refresh the local report check
     //Prevents a bug where the old state can be shown until the page is refreshed
     useEffect(() => {
-      const interval = setInterval(() => {
-        changeCounter(prevCounter => prevCounter + 1);
-        patientStore.loadDailyReport();
-      }, 60000);
-   
-      return () => clearInterval(interval);
+        const interval = setInterval(() => {
+            changeCounter(prevCounter => prevCounter + 1);
+            patientStore.loadDailyReport();
+        }, 60000);
+
+        return () => clearInterval(interval);
     }, []);
 
-    const handleReportClick = () =>{
+    const handleReportClick = () => {
         //patientStore.uiState.onTreatmentFlow = true;
         patientUIStore.moveToReportFlow();
     }
 
-    const handlePhotoClick = () =>{
-        if(!patientStore.report.hasSubmitted){
+    const handlePhotoClick = () => {
+        if (!patientStore.report.hasSubmitted) {
             patientUIStore.skippedToPhotoFlow = true;
         }
         patientUIStore.openPhotoReport();
     }
 
-    return(
+    return (
         <InteractionCard upperText={<><ActionIcon />{t("patient.home.cardTitles.todaysTasks")}</>} id="intro-tasks">
-            {counter >= 0 && patientStore.dailyActionsCompleted ? 
-            <>
-            <Confirmation onClick={patientUIStore.editReport} />
-            </>
-             :
-            <>
-            <NewButton positive={patientStore.report.hasSubmitted} onClick={handleReportClick} icon={<Clipboard />} text={t("patient.home.todaysActions.logMedication")} />
-            {patientStore.isPhotoDay && <NewButton positive={patientStore.report.hasSubmittedPhoto} onClick={handlePhotoClick} icon={<Camera />} text={t("patient.home.todaysActions.uploadPhoto")} />} 
-            </>
+            {counter >= 0 && patientStore.dailyActionsCompleted ?
+                <>
+                    <Confirmation onClick={patientUIStore.editReport} />
+                </>
+                :
+                <>
+                    <NewButton positive={patientStore.report.hasSubmitted} onClick={handleReportClick} icon={<Clipboard />} text={t("patient.home.todaysActions.logMedication")} />
+                    {patientStore.isPhotoDay && <NewButton positive={patientStore.report.hasSubmittedPhoto} onClick={handlePhotoClick} icon={<Camera />} text={t("patient.home.todaysActions.uploadPhoto")} />}
+                </>
             }
             { patientStore.requiresSubmission && <ClickableText onClick={patientUIStore.skipToReportConfirmation} className={classes.bottomButton} text={t("patient.home.confirmAndSubmit")} />}
         </InteractionCard>)
@@ -98,17 +102,38 @@ const ActionBox = observer(() => {
 const Confirmation = (props) => {
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
+    const [showReport,setShowReport] = useState(false);
 
-    return(
-        <div className={classes.confirmation}>
-            <DoctorIcon />
-            <div className={classes.confirmationText}>
-                <div className={classes.confirmationHeader}>{t("patient.home.completed.title")}<CheckIcon /></div>
-                <p>{t("patient.home.completed.subtitle")}</p>
-                <ClickableText onClick={props.onClick} hideIcon text={t("patient.home.completed.modify")}/>
+    return (
+        <div className={classes.confirmationSuperContainer}>
+            <div className={classes.confirmation}>
+                <DoctorIcon />
+                <div className={classes.confirmationText}>
+                    <div className={classes.confirmationHeader}>{t("patient.home.completed.title")}<CheckIcon /></div>
+                    <p>{t("patient.home.completed.subtitle")}</p>
+                    <ClickableText onClick={props.onClick} hideIcon text={t("patient.home.completed.modify")} />
+                </div>
             </div>
+            <ClickableText className={classes.review} onClick={()=>{setShowReport(!showReport)}} hideIcon text={t("Review Your Treatment Log")} />
+            {showReport && <Review />}
         </div>
     )
 }
+
+const Review = observer(()=>{
+
+    const { patientStore} = useStores();
+
+    return(
+        <PatientReport
+        medicationNotTakenReason={patientStore.report.whyMedicationNotTaken}
+        medicationWasTaken={patientStore.report.tookMedication}
+        timeTaken={patientStore.report.timeTaken}
+        selectedSymptoms={patientStore.report.selectedSymptoms}
+        photoString={patientStore.report.photoString}
+        isPhotoDay={patientStore.isPhotoDay}
+     />
+    )
+})
 
 export default ActionBox;

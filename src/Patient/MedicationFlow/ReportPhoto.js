@@ -100,7 +100,8 @@ const ReportPhoto = observer((props) => {
 
     const handleNext = () => {
         patientStore.photoSubmission();
-
+        patientStore.reportStore.submitPhoto();
+        
         if (!patientUIStore.skippedToPhotoFlow) {
             props.advance();
         } else {
