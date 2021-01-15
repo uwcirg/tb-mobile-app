@@ -15,11 +15,13 @@ import Colors from '../../Basics/Colors';
 import ActionIcon from '@material-ui/icons/PlaylistAddCheck';
 import PatientReport from '../../Basics/PatientReport';
 
+import ExpansionPanel from '../../Basics/ExpansionPanel';
+
 const useStyles = makeStyles({
     confirmation: {
         ...Styles.flexRow,
         marginBottom: "1em",
-        alignContent: "center"
+        alignItems: "flex-end",
     },
     confirmationText: {
         ...Styles.flexColumn,
@@ -27,6 +29,7 @@ const useStyles = makeStyles({
         justifyContent: "center",
         alignItems: "flex-start",
         width: "50%",
+        height: "100%",
         textAlign: "left",
     },
     check: {
@@ -50,6 +53,13 @@ const useStyles = makeStyles({
     },
     review: {
         padding: ".5em"
+    },
+    reportPreview:{
+        color: Colors.buttonBlue,
+        "& > button":{
+            color: Colors.buttonBlue
+        }
+        
     }
 })
 
@@ -85,7 +95,7 @@ const ActionBox = observer(() => {
     }
 
     console.log("base ", patientStore.reportStore.baseReportComplete)
-    console.log("photo ",patientStore.reportStore.photoReportComplete)
+    console.log("photo ", patientStore.reportStore.photoReportComplete)
     return (
         <InteractionCard upperText={<><ActionIcon />{t("patient.home.cardTitles.todaysTasks")}</>} id="intro-tasks">
             {counter >= 0 && patientStore.reportStore.allReportComplete ?
@@ -114,11 +124,11 @@ const Confirmation = (props) => {
                 <div className={classes.confirmationText}>
                     <div className={classes.confirmationHeader}>{t("patient.home.completed.title")}<CheckIcon /></div>
                     <p>{t("patient.home.completed.subtitle")}</p>
-                    <ClickableText onClick={props.onClick} hideIcon text={t("patient.home.completed.modify")} />
                 </div>
             </div>
-            <ClickableText className={classes.review} onClick={() => { setShowReport(!showReport) }} hideIcon text={t("Review Your Treatment Log")} />
-            {showReport && <Review />}
+            <ExpansionPanel previewClassName={classes.reportPreview} preview={t("View / Edit Treatment Log")}>
+                <Review />
+            </ExpansionPanel>
         </div>
     )
 }
