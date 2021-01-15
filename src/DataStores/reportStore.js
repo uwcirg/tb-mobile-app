@@ -1,9 +1,38 @@
-//import { action, observable, computed } from "mobx";
+import { action, observable, computed } from "mobx";
+import { DateTime } from 'luxon';
 
 export default class ReportStore {
 
     constructor(rootStore) {
         this.rootStore = rootStore;
+    }
+
+    @observable todaysReportFromServer = {}
+
+    @action setTodaysReport = (report) => {
+        this.todaysReportFromServer = report;
+    }
+
+    @computed get baseReportComplete(){
+        return this.todaysReportFromServer.status && 
+        this.todaysReportFromServer.status.medicationReport &&
+        this.todaysReportFromServer.status.symptomReport  
+    }
+
+    @computed get allReportComplete(){
+        return this.todaysReportFromServer.status &&
+        this.todaysReportFromServer.status.complete
+    }
+
+    @computed get photoReportComplete(){
+        console.log(" in photo report method")
+        return this.todaysReportFromServer.status && this.todaysReportFromServer.status.photoReport
+    }
+
+    getTodaysReport() {
+        this.rootStore.executeRawRequest(`/v2/daily_report?date=${DateTime.local().toISODate()}`).then(res => {
+            this.setTodaysReport(res);
+        })
     }
 
     submitPhoto = () => {

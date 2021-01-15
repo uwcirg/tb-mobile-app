@@ -1,9 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { observer } from 'mobx-react';
 import ReportMedication from './ReportMedication'
 import ReportSymptoms from './ReportSymptoms'
 import ReportPhoto from './ReportPhoto'
-import ReportPopUp from './ReportPopUp'
 import { useTranslation } from 'react-i18next';
 import OverTopBar from '../Navigation/OverTopBar'
 import useStores from '../../Basics/UseStores';
@@ -20,7 +19,6 @@ const useStyles = makeStyles({
         backgroundColor: "white"
     }
 });
-
 
 const MedicationFlow = observer((props) => {
     const classes = useStyles();

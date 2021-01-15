@@ -1,4 +1,4 @@
-import { action, observable, computed, autorun, toJS } from "mobx";
+import { action, observable, computed, toJS } from "mobx";
 import { UserStore } from './userStore';
 import { DateTime, Interval } from 'luxon';
 import EducationStore from './educationStore';
@@ -68,6 +68,7 @@ export class PatientStore extends UserStore {
     @action initalize() {
         this.loadCachedProfile();
         super.initalize()
+        this.reportStore.getTodaysReport();
         this.loadDailyReport();
         this.getReports();
     }
@@ -415,7 +416,6 @@ export class PatientStore extends UserStore {
                 missedDays.push(date)
             }
         }
-
 
         return missedDays;
     }

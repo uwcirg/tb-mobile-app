@@ -60,9 +60,11 @@ const ActionBox = observer(() => {
 
     const [counter, changeCounter] = useState(0);
 
+
     //Once a minute refresh the local report check
     //Prevents a bug where the old state can be shown until the page is refreshed
     useEffect(() => {
+        patientStore.reportStore.getTodaysReport();
         const interval = setInterval(() => {
             changeCounter(prevCounter => prevCounter + 1);
             patientStore.loadDailyReport();
@@ -72,7 +74,6 @@ const ActionBox = observer(() => {
     }, []);
 
     const handleReportClick = () => {
-        //patientStore.uiState.onTreatmentFlow = true;
         patientUIStore.moveToReportFlow();
     }
 
@@ -83,26 +84,28 @@ const ActionBox = observer(() => {
         patientUIStore.openPhotoReport();
     }
 
+    console.log("base ", patientStore.reportStore.baseReportComplete)
+    console.log("photo ",patientStore.reportStore.photoReportComplete)
     return (
         <InteractionCard upperText={<><ActionIcon />{t("patient.home.cardTitles.todaysTasks")}</>} id="intro-tasks">
-            {counter >= 0 && patientStore.dailyActionsCompleted ?
+            {counter >= 0 && patientStore.reportStore.allReportComplete ?
                 <>
                     <Confirmation onClick={patientUIStore.editReport} />
                 </>
                 :
                 <>
-                    <NewButton positive={patientStore.report.hasSubmitted} onClick={handleReportClick} icon={<Clipboard />} text={t("patient.home.todaysActions.logMedication")} />
-                    {patientStore.isPhotoDay && <NewButton positive={patientStore.report.hasSubmittedPhoto} onClick={handlePhotoClick} icon={<Camera />} text={t("patient.home.todaysActions.uploadPhoto")} />}
+                    <NewButton positive={patientStore.reportStore.baseReportComplete} onClick={handleReportClick} icon={<Clipboard />} text={t("patient.home.todaysActions.logMedication")} />
+                    {patientStore.isPhotoDay && <NewButton positive={patientStore.reportStore.photoReportComplete} onClick={handlePhotoClick} icon={<Camera />} text={t("patient.home.todaysActions.uploadPhoto")} />}
                 </>
             }
-            { patientStore.requiresSubmission && <ClickableText onClick={patientUIStore.skipToReportConfirmation} className={classes.bottomButton} text={t("patient.home.confirmAndSubmit")} />}
+            {/* patientStore.requiresSubmission && <ClickableText onClick={patientUIStore.skipToReportConfirmation} className={classes.bottomButton} text={t("patient.home.confirmAndSubmit")} /> */}
         </InteractionCard>)
 });
 
 const Confirmation = (props) => {
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
-    const [showReport,setShowReport] = useState(false);
+    const [showReport, setShowReport] = useState(false);
 
     return (
         <div className={classes.confirmationSuperContainer}>
@@ -114,25 +117,25 @@ const Confirmation = (props) => {
                     <ClickableText onClick={props.onClick} hideIcon text={t("patient.home.completed.modify")} />
                 </div>
             </div>
-            <ClickableText className={classes.review} onClick={()=>{setShowReport(!showReport)}} hideIcon text={t("Review Your Treatment Log")} />
+            <ClickableText className={classes.review} onClick={() => { setShowReport(!showReport) }} hideIcon text={t("Review Your Treatment Log")} />
             {showReport && <Review />}
         </div>
     )
 }
 
-const Review = observer(()=>{
+const Review = observer(() => {
 
-    const { patientStore} = useStores();
+    const { patientStore } = useStores();
 
-    return(
+    return (
         <PatientReport
-        medicationNotTakenReason={patientStore.report.whyMedicationNotTaken}
-        medicationWasTaken={patientStore.report.tookMedication}
-        timeTaken={patientStore.report.timeTaken}
-        selectedSymptoms={patientStore.report.selectedSymptoms}
-        photoString={patientStore.report.photoString}
-        isPhotoDay={patientStore.isPhotoDay}
-     />
+            medicationNotTakenReason={patientStore.report.whyMedicationNotTaken}
+            medicationWasTaken={patientStore.report.tookMedication}
+            timeTaken={patientStore.report.timeTaken}
+            selectedSymptoms={patientStore.report.selectedSymptoms}
+            photoString={patientStore.report.photoString}
+            isPhotoDay={patientStore.isPhotoDay}
+        />
     )
 })
 
