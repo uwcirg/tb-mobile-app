@@ -6,7 +6,6 @@ import InteractionCard from '../../Basics/InteractionCard';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next';
-import ClickableText from '../../Basics/ClickableText';
 import { makeStyles } from '@material-ui/core';
 import Styles from '../../Basics/Styles';
 import { ReactComponent as DoctorIcon } from '../../Basics/Icons/doctor.svg';
@@ -14,7 +13,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import Colors from '../../Basics/Colors';
 import ActionIcon from '@material-ui/icons/PlaylistAddCheck';
 import PatientReport from '../../Basics/PatientReport';
-
+import EditIcon from '@material-ui/icons/Edit';
 import ExpansionPanel from '../../Basics/ExpansionPanel';
 
 const useStyles = makeStyles({
@@ -56,7 +55,7 @@ const useStyles = makeStyles({
     },
     reportPreview:{
         color: Colors.buttonBlue,
-        "& > button":{
+        "& > button, & > svg":{
             color: Colors.buttonBlue
         }
         
@@ -94,8 +93,6 @@ const ActionBox = observer(() => {
         patientUIStore.openPhotoReport();
     }
 
-    console.log("base ", patientStore.reportStore.baseReportComplete)
-    console.log("photo ", patientStore.reportStore.photoReportComplete)
     return (
         <InteractionCard upperText={<><ActionIcon />{t("patient.home.cardTitles.todaysTasks")}</>} id="intro-tasks">
             {counter >= 0 && patientStore.reportStore.allReportComplete ?
@@ -126,7 +123,11 @@ const Confirmation = (props) => {
                     <p>{t("patient.home.completed.subtitle")}</p>
                 </div>
             </div>
-            <ExpansionPanel previewClassName={classes.reportPreview} preview={t("View / Edit Treatment Log")}>
+            <ExpansionPanel 
+            previewClassName={classes.reportPreview} 
+            preview={t("View / Edit Treatment Log")}
+            icon={<EditIcon />}
+            >
                 <Review />
             </ExpansionPanel>
         </div>

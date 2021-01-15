@@ -73,18 +73,19 @@ const useStyles = makeStyles({
 const PatientReport = (props) => {
 
     const classes = useStyles();
-    const {patientUIStore} = useStores();
-    const { t, i18n } = useTranslation('translation');
+    const { patientUIStore } = useStores();
+    const { t } = useTranslation('translation');
 
     return (<div className={`${classes.container}`}>
         <ListItem negative={!props.medicationWasTaken} icon={<PillIcon />} title={t("commonWords.medication")} >
             <p> {props.medicationWasTaken ? `${t("patient.report.confirmation.takenAt")} ${DateTime.fromISO(props.timeTaken).toLocaleString(DateTime.TIME_24_SIMPLE)}` : `${t("patient.report.confirmation.notTaken")}:`}</p>
             {props.medicationNotTakenReason && <p>{props.medicationNotTakenReason}</p>}
+            {!props.pastReport && <ClickableText onClick={patientUIStore.editReport} big text={"Edit"} />}
         </ListItem>
 
         <ListItem icon={<TempIcon />} title={t("commonWords.symptoms")}>
             <SymptomList symptoms={props.selectedSymptoms} />
-            {!props.pastReport &&<ClickableText onClick={patientUIStore.goToReportSymptoms} big text={`${t("patient.report.confirmation.addMore")} +`} />}
+            {!props.pastReport && <ClickableText onClick={patientUIStore.goToReportSymptoms} big text={"Edit"} />}
         </ListItem>
         <PhotoListItem pastReport={props.pastReport} missingPhoto={props.missingPhoto} isPhotoDay={props.isPhotoDay} photoString={props.photoString} />
     </div>)
@@ -93,7 +94,7 @@ const PatientReport = (props) => {
 const SymptomList = (props) => {
     const { t, i18n } = useTranslation('translation');
 
-    if( !(props.symptoms && props.symptoms.length > 0)){
+    if (!(props.symptoms && props.symptoms.length > 0)) {
         return "No Symptoms Reported"
     }
     return (
@@ -105,7 +106,7 @@ const SymptomList = (props) => {
 
 const PhotoListItem = (props) => {
     const classes = useStyles();
-    const {patientUIStore} = useStores();
+    const { patientUIStore } = useStores();
     const { t, i18n } = useTranslation('translation');
 
     if (props.isPhotoDay) {
@@ -113,7 +114,7 @@ const PhotoListItem = (props) => {
             <ListItem negative={props.isPhotoDay && !props.photoString} icon={<CameraIcon />} title={t('commonWords.stripPhoto')}>
                 {!props.missingPhoto ? <img className={classes.stripPhoto} src={props.photoString} /> : <p>{t('patient.report.confirmation.missingPhoto')}</p>}
                 <br />
-                {!props.pastReport && <ClickableText onClick={patientUIStore.openPhotoReport} big text={t('patient.report.confirmation.review')} />}
+                {!props.pastReport && <ClickableText onClick={patientUIStore.openPhotoReport} big text={"Edit"} />}
             </ListItem>
         )
     } else {
