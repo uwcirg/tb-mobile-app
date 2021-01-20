@@ -11,17 +11,23 @@ import ButtonBase from '@material-ui/core/ButtonBase'
 const useStyles = makeStyles({
 
     warning: {
+        backgroundColor: Colors.buttonBlue,
+        padding: '.5em .75em .5em .75em',
         margin: "auto",
+        marginBottom: ".5em",
+        borderRadius: "25px",
+        boxSizing: "border-box",
         fontSize: "1em",
         display: "flex",
         alignItems: "center",
         alignSelf: "flex-start",
         width: "90%",
         "& > span": {
-            margin: "0 auto 0 .5em"
+            margin: "0 auto 0 .5em",
+            color: "white"
         },
         "& > svg": {
-            color: Colors.red,
+            color: "white"
         }
     },
     grow: {
@@ -42,7 +48,7 @@ const ExpansionPanel = (props) => {
 
     return (
         <div>
-            <ButtonBase onClick={toggleShow} className={`${classes.warning} ${props.previewClassName}`}>{props.icon}<span>{props.preview}</span><IconButton> {show ? <Up /> : <Down />}</IconButton></ButtonBase>
+            <ButtonBase onClick={toggleShow} className={`${classes.warning} ${props.previewClassName}`}>{props.icon}<span>{props.preview}</span>{show ? <Up /> : <Down />}</ButtonBase>
             <Grow in={show} className={classes.grow}>
                 {props.children}
             </Grow>

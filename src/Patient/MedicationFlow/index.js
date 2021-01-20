@@ -33,11 +33,16 @@ const MedicationFlow = observer((props) => {
         Tabs = [<ReportMedication />, <ReportSymptoms />, <ReportMood />]
     }
 
+    //Keep confirmation screen for past reports, patients will not be able to review them otherwise
+    if(patientUIStore.onHistoricalReport){
+        Tabs.push(<ReportConfirmation />)
+    }
+
     const advance = () => {
         if (!patientUIStore.onHistoricalReport ) {
             patientStore.saveReportingState();
         }
-        
+
         if(patientUIStore.reportStep === Tabs.length - 1){
             patientUIStore.endReport();
             return

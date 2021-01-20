@@ -53,12 +53,10 @@ const useStyles = makeStyles({
     review: {
         padding: ".5em"
     },
-    reportPreview:{
-        color: Colors.buttonBlue,
-        "& > button, & > svg":{
-            color: Colors.buttonBlue
+    reportPreview: {
+        "& > span": {
+            margin: "auto"
         }
-        
     }
 })
 
@@ -123,10 +121,10 @@ const Confirmation = (props) => {
                     <p>{t("patient.home.completed.subtitle")}</p>
                 </div>
             </div>
-            <ExpansionPanel 
-            previewClassName={classes.reportPreview} 
-            preview={t("View / Edit Treatment Log")}
-            icon={<EditIcon />}
+            <ExpansionPanel
+                previewClassName={classes.reportPreview}
+                preview={t("View / Edit Treatment Log")}
+                icon={<EditIcon style={{ fontSize: "1em" }} />}
             >
                 <Review />
             </ExpansionPanel>
