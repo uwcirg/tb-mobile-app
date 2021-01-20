@@ -25,19 +25,25 @@ const MedicationFlow = observer((props) => {
     const { patientStore, patientUIStore } = useStores();
     const { t } = useTranslation('translation');
 
-    const advance = () => {
-        if (!patientUIStore.onHistoricalReport) {
-            patientStore.saveReportingState();
-        }
-        patientUIStore.nextReportStep();
-    }
-
     let Tabs;
 
     if (patientStore.isPhotoDay && !patientUIStore.onHistoricalReport) {
-        Tabs = [<ReportMedication />, <ReportSymptoms />, <ReportMood />, <ReportPhoto />, <ReportConfirmation />]
+        Tabs = [<ReportMedication />, <ReportSymptoms />, <ReportMood />, <ReportPhoto />]
     } else {
-        Tabs = [<ReportMedication />, <ReportSymptoms />, <ReportMood />, <ReportConfirmation />]
+        Tabs = [<ReportMedication />, <ReportSymptoms />, <ReportMood />]
+    }
+
+    const advance = () => {
+        if (!patientUIStore.onHistoricalReport ) {
+            patientStore.saveReportingState();
+        }
+        
+        if(patientUIStore.reportStep === Tabs.length - 1){
+            patientUIStore.endReport();
+            return
+        }
+
+        patientUIStore.nextReportStep();
     }
 
     let step = patientUIStore.reportStep;

@@ -25,7 +25,6 @@ export default class ReportStore {
     }
 
     @computed get photoReportComplete(){
-        console.log(" in photo report method")
         return this.todaysReportFromServer.status && this.todaysReportFromServer.status.photoReport
     }
 
