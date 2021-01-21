@@ -1,6 +1,6 @@
 import APIStore from "./apiStore";
-import { action, observable, computed, autorun, toJS } from "mobx";
-import { addReportToOfflineCache, getNumberOfCachedReports, getListOfCachedReports, clearCache } from './SaveReportOffline'
+import { action, observable, computed} from "mobx";
+import { getListOfCachedReports, clearCache } from './SaveReportOffline'
 
 const ROUTES = {
     dailyReport: ["/daily_report", "POST"],
@@ -12,7 +12,6 @@ export default class DailyReportStore extends APIStore {
     constructor(strategy) {
         super(strategy, ROUTES)
     }
-
 
     @observable cachedReports = {}
     @observable syncing = false;

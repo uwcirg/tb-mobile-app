@@ -44,7 +44,3 @@ export function getListOfCachedReports() {
 export function clearCache(){
     return localforage.removeItem(CACHE_KEY)
 }
-
-export function testObject() {
-    return localforage.setItem("testObject", { plain: "object", letSee: { title: "not JSON stringify needed" } }).catch(err => { console.log("BIG ERROR") })
-}

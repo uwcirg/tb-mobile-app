@@ -7,11 +7,11 @@ import CameraIcon from '@material-ui/icons/PhotoCamera';
 import ClearIcon from '@material-ui/icons/Clear';
 import PillIcon from './Icons/Pill.js'
 import { DateTime } from 'luxon';
-import ClickableText from './ClickableText';
 import { useTranslation } from 'react-i18next';
 import useStores from '../Basics/UseStores'
 import EditIcon from '@material-ui/icons/Edit'
 import TempIcon from './Icons/Temp'
+import Button from '@material-ui/core/Button'
 
 const useStyles = makeStyles({
     container: {
@@ -31,25 +31,28 @@ const useStyles = makeStyles({
         paddingBottom: ".5em",
 
     },
-    one: {
+    item: {
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-start",
         paddingLeft: "1em",
-        "& > h2": {
-            ...Styles.flexRow,
-            alignItems: "center",
-            fontSize: "1em",
-            marginBottom: "5px",
-            "& > svg": {
-                margin: "0 .5em 0 0"
-            }
-        },
+        width: "100%"
     },
-    two: {
+    itemHeader: {
+        paddingTop: ".5em",
         width: "100%",
+        ...Styles.flexRow,
+        alignItems: "center",
+        fontSize: "1em",
+        marginBottom: "5px",
+        "& > svg": {
+            margin: "0 .5em 0 0"
+        }
+    },
+    itemBody: {
+        width: "100%",
+        display: "flex",
         color: Colors.textGray,
-        paddingLeft: "1em",
         "& > p": {
             margin: "0"
         }
@@ -60,13 +63,31 @@ const useStyles = makeStyles({
         alignSelf: "center"
     },
     check: {
-        color: Colors.approvedGreen
+        color: Colors.approvedGreen,
+        alignSelf: "center",
+        paddingRight: ".5em"
     },
     stripPhoto: {
-        width: "90%"
+        width: "80%"
     },
     negative: {
         color: Colors.calendarRed
+    },
+    edit: {
+        textTransform: "capitalize",
+        color: Colors.buttonBlue,
+        marginLeft: "auto",
+        "& > span > svg": {
+            fontSize: "1em",
+        },
+        "& > span > span":{
+            marginLeft: "5px"
+        }
+    },
+    symptoms:{
+        "& > p":{
+            margin: "0em 0 .5em 0"
+        }
     }
 })
 
@@ -77,37 +98,39 @@ const PatientReport = (props) => {
     const { t } = useTranslation('translation');
 
     return (<div className={`${classes.container}`}>
-        <ListItem negative={!props.medicationWasTaken} icon={<PillIcon />} title={t("commonWords.medication")} >
+        <ListItem negative={!props.medicationWasTaken} icon={<PillIcon />} title={t("commonWords.medication")} editAction={patientUIStore.editReport} hideEdit={props.pastReport} >
             <p> {props.medicationWasTaken ? `${t("patient.report.confirmation.takenAt")} ${DateTime.fromISO(props.timeTaken).toLocaleString(DateTime.TIME_24_SIMPLE)}` : `${t("patient.report.confirmation.notTaken")}:`}</p>
             {props.medicationNotTakenReason && <p>{props.medicationNotTakenReason}</p>}
-            {!props.pastReport && <ClickableText onClick={patientUIStore.editReport} big text={"Edit"} />}
         </ListItem>
 
-        <ListItem icon={<TempIcon />} title={t("commonWords.symptoms")}>
+        <ListItem icon={<TempIcon />} title={t("commonWords.symptoms")} editAction={patientUIStore.goToReportSymptoms} hideEdit={props.pastReport}>
             <SymptomList symptoms={props.selectedSymptoms} />
-            {!props.pastReport && <ClickableText onClick={patientUIStore.goToReportSymptoms} big text={"Edit"} />}
         </ListItem>
         <PhotoListItem pastReport={props.pastReport} missingPhoto={props.missingPhoto} isPhotoDay={props.isPhotoDay} photoString={props.photoString} />
     </div>)
 }
 
 const SymptomList = (props) => {
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
+    const classes = useStyles();
 
     if (!(props.symptoms && props.symptoms.length > 0)) {
-        return "No Symptoms Reported"
+        return t('coordinator.recentReports.noSymptoms')
     }
     return (
-        props.symptoms.map((each, index) => {
-            return <p key={index}>{t(`symptoms.${each}.title`)}</p>
-        })
+        <div className={classes.symptoms}>
+            {props.symptoms.map((each, index) => {
+                return <p key={index}>{t(`symptoms.${each}.title`)}</p>
+            })}
+
+        </div>
     )
 }
 
 const PhotoListItem = (props) => {
     const classes = useStyles();
     const { patientUIStore } = useStores();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
     if (props.isPhotoDay) {
         return (
@@ -115,15 +138,16 @@ const PhotoListItem = (props) => {
                 negative={props.isPhotoDay && !props.photoString}
                 icon={<CameraIcon />}
                 title={t('commonWords.stripPhoto')}
+                editAction={patientUIStore.openPhotoReport}
+                hideEdit={props.pastReport}
             >
                 {!props.missingPhoto ? <img className={classes.stripPhoto} src={props.photoString} /> : <p>{t('patient.report.confirmation.missingPhoto')}</p>}
                 <br />
-                {!props.pastReport && <ClickableText onClick={patientUIStore.openPhotoReport} big text={"Edit"} />}
             </ListItem>
         )
     } else {
         return (
-            <ListItem icon={<CameraIcon />} title={t('commonWords.stripPhoto')}>
+            <ListItem hideEdit icon={<CameraIcon />} title={t('commonWords.stripPhoto')}>
                 <p>{t('patient.report.confirmation.noPhoto')}</p>
             </ListItem>
         )
@@ -134,18 +158,20 @@ const PhotoListItem = (props) => {
 function ListItem(props) {
 
     const classes = useStyles();
+    const {t} = useTranslation();
 
     return (
         <div className={`${classes.parent}`}>
-            <div className={classes.three}>
-                {props.negative ? <ClearIcon className={classes.negative} /> : <CheckIcon className={classes.check} />}
-            </div>
-            <div className={classes.one}>
-                <h2>{props.icon} {props.title}</h2>
-                <div className={classes.two}>{props.children}</div>
-            </div>
-            <div className={classes.three}>
-                <EditIcon />
+            <div className={classes.item}>
+                <div className={classes.itemHeader}>
+                    {props.icon}
+                    {props.title}
+                    {!props.hideEdit && <Button className={classes.edit} onClick={props.editAction}><EditIcon /><span>{t('commonWords.edit')}</span></Button>}
+                </div>
+                <div className={classes.itemBody}>
+                    {props.negative ? <ClearIcon className={classes.negative} /> : <CheckIcon className={classes.check} />}
+                    {props.children}
+                </div>
             </div>
         </div>
     )

@@ -43,17 +43,6 @@ const useStyles = makeStyles({
         zIndex: 100
 
     },
-    timeSelect: {
-        "& > div": {
-            width: props => props.wide && "100% !important",
-            textAlign: "center"
-        },
-        "& > div > input": {
-            color: Colors.buttonBlue,
-            fontSize: "4em",
-            textAlign: "center"
-        }
-    },
     timeContainer: {
         width: "100%",
         display: "flex",

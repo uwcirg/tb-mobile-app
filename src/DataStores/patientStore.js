@@ -301,11 +301,6 @@ export class PatientStore extends UserStore {
         })
     }
 
-    @action openReportConfirmation = () => {
-        this.uiState.onTreatmentFlow = true;
-        this.report.step = 4;
-    }
-
     @action updateNotificationTime = (turnOff) => {
         let body = { time: this.reminderTime }
 
@@ -341,12 +336,6 @@ export class PatientStore extends UserStore {
             hasSubmittedPhoto: false,
             isHistoricalReport: true
         }
-    }
-
-    @action skipToReportConfirmation = () => {
-        //Any Length Greater than the report will default to last step
-        this.report.step = 100
-        this.uiState.onTreatmentFlow = true;
     }
 
     loadDailyReport() {
@@ -443,7 +432,6 @@ export class PatientStore extends UserStore {
 
     defaultReport = {
         date: DateTime.local().toISODate(),
-        step: 0,
         timeTaken: DateTime.local().startOf('second').startOf("minute").toISOTime({ suppressSeconds: true }),
         selectedSymptoms: [],
         photoWasTaken: false,

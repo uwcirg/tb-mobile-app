@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import OfflineIcon from '@material-ui/icons/WifiOff';
 import { makeStyles } from '@material-ui/core/styles';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import { useTranslation } from 'react-i18next';
 import Colors from '../../Basics/Colors';
 
@@ -22,7 +22,7 @@ const useStyles = makeStyles({
   },
   appTitle: {
     flexGrow: 1,
-    paddingLeft: "5px"
+    paddingLeft: "7px"
   },
   bar: {
     position: "fixed",

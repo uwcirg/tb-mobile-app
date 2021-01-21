@@ -173,7 +173,7 @@ const useStyles = makeStyles({
     width: "100%"
   },
   detail: {
-    height: "75vh",
+    maxHeight: "75vh",
     overflow: "scroll",
     padding: 0,
     margin: 0,

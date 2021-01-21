@@ -14,7 +14,6 @@ import NewButton from '../../Basics/NewButton'
 import ExitToApp from '@material-ui/icons/ExitToApp'
 import Globe from '@material-ui/icons/Language';
 import PasswordUpdate from '../../Shared/PasswordUpdate'
-import { testObject } from '../../DataStores/SaveReportOffline'
 
 import PersonalInformation from './PersonalInformation'
 
@@ -98,7 +97,6 @@ const Debugging = observer((props) => {
             {window._env.ENVIRONMENT === "development" ?
                 <div className={classes.debugging}>
                     Debugging Mode Enabled (config.js or set with environment variable in docker)
-            <Button onClick={testObject}>Seed Offline Reports</Button>
                     <TextField
                         id="standard-number"
                         label="Number"

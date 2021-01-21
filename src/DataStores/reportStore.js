@@ -3,6 +3,48 @@ import { DateTime } from 'luxon';
 
 export default class ReportStore {
 
+
+    /* 
+        Offline Flow:
+
+        Each step of the flow uses the individual methods in here
+        
+        If the request doesn't go through because the user is not online, then we should cache that users input for the day
+
+
+        After each request update the object for a given day:
+
+
+        Change these methods to take in a report - that way you can pass it the report from the root store or you can pass it a report saved locally:
+        getMedicationBody()
+
+        "10-19-2021": {
+            photoReport
+            medicationReport
+            symptomReport
+        }
+
+
+        Another option: just save each submission as its own type and upload them individually, the downside to this is the number of requests, ie each report would then be 3 requests miniumum,
+        but then data is not lost when a patient edits thier reports multiple times
+
+
+        Easier option:
+
+
+        When in offline mode could fall back to a previous version of the  actionbox component that tracks the status based on the locally saved report.
+        When in offline, launch the old report flow that does not submit the report until the end of the flow
+
+
+
+        ********* :)
+
+        Can use new status part of todaysReportFrom server to capture if the aspect of the offline report has been captured or not
+        
+    
+    
+    */
+
     constructor(rootStore) {
         this.rootStore = rootStore;
     }
