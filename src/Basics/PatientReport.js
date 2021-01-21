@@ -10,7 +10,7 @@ import { DateTime } from 'luxon';
 import ClickableText from './ClickableText';
 import { useTranslation } from 'react-i18next';
 import useStores from '../Basics/UseStores'
-
+import EditIcon from '@material-ui/icons/Edit'
 import TempIcon from './Icons/Temp'
 
 const useStyles = makeStyles({
@@ -111,7 +111,11 @@ const PhotoListItem = (props) => {
 
     if (props.isPhotoDay) {
         return (
-            <ListItem negative={props.isPhotoDay && !props.photoString} icon={<CameraIcon />} title={t('commonWords.stripPhoto')}>
+            <ListItem
+                negative={props.isPhotoDay && !props.photoString}
+                icon={<CameraIcon />}
+                title={t('commonWords.stripPhoto')}
+            >
                 {!props.missingPhoto ? <img className={classes.stripPhoto} src={props.photoString} /> : <p>{t('patient.report.confirmation.missingPhoto')}</p>}
                 <br />
                 {!props.pastReport && <ClickableText onClick={patientUIStore.openPhotoReport} big text={"Edit"} />}
@@ -133,12 +137,15 @@ function ListItem(props) {
 
     return (
         <div className={`${classes.parent}`}>
+            <div className={classes.three}>
+                {props.negative ? <ClearIcon className={classes.negative} /> : <CheckIcon className={classes.check} />}
+            </div>
             <div className={classes.one}>
                 <h2>{props.icon} {props.title}</h2>
                 <div className={classes.two}>{props.children}</div>
             </div>
             <div className={classes.three}>
-                {props.negative ? <ClearIcon className={classes.negative} /> : <CheckIcon className={classes.check} />}
+                <EditIcon />
             </div>
         </div>
     )

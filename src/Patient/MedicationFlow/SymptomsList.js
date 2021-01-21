@@ -29,7 +29,7 @@ nausea: {
 //Renders whole list of symptoms
 const SymptomsList = observer((props) => {
 
-  const { t, i18n } = useTranslation('translation');
+  const {t} = useTranslation('translation');
   const {patientStore} = useStores();
 
   let list = Symptoms.map((name, index) => {
@@ -130,6 +130,7 @@ const useStyles = makeStyles({
     margin: 0,
     justifyContent: "flex-start",
     width: "100%",
+    zIndex: 0
 
   },
   summary: {

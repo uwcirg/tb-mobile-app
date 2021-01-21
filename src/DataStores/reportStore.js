@@ -28,6 +28,10 @@ export default class ReportStore {
         return this.todaysReportFromServer.status && this.todaysReportFromServer.status.photoReport
     }
 
+    @action processReport = (report) =>{
+        this.todaysReportFromServer = report;
+    }
+
     getTodaysReport() {
         this.rootStore.executeRawRequest(`/v2/daily_report?date=${DateTime.local().toISODate()}`).then(res => {
             this.setTodaysReport(res);
@@ -39,20 +43,20 @@ export default class ReportStore {
 
         this.rootStore.uploadPhoto().then(response => {
             body.photoUrl = response;
-            this.rootStore.executeRawRequest('/v2/photo_reports', "POST", body);
+            this.rootStore.executeRawRequest('/v2/photo_reports', "POST", body).then(this.processReport)
         })
     }
 
     submitMedication = () => {
-        this.rootStore.executeRawRequest('/v2/medication_reports', "POST", this.getMedicationBody())
+        this.rootStore.executeRawRequest('/v2/medication_reports', "POST", this.getMedicationBody()).then(this.processReport)
     }
 
     submitSymptoms = () => {
-        this.rootStore.executeRawRequest('/v2/symptom_reports', "POST", this.getSymptomBody())
+        this.rootStore.executeRawRequest('/v2/symptom_reports', "POST", this.getSymptomBody()).then(this.processReport)
     }
 
     submitMood = () => {
-        this.rootStore.executeRawRequest('/v2/mood_reports', "POST", this.getMoodBody())
+        this.rootStore.executeRawRequest('/v2/mood_reports', "POST", this.getMoodBody()).then(this.processReport)
     }
 
     getMoodBody = () => {
