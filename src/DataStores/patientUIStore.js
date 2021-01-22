@@ -102,6 +102,10 @@ export default class PatientUIStore {
         this.router.push('home/report/1')
     }
 
+    @action goToReportMood = () => {
+        this.router.push('home/report/2')
+    }
+
     @action endReport = () => {
         if (this.onHistoricalReport) {
             this.router.push('/progress')

@@ -144,6 +144,7 @@ const Review = observer(() => {
             selectedSymptoms={patientStore.report.selectedSymptoms}
             photoString={patientStore.report.photoString}
             isPhotoDay={patientStore.isPhotoDay}
+            feelingWell={patientStore.report.doingOkay}
         />
     )
 })

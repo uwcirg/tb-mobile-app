@@ -45,7 +45,6 @@ const useStyles = makeStyles({
         ...Styles.flexRow,
         alignItems: "center",
         fontSize: "1em",
-        marginBottom: "5px",
         "& > svg": {
             margin: "0 .5em 0 0"
         }
@@ -112,9 +111,9 @@ const PatientReport = (props) => {
         <ListItem icon={<TempIcon />} title={t("commonWords.symptoms")} editAction={patientUIStore.goToReportSymptoms} hideEdit={props.pastReport}>
             <SymptomList symptoms={props.selectedSymptoms} />
         </ListItem>
-        <ListItem icon={<FaceIcon />} title={"Support"} editAction={patientUIStore.goToReportSymptoms} hideEdit={props.pastReport}>
-            Feeling Okay
-        </ListItem>
+        {!props.pastReport && <ListItem icon={<FaceIcon />} title={"Support"} editAction={patientUIStore.goToReportMood} hideEdit={props.pastReport}>
+            {props.feelingWell? t('patient.report.doingWell') : t('patient.report.needSupport')}
+        </ListItem>}
         <PhotoListItem pastReport={props.pastReport} missingPhoto={props.missingPhoto} isPhotoDay={props.isPhotoDay} photoString={props.photoString} />
     </div>)
 }
