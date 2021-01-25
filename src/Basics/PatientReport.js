@@ -78,7 +78,7 @@ const useStyles = makeStyles({
         textTransform: "capitalize",
         color: Colors.buttonBlue,
         marginLeft: "auto",
-        "& > span":{
+        "& > span": {
             justifyContent: "flex-end",
             flexDirection: "column"
         },
@@ -86,13 +86,19 @@ const useStyles = makeStyles({
             fontSize: "1.5em",
         },
         "& > span > span": {
-            marginRight: "5px"
+            marginRight: "5px",
+            marginTop: ".5em"
         }
     },
     symptoms: {
         "& > p": {
             margin: "0em 0 .5em 0"
         }
+    },
+    editContainer:{
+        height: "auto",
+        display: "flex",
+        alignItems: "center"
     }
 })
 
@@ -112,7 +118,7 @@ const PatientReport = (props) => {
             <SymptomList symptoms={props.selectedSymptoms} />
         </ListItem>
         {!props.pastReport && <ListItem icon={<FaceIcon />} title={"Support"} editAction={patientUIStore.goToReportMood} hideEdit={props.pastReport}>
-            {props.feelingWell? t('patient.report.doingWell') : t('patient.report.needSupport')}
+            {props.feelingWell ? t('patient.report.doingWell') : t('patient.report.needSupport')}
         </ListItem>}
         <PhotoListItem pastReport={props.pastReport} missingPhoto={props.missingPhoto} isPhotoDay={props.isPhotoDay} photoString={props.photoString} />
     </div>)
@@ -174,15 +180,17 @@ function ListItem(props) {
                 <div className={classes.itemHeader}>
                     {props.icon}
                     {props.title}
-                    {!props.hideEdit && <Button className={classes.edit} onClick={props.editAction}>
-                        {props.first &&<span>{ t('commonWords.edit')}</span>}
-                        <EditIcon />
-                    </Button>}
                 </div>
                 <div className={classes.itemBody}>
                     {props.negative ? <ClearIcon className={classes.negative} /> : <CheckIcon className={classes.check} />}
                     {props.children}
                 </div>
+            </div>
+            <div className={classes.editContainer}>
+                {!props.hideEdit && <Button className={classes.edit} onClick={props.editAction}>
+                    {props.first && <span>{t('commonWords.edit')}</span>}
+                    <EditIcon />
+                </Button>}
             </div>
         </div>
     )

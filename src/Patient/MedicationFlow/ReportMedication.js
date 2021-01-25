@@ -56,20 +56,8 @@ const useStyles = makeStyles({
 
 const TimeQuestion = observer(() => {
 
-
     const { patientStore, uiStore } = useStores();
     const classes = useStyles({ wide: uiStore.locale === "en" });
-    const [selectedDate, handleDateChange] = useState(DateTime.local());
-    const [onTime, changeTime] = useState(false);
-
-    const toggleTime = () => {
-        changeTime(!onTime)
-    }
-
-    const handleDate = (date) => {
-        handleDateChange(date);
-        patientStore.report.timeTaken = date.startOf('second').startOf("minute").toISOTime({ suppressSeconds: true });
-    }
 
     const handleChange = (timeType, newValue) => {
         const isValidChange = ((timeType === "hour" && newValue < 24) || (timeType === "minute" && newValue < 60)) && newValue >= 0
@@ -79,7 +67,6 @@ const TimeQuestion = observer(() => {
             patientStore.report.timeTaken = DateTime.fromISO(patientStore.report.timeTaken).set(changes)
         }
     }
-
 
     return (
         <Fade timeout={1000} in={true}>
@@ -93,7 +80,7 @@ const TimeQuestion = observer(() => {
 });
 
 function DidTakeMedication(props) {
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
     const classes = useStyles();
     return (
         <>
@@ -109,7 +96,7 @@ const DidntTakeMedication = observer((props) => {
 
     const { patientStore } = useStores();
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
     return (
         <>
@@ -123,7 +110,7 @@ const DidntTakeMedication = observer((props) => {
 
 const ReportMedication = observer((props) => {
 
-    const { patientStore,patientUIStore } = useStores();
+    const { patientStore, patientUIStore} = useStores();
     const { t } = useTranslation('translation');
 
     useEffect(() => {
@@ -139,7 +126,7 @@ const ReportMedication = observer((props) => {
     }
 
     const handleNext = () => {
-        if(!patientUIStore.onHistoricalReport){
+        if (!patientUIStore.onHistoricalReport) {
             patientStore.reportStore.submitMedication();
         }
         props.advance()
@@ -150,7 +137,6 @@ const ReportMedication = observer((props) => {
             <Container id="intro-medication-time">
                 {patientStore.report.tookMedication ? <DidTakeMedication toggle={toggleTookMedication} /> : <DidntTakeMedication toggle={toggleTookMedication} />}
                 <SimpleButton alignRight onClick={handleNext}>{t("patient.report.next")}</SimpleButton>
-                {/*<div>{DateTime.fromISO(patientStore.report.timeTaken).toLocaleString(DateTime.DATETIME_FULL)}</div>*/}
             </Container>
         </>
     )
