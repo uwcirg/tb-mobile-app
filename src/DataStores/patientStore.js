@@ -67,8 +67,7 @@ export class PatientStore extends UserStore {
 
     @action initalize() {
         this.loadCachedProfile();
-        super.initalize()
-        this.reportStore.getTodaysReport();
+        super.initalize();
         this.loadDailyReport();
         this.getReports();
     }

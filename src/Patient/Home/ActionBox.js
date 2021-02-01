@@ -61,10 +61,8 @@ const useStyles = makeStyles({
 })
 
 const ActionBox = observer(() => {
-    const classes = useStyles();
     const { patientStore, patientUIStore } = useStores();
     const { t } = useTranslation('translation');
-
     const [counter, changeCounter] = useState(0);
 
 

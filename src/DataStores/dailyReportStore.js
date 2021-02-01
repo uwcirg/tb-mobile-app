@@ -26,11 +26,12 @@ export default class DailyReportStore extends APIStore {
 
     @action syncOfflineReports = () => {
         this.syncing = true;
-        this.getCachedReports().then(() => {
+        return this.getCachedReports().then(() => {
 
             Object.values(this.cachedReports).map(each => {
                 this.modifyReportAndUpload(each)
             })
+            return true;
         })
     }
 

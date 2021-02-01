@@ -58,7 +58,9 @@ export default class ReportStore {
 
     submitPhoto = () => {
         this.rootStore.hasSubmittedPhoto = true;
-        if (this.checkIfOfflineAndSaveReportLocally()) return
+        if (this.checkIfOfflineAndSaveReportLocally()){
+          return  
+        } 
         let body = this.getPhotoBody();
         this.rootStore.uploadPhoto().then(response => {
             body.photoUrl = response;
@@ -67,18 +69,24 @@ export default class ReportStore {
     }
 
     submitMedication = () => {
-        if (this.checkIfOfflineAndSaveReportLocally()) return
+        if (this.checkIfOfflineAndSaveReportLocally()){
+            return  
+          } 
         this.rootStore.executeRawRequest('/v2/medication_reports', "POST", this.getMedicationBody()).then(this.processReport)
     }
 
     submitSymptoms = () => {
-        if (this.checkIfOfflineAndSaveReportLocally()) return
+        if (this.checkIfOfflineAndSaveReportLocally()){
+            return  
+          } 
         this.rootStore.executeRawRequest('/v2/symptom_reports', "POST", this.getSymptomBody()).then(this.processReport)
     }
 
     submitMood = () => {
         this.rootStore.hasSubmitted = true;
-        if (this.checkIfOfflineAndSaveReportLocally()) return
+        if (this.checkIfOfflineAndSaveReportLocally()){
+            return  
+          } 
         this.rootStore.executeRawRequest('/v2/mood_reports', "POST", this.getMoodBody()).then(this.processReport)
     }
 
@@ -109,7 +117,7 @@ export default class ReportStore {
 
     checkIfOfflineAndSaveReportLocally = () => {
 
-        if (this.checkOffline) {
+        if (this.checkOffline()) {
             addReportToOfflineCache(toJS(this.rootStore.report));
             return true
         }

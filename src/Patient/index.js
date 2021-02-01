@@ -42,12 +42,12 @@ const PatientHome = observer((props) => {
   });
   },[patientUIStore.tabNumber])
 
-  autorun(() => {
+  useEffect(()=>{
     if (!uiStore.offline && dailyReportStore.numberOfflineReports > 0) {
-      dailyReportStore.syncOfflineReports();
-      patientStore.reportStore.getTodaysReport();
-    }
-  })
+      dailyReportStore.syncOfflineReports().then( ()=>{
+         patientStore.reportStore.getTodaysReport();
+      })}
+  },[uiStore.offline,dailyReportStore.numberOfflineReports])
 
   return (
     <>
