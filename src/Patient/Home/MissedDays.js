@@ -67,7 +67,7 @@ const ActionBox = observer(() => {
 
     return (
         <>
-            {patientStore.missingReports.length > 0 && <InteractionCard className={classes.override} upperText={<><WarningIcon />{t('patient.home.cardTitles.actionNeeded')}</>} id="intro-missed">
+            {!uiStore.offline && patientStore.missingReports.length > 0 && <InteractionCard className={classes.override} upperText={<><WarningIcon />{t('patient.home.cardTitles.actionNeeded')}</>} id="intro-missed">
                 <div className={classes.warning}><WarningOutlined /><span> {patientStore.missingReports.length} {t('patient.home.missedDays.missing', { count: patientStore.missingReports.length })}</span><IconButton onClick={toggleShow}> {show ? <Up /> : <Down />}</IconButton></div>
                 {uiStore.locale && ""}
                 <Grow in={show} className={classes.grow}>
@@ -76,7 +76,8 @@ const ActionBox = observer(() => {
                         return <NewButton key={`back-report-${date}`} onClick={() => { handleReportClick(date) }} icon={<Clipboard />} text={DateTime.fromISO(date).toLocaleString(DateTime.DATE_MED)} />
                     })}
                 </Grow>
-            </InteractionCard>}</>)
+            </InteractionCard>}
+            </>)
 });
 
 export default ActionBox;
