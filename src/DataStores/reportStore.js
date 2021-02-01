@@ -136,7 +136,7 @@ export default class ReportStore {
             datetimeTaken: this.rootStore.report.timeTaken
         }
 
-        if (this.rootStore.report.whyMedicationNotTaken !== null) {
+        if (!this.rootStore.report.tookMedication && this.rootStore.report.whyMedicationNotTaken !== null) {
             body.whyMedicationNotTaken = this.rootStore.report.whyMedicationNotTaken
         }
 
