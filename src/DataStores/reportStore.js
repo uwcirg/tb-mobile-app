@@ -48,6 +48,7 @@ export default class ReportStore {
 
     @action processReport = (report) => {
         this.todaysReportFromServer = report;
+        this.rootStore.savedReports[report.date] = report;
     }
 
     getTodaysReport() {

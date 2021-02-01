@@ -123,6 +123,7 @@ const ReportMedication = observer((props) => {
 
     const toggleTookMedication = () => {
         patientStore.report.tookMedication = !patientStore.report.tookMedication
+        patientStore.report.whyMedicationNotTaken = "";
     }
 
     const handleNext = () => {
