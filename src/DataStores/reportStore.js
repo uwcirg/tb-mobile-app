@@ -63,10 +63,17 @@ export default class ReportStore {
           return  
         } 
         let body = this.getPhotoBody();
-        this.rootStore.uploadPhoto().then(response => {
-            body.photoUrl = response;
-            this.rootStore.executeRawRequest('/v2/photo_reports', "POST", body).then(this.processReport)
-        })
+
+        //Upload photo if it was not skipped
+        if(!this.rootStore.report.photoWasSkipped && this.rootStore.report.photoString){
+            this.rootStore.uploadPhoto().then(response => {
+                body.photoUrl = response;
+                this.rootStore.executeRawRequest('/v2/photo_reports', "POST", body).then(this.processReport)
+            })
+        }else{
+            this.rootStore.executeRawRequest('/v2/photo_reports', "POST", body).then(this.processReport);
+        }
+
     }
 
     submitMedication = () => {
@@ -100,9 +107,16 @@ export default class ReportStore {
     }
 
     getPhotoBody = () => {
-        return {
+        let body = {
             date: this.rootStore.report.date,
         }
+
+        if(this.rootStore.report.photoWasSkipped){
+            body.photoWasSkipped = true;
+            body.whyPhotoWasSkipped = this.rootStore.report.whyPhotoWasSkipped;
+        }
+        
+        return body;
     }
 
     getSymptomBody = () => {
