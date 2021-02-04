@@ -445,7 +445,9 @@ export class PatientStore extends UserStore {
         doingOkay: true,
         doingOkaySelected: false,
         supportReason: "",
-        nauseaRating: ""
+        nauseaRating: "",
+        photoWasSkipped: false,
+        whyPhotoWasSkipped: ""
     }
 
 

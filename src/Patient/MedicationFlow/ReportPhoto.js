@@ -158,10 +158,17 @@ const ReportPhoto = observer((props) => {
         }
     }
 
+    const nextDisabled = () => {
+        if(patientStore.report.photoWasSkipped){
+            return !patientStore.report.whyPhotoWasSkipped;
+        }
+        return !patientStore.report.photoWasTaken;
+    }
+
     return (
         <div style={{ width: "100%" }}>
 
-            {!patientStore.report.cantSubmitPhoto ? <>
+            {!patientStore.report.photoWasSkipped ? <>
                 {patientStore.report.photoWasTaken ?
                     <>
                         <StripPhoto><img src={patientStore.report.photoString} /> </StripPhoto>
@@ -179,7 +186,7 @@ const ReportPhoto = observer((props) => {
                 <Buttons />
             </> : <CantTakePhoto />}
 
-            <SimpleButton alignRight onClick={handleNext} disabled={!patientStore.report.photoWasTaken} backgroundColor={Colors.green}>{t("patient.report.next")}</SimpleButton>
+            <SimpleButton alignRight onClick={handleNext} disabled={nextDisabled()} backgroundColor={Colors.green}>{t("patient.report.next")}</SimpleButton>
             {patientStore.uiState.cameraIsOpen ? <Camera handleExit={handleExit} returnPhoto={handlePhoto} /> : ""}
 
         </div>
@@ -225,7 +232,7 @@ const Buttons = () => {
                 className={classes.later}
                 onClick={patientUIStore.goToHome}
                 text={<>Submit Later <KeyboardArrowRight /></>} icon={<TimeIcon />} />
-            <ClickableText className={classes.unable} text={<>Unable to submit? Tell us why <KeyboardArrowRight /></>} onClick={() => { patientStore.report.cantSubmitPhoto = true }} />
+            <ClickableText className={classes.unable} text={<>Unable to submit? Tell us why <KeyboardArrowRight /></>} onClick={() => { patientStore.report.photoWasSkipped = true }} />
         </div>
 
     )
@@ -240,8 +247,8 @@ const CantTakePhoto = observer((props) => {
 
     return (
         <div className={classes.cantSubmit}>
-            <TextField rows={3} label={"Why are you unable to submit?"} multiline value={patientStore.report.whyMedicationNotTaken} onChange={(e) => { patientStore.report.whyMedicationNotTaken = e.target.value }} className={classes.textArea} variant="outlined" />
-            <ClickableText icon={<KeyboardArrowLeft />} onClick={() => { patientStore.report.cantSubmitPhoto = false }} text={"Back to Submit Photo"} />
+            <TextField rows={3} label={"Why are you unable to submit?"} multiline value={patientStore.report.whyPhotoWasSkipped} onChange={(e) => { patientStore.report.whyPhotoWasSkipped = e.target.value }} className={classes.textArea} variant="outlined" />
+            <ClickableText icon={<KeyboardArrowLeft />} onClick={() => { patientStore.report.photoWasSkipped = false }} text={"Back to Submit Photo"} />
         </div>
     )
 });
