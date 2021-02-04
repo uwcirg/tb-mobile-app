@@ -6,7 +6,6 @@ import { observer } from 'mobx-react'
 const useStyles = makeStyles({
     container:{
         width: "100%",
-        padding: "1em"
     },
     list:{
         padding: "20px",
@@ -25,11 +24,11 @@ const useStyles = makeStyles({
 
 })
 
-const Instructions = () => {
+const Instructions = (props) => {
 
     const classes = useStyles();
 
-    return (<div className={classes.container}>
+    return (<div className={`${classes.container} ${props.className}`}>
         <div className={classes.body}>
         <img className={classes.image} src="/img/strip_instructions.png" />
         <ol className={classes.list}>

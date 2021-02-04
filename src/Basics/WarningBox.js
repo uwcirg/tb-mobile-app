@@ -8,28 +8,8 @@ const useStyles = makeStyles({
         backgroundColor: Colors.timelineYellow,
         borderRadius: "10px",
         minHeight: "50px",
-        padding: "1em",
-        boxSizing: "border-box",
-        "& > h2":{
-            fontSize: "1em",
-            margin: ".5em 0 .5em 0"
-        },
-        "& > ul":{
-            display: "block",
-            margin: "0",
-            padding: 0,
-            marginLeft: "1em",
-            "& > li":{
-                margin:0,
-                padding: 0,
-                "& > span": {
-                    fontWeight: "bold"
-                },
-                "& > li":{
-                    marginLeft: "1em",
-                }
-            }
-        },
+        padding: ".5em 1em",
+        boxSizing: "border-box"
     }
 })
 

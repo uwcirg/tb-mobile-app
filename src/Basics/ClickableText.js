@@ -10,10 +10,10 @@ const useStyles = makeStyles({
       background: "none",
       textTransform: "capitalize",
       fontSize: "1em",
-      fontFamily: "Roboto, sans-serif"
-  },
-  icon:{
-      marginRight: ".25em"
+      fontFamily: "Roboto, sans-serif",
+      "& > svg":{
+        marginRight: ".25em"
+      }
   },
   big: {
       fontSize: "1em"
@@ -28,7 +28,7 @@ const ClickableText = (props) => {
     return(
     !props.big ?
     <ButtonBase className={`${classes.text} ${props.className}`} onClick={props.onClick}>
-        { !props.hideIcon && <>{props.icon ? <>{props.icon}</> : <ErrorOutlineIcon className={classes.icon} />}</> }
+        { !props.hideIcon && <>{props.icon ? <>{props.icon}</> : <ErrorOutlineIcon  />}</> }
         {props.text}
     </ButtonBase>
     :

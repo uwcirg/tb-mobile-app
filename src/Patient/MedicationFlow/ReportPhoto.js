@@ -15,6 +15,11 @@ import Instructions from '../Information/TestInstructions';
 import Typography from '@material-ui/core/Typography';
 import WarningBox from '../../Basics/WarningBox';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
+import Grow from '@material-ui/core/Collapse'
+import TextField from '@material-ui/core/TextField'
+
+import TimeIcon from '@material-ui/icons/Update';
 
 const useStyles = makeStyles({
 
@@ -55,11 +60,10 @@ const useStyles = makeStyles({
         borderRadius: "10px",
     },
     buttonText: {
-        width: "70%",
-        fontSize: "1em",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center"
+        fontSize: "1.25em",
+        fontWeight: "bold",
+        textAlign: "center",
+        width: "auto"
     },
     infoBox: {
         width: "90%",
@@ -69,6 +73,53 @@ const useStyles = makeStyles({
     },
     leftMargin: {
         marginLeft: "1.5em"
+    },
+    photoPrompt: {
+        width: "100%",
+        display: "flex",
+        borderRadius: "10px",
+        padding: "1em",
+        justifyContent: "center"
+    },
+    cantSubmit: {
+        width: '90%',
+        margin: "auto",
+        marginTop: '2em',
+        "& > div": {
+            display: 'flex',
+            justifyContent: 'flex-start',
+            marginBottom: '1em'
+        }
+       
+    },
+    photoInfo: {
+        "& > h2": {
+            fontSize: "1em",
+            margin: ".5em 0 .5em 0"
+        },
+        "& > ul": {
+            display: "block",
+            margin: "0",
+            padding: 0,
+            marginLeft: "1em",
+            "& > li": {
+                margin: 0,
+                padding: 0,
+                "& > span": {
+                    fontWeight: "bold"
+                },
+                "& > li": {
+                    marginLeft: "1em",
+                }
+            }
+        },
+    },
+    later: {
+        color: "green"
+    },
+    unable: {
+        color: "red",
+        margin: ".5em 0"
     }
 
 })
@@ -76,8 +127,7 @@ const useStyles = makeStyles({
 const ReportPhoto = observer((props) => {
 
     const classes = useStyles();
-    const { t} = useTranslation('translation');
-    const [showPopUp, setShowPopUp] = useState(false);
+    const { t } = useTranslation('translation');
 
     const { patientStore, patientUIStore } = useStores();
     patientStore.report.headerText = t("patient.report.photoTitle")
@@ -96,12 +146,10 @@ const ReportPhoto = observer((props) => {
         patientStore.uiState.cameraIsOpen = true;
     }
 
-    const togglePopUp = () => { setShowPopUp(!showPopUp) }
-
     const handleNext = () => {
         patientStore.photoSubmission();
         patientStore.reportStore.submitPhoto();
-        
+
         if (!patientUIStore.skippedToPhotoFlow) {
             props.advance();
         } else {
@@ -112,63 +160,105 @@ const ReportPhoto = observer((props) => {
 
     return (
         <div style={{ width: "100%" }}>
-            {showPopUp && <PopUp className={classes.popUp} handleClickAway={togglePopUp}>
-                <h1 className={classes.title}>Instrucciones</h1>
-                <Instructions />
-            </PopUp>}
-            {patientStore.report.photoWasTaken ?
-                <>
-                    <StripPhoto><img src={patientStore.report.photoString} /> </StripPhoto>
-                    <ClickableText className={`${classes.info} ${classes.leftMargin}`} hideIcon onClick={handleRetake} text={t("patient.report.photo.retakePhoto")} />
-                </>
-                :
-                <>
-                    <ButtonBase className={classes.button}>
-                        <PhotoPrompt onClick={() => { patientStore.uiState.cameraIsOpen = true }}>
-                            <CameraAltIcon />
-                            <Typography variant="body1" className={classes.buttonText}>
-                                {t("patient.report.photo.openCamera")}
-                            </Typography>
-                        </PhotoPrompt>
-                    </ButtonBase>
-                    <WarningBox className={classes.infoBox}>
-                        <h2>{t('patient.report.photo.help.remember')}:</h2>
-                        <ul>
-                            <li>{t('patient.report.photo.help.wait')}</li>
-                            <li>{t('patient.report.photo.help.straight')}</li>
-                        </ul>
-                        <h2>{t('patient.report.photo.help.retake')}</h2>
-                        <ul>
-                            <li>{t('patient.report.photo.help.blurry')}</li>
-                            <li>{t('patient.report.photo.help.marker')}</li>
-                        </ul>
 
-                        <ClickableText onClick={togglePopUp} className={classes.info} hideIcon text={<span>{t('patient.report.photo.help.instructions')}<KeyboardArrowRight /></span>} />
-                    </WarningBox>
-                </>}
+            {!patientStore.report.cantSubmitPhoto ? <>
+                {patientStore.report.photoWasTaken ?
+                    <>
+                        <StripPhoto><img src={patientStore.report.photoString} /> </StripPhoto>
+                        <ClickableText className={`${classes.info} ${classes.leftMargin}`} hideIcon onClick={handleRetake} text={t("patient.report.photo.retakePhoto")} />
+                    </>
+                    :
+                    <>
+                        <ButtonBase onClick={() => { patientStore.uiState.cameraIsOpen = true }} className={classes.button}>
+                            <PhotoPrompt >
+                            </PhotoPrompt>
+                        </ButtonBase>
+                        <PhotoInfo />
+                    </>}
+
+                <Buttons />
+            </> : <CantTakePhoto />}
+
             <SimpleButton alignRight onClick={handleNext} disabled={!patientStore.report.photoWasTaken} backgroundColor={Colors.green}>{t("patient.report.next")}</SimpleButton>
             {patientStore.uiState.cameraIsOpen ? <Camera handleExit={handleExit} returnPhoto={handlePhoto} /> : ""}
+
         </div>
     )
 });
 
-const PhotoPrompt = styled.div`
-width: 100%;
-height: 100px;
-background-color: ${Colors.lightgray};
-display: flex;
-justify-content: center;
-flex-direction: column;
-align-content: center;
-align-items: center;
-padding: 1em;
-border-radius: 10px;
-font-size: 1.5em;
-svg{
-    width: 2em;
-    height: 2em;
+const PhotoInfo = () => {
+    const classes = useStyles();
+    const { t } = useTranslation();
+    const { patientUIStore } = useStores();
+    const togglePopUp = () => { setShowPopUp(!showPopUp) }
+    const [showPopUp, setShowPopUp] = useState(false);
+
+    return (
+        <WarningBox className={classes.infoBox}>
+            <div className={classes.photoInfo}>
+                <h2>{t('patient.report.photo.help.remember')}:</h2>
+                <ul>
+                    <li>{t('patient.report.photo.help.wait')}</li>
+                    <li>{t('patient.report.photo.help.straight')}</li>
+                    <li>Retake photo if it is blury or the square marker is not visible </li>
+                </ul>
+                <ClickableText onClick={togglePopUp} className={classes.info} hideIcon text={<span>{t('patient.report.photo.help.instructions')}<KeyboardArrowRight /></span>} />
+                <Grow in={showPopUp}>
+                    <div className={classes.instructions}>
+                        <Instructions />
+                    </div>
+                </Grow>
+            </div>
+
+        </WarningBox>
+    )
 }
-`
+
+const Buttons = () => {
+    const classes = useStyles();
+    const { t } = useTranslation();
+    const { patientUIStore, patientStore } = useStores();
+
+    return (
+        <div style={{ padding: "1em" }}>
+            <ClickableText
+                className={classes.later}
+                onClick={patientUIStore.goToHome}
+                text={<>Submit Later <KeyboardArrowRight /></>} icon={<TimeIcon />} />
+            <ClickableText className={classes.unable} text={<>Unable to submit? Tell us why <KeyboardArrowRight /></>} onClick={() => { patientStore.report.cantSubmitPhoto = true }} />
+        </div>
+
+    )
+}
+
+
+const CantTakePhoto = observer((props) => {
+
+    const { patientStore } = useStores();
+    const classes = useStyles();
+    const { t } = useTranslation('translation');
+
+    return (
+        <div className={classes.cantSubmit}>
+            <TextField rows={3} label={"Why are you unable to submit?"} multiline value={patientStore.report.whyMedicationNotTaken} onChange={(e) => { patientStore.report.whyMedicationNotTaken = e.target.value }} className={classes.textArea} variant="outlined" />
+            <ClickableText icon={<KeyboardArrowLeft />} onClick={() => { patientStore.report.cantSubmitPhoto = false }} text={"Back to Submit Photo"} />
+        </div>
+    )
+});
+
+
+const PhotoPrompt = () => {
+
+    const classes = useStyles();
+    const { t } = useTranslation();
+
+    return (<div className={classes.photoPrompt}>
+        <CameraAltIcon />
+        <Typography variant="body1" className={classes.buttonText}>
+            {t("patient.report.photo.openCamera")}
+        </Typography>
+    </div>)
+}
 
 const StripPhoto = styled.div`
 height: 50vh;

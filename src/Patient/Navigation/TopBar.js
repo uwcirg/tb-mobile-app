@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -11,6 +11,7 @@ import Colors from '../../Basics/Colors';
 
 import Settings from '@material-ui/icons/Settings'
 import useStores from '../../Basics/UseStores';
+import { Hidden } from '@material-ui/core';
 
 const useStyles = makeStyles({
   personIcon: {
@@ -22,7 +23,9 @@ const useStyles = makeStyles({
   },
   appTitle: {
     flexGrow: 1,
-    paddingLeft: "7px"
+    paddingLeft: "7px",
+    display: "flex",
+    flexDirection: "column"
   },
   bar: {
     position: "fixed",
@@ -35,6 +38,13 @@ const useStyles = makeStyles({
     height: "40px",
 
     borderRadius: "50%"
+  },
+  offlineAlert:{
+    "& > svg":{ color: "white", margin: 0, padding: 0, fontSize: "1em", marginLeft: '.5em' },
+    padding: 0,
+    margin: 0,
+    display: "flex",
+    alignItems: "center"
   }
 })
 
@@ -43,18 +53,15 @@ const TopBar = observer(() => {
   const classes = useStyles();
   const { patientUIStore, uiStore } = useStores();
 
-  //Conditional Logic to Display back button during treatment flow
-  let buttonToDisplay = (
-    <IconButton className={classes.menuContainer} onClick={patientUIStore.goToSettings} edge="start" color="inherit" aria-label="menu">
-      {uiStore.offline ? <OfflineIcon style={{ color: "white" }} /> : <Settings className={classes.personIcon} />}
-    </IconButton>
-  )
   return (
     <AppBar className={classes.bar} color={!uiStore.offline ? "secondary" : "primary"} >
       <Toolbar>
-        <img className={classes.logo} src={`${window ? window._env.URL_CLIENT : ""}/logo.png`} />
+        <img src="/logo-white.png" style={{display: "none"}}/>
+        <img className={classes.logo} src={`${window ? window._env.URL_CLIENT : ""}/${uiStore.offline ? 'logo-white.png' : 'logo.png'}`} />
         <GetTitle />
-        {buttonToDisplay}
+        <IconButton className={classes.menuContainer} onClick={patientUIStore.goToSettings} edge="start" color="inherit" aria-label="menu">
+          <Settings style={{ color: uiStore.offline ? "white" : Colors.buttonBlue }} className={classes.personIcon} />
+        </IconButton>
       </Toolbar>
     </AppBar>
   )
@@ -64,13 +71,16 @@ const TopBar = observer(() => {
 const GetTitle = observer(() => {
 
   const { t } = useTranslation('translation');
-  const { patientUIStore } = useStores();
+  const { patientUIStore, uiStore } = useStores();
   const classes = useStyles();
 
   return (
-    <Typography variant="h6" className={classes.appTitle}>
+    <div className={classes.appTitle}>
+    <Typography variant="h1" >
       {patientUIStore.tabNumber === 0 ? t('title') : Object.values(t('patient.tabNames', { returnObjects: true }))[patientUIStore.tabNumber]}
     </Typography>
+    {uiStore.offline && <p className={classes.offlineAlert}> {t('offline')}<OfflineIcon /></p>}
+    </div>
   )
 
 })

@@ -101,7 +101,6 @@ const ActionBox = observer(() => {
                     {patientStore.isPhotoDay && <NewButton positive={patientStore.reportStore.photoReportComplete} onClick={handlePhotoClick} icon={<Camera />} text={t("patient.home.todaysActions.uploadPhoto")} />}
                 </>
             }
-            {/* patientStore.requiresSubmission && <ClickableText onClick={patientUIStore.skipToReportConfirmation} className={classes.bottomButton} text={t("patient.home.confirmAndSubmit")} /> */}
         </InteractionCard>)
 });
 
