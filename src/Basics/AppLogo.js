@@ -6,7 +6,7 @@ const AppLogo = (props) => {
     const { t } = useTranslation('translation');
     return(
     <Title className={props.className}>
-    <img src="logo.png"></img>
+    <img src={props.white ? "logo-white.png" : "logo.png"}></img>
     <h1>{t("title")}</h1>
     </Title>
     )

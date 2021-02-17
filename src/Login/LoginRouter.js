@@ -46,7 +46,10 @@ const useStyles = makeStyles({
 
     },
     logo: {
-        paddingTop: "2em"
+        paddingTop: "2em",
+        "& > img":{
+            height: "100px"
+        }
     },
     containerBottom: {
         height: "60%"
@@ -117,7 +120,7 @@ const LoginRouter = observer(() => {
             <div className={`${classes.container} `}>
                 {loginStore.selectedUserType ? <IconButton className={classes.backContainer} onClick={() => {handleSelection("") }} ><ChevronLeftOutlined className={classes.back} /></IconButton> : ""}
                 <div className={classes.containerTop}>
-                    <AppLogo className={classes.logo} />
+                    <AppLogo white className={classes.logo} />
                 </div>
                 <div className={classes.containerBottom}>
                     {!loginStore.selectedUserType ? <Selection handleSelection={handleSelection} /> : <LoginPage />}
