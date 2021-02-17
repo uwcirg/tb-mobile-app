@@ -88,7 +88,7 @@ const Home = observer(() => {
                 <Card
                     key={'missed-photo'}
                     icon={<AlertIcon />}
-                    title="Missed A Requested Photo"
+                    title={t("coordinator.cardTitles.missedPhoto")}
                     patientList={practitionerStore.filteredPatients.missedPhoto}
                     type="missedPhoto"
                 />

@@ -54,7 +54,7 @@ const MissedPhotoSideBar = observer((props) => {
     const patientResponse = practitionerStore.filteredPatients.missedPhoto[`${Object.keys(practitionerStore.filteredPatients.missedPhoto)[practitionerStore.selectedRow.index]}`];
     const days = patientResponse.data
 
-    const fData = days && days.map(each => {return {date: each.date, details: [each.reason || t('coordinator.sideBar.noReason')]}})
+    const cleanedData = days && days.map(each => {return {date: each.date, details: [each.reason || t('coordinator.sideBar.noReason')]}})
 
     return (
         <Basicsidebar
@@ -63,9 +63,8 @@ const MissedPhotoSideBar = observer((props) => {
                     <SharedButton text={t('coordinator.sideBar.contactedPatient')} onClick={() => { practitionerStore.resolveMissedPhoto(patientResponse.patientId) }} />
                 </>}>
             <div className={classes.photoContainer} >
-                <h2>{t("coordinator.sideBar.daysMissed")}: {practitionerStore.missedDays.days && practitionerStore.missedDays.days.length} </h2>
-                {/* practitionerStore.missedDays.loading ? "Loading" : <div className={classes.daysList}> {days && days.map((day) => { return <p>{DateTime.fromISO(day.date).toLocaleString(DateTime.DATE_SHORT)} \ {day.reason}</p> })} </div> */}
-                {practitionerStore.missedDays.loading ? "Loading" : <SidebarList data={fData}  />}
+                <h2>{t("coordinator.sideBar.daysMissed")}: {days && days.length} </h2>
+                {practitionerStore.missedDays.loading ? t('commonWords.loading') : <SidebarList data={cleanedData}  />}
 
             </div>
         </Basicsidebar>

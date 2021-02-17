@@ -1,13 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
-//import Colors from '../Basics/Colors'
 import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import Colors from '../../Basics/Colors';
 import Card from './Card'
 import useStores from '../../Basics/UseStores';
-import { Badge } from '@material-ui/core';
 import Styles from '../../Basics/Styles';
 import { DateTime } from 'luxon';
 import { getFirstSevereSymptomFromArray } from '../../Basics/SymptomsSeperation';
@@ -106,7 +104,7 @@ const useStyles = makeStyles({
 const HomePageCard = (props) => {
 
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
     const handleClick = (type, index) => {
         props.setSidebar(type, index)
@@ -137,7 +135,7 @@ const HomePageCard = (props) => {
 
 const SingleLine = observer((props) => {
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const { t} = useTranslation('translation');
     const { practitionerStore } = useStores();
 
     const patient = practitionerStore.getPatient(props.patientId)
@@ -181,7 +179,7 @@ const TaskInfo = (props) => {
     } else if (props.type === 'support') {
         return <p className={classes.reportDate}>{(props.supportRequests && props.supportRequests.length > 0) ? DateTime.fromISO(props.supportRequests[0].date).toLocaleString(DateTime.DATE_SHORT) : "N/A"}</p>
     } else if(props.type === "missedPhoto")
-        return(<><p className={classes.missedDays}>{props.missedPhotoItem.numberOfDays} days</p><p className={classes.reportDate}>{DateTime.fromISO(props.missedPhotoItem.lastDate).toLocaleString(DateTime.DATE_SHORT)}</p></>)
+        return(<><p className={classes.missedDays}>{props.missedPhotoItem.numberOfDays} {t('time.day',{count: props.missedPhotoItem.numberOfDays})}</p><p className={classes.reportDate}>{DateTime.fromISO(props.missedPhotoItem.lastDate).toLocaleString(DateTime.DATE_SHORT)}</p></>)
     else {
         return ""
     }

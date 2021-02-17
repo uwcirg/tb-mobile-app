@@ -81,6 +81,7 @@
     },
     "time": {
         "day": "day",
+        "day_plural": "days",
         "week": "week",
         "days": "days",
         "weeks": "weeks",
@@ -501,6 +502,7 @@
             "patientsWithSymptoms": "Patients with Symptoms",
             "photosToReview": "Photos to Review",
             "missedReport": "Missed Report Since Last Resolution",
+            "missedPhoto": "Missed a Requested Photo",
             "overviewOfProgress": "Overview of Progress",
             "allPatients": "All Patients",
             "awaitingActivation": "Awaiting Activation",
