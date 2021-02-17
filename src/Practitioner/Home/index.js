@@ -14,6 +14,7 @@ import { Badge } from '@material-ui/core';
 import TaskSideBar from './TaskSidebar'
 import SupportSidebar from './SupportSidebar';
 import useResize from '../../Hooks/Resize'
+import MissedPhotoSideBar from './MissedPhotoSideBar'
 
 const useStyles = makeStyles({
     left: {
@@ -69,6 +70,7 @@ const Home = observer(() => {
     }, [])
 
     const fetchData = () => {
+        practitionerStore.getMissingPhotos();
         practitionerStore.getSeverePatients();
         practitionerStore.getPhotoReports();
         practitionerStore.getMissingPatients();
@@ -84,6 +86,13 @@ const Home = observer(() => {
             <div className={classes.left}>
                 <h1>{t("coordinator.titles.myTasks")}</h1>
                 {isMobile && <p className={classes.mobile}>{t("coordinator.mobileWarning")}</p>}
+                <Card
+                    key={'missed-photo'}
+                    icon={<AlertIcon />}
+                    title="Missed A Requested Photo"
+                    patientList={practitionerStore.filteredPatients.missedPhoto}
+                    type="missedPhoto"
+                />
                 <Card
                     key={'symptoms-review'}
                     icon={<AlertIcon />}
@@ -133,6 +142,8 @@ const SideBarRouter = observer((props) => {
         component = <MedicationSideBar />
     } else if (practitionerStore.selectedRow.type === "support") {
         component = <SupportSidebar />
+    } else if (practitionerStore.selectedRow.type === "missedPhoto"){
+        component = <MissedPhotoSideBar />
     }
 
     return (

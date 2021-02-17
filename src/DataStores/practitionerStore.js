@@ -15,7 +15,8 @@ const ROUTES = {
     getMissingPatients: ["/patients/missed", "GET"],
     getRecentReports: ["/patients/reports/recent", "GET"],
     getCompletedResolutionsSummary: ["/practitioner/resolutions/summary", "GET"],
-    getSupportRequests: ["/patients/need_support","GET"]
+    getSupportRequests: ["/patients/need_support", "GET"],
+    getMissingPhotos: ["/patients/missed-photo", "GET"]
 }
 
 export class PractitionerStore extends UserStore {
@@ -98,7 +99,8 @@ export class PractitionerStore extends UserStore {
         symptom: [],
         missed: [],
         photo: [],
-        support: []
+        support: [],
+        missedPhoto: []
     }
 
     @observable selectedRow = {
@@ -114,7 +116,7 @@ export class PractitionerStore extends UserStore {
 
     @observable newActivationCode = "";
 
-    @computed get fullName(){
+    @computed get fullName() {
         return (`${this.givenName} ${this.familyName}`)
     }
 
@@ -153,20 +155,6 @@ export class PractitionerStore extends UserStore {
         this.userType = "Practitioner"
         this.getPatients();
         super.initalize();
-    }
-
-    @action
-    getOrganizations = () => {
-        this.executeRequest('getOrganizations').then(json => {
-
-            let list = []
-            json.length > 0 && (json.map(each => {
-                return (each.title)
-            }))
-
-            this.organizationsList = list
-            list.length > 0 && (this.newPatientInformation.organization = list[0]);
-        })
     }
 
     @action
@@ -280,6 +268,13 @@ export class PractitionerStore extends UserStore {
         })
     }
 
+    resolveMissedPhoto(patientId,kind){
+        this.executeRawRequest(`/v2/resolutions`, "POST",{patientId: patientId, kind: "MissedPhoto", resolvedAt: DateTime.local().toISO() }).then(response => {
+            this.adjustIndex();
+            this.getMissingPhotos();
+        })
+    }
+
     @computed get getSelectedPatient() {
 
         if (this.selectedRow.patientId < 0) {
@@ -355,6 +350,11 @@ export class PractitionerStore extends UserStore {
         this.selectedPatient.notes = notes;
     }
 
+    @action setMissingPhotos(patients) {
+        const values = Object.keys(patients).map( key => {return {patientId: key, lastDate: patients[key][0].date, numberOfDays: patients[key].length, data: patients[key]}});
+        this.filteredPatients.missedPhoto = values;
+    }
+
     //Get detials to fill in patient profile information
     getPatientDetails = (id) => {
         this.executeRawRequest(`/practitioner/patient/${id}`, "GET").then(response => {
@@ -384,8 +384,17 @@ export class PractitionerStore extends UserStore {
         })
     }
 
+    getMissingPhotos = () => {
+        this.executeRequest("getMissingPhotos").then(response => {
+            if (response) {
+                this.setMissingPhotos(response)
+            }
+
+        })
+    }
+
     getPatientNotes = (patientID) => {
-        return this.executeRawRequest(`/patient/${patientID || this.selectedPatient.details.id }/notes`).then(response => {
+        return this.executeRawRequest(`/patient/${patientID || this.selectedPatient.details.id}/notes`).then(response => {
             this.setPatientNotes(response)
         })
     }
@@ -400,23 +409,23 @@ export class PractitionerStore extends UserStore {
 
     getSupportRequests = () => {
         this.executeRequest("getSupportRequests").then(response => {
-            this.filteredPatients.support = response.map(each => {return {patientId: each}})
+            this.filteredPatients.support = response.map(each => { return { patientId: each } })
         })
     }
 
     resolveSupportRequest = () => {
-            this.executeRawRequest(`/patient/${this.selectedPatientID}/resolutions?type=support`, "POST").then(response => {
-                this.adjustIndex();
-                this.getSupportRequests();
-            })
+        this.executeRawRequest(`/patient/${this.selectedPatientID}/resolutions?type=support`, "POST").then(response => {
+            this.adjustIndex();
+            this.getSupportRequests();
+        })
     }
 
-    @computed get numberOfCompletedTasks(){
+    @computed get numberOfCompletedTasks() {
         return this.resolutionSummary.dailyCount || 0;
-    
+
     }
 
-    @computed get totalReported(){
+    @computed get totalReported() {
         return (this.resolutionSummary.takenMedication || 0) + (this.resolutionSummary.notTakenMedication || 0)
     }
 

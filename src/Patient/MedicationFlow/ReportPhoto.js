@@ -202,6 +202,12 @@ const PhotoInfo = () => {
 
     return (
         <WarningBox className={classes.infoBox}>
+            <ClickableText onClick={togglePopUp} className={classes.info} hideIcon text={<span>{t('patient.report.photo.help.instructions')}<KeyboardArrowRight /></span>} />
+                <Grow in={showPopUp}>
+                    <div className={classes.instructions}>
+                        <Instructions />
+                    </div>
+                </Grow>
             <div className={classes.photoInfo}>
                 <h2>{t('patient.report.photo.help.remember')}:</h2>
                 <ul>
@@ -209,12 +215,6 @@ const PhotoInfo = () => {
                     <li>{t('patient.report.photo.help.straight')}</li>
                     <li>Retake photo if it is blury or the square marker is not visible </li>
                 </ul>
-                <ClickableText onClick={togglePopUp} className={classes.info} hideIcon text={<span>{t('patient.report.photo.help.instructions')}<KeyboardArrowRight /></span>} />
-                <Grow in={showPopUp}>
-                    <div className={classes.instructions}>
-                        <Instructions />
-                    </div>
-                </Grow>
             </div>
 
         </WarningBox>

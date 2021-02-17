@@ -93,6 +93,13 @@ const useStyles = makeStyles({
         marginLeft: "auto",
         marginRight: "2em",
         color: Colors.textGray
+    },
+    missedDays:{
+        margin: "auto",
+        color: Colors.red,
+        "& > .days-missed":{
+            fontWeight: "bold"
+        }
     }
 })
 
@@ -111,6 +118,7 @@ const HomePageCard = (props) => {
             selected={props.selectedType === props.type && props.selectedId === index}
             key={`${props.type}-${index}-line`}
             patientId={each.patientId}
+            missedPhotoItem={props.type === "missedPhoto" && each}
             photoDate={props.type === "photo" && each.createdAt}
             onClick={() => handleClick(props.type, index)}
         />)
@@ -135,16 +143,17 @@ const SingleLine = observer((props) => {
     const patient = practitionerStore.getPatient(props.patientId)
 
     return (
-        <div className={`${classes.lineItem} ${props.selected ? classes.selected : ""}`} onClick={props.onClick}>
+        <div className={`${classes.lineItem} ${props.selected ? classes.selected : ""}`} onClick={()=>{patient && props.onClick()}}>
             {patient ?
                 <>
                     <p>{patient.fullName} </p>
-                    <TaskInfo photoDate={props.photoDate} {...patient} type={props.type} />
+                    <TaskInfo missedPhotoItem={props.missedPhotoItem} photoDate={props.photoDate} {...patient} type={props.type} />
                 </> :
                 <p>{t('coordinator.sideBar.loading')}...</p>}
         </div>
     )
 })
+
 
 const TaskInfo = (props) => {
     const { t, i18n } = useTranslation('translation');
@@ -171,7 +180,9 @@ const TaskInfo = (props) => {
         return <p className={classes.reportDate}>{props.lastMissedDay ? DateTime.fromISO(props.lastMissedDay).toLocaleString(DateTime.DATE_SHORT) : "N/A"}</p>
     } else if (props.type === 'support') {
         return <p className={classes.reportDate}>{(props.supportRequests && props.supportRequests.length > 0) ? DateTime.fromISO(props.supportRequests[0].date).toLocaleString(DateTime.DATE_SHORT) : "N/A"}</p>
-    } else {
+    } else if(props.type === "missedPhoto")
+        return(<><p className={classes.missedDays}>{props.missedPhotoItem.numberOfDays} days</p><p className={classes.reportDate}>{DateTime.fromISO(props.missedPhotoItem.lastDate).toLocaleString(DateTime.DATE_SHORT)}</p></>)
+    else {
         return ""
     }
 }
