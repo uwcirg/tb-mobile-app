@@ -117,7 +117,7 @@ const PatientReport = (props) => {
         <ListItem icon={<TempIcon />} title={t("commonWords.symptoms")} editAction={patientUIStore.goToReportSymptoms} hideEdit={props.pastReport}>
             <SymptomList symptoms={props.selectedSymptoms} />
         </ListItem>
-        {!props.pastReport && <ListItem icon={<FaceIcon />} title={"Support"} editAction={patientUIStore.goToReportMood} hideEdit={props.pastReport}>
+        {!props.pastReport && <ListItem icon={<FaceIcon />} title={t('report.feeling')} editAction={patientUIStore.goToReportMood} hideEdit={props.pastReport}>
             {props.feelingWell ? t('patient.report.doingWell') : t('patient.report.needSupport')}
         </ListItem>}
         <PhotoListItem pastReport={props.pastReport} missingPhoto={props.missingPhoto} isPhotoDay={props.isPhotoDay} photoString={props.photoString} />

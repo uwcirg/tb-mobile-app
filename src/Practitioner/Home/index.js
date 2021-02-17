@@ -10,7 +10,6 @@ import PhotoSidebar from './PhotoSideBar'
 import SymptomSidebar from './SymptomSideBar'
 import MedicationSideBar from './MedicationSideBar'
 import { useTranslation } from 'react-i18next';
-import { Badge } from '@material-ui/core';
 import TaskSideBar from './TaskSidebar'
 import SupportSidebar from './SupportSidebar';
 import useResize from '../../Hooks/Resize'

@@ -305,11 +305,14 @@
                     "remember": "Please remember to",
                     "wait": "Let the test strip sit for 15 minutes",
                     "straight": "Capture the photo straight above the test strip",
-                    "retake": "Retake picture if:",
-                    "blurry": "It is blurry",
-                    "marker": "Black and White Marker is not visible",
+                    "retakeIf": "Retake photo if it is blury or the square marker is not visible",
                     "instructions": "View Test Strip Instructions"
-                }
+                },
+                "submitLater": "Submit Later",
+                "unable": "Unable to submit? Tell us why",
+                "whyUnable": "Why are you unable to submit?",
+                "back": "Back to Submit Photo"
+
             },
             "symptoms": {
                 "nauseaRating": "How bad is your nausea?",
@@ -340,6 +343,7 @@
             }
         },
         "reportConfirmation": {
+            "viewOrEdit": "View / Edit Report",
             "goodJob": "Good Job",
             "photoNeeded": "You also need to upload a photo of your test strip today",
             "doLater": "Do Later Today"

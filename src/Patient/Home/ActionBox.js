@@ -107,7 +107,6 @@ const ActionBox = observer(() => {
 const Confirmation = (props) => {
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
-    const [showReport, setShowReport] = useState(false);
 
     return (
         <div className={classes.confirmationSuperContainer}>
@@ -120,7 +119,7 @@ const Confirmation = (props) => {
             </div>
             <ExpansionPanel
                 previewClassName={classes.reportPreview}
-                preview={t("View / Edit Treatment Log")}
+                preview={t("patient.reportConfirmation.viewOrEdit")}
                 icon={<EditIcon style={{ fontSize: "1em" }} />}
             >
                 <Review />
