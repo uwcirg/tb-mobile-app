@@ -6,6 +6,7 @@ import Colors from '../../Basics/Colors'
 
 const useStyles = makeStyles({
     priority:{
+        borderRadius: "5px",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",

@@ -1,11 +1,12 @@
-import React from 'react'
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography'
-import Styles from '../../../../Basics/Styles'
-import {SingleReport} from '../../../PatientProfile/ReportList'
+import Styles from '../../../../Basics/Styles';
+import {SingleReport} from '../../../PatientProfile/ReportList';
 import { DateTime } from 'luxon';
-import Issues from './Issues'
-import Profile from './Profile'
+import Issues from './Issues';
+import Profile from './Profile';
+import Report from './Report'
 
 const cardStyles = makeStyles({
     container: {
@@ -13,6 +14,7 @@ const cardStyles = makeStyles({
         display: "flex",
         backgroundColor: "white",
         marginBottom: "1em",
+        minWidth: "800px",
         minHeight: "200px",
         "& > div": {
             padding: "1em"
@@ -20,6 +22,11 @@ const cardStyles = makeStyles({
     },
     reports: {
         flex: "1 1 0",
+        padding: "0 !important",
+        "& > div":{
+            padding: ".5em",
+            borderBottom: "solid 1px lightgray"
+        },
         "& > div > h3": {
             fontSize: "1em"
         }
@@ -40,15 +47,14 @@ const PatientCard = (props) => {
     return (
         <div className={classes.container}>
             <Profile {...props} />
-
             <div className={classes.reports}>
-                <div>
+                <div> 
                     <Typography variant="h3"> Todays Report</Typography>
-                    {todaysReport && <SingleReport report={todaysReport} />}
+                    <Report report={todaysReport} />
                 </div>
                 <div>
                     <Typography variant="h3"> Yesterdays Report</Typography>
-                    {yesterdaysReport && <SingleReport report={yesterdaysReport} />}
+                    <Report report={yesterdaysReport} />
                 </div>
             </div>
             <Issues id={props.id} />

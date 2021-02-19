@@ -15,6 +15,7 @@ import Colors from "../Basics/Colors";
 import Badge from '@material-ui/core/Badge'
 import Tooltip from '@material-ui/core/Tooltip'
 import { useTranslation } from 'react-i18next';
+import FiberNewIcon from '@material-ui/icons/FiberNew';
 
 const drawerWidth = 200;
 
@@ -98,8 +99,8 @@ const PractitionerDrawer = observer(() => {
         </ListItem>
       </List>
       <div className={classes.bottomButtons}>
+      <IconButton onClick={()=>{push('/review')}} className={classes.settingsIcon}><FiberNewIcon /></IconButton>
       <Tooltip title={t('patient.profile.logout')}>
-
         <IconButton onClick={handleLogout} className={classes.settingsIcon}><LogOut /></IconButton>
         </Tooltip>
       </div>

@@ -5,7 +5,6 @@ import Colors from '../../Basics/Colors';
 
 const useStyles = makeStyles({
     subtitle:{
-        marginBottom: "1em",
         fontSize: "1.375em",
         textTransform: "uppercase",
         color: Colors.textDarkGray

@@ -29,6 +29,9 @@ const theme = createMuiTheme({
     },
     secondary: {
       main: "#FFFFFF"
+    },
+    badge:{
+      main: Colors.warningRed
     }
   }
 });

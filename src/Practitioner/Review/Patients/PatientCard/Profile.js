@@ -30,7 +30,6 @@ const useStyles = makeStyles({
         alignItems: "flex-end",
         "& > h3": {
             fontSize: "1.25em",
-            paddingLeft: ".5em"
         }
     },
     circle: {
@@ -49,11 +48,12 @@ const useStyles = makeStyles({
     },
     data:{
         margin: "auto 0",
+        padding: "1em 0",
         "& > p":{
-            marginBottom: 0,
-            marginTop: ".5em",
+            margin: 0,
+            padding: 0,
             "& > span":{
-                fontWeight: "medium"
+                fontWeight: "bold"
             }
         }
     },
@@ -74,7 +74,7 @@ const Profile = (props) => {
     return (
         <div className={classes.profile}>
             <div className={classes.top}>
-                <PatientPicture className={classes.circle} name={props.givenName} />
+                {/* <PatientPicture className={classes.circle} name={props.givenName} /> */}
                 <Typography variant="h3">{props.givenName} {props.familyName[0]}.</Typography>
             </div>
             <div className={classes.priority}>
