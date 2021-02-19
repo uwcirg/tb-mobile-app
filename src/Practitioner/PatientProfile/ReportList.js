@@ -140,3 +140,4 @@ const Feeling = (props) => {
 }
 
 export default ReportView;
+export {Report as SingleReport};

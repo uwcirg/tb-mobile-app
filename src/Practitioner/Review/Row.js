@@ -89,13 +89,13 @@ const Row = (props) => {
     return (
         <div className={classes.container}>
             <div className={classes.row}>
-                <IconButton disabled={patient.reportingSummary.length === 0} onClick={toggleExpanded}>{expanded ? <Up /> : <Down />}</IconButton>
+                <IconButton disabled={patient.reportingSummary && patient.reportingSummary.length === 0} onClick={toggleExpanded}>{expanded ? <Up /> : <Down />}</IconButton>
                 <div className={`${classes.name} name`}>
                     {patient.givenName} {patient.familyName && patient.familyName[0]}.
                     {/*<span >({Object.keys(patient.reportingSummary).length})</span>*/}
                 </div>
                 <div className={`${classes.priority} priority`}><Priority index={patient.priority} /></div>
-                <ReportPreview report={(patient.reportingSummary.length > 0 && patient.reportingSummary[0].date === DateTime.local().toISODate()) ? patient.reportingSummary[0] : null } />
+                <ReportPreview report={(patient.reportingSummary && patient.reportingSummary.length > 0 && patient.reportingSummary[0].date === DateTime.local().toISODate()) ? patient.reportingSummary[0] : null } />
             </div>
             {expanded && <div>
                 <OldReports reports={patient.reportingSummary.slice(1)} date={DateTime.fromISO(patient.lastResolution).startOf("day")} />

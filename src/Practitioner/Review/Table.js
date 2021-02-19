@@ -76,7 +76,7 @@ const Table = observer(() => {
     return (<div className={classes.table}>
         <Titles />
         <>
-            {dashboardStore.patientList.length > 0 && dashboardStore.patientList.slice(0, full ? dashboardStore.patients.length : 5).map(patient => {
+            {dashboardStore.patientList && dashboardStore.patientList.length > 0 && dashboardStore.patientList.slice(0, full ? dashboardStore.patients.length : 5).map(patient => {
                 return (<Row columns={COLUMNS} patient={patient} />)
             })}
             <div className={classes.expand}>

@@ -19,7 +19,7 @@ const useStyles = makeStyles({
 })
 
 const Priority = (props) => {
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
     let text = ""; 
     let color;
 
@@ -34,7 +34,7 @@ const Priority = (props) => {
           break;
         default:
           text = t('coordinator.priority.high')
-          color = Colors.red;
+          color = '#EB5757';
       }
     
     const classes = useStyles({color: color});

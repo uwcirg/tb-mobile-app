@@ -24,7 +24,7 @@ const useStyles = makeStyles({
 export default function Icon(props){
     const classes = useStyles();
     return (
-        <div className={classes.container}>
+        <div className={`${classes.container} ${props.className}`}>
         <div className={classes.circle}>
             <p className={classes.letter}>{props.name[0]}</p>
         </div>

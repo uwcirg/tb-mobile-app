@@ -306,13 +306,13 @@
                     "remember": "Please remember to",
                     "wait": "Let the test strip sit for 15 minutes",
                     "straight": "Capture the photo straight above the test strip",
-                    "retakeIf": "Retake photo if it is blury or the square marker is not visible",
+                    "retakeIf": "Retake photo if it is blurry or the square marker is not visible",
                     "instructions": "View Test Strip Instructions"
                 },
                 "submitLater": "Submit Later",
                 "unable": "Unable to submit? Tell us why",
                 "whyUnable": "Why are you unable to submit?",
-                "back": "Back to Submit Photo"
+                "back": "Return to previous step"
 
             },
             "symptoms": {
@@ -502,7 +502,7 @@
             "patientsWithSymptoms": "Patients with Symptoms",
             "photosToReview": "Photos to Review",
             "missedReport": "Missed Report Since Last Resolution",
-            "missedPhoto": "Missed a Requested Photo",
+            "missedPhoto": "Missed a Required Photo",
             "overviewOfProgress": "Overview of Progress",
             "allPatients": "All Patients",
             "awaitingActivation": "Awaiting Activation",

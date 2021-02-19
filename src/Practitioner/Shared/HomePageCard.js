@@ -92,10 +92,10 @@ const useStyles = makeStyles({
         marginRight: "2em",
         color: Colors.textGray
     },
-    missedDays:{
+    missedDays: {
         margin: "auto",
         color: Colors.red,
-        "& > .days-missed":{
+        "& > .days-missed": {
             fontWeight: "bold"
         }
     }
@@ -135,13 +135,13 @@ const HomePageCard = (props) => {
 
 const SingleLine = observer((props) => {
     const classes = useStyles();
-    const { t} = useTranslation('translation');
+    const { t } = useTranslation('translation');
     const { practitionerStore } = useStores();
 
     const patient = practitionerStore.getPatient(props.patientId)
 
     return (
-        <div className={`${classes.lineItem} ${props.selected ? classes.selected : ""}`} onClick={()=>{patient && props.onClick()}}>
+        <div className={`${classes.lineItem} ${props.selected ? classes.selected : ""}`} onClick={() => { patient && props.onClick() }}>
             {patient ?
                 <>
                     <p>{patient.fullName} </p>
@@ -158,7 +158,7 @@ const TaskInfo = (props) => {
     const classes = useStyles();
 
     if (props.type === 'symptom') {
-        if(!(props.lastSymptoms.symptomList.length > 0)) return ""
+        if (!(props.lastSymptoms.symptomList.length > 0)) return ""
         const symptomToDisplay = getFirstSevereSymptomFromArray(props.lastSymptoms.symptomList)
 
         const displayedSymptom = t(`symptoms.${symptomToDisplay || props.lastSymptoms.symptomList[0]}.title`)
@@ -166,7 +166,7 @@ const TaskInfo = (props) => {
 
         return (
             <>
-                <p style={{color: symptomToDisplay && Colors.red}} className={classes.symptomList}>{displayedSymptom} {more > 0 && <>+{more}</>}</p>
+                <p style={{ color: symptomToDisplay && Colors.red }} className={classes.symptomList}>{displayedSymptom} {more > 0 && <>+{more}</>}</p>
                 <p className={classes.reportDate}>{props.lastSymptoms.date ? DateTime.fromISO(props.lastSymptoms.date).toLocaleString(DateTime.DATE_SHORT) : "N/A"}</p>
             </>
         )
@@ -178,8 +178,8 @@ const TaskInfo = (props) => {
         return <p className={classes.reportDate}>{props.lastMissedDay ? DateTime.fromISO(props.lastMissedDay).toLocaleString(DateTime.DATE_SHORT) : "N/A"}</p>
     } else if (props.type === 'support') {
         return <p className={classes.reportDate}>{(props.supportRequests && props.supportRequests.length > 0) ? DateTime.fromISO(props.supportRequests[0].date).toLocaleString(DateTime.DATE_SHORT) : "N/A"}</p>
-    } else if(props.type === "missedPhoto")
-        return(<><p className={classes.missedDays}>{props.missedPhotoItem.numberOfDays} {t('time.day',{count: props.missedPhotoItem.numberOfDays})}</p><p className={classes.reportDate}>{DateTime.fromISO(props.missedPhotoItem.lastDate).toLocaleString(DateTime.DATE_SHORT)}</p></>)
+    } else if (props.type === "missedPhoto")
+        return (<><p className={classes.missedDays}>{props.missedPhotoItem.numberOfDays} {t('time.day', { count: props.missedPhotoItem.numberOfDays })}</p><p className={classes.reportDate}>{DateTime.fromISO(props.missedPhotoItem.lastDate).toLocaleString(DateTime.DATE_SHORT)}</p></>)
     else {
         return ""
     }

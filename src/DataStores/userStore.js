@@ -19,7 +19,7 @@ export class UserStore extends APIStore {
   @observable expired = false;
   @observable isLoggedIn = false;
   @observable reminderTime = "";
-  @observable organizationID = 0;
+  @observable organizationID = -1;
 
   constructor(strategy, routes, userType) {
     const mergedRoutes = { ...USER_ROUTES, ...routes }
@@ -28,6 +28,7 @@ export class UserStore extends APIStore {
   }
 
   @action setAccountInformation(json) {
+
     this.givenName = json.givenName;
     this.familyName = json.familyName;
     this.organizationID = json.organizationId;

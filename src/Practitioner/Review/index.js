@@ -8,6 +8,7 @@ import Subtitle from './Subtitle'
 import Typography from '@material-ui/core/Typography'
 import Table from './Table'
 import Colors from '../../Basics/Colors';
+import PatientList from './Patients/'
 
 const useStyles = makeStyles({
     table:{
@@ -39,30 +40,42 @@ const NumberOfPatients = observer(() => {
     )
 })
 
-const Review = () => {
-    //Pull in data
-    //Table Layout
-   
+const Review = observer(() => {
+
     const classes = useStyles();
     const {dashboardStore,practitionerStore} = useStores();
 
     useEffect(()=>{
-        dashboardStore.getPatients(practitionerStore.organizationID);
-    },[])
+        if(practitionerStore.organizationID > -1){
+            dashboardStore.getPatients(practitionerStore.organizationID);
+        }
+    },[practitionerStore.organizationID])
+
+    useEffect(() => {
+        fetchData();
+    }, [])
+
+    const fetchData = () => {
+        practitionerStore.getMissingPhotos();
+        practitionerStore.getSeverePatients();
+        practitionerStore.getPhotoReports();
+        practitionerStore.getMissingPatients();
+        practitionerStore.getSupportRequests();
+    }
 
     return(
         <div className={classes.reviewSuperContainer}>
     <div className={classes.reviewContainer}>
         <Date />
         <Dashboard />
-        <Subtitle>Patients To Review (<NumberOfPatients />)</Subtitle>
-        <Table />
+        <Subtitle>Patients (<NumberOfPatients />)</Subtitle>
+        <PatientList />
         <Subtitle>Reviewed Patients</Subtitle>
-        <Table />
+        {/* <Table /> */}
     </div>
     </div>)
 
-}
+});
 
 const Date = () => {
     const classes = useStyles();
@@ -70,6 +83,5 @@ const Date = () => {
             <Typography className={classes.date} variant="h2">{DateTime.local().toLocaleString(DateTime.DATE_FULL)}</Typography>
     )
 }
-
 
 export default Review;

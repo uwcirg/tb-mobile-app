@@ -5,6 +5,7 @@
     "greeting": "Hola",
     "updating": "Actualizando",
     "commonWords": {
+        "edit": "Editar",
         "error": "Error",
         "medication": "Medicamento",
         "symptoms": "Sintomas",
@@ -80,6 +81,7 @@
     },
     "time": {
         "day": "día",
+        "day_plural": "dias",
         "week": "semana",
         "days": "días",
         "weeks": "semanas",
@@ -304,11 +306,14 @@
                     "remember": "Por favor recuerde ",
                     "wait": "Dejar que la tira reactiva reaccione por 15 minutos.",
                     "straight": "Tome la foto directamente encima de la tira reactiva.",
-                    "retake": "Vuelva a tomar la foto si:",
-                    "blurry": "Está borrosa",
-                    "marker": "Los marcadores blancos y negros no están visibles",
+                    "retakeIf": "Vuelva a tomar la foto si está borrosa o si el marcador cuadrado no está visible.",
                     "instructions": "Ver las instrucciones para las tiras reactivas."
-                }
+                },
+                "submitLater": "Enviar Después",
+                "unable": "¿No puedes enviar una foto? Dinos por qué.",
+                "whyUnable": "¿Por qué no puedes enviar una foto?",
+                "back": "Regresar al paso anterior"
+
             },
             "symptoms": {
                 "nauseaRating": "¿Que severa es su náusea?",
@@ -339,6 +344,7 @@
             }
         },
         "reportConfirmation": {
+            "viewOrEdit": "Ver / Editar Reporte",
             "goodJob": "Bien Hecho",
             "photoNeeded": "Hoy también tiene que subir una foto de la tira reactiva.",
             "doLater": "Lo Haré Más Tarde"
@@ -492,6 +498,7 @@
             "patientsWithSymptoms": "Pacientes Con Síntomas",
             "photosToReview": "Fotos para Revisar",
             "missedReport": "Faltan Reportes Desde la Última Actualización",
+            "missedPhoto": "Falta una de las fotos requeridas.",
             "overviewOfProgress": "Resumen de Progreso",
             "allPatients": "Todos los Pacientes",
             "awaitingActivation": "Esperando Activación",
@@ -508,6 +515,7 @@
             "none": "Ninguno"
         },
         "sideBar": {
+            "noReason": "No se envió una razón.",
             "lastContacted": "Último  Contacto",
             "viewFullProfile": "Ver Perfil Completo",
             "daysMissed": "Días Sin Reporte Desde la Última Actualización",

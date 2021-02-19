@@ -1,0 +1,112 @@
+import React from 'react'
+import { makeStyles } from '@material-ui/core/styles';
+import useStores from '../../../../Basics/UseStores';
+import { observer } from 'mobx-react'
+import Typography from '@material-ui/core/Typography'
+import PatientPicture from '../../../../Basics/PatientIcon'
+import Colors from '../../../../Basics/Colors'
+import Priority from '../../../Shared/Priority'
+import { useTranslation } from 'react-i18next';
+import ProfileButton from '../../../PatientProfile/ProfileButton.js'
+import { Button } from '@material-ui/core';
+import Message from '@material-ui/icons/ChatBubble';
+import Add from '@material-ui/icons/AddCircle';
+
+const useStyles = makeStyles({
+
+    priority:{
+        width: "60%",
+        marginTop: ".5em"
+    },
+    profile: {
+        width: "120px",
+        borderRight: `1px solid ${Colors.gray}`,
+        height: "auto",
+        display: "flex",
+        flexDirection: "column"
+    },
+    top: {
+        display: "flex",
+        alignItems: "flex-end",
+        "& > h3": {
+            fontSize: "1.25em",
+            paddingLeft: ".5em"
+        }
+    },
+    circle: {
+        display: "flex",
+        alignItems: "center",
+        "& > div": {
+            backgroundColor: Colors.accentBlue,
+            height: "25px",
+            width: "25px",
+            marginTop: "0",
+            paddingTop: "0",
+            "& > p": {
+                fontSize: "1em"
+            }
+        }
+    },
+    data:{
+        margin: "auto 0",
+        "& > p":{
+            marginBottom: 0,
+            marginTop: ".5em",
+            "& > span":{
+                fontWeight: "medium"
+            }
+        }
+    },
+    buttons:{
+        marginTop: "auto",
+        display: "flex",
+        flexDirection: "column",
+        "& > button":{
+            marginTop: ".5em"
+        }
+    }
+})
+
+const Profile = (props) => {
+
+    const classes = useStyles();
+
+    return (
+        <div className={classes.profile}>
+            <div className={classes.top}>
+                <PatientPicture className={classes.circle} name={props.givenName} />
+                <Typography variant="h3">{props.givenName} {props.familyName[0]}.</Typography>
+            </div>
+            <div className={classes.priority}>
+                <Priority index={props.priority} />
+            </div>
+            <div className={classes.data}>
+                <Typography variant="body1"><span>Week: </span>{props.weeksInTreatment}/26</Typography> 
+                <Typography variant="body1"><span>Adherence: </span>{Math.round(props.adherence * 100)}%</Typography>
+            </div>
+            <div>
+                <Buttons />
+            </div>
+        </div>)
+
+}
+
+
+const Buttons = observer(() => {
+    const { practitionerUIStore, practitionerStore } = useStores();
+    const classes = useStyles();
+    const { t } = useTranslation('translation');
+
+    const messagePatient = () => {
+        practitionerUIStore.goToChannel(practitionerStore.selectedPatient.details.channelId);
+    }
+
+    return (
+        <div className={classes.buttons}>
+            <ProfileButton onClick={messagePatient}><Message />{t("coordinator.patientProfile.options.message")}</ProfileButton>
+            <ProfileButton onClick={practitionerUIStore.openAddPatientNote} ><Add />{t("coordinator.patientProfile.options.note")}</ProfileButton>
+        </div>
+    )
+})
+
+export default Profile;
