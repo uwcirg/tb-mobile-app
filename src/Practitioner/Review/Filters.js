@@ -8,6 +8,7 @@ const useStyles = makeStyles({
         alignItems: "center",
         "& > ul": {
             display: "flex",
+            padding: 0
         }
     },
     filter:{

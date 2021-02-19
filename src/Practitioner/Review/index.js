@@ -10,8 +10,10 @@ import Table from './Table'
 import Colors from '../../Basics/Colors';
 import PatientList from './Patients/'
 import Filters from './Filters'
+import Sorting from './Sorting'
 import Button from '@material-ui/core/ButtonBase';
 import Badge from '@material-ui/core/Badge'
+import Photos from './Photos'
 
 const useStyles = makeStyles({
     table: {
@@ -24,7 +26,7 @@ const useStyles = makeStyles({
         padding: "1em 0 2em 0"
     },
     reviewContainer: {
-        width: "98%",
+        width: "100%",
         margin: "auto"
     },
     reviewSuperContainer: {
@@ -41,6 +43,10 @@ const useStyles = makeStyles({
             borderRadius: "8px 8px 0 0",
             backgroundColor: "#F7F7F7",
             color: Colors.textDarkGray,
+            border: "solid 1px gray",
+            borderBottom: "none",
+
+
         },
         "& > span > .MuiBadge-badge": {
             backgroundColor: Colors.red,
@@ -50,12 +56,22 @@ const useStyles = makeStyles({
     main: {
         paddingTop: "24px",
         borderRadius: "8px",
-        padding: "1em",
+        padding: "1em 1em 1em 2em",
         backgroundColor: "#F7F7F7"
     },
     offTab: {
         backgroundColor: "#ECECEC !important",
-        color: Colors.textGray
+        color: Colors.textGray,
+        border: "solid 1px lightgray !important"
+    },
+    top: {
+        paddingLeft: "2em"
+    },
+    tools:{
+        display: "flex",
+        "& > div:first-of-type":{
+            marginRight:"1em"
+        }
     }
 
 })
@@ -90,24 +106,35 @@ const Review = observer(() => {
 
     useEffect(fetchData, []);
 
+    const numberOfPhotos = practitionerStore.filteredPatients.photo && practitionerStore.filteredPatients.photo.length;
+
 
     return (
         <div className={classes.reviewSuperContainer}>
             <div className={classes.reviewContainer}>
-                <Date />
-                <Dashboard />
+                <div className={classes.top}>
+                    <Date />
+                    <Dashboard />
+                </div>
+
                 <div className={classes.tabs}>
                     <Button className={`${onPhotos && classes.offTab}`} onClick={() => { setOnPhotos(false) }}>Patients</Button>
-                    <Badge color="badge" badgeContent={3}>
+                    <Badge color="badge" badgeContent={numberOfPhotos}>
                         <Button className={`${!onPhotos && classes.offTab}`} onClick={() => { setOnPhotos(true) }}>Review Test Strips</Button>
                     </Badge>
                 </div>
 
                 <div className={classes.main}>
-                    {onPhotos ? <div><Subtitle>Photos (<NumberOfPatients />)</Subtitle> </div> :
+                    {onPhotos ? <div>
+                        <Subtitle>Photos ({numberOfPhotos})</Subtitle>
+                        <Photos />
+                    </div> :
                         <>
                             <Subtitle>Patients (<NumberOfPatients />)</Subtitle>
-                            <Filters />
+                            <div className={classes.tools}>
+                                <Filters />
+                                <Sorting />
+                            </div>
                             <PatientList />
                             <p>* For now this is limited to 5 patients for easy testing</p>
                         </>}</div>

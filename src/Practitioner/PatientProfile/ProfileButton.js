@@ -5,6 +5,7 @@ import Colors from '../../Basics/Colors';
 
 const useStyles = makeStyles({
     button: {
+        justifyContent: "flex-start",
         padding: ".15em .5em .15em .5em",
         borderRadius: "4px",
         fontSize: ".875em",
@@ -18,7 +19,7 @@ const useStyles = makeStyles({
         },
         "& > span  > svg": {
             fontSize: "1em",
-            marginRight: ".5em"
+            paddingRight: ".5em"
         },
         "&:hover":{
             backgroundColor: Colors.accentBlue

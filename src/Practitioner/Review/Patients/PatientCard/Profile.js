@@ -85,20 +85,20 @@ const Profile = (props) => {
                 <Typography variant="body1"><span>Adherence: </span>{Math.round(props.adherence * 100)}%</Typography>
             </div>
             <div>
-                <Buttons />
+                <Buttons id={props.id} channelId={props.channelId} />
             </div>
         </div>)
 
 }
 
 
-const Buttons = observer(() => {
+const Buttons = observer((props) => {
     const { practitionerUIStore, practitionerStore } = useStores();
     const classes = useStyles();
     const { t } = useTranslation('translation');
 
     const messagePatient = () => {
-        practitionerUIStore.goToChannel(practitionerStore.selectedPatient.details.channelId);
+        practitionerUIStore.goToChannel(props.channelId);
     }
 
     return (
