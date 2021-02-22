@@ -113,13 +113,13 @@ const Review = observer(() => {
         <div className={classes.reviewSuperContainer}>
             <div className={classes.reviewContainer}>
                 <div className={classes.top}>
-                    <Date />
+                    {/* <Date /> */}
                     <Dashboard />
                 </div>
 
                 <div className={classes.tabs}>
                     <Button className={`${onPhotos && classes.offTab}`} onClick={() => { setOnPhotos(false) }}>Patients</Button>
-                    <Badge color="badge" badgeContent={numberOfPhotos}>
+                    <Badge badgeContent={numberOfPhotos}>
                         <Button className={`${!onPhotos && classes.offTab}`} onClick={() => { setOnPhotos(true) }}>Review Test Strips</Button>
                     </Badge>
                 </div>

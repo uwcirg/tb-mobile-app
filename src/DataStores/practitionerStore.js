@@ -268,8 +268,8 @@ export class PractitionerStore extends UserStore {
         })
     }
 
-    resolveMissedPhoto(patientId,kind){
-        this.executeRawRequest(`/v2/resolutions`, "POST",{patientId: patientId, kind: "MissedPhoto", resolvedAt: DateTime.local().toISO() }).then(response => {
+    resolveMissedPhoto(patientId, kind) {
+        this.executeRawRequest(`/v2/resolutions`, "POST", { patientId: patientId, kind: "MissedPhoto", resolvedAt: DateTime.local().toISO() }).then(response => {
             this.adjustIndex();
             this.getMissingPhotos();
         })
@@ -351,7 +351,7 @@ export class PractitionerStore extends UserStore {
     }
 
     @action setMissingPhotos(patients) {
-        const values = Object.keys(patients).map( key => {return {patientId: key, lastDate: patients[key][0].date, numberOfDays: patients[key].length, data: patients[key]}});
+        const values = Object.keys(patients).map(key => { return { patientId: key, lastDate: patients[key][0].date, numberOfDays: patients[key].length, data: patients[key] } });
         this.filteredPatients.missedPhoto = values;
     }
 
@@ -427,6 +427,41 @@ export class PractitionerStore extends UserStore {
 
     @computed get totalReported() {
         return (this.resolutionSummary.takenMedication || 0) + (this.resolutionSummary.notTakenMedication || 0)
+    }
+
+    // Creates a hash { patientID: total num issues}
+    // @todo if the new dashboard gets adopted it would be good to do this on the serverside
+    @computed get issuesPerPatient() {
+        let issues = {}
+        Object.values(this.filteredPatients).forEach(each => {
+            each.map(value => {
+                if (!value.url) { //Exclude photo requests ( not an "issue")
+                    const key = `${value.patientId}`
+                    issues[key] ? issues[key] += 1 : issues[key] = 1
+                }
+            })
+        })
+        return issues;
+
+    }
+
+
+    // Test Stuff for new sorted dashboard - need to move to a different store for better organization 
+    // Can flip value to 1 or -1 to sort
+    @observable sortOptions = {
+        issues: 0,
+        adherence: 0,
+    }
+
+    @computed get sortedPatientList() {
+
+        return Object.values(this.patients).sort((a, b) => {
+            return this.sortOptions.issues * ((this.issuesPerPatient[`${a.id}`] || 0) - (this.issuesPerPatient[`${b.id}`] || 0))
+        })
+    }
+
+    @action toggleIssueSort = () => {
+        this.sortOptions.issues === -1 ? this.sortOptions.issues = 1 : this.sortOptions.issues -= 1;
     }
 
 

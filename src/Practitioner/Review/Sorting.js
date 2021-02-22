@@ -1,6 +1,9 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
+import {observer} from 'mobx-react';
 import ButtonBase from '@material-ui/core/ButtonBase'
+import useStores from '../../Basics/UseStores';
+import Colors from '../../Basics/Colors';
 
 const useStyles = makeStyles({
     filtersContainer: {
@@ -21,29 +24,39 @@ const useStyles = makeStyles({
             width: "auto",
             height: "auto"
         }
+    },
+    activeButton:{
+        backgroundColor: Colors.babyBlue
     }
 })
 
-const Sorting = () => {
+const Sorting = observer((props) => {
     const classes = useStyles()
+    const {practitionerStore} = useStores();
 
+    const issueText = practitionerStore.sortOptions.issues === 0 ? "" : (practitionerStore.sortOptions.issues < 0 ? ": Most First" : ": Least First");
+    
     return (
         <div className={classes.filtersContainer}>
             <label>Sort By: </label>
             <ul >
-                <ListButton>Priority: Lowest First</ListButton>
-                <ListButton>Start Date: Oldest First</ListButton>
+                <ListButton type="issues" onClick={practitionerStore.toggleIssueSort}>Issues{issueText}</ListButton>
+                <ListButton onClick={practitionerStore.sortPriority}>Priority: Lowest First</ListButton>
+                <ListButton onClick={practitionerStore.sortIssues}>Start Date: Oldest First</ListButton>
             </ul>
         </div>
     )
-}
+})
 
-const ListButton = (props) => {
+const ListButton = observer((props) => {
+
+    const {practitionerStore} = useStores();
+    const active = props.type && practitionerStore.sortOptions[props.type] !== 0
     const classes = useStyles();
 
     return (
-        <li className={classes.filter}><ButtonBase onClick={() => { console.log("click") }}>{props.children}</ButtonBase></li>
+        <li className={`${classes.filter} ${active && classes.activeButton}`}><ButtonBase onClick={props.onClick}>{props.children}</ButtonBase></li>
     )
-}
+})
 
 export default Sorting;

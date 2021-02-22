@@ -9,7 +9,7 @@ const PatientOverview = observer(() => {
 
     return (
         <div style={{display: "flex", flexDirection: "column", alignItems: "flex-start"}}>
-            {practitionerStore.patientList.length > 0 && practitionerStore.patientList.slice(0,5).map(patient => {
+            {practitionerStore.sortedPatientList.length > 0 && practitionerStore.sortedPatientList.map(patient => {
                 return <PatientCard key={`patient-overview-${patient.id}`} {...patient} />
             })}
         </div>)

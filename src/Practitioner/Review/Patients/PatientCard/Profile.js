@@ -28,7 +28,7 @@ const useStyles = makeStyles({
     top: {
         display: "flex",
         alignItems: "flex-end",
-        "& > h3": {
+        "& > h3, & > a > h3": {
             fontSize: "1.25em",
         }
     },
@@ -70,12 +70,13 @@ const useStyles = makeStyles({
 const Profile = (props) => {
 
     const classes = useStyles();
+    const { practitionerUIStore } = useStores();
 
     return (
         <div className={classes.profile}>
             <div className={classes.top}>
                 {/* <PatientPicture className={classes.circle} name={props.givenName} /> */}
-                <Typography variant="h3">{props.givenName} {props.familyName[0]}.</Typography>
+                <a onClick={()=>{ practitionerUIStore.goToPatient(props.id)}}><Typography variant="h3">{props.givenName} {props.familyName[0]}.</Typography></a>
             </div>
             <div className={classes.priority}>
                 <Priority index={props.priority} />

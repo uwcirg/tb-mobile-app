@@ -53,6 +53,7 @@ const Issues = observer((props) => {
     const missedReport = checkForPatientIssue(practitionerStore.filteredPatients.missed, props.id)
     const needsSupport = checkForPatientIssue(practitionerStore.filteredPatients.support, props.id)
     const missedPhoto = checkForPatientIssue(practitionerStore.filteredPatients.missedPhoto, props.id)
+    const hadSymptoms = checkForPatientIssue(practitionerStore.filteredPatients.symptom,props.id)
 
     //console.log(toJS(practitionerStore.filteredPatients))
 
@@ -63,6 +64,7 @@ const Issues = observer((props) => {
                 <p>{missedReport && "MISSED REPORT"}</p>
                 <p>{needsSupport && "NEEDS SUPPORT"}</p>
                 <p>{missedPhoto && "MISSED PHOTO"}</p>
+                <p>{hadSymptoms && "SYMPTOMS"}</p>
             </div>
             
             <div className={classes.resolve}>
