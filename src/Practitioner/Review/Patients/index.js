@@ -8,7 +8,9 @@ const PatientOverview = observer(() => {
     const { practitionerStore } = useStores();
 
     return (
-        <div style={{display: "flex", flexDirection: "column", alignItems: "flex-start"}}>
+        //To shrink the patient cards display: "flex", flexDirection: "column",
+        <div style={{ alignItems: "flex-start"}}>
+
             {practitionerStore.sortedPatientList.length > 0 && practitionerStore.sortedPatientList.map(patient => {
                 return <PatientCard key={`patient-overview-${patient.id}`} {...patient} />
             })}

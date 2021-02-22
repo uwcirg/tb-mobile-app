@@ -17,7 +17,7 @@ import {createBrowserHistory} from 'history';
 import PatientUIStore from './patientUIStore';
 import { ActivationStore } from './activationStore'
 import AdminStore from './adminStore'
-import DashboardStore from './dashboardStore'
+import CohortStore from './cohortStore'
 import DailyReportStore from './dailyReportStore'
 
 const browserHistory = createBrowserHistory();
@@ -32,7 +32,7 @@ export const history = syncHistoryWithStore(browserHistory, routingStore);
 
 export const stores = {
     routingStore: routingStore,
-    dashboardStore: new DashboardStore(apiHelper),
+    cohortStore: new CohortStore(apiHelper),
     passwordStore: new PasswordStore(apiHelper),
     patientUIStore: new PatientUIStore(routingStore),
     adminStore: new AdminStore(apiHelper),

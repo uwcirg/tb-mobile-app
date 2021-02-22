@@ -27,7 +27,8 @@ const useStyles = makeStyles({
     },
     reviewContainer: {
         width: "100%",
-        margin: "auto"
+        margin: "auto",
+        paddingTop: "2em"
     },
     reviewSuperContainer: {
         width: "100%",
@@ -87,12 +88,10 @@ const Review = observer(() => {
 
     const classes = useStyles();
     const [onPhotos, setOnPhotos] = useState(false);
-    const { dashboardStore, practitionerStore } = useStores();
+    const { cohortStore, practitionerStore } = useStores();
 
     useEffect(() => {
-        if (practitionerStore.organizationID > -1) {
-            dashboardStore.getPatients(practitionerStore.organizationID);
-        }
+            //cohortStore.getPatients();
     }, [practitionerStore.organizationID])
 
 

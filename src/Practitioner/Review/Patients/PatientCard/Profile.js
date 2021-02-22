@@ -30,6 +30,13 @@ const useStyles = makeStyles({
         alignItems: "flex-end",
         "& > h3, & > a > h3": {
             fontSize: "1.25em",
+        },
+        "& > a":{
+            textDecoration: "none",
+            color: Colors.buttonBlue
+        },
+        "& > a:visited":{
+            color: Colors.buttonBlue
         }
     },
     circle: {
@@ -76,7 +83,7 @@ const Profile = (props) => {
         <div className={classes.profile}>
             <div className={classes.top}>
                 {/* <PatientPicture className={classes.circle} name={props.givenName} /> */}
-                <a onClick={()=>{ practitionerUIStore.goToPatient(props.id)}}><Typography variant="h3">{props.givenName} {props.familyName[0]}.</Typography></a>
+                <a href="/" onClick={(e)=>{ e.preventDefault(); practitionerUIStore.goToPatient(props.id)}}><Typography variant="h3">{props.givenName} {props.familyName[0]}.</Typography></a>
             </div>
             <div className={classes.priority}>
                 <Priority index={props.priority} />

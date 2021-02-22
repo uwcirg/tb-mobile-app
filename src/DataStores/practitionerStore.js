@@ -441,6 +441,7 @@ export class PractitionerStore extends UserStore {
                 }
             })
         })
+
         return issues;
 
     }
@@ -449,19 +450,36 @@ export class PractitionerStore extends UserStore {
     // Test Stuff for new sorted dashboard - need to move to a different store for better organization 
     // Can flip value to 1 or -1 to sort
     @observable sortOptions = {
-        issues: 0,
-        adherence: 0,
+        type: "",
+        direction: 0
+    }
+
+    @observable filterOptions = {
+        type: "",
+        direction: 0
     }
 
     @computed get sortedPatientList() {
 
         return Object.values(this.patients).sort((a, b) => {
-            return this.sortOptions.issues * ((this.issuesPerPatient[`${a.id}`] || 0) - (this.issuesPerPatient[`${b.id}`] || 0))
+            if(this.sortOptions.type === "issues"){
+                 return this.sortOptions.direction * ((this.issuesPerPatient[`${a.id}`] || 0) - (this.issuesPerPatient[`${b.id}`] || 0))
+            }
+
+            return this.sortOptions.direction * (a[`${this.sortOptions.type}`] - b[`${this.sortOptions.type}`])
+           
         })
     }
 
-    @action toggleIssueSort = () => {
-        this.sortOptions.issues === -1 ? this.sortOptions.issues = 1 : this.sortOptions.issues -= 1;
+    @action toggleSort = (type) => {
+
+        if(this.sortOptions.type !== type){
+            this.sortOptions.type = type
+            this.sortOptions.direction = -1
+            return
+        }
+        
+        this.sortOptions.direction === -1 ? this.sortOptions.direction = 1 : this.sortOptions.direction -= 1;
     }
 
 
