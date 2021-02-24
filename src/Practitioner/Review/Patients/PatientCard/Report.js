@@ -2,7 +2,8 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Colors from '../../../../Basics/Colors';
 import { DateTime } from 'luxon';
-
+import Tooltip from '@material-ui/core/Tooltip';
+import Fade from '@material-ui/core/Fade';
 
 const useStyles = makeStyles({
     reportContainer: {
@@ -25,21 +26,27 @@ const useStyles = makeStyles({
             marginLeft: "5px"
         }
     },
-    report:{
+    report: {
         display: "flex",
-        "& > div":{
+        "& > div": {
             flex: "1 1 0"
         }
-        
+
     },
-    reportPhoto:{
+    reportPhoto: {
         height: "100px",
         width: "100px",
         marginLeft: ".5em",
         objectFit: "contain",
     },
-    notSubmitted:{
+    largePhoto: {
+        width: "400px"
+    },
+    notSubmitted: {
         alignItems: "center"
+    },
+    noMaxWidth: {
+            maxWidth: "none"
     }
 })
 
@@ -77,7 +84,7 @@ const SubmittedReport = ({ report }) => {
             </div>
 
             <div className={classes.reportItem}>
-            <ColoredBox color={report.symptoms.length < 1 ? Colors.green : Colors.yellow} />
+                <ColoredBox color={report.symptoms.length < 1 ? Colors.green : Colors.yellow} />
                 <div className={textClasses.text}>
                     <strong>Symptoms</strong>
                     <p>{report.symptoms.length === 0 ? "None" : report.symptoms.length}</p>
@@ -85,7 +92,7 @@ const SubmittedReport = ({ report }) => {
 
             </div>
             <div className={classes.reportItem}>
-            <ColoredBox color={report.doingOkay ? Colors.green : Colors.red} />
+                <ColoredBox color={report.doingOkay ? Colors.green : Colors.red} />
                 <div className={textClasses.text}>
                     <strong>Feeling</strong>
                     <p>{report.doingOkay ? "Okay" : "Requested Support"}</p>
@@ -95,12 +102,24 @@ const SubmittedReport = ({ report }) => {
             </div>
 
             {report.photoWasRequired && <div className={classes.reportItem}>
-            <ColoredBox color={report.status.photoReport ? Colors.green : Colors.red} />
+                <ColoredBox color={report.status.photoReport ? Colors.green : Colors.red} />
                 <div className={textClasses.text}>
                     <strong>Photo</strong>
                     <p>{report.status.photoReport ? "Submitted" : "Skipped"}</p>
                 </div>
-                {report.photoUrl && <img src={report.photoUrl} className={classes.reportPhoto} />}
+                {report.photoUrl && <Tooltip
+                    TransitionComponent={Fade}
+                    interactive
+                    classes={{tooltip: classes.noMaxWidth}}
+                    placement="left"
+                    title={<div> <img className={classes.largePhoto} src={report.photoUrl} />
+                    <br />
+                    <button>Approve</button>
+                    <button>Inconclusive</button>
+                    </div>
+                    }>
+                    <img src={report.photoUrl} className={classes.reportPhoto} />
+                </Tooltip>}
 
             </div>}
 
