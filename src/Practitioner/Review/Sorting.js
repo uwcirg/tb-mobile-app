@@ -41,6 +41,7 @@ const Sorting = observer((props) => {
                 <ListButton type="issues" >Issues</ListButton>
                 <ListButton type="priority" >Priority</ListButton>
                 <ListButton type="daysInTreatment">Start Date</ListButton>
+                <ListButton type="adherence">Adherence</ListButton>
             </ul>
         </div>
     )
