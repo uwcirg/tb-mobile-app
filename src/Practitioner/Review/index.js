@@ -66,7 +66,8 @@ const useStyles = makeStyles({
         border: "solid 1px lightgray !important"
     },
     top: {
-        paddingLeft: "2em"
+        paddingLeft: "2em",
+        "& > p": {color: Colors.warningRed}
     },
     tools: {
         display: "flex",
