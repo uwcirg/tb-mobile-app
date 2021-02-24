@@ -68,11 +68,11 @@ const useStyles = makeStyles({
     top: {
         paddingLeft: "2em"
     },
-    tools:{
+    tools: {
         display: "flex",
         width: "100%",
-        "& > div:first-of-type":{
-            marginRight:"1em",
+        "& > div:first-of-type": {
+            marginRight: "1em",
         }
     }
 
@@ -92,7 +92,7 @@ const Review = observer(() => {
     const { cohortStore, practitionerStore } = useStores();
 
     useEffect(() => {
-            //cohortStore.getPatients();
+        //cohortStore.getPatients();
     }, [practitionerStore.organizationID])
 
 
@@ -113,6 +113,9 @@ const Review = observer(() => {
         <div className={classes.reviewSuperContainer}>
             <div className={classes.reviewContainer}>
                 <div className={classes.top}>
+                    <p>*** This area is still under development ***</p>
+                    <p>Functionalities are for demonstration only, and are not fully operational</p>
+                    <p>Not yet translated to spanish</p>
                     {/* <Date /> */}
                     <Dashboard />
                 </div>
