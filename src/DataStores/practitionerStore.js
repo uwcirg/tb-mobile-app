@@ -456,29 +456,38 @@ export class PractitionerStore extends UserStore {
 
     @observable filterOptions = {
         type: "",
-        direction: 0
+        direction: 0,
+        query: ""
     }
 
     @computed get sortedPatientList() {
 
+        //Apply searches, filters, and sorting to list of patients
         return Object.values(this.patients).sort((a, b) => {
-            if(this.sortOptions.type === "issues"){
-                 return this.sortOptions.direction * ((this.issuesPerPatient[`${a.id}`] || 0) - (this.issuesPerPatient[`${b.id}`] || 0))
+            if (this.sortOptions.type === "issues") {
+                return this.sortOptions.direction * ((this.issuesPerPatient[`${a.id}`] || 0) - (this.issuesPerPatient[`${b.id}`] || 0))
             }
 
             return this.sortOptions.direction * (a[`${this.sortOptions.type}`] - b[`${this.sortOptions.type}`])
-           
+
+        }).filter((item) => {
+            return this.filterOptions.query == "" || item.fullName.toLowerCase().includes(this.filterOptions.query.toLowerCase())
         })
+
+    }
+
+    @action setFilterQuery = (query) => {
+        this.filterOptions.query = query
     }
 
     @action toggleSort = (type) => {
 
-        if(this.sortOptions.type !== type){
+        if (this.sortOptions.type !== type) {
             this.sortOptions.type = type
             this.sortOptions.direction = -1
             return
         }
-        
+
         this.sortOptions.direction === -1 ? this.sortOptions.direction = 1 : this.sortOptions.direction -= 1;
     }
 

@@ -7,6 +7,8 @@ import { DateTime } from 'luxon';
 import Issues from './Issues';
 import Profile from './Profile';
 import Report from './Report'
+import ExpansionPanel from '../../../../Basics/ExpansionPanel'
+import Colors from '../../../../Basics/Colors';
 
 const cardStyles = makeStyles({
     container: {
@@ -27,12 +29,25 @@ const cardStyles = makeStyles({
             padding: ".5em",
             borderBottom: "solid 1px lightgray"
         },
+        "& > div:last-of-type":{
+            borderBottom: "none"
+        },
         "& > div > h3": {
             fontSize: "1em"
         }
     },
     patientProfile:{
         minWidth: "100px"
+    },
+    expansionPreview:{
+        width: "unset",
+        backgroundColor: "unset",
+        "& > span": {
+            color: Colors.buttonBlue
+        },
+        "& > svg": {
+            color: Colors.buttonBlue
+        }
     }
 })
 
@@ -56,6 +71,15 @@ const PatientCard = (props) => {
                     <Typography variant="h3"> Yesterdays Report</Typography>
                     <Report report={yesterdaysReport} />
                 </div>
+
+                <div><ExpansionPanel 
+                preview={`View all ${props.dailyReports.length} reports since last check in`}
+                previewClassName={classes.expansionPreview}
+                >
+                    {props.dailyReports.length > 0 && props.dailyReports.map( (dr) => {
+                        return <Report report={dr} />
+                    })}
+                    </ExpansionPanel></div>
             </div>
             <Issues id={props.id} />
         </div>

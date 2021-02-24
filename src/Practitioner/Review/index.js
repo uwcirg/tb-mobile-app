@@ -70,8 +70,9 @@ const useStyles = makeStyles({
     },
     tools:{
         display: "flex",
+        width: "100%",
         "& > div:first-of-type":{
-            marginRight:"1em"
+            marginRight:"1em",
         }
     }
 
@@ -135,7 +136,6 @@ const Review = observer(() => {
                                 <Sorting />
                             </div>
                             <PatientList />
-                            <p>* For now this is limited to 5 patients for easy testing</p>
                         </>}</div>
             </div>
         </div>)

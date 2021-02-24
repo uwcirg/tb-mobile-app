@@ -10,7 +10,7 @@ import ButtonBase from '@material-ui/core/ButtonBase'
 
 const useStyles = makeStyles({
 
-    warning: {
+    filledButton: {
         backgroundColor: Colors.buttonBlue,
         padding: '.5em .75em .5em .75em',
         margin: "auto",
@@ -48,7 +48,7 @@ const ExpansionPanel = (props) => {
 
     return (
         <div>
-            <ButtonBase onClick={toggleShow} className={`${classes.warning} ${props.previewClassName}`}>{props.icon}<span>{props.preview}</span>{show ? <Up /> : <Down />}</ButtonBase>
+            <ButtonBase onClick={toggleShow} className={`${classes.filledButton} ${props.previewClassName}`}>{props.icon}<span>{props.preview}</span>{show ? <Up /> : <Down />}</ButtonBase>
             <Grow in={show} className={classes.grow}>
                 {props.children}
             </Grow>
