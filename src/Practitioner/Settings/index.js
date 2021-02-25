@@ -15,7 +15,7 @@ import Documents from './Documents'
 import PatientIcon from '@material-ui/icons/Accessibility';
 import DocIcon from '@material-ui/icons/Description';
 import PersonIcon from '@material-ui/icons/Person';
-
+import ReportProblem from '@material-ui/icons/ReportProblem';
 import PatientInformation from '../../Patient/Information'
 
 import useLogout from '../../Basics/Logout'
@@ -62,6 +62,7 @@ const useStyles = makeStyles({
         height: "2.5em"
     },
     navItem: {
+        boxSizing: "border-box",
         height: "100%",
         margin: ".5em 0 0 0",
         padding: ".25em",
@@ -100,10 +101,10 @@ const useStyles = makeStyles({
         marginTop: "1em",
         width: "100%"
     },
-    patientInformation:{
+    patientInformation: {
         width: "50%"
     },
-    topInfo:{
+    topInfo: {
         padding: "1em"
     },
     password: {
@@ -114,10 +115,10 @@ const useStyles = makeStyles({
 const Settings = (props) => {
 
     const classes = useStyles();
-    const {practitionerUIStore} = useStores();
+    const { practitionerUIStore } = useStores();
 
     //Default To Account Page
-    useEffect(()=>{practitionerUIStore.settingsTab = "documents"},[])
+    useEffect(() => { practitionerUIStore.settingsTab = "documents" }, [])
 
     return (<div className={classes.container}>
         <SettingsNav />
@@ -135,6 +136,7 @@ const SettingsNav = (props) => {
             <ul className={classes.list}>
                 <NavItem id="documents" icon={<DocIcon />} text={t("coordinator.settingsPage.documents")} />
                 <NavItem id="patientInformation" icon={<PatientIcon />} text={t("coordinator.settingsPage.patientInformation")} />
+                <NavItem href="https://forms.gle/rRxp9f4bbVT5uB4R9" icon={<ReportProblem />} text={t('patient.information.reportIssue')} />
             </ul>
             <br />
             <Typography className={classes.header} variant="h2">{t('patient.profile.title')}</Typography>
@@ -169,7 +171,7 @@ const NavItem = observer((props) => {
     }
 
     return (<li className={classes.navItemContainer}>
-        <ButtonBase onClick={() => { handleClick(props.id) }} className={classes.navItem}>
+        <ButtonBase href={props.href} target="blank" onClick={() => { handleClick(props.id) }} className={classes.navItem}>
             {props.icon}
             <span>{props.text}</span>
         </ButtonBase>
@@ -188,11 +190,11 @@ const BodyRouter = observer((props) => {
                 {practitionerUIStore.settingsTab === "documents" && <Documents />}
                 {practitionerUIStore.settingsTab === "updatePassword" && <div className={classes.password}><PasswordReset /></div>}
                 {practitionerUIStore.settingsTab === "account" && <Profile />}
-                {practitionerUIStore.settingsTab === "patientInformation" && <div className={classes.patientInformation}> 
-                <Typography className={classes.topInfo} variant="body1"> 
-                {t('coordinator.settingsPage.patientViewExplanation')}
-                </Typography>
-                <PatientInformation /> 
+                {practitionerUIStore.settingsTab === "patientInformation" && <div className={classes.patientInformation}>
+                    <Typography className={classes.topInfo} variant="body1">
+                        {t('coordinator.settingsPage.patientViewExplanation')}
+                    </Typography>
+                    <PatientInformation />
                 </div>}
             </div>
         </div>

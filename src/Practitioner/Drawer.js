@@ -15,7 +15,7 @@ import Colors from "../Basics/Colors";
 import Badge from '@material-ui/core/Badge'
 import Tooltip from '@material-ui/core/Tooltip'
 import { useTranslation } from 'react-i18next';
-import FiberNewIcon from '@material-ui/icons/FiberNew';
+import ReportIssue from '@material-ui/icons/ReportProblem';
 
 const drawerWidth = 200;
 
@@ -50,8 +50,8 @@ const useStyles = makeStyles({
     marginBottom: "auto"
   },
   settingsIcon: {
+    boxSizing: "border-box",
     width: "100%",
-    margin: "auto",
     borderRadius: 0
   },
   selected: {
@@ -64,7 +64,7 @@ const useStyles = makeStyles({
 
 const PractitionerDrawer = observer(() => {
   const classes = useStyles();
-  const { routingStore, practitionerStore,practitionerUIStore,messagingStore,loginStore } = useStores();
+  const { routingStore, practitionerStore, practitionerUIStore, messagingStore, loginStore } = useStores();
   const { location, push, goBack } = routingStore;
   const { t, i18n } = useTranslation('translation');
 
@@ -76,35 +76,37 @@ const PractitionerDrawer = observer(() => {
 
   return (
     <>
-    <div className={classes.drawer}>
-      <List className={classes.list}>
-        <ListItem className={`${practitionerUIStore.tabNumber === 0 && classes.selected}`} button key={"Home"} onClick={() => { push('/home') }}>
-          <ListItemIcon><HomeIcon className={classes.test} /></ListItemIcon>
-        </ListItem>
+      <div className={classes.drawer}>
+        <List className={classes.list}>
+          <ListItem className={`${practitionerUIStore.tabNumber === 0 && classes.selected}`} button key={"Home"} onClick={() => { push('/home') }}>
+            <ListItemIcon><HomeIcon className={classes.test} /></ListItemIcon>
+          </ListItem>
 
-        <ListItem button className={practitionerUIStore.tabNumber === 1 ? classes.selected : ""} key={"Patients"} onClick={() => { push('/patients') }}>
-          <ListItemIcon><PatientsIcon /></ListItemIcon>
-        </ListItem>
+          <ListItem button className={practitionerUIStore.tabNumber === 1 ? classes.selected : ""} key={"Patients"} onClick={() => { push('/patients') }}>
+            <ListItemIcon><PatientsIcon /></ListItemIcon>
+          </ListItem>
 
-        <ListItem button className={practitionerUIStore.tabNumber === 2 ? classes.selected : ""} key={"Messaging"} onClick={practitionerUIStore.goToMessaging}>
-          <ListItemIcon>
-            <Badge color="primary" badgeContent={messagingStore.numberUnread}>
-            <MessagingIcon />
-            </Badge>
+          <ListItem button className={practitionerUIStore.tabNumber === 2 ? classes.selected : ""} key={"Messaging"} onClick={practitionerUIStore.goToMessaging}>
+            <ListItemIcon>
+              <Badge color="primary" badgeContent={messagingStore.numberUnread}>
+                <MessagingIcon />
+              </Badge>
             </ListItemIcon>
-        </ListItem>
+          </ListItem>
 
-        <ListItem button className={practitionerUIStore.tabNumber === 3 ? classes.selected : ""} key={"Settings"} onClick={() => { push('/settings') }}>
-          <ListItemIcon><Settings /></ListItemIcon>
-        </ListItem>
-      </List>
-      <div className={classes.bottomButtons}>
-      <IconButton onClick={()=>{push('/review')}} className={classes.settingsIcon}><FiberNewIcon /></IconButton>
-      <Tooltip title={t('patient.profile.logout')}>
-        <IconButton onClick={handleLogout} className={classes.settingsIcon}><LogOut /></IconButton>
-        </Tooltip>
+          <ListItem button className={practitionerUIStore.tabNumber === 3 ? classes.selected : ""} key={"Settings"} onClick={() => { push('/settings') }}>
+            <ListItemIcon><Settings /></ListItemIcon>
+          </ListItem>
+        </List>
+        <div className={classes.bottomButtons}>
+          <Tooltip title={t('patient.information.reportIssue')}>
+            <IconButton href="https://forms.gle/rRxp9f4bbVT5uB4R9" target="blank" className={classes.settingsIcon}><ReportIssue /></IconButton>
+          </Tooltip>
+          <Tooltip title={t('patient.profile.logout')}>
+            <IconButton onClick={handleLogout} className={classes.settingsIcon}><LogOut /></IconButton>
+          </Tooltip>
+        </div>
       </div>
-    </div>
     </>
   );
 });
