@@ -4,6 +4,7 @@ import { DateTime, Interval } from 'luxon';
 import EducationStore from './educationStore';
 import ReportStore from './reportStore';
 import { addReportToOfflineCache, getNumberOfCachedReports } from './SaveReportOffline'
+import resizeImage from '../Utility/ResizeImage';
 
 const ROUTES = {
     login: ["/authenticate", "POST"],
@@ -355,9 +356,9 @@ export class PatientStore extends UserStore {
         return this.savedReports[`${date.toISODate()}`]
     }
 
-    uploadPhoto = () => {
-
-        const imageString = this.report.photoString.replace(/^data:image\/\w+;base64,/, "")
+    uploadPhoto = async() =>{
+        const resizedImage= await resizeImage(this.report.photoString);
+        const imageString = resizedImage.replace(/^data:image\/\w+;base64,/, "")
         const file = new Buffer(imageString, 'base64')
 
         return this.executeRequest('getPhotoUploadURL').then((json) => {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import SimpleButton from '../../Basics/SimpleButton';
 import ButtonBase from '@material-ui/core/ButtonBase'
@@ -81,7 +81,7 @@ const ReportPhoto = observer((props) => {
                         <PhotoInfo />
                     </>}
 
-                    {!patientStore.report.photoWasTaken && <Buttons />}
+                {!patientStore.report.photoWasTaken && <Buttons />}
             </> : <CantTakePhoto />}
 
             <SimpleButton alignRight onClick={handleNext} disabled={nextDisabled()} backgroundColor={Colors.green}>{t("patient.report.next")}</SimpleButton>
@@ -275,7 +275,7 @@ const useStyles = makeStyles({
         margin: 'auto',
         textAlign: 'center'
     },
-    cantSubmitContainer:{
+    cantSubmitContainer: {
         padding: "1em",
         width: "60%"
     }
