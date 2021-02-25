@@ -14,6 +14,8 @@ import Typography from '@material-ui/core/Typography';
 import WarningBox from '../../Basics/WarningBox';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
+import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown'
+import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp'
 import Grow from '@material-ui/core/Collapse'
 import TextField from '@material-ui/core/TextField'
 import TimeIcon from '@material-ui/icons/Update';
@@ -97,7 +99,7 @@ const PhotoInfo = () => {
 
     return (
         <WarningBox className={classes.infoBox}>
-            <ClickableText onClick={togglePopUp} className={classes.info} hideIcon text={<span>{t('patient.report.photo.help.instructions')}<KeyboardArrowRight /></span>} />
+            <ClickableText onClick={togglePopUp} className={classes.info} hideIcon text={<span>{t('patient.report.photo.help.instructions')}{showPopUp ? <KeyboardArrowUp /> : <KeyboardArrowDown />}</span>} />
             <Grow in={showPopUp}>
                 <div className={classes.instructions}>
                     <Instructions />
@@ -196,10 +198,10 @@ const useStyles = makeStyles({
             borderColor: Colors.buttonBlue,
             border: "solid 2px",
         },
-        borderRadius: "10px",
+        borderRadius: "10px"
     },
     buttonText: {
-        fontSize: "1.25em",
+        fontSize: "1.5em",
         fontWeight: "bold",
         textAlign: "center",
         width: "auto"
@@ -218,7 +220,8 @@ const useStyles = makeStyles({
         display: "flex",
         borderRadius: "10px",
         padding: "1em",
-        justifyContent: "center"
+        justifyContent: "center",
+        alignItems: "center"
     },
     cantSubmit: {
         width: '90%',
@@ -244,6 +247,7 @@ const useStyles = makeStyles({
             "& > li": {
                 margin: 0,
                 padding: 0,
+                marginTop: "5px",
                 "& > span": {
                     fontWeight: "bold"
                 },
@@ -272,7 +276,8 @@ const useStyles = makeStyles({
         textAlign: 'center'
     },
     cantSubmitContainer:{
-        padding: "1em"
+        padding: "1em",
+        width: "60%"
     }
 
 })

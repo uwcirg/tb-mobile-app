@@ -13,7 +13,8 @@ const useStyles = makeStyles({
       fontFamily: "Roboto, sans-serif",
       "& > svg":{
         marginRight: ".25em"
-      }
+      },
+      textAlign: "left"
   },
   big: {
       fontSize: "1em"
