@@ -12,6 +12,7 @@ const ErrorListener = observer(() => {
     const classes = useStyles();
     const {patientStore, patientUIStore} = useStores();
 
+    //Listen for report errors, send to UI store general error handler
     useEffect(() => {
         if(patientStore.reportStore.error){
             patientUIStore.setAlert("There was a problem uploading your report. Please try again, or contact your treatment assistant","error")
