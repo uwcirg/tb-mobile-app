@@ -15,6 +15,7 @@ import ActionIcon from '@material-ui/icons/PlaylistAddCheck';
 import PatientReport from '../../Basics/PatientReport';
 import EditIcon from '@material-ui/icons/Edit';
 import ExpansionPanel from '../../Basics/ExpansionPanel';
+import PhotoUploading from '../../Basics/Loading/PhotoUploading';
 
 const useStyles = makeStyles({
     confirmation: {
@@ -101,7 +102,7 @@ const ActionBox = observer(() => {
                     {patientStore.isPhotoDay && <NewButton positive={patientStore.reportStore.photoReportComplete} onClick={handlePhotoClick} icon={<Camera />} text={t("patient.home.todaysActions.uploadPhoto")} />}
                 </>
             }
-            {patientStore.photoIsUploading && <p>Photo Is Uploading</p>}
+            {patientStore.photoIsUploading && <PhotoUploading />}
         </InteractionCard>)
 });
 
