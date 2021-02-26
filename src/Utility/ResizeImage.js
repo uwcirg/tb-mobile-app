@@ -4,8 +4,8 @@ export default function resizeImage(base64Str) {
           img.src = base64Str
           img.onload = () => {
             let canvas = document.createElement('canvas')
-            const MAX_WIDTH = 1000
-            const MAX_HEIGHT = 1000
+            const MAX_WIDTH = 650
+            const MAX_HEIGHT = 650
             
             let width = img.width
             let height = img.height

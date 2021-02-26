@@ -66,6 +66,8 @@ export class PatientStore extends UserStore {
 
     @observable lastSubmission = DateTime.local().toISO();
 
+    @observable photoIsUploading = false;
+
     @action initalize() {
         this.loadCachedProfile();
         super.initalize();
@@ -356,18 +358,22 @@ export class PatientStore extends UserStore {
         return this.savedReports[`${date.toISODate()}`]
     }
 
-    uploadPhoto = async() =>{
+    @action uploadPhoto = async() =>{
         const resizedImage= await resizeImage(this.report.photoString);
         const imageString = resizedImage.replace(/^data:image\/\w+;base64,/, "")
         const file = new Buffer(imageString, 'base64')
+
+        this.photoIsUploading = true;
 
         return this.executeRequest('getPhotoUploadURL').then((json) => {
             return fetch(json.url, {
                 method: 'PUT',
                 body: file
             }).then((res) => {
+                this.photoIsUploading = false;
                 return json.key
             }).catch((e) => {
+                this.photoIsUploading = false;
                 console.error(e);
             });
         })

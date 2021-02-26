@@ -1,15 +1,10 @@
 import React, {useEffect} from 'react'
-import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../Basics/UseStores';
 import {observer} from 'mobx-react'
 
-const useStyles = makeStyles({
-  
-})
-
+//Utility component to handle errors from stores and pass them to UIStore for display
 const ErrorListener = observer(() => {
 
-    const classes = useStyles();
     const {patientStore, patientUIStore} = useStores();
 
     //Listen for report errors, send to UI store general error handler
@@ -20,9 +15,7 @@ const ErrorListener = observer(() => {
         }
        
     }, [patientStore.reportStore.error])
-    return(<>
-
-    </>)
+    return(<></>)
 
 })
 
