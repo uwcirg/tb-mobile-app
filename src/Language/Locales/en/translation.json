@@ -341,7 +341,9 @@
                 "explanation": "They will be uploaded when you have an internet connection",
                 "uploading": "Uploading your offline reports"
 
-            }
+            },
+            "photoUploading": "Your photo is uploading",
+            "photoUploadError": "There was a problem uploading your report. Please try again, or contact your treatment assistant"
         },
         "reportConfirmation": {
             "viewOrEdit": "View / Edit Report",

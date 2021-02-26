@@ -9,6 +9,8 @@ export default class ReportStore {
         this.rootStore = rootStore;
     }
 
+    @observable error = "";
+
     @observable todaysReportFromServer = {}
 
     @action setTodaysReport = (report) => {
@@ -47,8 +49,18 @@ export default class ReportStore {
     }
 
     @action processReport = (report) => {
-        this.todaysReportFromServer = report;
-        this.rootStore.savedReports[report.date] = report;
+        if(report && report.date){
+            this.todaysReportFromServer = report;
+            this.rootStore.savedReports[report.date] = report;
+        }else{
+            console.log("error uploading last part of report");
+            this.error = "there was an error"
+        }
+
+    }
+
+    @action clearError = () => {
+        this.error = "";
     }
 
     getTodaysReport() {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import BottomBar from './Navigation/BottomBar';
 import { observer } from 'mobx-react';
 import Home from './Home'
@@ -11,8 +11,8 @@ import Intro from './Walkthrough/';
 import useStores from '../Basics/UseStores';
 import Onboarding from './Onboarding';
 import Colors from '../Basics/Colors';
-import { autorun } from 'mobx';
 import { useMatomo } from '@datapunt/matomo-tracker-react'
+import ErrorListener from './ErrorListener';
 
 const PatientHome = observer((props) => {
 
@@ -53,9 +53,8 @@ const PatientHome = observer((props) => {
     <>
       {patientStore.status === "Active" ?
         <div className="main-screen" style={{ backgroundColor: `${Colors.white}`, minHeight: "100vh" }}>
-
+          <ErrorListener />
           <TopBar />
-          {/* <Intro startOn={3} />} How to make table of contents work */}
           {patientUIStore.onWalkthrough && <Intro />}
           <TopMenu />
           <div style={{ paddingTop: "60px", paddingBottom: "60px" }}>

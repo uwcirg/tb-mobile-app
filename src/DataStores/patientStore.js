@@ -4,6 +4,7 @@ import { DateTime, Interval } from 'luxon';
 import EducationStore from './educationStore';
 import ReportStore from './reportStore';
 import { addReportToOfflineCache, getNumberOfCachedReports } from './SaveReportOffline'
+import resizeImage from '../Utility/ResizeImage';
 
 const ROUTES = {
     login: ["/authenticate", "POST"],
@@ -64,6 +65,8 @@ export class PatientStore extends UserStore {
     }
 
     @observable lastSubmission = DateTime.local().toISO();
+
+    @observable photoIsUploading = false;
 
     @action initalize() {
         this.loadCachedProfile();
@@ -355,18 +358,22 @@ export class PatientStore extends UserStore {
         return this.savedReports[`${date.toISODate()}`]
     }
 
-    uploadPhoto = () => {
-
-        const imageString = this.report.photoString.replace(/^data:image\/\w+;base64,/, "")
+    @action uploadPhoto = async() =>{
+        const resizedImage= await resizeImage(this.report.photoString);
+        const imageString = resizedImage.replace(/^data:image\/\w+;base64,/, "")
         const file = new Buffer(imageString, 'base64')
+
+        this.photoIsUploading = true;
 
         return this.executeRequest('getPhotoUploadURL').then((json) => {
             return fetch(json.url, {
                 method: 'PUT',
                 body: file
             }).then((res) => {
+                this.photoIsUploading = false;
                 return json.key
             }).catch((e) => {
+                this.photoIsUploading = false;
                 console.error(e);
             });
         })
