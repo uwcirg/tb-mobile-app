@@ -95,13 +95,13 @@ const useStyles = makeStyles({
 const Selection = (props) => {
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
-    const {uiStore} = useStores();
+    const {uiStore, loginStore} = useStores();
 
     return (
         <div className={classes.selectionContainer}>
             <h2 className={classes.subtitle}>{t("login.selectType")}:</h2>
-            <LargeSelector onClick={props.handleSelection} id="Patient" backgroundColor={Colors.blue}><AccountBoxIcon /><span>{t("userTypes.patient")}</span></LargeSelector>
-            <LargeSelector onClick={props.handleSelection} id="Practitioner" backgroundColor={Colors.blue}><SupervisorAccountIcon /><span>{t("userTypes.provider")}</span></LargeSelector>
+            <LargeSelector onClick={loginStore.selectPatient} id="Patient" backgroundColor={Colors.blue}><AccountBoxIcon /><span>{t("userTypes.patient")}</span></LargeSelector>
+            <LargeSelector onClick={loginStore.selectPractitioner} id="Practitioner" backgroundColor={Colors.blue}><SupervisorAccountIcon /><span>{t("userTypes.provider")}</span></LargeSelector>
             <ButtonBase className={classes.languageChange} onClick={uiStore.toggleLanguage}><Globe />{t("login.changeLanguage")}</ButtonBase>
         </div>)
 }
@@ -111,15 +111,16 @@ const LoginRouter = observer(() => {
     const {loginStore} = useStores();
 
     const handleSelection = (id) => {
-        loginStore.selectedUserType = id;
         loginStore.selectPatient();
     }
+
+    console.log(loginStore.selectedUserType)
 
     return (
         <>
             <div className={classes.background} />
             <div className={`${classes.container} `}>
-                {loginStore.selectedUserType ? <IconButton className={classes.backContainer} onClick={() => {handleSelection("") }} ><ChevronLeftOutlined className={classes.back} /></IconButton> : ""}
+                {loginStore.selectedUserType && <IconButton className={classes.backContainer} onClick={loginStore.goHome} ><ChevronLeftOutlined className={classes.back} /></IconButton>}
                 <div className={classes.containerTop}>
                     <AppLogo white className={classes.logo} />
                 </div>

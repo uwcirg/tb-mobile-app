@@ -7,7 +7,6 @@ const ROUTES = {
     activatePatient: ["/patient/activation","POST"]
 }
 
-const ADMIN = "Administrator"
 const PATIENT = "Patient"
 const PRACTITIONER = "Practitioner"
 
@@ -19,7 +18,7 @@ export default class LoginStore extends APIStore {
         this.userType = localStorage.getItem("user.type");
     }
 
-    @observable selectedUserType = "";
+    //@observable selectedUserType = "";
     @observable userType = "";
     @observable error = 0;
 
@@ -90,16 +89,30 @@ export default class LoginStore extends APIStore {
         this.routingStore.push("/login/patient")
     }
 
+    @action selectPractitioner = () => {
+        this.routingStore.push("/login/practitioner")
+    }
+
+    @action goHome = () => {
+        this.routingStore.push("/")
+    }
+
     @action logout = () =>{
-        console.log("loginStore logout")
         this.userType = ""
         localStorage.removeItem("user.type")
         localStorage.removeItem("cachedProfile")
     }
 
-    @computed get onPatientLogin(){
-        console.log(this.routingStore.location.pathName)
-        return true
+    @computed get selectedUserType(){
+        console.log(this.routingStore.location.pathname)
+        switch(this.routingStore.location.pathname) {
+            case "/login/patient":
+                return PATIENT
+            case "/login/practitioner":
+                return PRACTITIONER 
+            default:
+              return ""
+          }
     }
 
 }
