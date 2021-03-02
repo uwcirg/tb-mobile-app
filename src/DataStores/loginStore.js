@@ -86,8 +86,10 @@ export default class LoginStore extends APIStore {
     }
 
     @action logout = () =>{
+        console.log("loginStore logout")
         this.userType = ""
         localStorage.removeItem("user.type")
+        localStorage.removeItem("cachedProfile")
     }
 
 }
