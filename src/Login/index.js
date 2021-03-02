@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import LoginRouter from './LoginRouter';
 import Alert from '../Basics/Alert';
 import useStores from '../Basics/UseStores';
@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 
 const Login = observer(() => {
 
-  const { t, i18n } = useTranslation('translation');
+  const { t } = useTranslation('translation');
   const { loginStore } = useStores();
 
   const errorText = () => {

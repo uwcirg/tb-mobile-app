@@ -13,8 +13,9 @@ const PRACTITIONER = "Practitioner"
 
 export default class LoginStore extends APIStore {
 
-    constructor(strategy) {
+    constructor(strategy,routingStore) {
         super(strategy, ROUTES);
+        this.routingStore = routingStore;
         this.userType = localStorage.getItem("user.type");
     }
 
@@ -85,11 +86,20 @@ export default class LoginStore extends APIStore {
         return false;
     }
 
+    @action selectPatient = () => {
+        this.routingStore.push("/login/patient")
+    }
+
     @action logout = () =>{
         console.log("loginStore logout")
         this.userType = ""
         localStorage.removeItem("user.type")
         localStorage.removeItem("cachedProfile")
+    }
+
+    @computed get onPatientLogin(){
+        console.log(this.routingStore.location.pathName)
+        return true
     }
 
 }

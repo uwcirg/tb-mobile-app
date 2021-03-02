@@ -112,6 +112,7 @@ const LoginRouter = observer(() => {
 
     const handleSelection = (id) => {
         loginStore.selectedUserType = id;
+        loginStore.selectPatient();
     }
 
     return (

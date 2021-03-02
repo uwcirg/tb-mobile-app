@@ -37,7 +37,7 @@ export const stores = {
     patientUIStore: new PatientUIStore(routingStore),
     adminStore: new AdminStore(apiHelper),
     practitionerUIStore: new PractitionerUIStore(routingStore),
-    loginStore: new LoginStore(apiHelper),
+    loginStore: new LoginStore(apiHelper, routingStore),
     uiStore: uiStore,
     labPhotoStore: new LabPhotoStore(apiHelper),
     practitionerStore: new PractitionerStore(apiHelper),
