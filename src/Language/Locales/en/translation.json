@@ -35,6 +35,7 @@
         "changeLanguage": "Haga Clic Aquí Para Español",
         "activateAccount": "Activate New Account",
         "forgotPassword": "Forgot Password",
+        "forgotPasswordDetails": "Please contact your coordinator on WhatsApp, they will send you a code you can use to login and create a new password.",
         "phoneNumber": "Phone Number",
         "email": "Email",
         "password": "Password",
