@@ -93,6 +93,10 @@ export default class LoginStore extends APIStore {
         this.routingStore.push("/login/practitioner")
     }
 
+    @action goToForgotPassword = () => {
+        this.routingStore.push("/login/forgot-password")
+    }
+
     @action goHome = () => {
         this.routingStore.push("/")
     }
@@ -104,7 +108,6 @@ export default class LoginStore extends APIStore {
     }
 
     @computed get selectedUserType(){
-        console.log(this.routingStore.location.pathname)
         switch(this.routingStore.location.pathname) {
             case "/login/patient":
                 return PATIENT
@@ -113,6 +116,10 @@ export default class LoginStore extends APIStore {
             default:
               return ""
           }
+    }
+
+    @computed get onForgotPassword(){
+        return this.routingStore.location.pathname === "/login/forgot-password"
     }
 
 }

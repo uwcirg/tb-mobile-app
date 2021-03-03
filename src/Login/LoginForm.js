@@ -9,13 +9,12 @@ import { PasswordInput } from './StyledInputs'
 import ReactCodeInput from 'react-code-input';
 import ButtonBase from '@material-ui/core/ButtonBase'
 
-const USER_TYPES = ["Patient", "Practitioner", "Administrator"];
 const LoginForm = observer((props) => {
 
   const [onActivation, setOnActivation] = useState(false)
-  const { t, i18n } = useTranslation('translation');
+  const { t } = useTranslation('translation');
 
-  const { patientStore, loginStore, practitionerStore, adminStore } = useStores();
+  const { loginStore } = useStores();
 
   let updatePassword = (e) => {
     loginStore.password = e.target.value;
@@ -46,7 +45,7 @@ const LoginForm = observer((props) => {
       </Card>
       <BottomLinks>
         <ButtonBase style={{ fontSize: "1em" }} onClick={toggleActivate}>{onActivation ? t("login.haveAccount") : t("login.activateAccount")}</ButtonBase>
-        <ButtonBase style={{ fontSize: "1em" }}>{t("login.forgotPassword")}</ButtonBase>
+        <ButtonBase style={{ fontSize: "1em" }} onClick={loginStore.goToForgotPassword}>{t("login.forgotPassword")}</ButtonBase>
       </BottomLinks>
 
     </Container>

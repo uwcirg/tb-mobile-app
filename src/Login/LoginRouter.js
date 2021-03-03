@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import LargeSelector from '../Basics/LargeSelector'
-import { makeStyles, withTheme } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import useStores from '../Basics/UseStores'
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
 //Components
 import AppLogo from '../Basics/AppLogo'
@@ -18,9 +18,10 @@ import ChevronLeftOutlined from '@material-ui/icons/ChevronLeftOutlined';
 import { useTranslation } from 'react-i18next'
 import { ButtonBase } from '@material-ui/core'
 import Globe from '@material-ui/icons/Language';
+import ForgotPassword from './ForgotPassword'
 
 const useStyles = makeStyles({
-    backContainer:{
+    backContainer: {
         alignSelf: "flex-start"
     },
     container: {
@@ -47,7 +48,7 @@ const useStyles = makeStyles({
     },
     logo: {
         paddingTop: "2em",
-        "& > img":{
+        "& > img": {
             height: "100px"
         }
     },
@@ -81,21 +82,21 @@ const useStyles = makeStyles({
         width: "5000px",
         backgroundColor: "#0e3782"
     },
-    languageChange:{
+    languageChange: {
         color: "white",
         marginTop: "auto",
         fontSize: ".75em",
-        "& > svg":{
+        "& > svg": {
             marginRight: "5px"
         }
     }
 });
 
 
-const Selection = (props) => {
+const Selection = () => {
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
-    const {uiStore, loginStore} = useStores();
+    const { t } = useTranslation('translation');
+    const { uiStore, loginStore } = useStores();
 
     return (
         <div className={classes.selectionContainer}>
@@ -108,24 +109,19 @@ const Selection = (props) => {
 
 const LoginRouter = observer(() => {
     const classes = useStyles();
-    const {loginStore} = useStores();
-
-    const handleSelection = (id) => {
-        loginStore.selectPatient();
-    }
-
-    console.log(loginStore.selectedUserType)
+    const { loginStore } = useStores();
 
     return (
         <>
             <div className={classes.background} />
             <div className={`${classes.container} `}>
-                {loginStore.selectedUserType && <IconButton className={classes.backContainer} onClick={loginStore.goHome} ><ChevronLeftOutlined className={classes.back} /></IconButton>}
+                {(loginStore.selectedUserType || loginStore.onForgotPassword) && <IconButton className={classes.backContainer} onClick={loginStore.goHome} ><ChevronLeftOutlined className={classes.back} /></IconButton>}
                 <div className={classes.containerTop}>
                     <AppLogo white className={classes.logo} />
                 </div>
                 <div className={classes.containerBottom}>
-                    {!loginStore.selectedUserType ? <Selection handleSelection={handleSelection} /> : <LoginPage />}
+                    {loginStore.onForgotPassword ? <ForgotPassword /> :
+                    <>{!loginStore.selectedUserType ? <Selection /> : <LoginPage />}</>}
                 </div>
             </div>
         </>
