@@ -20,7 +20,7 @@ Treatment Assistant Facing:
 - Basic layout of improved task desing implemented at /review
 
 Admin Panel:
-- Don't show accoutns from the designated test site in results
+- Don't show accounts from the designated test site in results
 
 
 

@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import useStores from '../Basics/UseStores';
 
-
 const useStyles = makeStyles({
     container: {
         width: "80%",
@@ -14,7 +13,9 @@ const useStyles = makeStyles({
     },
     button: {
         marginTop: "3em",
-        color: "white"
+        color: "white",
+        borderRadius: "5px",
+        border: "1px solid white"
     },
     buttonContainer: {
         width: "100%",
