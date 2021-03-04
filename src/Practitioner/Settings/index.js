@@ -164,6 +164,10 @@ const NavItem = observer((props) => {
             return
         }
 
+        if(!id){
+            return
+        }
+
         practitionerUIStore.settingsTab = props.id
     }
 
