@@ -9,10 +9,6 @@ import Colors from '../../Basics/Colors';
 import ProfileButton from './ProfileButton'
 import Message from '@material-ui/icons/ChatBubble';
 import Add from '@material-ui/icons/AddCircle';
-import IconButton from '@material-ui/core/IconButton';
-import Settings from '@material-ui/icons/Settings';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import Refresh from '@material-ui/icons/Refresh'
 
 const useStyles = makeStyles({

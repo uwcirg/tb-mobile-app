@@ -68,7 +68,7 @@ const Profile = observer((props) => {
     const [onNote,setNote] = useState(true);
     const { practitionerStore,practitionerUIStore} = useStores();
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
 
     const closeResetPassword = () => {
