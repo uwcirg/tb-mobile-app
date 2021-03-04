@@ -18,6 +18,7 @@ import { ActivationStore } from './activationStore'
 import AdminStore from './adminStore'
 import CohortStore from './cohortStore'
 import DailyReportStore from './dailyReportStore'
+import PatientProfileStore from './patientProfileStore'
 
 const browserHistory = createBrowserHistory();
 const routingStore = new RouterStore();
@@ -43,7 +44,8 @@ export const stores = {
     messagingStore: new MessagingStore(apiHelper),
     activationStore: new ActivationStore(apiHelper),
     reminderStore: new ReminderStore(apiHelper),
-    dailyReportStore: new DailyReportStore(apiHelper)
+    dailyReportStore: new DailyReportStore(apiHelper),
+    patientProfileStore: new PatientProfileStore(),
 }
 
 

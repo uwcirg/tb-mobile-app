@@ -11,7 +11,6 @@ export class PasswordStore extends APIStore {
   constructor(strategy) {
     super(strategy, ROUTES);
     this.strategy = strategy;
-
   }
 
   @observable currentPassword = ""

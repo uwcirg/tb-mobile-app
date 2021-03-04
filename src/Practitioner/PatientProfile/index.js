@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
-import { observer } from 'mobx-react'
+import { observer} from 'mobx-react'
 import Styles from '../../Basics/Styles';
 import { DateTime } from 'luxon';
 import Colors from '../../Basics/Colors';
@@ -16,7 +16,6 @@ import TreatmentTimeline from '../../Basics/TreatmentTimeline'
 import ReportingHistory from './ReportingHistory'
 import { Typography } from '@material-ui/core';
 import AddNote from './AddNote'
-
 
 const useStyles = makeStyles({
     listItem: {
@@ -66,7 +65,7 @@ const Profile = observer((props) => {
 
     const [onReset, setReset] = useState(false);
     const [onNote,setNote] = useState(true);
-    const { practitionerStore,practitionerUIStore} = useStores();
+    const { practitionerStore, practitionerUIStore, patientProfileStore} = useStores();
     const classes = useStyles();
     const { t } = useTranslation('translation');
 
@@ -94,7 +93,7 @@ const Profile = observer((props) => {
 
     return (
         <>
-            {onReset && <ResetPassword close={closeResetPassword} />}
+            {patientProfileStore.onPasswordReset && <ResetPassword />}
             {practitionerUIStore.onAddPatientNote && <AddNote close={closeNote} />}
                 <div className={classes.patientContainer}>
                     <div className={classes.top}>

@@ -94,7 +94,7 @@ const PatientInfo = observer((props) => {
 })
 
 const Buttons = observer((props) => {
-    const { practitionerUIStore, practitionerStore } = useStores();
+    const { practitionerUIStore, practitionerStore, patientProfileStore } = useStores();
     const classes = useStyles();
     const { t } = useTranslation('translation');
 
@@ -108,7 +108,7 @@ const Buttons = observer((props) => {
         <div className={classes.buttons}>
             <ProfileButton onClick={messagePatient}><Message />{t("coordinator.patientProfile.options.message")}</ProfileButton>
             <ProfileButton onClick={practitionerUIStore.openAddPatientNote} ><Add />{t("coordinator.patientProfile.options.note")}</ProfileButton>
-            <ProfileButton onClick={props.openResetPassword} backgroundColor={Colors.warningRed} border><Refresh />{t("coordinator.patientProfile.options.resetPassword")}</ProfileButton>
+            <ProfileButton onClick={patientProfileStore.toggleOnPasswordReset} backgroundColor={Colors.warningRed} border><Refresh />{t("coordinator.patientProfile.options.resetPassword")}</ProfileButton>
         </div>
     )
 })
