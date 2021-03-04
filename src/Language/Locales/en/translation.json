@@ -722,6 +722,8 @@
     },
     "forcePasswordUpdate":{
         "temporaryPassword": "Temporary Code",
-        "title": "Your password was reset, please create a new one"
+        "title": "Your password was reset, please create a new one",
+        "exit": "Complete this later",
+        "success": "Password Updated Successfully"
     }
 }

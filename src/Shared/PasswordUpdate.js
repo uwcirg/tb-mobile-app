@@ -43,7 +43,7 @@ const useStyles = makeStyles({
 const PasswordReset = observer((props) => {
 
     const classes = useStyles();
-    const { patientUIStore, passwordStore } = useStores();
+    const { patientStore, passwordStore, patientUIStore } = useStores();
     const { t } = useTranslation('translation');
 
     useEffect(() => {
@@ -51,6 +51,15 @@ const PasswordReset = observer((props) => {
             passwordStore.resetPasswordUpdateState();
         }
     }, [])
+
+    const handleSubmit = () => {
+        passwordStore.updatePassword().then( success => {
+            if(props.isForced && success){
+                patientStore.exitForcedPasswordChange();
+                patientUIStore.setAlert(t("forcePasswordUpdate.success"))
+            }
+        })
+    }
 
     return (
         <div className={classes.container}>
@@ -88,10 +97,9 @@ const PasswordReset = observer((props) => {
                     autoComplete="new-password"
                     error={passwordStore.errors.slice().includes("newPasswordConfirmation")}
                 />
-                {/* <Button variant="contained" onClick={passwordStore.updatePassword}> {t("settings.submit")}</Button> */}
-                <SimpleButton className={classes.button} alignRight onClick={passwordStore.updatePassword} onClick={passwordStore.updatePassword}>{t("settings.submit")}</SimpleButton>
+                <SimpleButton className={classes.button} alignRight onClick={handleSubmit}>{t("settings.submit")}</SimpleButton>
             </form>
-            {passwordStore.message && <Snackbar  open={passwordStore.message} autoHideDuration={6000} onClose={() => {passwordStore.message = ""} }>
+            {passwordStore.message && <Snackbar  open={passwordStore.message !== ""} autoHideDuration={6000} onClose={() => {passwordStore.message = ""} }>
                 <MuiAlert elevation={6} variant="filled" severity={passwordStore.success ? "success" : "error"}>{passwordStore.message}</MuiAlert>
             </Snackbar>}
         </div>)

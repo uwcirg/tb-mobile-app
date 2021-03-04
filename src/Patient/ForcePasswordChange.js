@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import PasswordUpdate from '../Shared/PasswordUpdate'
 import ClickableText from '../Basics/ClickableText';
 import Typography from '@material-ui/core/Typography';
+import Exit from '@material-ui/icons/ExitToApp';
 
 
 const useStyles = makeStyles({
@@ -14,11 +15,20 @@ const useStyles = makeStyles({
         padding: "2em",
         boxSizing: "border-box"
     },
-    form:{
+    form: {
         margin: "auto"
     },
-    title:{
+    title: {
         fontSize: "1.25em"
+    },
+    exitButton: {
+        width: "100%",
+        justifyContent: "center",
+        marginTop: "4em",
+        "& > span": {
+            marginRight: ".5em"
+        }
+
     }
 })
 
@@ -26,6 +36,7 @@ const ForcePasswordChange = () => {
 
     const classes = useStyles();
     const { t } = useTranslation('translation');
+    const {patientStore} = useStores();
 
     return (<div className={classes.container}>
         <Typography className={classes.title} variant="h2">{t('forcePasswordUpdate.title')}</Typography>
@@ -33,7 +44,7 @@ const ForcePasswordChange = () => {
             <PasswordUpdate isForced />
         </div>
 
-        <ClickableText text="Complete Later" hideIcon />
+        <ClickableText onClick={patientStore.exitForcedPasswordChange} className={classes.exitButton} text={<><span>{t('forcePasswordUpdate.exit')}</span><Exit /></>} hideIcon />
     </div>)
 
 }

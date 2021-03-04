@@ -28,14 +28,16 @@ export class PasswordStore extends APIStore {
     this.loading = true;
     this.success = false;
 
-    this.executeRequest("updatePassword", this, { allowErrors: true, includeStatus: true }).then(json => {
+    return this.executeRequest("updatePassword", this, { allowErrors: true, includeStatus: true }).then(json => {
       this.loading = false;
       if (json.httpStatus >= 400) {
         this.errors = json.fields
         this.message = json.error
+        return false
       } else {
         this.success = true;
         this.message = json.message;
+        return true
       }
 
     });

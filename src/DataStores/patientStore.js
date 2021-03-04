@@ -416,6 +416,10 @@ export class PatientStore extends UserStore {
         return missedDays;
     }
 
+    @action exitForcedPasswordChange = () => {
+        this.forcePasswordChange = false;
+    }
+
     @action logoutPatient() {
         this.logout();
         //@TODO Cleanup this method with cookie update
