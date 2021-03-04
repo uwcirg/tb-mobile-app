@@ -20,6 +20,7 @@ export class UserStore extends APIStore {
   @observable isLoggedIn = false;
   @observable reminderTime = "";
   @observable organizationID = -1;
+  @observable forcePasswordChange = false;
 
   constructor(strategy, routes, userType) {
     const mergedRoutes = { ...USER_ROUTES, ...routes }
@@ -28,12 +29,12 @@ export class UserStore extends APIStore {
   }
 
   @action setAccountInformation(json) {
-
     this.givenName = json.givenName;
     this.familyName = json.familyName;
     this.organizationID = json.organizationId;
     this.userID = json.id;
     this.status = json.status;
+    this.forcePasswordChange = json.forcePasswordChange;
   }
 
   @action logout = () => {

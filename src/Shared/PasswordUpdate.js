@@ -7,34 +7,40 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar'
+import SimpleButton from '../Basics/SimpleButton';
 
 const useStyles = makeStyles({
     form: {
         width: "100%",
         display: "flex",
         flexDirection: "column",
-        "& > div": {
-            marginBottom: "1em"
-        }
+        justifyContent: "flex-start",
+        alignItems: "center"
     },
     container: {
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center"
+        justifyContent: "center",
+        alignItems: "center"
     },
     button: {
-        display: "block",
+        boxSizing: "border-box",
+        marginTop: "2em",
+        margin: 0,
+        width: "auto",
         alignSelf: "flex-end",
-        marginTop: "2em"
+        "& > button":{
+            marginRight: 0,
+        }
     },
     password: {
-        width: "90%",
+        width: "100%",
         height: '1.5em',
-        margin: "2em"
+        margin: "2em 0"
     }
 })
 
-const PasswordReset = observer(() => {
+const PasswordReset = observer((props) => {
 
     const classes = useStyles();
     const { patientUIStore, passwordStore } = useStores();
@@ -55,7 +61,7 @@ const PasswordReset = observer(() => {
                     fullWidth
                     className={classes.password}
                     id="currentPassword"
-                    label={t("settings.currentPassword")}
+                    label={props.isForced ? t("forcePasswordUpdate.temporaryPassword") : t("settings.currentPassword")}
                     type="password"
                     autoComplete="current-password"
                     error={passwordStore.errors.slice().includes("currentPassword")}
@@ -82,7 +88,8 @@ const PasswordReset = observer(() => {
                     autoComplete="new-password"
                     error={passwordStore.errors.slice().includes("newPasswordConfirmation")}
                 />
-                <Button variant="contained" className={classes.button} onClick={passwordStore.updatePassword}> {t("settings.submit")}</Button>
+                {/* <Button variant="contained" onClick={passwordStore.updatePassword}> {t("settings.submit")}</Button> */}
+                <SimpleButton className={classes.button} alignRight onClick={passwordStore.updatePassword} onClick={passwordStore.updatePassword}>{t("settings.submit")}</SimpleButton>
             </form>
             {passwordStore.message && <Snackbar  open={passwordStore.message} autoHideDuration={6000} onClose={() => {passwordStore.message = ""} }>
                 <MuiAlert elevation={6} variant="filled" severity={passwordStore.success ? "success" : "error"}>{passwordStore.message}</MuiAlert>

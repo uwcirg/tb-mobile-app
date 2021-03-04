@@ -719,5 +719,9 @@
         "alreadyDownloaded": "It has already been downloaded and can be used immediately.",
         "clickButton": "Click the button below to complete update",
         "doLater": "Complete Later"
+    },
+    "forcePasswordUpdate":{
+        "temporaryPassword": "Temporary Code",
+        "title": "Your password was reset, please create a new one"
     }
 }
