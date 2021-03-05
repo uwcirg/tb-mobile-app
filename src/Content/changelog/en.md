@@ -1,3 +1,26 @@
+## v2.2
+
+Changes:
+
+Across App:
+- Added new logo
+- Clean up design of login screen inputs (limit width)
+
+Patient Facing:
+- Reports upload at each step now ( with the exception of offline reports )
+ - ie. if a patient submits their medication but forgets to submit the rest of the report, it will still be recorded on the server
+- Allow patients to skip photo submission if they provide a reason
+- Confirmation screen has been removed and replaced with a confirmation, preview, and edit functionality on the homescreen's "Action Card"
+- Make offline mode more clear
+
+Treatment Assistant Facing:
+- Added link to issue submission form
+- Added task for patietns that have missed a photo submission
+ - Shows the reason they provided for skipping if applicable
+- Basic layout of improved task desing implemented at /review
+
+Admin Panel:
+- Don't show accounts from the designated test site in results
 
 
 

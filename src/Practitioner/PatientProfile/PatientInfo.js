@@ -9,10 +9,7 @@ import Colors from '../../Basics/Colors';
 import ProfileButton from './ProfileButton'
 import Message from '@material-ui/icons/ChatBubble';
 import Add from '@material-ui/icons/AddCircle';
-import IconButton from '@material-ui/core/IconButton';
-import Settings from '@material-ui/icons/Settings';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import Refresh from '@material-ui/icons/Refresh'
 
 const useStyles = makeStyles({
 
@@ -73,15 +70,6 @@ const PatientInfo = observer((props) => {
     const classes = useStyles();
     const { practitionerStore } = useStores();
     const { t, i18n } = useTranslation('translation');
-    const [anchorEl, setAnchorEl] = React.useState(null);
-
-    const handleMenu = (event) => {
-      setAnchorEl(event.currentTarget);
-    };
-  
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
 
     const getDate = (iso) => {
         return (DateTime.fromISO(iso).toLocaleString(DateTime.DATE_MED))
@@ -90,22 +78,7 @@ const PatientInfo = observer((props) => {
     return (<div className={classes.container}>
         {practitionerStore.selectedPatient.details && <div className={classes.profileHeader}>
             <h1>{practitionerStore.selectedPatient.details.fullName}</h1>
-            <IconButton aria-controls="patient-options" aria-haspopup="true" onClick={handleMenu}>
-                <Settings />
-            </IconButton>
-            <Menu
-                    id="patient-options"
-                    anchorEl={anchorEl}
-                    keepMounted
-                    open={Boolean(anchorEl)}
-                    onClose={handleClose}
-                >
-                    {/*<MenuItem >{t("coordinator.patientProfile.options.archive")}</MenuItem>*/}
-                    <MenuItem onClick={()=>{
-                        handleClose()
-                        props.openResetPassword()
-                        }} >{t("coordinator.patientProfile.options.resetPassword")}</MenuItem>
-                </Menu> </div>}
+                </div>}
         <div className={classes.detailGroup}>
             <Item top={t("coordinator.patientProfile.age")} bottom={practitionerStore.selectedPatient.details.age || "N/A"} />
             <Item top={t("coordinator.patientProfile.gender")} bottom={practitionerStore.selectedPatient.details.gender|| "N/A"} />
@@ -114,16 +87,16 @@ const PatientInfo = observer((props) => {
         <Item top={t("coordinator.patientProfile.treatmentStart")} bottom={getDate(practitionerStore.selectedPatient.details.treatmentStart)} />
         <Item top={t("coordinator.patientProfile.lastContacted")} bottom={getDate(practitionerStore.selectedPatient.details.lastContacted)} />
 
-        <Buttons />
+        <Buttons {...props} />
 
     </div>)
 
 })
 
-const Buttons = observer(() => {
-    const { practitionerUIStore, practitionerStore } = useStores();
+const Buttons = observer((props) => {
+    const { practitionerUIStore, practitionerStore, patientProfileStore } = useStores();
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
     const messagePatient = () => {
         practitionerUIStore.goToChannel(practitionerStore.selectedPatient.details.channelId);
@@ -134,7 +107,8 @@ const Buttons = observer(() => {
     return (
         <div className={classes.buttons}>
             <ProfileButton onClick={messagePatient}><Message />{t("coordinator.patientProfile.options.message")}</ProfileButton>
-            <ProfileButton onClick={practitionerUIStore.openAddPatientNote} backgroundColor={"white"} border color={Colors.buttonBlue}><Add />{t("coordinator.patientProfile.options.note")}</ProfileButton>
+            <ProfileButton onClick={practitionerUIStore.openAddPatientNote} ><Add />{t("coordinator.patientProfile.options.note")}</ProfileButton>
+            <ProfileButton onClick={patientProfileStore.toggleOnPasswordReset} backgroundColor={Colors.warningRed} border><Refresh />{t("coordinator.patientProfile.options.resetPassword")}</ProfileButton>
         </div>
     )
 })

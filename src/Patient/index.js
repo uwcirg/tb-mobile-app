@@ -13,6 +13,7 @@ import Onboarding from './Onboarding';
 import Colors from '../Basics/Colors';
 import { useMatomo } from '@datapunt/matomo-tracker-react'
 import ErrorListener from './ErrorListener';
+import ForcePasswordChange from './ForcePasswordChange';
 
 const PatientHome = observer((props) => {
 
@@ -21,7 +22,7 @@ const PatientHome = observer((props) => {
   const routeTab = tabs[patientUIStore.tabNumber]
   const {trackPageView, pushInstruction } = useMatomo();
 
-  //When tab is changed, make sure that we scroll to the top so user doesnt get lost
+  //When tab is changed, make sure that we scroll to the top so user does not get lost
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [patientUIStore.tabNumber])
@@ -48,6 +49,10 @@ const PatientHome = observer((props) => {
          patientStore.reportStore.getTodaysReport();
       })}
   },[uiStore.offline,dailyReportStore.numberOfflineReports])
+
+  if(patientStore.forcePasswordChange){
+    return <ForcePasswordChange />
+  }
 
   return (
     <>

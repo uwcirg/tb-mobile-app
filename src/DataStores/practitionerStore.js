@@ -211,8 +211,8 @@ export class PractitionerStore extends UserStore {
     }
 
     @action resetActivationCode = (id) => {
-        this.executeRawRequest(`/patient/${id}/activation_code`, "PATCH").then(response => {
-            this.newActivationCode = response.newCode;
+        this.executeRawRequest(`/patient/${id}/password-reset`, "POST").then(response => {
+            this.newActivationCode = response.temporaryPassword;
         })
     }
 

@@ -35,6 +35,7 @@
         "changeLanguage": "Haga Clic Aquí Para Español",
         "activateAccount": "Activate New Account",
         "forgotPassword": "Forgot Password",
+        "forgotPasswordDetails": "Please contact your coordinator on WhatsApp, they will send you a code you can use to login and create a new password.",
         "phoneNumber": "Phone Number",
         "email": "Email",
         "password": "Password",
@@ -718,5 +719,11 @@
         "alreadyDownloaded": "It has already been downloaded and can be used immediately.",
         "clickButton": "Click the button below to complete update",
         "doLater": "Complete Later"
+    },
+    "forcePasswordUpdate":{
+        "temporaryPassword": "Temporary Code",
+        "title": "Your password was reset, please create a new one",
+        "exit": "Complete this later",
+        "success": "Password Updated Successfully"
     }
 }

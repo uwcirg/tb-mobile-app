@@ -13,13 +13,13 @@ const useStyles = makeStyles({
     }
 })
 
-const ResetPassword = observer((props) => {
-    const { t, i18n } = useTranslation('translation');
+const ResetPassword = observer(() => {
+    const {t} = useTranslation('translation');
     const classes = useStyles();
-    const { practitionerStore } = useStores();
+    const { practitionerStore, patientProfileStore } = useStores();
 
     return(
-    <PopOver close={props.close} title={t("coordinator.patientProfile.resetPassword")}>
+    <PopOver close={patientProfileStore.toggleOnPasswordReset} title={t("coordinator.patientProfile.resetPassword")}>
             <Typography className={classes.popOverBody} variant="body1">{t("coordinator.patientProfile.resetPasswordExplanation")}</Typography>
             <MuiButton onClick={practitionerStore.resetPassword}>{t("coordinator.patientProfile.resetPassword")}</MuiButton>
             {practitionerStore.newActivationCode && <p>{practitionerStore.newActivationCode}</p>}

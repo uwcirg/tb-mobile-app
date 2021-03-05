@@ -14,8 +14,9 @@ import NewButton from '../../Basics/NewButton'
 import ExitToApp from '@material-ui/icons/ExitToApp'
 import Globe from '@material-ui/icons/Language';
 import PasswordUpdate from '../../Shared/PasswordUpdate'
-
 import PersonalInformation from './PersonalInformation'
+
+import useLogout from '../../Basics/Logout'
 
 const HealthProfile = observer(() => {
 
@@ -42,12 +43,10 @@ const MainSettings = observer(() => {
     const classes = useStyles();
     const { patientStore, uiStore, patientUIStore, loginStore } = useStores();
     const { t, i18n } = useTranslation('translation');
+    const logout = useLogout();
 
     const handleLogout = () => {
-        uiStore.menuOpened = false;
-        patientStore.logoutPatient();
-        patientUIStore.clearURL();
-        loginStore.userType = "";
+        logout();
     }
 
     return (
