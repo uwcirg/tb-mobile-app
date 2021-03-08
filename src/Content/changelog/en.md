@@ -1,3 +1,23 @@
+## v2.2.1 (In Progress)
+Changes:
+
+Password Reset:
+- Add in a screen to prompt a user to update their password when it has been reset
+- Fix styles on password update screen
+- Move password reset button to make it more visible on coordinator side
+
+Photo Uploading State:
+- Add loading state for report
+- Max out image size to 650px
+- Translations for error reports / uploading state
+
+
+Behind the scenes:
+- Updated tests
+- Integrated Swagger documentation generation
+- Moved messaging notification generation to workers
+
+
 ## v2.2
 
 Changes:

@@ -12,14 +12,16 @@ import ClickableText from '../../Basics/ClickableText';
 import TreatmentTimeline, { Panel, MonthPreview } from '../../Basics/TreatmentTimeline'
 import Typography from '@material-ui/core/Typography';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
+import Down from '@material-ui/icons/KeyboardArrowDown';
+import Up from '@material-ui/icons/KeyboardArrowUp';
 
 
 const ProgressGraph = observer((props) => {
     const classes = useStyles();
     const [showTimeline, setShowTimeline] = useState(false);
-    const { patientStore, patientUIStore, } = useStores();
+    const { patientStore } = useStores();
     const dayValue = (patientStore.patientInformation.daysInTreatment / 180) * 100;
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
     const expand = () => {
         setShowTimeline(!showTimeline)
@@ -41,19 +43,12 @@ const ProgressGraph = observer((props) => {
                     </div>
                     <StatBox title={patientStore.getCurrentStreak} text={t('patient.home.progress.currentStreak')} />
                 </div>
-
-                {/*
-                <div className={classes.motivationalText}>
-                    <Typography variant="body1">{patientStore.getCurrentStreak === 0 ?
-                    <> Its important to take your medication every day. Please let us know if you need any support! </> : 
-                    <>Keep up the great work 👍</>} </Typography>
-                </div>
-                    */}
             </div>
             <div className={classes.bottomSection}>
                 <div className={classes.timelineHeader}>
                     <Typography variant="h2">{t('timeline.title')}</Typography>
-                    <ClickableText onClick={expand} hideIcon text={showTimeline ? t('patient.home.progress.close') : t('patient.home.progress.viewAll')} />
+                    <ClickableText onClick={expand} hideIcon 
+                    text={<>{showTimeline ? t('patient.home.progress.close') : t('patient.home.progress.viewAll')} {showTimeline ? <Up />:<Down />}</>} />
                 </div>
                 <div className={classes.timeline}>
                     {!showTimeline ?
@@ -68,7 +63,6 @@ const ProgressGraph = observer((props) => {
                             <TreatmentTimeline weeksInTreatment={patientStore.patientInformation.weeksInTreatment} />
                         </>
                     }
-                    {/* <button onClick={expand}>show all</button> */}
                 </div>
             </div>
         </InteractionCard>
