@@ -35,6 +35,7 @@
         "changeLanguage": "Click Here For English",
         "activateAccount": "Activar su Cuenta",
         "forgotPassword": "¿Olvidó su contraseña?",
+        "forgotPasswordDetails": "Please contact your coordinator on WhatsApp, they will send you a code you can use to login and create a new password.",
         "phoneNumber": "Número de Teléfono",
         "email": "Correo Electrónico",
         "password": "Contraseña",
@@ -249,7 +250,7 @@
             "helpVideos":{
                 "needHelp": "¿Necesita ayuda con la aplicación?",
                 "hide": "Esconder",
-                "seeAll": "Ver Todos Los Vídeos tutoriales",
+                "seeAll": "Ver Todos Los Vídeos",
                 "collapse": "Esconder Lista",
                 "viewOnInfo": "Siempre puedes ver estos videos en la página de información."
             },
@@ -341,7 +342,9 @@
                 "explanation": "Se cargarán cuando tenga conexión a Internet",
                 "uploading": "Subiendo los reportes que completó sin conexión"
 
-            }
+            },
+            "photoUploading": "Your photo is uploading",
+            "photoUploadError": "There was a problem uploading your report. Please try again, or contact your treatment assistant"
         },
         "reportConfirmation": {
             "viewOrEdit": "Ver / Editar Reporte",
@@ -709,5 +712,11 @@
         "alreadyDownloaded": "Ya se ha descargado y se puede utilizar inmediatamente.",
         "clickButton": "Haga clic en el botón de abajo para completar la actualización.",
         "doLater": "Completar Más Tarde"
+    },
+    "forcePasswordUpdate":{
+        "temporaryPassword": "Temporary Code",
+        "title": "Your password was reset, please create a new one",
+        "exit": "Complete this later",
+        "success": "Password Updated Successfully"
     }
 }

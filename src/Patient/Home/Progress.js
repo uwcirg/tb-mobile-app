@@ -23,7 +23,7 @@ const ProgressGraph = observer((props) => {
     const dayValue = (patientStore.patientInformation.daysInTreatment / 180) * 100;
     const { t } = useTranslation('translation');
 
-    const expand = () => {
+    const toggleExpand = () => {
         setShowTimeline(!showTimeline)
     }
 
@@ -47,7 +47,7 @@ const ProgressGraph = observer((props) => {
             <div className={classes.bottomSection}>
                 <div className={classes.timelineHeader}>
                     <Typography variant="h2">{t('timeline.title')}</Typography>
-                    <ClickableText onClick={expand} hideIcon 
+                    <ClickableText onClick={toggleExpand} hideIcon 
                     text={<>{showTimeline ? t('patient.home.progress.close') : t('patient.home.progress.viewAll')} {showTimeline ? <Up />:<Down />}</>} />
                 </div>
                 <div className={classes.timeline}>
