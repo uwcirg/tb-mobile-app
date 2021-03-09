@@ -29,7 +29,9 @@ const Colors = {
         appointment: "rgba(187, 107, 217, .35)"
     },
     textDarkGray: "#333333",
-    warningRed: "#EB5757"
+    warningRed: "#EB5757",
+    transparentBlueAccent: "rgba(128,178,255,.75)",
+    timelineGreen: "#d2ebcf"
 
 }
 

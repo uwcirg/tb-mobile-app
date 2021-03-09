@@ -1,7 +1,6 @@
 import PopUp from '../../Navigation/PopUp'
 import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import NewButton from '../../../Basics/NewButton'
 import { Typography, ButtonGroup } from '@material-ui/core';
 import Button from '@material-ui/core/IconButton'
 import Styles from '../../../Basics/Styles';

@@ -9,7 +9,8 @@ import InteractionCard from '../../Basics/InteractionCard';
 import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
 import ClickableText from '../../Basics/ClickableText';
-import TreatmentTimeline, { Panel, MonthPreview } from '../../Basics/TreatmentTimeline'
+import TreatmentTimeline, { MonthPreview } from '../../Basics/TreatmentTimeline'
+import Event from '../../Basics/TreatmentTimeline/Event'
 import Typography from '@material-ui/core/Typography';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import Down from '@material-ui/icons/KeyboardArrowDown';
@@ -56,7 +57,7 @@ const ProgressGraph = observer((props) => {
                             <span>{t('timeline.here')} 📍</span>
                             <div className="preview">
                                 <MonthPreview month={Math.floor(patientStore.patientInformation.weeksInTreatment / 4)} />
-                                <Panel weeksInTreatment={props.weeksInTreatment} title={`${t('timeline.followUp')}`} weekValue={24} noWeek week={t("timeline.twoMonths")} />
+                                <Event weeksInTreatment={props.weeksInTreatment} title={`${t('timeline.followUp')}`} weekValue={24} noWeek week={t("timeline.twoMonths")} />
                             </div></> :
                         <>
                             <br />
