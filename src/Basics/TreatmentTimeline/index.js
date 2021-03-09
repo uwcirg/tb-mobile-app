@@ -5,9 +5,7 @@ import Styles from '../Styles';
 import { useTranslation } from 'react-i18next';
 import raw from "raw.macro";
 import Event from './Event'
-import zIndex from '@material-ui/core/styles/zIndex';
 import Typography from '@material-ui/core/Typography';
-
 
 const TimelineData = JSON.parse(raw("../../Content/Timeline.json"));
 
@@ -80,7 +78,7 @@ const useStyles = makeStyles({
         margin: ".5em 0",
         padding: ".5em"
     },
-    location:{
+    location: {
         margin: 0,
         padding: 0
     }
@@ -96,7 +94,7 @@ const Timeline = (props) => {
         {TimelineData.months.map((item, index) => {
             const computedMonth = props.weeksInTreatment / 4;
             return (<Month
-                showLabel={index===0}
+                showLabel={index === 0}
                 isCurrentMonth={computedMonth === index}
                 month={index}>
                 {item.map((each) => {
@@ -106,7 +104,7 @@ const Timeline = (props) => {
                                 tense={index - computedMonth}
                                 weeksInTreatment={props.weeksInTreatment}
                                 title={t(`timeline.${each.title}`)}
-                                subtitle={t(`timeline.${each.subtitle}`)}
+                                subtitle={each.subtitle ? t(`timeline.${each.subtitle}`) : ""}
                             /></>)
                 })}
             </Month>)
@@ -135,16 +133,32 @@ const Month = (props) => {
         </>)
 };
 
-
 const MonthPreview = (props) => {
     const classes = useStyles();
     const { t } = useTranslation('translation');
 
+    //Default to the last month if a patient remains in treatment
+    const monthNumber = props.month <= 6 ? props.month : 6
+
     return (
-        <div className={`${classes.monthPreview} monthPreview`}>
-            <div className={`${classes.monthNumber} ${classes.monthLabel}`}>{t('time.month')}</div>
-            <div className={`${classes.monthNumber}`}>{props.month}</div>
-        </div>
+        <>
+            <div className={`${classes.monthPreview} monthPreview`}>
+                <div className={`${classes.monthNumber} ${classes.monthLabel}`}>{t('time.month')}</div>
+                <div className={`${classes.monthNumber}`}>{props.month}</div>
+            </div>
+            <div className={`${classes.panelContainer} ${props.isCurrentMonth && classes.currentMonthBackground}`}>
+                {TimelineData.months[monthNumber].map((each) => {
+                    return (
+                        <>
+                            <Event
+                                tense={0}
+                                weeksInTreatment={props.weeksInTreatment}
+                                title={t(`timeline.${each.title}`)}
+                                subtitle={each.subtitle ? t(`timeline.${each.subtitle}`) : ""}
+                            /></>)
+                })}
+            </div>
+        </>
     )
 }
 

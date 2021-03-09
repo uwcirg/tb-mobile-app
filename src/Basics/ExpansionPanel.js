@@ -42,7 +42,10 @@ const ExpansionPanel = (props) => {
 
     const handleClick = () => {
         setShow(!show);
-        props.toggleFunction();
+        
+        if(props.toggleFunction){
+            props.toggleFunction();
+        }
     }
 
     return (

@@ -16,6 +16,7 @@ const useStyles = makeStyles({
         fontSize: ".8em",
         color: props => props.accentColor || Colors.textGray,
         textTransform: "capitalize",
+        minHeight: ".8em"
 
     },
     title:{

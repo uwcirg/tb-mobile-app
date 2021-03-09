@@ -669,6 +669,7 @@
     },
     "timeline": {
         "title": "Treatment Timeline",
+        "expect": "This month you can expect",
         "sputumTest": "Sputum Test",
         "start": "Start of Treatment",
         "intensive": "Intensive Phase",
@@ -685,7 +686,8 @@
         "changeMeds": "Change medication regimen",
         "afterTwo": "After 2 months",
         "threeToFour": "After 3-4 months",
-        "finish": "Finish Treatment"
+        "finish": "Finish Treatment",
+        "sixMonths": "After Six Months"
     },
     "report": {
         "for": "Report for",

@@ -47,17 +47,16 @@ const ProgressGraph = observer((props) => {
             </div>
             <div className={classes.bottomSection}>
                 <div className={classes.timelineHeader}>
-                    <Typography variant="h2">{t('timeline.title')}</Typography>
+                    <Typography variant="h2">📍{t('timeline.title')}</Typography>
                     <ClickableText onClick={toggleExpand} hideIcon 
                     text={<>{showTimeline ? t('patient.home.progress.close') : t('patient.home.progress.viewAll')} {showTimeline ? <Up />:<Down />}</>} />
                 </div>
                 <div className={classes.timeline}>
                     {!showTimeline ?
                         <>
-                            <span>{t('timeline.here')} 📍</span>
+                            <span>{t('timeline.expect')}:</span>
                             <div className="preview">
                                 <MonthPreview month={Math.floor(patientStore.patientInformation.weeksInTreatment / 4)} />
-                                <Event weeksInTreatment={props.weeksInTreatment} title={`${t('timeline.followUp')}`} weekValue={24} noWeek week={t("timeline.twoMonths")} />
                             </div></> :
                         <>
                             <br />
