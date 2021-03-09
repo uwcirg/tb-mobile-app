@@ -1,7 +1,5 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import Styles from '../Styles';
 import { useTranslation } from 'react-i18next';
 import Colors from '../Colors';
 import Typography from '@material-ui/core/Typography'
@@ -25,11 +23,14 @@ const useStyles = makeStyles({
     }
 })
 
+const getBackgroundColor = (tense) =>{
+    if(tense > 0) return Colors.timelineYellow
+    return null
+}
+
 const Event = (props) => {
 
-    //const styleProps = { backgroundColor: props.weeksInTreatment === props.weekValue ? Colors.timelineYellow : props.weeksInTreatment < props.weekValue ? Colors.lightgray : Colors.calendarGreen }
-
-    const backgroundColor = false
+    const backgroundColor = getBackgroundColor(props.tense)
     const styleProps = { backgroundColor: backgroundColor}
 
     const classes = useStyles(styleProps);

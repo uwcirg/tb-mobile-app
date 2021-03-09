@@ -76,7 +76,7 @@ const useStyles = makeStyles({
         textAlign: "center"
     },
     currentMonthBackground: {
-        backgroundColor: Colors.transparentBlueAccent,
+        border: `solid 2px ${Colors.transparentBlueAccent}`,
         margin: ".5em 0",
         padding: ".5em"
     },
@@ -94,15 +94,16 @@ const Timeline = (props) => {
     return (<div className={classes.container}>
 
         {TimelineData.months.map((item, index) => {
+            const computedMonth = props.weeksInTreatment / 4;
             return (<Month
                 showLabel={index===0}
-                isCurrentMonth={props.weeksInTreatment / 4 === index}
+                isCurrentMonth={computedMonth === index}
                 month={index}>
                 {item.map((each) => {
                     return (
                         <>
                             <Event
-                                isCurrentMonth={props.weeksInTreatment / 4 === index}
+                                tense={index - computedMonth}
                                 weeksInTreatment={props.weeksInTreatment}
                                 title={t(`timeline.${each.title}`)}
                                 subtitle={t(`timeline.${each.subtitle}`)}
