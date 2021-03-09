@@ -669,16 +669,25 @@
     },
     "timeline": {
         "title": "Treatment Timeline",
+        "expect": "This month you can expect",
         "sputumTest": "Sputum Test",
         "start": "Start of Treatment",
         "intensive": "Intensive Phase",
         "medicationChange": "Change of Medication",
         "continuous": "Continuous Phase",
-        "followUp": "Follow Up Appointments",
+        "followUp": "Follow Up Appointment",
         "end": "End of Treatment",
         "here": "You are here",
         "twoMonths": "Every two months",
-        "during": "During Continuous Phase"
+        "during": "During Continuous Phase",
+        "dayOne": "Day One",
+        "scheduled": "Monthly or as scheduled",
+        "oneToTwo": "After 1-2 months",
+        "changeMeds": "Change medication regimen",
+        "afterTwo": "After 2 months",
+        "threeToFour": "After 3-4 months",
+        "finish": "Finish Treatment",
+        "sixMonths": "After Six Months"
     },
     "report": {
         "for": "Report for",

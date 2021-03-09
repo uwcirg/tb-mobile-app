@@ -1,22 +1,20 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Colors from '../Colors';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import Typography from '@material-ui/core/Typography'
 import Styles from '../Styles';
 import { useTranslation } from 'react-i18next';
+import raw from "raw.macro";
+import Event from './Event'
+import Typography from '@material-ui/core/Typography';
 
+const TimelineData = JSON.parse(raw("../../Content/Timeline.json"));
 
 const useStyles = makeStyles({
 
     monthContainer: {
         minHeight: "50px",
         display: "flex",
-        width: "100%",
-        "& > first-child": {
-            backgroundColor: "gray"
-        }
+        width: "100%"
     },
     line: {
         flexGrow: "1",
@@ -38,38 +36,11 @@ const useStyles = makeStyles({
         border: "none",
         borderRadius: "8px",
         boxShadow: "none",
-        "&::before": {
-            opacity: 0
-        }
     },
     panelContainer: {
-        marginLeft: "1em",
-        flexGrow: "1"
-
-    },
-    summary: {
-        "&.Mui-disabled": {
-            opacity: 1
-        },
-        textTransform: "capitalize",
-        "&.Mui-expanded": {
-            minHeight: "unset"
-
-        },
-        padding: "0 .5em 0 .5em",
-        margin: 0,
-        "& > .titles": {
-            ...Styles.flexColumn
-        },
-        "& > .MuiExpansionPanelSummary-content": {
-            margin: 0
-        }, borderRadius: "8px",
-        backgroundColor: props => props.backgroundColor || Colors.calendarGreen
-    },
-    subtitle: {
-        fontSize: ".8em",
-        color: Colors.textGray,
-        textTransform: "capitalize"
+        flexGrow: "1",
+        padding: "0 .5em",
+        borderRadius: "8px"
 
     },
     timeline: {
@@ -82,7 +53,7 @@ const useStyles = makeStyles({
         color: Colors.buttonBlue
     },
     monthLabel: {
-        fontSize: "1em"
+        fontSize: "1em",
     },
     currentMonth: {
         color: "white",
@@ -95,108 +66,96 @@ const useStyles = makeStyles({
     details: {
         width: "auto"
     },
-    monthPreview:{
+    monthPreview: {
         textAlign: "center"
+    },
+    currentMonthBackground: {
+        border: `solid 2px ${Colors.transparentBlueAccent}`,
+        margin: ".5em 0",
+        padding: ".5em"
+    },
+    location: {
+        margin: 0,
+        padding: 0
     }
 })
 
 const Timeline = (props) => {
 
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
     return (<div className={classes.container}>
-        <Month weeksInTreatment={props.weeksInTreatment} first month={0}>
-            <Panel weeksInTreatment={props.weeksInTreatment} title={t('timeline.start')} weekValue={0} week="0" />
-            <Panel weeksInTreatment={props.weeksInTreatment} title={t('timeline.medicationChange')} weekValue={8} week="0-8" />
-        </Month>
-        <Month weeksInTreatment={props.weeksInTreatment} month={1}>
-            <Panel weeksInTreatment={props.weeksInTreatment} title={`${t('commonWords.first')} ${t('timeline.sputumTest')}`} weekValue={8} week="8" />
-        </Month>
-        <Month weeksInTreatment={props.weeksInTreatment} month={2} >
-            <Panel weeksInTreatment={props.weeksInTreatment} title={`${t('timeline.sputumTest')}`} weekValue={24} week="8-24" />
-        </Month>
-        <Month weeksInTreatment={props.weeksInTreatment} month={3}>
-            <Panel weeksInTreatment={props.weeksInTreatment} title={`${t('timeline.followUp')}`} weekValue={24} noWeek week={t('timeline.twoMonths')} />
-        </Month>
-        <Month month={4}>
-            <Panel weeksInTreatment={props.weeksInTreatment} title={`${t('commonWords.second')} ${t('timeline.sputumTest')}`} weekValue={24} noWeek week={t('timelineduring')} />
-        </Month>
-        <Month weeksInTreatment={props.weeksInTreatment} month={5} />
 
-        <Month weeksInTreatment={props.weeksInTreatment} month={6}>
-            <Panel weeksInTreatment={props.weeksInTreatment} title={`${t('commonWords.final')} ${t('timeline.sputumTest')}`} weekValue={24} week="24" />
-            <Panel weeksInTreatment={props.weeksInTreatment} title={t('timeline.end')} weekValue={24} week="24" />
-        </Month>
+        {TimelineData.months.map((item, index) => {
+            const computedMonth = props.weeksInTreatment / 4;
+            return (<Month
+                showLabel={index === 0}
+                isCurrentMonth={computedMonth === index}
+                month={index}>
+                {item.map((each) => {
+                    return (
+                            <Event
+                                tense={index - computedMonth}
+                                weeksInTreatment={props.weeksInTreatment}
+                                title={t(`timeline.${each.title}`)}
+                                subtitle={each.subtitle ? t(`timeline.${each.subtitle}`) : ""}
+                            />)
+                })}
+            </Month>)
+        })}
     </div>)
 
 };
 
 const Month = (props) => {
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
     const classes = useStyles();
-    let isCurrentMonth = Math.floor(props.weeksInTreatment / 4) === props.month;
 
     return (
         <>
             <div className={classes.monthContainer}>
                 <div className={classes.timeline}>
-                    {props.first && <div className={`${classes.monthNumber} ${classes.monthLabel}`}>{t('time.month')}</div>}
-                    <div className={`${classes.monthNumber} ${isCurrentMonth && classes.currentMonth}`}>{props.month}</div>
+                    {props.showLabel && <div id="month-label" className={`${classes.monthNumber} ${classes.monthLabel}`}>{t('time.month')}</div>}
+                    <div className={`${classes.monthNumber} ${props.isCurrentMonth && classes.currentMonth}`}>{props.month}</div>
                     <div className={classes.line} />
                 </div>
-                <div className={classes.panelContainer}>
+                <div className={`${classes.panelContainer} ${props.isCurrentMonth && classes.currentMonthBackground}`}>
+                    {props.isCurrentMonth && <Typography variant="body1" className={classes.location}>{t('timeline.here')} 📍</Typography>}
                     {props.children}
                 </div>
             </div>
         </>)
 };
 
-const Panel = (props) => {
-
-    const styleProps = { backgroundColor: props.weeksInTreatment === props.weekValue ? Colors.timelineYellow : props.weeksInTreatment < props.weekValue ? Colors.lightgray : Colors.calendarGreen }
-
-    const classes = useStyles(styleProps);
-    const { t, i18n } = useTranslation('translation');
-    return (
-        <>
-            <ExpansionPanel className={classes.panel}>
-                <ExpansionPanelSummary
-                    className={classes.summary}
-                    expandIcon={<></>}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                    onClick={() => { }}
-                    disabled
-                >
-                    <div className="titles">
-                        <Typography className={classes.title}>{props.title}</Typography>
-                        <Typography className={classes.subtitle}>
-                            {props.week && <>{!props.noWeek && t('time.week')} {props.week}</>}
-                        </Typography>
-                    </div>
-                </ExpansionPanelSummary>
-                {/* <ExpansionPanelDetails className={classes.details}>
-                <Typography>
-                    Coming Soon
-        </Typography>
-            </ExpansionPanelDetails> */}
-            </ExpansionPanel>
-        </>
-    )
-};
-
 const MonthPreview = (props) => {
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
-    
+    const { t } = useTranslation('translation');
+
+    //Default to the last month if a patient remains in treatment
+    const monthNumber = props.month <= 6 ? props.month : 6
+
     return (
-        <div className={`${classes.monthPreview} monthPreview`}>
-        <div className={`${classes.monthNumber} ${classes.monthLabel}`}>{t('time.month')}</div>
-            <div className={`${classes.monthNumber}`}>{props.month}</div>
-        </div>
+        <>
+            <div className={`${classes.monthPreview} monthPreview`}>
+                <div className={`${classes.monthNumber} ${classes.monthLabel}`}>{t('time.month')}</div>
+                <div className={`${classes.monthNumber}`}>{props.month}</div>
+            </div>
+            <div className={`${classes.panelContainer} ${props.isCurrentMonth && classes.currentMonthBackground}`}>
+                {TimelineData.months[monthNumber].map((each) => {
+                    return (
+                        <>
+                            <Event
+                                tense={0}
+                                weeksInTreatment={props.weeksInTreatment}
+                                title={t(`timeline.${each.title}`)}
+                                subtitle={each.subtitle ? t(`timeline.${each.subtitle}`) : ""}
+                            /></>)
+                })}
+            </div>
+        </>
     )
 }
 
 export default Timeline;
-export { Panel, MonthPreview };
+export { MonthPreview };
