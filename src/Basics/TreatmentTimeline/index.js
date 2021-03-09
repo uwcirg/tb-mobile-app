@@ -14,10 +14,7 @@ const useStyles = makeStyles({
     monthContainer: {
         minHeight: "50px",
         display: "flex",
-        width: "100%",
-        "& > first-child": {
-            backgroundColor: "gray"
-        }
+        width: "100%"
     },
     line: {
         flexGrow: "1",
@@ -57,7 +54,6 @@ const useStyles = makeStyles({
     },
     monthLabel: {
         fontSize: "1em",
-
     },
     currentMonth: {
         color: "white",
@@ -99,13 +95,12 @@ const Timeline = (props) => {
                 month={index}>
                 {item.map((each) => {
                     return (
-                        <>
                             <Event
                                 tense={index - computedMonth}
                                 weeksInTreatment={props.weeksInTreatment}
                                 title={t(`timeline.${each.title}`)}
                                 subtitle={each.subtitle ? t(`timeline.${each.subtitle}`) : ""}
-                            /></>)
+                            />)
                 })}
             </Month>)
         })}
