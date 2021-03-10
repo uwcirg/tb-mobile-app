@@ -686,8 +686,9 @@
         "changeMeds": "Change medication regimen",
         "afterTwo": "After 2 months",
         "threeToFour": "After 3-4 months",
-        "finish": "Finish Treatment",
-        "sixMonths": "After Six Months"
+        "finish": "Finish treatment",
+        "sixMonths": "After Six Months",
+        "finalSputum": "Final sputum test"
     },
     "report": {
         "for": "Report for",

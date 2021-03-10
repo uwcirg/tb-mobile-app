@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography'
 const useStyles = makeStyles({
     summary: {
         marginTop: ".5em",
-        textTransform: "capitalize",
         padding: ".25em .5em",
         borderRadius: "8px",
         backgroundColor: props => props.backgroundColor || Colors.timelineGreen
@@ -15,7 +14,6 @@ const useStyles = makeStyles({
     subtitle: {
         fontSize: ".8em",
         color: props => props.accentColor || Colors.textGray,
-        textTransform: "capitalize",
         minHeight: ".8em"
 
     },
