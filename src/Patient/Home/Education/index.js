@@ -10,10 +10,7 @@ import Colors from '../../../Basics/Colors';
 import { observer } from 'mobx-react';
 import useStores from '../../../Basics/UseStores';
 import { useTranslation } from 'react-i18next';
-import raw from "raw.macro";
 import { usePageVisibility } from '../../../Hooks/PageVisibility'
-import { toJS } from 'mobx';
-const file = raw("../../../Content/TreatmentMessages.json");
 
 const useStyles = makeStyles({
     container: {
@@ -59,8 +56,6 @@ const useStyles = makeStyles({
     }
 })
 
-const messages = JSON.parse(file)
-
 const EducationalMessage = observer((props) => {
 
     const { t } = useTranslation('translation');
@@ -70,7 +65,7 @@ const EducationalMessage = observer((props) => {
     const { educationStore: education } = useStores().patientStore;
 
     const isVisible = usePageVisibility();
-    const [visible, setVisible] = useState(false);
+    const [exited, setExited] = useState(false);
 
     //Check for service worker update when page goes from invisible to visible.
     //this helps us detect when the application is launched from installed
@@ -78,47 +73,26 @@ const EducationalMessage = observer((props) => {
         if (document.visibilityState === "visible") {
             console.log("page visible opened")
         }
-
     }, [isVisible])
 
-
-    useEffect(() => {
-        // console.log(education.messageNumber);
-        // console.log(Object.keys(messages));
-        // console.log("Education Status")
-        // console.log(toJS(education.educationStatus));
-
-        if (education.educationStatus.length > 0 ) {
-            Object.keys(messages).map((messageNumber) => {
-                if (messageNumber <= education.educationStatus[education.educationStatus.length - 1]) {
-                    console.log(messageNumber)
-                }
-
-            })
-        }
-
-        setVisible(patientStore.patientInformation.loaded && education.messageNumber >= 0 && messages[education.messageNumber] != null)
-    }, [education.educationStatus])
-
-
     const handleClose = (isExit) => {
-        setVisible(!visible)
+        setExited(true);
         if (isExit) education.markEducationAsRead();
     }
 
     const handleRate = (rate) => {
-        setVisible(!visible)
+        setExited(true);
         education.markEducationAsRead(rate);
         patientUIStore.setAlert(t("educationalMessages.feedback"), "success")
     }
 
     return (
         <>
-            {visible && !patientUIStore.onWalkthrough ?
+            {education.message && !exited && !patientUIStore.onWalkthrough ?
                 <PopUp className={classes.container} handleClickAway={handleClose}>
-                    <Typography className={classes.header} variant="h1">{t("educationalMessages.header")}: {t("time.week")} {Math.round(education.messageNumber / 7)}</Typography>
+                    <Typography className={classes.header} variant="h1">{t("educationalMessages.header")}: {t("time.week")} {Math.round(education.dayShown / 7)}</Typography>
                     <div className={classes.body}>
-                        <p>{messages[education.messageNumber]}</p>
+                        <p>{education.message}</p>
                     </div>
 
                     <div className={classes.thumbsContainer}>

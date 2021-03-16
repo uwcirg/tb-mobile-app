@@ -135,10 +135,6 @@ export default class PatientUIStore {
         return parsed ? parsed : 0
     }
 
-    @computed get onAddMilestone() {
-        return this.router.location.pathname.startsWith("/progress/reminders/add")
-    }
-
     @computed get onCalendar() {
         return false
     }
