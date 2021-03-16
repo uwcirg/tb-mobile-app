@@ -53,6 +53,11 @@ const useStyles = makeStyles({
             width: "50%",
             color: Colors.buttonBlue
         }
+    },
+    error:{
+        textAlign: "center",
+        width: "80%",
+        fontSize: ".9em"
     }
 })
 
@@ -67,6 +72,8 @@ const EducationalMessage = observer((props) => {
     const isVisible = usePageVisibility();
     const [exited, setExited] = useState(false);
 
+    const isCurrentDay = education.dayShown === patientStore.patientInformation.daysInTreatment;
+
     //Check for service worker update when page goes from invisible to visible.
     //this helps us detect when the application is launched from installed
     useEffect(() => {
@@ -77,7 +84,7 @@ const EducationalMessage = observer((props) => {
 
     const handleClose = (isExit) => {
         setExited(true);
-        if (isExit){
+        if (isExit) {
             education.markEducationAsRead();
         }
     }
@@ -93,6 +100,7 @@ const EducationalMessage = observer((props) => {
             {education.message && !exited && !patientUIStore.onWalkthrough ?
                 <PopUp className={classes.container} handleClickAway={handleClose}>
                     <Typography className={classes.header} variant="h1">{t("educationalMessages.header")}: {t("time.week")} {Math.round(education.dayShown / 7)}</Typography>
+                    <p className={classes.error}>* {t('educationalMessages.lateWarning')}</p> 
                     <div className={classes.body}>
                         <p>{education.message}</p>
                     </div>

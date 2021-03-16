@@ -657,7 +657,8 @@
         "feedback": "Thank you for your feedback",
         "week": "Week",
         "header": "Important to know",
-        "helpful": "Was this helpful?"
+        "helpful": "Was this helpful?",
+        "lateWarning": "Updates that were missed may show up later in your treatment"
     },
     "timeline": {
         "warning": "This is a general outline, and may vary from one patient to another",

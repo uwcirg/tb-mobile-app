@@ -37,7 +37,6 @@ const HomePage = () => {
 
     return (
         <Body>
-            <EducationalMessage/>
             <Greeting />
             <ActionBox />
             <MissedReports />

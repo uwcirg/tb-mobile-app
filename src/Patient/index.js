@@ -14,6 +14,7 @@ import Colors from '../Basics/Colors';
 import { useMatomo } from '@datapunt/matomo-tracker-react'
 import ErrorListener from './ErrorListener';
 import ForcePasswordChange from './ForcePasswordChange';
+import EducationalMessage from './Home/Education';
 
 const PatientHome = observer((props) => {
 
@@ -60,6 +61,7 @@ const PatientHome = observer((props) => {
         <div className="main-screen" style={{ backgroundColor: `${Colors.white}`, minHeight: "100vh" }}>
           <ErrorListener />
           <TopBar />
+          <EducationalMessage />
           {patientUIStore.onWalkthrough && <Intro />}
           <TopMenu />
           <div style={{ paddingTop: "60px", paddingBottom: "60px" }}>
