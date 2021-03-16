@@ -5,7 +5,6 @@ import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import CustomCalendar from './CustomCalendar';
 import MedicationFlow from '../MedicationFlow';
-import AddMilestone from './AddMilestone'
 import { useTranslation } from 'react-i18next';
 import ClickableText from '../../Basics/ClickableText';
 import QuestionIcon from '@material-ui/icons/HelpOutline';
@@ -65,7 +64,6 @@ const Progress = observer(() => {
     const { t } = useTranslation('translation');
 
     if (patientUIStore.onHistoricalReport) return (<ReportOldMedication />)
-    if (patientUIStore.onAddMilestone) return (<AddMilestone handleBack={patientUIStore.goToProgress} />)
 
     return (<div id="intro-progress" className={`${classes.container}`} >
         {showKey && <Key close={() => { setShowKey(false) }} />}

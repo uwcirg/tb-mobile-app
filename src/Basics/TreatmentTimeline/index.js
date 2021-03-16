@@ -77,6 +77,13 @@ const useStyles = makeStyles({
     location: {
         margin: 0,
         padding: 0
+    },
+    warning:{
+        display: "block",
+        fontSize: ".8em",
+        color: Colors.textGray,
+        margin: "0 0 1em 5%",
+        padding: 0
     }
 })
 
@@ -86,7 +93,7 @@ const Timeline = (props) => {
     const { t } = useTranslation('translation');
 
     return (<div className={classes.container}>
-
+        <Typography className={classes.warning} variant="body1">{t('timeline.warning')}</Typography>
         {TimelineData.months.map((item, index) => {
             const computedMonth = props.weeksInTreatment / 4;
             return (<Month
