@@ -34,15 +34,21 @@ export default class EducationStore {
         return this.availableMessages.length > 0 && this.treatmentUpdates[this.dayShown]
     }
 
-    @action setEducationStatus(){
-
+    @action setEducationStatus(response){
+        
+        this.educationStatus = response.map(each => {
+            if(!each.treatmentDay){
+                throw new Error("Education Status Response did not include treatmentDay for at least one item")
+            }
+            return each.treatmentDay
+        })
     }
 
-    @action markEducationAsRead(wasHelpful) {
+    markEducationAsRead(wasHelpful) {
         const body = { treatmentDay: this.dayShown }
         wasHelpful !== undefined && (body.wasHelpful = wasHelpful)
         this.rootStore.executeRawRequest(`/patient/${this.rootStore.userID}/education_statuses`, "POST", body).then((json) => {
-            this.educationStatus.push(json.treatmentDay)
+            this.setEducationStatus(json);
         })
     }
 

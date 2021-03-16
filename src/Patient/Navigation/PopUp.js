@@ -2,7 +2,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Styles from '../../Basics/Styles';
-import {Grid, IconButton } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
 import Clear from '@material-ui/icons/Clear';
 
 
@@ -38,9 +38,9 @@ const PopUp = (props) => {
     const classes = useStyles();
 
     return (<div className={classes.container}>
-    <ClickAwayListener onClickAway={() => {props.handleClickAway(false)}}>
+    <ClickAwayListener onClickAway={() => {if(props.handleClickAway) props.handleClickAway(false)}}>
         <div className={`${classes.popup} ${props.className}`}>
-            <IconButton className={classes.exit} onClick={() => {props.handleClickAway(true)}}><Clear /></IconButton>
+            <IconButton className={classes.exit} onClick={() => {if(props.handleClickAway) props.handleClickAway(true)}}><Clear /></IconButton>
             {props.children}
         </div>
     </ClickAwayListener>

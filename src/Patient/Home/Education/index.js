@@ -71,13 +71,15 @@ const EducationalMessage = observer((props) => {
     //this helps us detect when the application is launched from installed
     useEffect(() => {
         if (document.visibilityState === "visible") {
-            console.log("page visible opened")
+            setExited(false)
         }
     }, [isVisible])
 
     const handleClose = (isExit) => {
         setExited(true);
-        if (isExit) education.markEducationAsRead();
+        if (isExit){
+            education.markEducationAsRead();
+        }
     }
 
     const handleRate = (rate) => {
