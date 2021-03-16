@@ -21,10 +21,13 @@ const PatientHome = observer((props) => {
   const { patientUIStore, patientStore, uiStore, dailyReportStore } = useStores();
   const tabs = [<Home />, <Progress />, <Messaging />, <Info />];
   const routeTab = tabs[patientUIStore.tabNumber]
-  const {trackPageView, pushInstruction } = useMatomo();
+  const { trackPageView, pushInstruction } = useMatomo();
 
-  //When tab is changed, make sure that we scroll to the top so user does not get lost
+  // When tab is changed, make sure that we scroll to the top so user does not get lost
+  // Track page view in Matomo
   useEffect(() => {
+    const TEXT_OPTIONS = ['Home', 'Progress', 'Messaging', 'Information'];
+    trackPageView({ documentTitle: TEXT_OPTIONS[patientUIStore.tabNumber] })
     window.scrollTo(0, 0)
   }, [patientUIStore.tabNumber])
 
@@ -38,40 +41,35 @@ const PatientHome = observer((props) => {
     }
   }, [patientStore.userID])
 
-  useEffect(()=>{
-    const TEXT_OPTIONS = ['Home','Progress', 'Messaging', 'Information'];
-    trackPageView({documentTitle: TEXT_OPTIONS[patientUIStore.tabNumber]
-  });
-  },[patientUIStore.tabNumber])
-
-  useEffect(()=>{
+  //Upload old reports when a patient comes back online
+  useEffect(() => {
     if (!uiStore.offline && dailyReportStore.numberOfflineReports > 0) {
-      dailyReportStore.syncOfflineReports().then( ()=>{
-         patientStore.reportStore.getTodaysReport();
-      })}
-  },[uiStore.offline,dailyReportStore.numberOfflineReports])
+      dailyReportStore.syncOfflineReports().then(() => {
+        patientStore.reportStore.getTodaysReport();
+      })
+    }
+  }, [uiStore.offline, dailyReportStore.numberOfflineReports])
 
-  if(patientStore.forcePasswordChange){
+  if (patientStore.forcePasswordChange) {
     return <ForcePasswordChange />
   }
 
+  if (patientStore.status !== "Active") {
+    return <Onboarding />
+  }
+
   return (
-    <>
-      {patientStore.status === "Active" ?
-        <div className="main-screen" style={{ backgroundColor: `${Colors.white}`, minHeight: "100vh" }}>
-          <ErrorListener />
-          <TopBar />
-          <EducationalMessage />
-          {patientUIStore.onWalkthrough && <Intro />}
-          <TopMenu />
-          <div style={{ paddingTop: "60px", paddingBottom: "60px" }}>
-            {routeTab}
-          </div>
-          <BottomBar />
-        </div>
-        :
-        <Onboarding />}
-    </>
+    <div className="main-screen" style={{ backgroundColor: `${Colors.white}`, minHeight: "100vh" }}>
+      <ErrorListener />
+      <TopBar />
+      <EducationalMessage />
+      {patientUIStore.onWalkthrough && <Intro />}
+      <TopMenu />
+      <div style={{ paddingTop: "60px", paddingBottom: "60px" }}>
+        {routeTab}
+      </div>
+      <BottomBar />
+    </div>
   );
 }
 );
