@@ -1,4 +1,5 @@
 import { action, observable, computed } from "mobx";
+import localforage from 'localforage'
 import raw from "raw.macro";
 const file = raw("../Content/TreatmentMessages.json");
 
@@ -51,6 +52,7 @@ export default class EducationStore {
             this.setEducationStatus(json);
         })
     }
+
 
 
 

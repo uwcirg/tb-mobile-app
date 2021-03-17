@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import InteractionCard from '../../Basics/InteractionCard';
 import { ReactComponent as VideoIcon } from '../../Basics/Icons/videos.svg';
@@ -7,6 +7,7 @@ import Videos from '../Information/HelpVideos'
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@material-ui/core';
 import ExpansionPanel from '../../Basics/ExpansionPanel';
+import localforage from 'localforage'
 
 
 const useStyles = makeStyles({
@@ -35,17 +36,38 @@ const useStyles = makeStyles({
     }
 })
 
+const HIDE_VIDEO_KEY = "isVideoCardHidden"
+
 const VideoCard = (props) => {
 
     const classes = useStyles();
     const [showLinks, setShowLinks] = useState(false);
-    const { t, i18n } = useTranslation('translation');
-
+    const { t } = useTranslation('translation');
     const toggleShow = () => {setShowLinks(!showLinks)}
 
+    const [hideVideo,setHideVideo] = useState(true);
+
+    const checkVideosHiden = () => {
+        localforage.getItem(HIDE_VIDEO_KEY).then(value => {
+            setHideVideo(value === true)    
+        })
+    }
+
+    const hideVideos = () => {
+        localforage.setItem(HIDE_VIDEO_KEY,true).then(value =>{
+            setHideVideo(true);
+        })
+    }
+    
+    useEffect(()=>{
+        checkVideosHiden();
+    },[])
+
+    if(hideVideo) return <> </>
+    
     return (
 
-        <InteractionCard bottomButton hide={props.hide} upperText={<><SmallVideoIcon /> {t('patient.information.helpVideos')}</>}>
+        <InteractionCard bottomButton hide={hideVideos} upperText={<><SmallVideoIcon /> {t('patient.information.helpVideos')}</>}>
             
             <div className={classes.container}>
                 <div>
