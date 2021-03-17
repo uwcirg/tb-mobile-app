@@ -58,6 +58,13 @@ const useStyles = makeStyles({
         textAlign: "center",
         width: "80%",
         fontSize: ".9em"
+    },
+    graphic:{
+        width: "90%",
+        marginTop: "1em"
+    },
+    subHeader:{
+        textTransform: "capitalize"
     }
 })
 
@@ -99,8 +106,10 @@ const EducationalMessage = observer((props) => {
         <>
             {education.message && !exited && !patientUIStore.onWalkthrough ?
                 <PopUp className={classes.container} handleClickAway={handleClose}>
-                    <Typography className={classes.header} variant="h1">{t("educationalMessages.header")}: {t("time.week")} {Math.round(education.dayShown / 7)}</Typography>
-                    <p className={classes.error}>* {t('educationalMessages.lateWarning')}</p> 
+                    <Typography className={classes.header} variant="h1">{t("educationalMessages.header")} </Typography>
+                    <Typography className={classes.subHeader} >{t("time.week")} {Math.round(education.dayShown / 7)}</Typography>
+                    <img className={classes.graphic} src="/treatment-update.png" />
+                    {/* <p className={classes.error}>* {t('educationalMessages.lateWarning')}</p>  */}
                     <div className={classes.body}>
                         <p>{education.message}</p>
                     </div>
