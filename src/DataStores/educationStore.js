@@ -16,7 +16,7 @@ export default class EducationStore {
     treatmentUpdates = JSON.parse(file)
 
     @observable educationStatus = []
-    @observable dateOfLastUpdateRead = "";
+    @observable dateOfLastUpdateRead = DateTime.local().toISODate();;
     @observable currentDate = DateTime.local().toISODate();
 
     @action setEducationStatus(response) {

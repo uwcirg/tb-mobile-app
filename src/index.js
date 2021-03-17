@@ -1,6 +1,5 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
-import * as serviceWorker from './serviceWorker';
 import Main from './Main';
 import { Provider } from 'mobx-react';
 import { reaction } from 'mobx';
