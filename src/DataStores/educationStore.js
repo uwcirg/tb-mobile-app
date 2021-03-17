@@ -18,7 +18,7 @@ export default class EducationStore {
     }
 
     @computed get availableMessages() {
-        if(this.rootStore.patientInformation.loaded){
+        if (this.rootStore.patientInformation.loaded) {
             return Object.keys(this.treatmentUpdates).filter((each) => {
                 const messageNumber = Number(each);
                 return messageNumber <= this.rootStore.patientInformation.daysInTreatment && !this.educationStatus.includes(messageNumber)
@@ -27,18 +27,18 @@ export default class EducationStore {
         return [];
     }
 
-    @computed get dayShown(){
+    @computed get dayShown() {
         return this.availableMessages[0]
     }
 
-    @computed get message(){
+    @computed get message() {
         return this.availableMessages.length > 0 && this.treatmentUpdates[this.dayShown]
     }
 
-    @action setEducationStatus(response){
-        
+    @action setEducationStatus(response) {
+
         this.educationStatus = response.map(each => {
-            if(!each.treatmentDay){
+            if (!each.treatmentDay) {
                 throw new Error("Education Status Response did not include treatmentDay for at least one item")
             }
             return each.treatmentDay
@@ -52,6 +52,10 @@ export default class EducationStore {
             this.setEducationStatus(json);
         })
     }
+
+    // localforage.getItem("dateOfLastReadTreatmentUpdate").then(value => {
+    //     setHideVideo(value === true)    
+    // })
 
 
 
