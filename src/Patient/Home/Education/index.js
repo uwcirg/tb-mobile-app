@@ -79,13 +79,15 @@ const EducationalMessage = observer((props) => {
     const isVisible = usePageVisibility();
     const [exited, setExited] = useState(false);
 
-    const isCurrentDay = education.dayShown === patientStore.patientInformation.daysInTreatment;
 
     //Check for service worker update when page goes from invisible to visible.
     //this helps us detect when the application is launched from installed
     useEffect(() => {
         if (document.visibilityState === "visible") {
             setExited(false)
+
+            //Ensure that we check if the date has changed
+            education.updateCurrentDate();
         }
     }, [isVisible])
 
@@ -102,9 +104,10 @@ const EducationalMessage = observer((props) => {
         patientUIStore.setAlert(t("educationalMessages.feedback"), "success")
     }
 
+
     return (
         <>
-            {education.message && !exited && !patientUIStore.onWalkthrough ?
+            {education.hasDayPassedSinceLastUpdateRead && education.message && !exited && !patientUIStore.onWalkthrough ?
                 <PopUp className={classes.container} handleClickAway={handleClose}>
                     <Typography className={classes.header} variant="h1">{t("educationalMessages.header")} </Typography>
                     <Typography className={classes.subHeader} >{t("time.week")} {Math.round(education.dayShown / 7)}</Typography>

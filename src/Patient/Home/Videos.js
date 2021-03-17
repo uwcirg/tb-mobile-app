@@ -9,7 +9,6 @@ import { Typography } from '@material-ui/core';
 import ExpansionPanel from '../../Basics/ExpansionPanel';
 import localforage from 'localforage'
 
-
 const useStyles = makeStyles({
     container: {
         display: "flex",
