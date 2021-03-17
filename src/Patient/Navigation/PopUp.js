@@ -24,7 +24,9 @@ const useStyles = makeStyles({
         width: "75%",
         padding: "1em",
         borderRadius: "1em",
-        position: "relative"
+        position: "relative",
+        maxHeight: "90vh",
+        overflow: "scroll"
     },
     exit:{
         position: "absolute",
