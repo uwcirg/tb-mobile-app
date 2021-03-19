@@ -70,6 +70,7 @@
   },
   "devDependencies": {
     "@testing-library/react": "^11.2.5",
+    "jest-environment-jsdom-fifteen": "^1.0.2",
     "react-app-rewired": "^2.1.6"
   },
   "jest": {

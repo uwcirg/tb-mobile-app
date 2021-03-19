@@ -1,6 +1,9 @@
+//https://testing-library.com/docs/react-testing-library/setup
+
 import React, { Suspense } from 'react';
 import { Provider } from 'mobx-react';
 import { render } from '@testing-library/react'
+import { stores, history } from '../DataStores'
 
 //Internationalization
 import i18n from "../Language/i18n";
@@ -11,15 +14,15 @@ import DateFnsUtils from '@date-io/luxon';
 //Object Containing MobX Stores in ./Datastores file
 import { Router } from 'react-router';
 
-const AllTheProviders = (props) => {
+const AllTheProviders = ({children}) => {
 
     return(
-  <Provider {...props.stores}>
+  <Provider {...stores}>
     <I18nextProvider i18n={i18n}>
       <Suspense fallback="Page Loading">
           <MuiPickersUtilsProvider utils={DateFnsUtils} >
-            <Router history={props.history}>
-              {props.children}
+            <Router history={history}>
+              {children}
             </Router>
           </MuiPickersUtilsProvider>
       </Suspense>
@@ -36,6 +39,8 @@ export * from '@testing-library/react'
 
 // override render method
 export { customRender as render }
+
+export {stores, history}
 
 /*
 

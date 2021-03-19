@@ -7,7 +7,7 @@ import Clear from '@material-ui/icons/Clear';
 
 
 const useStyles = makeStyles({
-    container:{
+    container: {
         ...Styles.flexCenter,
         backgroundColor: "rgba(1,1,1,.5)",
         height: "100vh",
@@ -16,7 +16,7 @@ const useStyles = makeStyles({
         zIndex: "100",
         top: 0
     },
-    popup:{
+    popup: {
         ...Styles.flexColumn,
         alignItems: "center",
         textAlign: "center",
@@ -28,7 +28,7 @@ const useStyles = makeStyles({
         maxHeight: "90vh",
         overflow: "scroll"
     },
-    exit:{
+    exit: {
         position: "absolute",
         top: 0,
         right: 0
@@ -40,15 +40,15 @@ const PopUp = (props) => {
     const classes = useStyles();
 
     return (<div className={classes.container}>
-    <ClickAwayListener onClickAway={() => {if(props.handleClickAway) props.handleClickAway(false)}}>
-        <div className={`${classes.popup} ${props.className}`}>
-            <IconButton className={classes.exit} onClick={() => {if(props.handleClickAway) props.handleClickAway(true)}}><Clear /></IconButton>
-            {props.children}
-        </div>
-    </ClickAwayListener>
+        <ClickAwayListener onClickAway={() => { if (props.handleClickAway) props.handleClickAway(false) }}>
+            <div className={`${classes.popup} ${props.className}`}>
+                <IconButton className={classes.exit} onClick={() => { if (props.handleClickAway) props.handleClickAway(true) }}><Clear /></IconButton>
+                {props.children}
+            </div>
+        </ClickAwayListener>
     </div>
 
-)
+    )
 
 }
 
