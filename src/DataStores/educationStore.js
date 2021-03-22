@@ -75,7 +75,7 @@ export default class EducationStore {
 
     getLocalDateOfLastRead(){
         localforage.getItem(DATE_KEY).then(value => {
-            if(value) this.setDateOfLastUpdateRead(value);
+            this.setDateOfLastUpdateRead(value || "");
         })
     }
 

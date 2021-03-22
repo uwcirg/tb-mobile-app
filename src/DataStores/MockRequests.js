@@ -15,7 +15,15 @@ export default class TestHelper {
 
     //When you need to use parameters in a request (routes are not always predefined)
     executeRawRequest(route,method,body){
-        return "TEST VALUE"
+        return new Promise((resolve, reject) => {
+        
+            process.nextTick(() =>{
+               resolve("TEST VALUE");
+            }
+                
+            
+            );
+          });
     }
 
 
