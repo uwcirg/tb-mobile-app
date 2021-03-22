@@ -31,7 +31,3 @@ it("shows earliest message available first", () =>{
     expect(education.message).toBe(Object.values(education.treatmentUpdates)[0]);
 })
 
-// it("shows no message after one has been marked as read", ()=> {
-//     education.markEducationAsRead(true);
-//     expect(education.message).toBe(Object.values(education.treatmentUpdates)[1]);
-// });
