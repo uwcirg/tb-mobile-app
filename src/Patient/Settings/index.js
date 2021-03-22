@@ -17,6 +17,7 @@ import PasswordUpdate from '../../Shared/PasswordUpdate'
 import PersonalInformation from './PersonalInformation'
 
 import useLogout from '../../Basics/Logout'
+import { DateTime } from 'luxon';
 
 const HealthProfile = observer(() => {
 
@@ -109,6 +110,9 @@ const Debugging = observer((props) => {
                             <p>Visibily Change Count{ uiStore.visibilityChangeCount}</p>
                 </div> :
                 ""}
+                <button onClick={() => {
+                    patientStore.educationStore.setLocalToOldDateForTesting(DateTime.local().minus({days: 2}).toISODate())
+                }}>Update Date of Last Update Read to 2 days ago</button>
         </>
     )
 })

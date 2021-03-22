@@ -66,6 +66,7 @@ export default class LoginStore extends APIStore {
             }
             
             this.userType = this.handleAuthentication(response);
+            this.goHome();
         })
     }
 
