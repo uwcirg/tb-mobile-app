@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import InteractionCard from '../../Basics/InteractionCard';
+import InteractionCard from '../../Basics/HomePageCard';
 import { ReactComponent as VideoIcon } from '../../Basics/Icons/videos.svg';
 import SmallVideoIcon from '@material-ui/icons/OndemandVideo';
 import Videos from '../Information/HelpVideos'
@@ -37,7 +37,7 @@ const useStyles = makeStyles({
 
 const HIDE_VIDEO_KEY = "isVideoCardHidden"
 
-const VideoCard = (props) => {
+const VideoCard = () => {
 
     const classes = useStyles();
     const [showLinks, setShowLinks] = useState(false);
@@ -66,7 +66,7 @@ const VideoCard = (props) => {
     
     return (
 
-        <InteractionCard bottomButton hide={hideVideos} upperText={<><SmallVideoIcon /> {t('patient.information.helpVideos')}</>}>
+        <InteractionCard hideCard={hideVideos} upperText={<><SmallVideoIcon /> {t('patient.information.helpVideos')}</>}>
             
             <div className={classes.container}>
                 <div>
@@ -76,7 +76,6 @@ const VideoCard = (props) => {
             </div>
              <ExpansionPanel
                 toggleFunction={toggleShow}
-                previewClassName={classes.reportPreview}
                 preview={showLinks ? t('patient.home.helpVideos.hide') : t('patient.home.helpVideos.seeAll')}
 
             >

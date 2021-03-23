@@ -1,6 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import InteractionCard from '../../Basics/InteractionCard'
+import InteractionCard from '../../Basics/HomePageCard'
 import CheckIcon from '@material-ui/icons/Check';
 import Styles from '../../Basics/Styles';
 import Colors from '../../Basics/Colors';

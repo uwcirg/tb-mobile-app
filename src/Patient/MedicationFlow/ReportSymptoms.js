@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { inject, observer } from 'mobx-react';
 import SymptomsList from './SymptomsList.js'
 import SimpleButton from '../../Basics/SimpleButton'
-import InteractionCard from '../../Basics/InteractionCard';
+import InteractionCard from '../../Basics/HomePageCard';
 import useStores from '../../Basics/UseStores.js';
 import { makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';

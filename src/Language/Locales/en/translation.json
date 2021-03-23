@@ -257,6 +257,10 @@
             "missedDays":{
                 "missing": "Missing Treatment Log",
                 "missing_plural": "Missing Treatment Logs"
+            },
+            "chatReminder":{
+                "body": "Did you know you can chat anonymously with other patients?",
+                "button": "Show me how"
             }
         },
         "profile": {
@@ -661,7 +665,7 @@
         "lateWarning": "Updates that were missed may show up later in your treatment"
     },
     "timeline": {
-        "warning": "This is a general outline, and may vary from one patient to another",
+        "warning": "This is a general outline, and may vary from person to person",
         "title": "Treatment Timeline",
         "expect": "This month you can expect",
         "sputumTest": "Sputum Test",

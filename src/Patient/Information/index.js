@@ -2,7 +2,7 @@ import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import raw from "raw.macro";
 import MarkdownRender from './Panel'
-import Interactioncard from '../../Basics/InteractionCard'
+import Interactioncard from '../../Basics/HomePageCard'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next';
 import Colors from '../../Basics/Colors'

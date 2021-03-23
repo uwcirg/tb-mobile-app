@@ -7,7 +7,9 @@ import Grow from '@material-ui/core/Collapse'
 import ButtonBase from '@material-ui/core/ButtonBase'
 
 const useStyles = makeStyles({
-
+    container: {
+        width: "100%"
+    },
     filledButton: {
         backgroundColor: Colors.buttonBlue,
         padding: '.5em .75em .5em .75em',
@@ -49,7 +51,7 @@ const ExpansionPanel = (props) => {
     }
 
     return (
-        <div>
+        <div className={classes.container}>
             <ButtonBase onClick={handleClick} className={`${classes.filledButton} ${props.previewClassName}`}>{props.icon}<span>{props.preview}</span>{show ? <Up /> : <Down />}</ButtonBase>
             <Grow in={show} className={classes.grow}>
                 {props.children}
