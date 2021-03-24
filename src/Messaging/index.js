@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Paper from '@material-ui/core/Paper'
-import ChevronRight from '@material-ui/icons/ChevronRight'
-import WarningIcon from '@material-ui/icons/Warning';
 import Channel from './Channel';
 import ChannelPreview from './ChannelPreview'
 import { DateTime } from 'luxon'
@@ -80,7 +77,9 @@ const Messaging = observer(() => {
                 </div>
                 <div id="intro-chat-public">
                     <h2>{t("messaging.groupDiscussion")}</h2>
-                    <SearchBar handleChange={handleSearch} placeholder={t("messaging.search")} />
+                    {/* Removing Search function for now - not many channels and need space for the 
+                    site messaging
+                    <SearchBar handleChange={handleSearch} placeholder={t("messaging.search")} /> */}
                     <Channels channels={publicChannels} />
                 </div>
             </div>

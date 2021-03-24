@@ -4,7 +4,7 @@ import {useTranslation} from 'react-i18next'
 
 const AppLogo = (props) => {
     const { t } = useTranslation('translation');
-    const BASE_URL = window._env.URL_CLIENT
+    const BASE_URL = (window && window._env) ? window._env.URL_CLIENT : ""
 
     return(
     <Title className={props.className}>

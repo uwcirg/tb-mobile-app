@@ -2,22 +2,27 @@ import { action, observable, computed } from "mobx";
 import localforage from 'localforage'
 import raw from "raw.macro";
 import { DateTime } from "luxon";
-const file = raw("../Content/TreatmentMessages.json");
+import i18n from "../Language/i18n";
 
 const DATE_KEY = "dateOfLastUpdateRead"
+const MESSAGING_REMINDER_KEY = "messagingReminderSeen"
 
 export default class EducationStore {
 
     constructor(rootStore) {
         this.rootStore = rootStore;
         this.getLocalDateOfLastRead();
+        this.getLocalMessagingReminderRead();
     }
 
-    treatmentUpdates = JSON.parse(file)
+    treatmentUpdates = i18n.t('treatmentUpdates',{returnObjects: true})
 
     @observable educationStatus = []
     @observable dateOfLastUpdateRead = DateTime.local().toISODate();;
     @observable currentDate = DateTime.local().toISODate();
+
+    //For Visibility for PatientChatReminder component, default to true so it doesnt flash
+    @observable patientChatReminderRead = true;
 
     @action setEducationStatus(response) {
 
@@ -29,11 +34,11 @@ export default class EducationStore {
         })
     }
 
-    @action setDateOfLastUpdateRead(value){
+    @action setDateOfLastUpdateRead(value) {
         this.dateOfLastUpdateRead = value;
     }
 
-    @action updateCurrentDate(){
+    @action updateCurrentDate() {
         this.currentDate = DateTime.local().toISODate();
     }
 
@@ -47,6 +52,8 @@ export default class EducationStore {
                 const messageNumber = Number(each);
                 return messageNumber <= this.rootStore.patientInformation.daysInTreatment && !this.educationStatus.includes(messageNumber)
             })
+            //Ensure that the earliest message is always shown first
+            .sort( (a,b) => a -b)
         }
         return [];
     }
@@ -59,9 +66,13 @@ export default class EducationStore {
         return this.availableMessages.length > 0 && this.treatmentUpdates[this.dayShown]
     }
 
-    @computed get hasDayPassedSinceLastUpdateRead(){
+    @computed get hasDayPassedSinceLastUpdateRead() {
         //As long as its not the same date as the last view recorded, show an update
         return this.dateOfLastUpdateRead !== this.currentDate;
+    }
+
+    @computed get patientChatReminderIsVisible(){
+        return !this.message && !this.patientChatReminderRead;
     }
 
     markEducationAsRead(wasHelpful) {
@@ -73,23 +84,48 @@ export default class EducationStore {
         })
     }
 
-    getLocalDateOfLastRead(){
+    getLocalDateOfLastRead() {
         localforage.getItem(DATE_KEY).then(value => {
             this.setDateOfLastUpdateRead(value || "");
         })
     }
 
-    setLocalDateOfLastReadAsToday(){
-        localforage.setItem(DATE_KEY,DateTime.local().toISODate()).then( value => {
+    setLocalDateOfLastReadAsToday() {
+        localforage.setItem(DATE_KEY, DateTime.local().toISODate()).then(value => {
             this.setDateOfLastUpdateRead(value);
-        } )
+        })
     }
 
-    setLocalToOldDateForTesting(isoDate){
-        localforage.setItem(DATE_KEY,isoDate).then( value => {
+    setLocalToOldDateForTesting(isoDate) {
+        localforage.setItem(DATE_KEY, isoDate).then(value => {
             this.setDateOfLastUpdateRead(value);
-        } )
+        })
     }
+
+    getLocalDateOfLastRead() {
+        localforage.getItem(DATE_KEY).then(value => {
+            this.setDateOfLastUpdateRead(value || "");
+        })
+    }
+
+    getLocalMessagingReminderRead() {
+        localforage.getItem(MESSAGING_REMINDER_KEY).then(value => {
+            this.patientChatReminderRead = value ? true : false;
+        })
+    }
+
+    setLocalMessagingReminderRead() {
+        localforage.setItem(MESSAGING_REMINDER_KEY, true).then(value => {
+            this.patientChatReminderRead = true;
+        })
+    }
+
+    checkForChanges(){
+        this.updateCurrentDate();
+        this.getLocalDateOfLastRead();
+    }
+
+
 
 
 

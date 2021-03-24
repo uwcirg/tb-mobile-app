@@ -22,6 +22,7 @@ const useStyles = makeStyles({
         textAlign: "center",
         backgroundColor: "white",
         width: "75%",
+        maxWidth: "300px",
         padding: "1em",
         borderRadius: "1em",
         position: "relative",

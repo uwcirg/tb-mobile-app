@@ -17,13 +17,15 @@ const HomePage = () => {
         <Body>
             <Greeting />
             <ActionBox />
+            {/* these components are conditionally rendered within thier implementaion */}
             <MissedReports />
             <VideoCard />
             <CachedReports />
+            <Alerts />
+            {/* end */}
             <Progress />
             <MedicationReminder />
             <Reminders />
-            <Alerts />
         </Body>
     )
 
