@@ -1,5 +1,11 @@
-## v2.2.1 (In Progress)
+## v2.3 (In Progress)
 Changes:
+
+Fix education messages
+- Show one per day, defaulting to the earliest missed one if not viewed yet
+- Added message alerting patients that they can chat anonymously
+- Added nice visuals to the treatment updates
+- Limited the width of popups for larger screens
 
 Password Reset:
 - Add in a screen to prompt a user to update their password when it has been reset
@@ -11,11 +17,11 @@ Photo Uploading State:
 - Max out image size to 650px
 - Translations for error reports / uploading state
 
-
 Behind the scenes:
-- Updated tests
+- Updated tests w/ react-testing-framework
 - Integrated Swagger documentation generation
 - Moved messaging notification generation to workers
+- Refactor treatment messages into translation software
 
 
 ## v2.2
