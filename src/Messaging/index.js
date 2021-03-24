@@ -80,7 +80,9 @@ const Messaging = observer(() => {
                 </div>
                 <div id="intro-chat-public">
                     <h2>{t("messaging.groupDiscussion")}</h2>
-                    <SearchBar handleChange={handleSearch} placeholder={t("messaging.search")} />
+                    {/* Removing Search function for now - not many channels and need space for the 
+                    site messaging
+                    <SearchBar handleChange={handleSearch} placeholder={t("messaging.search")} /> */}
                     <Channels channels={publicChannels} />
                 </div>
             </div>

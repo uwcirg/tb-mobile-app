@@ -33,5 +33,15 @@ test('update appears when its a new day', async () => {
     await waitFor(() => { 
         expect(screen.queryByTestId('education-body')).toBeInTheDocument();
     })
-    
 }) 
+
+test('disapear when marked as read for the day', async () => {
+    stores.patientStore.educationStore.updateCurrentDate();
+    stores.patientStore.educationStore.setDateOfLastUpdateRead(DateTime.local().toISODate())
+    render(<Education />)
+    await waitFor(() => { 
+        expect(screen.queryByTestId('education-body')).not.toBeInTheDocument();
+    })
+}) 
+
+
