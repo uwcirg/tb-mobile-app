@@ -120,6 +120,11 @@ export default class EducationStore {
         })
     }
 
+    checkForChanges(){
+        this.updateCurrentDate();
+        this.getLocalDateOfLastRead();
+    }
+
 
 
 

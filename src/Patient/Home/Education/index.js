@@ -105,7 +105,7 @@ const EducationalMessage = observer((props) => {
             setExited(false)
 
             //Ensure that we check if the date has changed
-            education.updateCurrentDate();
+            education.checkForChanges();
         }
     }, [isVisible])
 
