@@ -48,7 +48,7 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "test": "set CI=true && react-app-rewired test",
+    "test": "set CI=true && react-app-rewired test --env=jest-environment-jsdom-fifteen",
     "eject": "react-app-rewired eject",
     "test:coverage": "set CI=true && react-app-rewired test --coverage",
     "serve_build": "react-app-rewired build; serve ./build"
@@ -69,6 +69,7 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "jest-environment-jsdom-fifteen": "^1.0.2",
     "react-app-rewired": "^2.1.6"

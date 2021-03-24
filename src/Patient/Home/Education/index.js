@@ -125,7 +125,7 @@ const EducationalMessage = observer((props) => {
                     <Typography className={classes.header} variant="h1">{t("educationalMessages.header")} </Typography>
                     <Typography className={classes.subHeader} >{t("time.week")} {Math.round(education.dayShown / 7)}</Typography>
                     <Graphic treatmentDay={education.dayShown} />
-                    <div className={classes.body}>
+                    <div data-testid="education-body" className={classes.body}>
                         <p>{education.message}</p>
                         {education.dayShown == 5 && <PatientChatText />}
                     </div>
