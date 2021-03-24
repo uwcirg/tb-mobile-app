@@ -10,7 +10,6 @@ import MedicationReminder from './MedicationReminder'
 import CachedReports from './CachedReports'
 import VideoCard from './Videos'
 import MissedReports from './MissedDays'
-import PatientChatReminder from './PatientChatReminder'
 
 const HomePage = () => {
 
@@ -20,7 +19,6 @@ const HomePage = () => {
             <ActionBox />
             {/* these components are conditionally rendered within thier implementaion */}
             <MissedReports />
-            <PatientChatReminder />
             <VideoCard />
             <CachedReports />
             <Alerts />

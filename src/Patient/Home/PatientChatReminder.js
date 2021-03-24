@@ -4,6 +4,8 @@ import InteractionCard from '../../Basics/HomePageCard'
 import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next';
 import ExpansionPanel from '../../Basics/ExpansionPanel';
+import PopUp from '../Navigation/PopUp';
+import useStores from '../../Basics/UseStores';
 
 const useStyles = makeStyles({
 
@@ -31,12 +33,15 @@ const useStyles = makeStyles({
     }
 });
 
-const PatientChatReminder = () => {
+const PatientChatReminder = observer(() => {
 
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
+    const educationStore = useStores().patientStore.educationStore;
 
-    return (<InteractionCard className={classes.card}>
+    if(!educationStore.patientChatReminderIsVisible) return <></>
+
+    return (<PopUp className={classes.card}>
         <div className={classes.container}>
             <div className={classes.body}>
                 <img className={classes.graphic} src="/img/chat.svg" />
@@ -51,8 +56,8 @@ const PatientChatReminder = () => {
             <span> Info here</span>
         </ExpansionPanel>
         </div>
-    </InteractionCard>)
+    </PopUp>)
 
-}
+})
 
 export default PatientChatReminder;
