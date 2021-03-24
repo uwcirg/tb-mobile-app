@@ -406,6 +406,15 @@
                 "calendar": "Calendar Page",
                 "messaging": "Messaging Page"
             }
+        },
+
+        "chatReminder":{
+            "howTo": "Heres how",
+            "list":[
+                "Go to the messaging tab",
+                "Toward the bottom, tap on any of the Group Discussions",
+                "Here you can talk to other people experienceing TB. Ask questions, and recive feedback. Only your treatment assistant can see your name"
+            ]
         }
     },
     "symptoms": {
