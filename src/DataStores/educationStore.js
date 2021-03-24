@@ -2,8 +2,8 @@ import { action, observable, computed } from "mobx";
 import localforage from 'localforage'
 import raw from "raw.macro";
 import { DateTime } from "luxon";
-const file = raw("../Content/TreatmentMessages.json");
 
+const file = raw("../Content/TreatmentMessages.json");
 const DATE_KEY = "dateOfLastUpdateRead"
 const MESSAGING_REMINDER_KEY = "messagingReminderSeen"
 
@@ -52,6 +52,8 @@ export default class EducationStore {
                 const messageNumber = Number(each);
                 return messageNumber <= this.rootStore.patientInformation.daysInTreatment && !this.educationStatus.includes(messageNumber)
             })
+            //Ensure that the earliest message is always shown first
+            .sort( (a,b) => a -b)
         }
         return [];
     }

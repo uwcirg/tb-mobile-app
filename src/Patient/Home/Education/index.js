@@ -73,8 +73,8 @@ const EducationalMessage = observer((props) => {
     const { t } = useTranslation('translation');
 
     const classes = useStyles();
-    const { patientUIStore, patientStore } = useStores();
-    const { educationStore: education } = useStores().patientStore;
+    const { patientUIStore, patientStore} = useStores();
+    const { educationStore: education } = patientStore;
 
     const isVisible = usePageVisibility();
     const [exited, setExited] = useState(false);
