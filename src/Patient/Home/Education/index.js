@@ -26,6 +26,7 @@ const useStyles = makeStyles({
         padding: ".5em",
         "& > p": {
             textAlign: "left",
+            marginTop: 0
         },
         "& > h2": {
             fontWeight: "bold",
@@ -78,6 +79,10 @@ const useStyles = makeStyles({
         "& > li":{
             marginTop: ".5em",
         }
+    },
+    howTo:{
+        margin: 0,
+        padding: 0
     }
 })
 
@@ -156,7 +161,7 @@ const PatientChatText = () => {
     const { t } = useTranslation('translation');
     return(
         <>
-        <p>{t('patient.chatReminder.howTo')}</p>
+        <p className={classes.howTo}>{t('patient.chatReminder.howTo')}:</p>
         <ol className={classes.list}>
             <li>{t('patient.chatReminder.list',{returnObjects: true})[0]} <ForumIcon style={{color: Colors.buttonBlue}} /></li>
             <li>{t('patient.chatReminder.list',{returnObjects: true})[1]}</li>

@@ -2,8 +2,8 @@ import { action, observable, computed } from "mobx";
 import localforage from 'localforage'
 import raw from "raw.macro";
 import { DateTime } from "luxon";
+import i18n from "../Language/i18n";
 
-const file = raw("../Content/TreatmentMessages.json");
 const DATE_KEY = "dateOfLastUpdateRead"
 const MESSAGING_REMINDER_KEY = "messagingReminderSeen"
 
@@ -15,7 +15,7 @@ export default class EducationStore {
         this.getLocalMessagingReminderRead();
     }
 
-    treatmentUpdates = JSON.parse(file)
+    treatmentUpdates = i18n.t('treatmentUpdates',{returnObjects: true})
 
     @observable educationStatus = []
     @observable dateOfLastUpdateRead = DateTime.local().toISODate();;

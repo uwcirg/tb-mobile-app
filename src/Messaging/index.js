@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Paper from '@material-ui/core/Paper'
-import ChevronRight from '@material-ui/icons/ChevronRight'
-import WarningIcon from '@material-ui/icons/Warning';
 import Channel from './Channel';
 import ChannelPreview from './ChannelPreview'
 import { DateTime } from 'luxon'
