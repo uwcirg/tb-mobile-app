@@ -68,7 +68,7 @@ const useStyles = makeStyles({
 const PatientInfo = observer((props) => {
 
     const classes = useStyles();
-    const { practitionerStore } = useStores();
+    const { practitionerStore, patientProfileStore } = useStores();
     const { t, i18n } = useTranslation('translation');
 
     const getDate = (iso) => {
@@ -78,6 +78,7 @@ const PatientInfo = observer((props) => {
     return (<div className={classes.container}>
         {practitionerStore.selectedPatient.details && <div className={classes.profileHeader}>
             <h1>{practitionerStore.selectedPatient.details.fullName}</h1>
+            <button onClick={patientProfileStore.toggleOnChangeDetails}>Edit Details</button>
                 </div>}
         <div className={classes.detailGroup}>
             <Item top={t("coordinator.patientProfile.age")} bottom={practitionerStore.selectedPatient.details.age || "N/A"} />

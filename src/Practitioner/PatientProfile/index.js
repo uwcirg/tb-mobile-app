@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import { observer} from 'mobx-react'
 import Styles from '../../Basics/Styles';
-import { DateTime } from 'luxon';
 import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
 import ResetPassword from './ResetPassword'
@@ -16,6 +15,7 @@ import TreatmentTimeline from '../../Basics/TreatmentTimeline'
 import ReportingHistory from './ReportingHistory'
 import { Typography } from '@material-ui/core';
 import AddNote from './AddNote'
+import ChangePatientDetails from './ChangePatientDetails'
 
 const useStyles = makeStyles({
     listItem: {
@@ -63,20 +63,14 @@ const useStyles = makeStyles({
 
 const Profile = observer((props) => {
 
-    const [onReset, setReset] = useState(false);
-    const [onNote,setNote] = useState(true);
     const { practitionerStore, practitionerUIStore, patientProfileStore} = useStores();
     const classes = useStyles();
     const { t } = useTranslation('translation');
 
 
     const closeResetPassword = () => {
-        setReset(false)
+        patientProfileStore.closeResetPassword();
         practitionerStore.newActivationCode = ""
-    }
-
-    const openResetPassword = () => {
-        setReset(true);
     }
 
     const closeNote = () => {
@@ -95,9 +89,10 @@ const Profile = observer((props) => {
         <>
             {patientProfileStore.onPasswordReset && <ResetPassword />}
             {practitionerUIStore.onAddPatientNote && <AddNote close={closeNote} />}
+            {patientProfileStore.onChangeDetails && <ChangePatientDetails />}
                 <div className={classes.patientContainer}>
                     <div className={classes.top}>
-                        <PatientInfo openResetPassword={openResetPassword} />
+                        <PatientInfo />
                         <TreatmentStatus />
                         <SymptomSummary />
                     </div>

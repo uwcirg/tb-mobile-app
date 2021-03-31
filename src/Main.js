@@ -25,13 +25,17 @@ const theme = createMuiTheme({
   },
   palette: {
     primary: {
-      main: Colors.buttonBlue
+      main: Colors.buttonBlue,
+      error: Colors.warningRed
     },
     secondary: {
       main: "#FFFFFF"
     },
     badge:{
       main: Colors.warningRed
+    },
+    error:{
+      main: "#EB5757"
     }
   }
 });

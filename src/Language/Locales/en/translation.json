@@ -566,6 +566,11 @@
         "false": "false",
         "daysInTreatment": "Days In Treatment",
         "patientProfile": {
+            "editDetails":{
+                "title": "Edit Patient Details",
+                "newPhone": "New Phone Number",
+                "warning": "If the patients phone number is changed, they will need to log in with the new phone number you have provided."
+            },
             "addNote": {
                 "header": "New note for",
                 "title": "Title",

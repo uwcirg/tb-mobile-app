@@ -9,15 +9,18 @@ export default class PatientProfileStore {
     }
 
     @observable onPasswordReset = false;
+    @observable onChangeDetails = true;
 
     @action toggleOnPasswordReset = () => {
         this.onPasswordReset = !this.onPasswordReset;
     }
 
-    @action testApi = () =>{
-        this.apiHelper.executeRawRequest('/health-check',"GET").then( (res) => {
-            console.log(res);
-        })
+    @action toggleOnChangeDetails = () => {
+        this.onChangeDetails = !this.onChangeDetails;
+    }
+
+    @action closeResetPassword = () => {
+        this.onPasswordReset = false;
     }
 
 
