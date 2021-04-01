@@ -11,6 +11,9 @@ export default class PatientProfileStore {
     @observable onPasswordReset = false;
     @observable onChangeDetails = true;
 
+    @observable givenName = "";
+    @observable familyName = "";
+
     @action toggleOnPasswordReset = () => {
         this.onPasswordReset = !this.onPasswordReset;
     }
@@ -21,6 +24,14 @@ export default class PatientProfileStore {
 
     @action closeResetPassword = () => {
         this.onPasswordReset = false;
+    }
+
+    @action setGivenName = (update) => {
+        this.givenName = update;
+    }
+
+    @action setFamilyName = (update) => {
+        this.familyName = update;
     }
 
 
