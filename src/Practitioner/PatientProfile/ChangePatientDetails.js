@@ -6,11 +6,24 @@ import MuiButton from '../../Basics/MuiButton';
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@material-ui/core';
+import { InputLabel, makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Colors from '../../Basics/Colors';
+import EditableField from '../Shared/EditableField'
 
 const useStyles = makeStyles({
+    textInput: {
+        "& > div > input": {
+            padding: "10px"
+        }
+    },
+    inputs: {
+        width: "70%",
+    },
+    label: {
+        display: "block",
+        marginBottom: "5px"
+    },
 
     popOverBody: {
         marginBottom: "1em"
@@ -33,6 +46,9 @@ const useStyles = makeStyles({
         "& > #submit": {
             backgroundColor: Colors.buttonBlue
         }
+    },
+    inputItem: {
+        margin: ".5em 0"
     }
 })
 
@@ -41,10 +57,12 @@ const ChangePatientDetails = observer(() => {
     const classes = useStyles();
     const { patientProfileStore, practitionerStore } = useStores();
 
-    useEffect(()=>{
+    useEffect(() => {
         patientProfileStore.givenName = practitionerStore.selectedPatient.details.givenName;
         patientProfileStore.familyName = practitionerStore.selectedPatient.details.familyName;
-    },[practitionerStore.selectedPatient.details])
+        patientProfileStore.phoneNumber = practitionerStore.selectedPatient.details.phoneNumber;
+
+    }, [practitionerStore.selectedPatient.details])
 
     return (
         <PopOver close={patientProfileStore.toggleOnChangeDetails} title={"Edit Patient Details"}>
@@ -52,23 +70,26 @@ const ChangePatientDetails = observer(() => {
                 <p>
                     {t('coordinator.patientProfile.editDetails.warning')}
                 </p>
-                <TextField
-                    label={t('coordinator.patientProfile.editDetails.newPhone')}
-                    placeholder="123456789"
-                    fullWidth
-                ></TextField>
-                <TextField
-                    label={t('patient.userFields.firstName')}
-                    value={patientProfileStore.givenName}
-                    onChange={(e) => {patientProfileStore.setGivenName(e.target.value)}}
-                    fullWidth
-                ></TextField>
-                <TextField
-                    label={t('patient.userFields.lastName')}
-                    value={patientProfileStore.familyName}
-                    onChange={(e) => {patientProfileStore.setFamilyName(e.target.value)}}
-                    fullWidth
-                ></TextField>
+                <div className={classes.inputs}>
+                    <InputItem
+                        labelText={"Phone Number"}
+                        value={patientProfileStore.phoneNumber}
+                        id="phone-number"
+
+                    />
+                    <InputItem
+                        labelText={"First Name"}
+                        value={patientProfileStore.givenName}
+                        id="first-name"
+
+                    />
+                    <InputItem
+                        labelText={"Last Name"}
+                        value={patientProfileStore.familyName}
+                        id="last-name"
+
+                    />
+                </div>
                 <div className={classes.formControl}>
                     <Button disableElevation id="cancel" variant="contained" >Cancel</Button>
                     <Button disableElevation id="submit" variant="contained" >Submit</Button>
@@ -77,5 +98,22 @@ const ChangePatientDetails = observer(() => {
             </form>
         </PopOver>)
 });
+
+const InputItem = (props) => {
+    const classes = useStyles();
+
+    return (
+        <div className={classes.inputItem}>
+            <label className={classes.label} for={props.id}>{props.labelText}</label>
+            <TextField
+                className={classes.textInput}
+                id={props.id}
+                variant="outlined"
+                value={props.value}
+                fullWidth
+            />
+        </div>
+    )
+}
 
 export default ChangePatientDetails;
