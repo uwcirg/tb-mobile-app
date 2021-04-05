@@ -86,6 +86,12 @@ export default class PatientProfileStore {
         this.changes.phoneNumber = this.selectedPatient.details.phoneNumber;
     }
 
+    @computed get hasChanges(){
+        return this.changes.givenName !== this.selectedPatient.details.givenName ||
+        this.changes.familyName != this.selectedPatient.details.familyName ||
+        this.changes.phoneNumber != this.selectedPatient.details.phoneNumber
+    }
+
     //Get detials to fill in patient profile information
     getPatientDetails = (id) => {
         this.resetProfileState();
@@ -108,7 +114,7 @@ export default class PatientProfileStore {
     }
 
     @computed get selectedPatientReports() {
-        return Object.values(this.selectedPatient.reports)
+        return Object.values(this.selectedPatient.reports).splice(0,10)
     }
 
     @action setPatientNotes(notes) {

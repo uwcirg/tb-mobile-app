@@ -71,25 +71,25 @@ const ChangePatientDetails = observer(() => {
                     <InputItem
                         labelText={"Phone Number"}
                         value={patientProfileStore.changes.phoneNumber}
-                        id="phone-number"
+                        id="phoneNumber"
 
                     />
                     <InputItem
                         labelText={"First Name"}
                         value={patientProfileStore.changes.givenName}
-                        id="first-name"
+                        id="givenName"
 
                     />
                     <InputItem
                         labelText={"Last Name"}
                         value={patientProfileStore.changes.familyName}
-                        id="last-name"
+                        id="familyName"
 
                     />
                 </div>
                 <div className={classes.formControl}>
                     <Button disableElevation id="cancel" variant="contained" >Cancel</Button>
-                    <Button disableElevation id="submit" variant="contained" >Submit</Button>
+                    <Button disabled={!patientProfileStore.hasChanges} disableElevation id="submit" variant="contained" >Submit</Button>
                 </div>
 
             </form>
@@ -98,6 +98,7 @@ const ChangePatientDetails = observer(() => {
 
 const InputItem = (props) => {
     const classes = useStyles();
+    const { patientProfileStore } = useStores();
 
     return (
         <div className={classes.inputItem}>
@@ -108,6 +109,9 @@ const InputItem = (props) => {
                 variant="outlined"
                 value={props.value}
                 fullWidth
+                onChange={e => {
+                    patientProfileStore.changes[props.id] = e.target.value;
+                }}
             />
         </div>
     )
