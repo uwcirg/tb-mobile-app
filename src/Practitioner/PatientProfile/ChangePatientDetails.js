@@ -55,14 +55,11 @@ const useStyles = makeStyles({
 const ChangePatientDetails = observer(() => {
     const { t } = useTranslation('translation');
     const classes = useStyles();
-    const { patientProfileStore, practitionerStore } = useStores();
+    const { patientProfileStore } = useStores();
 
     useEffect(() => {
-        patientProfileStore.givenName = practitionerStore.selectedPatient.details.givenName;
-        patientProfileStore.familyName = practitionerStore.selectedPatient.details.familyName;
-        patientProfileStore.phoneNumber = practitionerStore.selectedPatient.details.phoneNumber;
-
-    }, [practitionerStore.selectedPatient.details])
+        patientProfileStore.initalizeChanges();
+    }, [patientProfileStore.selectedPatient.details])
 
     return (
         <PopOver close={patientProfileStore.toggleOnChangeDetails} title={"Edit Patient Details"}>
@@ -73,19 +70,19 @@ const ChangePatientDetails = observer(() => {
                 <div className={classes.inputs}>
                     <InputItem
                         labelText={"Phone Number"}
-                        value={patientProfileStore.phoneNumber}
+                        value={patientProfileStore.changes.phoneNumber}
                         id="phone-number"
 
                     />
                     <InputItem
                         labelText={"First Name"}
-                        value={patientProfileStore.givenName}
+                        value={patientProfileStore.changes.givenName}
                         id="first-name"
 
                     />
                     <InputItem
                         labelText={"Last Name"}
-                        value={patientProfileStore.familyName}
+                        value={patientProfileStore.changes.familyName}
                         id="last-name"
 
                     />

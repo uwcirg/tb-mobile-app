@@ -20,6 +20,9 @@ const useStyles = makeStyles({
             marginTop: "1em",
             width: "50%"
         }
+    },
+    bottomInput:{
+        marginTop: "1em"
     }
 })
 
@@ -53,6 +56,7 @@ const AddNote = observer((props) => {
                 label={t("coordinator.patientProfile.addNote.title")}
             />
             <TextField
+                className={classes.bottomInput}
                 id="note-input"
                 onChange={e => {setNote(e.target.value)}}
                 value={note}

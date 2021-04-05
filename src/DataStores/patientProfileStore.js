@@ -11,8 +11,6 @@ export default class PatientProfileStore {
     @observable onPasswordReset = false;
     @observable onChangeDetails = !true;
 
-    @observable givenName = "";
-    @observable familyName = "";
 
     @observable selectedPatient = {
         symptomSummary: {},
@@ -21,6 +19,12 @@ export default class PatientProfileStore {
         notes: [],
         loaded: false,
         accessError: false
+    }
+
+    @observable changes = {
+        givenName: "",
+        familyName: "", 
+        phoneNumber: ""
     }
 
     @action toggleOnPasswordReset = () => {
@@ -74,6 +78,12 @@ export default class PatientProfileStore {
 
     @action setPatientSymptomSummary = (symptoms) => {
         this.selectedPatient.symptomSummary = symptoms
+    }
+
+    @action initalizeChanges = () => {
+        this.changes.familyName = this.selectedPatient.details.familyName;
+        this.changes.givenName = this.selectedPatient.details.givenName;
+        this.changes.phoneNumber = this.selectedPatient.details.phoneNumber;
     }
 
     //Get detials to fill in patient profile information

@@ -78,7 +78,7 @@ const useStyles = makeStyles({
 const TreatmentStatus = observer((props) => {
 
     const { t, i18n } = useTranslation('translation');
-    const patient = useStores().practitionerStore.selectedPatient.details;
+    const patient = useStores().patientProfileStore.selectedPatient.details;
     const classes = useStyles();
 
     return (<div className={classes.container}>

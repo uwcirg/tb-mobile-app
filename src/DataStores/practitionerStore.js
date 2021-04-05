@@ -359,20 +359,6 @@ export class PractitionerStore extends UserStore {
         })
     }
 
-    getPatientNotes = (patientID) => {
-        return this.executeRawRequest(`/patient/${patientID || this.selectedPatient.details.id}/notes`).then(response => {
-            this.setPatientNotes(response)
-        })
-    }
-
-    postPatientNote = (title, note) => {
-        const body = { title: title, note: note }
-        this.executeRawRequest(`/patient/${this.selectedPatient.details.id}/notes`, 'POST', body).then(response => {
-            this.getPatientNotes();
-            return response
-        })
-    }
-
     getSupportRequests = () => {
         this.executeRequest("getSupportRequests").then(response => {
             this.filteredPatients.support = response.map(each => { return { patientId: each } })
