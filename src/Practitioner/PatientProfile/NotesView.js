@@ -7,31 +7,27 @@ import Colors from '../../Basics/Colors'
 import { useTranslation } from 'react-i18next';
 import ReportItem from './ReportCardItem';
 
-const useStyles = makeStyles({
+const Notes = observer(() => {
 
-})
 
-const CompName = observer(() => {
-
-    const classes = useStyles();
-    const notes = useStores().practitionerStore.selectedPatient.notes;
-    const { t, i18n } = useTranslation('translation');
+    const notes = useStores().patientProfileStore.selectedPatient.notes;
+    const { t } = useTranslation('translation');
 
     return (<div>
         {notes.length > 0 ? notes.map(note => {
             return (
-                <ReportCard 
-                tagText={t('note')}
-                tagColor={Colors.noteBlue}
-                date={note.createdAt}>
-                    <ReportItem title={"Title"} content={note.title} />
-                    <ReportItem title={"Detail"} content={note.note} />
+                <ReportCard
+                    tagText={t('note')}
+                    tagColor={Colors.noteBlue}
+                    date={note.createdAt}>
+                    <ReportItem title={t('coordinator.patientProfile.notes.title')} content={note.title} />
+                    <ReportItem title={t('coordinator.patientProfile.notes.detail')} content={note.note} />
                 </ReportCard>
             )
-        }) : <p> No Notes Found</p>}
+        }) : <p>{t('coordinator.patientProfile.notes.noneFound')}</p>}
 
     </div>)
 
 })
 
-export default CompName;
+export default Notes;

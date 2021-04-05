@@ -77,7 +77,7 @@ const ReportingHistoryLabel = (props) => {
             <Typography variant="h2">{t('coordinator.patientProfile.reportingHistory')}</Typography>
             <ButtonGroup className={classes.buttonGroup} size="small">
                 <Button onClick={() => { props.setVisible('reports') }} className={props.visible === 'reports' && "selected"}>{t('coordinator.patientProfile.listReports')}</Button>
-                <Button onClick={() => { props.setVisible('calendar') }} className={props.visible  === 'calendar' && "selected"}>{t('coordinator.patientProfile.calendarReports')}</Button>
+                <Button onClick={() => { props.setVisible('calendar') }} className={props.visible === 'calendar' && "selected"}>{t('coordinator.patientProfile.calendarReports')}</Button>
                 <Button onClick={() => { props.setVisible('notes') }} className={props.visible === 'notes' && "selected"}>{t('notes')}</Button>
             </ButtonGroup>
         </div>)

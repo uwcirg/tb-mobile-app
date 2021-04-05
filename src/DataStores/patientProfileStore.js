@@ -20,7 +20,7 @@ export default class PatientProfileStore {
         details: {},
         notes: [],
         loaded: false,
-        authError: false
+        accessError: false
     }
 
     @action toggleOnPasswordReset = () => {
@@ -53,18 +53,18 @@ export default class PatientProfileStore {
     }
 
     @action setAuthError = () => {
-        this.selectedPatient.authError = true;
+        this.selectedPatient.accessError = true;
     }
 
     @action resetProfileState = () => {
-        this.jujselectedPatient = {
+        this.selectedPatient = {
             reportsLoading: false,
             symptomSummary: {},
             reports: {},
             details: {},
             notes: [],
             loaded: false,
-            authError: false
+            accessError: false
         }
     }
 
@@ -72,11 +72,15 @@ export default class PatientProfileStore {
         this.selectedPatient.reports =  reports;
     }
 
+    @action setPatientSymptomSummary = (symptoms) => {
+        this.selectedPatient.symptomSummary = symptoms
+    }
+
     //Get detials to fill in patient profile information
     getPatientDetails = (id) => {
         this.resetProfileState();
         this.apiHelper.executeRawRequest(`/v2/patient/${id}`, "GET").then(response => {
-            if (response.error && response.code == 401) {
+            if (response.error && response.code >= 400 ) {
                 this.setAuthError();
             }
             this.setSelectedPatientDetails(response);
@@ -86,16 +90,37 @@ export default class PatientProfileStore {
             this.addPatientReports(response);
         })
 
-        // this.apiHelper.executeRawRequest(`/patient/${id}/symptom_summary`).then(response => {
-        //     this.setPatientSymptomSummary(response);
-        // })
+        this.apiHelper.executeRawRequest(`/patient/${id}/symptom_summary`).then(response => {
+            this.setPatientSymptomSummary(response);
+        })
 
-        //this.getPatientNotes(id);
+        this.getPatientNotes(id);
     }
 
     @computed get selectedPatientReports() {
         return Object.values(this.selectedPatient.reports)
     }
+
+    @action setPatientNotes(notes) {
+        this.selectedPatient.notes = notes;
+    }
+
+
+    getPatientNotes = (patientID) => {
+        return this.apiHelper.executeRawRequest(`/patient/${patientID || this.selectedPatient.details.id}/notes`).then(response => {
+            this.setPatientNotes(response)
+        })
+    }
+
+    postPatientNote = (title, note) => {
+        const body = { title: title, note: note }
+        this.apiHelper.executeRawRequest(`/patient/${this.selectedPatient.details.id}/notes`, 'POST', body).then(response => {
+            this.getPatientNotes();
+            return response
+        })
+    }
+
+
 
 
 

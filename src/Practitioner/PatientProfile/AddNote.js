@@ -26,7 +26,7 @@ const useStyles = makeStyles({
 const AddNote = observer((props) => {
     const { t, i18n } = useTranslation('translation');
     const classes = useStyles();
-    const { practitionerStore, practitionerUIStore } = useStores();
+    const { practitionerStore, practitionerUIStore, patientProfileStore } = useStores();
 
     const [title,setTitle] = useState("");
     const [note,setNote] = useState("");
@@ -39,7 +39,7 @@ const AddNote = observer((props) => {
     },[])
 
     const submitNote = () => {
-        practitionerStore.postPatientNote(title,note);
+        patientProfileStore.postPatientNote(title,note);
         practitionerUIStore.closeAddPatientNote();
     }
 

@@ -315,10 +315,6 @@ export class PractitionerStore extends UserStore {
         this.cohortSummary.data = response;
     }
 
-    @action setPatientSymptomSummary = (symptoms) => {
-        this.selectedPatient.symptomSummary = symptoms
-    }
-
     @action setResolutionsSummary = (response) => {
         this.resolutionSummary.dailyCount = response.count;
         this.resolutionSummary.takenMedication = response.medicationReporting.true
@@ -340,23 +336,6 @@ export class PractitionerStore extends UserStore {
     @action setMissingPhotos(patients) {
         const values = Object.keys(patients).map(key => { return { patientId: key, lastDate: patients[key][0].date, numberOfDays: patients[key].length, data: patients[key] } });
         this.filteredPatients.missedPhoto = values;
-    }
-
-    //Get detials to fill in patient profile information
-    getPatientDetails = (id) => {
-        this.executeRawRequest(`/practitioner/patient/${id}`, "GET").then(response => {
-            this.setSelectedPatientDetails(response);
-        })
-        //Must fetch reports seperately due to key tranform in Rails::AMS removing dashes ISO date keys :(
-        this.executeRawRequest(`/patient/${id}/reports`, "GET").then(response => {
-            this.setPatientReports(response);
-        })
-
-        this.executeRawRequest(`/patient/${id}/symptom_summary`).then(response => {
-            this.setPatientSymptomSummary(response);
-        })
-
-        this.getPatientNotes(id);
     }
 
     getCohortSummary = () => {

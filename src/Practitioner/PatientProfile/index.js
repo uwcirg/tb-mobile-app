@@ -59,7 +59,7 @@ const useStyles = makeStyles({
         width: "95%",
         display: "flex"
     },
-    loading:{
+    message:{
         width: "100%",
         height: "100%",
         ...Styles.flexCenter
@@ -97,7 +97,7 @@ const Profile = observer((props) => {
             {patientProfileStore.onChangeDetails && <ChangePatientDetails />}
             
                 {patientProfileStore.selectedPatient.loaded ? 
-                <>{!patientProfileStore.selectedPatient.authError ? <div className={classes.patientContainer}>
+                <>{!patientProfileStore.selectedPatient.accessError ? <div className={classes.patientContainer}>
                     <div className={classes.top}>
                         <PatientInfo />
                         <TreatmentStatus />
@@ -110,7 +110,7 @@ const Profile = observer((props) => {
                             <TreatmentTimeline weeksInTreatment={patientProfileStore.selectedPatient.details.weeksInTreatment} />
                         </div>
                     </div>
-                </div> : <p> You Cannot Access that patients records</p> } </>: <Loading />}
+                </div> : <p className={classes.message}>{t('coordinator.patientProfile.accessError')}</p> } </>: <Loading />}
 
         </>)
 });
@@ -120,7 +120,7 @@ const Loading = () => {
     const classes = useStyles();
     const { t } = useTranslation('translation');
     return(
-    <div className={classes.loading}>
+    <div className={classes.message}>
         <h1> Loading ...</h1>
 
     </div>)

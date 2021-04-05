@@ -566,6 +566,12 @@
         "false": "false",
         "daysInTreatment": "Days In Treatment",
         "patientProfile": {
+            "notes":{
+                "noneFound": "No Notes Found",
+                "title": "Title",
+                "detail": "Detail"
+            },
+            "accessError": "This patient does not exist at your site",
             "editDetails":{
                 "title": "Edit Patient Details",
                 "newPhone": "New Phone Number",
