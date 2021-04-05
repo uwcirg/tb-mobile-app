@@ -27,6 +27,8 @@ export default class PatientProfileStore {
         phoneNumber: ""
     }
 
+    @observable reportSplice = 10;
+
     @action toggleOnPasswordReset = () => {
         this.onPasswordReset = !this.onPasswordReset;
     }
@@ -70,6 +72,7 @@ export default class PatientProfileStore {
             loaded: false,
             accessError: false
         }
+        this.reportSplice = 10;
     }
 
     @action addPatientReports = (reports) => {
@@ -114,11 +117,15 @@ export default class PatientProfileStore {
     }
 
     @computed get selectedPatientReports() {
-        return Object.values(this.selectedPatient.reports).splice(0,10)
+        return Object.values(this.selectedPatient.reports).splice(0,this.reportSplice)
     }
 
     @action setPatientNotes(notes) {
         this.selectedPatient.notes = notes;
+    }
+
+    @action loadMoreReports = () => {
+        this.reportSplice += 10;
     }
 
 

@@ -14,12 +14,13 @@ import FeelingGood from '@material-ui/icons/Mood'
 import FeelingBad from '@material-ui/icons/MoodBad'
 import ReportCard from './ReportCard';
 import ReportItem from './ReportCardItem';
+import Button from '@material-ui/core/Button'
 
 const useStyles = makeStyles({
     container: {
         flexGrow: "1",
-        maxHeight: "78vh",
-        overflow: "scroll"
+        overflow: "scroll",
+        maxHeight: "60vh"
     },
     details: {
         display: "flex",
@@ -44,6 +45,13 @@ const useStyles = makeStyles({
     },
     red: {
         color: "red"
+    },
+    loadButton:{
+        border: `1px solid ${Colors.buttonBlue}`,
+        color: Colors.buttonBlue,
+        width: "90%",
+        margin: "auto",
+        marginBottom: "2em"
     }
 })
 
@@ -57,6 +65,7 @@ const ReportView = observer(() => {
         {patientProfileStore.selectedPatientReports.length > 0 && patientProfileStore.selectedPatientReports.map(report => {
             return <Report key={`patient-report-${report.id}`} report={report} />
         })}
+        <Button disableElevation className={classes.loadButton} fullWidth onClick={patientProfileStore.loadMoreReports}>Click to load more</Button>
     </div>)
 
 })
