@@ -49,12 +49,12 @@ const useStyles = makeStyles({
 
 const ReportView = observer(() => {
 
-    const { practitionerStore } = useStores();
+    const { patientProfileStore } = useStores();
     const classes = useStyles();
 
     //for dev slice(0,3) to fix error loading
     return (<div className={classes.container}>
-        {practitionerStore.selectedPatientReports.length > 0 && practitionerStore.selectedPatientReports.map(report => {
+        {patientProfileStore.selectedPatientReports.length > 0 && patientProfileStore.selectedPatientReports.map(report => {
             return <Report key={`patient-report-${report.id}`} report={report} />
         })}
     </div>)

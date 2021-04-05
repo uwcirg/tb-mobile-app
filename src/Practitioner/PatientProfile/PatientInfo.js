@@ -76,17 +76,17 @@ const PatientInfo = observer((props) => {
     }
 
     return (<div className={classes.container}>
-        {practitionerStore.selectedPatient.details && <div className={classes.profileHeader}>
-            <h1>{practitionerStore.selectedPatient.details.fullName}</h1>
+        {patientProfileStore.selectedPatient.details && <div className={classes.profileHeader}>
+            <h1>{patientProfileStore.selectedPatient.details.fullName}</h1>
             <button onClick={patientProfileStore.toggleOnChangeDetails}>Edit Details</button>
                 </div>}
         <div className={classes.detailGroup}>
-            <Item top={t("coordinator.patientProfile.age")} bottom={practitionerStore.selectedPatient.details.age || "N/A"} />
-            <Item top={t("coordinator.patientProfile.gender")} bottom={practitionerStore.selectedPatient.details.gender|| "N/A"} />
-            <Item top={t("coordinator.patientProfile.phoneNumber")} bottom={practitionerStore.selectedPatient.details.phoneNumber} />
+            <Item top={t("coordinator.patientProfile.age")} bottom={patientProfileStore.selectedPatient.details.age || "N/A"} />
+            <Item top={t("coordinator.patientProfile.gender")} bottom={patientProfileStore.selectedPatient.details.gender|| "N/A"} />
+            <Item top={t("coordinator.patientProfile.phoneNumber")} bottom={patientProfileStore.selectedPatient.details.phoneNumber} />
         </div>
-        <Item top={t("coordinator.patientProfile.treatmentStart")} bottom={getDate(practitionerStore.selectedPatient.details.treatmentStart)} />
-        <Item top={t("coordinator.patientProfile.lastContacted")} bottom={getDate(practitionerStore.selectedPatient.details.lastContacted)} />
+        <Item top={t("coordinator.patientProfile.treatmentStart")} bottom={getDate(patientProfileStore.selectedPatient.details.treatmentStart)} />
+        <Item top={t("coordinator.patientProfile.lastContacted")} bottom={getDate(patientProfileStore.selectedPatient.details.lastContacted)} />
 
         <Buttons {...props} />
 
@@ -100,7 +100,7 @@ const Buttons = observer((props) => {
     const { t } = useTranslation('translation');
 
     const messagePatient = () => {
-        practitionerUIStore.goToChannel(practitionerStore.selectedPatient.details.channelId);
+        practitionerUIStore.goToChannel(patientProfileStore.selectedPatient.details.channelId);
     }
 
 

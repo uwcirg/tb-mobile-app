@@ -59,6 +59,11 @@ const useStyles = makeStyles({
         width: "95%",
         display: "flex"
     },
+    loading:{
+        width: "100%",
+        height: "100%",
+        ...Styles.flexCenter
+    }
 })
 
 const Profile = observer((props) => {
@@ -78,7 +83,7 @@ const Profile = observer((props) => {
     }
 
     useEffect(() => {
-        practitionerStore.getPatientDetails(props.id);
+        patientProfileStore.getPatientDetails(props.id);
 
         return function cleanup() {
             closeResetPassword();
@@ -90,7 +95,9 @@ const Profile = observer((props) => {
             {patientProfileStore.onPasswordReset && <ResetPassword />}
             {practitionerUIStore.onAddPatientNote && <AddNote close={closeNote} />}
             {patientProfileStore.onChangeDetails && <ChangePatientDetails />}
-                <div className={classes.patientContainer}>
+            
+                {patientProfileStore.selectedPatient.loaded ? 
+                <>{!patientProfileStore.selectedPatient.authError ? <div className={classes.patientContainer}>
                     <div className={classes.top}>
                         <PatientInfo />
                         <TreatmentStatus />
@@ -100,12 +107,23 @@ const Profile = observer((props) => {
                         <ReportingHistory />
                         <div className={classes.treatmentTimeline}>
                             <Typography variant={"h2"}>{t('timeline.title')}</Typography>
-                            <TreatmentTimeline weeksInTreatment={practitionerStore.selectedPatient.details.weeksInTreatment} />
+                            <TreatmentTimeline weeksInTreatment={patientProfileStore.selectedPatient.details.weeksInTreatment} />
                         </div>
                     </div>
-                </div>
+                </div> : <p> You Cannot Access that patients records</p> } </>: <Loading />}
 
         </>)
 });
+
+
+const Loading = () => {
+    const classes = useStyles();
+    const { t } = useTranslation('translation');
+    return(
+    <div className={classes.loading}>
+        <h1> Loading ...</h1>
+
+    </div>)
+}
 
 export default Profile;

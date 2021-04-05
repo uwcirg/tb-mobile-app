@@ -310,15 +310,6 @@ export class PractitionerStore extends UserStore {
             }
     }
 
-    @action setPatientReports = (reports) => {
-        this.selectedPatient.reports = reports;
-        this.selectedPatient.reportsLoading = false;
-    }
-
-    @action setSelectedPatientDetails = (details) => {
-        this.selectedPatient.details = details;
-    }
-
     @action setCohortSummary = (response) => {
         this.cohortSummary.loading = false;
         this.cohortSummary.data = response;
@@ -332,10 +323,6 @@ export class PractitionerStore extends UserStore {
         this.resolutionSummary.dailyCount = response.count;
         this.resolutionSummary.takenMedication = response.medicationReporting.true
         this.resolutionSummary.notTakenMedication = response.medicationReporting.false
-    }
-
-    @computed get selectedPatientReports() {
-        return Object.values(this.selectedPatient.reports)
     }
 
     @computed get totalTasks() {

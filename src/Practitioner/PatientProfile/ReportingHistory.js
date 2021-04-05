@@ -9,7 +9,6 @@ import ReportsView from './ReportList';
 import Typography from '@material-ui/core/Typography';
 import Colors from '../../Basics/Colors';
 import Styles from '../../Basics/Styles';
-import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import NotesView from './NotesView'
 
@@ -46,7 +45,7 @@ const ReportingHistory = observer(() => {
     const [visible, setVisible] = useState('reports');
     const [day, setDay] = useState(new Date())
     const classes = useStyles();
-    const { practitionerStore } = useStores();
+    const { patientProfileStore } = useStores();
 
     const handleChange = (change) => {
         setDay(change)
@@ -58,8 +57,8 @@ const ReportingHistory = observer(() => {
                 {visible === "calendar" && <CalendarTest
                     selectedDay={day}
                     handleChange={handleChange}
-                    reports={practitionerStore.selectedPatient.reports}
-                    treatmentStart={practitionerStore.selectedPatient.details.treatmentStart}
+                    reports={patientProfileStore.selectedPatient.reports}
+                    treatmentStart={patientProfileStore.selectedPatient.details.treatmentStart}
                 />}
                 {visible === "reports" && <ReportsView />}
                 {visible === "notes" && <NotesView />}
