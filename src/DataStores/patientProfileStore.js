@@ -136,6 +136,15 @@ export default class PatientProfileStore {
         })
     }
 
+    postPatientChanges = () => {
+        this.apiHelper.executeRawRequest(`/v2/patient/${this.selectedPatient.details.id}`,'PATCH', this.changes).then(response =>{
+            if(!response.error){
+                console.log("Success")
+                this.getPatientDetails(this.selectedPatient.details.id);
+            }
+        })
+    }
+
 
 
 

@@ -88,8 +88,8 @@ const ChangePatientDetails = observer(() => {
                     />
                 </div>
                 <div className={classes.formControl}>
-                    <Button disableElevation id="cancel" variant="contained" >Cancel</Button>
-                    <Button disabled={!patientProfileStore.hasChanges} disableElevation id="submit" variant="contained" >Submit</Button>
+                    <Button disableElevation onClick={patientProfileStore.toggleOnChangeDetails} id="cancel" variant="contained" >Cancel</Button>
+                    <Button disabled={!patientProfileStore.hasChanges} onClick={patientProfileStore.postPatientChanges} disableElevation id="submit" variant="contained" >Submit</Button>
                 </div>
 
             </form>
