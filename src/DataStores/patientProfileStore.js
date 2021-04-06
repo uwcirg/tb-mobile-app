@@ -80,7 +80,7 @@ export default class PatientProfileStore {
     }
 
     @action setPatientSymptomSummary = (symptoms) => {
-        this.selectedPatient.symptomSummary = symptoms
+        this.selectedPatient.symptomSummary = symptoms;
     }
 
     @action initalizeChanges = () => {

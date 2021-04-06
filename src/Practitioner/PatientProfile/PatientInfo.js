@@ -58,8 +58,10 @@ const useStyles = makeStyles({
     buttons: {
         marginTop: "auto",
         display: "flex",
+        flexWrap: "wrap",
         "& > button": {
-            marginRight: "1em"
+            marginTop: ".5em",
+            marginRight: ".5em"
         }
     }
 

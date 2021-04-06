@@ -12,14 +12,17 @@ const useStyles = makeStyles({
         color: props => props.color || "white",
         backgroundColor: props => props.backgroundColor || Colors.buttonBlue,
         border: props => props.border ? `solid 2px ${props.color}` : "none",
+        overflow: "grow",
         "& > span": {
             fontSize: "1em",
             textTransform: "capitalize",
-            letterSpacing: ".15px"
+            letterSpacing: ".15px",
+            lineHeight: "1.15em",
+            padding: ".5em"
         },
         "& > span  > svg": {
             fontSize: "1em",
-            paddingRight: ".5em"
+            paddingRight: ".25em"
         },
         "&:hover":{
             backgroundColor: Colors.accentBlue
