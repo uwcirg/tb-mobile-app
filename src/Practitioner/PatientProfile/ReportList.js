@@ -51,7 +51,8 @@ const useStyles = makeStyles({
         color: Colors.buttonBlue,
         width: "90%",
         margin: "auto",
-        marginBottom: "2em"
+        marginBottom: "2em",
+        display: "block"
     }
 })
 

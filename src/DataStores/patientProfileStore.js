@@ -11,7 +11,6 @@ export default class PatientProfileStore {
     @observable onPasswordReset = false;
     @observable onChangeDetails = !true;
 
-
     @observable selectedPatient = {
         symptomSummary: {},
         reports: {},
@@ -24,7 +23,9 @@ export default class PatientProfileStore {
     @observable changes = {
         givenName: "",
         familyName: "", 
-        phoneNumber: ""
+        phoneNumber: "",
+        errors: [],
+        success: false
     }
 
     @observable reportSplice = 10;
@@ -145,11 +146,21 @@ export default class PatientProfileStore {
 
     postPatientChanges = () => {
         this.apiHelper.executeRawRequest(`/v2/patient/${this.selectedPatient.details.id}`,'PATCH', this.changes).then(response =>{
-            if(!response.error){
-                console.log("Success")
+            if(!response.code){
+                this.changes.success = true;
                 this.getPatientDetails(this.selectedPatient.details.id);
             }
         })
+    }
+
+    @action resetUpdateState = () => {
+        this.changes = {
+            givenName: "",
+            familyName: "", 
+            phoneNumber: "",
+            success: false,
+            errors: []
+        }
     }
 
 

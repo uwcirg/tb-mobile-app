@@ -10,6 +10,7 @@ import ProfileButton from './ProfileButton'
 import Message from '@material-ui/icons/ChatBubble';
 import Add from '@material-ui/icons/AddCircle';
 import Refresh from '@material-ui/icons/Refresh'
+import EditIcon from '@material-ui/icons/Edit'
 
 const useStyles = makeStyles({
 
@@ -70,8 +71,8 @@ const useStyles = makeStyles({
 const PatientInfo = observer((props) => {
 
     const classes = useStyles();
-    const { practitionerStore, patientProfileStore } = useStores();
-    const { t, i18n } = useTranslation('translation');
+    const { patientProfileStore } = useStores();
+    const { t } = useTranslation('translation');
 
     const getDate = (iso) => {
         return (DateTime.fromISO(iso).toLocaleString(DateTime.DATE_MED))
@@ -80,7 +81,7 @@ const PatientInfo = observer((props) => {
     return (<div className={classes.container}>
         {patientProfileStore.selectedPatient.details && <div className={classes.profileHeader}>
             <h1>{patientProfileStore.selectedPatient.details.fullName}</h1>
-            <button onClick={patientProfileStore.toggleOnChangeDetails}>Edit Details</button>
+            <ProfileButton style={{"& > button:hover": {color: "white"}}} backgroundColor="none" color={Colors.buttonBlue} onClick={patientProfileStore.toggleOnChangeDetails}><EditIcon />{t("coordinator.patientProfile.options.edit")}</ProfileButton>
                 </div>}
         <div className={classes.detailGroup}>
             <Item top={t("coordinator.patientProfile.age")} bottom={patientProfileStore.selectedPatient.details.age || "N/A"} />
@@ -104,8 +105,6 @@ const Buttons = observer((props) => {
     const messagePatient = () => {
         practitionerUIStore.goToChannel(patientProfileStore.selectedPatient.details.channelId);
     }
-
-
 
     return (
         <div className={classes.buttons}>

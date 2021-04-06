@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
-import { observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 import Styles from '../../Basics/Styles';
 import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
@@ -59,7 +59,7 @@ const useStyles = makeStyles({
         width: "95%",
         display: "flex"
     },
-    message:{
+    message: {
         width: "100%",
         height: "100%",
         ...Styles.flexCenter
@@ -68,7 +68,7 @@ const useStyles = makeStyles({
 
 const Profile = observer((props) => {
 
-    const { practitionerStore, practitionerUIStore, patientProfileStore} = useStores();
+    const { practitionerStore, practitionerUIStore, patientProfileStore, uiStore } = useStores();
     const classes = useStyles();
     const { t } = useTranslation('translation');
 
@@ -90,13 +90,19 @@ const Profile = observer((props) => {
         }
     }, [])
 
+    useEffect(() => {
+        if (patientProfileStore.changes.success) {
+            uiStore.setAlert("Update Successful")
+        }
+    }, [patientProfileStore.changes.success])
+
     return (
         <>
             {patientProfileStore.onPasswordReset && <ResetPassword />}
             {practitionerUIStore.onAddPatientNote && <AddNote close={closeNote} />}
             {patientProfileStore.onChangeDetails && <ChangePatientDetails />}
-            
-                {patientProfileStore.selectedPatient.loaded ? 
+
+            {patientProfileStore.selectedPatient.loaded ?
                 <>{!patientProfileStore.selectedPatient.accessError ? <div className={classes.patientContainer}>
                     <div className={classes.top}>
                         <PatientInfo />
@@ -110,7 +116,7 @@ const Profile = observer((props) => {
                             <TreatmentTimeline weeksInTreatment={patientProfileStore.selectedPatient.details.weeksInTreatment} />
                         </div>
                     </div>
-                </div> : <p className={classes.message}>{t('coordinator.patientProfile.accessError')}</p> } </>: <Loading />}
+                </div> : <p className={classes.message}>{t('coordinator.patientProfile.accessError')}</p>} </> : <Loading />}
 
         </>)
 });
@@ -119,11 +125,11 @@ const Profile = observer((props) => {
 const Loading = () => {
     const classes = useStyles();
     const { t } = useTranslation('translation');
-    return(
-    <div className={classes.message}>
-        <h1> Loading ...</h1>
+    return (
+        <div className={classes.message}>
+            <h1> Loading ...</h1>
 
-    </div>)
+        </div>)
 }
 
 export default Profile;

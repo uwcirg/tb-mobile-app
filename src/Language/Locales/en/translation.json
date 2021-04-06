@@ -617,7 +617,8 @@
                 "resetPassword": "Reset Password",
                 "archive": "Archive Patient",
                 "message": "Message",
-                "note": "Add Note"
+                "note": "Add Note",
+                "edit": "Edit"
             }
         },
         "tasksSidebar": {
