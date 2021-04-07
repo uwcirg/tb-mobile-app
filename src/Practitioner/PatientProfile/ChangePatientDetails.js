@@ -10,6 +10,7 @@ import { InputLabel, makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Colors from '../../Basics/Colors';
 import EditableField from '../Shared/EditableField'
+import WarningBox from '../../Basics/WarningBox';
 
 const useStyles = makeStyles({
     textInput: {
@@ -49,6 +50,9 @@ const useStyles = makeStyles({
     },
     inputItem: {
         margin: ".5em 0"
+    },
+    warning:{
+        marginTop: ".5em"
     }
 })
 
@@ -96,10 +100,12 @@ const ChangePatientDetails = observer(() => {
         </PopOver>)
 });
 
-const InputItem = (props) => {
+const InputItem = observer((props) => {
     const classes = useStyles();
     const { patientProfileStore } = useStores();
 
+    const error = patientProfileStore.changes.errors[props.id]
+    
     return (
         <div className={classes.inputItem}>
             <label className={classes.label} for={props.id}>{props.labelText}</label>
@@ -109,12 +115,17 @@ const InputItem = (props) => {
                 variant="outlined"
                 value={props.value}
                 fullWidth
+                error={error}
                 onChange={e => {
                     patientProfileStore.changes[props.id] = e.target.value;
                 }}
             />
+            {error && <WarningBox className={classes.warning}>
+                <p>Error: Phone number must be 9-12 characters, and must be unique</p>
+            </WarningBox>}
+
         </div>
     )
-}
+});
 
 export default ChangePatientDetails;

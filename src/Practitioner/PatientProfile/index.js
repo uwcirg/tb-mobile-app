@@ -87,6 +87,7 @@ const Profile = observer((props) => {
 
         return function cleanup() {
             closeResetPassword();
+            patientProfileStore.resetUpdateState();
         }
     }, [])
 

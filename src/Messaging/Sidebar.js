@@ -2,7 +2,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../Basics/UseStores';
 import {observer} from 'mobx-react'
-import Profile from '../Practitioner/Shared/PatientProfile';
+import Profile from '../Practitioner/Shared/PatientPreview';
 import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({

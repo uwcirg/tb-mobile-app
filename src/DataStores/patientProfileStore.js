@@ -24,7 +24,7 @@ export default class PatientProfileStore {
         givenName: "",
         familyName: "", 
         phoneNumber: "",
-        errors: [],
+        errors: {},
         success: false
     }
 
@@ -144,22 +144,34 @@ export default class PatientProfileStore {
         })
     }
 
+    @action resetAfterSuccessfulUpdate(){
+        this.getPatientDetails(this.selectedPatient.details.id);
+        this.resetUpdateState();
+        this.onChangeDetails = false;
+        this.changes.success = true;
+    }
+
     postPatientChanges = () => {
         this.apiHelper.executeRawRequest(`/v2/patient/${this.selectedPatient.details.id}`,'PATCH', this.changes).then(response =>{
             if(!response.code){
-                this.changes.success = true;
-                this.getPatientDetails(this.selectedPatient.details.id);
+                this.resetAfterSuccessfulUpdate()
+            }else{
+                this.setErrors(response)
             }
         })
     }
 
+    @action setErrors = (response) => {
+        this.changes.errors = response.paramErrors;
+    }
+
     @action resetUpdateState = () => {
         this.changes = {
-            givenName: "",
-            familyName: "", 
-            phoneNumber: "",
+            givenName: this.selectedPatient.details.givenName,
+            familyName: this.selectedPatient.details.familyName, 
+            phoneNumber: this.selectedPatient.details.phoneNumber,
             success: false,
-            errors: []
+            errors: {}
         }
     }
 
