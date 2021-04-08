@@ -19,7 +19,7 @@ const ResetPassword = observer(() => {
     const { practitionerStore, patientProfileStore } = useStores();
 
     return(
-    <PopOver close={patientProfileStore.toggleOnPasswordReset} title={t("coordinator.patientProfile.resetPassword")}>
+    <PopOver ignoreClickAway close={patientProfileStore.toggleOnPasswordReset} title={t("coordinator.patientProfile.resetPassword")}>
             <Typography className={classes.popOverBody} variant="body1">{t("coordinator.patientProfile.resetPasswordExplanation")}</Typography>
             <MuiButton onClick={practitionerStore.resetPassword}>{t("coordinator.patientProfile.resetPassword")}</MuiButton>
             {practitionerStore.newActivationCode && <p>{practitionerStore.newActivationCode}</p>}

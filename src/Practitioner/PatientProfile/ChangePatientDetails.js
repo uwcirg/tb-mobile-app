@@ -66,7 +66,7 @@ const ChangePatientDetails = observer(() => {
     }, [patientProfileStore.selectedPatient.details])
 
     return (
-        <PopOver close={patientProfileStore.toggleOnChangeDetails} title={"Edit Patient Details"}>
+        <PopOver ignoreClickAway close={patientProfileStore.toggleOnChangeDetails} title={"Edit Patient Details"}>
             <form className={classes.form}>
                 <p>
                     {t('coordinator.patientProfile.editDetails.warning')}

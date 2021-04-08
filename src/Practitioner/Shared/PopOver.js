@@ -41,7 +41,7 @@ const PopOver = (props) => {
     const classes = useStyles({fullWidth: props.fullWidth});
 
     return (<div className={classes.superContainer}>
-        <ClickAway onClickAway={props.close}>
+        <ClickAway onClickAway={() => {if(!props.ignoreClickAway) props.close()}}>
             <div className={classes.container}>
             <div className={classes.header}>
                 <Typography variant="h2">{props.title}</Typography>
@@ -57,7 +57,8 @@ const PopOver = (props) => {
 PopOver.propTypes = {
     children: PropTypes.element,
     title: PropTypes.string,
-    close: PropTypes.func
+    close: PropTypes.func,
+    ignoreClickAway: PropTypes.bool
   };
 
 export default PopOver;
