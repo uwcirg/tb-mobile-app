@@ -12,6 +12,7 @@ import Colors from '../../Basics/Colors';
 import EditableField from '../Shared/EditableField'
 import WarningBox from '../../Basics/WarningBox';
 import DatePicker from '../../Basics/DatePicker';
+import { DateTime } from 'luxon';
 const useStyles = makeStyles({
     textInput: {
         "& > div > input": {
@@ -53,6 +54,11 @@ const useStyles = makeStyles({
     },
     warning: {
         marginTop: ".5em"
+    },
+    calendarInput:{
+        "& > input":{
+            padding: "10px"
+        }
     }
 })
 
@@ -127,7 +133,9 @@ const InputItem = observer((props) => {
                     patientProfileStore.changes[props.id] = e.target.value;
                 }}
             /> : <DatePicker
-                value={patientProfileStore.changes.endDate}
+                inputVariant="outlined"
+                InputProps={{className: classes.calendarInput, fullWidth: true}}
+                value={patientProfileStore.changes.treatmentEndDate}
                 animateYearScrolling
                 disablePast
             />}
