@@ -88,6 +88,7 @@ export default class PatientProfileStore {
         this.changes.familyName = this.selectedPatient.details.familyName;
         this.changes.givenName = this.selectedPatient.details.givenName;
         this.changes.phoneNumber = this.selectedPatient.details.phoneNumber;
+        this.changes.treatmentEndDate = this.selectedPatient.details.treatmentEndDate;
     }
 
     @computed get hasChanges(){

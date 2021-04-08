@@ -573,6 +573,7 @@
             },
             "accessError": "This patient does not exist at your site",
             "editDetails":{
+                "success": "Patient information successfully updated",
                 "title": "Edit Patient Details",
                 "newPhone": "New Phone Number",
                 "warning": "If the patients phone number is changed, they will need to log in with the new phone number you have provided."

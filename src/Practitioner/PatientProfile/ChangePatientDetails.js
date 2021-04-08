@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button';
 import Colors from '../../Basics/Colors';
 import EditableField from '../Shared/EditableField'
 import WarningBox from '../../Basics/WarningBox';
-
+import DatePicker from '../../Basics/DatePicker';
 const useStyles = makeStyles({
     textInput: {
         "& > div > input": {
@@ -51,7 +51,7 @@ const useStyles = makeStyles({
     inputItem: {
         margin: ".5em 0"
     },
-    warning:{
+    warning: {
         marginTop: ".5em"
     }
 })
@@ -73,12 +73,6 @@ const ChangePatientDetails = observer(() => {
                 </p>
                 <div className={classes.inputs}>
                     <InputItem
-                        labelText={"Phone Number"}
-                        value={patientProfileStore.changes.phoneNumber}
-                        id="phoneNumber"
-
-                    />
-                    <InputItem
                         labelText={"First Name"}
                         value={patientProfileStore.changes.givenName}
                         id="givenName"
@@ -90,6 +84,20 @@ const ChangePatientDetails = observer(() => {
                         id="familyName"
 
                     />
+                    <InputItem
+                        labelText={"Phone Number"}
+                        value={patientProfileStore.changes.phoneNumber}
+                        id="phoneNumber"
+
+                    />
+                    <InputItem
+                        isDate
+                        labelText={"Treatment End Date"}
+                        value={patientProfileStore.changes.phoneNumber}
+                        id="phoneNumber"
+
+                    />
+
                 </div>
                 <div className={classes.formControl}>
                     <Button disableElevation onClick={patientProfileStore.toggleOnChangeDetails} id="cancel" variant="contained" >Cancel</Button>
@@ -103,13 +111,12 @@ const ChangePatientDetails = observer(() => {
 const InputItem = observer((props) => {
     const classes = useStyles();
     const { patientProfileStore } = useStores();
-
     const error = patientProfileStore.changes.errors[props.id]
-    
+
     return (
         <div className={classes.inputItem}>
             <label className={classes.label} for={props.id}>{props.labelText}</label>
-            <TextField
+            {!props.isDate ? <TextField
                 className={classes.textInput}
                 id={props.id}
                 variant="outlined"
@@ -119,9 +126,12 @@ const InputItem = observer((props) => {
                 onChange={e => {
                     patientProfileStore.changes[props.id] = e.target.value;
                 }}
-            />
+            /> : <DatePicker
+                value={patientProfileStore.changes.endDate}
+                animateYearScrolling
+                disablePast
+            />}
             {error && <WarningBox className={classes.warning}>
-                <p>Error: Phone number must be 9-12 characters, and must be unique</p>
             </WarningBox>}
 
         </div>

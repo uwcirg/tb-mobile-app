@@ -93,7 +93,7 @@ const Profile = observer((props) => {
 
     useEffect(() => {
         if (patientProfileStore.changes.success) {
-            uiStore.setAlert("Update Successful")
+            uiStore.setAlert(t('coordinator.patientProfile.editDetails.success'))
         }
     }, [patientProfileStore.changes.success])
 
