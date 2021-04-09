@@ -578,7 +578,8 @@
                 "newPhone": "New Phone Number",
                 "warning": "If the patients phone number is changed, they will need to log in with the new phone number you have provided.",
                 "submit": "Submit",
-                "cancel": "Cancel"
+                "cancel": "Cancel",
+                "inputError": "There was an error with your change, which has been marked in red. Phone numbers must be 9-15 digits, and unique for each patient."
             },
             "addNote": {
                 "header": "New note for",

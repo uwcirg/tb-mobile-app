@@ -93,7 +93,6 @@ const ChangePatientDetails = observer(() => {
                     <InputItem
                         labelText={t('coordinator.patientProfile.phoneNumber')}
                         id="phoneNumber"
-
                     />
                     <InputItem
                         isDate
@@ -102,6 +101,7 @@ const ChangePatientDetails = observer(() => {
 
                     />
                 </div>
+                {patientProfileStore.hasErrorWithChanges && <WarningBox>{t('coordinator.patientProfile.editDetails.inputError')}</WarningBox>}
                 <div className={classes.formControl}>
                     <Button disableElevation onClick={patientProfileStore.toggleOnChangeDetails} id="cancel" variant="contained" >{t('coordinator.patientProfile.editDetails.cancel')}</Button>
                     <Button className={classes.submit} disabled={!patientProfileStore.hasChanges} onClick={patientProfileStore.postPatientChanges} disableElevation id="submit" variant="contained" >{t('coordinator.patientProfile.editDetails.submit')}</Button>

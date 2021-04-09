@@ -98,6 +98,10 @@ export default class PatientProfileStore {
         this.changes.treatmentEndDate != this.selectedPatient.details.treatmentEndDate
     }
 
+    @computed get hasErrorWithChanges(){
+        return Object.keys(this.changes.errors).length > 0
+    }
+
     //Get detials to fill in patient profile information
     getPatientDetails = (id) => {
         this.resetProfileState();
