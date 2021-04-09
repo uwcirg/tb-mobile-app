@@ -23,7 +23,8 @@
         "loading": "Loading",
         "patients": "Patients",
         "expandPhoto": "Expand Photo",
-        "hideThis": "Hide This"
+        "hideThis": "Hide This",
+        "clickToLoadMore": "Click to load more"
     },
     "userTypes": {
         "patient": "Patient",

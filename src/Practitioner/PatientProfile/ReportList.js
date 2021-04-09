@@ -60,13 +60,13 @@ const ReportView = observer(() => {
 
     const { patientProfileStore } = useStores();
     const classes = useStyles();
+    const { t } = useTranslation('translation');
 
-    //for dev slice(0,3) to fix error loading
     return (<div className={classes.container}>
         {patientProfileStore.selectedPatientReports.length > 0 && patientProfileStore.selectedPatientReports.map(report => {
             return <Report key={`patient-report-${report.id}`} report={report} />
         })}
-        <Button disableElevation className={classes.loadButton} fullWidth onClick={patientProfileStore.loadMoreReports}>Click to load more</Button>
+        {patientProfileStore.areMoreReportsToLoad && <Button disableElevation className={classes.loadButton} fullWidth onClick={patientProfileStore.loadMoreReports}>{t('commonWords.clickToLoadMore')}</Button>}
     </div>)
 
 })
@@ -75,7 +75,7 @@ const Report = (props) => {
     //const [expanded, setExpanded] = useState(false);
     const { report } = props;
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
     return (
 

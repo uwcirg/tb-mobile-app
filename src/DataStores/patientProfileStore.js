@@ -129,6 +129,10 @@ export default class PatientProfileStore {
         return Object.values(this.selectedPatient.reports).splice(0, this.reportSplice)
     }
 
+    @computed get areMoreReportsToLoad(){
+        return Object.keys(this.selectedPatient.reports).length > this.reportSplice;
+    }
+
     @action setPatientNotes(notes) {
         this.selectedPatient.notes = notes;
     }
