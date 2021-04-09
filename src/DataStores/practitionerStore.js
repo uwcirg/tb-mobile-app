@@ -289,10 +289,6 @@ export class PractitionerStore extends UserStore {
         return this.getSelectedPatient.id
     }
 
-    resetPassword = () => {
-        this.resetActivationCode(this.selectedPatient.details.id);
-    }
-
     @action clearNewPatient = () => {
         this.newPatient.code = "";
         this.newPatient.errorReturned = false;

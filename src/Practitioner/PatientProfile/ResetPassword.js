@@ -16,13 +16,13 @@ const useStyles = makeStyles({
 const ResetPassword = observer(() => {
     const {t} = useTranslation('translation');
     const classes = useStyles();
-    const { practitionerStore, patientProfileStore } = useStores();
+    const { patientProfileStore } = useStores();
 
     return(
     <PopOver ignoreClickAway close={patientProfileStore.toggleOnPasswordReset} title={t("coordinator.patientProfile.resetPassword")}>
             <Typography className={classes.popOverBody} variant="body1">{t("coordinator.patientProfile.resetPasswordExplanation")}</Typography>
-            <MuiButton onClick={practitionerStore.resetPassword}>{t("coordinator.patientProfile.resetPassword")}</MuiButton>
-            {practitionerStore.newActivationCode && <p>{practitionerStore.newActivationCode}</p>}
+            <MuiButton onClick={patientProfileStore.resetPassword}>{t("coordinator.patientProfile.resetPassword")}</MuiButton>
+            {patientProfileStore.temporaryPassword && <p>{patientProfileStore.temporaryPassword}</p>}
     </PopOver>)
 });
 

@@ -100,7 +100,7 @@ const PatientInfo = observer((props) => {
 })
 
 const Buttons = observer((props) => {
-    const { practitionerUIStore, practitionerStore, patientProfileStore } = useStores();
+    const { practitionerUIStore, patientProfileStore } = useStores();
     const classes = useStyles();
     const { t } = useTranslation('translation');
 

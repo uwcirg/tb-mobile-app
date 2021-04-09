@@ -7,6 +7,8 @@ export default class PatientProfileStore {
         this.apiHelper = new APIHelper();
     }
 
+    @observable temporaryPassword = "";
+
     @observable onPasswordReset = false;
     @observable onChangeDetails = true;
 
@@ -21,7 +23,7 @@ export default class PatientProfileStore {
 
     @observable changes = {
         givenName: "",
-        familyName: "", 
+        familyName: "",
         phoneNumber: "",
         treatmentEndDate: "",
         errors: {},
@@ -77,7 +79,7 @@ export default class PatientProfileStore {
     }
 
     @action addPatientReports = (reports) => {
-        this.selectedPatient.reports =  reports;
+        this.selectedPatient.reports = reports;
     }
 
     @action setPatientSymptomSummary = (symptoms) => {
@@ -91,14 +93,14 @@ export default class PatientProfileStore {
         this.changes.treatmentEndDate = this.selectedPatient.details.treatmentEndDate;
     }
 
-    @computed get hasChanges(){
+    @computed get hasChanges() {
         return this.changes.givenName !== this.selectedPatient.details.givenName ||
-        this.changes.familyName != this.selectedPatient.details.familyName ||
-        this.changes.phoneNumber != this.selectedPatient.details.phoneNumber ||
-        this.changes.treatmentEndDate != this.selectedPatient.details.treatmentEndDate
+            this.changes.familyName != this.selectedPatient.details.familyName ||
+            this.changes.phoneNumber != this.selectedPatient.details.phoneNumber ||
+            this.changes.treatmentEndDate != this.selectedPatient.details.treatmentEndDate
     }
 
-    @computed get hasErrorWithChanges(){
+    @computed get hasErrorWithChanges() {
         return Object.keys(this.changes.errors).length > 0
     }
 
@@ -106,7 +108,7 @@ export default class PatientProfileStore {
     getPatientDetails = (id) => {
         this.resetProfileState();
         this.apiHelper.executeRawRequest(`/v2/patient/${id}`, "GET").then(response => {
-            if (response.error && response.code >= 400 ) {
+            if (response.error && response.code >= 400) {
                 this.setAuthError();
             }
             this.setSelectedPatientDetails(response);
@@ -124,7 +126,7 @@ export default class PatientProfileStore {
     }
 
     @computed get selectedPatientReports() {
-        return Object.values(this.selectedPatient.reports).splice(0,this.reportSplice)
+        return Object.values(this.selectedPatient.reports).splice(0, this.reportSplice)
     }
 
     @action setPatientNotes(notes) {
@@ -149,7 +151,7 @@ export default class PatientProfileStore {
         })
     }
 
-    @action resetAfterSuccessfulUpdate(){
+    @action resetAfterSuccessfulUpdate() {
         this.getPatientDetails(this.selectedPatient.details.id);
         this.resetUpdateState();
         this.onChangeDetails = false;
@@ -157,10 +159,10 @@ export default class PatientProfileStore {
     }
 
     postPatientChanges = () => {
-        this.apiHelper.executeRawRequest(`/v2/patient/${this.selectedPatient.details.id}`,'PATCH', this.changes).then(response =>{
-            if(!response.code){
+        this.apiHelper.executeRawRequest(`/v2/patient/${this.selectedPatient.details.id}`, 'PATCH', this.changes).then(response => {
+            if (!response.code) {
                 this.resetAfterSuccessfulUpdate()
-            }else{
+            } else {
                 this.setErrors(response)
             }
         })
@@ -173,7 +175,7 @@ export default class PatientProfileStore {
     @action resetUpdateState = () => {
         this.changes = {
             givenName: this.selectedPatient.details.givenName,
-            familyName: this.selectedPatient.details.familyName, 
+            familyName: this.selectedPatient.details.familyName,
             phoneNumber: this.selectedPatient.details.phoneNumber,
             treatmentEndDate: this.selectedPatient.details.treatmentEndDate,
             success: false,
@@ -181,9 +183,23 @@ export default class PatientProfileStore {
         }
     }
 
-    @action changeTreatmentEndDate(date){
+    @action changeTreatmentEndDate(date) {
         this.changes.treatmentEndDate = date;
     }
+
+
+    resetPassword = () => {
+        if (this.selectedPatient.details.id > 0) {
+            this.apiHelper.executeRawRequest(`/patient/${this.selectedPatient.details.id}/password-reset`, "POST").then(response => {
+                this.setTemporaryPassword(response.temporaryPassword);
+            })
+        }
+    }
+
+    @action setTemporaryPassword = (code) => {
+        this.temporaryPassword = code;
+    }
+
 
 
 }
