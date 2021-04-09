@@ -94,16 +94,18 @@ const Timeline = (props) => {
 
     return (<div className={classes.container}>
         <Typography className={classes.warning} variant="body1">{t('timeline.warning')}</Typography>
-        {TimelineData.months.map((item, index) => {
+        {TimelineData.months.map((item, indexMonth) => {
             const computedMonth = props.weeksInTreatment / 4;
             return (<Month
-                showLabel={index === 0}
-                isCurrentMonth={computedMonth === index}
-                month={index}>
-                {item.map((each) => {
+                key={`timeline-month-${indexMonth}`}
+                showLabel={indexMonth === 0}
+                isCurrentMonth={computedMonth === indexMonth}
+                month={indexMonth}>
+                {item.map((each,indexItem) => {
                     return (
                             <Event
-                                tense={index - computedMonth}
+                                key={`timeline-item-${indexMonth}${indexItem}`}
+                                tense={indexMonth - computedMonth}
                                 weeksInTreatment={props.weeksInTreatment}
                                 title={t(`timeline.${each.title}`)}
                                 subtitle={each.subtitle ? t(`timeline.${each.subtitle}`) : ""}

@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import Colors from '../../Basics/Colors';
 import WarningBox from '../../Basics/WarningBox';
 import DatePicker from '../../Basics/DatePicker';
+import { DateTime } from 'luxon';
 
 const useStyles = makeStyles({
     textInput: {
@@ -44,10 +45,10 @@ const useStyles = makeStyles({
         },
         "& > #submit": {
             backgroundColor: Colors.buttonBlue,
-            "&:disabled":{
+            "&:disabled": {
                 backgroundColor: "lightgray"
             }
-            
+
         }
     },
     inputItem: {
@@ -56,8 +57,8 @@ const useStyles = makeStyles({
     warning: {
         marginTop: ".5em"
     },
-    calendarInput:{
-        "& > input":{
+    calendarInput: {
+        "& > input": {
             padding: "10px"
         }
     }
@@ -81,31 +82,28 @@ const ChangePatientDetails = observer(() => {
                 <div className={classes.inputs}>
                     <InputItem
                         labelText={t('patient.userFields.firstName')}
-                        value={patientProfileStore.changes.givenName}
                         id="givenName"
 
                     />
                     <InputItem
                         labelText={t('patient.userFields.lastName')}
-                        value={patientProfileStore.changes.familyName}
                         id="familyName"
 
                     />
                     <InputItem
                         labelText={t('coordinator.patientProfile.phoneNumber')}
-                        value={patientProfileStore.changes.phoneNumber}
                         id="phoneNumber"
 
                     />
                     <InputItem
                         isDate
                         labelText={t('coordinator.patientProfile.treatmentEnd')}
-                        value={patientProfileStore.changes.phoneNumber}
-                        id="phoneNumber"
+                        id="treatmentEndDate"
 
                     />
-
                 </div>
+                {console.log(patientProfileStore.changes.treatmentEndDate)}
+                {console.log(patientProfileStore.selectedPatient.details.treatmentEndDate)}
                 <div className={classes.formControl}>
                     <Button disableElevation onClick={patientProfileStore.toggleOnChangeDetails} id="cancel" variant="contained" >{t('coordinator.patientProfile.editDetails.cancel')}</Button>
                     <Button className={classes.submit} disabled={!patientProfileStore.hasChanges} onClick={patientProfileStore.postPatientChanges} disableElevation id="submit" variant="contained" >{t('coordinator.patientProfile.editDetails.submit')}</Button>
@@ -120,14 +118,18 @@ const InputItem = observer((props) => {
     const { patientProfileStore } = useStores();
     const error = patientProfileStore.changes.errors[props.id]
 
+    const handleDateChange = (date) => {
+        patientProfileStore.changeTreatmentEndDate(date.toISODate())
+    }
+
     return (
         <div className={classes.inputItem}>
-            <label className={classes.label} for={props.id}>{props.labelText}</label>
+            <label className={classes.label} htmlFor={props.id}>{props.labelText}</label>
             {!props.isDate ? <TextField
                 className={classes.textInput}
                 id={props.id}
                 variant="outlined"
-                value={props.value}
+                value={patientProfileStore.changes[props.id] || ""}
                 fullWidth
                 error={error}
                 onChange={e => {
@@ -135,14 +137,11 @@ const InputItem = observer((props) => {
                 }}
             /> : <DatePicker
                 inputVariant="outlined"
-                InputProps={{className: classes.calendarInput, fullWidth: true}}
-                value={patientProfileStore.changes.treatmentEndDate}
+                InputProps={{ className: classes.calendarInput, fullWidth: true, }}
+                value={DateTime.fromISO(patientProfileStore.changes.treatmentEndDate)}
                 animateYearScrolling
-                disablePast
+                onChange={handleDateChange}
             />}
-            {error && <WarningBox className={classes.warning}>
-            </WarningBox>}
-
         </div>
     )
 });

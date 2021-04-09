@@ -130,8 +130,8 @@ const SymptomSummary = observer(() => {
                     value={selection}
                     onChange={handleChange}
                 >
-                    {options.map(each => {
-                        return <MenuItem value={each}><span className={classes.menuItem}>{t(`coordinator.patientProfile.symptomSummary.timeOptions.${each}`)}</span></MenuItem>
+                    {options.map((each,index) => {
+                        return <MenuItem key={`symotom-summary-${index}`} value={each}><span className={classes.menuItem}>{t(`coordinator.patientProfile.symptomSummary.timeOptions.${each}`)}</span></MenuItem>
                     })}
 
                 </Select>

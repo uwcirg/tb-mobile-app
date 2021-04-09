@@ -1,7 +1,6 @@
 import { action, observable, computed } from "mobx";
 import APIHelper from './Requests'
 
-
 export default class PatientProfileStore {
 
     constructor() {
@@ -24,6 +23,7 @@ export default class PatientProfileStore {
         givenName: "",
         familyName: "", 
         phoneNumber: "",
+        treatmentEndDate: "",
         errors: {},
         success: false
     }
@@ -94,7 +94,8 @@ export default class PatientProfileStore {
     @computed get hasChanges(){
         return this.changes.givenName !== this.selectedPatient.details.givenName ||
         this.changes.familyName != this.selectedPatient.details.familyName ||
-        this.changes.phoneNumber != this.selectedPatient.details.phoneNumber
+        this.changes.phoneNumber != this.selectedPatient.details.phoneNumber ||
+        this.changes.treatmentEndDate != this.selectedPatient.treatmentEndDate
     }
 
     //Get detials to fill in patient profile information
@@ -129,7 +130,6 @@ export default class PatientProfileStore {
     @action loadMoreReports = () => {
         this.reportSplice += 10;
     }
-
 
     getPatientNotes = (patientID) => {
         return this.apiHelper.executeRawRequest(`/patient/${patientID || this.selectedPatient.details.id}/notes`).then(response => {
@@ -171,13 +171,15 @@ export default class PatientProfileStore {
             givenName: this.selectedPatient.details.givenName,
             familyName: this.selectedPatient.details.familyName, 
             phoneNumber: this.selectedPatient.details.phoneNumber,
+            treatmentEndDate: this.selectedPatient.details.treatmentEndDate,
             success: false,
             errors: {}
         }
     }
 
-
-
+    @action changeTreatmentEndDate(date){
+        this.changes.treatmentEndDate = date;
+    }
 
 
 }

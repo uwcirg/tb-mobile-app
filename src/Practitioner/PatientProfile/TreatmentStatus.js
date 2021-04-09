@@ -85,12 +85,11 @@ const TreatmentStatus = observer((props) => {
         <Typography variant={"h2"}>{t('coordinator.patientProfile.treatmentStatus')}</Typography>
         <Adherence value={patient.adherence} />
         <div className={classes.middle}>
-            <Item top={"80%"} bottom={t('coordinator.patientProfile.feelingWell')} />
-            <Item top={"0 out of 5"} bottom={t('coordinator.patientProfile.contactTracing')} />
+            {/* <Item top={"100%"} bottom={t('coordinator.patientProfile.feelingWell')} />
+            <Item top={"0 out of 5"} bottom={t('coordinator.patientProfile.contactTracing')} /> */}
         </div>
         <div className={classes.bottom}>
             <Item top={`${patient.daysInTreatment}/180`} bottom={t('coordinator.patientProfile.completedDays')} />
-            {/*<Item top={<><Trend style={{color: Colors.green}} />90/180</>} bottom={"Days Completed"} />*/}
         </div>
     </div>)
 
