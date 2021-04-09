@@ -571,7 +571,8 @@
                 "newPhone": "Nuevo Número de Teléfono",
                 "warning": "Si se cambia el número de teléfono del paciente, ellos tendrán que iniciar una sesión nueva usando el nuevo número. ",
                 "submit": "Enviar",
-                "cancel": "Cancelar"
+                "cancel": "Cancelar",
+                "inputError": "There was an error with your change, which has been marked in red. Phone numbers must be 9-15 digits, and unique for each patient."
             },
             "addNote": {
                 "header": "Nueva nota para",

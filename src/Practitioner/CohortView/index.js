@@ -16,8 +16,9 @@ import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import Button from '@material-ui/core/Button'
 import PopOver from '../Shared/PopOver';
-import MuiButton from '../../Basics/MuiButton'
 import Priority from '../Shared/Priority';
+import ProfileButton from '../PatientProfile/ProfileButton';
+
 
 const useStyles = makeStyles({
     title: {
@@ -116,12 +117,16 @@ const useStyles = makeStyles({
         flexBasis: "180px"
     },
     header: {
-        width: "90%",
         display: "flex",
-        alignItems: "flex-start",
+        width: "90%",
+        justifyContent: "space-between",
         "& > h1": {
             padding: 0,
             margin: 0
+        },
+        "& > button":{
+            flexWrap: "nowrap"
+
         }
     },
     button: {
@@ -145,7 +150,7 @@ const PatientsView = observer((props) => {
                 <div className={classes.container}>
                     <div className={classes.header}>
                         <h1 className={classes.title}>{t("coordinator.titles.myPatients")}</h1>
-                        {!practitionerStore.onAddPatientFlow && <MuiButton onClick={toggleAddPatient} className={classes.addPatient}><PlusIcon /><p>{t('coordinator.addPatientFlow.title')}</p></MuiButton>}
+                        {!practitionerStore.onAddPatientFlow && <ProfileButton onClick={toggleAddPatient} className={classes.addPatient}><PlusIcon />{t('coordinator.addPatientFlow.title')}</ProfileButton>}
                     </div>
                     <AdherenceGraph />
                     <Patients icon={<PersonIcon />} title={t("coordinator.cardTitles.allPatients")} list={props.patientList} handlePatientClick={props.handlePatientClick} />

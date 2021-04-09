@@ -10,7 +10,7 @@ export default class PatientProfileStore {
     @observable temporaryPassword = "";
 
     @observable onPasswordReset = false;
-    @observable onChangeDetails = true;
+    @observable onChangeDetails = false;
 
     @observable selectedPatient = {
         symptomSummary: {},
@@ -181,6 +181,7 @@ export default class PatientProfileStore {
             success: false,
             errors: {}
         }
+        this.temporaryPassword = "";
     }
 
     @action changeTreatmentEndDate(date) {
