@@ -2,17 +2,14 @@ import React, { useEffect } from 'react'
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import PopOver from '../Shared/PopOver';
-import MuiButton from '../../Basics/MuiButton';
-import Typography from '@material-ui/core/Typography'
+import makeStyles from '@material-ui/styles/makeStyles'
 import TextField from '@material-ui/core/TextField'
 import { useTranslation } from 'react-i18next';
-import { InputLabel, makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Colors from '../../Basics/Colors';
-import EditableField from '../Shared/EditableField'
 import WarningBox from '../../Basics/WarningBox';
 import DatePicker from '../../Basics/DatePicker';
-import { DateTime } from 'luxon';
+
 const useStyles = makeStyles({
     textInput: {
         "& > div > input": {
@@ -76,33 +73,33 @@ const ChangePatientDetails = observer(() => {
     }, [patientProfileStore.selectedPatient.details])
 
     return (
-        <PopOver ignoreClickAway close={patientProfileStore.toggleOnChangeDetails} title={"Edit Patient Details"}>
+        <PopOver ignoreClickAway close={patientProfileStore.toggleOnChangeDetails} title={t('coordinator.patientProfile.editDetails.title')}>
             <form className={classes.form}>
                 <p>
                     {t('coordinator.patientProfile.editDetails.warning')}
                 </p>
                 <div className={classes.inputs}>
                     <InputItem
-                        labelText={"First Name"}
+                        labelText={t('patient.userFields.firstName')}
                         value={patientProfileStore.changes.givenName}
                         id="givenName"
 
                     />
                     <InputItem
-                        labelText={"Last Name"}
+                        labelText={t('patient.userFields.lastName')}
                         value={patientProfileStore.changes.familyName}
                         id="familyName"
 
                     />
                     <InputItem
-                        labelText={"Phone Number"}
+                        labelText={t('coordinator.patientProfile.phoneNumber')}
                         value={patientProfileStore.changes.phoneNumber}
                         id="phoneNumber"
 
                     />
                     <InputItem
                         isDate
-                        labelText={"Treatment End Date"}
+                        labelText={t('coordinator.patientProfile.treatmentEnd')}
                         value={patientProfileStore.changes.phoneNumber}
                         id="phoneNumber"
 
