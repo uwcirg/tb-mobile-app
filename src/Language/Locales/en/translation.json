@@ -576,7 +576,9 @@
                 "success": "Patient information successfully updated",
                 "title": "Edit Patient Details",
                 "newPhone": "New Phone Number",
-                "warning": "If the patients phone number is changed, they will need to log in with the new phone number you have provided."
+                "warning": "If the patients phone number is changed, they will need to log in with the new phone number you have provided.",
+                "submit": "Submit",
+                "cancel": "Cancel"
             },
             "addNote": {
                 "header": "New note for",

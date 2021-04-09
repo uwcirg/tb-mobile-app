@@ -9,7 +9,7 @@ export default class PatientProfileStore {
     }
 
     @observable onPasswordReset = false;
-    @observable onChangeDetails = !true;
+    @observable onChangeDetails = true;
 
     @observable selectedPatient = {
         symptomSummary: {},

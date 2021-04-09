@@ -46,7 +46,11 @@ const useStyles = makeStyles({
             backgroundColor: Colors.warningRed
         },
         "& > #submit": {
-            backgroundColor: Colors.buttonBlue
+            backgroundColor: Colors.buttonBlue,
+            "&:disabled":{
+                backgroundColor: "lightgray"
+            }
+            
         }
     },
     inputItem: {
@@ -106,8 +110,8 @@ const ChangePatientDetails = observer(() => {
 
                 </div>
                 <div className={classes.formControl}>
-                    <Button disableElevation onClick={patientProfileStore.toggleOnChangeDetails} id="cancel" variant="contained" >Cancel</Button>
-                    <Button disabled={!patientProfileStore.hasChanges} onClick={patientProfileStore.postPatientChanges} disableElevation id="submit" variant="contained" >Submit</Button>
+                    <Button disableElevation onClick={patientProfileStore.toggleOnChangeDetails} id="cancel" variant="contained" >{t('coordinator.patientProfile.editDetails.cancel')}</Button>
+                    <Button className={classes.submit} disabled={!patientProfileStore.hasChanges} onClick={patientProfileStore.postPatientChanges} disableElevation id="submit" variant="contained" >{t('coordinator.patientProfile.editDetails.submit')}</Button>
                 </div>
 
             </form>
