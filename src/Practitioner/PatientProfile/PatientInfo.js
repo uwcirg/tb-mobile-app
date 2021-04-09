@@ -58,6 +58,7 @@ const useStyles = makeStyles({
     },
     buttons: {
         marginTop: "auto",
+        paddingTop: "1em",
         display: "flex",
         flexWrap: "wrap",
         "& > button": {
@@ -89,6 +90,7 @@ const PatientInfo = observer((props) => {
             <Item top={t("coordinator.patientProfile.phoneNumber")} bottom={patientProfileStore.selectedPatient.details.phoneNumber} />
         </div>
         <Item top={t("coordinator.patientProfile.treatmentStart")} bottom={getDate(patientProfileStore.selectedPatient.details.treatmentStart)} />
+        <Item top={t("coordinator.patientProfile.treatmentEnd")} bottom={getDate(patientProfileStore.selectedPatient.details.treatmentEndDate)} />
         <Item top={t("coordinator.patientProfile.lastContacted")} bottom={getDate(patientProfileStore.selectedPatient.details.lastContacted)} />
 
         <Buttons {...props} />

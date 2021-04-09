@@ -559,6 +559,20 @@
         "false": "Falso",
         "daysInTreatment": "Días en Tratamiento",
         "patientProfile": {
+            "notes":{
+                "noneFound": "No Hay Notas",
+                "title": "Título",
+                "detail": "Detalle"
+            },
+            "accessError": "Esta paciente no existe en su grupo.",
+            "editDetails":{
+                "success": "La información del paciente fue actualizado.",
+                "title": "Editar Detalles Del Paciente",
+                "newPhone": "Nuevo Número de Teléfono",
+                "warning": "Si se cambia el número de teléfono del paciente, ellos tendrán que iniciar una sesión nueva usando el nuevo número. ",
+                "submit": "Enviar",
+                "cancel": "Cancelar"
+            },
             "addNote": {
                 "header": "Nueva nota para",
                 "title": "Título",
@@ -571,6 +585,7 @@
             "resetPasswordExplanation": "Haga clic aquí para restablecer la contraseña del paciente. Necesita mandar esta contraseña temporaria al paciente por WhatsApp.  Después de usar la contraseña temporaria, la aplicación requerirá que el paciente cambie la contraseña. ",
             "phoneNumber": "Número de Teléfono",
             "treatmentStart": "Fecha de Inicio del Tratamiento",
+            "treatmentEnd": "Final Día del Tratamiento",
             "lastContacted": "Último Contacto",
             "date": "Fecha",
             "taken": "Tomado",
@@ -599,7 +614,8 @@
                 "resetPassword": "Cambiar la Contraseña",
                 "archive": "Archivar Paciente",
                 "message": "Mensaje",
-                "note": "Añadir Nota"
+                "note": "Añadir Nota",
+                "edit": "Editar"
             }
         },
         "tasksSidebar": {

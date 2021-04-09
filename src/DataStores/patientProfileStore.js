@@ -95,7 +95,7 @@ export default class PatientProfileStore {
         return this.changes.givenName !== this.selectedPatient.details.givenName ||
         this.changes.familyName != this.selectedPatient.details.familyName ||
         this.changes.phoneNumber != this.selectedPatient.details.phoneNumber ||
-        this.changes.treatmentEndDate != this.selectedPatient.treatmentEndDate
+        this.changes.treatmentEndDate != this.selectedPatient.details.treatmentEndDate
     }
 
     //Get detials to fill in patient profile information

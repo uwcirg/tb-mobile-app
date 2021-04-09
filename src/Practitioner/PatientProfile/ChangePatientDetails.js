@@ -102,8 +102,6 @@ const ChangePatientDetails = observer(() => {
 
                     />
                 </div>
-                {console.log(patientProfileStore.changes.treatmentEndDate)}
-                {console.log(patientProfileStore.selectedPatient.details.treatmentEndDate)}
                 <div className={classes.formControl}>
                     <Button disableElevation onClick={patientProfileStore.toggleOnChangeDetails} id="cancel" variant="contained" >{t('coordinator.patientProfile.editDetails.cancel')}</Button>
                     <Button className={classes.submit} disabled={!patientProfileStore.hasChanges} onClick={patientProfileStore.postPatientChanges} disableElevation id="submit" variant="contained" >{t('coordinator.patientProfile.editDetails.submit')}</Button>

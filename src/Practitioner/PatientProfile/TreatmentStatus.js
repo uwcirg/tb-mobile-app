@@ -4,7 +4,6 @@ import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import Typography from '@material-ui/core/Typography'
 import Styles from '../../Basics/Styles';
-import Trend from '@material-ui/icons/TrendingUp';
 import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
 
@@ -16,7 +15,9 @@ const useStyles = makeStyles({
         flexGrow: 0,
         backgroundColor: "white",
         "& > h2":{
-            padding: "1em 0 0 1em"
+            padding: "1em",
+            overflow: "wrap"
+            
         }
     },
     middle: {
