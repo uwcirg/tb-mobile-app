@@ -97,7 +97,7 @@ export class PatientStore extends UserStore {
         return this.executeRequest(`getCurrentPatient`).then((json) => {
             if (json.status) {
                 this.status = json.status;
-                this.forcePasswordChange = json.forcePasswordChange;
+                this.hasForcedPasswordChange = json.hasForcedPasswordChange;
                 this.reminderTime = json.dailyNotificationTime;
                 this.patientInformation.weeksInTreatment = json.weeksInTreatment;
                 this.educationStore.educationStatus = json.educationStatus;

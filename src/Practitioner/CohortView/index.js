@@ -124,7 +124,7 @@ const useStyles = makeStyles({
             padding: 0,
             margin: 0
         },
-        "& > button":{
+        "& > button": {
             flexWrap: "nowrap"
 
         }
@@ -136,7 +136,7 @@ const useStyles = makeStyles({
 
 const PatientsView = observer((props) => {
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
     const { practitionerStore } = useStores();
 
     const toggleAddPatient = () => {
@@ -164,29 +164,35 @@ const PatientsView = observer((props) => {
 })
 
 const PendingPatients = (props) => {
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
     const classes = useStyles();
     const { practitionerStore } = useStores();
 
-    let list = props.list.map((patient, index) => {
-        return (
-            <div key={`patient-list-view-${index}`} className={classes.singlePatient}>
-                <div className={classes.name}>
-                    <a onClick={() => { props.handlePatientClick(patient.id) }}>
-                        {patient.fullName}
-                    </a>
-                </div>
 
-                <div>
-                    {patient.phoneNumber}
-                </div>
+    let list = "";
 
-                <div>
-                    <Button onClick={() => { practitionerStore.resetActivationCode(patient.id) }} className={classes.button} variant="contained" >{t('coordinator.addPatientFlow.resetCode')}</Button>
+    if (props.list && props.list.map) {
+
+        list = props.list.map((patient, index) => {
+            return (
+                <div key={`patient-list-view-${index}`} className={classes.singlePatient}>
+                    <div className={classes.name}>
+                        <a onClick={() => { props.handlePatientClick(patient.id) }}>
+                            {patient.fullName}
+                        </a>
+                    </div>
+
+                    <div>
+                        {patient.phoneNumber}
+                    </div>
+
+                    <div>
+                        <Button onClick={() => { practitionerStore.resetActivationCode(patient.id) }} className={classes.button} variant="contained" >{t('coordinator.addPatientFlow.resetCode')}</Button>
+                    </div>
                 </div>
-            </div>
-        )
-    })
+            )
+        })
+    }
 
     return (
         <Card title={t("coordinator.cardTitles.awaitingActivation")}>
