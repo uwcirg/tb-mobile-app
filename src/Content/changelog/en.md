@@ -17,6 +17,14 @@ Photo Uploading State:
 - Max out image size to 650px
 - Translations for error reports / uploading state
 
+Coordinator Side:
+- Allow editing of patient details on coordinator side
+- Cleanup patient profile on coordinator side
+- Improve button placement on smaller screen sizes
+- Remove dead data
+- Lazy load long list of reports
+- Add treatment end date for patients, make it editable
+
 Behind the scenes:
 - Updated tests w/ react-testing-framework
 - Integrated Swagger documentation generation
