@@ -90,7 +90,7 @@ const LanguageQuestion = observer(() => {
 
 const Debugging = observer((props) => {
     const classes = useStyles();
-    const { patientStore,uiStore } = useStores();
+    const { patientStore, uiStore } = useStores();
 
     return (
         <>
@@ -107,12 +107,12 @@ const Debugging = observer((props) => {
                         value={patientStore.patientInformation.daysInTreatment}
                         onChange={(e) => { patientStore.patientInformation.daysInTreatment = e.target.value }}
                     />
-                            <p>Visibily Change Count{ uiStore.visibilityChangeCount}</p>
+                    <p>Visibily Change Count{uiStore.visibilityChangeCount}</p>
+                    <button onClick={() => {
+                        patientStore.educationStore.setLocalToOldDateForTesting(DateTime.local().minus({ days: 2 }).toISODate())
+                    }}>Update Date of Last Update Read to 2 days ago</button>
                 </div> :
                 ""}
-                <button onClick={() => {
-                    patientStore.educationStore.setLocalToOldDateForTesting(DateTime.local().minus({days: 2}).toISODate())
-                }}>Update Date of Last Update Read to 2 days ago</button>
         </>
     )
 })
@@ -236,7 +236,7 @@ const useStyles = makeStyles({
     debugging: {
         padding: "1em"
     },
-    pwContainer:{
+    pwContainer: {
         width: "90%",
         height: "100%"
     }
