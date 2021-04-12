@@ -23,7 +23,8 @@
         "loading": "Cargando",
         "patients": "pacientes",
         "expandPhoto": "Agrandar la Foto",
-        "hideThis": "Esconder Esto"
+        "hideThis": "Esconder Esto",
+        "clickToLoadMore": "Click to load more"
     },
     "userTypes": {
         "patient": "Paciente",
@@ -35,7 +36,7 @@
         "changeLanguage": "Click Here For English",
         "activateAccount": "Activar su Cuenta",
         "forgotPassword": "¿Olvidó su contraseña?",
-        "forgotPasswordDetails": "Please contact your coordinator on WhatsApp, they will send you a code you can use to login and create a new password.",
+        "forgotPasswordDetails": "Por favor contacte su assistante en WhatsApp. Su assistante le enviará un código que puede utilizar para iniciar una sesión y crear una nueva contraseña.",
         "phoneNumber": "Número de Teléfono",
         "email": "Correo Electrónico",
         "password": "Contraseña",
@@ -259,8 +260,8 @@
                 "missing_plural": "Reportes Que Faltan"
             },
             "chatReminder":{
-                "body": "Did you know you can chat anonymously with other patients?",
-                "button": "Show me how"
+                "body": "¿Sabías que puedes chatear anónimamente con otros pacientes?",
+                "button": "Muéstrame cómo"
             }
         },
         "profile": {
@@ -347,8 +348,8 @@
                 "uploading": "Subiendo los reportes que completó sin conexión"
 
             },
-            "photoUploading": "Your photo is uploading",
-            "photoUploadError": "There was a problem uploading your report. Please try again, or contact your treatment assistant"
+            "photoUploading": "Tu foto se está subiendo.",
+            "photoUploadError": "Hubo un problema al subir su reporte. Inténtelo de nuevo o póngase en contacto con su asistente de tratamiento."
         },
         "reportConfirmation": {
             "viewOrEdit": "Ver / Editar Reporte",
@@ -409,11 +410,11 @@
         },
 
         "chatReminder":{
-            "howTo": "Heres how",
+            "howTo": "Aquí es cómo.",
             "list":[
-                "Go to the Messaging tab ",
-                "Toward the bottom, tap on any of the Group Discussions",
-                "Talk to others experiencing TB. Ask questions, receive feedback, and provide encouragement. Only your treatment assistant can see your name"
+                "Vaya a la página de mensajes.",
+                "Hacia abajo, seleccione en cualquiera de los discusiones.",
+                "Hable con otros pacientes con TB. Haga preguntas, reciba apoyo, y deje comentarios. Solo su asistente de tratamiento puede ver su nombre."
             ]
         }
     },
@@ -559,6 +560,21 @@
         "false": "Falso",
         "daysInTreatment": "Días en Tratamiento",
         "patientProfile": {
+            "notes":{
+                "noneFound": "No Hay Notas",
+                "title": "Título",
+                "detail": "Detalle"
+            },
+            "accessError": "Esta paciente no existe en su grupo.",
+            "editDetails":{
+                "success": "La información del paciente fue actualizado.",
+                "title": "Editar Detalles Del Paciente",
+                "newPhone": "Nuevo Número de Teléfono",
+                "warning": "Si se cambia el número de teléfono del paciente, ellos tendrán que iniciar una sesión nueva usando el nuevo número. ",
+                "submit": "Enviar",
+                "cancel": "Cancelar",
+                "inputError": "There was an error with your change, which has been marked in red. Phone numbers must be 9-15 digits, and unique for each patient."
+            },
             "addNote": {
                 "header": "Nueva nota para",
                 "title": "Título",
@@ -571,6 +587,7 @@
             "resetPasswordExplanation": "Haga clic aquí para restablecer la contraseña del paciente. Necesita mandar esta contraseña temporaria al paciente por WhatsApp.  Después de usar la contraseña temporaria, la aplicación requerirá que el paciente cambie la contraseña. ",
             "phoneNumber": "Número de Teléfono",
             "treatmentStart": "Fecha de Inicio del Tratamiento",
+            "treatmentEnd": "Final Día del Tratamiento",
             "lastContacted": "Último Contacto",
             "date": "Fecha",
             "taken": "Tomado",
@@ -599,7 +616,8 @@
                 "resetPassword": "Cambiar la Contraseña",
                 "archive": "Archivar Paciente",
                 "message": "Mensaje",
-                "note": "Añadir Nota"
+                "note": "Añadir Nota",
+                "edit": "Editar"
             }
         },
         "tasksSidebar": {
@@ -664,31 +682,31 @@
         "week": "Semana",
         "header": "Importante conocer",
         "helpful": "¿Fue útil este mensaje?",
-        "lateWarning": "Updates that were missed may show up later in your treatment"
+        "lateWarning": "Las actualizaciones que no fueron completados aparecerán más adelante en su tratamiento."
     },
     "timeline": {
-        "warning": "This is a general outline, and may vary from person to person",
+        "warning": "Este es un esquema general, su experiencia puede variar.",
         "title": " Línea de tiempo",
-        "expect": "This month you can expect",
+        "expect": "Este mes se puede esperar",
         "sputumTest": "Prueba de Esputo ",
         "start": "Inicio de Tratamiento",
         "intensive": "Fase Intensiva",
         "medicationChange": "Cambio de Medicación",
         "continuous": "Fase de Consolidación ",
-        "followUp": "Follow Up Appointment",
+        "followUp": "Cita de Seguimiento",
         "end": "Fin del Tratamiento",
         "here": "Ud. está aquí",
         "twoMonths": "Cada dos meses",
         "during": "During Continuous Phase\n\nNOT SURE WHAT CONTINUOUS PHASE MEANS",
-        "dayOne": "Day One",
-        "scheduled": "Monthly or as scheduled",
-        "oneToTwo": "After 1-2 months",
-        "changeMeds": "Change medication regimen",
-        "afterTwo": "After 2 months",
-        "threeToFour": "After 3-4 months",
-        "finish": "Finish treatment",
-        "sixMonths": "After Six Months",
-        "finalSputum": "Final sputum test"
+        "dayOne": "Día Uno",
+        "scheduled": "Mensualmente o Como Programado",
+        "oneToTwo": "Después de 1-2 Meses",
+        "changeMeds": "Cambiar el Régimen de Medicamentos",
+        "afterTwo": "Después de 2 Meses",
+        "threeToFour": "Después de 3-4 Meses",
+        "finish": "Terminar Tratamiento",
+        "sixMonths": "Después de 6 Meses",
+        "finalSputum": "Última Prueba de Esputo "
     },
     "report": {
         "for": "Reporte para el dia",
@@ -731,14 +749,14 @@
         "doLater": "Completar Más Tarde"
     },
     "forcePasswordUpdate":{
-        "temporaryPassword": "Temporary Code",
-        "title": "Your password was reset, please create a new one",
-        "exit": "Complete this later",
-        "success": "Password Updated Successfully"
+        "temporaryPassword": "Código Temporal",
+        "title": "Su contraseña fue restablecida, por favor cree una nueva.",
+        "exit": "Completa esto más tarde.",
+        "success": "Contraseña Actualizada Exitosamente"
     },
 "treatmentUpdates":{
         "3": "La Tuberculosis Pulmonar se contagia cuando una persona enferma al toser, estornudar o al hablar elimina con la tos secreciones que contienen los bacilos que producen la enfermedad. Siempre tratar de toser en lugar bien ventilado, nunca cerrado, si es posible cubrirse la boca y/o utilizar barbijo. ",
-        "5": "Did you know you can chat with others in TB treatment anonymously?",
+        "5": "¿Sabías que puedes chatear con otros pacientes en tratamiento anónimamente?",
         "7": "Una de las drogas utilizadas, la Rifampicina, colorea la orina, saliva o lagrimas de color naranja o rojo. Esto es normal. Las lentes de contacto pueden teñirse de manera irreversible.",
         "10": "Estar en contacto frecuente y en lugares cerrados aumenta el riesgo de contagiarse. Las personas con las que vive o trabaja deben hacerse un control. ¡Cuando tosa, por favor cúbrase la boca con el pliegue del codo!",
         "14": "Las drogas utilizadas en el tratamiento deben tomarse en ayunas con agua, ya que con los alimentos, sobre todo si contienen abundantes azúcares (por ejemplo yogurt) y harinas, la acción disminuye en forma importante (25-60%)",

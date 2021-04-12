@@ -50,11 +50,11 @@ const PatientHome = observer((props) => {
     }
   }, [uiStore.offline, dailyReportStore.numberOfflineReports])
 
-  if (patientStore.forcePasswordChange) {
+  if (patientStore.hasForcedPasswordChange) {
     return <ForcePasswordChange />
   }
 
-  if (patientStore.status !== "Active") {
+  if (patientStore.status === "Pending") {
     return <Onboarding />
   }
 

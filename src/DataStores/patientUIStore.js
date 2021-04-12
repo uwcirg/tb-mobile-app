@@ -213,7 +213,7 @@ export default class PatientUIStore {
         return (search.includes("onAddReminders=true"))
     }
 
-    @action setAlert = (text,type) =>{
+    @action setAlert = (text,type="success") =>{
         this.alertVisible = true;
         this.alertText = text;
         this.alertType = type;

@@ -10,6 +10,7 @@ import ProfileButton from './ProfileButton'
 import Message from '@material-ui/icons/ChatBubble';
 import Add from '@material-ui/icons/AddCircle';
 import Refresh from '@material-ui/icons/Refresh'
+import EditIcon from '@material-ui/icons/Edit'
 
 const useStyles = makeStyles({
 
@@ -57,9 +58,12 @@ const useStyles = makeStyles({
     },
     buttons: {
         marginTop: "auto",
+        paddingTop: "1em",
         display: "flex",
+        flexWrap: "wrap",
         "& > button": {
-            marginRight: "1em"
+            marginTop: ".5em",
+            marginRight: ".5em"
         }
     }
 
@@ -68,24 +72,26 @@ const useStyles = makeStyles({
 const PatientInfo = observer((props) => {
 
     const classes = useStyles();
-    const { practitionerStore } = useStores();
-    const { t, i18n } = useTranslation('translation');
+    const { patientProfileStore } = useStores();
+    const { t } = useTranslation('translation');
 
     const getDate = (iso) => {
         return (DateTime.fromISO(iso).toLocaleString(DateTime.DATE_MED))
     }
 
     return (<div className={classes.container}>
-        {practitionerStore.selectedPatient.details && <div className={classes.profileHeader}>
-            <h1>{practitionerStore.selectedPatient.details.fullName}</h1>
+        {patientProfileStore.selectedPatient.details && <div className={classes.profileHeader}>
+            <h1>{patientProfileStore.selectedPatient.details.fullName}</h1>
+            <ProfileButton style={{"& > button:hover": {color: "white"}}} backgroundColor="none" color={Colors.buttonBlue} onClick={patientProfileStore.toggleOnChangeDetails}><EditIcon />{t("coordinator.patientProfile.options.edit")}</ProfileButton>
                 </div>}
         <div className={classes.detailGroup}>
-            <Item top={t("coordinator.patientProfile.age")} bottom={practitionerStore.selectedPatient.details.age || "N/A"} />
-            <Item top={t("coordinator.patientProfile.gender")} bottom={practitionerStore.selectedPatient.details.gender|| "N/A"} />
-            <Item top={t("coordinator.patientProfile.phoneNumber")} bottom={practitionerStore.selectedPatient.details.phoneNumber} />
+            <Item top={t("coordinator.patientProfile.age")} bottom={patientProfileStore.selectedPatient.details.age || "N/A"} />
+            <Item top={t("coordinator.patientProfile.gender")} bottom={patientProfileStore.selectedPatient.details.gender|| "N/A"} />
+            <Item top={t("coordinator.patientProfile.phoneNumber")} bottom={patientProfileStore.selectedPatient.details.phoneNumber} />
         </div>
-        <Item top={t("coordinator.patientProfile.treatmentStart")} bottom={getDate(practitionerStore.selectedPatient.details.treatmentStart)} />
-        <Item top={t("coordinator.patientProfile.lastContacted")} bottom={getDate(practitionerStore.selectedPatient.details.lastContacted)} />
+        <Item top={t("coordinator.patientProfile.treatmentStart")} bottom={getDate(patientProfileStore.selectedPatient.details.treatmentStart)} />
+        <Item top={t("coordinator.patientProfile.treatmentEnd")} bottom={getDate(patientProfileStore.selectedPatient.details.treatmentEndDate)} />
+        <Item top={t("coordinator.patientProfile.lastContacted")} bottom={getDate(patientProfileStore.selectedPatient.details.lastContacted)} />
 
         <Buttons {...props} />
 
@@ -94,15 +100,13 @@ const PatientInfo = observer((props) => {
 })
 
 const Buttons = observer((props) => {
-    const { practitionerUIStore, practitionerStore, patientProfileStore } = useStores();
+    const { practitionerUIStore, patientProfileStore } = useStores();
     const classes = useStyles();
     const { t } = useTranslation('translation');
 
     const messagePatient = () => {
-        practitionerUIStore.goToChannel(practitionerStore.selectedPatient.details.channelId);
+        practitionerUIStore.goToChannel(patientProfileStore.selectedPatient.details.channelId);
     }
-
-
 
     return (
         <div className={classes.buttons}>

@@ -14,12 +14,13 @@ import FeelingGood from '@material-ui/icons/Mood'
 import FeelingBad from '@material-ui/icons/MoodBad'
 import ReportCard from './ReportCard';
 import ReportItem from './ReportCardItem';
+import Button from '@material-ui/core/Button'
 
 const useStyles = makeStyles({
     container: {
         flexGrow: "1",
-        maxHeight: "78vh",
-        overflow: "scroll"
+        overflow: "scroll",
+        maxHeight: "60vh"
     },
     details: {
         display: "flex",
@@ -44,19 +45,28 @@ const useStyles = makeStyles({
     },
     red: {
         color: "red"
+    },
+    loadButton:{
+        border: `1px solid ${Colors.buttonBlue}`,
+        color: Colors.buttonBlue,
+        width: "90%",
+        margin: "auto",
+        marginBottom: "2em",
+        display: "block"
     }
 })
 
 const ReportView = observer(() => {
 
-    const { practitionerStore } = useStores();
+    const { patientProfileStore } = useStores();
     const classes = useStyles();
+    const { t } = useTranslation('translation');
 
-    //for dev slice(0,3) to fix error loading
     return (<div className={classes.container}>
-        {practitionerStore.selectedPatientReports.length > 0 && practitionerStore.selectedPatientReports.map(report => {
+        {patientProfileStore.selectedPatientReports.length > 0 && patientProfileStore.selectedPatientReports.map(report => {
             return <Report key={`patient-report-${report.id}`} report={report} />
         })}
+        {patientProfileStore.areMoreReportsToLoad && <Button disableElevation className={classes.loadButton} fullWidth onClick={patientProfileStore.loadMoreReports}>{t('commonWords.clickToLoadMore')}</Button>}
     </div>)
 
 })
@@ -65,7 +75,7 @@ const Report = (props) => {
     //const [expanded, setExpanded] = useState(false);
     const { report } = props;
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
     return (
 

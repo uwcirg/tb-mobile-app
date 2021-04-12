@@ -20,13 +20,16 @@ const useStyles = makeStyles({
             marginTop: "1em",
             width: "50%"
         }
+    },
+    bottomInput:{
+        marginTop: "1em"
     }
 })
 
 const AddNote = observer((props) => {
     const { t, i18n } = useTranslation('translation');
     const classes = useStyles();
-    const { practitionerStore, practitionerUIStore } = useStores();
+    const { practitionerStore, practitionerUIStore, patientProfileStore } = useStores();
 
     const [title,setTitle] = useState("");
     const [note,setNote] = useState("");
@@ -39,7 +42,7 @@ const AddNote = observer((props) => {
     },[])
 
     const submitNote = () => {
-        practitionerStore.postPatientNote(title,note);
+        patientProfileStore.postPatientNote(title,note);
         practitionerUIStore.closeAddPatientNote();
     }
 
@@ -53,6 +56,7 @@ const AddNote = observer((props) => {
                 label={t("coordinator.patientProfile.addNote.title")}
             />
             <TextField
+                className={classes.bottomInput}
                 id="note-input"
                 onChange={e => {setNote(e.target.value)}}
                 value={note}

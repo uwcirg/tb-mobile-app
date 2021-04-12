@@ -23,7 +23,8 @@
         "loading": "Loading",
         "patients": "Patients",
         "expandPhoto": "Expand Photo",
-        "hideThis": "Hide This"
+        "hideThis": "Hide This",
+        "clickToLoadMore": "Click to load more"
     },
     "userTypes": {
         "patient": "Patient",
@@ -566,6 +567,21 @@
         "false": "false",
         "daysInTreatment": "Days In Treatment",
         "patientProfile": {
+            "notes":{
+                "noneFound": "No Notes Found",
+                "title": "Title",
+                "detail": "Detail"
+            },
+            "accessError": "This patient does not exist at your site",
+            "editDetails":{
+                "success": "Patient information successfully updated",
+                "title": "Edit Patient Details",
+                "newPhone": "New Phone Number",
+                "warning": "If the patients phone number is changed, they will need to log in with the new phone number you have provided.",
+                "submit": "Submit",
+                "cancel": "Cancel",
+                "inputError": "There was an error with your change, which has been marked in red. Phone numbers must be 9-15 digits, and unique for each patient."
+            },
             "addNote": {
                 "header": "New note for",
                 "title": "Title",
@@ -578,6 +594,7 @@
             "resetPasswordExplanation": "Click here to reset a patients password. This generates a temporary password that you will have to send to them via WhatsApp. They will be asked to enter a new password after they use the temporary one.",
             "phoneNumber": "Phone Number",
             "treatmentStart": "Treatment Start",
+            "treatmentEnd": "Treatment End Date",
             "lastContacted": "Last Contacted",
             "date": "Date",
             "taken": "Taken",
@@ -606,7 +623,8 @@
                 "resetPassword": "Reset Password",
                 "archive": "Archive Patient",
                 "message": "Message",
-                "note": "Add Note"
+                "note": "Add Note",
+                "edit": "Edit"
             }
         },
         "tasksSidebar": {
