@@ -33,6 +33,7 @@ export class PatientStore extends UserStore {
         loaded: false
     }
 
+    @observable hasForcedPasswordChange = false;
     @observable photoSchedule = {};
     @observable educationStatus = [];
 
@@ -112,6 +113,7 @@ export class PatientStore extends UserStore {
         this.patientInformation.daysInTreatment = json.daysInTreatment;
         this.patientInformation.currentStreak = json.currentStreak;
         this.educationStore.educationStatus = json.educationStatus;
+        this.hasForcedPasswordChange = json.hasForcedPasswordChange;
         this.patientInformation.loaded = true;
 
         localStorage.setItem("cachedProfile", JSON.stringify({
@@ -417,7 +419,7 @@ export class PatientStore extends UserStore {
     }
 
     @action exitForcedPasswordChange = () => {
-        this.forcePasswordChange = false;
+        this.hasForcedPasswordChange = false;
     }
 
     @action logoutPatient() {
