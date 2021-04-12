@@ -23,7 +23,8 @@
         "loading": "Cargando",
         "patients": "pacientes",
         "expandPhoto": "Agrandar la Foto",
-        "hideThis": "Esconder Esto"
+        "hideThis": "Esconder Esto",
+        "clickToLoadMore": "Click to load more"
     },
     "userTypes": {
         "patient": "Paciente",

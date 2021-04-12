@@ -15,7 +15,7 @@ const LoginForm = observer((props) => {
   const [onActivation, setOnActivation] = useState(false)
   const { t } = useTranslation('translation');
 
-  const { loginStore,uiStore } = useStores();
+  const { loginStore } = useStores();
 
   let updatePassword = (e) => {
     loginStore.password = e.target.value;
