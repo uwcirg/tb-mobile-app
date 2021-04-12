@@ -1,4 +1,4 @@
-FROM node:8.16 as build-deps
+FROM node:10.16 as build-deps
 ARG build_sha
 ARG github_version
 WORKDIR /usr/src/app

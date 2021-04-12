@@ -8,14 +8,14 @@ import { useTranslation } from 'react-i18next'
 import { PasswordInput } from './StyledInputs'
 import ReactCodeInput from 'react-code-input';
 import ButtonBase from '@material-ui/core/ButtonBase'
+import { makeStyles } from '@material-ui/core';
 
-const USER_TYPES = ["Patient", "Practitioner", "Administrator"];
 const LoginForm = observer((props) => {
 
   const [onActivation, setOnActivation] = useState(false)
-  const { t, i18n } = useTranslation('translation');
+  const { t } = useTranslation('translation');
 
-  const { patientStore, loginStore, practitionerStore, adminStore } = useStores();
+  const { loginStore } = useStores();
 
   let updatePassword = (e) => {
     loginStore.password = e.target.value;
@@ -38,34 +38,41 @@ const LoginForm = observer((props) => {
       <Card>
         <form onSubmit={(e) => { e.preventDefault() }}>
           <IdentifierInput defaultValue={loginStore.isPatient ? t("login.phoneNumber") : t("login.email")} updateIdentifier={updateIdentifier} />
-          <br />
           {onActivation ? <Center><CodeInput onChange={handleCodeInput} id="activationCode" fields={5} /></Center> : <PasswordInput updatePassword={updatePassword} />}
-          <br />
           <Button id="login" fullWidth onClick={loginStore.submit} variant="contained" color={"primary"} >{onActivation ? t("login.activate") : t("login.logIn")}</Button>
         </form>
       </Card>
       <BottomLinks>
-        <ButtonBase style={{ fontSize: "1em" }} onClick={toggleActivate}>{onActivation ? t("login.haveAccount") : t("login.activateAccount")}</ButtonBase>
-        <ButtonBase style={{ fontSize: "1em" }}>{t("login.forgotPassword")}</ButtonBase>
+      <TextButton onClick={loginStore.goToForgotPassword}>{t("login.forgotPassword")}</TextButton>
+        <TextButton onClick={toggleActivate}>{onActivation ? t("login.haveAccount") : t("login.activateAccount")}</TextButton>
       </BottomLinks>
 
     </Container>
   );
 });
 
+const useStyles = makeStyles({
+  textButton: {
+    fontSize: "1em",
+    marginTop: "1.25em",
+    textAlign: "center",
+    display: "block",
+    color: "#88b3f8",
+    textDecoration: "underline"
+  }
+})
+
+const TextButton = (props) => {
+  const classes = useStyles();
+  return (<ButtonBase className={classes.textButton}  onClick={props.onClick}>{props.children}</ButtonBase>)
+}
+
 const BottomLinks = styled.div`
-margin: 3em 0 3em 0;
+margin: 1em 0;
 width: 100%;
 display: flex;
 flex-direction: column;
 align-content: center;
-
-button{
-    margin-top: 1.25em;
-    text-align: center;
-    display: block;
-    color: #89b3f9;
-  }
 
 `
 

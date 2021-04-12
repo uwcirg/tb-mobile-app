@@ -23,7 +23,8 @@
         "loading": "Cargando",
         "patients": "pacientes",
         "expandPhoto": "Agrandar la Foto",
-        "hideThis": "Esconder Esto"
+        "hideThis": "Esconder Esto",
+        "clickToLoadMore": "Click to load more"
     },
     "userTypes": {
         "patient": "Paciente",
@@ -35,6 +36,7 @@
         "changeLanguage": "Click Here For English",
         "activateAccount": "Activar su Cuenta",
         "forgotPassword": "¿Olvidó su contraseña?",
+        "forgotPasswordDetails": "Por favor contacte su assistante en WhatsApp. Su assistante le enviará un código que puede utilizar para iniciar una sesión y crear una nueva contraseña.",
         "phoneNumber": "Número de Teléfono",
         "email": "Correo Electrónico",
         "password": "Contraseña",
@@ -249,13 +251,17 @@
             "helpVideos":{
                 "needHelp": "¿Necesita ayuda con la aplicación?",
                 "hide": "Esconder",
-                "seeAll": "Ver Todos Los Vídeos tutoriales",
+                "seeAll": "Ver Todos Los Vídeos",
                 "collapse": "Esconder Lista",
                 "viewOnInfo": "Siempre puedes ver estos videos en la página de información."
             },
             "missedDays":{
                 "missing": "Reportes Que Faltan",
                 "missing_plural": "Reportes Que Faltan"
+            },
+            "chatReminder":{
+                "body": "¿Sabías que puedes chatear anónimamente con otros pacientes?",
+                "button": "Muéstrame cómo"
             }
         },
         "profile": {
@@ -341,7 +347,9 @@
                 "explanation": "Se cargarán cuando tenga conexión a Internet",
                 "uploading": "Subiendo los reportes que completó sin conexión"
 
-            }
+            },
+            "photoUploading": "Tu foto se está subiendo.",
+            "photoUploadError": "Hubo un problema al subir su reporte. Inténtelo de nuevo o póngase en contacto con su asistente de tratamiento."
         },
         "reportConfirmation": {
             "viewOrEdit": "Ver / Editar Reporte",
@@ -399,6 +407,15 @@
                 "calendar": "Página del Calendario",
                 "messaging": "Página de Mensajes"
             }
+        },
+
+        "chatReminder":{
+            "howTo": "Aquí es cómo.",
+            "list":[
+                "Vaya a la página de mensajes.",
+                "Hacia abajo, seleccione en cualquiera de los discusiones.",
+                "Hable con otros pacientes con TB. Haga preguntas, reciba apoyo, y deje comentarios. Solo su asistente de tratamiento puede ver su nombre."
+            ]
         }
     },
     "symptoms": {
@@ -543,6 +560,21 @@
         "false": "Falso",
         "daysInTreatment": "Días en Tratamiento",
         "patientProfile": {
+            "notes":{
+                "noneFound": "No Hay Notas",
+                "title": "Título",
+                "detail": "Detalle"
+            },
+            "accessError": "Esta paciente no existe en su grupo.",
+            "editDetails":{
+                "success": "La información del paciente fue actualizado.",
+                "title": "Editar Detalles Del Paciente",
+                "newPhone": "Nuevo Número de Teléfono",
+                "warning": "Si se cambia el número de teléfono del paciente, ellos tendrán que iniciar una sesión nueva usando el nuevo número. ",
+                "submit": "Enviar",
+                "cancel": "Cancelar",
+                "inputError": "There was an error with your change, which has been marked in red. Phone numbers must be 9-15 digits, and unique for each patient."
+            },
             "addNote": {
                 "header": "Nueva nota para",
                 "title": "Título",
@@ -555,6 +587,7 @@
             "resetPasswordExplanation": "Haga clic aquí para restablecer la contraseña del paciente. Necesita mandar esta contraseña temporaria al paciente por WhatsApp.  Después de usar la contraseña temporaria, la aplicación requerirá que el paciente cambie la contraseña. ",
             "phoneNumber": "Número de Teléfono",
             "treatmentStart": "Fecha de Inicio del Tratamiento",
+            "treatmentEnd": "Final Día del Tratamiento",
             "lastContacted": "Último Contacto",
             "date": "Fecha",
             "taken": "Tomado",
@@ -583,7 +616,8 @@
                 "resetPassword": "Cambiar la Contraseña",
                 "archive": "Archivar Paciente",
                 "message": "Mensaje",
-                "note": "Añadir Nota"
+                "note": "Añadir Nota",
+                "edit": "Editar"
             }
         },
         "tasksSidebar": {
@@ -648,27 +682,31 @@
         "week": "Semana",
         "header": "Importante conocer",
         "helpful": "¿Fue útil este mensaje?",
-        "messages": {
-            "0": "Primer mensaje en inglés",
-            "1": "Este va ser el mensaje de la primera semana",
-            "2": "Este va ser el mensaje de la segunda semana",
-            "3": "Este va ser el mensaje de la tercera semana",
-            "4": "Este va ser el mensaje de la cuarta semana",
-            "5": "Este va ser el mensaje de la quinta semana"
-        }
+        "lateWarning": "Las actualizaciones que no fueron completados aparecerán más adelante en su tratamiento."
     },
     "timeline": {
+        "warning": "Este es un esquema general, su experiencia puede variar.",
         "title": " Línea de tiempo",
+        "expect": "Este mes se puede esperar",
         "sputumTest": "Prueba de Esputo ",
         "start": "Inicio de Tratamiento",
         "intensive": "Fase Intensiva",
         "medicationChange": "Cambio de Medicación",
         "continuous": "Fase de Consolidación ",
-        "followUp": "Visitas de control",
+        "followUp": "Cita de Seguimiento",
         "end": "Fin del Tratamiento",
         "here": "Ud. está aquí",
         "twoMonths": "Cada dos meses",
-        "during": "During Continuous Phase\n\nNOT SURE WHAT CONTINUOUS PHASE MEANS"
+        "during": "During Continuous Phase\n\nNOT SURE WHAT CONTINUOUS PHASE MEANS",
+        "dayOne": "Día Uno",
+        "scheduled": "Mensualmente o Como Programado",
+        "oneToTwo": "Después de 1-2 Meses",
+        "changeMeds": "Cambiar el Régimen de Medicamentos",
+        "afterTwo": "Después de 2 Meses",
+        "threeToFour": "Después de 3-4 Meses",
+        "finish": "Terminar Tratamiento",
+        "sixMonths": "Después de 6 Meses",
+        "finalSputum": "Última Prueba de Esputo "
     },
     "report": {
         "for": "Reporte para el dia",
@@ -709,5 +747,33 @@
         "alreadyDownloaded": "Ya se ha descargado y se puede utilizar inmediatamente.",
         "clickButton": "Haga clic en el botón de abajo para completar la actualización.",
         "doLater": "Completar Más Tarde"
-    }
+    },
+    "forcePasswordUpdate":{
+        "temporaryPassword": "Código Temporal",
+        "title": "Su contraseña fue restablecida, por favor cree una nueva.",
+        "exit": "Completa esto más tarde.",
+        "success": "Contraseña Actualizada Exitosamente"
+    },
+"treatmentUpdates":{
+        "3": "La Tuberculosis Pulmonar se contagia cuando una persona enferma al toser, estornudar o al hablar elimina con la tos secreciones que contienen los bacilos que producen la enfermedad. Siempre tratar de toser en lugar bien ventilado, nunca cerrado, si es posible cubrirse la boca y/o utilizar barbijo. ",
+        "5": "¿Sabías que puedes chatear con otros pacientes en tratamiento anónimamente?",
+        "7": "Una de las drogas utilizadas, la Rifampicina, colorea la orina, saliva o lagrimas de color naranja o rojo. Esto es normal. Las lentes de contacto pueden teñirse de manera irreversible.",
+        "10": "Estar en contacto frecuente y en lugares cerrados aumenta el riesgo de contagiarse. Las personas con las que vive o trabaja deben hacerse un control. ¡Cuando tosa, por favor cúbrase la boca con el pliegue del codo!",
+        "14": "Las drogas utilizadas en el tratamiento deben tomarse en ayunas con agua, ya que con los alimentos, sobre todo si contienen abundantes azúcares (por ejemplo yogurt) y harinas, la acción disminuye en forma importante (25-60%)",
+        "21": "La Tuberculosis Pulmonar no se contagia al dar la mano, compartir vasos o platos. Solo el contagio se produce al toser, estornudar o al hablar. Recordar que ¡La Tuberculosis se cura! ",
+        "24": "Por la acción rápida de las drogas una persona enferma a los pocos días (entre 15 a 20 días) deja de contagiar. Esto lo determina el médico mediante un estudio de catarro.",
+        "28": "Dejar de contagiar no es igual a curación. Para que la Tuberculosis Pulmonar se cure debo cumplir con al menos 6 meses de tratamiento. ",
+        "31": "Las drogas utilizadas en el tratamiento de la Tuberculosis pueden producir vómitos, picazón, pérdida del apetito, erupciones en la piel, disminución en la visión. Recordar que la presencia de estos efectos deberá consultarse con el servicio tratante, para evaluar la severidad de la misma.",
+        "35": "Los síntomas como fiebre, sudores nocturnos, tos y catarro, pueden persistir durante los primeros días del tratamiento. Recordar que hay que continuar con el tratamiento! ",
+        "38": "Por la acción de los medicamentos la piel puede estar más sensible al sol. Tratar de no exponerse al sol. Recordar que lo importante es el cumplimiento del tratamiento.",
+        "42": "La alimentación puede incluir todos los componentes como pan, pastas, harinas, grasas, proteínas, fibra, fruta y verduras.",
+        "46": "Para controlar que las drogas antituberculosas utilizadas lo están curando, es necesario hacer controles mínimos del catarro. Recordar que los controles son importantes en los primeros meses del tratamiento cuando aún puede tener síntomas. ",
+        "50": "Sabemos que, lamentablemente, la persona enferma puede sufrir actos de discriminación. Esto se debe al miedo y al desconocimiento. Creemos que la información y la difusión son la manera de desterrar estos prejuicios. Todos podemos enfermar. ",
+        "54": "Las drogas utilizadas en el tratamiento de la Tuberculosis son 100% efectivas y curan al paciente enfermo. Si el tratamiento no se cumple hace que la bacteria se vuelva resistente a las drogas perdiendo así su esta efectividad.",
+        "58": "El control del catarro especialmente en los 2 primeros meses del tratamiento, permite saber si una persona aún sigue contagiando. Con estos controles si el catarro ya es negativo puedeo volver al trabajo, a pesar que debeo continuar con el tratamiento durante con el tratamiento los 6 meses. Adelante!",
+        "62": "Después del segundo mes el tratamiento es más sencillo con menor cantidad de medicación. Es importante continuar con todos los controles y examen del catarro para saber si las drogas me sirven para curarme. ",
+        "70": "Ante cualquier complicación, el personal de salud de su lugar de atención puede controlar el tratamiento. Recordar que la única manera de prevenir en Tuberculosis es CURAR a todos los pacientes. ",
+        "80": "Un tratamiento exitoso depende del cumplimiento de todas las tomas de la medicación. Tratar de respetar los horarios.",
+        "90": "La mejoría de los síntomas no es lo mismo que curación. Curar significa que hay que continuar habitualmente con un tratamiento 6 meses. Adelante! "
+}
 }

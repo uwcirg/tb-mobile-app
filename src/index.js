@@ -1,6 +1,5 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
-import * as serviceWorker from './serviceWorker';
 import Main from './Main';
 import { Provider } from 'mobx-react';
 import { reaction } from 'mobx';
@@ -43,5 +42,4 @@ ReactDOM.render(
   </Provider>
   , document.getElementById('root'));
   
- // serviceWorker.register();
-// Now Registering in Main -> ServiceWorkerWrapper.js serviceWorker.register();
+// Serviceworker Registered in -> ServiceWorkerWrapper.js serviceWorker.register();

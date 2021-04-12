@@ -19,6 +19,16 @@ export class UIStore {
 
     @observable locale = ""
 
+    @observable alertVisible = false;
+    @observable alertText = "";
+    @observable alertType = "success";
+
+    @action setAlert = (text,type) =>{
+        this.alertVisible = true;
+        this.alertText = text;
+        this.alertType = type;
+    }
+
     @action setLocale = (locale) => {
         this.locale = locale;
         localStorage.setItem('i18n-locale', locale)

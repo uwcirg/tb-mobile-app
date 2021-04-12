@@ -211,8 +211,8 @@ export class PractitionerStore extends UserStore {
     }
 
     @action resetActivationCode = (id) => {
-        this.executeRawRequest(`/patient/${id}/activation_code`, "PATCH").then(response => {
-            this.newActivationCode = response.newCode;
+        this.executeRawRequest(`/patient/${id}/password-reset`, "POST").then(response => {
+            this.newActivationCode = response.temporaryPassword;
         })
     }
 
@@ -289,10 +289,6 @@ export class PractitionerStore extends UserStore {
         return this.getSelectedPatient.id
     }
 
-    resetPassword = () => {
-        this.resetActivationCode(this.selectedPatient.details.id);
-    }
-
     @action clearNewPatient = () => {
         this.newPatient.code = "";
         this.newPatient.errorReturned = false;
@@ -310,32 +306,15 @@ export class PractitionerStore extends UserStore {
             }
     }
 
-    @action setPatientReports = (reports) => {
-        this.selectedPatient.reports = reports;
-        this.selectedPatient.reportsLoading = false;
-    }
-
-    @action setSelectedPatientDetails = (details) => {
-        this.selectedPatient.details = details;
-    }
-
     @action setCohortSummary = (response) => {
         this.cohortSummary.loading = false;
         this.cohortSummary.data = response;
-    }
-
-    @action setPatientSymptomSummary = (symptoms) => {
-        this.selectedPatient.symptomSummary = symptoms
     }
 
     @action setResolutionsSummary = (response) => {
         this.resolutionSummary.dailyCount = response.count;
         this.resolutionSummary.takenMedication = response.medicationReporting.true
         this.resolutionSummary.notTakenMedication = response.medicationReporting.false
-    }
-
-    @computed get selectedPatientReports() {
-        return Object.values(this.selectedPatient.reports)
     }
 
     @computed get totalTasks() {
@@ -353,23 +332,6 @@ export class PractitionerStore extends UserStore {
     @action setMissingPhotos(patients) {
         const values = Object.keys(patients).map(key => { return { patientId: key, lastDate: patients[key][0].date, numberOfDays: patients[key].length, data: patients[key] } });
         this.filteredPatients.missedPhoto = values;
-    }
-
-    //Get detials to fill in patient profile information
-    getPatientDetails = (id) => {
-        this.executeRawRequest(`/practitioner/patient/${id}`, "GET").then(response => {
-            this.setSelectedPatientDetails(response);
-        })
-        //Must fetch reports seperately due to key tranform in Rails::AMS removing dashes ISO date keys :(
-        this.executeRawRequest(`/patient/${id}/reports`, "GET").then(response => {
-            this.setPatientReports(response);
-        })
-
-        this.executeRawRequest(`/patient/${id}/symptom_summary`).then(response => {
-            this.setPatientSymptomSummary(response);
-        })
-
-        this.getPatientNotes(id);
     }
 
     getCohortSummary = () => {
@@ -390,20 +352,6 @@ export class PractitionerStore extends UserStore {
                 this.setMissingPhotos(response)
             }
 
-        })
-    }
-
-    getPatientNotes = (patientID) => {
-        return this.executeRawRequest(`/patient/${patientID || this.selectedPatient.details.id}/notes`).then(response => {
-            this.setPatientNotes(response)
-        })
-    }
-
-    postPatientNote = (title, note) => {
-        const body = { title: title, note: note }
-        this.executeRawRequest(`/patient/${this.selectedPatient.details.id}/notes`, 'POST', body).then(response => {
-            this.getPatientNotes();
-            return response
         })
     }
 

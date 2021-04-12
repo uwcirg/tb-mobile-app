@@ -2,12 +2,12 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Styles from '../../Basics/Styles';
-import {Grid, IconButton } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
 import Clear from '@material-ui/icons/Clear';
 
 
 const useStyles = makeStyles({
-    container:{
+    container: {
         ...Styles.flexCenter,
         backgroundColor: "rgba(1,1,1,.5)",
         height: "100vh",
@@ -16,17 +16,20 @@ const useStyles = makeStyles({
         zIndex: "100",
         top: 0
     },
-    popup:{
+    popup: {
         ...Styles.flexColumn,
         alignItems: "center",
         textAlign: "center",
         backgroundColor: "white",
         width: "75%",
+        maxWidth: "300px",
         padding: "1em",
         borderRadius: "1em",
-        position: "relative"
+        position: "relative",
+        maxHeight: "90vh",
+        overflow: "scroll"
     },
-    exit:{
+    exit: {
         position: "absolute",
         top: 0,
         right: 0
@@ -38,15 +41,15 @@ const PopUp = (props) => {
     const classes = useStyles();
 
     return (<div className={classes.container}>
-    <ClickAwayListener onClickAway={() => {props.handleClickAway(false)}}>
-        <div className={`${classes.popup} ${props.className}`}>
-            <IconButton className={classes.exit} onClick={() => {props.handleClickAway(true)}}><Clear /></IconButton>
-            {props.children}
-        </div>
-    </ClickAwayListener>
+        <ClickAwayListener onClickAway={() => { if (props.handleClickAway) props.handleClickAway(false) }}>
+            <div className={`${classes.popup} ${props.className}`}>
+                <IconButton className={classes.exit} onClick={() => { if (props.handleClickAway) props.handleClickAway(true) }}><Clear /></IconButton>
+                {props.children}
+            </div>
+        </ClickAwayListener>
     </div>
 
-)
+    )
 
 }
 

@@ -5,8 +5,7 @@ import Colors from '../../Basics/Colors';
 import { observer } from 'mobx-react';
 import LanguageQuestion from '../../Basics/LanguageQuestion';
 import { useTranslation } from 'react-i18next';
-import { Button, ButtonBase, Typography } from '@material-ui/core';
-import PasswordUpdate from '../../Shared/PasswordUpdate'
+import { ButtonBase, Typography } from '@material-ui/core';
 import GlobeIcon from '@material-ui/icons/Public';
 import PasswordIcon from '@material-ui/icons/Lock';
 import LogoutIcon from '@material-ui/icons/ExitToApp';
@@ -14,10 +13,8 @@ import PasswordReset from '../../Shared/PasswordUpdate';
 import Documents from './Documents'
 import PatientIcon from '@material-ui/icons/Accessibility';
 import DocIcon from '@material-ui/icons/Description';
-import PersonIcon from '@material-ui/icons/Person';
 import ReportProblem from '@material-ui/icons/ReportProblem';
 import PatientInformation from '../../Patient/Information'
-
 import useLogout from '../../Basics/Logout'
 import Profile from './Profile';
 
@@ -164,6 +161,10 @@ const NavItem = observer((props) => {
 
         if (id === "logout") {
             logout();
+            return
+        }
+
+        if(!id){
             return
         }
 

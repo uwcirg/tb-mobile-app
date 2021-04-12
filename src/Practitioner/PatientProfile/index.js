@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import Styles from '../../Basics/Styles';
-import { DateTime } from 'luxon';
 import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
 import ResetPassword from './ResetPassword'
@@ -16,7 +15,7 @@ import TreatmentTimeline from '../../Basics/TreatmentTimeline'
 import ReportingHistory from './ReportingHistory'
 import { Typography } from '@material-ui/core';
 import AddNote from './AddNote'
-
+import ChangePatientDetails from './ChangePatientDetails'
 
 const useStyles = makeStyles({
     listItem: {
@@ -60,24 +59,23 @@ const useStyles = makeStyles({
         width: "95%",
         display: "flex"
     },
+    message: {
+        width: "100%",
+        height: "100%",
+        ...Styles.flexCenter
+    }
 })
 
 const Profile = observer((props) => {
 
-    const [onReset, setReset] = useState(false);
-    const [onNote,setNote] = useState(true);
-    const { practitionerStore,practitionerUIStore} = useStores();
+    const { practitionerStore, practitionerUIStore, patientProfileStore, uiStore } = useStores();
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
 
     const closeResetPassword = () => {
-        setReset(false)
+        patientProfileStore.closeResetPassword();
         practitionerStore.newActivationCode = ""
-    }
-
-    const openResetPassword = () => {
-        setReset(true);
     }
 
     const closeNote = () => {
@@ -85,20 +83,30 @@ const Profile = observer((props) => {
     }
 
     useEffect(() => {
-        practitionerStore.getPatientDetails(props.id);
+        patientProfileStore.getPatientDetails(props.id);
 
         return function cleanup() {
             closeResetPassword();
+            patientProfileStore.resetUpdateState();
         }
     }, [])
 
+    useEffect(() => {
+        if (patientProfileStore.changes.success) {
+            uiStore.setAlert(t('coordinator.patientProfile.editDetails.success'))
+        }
+    }, [patientProfileStore.changes.success])
+
     return (
         <>
-            {onReset && <ResetPassword close={closeResetPassword} />}
+            {patientProfileStore.onPasswordReset && <ResetPassword />}
             {practitionerUIStore.onAddPatientNote && <AddNote close={closeNote} />}
-                <div className={classes.patientContainer}>
+            {patientProfileStore.onChangeDetails && <ChangePatientDetails />}
+
+            {patientProfileStore.selectedPatient.loaded ?
+                <>{!patientProfileStore.selectedPatient.accessError ? <div className={classes.patientContainer}>
                     <div className={classes.top}>
-                        <PatientInfo openResetPassword={openResetPassword} />
+                        <PatientInfo />
                         <TreatmentStatus />
                         <SymptomSummary />
                     </div>
@@ -106,12 +114,23 @@ const Profile = observer((props) => {
                         <ReportingHistory />
                         <div className={classes.treatmentTimeline}>
                             <Typography variant={"h2"}>{t('timeline.title')}</Typography>
-                            <TreatmentTimeline weeksInTreatment={practitionerStore.selectedPatient.details.weeksInTreatment} />
+                            <TreatmentTimeline weeksInTreatment={patientProfileStore.selectedPatient.details.weeksInTreatment} />
                         </div>
                     </div>
-                </div>
+                </div> : <p className={classes.message}>{t('coordinator.patientProfile.accessError')}</p>} </> : <Loading />}
 
         </>)
 });
+
+
+const Loading = () => {
+    const classes = useStyles();
+    const { t } = useTranslation('translation');
+    return (
+        <div className={classes.message}>
+            <h1> {t('commonWords.loading')}...</h1>
+
+        </div>)
+}
 
 export default Profile;

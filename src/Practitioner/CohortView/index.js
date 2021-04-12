@@ -16,8 +16,9 @@ import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import Button from '@material-ui/core/Button'
 import PopOver from '../Shared/PopOver';
-import MuiButton from '../../Basics/MuiButton'
 import Priority from '../Shared/Priority';
+import ProfileButton from '../PatientProfile/ProfileButton';
+
 
 const useStyles = makeStyles({
     title: {
@@ -116,12 +117,16 @@ const useStyles = makeStyles({
         flexBasis: "180px"
     },
     header: {
-        width: "90%",
         display: "flex",
-        alignItems: "flex-start",
+        width: "90%",
+        justifyContent: "space-between",
         "& > h1": {
             padding: 0,
             margin: 0
+        },
+        "& > button": {
+            flexWrap: "nowrap"
+
         }
     },
     button: {
@@ -131,7 +136,7 @@ const useStyles = makeStyles({
 
 const PatientsView = observer((props) => {
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
     const { practitionerStore } = useStores();
 
     const toggleAddPatient = () => {
@@ -145,7 +150,7 @@ const PatientsView = observer((props) => {
                 <div className={classes.container}>
                     <div className={classes.header}>
                         <h1 className={classes.title}>{t("coordinator.titles.myPatients")}</h1>
-                        {!practitionerStore.onAddPatientFlow && <MuiButton onClick={toggleAddPatient} className={classes.addPatient}><PlusIcon /><p>{t('coordinator.addPatientFlow.title')}</p></MuiButton>}
+                        {!practitionerStore.onAddPatientFlow && <ProfileButton onClick={toggleAddPatient} className={classes.addPatient}><PlusIcon />{t('coordinator.addPatientFlow.title')}</ProfileButton>}
                     </div>
                     <AdherenceGraph />
                     <Patients icon={<PersonIcon />} title={t("coordinator.cardTitles.allPatients")} list={props.patientList} handlePatientClick={props.handlePatientClick} />
@@ -159,29 +164,35 @@ const PatientsView = observer((props) => {
 })
 
 const PendingPatients = (props) => {
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
     const classes = useStyles();
     const { practitionerStore } = useStores();
 
-    let list = props.list.map((patient, index) => {
-        return (
-            <div key={`patient-list-view-${index}`} className={classes.singlePatient}>
-                <div className={classes.name}>
-                    <a onClick={() => { props.handlePatientClick(patient.id) }}>
-                        {patient.fullName}
-                    </a>
-                </div>
 
-                <div>
-                    {patient.phoneNumber}
-                </div>
+    let list = "";
 
-                <div>
-                    <Button onClick={() => { practitionerStore.resetActivationCode(patient.id) }} className={classes.button} variant="contained" >{t('coordinator.addPatientFlow.resetCode')}</Button>
+    if (props.list && props.list.map) {
+
+        list = props.list.map((patient, index) => {
+            return (
+                <div key={`patient-list-view-${index}`} className={classes.singlePatient}>
+                    <div className={classes.name}>
+                        <a onClick={() => { props.handlePatientClick(patient.id) }}>
+                            {patient.fullName}
+                        </a>
+                    </div>
+
+                    <div>
+                        {patient.phoneNumber}
+                    </div>
+
+                    <div>
+                        <Button onClick={() => { practitionerStore.resetActivationCode(patient.id) }} className={classes.button} variant="contained" >{t('coordinator.addPatientFlow.resetCode')}</Button>
+                    </div>
                 </div>
-            </div>
-        )
-    })
+            )
+        })
+    }
 
     return (
         <Card title={t("coordinator.cardTitles.awaitingActivation")}>

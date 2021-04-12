@@ -5,23 +5,26 @@ import { CircularProgressbarWithChildren as CircularProgressbar, buildStyles } f
 import 'react-circular-progressbar/dist/styles.css';
 import { makeStyles } from '@material-ui/core/styles'
 import Styles from '../../Basics/Styles';
-import InteractionCard from '../../Basics/InteractionCard';
+import InteractionCard from '../../Basics/HomePageCard';
 import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
 import ClickableText from '../../Basics/ClickableText';
-import TreatmentTimeline, { Panel, MonthPreview } from '../../Basics/TreatmentTimeline'
+import TreatmentTimeline, { MonthPreview } from '../../Basics/TreatmentTimeline'
+import Event from '../../Basics/TreatmentTimeline/Event'
 import Typography from '@material-ui/core/Typography';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
+import Down from '@material-ui/icons/KeyboardArrowDown';
+import Up from '@material-ui/icons/KeyboardArrowUp';
 
 
 const ProgressGraph = observer((props) => {
     const classes = useStyles();
     const [showTimeline, setShowTimeline] = useState(false);
-    const { patientStore, patientUIStore, } = useStores();
+    const { patientStore } = useStores();
     const dayValue = (patientStore.patientInformation.daysInTreatment / 180) * 100;
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
-    const expand = () => {
+    const toggleExpand = () => {
         setShowTimeline(!showTimeline)
     }
 
@@ -41,34 +44,25 @@ const ProgressGraph = observer((props) => {
                     </div>
                     <StatBox title={patientStore.getCurrentStreak} text={t('patient.home.progress.currentStreak')} />
                 </div>
-
-                {/*
-                <div className={classes.motivationalText}>
-                    <Typography variant="body1">{patientStore.getCurrentStreak === 0 ?
-                    <> Its important to take your medication every day. Please let us know if you need any support! </> : 
-                    <>Keep up the great work 👍</>} </Typography>
-                </div>
-                    */}
             </div>
             <div className={classes.bottomSection}>
                 <div className={classes.timelineHeader}>
-                    <Typography variant="h2">{t('timeline.title')}</Typography>
-                    <ClickableText onClick={expand} hideIcon text={showTimeline ? t('patient.home.progress.close') : t('patient.home.progress.viewAll')} />
+                    <Typography variant="h2">📍{t('timeline.title')}</Typography>
+                    <ClickableText onClick={toggleExpand} hideIcon 
+                    text={<>{showTimeline ? t('patient.home.progress.close') : t('patient.home.progress.viewAll')} {showTimeline ? <Up />:<Down />}</>} />
                 </div>
                 <div className={classes.timeline}>
                     {!showTimeline ?
                         <>
-                            <span>{t('timeline.here')} 📍</span>
+                            <span>{t('timeline.expect')}:</span>
                             <div className="preview">
                                 <MonthPreview month={Math.floor(patientStore.patientInformation.weeksInTreatment / 4)} />
-                                <Panel weeksInTreatment={props.weeksInTreatment} title={`${t('timeline.followUp')}`} weekValue={24} noWeek week={t("timeline.twoMonths")} />
                             </div></> :
                         <>
                             <br />
                             <TreatmentTimeline weeksInTreatment={patientStore.patientInformation.weeksInTreatment} />
                         </>
                     }
-                    {/* <button onClick={expand}>show all</button> */}
                 </div>
             </div>
         </InteractionCard>

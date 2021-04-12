@@ -1,0 +1,72 @@
+//https://testing-library.com/docs/react-testing-library/setup
+
+import React, { Suspense } from 'react';
+import { Provider } from 'mobx-react';
+import { render } from '@testing-library/react'
+import { stores, history } from '../DataStores'
+
+//Internationalization
+import i18n from "../Language/i18n";
+import { I18nextProvider } from 'react-i18next';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers/MuiPickersUtilsProvider';
+import DateFnsUtils from '@date-io/luxon';
+
+//Object Containing MobX Stores in ./Datastores file
+import { Router } from 'react-router';
+
+const AllTheProviders = ({children}) => {
+
+    return(
+  <Provider {...stores}>
+    <I18nextProvider i18n={i18n}>
+      <Suspense fallback="Page Loading">
+          <MuiPickersUtilsProvider utils={DateFnsUtils} >
+            <Router history={history}>
+              {children}
+            </Router>
+          </MuiPickersUtilsProvider>
+      </Suspense>
+    </I18nextProvider>
+  </Provider>
+    )
+}
+
+const customRender = (ui, options) =>
+  render(ui, { wrapper: AllTheProviders, ...options })
+
+// re-export everything
+export * from '@testing-library/react'
+
+// override render method
+export { customRender as render }
+
+export {stores, history}
+
+/*
+
+import React from 'react'
+import { render } from '@testing-library/react'
+import { ThemeProvider } from 'my-ui-lib'
+import { TranslationProvider } from 'my-i18n-lib'
+import defaultStrings from 'i18n/en-x-default'
+
+const AllTheProviders = ({ children }) => {
+  return (
+    <ThemeProvider theme="light">
+      <TranslationProvider messages={defaultStrings}>
+        {children}
+      </TranslationProvider>
+    </ThemeProvider>
+  )
+}
+
+const customRender = (ui, options) =>
+  render(ui, { wrapper: AllTheProviders, ...options })
+
+// re-export everything
+export * from '@testing-library/react'
+
+// override render method
+export { customRender as render }
+
+*/

@@ -105,8 +105,8 @@ const useStyles = makeStyles({
 const SymptomSummary = observer(() => {
 
     const classes = useStyles();
-    const symptomSummary = useStores().practitionerStore.selectedPatient.symptomSummary
-    const { t, i18n } = useTranslation('translation');
+    const symptomSummary = useStores().patientProfileStore.selectedPatient.symptomSummary
+    const { t } = useTranslation('translation');
     const [selection, setSelection] = useState("week");
 
     const options = ["week", "month", "all"]
@@ -130,8 +130,8 @@ const SymptomSummary = observer(() => {
                     value={selection}
                     onChange={handleChange}
                 >
-                    {options.map(each => {
-                        return <MenuItem value={each}><span className={classes.menuItem}>{t(`coordinator.patientProfile.symptomSummary.timeOptions.${each}`)}</span></MenuItem>
+                    {options.map((each,index) => {
+                        return <MenuItem key={`symotom-summary-${index}`} value={each}><span className={classes.menuItem}>{t(`coordinator.patientProfile.symptomSummary.timeOptions.${each}`)}</span></MenuItem>
                     })}
 
                 </Select>
@@ -149,7 +149,7 @@ const SymptomSummary = observer(() => {
 
 const NoSymptoms = () => {
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
     return (
         <div className={classes.noSymptoms}>
             <DoctorIcon />

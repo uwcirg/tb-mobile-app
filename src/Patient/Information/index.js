@@ -2,7 +2,7 @@ import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import raw from "raw.macro";
 import MarkdownRender from './Panel'
-import Interactioncard from '../../Basics/InteractionCard'
+import Interactioncard from '../../Basics/HomePageCard'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next';
 import Colors from '../../Basics/Colors'
@@ -33,7 +33,6 @@ import ChangeLog from '../../Basics/Changelog'
 import HelpVideos from './HelpVideos'
 
 const file = raw("./information.md");
-const messagesFile = raw("../../Content/TreatmentMessages.json")
 
 //Convert markdown file to expandable cards format
 const useStyles = makeStyles({
@@ -146,9 +145,9 @@ export default function Info() {
 }
 
 const TreatmentMessages = () => {
-    const messages = JSON.parse(messagesFile)
     const classes = useStyles();
     const {t} = useTranslation('translation');
+    const messages = t('treatmentUpdates', {returnObjects: true})
 
     return (
         <div className={classes.treatmentMessages}>

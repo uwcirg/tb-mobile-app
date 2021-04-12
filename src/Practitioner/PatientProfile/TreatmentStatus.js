@@ -4,7 +4,6 @@ import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import Typography from '@material-ui/core/Typography'
 import Styles from '../../Basics/Styles';
-import Trend from '@material-ui/icons/TrendingUp';
 import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
 
@@ -16,7 +15,9 @@ const useStyles = makeStyles({
         flexGrow: 0,
         backgroundColor: "white",
         "& > h2":{
-            padding: "1em 0 0 1em"
+            padding: "1em",
+            overflow: "wrap"
+            
         }
     },
     middle: {
@@ -78,19 +79,18 @@ const useStyles = makeStyles({
 const TreatmentStatus = observer((props) => {
 
     const { t, i18n } = useTranslation('translation');
-    const patient = useStores().practitionerStore.selectedPatient.details;
+    const patient = useStores().patientProfileStore.selectedPatient.details;
     const classes = useStyles();
 
     return (<div className={classes.container}>
         <Typography variant={"h2"}>{t('coordinator.patientProfile.treatmentStatus')}</Typography>
         <Adherence value={patient.adherence} />
         <div className={classes.middle}>
-            <Item top={"80%"} bottom={t('coordinator.patientProfile.feelingWell')} />
-            <Item top={"0 out of 5"} bottom={t('coordinator.patientProfile.contactTracing')} />
+            {/* <Item top={"100%"} bottom={t('coordinator.patientProfile.feelingWell')} />
+            <Item top={"0 out of 5"} bottom={t('coordinator.patientProfile.contactTracing')} /> */}
         </div>
         <div className={classes.bottom}>
             <Item top={`${patient.daysInTreatment}/180`} bottom={t('coordinator.patientProfile.completedDays')} />
-            {/*<Item top={<><Trend style={{color: Colors.green}} />90/180</>} bottom={"Days Completed"} />*/}
         </div>
     </div>)
 

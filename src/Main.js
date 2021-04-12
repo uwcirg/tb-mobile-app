@@ -13,6 +13,7 @@ import Boundry from './Basics/ErrorBoundary'
 import CheckAuthorization from './Basics/HandleAuthorizationError'
 import SWWrapper from './ServiceWorkerWrapper'
 import { useMatomo } from '@datapunt/matomo-tracker-react'
+import Alerts from './Shared/Alerts'
 
 const theme = createMuiTheme({
 
@@ -25,13 +26,17 @@ const theme = createMuiTheme({
   },
   palette: {
     primary: {
-      main: Colors.buttonBlue
+      main: Colors.buttonBlue,
+      error: Colors.warningRed
     },
     secondary: {
       main: "#FFFFFF"
     },
     badge:{
       main: Colors.warningRed
+    },
+    error:{
+      main: "#EB5757"
     }
   }
 });
@@ -94,6 +99,7 @@ const Main = observer(() => {
         <div>
           <ThemeProvider theme={theme}>
             {loginStore && loginStore.isLoggedIn ? <UserHome /> : <Login />}
+            <Alerts />
           </ThemeProvider>
         </div>
       </Boundry>

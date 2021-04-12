@@ -8,7 +8,7 @@ const ROUTES = {
     postNewChannel: ["/channels", "POST"]
 }
 
-export class MessagingStore extends APIStore{
+export class MessagingStore extends APIStore {
 
     constructor(strategy) {
         super(strategy, ROUTES);
@@ -17,11 +17,13 @@ export class MessagingStore extends APIStore{
         //this uses the specific message channle messaging-notification
         //which prevents other listeners from being called
         try {
-            const channel = new BroadcastChannel('messaging-notification');
-            channel.addEventListener('message', event => {
-                this.getUnreadMessages();
-                this.getSelectedChannel();
-            });
+            if (window.BroadcastChannel) {
+                const channel = new BroadcastChannel('messaging-notification');
+                channel.addEventListener('message', event => {
+                    this.getUnreadMessages();
+                    this.getSelectedChannel();
+                });
+            }
         } catch (err) {
             console.log(err)
         }
@@ -63,7 +65,7 @@ export class MessagingStore extends APIStore{
         visible: false
     }
 
-    @computed 
+    @computed
     get tab() {
         return this.tabNumber;
     }
@@ -136,16 +138,16 @@ export class MessagingStore extends APIStore{
     }
 
     @action uploadFileAndSendMessage = () => {
-        
+
         if (this.file !== "") {
             this.fileUploading = true;
             this.getUploadUrl().then(photoRepsonse => {
-                uploadPhoto(photoRepsonse.url, this.rawFile,this.fileType).then(uploadResponse => {
+                uploadPhoto(photoRepsonse.url, this.rawFile, this.fileType).then(uploadResponse => {
                     this.sendMessage(photoRepsonse.path)
                     this.fileUploading = false;
                 })
             })
-        }else{
+        } else {
             this.sendMessage();
         }
     }
@@ -156,7 +158,7 @@ export class MessagingStore extends APIStore{
             body: this.newMessage
         }
 
-        if(photoPath){
+        if (photoPath) {
             object.photoPath = photoPath
         }
 
@@ -193,7 +195,7 @@ export class MessagingStore extends APIStore{
     }
 
     @action updateSelectedChannel = () => {
-        const element = this.channels.find( element => { return element.id == this.selectedChannel.id})
+        const element = this.channels.find(element => { return element.id == this.selectedChannel.id })
         this.coordinatorSelectedChannel = element
     }
 
@@ -220,10 +222,10 @@ export class MessagingStore extends APIStore{
             title: this.newChannel.title,
             subtitle: this.newChannel.subtitle
         }
-        this.executeRequest("postNewChannel",body,{allowErrors: true}).then((response) => {
-            if(response.error){
-                this.newChannel.errors = response.paramErrors 
-            }else{
+        this.executeRequest("postNewChannel", body, { allowErrors: true }).then((response) => {
+            if (response.error) {
+                this.newChannel.errors = response.paramErrors
+            } else {
                 this.getChannels();
                 this.success = true;
                 this.clearNewChannel();
@@ -235,14 +237,14 @@ export class MessagingStore extends APIStore{
         this.fileType = fileType
     }
 
-    @action setMessageHidden = (id,state) => {
-        this.executeRawRequest(`/message/${id}`,"PATCH",{isHidden: state}).then( response => {
-            this.selectedChannel.messages.forEach((each,index) => {
-                if(each.id === response.id){
+    @action setMessageHidden = (id, state) => {
+        this.executeRawRequest(`/message/${id}`, "PATCH", { isHidden: state }).then(response => {
+            this.selectedChannel.messages.forEach((each, index) => {
+                if (each.id === response.id) {
                     this.selectedChannel.messages[index] = response
                 }
             })
-            
+
         })
 
     }

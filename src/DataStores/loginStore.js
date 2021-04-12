@@ -7,18 +7,18 @@ const ROUTES = {
     activatePatient: ["/patient/activation","POST"]
 }
 
-const ADMIN = "Administrator"
 const PATIENT = "Patient"
 const PRACTITIONER = "Practitioner"
 
 export default class LoginStore extends APIStore {
 
-    constructor(strategy) {
+    constructor(strategy,routingStore) {
         super(strategy, ROUTES);
+        this.routingStore = routingStore;
         this.userType = localStorage.getItem("user.type");
     }
 
-    @observable selectedUserType = "";
+    //@observable selectedUserType = "";
     @observable userType = "";
     @observable error = 0;
 
@@ -66,6 +66,7 @@ export default class LoginStore extends APIStore {
             }
             
             this.userType = this.handleAuthentication(response);
+            this.goHome();
         })
     }
 
@@ -85,9 +86,41 @@ export default class LoginStore extends APIStore {
         return false;
     }
 
+    @action selectPatient = () => {
+        this.routingStore.push("/login/patient")
+    }
+
+    @action selectPractitioner = () => {
+        this.routingStore.push("/login/practitioner")
+    }
+
+    @action goToForgotPassword = () => {
+        this.routingStore.push("/login/forgot-password")
+    }
+
+    @action goHome = () => {
+        this.routingStore.push("/")
+    }
+
     @action logout = () =>{
         this.userType = ""
         localStorage.removeItem("user.type")
+        localStorage.removeItem("cachedProfile")
+    }
+
+    @computed get selectedUserType(){
+        switch(this.routingStore.location.pathname) {
+            case "/login/patient":
+                return PATIENT
+            case "/login/practitioner":
+                return PRACTITIONER 
+            default:
+              return ""
+          }
+    }
+
+    @computed get onForgotPassword(){
+        return this.routingStore.location.pathname === "/login/forgot-password"
     }
 
 }

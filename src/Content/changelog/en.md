@@ -1,3 +1,52 @@
+## v2.3 (In Progress)
+Changes:
+
+Fix education messages
+- Show one per day, defaulting to the earliest missed one if not viewed yet
+- Added message alerting patients that they can chat anonymously
+- Added nice visuals to the treatment updates
+- Limited the width of popups for larger screens
+
+Password Reset:
+- Add in a screen to prompt a user to update their password when it has been reset
+- Fix styles on password update screen
+- Move password reset button to make it more visible on coordinator side
+
+Photo Uploading State:
+- Add loading state for report
+- Max out image size to 650px
+- Translations for error reports / uploading state
+
+Behind the scenes:
+- Updated tests w/ react-testing-framework
+- Integrated Swagger documentation generation
+- Moved messaging notification generation to workers
+- Refactor treatment messages into translation software
+
+
+## v2.2
+
+Changes:
+
+Across App:
+- Added new logo
+- Clean up design of login screen inputs (limit width)
+
+Patient Facing:
+- Reports upload at each step now ( with the exception of offline reports )
+ - ie. if a patient submits their medication but forgets to submit the rest of the report, it will still be recorded on the server
+- Allow patients to skip photo submission if they provide a reason
+- Confirmation screen has been removed and replaced with a confirmation, preview, and edit functionality on the homescreen's "Action Card"
+- Make offline mode more clear
+
+Treatment Assistant Facing:
+- Added link to issue submission form
+- Added task for patietns that have missed a photo submission
+ - Shows the reason they provided for skipping if applicable
+- Basic layout of improved task desing implemented at /review
+
+Admin Panel:
+- Don't show accounts from the designated test site in results
 
 
 

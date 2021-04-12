@@ -91,7 +91,7 @@ const useStyles = makeStyles({
 const PatientPreview = observer((props) => {
     const classes = useStyles();
     const {practitionerStore,practitionerUIStore} = useStores();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
     const patient = practitionerStore.getPatient(props.id)
 

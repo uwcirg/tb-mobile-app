@@ -9,26 +9,28 @@ import Cancel from '@material-ui/icons/Cancel'
 import Check from '@material-ui/icons/CheckCircleOutline'
 import Colors from './Colors';
 
-
 const LocalizedDatePicker = observer((props) => {
 
-    const {uiStore} = useStores();
+    const { uiStore } = useStores();
     const { t, i18n } = useTranslation('translation');
 
     return (
-    <MuiPickersUtilsProvider locale={uiStore.locale} utils={DateFnsUtils}>
-        <DatePicker
-            error={props.error}
-            label={props.label}
-            value={props.value}
-            onChange={props.onChange}
-            animateYearScrolling
-            disableFuture={props.disableFuture}
-            disablePast={props.disablePast}
-            cancelLabel={<Cancel style={{color: Colors.red}} />}
-            okLabel={<Check style={{color: Colors.green}} />}
-        />
-    </MuiPickersUtilsProvider>
+        <MuiPickersUtilsProvider locale={uiStore.locale} utils={DateFnsUtils}>
+            <DatePicker
+                TextFieldComponent={props.TextFieldComponent}
+                inputVariant={props.inputVariant}
+                InputProps={props.InputProps}
+                error={props.error}
+                label={props.label}
+                value={props.value}
+                onChange={props.onChange}
+                animateYearScrolling
+                disableFuture={props.disableFuture}
+                disablePast={props.disablePast}
+                cancelLabel={<Cancel style={{ color: Colors.red }} />}
+                okLabel={<Check style={{ color: Colors.green }} />}
+            />
+        </MuiPickersUtilsProvider>
     )
 
 });

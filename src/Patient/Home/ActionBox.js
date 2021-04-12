@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import NewButton from '../../Basics/NewButton';
 import Clipboard from '@material-ui/icons/Assignment'
 import Camera from '@material-ui/icons/CameraAlt';
-import InteractionCard from '../../Basics/InteractionCard';
+import InteractionCard from '../../Basics/HomePageCard';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next';
@@ -15,6 +15,7 @@ import ActionIcon from '@material-ui/icons/PlaylistAddCheck';
 import PatientReport from '../../Basics/PatientReport';
 import EditIcon from '@material-ui/icons/Edit';
 import ExpansionPanel from '../../Basics/ExpansionPanel';
+import PhotoUploading from '../../Basics/Loading/PhotoUploading';
 
 const useStyles = makeStyles({
     confirmation: {
@@ -101,6 +102,7 @@ const ActionBox = observer(() => {
                     {patientStore.isPhotoDay && <NewButton positive={patientStore.reportStore.photoReportComplete} onClick={handlePhotoClick} icon={<Camera />} text={t("patient.home.todaysActions.uploadPhoto")} />}
                 </>
             }
+            {patientStore.photoIsUploading && <PhotoUploading />}
         </InteractionCard>)
 });
 

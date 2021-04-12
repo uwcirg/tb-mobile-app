@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import BottomBar from './Navigation/BottomBar';
 import { observer } from 'mobx-react';
 import Home from './Home'
@@ -11,18 +11,23 @@ import Intro from './Walkthrough/';
 import useStores from '../Basics/UseStores';
 import Onboarding from './Onboarding';
 import Colors from '../Basics/Colors';
-import { autorun } from 'mobx';
 import { useMatomo } from '@datapunt/matomo-tracker-react'
+import ErrorListener from './ErrorListener';
+import ForcePasswordChange from './ForcePasswordChange';
+import EducationalMessage from './Home/Education';
 
 const PatientHome = observer((props) => {
 
   const { patientUIStore, patientStore, uiStore, dailyReportStore } = useStores();
   const tabs = [<Home />, <Progress />, <Messaging />, <Info />];
   const routeTab = tabs[patientUIStore.tabNumber]
-  const {trackPageView, pushInstruction } = useMatomo();
+  const { trackPageView, pushInstruction } = useMatomo();
 
-  //When tab is changed, make sure that we scroll to the top so user doesnt get lost
+  // When tab is changed, make sure that we scroll to the top so user does not get lost
+  // Track page view in Matomo
   useEffect(() => {
+    const TEXT_OPTIONS = ['Home', 'Progress', 'Messaging', 'Information'];
+    trackPageView({ documentTitle: TEXT_OPTIONS[patientUIStore.tabNumber] })
     window.scrollTo(0, 0)
   }, [patientUIStore.tabNumber])
 
@@ -36,36 +41,36 @@ const PatientHome = observer((props) => {
     }
   }, [patientStore.userID])
 
-  useEffect(()=>{
-    const TEXT_OPTIONS = ['Home','Progress', 'Messaging', 'Information'];
-    trackPageView({documentTitle: TEXT_OPTIONS[patientUIStore.tabNumber]
-  });
-  },[patientUIStore.tabNumber])
-
-  useEffect(()=>{
+  //Upload old reports when a patient comes back online
+  useEffect(() => {
     if (!uiStore.offline && dailyReportStore.numberOfflineReports > 0) {
-      dailyReportStore.syncOfflineReports().then( ()=>{
-         patientStore.reportStore.getTodaysReport();
-      })}
-  },[uiStore.offline,dailyReportStore.numberOfflineReports])
+      dailyReportStore.syncOfflineReports().then(() => {
+        patientStore.reportStore.getTodaysReport();
+      })
+    }
+  }, [uiStore.offline, dailyReportStore.numberOfflineReports])
+
+
+  if (patientStore.hasForcedPasswordChange) {
+    return <ForcePasswordChange />
+  }
+
+  if (patientStore.status === "Pending") {
+    return <Onboarding />
+  }
 
   return (
-    <>
-      {patientStore.status === "Active" ?
-        <div className="main-screen" style={{ backgroundColor: `${Colors.white}`, minHeight: "100vh" }}>
-
-          <TopBar />
-          {/* <Intro startOn={3} />} How to make table of contents work */}
-          {patientUIStore.onWalkthrough && <Intro />}
-          <TopMenu />
-          <div style={{ paddingTop: "60px", paddingBottom: "60px" }}>
-            {routeTab}
-          </div>
-          <BottomBar />
-        </div>
-        :
-        <Onboarding />}
-    </>
+    <div className="main-screen" style={{ backgroundColor: `${Colors.white}`, minHeight: "100vh" }}>
+      <ErrorListener />
+      <TopBar />
+      <EducationalMessage />
+      {patientUIStore.onWalkthrough && <Intro />}
+      <TopMenu />
+      <div style={{ paddingTop: "60px", paddingBottom: "60px" }}>
+        {routeTab}
+      </div>
+      <BottomBar />
+    </div>
   );
 }
 );

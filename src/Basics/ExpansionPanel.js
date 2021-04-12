@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core';
 import Colors from './Colors';
-import IconButton from '@material-ui/core/IconButton'
-import WarningOutlined from '@material-ui/icons/ReportProblemOutlined';
 import Down from '@material-ui/icons/KeyboardArrowDown'
 import Up from '@material-ui/icons/KeyboardArrowUp'
 import Grow from '@material-ui/core/Collapse'
 import ButtonBase from '@material-ui/core/ButtonBase'
 
 const useStyles = makeStyles({
-
+    container: {
+        width: "100%"
+    },
     filledButton: {
         backgroundColor: Colors.buttonBlue,
         padding: '.5em .75em .5em .75em',
@@ -42,13 +42,17 @@ const ExpansionPanel = (props) => {
     const classes = useStyles();
     const [show, setShow] = useState(false)
 
-    const toggleShow = () => {
+    const handleClick = () => {
         setShow(!show);
+        
+        if(props.toggleFunction){
+            props.toggleFunction();
+        }
     }
 
     return (
-        <div>
-            <ButtonBase onClick={toggleShow} className={`${classes.filledButton} ${props.previewClassName}`}>{props.icon}<span>{props.preview}</span>{show ? <Up /> : <Down />}</ButtonBase>
+        <div className={classes.container}>
+            <ButtonBase onClick={handleClick} className={`${classes.filledButton} ${props.previewClassName}`}>{props.icon}<span>{props.preview}</span>{show ? <Up /> : <Down />}</ButtonBase>
             <Grow in={show} className={classes.grow}>
                 {props.children}
             </Grow>
