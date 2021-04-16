@@ -4,6 +4,7 @@
     "offline": "Offline",
     "greeting": "Hi",
     "updating": "Updating",
+    "demoWarning": "This is a demo of the application and should not be used for real patient data",
     "commonWords": {
         "edit": "Edit",
         "error": "Error",
