@@ -1,4 +1,4 @@
-import { action, observable, computed } from "mobx";
+import { action, observable, computed, toJS } from "mobx";
 import uploadPhoto from '../Basics/PhotoUploader';
 import APIStore from './apiStore'
 
@@ -114,6 +114,19 @@ export class MessagingStore extends APIStore {
             this.updateSelectedChannel();
         })
     }
+
+    @computed get categorizedUnread() {
+        const value = this.unreadInfo ? Object.values(this.unreadInfo).reduce((prev, current) => {
+            if (current.isPrivate) {
+                return {private: prev.private + current.unreadMessages, public: prev.public}
+            }else{
+                return {private: prev.private, public: prev.public + current.unreadMessages}
+            }
+        }, {private: 0,public: 0}) : {private: 0,public: 0};
+
+        return value
+    }
+
 
     @action getNewMessages() {
 

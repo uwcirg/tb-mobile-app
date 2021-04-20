@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components'
 import Colors from '../Basics/Colors'
 import { useTranslation } from 'react-i18next'
-import useStores from '../Basics/UseStores';
+import UnreadBadge from './UnreadBadge'
 import {observer} from 'mobx-react'
 
 const ChannelPreview = observer((props) => {
@@ -19,7 +19,7 @@ const ChannelPreview = observer((props) => {
                 </div>
                 <div className="rightSideContainer">
                     <span id="time" >{props.time}</span>
-                    {props.unread > 0 && <div id="unread"><p>{props.unread}</p></div>}
+                    {props.unread > 0 && <UnreadBadge value={props.unread} />}
                 </div>
             </BorderedPart>
         </Container>
@@ -69,22 +69,6 @@ const BorderedPart = styled.div`
     }
 }
 
-#unread{
-    padding: 2px;
-    p{
-      color: white;  
-    }
-    font-size: .75em;
-    background-color: ${Colors.buttonBlue};
-    border-radius: 15px;
-    min-height: 20px;
-    min-width: 20px;
-    max-height: 20px;
-    max-width: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 `
 
 const Container = styled.div`
