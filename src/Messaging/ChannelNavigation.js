@@ -105,7 +105,7 @@ const ChannelNavigation = observer((props) => {
 
 
 const TabLayout = observer(() => {
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
     const { messagingStore, loginStore} = useStores();
     const classes = useStyles();
     const handleChange = (event, newValue) => {
@@ -150,7 +150,7 @@ const Channels = observer((props) => {
                 title={title}
                 subtitle={channel.subtitle}
                 time={DateTime.fromISO(channel.lastMessageTime).toLocaleString(DateTime.DATETIME_24_SIMPLE)}
-                unread={messagingStore.unreadInfo[channel.id] ? messagingStore.unreadInfo[channel.id].unreadMessages : 0}
+                unread={(messagingStore.unreadInfo && messagingStore.unreadInfo[channel.id]) ? messagingStore.unreadInfo[channel.id].unreadMessages : 0}
                 onClick={() => {
                     practitionerUIStore.goToChannel(channel.id)
                 }}

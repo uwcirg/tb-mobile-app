@@ -4,7 +4,7 @@ import {observer} from 'mobx-react'
 import useStores from '../Basics/UseStores';
 import {makeStyles} from '@material-ui/core/styles';
 import PractitionerBody from './PractitionerBody';
-import Drawer from './Drawer'
+import Drawer from './Navigation'
 import MobileNav from './MobileNav'
 import useResize from '../Hooks/Resize'
 

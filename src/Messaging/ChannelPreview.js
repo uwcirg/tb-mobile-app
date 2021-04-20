@@ -108,12 +108,7 @@ const Container = styled.div`
         max-height: 50px;
         max-width: 50px;
         border-radius: 50px;
-            background-color: ${props => {
-                if(props.isExpert){
-                    return Colors.yellow
-                }
-                return props.altColor ? Colors.green : Colors.babyBlue
-                }};
+        background-color: ${props => {return props.altColor ? Colors.green : Colors.babyBlue}};
         display: flex;
         justify-content: center;
         align-items: center;
