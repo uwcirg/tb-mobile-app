@@ -11,8 +11,6 @@ import Tabs from '@material-ui/core/Tabs';
 import Styles from '../Basics/Styles';
 import AddTopic from './AddTopic';
 import UnreadBadge from './UnreadBadge'
-import Colors from '../Basics/Colors';
-
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -76,10 +74,10 @@ const ChannelNavigation = observer((props) => {
     const [patientSearch, setPatientSearch] = useState("");
 
     const publicChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.filter((channel) => {
-        return (!channel.isPrivate && channel.title.toLowerCase().includes(search.toLowerCase()))
+        return ((channel.isSiteChannel || !channel.isPrivate) && channel.title.toLowerCase().includes(search.toLowerCase()))
     }) : [];
 
-    const coordinatorChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.filter((channel) => { return (channel.isPrivate && channel.title.toLowerCase().includes(patientSearch.toLowerCase())) })
+    const coordinatorChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.filter((channel) => { return ((!channel.isSiteChannel && channel.isPrivate) && channel.title.toLowerCase().includes(patientSearch.toLowerCase())) })
         .sort((channel) => { return channel.userType === "Practitioner" ? -1 : 1 }) : [];
 
     const handleSearch = (e) => {
@@ -153,6 +151,7 @@ const Channels = observer((props) => {
         channels = props.channels.map((channel) => {
             const title = (channel.isPrivate && practitionerStore.getPatient(channel.userId)) ? practitionerStore.getPatient(channel.userId).fullName : channel.title
             return <ChannelPreview
+                isSiteChannel={channel.isSiteChannel}
                 isExpert={channel.userType === "Practitioner"}
                 coordinator
                 selected={uiStore.pathNumber === channel.id}

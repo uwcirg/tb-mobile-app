@@ -70,22 +70,22 @@ const useStyles = makeStyles({
 });
 
 
-const ImagePreview = observer((props) => {
-    const { messagingStore } = useStores();
-    const classes = useStyles();
+// const ImagePreview = observer((props) => {
+//     const { messagingStore } = useStores();
+//     const classes = useStyles();
 
-    return (
-        <div className={classes.imagePopover}>
-            <div className={classes.imagePreviewButton}>
-                <IconButton onClick={messagingStore.toggleImagePreview}>
-                    <Clear />
-                </IconButton>
-            </div>
-            <img src={messagingStore.file} />
-        </div>
+//     return (
+//         <div className={classes.imagePopover}>
+//             <div className={classes.imagePreviewButton}>
+//                 <IconButton onClick={messagingStore.toggleImagePreview}>
+//                     <Clear />
+//                 </IconButton>
+//             </div>
+//             <img src={messagingStore.file} />
+//         </div>
 
-    )
-})
+//     )
+// })
 
 const Channel = observer((props) => {
     const classes = useStyles();

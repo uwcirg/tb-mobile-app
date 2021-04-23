@@ -80,7 +80,8 @@
         "groupDiscussion": "Group Discussion",
         "found": "Found",
         "empty": "No messages have been sent yet. Send the first one!",
-        "private": "Private"
+        "private": "Private",
+        "clinicChat": "Chat with patients and assistants at your clinic"
     },
     "time": {
         "day": "day",

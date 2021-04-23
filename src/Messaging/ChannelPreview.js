@@ -9,13 +9,19 @@ const ChannelPreview = observer((props) => {
 
     const {t} = useTranslation('translation');
 
+    const getSubtitle = () => {
+        if(props.private) return t("messaging.privateExplained")
+        if(props.isSiteChannel) return t("messaging.clinicChat")
+        return props.subtitle
+    }
+
     return (
-        <Container isExpert={props.isExpert} coordinator={props.coordinator} onClick={props.onClick} altColor={props.private} selected={props.selected}>
+        <Container {...props}>
             <div className="display"><span>{props.title ? props.title[0] : "C"}</span></div>
             <BorderedPart hideBorder={props.coordinator}>
                 <div className="text">
                     <h2>{props.title === "tb-expert-chat" ?  t('messaging.expert') : props.title }</h2>
-                    <p>{props.private ? `${t("messaging.privateExplained")}` : props.subtitle}</p>
+                    <p>{getSubtitle()}</p>
                 </div>
                 <div className="rightSideContainer">
                     <span id="time" >{props.time}</span>
@@ -92,7 +98,9 @@ const Container = styled.div`
         max-height: 50px;
         max-width: 50px;
         border-radius: 50px;
-        background-color: ${props => {return props.altColor ? Colors.green : Colors.babyBlue}};
+        background-color: ${props => { 
+            if(props.isSiteChannel) return Colors.blue
+            return props.private ? Colors.green : Colors.babyBlue}};
         display: flex;
         justify-content: center;
         align-items: center;
