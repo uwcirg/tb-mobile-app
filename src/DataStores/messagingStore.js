@@ -117,7 +117,7 @@ export class MessagingStore extends APIStore {
 
     @computed get categorizedUnread() {
         const value = this.unreadInfo ? Object.values(this.unreadInfo).reduce((prev, current) => {
-            if (current.isPrivate) {
+            if (current.isPrivate && !current.isSiteChannel) {
                 return {private: prev.private + current.unreadMessages, public: prev.public}
             }else{
                 return {private: prev.private, public: prev.public + current.unreadMessages}
