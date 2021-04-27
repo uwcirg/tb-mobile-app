@@ -266,5 +266,20 @@ export class MessagingStore extends APIStore {
         this.tabNumber = index;
     }
 
+    fetchChannel = (channelId) => {
+        this.executeRawRequest(`/v2/channel/${channelId}`, "GET").then(response => {
+            if(response.id){
+                this.setActiveChannel(response)
+            }
+        })
+    }
+
+    @action setActiveChannel = (channel) => {
+        this.selectedChannel. id = channel.id;
+        this.selectedChannel.title = channel.title;
+        this.selectedChannel.isCoordinatorChannel = channel.userType === "Patient"
+        this.getSelectedChannel();
+    }
+
 
 }
