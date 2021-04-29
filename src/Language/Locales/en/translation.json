@@ -47,6 +47,7 @@
         "activate": "Activate"
     },
     "messaging": {
+        "yourSite": "Clinic Announcements",
         "search": "Search",
         "moderation":{
             "hideUI": "Hide",
@@ -81,7 +82,7 @@
         "found": "Found",
         "empty": "No messages have been sent yet. Send the first one!",
         "private": "Private",
-        "clinicChat": "Chat with patients and assistants at your clinic"
+        "clinicChat": "Asistants and patients at your clinic"
     },
     "time": {
         "day": "day",

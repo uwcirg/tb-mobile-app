@@ -78,7 +78,7 @@ const Messaging = observer(() => {
                     <Channels private channels={coordinatorChannel} />
                 </div>
                 <div>
-                    <h2>Your Site</h2>
+                    <h2>{t("messaging.yourSite")}</h2>
                     <Channels isSiteChannel channels={siteChannel} />
                 </div>
                 <div id="intro-chat-public">
@@ -111,7 +111,7 @@ const Channels = observer((props) => {
     const classes = useStyles();
     const { messagingStore, uiStore } = useStores();
     const { t, i18n } = useTranslation('translation');
-    
+
     let channels = "";
     if (props.channels.length > 0) {
         channels = props.channels.map((channel) => {
