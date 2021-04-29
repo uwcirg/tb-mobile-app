@@ -1,4 +1,4 @@
-import { action, observable, computed } from "mobx";
+import { action, observable, computed, toJS } from "mobx";
 import uploadPhoto from '../Basics/PhotoUploader';
 import APIStore from './apiStore'
 
@@ -114,6 +114,19 @@ export class MessagingStore extends APIStore {
             this.updateSelectedChannel();
         })
     }
+
+    @computed get categorizedUnread() {
+        const value = this.unreadInfo ? Object.values(this.unreadInfo).reduce((prev, current) => {
+            if (current.isPrivate && !current.isSiteChannel) {
+                return {private: prev.private + current.unreadMessages, public: prev.public}
+            }else{
+                return {private: prev.private, public: prev.public + current.unreadMessages}
+            }
+        }, {private: 0,public: 0}) : {private: 0,public: 0};
+
+        return value
+    }
+
 
     @action getNewMessages() {
 
@@ -251,6 +264,21 @@ export class MessagingStore extends APIStore {
 
     @action setTab = (index) => {
         this.tabNumber = index;
+    }
+
+    fetchChannel = (channelId) => {
+        this.executeRawRequest(`/v2/channel/${channelId}`, "GET").then(response => {
+            if(response.id){
+                this.setActiveChannel(response)
+            }
+        })
+    }
+
+    @action setActiveChannel = (channel) => {
+        this.selectedChannel. id = channel.id;
+        this.selectedChannel.title = channel.title;
+        this.selectedChannel.isCoordinatorChannel = channel.userType === "Patient"
+        this.getSelectedChannel();
     }
 
 

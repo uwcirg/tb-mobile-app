@@ -66,6 +66,8 @@ const Messaging = observer(() => {
     }) : [];
     const coordinatorChannel = (messagingStore.channels.length > 0) ? [messagingStore.channels.find((channel) => { return (channel.isPrivate) })] : [];
 
+    const siteChannel = (messagingStore.channels.length > 0) ? [messagingStore.channels.find((channel) => { return (channel.isSiteChannel) })] : [];
+
     useEffect(() => messagingStore.getChannels(), []);
 
     return (
@@ -74,6 +76,10 @@ const Messaging = observer(() => {
                 <div id="intro-chat">
                     <h2>{t("userTypes.coordinator")}</h2>
                     <Channels private channels={coordinatorChannel} />
+                </div>
+                <div>
+                    <h2>{t("messaging.yourSite")}</h2>
+                    <Channels isSiteChannel channels={siteChannel} />
                 </div>
                 <div id="intro-chat-public">
                     <h2>{t("messaging.groupDiscussion")}</h2>
@@ -111,6 +117,7 @@ const Channels = observer((props) => {
         channels = props.channels.map((channel) => {
 
             return <ChannelPreview
+                isSiteChannel={props.isSiteChannel}
                 private={props.private}
                 key={`channel${channel.id}`}
                 title={props.private ? `${t("userTypes.coordinator")}` : channel.title}
@@ -118,7 +125,7 @@ const Channels = observer((props) => {
                 time={DateTime.fromISO(channel.lastMessageTime).toLocaleString(DateTime.DATETIME_24_SIMPLE)}
                 unread={messagingStore.unreadInfo[channel.id] ? messagingStore.unreadInfo[channel.id].unreadMessages : 0}
                 onClick={() => {
-                    if (props.private) {
+                    if (props.private && !props.isSiteChannel) {
                         messagingStore.selectedChannel.isCoordinatorChannel = true;
                     }
 
@@ -126,14 +133,13 @@ const Channels = observer((props) => {
                     messagingStore.selectedChannel.id = channel.id
                     messagingStore.selectedChannel.title = channel.title
                     messagingStore.getSelectedChannel();
-                    uiStore.goToSpecificChannel();
+                    uiStore.goToSpecificChannel(channel.id);
                 }}
             />
         })
     } else {
         channels = <p className={classes.errorMessage}>No Topics Found</p>
     }
-
 
     return (
         <>{channels}</>

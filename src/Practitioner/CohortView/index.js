@@ -145,7 +145,7 @@ const PatientsView = observer((props) => {
 
     return (
         <>
-            {practitionerStore.newActivationCode && <PopOver title={t('coordinator.addPatientFlow.forPatient')} close={() => { practitionerStore.newActivationCode = "" }}> <p>{practitionerStore.newActivationCode}</p> </PopOver>}
+            {practitionerStore.newActivationCode && <PopOver ignoreClickAway title={t('coordinator.addPatientFlow.forPatient')} close={() => { practitionerStore.newActivationCode = "" }}> <p>{practitionerStore.newActivationCode}</p> </PopOver>}
             <div className={classes.superContainer}>
                 <div className={classes.container}>
                     <div className={classes.header}>
@@ -241,7 +241,6 @@ const Patients = (props) => {
             setSort("priority")
         }
     }
-
 
     let list = ""
     sorted.length > 0 && (list = sorted.map((patient, index) => {

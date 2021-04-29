@@ -1,4 +1,23 @@
-## v2.3 (In Progress)
+## v2.4 (In Progress)
+
+Changes:
+- Enable external admin panel
+- Add warning to the demo, saying it should not be used for patient data
+- Add site level messaging
+    - Coordinators now have access to a channel that is only for patients at their site
+    - Used for site level announcements and discussions
+- Clicking on a messaging notification will open the relevant channel
+
+Bug Fixes:
+- Fix timezone bug when adding a photo day on a patients first day
+- Fix onboarding survey not recording number of contacts
+- Fix item number 6's appearance on the onboarding survey
+- Ignore click-aways on coordinator side activation code for new patients 
+
+## v2.3.1
+- Fix missing translation with new update about group chat
+
+## v2.3
 Changes:
 
 Fix education messages
@@ -44,14 +63,14 @@ Patient Facing:
 - Reports upload at each step now ( with the exception of offline reports )
  - ie. if a patient submits their medication but forgets to submit the rest of the report, it will still be recorded on the server
 - Allow patients to skip photo submission if they provide a reason
-- Confirmation screen has been removed and replaced with a confirmation, preview, and edit functionality on the homescreen's "Action Card"
+- Confirmation screen has been removed and replaced with a confirmation, preview, and edit functionality on the home-screen's "Action Card"
 - Make offline mode more clear
 
 Treatment Assistant Facing:
 - Added link to issue submission form
-- Added task for patietns that have missed a photo submission
+- Added task for patients that have missed a photo submission
  - Shows the reason they provided for skipping if applicable
-- Basic layout of improved task desing implemented at /review
+- Basic layout of improved task design implemented at /review
 
 Admin Panel:
 - Don't show accounts from the designated test site in results
@@ -83,14 +102,14 @@ New Features:
 - Require a reason for patients submitting a "Need Support" request
 - Remove 180 days reference from progress card on home page
 - Admin Functions
- - Veiw summary statistics about app use
+ - View summary statistics about app use
  - Show status of recent photo submissions
  - ElastiAlert monitoring setup for server errors
 
 Resolved Bugs:
 
 - Fix pluralization for symptoms page
-- Improve formatting for longer spanish translations
+- Improve formatting for longer Spanish translations
 - Deleting appointments working
 - Assistant mobile messaging missing channel bug fixed
 - Add error handling for onboarding survey to prevent infinite loop

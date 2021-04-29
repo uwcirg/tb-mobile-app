@@ -21,6 +21,7 @@ export class ActivationStore extends APIStore {
         age: 30,
         enableNotifications: false,
         notificationTime: DateTime.local().toISOTime(),
+        date: DateTime.local().toISODate(),
         numberOfContacts: 0,
         contactsTested: "Yes",
         genderOther: ""
@@ -52,6 +53,7 @@ export class ActivationStore extends APIStore {
 
     @action submitActivation() {
         this.isLoading = true;
+        this.onboardingInformation.currentDate = DateTime.local().toISODate();
         return this.executeRequest('activate', this.onboardingInformation,{allowErrors: true}).then(json => {
             if(json.error){
                 this.activationError = true;

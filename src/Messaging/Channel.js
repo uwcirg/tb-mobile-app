@@ -7,8 +7,6 @@ import useStores from '../Basics/UseStores';
 import MessageInput from './MessageInput';
 import Message from './Message';
 import { DateTime } from 'luxon';
-import IconButton from '@material-ui/core/IconButton'
-import Clear from '@material-ui/icons/Clear'
 
 const useStyles = makeStyles({
     messageList: {
@@ -69,28 +67,21 @@ const useStyles = makeStyles({
 
 });
 
-
-const ImagePreview = observer((props) => {
-    const { messagingStore } = useStores();
-    const classes = useStyles();
-
-    return (
-        <div className={classes.imagePopover}>
-            <div className={classes.imagePreviewButton}>
-                <IconButton onClick={messagingStore.toggleImagePreview}>
-                    <Clear />
-                </IconButton>
-            </div>
-            <img src={messagingStore.file} />
-        </div>
-
-    )
-})
-
 const Channel = observer((props) => {
     const classes = useStyles();
-    const { messagingStore } = useStores();
-    const { t, i18n } = useTranslation('translation');
+    const { messagingStore,uiStore } = useStores();
+
+    useEffect(() => {
+        if(!messagingStore.selectedChannel.id){
+            // messagingStore.selectedChannel.id = uiStore.pathNumber;
+            // messagingStore.updateSelectedChannel();
+            // messagingStore.getSelectedChannel()
+            messagingStore.fetchChannel(uiStore.pathNumber);
+
+        }
+
+    }, [uiStore.pathNumber])
+
 
     return (
         <div className={classes.combined}>
@@ -110,7 +101,7 @@ const MessageList = observer((props) => {
 
     const classes = useStyles();
     const { messagingStore } = useStores();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
     const messagesEndRef = useRef(null)
     let messages = [];
 

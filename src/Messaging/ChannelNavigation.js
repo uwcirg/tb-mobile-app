@@ -10,9 +10,9 @@ import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import Styles from '../Basics/Styles';
 import AddTopic from './AddTopic';
+import UnreadBadge from './UnreadBadge'
 
-
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     container: {
         display: "flex",
         flexDirection: "column",
@@ -52,25 +52,33 @@ const useStyles = makeStyles({
     tabs: {
         minWidth: "50px",
         flex: 1,
-        padding: "0"
+        padding: "0",
+        "& > span":{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                "& > div":{
+                    marginLeft: "5px"
+                }
+        }
     }
 
-});
+}));
 
 
 const ChannelNavigation = observer((props) => {
     const classes = useStyles();
-    const { messagingStore, loginStore } = useStores();
-    const { t, i18n } = useTranslation('translation');
+    const { messagingStore } = useStores();
+    const { t } = useTranslation('translation');
     const [search, setSearch] = useState("");
     const [patientSearch, setPatientSearch] = useState("");
 
     const publicChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.filter((channel) => {
-        return (!channel.isPrivate && channel.title.toLowerCase().includes(search.toLowerCase()))
+        return ((channel.isSiteChannel || !channel.isPrivate) && channel.title.toLowerCase().includes(search.toLowerCase()))
     }) : [];
 
-    const coordinatorChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.filter((channel) => { return (channel.isPrivate && channel.title.toLowerCase().includes(patientSearch.toLowerCase())) })
-    .sort((channel) =>{ return channel.userType === "Practitioner" ? -1 : 1}) : [];
+    const coordinatorChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.filter((channel) => { return ((!channel.isSiteChannel && channel.isPrivate) && channel.title.toLowerCase().includes(patientSearch.toLowerCase())) })
+        .sort((channel) => { return channel.userType === "Practitioner" ? -1 : 1 }) : [];
 
     const handleSearch = (e) => {
         setSearch(e.target.value)
@@ -105,14 +113,13 @@ const ChannelNavigation = observer((props) => {
 
 
 const TabLayout = observer(() => {
-    const { t, i18n } = useTranslation('translation');
-    const { messagingStore, loginStore} = useStores();
+    const { t } = useTranslation('translation');
+    const { messagingStore, loginStore } = useStores();
     const classes = useStyles();
     const handleChange = (event, newValue) => {
         messagingStore.setTab(newValue);
     };
 
-    const isCoordinator = loginStore.userType === "Practitioner";
     const isExpert = loginStore.userType === "Expert";
 
     return (
@@ -123,8 +130,10 @@ const TabLayout = observer(() => {
             onChange={handleChange}
             aria-label="message-type-tab"
         >
-            <Tab className={classes.tabs} label={isExpert ? t('messaging.coordinators') : t('messaging.private')} />
-            <Tab className={classes.tabs} label={t('messaging.discussions')} />
+
+            <Tab className={classes.tabs} label={<>{isExpert ? t('messaging.coordinators') : t('messaging.private')} <UnreadBadge value={messagingStore.categorizedUnread.private} /></>} />
+
+            <Tab className={classes.tabs} label={<>{t('messaging.discussions')} <UnreadBadge value={messagingStore.categorizedUnread.public} /></>} />
         </Tabs>
     )
 })
@@ -142,6 +151,7 @@ const Channels = observer((props) => {
         channels = props.channels.map((channel) => {
             const title = (channel.isPrivate && practitionerStore.getPatient(channel.userId)) ? practitionerStore.getPatient(channel.userId).fullName : channel.title
             return <ChannelPreview
+                isSiteChannel={channel.isSiteChannel}
                 isExpert={channel.userType === "Practitioner"}
                 coordinator
                 selected={uiStore.pathNumber === channel.id}
@@ -150,7 +160,7 @@ const Channels = observer((props) => {
                 title={title}
                 subtitle={channel.subtitle}
                 time={DateTime.fromISO(channel.lastMessageTime).toLocaleString(DateTime.DATETIME_24_SIMPLE)}
-                unread={messagingStore.unreadInfo[channel.id] ? messagingStore.unreadInfo[channel.id].unreadMessages : 0}
+                unread={(messagingStore.unreadInfo && messagingStore.unreadInfo[channel.id]) ? messagingStore.unreadInfo[channel.id].unreadMessages : 0}
                 onClick={() => {
                     practitionerUIStore.goToChannel(channel.id)
                 }}

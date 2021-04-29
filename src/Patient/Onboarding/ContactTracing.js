@@ -46,7 +46,7 @@ const ContactTracing = observer((props) => {
         <SurveyHeader index={props.index} title={t("patient.onboarding.contactTracing.one")} />
         <Counter />
         {activationStore.onboardingInformation.numberOfContacts > 0 && <>
-            <SurveyHeader number={6} title={t("patient.onboarding.contactTracing.two")} />
+            <SurveyHeader index={props.index + 1} title={t("patient.onboarding.contactTracing.two")} />
             <Survey />
         </>
         }
@@ -71,7 +71,7 @@ const Counter = observer(() => {
 })
 
 const Survey = observer(() => {
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
     const classes = useStyles();
     const { activationStore } = useStores();
 

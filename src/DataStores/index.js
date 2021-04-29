@@ -9,7 +9,6 @@ import PractitionerUIStore from './practitionerUIStore'
 import APIHelper from './Requests'
 import ReminderStore from './reminderStore'
 
-//Testing router option ( would improve usibility on coordinator side)
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
 import {createBrowserHistory} from 'history';
 

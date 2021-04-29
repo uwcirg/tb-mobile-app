@@ -2,24 +2,30 @@ import React from 'react';
 import styled from 'styled-components'
 import Colors from '../Basics/Colors'
 import { useTranslation } from 'react-i18next'
-import useStores from '../Basics/UseStores';
+import UnreadBadge from './UnreadBadge'
 import {observer} from 'mobx-react'
 
 const ChannelPreview = observer((props) => {
 
     const {t} = useTranslation('translation');
 
+    const getSubtitle = () => {
+        if(props.private) return t("messaging.privateExplained")
+        if(props.isSiteChannel) return t("messaging.clinicChat")
+        return props.subtitle
+    }
+
     return (
-        <Container isExpert={props.isExpert} coordinator={props.coordinator} onClick={props.onClick} altColor={props.private} selected={props.selected}>
+        <Container {...props}>
             <div className="display"><span>{props.title ? props.title[0] : "C"}</span></div>
             <BorderedPart hideBorder={props.coordinator}>
                 <div className="text">
                     <h2>{props.title === "tb-expert-chat" ?  t('messaging.expert') : props.title }</h2>
-                    <p>{props.private ? `${t("messaging.privateExplained")}` : props.subtitle}</p>
+                    <p>{getSubtitle()}</p>
                 </div>
                 <div className="rightSideContainer">
                     <span id="time" >{props.time}</span>
-                    {props.unread > 0 && <div id="unread"><p>{props.unread}</p></div>}
+                    {props.unread > 0 && <UnreadBadge value={props.unread} />}
                 </div>
             </BorderedPart>
         </Container>
@@ -69,22 +75,6 @@ const BorderedPart = styled.div`
     }
 }
 
-#unread{
-    padding: 2px;
-    p{
-      color: white;  
-    }
-    font-size: .75em;
-    background-color: ${Colors.buttonBlue};
-    border-radius: 15px;
-    min-height: 20px;
-    min-width: 20px;
-    max-height: 20px;
-    max-width: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 `
 
 const Container = styled.div`
@@ -108,12 +98,9 @@ const Container = styled.div`
         max-height: 50px;
         max-width: 50px;
         border-radius: 50px;
-            background-color: ${props => {
-                if(props.isExpert){
-                    return Colors.yellow
-                }
-                return props.altColor ? Colors.green : Colors.babyBlue
-                }};
+        background-color: ${props => { 
+            if(props.isSiteChannel) return Colors.blue
+            return props.private ? Colors.green : Colors.babyBlue}};
         display: flex;
         justify-content: center;
         align-items: center;
