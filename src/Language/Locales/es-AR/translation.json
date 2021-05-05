@@ -4,6 +4,7 @@
     "offline": "Desconectado",
     "greeting": "Hola",
     "updating": "Actualizando",
+    "demoWarning": "Esta es una demostración de la aplicación y no debe usarse para los datos de pacientes reales",
     "commonWords": {
         "edit": "Editar",
         "error": "Error",
@@ -24,7 +25,7 @@
         "patients": "pacientes",
         "expandPhoto": "Agrandar la Foto",
         "hideThis": "Esconder Esto",
-        "clickToLoadMore": "Click to load more"
+        "clickToLoadMore": "Haga clic para cargar más"
     },
     "userTypes": {
         "patient": "Paciente",
@@ -46,6 +47,7 @@
         "activate": "Activar"
     },
     "messaging": {
+        "yourSite": "Anuncios de la Clínica",
         "search": "Buscar",
         "moderation":{
             "hideUI": "Esconder",
@@ -79,7 +81,8 @@
         "groupDiscussion": "Discusión del grupo",
         "found": "Encontrado",
         "empty": "No se han enviado mensajes todavia. Envie el primero!",
-        "private": "Privado"
+        "private": "Privado",
+        "clinicChat": "Asistentes y Pacientes en su Clínica"
     },
     "time": {
         "day": "día",
@@ -410,7 +413,7 @@
         },
 
         "chatReminder":{
-            "howTo": "Aquí es cómo.",
+            "howTo": "Aquí es cómo",
             "list":[
                 "Vaya a la página de mensajes.",
                 "Hacia abajo, seleccione en cualquiera de los discusiones.",
@@ -573,7 +576,7 @@
                 "warning": "Si se cambia el número de teléfono del paciente, ellos tendrán que iniciar una sesión nueva usando el nuevo número. ",
                 "submit": "Enviar",
                 "cancel": "Cancelar",
-                "inputError": "There was an error with your change, which has been marked in red. Phone numbers must be 9-15 digits, and unique for each patient."
+                "inputError": "Hubo un error con su cambio, que se ha marcado en rojo. Los números de teléfono deben tener entre 9-15 dígitos y ser únicos para cada paciente."
             },
             "addNote": {
                 "header": "Nueva nota para",
@@ -756,7 +759,7 @@
     },
 "treatmentUpdates":{
         "3": "La Tuberculosis Pulmonar se contagia cuando una persona enferma al toser, estornudar o al hablar elimina con la tos secreciones que contienen los bacilos que producen la enfermedad. Siempre tratar de toser en lugar bien ventilado, nunca cerrado, si es posible cubrirse la boca y/o utilizar barbijo. ",
-        "5": "¿Sabías que puedes chatear con otros pacientes en tratamiento anónimamente?",
+        "5": "¿Sabía que puede charlar con otras personas en tratamiento para la tuberculosis de forma anónima?",
         "7": "Una de las drogas utilizadas, la Rifampicina, colorea la orina, saliva o lagrimas de color naranja o rojo. Esto es normal. Las lentes de contacto pueden teñirse de manera irreversible.",
         "10": "Estar en contacto frecuente y en lugares cerrados aumenta el riesgo de contagiarse. Las personas con las que vive o trabaja deben hacerse un control. ¡Cuando tosa, por favor cúbrase la boca con el pliegue del codo!",
         "14": "Las drogas utilizadas en el tratamiento deben tomarse en ayunas con agua, ya que con los alimentos, sobre todo si contienen abundantes azúcares (por ejemplo yogurt) y harinas, la acción disminuye en forma importante (25-60%)",

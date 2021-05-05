@@ -1,4 +1,5 @@
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
+importScripts('./config.js');
 
 workbox.setConfig({ debug: false });
 
@@ -10,7 +11,6 @@ const { NetworkFirst } = workbox.strategies
 workbox.precaching.precacheAndRoute(self.__precacheManifest || []);
 
 //Edit this to refresh the service worker
-
 if (workbox) {
   console.log(`Yay! Workbox is loaded 🎉`);
 
@@ -20,18 +20,6 @@ if (workbox) {
 
 try {
 
-  /*
-  workbox.routing.registerRoute(
-    /\.(?:js|css|json|html)$/,
-    new NetworkFirst()
-  )
-
-  workbox.routing.registerRoute(
-    `${baseURL}`,
-    new NetworkFirst()
-  )
-  */
-
   workbox.routing.registerRoute('/logo.png', new NetworkFirst())
 
   // This assumes /app-shell.html has been precached.
@@ -39,40 +27,36 @@ try {
   const navigationRoute = new NavigationRoute(handler);
   registerRoute(navigationRoute);
 
-  //Workaround to refresh config options
-  //workbox.routing.registerRoute(`${react_env.URL_CLIENT}/config.js`, new NetworkFirst())
-
-  
 } catch (error) {
   console.log("Error Caught - Offline Precaching will not work in CRA development mode. Edit gain  ")
 }
 
 //Non-Workbox stuff (WebPush handlers, ect.)
-
 self.addEventListener('push', function (event) {
+  const json = event.data.json();
+  logNotificationDelivery(json.data.id);
 
-  let data = event.data.json();
-
-  if (data.data.type && data.data.type == "messaging" && isBroadcastChannelSupported()) {
+  if (json.data.type && json.data.type == "Messaging" && isBroadcastChannelSupported()) {
     //Send a message to the client to route to the proper state
     const channel = new BroadcastChannel('messaging-notification');
-    channel.postMessage("update");
+    channel.postMessage({ url: json.data.url });
   }
 
-  const title = data.title;
+  const title = json.title;
   const options = {
-    body: data.body,
-    icon: data.icon,
+    body: json.body,
+    icon: json.icon,
     badge: 'images/badge.png',
-    url: data.url,
-    click_action: data.url,
-    data: data.data.url
+    url: json.url,
+    click_action: json.url,
+    data: json.data
   };
   event.waitUntil(self.registration.showNotification(title, options));
 });
 
 
 self.addEventListener('notificationclick', function (event) {
+  logNotificationClick(event.notification.data.id);
 
   const promiseChain = clients.matchAll().then((windowClients) => {
     let matchingClient = null;
@@ -86,7 +70,7 @@ self.addEventListener('notificationclick', function (event) {
       if (isBroadcastChannelSupported()) {
         //Send a message to the client to route to the proper state
         const channel = new BroadcastChannel('notifications');
-        channel.postMessage({ url: event.notification.data });
+        channel.postMessage({ url: event.notification.data.url, type: event.notification.type });
       }
 
       //matchingClient.postMessage({msg: 'Hello from SW'})
@@ -131,7 +115,7 @@ self.addEventListener('pushsubscriptionchange', function (event) {
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
-  }else if(event.data && event.data.type === 'CHECK_WAITING'){
+  } else if (event.data && event.data.type === 'CHECK_WAITING') {
     console.log("Check waiting message recieved")
   }
 });
@@ -142,8 +126,6 @@ function isBroadcastChannelSupported() {
     return false;
   }
 
-  // When running in a sandboxed iframe, the BroadcastChannel API
-  // is not actually available and throws an exception
   try {
     const channel = new BroadcastChannel("feature_test");
     channel.close();
@@ -155,14 +137,34 @@ function isBroadcastChannelSupported() {
 
 
 function invokeServiceWorkerUpdateFlow(registration) {
-  // TODO implement your own UI notification element
   notification.show("New version of the app is available. Refresh now?");
   notification.addEventListener('click', () => {
-      if (registration.waiting) {
-          // let waiting Service Worker know it should became active
-          registration.waiting.postMessage('skip waiting')
-      }
+    if (registration.waiting) {
+      // let waiting Service Worker know it should became active
+      registration.waiting.postMessage('skip waiting')
+    }
   })
 }
+
+function logNotificationDelivery(notificationId) {
+  callAnalyticsAPI(notificationId, { deliveredSuccessfully: true, deliveredAt: getCurrentISODateTime() })
+}
+
+function logNotificationClick(notificationId) {
+  callAnalyticsAPI(notificationId, { clicked: true, clickedAt: getCurrentISODateTime() })
+}
+
+function callAnalyticsAPI(notificationId, body) {
+  const url = `${react_env.URL_API}/v2/push_notification_status/${notificationId}`
+  fetch(url, { method: "PATCH", body: JSON.stringify(body), credentials: "include", headers: {
+    "Content-Type": "application/json"
+} })
+}
+
+function getCurrentISODateTime() {
+  const datetime = new Date();
+  return datetime.toISOString();
+}
+
 
 

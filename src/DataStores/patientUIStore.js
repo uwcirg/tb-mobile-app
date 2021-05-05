@@ -7,14 +7,6 @@ export default class PatientUIStore {
     constructor(routerStore) {
         this.router = routerStore;
 
-        //Allow UI Redirects from notifications
-        //event is sent from custom-service-worker.js
-        if (isBroadcastChannelSupported()) {
-            const channel = new BroadcastChannel('notifications');
-            channel.addEventListener('message', event => {
-                this.handleMessageFromServiceworker(event.data);
-            });
-        }
     }
 
     @observable onWalkthrough = false;
@@ -25,11 +17,7 @@ export default class PatientUIStore {
     @observable alertText = "";
     @observable alertType = "success";
 
-    handleMessageFromServiceworker(message) {
-        if (message.url) {
-            this.router.push(message.url)
-        }
-    }
+
 
     @action goToWalkThrough = (step = 0) => {
         this.onWalkthrough = true;
@@ -217,17 +205,5 @@ export default class PatientUIStore {
         this.alertVisible = true;
         this.alertText = text;
         this.alertType = type;
-    }
-}
-
-function isBroadcastChannelSupported() {
-    // When running in a sandboxed iframe, the BroadcastChannel API
-    // is not actually available and throws an exception
-    try {
-        const channel = new BroadcastChannel("feature_test");
-        channel.close();
-        return true;
-    } catch (err) {
-        return false;
     }
 }
