@@ -23,7 +23,7 @@ export class UIStore {
     @observable alertText = "";
     @observable alertType = "success";
 
-    @action setAlert = (text,type) =>{
+    @action setAlert = (text, type) => {
         this.alertVisible = true;
         this.alertText = text;
         this.alertType = type;
@@ -105,6 +105,5 @@ export class UIStore {
     @action resetAuthError = () => {
         this.authError = false;
     }
-
 
 }

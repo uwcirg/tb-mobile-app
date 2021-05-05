@@ -21,7 +21,9 @@ export class MessagingStore extends APIStore {
                 const channel = new BroadcastChannel('messaging-notification');
                 channel.addEventListener('message', event => {
                     this.getUnreadMessages();
-                    this.getSelectedChannel();
+                    if(this.selectedChannel.id){
+                        this.getSelectedChannel();
+                    }
                 });
             }
         } catch (err) {

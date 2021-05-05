@@ -14,6 +14,8 @@ import CheckAuthorization from './Basics/HandleAuthorizationError'
 import SWWrapper from './ServiceWorkerWrapper'
 import { useMatomo } from '@datapunt/matomo-tracker-react'
 import Alerts from './Shared/Alerts'
+import PushHandler from './Basics/PushNotificationHandler';
+
 
 const theme = createMuiTheme({
 
@@ -95,6 +97,7 @@ const Main = observer(() => {
   return (
     <SWWrapper>
       <Boundry>
+        <PushHandler>
         <CheckAuthorization />
         <div>
           <ThemeProvider theme={theme}>
@@ -102,6 +105,7 @@ const Main = observer(() => {
             <Alerts />
           </ThemeProvider>
         </div>
+        </PushHandler>
       </Boundry>
     </SWWrapper>
   )
