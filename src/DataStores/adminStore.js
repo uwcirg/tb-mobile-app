@@ -5,7 +5,7 @@ const ROUTES = {
     coordinators: ["/practitioners", "GET"],
     getCurrentAdministrator: ["/user/current", "GET"],
     getSites: ["/organizations", "GET"],
-    getSummary: ["/trial-summary","GET"],
+    getSummary: ["/v2/trial_summary","GET"],
     getPhotos: ["/photo_reports","GET"],
     getPatients: ["/study/patients","GET"]
 }

@@ -1,12 +1,19 @@
-## v2.4 (In Progress)
+## v2.4
 
-Changes:
+New Features / Changes
+- Adjust photo request schedules due to logistical issues
+- Tracking push notification delivery and clicks via serviceworker middleware
+- Reminders to complete a test on a day when it has been requested
+    - If not completed, a second reminder will be sent
+- Reminders for patients that have stopped reporting for more than 3 days
 - Enable external admin panel
 - Add warning to the demo, saying it should not be used for patient data
 - Add site level messaging
     - Coordinators now have access to a channel that is only for patients at their site
     - Used for site level announcements and discussions
 - Clicking on a messaging notification will open the relevant channel
+- Create patient_information table to move patient specific fields out of user model
+- Coordinators can now see which category of messages has unread messages
 
 Bug Fixes:
 - Fix timezone bug when adding a photo day on a patients first day
