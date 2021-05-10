@@ -16,6 +16,7 @@ import PatientReport from '../../Basics/PatientReport';
 import EditIcon from '@material-ui/icons/Edit';
 import ExpansionPanel from '../../Basics/ExpansionPanel';
 import PhotoUploading from '../../Basics/Loading/PhotoUploading';
+import { usePageVisibility } from '../../Hooks/PageVisibility'
 
 const useStyles = makeStyles({
     confirmation: {
@@ -66,11 +67,21 @@ const ActionBox = observer(() => {
     const { t } = useTranslation('translation');
     const [counter, changeCounter] = useState(0);
 
+    const isVisible = usePageVisibility();
+
+    useEffect(() => {
+        if (document.visibilityState === "visible") {
+
+            //Ensure that we check if the date has changed
+            patientStore.reportStore.getTodaysReport();
+        }
+    }, [isVisible])
+
 
     //Once a minute refresh the local report check
     //Prevents a bug where the old state can be shown until the page is refreshed
     useEffect(() => {
-        patientStore.reportStore.getTodaysReport();
+        //patientStore.reportStore.getTodaysReport();
         const interval = setInterval(() => {
             changeCounter(prevCounter => prevCounter + 1);
             patientStore.loadDailyReport();

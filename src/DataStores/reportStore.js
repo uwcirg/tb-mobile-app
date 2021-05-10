@@ -11,6 +11,7 @@ export default class ReportStore {
 
     @observable error = "";
 
+    @observable todaysDate = DateTime.local().toISODate();
     @observable todaysReportFromServer = {}
 
     @action setTodaysReport = (report) => {
@@ -63,8 +64,13 @@ export default class ReportStore {
         this.error = "";
     }
 
+    @action updateCurrentDate = () => {
+        this.todaysDate = DateTime.local().toISODate()
+    }
+
     getTodaysReport() {
-        this.rootStore.executeRawRequest(`/v2/daily_report?date=${DateTime.local().toISODate()}`).then(res => {
+        this.updateCurrentDate();
+        this.rootStore.executeRawRequest(`/v2/daily_report?date=${this.todaysDate}`).then(res => {
             this.setTodaysReport(res);
         })
     }
