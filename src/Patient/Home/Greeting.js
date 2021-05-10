@@ -29,7 +29,7 @@ const useStyles = makeStyles({
 
 const Greeting = observer(() => {
 
-  const { t, i18n } = useTranslation('translation');
+  const { t } = useTranslation('translation');
 
     const classes = useStyles();
     const {patientStore} = useStores();
