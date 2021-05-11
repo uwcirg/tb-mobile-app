@@ -20,6 +20,7 @@ export default class EducationStore {
     @observable educationStatus = []
     @observable dateOfLastUpdateRead = DateTime.local().toISODate();;
     @observable currentDate = DateTime.local().toISODate();
+    @observable exited = false;
 
     //For Visibility for PatientChatReminder component, default to true so it doesnt flash
     @observable patientChatReminderRead = true;
@@ -123,6 +124,10 @@ export default class EducationStore {
     checkForChanges(){
         this.updateCurrentDate();
         this.getLocalDateOfLastRead();
+    }
+
+    @action setExited = (value) => {
+        this.exited = value;
     }
 
 

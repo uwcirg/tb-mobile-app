@@ -1,11 +1,8 @@
 import PopUp from '../../Navigation/PopUp'
 import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, ButtonGroup } from '@material-ui/core';
-import Button from '@material-ui/core/IconButton'
+import Typography from '@material-ui/core/Typography';
 import Styles from '../../../Basics/Styles';
-import ThumbUpIcon from '@material-ui/icons/ThumbUp';
-import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import Colors from '../../../Basics/Colors';
 import { observer } from 'mobx-react';
 import useStores from '../../../Basics/UseStores';
@@ -13,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { usePageVisibility } from '../../../Hooks/PageVisibility'
 import ForumIcon from '@material-ui/icons/Forum';
 import TestStripUpdate from './TestStripUpdateMay'
+import RateButtons from './RateButtons'
 
 const useStyles = makeStyles({
     container: {
@@ -41,22 +39,6 @@ const useStyles = makeStyles({
         fontWeight: "bold",
         marginTop: "1em",
         textTransform: "capitalize"
-    },
-    thumbsContainer: {
-        width: "100%",
-        "& > p": {
-            fontWeight: "bold",
-            marginBottom: 0
-        }
-    },
-    buttonGroup: {
-        alignSelf: "center",
-        width: "90%",
-        marginTop: "auto",
-        "& > button": {
-            width: "50%",
-            color: Colors.buttonBlue
-        }
     },
     error: {
         textAlign: "center",
@@ -104,7 +86,7 @@ const EducationalMessage = observer((props) => {
     //this helps us detect when the application is launched from installed
     useEffect(() => {
         if (document.visibilityState === "visible") {
-            setExited(false)
+            education.setExited(false)
 
             //Ensure that we check if the date has changed
             education.checkForChanges();
@@ -112,30 +94,19 @@ const EducationalMessage = observer((props) => {
     }, [isVisible])
 
     const handleClose = (isExit) => {
-        setExited(true);
+        education.setExited(true);
         if (isExit) {
             education.markEducationAsRead();
         }
     }
 
-    const handleRate = (rate) => {
-        setExited(true);
-        education.markEducationAsRead(rate);
-        patientUIStore.setAlert(t("educationalMessages.feedback"), "success")
-    }
+    const visible = education.hasDayPassedSinceLastUpdateRead && education.message && !education.exited && !patientUIStore.onWalkthrough;
 
     return (
         <>
-            {education.hasDayPassedSinceLastUpdateRead && education.message && !exited && !patientUIStore.onWalkthrough ?
+            {visible ?
                 <PopUp className={classes.container} handleClickAway={handleClose}>
                     <ComponentToDisplay treatmentDay={education.dayShown} />
-                    <div className={classes.thumbsContainer}>
-                        <p>{t("educationalMessages.helpful")}</p>
-                        <ButtonGroup className={classes.buttonGroup}>
-                            <Button onClick={() => { handleRate(false) }}> <ThumbDownIcon /></Button>
-                            <Button onClick={() => { handleRate(true) }}><ThumbUpIcon /></Button>
-                        </ButtonGroup>
-                    </div>
                 </PopUp> : ""}
         </>)
 
@@ -155,6 +126,7 @@ const DefaultLayout = observer(() => {
             <p>{education.message}</p>
             {education.dayShown == 5 && <PatientChatText />}
         </div>
+        <RateButtons />
     </>)
 })
 
