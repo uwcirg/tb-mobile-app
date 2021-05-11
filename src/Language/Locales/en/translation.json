@@ -791,7 +791,7 @@
 "mayTestStripUpdate":{
     "title": "Important Update",
     "subtitle": "Please review the new instructions for test strips",
-    "body": "The instructions for the test strips have changed, please review them before completing your next test. You can review the instructions by clicking the buttons below."
+    "body": "The instructions for the test strips have changed, please review them before completing your next test."
 }
 
 

@@ -45,7 +45,7 @@ const Update = () => {
         <Typography className={classes.title} variant="h1">{t('mayTestStripUpdate.title')}</Typography>
         <Typography className={classes.subTitle} variant="h2">{t('mayTestStripUpdate.subtitle')}</Typography>
         <img className={classes.image} src="/img/new_test.png" />
-        <Typography className={classes.body} variant="body1">{t('mayTestStripUpdate.body')}</Typography>
+        <Typography data-testid="education-body" className={classes.body} variant="body1">{t('mayTestStripUpdate.body')}</Typography>
         <div className={classes.buttons}>
             <NewButton onClick={uiStore.goToTestInstructions} icon={<Info />} text={"Text instructions"} />
             <NewButton href="https://youtube.com" icon={<Video />} text={"Video Instructions"} />
