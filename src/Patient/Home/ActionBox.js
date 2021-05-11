@@ -70,12 +70,11 @@ const ActionBox = observer(() => {
     const isVisible = usePageVisibility();
 
     useEffect(() => {
-        if (document.visibilityState === "visible") {
+        //if (document.visibilityState === "visible") {
+        //Ensure that we check if the date has changed
+        patientStore.reportStore.getTodaysReport();
 
-            //Ensure that we check if the date has changed
-            patientStore.reportStore.getTodaysReport();
-        }
-    }, [isVisible])
+    }, [])
 
 
     //Once a minute refresh the local report check

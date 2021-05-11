@@ -765,6 +765,7 @@
         "success": "Password Updated Successfully"
     },
 "treatmentUpdates":{
+        "0": "Important update about the test strips",
         "3": "La Tuberculosis Pulmonar se contagia cuando una persona enferma al toser, estornudar o al hablar elimina con la tos secreciones que contienen los bacilos que producen la enfermedad. Siempre tratar de toser en lugar bien ventilado, nunca cerrado, si es posible cubrirse la boca y/o utilizar barbijo. ",
         "5": "¿Sabías que puedes chatear con otros pacientes en tratamiento anónimamente?",
         "7": "Una de las drogas utilizadas, la Rifampicina, colorea la orina, saliva o lagrimas de color naranja o rojo. Esto es  normal. Las lentes de contacto pueden teñirse de manera irreversible.",
@@ -785,5 +786,14 @@
         "70": "Ante cualquier complicación, el personal de salud de su lugar de atención puede controlar el tratamiento. Recordar que la única manera de prevenir en Tuberculosis es CURAR a todos los pacientes. ",
         "80": "Un tratamiento exitoso depende del cumplimiento de todas las tomas de la medicación. Tratar de respetar los horarios.",
         "90": "La mejoría de los síntomas no es lo mismo que curación. Curar significa que hay que continuar habitualmente con un tratamiento 6 meses. Adelante! "
+},
+
+"mayTestStripUpdate":{
+    "title": "Important Update",
+    "subtitle": "Please review the new instructions for test strips",
+    "body": "The instructions for the test strips have changed, please review them before completing your next test. You can review the instructions by clicking the buttons below."
 }
+
+
+
 }
