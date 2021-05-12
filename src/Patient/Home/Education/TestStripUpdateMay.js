@@ -20,7 +20,7 @@ const useStyles = makeStyles({
     },
     messageBody: {
         padding: "1em 0 1em 0",
-        textAlign: "left"
+        textAlign: "left",
     },
     buttons: {
         width: "100%",
@@ -28,7 +28,8 @@ const useStyles = makeStyles({
             fontFamily: "Roboto",
             width: "100% !important",
             boxSizing: "border-box",
-            display: "flex"
+            display: "flex",
+            fontSize: "1em"
         }
     },
     container:{
