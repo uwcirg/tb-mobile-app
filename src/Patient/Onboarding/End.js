@@ -39,6 +39,7 @@ const End = observer((props) => {
             patientStore.getPatientInformation().then(() => {
                 patientUIStore.goToHome();
                 patientUIStore.goToWalkThrough();
+                patientStore.getPatientInformation();
             })
         }
         return function cleanup() {

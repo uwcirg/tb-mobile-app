@@ -201,6 +201,12 @@ export default class PatientUIStore {
         return (search.includes("onAddReminders=true"))
     }
 
+    @computed get onInfoTestInstructions(){
+        const search = this.router.location.search
+        return (search.includes("testStripInstructions=true"))
+    }
+
+
     @action setAlert = (text,type="success") =>{
         this.alertVisible = true;
         this.alertText = text;

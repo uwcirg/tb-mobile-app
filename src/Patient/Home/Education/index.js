@@ -1,17 +1,16 @@
 import PopUp from '../../Navigation/PopUp'
 import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, ButtonGroup } from '@material-ui/core';
-import Button from '@material-ui/core/IconButton'
 import Styles from '../../../Basics/Styles';
-import ThumbUpIcon from '@material-ui/icons/ThumbUp';
-import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import Colors from '../../../Basics/Colors';
 import { observer } from 'mobx-react';
 import useStores from '../../../Basics/UseStores';
 import { useTranslation } from 'react-i18next';
 import { usePageVisibility } from '../../../Hooks/PageVisibility'
 import ForumIcon from '@material-ui/icons/Forum';
+import TestStripUpdate from './TestStripUpdateMay'
+import ChatReminder from './ChatReminder';
+import DefaultLayout from './DefaultMessage'
 
 const useStyles = makeStyles({
     container: {
@@ -19,70 +18,6 @@ const useStyles = makeStyles({
         minHeight: "80vh",
         ...Styles.flexColumn
 
-    },
-    body: {
-        maxHeight: "60vh",
-        overflow: "scroll",
-        padding: ".5em",
-        "& > p": {
-            textAlign: "left",
-            marginTop: 0
-        },
-        "& > h2": {
-            fontWeight: "bold",
-            fontSize: "1em",
-            textAlign: "left"
-        },
-        margin: "auto"
-    },
-    header: {
-        fontSize: "1.25em",
-        fontWeight: "bold",
-        marginTop: "1em",
-        textTransform: "capitalize"
-    },
-    thumbsContainer: {
-        width: "100%",
-        "& > p": {
-            fontWeight: "bold"
-        }
-    },
-    buttonGroup: {
-        alignSelf: "center",
-        width: "90%",
-        marginTop: "auto",
-        "& > button": {
-            width: "50%",
-            color: Colors.buttonBlue
-        }
-    },
-    error:{
-        textAlign: "center",
-        width: "80%",
-        fontSize: ".9em"
-    },
-    graphic:{
-        width: "90%",
-        marginTop: "1em"
-    },
-    graphicSmall:{
-        width: "50%"
-    },
-    subHeader:{
-        textTransform: "capitalize"
-    },
-    list:{
-        margin: "0",
-        padding: "0",
-        paddingLeft: "1em",
-        textAlign: "left",
-        "& > li":{
-            marginTop: ".5em",
-        }
-    },
-    howTo:{
-        margin: 0,
-        padding: 0
     }
 })
 
@@ -91,18 +26,17 @@ const EducationalMessage = observer((props) => {
     const { t } = useTranslation('translation');
 
     const classes = useStyles();
-    const { patientUIStore, patientStore} = useStores();
+    const { patientUIStore, patientStore } = useStores();
     const { educationStore: education } = patientStore;
 
     const isVisible = usePageVisibility();
-    const [exited, setExited] = useState(false);
 
 
     //Check for service worker update when page goes from invisible to visible.
     //this helps us detect when the application is launched from installed
     useEffect(() => {
         if (document.visibilityState === "visible") {
-            setExited(false)
+            education.setExited(false)
 
             //Ensure that we check if the date has changed
             education.checkForChanges();
@@ -110,65 +44,31 @@ const EducationalMessage = observer((props) => {
     }, [isVisible])
 
     const handleClose = (isExit) => {
-        setExited(true);
+        education.setExited(true);
         if (isExit) {
             education.markEducationAsRead();
         }
     }
 
-    const handleRate = (rate) => {
-        setExited(true);
-        education.markEducationAsRead(rate);
-        patientUIStore.setAlert(t("educationalMessages.feedback"), "success")
-    }
-
+    const visible = education.hasDayPassedSinceLastUpdateRead && education.message && !education.exited && !patientUIStore.onWalkthrough;
 
     return (
         <>
-            {education.hasDayPassedSinceLastUpdateRead && education.message && !exited && !patientUIStore.onWalkthrough ?
+            {visible ?
                 <PopUp className={classes.container} handleClickAway={handleClose}>
-                    <Typography className={classes.header} variant="h1">{t("educationalMessages.header")} </Typography>
-                    <Typography className={classes.subHeader} >{t("time.week")} {Math.round(education.dayShown / 7)}</Typography>
-                    <Graphic treatmentDay={education.dayShown} />
-                    <div data-testid="education-body" className={classes.body}>
-                        <p>{education.message}</p>
-                        {education.dayShown == 5 && <PatientChatText />}
-                    </div>
-
-                    <div className={classes.thumbsContainer}>
-                        <p>{t("educationalMessages.helpful")}</p>
-                        <ButtonGroup className={classes.buttonGroup}>
-                            <Button onClick={() => { handleRate(false) }}> <ThumbDownIcon /></Button>
-                            <Button onClick={() => { handleRate(true) }}><ThumbUpIcon /></Button>
-                        </ButtonGroup>
-                    </div>
+                    <ComponentToDisplay treatmentDay={education.dayShown} />
                 </PopUp> : ""}
         </>)
 
 })
 
+const ComponentToDisplay = ({treatmentDay}) => {
 
-const Graphic = ({treatmentDay}) => {
-    const classes = useStyles();
-    if(treatmentDay == 5){
-        return<img className={classes.graphicSmall} src={"/img/chat.svg"} />
+    switch (treatmentDay) {
+        case "0": return <TestStripUpdate />
+        case "5": return <ChatReminder />
+        default: return <DefaultLayout />
     }
-    return <img className={classes.graphic} src="/treatment-update.png" />
-}
-
-const PatientChatText = () => {
-    const classes = useStyles();
-    const { t } = useTranslation('translation');
-    return(
-        <>
-        <p className={classes.howTo}>{t('patient.chatReminder.howTo')}:</p>
-        <ol className={classes.list}>
-            <li>{t('patient.chatReminder.list',{returnObjects: true})[0]} <ForumIcon style={{color: Colors.buttonBlue}} /></li>
-            <li>{t('patient.chatReminder.list',{returnObjects: true})[1]}</li>
-            <li>{t('patient.chatReminder.list',{returnObjects: true})[2]}</li>
-        </ol>
-        </>
-    )
 }
 
 export default EducationalMessage;
