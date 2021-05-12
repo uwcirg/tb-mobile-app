@@ -28,7 +28,7 @@ export default class EducationStore {
     @action setEducationStatus(response) {
 
         this.educationStatus = response.map(each => {
-            if (!each.treatmentDay) {
+            if (each.treatmentDay === null) {
                 throw new Error("Education Status Response did not include treatmentDay for at least one item")
             }
             return each.treatmentDay

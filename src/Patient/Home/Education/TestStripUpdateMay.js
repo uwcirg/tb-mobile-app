@@ -6,6 +6,7 @@ import NewButton from '../../../Basics/NewButton'
 import useStores from '../../../Basics/UseStores';
 import Info from '@material-ui/icons/InfoRounded';
 import Video from '@material-ui/icons/Videocam';
+import RateButtons from './RateButtons';
 
 const useStyles = makeStyles({
     image: {
@@ -47,9 +48,10 @@ const Update = () => {
         <img className={classes.image} src="/img/new_test.png" />
         <Typography data-testid="education-body" className={classes.body} variant="body1">{t('mayTestStripUpdate.body')}</Typography>
         <div className={classes.buttons}>
-            <NewButton onClick={uiStore.goToTestInstructions} icon={<Info />} text={"Text instructions"} />
-            <NewButton href="https://youtube.com" icon={<Video />} text={"Video Instructions"} />
+            <NewButton onClick={uiStore.goToTestInstructions} icon={<Info />} text={t('mayTestStripUpdate.textInstructions')} />
+            <NewButton href="https://youtube.com" icon={<Video />} text={t('mayTestStripUpdate.videoInstructions')} />
         </div>
+        <RateButtons />
 
     </>)
 

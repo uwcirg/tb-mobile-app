@@ -29,10 +29,10 @@ const useStyles = makeStyles({
 
 const Section = (props) =>{
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
     return(
         <ExpansionPanel className={classes.panel}>
         <ExpansionPanelSummary
+            expanded={props.expanded}
             className={classes.summary}
             expandIcon={<Down className={classes.icon} />}
             aria-controls="information-section-header"
