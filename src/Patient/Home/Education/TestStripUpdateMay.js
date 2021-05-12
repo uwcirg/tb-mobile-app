@@ -18,18 +18,27 @@ const useStyles = makeStyles({
     title: {
         marginTop: "1em"
     },
-    body: {
-        textAlign: "left",
-        margin: "1em 0 1em 0"
+    messageBody: {
+        padding: "1em 0 1em 0",
+        textAlign: "left"
     },
-    buttons:{
+    buttons: {
         width: "100%",
-        "& > button, & > a":{
+        "& > button, & > a": {
             fontFamily: "Roboto",
             width: "100% !important",
             boxSizing: "border-box",
             display: "flex"
         }
+    },
+    container:{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%"
+    },
+    body: {
+        flex: "1 1 0",
+
     }
 })
 
@@ -46,18 +55,20 @@ const Update = () => {
     }
 
 
-    return (<>
+    return (<div className={classes.container}>
         <Typography className={classes.title} variant="h1">{t('mayTestStripUpdate.title')}</Typography>
         <Typography className={classes.subTitle} variant="h2">{t('mayTestStripUpdate.subtitle')}</Typography>
-        <img className={classes.image} src="/img/new_test.png" />
-        <Typography data-testid="education-body" className={classes.body} variant="body1">{t('mayTestStripUpdate.body')}</Typography>
-        <div className={classes.buttons}>
-            <NewButton onClick={handleTextClick} icon={<Info />} text={t('mayTestStripUpdate.textInstructions')} />
-            <NewButton href="https://youtube.com" icon={<Video />} text={t('mayTestStripUpdate.videoInstructions')} />
+        <div className={classes.body}>
+            <img className={classes.image} src="/img/new_test.png" />
+            <Typography data-testid="education-body" className={classes.messageBody} variant="body1">{t('mayTestStripUpdate.body')}</Typography>
+            <div className={classes.buttons}>
+                <NewButton onClick={handleTextClick} icon={<Info />} text={t('mayTestStripUpdate.textInstructions')} />
+                <NewButton href="https://youtu.be/zkalmeCLaO8" icon={<Video />} text={t('mayTestStripUpdate.videoInstructions')} />
+            </div>
         </div>
         <RateButtons />
 
-    </>)
+    </div>)
 
 }
 
