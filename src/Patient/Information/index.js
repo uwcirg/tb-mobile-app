@@ -31,8 +31,87 @@ import VersionNumber from './VersionNumber'
 
 import ChangeLog from '../../Basics/Changelog'
 import HelpVideos from './HelpVideos'
+import {observer} from 'mobx-react'
 
 const file = raw("./information.md");
+
+const TCButton = (props) => {
+    const classes = useStyles();
+    const { patientUIStore } = useStores();
+
+    return (<Button
+        className={classes.button}
+        onClick={()=>{
+            patientUIStore.router.push(steps[props.step].push);
+            patientUIStore.goToWalkThrough(props.step)
+            
+            }}>
+        {props.children}
+    </Button>)
+}
+
+const Info = observer(() => {
+    const { t } = useTranslation('translation');
+    const classes = useStyles();
+    const {patientUIStore} = useStores();
+
+
+
+    return (
+        <div className={classes.container}>
+            <Section title={<><LiveHelpIcon />{t('patient.information.helpSection')}</>}>
+                <div className={classes.help}>
+                    <h2>{t('patient.information.walkthrough.title')}</h2>
+                    <TCButton step={0}><><PlayIcon />{t('patient.information.walkthrough.start')}</></TCButton>
+                    <TCButton step={3} ><HomeIcon />{t('patient.information.walkthrough.home')}</TCButton>
+                    <TCButton step={7} ><CalendarIcon />{t('patient.information.walkthrough.calendar')}</TCButton>
+                    <TCButton step={10} ><ChatIcon />{t('patient.information.walkthrough.messaging')}</TCButton>
+                    <h2>{t('patient.information.helpVideos')}</h2>
+                    <HelpVideos />
+                </div>
+            </Section>
+            <Section title={<><VideoIcon />{t('patient.information.videos')}</>}>
+                <Videos />
+            </Section>
+            <Section title={<><InfoIcon />{t('patient.information.education')}</>}>
+                <TreatmentMessages />
+            </Section>
+            <Section expanded={patientUIStore.onInfoTestInstructions} title={<><TestIcon />{t('patient.information.testInstructions')}</>}>
+                <Instructions />
+            </Section>
+            <Section title={<><HelpIcon />{t('patient.information.questions')}</>}>
+                <Interactioncard className={classes.topCard} >
+                    <Markdown options={{ overrides: { Drawer: { component: MarkdownRender } } }} children={file} />
+                </Interactioncard>
+            </Section>
+            <Section title={<><ErrorIcon />{t('patient.information.techSupport')} / <br /> {t('patient.information.reportIssue')}</>}>
+                <ErrorReporting />
+            </Section>
+            <Section title={<><TrackChangesIcon />{t('patient.information.changeLog')}</>}>
+                <ChangeLog />
+            </Section>
+            <VersionNumber />
+        </div>
+    )
+})
+
+const TreatmentMessages = () => {
+    const classes = useStyles();
+    const {t} = useTranslation('translation');
+    const messages = t('treatmentUpdates', {returnObjects: true})
+
+    return (
+        <div className={classes.treatmentMessages}>
+            {Object.keys(messages).map(each => {
+                return (
+                    <div key={each}>
+                        <span>{t('time.day')} {each}</span>
+                        <p>{messages[each]}</p>
+                    </div>)
+            })}
+        </div>
+    )
+}
 
 //Convert markdown file to expandable cards format
 const useStyles = makeStyles({
@@ -88,76 +167,5 @@ const useStyles = makeStyles({
     }
 })
 
-const TCButton = (props) => {
-    const classes = useStyles();
-    const { patientUIStore } = useStores();
 
-    return (<Button
-        className={classes.button}
-        onClick={()=>{
-            patientUIStore.router.push(steps[props.step].push);
-            patientUIStore.goToWalkThrough(props.step)
-            
-            }}>
-        {props.children}
-    </Button>)
-}
-
-export default function Info() {
-    const { t, i18n } = useTranslation('translation');
-    const classes = useStyles();
-    return (
-        <div className={classes.container}>
-            <Section title={<><LiveHelpIcon />{t('patient.information.helpSection')}</>}>
-                <div className={classes.help}>
-                    <h2>{t('patient.information.walkthrough.title')}</h2>
-                    <TCButton step={0}><><PlayIcon />{t('patient.information.walkthrough.start')}</></TCButton>
-                    <TCButton step={3} ><HomeIcon />{t('patient.information.walkthrough.home')}</TCButton>
-                    <TCButton step={7} ><CalendarIcon />{t('patient.information.walkthrough.calendar')}</TCButton>
-                    <TCButton step={10} ><ChatIcon />{t('patient.information.walkthrough.messaging')}</TCButton>
-                    <h2>{t('patient.information.helpVideos')}</h2>
-                    <HelpVideos />
-                </div>
-            </Section>
-            <Section title={<><VideoIcon />{t('patient.information.videos')}</>}>
-                <Videos />
-            </Section>
-            <Section title={<><InfoIcon />{t('patient.information.education')}</>}>
-                <TreatmentMessages />
-            </Section>
-            <Section title={<><TestIcon />{t('patient.information.testInstructions')}</>}>
-                <Instructions />
-            </Section>
-            <Section title={<><HelpIcon />{t('patient.information.questions')}</>}>
-                <Interactioncard className={classes.topCard} >
-                    <Markdown options={{ overrides: { Drawer: { component: MarkdownRender } } }} children={file} />
-                </Interactioncard>
-            </Section>
-            <Section title={<><ErrorIcon />{t('patient.information.techSupport')} / <br /> {t('patient.information.reportIssue')}</>}>
-                <ErrorReporting />
-            </Section>
-            <Section title={<><TrackChangesIcon />{t('patient.information.changeLog')}</>}>
-                <ChangeLog />
-            </Section>
-            <VersionNumber />
-        </div>
-    )
-}
-
-const TreatmentMessages = () => {
-    const classes = useStyles();
-    const {t} = useTranslation('translation');
-    const messages = t('treatmentUpdates', {returnObjects: true})
-
-    return (
-        <div className={classes.treatmentMessages}>
-            {Object.keys(messages).map(each => {
-                return (
-                    <div key={each}>
-                        <span>{t('time.day')} {each}</span>
-                        <p>{messages[each]}</p>
-                    </div>)
-            })}
-        </div>
-    )
-}
+export default Info;

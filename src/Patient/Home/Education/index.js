@@ -79,7 +79,6 @@ const EducationalMessage = observer((props) => {
     const { educationStore: education } = patientStore;
 
     const isVisible = usePageVisibility();
-    const [exited, setExited] = useState(false);
 
 
     //Check for service worker update when page goes from invisible to visible.
