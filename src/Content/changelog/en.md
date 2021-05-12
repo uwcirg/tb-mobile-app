@@ -1,3 +1,13 @@
+## v2.4.1
+
+Changes:
+- Updated test strip instructions to reflect new strip design
+- Added a popup to clarify new test strip instructions to existing users
+- New test strip instruction video
+
+Bug Fixes:
+- Issue with new patient registration, would have prevented new patients from being registered after the onboarding survey
+
 ## v2.4
 
 New Features / Changes

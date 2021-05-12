@@ -102,6 +102,7 @@ export class PatientStore extends UserStore {
                 this.reminderTime = json.dailyNotificationTime;
                 this.patientInformation.weeksInTreatment = json.weeksInTreatment;
                 this.educationStore.educationStatus = json.educationStatus;
+                this.photoSchedule = json.photoSchedule.reduce((a, b) => (a[b] = true, a), {});
             }
         });
     }

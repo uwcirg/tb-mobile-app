@@ -29,14 +29,14 @@ const useStyles = makeStyles({
 
 const Greeting = observer(() => {
 
-  const { t, i18n } = useTranslation('translation');
+  const { t } = useTranslation('translation');
 
     const classes = useStyles();
     const {patientStore} = useStores();
 
     return(<div id="intro-greeting" className={classes.container}>
         <div className={classes.greeting}>{t("greeting")} {patientStore.givenName} 👋 </div> 
-        <div className={classes.date}>{DateTime.local().toLocaleString(DateTime.DATE_FULL)}</div>
+        <div className={classes.date}>{DateTime.fromISO(patientStore.reportStore.todaysDate).toLocaleString(DateTime.DATE_FULL)}</div>
     </div>)
 
 })

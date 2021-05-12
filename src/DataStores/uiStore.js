@@ -106,4 +106,8 @@ export class UIStore {
         this.authError = false;
     }
 
+    @action goToTestInstructions = () => {
+        this.router.push("/information?testStripInstructions=true")
+    }
+
 }

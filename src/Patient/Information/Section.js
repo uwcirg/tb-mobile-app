@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { observer } from 'mobx-react'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -29,9 +29,10 @@ const useStyles = makeStyles({
 
 const Section = (props) =>{
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const [expanded,setExpanded] = useState(props.expanded);
+
     return(
-        <ExpansionPanel className={classes.panel}>
+        <ExpansionPanel onClick={()=>{setExpanded(!expanded)}} expanded={expanded} className={classes.panel}>
         <ExpansionPanelSummary
             className={classes.summary}
             expandIcon={<Down className={classes.icon} />}
