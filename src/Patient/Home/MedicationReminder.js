@@ -9,9 +9,9 @@ import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import { DateTime } from 'luxon';
 import Colors from '../../Basics/Colors'
-import { TimePicker } from "@material-ui/pickers/TimePicker";
 import AddReminder from './Reminder/index'
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
+import TimeDialog from '../../Components/TimeDialog';
 
 const useStyles = makeStyles({
     header: { fontSize: "1em", fontWeight: "bold", textAlign: "left", width: "100%", paddingLeft: "1em" },
@@ -70,10 +70,10 @@ const useStyles = makeStyles({
             height: "50%"
         }
     },
-    container:{
+    container: {
         display: "flex",
         alignItems: "center",
-        "& > svg":{
+        "& > svg": {
             fontSize: "3em"
         }
     }
@@ -95,7 +95,7 @@ const Reminders = observer(() => {
 const Card = observer(() => {
 
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
     const { patientStore, uiStore } = useStores();
     const [open, setOpen] = useState(false);
 
@@ -106,7 +106,6 @@ const Card = observer(() => {
 
     return (<InteractionCard upperText={<><AccessAlarmIcon />{t('patient.reminders.medicationReminder')}</>} id="intro-reminders-card">
         <div className={classes.daily}>
-            {/*<Header>{t('patient.reminders.medicationReminder')}</Header>*/}
             {patientStore.reminderTime ? <>
                 <div className={classes.options}>
                     <p>a las <span>{DateTime.fromISO(patientStore.reminderTime).toLocaleString(DateTime.TIME_24_SIMPLE)}</span> cada día</p>
@@ -119,23 +118,17 @@ const Card = observer(() => {
                 </div>
             </> : <>
 
-                    <div className={classes.enable}>
-                        <p>{t('patient.reminders.explanation')}</p>
-                        <Button onClick={() => { setOpen(true) }} className={classes.timeButton}>{t('patient.reminders.enable')}</Button>
-                    </div>  </>}
+                <div className={classes.enable}>
+                    <p>{t('patient.reminders.explanation')}</p>
+                    <Button onClick={() => { setOpen(true) }} className={classes.timeButton}>{t('patient.reminders.enable')}</Button>
+                </div>  </>}
         </div>
 
-        {open && <TimePicker
+        <TimeDialog
             open={open}
-            className={classes.timeSelect}
-            clearable
-            ampm={uiStore.locale == "en"}
-            value={DateTime.fromISO(patientStore.reminderTime)}
-            onChange={(e) => {
-                setOpen(false);
-                handleChange(e);
-            }}
-        />}
+            handleCancel={()=>{setOpen(false)}}
+            value={patientStore.reminderTime}
+            setValue={(value) => { patientStore.reminderTime = value }} />
     </InteractionCard>)
 
 })
@@ -147,3 +140,15 @@ const Header = (props) => {
 }
 
 export default Reminders;
+
+//<TimePicker
+//             open={open}
+//             className={classes.timeSelect}
+//             clearable
+//             ampm={uiStore.locale == "en"}
+//             value={DateTime.fromISO(patientStore.reminderTime)}
+//             onChange={(e) => {
+//                 setOpen(false);
+//                 handleChange(e);
+//             }}
+//         />

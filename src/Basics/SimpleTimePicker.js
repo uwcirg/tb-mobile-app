@@ -99,23 +99,32 @@ const SingleSide = (props) => {
     )
 }
 
-const TimePicker = observer((props) => {
+const TimePicker = observer(({value, setValue}) => {
     const classes = useStyles();
     // Remove for interoprability const { patientStore } = useStores();
 
-    const parsed = props.timeTaken ? DateTime.fromISO(props.timeTaken) : DateTime.local();
+    const parsed = value ? DateTime.fromISO(value) : DateTime.local();
     const hour = parsed.hour;
     const minute = parsed.minute;
 
     //If less than 10 add a zero to the front digit  
 
+    const handleChange = (timeType, newValue) => {
+        const isValidChange = ((timeType === "hour" && newValue < 24) || (timeType === "minute" && newValue < 60)) && newValue >= 0
+        if (isValidChange) {
+            let changes = {}
+            changes[timeType] = newValue;
+            setValue(DateTime.fromISO(value).set(changes))
+        }
+    }
+
     return (
         <form className={classes.container} noValidate>
-            <SingleSide timeType="hour" handleChange={props.handleChange} value={hour} />
+            <SingleSide timeType="hour" handleChange={handleChange} value={hour} />
             <div className={classes.seperator}>
                 <span>:</span>
             </div>
-            <SingleSide timeType="minute" handleChange={props.handleChange} value={minute} />
+            <SingleSide timeType="minute" handleChange={handleChange} value={minute} />
         </form>
     );
 });

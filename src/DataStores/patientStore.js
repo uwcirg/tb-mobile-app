@@ -423,6 +423,10 @@ export class PatientStore extends UserStore {
         this.hasForcedPasswordChange = false;
     }
 
+    @action setReportTime = (value) => {
+        this.report.timeTaken = value;
+    }
+
     @action logoutPatient() {
         this.logout();
         //@TODO Cleanup this method with cookie update
