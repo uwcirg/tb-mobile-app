@@ -69,11 +69,16 @@ export class PatientStore extends UserStore {
 
     @observable photoIsUploading = false;
 
+    @observable newReminderTime = "";
+
     @action initalize() {
         this.loadCachedProfile();
         super.initalize();
         this.loadDailyReport();
         this.getReports();
+
+        this.newReminderTime = this.reminderTime || DateTime.local().toISO();
+
     }
 
     //Load backup items for offline use 

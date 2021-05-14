@@ -3,8 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import SimpleTimePicker from '../Basics/SimpleTimePicker';
 import IconButton from '@material-ui/core/IconButton';
-import Exit from '@material-ui/icons/Cancel'
-import { ExitToApp } from '@material-ui/icons';
+import Exit from '@material-ui/icons/Close'
+import CheckIcon from '@material-ui/icons/Check';
+import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles({
     timeDialog: {
@@ -39,7 +40,7 @@ const TimeDialog = ({ open, value, setValue, handleCancel }) => {
                     <Exit />
                 </IconButton>
             </div>
-
+            <Typography variant="h1">What time would you like to be notified?</Typography>
             <div className={classes.timeDialog}>
                 <div className={classes.input}>
                     <SimpleTimePicker
@@ -47,9 +48,22 @@ const TimeDialog = ({ open, value, setValue, handleCancel }) => {
                         setValue={setValue} />
                 </div>
             </div>
-
+        <ControlButtons />
         </Dialog>)
 
+}
+
+const ControlButtons = () => {
+    return(
+        <div>
+            <IconButton>
+                <CheckIcon />
+            </IconButton>
+            <IconButton>
+                <Exit />
+            </IconButton>
+        </div>
+    )
 }
 
 export default TimeDialog;
