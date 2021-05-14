@@ -24,7 +24,7 @@ const useStyles = makeStyles({
         },
         "& > p > span": {
             color: Colors.buttonBlue,
-            fontSize: "2em",
+            fontSize: "3em",
             padding: ".5em"
         }
     },
@@ -47,7 +47,7 @@ const useStyles = makeStyles({
             borderRight: "none"
         }
     },
-    buttonContainer: { width: "100%", display: "flex", justifyContent: "center" },
+    buttonContainer: { margin: "auto", width: "90%", display: "flex", justifyContent: "center" },
     reminder: { padding: "1em 1em 0 1em" },
     enable: {
         width: "90%",
@@ -75,6 +75,23 @@ const useStyles = makeStyles({
         alignItems: "center",
         "& > svg": {
             fontSize: "3em"
+        }
+    },
+    bottomLabel:{
+        display: "block",
+        width: "100%",
+        margin: 0,
+        textAlign: "center"
+    },
+    button:{
+        border: `1px solid ${Colors.buttonBlue}`,
+        textTransform: "none",
+        color: Colors.buttonBlue,
+        width: "45%",
+        padding: "6px 4px",
+        fontSize: "1em",
+        "&:first-of-type":{
+            marginRight: "1em"
         }
     }
 
@@ -109,14 +126,13 @@ const Card = observer(() => {
     return (<InteractionCard upperText={<><AccessAlarmIcon />{t('patient.reminders.medicationReminder')}</>} id="intro-reminders-card">
         <div className={classes.daily}>
             {patientStore.reminderTime ? <>
+                <p className={classes.bottomLabel}>Reminder will be be sent daily at </p>
                 <div className={classes.options}>
-                    <p>a las <span>{DateTime.fromISO(patientStore.reminderTime).toLocaleString(DateTime.TIME_24_SIMPLE)}</span> cada día</p>
+                    <p><span>{DateTime.fromISO(patientStore.reminderTime).toLocaleString(DateTime.TIME_24_SIMPLE)}</span></p>
                 </div>
                 <div className={classes.buttonContainer}>
-                    <ButtonGroup className={classes.timeButtonGroup} fullWidth>
-                        <Button onClick={() => { setOpen(true) }}>{t('patient.reminders.changeTime')}</Button>
-                        <Button onClick={() => { patientStore.updateNotificationTime(true) }}>{t('patient.reminders.disable')}</Button>
-                    </ButtonGroup>
+                        <BButton onClick={() => { setOpen(true) }}>{t('patient.reminders.changeTime')}</BButton>
+                        <BButton onClick={() => { patientStore.updateNotificationTime(true) }}>{t('patient.reminders.disable')}</BButton>
                 </div>
             </> : <>
 
@@ -138,5 +154,11 @@ const Card = observer(() => {
     </InteractionCard>)
 
 })
+
+const BButton = (props) => {
+    const classes = useStyles();
+    return <Button {...props} disableElevation className={classes.button} />
+}
+
 
 export default Reminders;

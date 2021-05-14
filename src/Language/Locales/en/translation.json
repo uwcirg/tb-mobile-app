@@ -204,7 +204,7 @@
         "reminders": {
             "title": "Reminders",
             "medicationReminder": "Medication Reminder",
-            "whatTime": "What time would you like to be reminded?",
+            "whatTime": "What time would you like to recieve the reminder?",
             "appointments": "Appointments",
             "explanation": "Once enabled, a push notification will remind you to take your medication at the specified time",
             "enable": "Enable",
