@@ -5,11 +5,13 @@ import SimpleTimePicker from '../Basics/SimpleTimePicker';
 import IconButton from '@material-ui/core/IconButton';
 import Exit from '@material-ui/icons/Close'
 import CheckIcon from '@material-ui/icons/Check';
-import Typography from '@material-ui/core/Typography'
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import {AutoWidth} from './Containers'
+import Colors from '../Basics/Colors';
 
 const useStyles = makeStyles({
     timeDialog: {
-        height: "50vh",
         width: "100%",
         display: "flex",
         flexDirection: 'column',
@@ -21,9 +23,27 @@ const useStyles = makeStyles({
         display: "flex",
         justifyContent: "center"
     },
-    topButton:{
+    topButton: {
         display: "flex",
         justifyContent: "flex-end"
+    },
+    title:{
+        padding: "1em"
+    },
+    buttons:{
+        padding: "1em",
+        marginTop:"2em"
+    },
+    cancel:{
+        backgroundColor: Colors.warningRed,
+        marginRight: "1em"
+    },
+    ok:{
+        backgroundColor: Colors.green
+    },
+    button:{
+        borderRadius: "5px",
+        color: "white"
     }
 })
 
@@ -40,7 +60,7 @@ const TimeDialog = ({ open, value, setValue, handleCancel }) => {
                     <Exit />
                 </IconButton>
             </div>
-            <Typography variant="h1">What time would you like to be notified?</Typography>
+            <Typography className={classes.title} variant="h1">What time would you like to be notified?</Typography>
             <div className={classes.timeDialog}>
                 <div className={classes.input}>
                     <SimpleTimePicker
@@ -48,22 +68,35 @@ const TimeDialog = ({ open, value, setValue, handleCancel }) => {
                         setValue={setValue} />
                 </div>
             </div>
-        <ControlButtons />
+            <ControlButtons />
         </Dialog>)
 
 }
 
 const ControlButtons = () => {
-    return(
-        <div>
-            <IconButton>
-                <CheckIcon />
-            </IconButton>
-            <IconButton>
-                <Exit />
-            </IconButton>
-        </div>
+
+    const classes = useStyles();
+
+    const handleCancel = () => {
+
+    }
+
+    const handleAccept = () => {
+
+    }
+
+    return (
+        <AutoWidth justify="flex-end" className={classes.buttons}>
+            <Button className={classes.cancel}><Exit /></Button>
+            <Button className={classes.ok}><CheckIcon /></Button>
+        </AutoWidth>
     )
+}
+
+
+const Button = (props) => {
+    const classes = useStyles();
+    return <IconButton {...props} className={`${classes.button} ${props.className}`} />
 }
 
 export default TimeDialog;
