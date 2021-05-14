@@ -247,7 +247,6 @@ export class PatientStore extends UserStore {
         if (!this.report.isHistoricalReport) {
             localStorage.setItem(`medicationReport`, JSON.stringify(this.report));
         }
-
     };
 
     @action photoSubmission = () => {
@@ -313,7 +312,7 @@ export class PatientStore extends UserStore {
     }
 
     @action updateNotificationTime = (turnOff) => {
-        let body = { time: this.reminderTime }
+        let body = { time: this.newReminderTime }
 
         if (turnOff) {
             body.enabled = false;
@@ -321,10 +320,9 @@ export class PatientStore extends UserStore {
 
         this.isReminderUpdating = true;
         this.executeRequest('updateNotificationTime', body).then(json => {
-
+            this.isReminderUpdating = false;
             if (json.isoTime) {
                 this.reminderTime = json.isoTime
-                this.isReminderUpdating = false;
             } else {
                 this.reminderTime = null;
             }

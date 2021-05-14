@@ -6,9 +6,9 @@ import IconButton from '@material-ui/core/IconButton';
 import Exit from '@material-ui/icons/Close'
 import CheckIcon from '@material-ui/icons/Check';
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import {AutoWidth} from './Containers'
 import Colors from '../Basics/Colors';
+import useStores from '../Basics/UseStores';
 
 const useStyles = makeStyles({
     timeDialog: {
@@ -36,10 +36,16 @@ const useStyles = makeStyles({
     },
     cancel:{
         backgroundColor: Colors.warningRed,
-        marginRight: "1em"
+        marginRight: "1em",
+        '&:hover': {
+            backgroundColor: Colors.red
+        },
     },
     ok:{
-        backgroundColor: Colors.green
+        backgroundColor: Colors.green,
+        '&:hover': {
+            backgroundColor: Colors.approvedGreen
+        },
     },
     button:{
         borderRadius: "5px",
@@ -49,7 +55,7 @@ const useStyles = makeStyles({
 
 
 
-const TimeDialog = ({ open, value, setValue, handleCancel }) => {
+const TimeDialog = ({ open, value, setValue, handleCancel, closeDialog }) => {
 
     const classes = useStyles();
 
@@ -60,7 +66,7 @@ const TimeDialog = ({ open, value, setValue, handleCancel }) => {
                     <Exit />
                 </IconButton>
             </div>
-            <Typography className={classes.title} variant="h1">What time would you like to be notified?</Typography>
+            <Typography className={classes.title} variant="h1">What time would you like to be reminded?</Typography>
             <div className={classes.timeDialog}>
                 <div className={classes.input}>
                     <SimpleTimePicker
@@ -68,27 +74,25 @@ const TimeDialog = ({ open, value, setValue, handleCancel }) => {
                         setValue={setValue} />
                 </div>
             </div>
-            <ControlButtons />
+            <ControlButtons closeDialog={closeDialog} handleCancel={handleCancel} />
         </Dialog>)
 
 }
 
-const ControlButtons = () => {
+const ControlButtons = ({handleCancel, closeDialog}) => {
 
     const classes = useStyles();
-
-    const handleCancel = () => {
-
-    }
+    const {patientStore} = useStores();
 
     const handleAccept = () => {
-
+        patientStore.updateNotificationTime();
+        closeDialog();
     }
 
     return (
         <AutoWidth justify="flex-end" className={classes.buttons}>
-            <Button className={classes.cancel}><Exit /></Button>
-            <Button className={classes.ok}><CheckIcon /></Button>
+            <Button onClick={handleCancel} className={classes.cancel}><Exit /></Button>
+            <Button onClick={handleAccept} className={classes.ok}><CheckIcon /></Button>
         </AutoWidth>
     )
 }
