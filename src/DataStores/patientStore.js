@@ -312,7 +312,7 @@ export class PatientStore extends UserStore {
     }
 
     @action updateNotificationTime = (turnOff) => {
-        let body = { time: this.newReminderTime }
+        let body = { time: DateTime.fromISO(this.newReminderTime).startOf('minute').toISOTime() }
 
         if (turnOff) {
             body.enabled = false;

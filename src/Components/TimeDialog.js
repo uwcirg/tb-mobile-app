@@ -55,7 +55,7 @@ const useStyles = makeStyles({
 
 
 
-const TimeDialog = ({ open, value, setValue, handleCancel, closeDialog }) => {
+const TimeDialog = ({ open, value, setValue, handleCancel, handleAccept, closeDialog }) => {
 
     const classes = useStyles();
 
@@ -74,20 +74,14 @@ const TimeDialog = ({ open, value, setValue, handleCancel, closeDialog }) => {
                         setValue={setValue} />
                 </div>
             </div>
-            <ControlButtons closeDialog={closeDialog} handleCancel={handleCancel} />
+            <ControlButtons handleAccept={handleAccept} handleCancel={handleCancel} />
         </Dialog>)
 
 }
 
-const ControlButtons = ({handleCancel, closeDialog}) => {
+const ControlButtons = ({handleCancel, closeDialog, handleAccept}) => {
 
     const classes = useStyles();
-    const {patientStore} = useStores();
-
-    const handleAccept = () => {
-        patientStore.updateNotificationTime();
-        closeDialog();
-    }
 
     return (
         <AutoWidth justify="flex-end" className={classes.buttons}>

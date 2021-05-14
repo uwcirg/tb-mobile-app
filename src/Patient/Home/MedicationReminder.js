@@ -101,6 +101,11 @@ const Card = observer(() => {
 
     const closeDialog = ()=>{setOpen(false)}
 
+    const handleAccept = () => {
+        patientStore.updateNotificationTime();
+        closeDialog();
+    }
+
     return (<InteractionCard upperText={<><AccessAlarmIcon />{t('patient.reminders.medicationReminder')}</>} id="intro-reminders-card">
         <div className={classes.daily}>
             {patientStore.reminderTime ? <>
@@ -127,28 +132,11 @@ const Card = observer(() => {
             value={patientStore.newReminderTime}
             setValue={(value) => { patientStore.newReminderTime = value }} 
             closeDialog={closeDialog}
+            handleAccept={handleAccept}
             
             />
     </InteractionCard>)
 
 })
 
-const Header = (props) => {
-    const classes = useStyles();
-
-    return (<Typography className={classes.header} variant="h1">{props.children}</Typography>)
-}
-
 export default Reminders;
-
-//<TimePicker
-//             open={open}
-//             className={classes.timeSelect}
-//             clearable
-//             ampm={uiStore.locale == "en"}
-//             value={DateTime.fromISO(patientStore.reminderTime)}
-//             onChange={(e) => {
-//                 setOpen(false);
-//                 handleChange(e);
-//             }}
-//         />
