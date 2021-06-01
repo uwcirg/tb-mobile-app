@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 
 import { CircularProgressbarWithChildren as CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 const useStyles = makeStyles({
     container:{
@@ -72,6 +73,18 @@ const useStyles = makeStyles({
             margin: 0,
             padding: 0
         }
+    },
+    tst:{
+        position: "relative",
+        width: "90%",
+        margin: "auto",
+        height: "50px",
+        "& > div.MuiLinearProgress-colorPrimary:first-of-type":{
+            backgroundColor: "unset"
+        },
+        "& div:first-of-type > .MuiLinearProgress-barColorPrimary":{
+            backgroundColor: "red"
+        }
     }
 
 })
@@ -91,6 +104,10 @@ const TreatmentStatus = observer((props) => {
         </div>
         <div className={classes.bottom}>
             <Item top={`${patient.daysInTreatment}/180`} bottom={t('coordinator.patientProfile.completedDays')} />
+        </div>
+        <div className={classes.tst}>
+            <LinearProgress style={{position: "absolute", top: "10px", width: "100%", zIndex: 1}}  variant={"determinate"} value={20} />
+            <LinearProgress style={{position: "absolute", top: "10px", width: "100%", zIndex: 0}}  variant={"determinate"} value={40} />
         </div>
     </div>)
 
