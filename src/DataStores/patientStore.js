@@ -177,18 +177,6 @@ export class PatientStore extends UserStore {
         }, 0)
     }
 
-    //Streak calculated on server can only produce streak from yesterday. 
-    //If the user has completed their treatment today, this will add oneday
-    @computed get getCurrentStreak() {
-        let streak = this.patientInformation.currentStreak;
-        if (streak === null) streak = 0;
-        if (this.report.hasConfirmedAndSubmitted && this.report.tookMedication) {
-            streak += 1;
-        }
-
-        return streak;
-    }
-
     @computed get incompleteDays() {
         return (Interval.fromDateTimes(
             this.datetimeTreatmentStart,
@@ -442,6 +430,18 @@ export class PatientStore extends UserStore {
             selectedCalendarDate: DateTime.local().startOf('day'),
             symptomWarningVisible: false
         }
+    }
+
+    //Streak calculated on server can only produce streak from yesterday. 
+    //If the user has completed their treatment today, this will add oneday
+    @computed get getCurrentStreak() {
+        let streak = this.patientInformation.currentStreak;
+        if (streak === null) streak = 0;
+        if (this.reportStore.medicationWasTakenToday) {
+            streak += 1;
+        }
+
+        return streak;
     }
 
     defaultReport = {
