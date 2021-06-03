@@ -21,9 +21,8 @@ const Adherence = observer(() => {
     const total = Math.floor((patient.medicationSummary.adherentDays + patient.medicationSummary.reportedMissedDays)  / patient.medicationSummary.daysSinceAppStart * 100)
 
     return (
-        <div className={classes.graph}>
-            <Typography>Medication Adherence</Typography>
-            <AdherenceValue adherence={patient.adherence} />
+        <div>
+            <AdherenceValue title={t('commonWords.medication')} adherence={patient.adherence} />
             <StackedLinearProgress 
                 partValue={part} 
                 totalValue={total} 
