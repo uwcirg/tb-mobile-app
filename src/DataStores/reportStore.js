@@ -18,6 +18,13 @@ export default class ReportStore {
         this.todaysReportFromServer = report;
     }
 
+    @computed get medicationWasTakenToday(){
+        return this.todaysReportFromServer &&
+        this.todaysReportFromServer.status &&
+        this.todaysReportFromServer.status.tookMedication
+        
+    }
+
     @computed get baseReportComplete() {
 
         if (this.checkOffline()) {
@@ -50,14 +57,13 @@ export default class ReportStore {
     }
 
     @action processReport = (report) => {
-        if(report && report.date){
+        if (report && report.date) {
             this.todaysReportFromServer = report;
             this.rootStore.savedReports[report.date] = report;
-        }else{
+        } else {
             console.log("error uploading last part of report");
             this.error = "there was an error"
         }
-
     }
 
     @action clearError = () => {
@@ -77,42 +83,42 @@ export default class ReportStore {
 
     submitPhoto = () => {
         this.rootStore.hasSubmittedPhoto = true;
-        if (this.checkIfOfflineAndSaveReportLocally()){
-          return  
-        } 
+        if (this.checkIfOfflineAndSaveReportLocally()) {
+            return
+        }
         let body = this.getPhotoBody();
 
         //Upload photo if it was not skipped
-        if(!this.rootStore.report.photoWasSkipped && this.rootStore.report.photoString){
+        if (!this.rootStore.report.photoWasSkipped && this.rootStore.report.photoString) {
             this.rootStore.uploadPhoto().then(response => {
                 body.photoUrl = response;
                 this.rootStore.executeRawRequest('/v2/photo_reports', "POST", body).then(this.processReport)
             })
-        }else{
+        } else {
             this.rootStore.executeRawRequest('/v2/photo_reports', "POST", body).then(this.processReport);
         }
 
     }
 
     submitMedication = () => {
-        if (this.checkIfOfflineAndSaveReportLocally()){
-            return  
-          } 
+        if (this.checkIfOfflineAndSaveReportLocally()) {
+            return
+        }
         this.rootStore.executeRawRequest('/v2/medication_reports', "POST", this.getMedicationBody()).then(this.processReport)
     }
 
     submitSymptoms = () => {
-        if (this.checkIfOfflineAndSaveReportLocally()){
-            return  
-          } 
+        if (this.checkIfOfflineAndSaveReportLocally()) {
+            return
+        }
         this.rootStore.executeRawRequest('/v2/symptom_reports', "POST", this.getSymptomBody()).then(this.processReport)
     }
 
     submitMood = () => {
         this.rootStore.hasSubmitted = true;
-        if (this.checkIfOfflineAndSaveReportLocally()){
-            return  
-          } 
+        if (this.checkIfOfflineAndSaveReportLocally()) {
+            return
+        }
         this.rootStore.executeRawRequest('/v2/mood_reports', "POST", this.getMoodBody()).then(this.processReport)
     }
 
@@ -129,11 +135,11 @@ export default class ReportStore {
             date: this.rootStore.report.date,
         }
 
-        if(this.rootStore.report.photoWasSkipped){
+        if (this.rootStore.report.photoWasSkipped) {
             body.photoWasSkipped = true;
             body.whyPhotoWasSkipped = this.rootStore.report.whyPhotoWasSkipped;
         }
-        
+
         return body;
     }
 

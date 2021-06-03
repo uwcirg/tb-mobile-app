@@ -6,16 +6,14 @@ import Styles from '../../Basics/Styles';
 import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
 import ResetPassword from './ResetPassword'
-
 import PatientInfo from './PatientInfo'
-import TreatmentStatus from './TreatmentStatus'
+import TreatmentStatus from './AdherenceSummary'
 import SymptomSummary from './SymptomSummary'
-
 import TreatmentTimeline from '../../Basics/TreatmentTimeline'
 import ReportingHistory from './ReportingHistory'
-import { Typography } from '@material-ui/core';
 import AddNote from './AddNote'
 import ChangePatientDetails from './ChangePatientDetails'
+import SectionLabel from './SectionLabel';
 
 const useStyles = makeStyles({
     listItem: {
@@ -26,14 +24,12 @@ const useStyles = makeStyles({
         width: "95%",
         marginBottom: "1em",
         display: "flex",
-        justifyContent: "center",
         flexShrink: 0,
         "& > div": {
-
             ...Styles.profileCard,
-            margin: "0 .5em 0 .5em",
+            margin: "1em .5em 0 .5em",
         },
-        paddingTop: "1em",
+        flexWrap: "wrap"
     },
     treatmentTimeline: {
         ...Styles.profileCard,
@@ -113,7 +109,7 @@ const Profile = observer((props) => {
                     <div className={classes.bottom}>
                         <ReportingHistory />
                         <div className={classes.treatmentTimeline}>
-                            <Typography variant={"h2"}>{t('timeline.title')}</Typography>
+                            <SectionLabel>{t('timeline.title')}</SectionLabel>
                             <TreatmentTimeline weeksInTreatment={patientProfileStore.selectedPatient.details.weeksInTreatment} />
                         </div>
                     </div>
@@ -129,7 +125,6 @@ const Loading = () => {
     return (
         <div className={classes.message}>
             <h1> {t('commonWords.loading')}...</h1>
-
         </div>)
 }
 

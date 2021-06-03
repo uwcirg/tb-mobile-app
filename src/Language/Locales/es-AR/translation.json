@@ -25,7 +25,10 @@
         "patients": "pacientes",
         "expandPhoto": "Agrandar la Foto",
         "hideThis": "Esconder Esto",
-        "clickToLoadMore": "Haga clic para cargar más"
+        "clickToLoadMore": "Haga clic para cargar más",
+        "testStrips": "Test Strips",
+        "viewDetails": "View details",
+        "hideDetails": "Hide Details"
     },
     "userTypes": {
         "patient": "Paciente",
@@ -616,11 +619,12 @@
             "listReports": "Reportes",
             "calendarReports": "Calendario",
             "options": {
+                "title": "Options",
                 "resetPassword": "Cambiar la Contraseña",
                 "archive": "Archivar Paciente",
                 "message": "Mensaje",
                 "note": "Añadir Nota",
-                "edit": "Editar"
+                "edit": "Editar Detalles"
             }
         },
         "tasksSidebar": {

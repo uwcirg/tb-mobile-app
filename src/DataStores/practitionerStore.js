@@ -6,7 +6,7 @@ const ROUTES = {
     addPatient: ["/patients", "POST"],
     getCurrentPractitioner: ["/practitioner/me", "GET"],
     getOrganizations: ["/organizations", "GET"],
-    getPatients: ["/practitioner/patients", "GET"],
+    getPatients: ["/v2/patients", "GET"],
     getTemporaryPatients: ["/practitioner/temporary_patients", "GET"],
     getPatientPhotos: ["/patients/photo_reports", "GET"],
     getProcessedPatientPhotos: ["/patients/photo_reports/processed", "GET"],
@@ -166,7 +166,13 @@ export class PractitionerStore extends UserStore {
 
     @action getPatients = () => {
         this.executeRequest('getPatients').then(response => {
-            this.patients = response;
+            let patientHash = {}
+
+            response.forEach( patient => {
+                patientHash[patient.id] = patient
+            })
+
+            this.patients = patientHash;
         })
         this.getTemporaryPatients();
     }

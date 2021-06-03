@@ -25,7 +25,10 @@
         "patients": "Patients",
         "expandPhoto": "Expand Photo",
         "hideThis": "Hide This",
-        "clickToLoadMore": "Click to load more"
+        "clickToLoadMore": "Click to load more",
+        "testStrips": "Test Strips",
+        "viewDetails": "View details",
+        "hideDetails": "Hide Details"
     },
     "userTypes": {
         "patient": "Patient",
@@ -570,6 +573,12 @@
         "false": "false",
         "daysInTreatment": "Days In Treatment",
         "patientProfile": {
+            "adherenceSection":{
+                "reportedTaking": "Reported Taking",
+                "didntTake": "Reported Not Taking",
+                "didntReport": "Missed Reporting",
+                "missedRequest": "Missed Request"
+            },
             "notes":{
                 "noneFound": "No Notes Found",
                 "title": "Title",
@@ -623,6 +632,7 @@
             "listReports": "Reports",
             "calendarReports": "Calendar",
             "options": {
+                "title": "Options",
                 "resetPassword": "Reset Password",
                 "archive": "Archive Patient",
                 "message": "Message",
