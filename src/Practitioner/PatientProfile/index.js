@@ -11,11 +11,8 @@ import TreatmentStatus from './AdherenceSummary'
 import SymptomSummary from './SymptomSummary'
 import TreatmentTimeline from '../../Basics/TreatmentTimeline'
 import ReportingHistory from './ReportingHistory'
-import { Typography } from '@material-ui/core';
 import AddNote from './AddNote'
 import ChangePatientDetails from './ChangePatientDetails'
-
-import OptionButtons from './OptionButtons'
 import SectionLabel from './SectionLabel';
 
 const useStyles = makeStyles({
@@ -128,7 +125,6 @@ const Loading = () => {
     return (
         <div className={classes.message}>
             <h1> {t('commonWords.loading')}...</h1>
-
         </div>)
 }
 

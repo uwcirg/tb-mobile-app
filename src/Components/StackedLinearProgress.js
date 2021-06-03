@@ -30,12 +30,19 @@ const useStyles = makeStyles({
         justifyContent: "flex-end",
         color: Colors.textDarkGray,
         padding: '.5em 0',
+    },
+    data: {
+        marginLeft: "auto"
+    },
+    label:{
+        width: "100%",
+        borderBottom: `dashed 1px ${Colors.lightgray}`
     }
 
 })
 
 
-const StackedLinearProgress = ({ partValue, totalValue, tooltipContent }) => {
+const StackedLinearProgress = ({ partValue, totalValue, detailContent,additionalDetails }) => {
 
     const classes = useStyles();
     const { t } = useTranslation('translation');
@@ -52,25 +59,26 @@ const StackedLinearProgress = ({ partValue, totalValue, tooltipContent }) => {
             previewClosedText={t('commonWords.viewDetails')}
             previewOpenText={t('commonWords.hideDetails')}
             >
-                <Details content={tooltipContent} />
+                <Details content={detailContent} additionalDetails={additionalDetails} />
             </ExpansionPanel>
         </div>
     )
 
 }
 
-const Details = ({ content = {} }) => {
+const Details = ({ content = {}, additionalDetails }) => {
     return (<Grid alignItems="flex-end">
-        <Label color={Colors.green}>{content.green}</Label>
-        <Label color={Colors.yellow}>{content.yellow}</Label>
-        <Label color={Colors.red}> {content.red}</Label>
+        {additionalDetails}
+        <Label color={Colors.green} {...content.green} />
+        <Label color={Colors.yellow} {...content.yellow} />
+        <Label color={Colors.red} {...content.red} />
     </Grid>)
 }
 
-const Label = (props) => {
-    const classes = useStyles({ color: props.color })
+const Label = ({color, label, data}) => {
+    const classes = useStyles({ color: color })
     return (
-        <Grid container alignItems="center"><div className={classes.colorLabel} /> <Typography> {props.children}</Typography></Grid>
+        <Grid container className={classes.label} alignItems="center"><div className={classes.colorLabel} /> <Typography>{label}</Typography> <Typography className={classes.data}>{data}</Typography></Grid>
     )
 }
 

@@ -21,10 +21,14 @@ const PhotoAdherence = observer(() => {
         <StackedLinearProgress
             partValue={partV}
             totalValue={totalV}
-            tooltipContent={{
-                green: `Conclusive: ${patient.photoSummary.conclusive}`,
-                yellow: `Inconclusive: ${patient.photoSummary.inconclusive || 0}`,
-                red: `Missed Request ${missed}`
+            additionalDetails={<>
+                <Typography>Percent Submitted: {totalV}%</Typography>
+                <Typography>Percent Conclusive: {partV}%</Typography>
+            </>}
+            detailContent={{
+                green: {label: "Conclusive", data: patient.photoSummary.conclusive },
+                yellow: {label: "Inconclusive", data: patient.photoSummary.inconclusive || 0 },
+                red: {label: "Didn't Submit", data: missed || 0 }
             }}
         />
     </div>)
