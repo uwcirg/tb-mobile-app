@@ -626,6 +626,7 @@
             "listReports": "Reports",
             "calendarReports": "Calendar",
             "options": {
+                "title": "Options",
                 "resetPassword": "Reset Password",
                 "archive": "Archive Patient",
                 "message": "Message",

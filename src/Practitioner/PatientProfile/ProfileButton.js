@@ -16,13 +16,14 @@ const useStyles = makeStyles({
         "& > span": {
             fontSize: "1em",
             textTransform: "capitalize",
+            textAlign: "left",
             letterSpacing: ".15px",
             lineHeight: "1.15em",
             padding: ".5em"
         },
         "& > span  > svg": {
-            fontSize: "1em",
-            paddingRight: ".25em"
+            fontSize: "1.2em",
+            paddingRight: "1em"
         },
         "&:hover":{
             backgroundColor: Colors.accentBlue,

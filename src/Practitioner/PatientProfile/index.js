@@ -6,16 +6,16 @@ import Styles from '../../Basics/Styles';
 import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
 import ResetPassword from './ResetPassword'
-
 import PatientInfo from './PatientInfo'
 import TreatmentStatus from './TreatmentStatus'
 import SymptomSummary from './SymptomSummary'
-
 import TreatmentTimeline from '../../Basics/TreatmentTimeline'
 import ReportingHistory from './ReportingHistory'
 import { Typography } from '@material-ui/core';
 import AddNote from './AddNote'
 import ChangePatientDetails from './ChangePatientDetails'
+
+import OptionButtons from './OptionButtons'
 
 const useStyles = makeStyles({
     listItem: {
@@ -106,6 +106,7 @@ const Profile = observer((props) => {
                 <>{!patientProfileStore.selectedPatient.accessError ? <div className={classes.patientContainer}>
                     <div className={classes.top}>
                         <PatientInfo />
+                        <OptionButtons />
                         <TreatmentStatus />
                         <SymptomSummary />
                     </div>

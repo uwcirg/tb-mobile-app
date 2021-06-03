@@ -106,7 +106,7 @@ const SymptomSummary = observer(() => {
     const classes = useStyles();
     const symptomSummary = useStores().patientProfileStore.selectedPatient.symptomSummary
     const { t } = useTranslation('translation');
-    const [selection, setSelection] = useState("all");
+    const [selection, setSelection] = useState("week");
 
     const options = ["week", "month", "all"]
 

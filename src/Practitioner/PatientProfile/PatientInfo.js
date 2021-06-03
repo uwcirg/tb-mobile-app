@@ -5,12 +5,6 @@ import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon'
 import Styles from '../../Basics/Styles';
-import Colors from '../../Basics/Colors';
-import ProfileButton from './ProfileButton'
-import Message from '@material-ui/icons/ChatBubble';
-import Add from '@material-ui/icons/AddCircle';
-import Refresh from '@material-ui/icons/Refresh'
-import EditIcon from '@material-ui/icons/Edit'
 
 const useStyles = makeStyles({
 
@@ -54,16 +48,6 @@ const useStyles = makeStyles({
             marginRight: "2em"
         },
         marginBottom: "1em"
-    },
-    buttons: {
-        marginTop: "auto",
-        paddingTop: "1em",
-        display: "flex",
-        flexWrap: "wrap",
-        "& > button": {
-            marginTop: ".5em",
-            marginRight: ".5em"
-        }
     }
 
 })
@@ -81,7 +65,6 @@ const PatientInfo = observer((props) => {
     return (<div className={classes.container}>
         {patientProfileStore.selectedPatient.details && <div className={classes.profileHeader}>
             <h1>{patientProfileStore.selectedPatient.details.fullName}</h1>
-            <ProfileButton style={{"& > button:hover": {color: "white"}}} backgroundColor="none" color={Colors.buttonBlue} onClick={patientProfileStore.toggleOnChangeDetails}><EditIcon />{t("coordinator.patientProfile.options.edit")}</ProfileButton>
                 </div>}
         <div className={classes.detailGroup}>
             <Item top={t("coordinator.patientProfile.age")} bottom={patientProfileStore.selectedPatient.details.age || "N/A"} />
@@ -92,28 +75,8 @@ const PatientInfo = observer((props) => {
         <Item top={t("coordinator.patientProfile.treatmentEnd")} bottom={getDate(patientProfileStore.selectedPatient.details.treatmentEndDate)} />
         <Item top={t("coordinator.patientProfile.lastContacted")} bottom={getDate(patientProfileStore.selectedPatient.details.lastContacted)} />
 
-        <Buttons {...props} />
-
     </div>)
 
-})
-
-const Buttons = observer((props) => {
-    const { practitionerUIStore, patientProfileStore } = useStores();
-    const classes = useStyles();
-    const { t } = useTranslation('translation');
-
-    const messagePatient = () => {
-        practitionerUIStore.goToChannel(patientProfileStore.selectedPatient.details.channelId);
-    }
-
-    return (
-        <div className={classes.buttons}>
-            <ProfileButton onClick={messagePatient}><Message />{t("coordinator.patientProfile.options.message")}</ProfileButton>
-            <ProfileButton onClick={practitionerUIStore.openAddPatientNote} ><Add />{t("coordinator.patientProfile.options.note")}</ProfileButton>
-            <ProfileButton onClick={patientProfileStore.toggleOnPasswordReset} backgroundColor={Colors.warningRed} border><Refresh />{t("coordinator.patientProfile.options.resetPassword")}</ProfileButton>
-        </div>
-    )
 })
 
 const Item = (props) => {
