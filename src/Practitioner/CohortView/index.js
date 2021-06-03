@@ -42,7 +42,6 @@ const useStyles = makeStyles({
         overflow: "scroll"
     },
     patientList: {
-        backgroundColor: "white",
         display: "flex",
         flexDirection: "column",
         alignContent: "center",
