@@ -106,7 +106,7 @@ const SymptomSummary = observer(() => {
     const classes = useStyles();
     const symptomSummary = useStores().patientProfileStore.selectedPatient.symptomSummary
     const { t } = useTranslation('translation');
-    const [selection, setSelection] = useState("week");
+    const [selection, setSelection] = useState("all");
 
     const options = ["week", "month", "all"]
 
@@ -136,7 +136,7 @@ const SymptomSummary = observer(() => {
                 </Select>
             </div>
 
-                {total > 0 ? <div className={classes.totalContainer}><div className={classes.barContainer}> {list.map(each => {
+                {total > 0 ? <div className={classes.totalContainer}><div className={classes.barContainer}> {list.sort( (a,b) =>{return symptomSummary[selection][b] - symptomSummary[selection][a]}).map(each => {
                     const value = symptomSummary[selection][each]
                     return (symptomSummary[selection][each] > 0 ? <>
                         <div className={classes.barLabel}><p>{t(`symptoms.${each}.title`)}</p> <p>{value}</p></div>
