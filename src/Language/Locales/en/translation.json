@@ -573,6 +573,12 @@
         "false": "false",
         "daysInTreatment": "Days In Treatment",
         "patientProfile": {
+            "adherenceSection":{
+                "reportedTaking": "Reported Taking",
+                "didntTake": "Reported Not Taking",
+                "didntReport": "Missed Reporting",
+                "missedRequest": "Missed Request"
+            },
             "notes":{
                 "noneFound": "No Notes Found",
                 "title": "Title",

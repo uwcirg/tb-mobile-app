@@ -13,7 +13,7 @@ const Adherence = observer(() => {
     const part = Math.floor(patient.medicationSummary.adherentDays / patient.medicationSummary.daysSinceAppStart * 100)
     const total = Math.floor((patient.medicationSummary.adherentDays + patient.medicationSummary.reportedMissedDays)  / patient.medicationSummary.daysSinceAppStart * 100)
     const diff = patient.medicationSummary.daysSinceAppStart - patient.medicationSummary.reportedMissedDays - patient.medicationSummary.adherentDays
-    
+
     return (
         <div>
             <AdherenceValue title={t('commonWords.medication')} adherence={patient.adherence} />
@@ -21,9 +21,9 @@ const Adherence = observer(() => {
                 partValue={part} 
                 totalValue={total} 
                 detailContent={{
-                    green: {label: "Reported Taking", data: patient.medicationSummary.adherentDays },
-                    yellow: {label: "Reported Not Taken", data: patient.medicationSummary.reportedMissedDays },
-                    red: {label: "Didn't Report", data: diff }
+                    green: {label: t('coordinator.patientProfile.adherenceSection.reportedTaking'), data: patient.medicationSummary.adherentDays },
+                    yellow: {label: t('coordinator.patientProfile.adherenceSection.didntTake'), data: patient.medicationSummary.reportedMissedDays },
+                    red: {label: t('coordinator.patientProfile.adherenceSection.didntReport'), data: diff }
                 }}
                 />
         </div>

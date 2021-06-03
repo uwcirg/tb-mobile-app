@@ -28,9 +28,9 @@ const PhotoAdherence = observer(() => {
             totalValue={totalV}
             additionalDetails={<Details submitted={totalV} conclusive={partV} />}
             detailContent={{
-                green: { label: "Conclusive", data: patient.photoSummary.conclusive },
-                yellow: { label: "Inconclusive", data: patient.photoSummary.inconclusive || 0 },
-                red: { label: "Didn't Submit", data: missed || 0 }
+                green: { label: t('report.conclusive'), data: patient.photoSummary.conclusive },
+                yellow: { label: t('report.inconclusive'), data: patient.photoSummary.inconclusive || 0 },
+                red: { label: t('coordinator.patientProfile.adherenceSection.missedRequest'), data: missed || 0 }
             }}
         />
     </div>)
@@ -39,10 +39,10 @@ const PhotoAdherence = observer(() => {
 
 const Details = ({ submitted, conclusive }) => {
     const classes = useStyles();
-
+    const { t } = useTranslation('translation');
     return (<Grid wrap="nowrap" direction="row" justifyContent="center" className={classes.details} container>
-        <Detail text={"Submitted"} percent={submitted} />
-        <Detail text={"Conclusive"} percent={conclusive} />
+        <Detail text={t('report.conclusive')} percent={conclusive} />
+        <Detail text={t('coordinator.tasksSidebar.submitted')} percent={submitted} />
     </Grid>)
 }
 
