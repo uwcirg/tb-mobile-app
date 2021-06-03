@@ -10,6 +10,7 @@ import Grid from '@material-ui/core/Grid'
 const useStyles = makeStyles({
     container: {
         flexGrow: 1,
+        maxWidth: "280px",
         padding: "1em",
         backgroundColor: "white",
         "& > h2": {

@@ -30,7 +30,7 @@ const useStyles = makeStyles({
     container: {
         padding: "1em 1.5em 1.5em 1.5em",
         flexGrow: 1,
-        backgroundColor: "white",
+        maxWidth: "280px",
     },
     menuItem: {
         textTransform: "capitalize"

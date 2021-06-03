@@ -26,13 +26,12 @@ const useStyles = makeStyles({
         width: "95%",
         marginBottom: "1em",
         display: "flex",
-        justifyContent: "center",
         flexShrink: 0,
         "& > div": {
             ...Styles.profileCard,
-            margin: "0 .5em 0 .5em",
+            margin: "1em .5em 0 .5em",
         },
-        paddingTop: "1em",
+        flexWrap: "wrap"
     },
     treatmentTimeline: {
         ...Styles.profileCard,
@@ -106,9 +105,9 @@ const Profile = observer((props) => {
                 <>{!patientProfileStore.selectedPatient.accessError ? <div className={classes.patientContainer}>
                     <div className={classes.top}>
                         <PatientInfo />
-                        <OptionButtons />
                         <TreatmentStatus />
                         <SymptomSummary />
+                        <OptionButtons />
                     </div>
                     <div className={classes.bottom}>
                         <ReportingHistory />
