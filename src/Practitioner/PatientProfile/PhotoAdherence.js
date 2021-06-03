@@ -6,7 +6,12 @@ import StackedLinearProgress from '../../Components/StackedLinearProgress';
 import { observer } from 'mobx-react';
 import AdherenceValue from '../../Components/AdherenceValue'
 import { useTranslation } from 'react-i18next';
+import Grid from '@material-ui/core/Grid'
 
+const useStyles = makeStyles({
+    percent:{fontSize: "1.75em"},
+    details:{width: "100%", margin: "1em 0"}
+})
 
 const PhotoAdherence = observer(() => {
 
@@ -21,18 +26,33 @@ const PhotoAdherence = observer(() => {
         <StackedLinearProgress
             partValue={partV}
             totalValue={totalV}
-            additionalDetails={<>
-                <Typography>Percent Submitted: {totalV}%</Typography>
-                <Typography>Percent Conclusive: {partV}%</Typography>
-            </>}
+            additionalDetails={<Details submitted={totalV} conclusive={partV} />}
             detailContent={{
-                green: {label: "Conclusive", data: patient.photoSummary.conclusive },
-                yellow: {label: "Inconclusive", data: patient.photoSummary.inconclusive || 0 },
-                red: {label: "Didn't Submit", data: missed || 0 }
+                green: { label: "Conclusive", data: patient.photoSummary.conclusive },
+                yellow: { label: "Inconclusive", data: patient.photoSummary.inconclusive || 0 },
+                red: { label: "Didn't Submit", data: missed || 0 }
             }}
         />
     </div>)
 
 })
+
+const Details = ({ submitted, conclusive }) => {
+    const classes = useStyles();
+
+    return (<Grid wrap="nowrap" direction="row" justifyContent="center" className={classes.details} container>
+        <Detail text={"Submitted"} percent={submitted} />
+        <Detail text={"Conclusive"} percent={conclusive} />
+    </Grid>)
+}
+
+const Detail = ({text,percent}) =>{
+    const classes = useStyles();
+    return(
+        <Grid direction="column" alignItems="center" container>
+            <Typography>{text}</Typography>
+            <Typography className={classes.percent} variant="h2">{percent}%</Typography>
+        </Grid>)
+}
 
 export default PhotoAdherence;
