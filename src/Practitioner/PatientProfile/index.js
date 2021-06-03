@@ -29,7 +29,6 @@ const useStyles = makeStyles({
         justifyContent: "center",
         flexShrink: 0,
         "& > div": {
-
             ...Styles.profileCard,
             margin: "0 .5em 0 .5em",
         },

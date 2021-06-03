@@ -26,6 +26,7 @@ const useStyles = makeStyles({
         textAlign: "left"
     },
     container: {
+        paddingRight: "20%",
         flexGrow: 1,
         display: "flex",
         flexDirection: "column",
@@ -156,7 +157,8 @@ const PatientsView = observer((props) => {
                     <Patients icon={<PersonIcon />} title={t("coordinator.cardTitles.allPatients")} list={props.patientList} handlePatientClick={props.handlePatientClick} />
                     <PendingPatients list={props.tempList} />
                 </div>
-                <CohortSideBar />
+                <div className={classes.sidebarPlaceholder} />
+                {/* <CohortSideBar /> */}
             </div>
         </>
 

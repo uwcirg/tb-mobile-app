@@ -29,7 +29,6 @@ const BorderLinearProgress = withStyles((theme) => ({
 const useStyles = makeStyles({
     container: {
         padding: "1em 1.5em 1.5em 1.5em",
-        flexBasis: "33%",
         flexGrow: 1,
         backgroundColor: "white",
     },
