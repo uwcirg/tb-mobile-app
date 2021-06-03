@@ -1,14 +1,14 @@
 import React from 'react'
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Colors from '../Basics/Colors';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Tooltip from '@material-ui/core/Tooltip';
+import ExpansionPanel from '../Components/SimpleExpansionPanel'
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
     container: {
-        margin: "1em auto",
-        height: "15px"
+        margin: "1em auto"
     },
     barContainer: {
         height: "15px",
@@ -16,15 +16,7 @@ const useStyles = makeStyles({
         overflow: "hidden",
         width: "100%",
         backgroundColor: Colors.warningRed,
-        display: "flex",
-        // "& > div:first-of-type": {
-        //     borderTopLeftRadius: "5px",
-        //     borderBottomLeftRadius: "5px"
-        // },
-        "&:hover":{
-            cursor: "pointer"
-        }
-
+        display: "flex"
     },
 
     colorLabel: {
@@ -32,37 +24,42 @@ const useStyles = makeStyles({
         height: "1em", width: "1em",
         borderRadius: "2px",
         marginRight: ".5em"
+    },
+    expansionPanel:{
+        width: "100%",
+        justifyContent: "flex-end",
+        color: Colors.textDarkGray,
+        padding: '.5em 0',
     }
 
 })
 
-const LightTooltip = withStyles((theme) => ({
-    tooltip: {
-      backgroundColor: "white",
-      color: Colors.textDarkGray,
-      border: "solid 1px black"
-    },
-  }))(Tooltip);
 
 const StackedLinearProgress = ({ partValue, totalValue, tooltipContent }) => {
 
     const classes = useStyles();
+    const { t } = useTranslation('translation');
+
 
     return (
         <div className={classes.container}>
-
-            <LightTooltip interactive placement="right"  title={<Details content={tooltipContent} />}>
-                <div className={classes.barContainer}>
-                    {partValue > 0 && <div style={{ backgroundColor: Colors.approvedGreen, width: `${partValue}%` }} />}
-                    <div style={{ backgroundColor: Colors.yellow, width: `${totalValue - partValue}%` }} />
-                </div>
-            </LightTooltip>
+            <div className={classes.barContainer}>
+                {partValue > 0 && <div style={{ backgroundColor: Colors.approvedGreen, width: `${partValue}%` }} />}
+                <div style={{ backgroundColor: Colors.yellow, width: `${totalValue - partValue}%` }} />
+            </div>
+            <ExpansionPanel 
+            previewClassName={classes.expansionPanel} 
+            previewClosedText={t('commonWords.viewDetails')}
+            previewOpenText={t('commonWords.hideDetails')}
+            >
+                <Details content={tooltipContent} />
+            </ExpansionPanel>
         </div>
     )
 
 }
 
-const Details = ({content={}}) => {
+const Details = ({ content = {} }) => {
     return (<Grid alignItems="flex-end">
         <Label color={Colors.green}>{content.green}</Label>
         <Label color={Colors.yellow}>{content.yellow}</Label>

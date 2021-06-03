@@ -33,9 +33,6 @@ const TreatmentStatus = () => {
         <Grid className={classes.body} container direction="column" >
             <MedicationAdherence />
             <PhotoAdherence />
-            <Typography style={{marginTop: "auto"}} variant="body1">
-            Hover on the colored bar for details 
-        </Typography>
         </Grid>
     </div>)
 

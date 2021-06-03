@@ -26,7 +26,9 @@
         "expandPhoto": "Expand Photo",
         "hideThis": "Hide This",
         "clickToLoadMore": "Click to load more",
-        "testStrips": "Test Strips"
+        "testStrips": "Test Strips",
+        "viewDetails": "View details",
+        "hideDetails": "Hide Details"
     },
     "userTypes": {
         "patient": "Patient",
