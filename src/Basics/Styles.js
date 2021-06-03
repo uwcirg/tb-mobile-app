@@ -69,15 +69,11 @@ let Styles = {
     profileCard: {
         backgroundColor: "white",
         boxShadow: "0px 4px 16px rgba(0, 0, 0, 0.1)",
-        borderRadius: "4px",
-        "& > h2": {
-            ...patientPageTitle
-        }
+        borderRadius: "4px"
     },
     patientPageTitle:{
         ...patientPageTitle
     }
-
 }
 
 Styles.alignRight = {

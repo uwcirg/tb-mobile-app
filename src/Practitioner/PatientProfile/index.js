@@ -7,7 +7,7 @@ import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
 import ResetPassword from './ResetPassword'
 import PatientInfo from './PatientInfo'
-import TreatmentStatus from './TreatmentStatus'
+import TreatmentStatus from './AdherenceSummary'
 import SymptomSummary from './SymptomSummary'
 import TreatmentTimeline from '../../Basics/TreatmentTimeline'
 import ReportingHistory from './ReportingHistory'
@@ -16,6 +16,7 @@ import AddNote from './AddNote'
 import ChangePatientDetails from './ChangePatientDetails'
 
 import OptionButtons from './OptionButtons'
+import SectionLabel from './SectionLabel';
 
 const useStyles = makeStyles({
     listItem: {
@@ -107,12 +108,11 @@ const Profile = observer((props) => {
                         <PatientInfo />
                         <TreatmentStatus />
                         <SymptomSummary />
-                        <OptionButtons />
                     </div>
                     <div className={classes.bottom}>
                         <ReportingHistory />
                         <div className={classes.treatmentTimeline}>
-                            <Typography variant={"h2"}>{t('timeline.title')}</Typography>
+                            <SectionLabel>{t('timeline.title')}</SectionLabel>
                             <TreatmentTimeline weeksInTreatment={patientProfileStore.selectedPatient.details.weeksInTreatment} />
                         </div>
                     </div>

@@ -11,13 +11,12 @@ import Grid from '@material-ui/core/Grid'
 import ArchiveIcon from '@material-ui/icons/Restore';
 import KeyIcon from '@material-ui/icons/VpnKey';
 import { useTranslation } from 'react-i18next';
-import Typography from '@material-ui/core/Typography'
+import SectionLabel from './SectionLabel';
 
 const useStyles = makeStyles({
     buttons: {
+        margin: "0 auto",
         width: "200px",
-        marginLeft: "auto",
-        padding: "1em",
         "& > button": {
             margin: ".5em .5em 0 .5em",
         }
@@ -35,11 +34,11 @@ const OptionButtons = observer(() => {
 
     return (
         <Grid container direction="column" className={classes.buttons}>
-            <Typography variant={"h2"}>{t('coordinator.patientProfile.options.title')}</Typography>
+            <SectionLabel>{t('coordinator.patientProfile.options.title')}</SectionLabel>
             <ProfileButton onClick={messagePatient}><Message />{t("coordinator.patientProfile.options.message")}</ProfileButton>
             <ProfileButton onClick={practitionerUIStore.openAddPatientNote} ><Add />{t("coordinator.patientProfile.options.note")}</ProfileButton>
             <ProfileButton onClick={patientProfileStore.toggleOnChangeDetails}><EditIcon />{t("coordinator.patientProfile.options.edit")}</ProfileButton>
-            <ProfileButton backgroundColor={Colors.warningRed}><ArchiveIcon />Mark Patient As Completed</ProfileButton>
+            <ProfileButton backgroundColor={Colors.warningRed}><ArchiveIcon />{t("coordinator.patientProfile.options.archive")}</ProfileButton>
             <ProfileButton onClick={patientProfileStore.toggleOnPasswordReset} backgroundColor={Colors.warningRed} border><KeyIcon />{t("coordinator.patientProfile.options.resetPassword")}</ProfileButton>
         </Grid>
     )

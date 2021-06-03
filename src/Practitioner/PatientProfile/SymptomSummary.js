@@ -11,6 +11,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Colors from '../../Basics/Colors';
 import { SevereSymptoms } from '../../Basics/SymptomsSeperation';
 import { ReactComponent as DoctorIcon } from '../../Basics/Icons/doctor.svg';
+import SectionLabel from './SectionLabel';
 
 const BorderLinearProgress = withStyles((theme) => ({
     root: {
@@ -120,7 +121,7 @@ const SymptomSummary = observer(() => {
     return (
         <div className={classes.container}>
             <div className={classes.top}>
-                <Typography variant={"h2"}>{t('coordinator.patientProfile.symptomSummary.title')}</Typography>
+                <SectionLabel>{t('commonWords.symptoms')}</SectionLabel>
                 <Select
                     className={classes.select}
                     variant="outlined"

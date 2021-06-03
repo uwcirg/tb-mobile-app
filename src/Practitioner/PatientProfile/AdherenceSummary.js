@@ -6,6 +6,7 @@ import 'react-circular-progressbar/dist/styles.css'
 import PhotoAdherence from './PhotoAdherence'
 import MedicationAdherence from './MedicationAdherence'
 import Grid from '@material-ui/core/Grid'
+import SectionLabel from './SectionLabel'
 
 const useStyles = makeStyles({
     container: {
@@ -24,13 +25,13 @@ const useStyles = makeStyles({
     }
 })
 
-const TreatmentStatus = () => {
+const AdherenceSummary = () => {
 
     const { t } = useTranslation('translation');
     const classes = useStyles();
 
     return (<div className={classes.container}>
-        <Typography variant={"h2"}>{t('coordinator.patientTableLabels.adherence')}</Typography>
+        <SectionLabel>{t('coordinator.patientTableLabels.adherence')}</SectionLabel>
         <Grid className={classes.body} container direction="column" >
             <MedicationAdherence />
             <PhotoAdherence />
@@ -40,4 +41,4 @@ const TreatmentStatus = () => {
 };
 
 
-export default TreatmentStatus;
+export default AdherenceSummary;
