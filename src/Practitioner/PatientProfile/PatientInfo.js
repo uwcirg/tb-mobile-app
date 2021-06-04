@@ -13,7 +13,6 @@ const useStyles = makeStyles({
 
     container: {
         ...Styles.flexRow,
-        flexGrow: 1,
         backgroundColor: "white",
         padding: "1em"
     },
@@ -53,7 +52,8 @@ const useStyles = makeStyles({
         marginBottom: "1em"
     },
     details:{
-        borderRight: `2px solid ${Colors.lightgray}`
+        borderRight: `2px solid ${Colors.lightgray}`,
+        flex: '1 1 0'
     }
 
 })

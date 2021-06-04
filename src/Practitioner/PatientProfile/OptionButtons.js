@@ -16,6 +16,7 @@ import SectionLabel from './SectionLabel';
 const useStyles = makeStyles({
     buttons: {
         margin: "0 auto",
+        paddingLeft: "1em",
         width: "200px",
         "& > button": {
             margin: ".5em .5em 0 .5em",
