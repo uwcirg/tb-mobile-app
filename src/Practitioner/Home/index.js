@@ -20,17 +20,12 @@ import SectionTitle from '../../Components/Practitioner/SectionTitle';
 const useStyles = makeStyles({
     left: {
         height: "100vh",
-        paddingLeft: "3em",
         overflow: "scroll",
         flexGrow: "1",
         "& > h1": {
             alignSelf: "flex-start",
             marginTop: "2em"
 
-        },
-        "& > div": {
-            marginTop: "1.5em",
-            "&:last-of-type": { marginBottom: "2em" }
         },
         display: "flex",
         flexDirection: "column",
@@ -54,6 +49,13 @@ const useStyles = makeStyles({
     },
     mobile: {
         padding: "0 1em 0 1em"
+    },
+    tasks:{
+        padding: "2em",
+        "& > div": {
+            marginTop: "1.5em",
+            "&:last-of-type": { marginBottom: "2em" }
+        },
     }
 
 })
@@ -84,6 +86,7 @@ const Home = observer(() => {
         <div className={classes.container}>
             <div className={classes.left}>
                 <CohortSummary />
+                <div className={classes.tasks}>
                 <SectionTitle>{t("coordinator.titles.myTasks")}</SectionTitle>
                 {isMobile && <p className={classes.mobile}>{t("coordinator.mobileWarning")}</p>}
                 <Card
@@ -122,6 +125,7 @@ const Home = observer(() => {
                     patientList={practitionerStore.filteredPatients.missed}
                     type="missed"
                 />
+                </div>
             </div>
             {!isMobile && <SideBarRouter />}
         </div>

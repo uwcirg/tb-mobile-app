@@ -9,12 +9,15 @@ import AdherenceValue from '../../Components/AdherenceValue';
 import { useTranslation } from 'react-i18next';
 import Fade from '@material-ui/core/Fade'
 import SectionTitle from '../../Components/Practitioner/SectionTitle';
+import Colors from '../../Basics/Colors';
 
 const useStyles = makeStyles({
 
     container: {
+        padding: "2em",
         width: "100%",
-        boxSizing: "border-box"
+        boxSizing: "border-box",
+        background: Colors.lighterGray
     },
     summary: {
         width: "100%",
