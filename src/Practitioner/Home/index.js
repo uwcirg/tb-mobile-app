@@ -82,6 +82,9 @@ const Home = observer(() => {
 
     return (
         <div className={classes.container}>
+            <div>
+                <p>{practitionerStore.cohortAverageAdherence}%</p>
+            </div>
             <div className={classes.left}>
                 <h1>{t("coordinator.titles.myTasks")}</h1>
                 {isMobile && <p className={classes.mobile}>{t("coordinator.mobileWarning")}</p>}

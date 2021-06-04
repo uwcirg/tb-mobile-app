@@ -97,18 +97,6 @@ const useStyles = makeStyles({
         borderRadius: "50%",
         backgroundColor: Colors.calendarGreen
     },
-    high: {
-        backgroundColor: Colors.red
-    },
-    middle: {
-        backgroundColor: Colors.yellow
-    },
-    low: {
-        backgroundColor: Colors.green
-    },
-    new: {
-        backgroundColor: Colors.red
-    },
     noPatients: {
         width: "100%",
         textAlign: "center"
@@ -157,7 +145,6 @@ const PatientsView = observer((props) => {
                     <PendingPatients list={props.tempList} />
                 </div>
                 <div className={classes.sidebarPlaceholder} />
-                {/* <CohortSideBar /> */}
             </div>
         </>
 
@@ -245,7 +232,7 @@ const Patients = (props) => {
 
     let list = ""
     sorted.length > 0 && (list = sorted.map((patient, index) => {
-        const priorityClasses = [classes.low, classes.middle, classes.high, classes.new]
+
         return (
             <div key={`patient-list-view-${index}`} className={classes.singlePatient}>
                 <div className={classes.name}>

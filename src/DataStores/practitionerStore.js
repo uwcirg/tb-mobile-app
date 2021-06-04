@@ -445,5 +445,13 @@ export class PractitionerStore extends UserStore {
         this.sortOptions.direction === -1 ? this.sortOptions.direction = 1 : this.sortOptions.direction -= 1;
     }
 
+    @computed get cohortAverageAdherence(){
+        const patientList = Object.values(this.patients);
+        if(patientList.length === 0) return 0
+        return ((patientList.reduce( (previousValue, currentValue) => {
+            return previousValue + currentValue.adherence
+        }, 0) / patientList.length).toFixed(2) * 100)
+    }
+
 
 }
