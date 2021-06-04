@@ -562,6 +562,7 @@
             "treatmentStart": "Treatment Start",
             "lastSubmission": "Last Submission",
             "adherence": "Adherence",
+            "photoAdherence": "Photos Submitted",
             "streak": "Streak"
         },
         "noTasks": "No Tasks Found",

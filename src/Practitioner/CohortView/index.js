@@ -252,6 +252,9 @@ const Patients = (props) => {
                 <div>
                     {Math.round(patient.adherence * 100)}%
                 </div>
+                <div>
+                    {Math.round(patient.photoAdherence * 100)}%
+                </div>
             </div>
         )
     }))
@@ -271,6 +274,9 @@ const Patients = (props) => {
         </div>
         <div onClick={() => { setSort("adherence") }}>
             {t("coordinator.patientTableLabels.adherence")} {isSortingAdherence() ? <DownIcon /> : <UpIcon />}
+        </div>
+        <div>
+            {t("coordinator.patientTableLabels.photoAdherence")} {isSortingAdherence() ? <DownIcon /> : <UpIcon />}
         </div>
 
     </div>)

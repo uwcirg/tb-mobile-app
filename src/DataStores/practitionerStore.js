@@ -376,7 +376,6 @@ export class PractitionerStore extends UserStore {
 
     @computed get numberOfCompletedTasks() {
         return this.resolutionSummary.dailyCount || 0;
-
     }
 
     @computed get totalReported() {
@@ -395,11 +394,8 @@ export class PractitionerStore extends UserStore {
                 }
             })
         })
-
         return issues;
-
     }
-
 
     // Test Stuff for new sorted dashboard - need to move to a different store for better organization 
     // Can flip value to 1 or -1 to sort
@@ -423,11 +419,9 @@ export class PractitionerStore extends UserStore {
             }
 
             return this.sortOptions.direction * (a[`${this.sortOptions.type}`] - b[`${this.sortOptions.type}`])
-
         }).filter((item) => {
             return this.filterOptions.query == "" || item.fullName.toLowerCase().includes(this.filterOptions.query.toLowerCase())
         })
-
     }
 
     @action setFilterQuery = (query) => {
@@ -453,5 +447,11 @@ export class PractitionerStore extends UserStore {
         }, 0) / patientList.length).toFixed(2) * 100)
     }
 
-
+    @computed get cohortAveragePhotoAdherence(){
+        const patientList = Object.values(this.patients);
+        if(patientList.length === 0) return 0
+        return ((patientList.reduce( (previousValue, currentValue) => {
+            return previousValue + currentValue.photoAdherence
+        }, 0) / patientList.length).toFixed(2) * 100)
+    }
 }
