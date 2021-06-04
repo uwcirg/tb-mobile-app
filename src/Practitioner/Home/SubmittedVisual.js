@@ -6,6 +6,7 @@ import { CircularProgressbar, CircularProgressbarWithChildren, buildStyles } fro
 import 'react-circular-progressbar/dist/styles.css';
 import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles({
     halfCircle: {
@@ -73,7 +74,7 @@ const Submitted = observer(() => {
 
     return (
         <div className={classes.container}>
-            <div className={classes.visContainer}>
+            {practitionerStore.patientsLoaded ? <div className={classes.visContainer}>
                 {percentage > 0 ? <div className={classes.halfCircle}>
                     <CircularProgressbarWithChildren
                         value={(practitionerStore.totalReported / practitionerStore.patientList.length) * 100}
@@ -103,8 +104,8 @@ const Submitted = observer(() => {
                                 <p>{t('coordinator.tasksSidebar.submitted')} <br /> {t('patient.home.today')}</p>
                             </div> </CircularProgressbarWithChildren>
                     </CircularProgressbarWithChildren>
-                </div> : t('coordinator.tasksSidebar.noneYet')}
-            </div>
+                </div> : <Typography align="left" variant="body1">{t('coordinator.tasksSidebar.noneYet')}</Typography>}
+            </div> : <div style={{flex: "1 1 0"}} />}
             <div className={classes.key}>
                 <KeyItem color={Colors.green} text={t('coordinator.tasksSidebar.taken')} />
                 <KeyItem color={Colors.yellow} text={t('coordinator.tasksSidebar.notTaken')} />

@@ -5,16 +5,15 @@ import { observer } from 'mobx-react'
 import Grid from '@material-ui/core/Grid'
 import LightCard from '../../Components/LightCard';
 import Typography from '@material-ui/core/Typography'
-import SectionLabel from '../../Components/SectionLabel';
 import AdherenceValue from '../../Components/AdherenceValue';
 import { useTranslation } from 'react-i18next';
 import Fade from '@material-ui/core/Fade'
+import SectionTitle from '../../Components/Practitioner/SectionTitle';
 
 const useStyles = makeStyles({
 
     container: {
         width: "100%",
-        padding: "0 2em",
         boxSizing: "border-box"
     },
     summary: {
@@ -30,7 +29,7 @@ const useStyles = makeStyles({
         }
     },
     title: {
-        fontSize: "1.25em"
+        fontSize: "1em"
     }
 })
 
@@ -42,7 +41,7 @@ const CohortAdherenceSummary = observer((props) => {
 
     return (
         <div className={classes.container}>
-            <Typography variant="h1">{t('summaries.siteSummary')}</Typography>
+            <SectionTitle>{t('summaries.siteSummary')}</SectionTitle>
             <Grid container className={classes.summary}>
                 <SummaryCard
                     loaded={practitionerStore.patientsLoaded}

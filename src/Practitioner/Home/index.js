@@ -15,25 +15,23 @@ import SupportSidebar from './SupportSidebar';
 import useResize from '../../Hooks/Resize'
 import MissedPhotoSideBar from './MissedPhotoSideBar'
 import CohortSummary from './CohortSummary'
-import Fade from '@material-ui/core/Grow'
+import SectionTitle from '../../Components/Practitioner/SectionTitle';
 
 const useStyles = makeStyles({
     left: {
         height: "100vh",
+        paddingLeft: "3em",
         overflow: "scroll",
         flexGrow: "1",
         "& > h1": {
-            fontSize: "2em",
-            fontStyle: "normal",
-            fontWeight: "medium",
-            textAlign: "left",
-            width: "90%"
+            alignSelf: "flex-start",
+            marginTop: "2em"
+
         },
         "& > div": {
             marginTop: "1.5em",
             "&:last-of-type": { marginBottom: "2em" }
         },
-        alignItems: "center",
         display: "flex",
         flexDirection: "column",
         overflowX: "hidden",
@@ -85,8 +83,8 @@ const Home = observer(() => {
     return (<>
         <div className={classes.container}>
             <div className={classes.left}>
-                    <CohortSummary />
-                <h1>{t("coordinator.titles.myTasks")}</h1>
+                <CohortSummary />
+                <SectionTitle>{t("coordinator.titles.myTasks")}</SectionTitle>
                 {isMobile && <p className={classes.mobile}>{t("coordinator.mobileWarning")}</p>}
                 <Card
                     key={'missed-photo'}
