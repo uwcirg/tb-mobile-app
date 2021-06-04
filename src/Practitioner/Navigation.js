@@ -26,7 +26,7 @@ const useStyles = makeStyles({
     height: "100vh",
     display: "flex",
     flexDirection: "column",
-    boxShadow: "1px 0px 5px 0px lightgray",
+    borderRight: `solid 1px ${Colors.gray}`,
     backgroundColor: "white"
   },
   list: {

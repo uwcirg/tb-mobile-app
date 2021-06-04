@@ -35,7 +35,6 @@ const useStyles = makeStyles({
     },
     navContainer:{
         width: "320px",
-        borderLeft: "solid 1px lightgray",
         borderRight: "solid 1px lightgray",
 
     }
