@@ -11,7 +11,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Colors from '../../Basics/Colors';
 import { SevereSymptoms } from '../../Basics/SymptomsSeperation';
 import { ReactComponent as DoctorIcon } from '../../Basics/Icons/doctor.svg';
-import SectionLabel from './SectionLabel';
+import SectionLabel from '../../Components/SectionLabel';
 
 const BorderLinearProgress = withStyles((theme) => ({
     root: {

@@ -805,8 +805,33 @@
     "body": "The instructions for the test strips have changed, please review them before completing your next test.",
     "textInstructions": "Text Instructions",
     "videoInstructions": "Video Instructions"
+},
+
+
+"dashboard":{
+    "category": "Category",
+    "reported": "Reported",
+    "requested": "Requested",
+    "submitted": "Submitted",
+    "submissions": "Submissions",
+    "percentage": "Percentage",
+    "dailyReports": "Daily Reports",
+    "percentageOfReports": "Percentage of Reports",
+    "photoReports": "Photo Reports",
+    "metric": "Metric",
+    "lessThan": "less than",
+    "registrationOfPatients": "Registration of patients over time",
+    "reportsVsRequests": "Daily Reports Submitted / Total Active Number of Patients",
+    "photosVsRequests": "Daily Photos Submitted / Number of Requests",
+    "adherenceVis": "Adherence vs Days In Treatment",
+    "skippedPhoto": "Skipped Photo",
+    "needsSupport": "Needs Support",
+    "sideEffects": "Side Effects"
+},
+"summaries":{
+    "averageAdherence": "Average Adherenece",
+    "averagePhotoAdherence": "Average Photo Adherence",
+    "siteSummary": "Site Summary"
 }
-
-
 
 }

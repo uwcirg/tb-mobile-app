@@ -73,6 +73,7 @@ export class PractitionerStore extends UserStore {
     @observable organizationsList = [];
 
     @observable patients = {};
+    @observable patientsLoaded = false;
     @observable temporaryPatients = [];
 
     //Currently viewed patient
@@ -173,6 +174,7 @@ export class PractitionerStore extends UserStore {
             })
 
             this.patients = patientHash;
+            this.patientsLoaded = true;
         })
         this.getTemporaryPatients();
     }
@@ -444,7 +446,7 @@ export class PractitionerStore extends UserStore {
         if(patientList.length === 0) return 0
         return ((patientList.reduce( (previousValue, currentValue) => {
             return previousValue + currentValue.adherence
-        }, 0) / patientList.length).toFixed(2) * 100)
+        }, 0) / patientList.length).toFixed(2))
     }
 
     @computed get cohortAveragePhotoAdherence(){
@@ -452,6 +454,7 @@ export class PractitionerStore extends UserStore {
         if(patientList.length === 0) return 0
         return ((patientList.reduce( (previousValue, currentValue) => {
             return previousValue + currentValue.photoAdherence
-        }, 0) / patientList.length).toFixed(2) * 100)
+        }, 0) / patientList.length).toFixed(2))
     }
+
 }

@@ -13,7 +13,7 @@ import TreatmentTimeline from '../../Basics/TreatmentTimeline'
 import ReportingHistory from './ReportingHistory'
 import AddNote from './AddNote'
 import ChangePatientDetails from './ChangePatientDetails'
-import SectionLabel from './SectionLabel';
+import SectionLabel from '../../Components/SectionLabel';
 
 const useStyles = makeStyles({
     listItem: {

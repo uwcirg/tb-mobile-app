@@ -791,8 +791,28 @@
     "body": "Las instrucciones de las tiras reactivas han cambiado, revísalas antes de realizar la siguiente prueba.",
     "textInstructions": "Instrucciones de Texto",
     "videoInstructions": "Instrucciones de Video"
-}
+},
 
+"dashboard":{
+    "category": "Categoría",
+    "reported": "Reportado",
+    "requested": "Solicitado",
+    "submitted": "Enviado",
+    "submissions": "Entregos",
+    "percentage": "Porcentaje",
+    "dailyReports": "Reportes Diarios",
+    "percentageOfReports": "Porcentaje de Reportes",
+    "photoReports": "Reportes de Foto",
+    "metric": "métrico",
+    "lessThan": "menos que",
+    "registrationOfPatients": "Registro de pacientes a lo largo del tiempo",
+    "reportsVsRequests": "Reportes Enviados / Número Total de Pacientes Activos",
+    "photosVsRequests": "Fotos Diarias Enviadas / Número Solicitado",
+    "adherenceVis": "Adherencia vs Días en Tratamiento",
+    "skippedPhoto": "Foto Omitida",
+    "needsSupport": "Necesita Apoyo",
+    "sideEffects": "Efectos Secundarios"
+}
 
 
 }

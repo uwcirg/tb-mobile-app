@@ -11,7 +11,7 @@ import Grid from '@material-ui/core/Grid'
 import ArchiveIcon from '@material-ui/icons/Restore';
 import KeyIcon from '@material-ui/icons/VpnKey';
 import { useTranslation } from 'react-i18next';
-import SectionLabel from './SectionLabel';
+import SectionLabel from '../../Components/SectionLabel';
 
 const useStyles = makeStyles({
     buttons: {

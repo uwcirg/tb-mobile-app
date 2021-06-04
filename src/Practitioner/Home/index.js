@@ -14,6 +14,8 @@ import TaskSideBar from './TaskSidebar'
 import SupportSidebar from './SupportSidebar';
 import useResize from '../../Hooks/Resize'
 import MissedPhotoSideBar from './MissedPhotoSideBar'
+import CohortSummary from './CohortSummary'
+import Fade from '@material-ui/core/Grow'
 
 const useStyles = makeStyles({
     left: {
@@ -52,7 +54,7 @@ const useStyles = makeStyles({
     cardContainer: {
         width: "100%"
     },
-    mobile:{
+    mobile: {
         padding: "0 1em 0 1em"
     }
 
@@ -78,15 +80,12 @@ const Home = observer(() => {
 
     const classes = useStyles();
 
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
-    return (
+    return (<>
         <div className={classes.container}>
-            <div>
-                <p>{practitionerStore.cohortAverageAdherence}%</p>
-                <p>Photo:{practitionerStore.cohortAveragePhotoAdherence}%</p>
-            </div>
             <div className={classes.left}>
+                    <CohortSummary />
                 <h1>{t("coordinator.titles.myTasks")}</h1>
                 {isMobile && <p className={classes.mobile}>{t("coordinator.mobileWarning")}</p>}
                 <Card
@@ -127,7 +126,8 @@ const Home = observer(() => {
                 />
             </div>
             {!isMobile && <SideBarRouter />}
-        </div>)
+        </div>
+    </>)
 
 });
 
@@ -145,7 +145,7 @@ const SideBarRouter = observer((props) => {
         component = <MedicationSideBar />
     } else if (practitionerStore.selectedRow.type === "support") {
         component = <SupportSidebar />
-    } else if (practitionerStore.selectedRow.type === "missedPhoto"){
+    } else if (practitionerStore.selectedRow.type === "missedPhoto") {
         component = <MissedPhotoSideBar />
     }
 
