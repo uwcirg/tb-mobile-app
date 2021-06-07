@@ -7,6 +7,7 @@ const ROUTES = {
     getCurrentPractitioner: ["/practitioner/me", "GET"],
     getOrganizations: ["/organizations", "GET"],
     getPatients: ["/v2/patients", "GET"],
+    getArchivedPatients: ["/v2/patients?archived=true", "GET"],
     getTemporaryPatients: ["/practitioner/temporary_patients", "GET"],
     getPatientPhotos: ["/patients/photo_reports", "GET"],
     getProcessedPatientPhotos: ["/patients/photo_reports/processed", "GET"],

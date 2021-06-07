@@ -831,7 +831,8 @@
 "summaries":{
     "averageAdherence": "Average Adherence",
     "averagePhotoAdherence": "Average Photo Adherence",
-    "siteSummary": "Site Summary"
+    "siteSummary": "Site Summary",
+    "loading": "Loading list of patients"
 }
 
 }

@@ -69,7 +69,7 @@ const useStyles = makeStyles({
 const Submitted = observer(() => {
     const classes = useStyles();
     const { practitionerStore } = useStores();
-    const { t, i18n } = useTranslation('translation'); 
+    const { t } = useTranslation('translation'); 
     const percentage = Math.round(((practitionerStore.totalReported / (practitionerStore.patientList.length || 1)) * 100)).toString()
 
     return (

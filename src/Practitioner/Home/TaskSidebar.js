@@ -36,7 +36,7 @@ const useStyles = makeStyles({
         justifyContent: "center",
         padding: "2em",
         boxSizing: 'border-box',
-        borderLeft: `solid 1px ${Colors.lightgray}`,
+        borderLeft: `solid 1px ${Colors.lightgray}`
     },
     patientListContainer: {
         flex: "1 1 0",
@@ -124,7 +124,7 @@ const useStyles = makeStyles({
     progress: {
         padding: "1em",
         width: "70%",
-        margin: "auto"
+        margin: "1em auto"
     }
 })
 
@@ -179,7 +179,6 @@ const Report = (props) => {
             <p>{report.numberSymptoms}</p>
         </>
     )
-
 }
 
 const Pending = () => {

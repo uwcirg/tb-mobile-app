@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import Fade from '@material-ui/core/Fade'
 import SectionTitle from '../../Components/Practitioner/SectionTitle';
 import Colors from '../../Basics/Colors';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 const useStyles = makeStyles({
 
@@ -33,6 +34,14 @@ const useStyles = makeStyles({
     },
     title: {
         fontSize: "1em"
+    },
+    loading:{
+        height: "100%",
+        margin:"auto"
+    },
+    loadingText:{
+        fontSize: "1em",
+        marginBottom: ".5em"
     }
 })
 
@@ -45,6 +54,7 @@ const CohortAdherenceSummary = observer((props) => {
     return (
         <div className={classes.container}>
             <SectionTitle>{t('summaries.siteSummary')}</SectionTitle>
+            {!practitionerStore.patientsLoaded && <LoadingElement />}
             <Grid container className={classes.summary}>
                 <SummaryCard
                     loaded={practitionerStore.patientsLoaded}
@@ -61,16 +71,29 @@ const CohortAdherenceSummary = observer((props) => {
 
 });
 
+const LoadingElement = () => {
+    const classes = useStyles();
+    const { t } = useTranslation('translation');
+
+    return (<Grid container direction="column" alignItems="center" justify="center" className={classes.loading}>
+        <div>
+        <Typography className={classes.loadingText} variant="body2">{t('summaries.loading')}...</Typography>
+        <LinearProgress style={{height: "10px",width: "100%"}} variant="indeterminate" />
+        </div>
+    </Grid>)
+}
+
 const SummaryCard = ({ children, title, adherence, loaded }) => {
     const classes = useStyles();
 
-    return (<LightCard className={classes.card}>
-        <Typography className={classes.title} variant="h2">{title}</Typography>
+    return (
         <Fade in={loaded}>
-            <AdherenceValue adherence={adherence} />
-        </Fade>
-        {children}
-    </LightCard>)
+            <LightCard className={classes.card}>
+                <Typography className={classes.title} variant="h2">{title}</Typography>
+                <AdherenceValue adherence={adherence} />
+                {children}
+            </LightCard>
+        </Fade>)
 }
 
 export default CohortAdherenceSummary;

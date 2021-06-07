@@ -8,11 +8,11 @@ const useStyles = makeStyles({
   }
 })
 
-const LightCard = ({children, className}) => {
-
+const LightCard = (props) => {
+  const {children, className} = props;
     const classes = useStyles();
 
-    return(<div className={`${classes.lightCard} ${className}`}>
+    return(<div {...props} className={`${classes.lightCard} ${className}`}>
         {children}
     </div>)
 
