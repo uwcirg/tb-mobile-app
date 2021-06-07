@@ -25,12 +25,15 @@ const useStyles = makeStyles({
         marginTop: "1em"
     },
     card: {
+        display: "flex",
+        flexDirection: "column",
         minHeight: "75px",
         padding: "1em",
         marginRight: "1em",
         "& > h2:nth-of-type(2)": {
-            paddingTop: "1em"
-        }
+            marginTop: "auto"
+        },
+        width: "150px"
     },
     title: {
         fontSize: "1em"
