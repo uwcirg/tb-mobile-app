@@ -11,6 +11,7 @@ export default class PatientProfileStore {
 
     @observable onPasswordReset = false;
     @observable onChangeDetails = false;
+    @observable onArchive = false;
 
     @observable selectedPatient = {
         symptomSummary: {},
@@ -38,6 +39,10 @@ export default class PatientProfileStore {
 
     @action toggleOnChangeDetails = () => {
         this.onChangeDetails = !this.onChangeDetails;
+    }
+
+    @action toggleOnArchive = () => {
+        this.onArchive = !this.onArchive;
     }
 
     @action closeResetPassword = () => {

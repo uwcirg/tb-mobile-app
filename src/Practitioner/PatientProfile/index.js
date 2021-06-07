@@ -5,15 +5,14 @@ import { observer } from 'mobx-react'
 import Styles from '../../Basics/Styles';
 import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
-import ResetPassword from './ResetPassword'
 import PatientInfo from './PatientInfo'
 import TreatmentStatus from './AdherenceSummary'
 import SymptomSummary from './SymptomSummary'
 import TreatmentTimeline from '../../Basics/TreatmentTimeline'
 import ReportingHistory from './ReportingHistory'
-import AddNote from './AddNote'
-import ChangePatientDetails from './ChangePatientDetails'
-import SectionLabel from '../../Components/SectionLabel';
+import SectionLabel from '../../Components/SectionLabel'
+import PatientProfileDialogs from './Dialogs'
+
 
 const useStyles = makeStyles({
     listItem: {
@@ -64,18 +63,13 @@ const useStyles = makeStyles({
 
 const Profile = observer((props) => {
 
-    const { practitionerStore, practitionerUIStore, patientProfileStore, uiStore } = useStores();
+    const { practitionerStore, patientProfileStore, uiStore } = useStores();
     const classes = useStyles();
     const { t } = useTranslation('translation');
-
 
     const closeResetPassword = () => {
         patientProfileStore.closeResetPassword();
         practitionerStore.newActivationCode = ""
-    }
-
-    const closeNote = () => {
-        practitionerUIStore.closeAddPatientNote();
     }
 
     useEffect(() => {
@@ -95,10 +89,7 @@ const Profile = observer((props) => {
 
     return (
         <>
-            {patientProfileStore.onPasswordReset && <ResetPassword />}
-            {practitionerUIStore.onAddPatientNote && <AddNote close={closeNote} />}
-            {patientProfileStore.onChangeDetails && <ChangePatientDetails />}
-
+            <PatientProfileDialogs />
             {patientProfileStore.selectedPatient.loaded ?
                 <>{!patientProfileStore.selectedPatient.accessError ? <div className={classes.patientContainer}>
                     <div className={classes.top}>
