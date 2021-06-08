@@ -124,7 +124,7 @@ const useStyles = makeStyles({
     progress: {
         padding: "1em",
         width: "70%",
-        margin: "1em auto"
+        margin: "1em auto",
     }
 })
 
