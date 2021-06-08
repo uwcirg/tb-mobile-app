@@ -12,6 +12,8 @@ import TreatmentTimeline from '../../Basics/TreatmentTimeline'
 import ReportingHistory from './ReportingHistory'
 import SectionLabel from '../../Components/SectionLabel'
 import PatientProfileDialogs from './Dialogs'
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+import { Grid, Typography } from '@material-ui/core';
 
 
 const useStyles = makeStyles({
@@ -42,7 +44,6 @@ const useStyles = makeStyles({
     patientContainer: {
         ...Styles.flexColumn,
         backgroundColor: Colors.lighterGray,
-        height: "100vh",
         overflowY: "scroll",
         width: "100%",
         alignItems: "center",
@@ -58,6 +59,15 @@ const useStyles = makeStyles({
         width: "100%",
         height: "100%",
         ...Styles.flexCenter
+    },
+    archived: {
+        width: "100%",
+        backgroundColor: Colors.warningRed,
+        color: "white",
+        padding: "1em",
+        "& > p":{
+            marginLeft: ".5em"
+        }
     }
 })
 
@@ -89,6 +99,7 @@ const Profile = observer((props) => {
 
     return (
         <>
+            {patientProfileStore.selectedPatient.details.status === "Archived" && <ArchivedError />}
             <PatientProfileDialogs />
             {patientProfileStore.selectedPatient.loaded ?
                 <>{!patientProfileStore.selectedPatient.accessError ? <div className={classes.patientContainer}>
@@ -108,6 +119,18 @@ const Profile = observer((props) => {
 
         </>)
 });
+
+
+const ArchivedError = () => {
+    const { t } = useTranslation('translation');
+    const classes = useStyles();
+
+    return (
+        <Grid container alignItems="center" justify="center" className={classes.archived}>
+            <ErrorOutlineIcon />
+            <Typography variant="body1">{t('archive.profileWarning')}</Typography>
+        </Grid>)
+}
 
 
 const Loading = () => {

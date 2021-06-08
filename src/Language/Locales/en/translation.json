@@ -837,7 +837,8 @@
 
 "archive":{
     "explanation": "If the patient has completed thier time using the application, fill in their last day, and click the button below to archive them. They will no longer appear in the lists of tasks, but their profile can be accessed from the cohort tab.",
-    "appEndField": "Last day using app"
+    "appEndField": "Last day using app",
+    "profileWarning": "This patient has been archived and can no longer report"
 }
 
 }
