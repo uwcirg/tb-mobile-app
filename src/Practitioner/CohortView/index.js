@@ -110,7 +110,7 @@ const Patients = (props) => {
         return sort === "adherence"
     }
 
-    const sorted = props.list.slice().sort((a, b) => {
+    const sorted = props.list ? props.list.slice().sort((a, b) => {
 
         let value = 0
 
@@ -128,7 +128,7 @@ const Patients = (props) => {
     }).filter(each => {
 
         return each.fullName && each.fullName.toLowerCase().includes(search.toLowerCase())
-    })
+    }) : [];
 
     const handlePrioritySort = () => {
         if (sort === "priority") {
@@ -184,7 +184,7 @@ const Patients = (props) => {
             {t("coordinator.patientTableLabels.adherence")} {isSortingAdherence() ? <DownIcon /> : <UpIcon />}
         </div>
         <div>
-            {t("coordinator.patientTableLabels.photoAdherence")} {isSortingAdherence() ? <DownIcon /> : <UpIcon />}
+            {t("coordinator.patientTableLabels.photoAdherence")}
         </div>
 
     </div>)

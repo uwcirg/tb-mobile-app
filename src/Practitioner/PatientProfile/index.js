@@ -29,8 +29,7 @@ const useStyles = makeStyles({
         "& > div": {
             ...Styles.profileCard,
             margin: "1em .5em 0 .5em",
-        },
-        flexWrap: "wrap"
+        }
     },
     treatmentTimeline: {
         ...Styles.profileCard,
@@ -42,6 +41,7 @@ const useStyles = makeStyles({
     },
 
     patientContainer: {
+        height: "100vh",
         ...Styles.flexColumn,
         backgroundColor: Colors.lighterGray,
         overflowY: "scroll",
@@ -65,7 +65,7 @@ const useStyles = makeStyles({
         backgroundColor: Colors.warningRed,
         color: "white",
         padding: "1em",
-        "& > p":{
+        "& > p": {
             marginLeft: ".5em"
         }
     }
@@ -99,10 +99,10 @@ const Profile = observer((props) => {
 
     return (
         <>
-            {patientProfileStore.isArchived && <ArchivedError />}
             <PatientProfileDialogs />
             {patientProfileStore.selectedPatient.loaded ?
                 <>{!patientProfileStore.selectedPatient.accessError ? <div className={classes.patientContainer}>
+                    {patientProfileStore.isArchived && <ArchivedError />}
                     <div className={classes.top}>
                         <PatientInfo />
                         <TreatmentStatus />

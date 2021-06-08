@@ -11,7 +11,6 @@ import CheckIcon from '@material-ui/icons/PlaylistAddCheck';
 import Colors from '../../Basics/Colors'
 import { treatmentOutcomes } from '../../Basics/Enums'
 
-
 const useStyles = makeStyles({
     bottomButton: {
         display: "flex",

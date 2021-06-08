@@ -461,9 +461,13 @@ export class PractitionerStore extends UserStore {
         }, 0) / patientList.length).toFixed(2))
     }
 
+    @action setArchivedPatients = (list) => {
+        this.archivedPatients = list;
+    }
+
     getArchivedPatients = () => {
         this.executeRequest("getArchivedPatients").then(response => {
-            this.archivedPatients = response;
+            this.setArchivedPatients(response)
         })
     }
 
