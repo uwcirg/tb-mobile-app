@@ -16,7 +16,14 @@ const useStyles = makeStyles({
     bottomButton: {
         display: "flex",
         justifyContent: "flex-end",
-        marginTop: "1em"
+        alignItems: "center",
+        marginTop: "1em",
+        "& > p": {
+            marginRight: "auto",
+            fontSize: ".9em",
+            color: Colors.warningRed,
+            maxWidth: "60%"
+        }
     },
     form: {
         margin: "2em 0",
@@ -51,7 +58,11 @@ const ArchiveDialog = observer(() => {
             <SelectOutcome />
         </form>
         <div className={classes.bottomButton}>
-            <ProfileButton disabled={!allowSubmission} onClick={patientProfileStore.postTreatmentOutcome}><CheckIcon style={{ fontSize: "1.5em" }} />Complete</ProfileButton>
+            {!allowSubmission && <Typography variant="body1">{t('commonWords.fillAll')}</Typography>}
+            <ProfileButton disabled={!allowSubmission} onClick={patientProfileStore.postTreatmentOutcome}>
+                <CheckIcon style={{ fontSize: "1.5em" }} />
+                {t('archive.complete')}
+            </ProfileButton>
         </div>
     </PopOver>)
 

@@ -6,6 +6,7 @@
     "updating": "Updating",
     "demoWarning": "This is a demo of the application and should not be used for real patient data",
     "commonWords": {
+        "fillAll": "Please fill all fields before continuing",
         "edit": "Edit",
         "error": "Error",
         "medication": "Medication",
@@ -847,7 +848,8 @@
         "lost-to-follow-up": "Lost to follow up",
         "transferred": "Transfered",
         "deceased": "Deceased"
-    }
+    },
+    "complete": "Complete"
 }
 
 }

@@ -12,6 +12,7 @@ import { Avatar } from '@material-ui/core';
 const useStyles = makeStyles({
 
     container: {
+        flexGrow: 1,
         ...Styles.flexRow,
         backgroundColor: "white",
         padding: "1em"

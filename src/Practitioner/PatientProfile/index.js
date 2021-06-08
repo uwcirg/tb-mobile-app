@@ -99,7 +99,7 @@ const Profile = observer((props) => {
 
     return (
         <>
-            {patientProfileStore.selectedPatient.details.status === "Archived" && <ArchivedError />}
+            {patientProfileStore.isArchived && <ArchivedError />}
             <PatientProfileDialogs />
             {patientProfileStore.selectedPatient.loaded ?
                 <>{!patientProfileStore.selectedPatient.accessError ? <div className={classes.patientContainer}>

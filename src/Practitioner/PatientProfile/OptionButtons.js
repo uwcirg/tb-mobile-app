@@ -39,7 +39,7 @@ const OptionButtons = observer(() => {
             <ProfileButton onClick={messagePatient}><Message />{t("coordinator.patientProfile.options.message")}</ProfileButton>
             <ProfileButton onClick={practitionerUIStore.openAddPatientNote} ><Add />{t("coordinator.patientProfile.options.note")}</ProfileButton>
             <ProfileButton onClick={patientProfileStore.toggleOnChangeDetails}><EditIcon />{t("coordinator.patientProfile.options.edit")}</ProfileButton>
-            <ProfileButton onClick={patientProfileStore.toggleOnArchive} backgroundColor={Colors.warningRed}><ArchiveIcon />{t("coordinator.patientProfile.options.archive")}</ProfileButton>
+            {!patientProfileStore.isArchived && <ProfileButton onClick={patientProfileStore.toggleOnArchive} backgroundColor={Colors.warningRed}><ArchiveIcon />{t("coordinator.patientProfile.options.archive")}</ProfileButton>}
             <ProfileButton onClick={patientProfileStore.toggleOnPasswordReset} backgroundColor={Colors.warningRed} border><KeyIcon />{t("coordinator.patientProfile.options.resetPassword")}</ProfileButton>
         </Grid>
     )

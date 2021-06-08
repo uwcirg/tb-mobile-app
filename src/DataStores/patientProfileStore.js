@@ -11,7 +11,7 @@ export default class PatientProfileStore {
 
     @observable onPasswordReset = false;
     @observable onChangeDetails = false;
-    @observable onArchive = true;
+    @observable onArchive = false;
 
     @observable selectedPatient = {
         symptomSummary: {},
@@ -167,7 +167,8 @@ export default class PatientProfileStore {
 
     postTreatmentOutcome = () => {
         this.apiHelper.executeRawRequest(`/v2/patient/${this.selectedPatient.details.id}/treatment_outcome`, 'POST', this.archiveChanges).then( response => {
-            
+            this.resetAfterSuccessfulUpdate();
+            this.onArchive = false;
         })
     }
 
@@ -223,6 +224,10 @@ export default class PatientProfileStore {
 
     @action setTemporaryPassword = (code) => {
         this.temporaryPassword = code;
+    }
+
+    @computed get isArchived(){
+        return this.selectedPatient.details.status === "Archived"
     }
 
 
