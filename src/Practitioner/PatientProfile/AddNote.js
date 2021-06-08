@@ -3,11 +3,9 @@ import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import PopOver from '../Shared/PopOver';
 import MuiButton from '../../Basics/MuiButton';
-import Typography from '@material-ui/core/Typography'
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField'
-import PractitionerUIStore from '../../DataStores/practitionerUIStore';
 
 const useStyles = makeStyles({
     popOverBody: {
@@ -27,7 +25,7 @@ const useStyles = makeStyles({
 })
 
 const AddNote = observer((props) => {
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
     const classes = useStyles();
     const { practitionerStore, practitionerUIStore, patientProfileStore } = useStores();
 
@@ -41,7 +39,7 @@ const AddNote = observer((props) => {
         }
     }, [])
 
-    const closee = () => {
+    const close = () => {
         practitionerUIStore.closeAddPatientNote();
     }
 

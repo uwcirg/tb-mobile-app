@@ -11,7 +11,7 @@ export default class PatientProfileStore {
 
     @observable onPasswordReset = false;
     @observable onChangeDetails = false;
-    @observable onArchive = false;
+    @observable onArchive = true;
 
     @observable selectedPatient = {
         symptomSummary: {},

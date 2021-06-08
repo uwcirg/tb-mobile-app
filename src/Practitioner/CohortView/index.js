@@ -6,7 +6,6 @@ import Colors from '../../Basics/Colors';
 import AdherenceGraph from '../AdherenceGraph';
 import Card from '../Shared/Card';
 import PersonIcon from '@material-ui/icons/People'
-import CohortSideBar from './Sidebar';
 import Search from '../../Basics/SearchBar'
 import DownIcon from '@material-ui/icons/KeyboardArrowDown';
 import UpIcon from '@material-ui/icons/KeyboardArrowUp';
@@ -18,6 +17,8 @@ import Button from '@material-ui/core/Button'
 import PopOver from '../Shared/PopOver';
 import Priority from '../Shared/Priority';
 import ProfileButton from '../PatientProfile/ProfileButton';
+import AddPatient from './AddPatient';
+
 
 
 const useStyles = makeStyles({
@@ -26,7 +27,6 @@ const useStyles = makeStyles({
         textAlign: "left"
     },
     container: {
-        paddingRight: "20%",
         flexGrow: 1,
         display: "flex",
         flexDirection: "column",
@@ -119,7 +119,16 @@ const useStyles = makeStyles({
     },
     button: {
         backgroundColor: Colors.buttonBlue
-    }
+    },
+    sidebar: {
+        width: "350px",
+        overflow: "hidden",
+        height: "100vh",
+        border: "solid 2px lightgray",
+        marginLeft: "auto",
+        boxSizing: "border-box",
+    },
+
 })
 
 const PatientsView = observer((props) => {
@@ -144,7 +153,10 @@ const PatientsView = observer((props) => {
                     <Patients icon={<PersonIcon />} title={t("coordinator.cardTitles.allPatients")} list={props.patientList} handlePatientClick={props.handlePatientClick} />
                     <PendingPatients list={props.tempList} />
                 </div>
-                <div className={classes.sidebarPlaceholder} />
+                {/* <div className={classes.sidebarPlaceholder} /> */}
+                <div className={classes.sidebar}>
+                {practitionerStore.onAddPatientFlow && <AddPatient />}
+                </div>
             </div>
         </>
 

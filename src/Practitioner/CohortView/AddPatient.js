@@ -62,9 +62,10 @@ const AddPatient = observer(() => {
         practitionerStore.onAddPatientFlow = !practitionerStore.onAddPatientFlow
         practitionerStore.clearNewPatient();
     }
-    const { t, i18n } = useTranslation('translation');
+    const { t} = useTranslation('translation');
 
-    return (<div className={classes.base}>
+    return (
+    <div className={classes.base}>
         {practitionerStore.newPatient.code && <PopOver title={t('coordinator.addPatientFlow.addedPatient')} close={practitionerStore.clearNewPatient}><p>Code to send to patient:</p> <p>{practitionerStore.newPatient.code}</p> </PopOver>}
         {practitionerStore.newPatient.code ? <p>{practitionerStore.newPatient.code}</p> :
             <>
