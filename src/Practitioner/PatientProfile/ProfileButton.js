@@ -23,7 +23,7 @@ const useStyles = makeStyles({
         },
         "& > span  > svg": {
             fontSize: "1.2em",
-            paddingRight: "1em"
+            paddingRight: ".5em"
         },
         "&:hover":{
             backgroundColor: Colors.accentBlue,

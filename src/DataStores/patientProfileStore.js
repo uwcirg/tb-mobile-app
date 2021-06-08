@@ -1,3 +1,4 @@
+import { DateTime } from "luxon";
 import { action, observable, computed } from "mobx";
 import APIHelper from './Requests'
 
@@ -29,6 +30,10 @@ export default class PatientProfileStore {
         treatmentEndDate: "",
         errors: {},
         success: false
+    }
+
+    @observable archiveChanges = {
+        appEndDate: DateTime.local().toISODate()
     }
 
     @observable reportSplice = 10;
@@ -157,6 +162,12 @@ export default class PatientProfileStore {
         this.apiHelper.executeRawRequest(`/patient/${this.selectedPatient.details.id}/notes`, 'POST', body).then(response => {
             this.getPatientNotes();
             return response
+        })
+    }
+
+    postTreatmentOutcome = () => {
+        this.apiHelper.executeRawRequest(`/v2/patient/${this.selectedPatient.details.id}/treatment_outcome`, 'POST', this.archiveChanges).then( response => {
+            
         })
     }
 
