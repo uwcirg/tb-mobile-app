@@ -838,7 +838,16 @@
 "archive":{
     "explanation": "If the patient has completed thier time using the application, fill in their last day, and click the button below to archive them. They will no longer appear in the lists of tasks, but their profile can be accessed from the cohort tab.",
     "appEndField": "Last day using app",
-    "profileWarning": "This patient has been archived and can no longer report"
+    "profileWarning": "This patient has been archived and can no longer report",
+    "treatmentOutcome": "Treatment Outcome",
+    "outcomeTypes": {
+        "success": "Success",
+        "default": "Default",
+        "withdraw": "Withdraw",
+        "lost-to-follow-up": "Lost to follow up",
+        "transferred": "Transfered",
+        "deceased": "Deceased"
+    }
 }
 
 }

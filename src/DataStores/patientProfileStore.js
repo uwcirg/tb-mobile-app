@@ -1,4 +1,3 @@
-import { DateTime } from "luxon";
 import { action, observable, computed } from "mobx";
 import APIHelper from './Requests'
 
@@ -33,7 +32,8 @@ export default class PatientProfileStore {
     }
 
     @observable archiveChanges = {
-        appEndDate: DateTime.local().toISODate()
+        appEndDate: null,
+        treatmentOutcome: null
     }
 
     @observable reportSplice = 10;
@@ -215,6 +215,10 @@ export default class PatientProfileStore {
                 this.setTemporaryPassword(response.temporaryPassword);
             })
         }
+    }
+
+    setTreatmentOutcome = (value) => {
+        this.archiveChanges.treatmentOutcome = value;
     }
 
     @action setTemporaryPassword = (code) => {

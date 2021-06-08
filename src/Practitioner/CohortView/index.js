@@ -18,6 +18,7 @@ import PopOver from '../Shared/PopOver';
 import Priority from '../Shared/Priority';
 import ProfileButton from '../PatientProfile/ProfileButton';
 import AddPatient from './AddPatient';
+import SectionTitle from '../../Components/Practitioner/SectionTitle';
 
 
 
@@ -146,7 +147,7 @@ const PatientsView = observer((props) => {
             <div className={classes.superContainer}>
                 <div className={classes.container}>
                     <div className={classes.header}>
-                        <h1 className={classes.title}>{t("coordinator.titles.myPatients")}</h1>
+                        <SectionTitle>{t("coordinator.titles.myPatients")}</SectionTitle>
                         {!practitionerStore.onAddPatientFlow && <ProfileButton onClick={toggleAddPatient} className={classes.addPatient}><PlusIcon />{t('coordinator.addPatientFlow.title')}</ProfileButton>}
                     </div>
                     <AdherenceGraph />

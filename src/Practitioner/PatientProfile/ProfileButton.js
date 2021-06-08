@@ -28,6 +28,9 @@ const useStyles = makeStyles({
         "&:hover":{
             backgroundColor: Colors.accentBlue,
             color: props => props.hoverColor || "white",
+        },
+        "&:disabled":{
+            backgroundColor: Colors.lightgray
         }
     },
 
@@ -37,7 +40,7 @@ const ProfileButton = (props) => {
 
     const classes = useStyles(props);
 
-    return (<Button onClick={props.onClick} size="small" className={classes.button}>
+    return (<Button disabled={props.disabled} onClick={props.onClick} size="small" className={classes.button}>
         {props.children}
     </Button>)
 
