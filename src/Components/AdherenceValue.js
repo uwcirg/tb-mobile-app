@@ -25,7 +25,7 @@ const AdherenceValue = ({ adherence, title, style }) => {
     const classes = useStyles();
 
 
-    if(!title) return <Typography style={style} variant="h2" className={classes.adherence}>{adherence * 100}%</Typography>
+    if(!title) return <Typography style={style} variant="h2" className={classes.adherence}>{Math.floor(adherence * 100)}%</Typography>
 
     return (<Grid container alignItems="flex-start">
         <Typography className={classes.title} variant="h2">{title}</Typography>

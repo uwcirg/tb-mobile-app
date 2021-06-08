@@ -529,6 +529,8 @@
             "missedPhoto": "Missed a Required Photo",
             "overviewOfProgress": "Overview of Progress",
             "allPatients": "All Patients",
+            "activePatients": "Active Patients",
+            "archivedPatients": "Archived Patients",
             "awaitingActivation": "Awaiting Activation",
             "currentStatus": "Current Status",
             "reportingCalender": "Reporting Calender",

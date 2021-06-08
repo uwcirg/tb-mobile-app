@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { DateTime } from 'luxon';
 import AddPatientPrompt from '../AddPatientPrompt'
@@ -20,122 +20,16 @@ import ProfileButton from '../PatientProfile/ProfileButton';
 import AddPatient from './AddPatient';
 import SectionTitle from '../../Components/Practitioner/SectionTitle';
 
-
-
-const useStyles = makeStyles({
-    title: {
-        width: "90%",
-        textAlign: "left"
-    },
-    container: {
-        flexGrow: 1,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "flex-start",
-        alignItems: "center",
-        "& > div": {
-            marginTop: "2em"
-        },
-        "& > div:last-of-type": {
-            marginBottom: "2em"
-        },
-        height: "100vh",
-        overflow: "scroll"
-    },
-    patientList: {
-        display: "flex",
-        flexDirection: "column",
-        alignContent: "center",
-        fontFamily: "Roboto, sans-serif",
-        minWidth: "80%",
-        maxWidth: "98%"
-    },
-    singlePatient: {
-        display: "flex",
-        minHeight: "50px",
-        borderBottom: "1px solid lightgray",
-        "&:first-child": {
-            backgroundColor: "white",
-            color: "gray",
-            borderRadius: ".5em .5em 0 0",
-            fontWeight: "medium"
-        },
-        "&:last-child": {
-            borderBottom: "none"
-        },
-        "& > div": {
-            justifyContent: "flex-start",
-            padding: ".5em",
-            width: "20%",
-            display: "flex",
-            alignItems: "center",
-            "&:first-child": {
-                paddingLeft: "1em"
-            },
-            "& > p,a,a:visited": {
-                color: Colors.buttonBlue,
-                cursor: "pointer",
-                padding: 0,
-                margin: 0,
-                width: "100%",
-                textAlign: "left"
-            }
-        }
-    },
-    superContainer: {
-        width: "100%",
-        display: "flex",
-        flexDirection: "row"
-    },
-    search: {
-        width: "30%",
-        margin: "unset",
-        marginLeft: "auto"
-    },
-    priorityCircle: {
-        width: "35px",
-        height: "35px",
-        borderRadius: "50%",
-        backgroundColor: Colors.calendarGreen
-    },
-    noPatients: {
-        width: "100%",
-        textAlign: "center"
-    },
-    addPatient: {
-        flexBasis: "180px"
-    },
-    header: {
-        display: "flex",
-        width: "90%",
-        justifyContent: "space-between",
-        "& > h1": {
-            padding: 0,
-            margin: 0
-        },
-        "& > button": {
-            flexWrap: "nowrap"
-
-        }
-    },
-    button: {
-        backgroundColor: Colors.buttonBlue
-    },
-    sidebar: {
-        width: "350px",
-        overflow: "hidden",
-        height: "100vh",
-        border: "solid 2px lightgray",
-        marginLeft: "auto",
-        boxSizing: "border-box",
-    },
-
-})
-
 const PatientsView = observer((props) => {
     const classes = useStyles();
     const { t } = useTranslation('translation');
     const { practitionerStore } = useStores();
+
+
+    useEffect(()=>{
+        practitionerStore.getArchivedPatients();
+    },[])
+
 
     const toggleAddPatient = () => {
         practitionerStore.onAddPatientFlow = !practitionerStore.onAddPatientFlow
@@ -151,8 +45,9 @@ const PatientsView = observer((props) => {
                         {!practitionerStore.onAddPatientFlow && <ProfileButton onClick={toggleAddPatient} className={classes.addPatient}><PlusIcon />{t('coordinator.addPatientFlow.title')}</ProfileButton>}
                     </div>
                     <AdherenceGraph />
-                    <Patients icon={<PersonIcon />} title={t("coordinator.cardTitles.allPatients")} list={props.patientList} handlePatientClick={props.handlePatientClick} />
                     <PendingPatients list={props.tempList} />
+                    <Patients icon={<PersonIcon />} title={t("coordinator.cardTitles.activePatients")} list={props.patientList} handlePatientClick={props.handlePatientClick} />
+                    <Patients icon={<PersonIcon />} title={t("coordinator.cardTitles.archivedPatients")} list={practitionerStore.archivedPatients} handlePatientClick={props.handlePatientClick} />
                 </div>
                 {/* <div className={classes.sidebarPlaceholder} /> */}
                 <div className={classes.sidebar}>
@@ -304,6 +199,117 @@ const Patients = (props) => {
         </Card>
     )
 }
+
+const useStyles = makeStyles({
+    title: {
+        width: "90%",
+        textAlign: "left"
+    },
+    container: {
+        flexGrow: 1,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        "& > div": {
+            marginTop: "2em"
+        },
+        "& > div:last-of-type": {
+            marginBottom: "2em"
+        },
+        height: "100vh",
+        overflow: "scroll"
+    },
+    patientList: {
+        display: "flex",
+        flexDirection: "column",
+        alignContent: "center",
+        fontFamily: "Roboto, sans-serif",
+        minWidth: "80%",
+        maxWidth: "98%"
+    },
+    singlePatient: {
+        display: "flex",
+        minHeight: "50px",
+        borderBottom: "1px solid lightgray",
+        "&:first-child": {
+            backgroundColor: "white",
+            color: "gray",
+            borderRadius: ".5em .5em 0 0",
+            fontWeight: "medium"
+        },
+        "&:last-child": {
+            borderBottom: "none"
+        },
+        "& > div": {
+            justifyContent: "flex-start",
+            padding: ".5em",
+            width: "20%",
+            display: "flex",
+            alignItems: "center",
+            "&:first-child": {
+                paddingLeft: "1em"
+            },
+            "& > p,a,a:visited": {
+                color: Colors.buttonBlue,
+                cursor: "pointer",
+                padding: 0,
+                margin: 0,
+                width: "100%",
+                textAlign: "left"
+            }
+        }
+    },
+    superContainer: {
+        width: "100%",
+        display: "flex",
+        flexDirection: "row"
+    },
+    search: {
+        width: "30%",
+        margin: "unset",
+        marginLeft: "auto"
+    },
+    priorityCircle: {
+        width: "35px",
+        height: "35px",
+        borderRadius: "50%",
+        backgroundColor: Colors.calendarGreen
+    },
+    noPatients: {
+        width: "100%",
+        textAlign: "center"
+    },
+    addPatient: {
+        flexBasis: "180px"
+    },
+    header: {
+        display: "flex",
+        width: "90%",
+        justifyContent: "space-between",
+        "& > h1": {
+            padding: 0,
+            margin: 0
+        },
+        "& > button": {
+            flexWrap: "nowrap"
+
+        }
+    },
+    button: {
+        backgroundColor: Colors.buttonBlue
+    },
+    sidebar: {
+        width: "350px",
+        overflow: "hidden",
+        height: "100vh",
+        border: "solid 2px lightgray",
+        marginLeft: "auto",
+        boxSizing: "border-box",
+    },
+
+})
+
 
 
 export default PatientsView;
