@@ -40,7 +40,7 @@ const ProfileButton = (props) => {
 
     const classes = useStyles(props);
 
-    return (<Button disabled={props.disabled} onClick={props.onClick} size="small" className={classes.button}>
+    return (<Button disabled={props.disabled} onClick={props.onClick} size="small" className={`${props.className} ${classes.button}`}>
         {props.children}
     </Button>)
 

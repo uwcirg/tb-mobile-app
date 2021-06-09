@@ -53,7 +53,6 @@ const useStyles = makeStyles({
         marginBottom: "1em"
     },
     details:{
-        borderRight: `2px solid ${Colors.lightgray}`,
         flex: '1 1 0'
     }
 
@@ -84,7 +83,7 @@ const PatientInfo = observer((props) => {
             <Item top={t("coordinator.patientProfile.treatmentEnd")} bottom={getDate(patientProfileStore.selectedPatient.details.treatmentEndDate)} />
             <Item top={t("coordinator.patientProfile.lastContacted")} bottom={getDate(patientProfileStore.selectedPatient.details.lastContacted)} />
         </div>
-        <Buttons />
+        {/* <Buttons /> */}
     </div>)
 
 })

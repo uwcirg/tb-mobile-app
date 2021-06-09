@@ -13,7 +13,7 @@ const SectionLabel = (props) => {
 
     const classes = useStyles();
 
-    return(<Typography className={classes.sectionLabel} variant="h2" color="initial">{props.children}</Typography>)
+    return(<Typography className={`${classes.sectionLabel} ${props.className}`} variant="h2" color="initial">{props.children}</Typography>)
 
 }
 

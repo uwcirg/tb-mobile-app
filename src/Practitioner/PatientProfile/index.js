@@ -14,6 +14,7 @@ import SectionLabel from '../../Components/SectionLabel'
 import PatientProfileDialogs from './Dialogs'
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import { Grid, Typography } from '@material-ui/core';
+import HorizontalButtons from './HorizontalOptions'
 
 
 const useStyles = makeStyles({
@@ -68,6 +69,10 @@ const useStyles = makeStyles({
         "& > p": {
             marginLeft: ".5em"
         }
+    },
+    middle:{
+        width: "95%",
+        marginTop: "1em"
     }
 })
 
@@ -103,6 +108,9 @@ const Profile = observer((props) => {
             {patientProfileStore.selectedPatient.loaded ?
                 <>{!patientProfileStore.selectedPatient.accessError ? <div className={classes.patientContainer}>
                     {patientProfileStore.isArchived && <ArchivedError />}
+                    <div className={classes.middle}>
+                        <HorizontalButtons />
+                    </div>
                     <div className={classes.top}>
                         <PatientInfo />
                         <TreatmentStatus />
