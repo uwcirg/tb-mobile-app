@@ -611,6 +611,7 @@
             "phoneNumber": "Phone Number",
             "treatmentStart": "Treatment Start",
             "treatmentEnd": "Treatment End Date",
+            "appEndDate": "App End Date",
             "lastContacted": "Last Contacted",
             "date": "Date",
             "taken": "Taken",

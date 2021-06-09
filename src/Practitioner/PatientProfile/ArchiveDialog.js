@@ -2,14 +2,14 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import useStores from '../../Basics/UseStores'
 import PopOver from '../Shared/PopOver'
-import { FormControl, InputLabel, MenuItem, Select, Typography } from '@material-ui/core'
+import Typography from '@material-ui/core/Typography'
 import { useTranslation } from 'react-i18next'
 import DatePicker from '../../Basics/DatePicker'
 import { observer } from 'mobx-react'
 import ProfileButton from './ProfileButton'
 import CheckIcon from '@material-ui/icons/PlaylistAddCheck';
 import Colors from '../../Basics/Colors'
-import { treatmentOutcomes } from '../../Basics/Enums'
+import TreatmentOutcomeSelection from '../Shared/TreatmentOutcomeSelection'
 
 const useStyles = makeStyles({
     bottomButton: {
@@ -68,28 +68,12 @@ const ArchiveDialog = observer(() => {
 });
 
 const SelectOutcome = observer(() => {
-
     const { archiveChanges, setTreatmentOutcome } = useStores().patientProfileStore;
-    const { t } = useTranslation('translation');
     const classes = useStyles();
-    const handleChange = (event) => {
-        setTreatmentOutcome(event.target.value);
-    };
-    return (
-        <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel id="select-treatment-outcome-label">{t('archive.treatmentOutcome')}</InputLabel>
-            <Select
-                labelId="select-treatment-outcome-label"
-                id="select-treatment-outcome"
-                value={archiveChanges.treatmentOutcome}
-                onChange={handleChange}
-                label={t('archive.treatmentOutcome')}>
-                {treatmentOutcomes.map(each => {
-                    return <MenuItem value={each}>{t(`archive.outcomeTypes.${each}`)}</MenuItem>
-                })}
-            </Select>
-        </FormControl>
-    )
+    return ( <TreatmentOutcomeSelection 
+        className={classes.formControl}
+        value={archiveChanges.treatmentOutcome} 
+        setValue={setTreatmentOutcome} />)
 })
 
 export default ArchiveDialog;
