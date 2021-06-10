@@ -25,11 +25,19 @@ const useStyles = makeStyles({
     },
     top: {
         display: "flex",
-        justifyContent: "space-between",
+        flexWrap: "wrap",
         flexShrink: 0,
         "& > div": {
-            margin: "0 .5em 0 .5em"
-        }
+            margin: "1em 0",
+            marginRight: "1em",
+            ...Styles.profileCard
+        },
+        "& > div:last-of-type":{
+            marginRight: 0
+        },
+        // "& > div:first-of-type":{
+        //     marginLeft: 0
+        // }
     },
     treatmentTimeline: {
         ...Styles.profileCard,
@@ -42,14 +50,11 @@ const useStyles = makeStyles({
 
     patientContainer: {
         height: "100vh",
-        ...Styles.flexColumn,
         backgroundColor: Colors.lighterGray,
         overflowY: "scroll",
         width: "100%",
-        alignItems: "center",
-        "& > div + div": {
-            marginBottom: "2em"
-        }
+        padding: "1em",
+        boxSizing: "border-box"
     },
     bottom: {
         width: "95%",
@@ -69,17 +74,17 @@ const useStyles = makeStyles({
             marginLeft: ".5em"
         }
     },
-    middle: {
+    header: {
         width: "100%",
         boxSizing: "border-box",
         padding: "1em",
         display: "flex",
         alignItems: "center",
-        borderBottom: "1px solid lightgray"
+        ...Styles.profileCard
+
     },
     profileHeader: {
         display: "flex",
-        flexWrap: "nowrap",
         flexGrow: 1,
         alignItems: "center",
         "& > h1": {
@@ -88,9 +93,9 @@ const useStyles = makeStyles({
         }
     },
     combined:{
-        width: "95%",
+        width: "100%",
         ...Styles.profileCard,
-        margin: "1em"
+        marginTop: "1em"
     }
 })
 
@@ -126,8 +131,7 @@ const Profile = observer((props) => {
             {patientProfileStore.selectedPatient.loaded ?
                 <>{!patientProfileStore.selectedPatient.accessError ? <div className={classes.patientContainer}>
                     {patientProfileStore.isArchived && <ArchivedError />}
-                    <div className={classes.combined}>
-                    <div className={classes.middle}>
+                    <div className={classes.header}>
                         <div className={classes.profileHeader}>
                             <Avatar style={{ backgroundColor: Colors.green, marginRight: "1em" }} size="small">{patientProfileStore.selectedPatient.details.fullName[0]}</Avatar>
                             <h1>{patientProfileStore.selectedPatient.details.fullName}</h1>
@@ -139,7 +143,6 @@ const Profile = observer((props) => {
                         <PatientInfo />
                         <TreatmentStatus />
                         <SymptomSummary />
-                    </div>
                     </div>
                     <div className={classes.bottom}>
                         <ReportingHistory />

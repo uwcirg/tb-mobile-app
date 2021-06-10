@@ -14,6 +14,7 @@ const useStyles = makeStyles({
 
     container: {
         ...Styles.flexRow,
+        flexGrow: 1,
         backgroundColor: "white",
         padding: "1em"
     },
