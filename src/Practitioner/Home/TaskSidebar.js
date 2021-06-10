@@ -138,11 +138,6 @@ const PatientList = observer(() => {
         practitionerStore.getCompletedResolutionsSummary();
     }, [])
 
-    const patientList = practitionerStore.patientList.sort(each => {
-        if (each.reportingStatus.today.reported) return -1
-        return 1
-    })
-
     return (<div className={classes.patientListContainer}>
         <SectionTitle>{t('coordinator.titles.reportingStatus')}</SectionTitle>
         <SubmittedVisual />
@@ -157,7 +152,7 @@ const PatientList = observer(() => {
                 return (
                     <div key={patient.id} className={classes.patientCard} onClick={() => { practitionerUIStore.goToPatient(patient.id) }}>
                         <p>{patient.givenName} {patient.familyName[0]}.</p>
-                        {patient.reportingStatus.today.reported ? <Report data={patient.reportingStatus.today} /> : <Pending />}
+                        {patient.reportingStatus && patient.reportingStatus.today.reported ? <Report data={patient.reportingStatus.today} /> : <Pending />}
 
                     </div>
                 )
