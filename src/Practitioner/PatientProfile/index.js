@@ -15,6 +15,7 @@ import PatientProfileDialogs from './Dialogs'
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import { Grid, Typography } from '@material-ui/core';
 import HorizontalButtons from './HorizontalOptions'
+import Avatar from '@material-ui/core/Avatar'
 
 
 const useStyles = makeStyles({
@@ -23,13 +24,11 @@ const useStyles = makeStyles({
         textTransform: "capitalize"
     },
     top: {
-        width: "95%",
-        marginBottom: "1em",
         display: "flex",
+        justifyContent: "space-between",
         flexShrink: 0,
         "& > div": {
-            ...Styles.profileCard,
-            margin: "1em .5em 0 .5em",
+            margin: "0 .5em 0 .5em"
         }
     },
     treatmentTimeline: {
@@ -70,9 +69,28 @@ const useStyles = makeStyles({
             marginLeft: ".5em"
         }
     },
-    middle:{
+    middle: {
+        width: "100%",
+        boxSizing: "border-box",
+        padding: "1em",
+        display: "flex",
+        alignItems: "center",
+        borderBottom: "1px solid lightgray"
+    },
+    profileHeader: {
+        display: "flex",
+        flexWrap: "nowrap",
+        flexGrow: 1,
+        alignItems: "center",
+        "& > h1": {
+            ...Styles.header,
+            margin: 0
+        }
+    },
+    combined:{
         width: "95%",
-        marginTop: "1em"
+        ...Styles.profileCard,
+        margin: "1em"
     }
 })
 
@@ -108,13 +126,20 @@ const Profile = observer((props) => {
             {patientProfileStore.selectedPatient.loaded ?
                 <>{!patientProfileStore.selectedPatient.accessError ? <div className={classes.patientContainer}>
                     {patientProfileStore.isArchived && <ArchivedError />}
+                    <div className={classes.combined}>
                     <div className={classes.middle}>
+                        <div className={classes.profileHeader}>
+                            <Avatar style={{ backgroundColor: Colors.green, marginRight: "1em" }} size="small">{patientProfileStore.selectedPatient.details.fullName[0]}</Avatar>
+                            <h1>{patientProfileStore.selectedPatient.details.fullName}</h1>
+                        </div>
                         <HorizontalButtons />
                     </div>
+                    
                     <div className={classes.top}>
                         <PatientInfo />
                         <TreatmentStatus />
                         <SymptomSummary />
+                    </div>
                     </div>
                     <div className={classes.bottom}>
                         <ReportingHistory />

@@ -8,23 +8,14 @@ import Styles from '../../Basics/Styles';
 import Buttons from './OptionButtons'
 import Colors from '../../Basics/Colors';
 import { Avatar } from '@material-ui/core';
+import SectionLabel from '../../Components/SectionLabel';
 
 const useStyles = makeStyles({
 
     container: {
-        flexGrow: 1,
         ...Styles.flexRow,
         backgroundColor: "white",
         padding: "1em"
-    },
-    profileHeader: {
-        display: "flex",
-        alignItems: "center",
-        "& > h1": {
-            ...Styles.header,
-            margin: 0,
-            marginRight: "auto"
-        }
     },
     item: {
         ...Styles.flexColumn,
@@ -70,10 +61,7 @@ const PatientInfo = observer((props) => {
 
     return (<div className={classes.container}>
         <div className={classes.details}>
-            {patientProfileStore.selectedPatient.details && <div className={classes.profileHeader}>
-                <Avatar style={{backgroundColor: Colors.green, marginRight:"1em"}} size="small">{patientProfileStore.selectedPatient.details.fullName[0]}</Avatar>
-                <h1>{patientProfileStore.selectedPatient.details.fullName}</h1>
-            </div>}
+        <SectionLabel>{t('coordinator.patientTableLabels.details')}</SectionLabel>
             <div className={classes.detailGroup}>
                 <Item top={t("coordinator.patientProfile.age")} bottom={patientProfileStore.selectedPatient.details.age || "N/A"} />
                 <Item top={t("coordinator.patientProfile.gender")} bottom={patientProfileStore.selectedPatient.details.gender || "N/A"} />

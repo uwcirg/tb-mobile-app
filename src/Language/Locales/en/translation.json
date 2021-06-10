@@ -566,7 +566,8 @@
             "lastSubmission": "Last Submission",
             "adherence": "Adherence",
             "photoAdherence": "Photos Submitted",
-            "streak": "Streak"
+            "streak": "Streak",
+            "details": "Details"
         },
         "noTasks": "No Tasks Found",
         "profile": "Profile",

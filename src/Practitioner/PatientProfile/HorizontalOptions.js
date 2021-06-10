@@ -15,16 +15,10 @@ import Styles from '../../Basics/Styles';
 
 const useStyles = makeStyles({
     buttons: {
-        width: "100%",
+        width: "unset",
         "& > button": {
-            margin: ".5em .5em 0 .5em",
+            margin: "3px",
         }
-    },
-    title:{
-        marginBottom: "0"
-    },
-    archive:{
-        marginLeft: "auto !important"
     }
 })
 
@@ -38,7 +32,7 @@ const OptionButtons = observer(() => {
     }
 
     return (
-        <Grid container className={classes.buttons}>
+        <Grid container justify="flex-end" className={classes.buttons}>
             <ProfileButton onClick={messagePatient}><Message />{t("coordinator.patientProfile.options.message")}</ProfileButton>
             <ProfileButton onClick={practitionerUIStore.openAddPatientNote} ><Add />{t("coordinator.patientProfile.options.note")}</ProfileButton>
             <ProfileButton onClick={patientProfileStore.toggleOnChangeDetails}><EditIcon />{t("coordinator.patientProfile.options.edit")}</ProfileButton>
