@@ -17,87 +17,7 @@ import { Grid, Typography } from '@material-ui/core';
 import HorizontalButtons from './HorizontalOptions'
 import Avatar from '@material-ui/core/Avatar'
 
-
-const useStyles = makeStyles({
-    listItem: {
-        fontWeight: "medium",
-        textTransform: "capitalize"
-    },
-    top: {
-        display: "flex",
-        flexWrap: "wrap",
-        flexShrink: 0,
-        "& > div": {
-            margin: "1em 0",
-            marginRight: "1em",
-            ...Styles.profileCard
-        },
-        "& > div:last-of-type":{
-            marginRight: 0
-        },
-        // "& > div:first-of-type":{
-        //     marginLeft: 0
-        // }
-    },
-    treatmentTimeline: {
-        ...Styles.profileCard,
-        alignSelf: "flex-start",
-        backgroundColor: "white",
-        marginRight: ".5em",
-        minWidth: "300px",
-        padding: "1em"
-    },
-
-    patientContainer: {
-        height: "100vh",
-        backgroundColor: Colors.lighterGray,
-        overflowY: "scroll",
-        width: "100%",
-        padding: "1em",
-        boxSizing: "border-box"
-    },
-    bottom: {
-        width: "95%",
-        display: "flex"
-    },
-    message: {
-        width: "100%",
-        height: "100%",
-        ...Styles.flexCenter
-    },
-    archived: {
-        width: "100%",
-        backgroundColor: Colors.warningRed,
-        color: "white",
-        padding: "1em",
-        "& > p": {
-            marginLeft: ".5em"
-        }
-    },
-    header: {
-        width: "100%",
-        boxSizing: "border-box",
-        padding: "1em",
-        display: "flex",
-        alignItems: "center",
-        ...Styles.profileCard
-
-    },
-    profileHeader: {
-        display: "flex",
-        flexGrow: 1,
-        alignItems: "center",
-        "& > h1": {
-            ...Styles.header,
-            margin: 0
-        }
-    },
-    combined:{
-        width: "100%",
-        ...Styles.profileCard,
-        marginTop: "1em"
-    }
-})
+//Styles are at the bottom :)
 
 const Profile = observer((props) => {
 
@@ -164,7 +84,7 @@ const ArchivedError = () => {
     return (
         <Grid container alignItems="center" justify="center" className={classes.archived}>
             <ErrorOutlineIcon />
-            <Typography variant="body1">{t('archive.profileWarning')}</Typography>
+            <Typography variant="body1">{t('archive.warningShort')}</Typography>
         </Grid>)
 }
 
@@ -177,5 +97,85 @@ const Loading = () => {
             <h1> {t('commonWords.loading')}...</h1>
         </div>)
 }
+
+const useStyles = makeStyles({
+    listItem: {
+        fontWeight: "medium",
+        textTransform: "capitalize"
+    },
+    top: {
+        display: "flex",
+        flexWrap: "wrap",
+        flexShrink: 0,
+        "& > div": {
+            margin: "1em 0",
+            marginRight: "1em",
+            ...Styles.profileCard
+        },
+        "& > div:last-of-type":{
+            marginRight: 0
+        }
+    },
+    treatmentTimeline: {
+        ...Styles.profileCard,
+        alignSelf: "flex-start",
+        backgroundColor: "white",
+        minWidth: "300px",
+        padding: "1em"
+    },
+
+    patientContainer: {
+        height: "100vh",
+        backgroundColor: Colors.lighterGray,
+        overflowY: "scroll",
+        width: "100%",
+        padding: "1em",
+        boxSizing: "border-box"
+    },
+    bottom: {
+        width: "100%",
+        display: "flex"
+    },
+    message: {
+        width: "100%",
+        height: "100%",
+        ...Styles.flexCenter
+    },
+    archived: {
+        width: "100%",
+        backgroundColor: Colors.warningRed,
+        color: "white",
+        padding: "1em",
+        "& > p": {
+            marginLeft: ".5em"
+        },
+        borderTopLeftRadius: "4px",
+        borderTopRightRadius: "4px"
+
+    },
+    header: {
+        width: "100%",
+        boxSizing: "border-box",
+        padding: "1em",
+        display: "flex",
+        alignItems: "center",
+        ...Styles.profileCard
+
+    },
+    profileHeader: {
+        display: "flex",
+        flexGrow: 1,
+        alignItems: "center",
+        "& > h1": {
+            ...Styles.header,
+            margin: 0
+        }
+    },
+    combined:{
+        width: "100%",
+        ...Styles.profileCard,
+        marginTop: "1em"
+    }
+})
 
 export default Profile;

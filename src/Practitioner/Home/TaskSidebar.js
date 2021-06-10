@@ -138,6 +138,11 @@ const PatientList = observer(() => {
         practitionerStore.getCompletedResolutionsSummary();
     }, [])
 
+    const patientList = practitionerStore.patientList.sort(each => {
+        if (each.reportingStatus.today.reported) return -1
+        return 1
+    })
+
     return (<div className={classes.patientListContainer}>
         <SectionTitle>{t('coordinator.titles.reportingStatus')}</SectionTitle>
         <SubmittedVisual />
@@ -148,7 +153,7 @@ const PatientList = observer(() => {
             <p>{t('commonWords.symptoms')}</p>
         </div>
         <div className={classes.patientList}>
-            {practitionerStore.patientList && practitionerStore.patientList.map(patient => {
+            {patientList && patientList.map(patient => {
                 return (
                     <div key={patient.id} className={classes.patientCard} onClick={() => { practitionerUIStore.goToPatient(patient.id) }}>
                         <p>{patient.givenName} {patient.familyName[0]}.</p>
@@ -156,7 +161,6 @@ const PatientList = observer(() => {
 
                     </div>
                 )
-
             })}
         </div>
 

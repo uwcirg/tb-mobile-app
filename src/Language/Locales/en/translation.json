@@ -841,9 +841,11 @@
 },
 
 "archive":{
+    "warningTitle": "Patient Archived",
     "explanation": "If the patient has completed thier time using the application, fill in their last day, and click the button below to archive them. They will no longer appear in the lists of tasks, but their profile can be accessed from the cohort tab.",
     "appEndField": "Last day using app",
-    "profileWarning": "This patient has been archived and can no longer report",
+    "warningShort": "This patient has been archived and can no longer report",
+    "warningLong": "This patient has been archived and will no longer show up in your tasks. If you need to undo this action please contact study staff for technical support.",
     "treatmentOutcome": "Treatment Outcome",
     "outcomeTypes": {
         "success": "Success",

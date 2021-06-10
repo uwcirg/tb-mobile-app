@@ -1,4 +1,4 @@
-import { action, observable, computed } from "mobx";
+import { action, observable, computed, autorun } from "mobx";
 import APIHelper from './Requests'
 
 export default class PatientProfileStore {
@@ -12,6 +12,7 @@ export default class PatientProfileStore {
     @observable onPasswordReset = false;
     @observable onChangeDetails = false;
     @observable onArchive = false;
+    @observable onArchiveWarning = false;
 
     @observable selectedPatient = {
         symptomSummary: {},
@@ -69,6 +70,10 @@ export default class PatientProfileStore {
     @action setSelectedPatientDetails = (details) => {
         this.selectedPatient.details = details;
         this.selectedPatient.loaded = true;
+
+        if (this.selectedPatient.details.status === "Archived") {
+            this.onArchiveWarning = true;
+        }
     }
 
     @action setAuthError = () => {
@@ -139,7 +144,7 @@ export default class PatientProfileStore {
         return Object.values(this.selectedPatient.reports).splice(0, this.reportSplice)
     }
 
-    @computed get areMoreReportsToLoad(){
+    @computed get areMoreReportsToLoad() {
         return Object.keys(this.selectedPatient.reports).length > this.reportSplice;
     }
 
@@ -166,7 +171,7 @@ export default class PatientProfileStore {
     }
 
     postTreatmentOutcome = () => {
-        this.apiHelper.executeRawRequest(`/v2/patient/${this.selectedPatient.details.id}/treatment_outcome`, 'POST', this.archiveChanges).then( response => {
+        this.apiHelper.executeRawRequest(`/v2/patient/${this.selectedPatient.details.id}/treatment_outcome`, 'POST', this.archiveChanges).then(response => {
             this.resetAfterSuccessfulUpdate();
             this.onArchive = false;
         })
@@ -226,10 +231,13 @@ export default class PatientProfileStore {
         this.temporaryPassword = code;
     }
 
-    @computed get isArchived(){
+    @computed get isArchived() {
         return this.selectedPatient.details.status === "Archived"
     }
 
+    @action closeArchiveWarning = () => {
+        this.onArchiveWarning = false;
+    }
 
 
 }
