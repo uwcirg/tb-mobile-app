@@ -13,12 +13,13 @@ import { useTranslation } from 'react-i18next';
 import PlusIcon from '@material-ui/icons/AddOutlined'
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
-import Button from '@material-ui/core/Button'
+import RefreshIcon from '@material-ui/icons/Refresh';
 import PopOver from '../Shared/PopOver';
 import Priority from '../Shared/Priority';
 import ProfileButton from '../PatientProfile/ProfileButton';
 import AddPatient from './AddPatient';
 import SectionTitle from '../../Components/Practitioner/SectionTitle';
+import { Typography } from '@material-ui/core';
 
 const PatientsView = observer((props) => {
     const classes = useStyles();
@@ -26,9 +27,9 @@ const PatientsView = observer((props) => {
     const { practitionerStore } = useStores();
 
 
-    useEffect(()=>{
+    useEffect(() => {
         practitionerStore.getArchivedPatients();
-    },[])
+    }, [])
 
 
     const toggleAddPatient = () => {
@@ -49,9 +50,8 @@ const PatientsView = observer((props) => {
                     <Patients icon={<PersonIcon />} title={t("coordinator.cardTitles.activePatients")} list={props.patientList} handlePatientClick={props.handlePatientClick} />
                     <Patients icon={<PersonIcon />} title={t("coordinator.cardTitles.archivedPatients")} list={practitionerStore.archivedPatients} handlePatientClick={props.handlePatientClick} />
                 </div>
-                {/* <div className={classes.sidebarPlaceholder} /> */}
                 <div className={classes.sidebar}>
-                {practitionerStore.onAddPatientFlow && <AddPatient />}
+                    {practitionerStore.onAddPatientFlow && <AddPatient />}
                 </div>
             </div>
         </>
@@ -64,6 +64,7 @@ const PendingPatients = (props) => {
     const classes = useStyles();
     const { practitionerStore } = useStores();
 
+    const launchReset = () => { practitionerStore.resetActivationCode(patient.id) }
 
     let list = "";
 
@@ -71,11 +72,11 @@ const PendingPatients = (props) => {
 
         list = props.list.map((patient, index) => {
             return (
-                <div key={`patient-list-view-${index}`} className={classes.singlePatient}>
+                <div key={`patient-list-view-${index}`} className={`${classes.singlePatient} ${classes.pending}`}>
                     <div className={classes.name}>
-                        <a onClick={() => { props.handlePatientClick(patient.id) }}>
+                        <Typography>
                             {patient.fullName}
-                        </a>
+                        </Typography>
                     </div>
 
                     <div>
@@ -83,7 +84,12 @@ const PendingPatients = (props) => {
                     </div>
 
                     <div>
-                        <Button onClick={() => { practitionerStore.resetActivationCode(patient.id) }} className={classes.button} variant="contained" >{t('coordinator.addPatientFlow.resetCode')}</Button>
+                        <ProfileButton
+                            onClick={launchReset}
+                            className={classes.refreshButton} variant="contained" >
+                            <RefreshIcon />
+                            {t('coordinator.addPatientFlow.resetCode')}
+                        </ProfileButton>
                     </div>
                 </div>
             )
@@ -92,6 +98,7 @@ const PendingPatients = (props) => {
 
     return (
         <Card title={t("coordinator.cardTitles.awaitingActivation")}>
+            <PendingTitles />
             {list}
         </Card>
 
@@ -148,7 +155,7 @@ const Patients = (props) => {
                         {patient.fullName}
                     </a>
                 </div>
-                <div>
+                <div className={classes.priorityLabel}>
                     <Priority index={patient.priority} />
                 </div>
                 <div>
@@ -197,6 +204,26 @@ const Patients = (props) => {
             </div>
             {props.temporary && <AddPatientPrompt />}
         </Card>
+    )
+}
+
+const PendingTitles = () => {
+    const classes = useStyles();
+
+    return (
+        <div key={`patient-list-view-titles`} className={`${classes.singlePatient} ${classes.pending}`}>
+            <div className={classes.name}>
+                <Typography variant="body1">Patient Name</Typography>
+            </div>
+
+            <div>
+            <Typography>Phone Number</Typography>
+            </div>
+
+            <div>
+            <Typography>Reset Activation Code</Typography>
+            </div>
+        </div>
     )
 }
 
@@ -250,7 +277,7 @@ const useStyles = makeStyles({
             "&:first-child": {
                 paddingLeft: "1em"
             },
-            "& > p,a,a:visited": {
+            "& > a,a:visited": {
                 color: Colors.buttonBlue,
                 cursor: "pointer",
                 padding: 0,
@@ -269,12 +296,6 @@ const useStyles = makeStyles({
         width: "30%",
         margin: "unset",
         marginLeft: "auto"
-    },
-    priorityCircle: {
-        width: "35px",
-        height: "35px",
-        borderRadius: "50%",
-        backgroundColor: Colors.calendarGreen
     },
     noPatients: {
         width: "100%",
@@ -296,17 +317,26 @@ const useStyles = makeStyles({
 
         }
     },
-    button: {
-        backgroundColor: Colors.buttonBlue
-    },
     sidebar: {
-        width: "350px",
+        width: "300px",
         overflow: "hidden",
         height: "100vh",
         border: "solid 2px lightgray",
         marginLeft: "auto",
         boxSizing: "border-box",
     },
+    pending: {
+        justifyContent: "space-between",
+        "& > div":{
+            flexGrow: 1
+        }
+    },
+    priorityLabel:{
+        maxWidth: "75px",
+        "& > span":{
+            flex: "1 1 0"
+        }
+    }
 
 })
 
