@@ -37,7 +37,6 @@ function updateVideoState(reportID){
         localforage.setItem(CACHE_KEY, currentState);
     })
 }
-   
 
 const HelpVideos = () => {
 
@@ -56,7 +55,7 @@ const HelpVideos = () => {
 
     return (<div className={classes.videoContainer}>
         <VideoButton updateState={updateState} videoState={videoState} id={1} link="https://youtu.be/F5Lf6lu39m0" icon={<Clipboard />} text="Instrucciones para hacer un reporte diaria" />
-        <VideoButton updateState={updateState} videoState={videoState} id={2} link="https://youtu.be/3pi9rjnIXAs" icon={<ColorFill />} text="Instrucciones para hacer una prueba de las tiras reactiva" />
+        <VideoButton updateState={updateState} videoState={videoState} id={2} link="https://youtu.be/zkalmeCLaO8" icon={<ColorFill />} text="Instrucciones para hacer una prueba de las tiras reactiva" />
         <VideoButton  updateState={updateState} videoState={videoState} id={3} link="https://youtu.be/FGLdEW7cR0k" icon={<DeviceUnknown />} text="Otras Partes de la Aplicación" />
     </div>)
 

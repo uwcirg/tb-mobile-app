@@ -14,23 +14,21 @@ import PlusIcon from '@material-ui/icons/AddOutlined'
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import RefreshIcon from '@material-ui/icons/Refresh';
-import PopOver from '../Shared/PopOver';
 import Priority from '../Shared/Priority';
 import ProfileButton from '../PatientProfile/ProfileButton';
 import AddPatient from './AddPatient';
 import SectionTitle from '../../Components/Practitioner/SectionTitle';
 import { Typography } from '@material-ui/core';
+import ActivationCodePopup from './ActivationCodePopUp'
 
 const PatientsView = observer((props) => {
     const classes = useStyles();
     const { t } = useTranslation('translation');
     const { practitionerStore } = useStores();
 
-
     useEffect(() => {
         practitionerStore.getArchivedPatients();
     }, [])
-
 
     const toggleAddPatient = () => {
         practitionerStore.onAddPatientFlow = !practitionerStore.onAddPatientFlow
@@ -38,7 +36,7 @@ const PatientsView = observer((props) => {
 
     return (
         <>
-            {practitionerStore.newActivationCode && <PopOver ignoreClickAway title={t('coordinator.addPatientFlow.forPatient')} close={() => { practitionerStore.newActivationCode = "" }}> <p>{practitionerStore.newActivationCode}</p> </PopOver>}
+           <ActivationCodePopup />
             <div className={classes.superContainer}>
                 <div className={classes.container}>
                     <div className={classes.header}>
@@ -55,7 +53,6 @@ const PatientsView = observer((props) => {
                 </div>
             </div>
         </>
-
     )
 })
 
@@ -64,13 +61,12 @@ const PendingPatients = (props) => {
     const classes = useStyles();
     const { practitionerStore } = useStores();
 
-    const launchReset = () => { practitionerStore.resetActivationCode(patient.id) }
-
     let list = "";
 
     if (props.list && props.list.map) {
 
         list = props.list.map((patient, index) => {
+            const launchReset = () => { practitionerStore.resetActivationCode(patient.id) }
             return (
                 <div key={`patient-list-view-${index}`} className={`${classes.singlePatient} ${classes.pending}`}>
                     <div className={classes.name}>
@@ -208,20 +204,19 @@ const Patients = (props) => {
 }
 
 const PendingTitles = () => {
+    const { t } = useTranslation('translation');
     const classes = useStyles();
 
     return (
         <div key={`patient-list-view-titles`} className={`${classes.singlePatient} ${classes.pending}`}>
             <div className={classes.name}>
-                <Typography variant="body1">Patient Name</Typography>
+                <Typography variant="body1">{t('coordinator.patientTableLabels.name')}</Typography>
             </div>
-
             <div>
-            <Typography>Phone Number</Typography>
+                <Typography>{t('patient.userFields.phoneNumber')}</Typography>
             </div>
-
             <div>
-            <Typography>Reset Activation Code</Typography>
+                <Typography>{t('coordinator.addPatientFlow.activationCode')}</Typography>
             </div>
         </div>
     )
@@ -327,13 +322,13 @@ const useStyles = makeStyles({
     },
     pending: {
         justifyContent: "space-between",
-        "& > div":{
+        "& > div": {
             flexGrow: 1
         }
     },
-    priorityLabel:{
+    priorityLabel: {
         maxWidth: "75px",
-        "& > span":{
+        "& > span": {
             flex: "1 1 0"
         }
     }

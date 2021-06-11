@@ -514,7 +514,10 @@
             "addedPatient": "Added Patient",
             "codeToSend": "Code to send to patient",
             "resetCode": "Reset Code",
-            "forPatient": "Activation Code For Patient"
+            "forPatient": "Activation Code For Patient",
+            "activationCode": "Activation Code",
+            "clickToCopy": "Click to copy",
+            "success": "Successfully copied"
 
         },
         "titles": {
