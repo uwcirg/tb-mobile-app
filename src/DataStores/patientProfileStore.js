@@ -32,7 +32,7 @@ export default class PatientProfileStore {
         success: false
     }
 
-    @observable archiveChanges = {
+    @observable treatmentOutcome = {
         appEndDate: null,
         treatmentOutcome: null
     }
@@ -171,7 +171,7 @@ export default class PatientProfileStore {
     }
 
     postTreatmentOutcome = () => {
-        this.apiHelper.executeRawRequest(`/v2/patient/${this.selectedPatient.details.id}/treatment_outcome`, 'POST', this.archiveChanges).then(response => {
+        this.apiHelper.executeRawRequest(`/v2/patient/${this.selectedPatient.details.id}/treatment_outcome`, 'POST', this.treatmentOutcome).then(response => {
             this.resetAfterSuccessfulUpdate();
             this.onArchive = false;
         })
@@ -224,7 +224,7 @@ export default class PatientProfileStore {
     }
 
     setTreatmentOutcome = (value) => {
-        this.archiveChanges.treatmentOutcome = value;
+        this.treatmentOutcome.treatmentOutcome = value;
     }
 
     @action setTemporaryPassword = (code) => {

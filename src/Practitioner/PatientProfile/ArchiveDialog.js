@@ -40,7 +40,7 @@ const ArchiveDialog = observer(() => {
     const classes = useStyles();
     const { patientProfileStore } = useStores();
 
-    const allowSubmission = patientProfileStore.archiveChanges.appEndDate && patientProfileStore.archiveChanges.treatmentOutcome;
+    const allowSubmission = patientProfileStore.treatmentOutcome.appEndDate && patientProfileStore.treatmentOutcome.treatmentOutcome;
 
     return (<PopOver title={t('coordinator.patientProfile.options.archive')} ignoreClickAway close={patientProfileStore.toggleOnArchive}>
         <Typography variant="body1">
@@ -50,9 +50,9 @@ const ArchiveDialog = observer(() => {
             <DatePicker
                 inputVariant="outlined"
                 className={classes.datePicker}
-                value={patientProfileStore.archiveChanges.appEndDate}
+                value={patientProfileStore.treatmentOutcome.appEndDate}
                 label={t('archive.appEndField')}
-                onChange={(datetime) => { patientProfileStore.archiveChanges.appEndDate = datetime.toISO() }}
+                onChange={(datetime) => { patientProfileStore.treatmentOutcome.appEndDate = datetime.toISO() }}
             />
             <SelectOutcome />
         </form>
@@ -68,11 +68,11 @@ const ArchiveDialog = observer(() => {
 });
 
 const SelectOutcome = observer(() => {
-    const { archiveChanges, setTreatmentOutcome } = useStores().patientProfileStore;
+    const { treatmentOutcome, setTreatmentOutcome } = useStores().patientProfileStore;
     const classes = useStyles();
     return ( <TreatmentOutcomeSelection 
         className={classes.formControl}
-        value={archiveChanges.treatmentOutcome} 
+        value={treatmentOutcome.treatmentOutcome} 
         setValue={setTreatmentOutcome} />)
 })
 
