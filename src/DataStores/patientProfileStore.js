@@ -239,5 +239,17 @@ export default class PatientProfileStore {
         this.onArchiveWarning = false;
     }
 
+    @computed get treatmentOutcomes(){
+        return this.selectedPatient.details.treatmentOutcome
+    }
+
+    @action toggleUpdateOutcome = () =>{
+
+        this.treatmentOutcome.treatmentOutcome = this.selectedPatient.details.treatmentOutcome.treatmentOutcome
+        this.treatmentOutcome.appEndDate = this.selectedPatient.details.treatmentOutcome.appEndDate
+        this.selectedPatient.details
+        this.onArchive = true;
+    }
+
 
 }

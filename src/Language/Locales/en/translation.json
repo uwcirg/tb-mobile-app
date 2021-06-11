@@ -646,7 +646,8 @@
                 "archive": "Archive Patient",
                 "message": "Message",
                 "note": "Add Note",
-                "edit": "Edit"
+                "edit": "Edit",
+                "editOutcome": "Edit Treatment Outcome"
             }
         },
         "tasksSidebar": {
