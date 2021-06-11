@@ -20,23 +20,21 @@ const useStyles = makeStyles({
         verticalAlign: "center",
         height: "1em",
         width: "50px",
-        visibility: "hidden"
+        opacity: ".01"
     }
 })
 
-const ActivationCodePopup = observer(() => {
+const ActivationCodePopup = ({activationCode, close}) => {
 
     const { t } = useTranslation('translation');
-    const { practitionerStore } = useStores();
     const classes = useStyles();
 
-
-    if (practitionerStore.newActivationCode) return (<PopOver ignoreClickAway title={t('coordinator.addPatientFlow.forPatient')} close={() => { practitionerStore.newActivationCode = "" }}>
-        <StyledTextCopy className={classes.textarea} readOnly value={practitionerStore.newActivationCode}></StyledTextCopy>
+    if (activationCode) return (<PopOver ignoreClickAway title={t('coordinator.addPatientFlow.forPatient')} close={close}>
+        <StyledTextCopy className={classes.textarea} readOnly value={activationCode} />
     </PopOver>)
     return ""
 
-})
+}
 
 const CopyText = () => {
     const { t } = useTranslation('translation');

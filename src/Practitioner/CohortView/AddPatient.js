@@ -12,10 +12,11 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Loading from '../Shared/Loading'
 import DatePicker from '../../Basics/DatePicker'
+import ActivationCodePopup from './ActivationCodePopUp';
 
 const useStyles = makeStyles({
 
-    base:{
+    base: {
         padding: "1em"
     },
     inputBody: {
@@ -40,16 +41,16 @@ const useStyles = makeStyles({
     },
     checkbox: {
         marginTop: "2em",
-        "& > span":{
-           fontSize: ".75em" 
+        "& > span": {
+            fontSize: ".75em"
         }
-        
+
     },
     datePicker: {
-        "& > div":{
+        "& > div": {
             width: "100%",
         },
-        
+
         margin: "1em 0 1em 0"
     }
 })
@@ -62,17 +63,17 @@ const AddPatient = observer(() => {
         practitionerStore.onAddPatientFlow = !practitionerStore.onAddPatientFlow
         practitionerStore.clearNewPatient();
     }
-    const { t} = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
     return (
-    <div className={classes.base}>
-        {practitionerStore.newPatient.code && <PopOver title={t('coordinator.addPatientFlow.addedPatient')} close={practitionerStore.clearNewPatient}><p>Code to send to patient:</p> <p>{practitionerStore.newPatient.code}</p> </PopOver>}
-        {practitionerStore.newPatient.code ? <p>{practitionerStore.newPatient.code}</p> :
-            <>
-                <SideBarTop handleExit={handleExit} title={t('coordinator.addPatientFlow.title')} />
-                {practitionerStore.newPatient.loading ? <Loading /> : <AddPatientForm submit={practitionerStore.addNewPatient} />}
-            </>}
-    </div>)
+        <div className={classes.base}>
+            <ActivationCodePopup activationCode={practitionerStore.newPatient.code} close={practitionerStore.clearNewPatient} />
+            {practitionerStore.newPatient.code ? <p>{practitionerStore.newPatient.code}</p> :
+                <>
+                    <SideBarTop handleExit={handleExit} title={t('coordinator.addPatientFlow.title')} />
+                    {practitionerStore.newPatient.loading ? <Loading /> : <AddPatientForm submit={practitionerStore.addNewPatient} />}
+                </>}
+        </div>)
 
 })
 
@@ -87,22 +88,22 @@ const AddPatientForm = observer((props) => {
 
     return (
         <div className={classes.newPatientForm}>
-           {practitionerStore.newPatient.errors["phoneNumber"] && practitionerStore.newPatient.errors["phoneNumber"].includes("has already been taken") &&
-            <p>
-                Phone number must be unique
+            {practitionerStore.newPatient.errors["phoneNumber"] && practitionerStore.newPatient.errors["phoneNumber"].includes("has already been taken") &&
+                <p>
+                    Phone number must be unique
             </p>}
             <form className={classes.inputBody} noValidate autoComplete="off">
                 <PatientInput id="givenName" />
                 <PatientInput id="familyName" />
                 <PatientInput id="phoneNumber" />
                 <div className={classes.datePicker}>
-                <DatePicker
-                    className={classes.datePicker}
-                    value={practitionerStore.newPatient.params.treatmentStart}
-                    label={t('patient.userFields.treatmentStart')}
-                    onChange={handleDateTimeChange}
-                    disableFuture
-                />
+                    <DatePicker
+                        className={classes.datePicker}
+                        value={practitionerStore.newPatient.params.treatmentStart}
+                        label={t('patient.userFields.treatmentStart')}
+                        onChange={handleDateTimeChange}
+                        disableFuture
+                    />
                 </div>
                 {(window && window._env && window._env.DOCKER_TAG != "master") && <UsabilityTestQuestion />}
             </form>
