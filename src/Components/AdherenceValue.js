@@ -23,13 +23,13 @@ const useStyles = makeStyles({
 const AdherenceValue = ({ adherence, title, style }) => {
 
     const classes = useStyles();
+    const value = Math.floor(adherence * 100);
 
-
-    if(!title) return <Typography style={style} variant="h2" className={classes.adherence}>{adherence * 100}%</Typography>
+    if(!title) return <Typography style={style} variant="h2" className={classes.adherence}>{value}%</Typography>
 
     return (<Grid container alignItems="flex-start">
         <Typography className={classes.title} variant="h2">{title}</Typography>
-        <Typography variant="h2" className={classes.adherence}>{adherence * 100}%</Typography>
+        <Typography variant="h2" className={classes.adherence}>{value}%</Typography>
     </Grid>)
 }
 

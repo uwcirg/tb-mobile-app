@@ -171,7 +171,7 @@ const SenderInfo = (props) => {
 const PatientName = observer((props) => {
     const { practitionerStore } = useStores();
     const patient = practitionerStore.getPatient(props.id);
-    const { t, i18n } = useTranslation('translation');
+    const { t} = useTranslation('translation');
 
     return (
         <>{patient ? patient.fullName : t('userTypes.patient')}</>

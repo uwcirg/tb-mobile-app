@@ -6,6 +6,7 @@
     "updating": "Updating",
     "demoWarning": "This is a demo of the application and should not be used for real patient data",
     "commonWords": {
+        "fillAll": "Please fill all fields before continuing",
         "edit": "Edit",
         "error": "Error",
         "medication": "Medication",
@@ -513,7 +514,10 @@
             "addedPatient": "Added Patient",
             "codeToSend": "Code to send to patient",
             "resetCode": "Reset Code",
-            "forPatient": "Activation Code For Patient"
+            "forPatient": "Activation Code For Patient",
+            "activationCode": "Activation Code",
+            "clickToCopy": "Click to copy",
+            "success": "Successfully copied"
 
         },
         "titles": {
@@ -528,6 +532,8 @@
             "missedPhoto": "Missed a Required Photo",
             "overviewOfProgress": "Overview of Progress",
             "allPatients": "All Patients",
+            "activePatients": "Active Patients",
+            "archivedPatients": "Archived Patients",
             "awaitingActivation": "Awaiting Activation",
             "currentStatus": "Current Status",
             "reportingCalender": "Reporting Calender",
@@ -563,7 +569,8 @@
             "lastSubmission": "Last Submission",
             "adherence": "Adherence",
             "photoAdherence": "Photos Submitted",
-            "streak": "Streak"
+            "streak": "Streak",
+            "details": "Details"
         },
         "noTasks": "No Tasks Found",
         "profile": "Profile",
@@ -608,6 +615,7 @@
             "phoneNumber": "Phone Number",
             "treatmentStart": "Treatment Start",
             "treatmentEnd": "Treatment End Date",
+            "appEndDate": "App End Date",
             "lastContacted": "Last Contacted",
             "date": "Date",
             "taken": "Taken",
@@ -638,7 +646,8 @@
                 "archive": "Archive Patient",
                 "message": "Message",
                 "note": "Add Note",
-                "edit": "Edit"
+                "edit": "Edit",
+                "editOutcome": "Edit Treatment Outcome"
             }
         },
         "tasksSidebar": {
@@ -807,7 +816,6 @@
     "videoInstructions": "Video Instructions"
 },
 
-
 "dashboard":{
     "category": "Category",
     "reported": "Reported",
@@ -828,11 +836,30 @@
     "needsSupport": "Needs Support",
     "sideEffects": "Side Effects"
 },
+
 "summaries":{
     "averageAdherence": "Average Adherence",
     "averagePhotoAdherence": "Average Photo Adherence",
-    "siteSummary": "Site Summary",
+    "siteSummary": "Summary of Active Patients",
     "loading": "Loading list of patients"
+},
+
+"archive":{
+    "warningTitle": "Patient Archived",
+    "explanation": "If the patient has completed thier time using the application, fill in their last day, and click the button below to archive them. They will no longer appear in the lists of tasks, but their profile can be accessed from the cohort tab.",
+    "appEndField": "Last day using app",
+    "warningShort": "This patient has been archived and can no longer report",
+    "warningLong": "This patient has been archived and will no longer show up in your tasks. If you need to undo this action please contact study staff for technical support.",
+    "treatmentOutcome": "Treatment Outcome",
+    "outcomeTypes": {
+        "success": "Success",
+        "default": "Default",
+        "withdraw": "Withdraw",
+        "lost-to-follow-up": "Lost to follow up",
+        "transferred": "Transfered",
+        "deceased": "Deceased"
+    },
+    "complete": "Complete"
 }
 
 }

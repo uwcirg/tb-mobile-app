@@ -124,7 +124,7 @@ const useStyles = makeStyles({
     progress: {
         padding: "1em",
         width: "70%",
-        margin: "1em auto"
+        margin: "1em auto",
     }
 })
 
@@ -153,15 +153,14 @@ const PatientList = observer(() => {
             <p>{t('commonWords.symptoms')}</p>
         </div>
         <div className={classes.patientList}>
-            {practitionerStore.patientList && practitionerStore.patientList.map(patient => {
+            {patientList && patientList.map(patient => {
                 return (
                     <div key={patient.id} className={classes.patientCard} onClick={() => { practitionerUIStore.goToPatient(patient.id) }}>
                         <p>{patient.givenName} {patient.familyName[0]}.</p>
-                        {patient.reportingStatus.today.reported ? <Report data={patient.reportingStatus.today} /> : <Pending />}
+                        {patient.reportingStatus && patient.reportingStatus.today.reported ? <Report data={patient.reportingStatus.today} /> : <Pending />}
 
                     </div>
                 )
-
             })}
         </div>
 

@@ -12,10 +12,10 @@ import { observer } from 'mobx-react'
 const useStyles = makeStyles({
     calendar: {
 
-        "& > div.react-calendar__navigation > button":{
+        "& > div.react-calendar__navigation > button": {
             backgroundColor: "white",
             border: "none",
-            
+
         },
         "& > div.react-calendar__viewContainer > div > div > div > div.react-calendar__month-view__days > button > abbr": {
             display: "none"
@@ -78,7 +78,7 @@ const useStyles = makeStyles({
         backgroundColor: Colors.calendarRed,
     },
     selected: {
-        "& > p":{
+        "& > p": {
             width: "90%",
             height: "90%",
             ...Styles.flexCenter,
@@ -106,7 +106,7 @@ const useStyles = makeStyles({
         width: "5px",
         borderRadius: "50%",
     },
-    bottomDots:{
+    bottomDots: {
         bottom: "3px",
         width: "100%",
         display: "flex",
@@ -116,7 +116,7 @@ const useStyles = makeStyles({
 
 })
 
-const CustomCalendar = () => {
+const CustomCalendar = observer(() => {
 
     const classes = useStyles();
     const { patientStore, uiStore } = useStores();
@@ -126,13 +126,13 @@ const CustomCalendar = () => {
     }
 
     const checkDisabled = (date) => {
-        return (DateTime.fromJSDate(date) > DateTime.local() || DateTime.fromJSDate(date).startOf('day') < DateTime.fromISO(patientStore.treatmentStart).startOf('day') )
+        return (DateTime.fromJSDate(date) > DateTime.local() || DateTime.fromJSDate(date).startOf('day') < DateTime.fromISO(patientStore.treatmentStart).startOf('day'))
     }
 
     return (
         <Calendar
             tileDisabled={({ date }) => {
-                return  checkDisabled(date)
+                return checkDisabled(date)
             }}
             calendarType="US"
             minDetail="month"
@@ -156,7 +156,7 @@ const CustomCalendar = () => {
             onChange={handleChange}
         />
     )
-}
+});
 
 const Day = observer((props) => {
     const classes = useStyles();
@@ -167,6 +167,9 @@ const Day = observer((props) => {
     let compositeClass;
 
     const selectedDay = dt.startOf('day').equals(DateTime.fromISO(patientStore.uiState.selectedCalendarDate));
+
+    const selectedDayIsValid = dt.diff(DateTime.fromISO(patientStore.treatmentStart), "days").days >= 0
+
     let modifier = false;
     let symptom = false;
 
@@ -177,27 +180,29 @@ const Day = observer((props) => {
     const today = dt.startOf('day').equals(DateTime.local().startOf('day'));
     const start = dt.startOf('day').equals(DateTime.fromISO(patientStore.treatmentStart).startOf('day'));
 
-    if (dayFromServer && dayFromServer.medicationWasTaken){compositeClass += ' ' + classes.positive}
-    else if(dayFromServer && !dayFromServer.medicationWasTaken ){ modifier = "red" }
-    else if (!dayFromServer && !props.disabled && !today){compositeClass += ' ' + classes.negative}
+    if (selectedDayIsValid) {
+        if (dayFromServer && dayFromServer.medicationWasTaken) { compositeClass += ' ' + classes.positive }
+        else if (dayFromServer && !dayFromServer.medicationWasTaken) { modifier = "red" }
+        else if (!dayFromServer && !props.disabled && !today) { compositeClass += ' ' + classes.negative }
 
-    if (dayBefore && dayAfter && dayFromServer) {
-        if (dayBefore.medicationWasTaken != dayFromServer.medicationWasTaken) compositeClass += ' ' + classes.start;
-        if (dayAfter.medicationWasTaken != dayFromServer.medicationWasTaken) compositeClass += ' ' + classes.end;
-        if (dayFromServer.medicationWasTaken && !dayBefore.medicationWasTaken && !dayAfter.medicationWasTaken) compositeClass += ' ' + classes.single;
+        if (dayBefore && dayAfter && dayFromServer) {
+            if (dayBefore.medicationWasTaken != dayFromServer.medicationWasTaken) compositeClass += ' ' + classes.start;
+            if (dayAfter.medicationWasTaken != dayFromServer.medicationWasTaken) compositeClass += ' ' + classes.end;
+            if (dayFromServer.medicationWasTaken && !dayBefore.medicationWasTaken && !dayAfter.medicationWasTaken) compositeClass += ' ' + classes.single;
+        }
+
+        if ((dayFromServer && !dayAfter) || (!dayFromServer && dayAfter) || today) compositeClass += ' ' + classes.end;
+        if ((dayFromServer && !dayBefore) || (!dayFromServer && dayBefore) || start) compositeClass += ' ' + classes.start;
+
+        if (dayFromServer && dayFromServer.symptoms.length > 0) symptom = true
     }
 
-    if( (dayFromServer && !dayAfter) || (!dayFromServer && dayAfter) || today ) compositeClass += ' ' + classes.end;
-    if( (dayFromServer && !dayBefore) || (!dayFromServer && dayBefore) || start ) compositeClass += ' ' + classes.start;
-
-    if( dayFromServer && dayFromServer.symptoms.length > 0) symptom = true
-
-    return(
+    return (
         <div className={`${classes.day} ${compositeClass}`}>
             {selectedDay ? <div className={classes.selectedDay}><p>{props.date}</p> </div> : <p>{props.date}</p>}
             <div className={classes.bottomDots}>
-            {modifier ? <div className={classes.modifier}> </div> : ""}
-            {symptom ? <div style={{backgroundColor: Colors.yellow}} className={classes.modifier}> </div> : ""}
+                {modifier ? <div className={classes.modifier}> </div> : ""}
+                {symptom ? <div style={{ backgroundColor: Colors.yellow }} className={classes.modifier}> </div> : ""}
             </div>
         </div>
     )
@@ -206,13 +211,13 @@ const Day = observer((props) => {
 const DemoDay = (props) => {
     const classes = useStyles();
 
-    return(
-        <div style={{width: "40px",height: "40px" }} className={`${classes.day} ${classes.single} ${!props.modifier && (props.tookMedication ? classes.positive : classes.negative)}`}>
+    return (
+        <div style={{ width: "40px", height: "40px" }} className={`${classes.day} ${classes.single} ${!props.modifier && (props.tookMedication ? classes.positive : classes.negative)}`}>
             <p>{props.date}</p>
-            {props.modifier ? <div style={props.symptom && {backgroundColor: Colors.yellow}} className={classes.modifier}> </div> : ""}
+            {props.modifier ? <div style={props.symptom && { backgroundColor: Colors.yellow }} className={classes.modifier}> </div> : ""}
         </div>
     )
 }
 
 export default CustomCalendar;
-export {DemoDay};
+export { DemoDay };

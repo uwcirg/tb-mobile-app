@@ -11,22 +11,14 @@ import Grid from '@material-ui/core/Grid'
 import ArchiveIcon from '@material-ui/icons/Restore';
 import KeyIcon from '@material-ui/icons/VpnKey';
 import { useTranslation } from 'react-i18next';
+import Styles from '../../Basics/Styles';
 
 const useStyles = makeStyles({
     buttons: {
-        margin: "0 auto",
-        paddingLeft: "1em",
-        width: "200px",
+        width: "unset",
         "& > button": {
-            margin: ".5em .5em 0 .5em",
-        },
-        height: "100%"
-    },
-    title:{
-        marginBottom: "0"
-    },
-    archive:{
-        marginTop: "auto !important"
+            margin: "3px",
+        }
     }
 })
 
@@ -40,8 +32,7 @@ const OptionButtons = observer(() => {
     }
 
     return (
-        <Grid container direction="column" className={classes.buttons}>
-            {/* <SectionLabel className={classes.title}>{t('coordinator.patientProfile.options.title')}</SectionLabel> */}
+        <Grid container justify="flex-end" className={classes.buttons}>
             <ProfileButton onClick={messagePatient}><Message />{t("coordinator.patientProfile.options.message")}</ProfileButton>
             <ProfileButton onClick={practitionerUIStore.openAddPatientNote} ><Add />{t("coordinator.patientProfile.options.note")}</ProfileButton>
             <ProfileButton onClick={patientProfileStore.toggleOnChangeDetails}><EditIcon />{t("coordinator.patientProfile.options.edit")}</ProfileButton>

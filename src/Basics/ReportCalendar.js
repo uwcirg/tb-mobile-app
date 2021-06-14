@@ -3,11 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Calendar from 'react-calendar';
 import { DateTime } from 'luxon';
 import Styles from './Styles';
-import useStores from './UseStores';
 import Colors from './Colors';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ChevronRight from '@material-ui/icons/ChevronRight';
-import { observer } from 'mobx-react'
 
 const CustomCalendar = (props) => {
 

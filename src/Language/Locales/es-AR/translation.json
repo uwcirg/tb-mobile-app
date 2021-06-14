@@ -6,6 +6,7 @@
     "updating": "Actualizando",
     "demoWarning": "Esta es una demostración de la aplicación y no debe usarse para los datos de pacientes reales",
     "commonWords": {
+        "fillAll": "Complete todas las secciones antes de continuar",
         "edit": "Editar",
         "error": "Error",
         "medication": "Medicamento",
@@ -28,7 +29,7 @@
         "clickToLoadMore": "Haga clic para cargar más",
         "testStrips": "Test Strips",
         "viewDetails": "View details",
-        "hideDetails": "Hide Details"
+        "hideDetails": "Esconder Detalles"
     },
     "userTypes": {
         "patient": "Paciente",
@@ -509,7 +510,10 @@
             "addedPatient": "Paciente Agregado",
             "codeToSend": "Código para enviar al paciente",
             "resetCode": "Reiniciar Código",
-            "forPatient": "Código de activación del paciente"
+            "forPatient": "Código de activación del paciente",
+            "activationCode": "Código de Activación",
+            "clickToCopy": "Haga clic para copiar",
+            "success": "Copiado exitosamente"
 
         },
         "titles": {
@@ -524,6 +528,8 @@
             "missedPhoto": "Falta una de las fotos requeridas.",
             "overviewOfProgress": "Resumen de Progreso",
             "allPatients": "Todos los Pacientes",
+            "activePatients": "Pacientes Activos",
+            "archivedPatients": "Pacientes Archivados",
             "awaitingActivation": "Esperando Activación",
             "currentStatus": "Estado actual",
             "reportingCalender": "Calendario de Reportes",
@@ -555,7 +561,9 @@
             "treatmentStart": "Inicio de Tratamiento",
             "lastSubmission": "Último envío",
             "adherence": "Adherencia",
-            "streak": "Ultimos Dias"
+            "photoAdherence": "Fotos Enviadas",
+            "streak": "Ultimos Dias",
+            "details": "Detalles"
         },
         "noTasks": "No Hay Tareas",
         "profile": "Perfil",
@@ -566,6 +574,12 @@
         "false": "Falso",
         "daysInTreatment": "Días en Tratamiento",
         "patientProfile": {
+            "adherenceSection":{
+                "reportedTaking": "Reportó Tomando",
+                "didntTake": "Reportó No Tomando",
+                "didntReport": "Reportes Perdidos",
+                "missedRequest": "Solicitas Pérdidas"
+            },
             "notes":{
                 "noneFound": "No Hay Notas",
                 "title": "Título",
@@ -594,6 +608,7 @@
             "phoneNumber": "Número de Teléfono",
             "treatmentStart": "Fecha de Inicio del Tratamiento",
             "treatmentEnd": "Final Día del Tratamiento",
+            "appEndDate": "App End Date",
             "lastContacted": "Último Contacto",
             "date": "Fecha",
             "taken": "Tomado",
@@ -624,7 +639,8 @@
                 "archive": "Archivar Paciente",
                 "message": "Mensaje",
                 "note": "Añadir Nota",
-                "edit": "Editar Detalles"
+                "edit": "Editar Detalles",
+                "editOutcome": "Editar Resultado del Tratamiento"
             }
         },
         "tasksSidebar": {
@@ -812,7 +828,31 @@
     "skippedPhoto": "Foto Omitida",
     "needsSupport": "Necesita Apoyo",
     "sideEffects": "Efectos Secundarios"
-}
+},
 
+"summaries":{
+    "averageAdherence": "Adherencia Media",
+    "averagePhotoAdherence": "Adherencia Media de Fotos",
+    "siteSummary": "Summary of Active Patients",
+    "loading": "Cargando lista de pacientes"
+},
+
+"archive":{
+    "warningTitle": "Paciente Archivado",
+    "explanation": "Si el paciente ha completado su tiempo usando la aplicación, complete su último día y haga clic en el botón de abajo para archivarlo. Ya no aparecerán en las listas de tareas, pero se puede ver su perfil desde la pestaña \"Mis Pacientes\"",
+    "appEndField": "Último día usando la aplicación",
+    "warningShort": "Este paciente ha sido archivado y ya no puede mandar reportes",
+    "warningLong": "Este paciente se ha archivado y ya no aparecerá en sus tareas. Si necesita deshacer esta acción, comuníquese con el personal técnico del estudio para obtener asistencia.",
+    "treatmentOutcome": "Resultado del Tratamiento",
+    "outcomeTypes": {
+        "success": "Éxito",
+        "default": "Default",
+        "withdraw": "Abandono",
+        "lost-to-follow-up": "Lost to follow up",
+        "transferred": "Transferido",
+        "deceased": "Fallecido"
+    },
+    "complete": "Completo"
+}
 
 }

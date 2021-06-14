@@ -74,6 +74,7 @@ export class PractitionerStore extends UserStore {
     @observable organizationsList = [];
 
     @observable patients = {};
+    @observable archivedPatients = [];
     @observable patientsLoaded = false;
     @observable temporaryPatients = [];
 
@@ -284,6 +285,8 @@ export class PractitionerStore extends UserStore {
         })
     }
 
+
+
     @computed get getSelectedPatient() {
 
         if (this.selectedRow.patientId < 0) {
@@ -456,6 +459,16 @@ export class PractitionerStore extends UserStore {
         return ((patientList.reduce( (previousValue, currentValue) => {
             return previousValue + currentValue.photoAdherence
         }, 0) / patientList.length).toFixed(2))
+    }
+
+    @action setArchivedPatients = (list) => {
+        this.archivedPatients = list;
+    }
+
+    getArchivedPatients = () => {
+        this.executeRequest("getArchivedPatients").then(response => {
+            this.setArchivedPatients(response)
+        })
     }
 
 }

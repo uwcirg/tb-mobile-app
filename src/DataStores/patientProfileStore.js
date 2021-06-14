@@ -1,4 +1,4 @@
-import { action, observable, computed } from "mobx";
+import { action, observable, computed, autorun } from "mobx";
 import APIHelper from './Requests'
 
 export default class PatientProfileStore {
@@ -11,6 +11,8 @@ export default class PatientProfileStore {
 
     @observable onPasswordReset = false;
     @observable onChangeDetails = false;
+    @observable onArchive = false;
+    @observable onArchiveWarning = false;
 
     @observable selectedPatient = {
         symptomSummary: {},
@@ -30,6 +32,11 @@ export default class PatientProfileStore {
         success: false
     }
 
+    @observable treatmentOutcome = {
+        appEndDate: null,
+        treatmentOutcome: null
+    }
+
     @observable reportSplice = 10;
 
     @action toggleOnPasswordReset = () => {
@@ -38,6 +45,10 @@ export default class PatientProfileStore {
 
     @action toggleOnChangeDetails = () => {
         this.onChangeDetails = !this.onChangeDetails;
+    }
+
+    @action toggleOnArchive = () => {
+        this.onArchive = !this.onArchive;
     }
 
     @action closeResetPassword = () => {
@@ -59,6 +70,10 @@ export default class PatientProfileStore {
     @action setSelectedPatientDetails = (details) => {
         this.selectedPatient.details = details;
         this.selectedPatient.loaded = true;
+
+        if (this.selectedPatient.details.status === "Archived") {
+            this.onArchiveWarning = true;
+        }
     }
 
     @action setAuthError = () => {
@@ -129,7 +144,7 @@ export default class PatientProfileStore {
         return Object.values(this.selectedPatient.reports).splice(0, this.reportSplice)
     }
 
-    @computed get areMoreReportsToLoad(){
+    @computed get areMoreReportsToLoad() {
         return Object.keys(this.selectedPatient.reports).length > this.reportSplice;
     }
 
@@ -152,6 +167,13 @@ export default class PatientProfileStore {
         this.apiHelper.executeRawRequest(`/patient/${this.selectedPatient.details.id}/notes`, 'POST', body).then(response => {
             this.getPatientNotes();
             return response
+        })
+    }
+
+    postTreatmentOutcome = () => {
+        this.apiHelper.executeRawRequest(`/v2/patient/${this.selectedPatient.details.id}/treatment_outcome`, 'POST', this.treatmentOutcome).then(response => {
+            this.resetAfterSuccessfulUpdate();
+            this.onArchive = false;
         })
     }
 
@@ -201,10 +223,33 @@ export default class PatientProfileStore {
         }
     }
 
+    setTreatmentOutcome = (value) => {
+        this.treatmentOutcome.treatmentOutcome = value;
+    }
+
     @action setTemporaryPassword = (code) => {
         this.temporaryPassword = code;
     }
 
+    @computed get isArchived() {
+        return this.selectedPatient.details.status === "Archived"
+    }
+
+    @action closeArchiveWarning = () => {
+        this.onArchiveWarning = false;
+    }
+
+    @computed get treatmentOutcomes(){
+        return this.selectedPatient.details.treatmentOutcome
+    }
+
+    @action toggleUpdateOutcome = () =>{
+
+        this.treatmentOutcome.treatmentOutcome = this.selectedPatient.details.treatmentOutcome.treatmentOutcome
+        this.treatmentOutcome.appEndDate = this.selectedPatient.details.treatmentOutcome.appEndDate
+        this.selectedPatient.details
+        this.onArchive = true;
+    }
 
 
 }
