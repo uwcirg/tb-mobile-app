@@ -47,7 +47,7 @@ const PatientsView = observer((props) => {
                     <AdherenceGraph />
                     <PendingPatients list={props.tempList} />
                     <Patients icon={<PersonIcon />} title={t("coordinator.cardTitles.activePatients")} list={props.patientList} handlePatientClick={props.handlePatientClick} />
-                    <Patients icon={<PersonIcon />} title={t("coordinator.cardTitles.archivedPatients")} list={practitionerStore.archivedPatients} handlePatientClick={props.handlePatientClick} />
+                    <Patients defaultHidden icon={<PersonIcon />} title={t("coordinator.cardTitles.archivedPatients")} list={practitionerStore.archivedPatients} handlePatientClick={props.handlePatientClick} />
                 </div>
                 <div className={classes.sidebar}>
                     {practitionerStore.onAddPatientFlow && <AddPatient />}
@@ -107,7 +107,7 @@ const Patients = (props) => {
     const [sort, setSort] = useState("treatmentStart")
     const [search, setSearch] = useState("")
     const [reverse, setReverse] = useState(false);
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
 
     const isSortingAdherence = () => {
@@ -194,7 +194,7 @@ const Patients = (props) => {
     </div>)
 
     return (
-        <Card icon={props.icon} headerChildren={<Search className={classes.search} handleChange={(event) => { setSearch(event.target.value) }} placeholder={t('coordinator.cohortOverview.searchByName')} />} title={props.title}>
+        <Card defaultHidden={props.defaultHidden} icon={props.icon} headerChildren={<Search className={classes.search} handleChange={(event) => { setSearch(event.target.value) }} placeholder={t('coordinator.cohortOverview.searchByName')} />} title={props.title}>
             <div className={classes.patientList}>
                 {labels}
                 {list && list.length > 0 ? list : <p className={classes.noPatients}>{t('coordinator.cohortOverview.noPatientsFound')}</p>}
@@ -335,7 +335,5 @@ const useStyles = makeStyles({
     }
 
 })
-
-
 
 export default PatientsView;
