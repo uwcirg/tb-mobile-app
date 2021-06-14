@@ -4,6 +4,7 @@ import Colors from '../../Basics/Colors';
 import DownIcon from '@material-ui/icons/KeyboardArrowDown';
 import UpIcon from '@material-ui/icons/KeyboardArrowUp';
 import Button from '@material-ui/core/Button'
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
     superContainer: {
@@ -27,13 +28,14 @@ const useStyles = makeStyles({
             marginLeft: ".5em"
         }
     },
-    collapse:{
+    collapse: {
+        textTransform: "capitalize",
         marginLeft: "auto",
         marginRight: ".5em",
-        "& > svg":{
+        "& > svg": {
             fontSize: "2em"
         }
-        
+
     }
 
 })
@@ -42,6 +44,7 @@ const Card = (props) => {
 
     const classes = useStyles(props);
     const [visible, setVisible] = useState(!props.defaultHidden);
+    const { t } = useTranslation('translation');
 
     const toggleVisibility = () => {
         setVisible(!visible)
@@ -52,10 +55,13 @@ const Card = (props) => {
             {props.icon}
             <h2>{props.title}</h2>
             {visible && props.headerChildren}
-            <Button className={classes.collapse} onClick={toggleVisibility}>{!visible ? <>View All <DownIcon /></> : <>Hide <UpIcon /></>}</Button>
+            <Button className={classes.collapse} onClick={toggleVisibility}>{!visible ? <>{t('patient.home.progress.viewAll')}<DownIcon /></>
+                :
+                <>{t('patient.home.progress.close')} <UpIcon /></>
+            }</Button>
         </div>
         <div className={props.bodyClassName}>
-        {visible && props.children}
+            {visible && props.children}
         </div>
     </div>)
 
