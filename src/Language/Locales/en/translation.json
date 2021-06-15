@@ -859,7 +859,15 @@
         "transferred": "Transfered",
         "deceased": "Deceased"
     },
-    "complete": "Complete"
+    "complete": "Complete",
+    "patientSide":{
+        "congrats": "Congrats on successfully completing treatment!",
+        "subtitle": "We know completing treatment is not easy, and you did an excellent job. If you have any questions your assistant will be there to support you.",
+        "details": "You do not need to report anymore, but feel free to use the other resources in the app",
+        "survey": "Please complete our short survey to let us know how we can make this process easier for patients in the future",
+        "surveyButton": "Tell us about your experience"
+    }
 }
+
 
 }
