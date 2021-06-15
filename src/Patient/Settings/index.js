@@ -94,6 +94,7 @@ const Debugging = observer((props) => {
 
     return (
         <>
+            {window._env.MATOMO_ID === "13" && <a href="https://redcap.iths.org/surveys/?s=YXW3H4H7A3DNLYDP">Link To Survey To Test</a>}
             {window._env.ENVIRONMENT === "development" ?
                 <div className={classes.debugging}>
                     <a href="https://redcap.iths.org/surveys/?s=YXW3H4H7A3DNLYDP">Link To Survey To Test</a>
@@ -112,7 +113,7 @@ const Debugging = observer((props) => {
                     <button onClick={() => {
                         patientStore.educationStore.setLocalToOldDateForTesting(DateTime.local().minus({ days: 2 }).toISODate())
                     }}>Update Date of Last Update Read to 2 days ago</button>
-                    
+
                 </div> :
                 ""}
         </>
