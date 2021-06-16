@@ -467,5 +467,9 @@ export class PatientStore extends UserStore {
         whyPhotoWasSkipped: ""
     }
 
+    @computed get isArchived(){
+        return this.status === "Archived"
+    }
+
 
 }
