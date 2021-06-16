@@ -75,7 +75,7 @@ const TreatmentSuccess = () => {
                 <Typography variant="h2" color="initial">{t('archive.patientSide.subtitle')}</Typography>
                 <Typography variant="h2" color="initial">{t('archive.patientSide.details')}</Typography>
                 <Typography variant="h2" color="initial">{t('archive.patientSide.survey')}</Typography>
-                <NewButton href="https://redcap.iths.org/surveys/?s=YXW3H4H7A3DNLYDP" icon={<BallotIcon />} text={t('archive.patientSide.surveyButton')} />
+                <SurveyLink />
             </div>
         </>)
 }
@@ -87,13 +87,21 @@ const OtherOutcome = () => {
 
     return (
         <div className={classes.congratsContainer}>
-            <img src="img/notify.png" />
+            <img src="/treatment-update.png" />
             <Typography variant="h2" color="initial">{t('archive.patientSide.statusChange')}</Typography>
             <Typography variant="h2" color="initial">{t('archive.patientSide.survey')}</Typography>
-            <NewButton href="https://redcap.iths.org/surveys/?s=YXW3H4H7A3DNLYDP" icon={<BallotIcon />} text={t('archive.patientSide.surveyButton')} />
+            <SurveyLink />
         </div>
 
     )
+}
+
+const SurveyLink = () => {
+
+    const { t } = useTranslation('translation');
+    const link = window._env.REDCAP_EOT_SURVEY_LINK || "";
+
+    return (<NewButton href={link} icon={<BallotIcon />} text={t('archive.patientSide.surveyButton')} />)
 }
 
 export default OptionRouter;
