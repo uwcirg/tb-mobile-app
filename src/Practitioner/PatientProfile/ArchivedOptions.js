@@ -79,10 +79,12 @@ const TreatmentOutcomes = observer(() => {
     const { patientProfileStore } = useStores();
     const { treatmentOutcome, appEndDate } = patientProfileStore.treatmentOutcomes;
     const { t } = useTranslation('translation');
+
     return (
         <div className={classes.details}>
-            <OutcomeSection title="Treatment Outcome" body={t(`archive.outcomeTypes.${treatmentOutcome}`)} />
-            <OutcomeSection title="End Date" body={appEndDate} />
+            <OutcomeSection title={t('archive.treatmentOutcome')} 
+            body={treatmentOutcome ? t(`archive.outcomeTypes.${treatmentOutcome}`) : t('archive.notSelected')} />
+            <OutcomeSection title={t('archive.appEndField')} body={appEndDate} />
             <ProfileButton onClick={patientProfileStore.toggleUpdateOutcome}>
                 <EditIcon />
                 {t("coordinator.patientProfile.options.editOutcome")}

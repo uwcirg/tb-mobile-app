@@ -39,6 +39,7 @@ export class PatientStore extends UserStore {
 
     @observable status = "Active";
     @observable isReminderUpdating = false;
+    @observable treatmentOutcome = {};
 
     @observable treatmentStart = ""
 
@@ -116,6 +117,7 @@ export class PatientStore extends UserStore {
         this.educationStore.educationStatus = json.educationStatus;
         this.hasForcedPasswordChange = json.hasForcedPasswordChange;
         this.patientInformation.loaded = true;
+        this.treatmentOutcome = json.treatmentOutcome;
 
         localStorage.setItem("cachedProfile", JSON.stringify({
             photoSchedule: this.photoSchedule,

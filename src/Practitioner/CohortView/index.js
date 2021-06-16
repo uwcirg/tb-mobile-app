@@ -36,7 +36,6 @@ const PatientsView = observer((props) => {
 
     return (
         <>
-        {/* practitionerStore.newPatient.code */}
            <ActivationCodePopup activationCode={practitionerStore.newActivationCode} close={() => { practitionerStore.newActivationCode = "" }}  />
             <div className={classes.superContainer}>
                 <div className={classes.container}>
