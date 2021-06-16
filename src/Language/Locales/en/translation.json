@@ -865,8 +865,9 @@
         "congrats": "Congrats on successfully completing treatment!",
         "subtitle": "We know completing treatment is not easy, and you did an excellent job. If you have any questions your assistant will be there to support you.",
         "details": "You do not need to report anymore, but feel free to use the other resources in the app.",
-        "survey": "Please fill out this survey to help us improve in the future!",
-        "surveyButton": "Tell us about your experience"
+        "survey": "Please complete this survey to let us know about your experience using the application.",
+        "surveyButton": "Tell us about your experience",
+        "statusChange": "Your study status has changed and you can no longer report. Please contact your assistant for more details."
     }
 }
 

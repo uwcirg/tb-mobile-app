@@ -4,22 +4,21 @@ import { observer } from 'mobx-react'
 import Confetti from 'react-confetti'
 import Typography from '@material-ui/core/Typography'
 import { useTranslation } from 'react-i18next'
-import NewButton from '../../../Basics/NewButton'
 import BallotIcon from '@material-ui/icons/Ballot'
 import useStores from '../../../Basics/UseStores'
-import { toJS } from 'mobx'
-
+import NewButton from '../../../Basics/NewButton'
 
 const useStyles = makeStyles({
     congratsContainer: {
+        minHeight: "70vh",
         display: "flex",
         flexDirection: "column",
+        justifyContent: "center",
         padding: "0 2em 1em 2em",
         textAlign: "center",
         "& > img":{
             objectFit: "contain",
-            height: "150px",
-            
+            height: "150px"
         },
         "& > h1": {
             fontSize: "1.3em"
@@ -79,7 +78,6 @@ const TreatmentSuccess = () => {
                 <NewButton href="https://redcap.iths.org/surveys/?s=YXW3H4H7A3DNLYDP" icon={<BallotIcon />} text={t('archive.patientSide.surveyButton')} />
             </div>
         </>)
-
 }
 
 const OtherOutcome = () => {
@@ -90,9 +88,7 @@ const OtherOutcome = () => {
     return (
         <div className={classes.congratsContainer}>
             <img src="img/notify.png" />
-            <Typography variant="h2" color="initial">
-                Your study status has changed and you can no longer report. Please contact your assistant for more details.
-                </Typography>
+            <Typography variant="h2" color="initial">{t('archive.patientSide.statusChange')}</Typography>
             <Typography variant="h2" color="initial">{t('archive.patientSide.survey')}</Typography>
             <NewButton href="https://redcap.iths.org/surveys/?s=YXW3H4H7A3DNLYDP" icon={<BallotIcon />} text={t('archive.patientSide.surveyButton')} />
         </div>
