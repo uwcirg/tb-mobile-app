@@ -207,6 +207,12 @@ export default class PatientProfileStore {
             success: false,
             errors: {}
         }
+
+        this.treatmentOutcome = {
+            appEndDate: null,
+            treatmentOutcome: null
+        }
+
         this.temporaryPassword = "";
     }
 
