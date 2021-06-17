@@ -173,10 +173,10 @@ const Day = observer((props) => {
     const selectedDayIsValid = dt.diff(DateTime.fromISO(patientStore.treatmentStart), "days").days >= 0
 
 
+    //Check to ensure the date is before the treatment end date so if a patient logs in after a while they 
+    //wont have tons of red on their calendar for dates they cant report for
     const afterAppEndFn = () => {
-        if(!patientStore.treatmentOutcome.appEndDate){
-            return false
-        }
+        if(!patientStore.treatmentOutcome || !patientStore.treatmentOutcome.appEndDate){return false}
         return dt.startOf('day') > DateTime.fromISO(patientStore.treatmentOutcome.appEndDate).startOf('day')
     }
 
