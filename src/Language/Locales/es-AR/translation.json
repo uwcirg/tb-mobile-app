@@ -4,7 +4,7 @@
     "offline": "Desconectado",
     "greeting": "Hola",
     "updating": "Actualizando",
-    "demoWarning": "Esta es una demostración de la aplicación y no debe usarse para los datos de pacientes reales",
+    "demoWarning": "Esta es una demostración de la aplicación y no debe usarse para los datos de pacientes reales.",
     "commonWords": {
         "fillAll": "Complete todas las secciones antes de continuar",
         "edit": "Editar",
@@ -57,7 +57,7 @@
             "hideUI": "Esconder",
             "hide": "Ocultar para los pacientes",
             "unhide": "Mostrar el mensaje",
-            "isHidden": "Este mensaje fue ocultado para los pacientes",
+            "isHidden": "Este mensaje fue ocultado para los pacientes.",
             "view": "Ver el Mensaje"
 
         },
@@ -196,7 +196,7 @@
             "milestones": "De regreso a la sección de su progreso, puede manejar sus eventos importantes",
             "messaging": {
                 "header": "Ahora estamos en la sección de los mensajes",
-                "text": "Esta sección le permite comunicarse directamente con su asistente y también con otros pacientes",
+                "text": "Esta sección le permite comunicarse directamente con su asistente y también con otros pacientes.",
                 "one": "Toque aquí para comunicarse directamente y en forma privada con su asistente",
                 "two": "Aquí puede conversar públicamente con otros pacientes sobre su tratamiento. Este chat está organizado por temas."
             },
@@ -608,7 +608,7 @@
             "phoneNumber": "Número de Teléfono",
             "treatmentStart": "Fecha de Inicio del Tratamiento",
             "treatmentEnd": "Final Día del Tratamiento",
-            "appEndDate": "App End Date",
+            "appEndDate": "Último Día de Uso",
             "lastContacted": "Último Contacto",
             "date": "Fecha",
             "taken": "Tomado",
@@ -833,26 +833,36 @@
 "summaries":{
     "averageAdherence": "Adherencia Media",
     "averagePhotoAdherence": "Adherencia Media de Fotos",
-    "siteSummary": "Summary of Active Patients",
+    "siteSummary": "Resumen de Pacientes Activos",
     "loading": "Cargando lista de pacientes"
 },
 
 "archive":{
+    "notSelected": "Not Selected",
     "warningTitle": "Paciente Archivado",
     "explanation": "Si el paciente ha completado su tiempo usando la aplicación, complete su último día y haga clic en el botón de abajo para archivarlo. Ya no aparecerán en las listas de tareas, pero se puede ver su perfil desde la pestaña \"Mis Pacientes\"",
     "appEndField": "Último día usando la aplicación",
-    "warningShort": "Este paciente ha sido archivado y ya no puede mandar reportes",
+    "warningShort": "Este paciente ha sido archivado y ya no puede mandar reportes.",
     "warningLong": "Este paciente se ha archivado y ya no aparecerá en sus tareas. Si necesita deshacer esta acción, comuníquese con el personal técnico del estudio para obtener asistencia.",
     "treatmentOutcome": "Resultado del Tratamiento",
     "outcomeTypes": {
         "success": "Éxito",
-        "default": "Default",
-        "withdraw": "Abandono",
-        "lost-to-follow-up": "Lost to follow up",
-        "transferred": "Transferido",
+        "default": "Abandonado",
+        "withdraw": "Desviado",
+        "lost-to-follow-up": "Perdido de seguimiento",
+        "transferred": "Derivado",
         "deceased": "Fallecido"
     },
-    "complete": "Completo"
+    "complete": "Completo",
+    "patientSide":{
+        "congrats": "Congrats on successfully completing treatment!",
+        "subtitle": "We know completing treatment is not easy, and you did an excellent job. If you have any questions your assistant will be there to support you.",
+        "details": "You do not need to report anymore, but feel free to use the other resources in the app.",
+        "survey": "Please complete this survey to let us know about your experience using the application.",
+        "surveyButton": "Tell us about your experience",
+        "statusChange": "Your study status has changed and you can no longer report. Please contact your assistant for more details."
+    }
 }
+
 
 }

@@ -126,7 +126,9 @@ const CustomCalendar = observer(() => {
     }
 
     const checkDisabled = (date) => {
-        return (DateTime.fromJSDate(date) > DateTime.local() || DateTime.fromJSDate(date).startOf('day') < DateTime.fromISO(patientStore.treatmentStart).startOf('day'))
+        return (
+            DateTime.fromJSDate(date) > DateTime.local() ||
+            (DateTime.fromJSDate(date).startOf('day') < DateTime.fromISO(patientStore.treatmentStart).startOf('day')))
     }
 
     return (
@@ -166,9 +168,19 @@ const Day = observer((props) => {
 
     let compositeClass;
 
+    //Day shown as "selected" in blue on calendar
     const selectedDay = dt.startOf('day').equals(DateTime.fromISO(patientStore.uiState.selectedCalendarDate));
-
     const selectedDayIsValid = dt.diff(DateTime.fromISO(patientStore.treatmentStart), "days").days >= 0
+
+
+    const afterAppEndFn = () => {
+        if(!patientStore.treatmentOutcome.appEndDate){
+            return false
+        }
+        return dt.startOf('day') > DateTime.fromISO(patientStore.treatmentOutcome.appEndDate).startOf('day')
+    }
+
+    const afterAppEnd = afterAppEndFn();
 
     let modifier = false;
     let symptom = false;
@@ -183,7 +195,7 @@ const Day = observer((props) => {
     if (selectedDayIsValid) {
         if (dayFromServer && dayFromServer.medicationWasTaken) { compositeClass += ' ' + classes.positive }
         else if (dayFromServer && !dayFromServer.medicationWasTaken) { modifier = "red" }
-        else if (!dayFromServer && !props.disabled && !today) { compositeClass += ' ' + classes.negative }
+        else if (!dayFromServer && !props.disabled && !today && !afterAppEnd) { compositeClass += ' ' + classes.negative }
 
         if (dayBefore && dayAfter && dayFromServer) {
             if (dayBefore.medicationWasTaken != dayFromServer.medicationWasTaken) compositeClass += ' ' + classes.start;
