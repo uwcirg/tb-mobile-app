@@ -21,7 +21,7 @@ export class MessagingStore extends APIStore {
                 const channel = new BroadcastChannel('messaging-notification');
                 channel.addEventListener('message', event => {
                     this.getUnreadMessages();
-                    if(this.selectedChannel.id){
+                    if (this.selectedChannel.id) {
                         this.getSelectedChannel();
                     }
                 });
@@ -40,8 +40,9 @@ export class MessagingStore extends APIStore {
         title: "",
         messages: [],
         creator: "",
-        isCoordinatorChannel: false
-    };
+        isCoordinatorChannel: false,
+        firstMessageID: 0
+    }
 
     @observable newMessage = "";
     @observable file = "";
@@ -73,6 +74,14 @@ export class MessagingStore extends APIStore {
     }
 
     @computed
+    get firstMessageFetched() {
+        if (this.selectedChannel.messages && this.selectedChannel.messages.length < 1) {
+            return ""
+        }
+        return this.selectedChannel.messages[0].id
+    }
+
+    @computed
     get lastMessageFetched() {
         if (this.selectedChannel.messages && this.selectedChannel.messages.length < 1) {
             return ""
@@ -101,14 +110,21 @@ export class MessagingStore extends APIStore {
         })
     }
 
+    @action getOlderMessages() {
+
+        let url = `/v2/channel/${this.selectedChannel.id}/messages?firstMessageId=${this.firstMessageFetched}`
+
+        if (this.firstMessageFetched > this.selectedChannel.firstMessageID) {
+            this.executeRawRequest(url, "GET").then((response) => {
+                this.selectedChannel.messages.unshift(...response);
+            })
+        }
+
+    }
+
     @action getSelectedChannel() {
 
         let url = `/v2/channel/${this.selectedChannel.id}/messages`
-
-        /*
-        if(this.lastMessageFetched != ""){
-            url += `?lastMessageID=${this.lastMessageFetched}`
-        } */
 
         this.executeRawRequest(url, "GET").then((response) => {
             this.selectedChannel.messages = response;
@@ -120,11 +136,11 @@ export class MessagingStore extends APIStore {
     @computed get categorizedUnread() {
         const value = this.unreadInfo ? Object.values(this.unreadInfo).reduce((prev, current) => {
             if (current.isPrivate && !current.isSiteChannel) {
-                return {private: prev.private + current.unreadMessages, public: prev.public}
-            }else{
-                return {private: prev.private, public: prev.public + current.unreadMessages}
+                return { private: prev.private + current.unreadMessages, public: prev.public }
+            } else {
+                return { private: prev.private, public: prev.public + current.unreadMessages }
             }
-        }, {private: 0,public: 0}) : {private: 0,public: 0};
+        }, { private: 0, public: 0 }) : { private: 0, public: 0 };
 
         return value
     }
@@ -267,16 +283,17 @@ export class MessagingStore extends APIStore {
 
     fetchChannel = (channelId) => {
         this.executeRawRequest(`/v2/channel/${channelId}`, "GET").then(response => {
-            if(response.id){
+            if (response.id) {
                 this.setActiveChannel(response)
             }
         })
     }
 
     @action setActiveChannel = (channel) => {
-        this.selectedChannel. id = channel.id;
+        this.selectedChannel.id = channel.id;
         this.selectedChannel.title = channel.title;
         this.selectedChannel.isCoordinatorChannel = channel.userType === "Patient"
+        this.selectedChannel.firstMessageID = channel.firstMessageId
         this.getSelectedChannel();
     }
 }

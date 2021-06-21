@@ -7,6 +7,100 @@ import useStores from '../Basics/UseStores';
 import MessageInput from './MessageInput';
 import Message from './Message';
 import { DateTime } from 'luxon';
+import useOnScreen from '../Hooks/OnScreen'
+
+const Channel = observer((props) => {
+    const classes = useStyles();
+    const { messagingStore, uiStore } = useStores();
+
+    useEffect(() => {
+        if (!messagingStore.selectedChannel.id) {
+            messagingStore.fetchChannel(uiStore.pathNumber);
+        }
+
+    }, [uiStore.pathNumber])
+
+
+    return (
+        <div className={classes.combined}>
+            <MessageList isPrivate={props.isPrivate} isCoordinator={props.isCoordinator} selectedChannel={props.selectedChannel} userID={props.userID} />
+            <div className={classes.inputContainer}>
+                <MessageInput value={messagingStore.newMessage}
+                    setValue={(value) => { messagingStore.newMessage = value }}
+                    disableSend={messagingStore.newMessage === "" && messagingStore.file === ""}
+                    handleSend={messagingStore.uploadFileAndSendMessage}
+                />
+            </div>
+        </div>
+    )
+});
+
+const MessageList = observer((props) => {
+
+    const classes = useStyles();
+    const { messagingStore } = useStores();
+    const { t } = useTranslation('translation');
+    const messagesEndRef = useRef(null)
+    const loadMoreRef = useRef(null)
+
+    const [messagesLoaded, setMessagesLoaded] = useState(false);
+
+    const onScreen = useOnScreen(loadMoreRef);
+
+    let messages = [];
+
+    if (props.selectedChannel.messages &&
+        props.selectedChannel.messages.length > 0) {
+        let date = ""
+        messages = messagingStore.selectedChannelMessages.map((message, index) => {
+
+            let isNewDate = false;
+            const isUser = props.userID === message.userId;
+            const previousMessage = index > 0 && messagingStore.selectedChannelMessages[index - 1]
+            const nextMessage = messagingStore.selectedChannelMessages.length > index + 1 && messagingStore.selectedChannelMessages[index + 1]
+            const isMiddle = (previousMessage && previousMessage.userId === message.userId && DateTime.fromISO(previousMessage.createdAt).toISODate() === DateTime.fromISO(message.createdAt).toISODate()) && (nextMessage && nextMessage.userId === message.userId && DateTime.fromISO(nextMessage.createdAt).toISODate() === DateTime.fromISO(message.createdAt).toISODate())
+
+            if (DateTime.fromISO(message.createdAt).toISODate() !== date) {
+                date = DateTime.fromISO(message.createdAt).toISODate()
+                isNewDate = true;
+            }
+            return (
+                <Fragment key={`message-fragment-${index}`} >
+                    {isNewDate && <h2 key={`date-${index}`} className={classes.dateSeperator}>{DateTime.fromISO(date).toLocaleString(DateTime.DATE_HUGE)}</h2>}
+                    <Message
+                        scrollToBottom={() => { messagesEndRef.current.scrollIntoView() }}
+                        isLast={index === props.selectedChannel.messages.length - 1}
+                        hide={() => { messagingStore.setMessageHidden(message.id, true) }}
+                        unhide={() => { messagingStore.setMessageHidden(message.id, false) }}
+                        isCoordinator={props.isCoordinator}
+                        isPrivate={props.isPrivate}
+                        isMiddle={isMiddle}
+                        key={`message-${index}`}
+                        message={message}
+                        isUser={isUser} />
+                </Fragment>
+            )
+        })
+        messages.unshift(<p key={`messages-begining`} className={classes.dateSeperator}>{t("messaging.begining")}</p>)
+    }
+
+    useEffect(() => {
+        console.log("On screen change " + onScreen )
+        if(messages.length > 0 && onScreen){
+            messagingStore.getOlderMessages();
+        }
+
+    }, [onScreen])
+
+
+    return (
+        <div className={classes.messageList} style={{ marginTop: props.isCoordinator ? 0 : "60px" }}>
+            <div style={{backgroundColor: "red",height: "10px", width: "100%", margin: "100px 0"}} ref={loadMoreRef}>{onScreen ? "true": "false"}</div>
+            {messages.length > 0 ? <>{messages}</> : <p className={classes.empty}>{t("messaging.empty")}</p>}
+            <div ref={messagesEndRef} />
+        </div>
+    )
+})
 
 const useStyles = makeStyles({
     messageList: {
@@ -58,7 +152,7 @@ const useStyles = makeStyles({
             color: "white"
         }
     },
-    empty:{
+    empty: {
         width: "100%",
         margin: "auto",
         textAlign: "center",
@@ -66,82 +160,5 @@ const useStyles = makeStyles({
     }
 
 });
-
-const Channel = observer((props) => {
-    const classes = useStyles();
-    const { messagingStore,uiStore } = useStores();
-
-    useEffect(() => {
-        if(!messagingStore.selectedChannel.id){
-            messagingStore.fetchChannel(uiStore.pathNumber);
-        }
-
-    }, [uiStore.pathNumber])
-
-
-    return (
-        <div className={classes.combined}>
-            <MessageList isPrivate={props.isPrivate} isCoordinator={props.isCoordinator} selectedChannel={props.selectedChannel} userID={props.userID} />
-            <div className={classes.inputContainer}>
-                <MessageInput value={messagingStore.newMessage}
-                    setValue={(value) => { messagingStore.newMessage = value }}
-                    disableSend={messagingStore.newMessage === "" && messagingStore.file === ""}
-                    handleSend={messagingStore.uploadFileAndSendMessage}
-                />
-            </div>
-        </div>
-    )
-});
-
-const MessageList = observer((props) => {
-
-    const classes = useStyles();
-    const { messagingStore } = useStores();
-    const { t } = useTranslation('translation');
-    const messagesEndRef = useRef(null)
-    let messages = [];
-
-    if (props.selectedChannel.messages &&
-        props.selectedChannel.messages.length > 0) {
-        let date = ""
-        messages = messagingStore.selectedChannelMessages.map((message, index) => {
-
-            let isNewDate = false;
-            const isUser = props.userID === message.userId;
-            const previousMessage = index > 0 && messagingStore.selectedChannelMessages[index - 1]
-            const nextMessage = messagingStore.selectedChannelMessages.length > index + 1 && messagingStore.selectedChannelMessages[index + 1]
-            const isMiddle = (previousMessage && previousMessage.userId === message.userId && DateTime.fromISO(previousMessage.createdAt).toISODate() === DateTime.fromISO(message.createdAt).toISODate()) && (nextMessage && nextMessage.userId === message.userId && DateTime.fromISO(nextMessage.createdAt).toISODate() === DateTime.fromISO(message.createdAt).toISODate())
-
-            if (DateTime.fromISO(message.createdAt).toISODate() !== date) {
-                date = DateTime.fromISO(message.createdAt).toISODate()
-                isNewDate = true;
-            }
-            return (
-                <Fragment key={`message-fragment-${index}`} >
-                    {isNewDate && <h2 key={`date-${index}`} className={classes.dateSeperator}>{DateTime.fromISO(date).toLocaleString(DateTime.DATE_HUGE)}</h2>}
-                    <Message
-                        scrollToBottom={()=>{messagesEndRef.current.scrollIntoView()}}
-                        isLast={ index === props.selectedChannel.messages.length - 1}
-                        hide={() => { messagingStore.setMessageHidden(message.id,true) }}
-                        unhide={() => { messagingStore.setMessageHidden(message.id,false) }}
-                        isCoordinator={props.isCoordinator}
-                        isPrivate={props.isPrivate}
-                        isMiddle={isMiddle}
-                        key={`message-${index}`}
-                        message={message}
-                        isUser={isUser} />
-                </Fragment>
-            )
-        })
-        messages.unshift(<p key={`messages-begining`} className={classes.dateSeperator}>{t("messaging.begining")}</p>)
-    }
-
-    return (
-        <div className={classes.messageList}>
-            {messages.length > 0 ? <>{messages}</> : <p className={classes.empty}>{t("messaging.empty")}</p>}
-            <div ref={messagesEndRef} />
-        </div>
-    )
-})
 
 export default Channel;

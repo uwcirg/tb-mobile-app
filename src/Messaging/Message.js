@@ -158,7 +158,7 @@ const Message = (props) => {
     </div>)
 }
 
-const SenderInfo = ({authorName,userType,isCurrentUsersMessage}) => {
+const SenderInfo = ({authorName,userType = "",isCurrentUsersMessage}) => {
     const { t } = useTranslation('translation');
     let displayName = authorName ? authorName : t(`userTypes.${userType.toLowerCase()}`)
     if(isCurrentUsersMessage){
