@@ -37,6 +37,7 @@
         "practitioner": "Asistant",
         "coordinator": "Treatment Assistant",
         "admin": "Administrator",
+        "administrator": "Administrator",
         "you": "You"
     },
     "login": {

@@ -41,7 +41,9 @@ export class MessagingStore extends APIStore {
         messages: [],
         creator: "",
         isCoordinatorChannel: false,
-        firstMessageID: 0
+        firstMessageID: 0,
+        firstLoad: true,
+        firstNewMessageId: 0
     }
 
     @observable newMessage = "";
@@ -115,17 +117,23 @@ export class MessagingStore extends APIStore {
         let url = `/v2/channel/${this.selectedChannel.id}/messages?firstMessageId=${this.firstMessageFetched}`
 
         if (this.firstMessageFetched > this.selectedChannel.firstMessageID) {
-            this.executeRawRequest(url, "GET").then((response) => {
+            return this.executeRawRequest(url, "GET").then((response) => {
+                if(response.length > 0){
+                    this.selectedChannel.firstNewMessageId = response[response.length - 1].id
+                }
+                this.selectedChannel.firstLoad = false;
                 this.selectedChannel.messages.unshift(...response);
             })
         }
-
+        return Promise.resolve(false);
+        
     }
 
     @action getSelectedChannel() {
 
         let url = `/v2/channel/${this.selectedChannel.id}/messages`
 
+        this.selectedChannel.firstLoad = true;
         this.executeRawRequest(url, "GET").then((response) => {
             this.selectedChannel.messages = response;
             this.getUnreadMessages();
@@ -162,7 +170,12 @@ export class MessagingStore extends APIStore {
         this.selectedChannel = {
             id: 0,
             title: "",
-            messages: []
+            messages: [],
+            creator: "",
+            isCoordinatorChannel: false,
+            firstMessageID: 0,
+            firstLoad: true
+
         };
         this.file = ""
     }

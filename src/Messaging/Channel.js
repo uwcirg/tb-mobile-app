@@ -42,12 +42,18 @@ const MessageList = observer((props) => {
     const { t } = useTranslation('translation');
     const messagesEndRef = useRef(null)
     const loadMoreRef = useRef(null)
-
-    const [messagesLoaded, setMessagesLoaded] = useState(false);
+    const newestMessageRef = useRef(null)
+    const containerElement = useRef(null)
 
     const onScreen = useOnScreen(loadMoreRef);
 
     let messages = [];
+
+    const scrollToBottom = () => {
+        if (messagingStore.selectedChannel.firstLoad) {
+            messagesEndRef.current.scrollIntoView()
+        }
+    }
 
     if (props.selectedChannel.messages &&
         props.selectedChannel.messages.length > 0) {
@@ -58,7 +64,12 @@ const MessageList = observer((props) => {
             const isUser = props.userID === message.userId;
             const previousMessage = index > 0 && messagingStore.selectedChannelMessages[index - 1]
             const nextMessage = messagingStore.selectedChannelMessages.length > index + 1 && messagingStore.selectedChannelMessages[index + 1]
-            const isMiddle = (previousMessage && previousMessage.userId === message.userId && DateTime.fromISO(previousMessage.createdAt).toISODate() === DateTime.fromISO(message.createdAt).toISODate()) && (nextMessage && nextMessage.userId === message.userId && DateTime.fromISO(nextMessage.createdAt).toISODate() === DateTime.fromISO(message.createdAt).toISODate())
+            const isMiddle = (
+                previousMessage && previousMessage.userId === message.userId &&
+                DateTime.fromISO(previousMessage.createdAt).toISODate() === DateTime.fromISO(message.createdAt).toISODate()) &&
+                (nextMessage && nextMessage.userId === message.userId &&
+                    DateTime.fromISO(nextMessage.createdAt).toISODate() === DateTime.fromISO(message.createdAt).toISODate()
+                )
 
             if (DateTime.fromISO(message.createdAt).toISODate() !== date) {
                 date = DateTime.fromISO(message.createdAt).toISODate()
@@ -66,9 +77,10 @@ const MessageList = observer((props) => {
             }
             return (
                 <Fragment key={`message-fragment-${index}`} >
+                     {message.id === messagingStore.selectedChannel.firstNewMessageId && <div ref={newestMessageRef}>New</div>}
                     {isNewDate && <h2 key={`date-${index}`} className={classes.dateSeperator}>{DateTime.fromISO(date).toLocaleString(DateTime.DATE_HUGE)}</h2>}
                     <Message
-                        scrollToBottom={() => { messagesEndRef.current.scrollIntoView() }}
+                        scrollToBottom={scrollToBottom}
                         isLast={index === props.selectedChannel.messages.length - 1}
                         hide={() => { messagingStore.setMessageHidden(message.id, true) }}
                         unhide={() => { messagingStore.setMessageHidden(message.id, false) }}
@@ -77,25 +89,40 @@ const MessageList = observer((props) => {
                         isMiddle={isMiddle}
                         key={`message-${index}`}
                         message={message}
-                        isUser={isUser} />
+                        isUser={isUser} 
+                        
+                        />
                 </Fragment>
             )
         })
+        // messages.unshift(<div ref={topRef} />)
         messages.unshift(<p key={`messages-begining`} className={classes.dateSeperator}>{t("messaging.begining")}</p>)
+    
     }
 
     useEffect(() => {
-        console.log("On screen change " + onScreen )
-        if(messages.length > 0 && onScreen){
-            messagingStore.getOlderMessages();
+        console.log("changed channel ")
+        scrollToBottom();
+    }, [messagingStore.selectedChannel.id])
+
+    useEffect(() => {
+        console.log("On screen change " + onScreen)
+        if (messages.length > 0 && onScreen) {
+            messagingStore.getOlderMessages().then( (newMessages) => {
+                if(newMessages && newMessages.length > 0){
+                    newestMessageRef.current.scrollIntoView();
+                }
+            })
+
+
         }
 
     }, [onScreen])
 
-
     return (
-        <div className={classes.messageList} style={{ marginTop: props.isCoordinator ? 0 : "60px" }}>
-            <div style={{backgroundColor: "red",height: "10px", width: "100%", margin: "100px 0"}} ref={loadMoreRef}>{onScreen ? "true": "false"}</div>
+        <div ref={containerElement} className={classes.messageList} style={{ marginTop: props.isCoordinator ? 0 : "60px" }}>
+            {/* style={{ backgroundColor: "red", height: "10px", width: "100%", margin: "0 0" }} */}
+            <div ref={loadMoreRef} style={{height: "1px",width: "1px"}}>{" "}</div>
             {messages.length > 0 ? <>{messages}</> : <p className={classes.empty}>{t("messaging.empty")}</p>}
             <div ref={messagesEndRef} />
         </div>
