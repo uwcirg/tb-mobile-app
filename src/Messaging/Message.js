@@ -10,8 +10,6 @@ import ButtonBase from '@material-ui/core/Button';
 import Down from '@material-ui/icons/KeyboardArrowDown'
 import Up from '@material-ui/icons/KeyboardArrowUp'
 import { useTranslation } from 'react-i18next';
-import { observer } from 'mobx-react'
-import useStores from '../Basics/UseStores'
 
 const useStyles = makeStyles({
 
@@ -125,7 +123,7 @@ const Message = (props) => {
 
     const [imageLoaded, setImageLoaded] = useState(false)
     const classes = useStyles({ isUser: props.isUser, imageLoaded: imageLoaded });
-    const { t} = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
     const processTime = (time) => {
         return (DateTime.fromISO(time).toLocaleString(DateTime.TIME_24_SIMPLE))
@@ -148,7 +146,7 @@ const Message = (props) => {
             {props.message.body}
             <br />
             <span className={classes.time}>
-                {!props.isPrivate && <SenderInfo type={props.message.userType} id={props.message.userId} />}
+                {<SenderInfo {...props.message} />}
                 {processTime(props.message.createdAt)}
             </span>
             {(props.isCoordinator && !props.isPrivate) && <ToolTip title={props.message.isHidden ? t('messaging.moderation.unhide') : t('messaging.moderation.hide')}>
@@ -158,25 +156,17 @@ const Message = (props) => {
             </ToolTip>}
         </div>
     </div>)
-
 }
 
-const SenderInfo = (props) => {
-    const { t, i18n } = useTranslation('translation');
-    return (
-        <>{props.type === "Practitioner" ? t('userTypes.coordinator') : <PatientName id={props.id} />} - </>
-    )
+const SenderInfo = ({authorName,userType,isCurrentUsersMessage}) => {
+    const { t } = useTranslation('translation');
+    let displayName = authorName ? authorName : t(`userTypes.${userType.toLowerCase()}`)
+    if(isCurrentUsersMessage){
+        displayName = t('userTypes.you')
+    }
+
+    return (<>{displayName} - </>)
 }
-
-const PatientName = observer((props) => {
-    const { practitionerStore } = useStores();
-    const patient = practitionerStore.getPatient(props.id);
-    const { t} = useTranslation('translation');
-
-    return (
-        <>{patient ? patient.fullName : t('userTypes.patient')}</>
-    )
-})
 
 const WrappedMessage = (props) => {
 
@@ -207,8 +197,6 @@ const WrappedMessage = (props) => {
                     </div>
                     {showHidden && <Message {...props} />}
                 </>}
-
-
         </>
     )
 }

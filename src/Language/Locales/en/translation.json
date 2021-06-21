@@ -34,8 +34,10 @@
     "userTypes": {
         "patient": "Patient",
         "provider": "Provider",
+        "practitioner": "Asistant",
         "coordinator": "Treatment Assistant",
-        "admin": "Administrator"
+        "admin": "Administrator",
+        "you": "You"
     },
     "login": {
         "changeLanguage": "Haga Clic Aquí Para Español",

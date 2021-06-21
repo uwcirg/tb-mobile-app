@@ -838,7 +838,7 @@
 },
 
 "archive":{
-    "notSelected": "Not Selected",
+    "notSelected": "Nada Seleccionado",
     "warningTitle": "Paciente Archivado",
     "explanation": "Si el paciente ha completado su tiempo usando la aplicación, complete su último día y haga clic en el botón de abajo para archivarlo. Ya no aparecerán en las listas de tareas, pero se puede ver su perfil desde la pestaña \"Mis Pacientes\"",
     "appEndField": "Último día usando la aplicación",
@@ -855,12 +855,12 @@
     },
     "complete": "Completo",
     "patientSide":{
-        "congrats": "Congrats on successfully completing treatment!",
-        "subtitle": "We know completing treatment is not easy, and you did an excellent job. If you have any questions your assistant will be there to support you.",
-        "details": "You do not need to report anymore, but feel free to use the other resources in the app.",
-        "survey": "Please complete this survey to let us know about your experience using the application.",
-        "surveyButton": "Tell us about your experience",
-        "statusChange": "Your study status has changed and you can no longer report. Please contact your assistant for more details."
+        "congrats": "¡Felicitaciones por completar con éxito su tratamiento!",
+        "subtitle": "Sabemos que completar el tratamiento no es fácil y que hizo un excelente trabajo. Si tiene alguna pregunta, su asistente estará allí para ayudarlo.",
+        "details": "Ya no necesita mandar reportes, pero puede utilizar los demás recursos de la aplicación.",
+        "survey": "Complete esta encuesta para informarnos sobre su experiencia con la aplicación.",
+        "surveyButton": "Cuéntenos su experiencia",
+        "statusChange": "El estado de su tratamiento ha cambiado y ya no puede reportar. Comuníquese con su asistente para obtener más detalles."
     }
 }
 

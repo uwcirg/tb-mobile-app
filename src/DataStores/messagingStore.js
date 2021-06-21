@@ -3,9 +3,9 @@ import uploadPhoto from '../Basics/PhotoUploader';
 import APIStore from './apiStore'
 
 const ROUTES = {
-    getChannels: ["/channels", "GET"],
+    getChannels: ["/v2/channels", "GET"],
     getUnreadMessages: ["/unread_messages", "GET"],
-    postNewChannel: ["/channels", "POST"]
+    postNewChannel: ["/v2/channels", "POST"]
 }
 
 export class MessagingStore extends APIStore {
@@ -103,7 +103,7 @@ export class MessagingStore extends APIStore {
 
     @action getSelectedChannel() {
 
-        let url = `/channels/${this.selectedChannel.id}/messages`
+        let url = `/v2/channel/${this.selectedChannel.id}/messages`
 
         /*
         if(this.lastMessageFetched != ""){
@@ -128,7 +128,6 @@ export class MessagingStore extends APIStore {
 
         return value
     }
-
 
     @action getNewMessages() {
 
@@ -253,15 +252,13 @@ export class MessagingStore extends APIStore {
     }
 
     @action setMessageHidden = (id, state) => {
-        this.executeRawRequest(`/message/${id}`, "PATCH", { isHidden: state }).then(response => {
+        this.executeRawRequest(`/v2/message/${id}`, "PATCH", { isHidden: state }).then(response => {
             this.selectedChannel.messages.forEach((each, index) => {
                 if (each.id === response.id) {
                     this.selectedChannel.messages[index] = response
                 }
             })
-
         })
-
     }
 
     @action setTab = (index) => {
@@ -282,6 +279,4 @@ export class MessagingStore extends APIStore {
         this.selectedChannel.isCoordinatorChannel = channel.userType === "Patient"
         this.getSelectedChannel();
     }
-
-
 }
