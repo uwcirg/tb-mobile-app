@@ -123,6 +123,7 @@ export class MessagingStore extends APIStore {
                 }
                 this.selectedChannel.firstLoad = false;
                 this.selectedChannel.messages.unshift(...response);
+                return response && response.length;
             })
         }
         return Promise.resolve(false);

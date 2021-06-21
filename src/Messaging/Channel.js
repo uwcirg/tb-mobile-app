@@ -108,8 +108,8 @@ const MessageList = observer((props) => {
     useEffect(() => {
         console.log("On screen change " + onScreen)
         if (messages.length > 0 && onScreen) {
-            messagingStore.getOlderMessages().then( (newMessages) => {
-                if(newMessages && newMessages.length > 0){
+            messagingStore.getOlderMessages().then( (newMessagesLength) => {
+                if(newMessagesLength > 0){
                     newestMessageRef.current.scrollIntoView();
                 }
             })
