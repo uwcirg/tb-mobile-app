@@ -100,9 +100,6 @@ const MessageList = observer((props) => {
         scrollToBottom();
     }, [messagingStore.selectedChannel.id])
 
-    useEffect(() => {
-        messagingStore.initalizeChannel();
-    }, [messagingStore.selectedChannel.id])
 
     return (
         <div className={classes.messageList} style={{ marginTop: props.isCoordinator ? 0 : "60px" }}>

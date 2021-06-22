@@ -7,7 +7,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import OverTopBar from '../Patient/Navigation/OverTopBar';
-import SearchBar from '../Basics/SearchBar';
 import Div100vh from 'react-div-100vh'
 import PreventOffline from '../Basics/PreventOffline';
 
@@ -48,9 +47,15 @@ const Messaging = observer(() => {
     const { messagingStore, patientStore, uiStore } = useStores();
     const [search, setSearch] = useState("");
 
+    //Check for any unread messages
     useEffect(() => {
         messagingStore.getUnreadMessages();
     }, [])
+
+    //Clear data about loaded messages when a new channel is loaded
+    useEffect(() => {
+        messagingStore.initalizeChannel();
+    }, [messagingStore.selectedChannel.id])
 
     const handleBackFromChannel = () => {
         uiStore.goToMessaging();
