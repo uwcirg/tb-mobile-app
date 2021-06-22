@@ -43,7 +43,8 @@ export class MessagingStore extends APIStore {
         isCoordinatorChannel: false,
         firstMessageID: 0,
         firstLoad: true,
-        firstNewMessageId: 0
+        firstNewMessageId: 0,
+        allMessagesLoaded: false
     }
 
     @observable newMessage = "";
@@ -112,17 +113,22 @@ export class MessagingStore extends APIStore {
         })
     }
 
-    @action getOlderMessages() {
+    @action getOlderMessages = () => {
 
         let url = `/v2/channel/${this.selectedChannel.id}/messages?firstMessageId=${this.firstMessageFetched}`
 
-        if (this.firstMessageFetched > this.selectedChannel.firstMessageID) {
+        if (!this.selectedChannel.allMessagesLoaded) {
+            this.selectedChannel.olderMessagesLoading = true;
             return this.executeRawRequest(url, "GET").then((response) => {
                 if(response.length > 0){
                     this.selectedChannel.firstNewMessageId = response[response.length - 1].id
                 }
+                if(response.length < 20){
+                    this.selectedChannel.allMessagesLoaded = true;
+                }
                 this.selectedChannel.firstLoad = false;
                 this.selectedChannel.messages.unshift(...response);
+                this.selectedChannel.olderMessagesLoading = false;
                 return response && response.length;
             })
         }
@@ -175,7 +181,8 @@ export class MessagingStore extends APIStore {
             creator: "",
             isCoordinatorChannel: false,
             firstMessageID: 0,
-            firstLoad: true
+            firstLoad: true,
+            olderMessagesLoading: false
 
         };
         this.file = ""
@@ -230,7 +237,6 @@ export class MessagingStore extends APIStore {
     }
 
     getUploadUrl = () => {
-
         return this.executeRawRequest(`/photo_uploaders/messaging?channelId=${this.selectedChannel.id}&fileType=${this.fileType}`)
     }
 
@@ -309,5 +315,18 @@ export class MessagingStore extends APIStore {
         this.selectedChannel.isCoordinatorChannel = channel.userType === "Patient"
         this.selectedChannel.firstMessageID = channel.firstMessageId
         this.getSelectedChannel();
+    }
+
+    @computed get olderMessagesLoading(){
+        return this.selectedChannel.olderMessagesLoading;
+    }
+
+    @computed get allMessagesLoaded(){
+        return this.selectedChannel.allMessagesLoaded;
+    }
+
+    @action initalizeChannel = () =>{
+        this.selectedChannel.allMessagesLoaded = false;
+        this.selectedChannel.firstLoad = true;
     }
 }

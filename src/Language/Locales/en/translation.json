@@ -54,6 +54,7 @@
         "activate": "Activate"
     },
     "messaging": {
+        "loadMore": "Load More Messages",
         "yourSite": "Clinic Announcements",
         "search": "Search",
         "moderation":{

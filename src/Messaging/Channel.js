@@ -8,6 +8,8 @@ import MessageInput from './MessageInput';
 import Message from './Message';
 import { DateTime } from 'luxon';
 import useOnScreen from '../Hooks/OnScreen'
+import ClickableText from '../Basics/ClickableText';
+import HistoryIcon from '@material-ui/icons/History';
 
 const Channel = observer((props) => {
     const classes = useStyles();
@@ -19,7 +21,6 @@ const Channel = observer((props) => {
         }
 
     }, [uiStore.pathNumber])
-
 
     return (
         <div className={classes.combined}>
@@ -45,13 +46,19 @@ const MessageList = observer((props) => {
     const newestMessageRef = useRef(null)
     const containerElement = useRef(null)
 
-    const onScreen = useOnScreen(loadMoreRef);
-
     let messages = [];
+
+    const getOldMessages = () => {
+        messagingStore.getOlderMessages().then((newMessagesLength) => {
+            if (newMessagesLength > 0) {
+                newestMessageRef.current.scrollIntoView(false);
+            }
+        })
+    }
 
     const scrollToBottom = () => {
         if (messagingStore.selectedChannel.firstLoad) {
-            messagesEndRef.current.scrollIntoView()
+            messagesEndRef.current.scrollIntoView();
         }
     }
 
@@ -77,7 +84,7 @@ const MessageList = observer((props) => {
             }
             return (
                 <Fragment key={`message-fragment-${index}`} >
-                     {message.id === messagingStore.selectedChannel.firstNewMessageId && <div ref={newestMessageRef}>New</div>}
+                    {message.id === messagingStore.selectedChannel.firstMessageId && <p key={`messages-begining`} className={classes.dateSeperator}>{t("messaging.begining")}</p>}
                     {isNewDate && <h2 key={`date-${index}`} className={classes.dateSeperator}>{DateTime.fromISO(date).toLocaleString(DateTime.DATE_HUGE)}</h2>}
                     <Message
                         scrollToBottom={scrollToBottom}
@@ -89,40 +96,30 @@ const MessageList = observer((props) => {
                         isMiddle={isMiddle}
                         key={`message-${index}`}
                         message={message}
-                        isUser={isUser} 
-                        
-                        />
+                        isUser={isUser}
+
+                    />
+                    {message.id === messagingStore.selectedChannel.firstNewMessageId && <div className={classes.newLoadingPlaceholder} ref={newestMessageRef}></div>}
                 </Fragment>
             )
         })
-        // messages.unshift(<div ref={topRef} />)
-        messages.unshift(<p key={`messages-begining`} className={classes.dateSeperator}>{t("messaging.begining")}</p>)
-    
+        //messages.unshift(<div ref={topRef} />)
+        
+        messages.unshift(<>{!messagingStore.allMessagesLoaded && <ClickableText icon={<HistoryIcon />} onClick={getOldMessages} text={t('messaging.loadMore')} />}</>)
     }
 
     useEffect(() => {
-        console.log("changed channel ")
         scrollToBottom();
     }, [messagingStore.selectedChannel.id])
 
     useEffect(() => {
-        console.log("On screen change " + onScreen)
-        if (messages.length > 0 && onScreen) {
-            messagingStore.getOlderMessages().then( (newMessagesLength) => {
-                if(newMessagesLength > 0){
-                    newestMessageRef.current.scrollIntoView();
-                }
-            })
-
-
-        }
-
-    }, [onScreen])
+        messagingStore.initalizeChannel();
+    }, [messagingStore.selectedChannel.id])
 
     return (
         <div ref={containerElement} className={classes.messageList} style={{ marginTop: props.isCoordinator ? 0 : "60px" }}>
             {/* style={{ backgroundColor: "red", height: "10px", width: "100%", margin: "0 0" }} */}
-            <div ref={loadMoreRef} style={{height: "1px",width: "1px"}}>{" "}</div>
+            <div ref={loadMoreRef} style={{ height: "1px", width: "1px" }}>{" "}</div>
             {messages.length > 0 ? <>{messages}</> : <p className={classes.empty}>{t("messaging.empty")}</p>}
             <div ref={messagesEndRef} />
         </div>
@@ -184,6 +181,12 @@ const useStyles = makeStyles({
         margin: "auto",
         textAlign: "center",
         color: Colors.textGray
+    },
+    newLoadingPlaceholder:{
+        width: "100%",
+        height: "2px",
+        margin: "2px 0",
+        borderBottom: "dashed 1px lightgray"
     }
 
 });
