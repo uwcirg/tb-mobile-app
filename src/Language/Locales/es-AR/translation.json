@@ -34,8 +34,11 @@
     "userTypes": {
         "patient": "Paciente",
         "provider": "profesional",
+        "practitioner": "Asistente",
         "coordinator": "Asistente",
-        "admin": "Administrador"
+        "admin": "Administrador",
+        "administrator": "Administrator",
+        "you": "Usted"
     },
     "login": {
         "changeLanguage": "Click Here For English",
@@ -51,6 +54,7 @@
         "activate": "Activar"
     },
     "messaging": {
+        "loadMore": "Cargar más mensajes",
         "yourSite": "Anuncios de la Clínica",
         "search": "Buscar",
         "moderation":{

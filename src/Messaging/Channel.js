@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, Fragment } from 'react'
+import React, { useRef, useEffect, Fragment } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Colors from '../Basics/Colors';
@@ -7,9 +7,9 @@ import useStores from '../Basics/UseStores';
 import MessageInput from './MessageInput';
 import Message from './Message';
 import { DateTime } from 'luxon';
-import useOnScreen from '../Hooks/OnScreen'
 import ClickableText from '../Basics/ClickableText';
 import HistoryIcon from '@material-ui/icons/History';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const Channel = observer((props) => {
     const classes = useStyles();
@@ -42,24 +42,15 @@ const MessageList = observer((props) => {
     const { messagingStore } = useStores();
     const { t } = useTranslation('translation');
     const messagesEndRef = useRef(null)
-    const loadMoreRef = useRef(null)
     const newestMessageRef = useRef(null)
-    const containerElement = useRef(null)
 
     let messages = [];
-
-    const getOldMessages = () => {
-        messagingStore.getOlderMessages().then((newMessagesLength) => {
-            if (newMessagesLength > 0) {
-                newestMessageRef.current.scrollIntoView(false);
-            }
-        })
-    }
 
     const scrollToBottom = () => {
         if (messagingStore.selectedChannel.firstLoad) {
             messagesEndRef.current.scrollIntoView();
         }
+
     }
 
     if (props.selectedChannel.messages &&
@@ -103,9 +94,6 @@ const MessageList = observer((props) => {
                 </Fragment>
             )
         })
-        //messages.unshift(<div ref={topRef} />)
-        
-        messages.unshift(<>{!messagingStore.allMessagesLoaded && <ClickableText icon={<HistoryIcon />} onClick={getOldMessages} text={t('messaging.loadMore')} />}</>)
     }
 
     useEffect(() => {
@@ -117,12 +105,32 @@ const MessageList = observer((props) => {
     }, [messagingStore.selectedChannel.id])
 
     return (
-        <div ref={containerElement} className={classes.messageList} style={{ marginTop: props.isCoordinator ? 0 : "60px" }}>
-            {/* style={{ backgroundColor: "red", height: "10px", width: "100%", margin: "0 0" }} */}
-            <div ref={loadMoreRef} style={{ height: "1px", width: "1px" }}>{" "}</div>
+        <div className={classes.messageList} style={{ marginTop: props.isCoordinator ? 0 : "60px" }}>
+            <TopOfChannelDetails newestMessageRef={newestMessageRef} />
             {messages.length > 0 ? <>{messages}</> : <p className={classes.empty}>{t("messaging.empty")}</p>}
             <div ref={messagesEndRef} />
         </div>
+    )
+})
+
+const TopOfChannelDetails = observer(({newestMessageRef}) => {
+    const classes = useStyles();
+    const { messagingStore } = useStores();
+    const { t } = useTranslation('translation');
+
+    const getOldMessages = () => {
+        messagingStore.getOlderMessages().then((newMessagesLength) => {
+            if (newMessagesLength > 0) {
+                newestMessageRef.current.scrollIntoView({behavior: "smooth", block: "end"});
+            }
+        })
+    }
+
+    return (
+        <>
+            {!messagingStore.selectedChannel.olderMessagesLoading && !messagingStore.allMessagesLoaded && <ClickableText icon={<HistoryIcon />} onClick={getOldMessages} text={t('messaging.loadMore')} />}
+            {messagingStore.selectedChannel.olderMessagesLoading && <CircularProgress className={classes.loadingCircle} variant="indeterminate" />}
+        </>
     )
 })
 
@@ -182,11 +190,14 @@ const useStyles = makeStyles({
         textAlign: "center",
         color: Colors.textGray
     },
-    newLoadingPlaceholder:{
+    newLoadingPlaceholder: {
         width: "100%",
         height: "2px",
         margin: "2px 0",
         borderBottom: "dashed 1px lightgray"
+    },
+    loadingCircle: {
+        margin: "auto"
     }
 
 });

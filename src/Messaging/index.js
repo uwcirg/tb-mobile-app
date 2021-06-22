@@ -44,7 +44,7 @@ const useStyles = makeStyles({
 const Messaging = observer(() => {
 
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
     const { messagingStore, patientStore, uiStore } = useStores();
     const [search, setSearch] = useState("");
 
