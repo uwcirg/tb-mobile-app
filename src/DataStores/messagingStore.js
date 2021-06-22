@@ -22,7 +22,7 @@ export class MessagingStore extends APIStore {
                 channel.addEventListener('message', event => {
                     this.getUnreadMessages();
                     if (this.selectedChannel.id) {
-                        this.getSelectedChannel();
+                        this.getInitalMessages();
                     }
                 });
             }
@@ -136,7 +136,7 @@ export class MessagingStore extends APIStore {
         
     }
 
-    @action getSelectedChannel() {
+    @action getInitalMessages() {
 
         let url = `/v2/channel/${this.selectedChannel.id}/messages`
 
@@ -314,7 +314,7 @@ export class MessagingStore extends APIStore {
         this.selectedChannel.title = channel.title;
         this.selectedChannel.isCoordinatorChannel = channel.userType === "Patient"
         this.selectedChannel.firstMessageID = channel.firstMessageId
-        this.getSelectedChannel();
+        this.getInitalMessages();
     }
 
     @computed get olderMessagesLoading(){

@@ -138,7 +138,7 @@ const Channels = observer((props) => {
                     messagingStore.selectedChannel.id = channel.id
                     messagingStore.selectedChannel.title = channel.title
                     messagingStore.selectedChannel.firstMessageId = channel.firstMessageId;
-                    messagingStore.getSelectedChannel();
+                    messagingStore.getInitalMessages();
                     uiStore.goToSpecificChannel(channel.id);
                 }}
             />
