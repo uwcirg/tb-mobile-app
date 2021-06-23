@@ -44,7 +44,8 @@ export class MessagingStore extends APIStore {
         firstMessageID: 0,
         firstLoad: true,
         firstNewMessageId: 0,
-        allMessagesLoaded: false
+        allMessagesLoaded: false,
+        initalMessagesLoaded: false
     }
 
     @observable newMessage = "";
@@ -133,19 +134,21 @@ export class MessagingStore extends APIStore {
             })
         }
         return Promise.resolve(false);
-        
     }
 
-    @action getInitalMessages() {
+    getInitalMessages() {
 
-        let url = `/v2/channel/${this.selectedChannel.id}/messages`
-
-        this.selectedChannel.firstLoad = true;
-        this.executeRawRequest(url, "GET").then((response) => {
-            this.selectedChannel.messages = response;
-            this.getUnreadMessages();
-            this.updateSelectedChannel();
+        this.executeRawRequest(`/v2/channel/${this.selectedChannel.id}/messages`, "GET").then((response) => {
+            this.setInitalMessages(response);
         })
+    }
+
+    @action setInitalMessages = (messages) => {
+        this.selectedChannel.messages = messages;
+        this.selectedChannel.initalMessagesLoaded = true;
+        this.getUnreadMessages();
+        this.updateSelectedChannel();
+
     }
 
     @computed get categorizedUnread() {
@@ -301,7 +304,7 @@ export class MessagingStore extends APIStore {
         this.tabNumber = index;
     }
 
-    fetchChannel = (channelId) => {
+    getChannelDetails = (channelId) => {
         this.executeRawRequest(`/v2/channel/${channelId}`, "GET").then(response => {
             if (response.id) {
                 this.setActiveChannel(response)
@@ -328,5 +331,6 @@ export class MessagingStore extends APIStore {
     @action initalizeChannel = () =>{
         this.selectedChannel.allMessagesLoaded = false;
         this.selectedChannel.firstLoad = true;
+        this.selectedChannel.initalMessagesLoaded = false;
     }
 }

@@ -17,7 +17,7 @@ const Channel = observer((props) => {
 
     useEffect(() => {
         if (!messagingStore.selectedChannel.id) {
-            messagingStore.fetchChannel(uiStore.pathNumber);
+            messagingStore.getChannelDetails(uiStore.pathNumber);
         }
 
     }, [uiStore.pathNumber])
