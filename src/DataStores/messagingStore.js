@@ -137,15 +137,15 @@ export class MessagingStore extends APIStore {
     }
 
     getInitalMessages() {
-
+        console.log("get inital messsages was called")
         this.executeRawRequest(`/v2/channel/${this.selectedChannel.id}/messages`, "GET").then((response) => {
             this.setInitalMessages(response);
         })
     }
 
     @action setInitalMessages = (messages) => {
-        this.selectedChannel.messages = messages;
         this.selectedChannel.initalMessagesLoaded = true;
+        this.selectedChannel.messages = messages;
         this.getUnreadMessages();
         this.updateSelectedChannel();
 
@@ -326,6 +326,10 @@ export class MessagingStore extends APIStore {
 
     @computed get allMessagesLoaded(){
         return this.selectedChannel.allMessagesLoaded;
+    }
+
+    @computed get initalMessagesLoaded(){
+        return this.selectedChannel.initalMessagesLoaded;
     }
 
     @action initalizeChannel = () =>{

@@ -104,7 +104,9 @@ const MessageList = observer((props) => {
     return (
         <div className={classes.messageList} style={{ marginTop: props.isCoordinator ? 0 : "60px" }}>
             <TopOfChannelDetails newestMessageRef={newestMessageRef} />
-            {messages.length > 0 ? <>{messages}</> : <p className={classes.empty}>{t("messaging.empty")}</p>}
+            {!messagingStore.initalMessagesLoaded ? <p> Loading</p> : <>
+                {messages.length > 0 ? <>{messages}</> : <p className={classes.empty}>{t("messaging.empty")}</p>}
+            </>}
             <div ref={messagesEndRef} />
         </div>
     )
