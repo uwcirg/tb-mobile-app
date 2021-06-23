@@ -336,5 +336,6 @@ export class MessagingStore extends APIStore {
         this.selectedChannel.allMessagesLoaded = false;
         this.selectedChannel.firstLoad = true;
         this.selectedChannel.initalMessagesLoaded = false;
+        this.selectedChannel.olderMessagesLoading = false;
     }
 }

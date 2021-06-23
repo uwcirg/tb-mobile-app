@@ -120,7 +120,7 @@ const TopOfChannelDetails = observer(({newestMessageRef}) => {
     const getOldMessages = () => {
         messagingStore.getOlderMessages().then((newMessagesLength) => {
             if (newMessagesLength > 0) {
-                newestMessageRef.current.scrollIntoView({behavior: "smooth", block: "end"});
+                newestMessageRef.current.scrollIntoView();
             }
         })
     }
@@ -129,6 +129,7 @@ const TopOfChannelDetails = observer(({newestMessageRef}) => {
         <>
             {!messagingStore.selectedChannel.olderMessagesLoading && !messagingStore.allMessagesLoaded && <ClickableText icon={<HistoryIcon />} onClick={getOldMessages} text={t('messaging.loadMore')} />}
             {messagingStore.selectedChannel.olderMessagesLoading && <CircularProgress className={classes.loadingCircle} variant="indeterminate" />}
+            {messagingStore.allMessagesLoaded && <p key={`messages-begining`} className={classes.dateSeperator}>{t("messaging.begining")}</p>}
         </>
     )
 })
@@ -193,7 +194,8 @@ const useStyles = makeStyles({
         width: "100%",
         height: "2px",
         margin: "2px 0",
-        borderBottom: "dashed 1px lightgray"
+        borderBottom: "dashed 1px lightgray",
+        scrollMargin: "100px"
     },
     loadingCircle: {
         margin: "auto"

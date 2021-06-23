@@ -54,7 +54,8 @@ const Messaging = observer(() => {
     useEffect(() => {
         messagingStore.selectedChannel.id = uiStore.pathNumber;
         messagingStore.updateSelectedChannel();
-        messagingStore.getInitalMessages()
+        messagingStore.initalizeChannel();
+        messagingStore.getInitalMessages();
 
     }, [uiStore.pathNumber])
 
