@@ -10,6 +10,7 @@ import { DateTime } from 'luxon';
 import ClickableText from '../Basics/ClickableText';
 import HistoryIcon from '@material-ui/icons/History';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import LoadingChannel from './LoadingChannel'
 
 const Channel = observer((props) => {
     const classes = useStyles();
@@ -103,7 +104,7 @@ const MessageList = observer((props) => {
     return (
         <div className={classes.messageList} style={{ marginTop: props.isCoordinator ? 0 : "60px" }}>
             <TopOfChannelDetails newestMessageRef={newestMessageRef} />
-            {!messagingStore.initalMessagesLoaded ? <p> Loading</p> : <>
+            {!messagingStore.initalMessagesLoaded ? <LoadingChannel /> : <>
                 {messages.length > 0 ? <>{messages}</> : <p className={classes.empty}>{t("messaging.empty")}</p>}
             </>}
             <div ref={messagesEndRef} />
