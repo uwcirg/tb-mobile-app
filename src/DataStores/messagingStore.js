@@ -112,7 +112,6 @@ export class MessagingStore extends APIStore {
     @action getChannels() {
         this.executeRequest("getChannels").then((response) => {
             this.channels = response.sort( (a,b) => {
-                //console.log(DateTime.fromISO(a.lastMessageTime).diff(DateTime.fromISO(b.updatedAt),"hours").hours)
                 return DateTime.fromISO(b.lastMessageTime).diff(DateTime.fromISO(a.lastMessageTime),"hours").hours
             });
         })
@@ -321,6 +320,10 @@ export class MessagingStore extends APIStore {
         this.selectedChannel.title = channel.title;
         this.selectedChannel.isCoordinatorChannel = channel.userType === "Patient"
         this.selectedChannel.firstMessageID = channel.firstMessageId
+        
+        this.tabNumber = channel.isPrivate ? 0 : 1;
+
+
         this.getInitalMessages();
     }
 
