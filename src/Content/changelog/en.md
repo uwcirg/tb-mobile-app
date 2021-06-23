@@ -1,5 +1,7 @@
 ## v2.5
 
+Planning release for June 24th
+
 Assistant View:
 - Assistants can now archive patients
 	- A treatment outcome and end date can be selected during this process
@@ -29,6 +31,12 @@ Other Small Changes:
 - Improved loading UI for messages
 - Added button to copy temporary code for patient activation 
 
+## v2.4.2
+
+API Changes Only:
+
+- Fixed bug where clicking on assistant chat would take you to site group chat
+- Allow hiding messages in site group chat
 
 ## v2.4.1
 

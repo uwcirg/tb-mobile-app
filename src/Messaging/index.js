@@ -67,7 +67,7 @@ const Messaging = observer(() => {
     }
 
     const publicChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.slice().filter((channel) => {
-        return (!channel.isPrivate && channel.title.toLowerCase().includes(search.toLowerCase()))
+        return (!channel.isPrivate && !channel.isSiteChannel && channel.title.toLowerCase().includes(search.toLowerCase()))
     }) : [];
     const coordinatorChannel = (messagingStore.channels.length > 0) ? [messagingStore.channels.find((channel) => { return (channel.isPrivate) })] : [];
 
