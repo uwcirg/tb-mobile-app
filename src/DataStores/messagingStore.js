@@ -1,3 +1,4 @@
+import { DateTime } from "luxon";
 import { action, observable, computed, toJS } from "mobx";
 import uploadPhoto from '../Basics/PhotoUploader';
 import APIStore from './apiStore'
@@ -110,7 +111,10 @@ export class MessagingStore extends APIStore {
 
     @action getChannels() {
         this.executeRequest("getChannels").then((response) => {
-            this.channels = response;
+            this.channels = response.sort( (a,b) => {
+                //console.log(DateTime.fromISO(a.lastMessageTime).diff(DateTime.fromISO(b.updatedAt),"hours").hours)
+                return DateTime.fromISO(b.lastMessageTime).diff(DateTime.fromISO(a.lastMessageTime),"hours").hours
+            });
         })
     }
 
