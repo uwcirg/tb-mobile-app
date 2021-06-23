@@ -127,7 +127,7 @@ const TopOfChannelDetails = observer(({newestMessageRef}) => {
 
     return (
         <>
-            {!messagingStore.selectedChannel.olderMessagesLoading && !messagingStore.allMessagesLoaded && <ClickableText icon={<HistoryIcon />} onClick={getOldMessages} text={t('messaging.loadMore')} />}
+            {messagingStore.initalMessagesLoaded && !messagingStore.selectedChannel.olderMessagesLoading && !messagingStore.allMessagesLoaded && <ClickableText icon={<HistoryIcon />} onClick={getOldMessages} text={t('messaging.loadMore')} />}
             {messagingStore.selectedChannel.olderMessagesLoading && <CircularProgress className={classes.loadingCircle} variant="indeterminate" />}
             {messagingStore.allMessagesLoaded && <p key={`messages-begining`} className={classes.dateSeperator}>{t("messaging.begining")}</p>}
         </>

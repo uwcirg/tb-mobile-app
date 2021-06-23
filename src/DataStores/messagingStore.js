@@ -137,7 +137,6 @@ export class MessagingStore extends APIStore {
     }
 
     getInitalMessages() {
-        console.log("get inital messsages was called")
         this.executeRawRequest(`/v2/channel/${this.selectedChannel.id}/messages`, "GET").then((response) => {
             this.setInitalMessages(response);
         })
@@ -146,6 +145,7 @@ export class MessagingStore extends APIStore {
     @action setInitalMessages = (messages) => {
         this.selectedChannel.initalMessagesLoaded = true;
         this.selectedChannel.messages = messages;
+        this.selectedChannel.allMessagesLoaded = messages.length < 20
         this.getUnreadMessages();
         this.updateSelectedChannel();
 
