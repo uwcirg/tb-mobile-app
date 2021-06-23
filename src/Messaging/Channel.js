@@ -75,7 +75,6 @@ const MessageList = observer((props) => {
             }
             return (
                 <Fragment key={`message-fragment-${index}`} >
-                    {message.id === messagingStore.selectedChannel.firstMessageId && <p key={`messages-begining`} className={classes.dateSeperator}>{t("messaging.begining")}</p>}
                     {isNewDate && <h2 key={`date-${index}`} className={classes.dateSeperator}>{DateTime.fromISO(date).toLocaleString(DateTime.DATE_HUGE)}</h2>}
                     <Message
                         scrollToBottom={scrollToBottom}
