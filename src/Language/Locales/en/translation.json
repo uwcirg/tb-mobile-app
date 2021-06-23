@@ -34,8 +34,11 @@
     "userTypes": {
         "patient": "Patient",
         "provider": "Provider",
+        "practitioner": "Asistant",
         "coordinator": "Treatment Assistant",
-        "admin": "Administrator"
+        "admin": "Administrator",
+        "administrator": "Administrator",
+        "you": "You"
     },
     "login": {
         "changeLanguage": "Haga Clic Aquí Para Español",
@@ -51,6 +54,7 @@
         "activate": "Activate"
     },
     "messaging": {
+        "loadMore": "Load More Messages",
         "yourSite": "Clinic Announcements",
         "search": "Search",
         "moderation":{

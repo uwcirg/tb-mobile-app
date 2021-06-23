@@ -33,7 +33,7 @@ const MobileMessaging = observer(() => {
     useEffect(() => {
         messagingStore.selectedChannel.id = uiStore.pathNumber;
         messagingStore.updateSelectedChannel();
-        messagingStore.getSelectedChannel()
+        messagingStore.getInitalMessages()
 
     }, [uiStore.pathNumber])
 
