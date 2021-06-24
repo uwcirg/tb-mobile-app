@@ -28,7 +28,11 @@
         "hideThis": "Esconder Esto",
         "clickToLoadMore": "Haga clic para cargar más",
         "testStrips": "Test Strips",
+<<<<<<< HEAD
         "viewDetails": "View details",
+=======
+        "viewDetails": "Ver Detalles",
+>>>>>>> develop
         "hideDetails": "Esconder Detalles"
     },
     "userTypes": {
