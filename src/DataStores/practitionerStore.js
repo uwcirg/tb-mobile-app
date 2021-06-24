@@ -6,7 +6,8 @@ const ROUTES = {
     addPatient: ["/patients", "POST"],
     getCurrentPractitioner: ["/practitioner/me", "GET"],
     getOrganizations: ["/organizations", "GET"],
-    getPatients: ["/practitioner/patients", "GET"],
+    getPatients: ["/v2/patients", "GET"],
+    getArchivedPatients: ["/v2/patients?archived=true", "GET"],
     getTemporaryPatients: ["/practitioner/temporary_patients", "GET"],
     getPatientPhotos: ["/patients/photo_reports", "GET"],
     getProcessedPatientPhotos: ["/patients/photo_reports/processed", "GET"],
@@ -73,6 +74,8 @@ export class PractitionerStore extends UserStore {
     @observable organizationsList = [];
 
     @observable patients = {};
+    @observable archivedPatients = [];
+    @observable patientsLoaded = false;
     @observable temporaryPatients = [];
 
     //Currently viewed patient
@@ -166,7 +169,14 @@ export class PractitionerStore extends UserStore {
 
     @action getPatients = () => {
         this.executeRequest('getPatients').then(response => {
-            this.patients = response;
+            let patientHash = {}
+
+            response.forEach( patient => {
+                patientHash[patient.id] = patient
+            })
+
+            this.patients = patientHash;
+            this.patientsLoaded = true;
         })
         this.getTemporaryPatients();
     }
@@ -275,6 +285,8 @@ export class PractitionerStore extends UserStore {
         })
     }
 
+
+
     @computed get getSelectedPatient() {
 
         if (this.selectedRow.patientId < 0) {
@@ -370,7 +382,6 @@ export class PractitionerStore extends UserStore {
 
     @computed get numberOfCompletedTasks() {
         return this.resolutionSummary.dailyCount || 0;
-
     }
 
     @computed get totalReported() {
@@ -389,11 +400,8 @@ export class PractitionerStore extends UserStore {
                 }
             })
         })
-
         return issues;
-
     }
-
 
     // Test Stuff for new sorted dashboard - need to move to a different store for better organization 
     // Can flip value to 1 or -1 to sort
@@ -417,11 +425,9 @@ export class PractitionerStore extends UserStore {
             }
 
             return this.sortOptions.direction * (a[`${this.sortOptions.type}`] - b[`${this.sortOptions.type}`])
-
         }).filter((item) => {
             return this.filterOptions.query == "" || item.fullName.toLowerCase().includes(this.filterOptions.query.toLowerCase())
         })
-
     }
 
     @action setFilterQuery = (query) => {
@@ -439,5 +445,30 @@ export class PractitionerStore extends UserStore {
         this.sortOptions.direction === -1 ? this.sortOptions.direction = 1 : this.sortOptions.direction -= 1;
     }
 
+    @computed get cohortAverageAdherence(){
+        const patientList = Object.values(this.patients);
+        if(patientList.length === 0) return 0
+        return ((patientList.reduce( (previousValue, currentValue) => {
+            return previousValue + currentValue.adherence
+        }, 0) / patientList.length).toFixed(2))
+    }
+
+    @computed get cohortAveragePhotoAdherence(){
+        const patientList = Object.values(this.patients);
+        if(patientList.length === 0) return 0
+        return ((patientList.reduce( (previousValue, currentValue) => {
+            return previousValue + currentValue.photoAdherence
+        }, 0) / patientList.length).toFixed(2))
+    }
+
+    @action setArchivedPatients = (list) => {
+        this.archivedPatients = list;
+    }
+
+    getArchivedPatients = () => {
+        this.executeRequest("getArchivedPatients").then(response => {
+            this.setArchivedPatients(response)
+        })
+    }
 
 }

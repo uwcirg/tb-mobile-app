@@ -10,8 +10,89 @@ import ButtonBase from '@material-ui/core/Button';
 import Down from '@material-ui/icons/KeyboardArrowDown'
 import Up from '@material-ui/icons/KeyboardArrowUp'
 import { useTranslation } from 'react-i18next';
-import { observer } from 'mobx-react'
-import useStores from '../Basics/UseStores'
+
+const Message = (props) => {
+
+    const [imageLoaded, setImageLoaded] = useState(false)
+    const classes = useStyles({ isUser: props.isUser, imageLoaded: imageLoaded });
+    const { t } = useTranslation('translation');
+
+    const processTime = (time) => {
+        return (DateTime.fromISO(time).toLocaleString(DateTime.TIME_24_SIMPLE))
+    }
+
+    const toggleVisibility = () => {
+        if (props.message.isHidden) {
+            props.unhide()
+        } else {
+            props.hide()
+        }
+    }
+
+    return (<div className={classes.messageContainer}>
+        <div key={props.message.id} className={`${classes.message} ${props.isUser ? classes.myMessage : classes.otherMessage}`}>
+            {props.message.photoUrl && <>
+                <img onLoad={() => { setImageLoaded(true) }} className={classes.messageImage} src={props.message.photoUrl} />
+                <br />
+            </>}
+            {props.message.body}
+            <br />
+            <span className={classes.time}>
+                {<SenderInfo {...props.message} />}
+                {processTime(props.message.createdAt)}
+            </span>
+            {(props.isCoordinator && !props.isPrivate) && <ToolTip title={props.message.isHidden ? t('messaging.moderation.unhide') : t('messaging.moderation.hide')}>
+                <IconButton onClick={toggleVisibility} className={`expand ${classes.moreButton}`}>
+                    {props.message.isHidden ? <Visibility className={classes.hide} /> : <VisibilityOffIcon className={classes.hide} />}
+                </IconButton>
+            </ToolTip>}
+        </div>
+    </div>)
+}
+
+const SenderInfo = ({authorName,userType = "",isCurrentUsersMessage}) => {
+    const { t } = useTranslation('translation');
+    let displayName = authorName ? authorName : t(`userTypes.${userType.toLowerCase()}`)
+    if(isCurrentUsersMessage){
+        displayName = t('userTypes.you')
+    }
+
+    return (<>{displayName} - </>)
+}
+
+const WrappedMessage = (props) => {
+
+    const [showHidden, setShowHidden] = useState(false);
+    const classes = useStyles();
+    const { t } = useTranslation('translation');
+
+    useEffect(() => {
+        if (props.isLast) {
+            props.scrollToBottom();
+        }
+    }, [])
+
+    if (!props.message.isHidden) {
+        return <Message {...props} />
+    }
+
+    return (
+        <>
+            {props.isCoordinator &&
+                <>
+                    <div className={classes.hidden}>
+                        <span>{t('messaging.moderation.isHidden')}</span>
+                        <ButtonBase className={classes.expand} onClick={() => { setShowHidden(!showHidden) }}>
+                            {showHidden ? t('messaging.moderation.hideUI') : t('messaging.moderation.view')}
+                            {showHidden ? <Up /> : <Down />}
+                        </ButtonBase>
+                    </div>
+                    {showHidden && <Message {...props} />}
+                </>}
+        </>
+    )
+}
+
 
 const useStyles = makeStyles({
 
@@ -120,97 +201,5 @@ const useStyles = makeStyles({
     }
 
 })
-
-const Message = (props) => {
-
-    const [imageLoaded, setImageLoaded] = useState(false)
-    const classes = useStyles({ isUser: props.isUser, imageLoaded: imageLoaded });
-    const { t} = useTranslation('translation');
-
-    const processTime = (time) => {
-        return (DateTime.fromISO(time).toLocaleString(DateTime.TIME_24_SIMPLE))
-    }
-
-    const toggleVisibility = () => {
-        if (props.message.isHidden) {
-            props.unhide()
-        } else {
-            props.hide()
-        }
-    }
-
-    return (<div className={classes.messageContainer}>
-        <div key={props.message.id} className={`${classes.message} ${props.isUser ? classes.myMessage : classes.otherMessage}`}>
-            {props.message.photoUrl && <>
-                <img onLoad={() => { setImageLoaded(true) }} className={classes.messageImage} src={props.message.photoUrl} />
-                <br />
-            </>}
-            {props.message.body}
-            <br />
-            <span className={classes.time}>
-                {!props.isPrivate && <SenderInfo type={props.message.userType} id={props.message.userId} />}
-                {processTime(props.message.createdAt)}
-            </span>
-            {(props.isCoordinator && !props.isPrivate) && <ToolTip title={props.message.isHidden ? t('messaging.moderation.unhide') : t('messaging.moderation.hide')}>
-                <IconButton onClick={toggleVisibility} className={`expand ${classes.moreButton}`}>
-                    {props.message.isHidden ? <Visibility className={classes.hide} /> : <VisibilityOffIcon className={classes.hide} />}
-                </IconButton>
-            </ToolTip>}
-        </div>
-    </div>)
-
-}
-
-const SenderInfo = (props) => {
-    const { t, i18n } = useTranslation('translation');
-    return (
-        <>{props.type === "Practitioner" ? t('userTypes.coordinator') : <PatientName id={props.id} />} - </>
-    )
-}
-
-const PatientName = observer((props) => {
-    const { practitionerStore } = useStores();
-    const patient = practitionerStore.getPatient(props.id);
-    const { t, i18n } = useTranslation('translation');
-
-    return (
-        <>{patient ? patient.fullName : t('userTypes.patient')}</>
-    )
-})
-
-const WrappedMessage = (props) => {
-
-    const [showHidden, setShowHidden] = useState(false);
-    const classes = useStyles();
-    const { t } = useTranslation('translation');
-
-    useEffect(() => {
-        if (props.isLast) {
-            props.scrollToBottom();
-        }
-    }, [])
-
-    if (!props.message.isHidden) {
-        return <Message {...props} />
-    }
-
-    return (
-        <>
-            {props.isCoordinator &&
-                <>
-                    <div className={classes.hidden}>
-                        <span>{t('messaging.moderation.isHidden')}</span>
-                        <ButtonBase className={classes.expand} onClick={() => { setShowHidden(!showHidden) }}>
-                            {showHidden ? t('messaging.moderation.hideUI') : t('messaging.moderation.view')}
-                            {showHidden ? <Up /> : <Down />}
-                        </ButtonBase>
-                    </div>
-                    {showHidden && <Message {...props} />}
-                </>}
-
-
-        </>
-    )
-}
 
 export default WrappedMessage;

@@ -7,7 +7,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import OverTopBar from '../Patient/Navigation/OverTopBar';
-import SearchBar from '../Basics/SearchBar';
 import Div100vh from 'react-div-100vh'
 import PreventOffline from '../Basics/PreventOffline';
 
@@ -44,13 +43,19 @@ const useStyles = makeStyles({
 const Messaging = observer(() => {
 
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
     const { messagingStore, patientStore, uiStore } = useStores();
     const [search, setSearch] = useState("");
 
+    //Check for any unread messages
     useEffect(() => {
         messagingStore.getUnreadMessages();
     }, [])
+
+    //Clear data about loaded messages when a new channel is loaded
+    useEffect(() => {
+        messagingStore.initalizeChannel();
+    }, [messagingStore.selectedChannel.id])
 
     const handleBackFromChannel = () => {
         uiStore.goToMessaging();
@@ -62,7 +67,7 @@ const Messaging = observer(() => {
     }
 
     const publicChannels = (messagingStore.channels.length > 0) ? messagingStore.channels.slice().filter((channel) => {
-        return (!channel.isPrivate && channel.title.toLowerCase().includes(search.toLowerCase()))
+        return (!channel.isPrivate && !channel.isSiteChannel && channel.title.toLowerCase().includes(search.toLowerCase()))
     }) : [];
     const coordinatorChannel = (messagingStore.channels.length > 0) ? [messagingStore.channels.find((channel) => { return (channel.isPrivate) })] : [];
 
@@ -132,7 +137,8 @@ const Channels = observer((props) => {
                     messagingStore.selectedChannel.creator = channel.userId
                     messagingStore.selectedChannel.id = channel.id
                     messagingStore.selectedChannel.title = channel.title
-                    messagingStore.getSelectedChannel();
+                    messagingStore.selectedChannel.firstMessageId = channel.firstMessageId;
+                    messagingStore.getInitalMessages();
                     uiStore.goToSpecificChannel(channel.id);
                 }}
             />

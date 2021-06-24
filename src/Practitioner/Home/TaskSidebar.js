@@ -2,9 +2,6 @@ import React, { useEffect } from 'react'
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
-import BasicSidebar from '../Shared/BasicSidebar'
-import Styles from '../../Basics/Styles';
-import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import TimeIcon from '@material-ui/icons/AccessTime';
 import Check from '@material-ui/icons/Check';
@@ -12,11 +9,11 @@ import Clear from '@material-ui/icons/Clear';
 import Colors from '../../Basics/Colors';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import SubmittedVisual from './SubmittedVisual';
+import SectionTitle from '../../Components/Practitioner/SectionTitle';
 
 const BorderLinearProgress = withStyles((theme) => ({
     root: {
         margin: "auto",
-        marginTop: "2em",
         height: 13,
         borderRadius: 9,
     },
@@ -37,16 +34,18 @@ const useStyles = makeStyles({
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        padding: "1em",
-        boxSizing: 'border-box'
+        padding: "2em",
+        boxSizing: 'border-box',
+        borderLeft: `solid 1px ${Colors.lightgray}`
     },
     patientListContainer: {
-        marginTop: "auto",
-        marginBottom: ".5em"
+        flex: "1 1 0",
+        display: "flex",
+        flexDirection: "column"
 
     },
     patientList: {
-        height: "300px",
+        flex: "1 1 0",
         overflow: "scroll"
     },
     patientCard: {
@@ -123,9 +122,9 @@ const useStyles = makeStyles({
         }
     },
     progress: {
-        ...Styles.profileCard,
         padding: "1em",
-        marginTop: "1em"
+        width: "70%",
+        margin: "1em auto",
     }
 })
 
@@ -133,7 +132,7 @@ const PatientList = observer(() => {
 
     const classes = useStyles();
     const { practitionerStore, practitionerUIStore } = useStores();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
     useEffect(() => {
         practitionerStore.getCompletedResolutionsSummary();
@@ -145,7 +144,8 @@ const PatientList = observer(() => {
     })
 
     return (<div className={classes.patientListContainer}>
-        <Typography className={classes.header} variant="h2">{t('coordinator.titles.reportingStatus')}</Typography>
+        <SectionTitle>{t('coordinator.titles.reportingStatus')}</SectionTitle>
+        <SubmittedVisual />
         <div className={`${classes.patientCard} ${classes.labels}`}>
             <p className={classes.names}>{t('coordinator.patientTableLabels.name')}</p>
             <p>{t('report.medicationTaken')}</p>
@@ -153,15 +153,14 @@ const PatientList = observer(() => {
             <p>{t('commonWords.symptoms')}</p>
         </div>
         <div className={classes.patientList}>
-            {practitionerStore.patientList && practitionerStore.patientList.map(patient => {
+            {patientList && patientList.map(patient => {
                 return (
                     <div key={patient.id} className={classes.patientCard} onClick={() => { practitionerUIStore.goToPatient(patient.id) }}>
                         <p>{patient.givenName} {patient.familyName[0]}.</p>
-                        {patient.reportingStatus.today.reported ? <Report data={patient.reportingStatus.today} /> : <Pending />}
+                        {patient.reportingStatus && patient.reportingStatus.today.reported ? <Report data={patient.reportingStatus.today} /> : <Pending />}
 
                     </div>
                 )
-
             })}
         </div>
 
@@ -179,11 +178,10 @@ const Report = (props) => {
             <p>{report.numberSymptoms}</p>
         </>
     )
-
 }
 
 const Pending = () => {
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
     const classes = useStyles();
     return (
         <div className={classes.notSubmitted}>
@@ -196,7 +194,7 @@ const Pending = () => {
 const Summary = observer(() => {
     const classes = useStyles();
     const { practitionerStore } = useStores();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
     return (
         <div className={classes.progress}>
             <BorderLinearProgress variant="determinate" value={(practitionerStore.numberOfCompletedTasks / (practitionerStore.numberOfCompletedTasks + practitionerStore.totalTasks)) * 100} />
@@ -205,23 +203,21 @@ const Summary = observer(() => {
                     <span>{practitionerStore.numberOfCompletedTasks}</span>
                     <p>{t('coordinator.tasksSidebar.complete')}</p>
                 </div>
-
                 <div>
                     <span className={'unfinished'}>{practitionerStore.totalTasks}</span>
                     <p>{t('coordinator.tasksSidebar.unfinished')}</p>
                 </div>
             </div>
-            <SubmittedVisual />
         </div>
     )
 });
 
 const TaskBar = () => {
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
     return (
         <div className={classes.container}>
-            <Typography className={classes.header} variant="h2">{t('coordinator.tasksSidebar.overview')}</Typography>
+            <SectionTitle>{t('coordinator.tasksSidebar.overview')}</SectionTitle>
             <Summary />
             <PatientList />
         </div>

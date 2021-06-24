@@ -11,6 +11,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Colors from '../../Basics/Colors';
 import { SevereSymptoms } from '../../Basics/SymptomsSeperation';
 import { ReactComponent as DoctorIcon } from '../../Basics/Icons/doctor.svg';
+import SectionLabel from '../../Components/SectionLabel';
 
 const BorderLinearProgress = withStyles((theme) => ({
     root: {
@@ -28,10 +29,9 @@ const BorderLinearProgress = withStyles((theme) => ({
 
 const useStyles = makeStyles({
     container: {
-        padding: "1em 1.5em 1.5em 1.5em",
-        flexBasis: "33%",
+        padding: "1em",
         flexGrow: 1,
-        backgroundColor: "white",
+        maxWidth: "280px"
     },
     menuItem: {
         textTransform: "capitalize"
@@ -121,7 +121,7 @@ const SymptomSummary = observer(() => {
     return (
         <div className={classes.container}>
             <div className={classes.top}>
-                <Typography variant={"h2"}>{t('coordinator.patientProfile.symptomSummary.title')}</Typography>
+                <SectionLabel>{t('commonWords.symptoms')}</SectionLabel>
                 <Select
                     className={classes.select}
                     variant="outlined"
@@ -137,7 +137,7 @@ const SymptomSummary = observer(() => {
                 </Select>
             </div>
 
-                {total > 0 ? <div className={classes.totalContainer}><div className={classes.barContainer}> {list.map(each => {
+                {total > 0 ? <div className={classes.totalContainer}><div className={classes.barContainer}> {list.sort( (a,b) =>{return symptomSummary[selection][b] - symptomSummary[selection][a]}).map(each => {
                     const value = symptomSummary[selection][each]
                     return (symptomSummary[selection][each] > 0 ? <>
                         <div className={classes.barLabel}><p>{t(`symptoms.${each}.title`)}</p> <p>{value}</p></div>

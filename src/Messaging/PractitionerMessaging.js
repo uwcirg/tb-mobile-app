@@ -35,7 +35,6 @@ const useStyles = makeStyles({
     },
     navContainer:{
         width: "320px",
-        borderLeft: "solid 1px lightgray",
         borderRight: "solid 1px lightgray",
 
     }
@@ -55,7 +54,8 @@ const Messaging = observer(() => {
     useEffect(() => {
         messagingStore.selectedChannel.id = uiStore.pathNumber;
         messagingStore.updateSelectedChannel();
-        messagingStore.getSelectedChannel()
+        messagingStore.initalizeChannel();
+        messagingStore.getInitalMessages();
 
     }, [uiStore.pathNumber])
 

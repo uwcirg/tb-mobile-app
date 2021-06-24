@@ -13,7 +13,6 @@ const divider = .9;
 const useStyles = makeStyles({
 
     superContainer: {
-        backgroundColor: "white",
         width: "90%",
         padding: "4em 1em 4em 1em"
     },

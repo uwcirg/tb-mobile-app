@@ -14,6 +14,8 @@ import TaskSideBar from './TaskSidebar'
 import SupportSidebar from './SupportSidebar';
 import useResize from '../../Hooks/Resize'
 import MissedPhotoSideBar from './MissedPhotoSideBar'
+import CohortSummary from './CohortSummary'
+import SectionTitle from '../../Components/Practitioner/SectionTitle';
 
 const useStyles = makeStyles({
     left: {
@@ -21,17 +23,10 @@ const useStyles = makeStyles({
         overflow: "scroll",
         flexGrow: "1",
         "& > h1": {
-            fontSize: "2em",
-            fontStyle: "normal",
-            fontWeight: "medium",
-            textAlign: "left",
-            width: "90%"
+            alignSelf: "flex-start",
+            marginTop: "2em"
+
         },
-        "& > div": {
-            marginTop: "1.5em",
-            "&:last-of-type": { marginBottom: "2em" }
-        },
-        alignItems: "center",
         display: "flex",
         flexDirection: "column",
         overflowX: "hidden",
@@ -52,8 +47,15 @@ const useStyles = makeStyles({
     cardContainer: {
         width: "100%"
     },
-    mobile:{
+    mobile: {
         padding: "0 1em 0 1em"
+    },
+    tasks:{
+        padding: "2em",
+        "& > div": {
+            marginTop: "1.5em",
+            "&:last-of-type": { marginBottom: "2em" }
+        },
     }
 
 })
@@ -78,12 +80,14 @@ const Home = observer(() => {
 
     const classes = useStyles();
 
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
-    return (
+    return (<>
         <div className={classes.container}>
             <div className={classes.left}>
-                <h1>{t("coordinator.titles.myTasks")}</h1>
+                <CohortSummary />
+                <div className={classes.tasks}>
+                <SectionTitle>{t("coordinator.titles.myTasks")}</SectionTitle>
                 {isMobile && <p className={classes.mobile}>{t("coordinator.mobileWarning")}</p>}
                 <Card
                     key={'missed-photo'}
@@ -121,9 +125,11 @@ const Home = observer(() => {
                     patientList={practitionerStore.filteredPatients.missed}
                     type="missed"
                 />
+                </div>
             </div>
             {!isMobile && <SideBarRouter />}
-        </div>)
+        </div>
+    </>)
 
 });
 
@@ -141,7 +147,7 @@ const SideBarRouter = observer((props) => {
         component = <MedicationSideBar />
     } else if (practitionerStore.selectedRow.type === "support") {
         component = <SupportSidebar />
-    } else if (practitionerStore.selectedRow.type === "missedPhoto"){
+    } else if (practitionerStore.selectedRow.type === "missedPhoto") {
         component = <MissedPhotoSideBar />
     }
 
