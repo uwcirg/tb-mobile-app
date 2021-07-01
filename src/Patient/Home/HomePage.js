@@ -28,15 +28,14 @@ const HomePage = () => {
     const classes = useStyles();
     return (
         <div className={classes.body}>
+             {/* Some of these components are conditionally rendered within thier implementaion */}
             <PushNotificationEnrollment />
             <Greeting />
             <ActionBox />
-            {/* these components are conditionally rendered within thier implementaion */}
             <MissedReports />
             <VideoCard />
             <CachedReports />
             <Alerts />
-            {/* end */}
             <Progress />
             <MedicationReminder />
             <Reminders />

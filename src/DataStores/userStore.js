@@ -4,7 +4,6 @@ import APIStore from './apiStore'
 const USER_ROUTES = {
   logout: ["/auth", "DELETE"],
   getVapidKey: ["/push_key", "GET"],
-  //TODO change this path to /user/me/push_subscription
   updateSubscription: ["/update_user_subscription", "PATCH"],
   getLocales: ["/config/locales", "GET"]
 }
@@ -101,7 +100,7 @@ export class UserStore extends APIStore {
     navigator.serviceWorker.ready.then(registration => {
 
       if (!registration.pushManager) {
-        //alert("Push Unsupported")
+        // Push notifications are not supported
         return
       }
       this.getVapidKeyFromServerAndStoreLocally().then(() => {
@@ -128,7 +127,6 @@ export class UserStore extends APIStore {
         auth: subscription.keys.auth,
         p256dh: subscription.keys.p256dh
       }
-
 
       return this.executeRequest("updateSubscription", body)
     }
