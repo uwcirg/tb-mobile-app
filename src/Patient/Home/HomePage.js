@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import Progress from './Progress';
 import ActionBox from './ActionBox';
 import Alerts from './Alerts';
@@ -10,11 +9,26 @@ import MedicationReminder from './MedicationReminder'
 import CachedReports from './CachedReports'
 import VideoCard from './Videos'
 import MissedReports from './MissedDays'
+import PushNotificationEnrollment from './PushEnrollmentReminder'
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+  body:{
+    width: '100%',
+    minHeight: '90vh',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: Colors.backgroundGray
+  }
+})
 
 const HomePage = () => {
-
+    const classes = useStyles();
     return (
-        <Body>
+        <div className={classes.body}>
+            <PushNotificationEnrollment />
             <Greeting />
             <ActionBox />
             {/* these components are conditionally rendered within thier implementaion */}
@@ -26,24 +40,10 @@ const HomePage = () => {
             <Progress />
             <MedicationReminder />
             <Reminders />
-        </Body>
+        </div>
     )
 
 };
-
-
-const Body = styled.div`
-
-padding-top: 1em;
-width: 100%;
-min-height: 90vh;
-display: flex;
-flex-direction: column;
-justify-content: flex-start;
-align-items: center;
-background-color: ${Colors.backgroundGray}
-
-`
 
 export default HomePage;
 

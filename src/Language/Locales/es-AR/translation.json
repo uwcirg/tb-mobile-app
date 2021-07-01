@@ -835,7 +835,7 @@
 },
 
 "summaries":{
-    "averageAdherence": "Adherencia Media",
+    "averageAdherence": "Adherencia Promedia",
     "averagePhotoAdherence": "Adherencia Media de Fotos",
     "siteSummary": "Resumen de Pacientes Activos",
     "loading": "Cargando lista de pacientes"
