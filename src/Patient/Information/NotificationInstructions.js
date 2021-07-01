@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import useStores from '../../Basics/UseStores';
-import { observer } from 'mobx-react'
+import Typography from '@material-ui/core/Typography'
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
     container: {
@@ -10,38 +10,38 @@ const useStyles = makeStyles({
     list: {
         padding: 0,
         margin: 0,
-        "& > li > img": {
-            width: "95%",
-            margin: "auto",
+        "& > li":{
             marginTop: "1em"
+        },
+        "& > li > img": {
+            width: "100%",
+            margin: "auto",
+            marginTop: "1em",
+            borderRadius: "5px"
         }
     }
 })
 
 const NotificationInstructions = () => {
 
+    const { t } = useTranslation('translation');
     const classes = useStyles();
 
     return (<div className={classes.container}>
         <ol className={classes.list}>
-            <li>
-                Go To settings
-                <img src="img/es-Ar/notification-instructions/1.jpg" />
-            </li>
-            <li>
-                Go To settings
-                <img src="img/es-Ar/notification-instructions/2.jpg" />
-            </li>
-            <li>
-                Go To settings
-                <img src="img/es-Ar/notification-instructions/3.jpg" />
-            </li>
-            <li>
-                Go To settings
-                <img src="img/es-Ar/notification-instructions/4.jpg" />
-            </li>
+            <Item number={1} text={t('notificationInstructions.steps.goToSettings')} />
+            <Item number={2} text={t('notificationInstructions.steps.goToSettings')} />
+            <Item number={3} text={t('notificationInstructions.steps.goToSettings')} />
+            <Item number={4} text={t('notificationInstructions.steps.goToSettings')} />
         </ol>
 
     </div>)
+}
+
+const Item = ({ number, text }) => {
+    return (<li>
+        <Typography variant="body1">{text}</Typography>
+        <img src={`/img/es-Ar/notification-instructions/${number}.jpg`} />
+    </li>)
 }
 export default NotificationInstructions;

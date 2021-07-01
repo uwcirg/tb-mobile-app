@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
-import Button from '@material-ui/core/Button'
-import Colors from '../../Basics/Colors';
+import Colors from '../../Basics/Colors'
 import WarningIcon from '@material-ui/icons/WarningRounded'
-import ProfileButton from '../../Practitioner/PatientProfile/ProfileButton';
+import ProfileButton from '../../Practitioner/PatientProfile/ProfileButton'
+import RightIcon from '@material-ui/icons/KeyboardArrowRight'
+import useStores from '../../Basics/UseStores'
 
 const useStyles = makeStyles({
     warningContainer: {
@@ -13,7 +14,7 @@ const useStyles = makeStyles({
         padding: "1.5em 2em",
         boxSizing: "border-box",
         width: "100%",
-        boxShadow: "inset 0px -27px 24px -27px rgba(0,0,0,0.5)",
+        // boxShadow: "inset 0px -27px 24px -27px rgba(0,0,0,0.5)",
         "& > *": {
             // marginBottom: ".5em"
         },
@@ -28,7 +29,12 @@ const useStyles = makeStyles({
     },
     button: {
         alignSelf: "flex-end",
-        textTransform: "capitalize"
+        textTransform: "capitalize",
+        alignItems: "center",
+        "& > span > svg":{
+            paddingRight: 0,
+            fontSize: "1.5em"
+        }
     },
     title: {
         display: "flex",
@@ -59,6 +65,7 @@ Notification State:
 
 const PushEnrollmentReminder = () => {
 
+    const {uiStore} = useStores();
     //Default to true so that its not flickering for happy path
     const [enabled, setEnabled] = useState(true);
     const [notificationState, setNotificationState] = useState(false);
@@ -97,17 +104,20 @@ const PushEnrollmentReminder = () => {
 
     }
 
+    const goToInstructions = () => {
+        uiStore.push("/information?pushSettingInstructions")
+    }
+
     return (<>
         {!enabled && <Grid direction="column" className={classes.warningContainer} container spacing={1}>
             <Typography className={classes.title} variant="h2">Notifications are off <WarningIcon /></Typography>
-            <Typography variant="body1">Push notifications are turned off. <br /> You will not recieve:</Typography>
+            <Typography variant="body1">Push notifications have been turned off. You will not recieve:</Typography>
             <ul>
                 <li>  <Typography variant="body1">Medication Reminders</Typography></li>
                 <li>  <Typography variant="body1">Appointment Reminders</Typography></li>
                 <li>  <Typography variant="body1">New Message Alerts</Typography></li>
             </ul>
-            <ProfileButton className={classes.button} onClick={enableFlow}>Click here to Enable</ProfileButton>
-            {/* <Button className={classes.button} onClick={enableFlow}>Click here to Enable</Button> */}
+            <ProfileButton className={classes.button} onClick={goToInstructions}>View Instructions <RightIcon /></ProfileButton>
         </Grid>}
     </>)
 

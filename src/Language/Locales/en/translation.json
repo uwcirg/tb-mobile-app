@@ -873,6 +873,12 @@
         "surveyButton": "Tell us about your experience",
         "statusChange": "Your study status has changed and you can no longer report. Please contact your assistant for more details."
     }
+},
+
+"notificationInstructions":{
+    "steps": {
+        "goToSettings": "Go to the settings application on your phone"
+    }
 }
 
 
