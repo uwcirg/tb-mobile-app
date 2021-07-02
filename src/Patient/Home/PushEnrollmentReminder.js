@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
@@ -7,7 +7,8 @@ import WarningIcon from '@material-ui/icons/WarningRounded'
 import ProfileButton from '../../Practitioner/PatientProfile/ProfileButton'
 import RightIcon from '@material-ui/icons/KeyboardArrowRight'
 import useStores from '../../Basics/UseStores'
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
+import usePushEnabled from '../../Hooks/PushEnabled'
 
 const useStyles = makeStyles({
     warningContainer: {
@@ -49,54 +50,21 @@ const useStyles = makeStyles({
     }
 })
 
+
 const PushEnrollmentReminder = () => {
 
     const {uiStore} = useStores();
     //Default to true so that its not flickering for happy path
-    const [enabled, setEnabled] = useState(true);
-    const [notificationState, setNotificationState] = useState(false);
     const { t } = useTranslation('translation');
-
-    useEffect(() => {
-        setEnabled(checkPushEnabled());
-    }, [])
-
     const classes = useStyles();
-
-    const enableFlow = () => {
-        Notification.requestPermission(function (permission) {
-            if (permission === "granted") {
-                setEnabled(true);
-            }
-        });
-    }
-
-    const checkPushEnabled = () => {
-        if (!("Notification" in window)) {
-            console.log("This browser does not support desktop notification");
-        }
-
-        else if (Notification.permission === "granted") {
-            return true
-        }
-
-        // Otherwise, we need to ask the user for permission
-        else if (Notification.permission !== 'denied') {
-            setBlocked(true);
-        }
-
-        else if (Notification.permission === "default") {
-            return false;
-        }
-
-    }
+    const pushEnabledState = usePushEnabled();
 
     const goToInstructions = () => {
         uiStore.push("/information?onPushEnrollmentInstructions=true")
     }
 
     return (<>
-        {!enabled && <Grid direction="column" className={classes.warningContainer} container spacing={1}>
+        {pushEnabledState === "denied" && <Grid direction="column" className={classes.warningContainer} container spacing={1}>
             <Typography className={classes.title} variant="h2">{t('notificationInstructions.warning.title')}<WarningIcon /></Typography>
             <Typography variant="body1">{t('notificationInstructions.warning.subtitle')}</Typography>
             <ul>
