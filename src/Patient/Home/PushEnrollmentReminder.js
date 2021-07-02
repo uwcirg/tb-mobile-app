@@ -7,6 +7,7 @@ import WarningIcon from '@material-ui/icons/WarningRounded'
 import ProfileButton from '../../Practitioner/PatientProfile/ProfileButton'
 import RightIcon from '@material-ui/icons/KeyboardArrowRight'
 import useStores from '../../Basics/UseStores'
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
     warningContainer: {
@@ -48,27 +49,13 @@ const useStyles = makeStyles({
     }
 })
 
-/*
-
-Plan: Parse Notificaiton Status,
-display message that depends on that
-state
-
-
-Notification State:
-- Unsupported (ie iOS)
-- Blocked
-- Enabled
-- Pending 
-
-*/
-
 const PushEnrollmentReminder = () => {
 
     const {uiStore} = useStores();
     //Default to true so that its not flickering for happy path
     const [enabled, setEnabled] = useState(true);
     const [notificationState, setNotificationState] = useState(false);
+    const { t } = useTranslation('translation');
 
     useEffect(() => {
         setEnabled(checkPushEnabled());
@@ -105,19 +92,19 @@ const PushEnrollmentReminder = () => {
     }
 
     const goToInstructions = () => {
-        uiStore.push("/information?pushSettingInstructions")
+        uiStore.push("/information?onPushEnrollmentInstructions=true")
     }
 
     return (<>
         {!enabled && <Grid direction="column" className={classes.warningContainer} container spacing={1}>
-            <Typography className={classes.title} variant="h2">Notifications are off <WarningIcon /></Typography>
-            <Typography variant="body1">Push notifications have been turned off. You will not recieve:</Typography>
+            <Typography className={classes.title} variant="h2">{t('notificationInstructions.warning.title')}<WarningIcon /></Typography>
+            <Typography variant="body1">{t('notificationInstructions.warning.subtitle')}</Typography>
             <ul>
-                <li>  <Typography variant="body1">Medication Reminders</Typography></li>
-                <li>  <Typography variant="body1">Appointment Reminders</Typography></li>
-                <li>  <Typography variant="body1">New Message Alerts</Typography></li>
+                <li>  <Typography variant="body1">{t('notificationInstructions.warning.medicationReminders')}</Typography></li>
+                <li>  <Typography variant="body1">{t('notificationInstructions.warning.aptReminders')}</Typography></li>
+                <li>  <Typography variant="body1">{t('notificationInstructions.warning.msgAlerts')}</Typography></li>
             </ul>
-            <ProfileButton className={classes.button} onClick={goToInstructions}>View Instructions <RightIcon /></ProfileButton>
+            <ProfileButton className={classes.button} onClick={goToInstructions}>{t('notificationInstructions.warning.button')}<RightIcon /></ProfileButton>
         </Grid>}
     </>)
 

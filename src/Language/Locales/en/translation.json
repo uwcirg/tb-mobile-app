@@ -877,7 +877,19 @@
 
 "notificationInstructions":{
     "steps": {
-        "goToSettings": "Go to the settings application on your phone"
+        "goToSettings": "Go to the settings application on your phone",
+        "clickNotifications": "Click on notification settings",
+        "clickApp": "Click on Asistente",
+        "allowNotifications": "Enable notifications"
+    },
+    "warning":{
+        "title": "Notifications are off",
+        "subtitle": "Push notifications have been turned off. You will not recieve:",
+        "medicationReminders": "Medication Reminders",
+        "aptReminders": "Appointment Reminders",
+        "msgAlerts": "New Message Alerts",
+        "button": "View Instructions"
+
     }
 }
 

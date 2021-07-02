@@ -2,7 +2,6 @@ import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import raw from "raw.macro";
 import MarkdownRender from './Panel'
-import Interactioncard from '../../Basics/HomePageCard'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next';
 import Colors from '../../Basics/Colors'
@@ -56,9 +55,11 @@ const Info = observer(() => {
     const classes = useStyles();
     const { patientUIStore } = useStores();
 
+    
+
     return (
         <div className={classes.container}>
-            <Section highlight={Colors.yellow} expanded title={<><HelpIcon />How to enable notifications</>}>
+            <Section highlight={Colors.highlightYellow} expanded={patientUIStore.onPushEnrollmentInstructions} title={<><HelpIcon />How to enable notifications</>}>
                 <NotificationInstructions />
             </Section>
             <Section title={<><LiveHelpIcon />{t('patient.information.helpSection')}</>}>
