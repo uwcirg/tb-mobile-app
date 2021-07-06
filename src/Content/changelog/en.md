@@ -1,6 +1,12 @@
-## v2.5
+## v2.6 (WIP)
 
-Planning release for June 24th
+Patient Side:
+- Add instructions about how to enable push notifications at the system level
+- Detect if they are not enabled and present warning with link to instructions
+
+
+## v2.5
+Released June 24th, 2021
 
 Assistant View:
 - Assistants can now archive patients
