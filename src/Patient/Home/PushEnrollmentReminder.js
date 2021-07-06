@@ -16,15 +16,6 @@ const useStyles = makeStyles({
         padding: "1.5em 2em",
         boxSizing: "border-box",
         width: "100%",
-        // boxShadow: "inset 0px -27px 24px -27px rgba(0,0,0,0.5)",
-        "& > *": {
-            // marginBottom: ".5em"
-        },
-        "& > ul": {
-            margin: 0,
-            marginBottom: "1em",
-            padding: "0 0 0 1em"
-        },
         "& > p, & > span": {
             padding: ".5em"
         }
@@ -48,57 +39,103 @@ const useStyles = makeStyles({
         color: "white",
         borderRadius: "5px"
     },
-    unsupported:{
+    unsupported: {
         backgroundColor: Colors.accentBlue,
         color: "white",
         padding: "1em 0",
         width: "100%",
-        "& > span":{
+        "& > span": {
             maxWidth: "70%"
         }
     },
-    warningIconLarge:{
+    warningIconLarge: {
         fontSize: "2em",
+    },
+    list: {
+
+        margin: 0,
+        marginBottom: "1em",
+        padding: "0 0 0 1em"
     }
 })
 
 
 const PushEnrollmentReminder = () => {
-
-    const { uiStore } = useStores();
-    //Default to true so that its not flickering for happy path
-    const { t } = useTranslation('translation');
-    const classes = useStyles();
     const pushEnabledState = usePushEnabled();
 
+    switch (pushEnabledState) {
+        case 'unsupported':
+            return <UnsupportedWarning />;
+        case 'denied':
+            return <DeniedWarning />;
+        case 'default':
+            return <AskToEnroll />;
+        default:
+            return <></>
+    }
+}
+
+const DeniedWarning = () => {
+    const { t } = useTranslation('translation');
+    const classes = useStyles();
+
+    const { uiStore } = useStores();
     const goToInstructions = () => {
         uiStore.push("/information?onPushEnrollmentInstructions=true")
     }
 
-    return (<>
-        {pushEnabledState === 'unsupported' &&
-            <Grid alignItems="center" justify="space-around" container className={classes.unsupported}>
-                <WarningIcon className={classes.warningIconLarge} />
-                <span>
-                    {t('notificationInstructions.warning.unsupported')}
-                    <br />
-                    <br />
-                    {t('notificationInstructions.warning.unsupportedDetails')}
-                </span>
-            </Grid>
-            }
-        {pushEnabledState === "denied" && <Grid direction="column" className={classes.warningContainer} container spacing={1}>
+    return( 
+        <Grid direction="column" className={classes.warningContainer} container spacing={1}>
             <Typography className={classes.title} variant="h2">{t('notificationInstructions.warning.title')}<WarningIcon /></Typography>
+            <FeatureList />
+            <ProfileButton className={classes.button} onClick={goToInstructions}>{t('notificationInstructions.warning.button')}<RightIcon /></ProfileButton>
+        </Grid>
+    )
+}
+
+const UnsupportedWarning = () => {
+    const { t } = useTranslation('translation');
+    const classes = useStyles();
+    return (
+        <Grid alignItems="center" justify="space-around" container className={classes.unsupported}>
+            <WarningIcon className={classes.warningIconLarge} />
+            <span>
+                {t('notificationInstructions.warning.unsupported')}
+                <br />
+                <br />
+                {t('notificationInstructions.warning.unsupportedDetails')}
+            </span>
+        </Grid>
+    )
+}
+
+const AskToEnroll = () => {
+    const { t } = useTranslation('translation');
+    const classes = useStyles();
+    const { patientStore } = useStores();
+
+    return (<Grid direction="column" className={classes.warningContainer} container spacing={1}>
+        <Typography className={classes.title} variant="h2">{t('notificationInstructions.warning.title')}<WarningIcon /></Typography>
+        <FeatureList />
+        <ProfileButton className={classes.button} onClick={patientStore.subscribeToNotifications}>{t('notificationInstructions.warning.ask')}<RightIcon /></ProfileButton>
+    </Grid>
+
+    )
+}
+
+const FeatureList = () => {
+    const { t } = useTranslation('translation');
+    const classes = useStyles();
+    return (
+        <>
             <Typography variant="body1">{t('notificationInstructions.warning.subtitle')}</Typography>
-            <ul>
+            <ul className={classes.list}>
                 <li>  <Typography variant="body1">{t('notificationInstructions.warning.medicationReminders')}</Typography></li>
                 <li>  <Typography variant="body1">{t('notificationInstructions.warning.aptReminders')}</Typography></li>
                 <li>  <Typography variant="body1">{t('notificationInstructions.warning.msgAlerts')}</Typography></li>
             </ul>
-            <ProfileButton className={classes.button} onClick={goToInstructions}>{t('notificationInstructions.warning.button')}<RightIcon /></ProfileButton>
-        </Grid>}
-    </>)
-
+        </>
+    )
 }
 
 export default PushEnrollmentReminder;

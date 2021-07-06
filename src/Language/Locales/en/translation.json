@@ -883,14 +883,15 @@
         "allowNotifications": "Enable notifications"
     },
     "warning":{
-        "title": "Notifications are off",
-        "subtitle": "Push notifications have been turned off. You will not recieve:",
+        "title": "Push notifications are off",
+        "subtitle": "This means you will not recieve:",
         "medicationReminders": "Medication Reminders",
         "aptReminders": "Appointment Reminders",
         "msgAlerts": "New Message Alerts",
         "button": "View Instructions",
         "unsupported": "This device does not support push notifications",
-        "unsupportedDetails": "You will not receive reminders or notifications about new messages"
+        "unsupportedDetails": "You will not receive reminders or notifications about new messages",
+        "ask": "Enable"
 
     }
 }

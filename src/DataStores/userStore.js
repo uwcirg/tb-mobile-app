@@ -95,7 +95,7 @@ export class UserStore extends APIStore {
     })
   }
 
-  subscribeToNotifications() {
+  subscribeToNotifications = () => {
 
     navigator.serviceWorker.ready.then(registration => {
 
