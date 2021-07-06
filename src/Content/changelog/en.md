@@ -4,6 +4,10 @@ Patient Side:
 - Add instructions about how to enable push notifications at the system level
 - Detect if they are not enabled and present warning with link to instructions
 
+General:
+- Make version number more readable, add to login screen
+- Fix display of warning message for demo site
+
 
 ## v2.5
 Released June 24th, 2021
