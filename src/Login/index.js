@@ -5,6 +5,7 @@ import useStores from '../Basics/UseStores';
 import { observer } from 'mobx-react';
 import { useTranslation } from 'react-i18next';
 import DemoWarning from './DemoWarning';
+import VersionNumber from '../Patient/Information/VersionNumber';
 
 
 const Login = observer(() => {
@@ -26,6 +27,7 @@ const Login = observer(() => {
     <>
       <DemoWarning />
       <LoginRouter />
+      <VersionNumber isLoginScreen />
       {loginStore.error != 0 && <Alert open text={errorText()} onClose={loginStore.clearError} />}
     </>
 

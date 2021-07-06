@@ -6,26 +6,29 @@ import Colors from '../../Basics/Colors'
 
 const useStyles = makeStyles({
     container: {
+        padding: "1em 0",
+        color: props => props.isLoginScreen ? Colors.accentBlue : "black",
         display: "flex",
         paddingTop: "1em",
         width: "100%",
         textAlign: "center",
         alignItems: "center",
         justifyContent: "center",
-        "& > a": {
-            color: Colors.buttonBlue,
+        "& > a, & > a:visited": {
+            color: props => props.isLoginScreen ? Colors.accentBlue : Colors.buttonBlue,
             marginLeft: "5px",
-            textDecoration: "none"
+            textDecoration: props => props.isLoginScreen ? "underline" : "none"
         }
     }
 })
 
-const VersionNumber = () => {
+const VersionNumber = ({isLoginScreen}) => {
 
     let versionNumber = process.env.REACT_APP_GITHUB_VERSION || "Unknown";
+    versionNumber = versionNumber.split("-")[0]
 
-    const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const classes = useStyles({isLoginScreen: isLoginScreen});
+    const { t } = useTranslation('translation');
 
     return (<div className={classes.container}>
         <Typography variant="body1">{t('patient.information.version')}: </Typography>
