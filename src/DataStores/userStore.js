@@ -1,10 +1,10 @@
 import { action, observable } from "mobx";
+import getNotificationPreference from "../Utility/GetNotificationPreference";
 import APIStore from './apiStore'
 
 const USER_ROUTES = {
   logout: ["/auth", "DELETE"],
   getVapidKey: ["/push_key", "GET"],
-  updateSubscription: ["/update_user_subscription", "PATCH"],
   getLocales: ["/config/locales", "GET"]
 }
 
@@ -122,13 +122,13 @@ export class UserStore extends APIStore {
       subscription = JSON.parse(sj);
 
       let body = {
-        userID: this.userID,
-        endpoint: subscription.endpoint,
-        auth: subscription.keys.auth,
-        p256dh: subscription.keys.p256dh
+        pushUrl: subscription.endpoint,
+        pushAuth: subscription.keys.auth,
+        pushP256dh: subscription.keys.p256dh,
+        pushClientPermission: getNotificationPreference()
       }
 
-      return this.executeRequest("updateSubscription", body)
+      return this.executeRawRequest(`/v2/user/${this.userID}/push_subscription`,"PATCH",body)
     }
 
   }
