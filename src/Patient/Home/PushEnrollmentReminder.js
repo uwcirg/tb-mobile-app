@@ -61,6 +61,7 @@ const useStyles = makeStyles({
 
 
 const PushEnrollmentReminder = () => {
+    
     const pushEnabledState = usePushEnabled();
 
     switch (pushEnabledState) {

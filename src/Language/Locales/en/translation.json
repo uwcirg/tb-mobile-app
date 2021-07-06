@@ -877,6 +877,7 @@
 
 "notificationInstructions":{
     "steps": {
+        "title": "How to enable notifications",
         "goToSettings": "Go to the settings application on your phone",
         "clickNotifications": "Click on notification settings",
         "clickApp": "Click on Asistente",
@@ -892,7 +893,6 @@
         "unsupported": "This device does not support push notifications",
         "unsupportedDetails": "You will not receive reminders or notifications about new messages",
         "ask": "Enable"
-
     }
 }
 

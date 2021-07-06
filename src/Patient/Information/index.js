@@ -32,6 +32,7 @@ import HelpVideos from './HelpVideos'
 import { observer } from 'mobx-react'
 
 import NotificationInstructions from './NotificationInstructions';
+import usePushEnabled from '../../Hooks/PushEnabled';
 
 const file = raw("./information.md");
 
@@ -54,14 +55,13 @@ const Info = observer(() => {
     const { t } = useTranslation('translation');
     const classes = useStyles();
     const { patientUIStore } = useStores();
-
-    
+    const pushEnabledState = usePushEnabled();
 
     return (
         <div className={classes.container}>
-            <Section highlight={Colors.highlightYellow} expanded={patientUIStore.onPushEnrollmentInstructions} title={<><HelpIcon />How to enable notifications</>}>
+            {pushEnabledState != 'granted' && <Section highlight={Colors.highlightYellow} expanded={patientUIStore.onPushEnrollmentInstructions} title={<><HelpIcon />{t('notificationInstructions.steps.title')}</>}>
                 <NotificationInstructions />
-            </Section>
+            </Section>}
             <Section title={<><LiveHelpIcon />{t('patient.information.helpSection')}</>}>
                 <div className={classes.help}>
                     <h2>{t('patient.information.walkthrough.title')}</h2>
