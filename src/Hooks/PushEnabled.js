@@ -11,35 +11,42 @@ denied ( user had selected block, notifications are not enabled )
 
 */
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState , useRef } from 'react'
 
 export default function usePushEnabled() {
 
     const [permissionState, setPermissionState] = useState('default');
+    const mounted = useRef(false);
 
 
     const checkAndSetState = () => {
-        if (!("Notification" in window)) {
+        if(mounted.current){
+             if (!("Notification" in window)) {
             setPermissionState('unsupported')
             return
         }
         setPermissionState(Notification.permission)
+        }
+       
     }
 
-    const listenForPermissionsChange = (onChange) => {
+    const listenForPermissionsChange = () => {
         if ('permissions' in navigator) {
             navigator.permissions.query({ name: 'notifications' }).then((notificationPerm) => {
-                notificationPerm.onchange = () => {
-                    onChange();
-                }
+                notificationPerm.onchange = checkAndSetState
             });
         }
     }
 
     useEffect(() => {
-        //Listen for user changes to permissions, and update state accordingly
-        listenForPermissionsChange(checkAndSetState);
+        mounted.current = true;
+        listenForPermissionsChange();
         checkAndSetState();
+
+        return function cleanup(){
+           //Mark unmount to prevent updating state on unmounted component - for help https://stackoverflow.com/questions/57624060
+            mounted.current = false;
+        }
     }, []);
 
     return permissionState;
