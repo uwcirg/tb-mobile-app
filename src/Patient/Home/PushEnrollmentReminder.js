@@ -33,7 +33,7 @@ const useStyles = makeStyles({
         alignSelf: "flex-end",
         textTransform: "capitalize",
         alignItems: "center",
-        "& > span > svg":{
+        "& > span > svg": {
             paddingRight: 0,
             fontSize: "1.5em"
         }
@@ -47,13 +47,25 @@ const useStyles = makeStyles({
         padding: ".5em",
         color: "white",
         borderRadius: "5px"
+    },
+    unsupported:{
+        backgroundColor: Colors.accentBlue,
+        color: "white",
+        padding: "1em 0",
+        width: "100%",
+        "& > span":{
+            maxWidth: "70%"
+        }
+    },
+    warningIconLarge:{
+        fontSize: "2em",
     }
 })
 
 
 const PushEnrollmentReminder = () => {
 
-    const {uiStore} = useStores();
+    const { uiStore } = useStores();
     //Default to true so that its not flickering for happy path
     const { t } = useTranslation('translation');
     const classes = useStyles();
@@ -64,6 +76,17 @@ const PushEnrollmentReminder = () => {
     }
 
     return (<>
+        {pushEnabledState === 'unsupported' &&
+            <Grid alignItems="center" justify="space-around" container className={classes.unsupported}>
+                <WarningIcon className={classes.warningIconLarge} />
+                <span>
+                    {t('notificationInstructions.warning.unsupported')}
+                    <br />
+                    <br />
+                    {t('notificationInstructions.warning.unsupportedDetails')}
+                </span>
+            </Grid>
+            }
         {pushEnabledState === "denied" && <Grid direction="column" className={classes.warningContainer} container spacing={1}>
             <Typography className={classes.title} variant="h2">{t('notificationInstructions.warning.title')}<WarningIcon /></Typography>
             <Typography variant="body1">{t('notificationInstructions.warning.subtitle')}</Typography>

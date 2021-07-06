@@ -1,6 +1,6 @@
 /*
 
-Checks if web push permission has been granted, and updates on changes
+Checks if web push permission has been granted, and updates on changes to this permission
 
 Possible states: 
 

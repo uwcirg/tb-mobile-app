@@ -888,7 +888,9 @@
         "medicationReminders": "Medication Reminders",
         "aptReminders": "Appointment Reminders",
         "msgAlerts": "New Message Alerts",
-        "button": "View Instructions"
+        "button": "View Instructions",
+        "unsupported": "This device does not support push notifications",
+        "unsupportedDetails": "You will not receive reminders or notifications about new messages"
 
     }
 }
