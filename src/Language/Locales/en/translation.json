@@ -873,6 +873,27 @@
         "surveyButton": "Tell us about your experience",
         "statusChange": "Your study status has changed and you can no longer report. Please contact your assistant for more details."
     }
+},
+
+"notificationInstructions":{
+    "steps": {
+        "title": "How to enable notifications",
+        "goToSettings": "Go to the settings application on your phone",
+        "clickNotifications": "Click on notification settings",
+        "clickApp": "Click on Asistente",
+        "allowNotifications": "Enable notifications"
+    },
+    "warning":{
+        "title": "Push notifications are off",
+        "subtitle": "This means you will not recieve:",
+        "medicationReminders": "Medication Reminders",
+        "aptReminders": "Appointment Reminders",
+        "msgAlerts": "New Message Alerts",
+        "button": "View Instructions",
+        "unsupported": "This device does not support push notifications",
+        "unsupportedDetails": "You will not receive reminders or notifications about new messages",
+        "ask": "Enable"
+    }
 }
 
 

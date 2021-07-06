@@ -174,6 +174,9 @@ export default class PatientUIStore {
         return this.router.location.search.includes("&onPassword=true")
     }
 
+    @computed get onPushEnrollmentInstructions(){
+        return this.router.location.search.includes("?onPushEnrollmentInstructions=true")
+    }
 
     @action goToPasswordUpdate = () => {
         this.router.push(`${this.router.location.pathname}?onSettings=true&onPassword=true`)

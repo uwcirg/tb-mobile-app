@@ -13,7 +13,7 @@ const useStyles = makeStyles({
       justifyContent: "flex-start",
       alignItems: "center",
       width: "85%",
-      marginBottom: "1em"
+      margin: "1em 0"
   },
   greeting:{
     fontWeight: "medium",
