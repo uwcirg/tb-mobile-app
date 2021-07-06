@@ -5,9 +5,6 @@
 
 /public/env.js
 
-# vscode
-.vscode
-
 # dependencies
 node_modules
 
