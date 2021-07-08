@@ -9,7 +9,6 @@ import resizeImage from '../Utility/ResizeImage';
 const ROUTES = {
     login: ["/authenticate", "POST"],
     getCurrentPatient: ["/patient/me", "GET"],
-    getVapidKey: ["/push_key", "GET"],
     dailyReport: ["/daily_report", "POST"],
     patientReports: ["/daily_reports", "GET"],
     getPhotoUploadURL: ["/patient/daily_reports/photo_upload_url", "GET"],
