@@ -1,37 +1,52 @@
 /*
 
-Checks if web push permission has been granted, and updates on changes to this permission
+    Checks if web push permission has been granted, and updates on changes to this permission
 
-Possible states: 
+    Possible states: 
 
-unsupported ( this browser does not support push notifications )
-default ( awaiting response to prompt)
-granted ( all good, notifications are enabled )
-denied ( user had selected block, notifications are not enabled )
+    unsupported ( this browser does not support push notifications )
+    default ( awaiting response to prompt)
+    granted ( all good, notifications are enabled )
+    denied ( user had selected block, notifications are not enabled )
 
 */
 
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef } from 'react';
 import getNotificationPreference from '../Utility/GetNotificationPreference';
+import useStores from '../Basics/UseStores';
 
 export default function usePushEnabled() {
 
     const [permissionState, setPermissionState] = useState('default');
+    const { patientStore } = useStores();
+
+    const prevPref = useRef();
     const mounted = useRef(false);
 
     const checkAndSetState = () => {
-        if (mounted.current) {
-            setPermissionState(getNotificationPreference())
+        if (mounted.current) { //Ensure component is currently rendered to prevent memory leak error
+            setPermissionState(getNotificationPreference());
         }
     }
 
     const listenForPermissionsChange = () => {
         if ('permissions' in navigator) {
             navigator.permissions.query({ name: 'notifications' }).then((notificationPerm) => {
-                notificationPerm.onchange = checkAndSetState
+                notificationPerm.onchange = checkAndSetState;
             });
         }
     }
+
+    useEffect(()=>{
+
+        if(prevPref.current === "denied" && permissionState === "granted"){
+            patientStore.subscribeToNotifications();
+        }else if(permissionState === "denied"){
+            patientStore.logPushPermissionStatus();
+        }
+
+        prevPref.current = permissionState;
+    },[permissionState])
 
     useEffect(() => {
         mounted.current = true;
@@ -43,6 +58,8 @@ export default function usePushEnabled() {
             mounted.current = false;
         }
     }, []);
+
+
 
     return permissionState;
 }

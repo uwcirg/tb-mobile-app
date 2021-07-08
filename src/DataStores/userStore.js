@@ -134,9 +134,13 @@ export class UserStore extends APIStore {
   }
 
   getVapidKeyFromServerAndStoreLocally = () => {
-    return this.executeRequest('getVapidKey').then(json => {
+    return this.executeRawRequest(`/v2/vapid_public_key?pushClientPermission=${getNotificationPreference()}`).then(json => {
       localStorage.setItem("vapidKey", json.key)
     })
+  }
+
+  logPushPermissionStatus = () => {
+    this.executeRawRequest(`/v2/user/${this.userID}/push_subscription`, "PATCH", {pushClientPermission: getNotificationPreference()})
   }
 
   urlB64ToUint8Array = (base64String) => {
