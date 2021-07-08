@@ -38,13 +38,11 @@ export default function usePushEnabled() {
     }
 
     useEffect(()=>{
-
-        if(prevPref.current === "denied" && permissionState === "granted"){
+        if(prevPref.current === "denied" && permissionState === "granted"){ //If newly opted in, ensure that credentials are up to date
             patientStore.subscribeToNotifications();
-        }else if(permissionState === "denied"){
+        }else if(permissionState === "denied"){ //Log change on server if newly denied, opt
             patientStore.logPushPermissionStatus();
         }
-
         prevPref.current = permissionState;
     },[permissionState])
 
