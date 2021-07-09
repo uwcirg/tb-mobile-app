@@ -1,12 +1,11 @@
-import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import useStores from '../../Basics/UseStores'
-import PopOver from '../Shared/PopOver'
-import { useTranslation } from 'react-i18next'
-import { Typography } from '@material-ui/core'
-import ProfileButton from './ProfileButton'
-import Colors from '../../Basics/Colors'
-
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import PopOver from '../Shared/PopOver';
+import { useTranslation } from 'react-i18next';
+import Typography from '@material-ui/core/Typography';
+import ProfileButton from './ProfileButton';
+import Colors from '../../Basics/Colors';
+import CopyableText from '../../Utility/CopyableText'
 
 const useStyles = makeStyles({
     bottomButton: {
@@ -22,26 +21,45 @@ const useStyles = makeStyles({
             maxWidth: "60%"
         }
     },
+    surveyArea:{
+        marginTop: "1em"
+    },
+    copyOverride:{
+        "& > p:first-child":{
+            padding: "15px",
+            fontSize: "1em"
+        }
+    }
 })
 
-const ArchiveWarningDialog = ({handleClose}) => {
+const ArchiveWarningDialog = ({ handleClose }) => {
 
     const { t } = useTranslation('translation');
-    const classes= useStyles();
+    const classes = useStyles();
 
     return (<PopOver title={t('archive.warningTitle')} close={handleClose} ignoreClickAway>
-        <Typography>
-            {t('archive.warningLong')}
-        </Typography>
-
+        <Typography>{t('archive.warningLong')}</Typography>
+        <SurveyLink />
         <div className={classes.bottomButton}>
-            <ProfileButton  onClick={handleClose}>
+            <ProfileButton onClick={handleClose}>
                 {t('patient.report.symptoms.warning.button')}
             </ProfileButton>
         </div>
-
     </PopOver>)
 
 };
+
+const SurveyLink = () => {
+    const { t } = useTranslation('translation');
+    const classes = useStyles();
+    const link = window._env.REDCAP_EOT_SURVEY_LINK || "";
+
+    return (
+        <div className={classes.surveyArea}>
+            <Typography variant="body1" color="initial">Please send this Link to the patient so they can tell us about their experience</Typography>
+            <CopyableText className={classes.copyOverride} text={link} />
+        </div>
+    )
+}
 
 export default ArchiveWarningDialog;

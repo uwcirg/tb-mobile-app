@@ -47,12 +47,11 @@ const useStyles = makeStyles({
     }
 })
 
-
-const CopyTextInput = ({text}) => {
+const CopyTextInput = ({text,className}) => {
 
     const { t } = useTranslation('translation');
     const classes = useStyles();
-    const [success,setSuccess] = useState(false)
+    const [success,setSuccess] = useState(false);
     const textRef = useRef(null);
 
     const copyCodeToClipboard = () => {
@@ -61,8 +60,8 @@ const CopyTextInput = ({text}) => {
         setSuccess(true);
     }
 
-    return (  <div className={classes.copyContainer}>
-        <Typography className={classes.textDisplay}>{text}</Typography>
+    return (  <div className={`${classes.copyContainer} ${className}`}>
+        <Typography variant="body1" className={classes.textDisplay}>{text}</Typography>
         <ProfileButton onClick={copyCodeToClipboard}>
             <FileCopyIcon />
             {t('coordinator.addPatientFlow.clickToCopy')}
