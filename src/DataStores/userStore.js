@@ -62,7 +62,9 @@ export class UserStore extends APIStore {
         this.setAccountInformation(json)
         this.isLoggedIn = true;
         json.dailyNotificationTime && (this.reminderTime = json.dailyNotificationTime)
-        this.subscribeToNotifications();
+        if(this.status !== "Pending"){
+          this.subscribeToNotifications();
+        }
       }
     });
 

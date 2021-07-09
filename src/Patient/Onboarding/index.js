@@ -15,8 +15,10 @@ import Notification from './Notification'
 import ContactTracing from './ContactTracing'
 import End from './End'
 import Password from './Password'
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 import CircularProgress from '@material-ui/core/CircularProgress';
+
+import PushPermissionsNotice from "./PushPermissionNotice"
 
 const useStyles = makeStyles({
     body: {
@@ -24,7 +26,7 @@ const useStyles = makeStyles({
         width: "100vw",
         backgroundColor: "white"
     },
-    navBarGhost:{
+    navBarGhost: {
         width: "100%",
         height: "60px"
     },
@@ -81,10 +83,10 @@ const useStyles = makeStyles({
             width: "100%"
         }
     },
-    surveyBody:{
+    surveyBody: {
         padding: "1.5em"
     },
-    loading:{        
+    loading: {
         ...Styles.flexCenter,
         width: "100vw",
         height: "100vh",
@@ -107,9 +109,8 @@ const Landing = () => {
 }
 
 const CoordinatorFAQ = () => {
-    const { patientStore } = useStores();
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
     return (
         <div className={classes.faq}>
@@ -135,54 +136,53 @@ const CoordinatorFAQ = () => {
     )
 }
 
-
-const Tabs = [<Landing />, <CoordinatorFAQ />,<Password overrideNext />, <Gender />, <Age />, <Notification />, <ContactTracing />, <End overrideNext />]
+const Tabs = [<PushPermissionsNotice overrideNext />,<Landing />, <CoordinatorFAQ />, <Password overrideNext />, <Gender />, <Age />, <Notification />, <ContactTracing />, <End overrideNext />]
 
 const Onboarding = observer(() => {
 
     const classes = useStyles();
-    const { patientStore , activationStore,patientUIStore} = useStores();
-    const { t, i18n } = useTranslation('translation');
+    const { patientStore, activationStore, patientUIStore } = useStores();
+    const { t } = useTranslation('translation');
 
     const index = patientUIStore.reportStep
 
-    const handleNext = () => { 
-        if( patientUIStore.reportStep === Tabs.length - 1){
+    const handleNext = () => {
+        if (patientUIStore.reportStep === Tabs.length - 1) {
             //activationStore.submitActivation();
-        }else{ 
-          patientUIStore.updateOnboardingStep( index + 1)
+        } else {
+            patientUIStore.updateOnboardingStep(index + 1)
         }
     }
-    const handleBack = () => { index < 1 ? patientStore.logout() : patientUIStore.updateOnboardingStep( index - 1) }
+    const handleBack = () => { index < 1 ? patientStore.logout() : patientUIStore.updateOnboardingStep(index - 1) }
 
     return (
         <>
-        {activationStore.isLoading ?
-        <div className={classes.loading}>
-            <div>
-            <p>{t('patient.onboarding.success')}</p>
-            <CircularProgress size="50vw" />
-            </div>
-            </div>
-        :
-        <div className={classes.container}>
-            <OverTopBar handleBack={handleBack} title={ index < 2 ? t('patient.onboarding.landing.welcome') : t('patient.onboarding.profileInformation')} />
-            <div className={classes.navBarGhost}></div>
-            {index > 1 && <MobileStepper
-                    className={classes.stepper}
-                    variant="progress"
-                    steps={Tabs.length - 2}
-                    position="static"
-                    activeStep={index - 2}
-                />}
-            <div className={classes.body}>
-                {/* Clone the element from the list of steps, pass in additonal props. Below code allows for overide of next button, and provides a default one */}
-            {React.cloneElement(Tabs[index], { index: index, length: Tabs.length, bodyClass: classes.surveyBody, button: <SimpleButton className={classes.button} alignRight>{t('patient.onboarding.next')}</SimpleButton>, handleNext: handleNext })}
-            {!Tabs[index].props.overrideNext && <SimpleButton rerender={index} onClick={handleNext} className={classes.button} alignRight>{t('patient.onboarding.next')}</SimpleButton>}
-            </div>
-        </div>}
+            {activationStore.isLoading ?
+                <div className={classes.loading}>
+                    <div>
+                        <p>{t('patient.onboarding.success')}</p>
+                        <CircularProgress size="50vw" />
+                    </div>
+                </div>
+                :
+                <div className={classes.container}>
+                    <OverTopBar handleBack={handleBack} title={index < 2 ? t('patient.onboarding.landing.welcome') : t('patient.onboarding.profileInformation')} />
+                    <div className={classes.navBarGhost}></div>
+                    {index > 1 && <MobileStepper
+                        className={classes.stepper}
+                        variant="progress"
+                        steps={Tabs.length - 2}
+                        position="static"
+                        activeStep={index - 2}
+                    />}
+                    <div className={classes.body}>
+                        {/* Clone the element from the list of steps, pass in additonal props. Below code allows for overide of next button, and provides a default one */}
+                        {React.cloneElement(Tabs[index], { index: index, length: Tabs.length, bodyClass: classes.surveyBody, button: <SimpleButton className={classes.button} alignRight>{t('patient.onboarding.next')}</SimpleButton>, handleNext: handleNext })}
+                        {!Tabs[index].props.overrideNext && <SimpleButton rerender={index} onClick={handleNext} className={classes.button} alignRight>{t('patient.onboarding.next')}</SimpleButton>}
+                    </div>
+                </div>}
         </>
-        )
+    )
 
 })
 
