@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography'
 import Colors from '../../Basics/Colors';
 import NotificationImportantIcon from '@material-ui/icons/NotificationImportant';
 import useStores from '../../Basics/UseStores';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
     container: {
@@ -33,6 +34,7 @@ const useStyles = makeStyles({
 const AskPermissions = (props) => {
     const classes = useStyles();
     const {patientStore} = useStores();
+    const { t } = useTranslation('translation');
 
     return (
         <>
