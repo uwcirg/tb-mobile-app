@@ -3,6 +3,7 @@ import { ReactComponent as DoctorIcon } from '../../Basics/Icons/DoctorGroup.svg
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import {observer} from 'mobx-react';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
     landing: {
