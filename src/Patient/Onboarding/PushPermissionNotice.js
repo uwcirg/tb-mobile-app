@@ -14,7 +14,8 @@ const useStyles = makeStyles({
     image: {
         width: "100%",
         margin: "1em auto",
-        display: "block"
+        display: "block",
+        borderRadius: "5px"
     },
     header: {
         margin: "auto"
