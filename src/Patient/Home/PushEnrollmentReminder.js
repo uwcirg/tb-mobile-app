@@ -9,6 +9,7 @@ import RightIcon from '@material-ui/icons/KeyboardArrowRight'
 import useStores from '../../Basics/UseStores'
 import { useTranslation } from 'react-i18next'
 import usePushEnabled from '../../Hooks/PushEnabled'
+import PushFeatureList from '../Information/PushFeatureList'
 
 const useStyles = makeStyles({
     warningContainer: {
@@ -50,12 +51,6 @@ const useStyles = makeStyles({
     },
     warningIconLarge: {
         fontSize: "2em",
-    },
-    list: {
-
-        margin: 0,
-        marginBottom: "1em",
-        padding: "0 0 0 1em"
     }
 })
 
@@ -88,7 +83,7 @@ const DeniedWarning = () => {
     return( 
         <Grid direction="column" className={classes.warningContainer} container spacing={1}>
             <Typography className={classes.title} variant="h2">{t('notificationInstructions.warning.title')}<WarningIcon /></Typography>
-            <FeatureList />
+            <PushFeatureList />
             <ProfileButton className={classes.button} onClick={goToInstructions}>{t('notificationInstructions.warning.button')}<RightIcon /></ProfileButton>
         </Grid>
     )
@@ -117,25 +112,10 @@ const AskToEnroll = () => {
 
     return (<Grid direction="column" className={classes.warningContainer} container spacing={1}>
         <Typography className={classes.title} variant="h2">{t('notificationInstructions.warning.title')}<WarningIcon /></Typography>
-        <FeatureList />
+        <PushFeatureList />
         <ProfileButton className={classes.button} onClick={patientStore.subscribeToNotifications}>{t('notificationInstructions.warning.ask')}<RightIcon /></ProfileButton>
     </Grid>
 
-    )
-}
-
-const FeatureList = () => {
-    const { t } = useTranslation('translation');
-    const classes = useStyles();
-    return (
-        <>
-            <Typography variant="body1">{t('notificationInstructions.warning.subtitle')}</Typography>
-            <ul className={classes.list}>
-                <li>  <Typography variant="body1">{t('notificationInstructions.warning.medicationReminders')}</Typography></li>
-                <li>  <Typography variant="body1">{t('notificationInstructions.warning.aptReminders')}</Typography></li>
-                <li>  <Typography variant="body1">{t('notificationInstructions.warning.msgAlerts')}</Typography></li>
-            </ul>
-        </>
     )
 }
 
