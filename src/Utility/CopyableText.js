@@ -65,25 +65,14 @@ const CopyTextInput = ({text}) => {
         <Typography className={classes.textDisplay}>{text}</Typography>
         <ProfileButton onClick={copyCodeToClipboard}>
             <FileCopyIcon />
-            <CopyText />
+            {t('coordinator.addPatientFlow.clickToCopy')}
         </ProfileButton>
         <textarea ref={textRef} className={classes.textArea} readOnly value={text} />
         {success && <Typography className={classes.successMessage}>
-            <SuccessText />
+        {t('coordinator.addPatientFlow.success')}
         </Typography>}
     </div>);
 
 }
-
-const CopyText = () => {
-    const { t } = useTranslation('translation');
-    return (<>{t('coordinator.addPatientFlow.clickToCopy')}</>)
-}
-
-const SuccessText = () => {
-    const { t } = useTranslation('translation');
-    return (<>{t('coordinator.addPatientFlow.success')}</>)
-}
-
 
 export default CopyTextInput;
