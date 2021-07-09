@@ -81,7 +81,7 @@ const Onboarding = observer(() => {
                 </div>
                 :
                 <div className={classes.container}>
-                    <OverTopBar handleBack={handleBack} title={index < 2 ? t('patient.onboarding.landing.welcome') : t('patient.onboarding.profileInformation')} />
+                    <OverTopBar handleBack={handleBack} title={t(getHeaderTitleKey(index))} />
                     <div className={classes.navBarGhost}></div>
                     {index > 1 && <MobileStepper
                         className={classes.stepper}
@@ -93,12 +93,20 @@ const Onboarding = observer(() => {
                     <div className={classes.body}>
                         {/* Clone the element from the list of steps, pass in additonal props. Below code allows for overide of next button, and provides a default one */}
                         {React.cloneElement(Tabs[index], { index: index, length: Tabs.length, bodyClass: classes.surveyBody, button: <SimpleButton className={classes.button} alignRight>{t('patient.onboarding.next')}</SimpleButton>, handleNext: handleNext })}
-                        {!Tabs[index].props.overrideNext && <SimpleButton rerender={index} onClick={handleNext} className={classes.button} alignRight>{t('patient.onboarding.next')}</SimpleButton>}
+                        {!Tabs[index].props.overrideNext && <SimpleButton onClick={handleNext} className={classes.button} alignRight>{t('patient.onboarding.next')}</SimpleButton>}
                     </div>
                 </div>}
         </>
     )
 
 })
+
+const getHeaderTitleKey = (index) => {
+
+    if(index === 5 || index === 6)return 'patient.onboarding.notificationsTitle'
+    if(index < 2) return 'patient.onboarding.landing.welcome'
+    return 'patient.onboarding.profileInformation'
+
+}
 
 export default Onboarding;

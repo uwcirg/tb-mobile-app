@@ -110,6 +110,7 @@
             "information": "Information"
         },
         "onboarding": {
+            "notificationsTitle": "Notifications",
             "landing": {
                 "welcome": "Welcome",
                 "message": "Thank you for signing up! This app will be where you report your medication. Reports are monitored by your treatment assistant."
