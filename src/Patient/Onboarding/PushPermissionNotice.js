@@ -1,24 +1,59 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import useStores from '../../Basics/UseStores';
-import {observer} from 'mobx-react';
-import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import PushFeatureList from '../Information/PushFeatureList'
+import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography'
+import Colors from '../../Basics/Colors';
+import NotificationImportantIcon from '@material-ui/icons/NotificationImportant';
+import useStores from '../../Basics/UseStores';
 
 const useStyles = makeStyles({
-  container:{
-      padding: "1em"
-  }
+    container: {
+        padding: "0 2em"
+    },
+    image: {
+        width: "100%",
+        margin: "1em auto",
+        display: "block"
+    },
+    header: {
+        margin: "auto"
+    },
+    icon: {
+        fontSize: "5em",
+        color: Colors.blue,
+        marginRight: "5px"
+    },
+    listTitle:{
+        margin: "1em 0"
+    }
 })
 
-const AskPermissions = () => {
+const AskPermissions = (props) => {
     const classes = useStyles();
-    return(<div className={classes.container}>
-        <NotificationsActiveIcon />
-        <h4>The next step will ask you to turn on notifications</h4>
-        <p>This allows us to send you:</p> 
-        <PushFeatureList />
-    </div>)
+    const {patientStore} = useStores();
+
+    return (
+        <>
+            <div className={classes.container}>
+
+                <Grid justify="center" alignItems="center" className={classes.header} container spacing={1}>
+                    <NotificationImportantIcon className={classes.icon} />
+                    <Typography align="center" variant="h1" color="initial">The next step will ask you to turn on notifications</Typography>
+                </Grid>
+                <img className={classes.image} src="/img/es-Ar/notification-instructions/example.png" />
+                <Typography className={classes.listTitle} variant="body1">When prompted, please click <strong>permit</strong></Typography>
+                <Typography variant="body1"> This will allow us to send you:</Typography>
+                <PushFeatureList hideHeader />
+            </div>
+            {React.cloneElement(props.button, {
+                onClick: () => {
+                    patientStore.subscribeToNotifications();
+                    props.handleNext();
+                }
+            })}
+        </>
+    )
 }
 
 

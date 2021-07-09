@@ -12,16 +12,16 @@ const useStyles = makeStyles({
     }
 })
 
-const PushFeatureList = () => {
+const PushFeatureList = ({ hideHeader }) => {
     const { t } = useTranslation('translation');
     const classes = useStyles();
     return (
         <>
-            <Typography variant="body1">{t('notificationInstructions.warning.subtitle')}</Typography>
+            {!hideHeader && <Typography variant="body1">{t('notificationInstructions.warning.subtitle')}</Typography>}
             <ul className={classes.list}>
+                <li>  <Typography variant="body1">{t('notificationInstructions.warning.msgAlerts')}</Typography></li>
                 <li>  <Typography variant="body1">{t('notificationInstructions.warning.medicationReminders')}</Typography></li>
                 <li>  <Typography variant="body1">{t('notificationInstructions.warning.aptReminders')}</Typography></li>
-                <li>  <Typography variant="body1">{t('notificationInstructions.warning.msgAlerts')}</Typography></li>
             </ul>
         </>
     )

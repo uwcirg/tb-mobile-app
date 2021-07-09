@@ -136,7 +136,7 @@ const CoordinatorFAQ = () => {
     )
 }
 
-const Tabs = [<PushPermissionsNotice overrideNext />,<Landing />, <CoordinatorFAQ />, <Password overrideNext />, <Gender />, <Age />, <Notification />, <ContactTracing />, <End overrideNext />]
+const Tabs = [<Landing />, <CoordinatorFAQ />, <Password overrideNext />, <Gender />, <Age />, <PushPermissionsNotice overrideNext />, <Notification />, <ContactTracing />, <End overrideNext />]
 
 const Onboarding = observer(() => {
 
