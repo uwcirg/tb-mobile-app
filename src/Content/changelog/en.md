@@ -3,8 +3,10 @@
 Patient Side:
 - Add instructions about how to enable push notifications at the system level
 - Detect if they are not enabled and present warning with link to instructions
+- Add screen to onboarding to explain notifications before asking for permission
 
 General:
+- Track user notification preferences on the server
 - Make version number more readable, add to login screen
 - Fix display of warning message for demo site
 
