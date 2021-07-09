@@ -67,7 +67,12 @@ const Onboarding = observer(() => {
 
     const index = patientUIStore.reportStep;
 
-    const handleNext = () => {patientUIStore.updateOnboardingStep(index + 1)}
+    const handleNext = () => { 
+        if( patientUIStore.reportStep !== Tabs.length - 1){
+            patientUIStore.updateOnboardingStep( index + 1);
+        }
+    }
+
     const handleBack = () => { index < 1 ? patientStore.logout() : patientUIStore.updateOnboardingStep(index - 1) }
 
     return (
