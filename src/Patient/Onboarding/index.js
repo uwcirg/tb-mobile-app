@@ -103,7 +103,7 @@ const Onboarding = observer(() => {
 
 const getHeaderTitleKey = (index) => {
 
-    if(index === 5 || index === 6)return 'patient.onboarding.notificationsTitle'
+    if(index === 5 || index === 6)return 'patient.onboarding.notification.title'
     if(index < 2) return 'patient.onboarding.landing.welcome'
     return 'patient.onboarding.profileInformation'
 

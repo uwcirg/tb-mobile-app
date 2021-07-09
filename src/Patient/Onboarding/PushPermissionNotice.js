@@ -40,11 +40,11 @@ const AskPermissions = (props) => {
 
                 <Grid justify="center" alignItems="center" className={classes.header} container spacing={1}>
                     <NotificationImportantIcon className={classes.icon} />
-                    <Typography align="center" variant="h1" color="initial">The next step will ask you to turn on notifications</Typography>
+                    <Typography align="center" variant="h1" color="initial">{t('patient.onboarding.notification.header')}</Typography>
                 </Grid>
                 <img className={classes.image} src="/img/es-Ar/notification-instructions/example.png" />
-                <Typography className={classes.listTitle} variant="body1">When prompted, please click <strong>permit</strong></Typography>
-                <Typography variant="body1"> This will allow us to send you:</Typography>
+                <Typography className={classes.listTitle} variant="body1">{t('patient.onboarding.notification.whenPrompted')} <strong>{t('patient.onboarding.notification.permit')}</strong></Typography>
+                <Typography variant="body1"> {t('patient.onboarding.notification.listHeader')}:</Typography>
                 <PushFeatureList hideHeader />
             </div>
             {React.cloneElement(props.button, {

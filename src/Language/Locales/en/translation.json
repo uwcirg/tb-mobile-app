@@ -110,7 +110,6 @@
             "information": "Information"
         },
         "onboarding": {
-            "notificationsTitle": "Notifications",
             "landing": {
                 "welcome": "Welcome",
                 "message": "Thank you for signing up! This app will be where you report your medication. Reports are monitored by your treatment assistant."
@@ -152,6 +151,11 @@
             },
             "age": "How old are you?",
             "notification": {
+                "title": "Notifications",
+                "whenPrompted": "When prompted please select",
+                "permit": "Permit",
+                "listHeader": "This will allow us to send you",
+                "header": "The next step will ask you to turn on notifications",
                 "one": "Would you like to enable a daily reminder to take your medication?",
                 "two": "What time would you like to be reminded?"
             },
