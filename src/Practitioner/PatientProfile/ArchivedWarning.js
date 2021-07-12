@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import ProfileButton from './ProfileButton';
 import Colors from '../../Basics/Colors';
-import CopyableText from '../../Utility/CopyableText'
+import CopyableText from '../../Utility/CopyLink'
 
 const useStyles = makeStyles({
     bottomButton: {
@@ -25,10 +25,7 @@ const useStyles = makeStyles({
         marginTop: "1em"
     },
     copyOverride:{
-        "& > p:first-child":{
-            padding: "15px",
-            fontSize: "1em"
-        }
+     margin: "1em 0"
     }
 })
 
@@ -56,7 +53,7 @@ const SurveyLink = () => {
 
     return (
         <div className={classes.surveyArea}>
-            <Typography variant="body1" color="initial">Please send this Link to the patient so they can tell us about their experience</Typography>
+            <Typography variant="body1" color="initial">{t('archive.surveyText')}</Typography>
             <CopyableText className={classes.copyOverride} text={link} />
         </div>
     )

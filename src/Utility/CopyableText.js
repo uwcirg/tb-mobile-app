@@ -8,15 +8,8 @@ import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
     textArea: {
-        resize: "none",
-        display: "flex",
-        padding: ".5em",
-        fontFamily: "sans-serif",
-        fontSize: "1em",
-        borderRadius: "5px",
-        verticalAlign: "center",
-        height: "1em",
-        width: "50px",
+        height: "1px",
+        width: "1px",
         opacity: ".01"
     },
     copyContainer: {

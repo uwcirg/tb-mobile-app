@@ -29,7 +29,9 @@
         "clickToLoadMore": "Click to load more",
         "testStrips": "Test Strips",
         "viewDetails": "View details",
-        "hideDetails": "Hide Details"
+        "hideDetails": "Hide Details",
+        "copy": "Copy",
+        "copied": "Copied"
     },
     "userTypes": {
         "patient": "Patient",
@@ -877,7 +879,8 @@
         "survey": "Please complete this survey to let us know about your experience using the application.",
         "surveyButton": "Tell us about your experience",
         "statusChange": "Your study status has changed and you can no longer report. Please contact your assistant for more details."
-    }
+    },
+    "surveyText": "Please send this Link to the patient so they can tell us about their experience"
 },
 
 "notificationInstructions":{

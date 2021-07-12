@@ -37,7 +37,7 @@
         "practitioner": "Asistente",
         "coordinator": "Asistente",
         "admin": "Administrador",
-        "administrator": "Administrator",
+        "administrator": "Administrador",
         "you": "Usted"
     },
     "login": {
@@ -151,6 +151,11 @@
             },
             "age": "¿Cuantos años tiene?",
             "notification": {
+                "title": "Notificaciones",
+                "whenPrompted": "Cuando se le solicite, seleccione",
+                "permit": "Permitir",
+                "listHeader": "Esto nos permitirá enviarte",
+                "header": "El siguiente paso le pedirá que active las notificaciones.",
                 "one": "¿Le gustaría programar un recordatorio diario para tomar sus medicamentos?",
                 "two": "¿A qué hora quiere el recordatorio?"
             },
@@ -865,6 +870,27 @@
         "survey": "Complete esta encuesta para informarnos sobre su experiencia con la aplicación.",
         "surveyButton": "Cuéntenos su experiencia",
         "statusChange": "El estado de su tratamiento ha cambiado y ya no puede reportar. Comuníquese con su asistente para obtener más detalles."
+    }
+},
+
+"notificationInstructions":{
+    "steps": {
+        "title": "Cómo activar las notificaciones",
+        "goToSettings": "Vaya a la aplicación de configuración en su teléfono",
+        "clickNotifications": "Haga clic en la configuración de notificaciones",
+        "clickApp": "Haga clic en Asistente",
+        "allowNotifications": "Permitir notificaciones"
+    },
+    "warning":{
+        "title": "Notificaciones están desactivadas",
+        "subtitle": "Esto significa que no recibirá:",
+        "medicationReminders": "Recordatorios de Medicamentos",
+        "aptReminders": "Recordatorios de Citas",
+        "msgAlerts": "Nuevos mensajes de su asistente",
+        "button": "Ver instrucciones",
+        "unsupported": "Este aparato no permite notificaciones.",
+        "unsupportedDetails": "No recibirás recordatorios ni notificaciones sobre mensajes nuevos.",
+        "ask": "Permitir"
     }
 }
 
