@@ -14,6 +14,7 @@ General:
 - Make version number more readable, add to login screen
 - Fix display of warning message for demo site
 - Improve design of copyable text components
+- Workaround for bug where update popup was causing titles to be very large
 
 
 ## v2.5
