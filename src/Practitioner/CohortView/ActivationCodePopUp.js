@@ -1,7 +1,7 @@
 import React from 'react'
 import PopOver from '../Shared/PopOver'
 import { useTranslation } from 'react-i18next';
-import TextCopy from '../../Utility/CopyableText'
+import TextCopy from '../../Utility/CopiableLink'
 
 const ActivationCodePopup = ({ activationCode, close }) => {
 
