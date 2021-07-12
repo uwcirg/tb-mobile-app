@@ -5,31 +5,28 @@ import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import ProfileButton from './ProfileButton';
 import Colors from '../../Basics/Colors';
-import CopyableText from '../../Utility/CopyLink'
+import CopyableText from '../../Utility/CopyLink';
+import Button from '@material-ui/core/Button';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 
 const useStyles = makeStyles({
     bottomButton: {
-        display: "flex",
-        justifyContent: "flex-end",
-        alignItems: "center",
-        marginTop: "2em",
-        width: "100%",
-        "& > p": {
-            marginRight: "auto",
-            fontSize: ".9em",
-            color: Colors.warningRed,
-            maxWidth: "60%"
-        }
+        marginLeft:"auto",
+        display: "flex"
     },
-    surveyArea:{
-        marginTop: "1em",
+    surveyArea: {
+        marginTop: "1em"
+    },
+    copyOverride: {
+        margin: "1em 0"
+    },
+    body:{
         "& > h1":{
-            marginBottom: ".5em",
-            textTransform: "capitalize"
+            margin: ".5em 0",
+            "&:first-of-type":{
+                marginTop: 0
+            }
         }
-    },
-    copyOverride:{
-     margin: "1em 0"
     }
 })
 
@@ -37,31 +34,20 @@ const ArchiveWarningDialog = ({ handleClose }) => {
 
     const { t } = useTranslation('translation');
     const classes = useStyles();
+    const link = window._env.REDCAP_EOT_SURVEY_LINK || "";
 
-    return (<PopOver title={t('archive.warningTitle')} close={handleClose} ignoreClickAway>
-        <Typography>{t('archive.warningLong')}</Typography>
-        <SurveyLink />
-        <div className={classes.bottomButton}>
-            <ProfileButton onClick={handleClose}>
-                {t('patient.report.symptoms.warning.button')}
-            </ProfileButton>
+    return (<PopOver close={handleClose} ignoreClickAway >
+        <div className={classes.body}>
+            <Typography variant="h1">{t('archive.warningTitle')}</Typography>
+            <Typography>{t('archive.warningLong')}</Typography>
+            <Typography variant="h1">{t('archive.endSurvey')}</Typography>
+            <Typography variant="body1" color="initial">{t('archive.surveyText')}</Typography>
+            <CopyableText className={classes.copyOverride} text={link} />
+            <Button className={classes.bottomButton} onClick={handleClose}>{t('archive.continue')}<KeyboardArrowRight /></Button>
         </div>
     </PopOver>)
 
 };
 
-const SurveyLink = () => {
-    const { t } = useTranslation('translation');
-    const classes = useStyles();
-    const link = window._env.REDCAP_EOT_SURVEY_LINK || "";
-
-    return (
-        <div className={classes.surveyArea}>
-            <Typography variant="h1">{t('archive.endSurvey')}</Typography>
-            <Typography variant="body1" color="initial">{t('archive.surveyText')}</Typography>
-            <CopyableText className={classes.copyOverride} text={link} />
-        </div>
-    )
-}
 
 export default ArchiveWarningDialog;

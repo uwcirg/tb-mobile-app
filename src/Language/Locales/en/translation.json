@@ -31,7 +31,8 @@
         "viewDetails": "View details",
         "hideDetails": "Hide Details",
         "copy": "Copy",
-        "copied": "Copied"
+        "copied": "Copied",
+        "copyExplanation": "Copy link to clipboard"
     },
     "userTypes": {
         "patient": "Patient",
@@ -863,6 +864,7 @@
     "warningShort": "This patient has been archived and can no longer report",
     "warningLong": "This patient has been archived and will no longer show up in your tasks. If you need to undo this action please contact study staff for technical support.",
     "treatmentOutcome": "Treatment Outcome",
+    "continue": "Continue To Patient Profile",
     "outcomeTypes": {
         "success": "Success",
         "default": "Default",
