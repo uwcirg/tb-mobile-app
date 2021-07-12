@@ -56,6 +56,7 @@ const TreatmentSuccess = () => {
     const { t } = useTranslation('translation');
     const classes = useStyles();
     const [running, setRunning] = useState(true);
+    
     useEffect(() => {
         const timer = setTimeout(() => {
             setRunning(false);

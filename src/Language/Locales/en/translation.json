@@ -29,7 +29,10 @@
         "clickToLoadMore": "Click to load more",
         "testStrips": "Test Strips",
         "viewDetails": "View details",
-        "hideDetails": "Hide Details"
+        "hideDetails": "Hide Details",
+        "copy": "Copy",
+        "copied": "Copied",
+        "copyExplanation": "Copy link to clipboard"
     },
     "userTypes": {
         "patient": "Patient",
@@ -861,6 +864,7 @@
     "warningShort": "This patient has been archived and can no longer report",
     "warningLong": "This patient has been archived and will no longer show up in your tasks. If you need to undo this action please contact study staff for technical support.",
     "treatmentOutcome": "Treatment Outcome",
+    "continue": "Continue To Patient Profile",
     "outcomeTypes": {
         "success": "Success",
         "default": "Default",
@@ -870,6 +874,7 @@
         "deceased": "Deceased"
     },
     "complete": "Complete",
+    "endSurvey": "End of treatment survey",
     "patientSide":{
         "congrats": "Congrats on successfully completing treatment!",
         "subtitle": "We know completing treatment is not easy, and you did an excellent job. If you have any questions your assistant will be there to support you.",
@@ -877,7 +882,8 @@
         "survey": "Please complete this survey to let us know about your experience using the application.",
         "surveyButton": "Tell us about your experience",
         "statusChange": "Your study status has changed and you can no longer report. Please contact your assistant for more details."
-    }
+    },
+    "surveyText": "Please send this Link to the patient so they can tell us about their experience."
 },
 
 "notificationInstructions":{
