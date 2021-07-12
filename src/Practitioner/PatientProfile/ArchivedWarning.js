@@ -20,6 +20,7 @@ const useStyles = makeStyles({
     },
     body:{
         "& > h1":{
+            textTransform: "capitalize",
             margin: ".5em 0",
             "&:first-of-type":{
                 marginTop: 0
