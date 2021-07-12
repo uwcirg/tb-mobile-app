@@ -6,7 +6,7 @@ import Colors from '../Basics/Colors';
 import { useTranslation } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
 import LinkIcon from '@material-ui/icons/Link';
-import Button from '@material-ui/core/Button';
+import Button from '@material-ui/core/ButtonBase';
 import Tooltip from '@material-ui/core/Tooltip';
 import CheckIcon from '@material-ui/icons/Check';
 
@@ -16,30 +16,31 @@ const useStyles = makeStyles({
         cursor: "default"
     },
     copyBox: {
-        overflowX: "hidden",
         border: `1px solid ${Colors.gray}`,
         borderRadius: "5px",
-        width: "100%"
+        width: "100%",
+        overflow: "hiddden"
     },
     textDisplay: {
         color: Colors.textDarkGray,
         overflow: "scroll",
         fontSize: "1em",
-        boxSizing: "border-box",
-        flexGrow: "1",
         textAlign: "center",
         padding: ".25em",
-        borderLeft: `1px solid ${Colors.gray}`,
-        whiteSpace: "nowrap",
-        padding: "0 1em"
+        whiteSpace: "nowrap"
     },
     link: {
-        padding: "0 .5em"
+        padding: "0 .5em",
+        borderRight: `1px solid ${Colors.gray}`,
+        marginRight: ".5em"
     },
     copyButton: {
+        padding: ".5em",
+        fontSize: "1em",
+        display: "flex",
+        marginLeft: ".5em",
         color: "white",
-        paddingLeft: "1em",
-        paddingRight: "1em",
+        alignSelf: "stretch",
         textTransform: "capitalize",
         borderRadius: "0",
         backgroundColor: props => props.success ? Colors.green : Colors.buttonBlue,
@@ -49,7 +50,7 @@ const useStyles = makeStyles({
     },
     buttonIcon: {
         fontSize: "1em",
-        marginRight: "5px"
+        marginRight: ".5em"
     }
 })
 
@@ -84,10 +85,9 @@ const ButtonElement = ({ success, onClick }) => {
     const classes = useStyles({ success: success });
     return (
     <Tooltip title={t('commonWords.copyExplanation')}>
-        <Button className={classes.copyButton} aria-label="copy-link" onClick={onClick}>
-        {success ? 
-        <><CheckIcon className={classes.buttonIcon} />{t('commonWords.copied')}</> : 
-        <><FileCopyIcon className={classes.buttonIcon} />{t('commonWords.copy')}</>}
+        <Button className={classes.copyButton} aria-label="copy-link" onClick={onClick} >
+        {success ? <CheckIcon className={classes.buttonIcon} /> : <FileCopyIcon className={classes.buttonIcon} />}
+        {success ? t('commonWords.copied') : t('commonWords.copy')}
     </Button>
     </Tooltip>)
 

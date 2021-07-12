@@ -32,7 +32,8 @@
         "hideDetails": "Hide Details",
         "copy": "Copy",
         "copied": "Copied",
-        "copyExplanation": "Copy link to clipboard"
+        "copyExplanation": "Copy link to clipboard",
+        "archived": "Archived"
     },
     "userTypes": {
         "patient": "Patient",
@@ -874,7 +875,7 @@
         "deceased": "Deceased"
     },
     "complete": "Complete",
-    "endSurvey": "End of treatment survey",
+    "endSurvey": "Survey",
     "patientSide":{
         "congrats": "Congrats on successfully completing treatment!",
         "subtitle": "We know completing treatment is not easy, and you did an excellent job. If you have any questions your assistant will be there to support you.",

@@ -20,6 +20,8 @@ const useStyles = makeStyles({
     },
     body:{
         "& > h1":{
+            fontWeight: "500",
+            textTransform: "capitalize",
             margin: ".5em 0",
             "&:first-of-type":{
                 marginTop: 0
@@ -36,7 +38,7 @@ const ArchiveWarningDialog = ({ handleClose }) => {
 
     return (<PopOver close={handleClose} ignoreClickAway >
         <div className={classes.body}>
-            <Typography variant="h1">{t('archive.warningTitle')}</Typography>
+            <Typography  variant="h1">{t('archive.warningTitle')}</Typography>
             <Typography>{t('archive.warningLong')}</Typography>
             <Typography variant="h1">{t('archive.endSurvey')}</Typography>
             <Typography variant="body1" color="initial">{t('archive.surveyText')}</Typography>

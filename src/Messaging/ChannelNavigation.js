@@ -151,6 +151,7 @@ const Channels = observer((props) => {
         channels = props.channels.map((channel) => {
             const title = (channel.isPrivate && practitionerStore.getPatient(channel.userId)) ? practitionerStore.getPatient(channel.userId).fullName : channel.title
             return <ChannelPreview
+                creatorIsArchived={channel.creatorIsArchived}
                 isSiteChannel={channel.isSiteChannel}
                 isExpert={channel.userType === "Practitioner"}
                 coordinator
