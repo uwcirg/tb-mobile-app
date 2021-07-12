@@ -54,7 +54,7 @@ const ChannelPreview = observer((props) => {
                 </div>
                 <div className="rightSideContainer">
                     <span id="time" >{props.time}</span>
-                    {props.creatorIsArchived && <Label text={t('commonWords.archived')}backgroundColor={Colors.warningRed} />}
+                    {props.coordinator && props.creatorIsArchived && <Label text={t('commonWords.archived')}backgroundColor={Colors.warningRed} />}
                     {props.unread > 0 && <UnreadBadge value={props.unread} />}
                 </div>
             </BorderedPart>
