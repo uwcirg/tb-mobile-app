@@ -872,6 +872,7 @@
         "deceased": "Deceased"
     },
     "complete": "Complete",
+    "endSurvey": "End of treatment survey",
     "patientSide":{
         "congrats": "Congrats on successfully completing treatment!",
         "subtitle": "We know completing treatment is not easy, and you did an excellent job. If you have any questions your assistant will be there to support you.",
@@ -880,7 +881,7 @@
         "surveyButton": "Tell us about your experience",
         "statusChange": "Your study status has changed and you can no longer report. Please contact your assistant for more details."
     },
-    "surveyText": "Please send this Link to the patient so they can tell us about their experience"
+    "surveyText": "Please send this Link to the patient so they can tell us about their experience."
 },
 
 "notificationInstructions":{

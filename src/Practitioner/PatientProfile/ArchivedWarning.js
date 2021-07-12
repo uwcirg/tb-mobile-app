@@ -22,7 +22,11 @@ const useStyles = makeStyles({
         }
     },
     surveyArea:{
-        marginTop: "1em"
+        marginTop: "1em",
+        "& > h1":{
+            marginBottom: ".5em",
+            textTransform: "capitalize"
+        }
     },
     copyOverride:{
      margin: "1em 0"
@@ -53,6 +57,7 @@ const SurveyLink = () => {
 
     return (
         <div className={classes.surveyArea}>
+            <Typography variant="h1">{t('archive.endSurvey')}</Typography>
             <Typography variant="body1" color="initial">{t('archive.surveyText')}</Typography>
             <CopyableText className={classes.copyOverride} text={link} />
         </div>
