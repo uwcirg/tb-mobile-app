@@ -2,12 +2,10 @@ import PopUp from '../../Navigation/PopUp'
 import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Styles from '../../../Basics/Styles';
-import Colors from '../../../Basics/Colors';
 import { observer } from 'mobx-react';
 import useStores from '../../../Basics/UseStores';
 import { useTranslation } from 'react-i18next';
 import { usePageVisibility } from '../../../Hooks/PageVisibility'
-import ForumIcon from '@material-ui/icons/Forum';
 import TestStripUpdate from './TestStripUpdateMay'
 import ChatReminder from './ChatReminder';
 import DefaultLayout from './DefaultMessage'
@@ -30,7 +28,6 @@ const EducationalMessage = observer((props) => {
     const { educationStore: education } = patientStore;
 
     const isVisible = usePageVisibility();
-
 
     //Check for service worker update when page goes from invisible to visible.
     //this helps us detect when the application is launched from installed
