@@ -88,13 +88,14 @@ const CodeInput = styled(ReactCodeInput)`
     justify-content: space-between;
     margin: auto;
     input{
-      width: 6vw;
-      height: 6vw;
+      width: 45px;
+      height: 45px;
       font-size: 1.5em;
       border-radius: 5px;
       border: none;
       padding: .5em;
       text-align: center;
+      box-sizing: border-box;
     }
 `
 
