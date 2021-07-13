@@ -7,6 +7,7 @@ import Colors from '../../Basics/Colors';
 import NotificationImportantIcon from '@material-ui/icons/NotificationImportant';
 import useStores from '../../Basics/UseStores';
 import { useTranslation } from 'react-i18next';
+import BottomButton from './BottomButton';
 
 const useStyles = makeStyles({
     container: {
@@ -39,7 +40,6 @@ const AskPermissions = (props) => {
     return (
         <>
             <div className={classes.container}>
-
                 <Grid justify="center" alignItems="center" className={classes.header} container spacing={1}>
                     <NotificationImportantIcon className={classes.icon} />
                     <Typography align="center" variant="h1" color="initial">{t('patient.onboarding.notification.header')}</Typography>
@@ -49,12 +49,7 @@ const AskPermissions = (props) => {
                 <Typography variant="body1"> {t('patient.onboarding.notification.listHeader')}:</Typography>
                 <PushFeatureList hideHeader />
             </div>
-            {React.cloneElement(props.button, {
-                onClick: () => {
-                    patientStore.subscribeToNotifications();
-                    props.handleNext();
-                }
-            })}
+            <BottomButton onClick={patientStore.subscribeToNotifications} />
         </>
     )
 }

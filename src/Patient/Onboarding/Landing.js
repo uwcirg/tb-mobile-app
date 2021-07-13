@@ -11,7 +11,10 @@ const useStyles = makeStyles({
         flexDirection: "column",
         alignItems: "center",
         padding: "1em",
-        textAlign: "center"
+        textAlign: "center",
+        "& > svg":{
+            height: "150px"
+        }
     },
 })
 

@@ -7,6 +7,7 @@ import { ReactComponent as DoctorIcon } from '../../Basics/Icons/doctor.svg';
 import { useTranslation } from 'react-i18next';
 import MuiAlert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
+import BottomButton from './BottomButton';
 
 const useStyles = makeStyles({
     container: {
@@ -29,7 +30,7 @@ function Alert(props) {
 }
 
 const End = observer((props) => {
-    const {t} = useTranslation('translation');
+    const { t } = useTranslation('translation');
     const classes = useStyles();
     const { activationStore, patientStore, patientUIStore } = useStores();
 
@@ -60,12 +61,7 @@ const End = observer((props) => {
                         </Alert>}
                 </div>
             </div>
-            {React.cloneElement(props.button, {
-                onClick: () => {
-                    activationStore.submitActivation();
-                    props.handleNext();
-                }
-            })}
+            <BottomButton onClick={activationStore.submitActivation} />
         </>
     )
 

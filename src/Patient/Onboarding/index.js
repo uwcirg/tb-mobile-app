@@ -9,11 +9,13 @@ import { observer } from 'mobx-react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Styles from '../../Basics/Styles';
 import Tabs from './StepList';
+import BottomButton from './BottomButton';
 
 const useStyles = makeStyles({
     body: {
         width: "100vw",
-        backgroundColor: "white"
+        backgroundColor: "white",
+        flex: "1 1 0"
     },
     navBarGhost: {
         width: "100%",
@@ -21,11 +23,9 @@ const useStyles = makeStyles({
     },
     container: {
         width: "100%",
-        minHeight: "100vh"
-    },
-    button: {
-        marginTop: "auto",
-        display: "flex"
+        minHeight: "95vh",
+        display: "flex",
+        flexDirection: "column"
     },
     stepper: {
         backgroundColor: "white",
@@ -35,7 +35,10 @@ const useStyles = makeStyles({
         }
     },
     surveyBody: {
-        padding: "1.5em"
+        flex: "1 1 0",
+        display: "flex",
+        flexDirection: "column",
+        padding: "1em",
     },
     loading: {
         ...Styles.flexCenter,
@@ -54,32 +57,19 @@ const Onboarding = observer(() => {
 
     const index = patientUIStore.reportStep;
 
-    const handleNext = () => {
-        if (patientUIStore.reportStep !== Tabs.length - 1) {
-            patientUIStore.updateOnboardingStep(index + 1);
-        }
-    }
-
     const handleBack = () => { index < 1 ? patientStore.logout() : patientUIStore.updateOnboardingStep(index - 1) }
 
     return (
         <>
-            {activationStore.isLoading ?
-                <div className={classes.loading}>
-                    <div>
-                        <p>{t('patient.onboarding.success')}</p>
-                        <CircularProgress size="50vw" />
-                    </div>
-                </div>
-                :
+            <OverTopBar handleBack={handleBack} title={t(getHeaderTitleKey(index))} />
+            {activationStore.isLoading ? <LoadingScreen /> :
                 <div className={classes.container}>
-                    <OverTopBar handleBack={handleBack} title={t(getHeaderTitleKey(index))} />
                     <div className={classes.navBarGhost} />
                     <VisualPosition index={index} />
-                    <div className={classes.body}>
-                        {React.cloneElement(Tabs[index], { index: index, length: Tabs.length, bodyClass: classes.surveyBody, button: <SimpleButton className={classes.button} alignRight>{t('patient.onboarding.next')}</SimpleButton>, handleNext: handleNext })}
-                        {!Tabs[index].props.overrideNext && <SimpleButton onClick={handleNext} className={classes.button} alignRight>{t('patient.onboarding.next')}</SimpleButton>}
-                    </div>
+                        <div className={classes.surveyBody}>
+                            {React.cloneElement(Tabs[index], { index: index, length: Tabs.length })}
+                            {!Tabs[index].props.overrideNext && <BottomButton />}
+                        </div>
                 </div>}
         </>
     )
@@ -98,6 +88,19 @@ const VisualPosition = ({ index }) => {
         position="static"
         activeStep={index - 2}
     />)
+}
+
+const LoadingScreen = () => {
+    const { t } = useTranslation('translation');
+    const classes = useStyles();
+    return (
+        <div className={classes.loading}>
+            <div>
+                <p>{t('patient.onboarding.success')}</p>
+                <CircularProgress size="50vw" />
+            </div>
+        </div>
+    )
 }
 
 const getHeaderTitleKey = (index) => {
