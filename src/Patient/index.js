@@ -15,6 +15,7 @@ import { useMatomo } from '@datapunt/matomo-tracker-react'
 import ErrorListener from './ErrorListener';
 import ForcePasswordChange from './ForcePasswordChange';
 import EducationalMessage from './Home/Education';
+import { usePageVisibility } from '../Hooks/PageVisibility';
 
 const PatientHome = observer((props) => {
 
@@ -22,6 +23,7 @@ const PatientHome = observer((props) => {
   const tabs = [<Home />, <Progress />, <Messaging />, <Info />];
   const routeTab = tabs[patientUIStore.tabNumber]
   const { trackPageView, pushInstruction } = useMatomo();
+  const isVisible = usePageVisibility();
 
   // When tab is changed, make sure that we scroll to the top so user does not get lost
   // Track page view in Matomo
@@ -49,6 +51,18 @@ const PatientHome = observer((props) => {
       })
     }
   }, [uiStore.offline, dailyReportStore.numberOfflineReports])
+
+  useEffect(() => {
+    if (isVisible) {
+      let displayMode = 'browser';
+      const mqStandAlone = '(display-mode: standalone)';
+      if (navigator.standalone || window.matchMedia(mqStandAlone).matches) {
+        displayMode = 'standalone';
+      }
+      pushInstruction('setCustomVariable', 2, "clientLaunchType", displayMode, "visit");
+    }
+  }, [isVisible])
+
 
 
   if (patientStore.hasForcedPasswordChange) {
