@@ -77,6 +77,7 @@ align-content: center;
 `
 
 const Center = styled.div`
+margin-top: 1em;
 width: 100%;
 justify-content: center;
 `
