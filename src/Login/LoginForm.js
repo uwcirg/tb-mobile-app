@@ -85,12 +85,11 @@ justify-content: center;
 const CodeInput = styled(ReactCodeInput)`
     width: 100%;
     display: flex !important;
-    justify-content: center;
+    justify-content: space-between;
     margin: auto;
     input{
       width: 6vw;
       height: 6vw;
-      margin: 1vw;
       font-size: 1.5em;
       border-radius: 5px;
       border: none;
