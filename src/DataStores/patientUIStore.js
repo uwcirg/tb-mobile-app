@@ -1,4 +1,5 @@
-import { observable, action, computed, autorun } from 'mobx'
+import { observable, action, computed, autorun } from 'mobx';
+import onboardingTabs from '../Patient/Onboarding/StepList';
 
 //Extends this file https://github.com/alisd23/mobx-react-router/blob/master/src/store.js
 
@@ -16,8 +17,6 @@ export default class PatientUIStore {
     @observable alertVisible = false;
     @observable alertText = "";
     @observable alertType = "success";
-
-
 
     @action goToWalkThrough = (step = 0) => {
         this.onWalkthrough = true;
@@ -174,7 +173,7 @@ export default class PatientUIStore {
         return this.router.location.search.includes("&onPassword=true")
     }
 
-    @computed get onPushEnrollmentInstructions(){
+    @computed get onPushEnrollmentInstructions() {
         return this.router.location.search.includes("?onPushEnrollmentInstructions=true")
     }
 
@@ -204,15 +203,22 @@ export default class PatientUIStore {
         return (search.includes("onAddReminders=true"))
     }
 
-    @computed get onInfoTestInstructions(){
+    @computed get onInfoTestInstructions() {
         const search = this.router.location.search
         return (search.includes("testStripInstructions=true"))
     }
 
 
-    @action setAlert = (text,type="success") =>{
+    @action setAlert = (text, type = "success") => {
         this.alertVisible = true;
         this.alertText = text;
         this.alertType = type;
+    }
+
+    nextOnboardingStep = () => {
+        //Prevent going past the end of onboarding
+        if (this.reportStep !== onboardingTabs.length - 1) {
+            this.updateOnboardingStep(this.reportStep + 1);
+        }
     }
 }

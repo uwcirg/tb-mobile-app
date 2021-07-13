@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react';
 import SurveyHeader from './SurveyHeader';
 import { useTranslation } from 'react-i18next';
 import { Input } from '@material-ui/core';
@@ -9,16 +9,20 @@ import { Input } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
-        margin: theme.spacing(1),
-        minWidth: 120,
     },
     selectEmpty: {
-        marginTop: theme.spacing(2),
+
     },
-    inputContainer:{
-        width: "100%",
-        display: "flex",
-        justifyContent: "center"
+    inputContainer: {
+        width: "40%",
+        margin: "auto"
+    },
+    input:{
+        alignSelf: "center",
+        fontSize: "2em",
+        "& > input":{
+            textAlign: "center"
+        }
     }
 }));
 
@@ -26,17 +30,17 @@ const Age = observer((props) => {
 
     const classes = useStyles();
     const { t, i18n } = useTranslation('translation');
-    const {activationStore} = useStores();
+    const { activationStore } = useStores();
 
     //Limit to only reasonable ages here
-    const handleChange = (e) => { activationStore.onboardingInformation.age = e.target.value}
+    const handleChange = (e) => { activationStore.onboardingInformation.age = e.target.value }
 
-    return (<div className={props.bodyClass}>
+    return (<>
         <SurveyHeader index={props.index} title={t("patient.onboarding.age")} />
         <div className={classes.inputContainer}>
-        <Input value={activationStore.onboardingInformation.age} onChange={handleChange} placeholder="Age" type="number"></Input>
+            <Input className={classes.input} value={activationStore.onboardingInformation.age} onChange={handleChange} placeholder="Age" type="number"></Input>
         </div>
-    </div>)
+    </>)
 
 });
 

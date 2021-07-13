@@ -7,10 +7,8 @@ import Styles from '../../Basics/Styles';
 
 const useStyles = makeStyles({
     faq: {
-        height: "60vh",
         ...Styles.flexColumn,
         justifyContent: "space-evenly",
-        padding: "1em",
         "& > h1": { fontSize: "1.5em" },
         "& > h2": { fontSize: "1.25em", margin: 0, padding: 0 },
         "& > ul > li": {
