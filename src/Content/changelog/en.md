@@ -5,6 +5,10 @@ Patient Side:
 - Add instructions about how to enable push notifications at the system level
 - Detect if they are not enabled and present warning with link to instructions
 - Add screen to onboarding to explain notifications before asking for permission
+- Track if the app was launched in standalone mode
+- Fix display issues in onboarding
+    - Button overlap with password input
+    - Increase size of age input
 
 Assistant Side:
 - Add link to survey on archived patient popup
