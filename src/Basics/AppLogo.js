@@ -1,17 +1,17 @@
 import React from 'react'
 import styled from 'styled-components'
-import {useTranslation} from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 
 const AppLogo = (props) => {
-    const { t } = useTranslation('translation');
-    const BASE_URL = (window && window._env) ? window._env.URL_CLIENT : ""
+  const { t } = useTranslation('translation');
+  const BASE_URL = (window && window._env) ? window._env.URL_CLIENT : ""
 
-    return(
+  return (
     <Title className={props.className}>
-    <img src={`${BASE_URL}/${props.white ? "logo-white.png" : "logo.png"}`}></img>
-    <h1>{t("title")}</h1>
+      <img src={`${BASE_URL}/${props.white ? "logo-white.png" : "logo.png"}`}></img>
+      <h1>{t("title")}</h1>
     </Title>
-    )
+  )
 }
 
 const Title = styled.div`
