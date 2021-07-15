@@ -7,8 +7,7 @@ import { observer } from 'mobx-react'
 //Components
 import AppLogo from '../Basics/AppLogo'
 import IconButton from '@material-ui/core/IconButton'
-import LoginPage from './LoginPage'
-
+import LoginPage from './LoginForm';
 //Icons
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';

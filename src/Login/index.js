@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import DemoWarning from './DemoWarning';
 import VersionNumber from '../Patient/Information/VersionNumber';
 
-
 const Login = observer(() => {
 
   const { t } = useTranslation('translation');
@@ -35,9 +34,7 @@ const Login = observer(() => {
       <VersionNumber isLoginScreen />
       {loginStore.error != 0 && <Alert open text={errorText()} onClose={loginStore.clearError} />}
     </>
-
   )
-
 });
 
 export default Login;
