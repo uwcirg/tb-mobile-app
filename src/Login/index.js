@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import DemoWarning from './DemoWarning';
 import VersionNumber from '../Patient/Information/VersionNumber';
 
-
 const Login = observer(() => {
 
   const { t } = useTranslation('translation');
@@ -15,11 +14,16 @@ const Login = observer(() => {
 
   const errorText = () => {
     if (loginStore.error == 422) {
-      return t("errors.login.identifier")
+      if (loginStore.selectedUserType === "Patient") {
+        return t('errors.login.badPhone');
+      } else if (loginStore.selectedUserType === "Practitioner") {
+        return t('errors.login.badEmail');
+      }
+      return t("errors.login.identifier");
     } else if (loginStore.error == 401) {
-      return t("errors.login.password")
+      return t("errors.login.password");
     } else {
-      return t("errors.login.other")
+      return t("errors.login.other");
     }
   }
 
@@ -30,9 +34,7 @@ const Login = observer(() => {
       <VersionNumber isLoginScreen />
       {loginStore.error != 0 && <Alert open text={errorText()} onClose={loginStore.clearError} />}
     </>
-
   )
-
 });
 
 export default Login;
