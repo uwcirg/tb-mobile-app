@@ -9,7 +9,6 @@ import resizeImage from '../Utility/ResizeImage';
 const ROUTES = {
     login: ["/authenticate", "POST"],
     getCurrentPatient: ["/patient/me", "GET"],
-    getVapidKey: ["/push_key", "GET"],
     dailyReport: ["/daily_report", "POST"],
     patientReports: ["/daily_reports", "GET"],
     getPhotoUploadURL: ["/patient/daily_reports/photo_upload_url", "GET"],
@@ -39,6 +38,7 @@ export class PatientStore extends UserStore {
 
     @observable status = "Active";
     @observable isReminderUpdating = false;
+    @observable treatmentOutcome = {};
 
     @observable treatmentStart = ""
 
@@ -121,6 +121,7 @@ export class PatientStore extends UserStore {
         this.educationStore.educationStatus = json.educationStatus;
         this.hasForcedPasswordChange = json.hasForcedPasswordChange;
         this.patientInformation.loaded = true;
+        this.treatmentOutcome = json.treatmentOutcome;
 
         localStorage.setItem("cachedProfile", JSON.stringify({
             photoSchedule: this.photoSchedule,
@@ -180,18 +181,6 @@ export class PatientStore extends UserStore {
             }
             return total
         }, 0)
-    }
-
-    //Streak calculated on server can only produce streak from yesterday. 
-    //If the user has completed their treatment today, this will add oneday
-    @computed get getCurrentStreak() {
-        let streak = this.patientInformation.currentStreak;
-        if (streak === null) streak = 0;
-        if (this.report.hasConfirmedAndSubmitted && this.report.tookMedication) {
-            streak += 1;
-        }
-
-        return streak;
     }
 
     @computed get incompleteDays() {
@@ -451,6 +440,18 @@ export class PatientStore extends UserStore {
         }
     }
 
+    //Streak calculated on server can only produce streak from yesterday. 
+    //If the user has completed their treatment today, this will add oneday
+    @computed get getCurrentStreak() {
+        let streak = this.patientInformation.currentStreak;
+        if (streak === null) streak = 0;
+        if (this.reportStore.medicationWasTakenToday) {
+            streak += 1;
+        }
+
+        return streak;
+    }
+
     defaultReport = {
         date: DateTime.local().toISODate(),
         timeTaken: DateTime.local().startOf('second').startOf("minute").toISOTime({ suppressSeconds: true }),
@@ -470,6 +471,10 @@ export class PatientStore extends UserStore {
         nauseaRating: "",
         photoWasSkipped: false,
         whyPhotoWasSkipped: ""
+    }
+
+    @computed get isArchived(){
+        return this.status === "Archived"
     }
 
 

@@ -1,17 +1,46 @@
 import React from 'react';
-import styled from 'styled-components'
-import Colors from '../Basics/Colors'
-import { useTranslation } from 'react-i18next'
-import UnreadBadge from './UnreadBadge'
-import {observer} from 'mobx-react'
+import styled from 'styled-components';
+import Colors from '../Basics/Colors';
+import { useTranslation } from 'react-i18next';
+import UnreadBadge from './UnreadBadge';
+import { observer } from 'mobx-react';
+import Label from '../Components/Label';
+import { makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles({
+    noMargin: {
+        margin: 0,
+        padding: 0
+    },
+    title:{
+        fontSize: "1em",
+        paddingBottom: ".25em"
+    },
+    subTitle:{
+        fontSize: ".75em",
+        color: "gray",
+        fontWeight: "normal"
+    }
+})
+
+const Title = ({children}) => {
+    const classes = useStyles();
+    return(<h2 className={`${classes.noMargin} ${classes.title}`}>{children}</h2>)
+}
+
+const Subtitle = ({children}) => {
+    const classes = useStyles();
+    return(<p className={`${classes.noMargin} ${classes.subTitle}`}>{children}</p>)
+}
 
 const ChannelPreview = observer((props) => {
 
-    const {t} = useTranslation('translation');
+    const { t } = useTranslation('translation');
+
 
     const getSubtitle = () => {
-        if(props.private) return t("messaging.privateExplained")
-        if(props.isSiteChannel) return t("messaging.clinicChat")
+        if (props.private) return <Subtitle>{t("messaging.privateExplained")}</Subtitle>
+        if (props.isSiteChannel) return <Subtitle>{t("messaging.clinicChat")}</Subtitle>
         return props.subtitle
     }
 
@@ -19,18 +48,20 @@ const ChannelPreview = observer((props) => {
         <Container {...props}>
             <div className="display"><span>{props.title ? props.title[0] : "C"}</span></div>
             <BorderedPart hideBorder={props.coordinator}>
-                <div className="text">
-                    <h2>{props.title === "tb-expert-chat" ?  t('messaging.expert') : props.title }</h2>
-                    <p>{getSubtitle()}</p>
+                <div>
+                    <Title>{props.title === "tb-expert-chat" ? t('messaging.expert') : props.title}</Title>
+                    {getSubtitle()}
                 </div>
                 <div className="rightSideContainer">
                     <span id="time" >{props.time}</span>
+                    {props.coordinator && props.creatorIsArchived && <Label text={t('commonWords.archived')}backgroundColor={Colors.warningRed} />}
                     {props.unread > 0 && <UnreadBadge value={props.unread} />}
                 </div>
             </BorderedPart>
         </Container>
     )
 });
+
 
 const BorderedPart = styled.div`
     border-bottom: ${props => !props.hideBorder ? 'solid 1px lightgray' : 'unset'};
@@ -53,27 +84,6 @@ const BorderedPart = styled.div`
         color: gray;
         margin-bottom: 8px;
     }
-
-.text{
-
-    p, h2{
-        margin: 0;
-        padding: 0;
-
-    }
-
-    h2{
-        
-        font-size: 1em;
-        padding-bottom: .25em;
-    }
-
-    p{
-        font-size: .75em;
-        color: gray;
-        font-weight: normal;
-    }
-}
 
 `
 
@@ -98,9 +108,10 @@ const Container = styled.div`
         max-height: 50px;
         max-width: 50px;
         border-radius: 50px;
-        background-color: ${props => { 
-            if(props.isSiteChannel) return Colors.blue
-            return props.private ? Colors.green : Colors.babyBlue}};
+        background-color: ${props => {
+        if (props.isSiteChannel) return Colors.blue
+        return props.private ? Colors.green : Colors.babyBlue
+    }};
         display: flex;
         justify-content: center;
         align-items: center;

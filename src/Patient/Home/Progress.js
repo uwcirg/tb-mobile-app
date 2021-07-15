@@ -17,7 +17,7 @@ import Down from '@material-ui/icons/KeyboardArrowDown';
 import Up from '@material-ui/icons/KeyboardArrowUp';
 
 
-const ProgressGraph = observer((props) => {
+const ProgressGraph = observer(() => {
     const classes = useStyles();
     const [showTimeline, setShowTimeline] = useState(false);
     const { patientStore } = useStores();

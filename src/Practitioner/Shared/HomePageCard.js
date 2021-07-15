@@ -158,7 +158,7 @@ const TaskInfo = (props) => {
     const classes = useStyles();
 
     if (props.type === 'symptom') {
-        if (!(props.lastSymptoms.symptomList.length > 0)) return ""
+        if (!props.lastSymptoms || !(props.lastSymptoms.symptomList.length > 0)) return ""
         const symptomToDisplay = getFirstSevereSymptomFromArray(props.lastSymptoms.symptomList)
 
         const displayedSymptom = t(`symptoms.${symptomToDisplay || props.lastSymptoms.symptomList[0]}.title`)

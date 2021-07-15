@@ -1,11 +1,12 @@
+import { DateTime } from "luxon";
 import { action, observable, computed, toJS } from "mobx";
 import uploadPhoto from '../Basics/PhotoUploader';
 import APIStore from './apiStore'
 
 const ROUTES = {
-    getChannels: ["/channels", "GET"],
+    getChannels: ["/v2/channels", "GET"],
     getUnreadMessages: ["/unread_messages", "GET"],
-    postNewChannel: ["/channels", "POST"]
+    postNewChannel: ["/v2/channels", "POST"]
 }
 
 export class MessagingStore extends APIStore {
@@ -21,8 +22,8 @@ export class MessagingStore extends APIStore {
                 const channel = new BroadcastChannel('messaging-notification');
                 channel.addEventListener('message', event => {
                     this.getUnreadMessages();
-                    if(this.selectedChannel.id){
-                        this.getSelectedChannel();
+                    if (this.selectedChannel.id) {
+                        this.getInitalMessages();
                     }
                 });
             }
@@ -40,8 +41,13 @@ export class MessagingStore extends APIStore {
         title: "",
         messages: [],
         creator: "",
-        isCoordinatorChannel: false
-    };
+        isCoordinatorChannel: false,
+        firstMessageID: 0,
+        firstLoad: true,
+        firstNewMessageId: 0,
+        allMessagesLoaded: false,
+        initalMessagesLoaded: false
+    }
 
     @observable newMessage = "";
     @observable file = "";
@@ -73,6 +79,14 @@ export class MessagingStore extends APIStore {
     }
 
     @computed
+    get firstMessageFetched() {
+        if (this.selectedChannel.messages && this.selectedChannel.messages.length < 1) {
+            return ""
+        }
+        return this.selectedChannel.messages[0].id
+    }
+
+    @computed
     get lastMessageFetched() {
         if (this.selectedChannel.messages && this.selectedChannel.messages.length < 1) {
             return ""
@@ -97,38 +111,60 @@ export class MessagingStore extends APIStore {
 
     @action getChannels() {
         this.executeRequest("getChannels").then((response) => {
-            this.channels = response;
+            this.channels = response.sort( (a,b) => {
+                return DateTime.fromISO(b.lastMessageTime).diff(DateTime.fromISO(a.lastMessageTime),"hours").hours
+            });
         })
     }
 
-    @action getSelectedChannel() {
+    @action getOlderMessages = () => {
 
-        let url = `/channels/${this.selectedChannel.id}/messages`
+        let url = `/v2/channel/${this.selectedChannel.id}/messages?firstMessageId=${this.firstMessageFetched}`
 
-        /*
-        if(this.lastMessageFetched != ""){
-            url += `?lastMessageID=${this.lastMessageFetched}`
-        } */
+        if (!this.selectedChannel.allMessagesLoaded) {
+            this.selectedChannel.olderMessagesLoading = true;
+            return this.executeRawRequest(url, "GET").then((response) => {
+                if(response.length > 0){
+                    this.selectedChannel.firstNewMessageId = response[response.length - 1].id
+                }
+                if(response.length < 20){
+                    this.selectedChannel.allMessagesLoaded = true;
+                }
+                this.selectedChannel.firstLoad = false;
+                this.selectedChannel.messages.unshift(...response);
+                this.selectedChannel.olderMessagesLoading = false;
+                return response && response.length;
+            })
+        }
+        return Promise.resolve(false);
+    }
 
-        this.executeRawRequest(url, "GET").then((response) => {
-            this.selectedChannel.messages = response;
-            this.getUnreadMessages();
-            this.updateSelectedChannel();
+    getInitalMessages() {
+        this.executeRawRequest(`/v2/channel/${this.selectedChannel.id}/messages`, "GET").then((response) => {
+            this.setInitalMessages(response);
         })
+    }
+
+    @action setInitalMessages = (messages) => {
+        this.selectedChannel.initalMessagesLoaded = true;
+        this.selectedChannel.messages = messages;
+        this.selectedChannel.allMessagesLoaded = messages.length < 20
+        this.getUnreadMessages();
+        this.updateSelectedChannel();
+
     }
 
     @computed get categorizedUnread() {
         const value = this.unreadInfo ? Object.values(this.unreadInfo).reduce((prev, current) => {
             if (current.isPrivate && !current.isSiteChannel) {
-                return {private: prev.private + current.unreadMessages, public: prev.public}
-            }else{
-                return {private: prev.private, public: prev.public + current.unreadMessages}
+                return { private: prev.private + current.unreadMessages, public: prev.public }
+            } else {
+                return { private: prev.private, public: prev.public + current.unreadMessages }
             }
-        }, {private: 0,public: 0}) : {private: 0,public: 0};
+        }, { private: 0, public: 0 }) : { private: 0, public: 0 };
 
         return value
     }
-
 
     @action getNewMessages() {
 
@@ -147,7 +183,13 @@ export class MessagingStore extends APIStore {
         this.selectedChannel = {
             id: 0,
             title: "",
-            messages: []
+            messages: [],
+            creator: "",
+            isCoordinatorChannel: false,
+            firstMessageID: 0,
+            firstLoad: true,
+            olderMessagesLoading: false
+
         };
         this.file = ""
     }
@@ -201,7 +243,6 @@ export class MessagingStore extends APIStore {
     }
 
     getUploadUrl = () => {
-
         return this.executeRawRequest(`/photo_uploaders/messaging?channelId=${this.selectedChannel.id}&fileType=${this.fileType}`)
     }
 
@@ -253,35 +294,55 @@ export class MessagingStore extends APIStore {
     }
 
     @action setMessageHidden = (id, state) => {
-        this.executeRawRequest(`/message/${id}`, "PATCH", { isHidden: state }).then(response => {
+        this.executeRawRequest(`/v2/message/${id}`, "PATCH", { isHidden: state }).then(response => {
             this.selectedChannel.messages.forEach((each, index) => {
                 if (each.id === response.id) {
                     this.selectedChannel.messages[index] = response
                 }
             })
-
         })
-
     }
 
     @action setTab = (index) => {
         this.tabNumber = index;
     }
 
-    fetchChannel = (channelId) => {
+    getChannelDetails = (channelId) => {
         this.executeRawRequest(`/v2/channel/${channelId}`, "GET").then(response => {
-            if(response.id){
+            if (response.id) {
                 this.setActiveChannel(response)
             }
         })
     }
 
     @action setActiveChannel = (channel) => {
-        this.selectedChannel. id = channel.id;
+        this.selectedChannel.id = channel.id;
         this.selectedChannel.title = channel.title;
         this.selectedChannel.isCoordinatorChannel = channel.userType === "Patient"
-        this.getSelectedChannel();
+        this.selectedChannel.firstMessageID = channel.firstMessageId
+        
+        this.tabNumber = channel.isPrivate ? 0 : 1;
+
+
+        this.getInitalMessages();
     }
 
+    @computed get olderMessagesLoading(){
+        return this.selectedChannel.olderMessagesLoading;
+    }
 
+    @computed get allMessagesLoaded(){
+        return this.selectedChannel.allMessagesLoaded;
+    }
+
+    @computed get initalMessagesLoaded(){
+        return this.selectedChannel.initalMessagesLoaded;
+    }
+
+    @action initalizeChannel = () =>{
+        this.selectedChannel.allMessagesLoaded = false;
+        this.selectedChannel.firstLoad = true;
+        this.selectedChannel.initalMessagesLoaded = false;
+        this.selectedChannel.olderMessagesLoading = false;
+    }
 }

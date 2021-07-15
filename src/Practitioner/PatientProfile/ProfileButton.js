@@ -16,17 +16,21 @@ const useStyles = makeStyles({
         "& > span": {
             fontSize: "1em",
             textTransform: "capitalize",
+            textAlign: "left",
             letterSpacing: ".15px",
             lineHeight: "1.15em",
             padding: ".5em"
         },
         "& > span  > svg": {
-            fontSize: "1em",
-            paddingRight: ".25em"
+            fontSize: "1.2em",
+            paddingRight: ".5em"
         },
         "&:hover":{
             backgroundColor: Colors.accentBlue,
             color: props => props.hoverColor || "white",
+        },
+        "&:disabled":{
+            backgroundColor: Colors.lightgray
         }
     },
 
@@ -36,7 +40,7 @@ const ProfileButton = (props) => {
 
     const classes = useStyles(props);
 
-    return (<Button onClick={props.onClick} size="small" className={classes.button}>
+    return (<Button disabled={props.disabled} onClick={props.onClick} size="small" className={`${props.className} ${classes.button}`}>
         {props.children}
     </Button>)
 

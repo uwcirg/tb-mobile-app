@@ -6,6 +6,7 @@
     "updating": "Updating",
     "demoWarning": "This is a demo of the application and should not be used for real patient data",
     "commonWords": {
+        "fillAll": "Please fill all fields before continuing",
         "edit": "Edit",
         "error": "Error",
         "medication": "Medication",
@@ -25,13 +26,23 @@
         "patients": "Patients",
         "expandPhoto": "Expand Photo",
         "hideThis": "Hide This",
-        "clickToLoadMore": "Click to load more"
+        "clickToLoadMore": "Click to load more",
+        "testStrips": "Test Strips",
+        "viewDetails": "View details",
+        "hideDetails": "Hide Details",
+        "copy": "Copy",
+        "copied": "Copied",
+        "copyExplanation": "Copy link to clipboard",
+        "archived": "Archived"
     },
     "userTypes": {
         "patient": "Patient",
         "provider": "Provider",
+        "practitioner": "Asistant",
         "coordinator": "Treatment Assistant",
-        "admin": "Administrator"
+        "admin": "Administrator",
+        "administrator": "Administrator",
+        "you": "You"
     },
     "login": {
         "changeLanguage": "Haga Clic Aquí Para Español",
@@ -47,6 +58,7 @@
         "activate": "Activate"
     },
     "messaging": {
+        "loadMore": "Load More Messages",
         "yourSite": "Clinic Announcements",
         "search": "Search",
         "moderation":{
@@ -143,6 +155,11 @@
             },
             "age": "How old are you?",
             "notification": {
+                "title": "Notifications",
+                "whenPrompted": "When prompted please select",
+                "permit": "Permit",
+                "listHeader": "This will allow us to send you",
+                "header": "The next step will ask you to turn on notifications",
                 "one": "Would you like to enable a daily reminder to take your medication?",
                 "two": "What time would you like to be reminded?"
             },
@@ -511,7 +528,10 @@
             "addedPatient": "Added Patient",
             "codeToSend": "Code to send to patient",
             "resetCode": "Reset Code",
-            "forPatient": "Activation Code For Patient"
+            "forPatient": "Activation Code For Patient",
+            "activationCode": "Activation Code",
+            "clickToCopy": "Click to copy",
+            "success": "Successfully copied"
 
         },
         "titles": {
@@ -526,6 +546,8 @@
             "missedPhoto": "Missed a Required Photo",
             "overviewOfProgress": "Overview of Progress",
             "allPatients": "All Patients",
+            "activePatients": "Active Patients",
+            "archivedPatients": "Archived Patients",
             "awaitingActivation": "Awaiting Activation",
             "currentStatus": "Current Status",
             "reportingCalender": "Reporting Calender",
@@ -560,7 +582,9 @@
             "treatmentStart": "Treatment Start",
             "lastSubmission": "Last Submission",
             "adherence": "Adherence",
-            "streak": "Streak"
+            "photoAdherence": "Photos Submitted",
+            "streak": "Streak",
+            "details": "Details"
         },
         "noTasks": "No Tasks Found",
         "profile": "Profile",
@@ -571,6 +595,12 @@
         "false": "false",
         "daysInTreatment": "Days In Treatment",
         "patientProfile": {
+            "adherenceSection":{
+                "reportedTaking": "Reported Taking",
+                "didntTake": "Reported Not Taking",
+                "didntReport": "Missed Reporting",
+                "missedRequest": "Missed Request"
+            },
             "notes":{
                 "noneFound": "No Notes Found",
                 "title": "Title",
@@ -599,6 +629,7 @@
             "phoneNumber": "Phone Number",
             "treatmentStart": "Treatment Start",
             "treatmentEnd": "Treatment End Date",
+            "appEndDate": "App End Date",
             "lastContacted": "Last Contacted",
             "date": "Date",
             "taken": "Taken",
@@ -624,11 +655,13 @@
             "listReports": "Reports",
             "calendarReports": "Calendar",
             "options": {
+                "title": "Options",
                 "resetPassword": "Reset Password",
                 "archive": "Archive Patient",
                 "message": "Message",
                 "note": "Add Note",
-                "edit": "Edit"
+                "edit": "Edit",
+                "editOutcome": "Edit Treatment Outcome"
             }
         },
         "tasksSidebar": {
@@ -673,6 +706,8 @@
 
         },
         "login": {
+            "badPhone": "Cannot find account with that phone number",
+            "badEmail": "Cannot find account with that email",
             "identifier": "Incorrect Phone Number / Email",
             "password": "Incorrect Password",
             "other": "Unexpected Error. Please contact your treatment assistant on WhatsApp"
@@ -795,8 +830,86 @@
     "body": "The instructions for the test strips have changed, please review them before completing your next test.",
     "textInstructions": "Text Instructions",
     "videoInstructions": "Video Instructions"
-}
+},
 
+"dashboard":{
+    "category": "Category",
+    "reported": "Reported",
+    "requested": "Requested",
+    "submitted": "Submitted",
+    "submissions": "Submissions",
+    "percentage": "Percentage",
+    "dailyReports": "Daily Reports",
+    "percentageOfReports": "Percentage of Reports",
+    "photoReports": "Photo Reports",
+    "metric": "Metric",
+    "lessThan": "less than",
+    "registrationOfPatients": "Registration of patients over time",
+    "reportsVsRequests": "Daily Reports Submitted / Total Active Number of Patients",
+    "photosVsRequests": "Daily Photos Submitted / Number of Requests",
+    "adherenceVis": "Adherence vs Days In Treatment",
+    "skippedPhoto": "Skipped Photo",
+    "needsSupport": "Needs Support",
+    "sideEffects": "Side Effects"
+},
+
+"summaries":{
+    "averageAdherence": "Average Adherence",
+    "averagePhotoAdherence": "Average Photo Adherence",
+    "siteSummary": "Summary of Active Patients",
+    "loading": "Loading list of patients"
+},
+
+"archive":{
+    "notSelected": "Not Selected",
+    "warningTitle": "Patient Archived",
+    "explanation": "If the patient has completed thier time using the application, fill in their last day, and click the button below to archive them. They will no longer appear in the lists of tasks, but their profile can be accessed from the cohort tab.",
+    "appEndField": "Last day using app",
+    "warningShort": "This patient has been archived and can no longer report",
+    "warningLong": "This patient has been archived and will no longer show up in your tasks. If you need to undo this action please contact study staff for technical support.",
+    "treatmentOutcome": "Treatment Outcome",
+    "continue": "Continue To Patient Profile",
+    "outcomeTypes": {
+        "success": "Success",
+        "default": "Default",
+        "withdraw": "Withdraw",
+        "lost-to-follow-up": "Lost to follow up",
+        "transferred": "Transfered",
+        "deceased": "Deceased"
+    },
+    "complete": "Complete",
+    "endSurvey": "Survey",
+    "patientSide":{
+        "congrats": "Congrats on successfully completing treatment!",
+        "subtitle": "We know completing treatment is not easy, and you did an excellent job. If you have any questions your assistant will be there to support you.",
+        "details": "You do not need to report anymore, but feel free to use the other resources in the app.",
+        "survey": "Please complete this survey to let us know about your experience using the application.",
+        "surveyButton": "Tell us about your experience",
+        "statusChange": "Your study status has changed and you can no longer report. Please contact your assistant for more details."
+    },
+    "surveyText": "Please send this link to the patient so they can tell us about their experience."
+},
+
+"notificationInstructions":{
+    "steps": {
+        "title": "How to enable notifications",
+        "goToSettings": "Go to the settings application on your phone",
+        "clickNotifications": "Click on notification settings",
+        "clickApp": "Click on Asistente",
+        "allowNotifications": "Enable notifications"
+    },
+    "warning":{
+        "title": "Push notifications are off",
+        "subtitle": "This means you will not recieve:",
+        "medicationReminders": "Medication Reminders",
+        "aptReminders": "Appointment Reminders",
+        "msgAlerts": "New messages from your assistant",
+        "button": "View Instructions",
+        "unsupported": "This device does not support push notifications",
+        "unsupportedDetails": "You will not receive reminders or notifications about new messages",
+        "ask": "Enable"
+    }
+}
 
 
 }

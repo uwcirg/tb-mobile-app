@@ -28,6 +28,7 @@ const DayDrawer = observer((props) => {
   const complete = (patientStore.selectedDayReport)
   const missingPhoto = (patientStore.selectedDayWasPhotoDay) && !patientStore.selectedDayReport || (patientStore.selectedDayReport && !patientStore.selectedDayReport.photoUrl);
   const inSubmissionRange = (date.diff(DateTime.local().startOf("day"), "days").days >= -3) || date.diff(DateTime.fromISO(patientStore.treatmentStart), "weeks").weeks <= 2
+  const isArchived = patientStore.isArchived;
 
   return (
     <ExpansionPanel
@@ -41,7 +42,7 @@ const DayDrawer = observer((props) => {
         id="calendar-day-preview">
         <div className={`${classes.container}`}>
           <Header date={date} complete={complete} />
-          {!open && <Body canSubmit={inSubmissionRange} missingPhoto={missingPhoto} report={patientStore.selectedDayReport} photoDay={patientStore.checkPhotoDay(date)} complete={complete} />}
+          {!open && <Body canSubmit={inSubmissionRange && !isArchived} missingPhoto={missingPhoto} report={patientStore.selectedDayReport} photoDay={patientStore.checkPhotoDay(date)} complete={complete} />}
         </div>
       </ExpansionPanelSummary>
       {complete &&

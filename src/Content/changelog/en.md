@@ -1,3 +1,65 @@
+## v2.6 
+(Work in progress)
+
+Patient Side:
+- Add instructions about how to enable push notifications at the system level
+- Detect if they are not enabled and present warning with link to instructions
+- Add screen to onboarding to explain notifications before asking for permission
+- Track if the app was launched in standalone mode
+- Fix display issues in onboarding
+    - Button overlap with password input
+    - Increase size of age input
+
+Assistant Side:
+- Add link to survey on archived patient popup
+
+General:
+- Track user notification preferences on the server
+- Make version number more readable, add to login screen
+- Fix display of warning message for demo site
+- Improve design of copyable text components
+- Workaround for bug where update popup was causing titles to be very large
+
+
+## v2.5
+Released June 24th, 2021
+
+Assistant View:
+- Assistants can now archive patients
+	- A treatment outcome and end date can be selected during this process
+	- They will no longer show up in the list of tasks
+	- Added list of archived patients on the patients tab, and you can access their profiles from here
+	- Once archived patients can still access the app + messaging, but can no longer report
+	- Archived patients adherence will not be calculated on a rolling basis, will instead be calculated based on the number of days they used the app
+- Redesign top part of the patient profile to have more options and details
+	- More details about adherence and 
+- Summary of adherence at your site is now available at the top of the tasks list
+- Patients names will now be listed in site level chats ( only visible to assistants )
+
+Patient View:
+- Congrats message when treatment is completed + link to survey
+- Limit reporting after they have been marked as archived
+
+Adherence / Priority Calculations:
+- Add photo adherence number ( positive photos / photos submitted / requested )
+- Calculate adherence from date patient started using the app ( some assistants were putting in a different value for "treatment start date"
+- Missing a photo makes a patient high priority
+
+Other Small Changes:
+- Redesigned sidebar of tasks page to be more consistent with rest of app
+- Moved patients awaiting activation list to top of cohort page
+- Removed site summary from side of cohort view because it was confusing 
+- Limited number of messages loaded at a time to speed up load times for messaging
+- Improved loading UI for messages
+- Added button to copy temporary code for patient activation 
+
+## v2.4.2
+
+API Changes Only:
+
+- Fixed bug where clicking on assistant chat would take you to site group chat
+- Allow hiding messages in site group chat
+
 ## v2.4.1
 
 Changes:
@@ -12,7 +74,7 @@ Bug Fixes:
 
 New Features / Changes
 - Adjust photo request schedules due to logistical issues
-- Tracking push notification delivery and clicks via serviceworker middleware
+- Tracking push notification delivery and clicks via service-worker middleware
 - Reminders to complete a test on a day when it has been requested
     - If not completed, a second reminder will be sent
 - Reminders for patients that have stopped reporting for more than 3 days

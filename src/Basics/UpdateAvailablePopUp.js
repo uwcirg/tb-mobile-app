@@ -3,10 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 
 import PopUp from '../Patient/Navigation/PopUp';
-import Typography from '@material-ui/core/Typography'
+import Typography from '@material-ui/core/Typography';
 import { ReactComponent as DoctorIcon } from './Icons/doctor.svg';
 import ClickableText from './ClickableText';
-import NewButton from './NewButton'
+import NewButton from './NewButton';
 
 const useStyles = makeStyles({
     body: {

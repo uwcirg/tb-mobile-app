@@ -2,7 +2,6 @@ import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import raw from "raw.macro";
 import MarkdownRender from './Panel'
-import Interactioncard from '../../Basics/HomePageCard'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next';
 import Colors from '../../Basics/Colors'
@@ -20,7 +19,6 @@ import TestIcon from '@material-ui/icons/FormatColorFill'
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 import TrackChangesIcon from '@material-ui/icons/TrackChanges';
 
-
 import PlayIcon from '@material-ui/icons/PlayCircleOutline';
 import HomeIcon from '@material-ui/icons/Home'
 import ChatIcon from '@material-ui/icons/QuestionAnswer';
@@ -31,7 +29,10 @@ import VersionNumber from './VersionNumber'
 
 import ChangeLog from '../../Basics/Changelog'
 import HelpVideos from './HelpVideos'
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
+
+import NotificationInstructions from './NotificationInstructions';
+import usePushEnabled from '../../Hooks/PushEnabled';
 
 const file = raw("./information.md");
 
@@ -41,11 +42,11 @@ const TCButton = (props) => {
 
     return (<Button
         className={classes.button}
-        onClick={()=>{
+        onClick={() => {
             patientUIStore.router.push(steps[props.step].push);
             patientUIStore.goToWalkThrough(props.step)
-            
-            }}>
+
+        }}>
         {props.children}
     </Button>)
 }
@@ -53,12 +54,14 @@ const TCButton = (props) => {
 const Info = observer(() => {
     const { t } = useTranslation('translation');
     const classes = useStyles();
-    const {patientUIStore} = useStores();
-
-
+    const { patientUIStore } = useStores();
+    const pushEnabledState = usePushEnabled();
 
     return (
         <div className={classes.container}>
+            {pushEnabledState != 'granted' && <Section highlight={Colors.highlightYellow} expanded={patientUIStore.onPushEnrollmentInstructions} title={<><HelpIcon />{t('notificationInstructions.steps.title')}</>}>
+                <NotificationInstructions />
+            </Section>}
             <Section title={<><LiveHelpIcon />{t('patient.information.helpSection')}</>}>
                 <div className={classes.help}>
                     <h2>{t('patient.information.walkthrough.title')}</h2>
@@ -80,9 +83,7 @@ const Info = observer(() => {
                 <Instructions />
             </Section>
             <Section title={<><HelpIcon />{t('patient.information.questions')}</>}>
-                <Interactioncard className={classes.topCard} >
-                    <Markdown options={{ overrides: { Drawer: { component: MarkdownRender } } }} children={file} />
-                </Interactioncard>
+                <Markdown options={{ overrides: { Drawer: { component: MarkdownRender } } }} children={file} />
             </Section>
             <Section title={<><ErrorIcon />{t('patient.information.techSupport')} / <br /> {t('patient.information.reportIssue')}</>}>
                 <ErrorReporting />
@@ -97,8 +98,8 @@ const Info = observer(() => {
 
 const TreatmentMessages = () => {
     const classes = useStyles();
-    const {t} = useTranslation('translation');
-    const messages = t('treatmentUpdates', {returnObjects: true})
+    const { t } = useTranslation('translation');
+    const messages = t('treatmentUpdates', { returnObjects: true })
 
     return (
         <div className={classes.treatmentMessages}>
