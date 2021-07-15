@@ -1,98 +1,57 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react';
 import InteractionCard from '../../Basics/HomePageCard';
 import { useTranslation } from 'react-i18next';
-import { Typography, ButtonBase } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import Button from "@material-ui/core/Button";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
 import { DateTime } from 'luxon';
-import Colors from '../../Basics/Colors'
-import AddReminder from './Reminder/index'
+import Colors from '../../Basics/Colors';
+import AddReminder from './Reminder/index';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import TimeDialog from '../../Components/TimeDialog';
+import EditIcon from '@material-ui/icons/Edit';
+import Grid from '@material-ui/core/Grid';
+import CancelIcon from '@material-ui/icons/Cancel';
+
+
 
 const useStyles = makeStyles({
     header: { fontSize: "1em", fontWeight: "bold", textAlign: "left", width: "100%", paddingLeft: "1em" },
-    daily: { width: "100%", marginBottom: "1em" },
-    upcoming: { width: "100%" },
+    daily: {
+        width: "100%",
+        padding: "0 1em 1em 1em",
+        boxSizing: "border-box"
+    },
     options: {
-        display: "flex", flexDirection: "row", padding: "0 1em 0 1em", alignItems: "center", justifyContent: "center",
-        "& > p": {
-            fontSize: ".75em"
-        },
-        "& > p > span": {
-            color: Colors.buttonBlue,
-            fontSize: "3em",
-            padding: ".5em"
-        }
-    },
-    timeButtonGroup: {
-        marginBottom: ".5em",
-        border: `solid 1px ${Colors.buttonBlue}`,
         color: Colors.buttonBlue,
-        fontSize: "1.5em",
-        width: "90%",
-        "& > button": {
-            color: "inherit",
-            textTransform: "capitalize",
-            borderTop: "none",
-            borderBottom: "none"
-        },
-        "& > button:first-child": {
-            borderLeft: "none"
-        },
-        "& > button:nth-child(2)": {
-            borderRight: "none"
-        }
+        fontSize: "3em",
+        padding: 0,
+        margin: 0
     },
-    buttonContainer: { margin: "auto", width: "90%", display: "flex", justifyContent: "center" },
     reminder: { padding: "1em 1em 0 1em" },
-    enable: {
-        width: "90%",
-        margin: "auto",
-        display: "flex",
-        flexGrow: "1",
-        justifyContent: "flex-start",
-        alignItems: "center",
-        "& > p": {
-            fontSize: ".8em",
-            width: "60%",
-            padding: 0,
-            textAlign: "left",
-            marginRight: "auto"
-        },
-        "& > button": {
-            margin: "1em",
-            color: Colors.buttonBlue,
-            border: `solid 1px ${Colors.buttonBlue}`,
-            height: "50%"
-        }
-    },
-    container: {
-        display: "flex",
-        alignItems: "center",
-        "& > svg": {
-            fontSize: "3em"
-        }
-    },
-    bottomLabel:{
+    bottomLabel: {
         display: "block",
         width: "100%",
         margin: 0,
         textAlign: "center"
     },
-    button:{
-        border: `1px solid ${Colors.buttonBlue}`,
+    button: {
+        "& > svg":{
+            fontSize: ".75em"
+        },
+        display: "flex",
+        alignItems: "center",
+        "& > span": {
+            lineHeight: "1em"
+        },
+        flex: "1 1 0",
+        border: props => `1px solid ${props.color || Colors.buttonBlue}`,
         textTransform: "none",
-        color: Colors.buttonBlue,
-        width: "45%",
-        padding: "6px 4px",
+        color: props => props.color || Colors.buttonBlue,
+        padding: ".5em",
         fontSize: "1em",
-        "&:first-of-type":{
-            marginRight: "1em"
-        }
     }
 
 })
@@ -113,10 +72,10 @@ const Card = observer(() => {
 
     const classes = useStyles();
     const { t } = useTranslation('translation');
-    const { patientStore  } = useStores();
+    const { patientStore } = useStores();
     const [open, setOpen] = useState(false);
 
-    const closeDialog = ()=>{setOpen(false)}
+    const closeDialog = () => { setOpen(false) }
 
     const handleAccept = () => {
         patientStore.updateNotificationTime();
@@ -126,37 +85,37 @@ const Card = observer(() => {
     return (<InteractionCard upperText={<><AccessAlarmIcon />{t('patient.reminders.medicationReminder')}</>} id="intro-reminders-card">
         <div className={classes.daily}>
             {patientStore.reminderTime ? <>
-                <p className={classes.bottomLabel}>Reminder will be be sent daily at </p>
-                <div className={classes.options}>
-                    <p><span>{DateTime.fromISO(patientStore.reminderTime).toLocaleString(DateTime.TIME_24_SIMPLE)}</span></p>
-                </div>
-                <div className={classes.buttonContainer}>
-                        <BButton onClick={() => { setOpen(true) }}>{t('patient.reminders.changeTime')}</BButton>
-                        <BButton onClick={() => { patientStore.updateNotificationTime(true) }}>{t('patient.reminders.disable')}</BButton>
-                </div>
-            </> : <>
-
-                <div className={classes.enable}>
-                    <p>{t('patient.reminders.explanation')}</p>
-                    <Button onClick={() => { setOpen(true) }} className={classes.timeButton}>{t('patient.reminders.enable')}</Button>
-                </div>  </>}
+                <Grid container wrap="nowrap" alignItems="center">
+                    <Typography variant="body1">Reminder will be be sent daily at </Typography>
+                    <Typography className={classes.options} variant="body1">{DateTime.fromISO(patientStore.reminderTime).toLocaleString(DateTime.TIME_24_SIMPLE)}</Typography>
+                </Grid>
+                <Grid container justify="space-around">
+                    <Option onClick={() => { setOpen(true) }}><EditIcon /> {t('patient.reminders.changeTime')}</Option>
+                    <Grid item xs={1} />
+                    <Option color={Colors.red} onClick={() => { patientStore.updateNotificationTime(true) }}> <CancelIcon />{t('patient.reminders.disable')}</Option>
+                </Grid>
+            </> : <Grid alignItems="center" container>
+                <Grid item xs={8}>{t('patient.reminders.explanation')}</Grid>
+                <Grid item xs={4} >
+                    <Option onClick={() => { setOpen(true) }} className={classes.timeButton}>{t('patient.reminders.enable')}</Option>
+                </Grid>
+            </Grid>
+            }
         </div>
 
         <TimeDialog
             open={open}
             handleCancel={closeDialog}
             value={patientStore.newReminderTime}
-            setValue={(value) => { patientStore.newReminderTime = value }} 
+            setValue={(value) => { patientStore.newReminderTime = value }}
             closeDialog={closeDialog}
-            handleAccept={handleAccept}
-            
-            />
+            handleAccept={handleAccept} />
     </InteractionCard>)
 
 })
 
-const BButton = (props) => {
-    const classes = useStyles();
+const Option = (props) => {
+    const classes = useStyles({color: props.color});
     return <Button {...props} disableElevation className={classes.button} />
 }
 
