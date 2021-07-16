@@ -57,8 +57,7 @@ const useStyles = makeStyles({
     },
     reminderText: {
         padding: "0",
-        lineHeight: "1.2em",
-        maxWidth: "70px"
+        lineHeight: "1.2em"
     },
     menuContainer: {
         padding: "1em"
@@ -82,6 +81,20 @@ const Reminders = observer(() => {
     )
 })
 
+const SplitReminderText = () => {
+    const { t } = useTranslation('translation');
+    const text = "Recordatorio Enabled"
+
+    return(
+        <>
+        {text.split(" ").map( each => {
+            return (<>{each}<br /></>)
+        })}
+        </>
+    )
+
+}
+
 const Card = observer(() => {
 
     const classes = useStyles();
@@ -101,7 +114,7 @@ const Card = observer(() => {
             {patientStore.reminderTime ? <>
                 <Grid container wrap="nowrap" alignItems="center" justify="space-between"  className={classes.top}>
                         <AccessAlarmIcon className={classes.icon} />
-                        <Typography className={classes.reminderText} variant="body1">Reminder Enabled</Typography>    
+                        <Typography style={{display: "inline-block"}} className={classes.reminderText} variant="body1"><SplitReminderText /></Typography>    
                         <Typography align="center" className={classes.reminderText} variant="body1">at</Typography>
                         <Typography className={classes.options} variant="body1">{DateTime.fromISO(patientStore.reminderTime).toLocaleString(DateTime.TIME_24_SIMPLE)}</Typography>
                 </Grid>
