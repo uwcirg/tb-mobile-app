@@ -30,10 +30,10 @@
         "testStrips": "Test Strips",
         "viewDetails": "Ver Detalles",
         "hideDetails": "Esconder Detalles",
-        "copy": "Copy",
-        "copied": "Copied",
-        "copyExplanation": "Copy link to clipboard",
-        "archived": "Archived"
+        "copy": "Copiar",
+        "copied": "Copiado",
+        "copyExplanation": "Copiar Enlace",
+        "archived": "Archivado"
     },
     "userTypes": {
         "patient": "Paciente",
@@ -226,7 +226,7 @@
             "explanation": "Cuando esté activada, la aplicación le mandará una notificación a la hora que seleccione para tomar sus medicamentos. ",
             "enable": "Activar",
             "disable": "Apagar",
-            "changeTime": "Cambiar"
+            "changeTime": "Cambiar la hora"
         },
         "demo": {
             "showDemo": "Mostrar Demostración"
@@ -861,7 +861,7 @@
     "warningShort": "Este paciente ha sido archivado y ya no puede mandar reportes.",
     "warningLong": "Este paciente se ha archivado y ya no aparecerá en sus tareas. Si necesita deshacer esta acción, comuníquese con el personal técnico del estudio para obtener asistencia.",
     "treatmentOutcome": "Resultado del Tratamiento",
-    "continue": "Continue To Patient Profile",
+    "continue": "Continuar con el Perfil del Paciente",
     "outcomeTypes": {
         "success": "Éxito",
         "default": "Abandonado",
@@ -871,7 +871,7 @@
         "deceased": "Fallecido"
     },
     "complete": "Completo",
-    "endSurvey": "Survey",
+    "endSurvey": "Encuesta",
     "patientSide":{
         "congrats": "¡Felicitaciones por completar con éxito su tratamiento!",
         "subtitle": "Sabemos que completar el tratamiento no es fácil y que hizo un excelente trabajo. Si tiene alguna pregunta, su asistente estará allí para ayudarlo.",
@@ -880,7 +880,7 @@
         "surveyButton": "Cuéntenos su experiencia",
         "statusChange": "El estado de su tratamiento ha cambiado y ya no puede reportar. Comuníquese con su asistente para obtener más detalles."
     },
-    "surveyText": "Please send this link to the patient so they can tell us about their experience."
+    "surveyText": "Por favor envíe este enlace al paciente para que nos cuente su experiencia."
 },
 
 "notificationInstructions":{

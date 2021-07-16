@@ -226,7 +226,9 @@
             "explanation": "Once enabled, a push notification will remind you to take your medication at the specified time",
             "enable": "Enable",
             "disable": "Disable",
-            "changeTime": "Change"
+            "changeTime": "Change Time",
+            "options": "Edit or Disable",
+            "reminderEnabled": "Reminder Enabled"
         },
         "demo": {
             "showDemo": "Show Demo"

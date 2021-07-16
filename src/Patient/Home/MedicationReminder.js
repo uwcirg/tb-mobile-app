@@ -68,6 +68,9 @@ const useStyles = makeStyles({
         padding: "0 1em",
         width: "100%",
         borderBottom: `solid 1px ${Colors.gray}`
+    },
+    noPadding: {
+        padding: 0
     }
 
 })
@@ -86,7 +89,7 @@ const Reminders = observer(() => {
 
 const SplitReminderText = () => {
     const { t } = useTranslation('translation');
-    const text = "Recordatorio Enabled"
+    const text = t('patient.reminders.reminderEnabled')
 
     return (
         <>
@@ -121,10 +124,6 @@ const Card = observer(() => {
         setAnchorEl(null);
     };
 
-    const handleItemClick = () => {
-        handleClose();
-    }
-
     return (<InteractionCard upperText={<><AccessAlarmIcon />{t('patient.reminders.medicationReminder')}</>} id="intro-reminders-card">
         <div className={classes.daily}>
             {patientStore.reminderTime ? <>
@@ -136,17 +135,9 @@ const Card = observer(() => {
                 </Grid>
 
                 <Grid className={classes.menuContainer} container justify="flex-end">
-                    <ClickableText onClick={handleClick} icon={<MoreVertIcon style={{ fontSize: "1.2em" }} />} text="Edit or Disable"></ClickableText>
+                    <ClickableText onClick={handleClick} icon={<MoreVertIcon style={{ fontSize: "1.2em" }} />} text={t('patient.reminders.options')}></ClickableText>
                 </Grid>
-
                 <MenuTest anchorEl={anchorEl} handleClose={handleClose} />
-
-
-                {/* <Grid container direction="column" justify="space-around">
-                    <Option onClick={() => { setOpen(true) }}><EditIcon /> {t('patient.reminders.changeTime')}</Option>
-                    <Grid item xs={1} />
-                    <Option color={Colors.red} onClick={() => { patientStore.updateNotificationTime(true) }}> <CancelIcon />{t('patient.reminders.disable')}</Option>
-                </Grid> */}
             </> : <Grid alignItems="center" container>
                 <Grid item xs={8}>{t('patient.reminders.explanation')}</Grid>
                 <Grid item xs={4} >
@@ -177,9 +168,10 @@ const MenuTest = ({ anchorEl, handleClose, handleItemClick }) => {
             keepMounted
             open={Boolean(anchorEl)}
             onClose={handleClose}
+            classes={{list: classes.noPadding, paper: classes.noPadding}}
         >
-            <MenuItem className={classes.delete} onClick={handleItemClick}>Edit Time</MenuItem>
-            <MenuItem className={classes.delete} onClick={handleItemClick}>Disable</MenuItem>
+            <MenuItem style={{color: Colors.buttonBlue}} className={classes.delete} onClick={handleItemClick}>{t('patient.reminders.changeTime')}</MenuItem>
+            <MenuItem style={{color: Colors.red}} onClick={handleItemClick}>{t('patient.reminders.disable')}</MenuItem>
         </Menu>
     )
 }
