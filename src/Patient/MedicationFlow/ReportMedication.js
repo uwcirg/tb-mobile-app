@@ -60,21 +60,12 @@ const TimeQuestion = observer(() => {
     const { patientStore, uiStore } = useStores();
     const classes = useStyles({ wide: uiStore.locale === "en" });
 
-    const handleChange = (timeType, newValue) => {
-        const isValidChange = ((timeType === "hour" && newValue < 24) || (timeType === "minute" && newValue < 60)) && newValue >= 0
-        if (isValidChange) {
-            let changes = {}
-            changes[timeType] = newValue;
-            patientStore.report.timeTaken = DateTime.fromISO(patientStore.report.timeTaken).set(changes)
-        }
-    }
-
     return (
         <Fade timeout={1000} in={true}>
             <div className={classes.timeContainer}>
                 <SimpleTimePicker
-                    timeTaken={patientStore.report.timeTaken}
-                    handleChange={handleChange}
+                    value={patientStore.report.timeTaken}
+                    setValue={ (value) => patientStore.setReportTime(value)}
                 />
             </div>
         </Fade>)

@@ -1,149 +1,182 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react';
 import InteractionCard from '../../Basics/HomePageCard';
 import { useTranslation } from 'react-i18next';
-import { Typography, ButtonBase } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import Button from "@material-ui/core/Button";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
 import { DateTime } from 'luxon';
-import Colors from '../../Basics/Colors'
-import { TimePicker } from "@material-ui/pickers/TimePicker";
-import AddReminder from './Reminder/index'
-import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
+import Colors from '../../Basics/Colors';
+import AccessAlarmIcon from '@material-ui/icons/AlarmOn';
+import TimeDialog from '../../Components/TimeDialog';
+import Grid from '@material-ui/core/Grid';
+import ClickableText from '../../Basics/ClickableText';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import AlarmOffIcon from '@material-ui/icons/AlarmOff';
+import SplitTextPreventWrapSpacing from '../../Utility/SplitTextPreventWrapSpacing';
 
 const useStyles = makeStyles({
-    header: { fontSize: "1em", fontWeight: "bold", textAlign: "left", width: "100%", paddingLeft: "1em" },
-    daily: { width: "100%", marginBottom: "1em" },
-    upcoming: { width: "100%" },
+    daily: {
+        width: "100%",
+        boxSizing: "border-box"
+    },
     options: {
-        display: "flex", flexDirection: "row", padding: "0 1em 0 1em", alignItems: "center", justifyContent: "center",
-        "& > p": {
-            fontSize: ".75em"
-        },
-        "& > p > span": {
-            color: Colors.buttonBlue,
-            fontSize: "2em",
-            padding: ".5em"
-        }
-    },
-    timeButtonGroup: {
-        marginBottom: ".5em",
-        border: `solid 1px ${Colors.buttonBlue}`,
         color: Colors.buttonBlue,
-        fontSize: "1.5em",
-        width: "90%",
-        "& > button": {
-            color: "inherit",
-            textTransform: "capitalize",
-            borderTop: "none",
-            borderBottom: "none"
-        },
-        "& > button:first-child": {
-            borderLeft: "none"
-        },
-        "& > button:nth-child(2)": {
-            borderRight: "none"
-        }
+        fontSize: "2.5em",
+        padding: 0,
+        margin: 0,
     },
-    buttonContainer: { width: "100%", display: "flex", justifyContent: "center" },
+    icon: {
+        color: Colors.buttonBlue,
+        fontSize: "2.5em"
+    },
     reminder: { padding: "1em 1em 0 1em" },
-    enable: {
-        width: "90%",
-        margin: "auto",
-        display: "flex",
-        flexGrow: "1",
-        justifyContent: "flex-start",
-        alignItems: "center",
-        "& > p": {
-            fontSize: ".8em",
-            width: "60%",
-            padding: 0,
-            textAlign: "left",
-            marginRight: "auto"
-        },
-        "& > button": {
-            margin: "1em",
-            color: Colors.buttonBlue,
-            border: `solid 1px ${Colors.buttonBlue}`,
-            height: "50%"
-        }
+    bottomLabel: {
+        display: "block",
+        width: "100%",
+        margin: 0,
+        textAlign: "center"
     },
-    container:{
-        display: "flex",
-        alignItems: "center",
-        "& > svg":{
-            fontSize: "3em"
-        }
+    enable: {
+        "& > span": {
+            lineHeight: "1em"
+        },
+        border: `1px solid ${Colors.buttonBlue}`,
+        textTransform: "none",
+        color: Colors.buttonBlue,
+        padding: ".5em",
+        fontSize: "1em",
+        marginLeft: "1em"
+    },
+    reminderText: {
+        padding: "0",
+        lineHeight: "1.2em"
+    },
+    menuContainer: {
+        padding: "1em"
+    },
+    top: {
+        padding: "0 1em",
+        width: "100%",
+        borderBottom: `solid 1px ${Colors.gray}`
+    },
+    noPadding: {
+        padding: 0
+    },
+    capitalize: {
+        textTransform: "none "
+    },
+    disabledBottom: {
+        padding: "1em .5em 1em 1em"
     }
 
-})
-
-const Reminders = observer(() => {
-    const { patientUIStore } = useStores();
-
-    return (
-        <>
-            {patientUIStore.onAddReminder && <AddReminder />}
-            <Card />
-        </>
-
-    )
 })
 
 const Card = observer(() => {
 
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
-    const { patientStore, uiStore } = useStores();
+    const { t } = useTranslation('translation');
+    const { patientStore } = useStores();
     const [open, setOpen] = useState(false);
+    const [anchorEl, setAnchorEl] = useState(false);
 
-    const handleChange = (date) => {
-        patientStore.reminderTime = date.startOf('second').startOf("minute").toISOTime({ suppressSeconds: true });
+    const closeDialog = () => { setOpen(false) }
+
+    const handleAccept = () => {
         patientStore.updateNotificationTime();
+        closeDialog();
+    }
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const openTimeDialog = () => {
+        setOpen(true);
     }
 
     return (<InteractionCard upperText={<><AccessAlarmIcon />{t('patient.reminders.medicationReminder')}</>} id="intro-reminders-card">
         <div className={classes.daily}>
-            {/*<Header>{t('patient.reminders.medicationReminder')}</Header>*/}
             {patientStore.reminderTime ? <>
-                <div className={classes.options}>
-                    <p>a las <span>{DateTime.fromISO(patientStore.reminderTime).toLocaleString(DateTime.TIME_24_SIMPLE)}</span> cada día</p>
-                </div>
-                <div className={classes.buttonContainer}>
-                    <ButtonGroup className={classes.timeButtonGroup} fullWidth>
-                        <Button onClick={() => { setOpen(true) }}>{t('patient.reminders.changeTime')}</Button>
-                        <Button onClick={() => { patientStore.updateNotificationTime(true) }}>{t('patient.reminders.disable')}</Button>
-                    </ButtonGroup>
-                </div>
-            </> : <>
+                <Grid container wrap="nowrap" alignItems="center" justify="space-between" className={classes.top}>
+                    <AccessAlarmIcon className={classes.icon} />
+                    <Typography className={classes.reminderText} variant="body1"><SplitTextPreventWrapSpacing text={t('patient.reminders.reminderEnabled')} /></Typography>
+                    <Typography align="center" className={classes.reminderText} variant="body1">{t('patient.reminders.at')}</Typography>
+                    <Typography className={classes.options} variant="body1">{DateTime.fromISO(patientStore.reminderTime).toLocaleString(DateTime.TIME_24_SIMPLE)}</Typography>
+                </Grid>
+                <Grid className={classes.menuContainer} container justify="flex-end">
+                    <ClickableText className={classes.capitalize} onClick={handleClick} icon={<MoreVertIcon style={{ fontSize: "1.2em" }} />} text={t('patient.reminders.options')}></ClickableText>
+                </Grid>
+                <MenuTest anchorEl={anchorEl} handleChange={openTimeDialog} handleClose={handleClose} handleDisable={patientStore.disableMedicationReminder} />
+            </> :
+                <>
+                    <Grid className={classes.top} style={{ paddingBottom: ".5em" }} justify="space-between" alignItems="center" wrap="nowrap" container>
+                        <Grid wrap="nowrap" alignItems="center" container>
+                            <AlarmOffIcon style={{ color: Colors.red }} className={classes.icon} />
+                            <Typography align="center" style={{ width: "100%" }} className={classes.reminderText} variant="body1"> {t('patient.reminders.reminderDisabled')}</Typography>
+                        </Grid>
+                    </Grid>
 
-                    <div className={classes.enable}>
-                        <p>{t('patient.reminders.explanation')}</p>
-                        <Button onClick={() => { setOpen(true) }} className={classes.timeButton}>{t('patient.reminders.enable')}</Button>
-                    </div>  </>}
+                    <Grid className={classes.disabledBottom} container alignItems="center" wrap="nowrap">
+                        <Typography className={classes.reminderText}>{t('patient.reminders.explanation')}</Typography>
+                        <Option className={classes.fixButton} onClick={() => { setOpen(true) }}>{t('patient.reminders.enable')}</Option>
+                    </Grid>
+                </>
+            }
         </div>
 
-        {open && <TimePicker
+        <TimeDialog
+            title={t('patient.reminders.whatTime')}
             open={open}
-            className={classes.timeSelect}
-            clearable
-            ampm={uiStore.locale == "en"}
-            value={DateTime.fromISO(patientStore.reminderTime)}
-            onChange={(e) => {
-                setOpen(false);
-                handleChange(e);
-            }}
-        />}
+            handleCancel={closeDialog}
+            value={patientStore.newReminderTime}
+            setValue={(value) => { patientStore.newReminderTime = value }}
+            closeDialog={closeDialog}
+            handleAccept={handleAccept} />
     </InteractionCard>)
 
 })
 
-const Header = (props) => {
-    const classes = useStyles();
-
-    return (<Typography className={classes.header} variant="h1">{props.children}</Typography>)
+const Option = (props) => {
+    const classes = useStyles({ color: props.color });
+    return <Button {...props} disableElevation className={`${classes.enable} ${props.className}`} />
 }
 
-export default Reminders;
+
+const MenuTest = ({ anchorEl, handleClose, handleChange, handleDisable }) => {
+    const { t } = useTranslation('translation');
+    const classes = useStyles();
+
+    const change = () => {
+        handleClose();
+        handleChange && handleChange();
+    }
+
+    const disable = () => {
+        handleClose();
+        handleDisable && handleDisable();
+    }
+
+    return (
+        <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+            classes={{ list: classes.noPadding, paper: classes.noPadding }}
+        >
+            <MenuItem style={{ color: Colors.buttonBlue }} className={classes.delete} onClick={change}>{t('patient.reminders.changeTime')}</MenuItem>
+            <MenuItem style={{ color: Colors.red }} onClick={disable}>{t('patient.reminders.disable')}</MenuItem>
+        </Menu>
+    )
+}
+
+export default Card;
