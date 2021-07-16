@@ -8,7 +8,6 @@ import CheckIcon from '@material-ui/icons/Check';
 import Typography from '@material-ui/core/Typography';
 import {AutoWidth} from './Containers'
 import Colors from '../Basics/Colors';
-import useStores from '../Basics/UseStores';
 
 const useStyles = makeStyles({
     timeDialog: {
@@ -55,7 +54,7 @@ const useStyles = makeStyles({
 
 
 
-const TimeDialog = ({ open, value, setValue, handleCancel, handleAccept, closeDialog }) => {
+const TimeDialog = ({ open, value, setValue, handleCancel, handleAccept, closeDialog, title}) => {
 
     const classes = useStyles();
 
@@ -66,7 +65,7 @@ const TimeDialog = ({ open, value, setValue, handleCancel, handleAccept, closeDi
                     <Exit />
                 </IconButton>
             </div>
-            <Typography className={classes.title} variant="h1">What time would you like to be reminded?</Typography>
+            <Typography className={classes.title} variant="h1">{title}</Typography>
             <div className={classes.timeDialog}>
                 <div className={classes.input}>
                     <SimpleTimePicker

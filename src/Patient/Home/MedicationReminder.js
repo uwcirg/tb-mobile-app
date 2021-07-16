@@ -8,7 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import Button from "@material-ui/core/Button";
 import { DateTime } from 'luxon';
 import Colors from '../../Basics/Colors';
-import AddReminder from './Reminder/index';
 import AccessAlarmIcon from '@material-ui/icons/AlarmOn';
 import TimeDialog from '../../Components/TimeDialog';
 import Grid from '@material-ui/core/Grid';
@@ -17,6 +16,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import AlarmOffIcon from '@material-ui/icons/AlarmOff';
+import SplitTextPreventWrapSpacing from '../../Utility/SplitTextPreventWrapSpacing';
 
 const useStyles = makeStyles({
     daily: {
@@ -40,20 +40,16 @@ const useStyles = makeStyles({
         margin: 0,
         textAlign: "center"
     },
-    button: {
-        "& > svg": {
-            fontSize: ".75em"
-        },
-        display: "flex",
-        alignItems: "center",
+    enable: {
         "& > span": {
             lineHeight: "1em"
         },
-        border: props => `1px solid ${props.color || Colors.buttonBlue}`,
+        border: `1px solid ${Colors.buttonBlue}`,
         textTransform: "none",
-        color: props => props.color || Colors.buttonBlue,
+        color: Colors.buttonBlue,
         padding: ".5em",
         fontSize: "1em",
+        marginLeft: "1em"
     },
     reminderText: {
         padding: "0",
@@ -69,31 +65,15 @@ const useStyles = makeStyles({
     },
     noPadding: {
         padding: 0
+    },
+    capitalize: {
+        textTransform: "none "
+    },
+    disabledBottom: {
+        padding: "1em .5em 1em 1em"
     }
 
 })
-
-const Reminders = observer(() => {
-    const { patientUIStore } = useStores();
-
-    return (
-        <>
-            {patientUIStore.onAddReminder && <AddReminder />}
-            <Card />
-        </>
-
-    )
-})
-
-const SplitTextPreventWrapSpacing = ({text}) => {
-    return (
-        <>
-            {text.split(" ").map(each => {
-                return (<>{each}<br /></>)
-            })}
-        </>
-    )
-}
 
 const Card = observer(() => {
 
@@ -127,30 +107,33 @@ const Card = observer(() => {
             {patientStore.reminderTime ? <>
                 <Grid container wrap="nowrap" alignItems="center" justify="space-between" className={classes.top}>
                     <AccessAlarmIcon className={classes.icon} />
-                    <Typography style={{ display: "inline-block" }} className={classes.reminderText} variant="body1"><SplitTextPreventWrapSpacing text={t('patient.reminders.reminderEnabled')} /></Typography>
-                    <Typography align="center" className={classes.reminderText} variant="body1">at</Typography>
+                    <Typography className={classes.reminderText} variant="body1"><SplitTextPreventWrapSpacing text={t('patient.reminders.reminderEnabled')} /></Typography>
+                    <Typography align="center" className={classes.reminderText} variant="body1">{t('patient.reminders.at')}</Typography>
                     <Typography className={classes.options} variant="body1">{DateTime.fromISO(patientStore.reminderTime).toLocaleString(DateTime.TIME_24_SIMPLE)}</Typography>
                 </Grid>
                 <Grid className={classes.menuContainer} container justify="flex-end">
-                    <ClickableText onClick={handleClick} icon={<MoreVertIcon style={{ fontSize: "1.2em" }} />} text={t('patient.reminders.options')}></ClickableText>
+                    <ClickableText className={classes.capitalize} onClick={handleClick} icon={<MoreVertIcon style={{ fontSize: "1.2em" }} />} text={t('patient.reminders.options')}></ClickableText>
                 </Grid>
                 <MenuTest anchorEl={anchorEl} handleChange={openTimeDialog} handleClose={handleClose} handleDisable={patientStore.disableMedicationReminder} />
-            </> : 
-            <>
-            <Grid className={classes.top} style={{paddingBottom: ".5em"}} justify="space-between" alignItems="center" wrap="nowrap" container>
-                <Grid wrap="nowrap" alignItems="center" container>
-                   <AlarmOffIcon style={{color: Colors.red}} className={classes.icon} />
-                <Typography align="center" style={{width: "100%"}} className={classes.reminderText} variant="body1"> {t('patient.reminders.reminderDisabled')}</Typography>  
-                </Grid>
-               
-                <Option className={classes.fixButton} onClick={() => { setOpen(true) }}>{t('patient.reminders.enable')}</Option>
-            </Grid>
-            <Typography style={{padding: "1em"}} className={classes.reminderText}>Enable to receive a push notificaiton reminder each day at a specified time</Typography>
-            </>
+            </> :
+                <>
+                    <Grid className={classes.top} style={{ paddingBottom: ".5em" }} justify="space-between" alignItems="center" wrap="nowrap" container>
+                        <Grid wrap="nowrap" alignItems="center" container>
+                            <AlarmOffIcon style={{ color: Colors.red }} className={classes.icon} />
+                            <Typography align="center" style={{ width: "100%" }} className={classes.reminderText} variant="body1"> {t('patient.reminders.reminderDisabled')}</Typography>
+                        </Grid>
+                    </Grid>
+
+                    <Grid className={classes.disabledBottom} container alignItems="center" wrap="nowrap">
+                        <Typography className={classes.reminderText}>{t('patient.reminders.explanation')}</Typography>
+                        <Option className={classes.fixButton} onClick={() => { setOpen(true) }}>{t('patient.reminders.enable')}</Option>
+                    </Grid>
+                </>
             }
         </div>
 
         <TimeDialog
+            title={t('patient.reminders.whatTime')}
             open={open}
             handleCancel={closeDialog}
             value={patientStore.newReminderTime}
@@ -160,6 +143,12 @@ const Card = observer(() => {
     </InteractionCard>)
 
 })
+
+const Option = (props) => {
+    const classes = useStyles({ color: props.color });
+    return <Button {...props} disableElevation className={`${classes.enable} ${props.className}`} />
+}
+
 
 const MenuTest = ({ anchorEl, handleClose, handleChange, handleDisable }) => {
     const { t } = useTranslation('translation');
@@ -190,9 +179,4 @@ const MenuTest = ({ anchorEl, handleClose, handleChange, handleDisable }) => {
     )
 }
 
-const Option = (props) => {
-    const classes = useStyles({ color: props.color });
-    return <Button {...props} disableElevation className={`${classes.button} ${props.className}`} />
-}
-
-export default Reminders;
+export default Card;

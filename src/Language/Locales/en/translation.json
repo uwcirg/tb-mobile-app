@@ -223,13 +223,14 @@
             "medicationReminder": "Medication Reminder",
             "whatTime": "What time would you like to recieve the reminder?",
             "appointments": "Appointments",
-            "explanation": "Once enabled, a push notification will remind you to take your medication at the specified time",
+            "explanation": "Enable to receive a reminder to take your medication every day at a specified time",
             "enable": "Enable",
             "disable": "Disable",
             "changeTime": "Change Time",
             "options": "Edit or Disable",
             "reminderEnabled": "Reminder Enabled",
-            "reminderDisabled": "Reminder Disabled"
+            "reminderDisabled": "Reminder Disabled",
+            "at": "at"
         },
         "demo": {
             "showDemo": "Show Demo"
