@@ -150,7 +150,6 @@ export class PatientStore extends UserStore {
         return this.checkPhotoDay(DateTime.fromISO(this.uiState.selectedCalendarDate));
     }
 
-
     @computed get daysSinceTreatmentStart() {
         return Math.floor(DateTime.fromISO(this.treatmentStart).endOf('day').diffNow("days").days * -1)
     }
@@ -316,6 +315,10 @@ export class PatientStore extends UserStore {
                 this.reminderTime = null;
             }
         });
+    }
+
+    disableMedicationReminder = () => {
+        this.updateNotificationTime(true);
     }
 
     @action startHistoricalReport = () => {

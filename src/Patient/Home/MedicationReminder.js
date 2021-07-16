@@ -17,8 +17,6 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
-
-
 const useStyles = makeStyles({
     daily: {
         width: "100%",
@@ -98,7 +96,6 @@ const SplitReminderText = () => {
             })}
         </>
     )
-
 }
 
 const Card = observer(() => {
@@ -124,6 +121,10 @@ const Card = observer(() => {
         setAnchorEl(null);
     };
 
+    const openTimeDialog = () => {
+        setOpen(true);
+    }
+
     return (<InteractionCard upperText={<><AccessAlarmIcon />{t('patient.reminders.medicationReminder')}</>} id="intro-reminders-card">
         <div className={classes.daily}>
             {patientStore.reminderTime ? <>
@@ -137,7 +138,7 @@ const Card = observer(() => {
                 <Grid className={classes.menuContainer} container justify="flex-end">
                     <ClickableText onClick={handleClick} icon={<MoreVertIcon style={{ fontSize: "1.2em" }} />} text={t('patient.reminders.options')}></ClickableText>
                 </Grid>
-                <MenuTest anchorEl={anchorEl} handleClose={handleClose} />
+                <MenuTest anchorEl={anchorEl} handleChange={openTimeDialog} handleClose={handleClose} handleDisable={patientStore.disableMedicationReminder} />
             </> : <Grid alignItems="center" container>
                 <Grid item xs={8}>{t('patient.reminders.explanation')}</Grid>
                 <Grid item xs={4} >
@@ -158,9 +159,20 @@ const Card = observer(() => {
 
 })
 
-const MenuTest = ({ anchorEl, handleClose, handleItemClick }) => {
+const MenuTest = ({ anchorEl, handleClose, handleChange, handleDisable }) => {
     const { t } = useTranslation('translation');
     const classes = useStyles();
+
+    const change = () => {
+        handleClose();
+        handleChange && handleChange();
+    }
+
+    const disable = () => {
+        handleClose();
+        handleDisable && handleDisable();
+    }
+
     return (
         <Menu
             id="simple-menu"
@@ -170,8 +182,8 @@ const MenuTest = ({ anchorEl, handleClose, handleItemClick }) => {
             onClose={handleClose}
             classes={{list: classes.noPadding, paper: classes.noPadding}}
         >
-            <MenuItem style={{color: Colors.buttonBlue}} className={classes.delete} onClick={handleItemClick}>{t('patient.reminders.changeTime')}</MenuItem>
-            <MenuItem style={{color: Colors.red}} onClick={handleItemClick}>{t('patient.reminders.disable')}</MenuItem>
+            <MenuItem style={{color: Colors.buttonBlue}} className={classes.delete} onClick={change}>{t('patient.reminders.changeTime')}</MenuItem>
+            <MenuItem style={{color: Colors.red}} onClick={disable}>{t('patient.reminders.disable')}</MenuItem>
         </Menu>
     )
 }
@@ -180,6 +192,5 @@ const Option = (props) => {
     const classes = useStyles({ color: props.color });
     return <Button {...props} disableElevation className={classes.button} />
 }
-
 
 export default Reminders;
