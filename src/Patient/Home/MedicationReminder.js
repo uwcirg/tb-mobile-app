@@ -16,6 +16,7 @@ import ClickableText from '../../Basics/ClickableText';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import AlarmOffIcon from '@material-ui/icons/AlarmOff';
 
 const useStyles = makeStyles({
     daily: {
@@ -48,7 +49,6 @@ const useStyles = makeStyles({
         "& > span": {
             lineHeight: "1em"
         },
-        flex: "1 1 0",
         border: props => `1px solid ${props.color || Colors.buttonBlue}`,
         textTransform: "none",
         color: props => props.color || Colors.buttonBlue,
@@ -85,10 +85,7 @@ const Reminders = observer(() => {
     )
 })
 
-const SplitReminderText = () => {
-    const { t } = useTranslation('translation');
-    const text = t('patient.reminders.reminderEnabled')
-
+const SplitTextPreventWrapSpacing = ({text}) => {
     return (
         <>
             {text.split(" ").map(each => {
@@ -130,21 +127,26 @@ const Card = observer(() => {
             {patientStore.reminderTime ? <>
                 <Grid container wrap="nowrap" alignItems="center" justify="space-between" className={classes.top}>
                     <AccessAlarmIcon className={classes.icon} />
-                    <Typography style={{ display: "inline-block" }} className={classes.reminderText} variant="body1"><SplitReminderText /></Typography>
+                    <Typography style={{ display: "inline-block" }} className={classes.reminderText} variant="body1"><SplitTextPreventWrapSpacing text={t('patient.reminders.reminderEnabled')} /></Typography>
                     <Typography align="center" className={classes.reminderText} variant="body1">at</Typography>
                     <Typography className={classes.options} variant="body1">{DateTime.fromISO(patientStore.reminderTime).toLocaleString(DateTime.TIME_24_SIMPLE)}</Typography>
                 </Grid>
-
                 <Grid className={classes.menuContainer} container justify="flex-end">
                     <ClickableText onClick={handleClick} icon={<MoreVertIcon style={{ fontSize: "1.2em" }} />} text={t('patient.reminders.options')}></ClickableText>
                 </Grid>
                 <MenuTest anchorEl={anchorEl} handleChange={openTimeDialog} handleClose={handleClose} handleDisable={patientStore.disableMedicationReminder} />
-            </> : <Grid alignItems="center" container>
-                <Grid item xs={8}>{t('patient.reminders.explanation')}</Grid>
-                <Grid item xs={4} >
-                    <Option onClick={() => { setOpen(true) }} className={classes.timeButton}>{t('patient.reminders.enable')}</Option>
+            </> : 
+            <>
+            <Grid className={classes.top} style={{paddingBottom: ".5em"}} justify="space-between" alignItems="center" wrap="nowrap" container>
+                <Grid wrap="nowrap" alignItems="center" container>
+                   <AlarmOffIcon style={{color: Colors.red}} className={classes.icon} />
+                <Typography align="center" style={{width: "100%"}} className={classes.reminderText} variant="body1"> {t('patient.reminders.reminderDisabled')}</Typography>  
                 </Grid>
+               
+                <Option className={classes.fixButton} onClick={() => { setOpen(true) }}>{t('patient.reminders.enable')}</Option>
             </Grid>
+            <Typography style={{padding: "1em"}} className={classes.reminderText}>Enable to receive a push notificaiton reminder each day at a specified time</Typography>
+            </>
             }
         </div>
 
@@ -180,17 +182,17 @@ const MenuTest = ({ anchorEl, handleClose, handleChange, handleDisable }) => {
             keepMounted
             open={Boolean(anchorEl)}
             onClose={handleClose}
-            classes={{list: classes.noPadding, paper: classes.noPadding}}
+            classes={{ list: classes.noPadding, paper: classes.noPadding }}
         >
-            <MenuItem style={{color: Colors.buttonBlue}} className={classes.delete} onClick={change}>{t('patient.reminders.changeTime')}</MenuItem>
-            <MenuItem style={{color: Colors.red}} onClick={disable}>{t('patient.reminders.disable')}</MenuItem>
+            <MenuItem style={{ color: Colors.buttonBlue }} className={classes.delete} onClick={change}>{t('patient.reminders.changeTime')}</MenuItem>
+            <MenuItem style={{ color: Colors.red }} onClick={disable}>{t('patient.reminders.disable')}</MenuItem>
         </Menu>
     )
 }
 
 const Option = (props) => {
     const classes = useStyles({ color: props.color });
-    return <Button {...props} disableElevation className={classes.button} />
+    return <Button {...props} disableElevation className={`${classes.button} ${props.className}`} />
 }
 
 export default Reminders;

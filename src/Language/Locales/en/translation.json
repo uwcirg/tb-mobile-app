@@ -228,7 +228,8 @@
             "disable": "Disable",
             "changeTime": "Change Time",
             "options": "Edit or Disable",
-            "reminderEnabled": "Reminder Enabled"
+            "reminderEnabled": "Reminder Enabled",
+            "reminderDisabled": "Reminder Disabled"
         },
         "demo": {
             "showDemo": "Show Demo"
