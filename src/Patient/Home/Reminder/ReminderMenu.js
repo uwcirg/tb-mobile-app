@@ -21,7 +21,7 @@ const SimpleMenu = observer((props) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const patientID = useStores().patientStore.userID;
     const {reminderStore} = useStores();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);

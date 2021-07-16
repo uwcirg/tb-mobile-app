@@ -4,7 +4,6 @@ import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import InteractionCard from '../../Basics/HomePageCard';
 import { useTranslation } from 'react-i18next';
-import Typography from '@material-ui/core/Typography';
 import Colors from '../../Basics/Colors'
 import ReminderItem from './Reminder/ReminderLineItem'
 import ClickableText from '../../Basics/ClickableText';
@@ -73,7 +72,7 @@ const Reminders = observer(() => {
 const Card = observer(() => {
 
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
     const { patientStore, reminderStore, patientUIStore,uiStore } = useStores();
     const [showAll, setShowAll] = useState(false);
 
@@ -81,7 +80,6 @@ const Card = observer(() => {
         if(patientStore.userID){
              reminderStore.getReminders(patientStore.userID)
         }
-       
     }, [patientStore.userID])
 
     useEffect(() => {
@@ -106,10 +104,7 @@ const Card = observer(() => {
                 <Fab onClick={patientUIStore.goToAddReminder} className={classes.add}><AddIcon /></Fab>
             </div>
         </div>
-
-
     </InteractionCard>)
-
 })
 
 const RemindersList = observer(() => {
@@ -123,11 +118,5 @@ const RemindersList = observer(() => {
         </>
     )
 })
-
-const Header = (props) => {
-    const classes = useStyles();
-
-    return (<Typography className={classes.header} variant="h1">{props.children}</Typography>)
-}
 
 export default Reminders;

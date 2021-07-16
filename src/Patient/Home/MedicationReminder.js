@@ -14,6 +14,8 @@ import TimeDialog from '../../Components/TimeDialog';
 import Grid from '@material-ui/core/Grid';
 import ClickableText from '../../Basics/ClickableText';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 
 
@@ -64,7 +66,8 @@ const useStyles = makeStyles({
     },
     top: {
         padding: "0 1em",
-        width: "100%"
+        width: "100%",
+        borderBottom: `solid 1px ${Colors.gray}`
     }
 
 })
@@ -85,11 +88,11 @@ const SplitReminderText = () => {
     const { t } = useTranslation('translation');
     const text = "Recordatorio Enabled"
 
-    return(
+    return (
         <>
-        {text.split(" ").map( each => {
-            return (<>{each}<br /></>)
-        })}
+            {text.split(" ").map(each => {
+                return (<>{each}<br /></>)
+            })}
         </>
     )
 
@@ -101,6 +104,7 @@ const Card = observer(() => {
     const { t } = useTranslation('translation');
     const { patientStore } = useStores();
     const [open, setOpen] = useState(false);
+    const [anchorEl, setAnchorEl] = useState(false);
 
     const closeDialog = () => { setOpen(false) }
 
@@ -109,19 +113,33 @@ const Card = observer(() => {
         closeDialog();
     }
 
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleItemClick = () => {
+        handleClose();
+    }
+
     return (<InteractionCard upperText={<><AccessAlarmIcon />{t('patient.reminders.medicationReminder')}</>} id="intro-reminders-card">
         <div className={classes.daily}>
             {patientStore.reminderTime ? <>
-                <Grid container wrap="nowrap" alignItems="center" justify="space-between"  className={classes.top}>
-                        <AccessAlarmIcon className={classes.icon} />
-                        <Typography style={{display: "inline-block"}} className={classes.reminderText} variant="body1"><SplitReminderText /></Typography>    
-                        <Typography align="center" className={classes.reminderText} variant="body1">at</Typography>
-                        <Typography className={classes.options} variant="body1">{DateTime.fromISO(patientStore.reminderTime).toLocaleString(DateTime.TIME_24_SIMPLE)}</Typography>
+                <Grid container wrap="nowrap" alignItems="center" justify="space-between" className={classes.top}>
+                    <AccessAlarmIcon className={classes.icon} />
+                    <Typography style={{ display: "inline-block" }} className={classes.reminderText} variant="body1"><SplitReminderText /></Typography>
+                    <Typography align="center" className={classes.reminderText} variant="body1">at</Typography>
+                    <Typography className={classes.options} variant="body1">{DateTime.fromISO(patientStore.reminderTime).toLocaleString(DateTime.TIME_24_SIMPLE)}</Typography>
                 </Grid>
 
                 <Grid className={classes.menuContainer} container justify="flex-end">
-                    <ClickableText icon={<MoreVertIcon style={{ fontSize: "1.2em" }} />} text="Edit or Disable"></ClickableText>
+                    <ClickableText onClick={handleClick} icon={<MoreVertIcon style={{ fontSize: "1.2em" }} />} text="Edit or Disable"></ClickableText>
                 </Grid>
+
+                <MenuTest anchorEl={anchorEl} handleClose={handleClose} />
 
 
                 {/* <Grid container direction="column" justify="space-around">
@@ -148,6 +166,23 @@ const Card = observer(() => {
     </InteractionCard>)
 
 })
+
+const MenuTest = ({ anchorEl, handleClose, handleItemClick }) => {
+    const { t } = useTranslation('translation');
+    const classes = useStyles();
+    return (
+        <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+        >
+            <MenuItem className={classes.delete} onClick={handleItemClick}>Edit Time</MenuItem>
+            <MenuItem className={classes.delete} onClick={handleItemClick}>Disable</MenuItem>
+        </Menu>
+    )
+}
 
 const Option = (props) => {
     const classes = useStyles({ color: props.color });
