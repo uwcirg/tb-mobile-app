@@ -230,7 +230,8 @@
             "options": "Edit or Disable",
             "reminderEnabled": "Reminder Enabled",
             "reminderDisabled": "Reminder Disabled",
-            "at": "at"
+            "at": "at",
+            "successMessage": "Successfully Added"
         },
         "demo": {
             "showDemo": "Show Demo"
