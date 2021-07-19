@@ -4,12 +4,23 @@ import { observer } from 'mobx-react'
 import { DatePicker } from "@material-ui/pickers";
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/luxon';
-import Cancel from '@material-ui/icons/Cancel'
-import Check from '@material-ui/icons/CheckCircleOutline'
 import Colors from './Colors';
+import Exit from '@material-ui/icons/Close';
+import CheckIcon from '@material-ui/icons/Check';
+import { makeStyles } from '@material-ui/core/styles';
+
+
+const useStyles = makeStyles({
+    button:{
+        borderRadius: "5px",
+        color: "white",
+        padding: ".5em"
+    }
+})
 
 const LocalizedDatePicker = observer((props) => {
 
+    const classes = useStyles();
     const { uiStore } = useStores();
 
     return (
@@ -25,8 +36,8 @@ const LocalizedDatePicker = observer((props) => {
                 animateYearScrolling
                 disableFuture={props.disableFuture}
                 disablePast={props.disablePast}
-                cancelLabel={<Cancel style={{ color: Colors.red }} />}
-                okLabel={<Check style={{ color: Colors.green }} />}
+                cancelLabel={<Exit className={classes.button} style={{ backgroundColor: Colors.red }} />}
+                okLabel={<CheckIcon className={classes.button} style={{ backgroundColor: Colors.green }} />}
             />
         </MuiPickersUtilsProvider>
     )

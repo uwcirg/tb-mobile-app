@@ -18,10 +18,10 @@
 	"Component Scafold": {
 		"prefix": "component-scafold",
 		"body": [
-			"import React from 'react'",
+			"import React from 'react';",
 			"import { makeStyles } from '@material-ui/core/styles';",
 			"import useStores from '../../Basics/UseStores';",
-			"import {observer} from 'mobx-react'",
+			"import {observer} from 'mobx-react';",
 			"",
 			"const useStyles = makeStyles({",
 			"  ",
