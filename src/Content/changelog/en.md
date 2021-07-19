@@ -2,6 +2,7 @@
 (Work in progress)
 
 Patient Side:
+- Turn off group messaging notifications to make push notifications less annoying
 - Add instructions about how to enable push notifications at the system level
 - Detect if they are not enabled and present warning with link to instructions
 - Add screen to onboarding to explain notifications before asking for permission
@@ -9,11 +10,14 @@ Patient Side:
 - Fix display issues in onboarding
     - Button overlap with password input
     - Increase size of age input
+    - Replace old analog time picker with same one used in daily report
 
 Assistant Side:
+- Add label for archived patients in the chat tab
 - Add link to survey on archived patient popup
 
 General:
+- Improve buttons used for approve / cancel on date picking inputs
 - Track user notification preferences on the server
 - Make version number more readable, add to login screen
 - Fix display of warning message for demo site
