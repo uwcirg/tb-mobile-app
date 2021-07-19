@@ -41,7 +41,7 @@ const ChannelPreview = observer((props) => {
     const getSubtitle = () => {
         if (props.private) return <Subtitle>{t("messaging.privateExplained")}</Subtitle>
         if (props.isSiteChannel) return <Subtitle>{t("messaging.clinicChat")}</Subtitle>
-        return props.subtitle
+        return <Subtitle>{props.subtitle}</Subtitle>
     }
 
     return (
