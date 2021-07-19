@@ -9,7 +9,6 @@ import Exit from '@material-ui/icons/Close';
 import CheckIcon from '@material-ui/icons/Check';
 import { makeStyles } from '@material-ui/core/styles';
 
-
 const useStyles = makeStyles({
     button:{
         borderRadius: "5px",
@@ -38,6 +37,7 @@ const LocalizedDatePicker = observer((props) => {
                 disablePast={props.disablePast}
                 cancelLabel={<Exit className={classes.button} style={{ backgroundColor: Colors.red }} />}
                 okLabel={<CheckIcon className={classes.button} style={{ backgroundColor: Colors.green }} />}
+                onAccept={props.onAccept}
             />
         </MuiPickersUtilsProvider>
     )
