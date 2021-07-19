@@ -82,6 +82,10 @@ export class ActivationStore extends APIStore {
         this.activtionErrorDetail = "";
     }
 
+    @action setNotificationTime = (time) => {
+        this.onboardingInformation.notificationTime = time;
+    }
+
     @computed get checkPasswords() {
         const notEmpty = (this.passwordUpdate.password != "" && this.passwordUpdate.passwordConfirmation != "")
 

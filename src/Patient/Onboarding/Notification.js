@@ -41,8 +41,9 @@ const Notification = observer((props) => {
 
     const classes = useStyles();
     const { t } = useTranslation('translation');
-    const [timeOpen, setTimeOpen] = useState(false)
-    const { activationStore, uiStore } = useStores();
+    const [timeOpen, setTimeOpen] = useState(false);
+    const [tempValue, setTempValue] = useState(DateTime.local().toISOTime());
+    const { activationStore } = useStores();
 
 
     const handleTimeChange = (dateTime) => {
@@ -52,6 +53,7 @@ const Notification = observer((props) => {
     const closeDialog = () => { setTimeOpen(false) }
     
     const handleAccept = () => {
+        activationStore.setNotificationTime(tempValue);
         closeDialog();
     }
 
@@ -65,8 +67,8 @@ const Notification = observer((props) => {
                     title={t("patient.onboarding.notification.two")}
                     open={true}
                     handleCancel={closeDialog}
-                    value={activationStore.onboardingInformation.notificationTime}
-                    setValue={(value) => { activationStore.onboardingInformation.notificationTime = value }}
+                    value={tempValue}
+                    setValue={(value) => { setTempValue(value) }}
                     closeDialog={closeDialog}
                     handleAccept={handleAccept} /> : <Button className={classes.timeButton} fullWidth onClick={() => { setTimeOpen(true) }}>{DateTime.fromISO(activationStore.onboardingInformation.notificationTime).toLocaleString(DateTime.TIME_24_SIMPLE)} </Button>}
             </>}
