@@ -109,7 +109,7 @@ const Card = observer(() => {
                     <AccessAlarmIcon className={classes.icon} />
                     <Typography className={classes.reminderText} variant="body1"><SplitTextPreventWrapSpacing text={t('patient.reminders.reminderEnabled')} /></Typography>
                     <Typography align="center" className={classes.reminderText} variant="body1">{t('patient.reminders.at')}</Typography>
-                    <Typography className={classes.options} variant="body1">{DateTime.fromISO(patientStore.reminderTime).toLocaleString(DateTime.TIME_24_SIMPLE)}</Typography>
+                    <Typography onClick={openTimeDialog} className={classes.options} variant="body1">{DateTime.fromISO(patientStore.reminderTime).toLocaleString(DateTime.TIME_24_SIMPLE)}</Typography>
                 </Grid>
                 <Grid className={classes.menuContainer} container justify="flex-end">
                     <ClickableText className={classes.capitalize} onClick={handleClick} icon={<MoreVertIcon style={{ fontSize: "1.2em" }} />} text={t('patient.reminders.options')}></ClickableText>
