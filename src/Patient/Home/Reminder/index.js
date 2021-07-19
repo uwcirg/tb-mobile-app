@@ -9,14 +9,11 @@ import Input from '@material-ui/core/TextField';
 import Button from '../../../Basics/MuiButton'
 import { observer } from 'mobx-react'
 import { TimePicker } from "@material-ui/pickers";
-import DatePicker from '../../../Basics/DatePicker'
-
+import DatePicker from '../../../Basics/DatePicker';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/luxon';
-
 import { useTranslation } from 'react-i18next';
 import Colors from '../../../Basics/Colors';
-
 
 const useStyles = makeStyles({
     container: {
@@ -45,7 +42,7 @@ const useStyles = makeStyles({
             marginTop: "auto"
         },
         "& > span": {
-            color: Colors.textGray
+            color: Colors.textDarkGray
         }
     },
     bottomText: {
