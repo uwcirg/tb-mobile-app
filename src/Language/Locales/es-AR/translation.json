@@ -221,12 +221,17 @@
         "reminders": {
             "title": "Recordatorios",
             "medicationReminder": "Recordatorios de Medicación",
-            "whatTime": "What time would you like to recieve the reminder?",
+            "whatTime": "¿A qué hora le gustaría recibir el recordatorio?",
             "appointments": "Citas medicas",
-            "explanation": "Cuando esté activada, la aplicación le mandará una notificación a la hora que seleccione para tomar sus medicamentos. ",
+            "explanation": "Permitir para recibir un recordatorio para tomar su medicamento todos los días a una hora específica.",
             "enable": "Activar",
             "disable": "Apagar",
-            "changeTime": "Cambiar la hora"
+            "changeTime": "Cambiar la hora",
+            "options": "Editar o Deshabilitar",
+            "reminderEnabled": "Recordatorio Habilitado",
+            "reminderDisabled": "Recordatorio Desactivado",
+            "at": "at",
+            "successMessage": "Añadido con Éxito"
         },
         "demo": {
             "showDemo": "Mostrar Demostración"
@@ -699,8 +704,8 @@
 
         },
         "login": {
-            "badPhone": "Cannot find account with that phone number",
-            "badEmail": "Cannot find account with that email",
+            "badPhone": "No se puede encontrar una cuenta con ese número de teléfono",
+            "badEmail": "No se puede encontrar la cuenta con ese correo electrónico",
             "identifier": "Numero de Telefono incorrecto",
             "password": "Contraseña Incorrecta",
             "other": "Error. Por favor contacte a su asistente por whatsapp"
@@ -892,12 +897,12 @@
         "allowNotifications": "Permitir notificaciones"
     },
     "warning":{
-        "title": "Notificaciones están desactivadas",
+        "title": "Las notificaciones están desactivadas. De esta manera no podrá recibir",
         "subtitle": "Esto significa que no recibirá:",
         "medicationReminders": "Recordatorios de Medicamentos",
         "aptReminders": "Recordatorios de Citas",
         "msgAlerts": "Nuevos mensajes de su asistente",
-        "button": "Ver instrucciones",
+        "button": "Vea las siguientes instrucciones para activarlas",
         "unsupported": "Este aparato no permite notificaciones.",
         "unsupportedDetails": "No recibirás recordatorios ni notificaciones sobre mensajes nuevos.",
         "ask": "Permitir"
