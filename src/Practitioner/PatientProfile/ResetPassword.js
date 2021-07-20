@@ -1,11 +1,13 @@
-import React from 'react'
+import React from 'react';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import PopOver from '../Shared/PopOver';
 import MuiButton from '../../Basics/MuiButton';
-import Typography from '@material-ui/core/Typography'
+import CopyableText from '../../Utility/CopiableLink';
+import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
 
 const useStyles = makeStyles({
     popOverBody:{
@@ -21,8 +23,7 @@ const ResetPassword = observer(() => {
     return(
     <PopOver ignoreClickAway close={patientProfileStore.toggleOnPasswordReset} title={t("coordinator.patientProfile.resetPassword")}>
             <Typography className={classes.popOverBody} variant="body1">{t("coordinator.patientProfile.resetPasswordExplanation")}</Typography>
-            <MuiButton onClick={patientProfileStore.resetPassword}>{t("coordinator.patientProfile.resetPassword")}</MuiButton>
-            {patientProfileStore.temporaryPassword && <p>{patientProfileStore.temporaryPassword}</p>}
+            {patientProfileStore.temporaryPassword ? <CopyableText icon={<LockOpenIcon />} className={classes.copyOverride} text={patientProfileStore.temporaryPassword} /> : <MuiButton onClick={patientProfileStore.resetPassword}>{t("coordinator.patientProfile.resetPassword")}</MuiButton>}
     </PopOver>)
 });
 
