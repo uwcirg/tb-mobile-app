@@ -897,12 +897,12 @@
         "allowNotifications": "Permitir notificaciones"
     },
     "warning":{
-        "title": "Las notificaciones están desactivadas. De esta manera no podrá recibir",
-        "subtitle": "Esto significa que no recibirá:",
+        "title": "Las notificaciones están desactivadas. ",
+        "subtitle": "De esta manera no podrá recibir:",
         "medicationReminders": "Recordatorios de Medicamentos",
         "aptReminders": "Recordatorios de Citas",
         "msgAlerts": "Nuevos mensajes de su asistente",
-        "button": "Vea las siguientes instrucciones para activarlas",
+        "button": "Vea las instrucciones para activarlas",
         "unsupported": "Este aparato no permite notificaciones.",
         "unsupportedDetails": "No recibirás recordatorios ni notificaciones sobre mensajes nuevos.",
         "ask": "Permitir"
