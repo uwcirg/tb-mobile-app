@@ -37,7 +37,7 @@ const LoginForm = observer((props) => {
     <Container>
       <Card>
         <form onSubmit={(e) => { e.preventDefault() }}>
-          <IdentifierInput defaultValue={loginStore.isPatient ? t("login.phoneNumber") : t("login.email")} updateIdentifier={updateIdentifier} />
+          <IdentifierInput isNumeric={loginStore.isPatient} defaultValue={loginStore.isPatient ? t("login.phoneNumber") : t("login.email")} updateIdentifier={updateIdentifier} />
           {onActivation ? <Center><CodeInput onChange={handleCodeInput} id="activationCode" fields={5} /></Center> : <PasswordInput updatePassword={updatePassword} />}
           <Button id="login" fullWidth onClick={loginStore.submit} variant="contained" color={"primary"} >{onActivation ? t("login.activate") : t("login.logIn")}</Button>
         </form>
@@ -77,6 +77,7 @@ align-content: center;
 `
 
 const Center = styled.div`
+margin-top: 1em;
 width: 100%;
 justify-content: center;
 `
@@ -84,17 +85,17 @@ justify-content: center;
 const CodeInput = styled(ReactCodeInput)`
     width: 100%;
     display: flex !important;
-    justify-content: center;
+    justify-content: space-between;
     margin: auto;
     input{
-      width: 6vw;
-      height: 6vw;
-      margin: 1vw;
+      width: 45px;
+      height: 45px;
       font-size: 1.5em;
       border-radius: 5px;
       border: none;
       padding: .5em;
       text-align: center;
+      box-sizing: border-box;
     }
 `
 

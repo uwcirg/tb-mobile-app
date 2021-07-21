@@ -29,7 +29,11 @@
         "clickToLoadMore": "Click to load more",
         "testStrips": "Test Strips",
         "viewDetails": "View details",
-        "hideDetails": "Hide Details"
+        "hideDetails": "Hide Details",
+        "copy": "Copy",
+        "copied": "Copied",
+        "copyExplanation": "Copy link to clipboard",
+        "archived": "Archived"
     },
     "userTypes": {
         "patient": "Patient",
@@ -151,6 +155,11 @@
             },
             "age": "How old are you?",
             "notification": {
+                "title": "Notifications",
+                "whenPrompted": "When prompted please select",
+                "permit": "Permit",
+                "listHeader": "This will allow us to send you",
+                "header": "The next step will ask you to turn on notifications",
                 "one": "Would you like to enable a daily reminder to take your medication?",
                 "two": "What time would you like to be reminded?"
             },
@@ -212,11 +221,17 @@
         "reminders": {
             "title": "Reminders",
             "medicationReminder": "Medication Reminder",
+            "whatTime": "What time would you like to recieve the reminder?",
             "appointments": "Appointments",
-            "explanation": "Once enabled, a push notification will remind you to take your medication at the specified time",
+            "explanation": "Enable to receive a reminder to take your medication every day at a specified time",
             "enable": "Enable",
             "disable": "Disable",
-            "changeTime": "Change Time"
+            "changeTime": "Change Time",
+            "options": "Edit or Disable",
+            "reminderEnabled": "Reminder Enabled",
+            "reminderDisabled": "Reminder Disabled",
+            "at": "at",
+            "successMessage": "Successfully Added"
         },
         "demo": {
             "showDemo": "Show Demo"
@@ -696,6 +711,8 @@
 
         },
         "login": {
+            "badPhone": "Cannot find account with that phone number",
+            "badEmail": "Cannot find account with that email",
             "identifier": "Incorrect Phone Number / Email",
             "password": "Incorrect Password",
             "other": "Unexpected Error. Please contact your treatment assistant on WhatsApp"
@@ -856,6 +873,7 @@
     "warningShort": "This patient has been archived and can no longer report",
     "warningLong": "This patient has been archived and will no longer show up in your tasks. If you need to undo this action please contact study staff for technical support.",
     "treatmentOutcome": "Treatment Outcome",
+    "continue": "Continue To Patient Profile",
     "outcomeTypes": {
         "success": "Success",
         "default": "Default",
@@ -865,6 +883,7 @@
         "deceased": "Deceased"
     },
     "complete": "Complete",
+    "endSurvey": "Survey",
     "patientSide":{
         "congrats": "Congrats on successfully completing treatment!",
         "subtitle": "We know completing treatment is not easy, and you did an excellent job. If you have any questions your assistant will be there to support you.",
@@ -872,6 +891,28 @@
         "survey": "Please complete this survey to let us know about your experience using the application.",
         "surveyButton": "Tell us about your experience",
         "statusChange": "Your study status has changed and you can no longer report. Please contact your assistant for more details."
+    },
+    "surveyText": "Please send this link to the patient so they can tell us about their experience."
+},
+
+"notificationInstructions":{
+    "steps": {
+        "title": "How to enable notifications",
+        "goToSettings": "Go to the settings application on your phone",
+        "clickNotifications": "Click on notification settings",
+        "clickApp": "Click on Asistente",
+        "allowNotifications": "Enable notifications"
+    },
+    "warning":{
+        "title": "Push notifications are off",
+        "subtitle": "This means you will not recieve:",
+        "medicationReminders": "Medication Reminders",
+        "aptReminders": "Appointment Reminders",
+        "msgAlerts": "New messages from your assistant",
+        "button": "View Instructions",
+        "unsupported": "This device does not support push notifications",
+        "unsupportedDetails": "You will not receive reminders or notifications about new messages",
+        "ask": "Enable"
     }
 }
 

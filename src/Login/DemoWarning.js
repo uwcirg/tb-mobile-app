@@ -7,8 +7,6 @@ import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
     warning: {
-        position: "fixed",
-        top: 0,
         width: "100%",
         boxSizing: "border-box",
         display: "flex",
@@ -22,7 +20,8 @@ const useStyles = makeStyles({
         },
         "& > span": {
             margin: "0 auto",
-            textAlign: "center"
+            textAlign: "center",
+            padding: ".5em"
         }
     }
 })

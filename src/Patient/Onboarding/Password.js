@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import Loading from './Loading'
+import BottomButton from './BottomButton';
 
 
 const useStyles = makeStyles({
@@ -21,13 +22,13 @@ const useStyles = makeStyles({
 const Password = observer((props) => {
 
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
-    const { activationStore } = useStores();
+    const { t } = useTranslation('translation');
+    const { activationStore, patientUIStore } = useStores();
 
     //Once password is accepted on the server move to next step
     useEffect(() => {
         if(activationStore.passwordUpdate.passwordAccepted ){
-            props.handleNext()
+            patientUIStore.nextOnboardingStep();
             activationStore.passwordUpdate.passwordAccepted = false;
         }
 
@@ -64,11 +65,7 @@ const Password = observer((props) => {
                 {!activationStore.passwordsMatch && <p>{t("patient.onboarding.password.noMatch")}</p>}
             </div>}
            
-            {React.cloneElement(props.button, {
-                onClick: () => {
-                    activationStore.submitPassword();
-                }, disabled: !activationStore.checkPasswords
-            })}
+            <BottomButton preventDefault onClick={activationStore.submitPassword} disabled={!activationStore.checkPasswords} />
         </>
     )
 

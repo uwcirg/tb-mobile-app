@@ -51,7 +51,7 @@ export class ActivationStore extends APIStore {
         });
     }
 
-    @action submitActivation() {
+    @action submitActivation = () => {
         this.isLoading = true;
         this.onboardingInformation.currentDate = DateTime.local().toISODate();
         return this.executeRequest('activate', this.onboardingInformation,{allowErrors: true}).then(json => {
@@ -80,6 +80,10 @@ export class ActivationStore extends APIStore {
     @action clearActivationError = () => {
         this.activationError = false;
         this.activtionErrorDetail = "";
+    }
+
+    @action setNotificationTime = (time) => {
+        this.onboardingInformation.notificationTime = time;
     }
 
     @computed get checkPasswords() {

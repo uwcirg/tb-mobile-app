@@ -3,24 +3,19 @@ import styled from 'styled-components';
 import Colors from '../Basics/Colors';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
-
-const passwordText = "********"
-const identifierTextOptions = ["Phone Number","Email","Username","Correo Electrónico","Número de Teléfono"];
+import { useTranslation } from 'react-i18next';
 
 const PasswordInput = (props) => {
+
+  const { t } = useTranslation('translation');
   return (
     <div>
-      <InputLabel htmlFor="input-with-icon-adornment">{props.confirmation?"Password Confirmation" : "Password"}</InputLabel>
+      <InputLabel htmlFor="input-with-icon-adornment">{props.confirmation ? "Password Confirmation" : "Password"}</InputLabel>
       <Input
         autoComplete="password"
         disableUnderline
-        defaultValue={passwordText}
+        placeholder={t('login.password')}
         onChange={(e) => { props.updatePassword(e) }}
-        onClick={(e) => {
-          if (e.target.value == passwordText) {
-            e.target.value = ""
-          }
-        }}
         type="password"
         id="password"
         fullWidth
@@ -31,18 +26,16 @@ const PasswordInput = (props) => {
 const IdentifierInput = (props) => {
   return (
     <div>
-    <InputLabel htmlFor="input-with-icon-adornment">{props.defaultValue}</InputLabel>
-    <Input
-      autoComplete="username"
-      defaultValue={ props.defaultValue}
-      onChange={(e) => { props.updateIdentifier(e) }}
-      onClick={(e) => { 
-        if(identifierTextOptions.includes(e.target.value)){
-          e.target.value = ""
-        }}}
-      id="identifier"
-      disableUnderline
-      fullWidth/>
+      <InputLabel htmlFor="input-with-icon-adornment">{props.defaultValue}</InputLabel>
+      <Input
+        inputProps={props.isNumeric && {inputMode: 'numeric'}}
+        autoComplete="username"
+        placeholder={props.defaultValue}
+        // defaultValue={ props.defaultValue}
+        onChange={(e) => { props.updateIdentifier(e) }}
+        id="identifier"
+        disableUnderline
+        fullWidth />
     </div>
   )
 }
@@ -69,6 +62,12 @@ const Card = styled.div`
     padding: 1em;
     color: white;
   }
+
+  input::placeholder {
+      color:white;
+      opacity: 80%;
+  }
+  
 
   button{
     margin-top: 1.5em;
@@ -98,7 +97,7 @@ button{
 }
 `
 
-export { 
+export {
   PasswordInput,
   Container,
   Card,

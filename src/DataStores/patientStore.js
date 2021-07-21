@@ -9,7 +9,6 @@ import resizeImage from '../Utility/ResizeImage';
 const ROUTES = {
     login: ["/authenticate", "POST"],
     getCurrentPatient: ["/patient/me", "GET"],
-    getVapidKey: ["/push_key", "GET"],
     dailyReport: ["/daily_report", "POST"],
     patientReports: ["/daily_reports", "GET"],
     getPhotoUploadURL: ["/patient/daily_reports/photo_upload_url", "GET"],
@@ -70,11 +69,16 @@ export class PatientStore extends UserStore {
 
     @observable photoIsUploading = false;
 
+    @observable newReminderTime = "";
+
     @action initalize() {
         this.loadCachedProfile();
         super.initalize();
         this.loadDailyReport();
         this.getReports();
+
+        this.newReminderTime = this.reminderTime || DateTime.local().toISO();
+
     }
 
     //Load backup items for offline use 
@@ -145,7 +149,6 @@ export class PatientStore extends UserStore {
     @computed get selectedDayWasPhotoDay() {
         return this.checkPhotoDay(DateTime.fromISO(this.uiState.selectedCalendarDate));
     }
-
 
     @computed get daysSinceTreatmentStart() {
         return Math.floor(DateTime.fromISO(this.treatmentStart).endOf('day').diffNow("days").days * -1)
@@ -232,7 +235,6 @@ export class PatientStore extends UserStore {
         if (!this.report.isHistoricalReport) {
             localStorage.setItem(`medicationReport`, JSON.stringify(this.report));
         }
-
     };
 
     @action photoSubmission = () => {
@@ -298,7 +300,7 @@ export class PatientStore extends UserStore {
     }
 
     @action updateNotificationTime = (turnOff) => {
-        let body = { time: this.reminderTime }
+        let body = { time: DateTime.fromISO(this.newReminderTime).startOf('minute').toISOTime() }
 
         if (turnOff) {
             body.enabled = false;
@@ -306,14 +308,17 @@ export class PatientStore extends UserStore {
 
         this.isReminderUpdating = true;
         this.executeRequest('updateNotificationTime', body).then(json => {
-
+            this.isReminderUpdating = false;
             if (json.isoTime) {
                 this.reminderTime = json.isoTime
-                this.isReminderUpdating = false;
             } else {
                 this.reminderTime = null;
             }
         });
+    }
+
+    disableMedicationReminder = () => {
+        this.updateNotificationTime(true);
     }
 
     @action startHistoricalReport = () => {
@@ -411,6 +416,10 @@ export class PatientStore extends UserStore {
 
     @action exitForcedPasswordChange = () => {
         this.hasForcedPasswordChange = false;
+    }
+
+    @action setReportTime = (value) => {
+        this.report.timeTaken = value;
     }
 
     @action logoutPatient() {

@@ -1,8 +1,41 @@
-## v2.5
+## v2.6 
+Released July 20th, 2021
 
-Planning release for June 24th
+Patient Side:
+
+- Turn off group messaging notifications to make push notifications less annoying
+- Add instructions about how to enable push notifications at the system level
+- Detect if they are not enabled and present warning with link to instructions
+- Add screen to onboarding to explain notifications before asking for permission
+- Track if patient is installing app or using in browser
+- Fix display issues in onboarding
+    - Button overlap with password input
+    - Increase size of age input
+    - Replace old analog time picker with same one used in daily report
+- Add number only keyboard for phone number input on login screen
+
+Assistant Side:
+
+- Add label for archived patients in the chat tab
+- Add link to survey on archived patient popup
+- Add note from patient about skipped photo reports on report list
+
+General:
+
+- Improve buttons used for approve / cancel on date picking inputs
+- Track user notification preferences on the server
+- Make version number more readable, add to login screen
+- Fix display of warning message for demo site
+- Specify whether phone number or email was wrong for failed login
+- Improve design of copyable text components
+- Workaround for bug where update popup was causing titles to be very large
+
+
+## v2.5
+Released June 24th, 2021
 
 Assistant View:
+
 - Assistants can now archive patients
 	- A treatment outcome and end date can be selected during this process
 	- They will no longer show up in the list of tasks
@@ -15,15 +48,18 @@ Assistant View:
 - Patients names will now be listed in site level chats ( only visible to assistants )
 
 Patient View:
+
 - Congrats message when treatment is completed + link to survey
 - Limit reporting after they have been marked as archived
 
 Adherence / Priority Calculations:
+
 - Add photo adherence number ( positive photos / photos submitted / requested )
 - Calculate adherence from date patient started using the app ( some assistants were putting in a different value for "treatment start date"
 - Missing a photo makes a patient high priority
 
 Other Small Changes:
+
 - Redesigned sidebar of tasks page to be more consistent with rest of app
 - Moved patients awaiting activation list to top of cohort page
 - Removed site summary from side of cohort view because it was confusing 
@@ -51,6 +87,7 @@ Bug Fixes:
 ## v2.4
 
 New Features / Changes
+
 - Adjust photo request schedules due to logistical issues
 - Tracking push notification delivery and clicks via service-worker middleware
 - Reminders to complete a test on a day when it has been requested
@@ -66,6 +103,7 @@ New Features / Changes
 - Coordinators can now see which category of messages has unread messages
 
 Bug Fixes:
+
 - Fix timezone bug when adding a photo day on a patients first day
 - Fix onboarding survey not recording number of contacts
 - Fix item number 6's appearance on the onboarding survey
@@ -77,23 +115,27 @@ Bug Fixes:
 ## v2.3
 Changes:
 
-Fix education messages
+Fix education messages:
+
 - Show one per day, defaulting to the earliest missed one if not viewed yet
 - Added message alerting patients that they can chat anonymously
 - Added nice visuals to the treatment updates
 - Limited the width of popups for larger screens
 
 Password Reset:
+
 - Add in a screen to prompt a user to update their password when it has been reset
 - Fix styles on password update screen
 - Move password reset button to make it more visible on coordinator side
 
 Photo Uploading State:
+
 - Add loading state for report
 - Max out image size to 650px
 - Translations for error reports / uploading state
 
 Coordinator Side:
+
 - Allow editing of patient details on coordinator side
 - Cleanup patient profile on coordinator side
 - Improve button placement on smaller screen sizes
@@ -113,10 +155,12 @@ Behind the scenes:
 Changes:
 
 Across App:
+
 - Added new logo
 - Clean up design of login screen inputs (limit width)
 
 Patient Facing:
+
 - Reports upload at each step now ( with the exception of offline reports )
  - ie. if a patient submits their medication but forgets to submit the rest of the report, it will still be recorded on the server
 - Allow patients to skip photo submission if they provide a reason
@@ -124,12 +168,14 @@ Patient Facing:
 - Make offline mode more clear
 
 Treatment Assistant Facing:
+
 - Added link to issue submission form
 - Added task for patients that have missed a photo submission
  - Shows the reason they provided for skipping if applicable
 - Basic layout of improved task design implemented at /review
 
 Admin Panel:
+
 - Don't show accounts from the designated test site in results
 
 

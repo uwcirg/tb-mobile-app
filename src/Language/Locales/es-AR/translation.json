@@ -29,7 +29,11 @@
         "clickToLoadMore": "Haga clic para cargar más",
         "testStrips": "Test Strips",
         "viewDetails": "Ver Detalles",
-        "hideDetails": "Esconder Detalles"
+        "hideDetails": "Esconder Detalles",
+        "copy": "Copiar",
+        "copied": "Copiado",
+        "copyExplanation": "Copiar Enlace",
+        "archived": "Archivado"
     },
     "userTypes": {
         "patient": "Paciente",
@@ -37,7 +41,7 @@
         "practitioner": "Asistente",
         "coordinator": "Asistente",
         "admin": "Administrador",
-        "administrator": "Administrator",
+        "administrator": "Administrador",
         "you": "Usted"
     },
     "login": {
@@ -151,6 +155,11 @@
             },
             "age": "¿Cuantos años tiene?",
             "notification": {
+                "title": "Notificaciones",
+                "whenPrompted": "Cuando se le solicite, seleccione",
+                "permit": "Permitir",
+                "listHeader": "Esto nos permitirá enviarte",
+                "header": "El siguiente paso le pedirá que active las notificaciones.",
                 "one": "¿Le gustaría programar un recordatorio diario para tomar sus medicamentos?",
                 "two": "¿A qué hora quiere el recordatorio?"
             },
@@ -212,11 +221,17 @@
         "reminders": {
             "title": "Recordatorios",
             "medicationReminder": "Recordatorios de Medicación",
+            "whatTime": "¿A qué hora le gustaría recibir el recordatorio?",
             "appointments": "Citas medicas",
-            "explanation": "Cuando esté activada, la aplicación le mandará una notificación a la hora que seleccione para tomar sus medicamentos. ",
+            "explanation": "Permitir para recibir un recordatorio para tomar su medicamento todos los días a una hora específica.",
             "enable": "Activar",
             "disable": "Apagar",
-            "changeTime": "Cambiar la hora"
+            "changeTime": "Cambiar la hora",
+            "options": "Editar o Deshabilitar",
+            "reminderEnabled": "Recordatorio Habilitado",
+            "reminderDisabled": "Recordatorio Desactivado",
+            "at": "at",
+            "successMessage": "Añadido con Éxito"
         },
         "demo": {
             "showDemo": "Mostrar Demostración"
@@ -689,6 +704,8 @@
 
         },
         "login": {
+            "badPhone": "No se puede encontrar una cuenta con ese número de teléfono",
+            "badEmail": "No se puede encontrar la cuenta con ese correo electrónico",
             "identifier": "Numero de Telefono incorrecto",
             "password": "Contraseña Incorrecta",
             "other": "Error. Por favor contacte a su asistente por whatsapp"
@@ -835,7 +852,7 @@
 },
 
 "summaries":{
-    "averageAdherence": "Adherencia Media",
+    "averageAdherence": "Adherencia Promedia",
     "averagePhotoAdherence": "Adherencia Media de Fotos",
     "siteSummary": "Resumen de Pacientes Activos",
     "loading": "Cargando lista de pacientes"
@@ -849,6 +866,7 @@
     "warningShort": "Este paciente ha sido archivado y ya no puede mandar reportes.",
     "warningLong": "Este paciente se ha archivado y ya no aparecerá en sus tareas. Si necesita deshacer esta acción, comuníquese con el personal técnico del estudio para obtener asistencia.",
     "treatmentOutcome": "Resultado del Tratamiento",
+    "continue": "Continuar con el Perfil del Paciente",
     "outcomeTypes": {
         "success": "Éxito",
         "default": "Abandonado",
@@ -858,6 +876,7 @@
         "deceased": "Fallecido"
     },
     "complete": "Completo",
+    "endSurvey": "Encuesta",
     "patientSide":{
         "congrats": "¡Felicitaciones por completar con éxito su tratamiento!",
         "subtitle": "Sabemos que completar el tratamiento no es fácil y que hizo un excelente trabajo. Si tiene alguna pregunta, su asistente estará allí para ayudarlo.",
@@ -865,6 +884,28 @@
         "survey": "Complete esta encuesta para informarnos sobre su experiencia con la aplicación.",
         "surveyButton": "Cuéntenos su experiencia",
         "statusChange": "El estado de su tratamiento ha cambiado y ya no puede reportar. Comuníquese con su asistente para obtener más detalles."
+    },
+    "surveyText": "Por favor envíe este enlace al paciente para que nos cuente su experiencia."
+},
+
+"notificationInstructions":{
+    "steps": {
+        "title": "Cómo activar las notificaciones",
+        "goToSettings": "Vaya a la aplicación de configuración en su teléfono",
+        "clickNotifications": "Haga clic en la configuración de notificaciones",
+        "clickApp": "Haga clic en Asistente",
+        "allowNotifications": "Permitir notificaciones"
+    },
+    "warning":{
+        "title": "Las notificaciones están desactivadas. ",
+        "subtitle": "De esta manera no podrá recibir:",
+        "medicationReminders": "Recordatorios de Medicamentos",
+        "aptReminders": "Recordatorios de Citas",
+        "msgAlerts": "Nuevos mensajes de su asistente",
+        "button": "Vea las instrucciones para activarlas",
+        "unsupported": "Este aparato no permite notificaciones.",
+        "unsupportedDetails": "No recibirás recordatorios ni notificaciones sobre mensajes nuevos.",
+        "ask": "Permitir"
     }
 }
 

@@ -22,6 +22,7 @@ const Colors = {
     yellow: "#FCC419",
     reportBlue: "#98B9F2",
     timelineYellow: "rgba(242,201,76,.25)",
+    highlightYellow: "#fbf2d3",
     patientHistory:{
         report: "rgba(39, 174, 96, .35)",
         milestone: "rgba(242, 153, 74, .35)",

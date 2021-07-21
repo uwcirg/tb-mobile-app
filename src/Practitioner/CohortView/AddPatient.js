@@ -1,17 +1,15 @@
-import React from 'react'
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react';
 import SideBarTop from '../Shared/SideBarHeader';
-import Input from '@material-ui/core/Input';
 import TextField from '@material-ui/core/TextField'
 import { useTranslation } from 'react-i18next';
 import SimpleButton from '../../Basics/MuiButton';
-import PopOver from '../Shared/PopOver'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Loading from '../Shared/Loading'
-import DatePicker from '../../Basics/DatePicker'
+import Loading from '../Shared/Loading';
+import DatePicker from '../../Basics/DatePicker';
 import ActivationCodePopup from './ActivationCodePopUp';
 
 const useStyles = makeStyles({

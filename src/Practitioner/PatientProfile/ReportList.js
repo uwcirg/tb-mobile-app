@@ -16,6 +16,7 @@ import ReportCard from './ReportCard';
 import ReportItem from './ReportCardItem';
 import Button from '@material-ui/core/Button'
 
+
 const useStyles = makeStyles({
     container: {
         flexGrow: "1",
@@ -46,7 +47,7 @@ const useStyles = makeStyles({
     red: {
         color: "red"
     },
-    loadButton:{
+    loadButton: {
         border: `1px solid ${Colors.buttonBlue}`,
         color: Colors.buttonBlue,
         width: "90%",
@@ -88,14 +89,20 @@ const Report = (props) => {
                     <ReportItem title={t('commonWords.symptoms')} content={<FullSymptomList list={report.symptoms} />} />
                     <ReportItem title={t('report.submittedAt')} content={<p>{DateTime.fromISO(report.updatedAt).toLocaleString(DateTime.DATETIME_SHORT)}</p>} />
                     <ReportItem title={t('report.feeling')} content={<Feeling doingOkay={report.doingOkay} />} />
-                    <ReportPhoto required={report.photoWasRequired} approval={report.photoDetails && report.photoDetails.approvalStatus} url={report.photoUrl} />
+                    <ReportPhoto
+                        required={report.photoWasRequired}
+                        approval={report.photoDetails && report.photoDetails.approvalStatus}
+                        url={report.photoUrl}
+                        photoWasSkipped={report.photoWasSkipped}
+                        whyPhotoWasSkipped={report.whyPhotoWasSkipped}
+                    />
                 </div>
             }>
 
-                <ReportItem title={t('report.medicationTaken')} content={report.medicationWasTaken ? t('commonWords.yes') : t('commonWords.no')} />
-                <ReportItem title={t('report.time')} content={DateTime.fromISO(report.takenAt).toLocaleString(DateTime.TIME_24_SIMPLE)} />
-                <ReportItem title={t('commonWords.symptoms')} content={<SymptomListPreview list={report.symptoms} />} />
-                {report.photoWasRequired && <ReportItem title={t('report.photoSubmitted')} content={report.photoDetails ? t('commonWords.yes') : t('commonWords.no')} />}
+            <ReportItem title={t('report.medicationTaken')} content={report.medicationWasTaken ? t('commonWords.yes') : t('commonWords.no')} />
+            <ReportItem title={t('report.time')} content={DateTime.fromISO(report.takenAt).toLocaleString(DateTime.TIME_24_SIMPLE)} />
+            <ReportItem title={t('commonWords.symptoms')} content={<SymptomListPreview list={report.symptoms} />} />
+            {report.photoWasRequired && <ReportItem title={t('report.photoSubmitted')} content={report.photoUrl ? t('commonWords.yes') : t('commonWords.no')} />}
         </ReportCard >
 
     )
@@ -104,6 +111,17 @@ const Report = (props) => {
 const ReportPhoto = (props) => {
     const { t } = useTranslation('translation');
     const classes = useStyles();
+
+    if (props.photoWasSkipped) {
+        return (
+            <div className={classes.reportPhoto}>
+                <Typography className={classes.red} variant="body1" color="initial">{t('dashboard.skippedPhoto')}:</Typography>
+                <Typography variant="body1" color="initial">{props.whyPhotoWasSkipped}</Typography>
+            </div>
+        )
+    }
+
+
     return (<div className={classes.reportPhoto}>
         {props.url ? <><img src={props.url} />
             <div className={classes.photoStatus}>{props.approval === null ? <>
@@ -150,4 +168,4 @@ const Feeling = (props) => {
 }
 
 export default ReportView;
-export {Report as SingleReport};
+export { Report as SingleReport };

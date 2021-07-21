@@ -7,7 +7,7 @@ Tuberculosis remains one of the top ten causes of death globally despite it bein
 ## History of Project 
 A previous version of this application was developed on this repo and the code is still available on the [v1-stable]([https://github.com/uwcirg/tb-mobile-app/tree/v1-stable](https://github.com/uwcirg/tb-mobile-app/tree/v1-stable)) branch.
 
-Version 2 aims to provide a feedback driven UI, better user encouragement,v improved developer experience, and multi-site design. Furthermore, we aim to provide a good experience for users on inconsistent connections, using ideas from [progressive web apps]([https://developers.google.com/web/progressive-web-apps](https://developers.google.com/web/progressive-web-apps)).
+Version 2 aims to provide a feedback driven UI, better user encouragement, improved developer experience, and multi-site design. Furthermore, we aim to provide a good experience for users on inconsistent connections, using ideas from [progressive web apps]([https://developers.google.com/web/progressive-web-apps](https://developers.google.com/web/progressive-web-apps)).
 
 ## Software Architecture 
  

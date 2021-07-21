@@ -37,8 +37,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ContactTracing = observer((props) => {
 
-    const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
     const { activationStore } = useStores();
 
 
@@ -81,7 +80,6 @@ const Survey = observer(() => {
 
     return (
         <FormControl className={classes.form} component="fieldset">
-            {/*<FormLabel component="legend">Gender</FormLabel>*/}
             <RadioGroup aria-label="contact-tracing-options" name="contact-tracing" value={activationStore.onboardingInformation.contactsTested} onChange={handleChange}>
                 <FormControlLabel value="Yes" control={<Radio color="primary" />} label={t("patient.onboarding.contactTracing.all")} />
                 <FormControlLabel value="Some" control={<Radio color="primary" />} label={t("patient.onboarding.contactTracing.some")} />
