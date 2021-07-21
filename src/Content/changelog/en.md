@@ -17,6 +17,7 @@ Assistant Side:
 
 - Add label for archived patients in the chat tab
 - Add link to survey on archived patient popup
+- Add note from patient about skipped photo reports on report list
 
 General:
 
