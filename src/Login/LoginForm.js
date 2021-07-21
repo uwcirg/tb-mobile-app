@@ -37,7 +37,7 @@ const LoginForm = observer((props) => {
     <Container>
       <Card>
         <form onSubmit={(e) => { e.preventDefault() }}>
-          <IdentifierInput defaultValue={loginStore.isPatient ? t("login.phoneNumber") : t("login.email")} updateIdentifier={updateIdentifier} />
+          <IdentifierInput isNumeric={loginStore.isPatient} defaultValue={loginStore.isPatient ? t("login.phoneNumber") : t("login.email")} updateIdentifier={updateIdentifier} />
           {onActivation ? <Center><CodeInput onChange={handleCodeInput} id="activationCode" fields={5} /></Center> : <PasswordInput updatePassword={updatePassword} />}
           <Button id="login" fullWidth onClick={loginStore.submit} variant="contained" color={"primary"} >{onActivation ? t("login.activate") : t("login.logIn")}</Button>
         </form>

@@ -12,6 +12,7 @@ Patient Side:
     - Button overlap with password input
     - Increase size of age input
     - Replace old analog time picker with same one used in daily report
+- Add number only keyboard for phone number input on login screen
 
 Assistant Side:
 
