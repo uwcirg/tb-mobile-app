@@ -1,9 +1,9 @@
-import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import Colors from '../../../../Basics/Colors';
-import { DateTime } from 'luxon';
 import Tooltip from '@material-ui/core/Tooltip';
+import Colors from '../../../../Basics/Colors';
 import Fade from '@material-ui/core/Fade';
+import { DateTime } from 'luxon';
+import React from 'react';
 
 const useStyles = makeStyles({
     reportContainer: {
