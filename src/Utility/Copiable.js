@@ -27,7 +27,8 @@ const useStyles = makeStyles({
         fontSize: "1em",
         textAlign: "center",
         padding: ".25em",
-        whiteSpace: "nowrap"
+        whiteSpace: "nowrap",
+        flexGrow: "1"
     },
     link: {
         padding: "0 .5em",
@@ -54,7 +55,7 @@ const useStyles = makeStyles({
     }
 })
 
-const CopyTextInput = ({ text, className }) => {
+const CopyTextInput = ({ text, className,icon }) => {
 
     const { t } = useTranslation('translation');
     const [success, setSuccess] = useState(false);
@@ -69,7 +70,7 @@ const CopyTextInput = ({ text, className }) => {
 
     return (<div className={`${classes.copyContainer} ${className}`}>
         <Grid wrap="nowrap" alignItems="center" container className={classes.copyBox}>
-            <LinkIcon className={classes.link} />
+            {icon ? React.cloneElement(icon,{ className: classes.link}) : <LinkIcon className={classes.link} />}
             <div className={classes.textDisplay}>
                 <Typography variant="body1">{text}</Typography>
             </div>
