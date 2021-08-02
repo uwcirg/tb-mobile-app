@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react';
 import NewButton from '../../Basics/NewButton';
 import Clipboard from '@material-ui/icons/Assignment'
 import InteractionCard from '../../Basics/HomePageCard';
 import useStores from '../../Basics/UseStores';
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
-import Styles from '../../Basics/Styles';
 import Colors from '../../Basics/Colors';
-import IconButton from '@material-ui/core/IconButton'
+import IconButton from '@material-ui/core/IconButton';
 import WarningIcon from '@material-ui/icons/Warning';
 import WarningOutlined from '@material-ui/icons/ReportProblemOutlined';
-import Down from '@material-ui/icons/KeyboardArrowDown'
-import Up from '@material-ui/icons/KeyboardArrowUp'
-import Grow from '@material-ui/core/Collapse'
+import Down from '@material-ui/icons/KeyboardArrowDown';
+import Up from '@material-ui/icons/KeyboardArrowUp';
+import Grow from '@material-ui/core/Collapse';
 import { DateTime } from 'luxon';
-import MissedReportInfo from '../Progress/MissedReportCriteria'
+import MissedReportInfo from '../Progress/MissedReportCriteria';
+import EditIcon from '@material-ui/icons/Edit';
 
 const useStyles = makeStyles({
 
@@ -47,6 +47,13 @@ const useStyles = makeStyles({
         "& > button":{
             width: "100%"
         }
+    },
+    contactTracing:{
+        margin: "0 auto",
+        marginBottom: "1em",
+        "& > button":{
+            textTransform: "capitalize"
+        }
     }
 })
 
@@ -77,6 +84,10 @@ const ActionBox = observer(() => {
                     })}
                 </Grow>
             </InteractionCard>}
+
+            <InteractionCard className={classes.contactTracing} upperText="">
+                    <NewButton icon={<EditIcon />} text={t('updatedContactTracing.button')} />
+            </InteractionCard>
             </>)
 });
 

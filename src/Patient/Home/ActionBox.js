@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import NewButton from '../../Basics/NewButton';
-import Clipboard from '@material-ui/icons/Assignment'
+import Clipboard from '@material-ui/icons/Assignment';
 import Camera from '@material-ui/icons/CameraAlt';
 import InteractionCard from '../../Basics/HomePageCard';
 import useStores from '../../Basics/UseStores';
@@ -16,7 +16,7 @@ import PatientReport from '../../Basics/PatientReport';
 import EditIcon from '@material-ui/icons/Edit';
 import ExpansionPanel from '../../Basics/ExpansionPanel';
 import PhotoUploading from '../../Basics/Loading/PhotoUploading';
-import { usePageVisibility } from '../../Hooks/PageVisibility'
+import { usePageVisibility } from '../../Hooks/PageVisibility';
 
 const useStyles = makeStyles({
     confirmation: {
