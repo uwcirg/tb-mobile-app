@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import NewButton from '../../Basics/NewButton';
 import Clipboard from '@material-ui/icons/Assignment'
-import InteractionCard from '../../Basics/HomePageCard';
+import InteractionCard from '../../Basics/HomePageSection';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react';
 import { useTranslation } from 'react-i18next';
