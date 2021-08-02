@@ -110,4 +110,9 @@ export class UIStore {
         this.router.push("/information?testStripInstructions=true")
     }
 
+    @computed get pathname() {
+        return this.router.location.pathname;
+    }
+
+
 }

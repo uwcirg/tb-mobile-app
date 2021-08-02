@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import NewButton from '../../Basics/NewButton';
 import Clipboard from '@material-ui/icons/Assignment'
-import InteractionCard from '../../Basics/HomePageSection';
+import HomePageCard from '../../Components/Patient/HomePageCard';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react';
 import { useTranslation } from 'react-i18next';
@@ -16,6 +16,7 @@ import Grow from '@material-ui/core/Collapse';
 import { DateTime } from 'luxon';
 import MissedReportInfo from '../Progress/MissedReportCriteria';
 import EditIcon from '@material-ui/icons/Edit';
+import HomePageSectionContainer from '../../Components/Patient/HomePageSectionContainer';
 
 const useStyles = makeStyles({
 
@@ -44,14 +45,12 @@ const useStyles = makeStyles({
     criteria: {
         padding: "1em",
         boxSizing: "border-box",
-        "& > button":{
+        "& > button": {
             width: "100%"
         }
     },
-    contactTracing:{
-        margin: "0 auto",
-        marginBottom: "1em",
-        "& > button":{
+    contactTracing: {
+        "& > button": {
             textTransform: "capitalize"
         }
     }
@@ -72,9 +71,11 @@ const ActionBox = observer(() => {
         setShow(!show);
     }
 
+    const shouldShowMissedReports = !uiStore.offline && patientStore.missingReports.length > 0;
+
     return (
-        <>
-            {!uiStore.offline && patientStore.missingReports.length > 0 && <InteractionCard className={classes.override} upperText={<><WarningIcon />{t('patient.home.cardTitles.actionNeeded')}</>} id="intro-missed">
+        <HomePageSectionContainer upperText={<><WarningIcon />{t('patient.home.cardTitles.actionNeeded')}</>}>
+            {shouldShowMissedReports && <HomePageCard className={classes.override} id="intro-missed">
                 <div className={classes.warning}><WarningOutlined /><span> {patientStore.missingReports.length} {t('patient.home.missedDays.missing', { count: patientStore.missingReports.length })}</span><IconButton onClick={toggleShow}> {show ? <Up /> : <Down />}</IconButton></div>
                 {uiStore.locale && ""}
                 <Grow in={show} className={classes.grow}>
@@ -83,12 +84,12 @@ const ActionBox = observer(() => {
                         return <NewButton key={`back-report-${date}`} onClick={() => { handleReportClick(date) }} icon={<Clipboard />} text={DateTime.fromISO(date).toLocaleString(DateTime.DATE_MED)} />
                     })}
                 </Grow>
-            </InteractionCard>}
+            </HomePageCard>}
 
-            <InteractionCard className={classes.contactTracing} upperText="">
-                    <NewButton icon={<EditIcon />} text={t('updatedContactTracing.button')} />
-            </InteractionCard>
-            </>)
+            <HomePageCard className={classes.contactTracing} upperText="">
+                <NewButton onClick={()=>{uiStore.push('/contactTracing')}} icon={<EditIcon />} text={t('updatedContactTracing.button')} />
+            </HomePageCard>
+        </HomePageSectionContainer>)
 });
 
 export default ActionBox;

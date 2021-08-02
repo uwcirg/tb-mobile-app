@@ -902,6 +902,7 @@
         }
     },
     "updatedContactTracing": {
-        "button": "Update contact tracing details"
+        "button": "Update contact tracing details",
+        "title": "Contact tracing"
     }
 }
