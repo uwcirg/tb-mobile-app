@@ -11,7 +11,7 @@ import { observer } from 'mobx-react';
 import PersonButton from '@material-ui/icons/PersonRounded'
 import ChatIcon from '@material-ui/icons/Forum'
 import Styles from '../../Basics/Styles';
-import ProfileButton from '../PatientProfile/ProfileButton'
+import ProfileButton from '../../Components/FlatButton'
 
 import Message from '@material-ui/icons/ChatBubbleOutlineRounded';
 import Add from '@material-ui/icons/AddCircle';

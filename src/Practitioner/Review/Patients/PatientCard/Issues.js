@@ -4,7 +4,7 @@ import useStores from '../../../../Basics/UseStores';
 import { observer } from 'mobx-react';
 import Typography from '@material-ui/core/Typography';
 import Colors from '../../../../Basics/Colors';
-import ProfileButton from '../../../PatientProfile/ProfileButton.js';
+import ProfileButton from '../../../../Components/FlatButton.js';
 import Check from '@material-ui/icons/Check';
 import { useTranslation } from 'react-i18next';
 

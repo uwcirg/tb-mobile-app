@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography'
 import { useTranslation } from 'react-i18next'
 import DatePicker from '../../Basics/DatePicker'
 import { observer } from 'mobx-react'
-import ProfileButton from './ProfileButton'
+import ProfileButton from '../../Components/FlatButton'
 import CheckIcon from '@material-ui/icons/PlaylistAddCheck';
 import Colors from '../../Basics/Colors'
 import TreatmentOutcomeSelection from '../Shared/TreatmentOutcomeSelection'
