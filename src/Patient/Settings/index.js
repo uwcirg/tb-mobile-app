@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import useStores from '../../Basics/UseStores'
+import useStores from '../../Basics/UseStores';
 import OverTopBar from '../Navigation/OverTopBar';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
@@ -9,21 +9,20 @@ import Styles from '../../Basics/Styles';
 import Colors from '../../Basics/Colors';
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
-import { observer } from 'mobx-react'
-import NewButton from '../../Basics/NewButton'
-import ExitToApp from '@material-ui/icons/ExitToApp'
+import { observer } from 'mobx-react';
+import NewButton from '../../Basics/NewButton';
+import ExitToApp from '@material-ui/icons/ExitToApp';
 import Globe from '@material-ui/icons/Language';
-import PasswordUpdate from '../../Shared/PasswordUpdate'
-import PersonalInformation from './PersonalInformation'
-
-import useLogout from '../../Basics/Logout'
+import PasswordUpdate from '../../Components/PasswordUpdate';
+import PersonalInformation from './PersonalInformation';
+import useLogout from '../../Basics/Logout';
 import { DateTime } from 'luxon';
 
 const HealthProfile = observer(() => {
 
     const classes = useStyles();
     const { patientUIStore } = useStores();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
     let Component = <MainSettings />
     if (patientUIStore.onPasswordUpdate) Component = (
@@ -42,8 +41,8 @@ const HealthProfile = observer(() => {
 
 const MainSettings = observer(() => {
     const classes = useStyles();
-    const { patientStore, uiStore, patientUIStore, loginStore } = useStores();
-    const { t, i18n } = useTranslation('translation');
+    const { patientStore, patientUIStore } = useStores();
+    const { t } = useTranslation('translation');
     const logout = useLogout();
 
     const handleLogout = () => {
@@ -72,7 +71,7 @@ const MainSettings = observer(() => {
 const LanguageQuestion = observer(() => {
     const classes = useStyles();
     const { uiStore } = useStores();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
     return (
         <div className={classes.languageContainer}>

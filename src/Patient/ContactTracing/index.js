@@ -13,7 +13,7 @@ import TracingOptions from './TracingOptions';
 
 const useStyles = makeStyles({
     body: {
-        padding: "1em",
+        padding: "1em 1.5em",
         minHeight: "60vh",
     },
     avatar: {

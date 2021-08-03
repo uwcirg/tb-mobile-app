@@ -9,7 +9,7 @@ import { ButtonBase, Typography } from '@material-ui/core';
 import GlobeIcon from '@material-ui/icons/Public';
 import PasswordIcon from '@material-ui/icons/Lock';
 import LogoutIcon from '@material-ui/icons/ExitToApp';
-import PasswordReset from '../../Shared/PasswordUpdate';
+import PasswordReset from '../../Components/PasswordUpdate';
 import Documents from './Documents'
 import PatientIcon from '@material-ui/icons/Accessibility';
 import DocIcon from '@material-ui/icons/Description';

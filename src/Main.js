@@ -13,7 +13,7 @@ import Boundry from './Basics/ErrorBoundary'
 import CheckAuthorization from './Basics/HandleAuthorizationError'
 import SWWrapper from './ServiceWorkerWrapper'
 import { useMatomo } from '@datapunt/matomo-tracker-react'
-import Alerts from './Shared/Alerts'
+import Alerts from './Components/Alerts'
 import PushHandler from './Basics/PushNotificationHandler';
 
 const theme = createMuiTheme({
