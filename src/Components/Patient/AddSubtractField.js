@@ -18,8 +18,8 @@ const useStyles = makeStyles({
     }
 })
 
-
-const AddSubtractField = ({value,setValue}) => {
+//Diable + when maxValue is reached
+const AddSubtractField = ({value,setValue,maxValue}) => {
 
     const classes = useStyles();
 
@@ -33,7 +33,7 @@ const AddSubtractField = ({value,setValue}) => {
                 <MinusIcon />
             </IconButton>
             <p>{value}</p>
-            <IconButton className={classes.button} onClick={() => { handleChange(1) }}>
+            <IconButton disabled={maxValue && value >= maxValue} className={classes.button} onClick={() => { handleChange(1) }}>
                 <AddIcon />
             </IconButton>
         </div>

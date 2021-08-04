@@ -9,7 +9,7 @@ import ProfileButton from '../../Components/FlatButton';
 import Grid from '@material-ui/core/Grid';
 import AddSubtractField from '../../Components/Patient/AddSubtractField';
 import Colors from '../../Basics/Colors';
-import TracingOptions from './TracingOptions';
+import PatientInformationAPI from '../../API/PatientInformationAPI';
 
 
 const useStyles = makeStyles({
@@ -35,12 +35,17 @@ const useStyles = makeStyles({
 
 const ContactTracingUpdate = () => {
 
-    const { uiStore } = useStores();
+    const { uiStore, patientStore } = useStores();
     const classes = useStyles();
     const { t } = useTranslation('translation');
 
     const [numberOfContacts, setNumberOfContacts] = useState(0);
     const [numberOfTests, setNumberOfTests] = useState(0);
+
+    const submitSurvey = () => {
+        const api = new PatientInformationAPI(patientStore.userID);
+        api.createContactTracingSurvey(numberOfContacts,numberOfTests);
+    }
 
     return (<div>
         <OverTopBar notFixed handleBack={() => { uiStore.push("/") }} title={t('updatedContactTracing.title')} />
@@ -54,11 +59,14 @@ const ContactTracingUpdate = () => {
             <SectionLabel number="2" text={t('patient.onboarding.contactTracing.two')} />
             <AddSubtractField
                 value={numberOfTests}
-                setValue={setNumberOfTests} />
+                setValue={setNumberOfTests} 
+                maxValue={numberOfContacts}
+                />
+                
                 </>}
         </div>
         <Grid className={classes.buttonContainer} justify="flex-end" container spacing={1}>
-            <ProfileButton>{t('coordinator.patientProfile.editDetails.submit')}</ProfileButton>
+            <ProfileButton onClick={submitSurvey}>{t('coordinator.patientProfile.editDetails.submit')}</ProfileButton>
         </Grid>
     </div>)
 

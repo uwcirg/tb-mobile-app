@@ -1,5 +1,5 @@
 import { action, observable, computed, autorun } from "mobx";
-import APIHelper from './Requests'
+import APIHelper from '../API/Requests'
 
 export default class PatientProfileStore {
 
