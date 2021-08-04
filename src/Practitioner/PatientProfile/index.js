@@ -1,22 +1,21 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react';
 import Styles from '../../Basics/Styles';
 import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
-import PatientInfo from './PatientInfo'
-import TreatmentStatus from './AdherenceSummary'
-import SymptomSummary from './SymptomSummary'
-import TreatmentTimeline from '../../Basics/TreatmentTimeline'
-import ReportingHistory from './ReportingHistory'
-import SectionLabel from '../../Components/SectionLabel'
-import PatientProfileDialogs from './Dialogs'
-import HorizontalButtons from './HorizontalOptions'
-import Avatar from '@material-ui/core/Avatar'
+import PatientInfo from './PatientInfo';
+import TreatmentStatus from './AdherenceSummary';
+import SymptomSummary from './SymptomSummary';
+import TreatmentTimeline from '../../Basics/TreatmentTimeline';
+import ReportingHistory from './ReportingHistory';
+import SectionLabel from '../../Components/SectionLabel';
+import PatientProfileDialogs from './Dialogs';
+import HorizontalButtons from './HorizontalOptions';
+import Avatar from '@material-ui/core/Avatar';
 import ArchivedOptions from './ArchivedOptions';
-
-//Styles are at the bottom :)
+import ContactTracing from './ContactTracing';
 
 const Profile = observer((props) => {
 
@@ -59,6 +58,7 @@ const Profile = observer((props) => {
                     <ArchivedOptions />
                     <div className={classes.top}>
                         <PatientInfo />
+                        <ContactTracing />
                         <TreatmentStatus />
                         <SymptomSummary />
                     </div>
@@ -97,7 +97,7 @@ const useStyles = makeStyles({
             marginRight: "1em",
             ...Styles.profileCard
         },
-        "& > div:last-of-type":{
+        "& > div:last-of-type": {
             marginRight: 0
         }
     },
@@ -144,7 +144,7 @@ const useStyles = makeStyles({
             margin: 0
         }
     },
-    combined:{
+    combined: {
         width: "100%",
         ...Styles.profileCard,
         marginTop: "1em"

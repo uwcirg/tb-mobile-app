@@ -168,7 +168,8 @@
                 "some": "Some of them",
                 "all": "All of them",
                 "none": "None of them",
-                "unsure": "Im not sure"
+                "unsure": "Im not sure",
+                "explanation": " It is important that everyone you live with gets tested for TB, please let us know the status of your contacts so we can send you more information."
             },
             "success": "Finalizing Account Setup",
             "next": "Next",

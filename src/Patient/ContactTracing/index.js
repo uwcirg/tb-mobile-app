@@ -11,6 +11,7 @@ import AddSubtractField from '../../Components/Patient/AddSubtractField';
 import Colors from '../../Basics/Colors';
 import TracingOptions from './TracingOptions';
 
+
 const useStyles = makeStyles({
     body: {
         padding: "1em 1.5em",
@@ -27,8 +28,8 @@ const useStyles = makeStyles({
         marginTop: "1em",
         padding: "1em"
     },
-    label:{
-        marginBottom: "1em"
+    label: {
+        margin: "1em 0"
     }
 })
 
@@ -38,24 +39,27 @@ const ContactTracingUpdate = () => {
     const classes = useStyles();
     const { t } = useTranslation('translation');
 
-    const [value, setValue] = useState(0);
-    const [option, setOption] = useState(null);
+    const [numberOfContacts, setNumberOfContacts] = useState(0);
+    const [numberOfTests, setNumberOfTests] = useState(0);
 
     return (<div>
         <OverTopBar notFixed handleBack={() => { uiStore.push("/") }} title={t('updatedContactTracing.title')} />
         <div className={classes.body}>
+            <Typography variant="body1" color="initial">{t('patient.onboarding.contactTracing.explanation')}</Typography>
             <SectionLabel number="1" text={t('patient.onboarding.contactTracing.one')} />
             <AddSubtractField
-                value={value}
-                setValue={setValue} />
+                value={numberOfContacts}
+                setValue={setNumberOfContacts} />
+                {numberOfContacts > 0 && <>
             <SectionLabel number="2" text={t('patient.onboarding.contactTracing.two')} />
-            <TracingOptions
-                option={option}
-                setOption={setOption} />
+            <AddSubtractField
+                value={numberOfTests}
+                setValue={setNumberOfTests} />
+                </>}
         </div>
         <Grid className={classes.buttonContainer} justify="flex-end" container spacing={1}>
-                <ProfileButton>{t('coordinator.patientProfile.editDetails.submit')}</ProfileButton>
-            </Grid>
+            <ProfileButton>{t('coordinator.patientProfile.editDetails.submit')}</ProfileButton>
+        </Grid>
     </div>)
 
 }
