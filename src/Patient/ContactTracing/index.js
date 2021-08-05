@@ -11,7 +11,6 @@ import AddSubtractField from '../../Components/Patient/AddSubtractField';
 import Colors from '../../Basics/Colors';
 import PatientInformationAPI from '../../API/PatientInformationAPI';
 
-
 const useStyles = makeStyles({
     body: {
         padding: "1em 1.5em",
