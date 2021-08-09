@@ -393,7 +393,16 @@ export class PatientStore extends UserStore {
             return 0;
         }
 
-        let missedDays = [];
+        //Prevent duplicated days by using a hash and extracting keys
+        let missedDays = {};
+
+        for (let j = 0; j < 14; j++) {
+            let newDate = DateTime.fromISO(this.treatmentStart).plus({ days: j })
+            const date = newDate.toISODate();
+            if (!this.savedReports[date] && newDate.diffNow("days").days < -1) {
+                missedDays[date] = true;
+            }
+        }
 
         //Past 3 days
         for (let i = 3; i > 0; i--) {
@@ -401,19 +410,11 @@ export class PatientStore extends UserStore {
             const isoDate = date.toISODate();
      
             if (!this.savedReports[isoDate] && DateTime.fromISO(this.treatmentStart).diff(date,"days").days <= -1) {
-                missedDays.push(isoDate)
+                    missedDays[isoDate] = true;
             }
         }
 
-        for (let j = 0; j < 14; j++) {
-            let newDate = DateTime.fromISO(this.treatmentStart).plus({ days: j })
-            const date = newDate.toISODate();
-            if (!this.savedReports[date] && newDate.diffNow("days").days < -1) {
-                missedDays.push(date)
-            }
-        }
-
-        return missedDays;
+        return Object.keys(missedDays);
     }
 
     @action exitForcedPasswordChange = () => {
