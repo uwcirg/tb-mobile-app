@@ -20,7 +20,7 @@ const RequiresAction = observer(() => {
     return (
         <>
             {shouldRender && <HomePageSectionContainer upperText={<><WarningIcon />{t('patient.home.cardTitles.actionNeeded')}</>}>
-                {shouldShowMissedPhoto && <MissedPhoto />}
+                {/* {shouldShowMissedPhoto && <MissedPhoto />} */}
                 {shouldShowMissedReports && <MissedReports />}
                 {shouldShowContactTracing && <ContactTracingCard />}
             </HomePageSectionContainer>}
