@@ -1,6 +1,7 @@
 import React from 'react';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
@@ -19,7 +20,7 @@ const useStyles = makeStyles({
         marginLeft: "auto",
         padding: ".5em"
     },
-    text:{
+    text: {
         lineHeight: "1.25em",
         textTransform: "capitalize",
         padding: ".5em 0"
@@ -28,24 +29,24 @@ const useStyles = makeStyles({
 
 const ButtonLayout = ({ icon, text, onClick, isDropdownOpen, color }) => {
 
-    const classes = useStyles({buttonColor: color});
+    const classes = useStyles({ buttonColor: color });
 
     return (
         <Grid wrap="nowrap" alignItems="center" className={classes.container} container onClick={onClick}>
-            {React.cloneElement(icon,{className: classes.icon})}
+            {React.cloneElement(icon, { className: classes.icon })}
             <Typography className={classes.text} variant="body1" color="initial">
                 {text}
             </Typography><ButtonToDisplay isDropdownOpen={isDropdownOpen} />
         </Grid>)
 }
 
-const ButtonToDisplay = ({isDropdownOpen}) => {
+const ButtonToDisplay = ({ isDropdownOpen }) => {
 
     const classes = useStyles();
 
     let button = <KeyboardArrowRight />
 
-    if(isDropdownOpen){
+    if (isDropdownOpen) {
         button = <KeyboardArrowDown />
     }
 

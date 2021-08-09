@@ -7,6 +7,7 @@ import ContactTracingCard from './ContactTracingCard';
 import WarningIcon from '@material-ui/icons/Warning';
 import MissedReports from './MissedReports';
 import MissedPhoto from './MissedPhoto';
+import { toJS } from 'mobx';
 
 const RequiresAction = observer(() => {
     const { patientStore, patientUIStore, uiStore } = useStores();
@@ -15,7 +16,7 @@ const RequiresAction = observer(() => {
     
     //@TODO - implement logic for the conditional rendering of these fields
     const shouldShowContactTracing = true;
-    const shouldShowMissedPhoto = true;
+    const shouldShowMissedPhoto = patientStore.lastPhotoRequestStatus.daysSinceLastRequest <=3 &&  !patientStore.lastPhotoRequestStatus.photoWasSubmitted;
 
     return (
         <HomePageSectionContainer upperText={<><WarningIcon />{t('patient.home.cardTitles.actionNeeded')}</>}>
