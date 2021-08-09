@@ -40,16 +40,18 @@ const ButtonLayout = ({ icon, text, onClick, isDropdownOpen, color }) => {
         </Grid>)
 }
 
-const ButtonToDisplay = ({ isDropdownOpen }) => {
+const ButtonToDisplay = ({ isDropdownOpen = null }) => {
 
     const classes = useStyles();
 
     let button = <KeyboardArrowRight />
 
-    if (isDropdownOpen) {
-        button = <KeyboardArrowDown />
+    if (isDropdownOpen === null ) {
+    
+    }else{
+        button = isDropdownOpen ? <KeyboardArrowUp /> : <KeyboardArrowDown />;
     }
-
+    
     return (
         <IconButton className={classes.button} aria-label="go-to-missed-photo-submission">
             {button}

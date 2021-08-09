@@ -14,7 +14,7 @@ const RequiresAction = observer(() => {
     const shouldShowMissedReports = !uiStore.offline && patientStore.missingReports.length > 0;
     
     //@TODO - implement logic for the conditional rendering of these fields
-    const shouldShowContactTracing = patientStore.patientInformation.daysInTreatment > 30; 
+    const shouldShowContactTracing = patientStore.patientInformation.daysInTreatment > 30 //&& not submitted ; 
     const shouldShowMissedPhoto = patientStore.lastPhotoRequestStatus.daysSinceLastRequest <=3 &&  !patientStore.lastPhotoRequestStatus.photoWasSubmitted;
 
     return (
