@@ -3,7 +3,7 @@ import APIStore from './apiStore'
 import { DateTime } from "luxon";
 
 const ROUTES = {
-    activate: ["/patient/self/activate", "POST"],
+    activate: ["/v2/patient/self/activation", "POST"],
     setPassword: ["/patient/self/password", "POST"]
 }
 
@@ -54,7 +54,8 @@ export class ActivationStore extends APIStore {
     @action submitActivation = () => {
         this.isLoading = true;
         this.onboardingInformation.currentDate = DateTime.local().toISODate();
-        return this.executeRequest('activate', this.onboardingInformation,{allowErrors: true}).then(json => {
+
+        return this.executeRequest('activate', this.requestBody() ,{allowErrors: true}).then(json => {
             if(json.error){
                 this.activationError = true;
                 this.activtionErrorDetail = json.error;
@@ -95,6 +96,26 @@ export class ActivationStore extends APIStore {
 
     @computed get passwordsMatch() {
         return (this.passwordUpdate.password === this.passwordUpdate.passwordConfirmation)
+    }
+
+    requestBody = () => {
+        return(
+            {
+                date: this.onboardingInformation.currentDate,
+                enableNotifications: this.onboardingInformation.enableNotifications,
+                notificationTime: this.onboardingInformation.notificationTime,
+                
+                contactTracingSurvey: {
+                    numberOfContacts: this.onboardingInformation.numberOfContacts,
+                    numberOfContactsTested: 1
+                },
+                patient: {
+                    gender: this.onboardingInformation.gender,
+                    genderOther: this.onboardingInformation.genderOther,
+                    age: this.onboardingInformation.age
+                }
+            }
+        )
     }
 
 
