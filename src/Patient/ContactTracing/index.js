@@ -50,10 +50,10 @@ const ContactTracingUpdate = () => {
 
     const processResponse = (json) => {
         if(json.httpStatus === 201 ){
-            uiStore.setAlert("Thanks for your input","success");
+            uiStore.setAlert(t('commonWords.successMessage'),"success");
             uiStore.push("/");
         }else{
-            uiStore.setAlert("Error please try again later","error");
+            uiStore.setAlert(t('commonWords.errorMessage'),"error");
         }
     }
 
