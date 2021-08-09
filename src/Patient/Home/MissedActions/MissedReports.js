@@ -45,7 +45,7 @@ const MissedReports = observer(() => {
     return (
         <MissedActionCard id="intro-missed">
             <ButtonLayout
-                text={t('patient.home.missedDays.missing', { count: patientStore.missingReports.length })}
+                text={`${patientStore.missingReports.length} ${t('patient.home.missedDays.missing', { count: patientStore.missingReports.length })}`}
                 icon={<WarningOutlined />}
                 color={Colors.warningRed}
                 isDropdownOpen={showDetails}
