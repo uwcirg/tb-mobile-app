@@ -121,10 +121,11 @@ export class PatientStore extends UserStore {
         this.patientInformation.currentStreak = json.currentStreak;
         this.educationStore.educationStatus = json.educationStatus;
         this.hasForcedPasswordChange = json.hasForcedPasswordChange;
-        this.patientInformation.loaded = true;
         this.treatmentOutcome = json.treatmentOutcome;
         this.lastPhotoRequestStatus = json.lastPhotoRequestStatus;
-
+        this.contactTracingSurveyCount = json.contactTracingSurveyCount;
+        this.patientInformation.loaded = true;
+        
         localStorage.setItem("cachedProfile", JSON.stringify({
             photoSchedule: this.photoSchedule,
             givenName: json.givenName,

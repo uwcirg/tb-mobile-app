@@ -7,6 +7,10 @@ export default class PatientInformationAPI {
         this.api = new APIHelper();
     }
 
+    request(route,method,body,options={includeStatus: true}){
+        return this.api.executeRawRequest(route,method,body,options)
+    }
+
     get patientPath() {
         return `/v2/patient/${this.patientID}`;
     }
@@ -19,7 +23,7 @@ export default class PatientInformationAPI {
             }
         }
 
-        return this.api.executeRawRequest(`${this.patientPath}/contact_tracing_surveys`, "POST", body)
+        return this.request(`${this.patientPath}/contact_tracing_surveys`, "POST", body)
     }
 
 }

@@ -23,6 +23,7 @@ export class UIStore {
     @observable alertText = "";
     @observable alertType = "success";
 
+    //Alert type success or error
     @action setAlert = (text, type) => {
         this.alertVisible = true;
         this.alertText = text;

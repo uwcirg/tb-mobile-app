@@ -25,7 +25,10 @@ const useStyles = makeStyles({
     },
     buttonContainer: {
         marginTop: "1em",
-        padding: "1em"
+        padding: "1.5em",
+        "& > button": {
+            fontSize: "1em"
+        }
     },
     label: {
         margin: "1em 0"
@@ -42,8 +45,16 @@ const ContactTracingUpdate = () => {
     const [numberOfTests, setNumberOfTests] = useState(0);
 
     const submitSurvey = () => {
-        const api = new PatientInformationAPI(patientStore.userID);
-        api.createContactTracingSurvey(numberOfContacts,numberOfTests);
+        new PatientInformationAPI(patientStore.userID).createContactTracingSurvey(numberOfContacts, numberOfTests).then(processResponse)
+    }
+
+    const processResponse = (json) => {
+        if(json.httpStatus === 201 ){
+            uiStore.setAlert("Thanks for your input","success");
+            uiStore.push("/");
+        }else{
+            uiStore.setAlert("Error please try again later","error");
+        }
     }
 
     return (<div>
@@ -54,15 +65,14 @@ const ContactTracingUpdate = () => {
             <AddSubtractField
                 value={numberOfContacts}
                 setValue={setNumberOfContacts} />
-                {numberOfContacts > 0 && <>
-            <SectionLabel number="2" text={t('patient.onboarding.contactTracing.two')} />
-            <AddSubtractField
-                value={numberOfTests}
-                setValue={setNumberOfTests} 
-                maxValue={numberOfContacts}
+            {numberOfContacts > 0 && <>
+                <SectionLabel number="2" text={t('patient.onboarding.contactTracing.two')} />
+                <AddSubtractField
+                    value={numberOfTests}
+                    setValue={setNumberOfTests}
+                    maxValue={numberOfContacts}
                 />
-                
-                </>}
+            </>}
         </div>
         <Grid className={classes.buttonContainer} justify="flex-end" container spacing={1}>
             <ProfileButton onClick={submitSurvey}>{t('coordinator.patientProfile.editDetails.submit')}</ProfileButton>

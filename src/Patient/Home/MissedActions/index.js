@@ -11,18 +11,21 @@ import MissedPhoto from './MissedPhoto';
 const RequiresAction = observer(() => {
     const { patientStore, uiStore } = useStores();
     const { t } = useTranslation('translation');
-    const shouldShowMissedReports = !uiStore.offline && patientStore.missingReports.length > 0;
     
-    //@TODO - implement logic for the conditional rendering of these fields
-    const shouldShowContactTracing = patientStore.patientInformation.daysInTreatment > 30 //&& not submitted ; 
-    const shouldShowMissedPhoto = patientStore.lastPhotoRequestStatus.daysSinceLastRequest <=3 &&  !patientStore.lastPhotoRequestStatus.photoWasSubmitted;
+    const shouldShowMissedReports = !uiStore.offline && patientStore.missingReports.length > 0;
+    const shouldShowContactTracing = patientStore.patientInformation.daysInTreatment > 30 && patientStore.contactTracingSurveyCount <= 1;
+    const shouldShowMissedPhoto = patientStore.lastPhotoRequestStatus.daysSinceLastRequest <= 3 && !patientStore.lastPhotoRequestStatus.photoWasSubmitted;
+    const shouldRender = shouldShowMissedReports || shouldShowContactTracing || shouldShowMissedPhoto;
 
     return (
-        <HomePageSectionContainer upperText={<><WarningIcon />{t('patient.home.cardTitles.actionNeeded')}</>}>
-            {shouldShowMissedPhoto && <MissedPhoto />}
-            {shouldShowMissedReports && <MissedReports />}
-            {shouldShowContactTracing && <ContactTracingCard />}
-        </HomePageSectionContainer>)
+        <>
+            {shouldRender && <HomePageSectionContainer upperText={<><WarningIcon />{t('patient.home.cardTitles.actionNeeded')}</>}>
+                {shouldShowMissedPhoto && <MissedPhoto />}
+                {shouldShowMissedReports && <MissedReports />}
+                {shouldShowContactTracing && <ContactTracingCard />}
+            </HomePageSectionContainer>}
+        </>
+    )
 });
 
 export default RequiresAction;
