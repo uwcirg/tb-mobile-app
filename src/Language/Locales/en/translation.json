@@ -283,7 +283,8 @@
             },
             "missedDays": {
                 "missing": "Missing Treatment Log",
-                "missing_plural": "Missing Treatment Logs"
+                "missing_plural": "Missing Treatment Logs",
+                "missedPhoto": "Submit missed photo"
             },
             "chatReminder": {
                 "body": "Did you know you can chat anonymously with other patients?",

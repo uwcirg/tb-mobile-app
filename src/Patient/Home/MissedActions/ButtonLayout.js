@@ -1,56 +1,56 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import PhotoIcon from '@material-ui/icons/CameraAlt';
-import Colors from '../../../Basics/Colors';
-import Grid from '@material-ui/core/Grid';
-import MissedActionCard from './MissedActionCard';
-import IconButton from '@material-ui/core/IconButton';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
-
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import Grid from '@material-ui/core/Grid';
+import Colors from '../../../Basics/Colors';
 
 const useStyles = makeStyles({
     container: {
         padding: "0 1em",
     },
     icon: {
-        color: props => props.buttonColor,
+        color: props => props.buttonColor || Colors.buttonBlue,
         marginRight: ".5em"
     },
     button: {
-        marginLeft: "auto"
+        marginLeft: "auto",
+        padding: ".5em"
+    },
+    text:{
+        lineHeight: "1.25em",
+        textTransform: "capitalize",
+        padding: ".5em 0"
     }
 })
 
-const Buttonlayout = ({ icon, text, onClick, isDropdown, isOpen, color }) => {
+const ButtonLayout = ({ icon, text, onClick, isDropdownOpen, color }) => {
 
     const classes = useStyles({buttonColor: color});
 
     return (
-        <Grid wrap="nowrap" alignItems="center" className={classes.container} container>
-            {/* <PhotoIcon className={classes.icon} /> */}
+        <Grid wrap="nowrap" alignItems="center" className={classes.container} container onClick={onClick}>
             {React.cloneElement(icon,{className: classes.icon})}
-            <Typography variant="body1" color="initial">
+            <Typography className={classes.text} variant="body1" color="initial">
                 {text}
-            </Typography><ButtonToDisplay isDropdown={isDropdown} isOpen={isOpen} />
-
+            </Typography><ButtonToDisplay isDropdownOpen={isDropdownOpen} />
         </Grid>)
-
 }
 
-const ButtonToDisplay = ({isDropdown, isOpen}) => {
+const ButtonToDisplay = ({isDropdownOpen}) => {
 
     const classes = useStyles();
 
     let button = <KeyboardArrowRight />
 
-    if(isDropdown && isOpen){
-        let button = <KeyboardArrowDown />
+    if(isDropdownOpen){
+        button = <KeyboardArrowDown />
     }
 
     return (
-        <IconButton className={classes.button} aria-label="go-to-missed-photo-submission" onClick={() => { console.log("launch missed photo flow") }}>
+        <IconButton className={classes.button} aria-label="go-to-missed-photo-submission">
             {button}
         </IconButton>
     )
@@ -58,4 +58,4 @@ const ButtonToDisplay = ({isDropdown, isOpen}) => {
 
 }
 
-export default Buttonlayout;
+export default ButtonLayout;
