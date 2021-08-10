@@ -23,7 +23,7 @@ export class ActivationStore extends APIStore {
         notificationTime: DateTime.local().toISOTime(),
         date: DateTime.local().toISODate(),
         numberOfContacts: 0,
-        contactsTested: "Yes",
+        numberOfContactsTested: 0,
         genderOther: ""
     }
 
@@ -39,11 +39,18 @@ export class ActivationStore extends APIStore {
   
     }
 
-    @action addToNumberOfContacts(value) {
-        const temp = this.onboardingInformation.numberOfContacts + value;
-        if (temp >= 0) this.onboardingInformation.numberOfContacts += value;
+    @action setNumberOfContacts = (number) => {
+        this.onboardingInformation.numberOfContacts = number;
+
+        //You cant have more people tested than they live with
+        if(this.onboardingInformation.numberOfContacts < this.onboardingInformation.numberOfContactsTested){
+            this.onboardingInformation.numberOfContactsTested = number;
+        }
     }
 
+    @action setNumberOfContactsTested = (number) => {
+        this.onboardingInformation.numberOfContactsTested = number;
+    }
 
     @action register(body) {
         return this.executeRequest('register', body).then(json => {
@@ -107,7 +114,7 @@ export class ActivationStore extends APIStore {
                 
                 contactTracingSurvey: {
                     numberOfContacts: this.onboardingInformation.numberOfContacts,
-                    numberOfContactsTested: 1
+                    numberOfContactsTested: this.onboardingInformation.numberOfContactsTested
                 },
                 patient: {
                     gender: this.onboardingInformation.gender,

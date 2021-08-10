@@ -5,6 +5,7 @@ import EducationStore from './educationStore';
 import ReportStore from './reportStore';
 import { addReportToOfflineCache, getNumberOfCachedReports } from './SaveReportOffline'
 import resizeImage from '../Utility/ResizeImage';
+import {daysSinceISODateTime} from "../Utility/TimeUtils";
 
 const ROUTES = {
     login: ["/authenticate", "POST"],
@@ -35,6 +36,7 @@ export class PatientStore extends UserStore {
     @observable hasForcedPasswordChange = false;
     @observable photoSchedule = {};
     @observable lastPhotoRequestStatus = {};
+    @observable lastContactTracingSurvey = {};
     @observable educationStatus = [];
 
     @observable status = "Active";
@@ -123,7 +125,7 @@ export class PatientStore extends UserStore {
         this.hasForcedPasswordChange = json.hasForcedPasswordChange;
         this.treatmentOutcome = json.treatmentOutcome;
         this.lastPhotoRequestStatus = json.lastPhotoRequestStatus;
-        this.contactTracingSurveyCount = json.contactTracingSurveyCount;
+        this.lastContactTracingSurvey = json.lastContactTracingSurvey;
         this.patientInformation.loaded = true;
         
         localStorage.setItem("cachedProfile", JSON.stringify({
@@ -457,6 +459,10 @@ export class PatientStore extends UserStore {
         }
 
         return streak;
+    }
+
+    @computed get contactTracingNeeded(){
+        return !this.lastContactTracingSurvey || (daysSinceISODateTime(this.lastContactTracingSurvey.createdAt) > 30 && (this.lastContactTracingSurvey.numberOfContactsTested < this.lastContactTracingSurvey.numberOfContacts))
     }
 
     defaultReport = {

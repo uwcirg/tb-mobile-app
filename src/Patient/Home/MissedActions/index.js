@@ -7,13 +7,14 @@ import ContactTracingCard from './ContactTracingCard';
 import WarningIcon from '@material-ui/icons/Warning';
 import MissedReports from './MissedReports';
 import MissedPhoto from './MissedPhoto';
+import daysSinceISODateTime from '../../../Utility/TimeUtils';
 
 const RequiresAction = observer(() => {
     const { patientStore, uiStore } = useStores();
     const { t } = useTranslation('translation');
     
     const shouldShowMissedReports = !uiStore.offline && patientStore.missingReports.length > 0;
-    const shouldShowContactTracing = patientStore.patientInformation.daysInTreatment > 30 && patientStore.contactTracingSurveyCount <= 1;
+    const shouldShowContactTracing = patientStore.contactTracingNeeded;
     const shouldShowMissedPhoto = patientStore.lastPhotoRequestStatus.daysSinceLastRequest <= 3 && !patientStore.lastPhotoRequestStatus.photoWasSubmitted;
     const shouldRender = shouldShowMissedReports || shouldShowContactTracing || shouldShowMissedPhoto;
 

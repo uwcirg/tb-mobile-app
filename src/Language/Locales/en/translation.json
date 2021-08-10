@@ -166,7 +166,7 @@
             },
             "contactTracing": {
                 "one": "How many people do you live with?",
-                "two": "Have they been tested for TB?",
+                "two": "How many have been tested for TB?",
                 "some": "Some of them",
                 "all": "All of them",
                 "none": "None of them",

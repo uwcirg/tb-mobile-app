@@ -49,11 +49,12 @@ const ContactTracingUpdate = () => {
     }
 
     const processResponse = (json) => {
-        if(json.httpStatus === 201 ){
-            uiStore.setAlert(t('commonWords.successMessage'),"success");
+        if (json.httpStatus === 201) {
+            uiStore.setAlert(t('commonWords.successMessage'), "success");
             uiStore.push("/");
-        }else{
-            uiStore.setAlert(t('commonWords.errorMessage'),"error");
+            patientStore.initalize();
+        } else {
+            uiStore.setAlert(t('commonWords.errorMessage'), "error");
         }
     }
 
