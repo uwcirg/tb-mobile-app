@@ -1,28 +1,40 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import useStores from '../../Basics/UseStores';
-import { observer } from 'mobx-react';
-import Typography from '@material-ui/core/Typography'
+import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
+import Grid from '@material-ui/core/Grid';
+import NextButton from './NextButton';
+import Colors from '../../Basics/Colors';
 
 
 const useStyles = makeStyles({
     body: {
         minHeight: "70vh",
-        display: "flex",
-        alignItems: "center"
+        padding: "0 2em",
+        "& > *": {
+            marginBottom: "1em"
+        }
+    },
+    graphic:{
+        width: "90%"
     }
 })
 
-const Explanation = () => {
+const Explanation = ({handleNext}) => {
 
     const { t } = useTranslation('translation');
     const classes = useStyles();
 
     return (
-        <div className={classes.body}>
-            <Typography variant="body1" color="initial">{t('patient.onboarding.contactTracing.explanation')}</Typography>
-        </div>)
+        <>
+        <Grid container justify="center" alignItems="center" direction="column" className={classes.body}>
+            <img className={classes.graphic} src="treatment-update.png" />
+             <Typography variant="body1" color="initial"> {t('patient.onboarding.contactTracing.important')}</Typography>
+             <Typography variant="body1" color="initial">{t('patient.onboarding.contactTracing.explanation')}</Typography>
+        </Grid>
+        <NextButton onClick={handleNext} text={t('patient.onboarding.next')} />
+        </>
+        )
 
 }
 

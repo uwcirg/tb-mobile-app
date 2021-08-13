@@ -60,7 +60,7 @@ const ContactTracingUpdate = observer(() => {
         submitSurvey={submitSurvey} />,
     <ConfirmationScreen />]
 
-    const pageInRange = (page) => {return page >= 0 && page < pages.length}
+    const pageInRange = (page) => { return page >= 0 && page < pages.length }
 
     const processResponse = (json) => {
         toggleConfirmation();
@@ -75,7 +75,6 @@ const ContactTracingUpdate = observer(() => {
         } else {
             uiStore.push("/")
         }
-
     }
 
     const handleBack = () => {
@@ -89,8 +88,11 @@ const ContactTracingUpdate = observer(() => {
     return (
         <>
             <OverTopBar notFixed handleBack={handleBack} title={t('updatedContactTracing.title')} />
-            {pageInRange(uiStore.step) && React.cloneElement(pages[uiStore.step], { numberOfContacts: numberOfContacts, numberOfTests: numberOfTests })}
-            <NextButton onClick={handleNext} text={t('coordinator.patientProfile.editDetails.submit')} />
+            {pageInRange(uiStore.step) && React.cloneElement(pages[uiStore.step], { 
+                numberOfContacts: numberOfContacts, 
+                numberOfTests: numberOfTests,
+                handleNext: handleNext
+                })}
         </>
     )
 

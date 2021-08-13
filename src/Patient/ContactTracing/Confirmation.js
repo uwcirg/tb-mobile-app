@@ -1,46 +1,26 @@
-import React, { useState } from 'react';
-import Avatar from "@material-ui/core/Avatar";
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import Typography from '@material-ui/core/Typography';
-import OverTopBar from '../Navigation/OverTopBar';
 import { useTranslation } from 'react-i18next';
-import ProfileButton from '../../Components/FlatButton';
 import Grid from '@material-ui/core/Grid';
-import AddSubtractField from '../../Components/Patient/AddSubtractField';
 import Colors from '../../Basics/Colors';
-import PatientInformationAPI from '../../API/PatientInformationAPI';
-import useToggle from '../../Hooks/useToggle';
 import NextButton from './NextButton';
-
 
 
 const useStyles = makeStyles({
     body: {
         padding: "1em 1.5em",
         minHeight: "60vh",
-    },
-    avatar: {
-        width: "30px",
-        height: "30px",
-        fontSize: ".8em",
-        marginRight: "1em",
-        backgroundColor: Colors.accentBlue
-    },
-    buttonContainer: {
-        marginTop: "1em",
-        padding: "1.5em",
-        "& > button": {
-            fontSize: "1em"
+        "& > *": {
+            marginBottom: "1em",
+            textAlign: "left"
         }
-    },
-    label: {
-        margin: "1em 0"
     }
 })
 
 
-const ConfirmationScreen = ({ nContacts, nTested, error }) => {
+const ConfirmationScreen = ({ nContacts, nTested, error, handleNext }) => {
 
 
     const completed = nTested >= nContacts;
@@ -54,13 +34,23 @@ const ConfirmationScreen = ({ nContacts, nTested, error }) => {
     }
 
     return (
-        <div>
+        <>
+        <Grid container className={classes.body} direction="column" justify="center" align="center">
             <Typography variant="body1" color="initial">
-                Thank you for your input!
-                {completed ? "It is great that all of your contacts have been tested. Keep up the great work." :
-                    "Its very important for the health of your loved ones to ensure that they all get tested for TB. Please reach out to your treatment assistant to set up testing"}
+                Thanks for letting us know!
             </Typography>
-        </div>
+            <Typography variant="body1" color="initial">
+                {completed ? "It is great that all of your contacts have been tested. Keep up the great work." :
+                    <>
+                        Its very important for the health of your loved ones to ensure that they all get tested for TB. 
+                        <br />
+                        <br />
+                        <span style={{backgroundColor: Colors.highlightYellow}}>Please reach out to your treatment assistant to set up testing</span>
+                    </>}
+            </Typography>
+        </Grid>
+        <NextButton onClick={handleNext} text="Complete" />
+        </>
 
     )
 }

@@ -12,8 +12,10 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
     body: {
-        padding: "1em 1.5em",
-        minHeight: "60vh",
+        padding: "0 1.5em",
+        paddingTop: "3em",
+        boxSizing: "border-box",
+        minHeight: "70vh",
     },
     avatar: {
         width: "30px",
@@ -37,10 +39,15 @@ const SectionLabel = ({ text, number }) => {
     </Grid>)
 }
 
-const ContactTracingSurvey = ({numberOfTests,numberOfContacts,setNumberOfTests,setNumberOfContacts,submitSurvey}) => {
+const ContactTracingSurvey = ({numberOfTests,numberOfContacts,setNumberOfTests,setNumberOfContacts,submitSurvey, handleNext}) => {
 
     const classes = useStyles();
     const { t } = useTranslation('translation');
+
+    const handleSubmit = () => {
+        submitSurvey();
+        handleNext();
+    }
 
     return (<div>
         <div className={classes.body}>
@@ -57,6 +64,7 @@ const ContactTracingSurvey = ({numberOfTests,numberOfContacts,setNumberOfTests,s
                 />
             </>}
         </div>
+        <NextButton onClick={handleSubmit} text={t('coordinator.patientProfile.editDetails.submit')} />
     </div>)
 
 }
