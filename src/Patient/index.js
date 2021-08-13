@@ -72,7 +72,7 @@ const PatientHome = observer((props) => {
     return <Onboarding />
   }
 
-  if(uiStore.pathname === "/contactTracing"){
+  if(uiStore.pathname.startsWith("/contact-tracing")){
     return <UpdateContactTracing />
   }
 

@@ -9,7 +9,7 @@ const ContactTracingCard = () => {
     const {uiStore} = useStores();
     const { t } = useTranslation('translation');
 
-    const openContactTracing = () => { uiStore.push('/contactTracing') }
+    const openContactTracing = () => { uiStore.push('/contact-tracing') }
 
     return (
         <MissedActionCard>
