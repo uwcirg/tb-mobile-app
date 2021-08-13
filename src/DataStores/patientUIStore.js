@@ -221,4 +221,8 @@ export default class PatientUIStore {
             this.updateOnboardingStep(this.reportStep + 1);
         }
     }
+
+    @action goToContactTracingUpdate = () => {
+        this.router.push("/contact-tracing")
+    }
 }

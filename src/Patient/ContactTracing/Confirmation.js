@@ -6,6 +6,8 @@ import { useTranslation } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
 import Colors from '../../Basics/Colors';
 import NextButton from './NextButton';
+import Check from '@material-ui/icons/Check';
+
 
 
 const useStyles = makeStyles({
@@ -35,21 +37,27 @@ const ConfirmationScreen = ({ nContacts, nTested, error, handleNext }) => {
 
     return (
         <>
-        <Grid container className={classes.body} direction="column" justify="center" align="center">
-            <Typography variant="body1" color="initial">
-                Thanks for letting us know!
-            </Typography>
-            <Typography variant="body1" color="initial">
-                {completed ? "It is great that all of your contacts have been tested. Keep up the great work." :
-                    <>
-                        Its very important for the health of your loved ones to ensure that they all get tested for TB. 
-                        <br />
-                        <br />
-                        <span style={{backgroundColor: Colors.highlightYellow}}>Please reach out to your treatment assistant to set up testing</span>
-                    </>}
-            </Typography>
-        </Grid>
-        <NextButton onClick={handleNext} text="Complete" />
+            <Grid container className={classes.body} direction="column" justify="center" align="center">
+
+                <Grid container alignItems="center">
+                    <Check style={{ color: Colors.green, marginRight: ".5em" }} />
+                    <Typography> Your response has been recorded</Typography>
+                </Grid>
+
+                <Typography variant="body1" color="initial">
+                    Thanks for letting us know!
+                </Typography>
+                <Typography variant="body1" color="initial">
+                    {!completed ? "It is great that all of your contacts have been tested. Keep up the great work." :
+                        <>
+                            Its very important for the health of your loved ones to ensure that they all get tested for TB.
+                            <br />
+                            <br />
+                            <span style={{ backgroundColor: Colors.highlightYellow }}>Please reach out to your treatment assistant to set up testing</span>
+                        </>}
+                </Typography>
+            </Grid>
+            <NextButton onClick={handleNext} text="Complete" />
         </>
 
     )

@@ -4,7 +4,6 @@ import useStores from '../../Basics/UseStores';
 import OverTopBar from '../Navigation/OverTopBar';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
 import Styles from '../../Basics/Styles';
 import Colors from '../../Basics/Colors';
 import ButtonGroup from "@material-ui/core/ButtonGroup";
@@ -17,6 +16,7 @@ import PasswordUpdate from '../../Components/PasswordUpdate';
 import PersonalInformation from './PersonalInformation';
 import useLogout from '../../Basics/Logout';
 import { DateTime } from 'luxon';
+import Debugging from './Debugging'
 
 const HealthProfile = observer(() => {
 
@@ -87,37 +87,6 @@ const LanguageQuestion = observer(() => {
     );
 })
 
-const Debugging = observer((props) => {
-    const classes = useStyles();
-    const { patientStore, uiStore } = useStores();
-
-    return (
-        <>
-            {window._env.MATOMO_ID === "13" && <a href="https://redcap.iths.org/surveys/?s=YXW3H4H7A3DNLYDP">Link To Survey To Test</a>}
-            {window._env.ENVIRONMENT === "development" ?
-                <div className={classes.debugging}>
-                    <a href="https://redcap.iths.org/surveys/?s=YXW3H4H7A3DNLYDP">Link To Survey To Test</a>
-                    Debugging Mode Enabled (config.js or set with environment variable in docker)
-                    <TextField
-                        id="standard-number"
-                        label="Number"
-                        type="number"
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                        value={patientStore.patientInformation.daysInTreatment}
-                        onChange={(e) => { patientStore.patientInformation.daysInTreatment = e.target.value }}
-                    />
-                    <p>Visibily Change Count{uiStore.visibilityChangeCount}</p>
-                    <button onClick={() => {
-                        patientStore.educationStore.setLocalToOldDateForTesting(DateTime.local().minus({ days: 2 }).toISODate())
-                    }}>Update Date of Last Update Read to 2 days ago</button>
-
-                </div> :
-                ""}
-        </>
-    )
-})
 
 const useStyles = makeStyles({
     logout: {
@@ -234,9 +203,6 @@ const useStyles = makeStyles({
         display: "flex",
         flexDirection: "column",
         alignItems: "center"
-    },
-    debugging: {
-        padding: "1em"
     },
     pwContainer: {
         width: "90%",
