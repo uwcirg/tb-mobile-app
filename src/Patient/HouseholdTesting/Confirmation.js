@@ -8,8 +8,6 @@ import Colors from '../../Basics/Colors';
 import NextButton from './NextButton';
 import Check from '@material-ui/icons/Check';
 
-
-
 const useStyles = makeStyles({
     body: {
         padding: "1em 1.5em",
@@ -21,9 +19,7 @@ const useStyles = makeStyles({
     }
 })
 
-
 const ConfirmationScreen = ({ nContacts, nTested, error, handleNext }) => {
-
 
     const completed = nTested >= nContacts;
     const { uiStore, patientStore } = useStores();
@@ -59,7 +55,6 @@ const ConfirmationScreen = ({ nContacts, nTested, error, handleNext }) => {
             </Grid>
             <NextButton onClick={handleNext} text="Complete" />
         </>
-
     )
 }
 

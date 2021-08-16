@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { useTranslation } from 'react-i18next';
 import useStores from '../../../Basics/UseStores';
 import HomePageSectionContainer from '../../../Components/Patient/HomePageSectionContainer';
-import ContactTracingCard from './ContactTracingCard';
+import ContactTracingCard from './HouseholdTestingCard';
 import WarningIcon from '@material-ui/icons/Warning';
 import MissedReports from './MissedReports';
 import MissedPhoto from './MissedPhoto';

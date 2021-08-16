@@ -172,7 +172,7 @@
                 "none": "None of them",
                 "unsure": "Im not sure",
                 "important": "It is important that everyone you live with gets tested for TB.",
-                "explanation": "Please let us know the status of your contacts so we can send you more information."
+                "explanation": "Please let us know the status of your household so we can send you more information."
             },
             "success": "Finalizing Account Setup",
             "next": "Next",
@@ -906,8 +906,8 @@
             "ask": "Enable"
         }
     },
-    "updatedContactTracing": {
-        "button": "Update contact tracing details",
-        "title": "Contact tracing"
+    "householdTesting": {
+        "button": "Update household testing status",
+        "title": "Household testing"
     }
 }

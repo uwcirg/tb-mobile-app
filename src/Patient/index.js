@@ -16,7 +16,7 @@ import ErrorListener from './ErrorListener';
 import ForcePasswordChange from './ForcePasswordChange';
 import EducationalMessage from './Home/Education';
 import { usePageVisibility } from '../Hooks/PageVisibility';
-import UpdateContactTracing from '../Patient/ContactTracing';
+import UpdateContactTracing from './HouseholdTesting';
 
 const PatientHome = observer((props) => {
 

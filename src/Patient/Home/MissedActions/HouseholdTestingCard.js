@@ -1,8 +1,8 @@
 import React from 'react';
 import useStores from '../../../Basics/UseStores';
 import EditIcon from '@material-ui/icons/Edit';
-import { useTranslation } from 'react-i18next';
 import MissedActionCard from './MissedActionCard';
+import { useTranslation } from 'react-i18next';
 import ButtonLayout from './ButtonLayout';
 
 const ContactTracingCard = () => {
@@ -14,12 +14,10 @@ const ContactTracingCard = () => {
     return (
         <MissedActionCard>
             <ButtonLayout
-                text={t('updatedContactTracing.button')}
+                text={t('householdTesting.button')}
                 icon={<EditIcon />}
-                onClick={openContactTracing}
-            />
+                onClick={openContactTracing} />
         </MissedActionCard>)
-
 }
 
 export default ContactTracingCard;
