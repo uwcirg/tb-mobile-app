@@ -1,13 +1,14 @@
-import React from 'react';
 import ConfirmationLayout from '../../Components/Patient/ConfirmationLayout';
+import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
-import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
 import Colors from '../../Basics/Colors';
 import NextButton from './NextButton';
-import Check from '@material-ui/icons/Check';
+import React from 'react';
+import { CircularProgress } from '@material-ui/core';
+
 
 
 const useStyles = makeStyles({
@@ -21,16 +22,22 @@ const useStyles = makeStyles({
             borderRadius: "5px"
         }
     },
-    success:{
+    loading:{
+        height: "80vh"
+    },
+    success: {
         backgroundColor: Colors.calendarGreen
     },
-    reachOut:{
+    reachOut: {
         backgroundColor: Colors.highlightYellow,
 
+    },
+    error: {
+        backgroundColor: Colors.calendarRed
     }
 })
 
-const ConfirmationScreen = ({ numberOfTests, numberOfContacts, wasError, handleNext }) => {
+const ConfirmationScreen = ({ numberOfTests, numberOfContacts, wasError, handleNext, isLoading }) => {
 
     const { uiStore, patientStore } = useStores();
     const { t } = useTranslation('translation');
@@ -42,50 +49,40 @@ const ConfirmationScreen = ({ numberOfTests, numberOfContacts, wasError, handleN
 
     const completed = numberOfTests >= numberOfContacts;
 
-    const body = wasError ? <Error /> : <Success completed={completed} />
+    const body = wasError ? <Error /> : <Body completed={completed} error={wasError} />;
+
+    if (isLoading) return <Loading />
 
     return (
         <>
-            {body}
+            <Body completed={completed} error={wasError} />
             <NextButton onClick={completeSurvey} text={t('patient.report.symptoms.warning.button')} />
         </>
     )
 }
 
-const Success = ({ completed }) => {
+const Body = ({ completed, error }) => {
 
     const { t } = useTranslation('translation');
     const classes = useStyles();
 
     return (
         <Grid container className={classes.body} direction="column" justify="center" align="center">
-
-            <ConfirmationLayout title={t('commonWords.successMessage')} subtitle={t('householdTesting.recorded')} />
-            <Typography variant="body1" color="initial">{t('householdTesting.thanks')}</Typography>
-            {completed ? <CompleteMessage /> : <IncompleteMessage />}
+            {error ? <Error /> : <>
+                <ConfirmationLayout title={t('commonWords.successMessage')} subtitle={t('householdTesting.recorded')} />
+                <Typography variant="body1" color="initial">{t('householdTesting.thanks')}</Typography>
+                <CompletionMessage completed={completed} />
+            </>}
         </Grid>
     )
 }
 
-const CompleteMessage = () => {
+const CompletionMessage = ({ completed }) => {
     const { t } = useTranslation('translation');
     const classes = useStyles();
-    return(
-        <Typography className={classes.success} variant="body1">{t('householdTesting.completed')}</Typography>
-    )
-    
-}
-
-const IncompleteMessage = () => {
-     const { t } = useTranslation('translation');
-     const classes = useStyles();
-
-    return (
-    <>
-        <Typography variant="body1">{t('householdTesting.explanation')}</Typography>
-        <Typography variant="body1" className={classes.reachOut}>{t('householdTesting.reachOut')}</Typography>
-    </>
-    )
+    return (<Typography className={completed ? classes.success : classes.reachOut} variant="body1">
+        {completed ? t('householdTesting.completed') : t('householdTesting.reachOut')}
+    </Typography>)
 }
 
 const Error = () => {
@@ -93,8 +90,16 @@ const Error = () => {
     const { t } = useTranslation('translation');
     const classes = useStyles();
 
-    return (<div></div>)
+    return (<Typography className={classes.error} variant="body1">{t('commonWords.errorMessage')}</Typography>)
 
+}
+
+const Loading = () => {
+    const classes = useStyles();
+    return (
+    <Grid className={classes.loading} alignItems="center" justify="center" container>
+        <CircularProgress variant="indeterminate" />
+    </Grid>)
 }
 
 export default ConfirmationScreen;
