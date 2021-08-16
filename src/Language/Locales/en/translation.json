@@ -910,7 +910,9 @@
         "button": "Update household testing status",
         "title": "Household testing",
         "thanks": "Thank you for your input",
-        "recorded": "Your update has been recorded",
-        "reachOut": "Please reach out to your treatment assistant for more information and recommendations."
+        "recorded": "Your response has been recorded",
+        "reachOut": "Please reach out to your treatment assistant for more information and recommendations.",
+        "completed": "It is great that all of your contacts have been tested, please reach out to your assistant if you have any further questions.",
+        "explanation": "Its very important for the health of your household members to ensure that they all get tested for TB."
     }
 }
