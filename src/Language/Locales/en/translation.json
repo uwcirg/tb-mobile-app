@@ -908,6 +908,9 @@
     },
     "householdTesting": {
         "button": "Update household testing status",
-        "title": "Household testing"
+        "title": "Household testing",
+        "thanks": "Thank you for your input",
+        "recorded": "Your update has been recorded",
+        "reachOut": "Please reach out to your treatment assistant for more information and recommendations."
     }
 }

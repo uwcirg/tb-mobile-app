@@ -7,9 +7,6 @@ import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
-import Styles from '../../Basics/Styles';
-import { ReactComponent as DoctorIcon } from '../../Basics/Icons/doctor.svg';
-import CheckIcon from '@material-ui/icons/Check';
 import Colors from '../../Basics/Colors';
 import ActionIcon from '@material-ui/icons/PlaylistAddCheck';
 import PatientReport from '../../Basics/PatientReport';
@@ -17,34 +14,12 @@ import EditIcon from '@material-ui/icons/Edit';
 import ExpansionPanel from '../../Basics/ExpansionPanel';
 import PhotoUploading from '../../Basics/Loading/PhotoUploading';
 import { usePageVisibility } from '../../Hooks/PageVisibility';
+import ConfirmationLayout from '../../Components/Patient/ConfirmationLayout';
 
 const useStyles = makeStyles({
-    confirmation: {
-        ...Styles.flexRow,
-        marginBottom: "1em",
-        alignItems: "flex-end",
-    },
-    confirmationText: {
-        ...Styles.flexColumn,
-        paddingLeft: "1em",
-        justifyContent: "center",
-        alignItems: "flex-start",
-        width: "50%",
-        height: "100%",
-        textAlign: "left",
-    },
     check: {
         color: Colors.approvedGreen,
         fontSize: "2.5em",
-    },
-    confirmationHeader: {
-        ...Styles.flexRow,
-        fontSize: "1.25em",
-        margin: 0,
-        "& > svg": {
-            color: Colors.approvedGreen,
-            marginLeft: ".5em"
-        }
     },
     bottomButton: {
         margin: "1em",
@@ -122,13 +97,7 @@ const Confirmation = (props) => {
 
     return (
         <div className={classes.confirmationSuperContainer}>
-            <div className={classes.confirmation}>
-                <DoctorIcon />
-                <div className={classes.confirmationText}>
-                    <div className={classes.confirmationHeader}>{t("patient.home.completed.title")}<CheckIcon /></div>
-                    <p>{t("patient.home.completed.subtitle")}</p>
-                </div>
-            </div>
+            <ConfirmationLayout title={t("patient.home.completed.title")} subtitle={t("patient.home.completed.subtitle")} />
             <ExpansionPanel
                 previewClassName={classes.reportPreview}
                 preview={t("patient.reportConfirmation.viewOrEdit")}

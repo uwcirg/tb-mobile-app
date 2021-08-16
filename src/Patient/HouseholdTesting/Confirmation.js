@@ -8,6 +8,7 @@ import Colors from '../../Basics/Colors';
 import NextButton from './NextButton';
 import Check from '@material-ui/icons/Check';
 
+
 const useStyles = makeStyles({
     body: {
         padding: "1em 1.5em",
@@ -19,9 +20,8 @@ const useStyles = makeStyles({
     }
 })
 
-const ConfirmationScreen = ({ nContacts, nTested, error, handleNext }) => {
+const ConfirmationScreen = ({ nContacts, nTested, wasError, handleNext }) => {
 
-    const completed = nTested >= nContacts;
     const { uiStore, patientStore } = useStores();
     const classes = useStyles();
     const { t } = useTranslation('translation');
@@ -31,31 +31,51 @@ const ConfirmationScreen = ({ nContacts, nTested, error, handleNext }) => {
         patientStore.initalize();
     }
 
+    const completed = nTested >= nContacts;
+
+    const body = wasError ? <Error /> : <Success completed />
+
     return (
         <>
-            <Grid container className={classes.body} direction="column" justify="center" align="center">
-
-                <Grid container alignItems="center">
-                    <Check style={{ color: Colors.green, marginRight: ".5em" }} />
-                    <Typography> Your response has been recorded</Typography>
-                </Grid>
-
-                <Typography variant="body1" color="initial">
-                    Thanks for letting us know!
-                </Typography>
-                <Typography variant="body1" color="initial">
-                    {!completed ? "It is great that all of your contacts have been tested. Keep up the great work." :
-                        <>
-                            Its very important for the health of your loved ones to ensure that they all get tested for TB.
-                            <br />
-                            <br />
-                            <span style={{ backgroundColor: Colors.highlightYellow }}>Please reach out to your treatment assistant to set up testing</span>
-                        </>}
-                </Typography>
-            </Grid>
-            <NextButton onClick={handleNext} text="Complete" />
+            {body}
+            <NextButton onClick={handleNext} text={t('archive.complete')} />
         </>
     )
+}
+
+const Success = ({ completed }) => {
+
+    const { t } = useTranslation('translation');
+    const classes = useStyles();
+
+    return (
+        <Grid container className={classes.body} direction="column" justify="center" align="center">
+            <Grid container alignItems="center">
+                <Check style={{ color: Colors.green, marginRight: ".5em" }} />
+                <Typography>{t('householdTesting.recorded')}</Typography>
+            </Grid>
+
+            <Typography variant="body1" color="initial">
+                {t('householdTesting.thanks')}
+            </Typography>
+            <Typography variant="body1" color="initial">
+                {!completed ? "It is great that all of your contacts have been tested. Keep up the great work." :
+                    <>
+                        <Typography variant="body1" color="initial">Its very important for the health of your loved ones to ensure that they all get tested for TB.</Typography>
+                        <Typography style={{ backgroundColor: Colors.highlightYellow }}>{t('householdTesting.reachOut')}</Typography>
+                    </>}
+            </Typography>
+        </Grid>
+    )
+}
+
+const Error = () => {
+
+    const { t } = useTranslation('translation');
+    const classes = useStyles();
+
+    return (<div></div>)
+
 }
 
 export default ConfirmationScreen;

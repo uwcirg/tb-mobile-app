@@ -25,8 +25,6 @@ const NextButton = ({text,onClick}) => {
     return (<Grid className={classes.buttonContainer} justify="flex-end" container spacing={1}>
                 <ProfileButton onClick={onClick}>{text}</ProfileButton>
             </Grid>)
-    
-
 }
 
 export default NextButton;

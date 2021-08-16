@@ -89,10 +89,7 @@ const ContactTracingUpdate = observer(() => {
         <>
             <OverTopBar notFixed handleBack={handleBack} title={t('householdTesting.title')} />
             {pageInRange(uiStore.step) && React.cloneElement(pages[uiStore.step], { 
-                numberOfContacts: numberOfContacts, 
-                numberOfTests: numberOfTests,
-                handleNext: handleNext
-                })}
+                numberOfContacts: numberOfContacts, numberOfTests: numberOfTests, handleNext: handleNext, wasError: error })}
         </>
     )
 
