@@ -40,7 +40,7 @@ const useStyles = makeStyles({
 const PersonalInformation = () => {
     const classes = useStyles();
     const { patientUIStore } = useStores();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
     return (
         <div className={classes.container}>
@@ -49,7 +49,7 @@ const PersonalInformation = () => {
                 <Typography variant="h2">{t("patient.profile.personalInfo")}</Typography>
             </div>
             <Button onClick={patientUIStore.goToPasswordUpdate} >{t("patient.profile.changePassword")}</Button>
-            <Button onClick={patientUIStore.goToContactTracingUpdate} >{t('updatedContactTracing.button')}</Button>
+            <Button onClick={patientUIStore.goToContactTracingUpdate} >{t('householdTesting.button')}</Button>
         </div>
     );
 }
