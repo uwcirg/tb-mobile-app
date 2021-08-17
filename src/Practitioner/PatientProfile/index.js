@@ -12,10 +12,8 @@ import TreatmentTimeline from '../../Basics/TreatmentTimeline';
 import ReportingHistory from './ReportingHistory';
 import SectionLabel from '../../Components/SectionLabel';
 import PatientProfileDialogs from './Dialogs';
-import HorizontalButtons from './HorizontalOptions';
-import Avatar from '@material-ui/core/Avatar';
 import ArchivedOptions from './ArchivedOptions';
-import ContactTracing from './ContactTracing';
+import ProfileHeader from './Header';
 
 const Profile = observer((props) => {
 
@@ -48,17 +46,10 @@ const Profile = observer((props) => {
             <PatientProfileDialogs />
             {patientProfileStore.selectedPatient.loaded ?
                 <>{!patientProfileStore.selectedPatient.accessError ? <div className={classes.patientContainer}>
-                    <div className={classes.header}>
-                        <div className={classes.profileHeader}>
-                            <Avatar style={{ backgroundColor: Colors.green, marginRight: "1em" }} size="small">{patientProfileStore.selectedPatient.details.fullName[0]}</Avatar>
-                            <h1>{patientProfileStore.selectedPatient.details.fullName}</h1>
-                        </div>
-                        <HorizontalButtons />
-                    </div>
+                    <ProfileHeader />
                     <ArchivedOptions />
                     <div className={classes.top}>
                         <PatientInfo />
-                        <ContactTracing />
                         <TreatmentStatus />
                         <SymptomSummary />
                     </div>
@@ -125,24 +116,6 @@ const useStyles = makeStyles({
         width: "100%",
         height: "100%",
         ...Styles.flexCenter
-    },
-    header: {
-        width: "100%",
-        boxSizing: "border-box",
-        padding: "1em",
-        display: "flex",
-        alignItems: "center",
-        ...Styles.profileCard
-
-    },
-    profileHeader: {
-        display: "flex",
-        flexGrow: 1,
-        alignItems: "center",
-        "& > h1": {
-            ...Styles.header,
-            margin: 0
-        }
     },
     combined: {
         width: "100%",

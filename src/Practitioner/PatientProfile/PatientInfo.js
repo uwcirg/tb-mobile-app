@@ -1,14 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import SectionLabel from '../../Components/SectionLabel';
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next';
-import { DateTime } from 'luxon'
+import { DateTime } from 'luxon';
 import Styles from '../../Basics/Styles';
-import Buttons from './OptionButtons'
-import Colors from '../../Basics/Colors';
-import { Avatar } from '@material-ui/core';
-import SectionLabel from '../../Components/SectionLabel';
+import Grid from '@material-ui/core/Grid'
 
 const useStyles = makeStyles({
 
@@ -36,6 +34,7 @@ const useStyles = makeStyles({
         }
     },
     detailGroup: {
+        flexGrow: 1,
         display: "flex",
         flexWrap: "true",
         width: "100%",
@@ -72,7 +71,9 @@ const PatientInfo = observer((props) => {
             <Item top={t("coordinator.patientProfile.treatmentEnd")} bottom={getDate(patientProfileStore.selectedPatient.details.treatmentEndDate)} />
             <Item top={t("coordinator.patientProfile.lastContacted")} bottom={getDate(patientProfileStore.selectedPatient.details.lastContacted)} />
         </div>
-        {/* <Buttons /> */}
+        <Grid container >
+          <Item top="Household Contacts" bottom={`2 / 3 Tested`} />
+        </Grid>
     </div>)
 
 })

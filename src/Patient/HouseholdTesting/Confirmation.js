@@ -69,7 +69,7 @@ const Body = ({ completed, error }) => {
     return (
         <Grid container className={classes.body} direction="column" justify="center" align="center">
             {error ? <Error /> : <>
-                <ConfirmationLayout title={t('commonWords.successMessage')} subtitle={t('householdTesting.recorded')} />
+                <ConfirmationLayout title={t('commonWords.successMessage')} />
                 <Typography variant="body1" color="initial">{t('householdTesting.thanks')}</Typography>
                 <CompletionMessage completed={completed} />
             </>}
