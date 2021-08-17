@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import { DateTime } from 'luxon';
 import Styles from '../../Basics/Styles';
+import ProgressVis from './ProgressVis';
 
 const useStyles = makeStyles({
 
@@ -71,13 +72,12 @@ const PatientInfo = observer(() => {
     return (<div className={classes.container}>
         <div className={classes.details}>
             <SectionLabel className={classes.fullWidth}>{t('coordinator.patientTableLabels.details')}</SectionLabel>
+            <ProgressVis />
             <div className={classes.detailGroup}>
                 <Item top={t("coordinator.patientProfile.age")} bottom={patientProfileStore.selectedPatient.details.age || "N/A"} />
                 <Item top={t("coordinator.patientProfile.gender")} bottom={patientProfileStore.selectedPatient.details.gender || "N/A"} />
                 <Item top={t("coordinator.patientProfile.phoneNumber")} bottom={patientProfileStore.selectedPatient.details.phoneNumber} />
             </div>
-            <Item top={t("coordinator.patientProfile.treatmentStart")} bottom={getDate(patientProfileStore.selectedPatient.details.treatmentStart)} />
-            <Item top={t("coordinator.patientProfile.treatmentEnd")} bottom={getDate(patientProfileStore.selectedPatient.details.treatmentEndDate)} />
             <Item top={t("coordinator.patientProfile.lastContacted")} bottom={getDate(patientProfileStore.selectedPatient.details.lastContacted)} />
             <Item top={t("householdTesting.title")} bottom={bottomText} />
         </div>
