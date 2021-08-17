@@ -116,11 +116,6 @@ const useStyles = makeStyles({
         width: "100%",
         height: "100%",
         ...Styles.flexCenter
-    },
-    combined: {
-        width: "100%",
-        ...Styles.profileCard,
-        marginTop: "1em"
     }
 })
 
