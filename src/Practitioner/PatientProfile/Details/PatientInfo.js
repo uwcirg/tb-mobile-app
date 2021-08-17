@@ -1,37 +1,20 @@
 import React from 'react';
-import SectionLabel from '../../Components/SectionLabel';
+import SectionLabel from '../../../Components/SectionLabel';
 import { makeStyles } from '@material-ui/core/styles';
-import useStores from '../../Basics/UseStores';
+import useStores from '../../../Basics/UseStores';
 import { useTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import { DateTime } from 'luxon';
-import Styles from '../../Basics/Styles';
+import Styles from '../../../Basics/Styles';
 import ProgressVis from './ProgressVis';
+import Item from './Item';
 
 const useStyles = makeStyles({
 
     container: {
         ...Styles.flexRow,
-        flexGrow: 1,
         backgroundColor: "white",
         padding: "1em"
-    },
-    item: {
-        ...Styles.flexColumn,
-        marginRight: ".5em",
-        marginTop: "1em",
-        "& > span": {
-
-            margin: 0,
-            ...Styles.profileItem
-        },
-        "& > span:nth-child(1)": {
-            textTransform: "capitalize"
-        },
-        "& > span:nth-child(2)": {
-            fontWeight: "bold",
-            paddingTop: ".5em"
-        }
     },
     detailGroup: {
         flexGrow: 1,
@@ -47,7 +30,8 @@ const useStyles = makeStyles({
         flex: '1 1 0'
     },
     fullWidth: {
-        width: "100%"
+        width: "100%",
+        marginBottom: "1em"
     }
 
 })
@@ -71,27 +55,18 @@ const PatientInfo = observer(() => {
 
     return (<div className={classes.container}>
         <div className={classes.details}>
-            <SectionLabel className={classes.fullWidth}>{t('coordinator.patientTableLabels.details')}</SectionLabel>
+            <SectionLabel className={classes.fullWidth}>{"Progress"}</SectionLabel>
             <ProgressVis />
+            <SectionLabel className={classes.fullWidth}>{t('coordinator.patientTableLabels.details')}</SectionLabel>
             <div className={classes.detailGroup}>
                 <Item top={t("coordinator.patientProfile.age")} bottom={patientProfileStore.selectedPatient.details.age || "N/A"} />
                 <Item top={t("coordinator.patientProfile.gender")} bottom={patientProfileStore.selectedPatient.details.gender || "N/A"} />
-                <Item top={t("coordinator.patientProfile.phoneNumber")} bottom={patientProfileStore.selectedPatient.details.phoneNumber} />
+                <Item top={t("coordinator.patientProfile.lastContacted")} bottom={getDate(patientProfileStore.selectedPatient.details.lastContacted)} />
             </div>
-            <Item top={t("coordinator.patientProfile.lastContacted")} bottom={getDate(patientProfileStore.selectedPatient.details.lastContacted)} />
             <Item top={t("householdTesting.title")} bottom={bottomText} />
         </div>
     </div>)
 
 })
-
-const Item = (props) => {
-    const classes = useStyles();
-    return (
-        <div className={classes.item}>
-            <span>{props.top}</span>
-            <span>{props.bottom}</span>
-        </div>)
-}
 
 export default PatientInfo;

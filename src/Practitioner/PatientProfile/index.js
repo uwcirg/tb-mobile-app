@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 import Styles from '../../Basics/Styles';
 import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
-import PatientInfo from './PatientInfo';
+import PatientInfo from './Details/PatientInfo';
 import TreatmentStatus from './AdherenceSummary';
 import SymptomSummary from './SymptomSummary';
 import TreatmentTimeline from '../../Basics/TreatmentTimeline';
@@ -84,6 +84,7 @@ const useStyles = makeStyles({
         flexWrap: "wrap",
         flexShrink: 0,
         "& > div": {
+            flex: "1 1 0",
             margin: "1em 0",
             marginRight: "1em",
             ...Styles.profileCard
