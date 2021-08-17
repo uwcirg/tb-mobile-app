@@ -46,7 +46,7 @@ const ProfileHeader = observer(() => {
             <Avatar style={{ backgroundColor: Colors.green, marginRight: "1em" }} size="small">{patientProfileStore.selectedPatient.details.fullName[0]}</Avatar>
             <Grid container direction="column">
                 <Typography variant="h1">{patientProfileStore.selectedPatient.details.fullName}</Typography>
-                <Grid justify="flex-end" container alignItems="center" >
+                <Grid wrap="nowrap" justify="flex-end" container alignItems="center" >
                     <WhatsAppIcon className={classes.phoneIcon} />
                     <Typography variant="body1" color="initial">{patientProfileStore.selectedPatient.details.phoneNumber}</Typography>
                 </Grid>

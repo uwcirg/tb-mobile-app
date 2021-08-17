@@ -42,28 +42,35 @@ const useStyles = makeStyles({
         },
         marginBottom: "1em"
     },
-    details:{
+    details: {
         flex: '1 1 0'
     },
-    fullWidth:{
+    fullWidth: {
         width: "100%"
     }
 
 })
 
-const PatientInfo = observer((props) => {
+const PatientInfo = observer(() => {
 
     const classes = useStyles();
     const { patientProfileStore } = useStores();
     const { t } = useTranslation('translation');
 
     const getDate = (iso) => {
-        return (DateTime.fromISO(iso).toLocaleString(DateTime.DATE_MED))
+        return (DateTime.fromISO(iso).toLocaleString({ day: 'numeric', month: 'short' }))
     }
+
+    const survey = patientProfileStore.selectedPatient.details.contactTracingSurvey;
+    const bottomText = <>
+        {`${survey.numberOfContactsTested} / ${survey.numberOfContacts} ${t('householdTesting.membersTested')}`}
+        <br />
+        {`${t('householdTesting.updated')}: ${getDate(survey.createdAt)}`}
+    </>
 
     return (<div className={classes.container}>
         <div className={classes.details}>
-        <SectionLabel className={classes.fullWidth}>{t('coordinator.patientTableLabels.details')}</SectionLabel>
+            <SectionLabel className={classes.fullWidth}>{t('coordinator.patientTableLabels.details')}</SectionLabel>
             <div className={classes.detailGroup}>
                 <Item top={t("coordinator.patientProfile.age")} bottom={patientProfileStore.selectedPatient.details.age || "N/A"} />
                 <Item top={t("coordinator.patientProfile.gender")} bottom={patientProfileStore.selectedPatient.details.gender || "N/A"} />
@@ -72,6 +79,7 @@ const PatientInfo = observer((props) => {
             <Item top={t("coordinator.patientProfile.treatmentStart")} bottom={getDate(patientProfileStore.selectedPatient.details.treatmentStart)} />
             <Item top={t("coordinator.patientProfile.treatmentEnd")} bottom={getDate(patientProfileStore.selectedPatient.details.treatmentEndDate)} />
             <Item top={t("coordinator.patientProfile.lastContacted")} bottom={getDate(patientProfileStore.selectedPatient.details.lastContacted)} />
+            <Item top={t("householdTesting.title")} bottom={bottomText} />
         </div>
     </div>)
 
