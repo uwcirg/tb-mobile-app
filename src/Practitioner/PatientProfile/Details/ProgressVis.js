@@ -9,8 +9,6 @@ import { DateTime } from 'luxon';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import Item from './Item';
 
-
-
 const useStyles = makeStyles({
     container: {
         width: "100%",
@@ -35,7 +33,7 @@ const useStyles = makeStyles({
         borderRight: `1px solid ${Colors.textDarkGray}`,
         width: `${1 / 26 * 100}%`,
         height: "20px",
-        backgroundColor: props => props.completed ? Colors.calendarGreen : Colors.gray,
+        backgroundColor: props => props.completed ? Colors.accentBlue : Colors.gray,
         position: "relative"
 
     },
@@ -53,8 +51,9 @@ const useStyles = makeStyles({
         color: Colors.red
     },
     middleLabel:{
-        borderLeft: "solid 1px black",
-        borderRight: "solid 1px black"
+        borderLeft: `1px solid ${Colors.gray}`,
+        borderRight:`1px solid ${Colors.gray}`,
+        padding: "0 1em"
     }
 })
 
@@ -105,7 +104,7 @@ const EndsLayout = ({start,end,week}) => {
     return (
         <Grid justify="space-between" container wrap="nowrap" className={classes.endsLayout} >
                 <Item top={"Start:"} bottom={start} />
-                <Item top={"Current week:"} bottom={`Week ${week}`} />
+                <Item className={classes.middleLabel} top={"Now:"} bottom={`Week ${week}`} />
                 <Item top={"End:"} bottom={end} />
         </Grid>)
 }

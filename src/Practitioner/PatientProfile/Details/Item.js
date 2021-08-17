@@ -20,10 +20,10 @@ const useStyles = makeStyles({
     }
 })
 
-const Item = ({top,bottom}) => {
+const Item = ({top,bottom, className}) => {
     const classes = useStyles();
     return (
-        <div className={classes.item}>
+        <div className={`${classes.item} ${className}`}>
             <Typography variant="body1">{top}</Typography>
             <Typography variant="body1">{bottom}</Typography>
         </div>)
