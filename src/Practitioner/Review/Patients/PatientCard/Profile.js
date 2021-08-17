@@ -7,7 +7,7 @@ import PatientPicture from '../../../../Basics/PatientIcon'
 import Colors from '../../../../Basics/Colors'
 import Priority from '../../../Shared/Priority'
 import { useTranslation } from 'react-i18next';
-import ProfileButton from '../../../PatientProfile/ProfileButton.js'
+import ProfileButton from '../../../../Components/FlatButton.js'
 import { Button } from '@material-ui/core';
 import Message from '@material-ui/icons/ChatBubble';
 import Add from '@material-ui/icons/AddCircle';

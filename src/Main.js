@@ -3,7 +3,7 @@ import PatientHome from './Patient/';
 import Login from './Login';
 import PractitionerHome from './Practitioner'
 import AdminHome from './Admin'
-import { ThemeProvider, styled } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { observer } from 'mobx-react';
 import Colors from './Basics/Colors';
@@ -13,9 +13,8 @@ import Boundry from './Basics/ErrorBoundary'
 import CheckAuthorization from './Basics/HandleAuthorizationError'
 import SWWrapper from './ServiceWorkerWrapper'
 import { useMatomo } from '@datapunt/matomo-tracker-react'
-import Alerts from './Shared/Alerts'
+import Alerts from './Components/Alerts'
 import PushHandler from './Basics/PushNotificationHandler';
-
 
 const theme = createMuiTheme({
 
@@ -24,7 +23,6 @@ const theme = createMuiTheme({
     h1: {
       fontSize: "1.25em"
     },
-
   },
   palette: {
     primary: {
@@ -93,18 +91,15 @@ const Main = observer(() => {
     uiStore.initalizeLocale();
   }
 
-
   return (
     <SWWrapper>
       <Boundry>
         <PushHandler>
         <CheckAuthorization />
-        <div>
           <ThemeProvider theme={theme}>
             {loginStore && loginStore.isLoggedIn ? <UserHome /> : <Login />}
             <Alerts />
           </ThemeProvider>
-        </div>
         </PushHandler>
       </Boundry>
     </SWWrapper>

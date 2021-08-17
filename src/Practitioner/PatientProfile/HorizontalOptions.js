@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import {observer} from 'mobx-react'
 import Colors from '../../Basics/Colors';
-import ProfileButton from './ProfileButton'
+import ProfileButton from '../../Components/FlatButton'
 import Message from '@material-ui/icons/ChatBubble';
 import Add from '@material-ui/icons/AddCircle';
 import EditIcon from '@material-ui/icons/Edit'

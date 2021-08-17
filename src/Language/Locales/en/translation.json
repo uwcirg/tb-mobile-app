@@ -33,7 +33,9 @@
         "copy": "Copy",
         "copied": "Copied",
         "copyExplanation": "Copy link to clipboard",
-        "archived": "Archived"
+        "archived": "Archived",
+        "successMessage": "Successfully Updated",
+        "errorMessage": "Error occured. Please try again later."
     },
     "userTypes": {
         "patient": "Patient",
@@ -61,15 +63,14 @@
         "loadMore": "Load More Messages",
         "yourSite": "Clinic Announcements",
         "search": "Search",
-        "moderation":{
+        "moderation": {
             "hideUI": "Hide",
             "hide": "Hide from patients",
             "unhide": "Unhide message",
             "isHidden": "This message has been hidden from patients",
             "view": "View Message"
-
         },
-        "creation":{
+        "creation": {
             "errorInfo": "Title must exist and be less than 50 characters. Subtitle must be less than 100 characters.",
             "error": "Error Creating New Discussion",
             "fab": "Add New Discussion",
@@ -107,7 +108,7 @@
         "noon": "noon"
     },
     "patient": {
-        "tabNames":{
+        "tabNames": {
             "home": "Home",
             "calendar": "Calendar",
             "messaging": "Messaging",
@@ -165,11 +166,13 @@
             },
             "contactTracing": {
                 "one": "How many people do you live with?",
-                "two": "Have they been tested for TB?",
+                "two": "How many have been tested for TB?",
                 "some": "Some of them",
                 "all": "All of them",
                 "none": "None of them",
-                "unsure": "Im not sure"
+                "unsure": "Im not sure",
+                "important": "It is important that everyone you live with gets tested for TB.",
+                "explanation": "Please let us know the status of your household so we can send you more information."
             },
             "success": "Finalizing Account Setup",
             "next": "Next",
@@ -274,18 +277,19 @@
                 "myLearning": "My Learning"
             },
             "confirmAndSubmit": "Please Confirm and Submit Your Report",
-            "helpVideos":{
+            "helpVideos": {
                 "needHelp": "Need help with the application?",
                 "hide": "Hide",
                 "seeAll": "See All Video Tutorials",
                 "collapse": "Hide List",
                 "viewOnInfo": "You can always see these videos on the information page"
             },
-            "missedDays":{
+            "missedDays": {
                 "missing": "Missing Treatment Log",
-                "missing_plural": "Missing Treatment Logs"
+                "missing_plural": "Missing Treatment Logs",
+                "missedPhoto": "Submit missed photo"
             },
-            "chatReminder":{
+            "chatReminder": {
                 "body": "Did you know you can chat anonymously with other patients?",
                 "button": "Show me how"
             }
@@ -334,7 +338,7 @@
                 "retakePhoto": "Retake Photo",
                 "openCamera": "Open Camera",
                 "how": "How do I take the test?",
-                "help":{
+                "help": {
                     "remember": "Please remember to",
                     "wait": "Let the test strip sit for 15 minutes",
                     "straight": "Capture the photo straight above the test strip",
@@ -345,7 +349,6 @@
                 "unable": "Unable to submit? Tell us why",
                 "whyUnable": "Why are you unable to submit?",
                 "back": "Return to previous step"
-
             },
             "symptoms": {
                 "nauseaRating": "How bad is your nausea?",
@@ -365,14 +368,13 @@
                 "notTaken": "Not taken because",
                 "review": "Review Photo"
             },
-            "offline":{
+            "offline": {
                 "report": "offline report",
                 "report_plural": "offline reports",
                 "allDone": "All offline reports have submitted",
                 "youHave": "You have",
                 "explanation": "They will be uploaded when you have an internet connection",
                 "uploading": "Uploading your offline reports"
-
             },
             "photoUploading": "Your photo is uploading",
             "photoUploadError": "There was a problem uploading your report. Please try again, or contact your treatment assistant"
@@ -393,14 +395,13 @@
             "upcoming": "Upcoming",
             "calendar": "Calendar of Reports",
             "submissionLimit": "If you miss a day, you can only submit for the 3 previous days, and any days you missed in your first 2 weeks",
-            "calendarKey":{
+            "calendarKey": {
                 "button": "What do these colors mean",
                 "description": "This is the calendar, where you can review your submissions. The colors show the following:",
                 "good": "All parts submitted",
                 "missed": "No Report submitted. If you miss a day you can report up to 3 days in the past.",
                 "notTaken": "Reported not taking your medication",
                 "symptoms": "Reported symptoms"
-
             }
         },
         "addMilestone": {
@@ -434,10 +435,9 @@
                 "messaging": "Messaging Page"
             }
         },
-
-        "chatReminder":{
+        "chatReminder": {
             "howTo": "Heres how",
-            "list":[
+            "list": [
                 "Go to the Messaging tab ",
                 "Toward the bottom, tap on any of the Group Discussions",
                 "Talk to others experiencing TB. Ask questions, receive feedback, and provide encouragement. Only your treatment assistant can see your name"
@@ -512,12 +512,12 @@
     },
     "coordinator": {
         "mobileWarning": "Mobile view still in progress. You can view your tasks, but not approve them. Messaging is functional.",
-        "priority":{
+        "priority": {
             "high": "High",
             "medium": "Medium",
             "low": "Low"
         },
-        "cohortOverview":{
+        "cohortOverview": {
             "title": "Cohort Overview",
             "high": "High Priority",
             "medium": "Medium Priority",
@@ -537,7 +537,6 @@
             "activationCode": "Activation Code",
             "clickToCopy": "Click to copy",
             "success": "Successfully copied"
-
         },
         "titles": {
             "myTasks": "My Tasks",
@@ -568,9 +567,7 @@
         },
         "sideBar": {
             "noReason": "No reason submitted",
-            "overview:": {
-
-            },
+            "overview:": {},
             "lastContacted": "Last Contracted",
             "viewFullProfile": "View Full Profile",
             "daysMissed": "Days Missed Since Last Resolution",
@@ -600,19 +597,19 @@
         "false": "false",
         "daysInTreatment": "Days In Treatment",
         "patientProfile": {
-            "adherenceSection":{
+            "adherenceSection": {
                 "reportedTaking": "Reported Taking",
                 "didntTake": "Reported Not Taking",
                 "didntReport": "Missed Reporting",
                 "missedRequest": "Missed Request"
             },
-            "notes":{
+            "notes": {
                 "noneFound": "No Notes Found",
                 "title": "Title",
                 "detail": "Detail"
             },
             "accessError": "This patient does not exist at your site",
-            "editDetails":{
+            "editDetails": {
                 "success": "Patient information successfully updated",
                 "title": "Edit Patient Details",
                 "newPhone": "New Phone Number",
@@ -683,7 +680,7 @@
             "notTaken": "Not Taken",
             "noneYet": "No Reports Submitted Yet"
         },
-        "settingsPage":{
+        "settingsPage": {
             "account": "My Account",
             "language": "Language Selection",
             "updatePassword": "Update Password",
@@ -692,14 +689,14 @@
             "applicationHelp": "Application Help",
             "patientViewExplanation": "This is the information that the patients can see from their mobile application"
         },
-        "documents":{
+        "documents": {
             "manual": "Application Manual",
             "instructions": "Test Strip Instructions"
         }
     },
     "errors": {
         "offline": "is unavailable offline. Please connect to the internet to use this function.",
-        "page":{
+        "page": {
             "header": "Something went wrong.",
             "sorry": "Sorry about that",
             "furtherSupport": "For Further Support Contact Us",
@@ -708,7 +705,6 @@
             "reloadStep": "Reload the page",
             "loginStep": "Log Out and Log Back In",
             "closeStep": "Close app from at a system level or close browser tab"
-
         },
         "login": {
             "badPhone": "Cannot find account with that phone number",
@@ -775,7 +771,7 @@
         "feeling": "Feeling",
         "photoSubmitted": "Photo Submitted"
     },
-    "appointments":{
+    "appointments": {
         "noUpcoming": "No Upcoming Appointments",
         "typeQuestion": "What type of appointment would you like to add?",
         "selectDate": "Select a date and time",
@@ -792,20 +788,20 @@
         "showAll": "Show All",
         "showLess": "Show Less"
     },
-    "update":{
+    "update": {
         "update": "Update",
         "updateAvailable": "Update Available",
         "alreadyDownloaded": "It has already been downloaded and can be used immediately.",
         "clickButton": "Click the button below to complete update",
         "doLater": "Complete Later"
     },
-    "forcePasswordUpdate":{
+    "forcePasswordUpdate": {
         "temporaryPassword": "Temporary Code",
         "title": "Your password was reset, please create a new one",
         "exit": "Complete this later",
         "success": "Password Updated Successfully"
     },
-"treatmentUpdates":{
+    "treatmentUpdates": {
         "0": "Please review the new instructions for the test strips",
         "3": "La Tuberculosis Pulmonar se contagia cuando una persona enferma al toser, estornudar o al hablar elimina con la tos secreciones que contienen los bacilos que producen la enfermedad. Siempre tratar de toser en lugar bien ventilado, nunca cerrado, si es posible cubrirse la boca y/o utilizar barbijo. ",
         "5": "¿Sabías que puedes chatear con otros pacientes en tratamiento anónimamente?",
@@ -827,94 +823,98 @@
         "70": "Ante cualquier complicación, el personal de salud de su lugar de atención puede controlar el tratamiento. Recordar que la única manera de prevenir en Tuberculosis es CURAR a todos los pacientes. ",
         "80": "Un tratamiento exitoso depende del cumplimiento de todas las tomas de la medicación. Tratar de respetar los horarios.",
         "90": "La mejoría de los síntomas no es lo mismo que curación. Curar significa que hay que continuar habitualmente con un tratamiento 6 meses. Adelante! "
-},
-
-"mayTestStripUpdate":{
-    "title": "Important Update",
-    "subtitle": "New test strip instructions",
-    "body": "The instructions for the test strips have changed, please review them before completing your next test.",
-    "textInstructions": "Text Instructions",
-    "videoInstructions": "Video Instructions"
-},
-
-"dashboard":{
-    "category": "Category",
-    "reported": "Reported",
-    "requested": "Requested",
-    "submitted": "Submitted",
-    "submissions": "Submissions",
-    "percentage": "Percentage",
-    "dailyReports": "Daily Reports",
-    "percentageOfReports": "Percentage of Reports",
-    "photoReports": "Photo Reports",
-    "metric": "Metric",
-    "lessThan": "less than",
-    "registrationOfPatients": "Registration of patients over time",
-    "reportsVsRequests": "Daily Reports Submitted / Total Active Number of Patients",
-    "photosVsRequests": "Daily Photos Submitted / Number of Requests",
-    "adherenceVis": "Adherence vs Days In Treatment",
-    "skippedPhoto": "Skipped Photo",
-    "needsSupport": "Needs Support",
-    "sideEffects": "Side Effects"
-},
-
-"summaries":{
-    "averageAdherence": "Average Adherence",
-    "averagePhotoAdherence": "Average Photo Adherence",
-    "siteSummary": "Summary of Active Patients",
-    "loading": "Loading list of patients"
-},
-
-"archive":{
-    "notSelected": "Not Selected",
-    "warningTitle": "Patient Archived",
-    "explanation": "If the patient has completed thier time using the application, fill in their last day, and click the button below to archive them. They will no longer appear in the lists of tasks, but their profile can be accessed from the cohort tab.",
-    "appEndField": "Last day using app",
-    "warningShort": "This patient has been archived and can no longer report",
-    "warningLong": "This patient has been archived and will no longer show up in your tasks. If you need to undo this action please contact study staff for technical support.",
-    "treatmentOutcome": "Treatment Outcome",
-    "continue": "Continue To Patient Profile",
-    "outcomeTypes": {
-        "success": "Success",
-        "default": "Default",
-        "withdraw": "Withdraw",
-        "lost-to-follow-up": "Lost to follow up",
-        "transferred": "Transfered",
-        "deceased": "Deceased"
     },
-    "complete": "Complete",
-    "endSurvey": "Survey",
-    "patientSide":{
-        "congrats": "Congrats on successfully completing treatment!",
-        "subtitle": "We know completing treatment is not easy, and you did an excellent job. If you have any questions your assistant will be there to support you.",
-        "details": "You do not need to report anymore, but feel free to use the other resources in the app.",
-        "survey": "Please complete this survey to let us know about your experience using the application.",
-        "surveyButton": "Tell us about your experience",
-        "statusChange": "Your study status has changed and you can no longer report. Please contact your assistant for more details."
+    "mayTestStripUpdate": {
+        "title": "Important Update",
+        "subtitle": "New test strip instructions",
+        "body": "The instructions for the test strips have changed, please review them before completing your next test.",
+        "textInstructions": "Text Instructions",
+        "videoInstructions": "Video Instructions"
     },
-    "surveyText": "Please send this link to the patient so they can tell us about their experience."
-},
-
-"notificationInstructions":{
-    "steps": {
-        "title": "How to enable notifications",
-        "goToSettings": "Go to the settings application on your phone",
-        "clickNotifications": "Click on notification settings",
-        "clickApp": "Click on Asistente",
-        "allowNotifications": "Enable notifications"
+    "dashboard": {
+        "category": "Category",
+        "reported": "Reported",
+        "requested": "Requested",
+        "submitted": "Submitted",
+        "submissions": "Submissions",
+        "percentage": "Percentage",
+        "dailyReports": "Daily Reports",
+        "percentageOfReports": "Percentage of Reports",
+        "photoReports": "Photo Reports",
+        "metric": "Metric",
+        "lessThan": "less than",
+        "registrationOfPatients": "Registration of patients over time",
+        "reportsVsRequests": "Daily Reports Submitted / Total Active Number of Patients",
+        "photosVsRequests": "Daily Photos Submitted / Number of Requests",
+        "adherenceVis": "Adherence vs Days In Treatment",
+        "skippedPhoto": "Skipped Photo",
+        "needsSupport": "Needs Support",
+        "sideEffects": "Side Effects"
     },
-    "warning":{
-        "title": "Push notifications are off",
-        "subtitle": "This means you will not recieve:",
-        "medicationReminders": "Medication Reminders",
-        "aptReminders": "Appointment Reminders",
-        "msgAlerts": "New messages from your assistant",
-        "button": "View Instructions",
-        "unsupported": "This device does not support push notifications",
-        "unsupportedDetails": "You will not receive reminders or notifications about new messages",
-        "ask": "Enable"
+    "summaries": {
+        "averageAdherence": "Average Adherence",
+        "averagePhotoAdherence": "Average Photo Adherence",
+        "siteSummary": "Summary of Active Patients",
+        "loading": "Loading list of patients"
+    },
+    "archive": {
+        "notSelected": "Not Selected",
+        "warningTitle": "Patient Archived",
+        "explanation": "If the patient has completed thier time using the application, fill in their last day, and click the button below to archive them. They will no longer appear in the lists of tasks, but their profile can be accessed from the cohort tab.",
+        "appEndField": "Last day using app",
+        "warningShort": "This patient has been archived and can no longer report",
+        "warningLong": "This patient has been archived and will no longer show up in your tasks. If you need to undo this action please contact study staff for technical support.",
+        "treatmentOutcome": "Treatment Outcome",
+        "continue": "Continue To Patient Profile",
+        "outcomeTypes": {
+            "success": "Success",
+            "default": "Default",
+            "withdraw": "Withdraw",
+            "lost-to-follow-up": "Lost to follow up",
+            "transferred": "Transfered",
+            "deceased": "Deceased"
+        },
+        "complete": "Complete",
+        "endSurvey": "Survey",
+        "patientSide": {
+            "congrats": "Congrats on successfully completing treatment!",
+            "subtitle": "We know completing treatment is not easy, and you did an excellent job. If you have any questions your assistant will be there to support you.",
+            "details": "You do not need to report anymore, but feel free to use the other resources in the app.",
+            "survey": "Please complete this survey to let us know about your experience using the application.",
+            "surveyButton": "Tell us about your experience",
+            "statusChange": "Your study status has changed and you can no longer report. Please contact your assistant for more details."
+        },
+        "surveyText": "Please send this link to the patient so they can tell us about their experience."
+    },
+    "notificationInstructions": {
+        "steps": {
+            "title": "How to enable notifications",
+            "goToSettings": "Go to the settings application on your phone",
+            "clickNotifications": "Click on notification settings",
+            "clickApp": "Click on Asistente",
+            "allowNotifications": "Enable notifications"
+        },
+        "warning": {
+            "title": "Push notifications are off",
+            "subtitle": "This means you will not recieve:",
+            "medicationReminders": "Medication Reminders",
+            "aptReminders": "Appointment Reminders",
+            "msgAlerts": "New messages from your assistant",
+            "button": "View Instructions",
+            "unsupported": "This device does not support push notifications",
+            "unsupportedDetails": "You will not receive reminders or notifications about new messages",
+            "ask": "Enable"
+        }
+    },
+    "householdTesting": {
+        "updated": "Updated",
+        "button": "Update household testing status",
+        "title": "Household testing",
+        "thanks": "Thank you for your input",
+        "recorded": "Your response has been recorded",
+        "reachOut": "Not all of your contacts have been tested yet, please reach out to your treatment assistant for more information and recommendations.",
+        "completed": "Great job ensuring the health of those with whom you live.",
+        "membersTested": "Members tested",
+        "noResponse": "Not yet completed"
     }
-}
-
-
 }

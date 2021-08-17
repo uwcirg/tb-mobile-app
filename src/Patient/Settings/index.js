@@ -1,29 +1,25 @@
-import React, { useState } from 'react'
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import useStores from '../../Basics/UseStores'
+import useStores from '../../Basics/UseStores';
 import OverTopBar from '../Navigation/OverTopBar';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
 import Styles from '../../Basics/Styles';
+import { observer } from 'mobx-react';
+import NewButton from '../../Basics/NewButton';
+import ExitToApp from '@material-ui/icons/ExitToApp';
+import PasswordUpdate from '../../Components/PasswordUpdate';
+import PersonalInformation from './PersonalInformation';
+import useLogout from '../../Basics/Logout';
+import Debugging from './Debugging';
+import Language from './Language';
 import Colors from '../../Basics/Colors';
-import ButtonGroup from "@material-ui/core/ButtonGroup";
-import Button from "@material-ui/core/Button";
-import { observer } from 'mobx-react'
-import NewButton from '../../Basics/NewButton'
-import ExitToApp from '@material-ui/icons/ExitToApp'
-import Globe from '@material-ui/icons/Language';
-import PasswordUpdate from '../../Shared/PasswordUpdate'
-import PersonalInformation from './PersonalInformation'
-
-import useLogout from '../../Basics/Logout'
-import { DateTime } from 'luxon';
 
 const HealthProfile = observer(() => {
 
     const classes = useStyles();
     const { patientUIStore } = useStores();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
     let Component = <MainSettings />
     if (patientUIStore.onPasswordUpdate) Component = (
@@ -42,13 +38,9 @@ const HealthProfile = observer(() => {
 
 const MainSettings = observer(() => {
     const classes = useStyles();
-    const { patientStore, uiStore, patientUIStore, loginStore } = useStores();
-    const { t, i18n } = useTranslation('translation');
+    const { patientStore, patientUIStore } = useStores();
+    const { t } = useTranslation('translation');
     const logout = useLogout();
-
-    const handleLogout = () => {
-        logout();
-    }
 
     return (
         <>
@@ -59,63 +51,12 @@ const MainSettings = observer(() => {
                 </div>
                 <Typography className={classes.name} className={classes.name} variant="h2">{patientStore.givenName} {patientStore.familyName}</Typography>
             </div>
-            <LanguageQuestion />
+            <Language />
             <PersonalInformation />
             <Debugging />
             <div className={classes.logoutContainer}>
-                <NewButton onClick={handleLogout} className={classes.logout} icon={<ExitToApp />} text={t("patient.profile.logout")} />
+                <NewButton onClick={logout} className={classes.logout} icon={<ExitToApp />} text={t("patient.profile.logout")} />
             </div>
-        </>
-    )
-})
-
-const LanguageQuestion = observer(() => {
-    const classes = useStyles();
-    const { uiStore } = useStores();
-    const { t, i18n } = useTranslation('translation');
-
-    return (
-        <div className={classes.languageContainer}>
-            <div className={classes.language}>
-                <Globe />
-                <Typography variant="h2">{t("patient.profile.options.language")}</Typography>
-            </div>
-            <ButtonGroup className={classes.group} fullWidth color="primary">
-                <Button onClick={() => { uiStore.setLocale("en") }} className={uiStore.locale === "en" ? classes.selected : classes.default}>{t("patient.profile.options.english")}</Button>
-                <Button onClick={() => { uiStore.setLocale("es-AR") }} className={uiStore.locale === "es-AR" ? classes.selected : classes.default}>{t("patient.profile.options.spanish")}</Button>
-            </ButtonGroup>
-        </div>
-    );
-})
-
-const Debugging = observer((props) => {
-    const classes = useStyles();
-    const { patientStore, uiStore } = useStores();
-
-    return (
-        <>
-            {window._env.MATOMO_ID === "13" && <a href="https://redcap.iths.org/surveys/?s=YXW3H4H7A3DNLYDP">Link To Survey To Test</a>}
-            {window._env.ENVIRONMENT === "development" ?
-                <div className={classes.debugging}>
-                    <a href="https://redcap.iths.org/surveys/?s=YXW3H4H7A3DNLYDP">Link To Survey To Test</a>
-                    Debugging Mode Enabled (config.js or set with environment variable in docker)
-                    <TextField
-                        id="standard-number"
-                        label="Number"
-                        type="number"
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                        value={patientStore.patientInformation.daysInTreatment}
-                        onChange={(e) => { patientStore.patientInformation.daysInTreatment = e.target.value }}
-                    />
-                    <p>Visibily Change Count{uiStore.visibilityChangeCount}</p>
-                    <button onClick={() => {
-                        patientStore.educationStore.setLocalToOldDateForTesting(DateTime.local().minus({ days: 2 }).toISODate())
-                    }}>Update Date of Last Update Read to 2 days ago</button>
-
-                </div> :
-                ""}
         </>
     )
 })
@@ -195,49 +136,6 @@ const useStyles = makeStyles({
         bottom: "0px",
         padding: "5px",
         backgroundColor: "white"
-    },
-    selected: {
-        backgroundColor: Colors.buttonBlue,
-        color: "white",
-        "&:hover": {
-            color: Colors.white,
-            backgroundColor: Colors.accentBlue
-        }
-    },
-    default: {
-        backgroundColor: "white",
-        color: Colors.buttonBlue,
-        "&:hover": {
-            color: Colors.buttonBlue,
-            backgroundColor: Colors.accentBlue
-        }
-    },
-    group: {
-        width: "70%",
-        margin: "1em"
-    },
-    language: {
-        width: "90%",
-        marginLeft: "1em",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "flex-start",
-        "& > svg": {
-            fontSize: "1em",
-            marginRight: "5px"
-        },
-        "& > h2": {
-            fontSize: "1.25em",
-        }
-    },
-    languageContainer: {
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center"
-    },
-    debugging: {
-        padding: "1em"
     },
     pwContainer: {
         width: "90%",

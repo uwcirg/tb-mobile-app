@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react'
-import { makeStyles } from '@material-ui/core/styles';
-import useStores from '../../Basics/UseStores';
-import { observer } from 'mobx-react'
-import { Typography } from '@material-ui/core';
+import React, { useEffect } from 'react';
 import { ReactComponent as DoctorIcon } from '../../Basics/Icons/doctor.svg';
-import { useTranslation } from 'react-i18next';
-import MuiAlert from '@material-ui/lab/Alert';
+import { makeStyles } from '@material-ui/core/styles';
 import Snackbar from '@material-ui/core/Snackbar';
+import { useTranslation } from 'react-i18next';
+import useStores from '../../Basics/UseStores';
+import { Typography } from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
 import BottomButton from './BottomButton';
+import { observer } from 'mobx-react';
 
 const useStyles = makeStyles({
     container: {
@@ -40,7 +40,7 @@ const End = observer((props) => {
             patientStore.getPatientInformation().then(() => {
                 patientUIStore.goToHome();
                 patientUIStore.goToWalkThrough();
-                patientStore.getPatientInformation();
+                patientStore.initalize();
             })
         }
         return function cleanup() {
@@ -54,7 +54,7 @@ const End = observer((props) => {
                 <div>
                     <DoctorIcon />
                     <Typography className={classes.text} variant="h2">{t('patient.onboarding.endText')}</Typography>
-                    {activationStore.activationErrorDetail && <Typography variant="body1">Error:  {activationStore.activationErrorDetail} </Typography>}
+                    {activationStore.activationErrorDetail && <Typography variant="body1">{t('commonWords.error')}: {activationStore.activationErrorDetail} </Typography>}
                     {activationStore.activationError &&
                         <Alert handleClose={activationStore.clearActivationError} severity="error">
                             {t("patient.onboarding.activationError")}

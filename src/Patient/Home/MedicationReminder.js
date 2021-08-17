@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react';
-import InteractionCard from '../../Basics/HomePageCard';
+import InteractionCard from '../../Basics/HomePageSection';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import Button from "@material-ui/core/Button";

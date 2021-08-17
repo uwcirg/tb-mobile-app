@@ -5,6 +5,7 @@ import EducationStore from './educationStore';
 import ReportStore from './reportStore';
 import { addReportToOfflineCache, getNumberOfCachedReports } from './SaveReportOffline'
 import resizeImage from '../Utility/ResizeImage';
+import {daysSinceISODateTime} from "../Utility/TimeUtils";
 
 const ROUTES = {
     login: ["/authenticate", "POST"],
@@ -34,6 +35,8 @@ export class PatientStore extends UserStore {
 
     @observable hasForcedPasswordChange = false;
     @observable photoSchedule = {};
+    @observable lastPhotoRequestStatus = {};
+    @observable lastContactTracingSurvey = {};
     @observable educationStatus = [];
 
     @observable status = "Active";
@@ -120,9 +123,11 @@ export class PatientStore extends UserStore {
         this.patientInformation.currentStreak = json.currentStreak;
         this.educationStore.educationStatus = json.educationStatus;
         this.hasForcedPasswordChange = json.hasForcedPasswordChange;
-        this.patientInformation.loaded = true;
         this.treatmentOutcome = json.treatmentOutcome;
-
+        this.lastPhotoRequestStatus = json.lastPhotoRequestStatus;
+        this.lastContactTracingSurvey = json.lastContactTracingSurvey;
+        this.patientInformation.loaded = true;
+        
         localStorage.setItem("cachedProfile", JSON.stringify({
             photoSchedule: this.photoSchedule,
             givenName: json.givenName,
@@ -391,7 +396,16 @@ export class PatientStore extends UserStore {
             return 0;
         }
 
-        let missedDays = [];
+        //Prevent duplicated days by using a hash and extracting keys
+        let missedDays = {};
+
+        for (let j = 0; j < 14; j++) {
+            let newDate = DateTime.fromISO(this.treatmentStart).plus({ days: j })
+            const date = newDate.toISODate();
+            if (!this.savedReports[date] && newDate.diffNow("days").days < -1) {
+                missedDays[date] = true;
+            }
+        }
 
         //Past 3 days
         for (let i = 3; i > 0; i--) {
@@ -399,19 +413,11 @@ export class PatientStore extends UserStore {
             const isoDate = date.toISODate();
      
             if (!this.savedReports[isoDate] && DateTime.fromISO(this.treatmentStart).diff(date,"days").days <= -1) {
-                missedDays.push(isoDate)
+                    missedDays[isoDate] = true;
             }
         }
 
-        for (let j = 0; j < 14; j++) {
-            let newDate = DateTime.fromISO(this.treatmentStart).plus({ days: j })
-            const date = newDate.toISODate();
-            if (!this.savedReports[date] && newDate.diffNow("days").days < -1) {
-                missedDays.push(date)
-            }
-        }
-
-        return missedDays;
+        return Object.keys(missedDays);
     }
 
     @action exitForcedPasswordChange = () => {
@@ -453,6 +459,10 @@ export class PatientStore extends UserStore {
         }
 
         return streak;
+    }
+
+    @computed get contactTracingNeeded(){
+        return !this.lastContactTracingSurvey || (daysSinceISODateTime(this.lastContactTracingSurvey.createdAt) > 30 && (this.lastContactTracingSurvey.numberOfContactsTested < this.lastContactTracingSurvey.numberOfContacts))
     }
 
     defaultReport = {

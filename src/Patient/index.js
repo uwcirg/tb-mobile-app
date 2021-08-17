@@ -16,6 +16,7 @@ import ErrorListener from './ErrorListener';
 import ForcePasswordChange from './ForcePasswordChange';
 import EducationalMessage from './Home/Education';
 import { usePageVisibility } from '../Hooks/PageVisibility';
+import UpdateContactTracing from './HouseholdTesting';
 
 const PatientHome = observer((props) => {
 
@@ -63,14 +64,16 @@ const PatientHome = observer((props) => {
     }
   }, [isVisible])
 
-
-
   if (patientStore.hasForcedPasswordChange) {
     return <ForcePasswordChange />
   }
 
   if (patientStore.status === "Pending") {
     return <Onboarding />
+  }
+
+  if(uiStore.pathname.startsWith("/contact-tracing")){
+    return <UpdateContactTracing />
   }
 
   return (

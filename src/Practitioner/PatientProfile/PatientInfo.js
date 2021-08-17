@@ -1,14 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react';
+import SectionLabel from '../../Components/SectionLabel';
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
-import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next';
-import { DateTime } from 'luxon'
+import { observer } from 'mobx-react';
+import { DateTime } from 'luxon';
 import Styles from '../../Basics/Styles';
-import Buttons from './OptionButtons'
-import Colors from '../../Basics/Colors';
-import { Avatar } from '@material-ui/core';
-import SectionLabel from '../../Components/SectionLabel';
 
 const useStyles = makeStyles({
 
@@ -36,6 +33,7 @@ const useStyles = makeStyles({
         }
     },
     detailGroup: {
+        flexGrow: 1,
         display: "flex",
         flexWrap: "true",
         width: "100%",
@@ -44,25 +42,35 @@ const useStyles = makeStyles({
         },
         marginBottom: "1em"
     },
-    details:{
+    details: {
         flex: '1 1 0'
+    },
+    fullWidth: {
+        width: "100%"
     }
 
 })
 
-const PatientInfo = observer((props) => {
+const PatientInfo = observer(() => {
 
     const classes = useStyles();
     const { patientProfileStore } = useStores();
     const { t } = useTranslation('translation');
 
     const getDate = (iso) => {
-        return (DateTime.fromISO(iso).toLocaleString(DateTime.DATE_MED))
+        return (DateTime.fromISO(iso).toLocaleString({ day: 'numeric', month: 'short' }))
     }
+
+    const survey = patientProfileStore.selectedPatient.details.contactTracingSurvey;
+    const bottomText = survey ? <>
+        {`${survey.numberOfContactsTested} / ${survey.numberOfContacts} ${t('householdTesting.membersTested')}`}
+        <br />
+        {`${t('householdTesting.updated')}: ${getDate(survey.createdAt)}`}
+    </> : t('householdTesting.noResponse')
 
     return (<div className={classes.container}>
         <div className={classes.details}>
-        <SectionLabel>{t('coordinator.patientTableLabels.details')}</SectionLabel>
+            <SectionLabel className={classes.fullWidth}>{t('coordinator.patientTableLabels.details')}</SectionLabel>
             <div className={classes.detailGroup}>
                 <Item top={t("coordinator.patientProfile.age")} bottom={patientProfileStore.selectedPatient.details.age || "N/A"} />
                 <Item top={t("coordinator.patientProfile.gender")} bottom={patientProfileStore.selectedPatient.details.gender || "N/A"} />
@@ -71,8 +79,8 @@ const PatientInfo = observer((props) => {
             <Item top={t("coordinator.patientProfile.treatmentStart")} bottom={getDate(patientProfileStore.selectedPatient.details.treatmentStart)} />
             <Item top={t("coordinator.patientProfile.treatmentEnd")} bottom={getDate(patientProfileStore.selectedPatient.details.treatmentEndDate)} />
             <Item top={t("coordinator.patientProfile.lastContacted")} bottom={getDate(patientProfileStore.selectedPatient.details.lastContacted)} />
+            <Item top={t("householdTesting.title")} bottom={bottomText} />
         </div>
-        {/* <Buttons /> */}
     </div>)
 
 })

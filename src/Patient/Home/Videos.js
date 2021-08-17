@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import InteractionCard from '../../Basics/HomePageCard';
+import InteractionCard from '../../Basics/HomePageSection';
 import { ReactComponent as VideoIcon } from '../../Basics/Icons/videos.svg';
 import SmallVideoIcon from '@material-ui/icons/OndemandVideo';
 import Videos from '../Information/HelpVideos'

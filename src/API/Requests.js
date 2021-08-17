@@ -60,8 +60,8 @@ export default class APIHelper {
     }
 
     //When you need to use parameters in a request (routes are not always predefined)
-    executeRawRequest(route, method, body) {
-        return authenticatedRequest(route, method, body)
+    executeRawRequest(route, method, body, options) {
+        return authenticatedRequest(route, method, body, options)
     }
 
 }
