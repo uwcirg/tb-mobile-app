@@ -62,11 +62,11 @@ const PatientInfo = observer(() => {
     }
 
     const survey = patientProfileStore.selectedPatient.details.contactTracingSurvey;
-    const bottomText = <>
+    const bottomText = survey ? <>
         {`${survey.numberOfContactsTested} / ${survey.numberOfContacts} ${t('householdTesting.membersTested')}`}
         <br />
         {`${t('householdTesting.updated')}: ${getDate(survey.createdAt)}`}
-    </>
+    </> : t('householdTesting.noResponse')
 
     return (<div className={classes.container}>
         <div className={classes.details}>
