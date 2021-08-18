@@ -1,20 +1,18 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import SimpleButton from '../../Basics/SimpleButton';
-import ButtonBase from '@material-ui/core/ButtonBase'
 import Camera from '../../ImageCapture/Camera';
-import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import Colors from '../../Basics/Colors'
 import useStores from '../../Basics/UseStores';
 import ClickableText from '../../Basics/ClickableText';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import Typography from '@material-ui/core/Typography';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
 import TextField from '@material-ui/core/TextField'
 import TimeIcon from '@material-ui/icons/Update';
 import TestStripPhotoInfo from '../../Components/Patient/TestStripPhotoInfo';
+import PhotoPrompt from '../../Components/Patient/PhotoPrompt';
 
 //Styles at the bottom of this file
 
@@ -70,10 +68,8 @@ const ReportPhoto = observer((props) => {
                     </>
                     :
                     <>
-                        <ButtonBase onClick={() => { patientStore.uiState.cameraIsOpen = true }} className={classes.button}>
-                            <PhotoPrompt >
-                            </PhotoPrompt>
-                        </ButtonBase>
+
+                        <PhotoPrompt onClick={() => { patientStore.uiState.cameraIsOpen = true }} />
                         <TestStripPhotoInfo />
                     </>}
 
@@ -118,19 +114,6 @@ const CantTakePhoto = observer((props) => {
     )
 });
 
-const PhotoPrompt = () => {
-
-    const classes = useStyles();
-    const { t } = useTranslation();
-
-    return (<div className={classes.photoPrompt}>
-        <CameraAltIcon />
-        <Typography variant="body1" className={classes.buttonText}>
-            {t("patient.report.photo.openCamera")}
-        </Typography>
-    </div>)
-}
-
 const useStyles = makeStyles({
 
     info: {
@@ -158,33 +141,8 @@ const useStyles = makeStyles({
         textAlign: "left",
         marginLeft: "1em"
     },
-    button: {
-        width: "90%",
-        margin: "auto",
-        display: "flex",
-        color: Colors.buttonBlue,
-        "& > div": {
-            borderColor: Colors.buttonBlue,
-            border: "solid 2px",
-        },
-        borderRadius: "10px"
-    },
-    buttonText: {
-        fontSize: "1.5em",
-        fontWeight: "bold",
-        textAlign: "center",
-        width: "auto"
-    },
     leftMargin: {
         marginLeft: "1.5em"
-    },
-    photoPrompt: {
-        width: "100%",
-        display: "flex",
-        borderRadius: "10px",
-        padding: "1em",
-        justifyContent: "center",
-        alignItems: "center"
     },
     cantSubmit: {
         width: '90%',
