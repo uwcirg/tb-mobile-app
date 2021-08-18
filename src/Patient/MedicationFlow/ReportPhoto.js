@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { observer } from 'mobx-react';
 import SimpleButton from '../../Basics/SimpleButton';
 import ButtonBase from '@material-ui/core/ButtonBase'
@@ -9,16 +9,12 @@ import useStores from '../../Basics/UseStores';
 import ClickableText from '../../Basics/ClickableText';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import Instructions from '../Information/TestInstructions';
 import Typography from '@material-ui/core/Typography';
-import WarningBox from '../../Basics/WarningBox';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
-import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown'
-import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp'
-import Grow from '@material-ui/core/Collapse'
 import TextField from '@material-ui/core/TextField'
 import TimeIcon from '@material-ui/icons/Update';
+import TestStripPhotoInfo from '../../Components/Patient/TestStripPhotoInfo';
 
 //Styles at the bottom of this file
 
@@ -78,7 +74,7 @@ const ReportPhoto = observer((props) => {
                             <PhotoPrompt >
                             </PhotoPrompt>
                         </ButtonBase>
-                        <PhotoInfo />
+                        <TestStripPhotoInfo />
                     </>}
 
                 {!patientStore.report.photoWasTaken && <Buttons />}
@@ -90,33 +86,6 @@ const ReportPhoto = observer((props) => {
         </div>
     )
 });
-
-const PhotoInfo = () => {
-    const classes = useStyles();
-    const { t } = useTranslation();
-    const togglePopUp = () => { setShowPopUp(!showPopUp) }
-    const [showPopUp, setShowPopUp] = useState(false);
-
-    return (
-        <WarningBox className={classes.infoBox}>
-            <ClickableText onClick={togglePopUp} className={classes.info} hideIcon text={<span>{t('patient.report.photo.help.instructions')}{showPopUp ? <KeyboardArrowUp /> : <KeyboardArrowDown />}</span>} />
-            <Grow in={showPopUp}>
-                <div className={classes.instructions}>
-                    <Instructions />
-                </div>
-            </Grow>
-            <div className={classes.photoInfo}>
-                <h2>{t('patient.report.photo.help.remember')}:</h2>
-                <ul>
-                    <li>{t('patient.report.photo.help.wait')}</li>
-                    <li>{t('patient.report.photo.help.straight')}</li>
-                    <li>{t('patient.report.photo.help.retakeIf')}</li>
-                </ul>
-            </div>
-
-        </WarningBox>
-    )
-}
 
 const Buttons = () => {
     const classes = useStyles();
@@ -206,12 +175,6 @@ const useStyles = makeStyles({
         textAlign: "center",
         width: "auto"
     },
-    infoBox: {
-        width: "90%",
-        margin: "auto",
-        marginBottom: ".5em",
-        marginTop: ".5em"
-    },
     leftMargin: {
         marginLeft: "1.5em"
     },
@@ -233,29 +196,6 @@ const useStyles = makeStyles({
             marginBottom: '1em'
         }
 
-    },
-    photoInfo: {
-        "& > h2": {
-            fontSize: "1em",
-            margin: ".5em 0 .5em 0"
-        },
-        "& > ul": {
-            display: "block",
-            margin: "0",
-            padding: 0,
-            marginLeft: "1em",
-            "& > li": {
-                margin: 0,
-                padding: 0,
-                marginTop: "5px",
-                "& > span": {
-                    fontWeight: "bold"
-                },
-                "& > li": {
-                    marginLeft: "1em",
-                }
-            }
-        },
     },
     later: {
         color: "green"
