@@ -32,6 +32,11 @@ const useStyles = makeStyles({
     fullWidth: {
         width: "100%",
         marginBottom: "1em"
+    },
+    capitalize:{
+        "& > *":{
+            textTransform: "capitalize"
+        }
     }
 
 })
@@ -47,15 +52,15 @@ const PatientInfo = observer(() => {
     }
 
     const survey = patientProfileStore.selectedPatient.details.contactTracingSurvey;
-    const bottomText = survey ? <>
-        {`${survey.numberOfContactsTested} / ${survey.numberOfContacts} ${t('householdTesting.membersTested')}`}
-        <br />
-        {`${t('householdTesting.updated')}: ${getDate(survey.createdAt)}`}
+
+    const householdTestingText = survey ? <>
+        {`${survey.numberOfContactsTested} / ${survey.numberOfContacts} 
+        ${t('householdTesting.membersTested')} - ${t('householdTesting.updated')} ${getDate(survey.createdAt)}`}
     </> : t('householdTesting.noResponse')
 
     return (<div className={classes.container}>
         <div className={classes.details}>
-            <SectionLabel className={classes.fullWidth}>{"Progress"}</SectionLabel>
+            <SectionLabel className={classes.fullWidth}>{t('coordinator.patientProfile.details.progress')}</SectionLabel>
             <ProgressVis />
             <SectionLabel className={classes.fullWidth}>{t('coordinator.patientTableLabels.details')}</SectionLabel>
             <div className={classes.detailGroup}>
@@ -63,7 +68,7 @@ const PatientInfo = observer(() => {
                 <Item top={t("coordinator.patientProfile.gender")} bottom={patientProfileStore.selectedPatient.details.gender || "N/A"} />
                 <Item top={t("coordinator.patientProfile.lastContacted")} bottom={getDate(patientProfileStore.selectedPatient.details.lastContacted)} />
             </div>
-            <Item top={t("householdTesting.title")} bottom={bottomText} />
+            <Item className={classes.capitalize} top={t("householdTesting.title")} bottom={householdTestingText} />
         </div>
     </div>)
 

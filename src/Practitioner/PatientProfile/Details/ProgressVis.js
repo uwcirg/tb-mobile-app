@@ -41,7 +41,14 @@ const useStyles = makeStyles({
         width: "100%",
         marginTop: ".5em",
         paddingBottom: "1em",
-        borderBottom: `1px solid ${Colors.gray}`
+        borderBottom: `1px solid ${Colors.gray}`,
+        "& > div":{
+            flex: "1 1 0",
+            alignItems: "center"
+        },
+        "& > div:first-of-type, & > div:nth-of-type(2)":{
+            borderRight: "solid 1px gray"
+        }
     },
     currentWeek: {
         position: "absolute",
@@ -49,11 +56,6 @@ const useStyles = makeStyles({
         zIndex: "2",
         right: "-.5em",
         color: Colors.red
-    },
-    middleLabel:{
-        borderLeft: `1px solid ${Colors.gray}`,
-        borderRight:`1px solid ${Colors.gray}`,
-        padding: "0 1em"
     }
 })
 
