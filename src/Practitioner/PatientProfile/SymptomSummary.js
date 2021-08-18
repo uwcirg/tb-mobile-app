@@ -29,9 +29,7 @@ const BorderLinearProgress = withStyles((theme) => ({
 
 const useStyles = makeStyles({
     container: {
-        padding: "1em",
-        flexGrow: 1,
-        maxWidth: "280px"
+        padding: "1em"
     },
     menuItem: {
         textTransform: "capitalize"

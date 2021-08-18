@@ -597,6 +597,9 @@
         "false": "false",
         "daysInTreatment": "Days In Treatment",
         "patientProfile": {
+            "details":{
+                "progress": "Progress"
+            },
             "adherenceSection": {
                 "reportedTaking": "Reported Taking",
                 "didntTake": "Reported Not Taking",
