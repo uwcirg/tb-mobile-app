@@ -58,8 +58,9 @@ const MissedPhotoFlow = observer(() => {
     }
 
     async function handleSubmit(){
-        const success = await new PatientInformationAPI().submitBackPhotoReport(photo);
-        console.log(success);
+        console.log(patientStore.lastPhotoRequestStatus.dateOfRequest);
+        const report = await new PatientInformationAPI().submitBackPhotoReport(photo,patientStore.lastPhotoRequestStatus.dateOfRequest);
+        console.log(report);
     }
 
     const requestDateFormatted = DateTime.fromISO(patientStore.lastPhotoRequestStatus.dateOfRequest).toLocaleString({ day: "numeric", month: "long" });
