@@ -26,4 +26,31 @@ export default class PatientInformationAPI {
         return this.request(`${this.patientPath}/contact_tracing_surveys`, "POST", body)
     }
 
+    async submitBackPhotoReport(photoString){
+        const {uploadURL,fileName} = await this.getPhotoUploadURL();
+       
+        const imageString = photoString.replace(/^data:image\/\w+;base64,/, "")
+        const buffer = Buffer.from(imageString,'base64');
+
+        const uploaded = await fetch(uploadURL, {
+            method: 'PUT',
+            body: buffer
+        }).then((res) => {
+            return true;
+        }).catch((e) => {
+            console.error(e);
+            return false;
+        });
+
+        return {uploaded: uploaded,fileName: fileName}
+
+    }
+
+    async getPhotoUploadURL(){
+        return this.request("/v2/photo_upload_urls?type=test-strip-photo","POST").then(json => {
+            return json;
+        })
+    }
+
+
 }

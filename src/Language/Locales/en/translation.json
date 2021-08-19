@@ -919,5 +919,9 @@
         "completed": "Great job ensuring the health of those with whom you live.",
         "membersTested": "Members tested",
         "noResponse": "Not yet completed"
+    },
+    "missedPhotoDetails":{
+        "future": "In the future please submit your test on the day it is requested so we can see your treatment progress.",
+        "requestedOn": "Submitting for the request sent on"
     }
 }

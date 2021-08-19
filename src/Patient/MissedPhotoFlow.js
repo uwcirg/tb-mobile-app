@@ -10,11 +10,10 @@ import { DateTime } from 'luxon';
 import { observer } from 'mobx-react';
 import ClickableText from '../Basics/ClickableText';
 import ReplayIcon from '@material-ui/icons/Replay';
-import SimpleButton from '../Basics/SimpleButton';
-import Colors from '../Basics/Colors';
 import { useTranslation } from 'react-i18next';
 import ReportButton from '../Components/ReportButton';
 import Grid from '@material-ui/core/Grid'
+import PatientInformationAPI from '../API/PatientInformationAPI';
 
 const useStyles = makeStyles({
     container: {
@@ -58,8 +57,9 @@ const MissedPhotoFlow = observer(() => {
         handleExit();
     }
 
-    const handleSubmit = () => {
-
+    async function handleSubmit(){
+        const success = await new PatientInformationAPI().submitBackPhotoReport(photo);
+        console.log(success);
     }
 
     const requestDateFormatted = DateTime.fromISO(patientStore.lastPhotoRequestStatus.dateOfRequest).toLocaleString({ day: "numeric", month: "long" });
@@ -67,37 +67,41 @@ const MissedPhotoFlow = observer(() => {
     const elementsToDisplay = photo ? <>
         <div className={classes.strip}>
             <img src={photo} />
-            <ClickableText icon={<ReplayIcon />} text="Retake" />
+            <ClickableText onClick={()=>{setCameraOpen(true)}} icon={<ReplayIcon />} text={t('patient.report.photo.retakePhoto')} />
             <Grid justify="flex-end" className={classes.fullWidth} container >
-                <ReportButton className={classes.button} alignRight onClick={handleSubmit}>{t("patient.report.next")}</ReportButton>
+                <ReportButton className={classes.button} alignRight onClick={handleSubmit}>{t('coordinator.patientProfile.editDetails.submit')}</ReportButton>
             </Grid>
         </div>
     </> : <>
         {patientStore.eligibleForBackPhoto ? <>
             <PhotoPrompt onClick={() => { setCameraOpen(true) }} />
             <Info requestDateFormatted={requestDateFormatted} />
-            {cameraOpen && <Camera handleExit={handleExit} returnPhoto={handlePhoto} />}
         </> : <>Not elligble</>}
     </>
 
     return (<>
         <OverTopBar notFixed handleBack={patientUIStore.goToHome} title="Submit Old Photo" />
+        <Typography className={classes.topText} variant="body1" color="initial">
+                {t('missedPhotoDetails.requestedOn')} 
+                <br />
+                <strong>{requestDateFormatted}</strong>.
+            </Typography>
         <div className={classes.container}>
             {elementsToDisplay}
         </div>
+        {cameraOpen && <Camera handleExit={handleExit} returnPhoto={handlePhoto} />}
     </>)
-
 });
 
-const Info = ({ requestDateFormatted }) => {
+const Info = () => {
+    
     const classes = useStyles();
+    const { t } = useTranslation('translation');
+
     return (
         <>
             <Typography className={classes.topText} variant="body1" color="initial">
-                You are reporting for the photo requested on <strong>{requestDateFormatted}</strong>.
-            </Typography>
-            <Typography className={classes.topText} variant="body1" color="initial">
-                In the future please submit your test on the day it is requested so we can know you are doing well.
+                {t('missedPhotoDetails.future')}
             </Typography>
             <TestStripPhotoInfo />
         </>
