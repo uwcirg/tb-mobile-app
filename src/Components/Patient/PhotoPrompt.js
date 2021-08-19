@@ -32,6 +32,9 @@ const useStyles = makeStyles({
         },
         borderRadius: "10px"
     },
+    icon:{
+        marginRight: "5px"
+    }
 })
 
 const PhotoPrompt = ({ onClick }) => {
@@ -42,7 +45,7 @@ const PhotoPrompt = ({ onClick }) => {
     return (
         <ButtonBase onClick={onClick} className={classes.button}>
             <div className={classes.photoPrompt}>
-                <CameraAltIcon />
+                <CameraAltIcon className={classes.icon} />
                 <Typography variant="body1" className={classes.buttonText}>
                     {t("patient.report.photo.openCamera")}
                 </Typography>

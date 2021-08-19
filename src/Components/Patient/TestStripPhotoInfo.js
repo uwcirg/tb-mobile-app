@@ -1,12 +1,12 @@
 import React from 'react';
+import Instructions from '../../Patient/Information/TestInstructions';
+import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import { makeStyles } from '@material-ui/core/styles';
 import useToggle from '../../Hooks/useToggle';
-import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown'
-import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp'
-import Grow from '@material-ui/core/Collapse'
+import Grow from '@material-ui/core/Collapse';
 import { useTranslation } from 'react-i18next';
 import WarningBox from '../../Basics/WarningBox';
-import Instructions from '../../Patient/Information/TestInstructions';
 import ClickableText from '../../Basics/ClickableText';
 
 const useStyles = makeStyles({
@@ -65,9 +65,7 @@ const TestStripPhotoInfo = () => {
         <WarningBox className={classes.infoBox}>
             <ClickableText onClick={togglePopUp} className={classes.info} hideIcon text={<span>{t('patient.report.photo.help.instructions')}{showPopUp ? <KeyboardArrowUp /> : <KeyboardArrowDown />}</span>} />
             <Grow in={showPopUp}>
-                <div className={classes.instructions}>
                     <Instructions />
-                </div>
             </Grow>
             <div className={classes.photoInfo}>
                 <h2>{t('patient.report.photo.help.remember')}:</h2>
