@@ -5,7 +5,7 @@ import EducationStore from './educationStore';
 import ReportStore from './reportStore';
 import { addReportToOfflineCache, getNumberOfCachedReports } from './SaveReportOffline'
 import resizeImage from '../Utility/ResizeImage';
-import {daysSinceISODateTime} from "../Utility/TimeUtils";
+import {daysSinceISODateTime, daysSincePhotoRequest} from "../Utility/TimeUtils";
 
 const ROUTES = {
     login: ["/authenticate", "POST"],
@@ -490,5 +490,9 @@ export class PatientStore extends UserStore {
         return this.status === "Archived"
     }
 
+    @computed get eligibleForBackPhoto(){
+        const daysSinceRequest = daysSincePhotoRequest(this.lastPhotoRequestStatus.dateOfRequest);
+        return daysSinceRequest <= 3 && !this.lastPhotoRequestStatus.photoWasSubmitted;
+    }
 
 }

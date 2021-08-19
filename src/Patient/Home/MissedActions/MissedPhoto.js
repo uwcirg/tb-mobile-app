@@ -21,7 +21,7 @@ const MissedPhoto = observer(() => {
     const { t } = useTranslation('translation');
     const { uiStore, patientStore } = useStores();
     const openMissedPhoto = () => { uiStore.push('/missed-photo') };
-    const formattedDate = DateTime.fromISO(patientStore.lastPhotoRequestStatus.dateOfRequest).toLocaleString({month: "long",day: "numeric"});
+    const formattedDate = DateTime.fromISO(patientStore.lastPhotoRequestStatus.dateOfRequest).toLocaleString({month: "long", day: "numeric"});
 
     return (
         <MissedActionCard on>

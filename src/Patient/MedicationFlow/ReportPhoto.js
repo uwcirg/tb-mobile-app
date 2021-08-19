@@ -13,9 +13,7 @@ import TextField from '@material-ui/core/TextField'
 import TimeIcon from '@material-ui/icons/Update';
 import TestStripPhotoInfo from '../../Components/Patient/TestStripPhotoInfo';
 import PhotoPrompt from '../../Components/Patient/PhotoPrompt';
-
-//Styles at the bottom of this file
-
+0
 const ReportPhoto = observer((props) => {
 
     const classes = useStyles();
@@ -59,7 +57,6 @@ const ReportPhoto = observer((props) => {
 
     return (
         <div style={{ width: "100%" }}>
-
             {!patientStore.report.photoWasSkipped ? <>
                 {patientStore.report.photoWasTaken ?
                     <>
@@ -68,17 +65,14 @@ const ReportPhoto = observer((props) => {
                     </>
                     :
                     <>
-
                         <PhotoPrompt onClick={() => { patientStore.uiState.cameraIsOpen = true }} />
                         <TestStripPhotoInfo />
                     </>}
 
                 {!patientStore.report.photoWasTaken && <Buttons />}
             </> : <CantTakePhoto />}
-
             <SimpleButton alignRight onClick={handleNext} disabled={nextDisabled()} backgroundColor={Colors.green}>{t("patient.report.next")}</SimpleButton>
             {patientStore.uiState.cameraIsOpen ? <Camera handleExit={handleExit} returnPhoto={handlePhoto} /> : ""}
-
         </div>
     )
 });
@@ -96,7 +90,6 @@ const Buttons = () => {
                 text={<>{t('patient.report.photo.submitLater')} <KeyboardArrowRight /></>} icon={<TimeIcon />} />
             <ClickableText className={classes.unable} text={<>{t('patient.report.photo.unable')} <KeyboardArrowRight /></>} onClick={() => { patientStore.report.photoWasSkipped = true }} />
         </div>
-
     )
 }
 
@@ -153,7 +146,6 @@ const useStyles = makeStyles({
             justifyContent: 'flex-start',
             marginBottom: '1em'
         }
-
     },
     later: {
         color: "green"
