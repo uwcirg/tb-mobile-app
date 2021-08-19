@@ -52,7 +52,8 @@ const useStyles = makeStyles({
         width: "90%",
         margin: "auto",
         marginBottom: ".5em",
-        marginTop: ".5em"
+        marginTop: ".5em",
+        paddingBottom: "1em"
     },
 })
 
@@ -75,7 +76,6 @@ const TestStripPhotoInfo = () => {
                     <li>{t('patient.report.photo.help.retakeIf')}</li>
                 </ul>
             </div>
-
         </WarningBox>
     )
 }

@@ -9,12 +9,12 @@ import MissedReports from './MissedReports';
 import MissedPhoto from './MissedPhoto';
 
 const RequiresAction = observer(() => {
-    const { patientStore, uiStore } = useStores();
+
     const { t } = useTranslation('translation');
-    
+    const { patientStore, uiStore } = useStores();
     const shouldShowMissedPhoto = patientStore.eligibleForBackPhoto;
-    const shouldShowMissedReports = !uiStore.offline && patientStore.missingReports.length > 0;
     const shouldShowContactTracing = patientStore.contactTracingNeeded;
+    const shouldShowMissedReports = !uiStore.offline && patientStore.missingReports.length > 0;
     const shouldRender = shouldShowMissedReports || shouldShowContactTracing || shouldShowMissedPhoto;
 
     return (

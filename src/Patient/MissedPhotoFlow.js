@@ -10,11 +10,16 @@ import { DateTime } from 'luxon';
 import { observer } from 'mobx-react';
 import ClickableText from '../Basics/ClickableText';
 import ReplayIcon from '@material-ui/icons/Replay';
+import SimpleButton from '../Basics/SimpleButton';
+import Colors from '../Basics/Colors';
+import { useTranslation } from 'react-i18next';
+import ReportButton from '../Components/ReportButton';
+import Grid from '@material-ui/core/Grid'
 
 const useStyles = makeStyles({
     container: {
         width: "100%",
-        marginTop: "1em"
+        marginTop: "1em",
     },
     topText: {
         width: "90%",
@@ -30,10 +35,14 @@ const useStyles = makeStyles({
         },
         margin: 'auto'
     },
+    fullWidth:{
+        width: "100%"
+    }
 })
 
 const MissedPhotoFlow = observer(() => {
 
+    const { t } = useTranslation('translation');
     const classes = useStyles();
     const { patientUIStore, patientStore } = useStores();
     const [cameraOpen, setCameraOpen] = useState(false);
@@ -49,20 +58,32 @@ const MissedPhotoFlow = observer(() => {
         handleExit();
     }
 
+    const handleSubmit = () => {
+
+    }
+
     const requestDateFormatted = DateTime.fromISO(patientStore.lastPhotoRequestStatus.dateOfRequest).toLocaleString({ day: "numeric", month: "long" });
+
+    const elementsToDisplay = photo ? <>
+        <div className={classes.strip}>
+            <img src={photo} />
+            <ClickableText icon={<ReplayIcon />} text="Retake" />
+            <Grid justify="flex-end" className={classes.fullWidth} container >
+                <ReportButton className={classes.button} alignRight onClick={handleSubmit}>{t("patient.report.next")}</ReportButton>
+            </Grid>
+        </div>
+    </> : <>
+        {patientStore.eligibleForBackPhoto ? <>
+            <PhotoPrompt onClick={() => { setCameraOpen(true) }} />
+            <Info requestDateFormatted={requestDateFormatted} />
+            {cameraOpen && <Camera handleExit={handleExit} returnPhoto={handlePhoto} />}
+        </> : <>Not elligble</>}
+    </>
 
     return (<>
         <OverTopBar notFixed handleBack={patientUIStore.goToHome} title="Submit Old Photo" />
         <div className={classes.container}>
-            {patientStore.eligibleForBackPhoto ? <>
-                {photo ? <div className={classes.strip}><img src={photo} />
-                    <ClickableText icon={<ReplayIcon />} text="Retake" />
-                </div> : <PhotoPrompt onClick={() => { setCameraOpen(true) }} />}
-                {!photo && <Info requestDateFormatted={requestDateFormatted} />}
-                {cameraOpen && <Camera handleExit={handleExit} returnPhoto={handlePhoto} />}
-            </> : <>
-                Not elligble 
-            </> }
+            {elementsToDisplay}
         </div>
     </>)
 
