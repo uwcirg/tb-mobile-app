@@ -1,7 +1,7 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import HomePage from './HomePage'
-import MedicationFlow from '../MedicationFlow/'
+import MedicationFlow from '../ReportingFlows'
 import useStores from '../../Basics/UseStores'
 import EndOfTreatment from './EndOfTreatment/index'
 
