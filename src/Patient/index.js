@@ -17,7 +17,7 @@ import ForcePasswordChange from './ForcePasswordChange';
 import EducationalMessage from './Home/Education';
 import { usePageVisibility } from '../Hooks/PageVisibility';
 import UpdateContactTracing from './HouseholdTesting';
-import MissedPhotoFlow from './ReportingFlows/MissedPhotoFlow';
+import MissedPhotoFlow from './ReportingFlows/MissedPhotoFlow/';
 
 const PatientHome = observer((props) => {
 

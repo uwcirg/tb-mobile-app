@@ -923,6 +923,8 @@
     "missedPhotoDetails":{
         "topBarText": "Missed request",
         "future": "In the future please submit your test on the day it is requested so we can see your treatment progress.",
-        "requestedOn": "Submitting for the request sent on"
+        "requestedOn": "Submitting for the request sent on",
+        "notRequired": "You do not have any missed test requests at this time. Keep up the great work!",
+        "confirmation": "Your photo was submitted, thanks for letting us know how you are doing!"
     }
 }
