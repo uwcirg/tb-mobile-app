@@ -15,8 +15,7 @@ import { useTranslation } from 'react-i18next';
 import ConfirmationLayout from '../../../Components/Patient/ConfirmationLayout';
 import BottomButton from './BottomButton';
 import { CircularProgress } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid'
-
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles({
     container: {
@@ -71,7 +70,6 @@ const MissedPhotoFlow = observer(() => {
             setLoading(false);
             setResponse(report);
         })
-      
     }
 
     const requestDateFormatted = DateTime.fromISO(patientStore.lastPhotoRequestStatus.dateOfRequest).toLocaleString({ day: "numeric", month: "long" });
