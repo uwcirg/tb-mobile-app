@@ -35,7 +35,7 @@
         "copyExplanation": "Copy link to clipboard",
         "archived": "Archived",
         "successMessage": "Successfully Updated",
-        "errorMessage": "Error occured. Please try again later."
+        "errorMessage": "An error has occured. Please try again later."
     },
     "userTypes": {
         "patient": "Patient",
@@ -287,7 +287,7 @@
             "missedDays": {
                 "missing": "Missing Treatment Log",
                 "missing_plural": "Missing Treatment Logs",
-                "missedPhoto": "Submit missed photo"
+                "missedPhoto": "Submit missed test"
             },
             "chatReminder": {
                 "body": "Did you know you can chat anonymously with other patients?",
@@ -919,5 +919,12 @@
         "completed": "Great job ensuring the health of those with whom you live.",
         "membersTested": "Members tested",
         "noResponse": "Not yet completed"
+    },
+    "missedPhotoDetails":{
+        "topBarText": "Missed request",
+        "future": "In the future please submit your test on the day it is requested so we can see your treatment progress.",
+        "requestedOn": "Submitting for the request sent on",
+        "notRequired": "You do not have any missed test requests at this time. Keep up the great work!",
+        "confirmation": "Your photo was submitted, thanks for letting us know how you are doing!"
     }
 }

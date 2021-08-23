@@ -1,11 +1,11 @@
 import React from 'react';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../../Basics/UseStores';
-import { observer } from 'mobx-react';
 import Colors from '../../../Basics/Colors';
 import Grid from '@material-ui/core/Grid';
+import { observer } from 'mobx-react';
 import { DateTime } from 'luxon';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
 import Item from './Item';
 
 const useStyles = makeStyles({
@@ -74,9 +74,7 @@ const ProgressVis = observer(() => {
 
     return (
         <div className={classes.container}>
-            <div className={classes.visContainer}>
-                <Weeks treatmentWeek={treatmentWeek} />
-            </div>
+            <Visualization treatmentWeek={treatmentWeek} />
             <EndsLayout start={start} end={end} week={treatmentWeek} />
         </div>
     )
@@ -93,15 +91,24 @@ const EndsLayout = ({ start, end, week }) => {
         </Grid>)
 }
 
-const Weeks = ({treatmentWeek}) => {
-    let list = []
+const Element = ({ completed, current }) => {
+    const classes = useStyles({ completed: completed });
+    return (<div className={classes.element}>
+        {current && <LocationOnIcon className={classes.currentWeek} />}
+    </div>)
+}
 
+const Visualization = ({ treatmentWeek }) => {
+
+    const classes = useStyles();
+
+    let list = []
     let i = 0;
 
     //Track if the marker has been set (treatment week < 26 weeks) if not put it at the end of the visual
     let markerSet = false;
-
-    while (i < 26) {
+    
+    while (i < 26) { //Iterate over the 26 weeks of treatment
         if (i === treatmentWeek) {
             list.push(<Element current={true} completed={true} value={i} />);
             markerSet = true;
@@ -113,18 +120,7 @@ const Weeks = ({treatmentWeek}) => {
         i++;
     }
 
-    return (
-        <>
-            {list}
-        </>
-    )
-}
-
-const Element = ({ completed, current}) => {
-    const classes = useStyles({ completed: completed });
-    return (<div className={classes.element}>
-        {current && <LocationOnIcon className={classes.currentWeek} />}
-    </div>)
+    return (<div className={classes.visContainer}>{list}</div>)
 }
 
 export default ProgressVis;

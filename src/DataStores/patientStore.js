@@ -5,7 +5,7 @@ import EducationStore from './educationStore';
 import ReportStore from './reportStore';
 import { addReportToOfflineCache, getNumberOfCachedReports } from './SaveReportOffline'
 import resizeImage from '../Utility/ResizeImage';
-import {daysSinceISODateTime} from "../Utility/TimeUtils";
+import {daysSinceISODateTime, daysSincePhotoRequest} from "../Utility/TimeUtils";
 
 const ROUTES = {
     login: ["/authenticate", "POST"],
@@ -251,7 +251,8 @@ export class PatientStore extends UserStore {
     @action submitReport = (offline) => {
 
         if (!offline) {
-            this.modifyReportAndUpload(this.report)
+            //Tryting to solve issue with back reporting
+            //this.modifyReportAndUpload(this.report);
         } else {
             addReportToOfflineCache(toJS(this.report)).then(value => {
                 this.report.hasConfirmedAndSubmitted = true;
@@ -391,6 +392,11 @@ export class PatientStore extends UserStore {
 
     @computed get missingReports() {
 
+        const checkDate = (date) => {
+            // console.log(this.savedReports[date]);
+            return this.savedReports[date] && this.savedReports[date].status.complete
+        }
+
         //So that the missing days card stays hidden before the reports load from server
         if (!this.savedReportsLoaded) {
             return 0;
@@ -402,7 +408,7 @@ export class PatientStore extends UserStore {
         for (let j = 0; j < 14; j++) {
             let newDate = DateTime.fromISO(this.treatmentStart).plus({ days: j })
             const date = newDate.toISODate();
-            if (!this.savedReports[date] && newDate.diffNow("days").days < -1) {
+            if (!checkDate(date) && newDate.diffNow("days").days < -1) {
                 missedDays[date] = true;
             }
         }
@@ -412,7 +418,7 @@ export class PatientStore extends UserStore {
             let date = DateTime.local().minus({ days: i })
             const isoDate = date.toISODate();
      
-            if (!this.savedReports[isoDate] && DateTime.fromISO(this.treatmentStart).diff(date,"days").days <= -1) {
+            if (!checkDate(isoDate) && DateTime.fromISO(this.treatmentStart).diff(date,"days").days <= -1) {
                     missedDays[isoDate] = true;
             }
         }
@@ -490,5 +496,9 @@ export class PatientStore extends UserStore {
         return this.status === "Archived"
     }
 
+    @computed get eligibleForBackPhoto(){
+        const daysSinceRequest = daysSincePhotoRequest(this.lastPhotoRequestStatus.dateOfRequest);
+        return daysSinceRequest <= 3 && !this.lastPhotoRequestStatus.photoWasSubmitted;
+    }
 
 }

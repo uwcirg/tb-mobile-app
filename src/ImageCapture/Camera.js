@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import fixRotation from 'fix-image-rotation';
 import Webcam from './WebCam'
-import Button from '../Basics/SimpleButton'
 import styled from 'styled-components';
 import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close';
-import Colors from '../Basics/Colors'
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import Fab from '@material-ui/core/Fab';
-
-import { useTranslation } from 'react-i18next';
-
 
 export default class Camera extends Component {
     constructor() {
@@ -109,12 +104,7 @@ export default class Camera extends Component {
 
         const buttons = this.state.captured ?
         <>
-        {/*
-            <div className="camera-buttons">
-                <Button variant="contained" color="secondary" onClick={this.discardImage} > <RetakePhoto /> </Button>
-                <Button variant="contained" backgroundColor={Colors.green} onClick={this.handleUsePhoto} ><UsePhoto /></Button>
-            </div> 
-        */}
+
             </>
             :
             <div className="camera-buttons">
@@ -140,16 +130,6 @@ export default class Camera extends Component {
             </Container>
         )
     }
-}
-
-function RetakePhoto(){
-    const {t, i18n} = useTranslation('translation');
-    return <> {t("patient.report.photo.retakePhoto")} </>
-}
-
-function UsePhoto(){
-    const {t, i18n} = useTranslation('translation');
-    return <> {t("patient.report.photo.usePhoto")} </>
 }
 
 const CameraButton = styled.div`
@@ -216,7 +196,6 @@ const Container = styled.div`
     position: fixed;
     top: 0;
     z-index: 11;
-    #background-color: black;
 
   }
 

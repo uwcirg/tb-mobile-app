@@ -118,9 +118,7 @@ const ReportMedication = observer((props) => {
     }
 
     const handleNext = () => {
-        if (!patientUIStore.onHistoricalReport) {
-            patientStore.reportStore.submitMedication();
-        }
+        patientStore.reportStore.submitMedication();
         props.advance()
     }
 

@@ -8,6 +8,7 @@ import Colors from '../../Basics/Colors';
 import NextButton from './NextButton';
 import React from 'react';
 import { CircularProgress } from '@material-ui/core';
+import Error from '../../Components/GenericErrorMessage';
 
 
 
@@ -31,9 +32,6 @@ const useStyles = makeStyles({
     reachOut: {
         backgroundColor: Colors.highlightYellow,
 
-    },
-    error: {
-        backgroundColor: Colors.calendarRed
     }
 })
 
@@ -83,15 +81,6 @@ const CompletionMessage = ({ completed }) => {
     return (<Typography className={completed ? classes.success : classes.reachOut} variant="body1">
         {completed ? t('householdTesting.completed') : t('householdTesting.reachOut')}
     </Typography>)
-}
-
-const Error = () => {
-
-    const { t } = useTranslation('translation');
-    const classes = useStyles();
-
-    return (<Typography className={classes.error} variant="body1">{t('commonWords.errorMessage')}</Typography>)
-
 }
 
 const Loading = () => {

@@ -4,7 +4,7 @@ import DayDrawer from './DayDrawer'
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import CustomCalendar from './CustomCalendar';
-import MedicationFlow from '../MedicationFlow';
+import MedicationFlow from '../ReportingFlows';
 import { useTranslation } from 'react-i18next';
 import ClickableText from '../../Basics/ClickableText';
 import QuestionIcon from '@material-ui/icons/HelpOutline';
