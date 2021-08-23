@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button'
+import Button from '@material-ui/core/Button';
 import Colors from '../Basics/Colors';
 
 const useStyles = makeStyles({

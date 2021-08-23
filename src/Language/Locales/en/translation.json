@@ -35,7 +35,7 @@
         "copyExplanation": "Copy link to clipboard",
         "archived": "Archived",
         "successMessage": "Successfully Updated",
-        "errorMessage": "Error occured. Please try again later."
+        "errorMessage": "An error has occured. Please try again later."
     },
     "userTypes": {
         "patient": "Patient",

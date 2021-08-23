@@ -16,6 +16,7 @@ import ConfirmationLayout from '../../../Components/Patient/ConfirmationLayout';
 import BottomButton from './BottomButton';
 import { CircularProgress } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
+import GenericErrorMessage from '../../../Components/GenericErrorMessage';
 
 const useStyles = makeStyles({
     container: {
@@ -48,7 +49,7 @@ const useStyles = makeStyles({
         padding: "0 1em",
         boxSizing: "border-box"
     },
-    loading:{
+    loading: {
         height: "80vh"
     }
 })
@@ -66,7 +67,7 @@ const MissedPhotoFlow = observer(() => {
 
     const handleSubmit = () => {
         setLoading(true);
-        new PatientInformationAPI().submitBackPhotoReport(photo, patientStore.lastPhotoRequestStatus.dateOfRequest).then( report => {
+        new PatientInformationAPI().submitBackPhotoReport(photo, patientStore.lastPhotoRequestStatus.dateOfRequest).then(report => {
             setLoading(false);
             setResponse(report);
         })
@@ -84,22 +85,35 @@ const MissedPhotoFlow = observer(() => {
                     eligible={eligible}
                     setPhoto={setPhoto}
                     handleSubmit={handleSubmit}
-                    loading={loading} 
+                    loading={loading}
                 />}
         </div>
     </>)
 });
 
-const PostSubmissionView = ({ response, loading }) => {
-
-    const classes = useStyles();
-    const { t } = useTranslation('translation');
+const PostSubmissionView = ({ response }) => {
 
     const success = response.httpStatus < 400;
 
     return (
         <>
-            {success ? <Confirmation /> : "Error"}
+            {success ? <Confirmation /> : <Error />}
+        </>
+    )
+}
+
+const Error = () => {
+    
+    const { patientUIStore } = useStores();
+    const classes = useStyles();
+    const { t } = useTranslation('translation');
+
+    return (
+        <>
+        <div className={classes.notEligible}>
+            <GenericErrorMessage />
+        </div>
+        <BottomButton onClick={patientUIStore.goToHome}>{t('patient.report.symptoms.warning.button')}</BottomButton>
         </>
     )
 }
@@ -128,9 +142,9 @@ const PreSubmissionView = ({ photo, eligible, setPhoto, handleSubmit, requestDat
         setCameraOpen(false);
     }
 
-    if (loading){
-        return (<Loading />); 
-     } 
+    if (loading) {
+        return (<Loading />);
+    }
 
     return (<>
         {photo ? <>
