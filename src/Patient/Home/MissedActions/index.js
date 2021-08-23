@@ -14,8 +14,8 @@ const RequiresAction = observer(() => {
     const { patientStore, uiStore } = useStores();
     const shouldShowMissedPhoto = patientStore.eligibleForBackPhoto;
     const shouldShowContactTracing = patientStore.contactTracingNeeded;
-    const shouldShowMissedReports = !uiStore.offline && patientStore.missingReports.length > 0;
-    const shouldRender = shouldShowMissedReports || shouldShowContactTracing || shouldShowMissedPhoto;
+    const shouldShowMissedReports = patientStore.missingReports.length > 0;
+    const shouldRender = !uiStore.offline && (shouldShowMissedReports || shouldShowContactTracing || shouldShowMissedPhoto);
 
     return (
         <>
