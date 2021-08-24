@@ -10,9 +10,9 @@ const useStyles = makeStyles({
         fontSize: ".875em",
         letterSpacing: ".15px",
         color: Colors.textDarkGray,
+        // minWidth: props => props.type === "symptoms-preview" && "160px",
         "& > span": {
             fontWeight: "bold",
-            textTransform: "capitalize",
             "& > svg": {
                 fontSize: '4em'
             }

@@ -1,21 +1,20 @@
-import React, { useState } from 'react'
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react';
 import Typography from '@material-ui/core/Typography';
 import Styles from '../../Basics/Styles';
 import { DateTime } from 'luxon';
 import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
-import Check from '@material-ui/icons/Check'
-import Clear from '@material-ui/icons/Clear'
+import Check from '@material-ui/icons/Check';
+import Clear from '@material-ui/icons/Clear';
 import Pending from '@material-ui/icons/Help';
-import FeelingGood from '@material-ui/icons/Mood'
-import FeelingBad from '@material-ui/icons/MoodBad'
+import FeelingGood from '@material-ui/icons/Mood';
+import FeelingBad from '@material-ui/icons/MoodBad';
 import ReportCard from './ReportCard';
 import ReportItem from './ReportCardItem';
-import Button from '@material-ui/core/Button'
-
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles({
     container: {
@@ -54,6 +53,13 @@ const useStyles = makeStyles({
         margin: "auto",
         marginBottom: "2em",
         display: "block"
+    },
+    capitalize:{
+        textTransform: "capitalize",
+    },
+    small:{
+        fontWeight: "normal",
+        fontSize: ".75em"
     }
 })
 
@@ -73,7 +79,6 @@ const ReportView = observer(() => {
 })
 
 const Report = (props) => {
-    //const [expanded, setExpanded] = useState(false);
     const { report } = props;
     const classes = useStyles();
     const { t } = useTranslation('translation');
@@ -81,30 +86,37 @@ const Report = (props) => {
     return (
 
         <ReportCard
-            tagColor={Colors.patientHistory.report}
-            tagText={t('report.tag')}
             date={report.date}
-            expandedContent={
-                <div className={classes.details}>
-                    <ReportItem title={t('commonWords.symptoms')} content={<FullSymptomList list={report.symptoms} />} />
-                    <ReportItem title={t('report.submittedAt')} content={<p>{DateTime.fromISO(report.updatedAt).toLocaleString(DateTime.DATETIME_SHORT)}</p>} />
-                    <ReportItem title={t('report.feeling')} content={<Feeling doingOkay={report.doingOkay} />} />
-                    <ReportPhoto
-                        required={report.photoWasRequired}
-                        approval={report.photoDetails && report.photoDetails.approvalStatus}
-                        url={report.photoUrl}
-                        photoWasSkipped={report.photoWasSkipped}
-                        whyPhotoWasSkipped={report.whyPhotoWasSkipped}
-                    />
-                </div>
-            }>
-
-            <ReportItem title={t('report.medicationTaken')} content={report.medicationWasTaken ? t('commonWords.yes') : t('commonWords.no')} />
-            <ReportItem title={t('report.time')} content={DateTime.fromISO(report.takenAt).toLocaleString(DateTime.TIME_24_SIMPLE)} />
-            <ReportItem title={t('commonWords.symptoms')} content={<SymptomListPreview list={report.symptoms} />} />
+            expandedContent={<div className={classes.details}>
+                <ReportItem title={t('commonWords.symptoms')} content={<FullSymptomList list={report.symptoms} />} />
+                <ReportItem title={t('report.submittedAt')} content={<p>{DateTime.fromISO(report.updatedAt).toLocaleString(DateTime.DATETIME_SHORT)}</p>} />
+                <ReportItem title={t('report.feeling')} content={<Feeling doingOkay={report.doingOkay} />} />
+                <ReportPhoto
+                    required={report.photoWasRequired}
+                    approval={report.photoDetails && report.photoDetails.approvalStatus}
+                    url={report.photoUrl}
+                    photoWasSkipped={report.photoWasSkipped}
+                    whyPhotoWasSkipped={report.whyPhotoWasSkipped} />
+            </div>}>
+            <ReportItem title={t('commonWords.medication')} content={<TakenMedication report={report} />} />
+            <ReportItem type="symptoms-preview" title={t('commonWords.symptoms')} content={<SymptomListPreview list={report.symptoms} />} />
             {report.photoWasRequired && <ReportItem title={t('report.photoSubmitted')} content={report.photoUrl ? t('commonWords.yes') : t('commonWords.no')} />}
         </ReportCard >
+    )
+}
 
+const TakenMedication = ({ report }) => {
+
+    const { t } = useTranslation('translation');
+    const classes = useStyles();
+    const takenTimeString = DateTime.fromISO(report.takenAt).toLocaleString(DateTime.TIME_24_SIMPLE);
+
+    return (
+        <>
+            <span className={classes.capitalize}>{report.medicationWasTaken ? t('commonWords.yes') : t('commonWords.no')} </span>
+            {report.medicationWasTaken && <span className={classes.small}>{t('commonWords.atTime')} </span>}
+            {report.medicationWasTaken && takenTimeString}
+        </>
     )
 }
 
@@ -120,7 +132,6 @@ const ReportPhoto = (props) => {
             </div>
         )
     }
-
 
     return (<div className={classes.reportPhoto}>
         {props.url ? <><img src={props.url} />
@@ -142,7 +153,7 @@ const ReportPhoto = (props) => {
 }
 
 const SymptomListPreview = (props) => {
-    const { t, i18n } = useTranslation('translation');
+    const {t} = useTranslation('translation');
     return (<>
         {props.list.length > 0 ? t(`symptoms.${props.list[0]}.title`) : t('coordinator.recentReports.none')}
         {props.list.length > 1 && ` +${props.list.length - 1}`}
@@ -150,7 +161,7 @@ const SymptomListPreview = (props) => {
 }
 
 const FullSymptomList = (props) => {
-    const { t, i18n } = useTranslation('translation');
+    const {t} = useTranslation('translation');
     return (<>
         {props.list.length > 0 ? <div> {props.list.map(each => {
             return (<p key={each}>{t(`symptoms.${each}.title`)}</p>)
@@ -159,12 +170,7 @@ const FullSymptomList = (props) => {
 }
 
 const Feeling = (props) => {
-
-    return (
-        <>
-            {props.doingOkay ? <FeelingGood style={{ color: Colors.green }} /> : <FeelingBad style={{ color: Colors.red }} />}
-        </>
-    )
+    return props.doingOkay ? <FeelingGood style={{ color: Colors.green }} /> : <FeelingBad style={{ color: Colors.red }} />
 }
 
 export default ReportView;

@@ -16,17 +16,16 @@ const useStyles = makeStyles({
         marginBottom: "1em",
         marginLeft: ".5em",
         "& > .preview": {
-            minHeight: "85px",
             transition: "all 2s ease",
             display: "flex",
-            padding: ".5em 1em .5em 1em",
+            padding: ".75em",
             alignItems: "center",
             "& > button.expand": {
                 marginLeft: "auto",
             },
             "& > .time": {
                 height: "auto",
-                marginRight: "1em",
+                padding: "0 1em",
                 ...Styles.flexColumn,
                 justifyContent: "center",
                 alignItems: "center",
@@ -44,7 +43,6 @@ const useStyles = makeStyles({
     },
     mainReportContent: {
         display: "flex",
-        marginLeft: "2em",
         "& > div.section": {
 
             marginLeft: "1em",

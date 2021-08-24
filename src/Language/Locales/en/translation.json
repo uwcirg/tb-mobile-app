@@ -35,7 +35,8 @@
         "copyExplanation": "Copy link to clipboard",
         "archived": "Archived",
         "successMessage": "Successfully Updated",
-        "errorMessage": "An error has occured. Please try again later."
+        "errorMessage": "An error has occured. Please try again later.",
+        "atTime": "a las"
     },
     "userTypes": {
         "patient": "Patient",
