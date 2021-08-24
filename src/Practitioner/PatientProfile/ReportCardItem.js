@@ -33,7 +33,7 @@ const ReportItem = (props) => {
     const classes = useStyles(props);
     return (
         <div className={`section ${classes.reportItem}`}>
-            <p>{props.title}</p>
+            {/* <p>{props.title}</p> */}
             <span>{props.content}</span>
         </div>
     )

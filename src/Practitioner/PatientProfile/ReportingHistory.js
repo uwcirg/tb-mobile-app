@@ -11,6 +11,7 @@ import Colors from '../../Basics/Colors';
 import Styles from '../../Basics/Styles';
 import { useTranslation } from 'react-i18next';
 import NotesView from './NotesView'
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles({
     reportingHistoryContainer: {
@@ -21,10 +22,8 @@ const useStyles = makeStyles({
         }
     },
     reportingHistory: {
-        maxHeight: "800px",
         width: "100%",
-        height: "100%",
-        overflow: "hidden scroll"
+        height: "100%"
     },
     reportsHeader: {
         padding: "1em",
@@ -42,6 +41,27 @@ const useStyles = makeStyles({
             color: "white",
             backgroundColor: Colors.textDarkGray
         }
+    },
+    labels: {
+        padding: ".5em",
+        width:"100%",
+        " & > *": {
+            display: "flex",
+            flexGrow: "1",
+            borderRight: `solid 1px ${Colors.lightgray}`,
+            paddingLeft: ".5em",
+        },
+        "& > .wide": {
+            flexGrow: "2"
+        },
+        "& > .details": {
+            marginLeft: "auto",
+            flexGrow: 0
+        },
+        "& > *:last-of-type":{
+            borderRight: "none"
+        }
+
     }
 
 })
@@ -65,7 +85,9 @@ const ReportingHistory = observer(() => {
                     reports={patientProfileStore.selectedPatient.reports}
                     treatmentStart={patientProfileStore.selectedPatient.details.treatmentStart}
                 />}
-                {visible === "reports" && <ReportsView />}
+                {visible === "reports" && <>
+                <Labels />
+                <ReportsView /></>}
                 {visible === "notes" && <NotesView />}
 
             </div>
@@ -73,6 +95,22 @@ const ReportingHistory = observer(() => {
     )
 
 })
+
+const Labels = () => {
+    const { t } = useTranslation('translation');
+    const classes = useStyles();
+
+    return(
+        <Grid className={classes.labels} container>
+        <Typography variant="body1" color="initial">Date</Typography>
+        <Typography variant="body1" color="initial">Medication</Typography>
+        <Typography className="wide" variant="body1" color="initial">Symptoms</Typography>
+        <Typography variant="body1" color="initial">Mood</Typography>
+        <Typography className="wide" variant="body1" color="initial">Issues</Typography>
+        <Typography className="details" variant="body1" color="initial">Details</Typography>
+    </Grid>
+    )
+}
 
 const ReportingHistoryLabel = (props) => {
     const classes = useStyles();

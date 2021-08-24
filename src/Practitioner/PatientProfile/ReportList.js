@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react';
-import Typography from '@material-ui/core/Typography';
+
 import Styles from '../../Basics/Styles';
 import { DateTime } from 'luxon';
 import Colors from '../../Basics/Colors';
@@ -16,12 +16,15 @@ import ReportCard from './ReportCard';
 import ReportItem from './ReportCardItem';
 import Button from '@material-ui/core/Button';
 import Tag from '../../Components/Tag';
-import Grid from '@material-ui/core/Grid'
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import SingleReport from './SingleReport';
 
 const useStyles = makeStyles({
     container: {
         height: "100%",
-        padding: "1em 1em 1em 0"
+        maxHeight: "800px",
+        overflow: "hidden scroll"
     },
     details: {
         display: "flex",
@@ -80,12 +83,14 @@ const ReportView = observer(() => {
     const classes = useStyles();
     const { t } = useTranslation('translation');
 
-    return (<div className={classes.container}>
-        {patientProfileStore.selectedPatientReports.length > 0 && patientProfileStore.selectedPatientReports.map(report => {
-            return <Report key={`patient-report-${report.id}`} report={report} />
-        })}
-        {patientProfileStore.areMoreReportsToLoad && <Button disableElevation className={classes.loadButton} fullWidth onClick={patientProfileStore.loadMoreReports}>{t('commonWords.clickToLoadMore')}</Button>}
-    </div>)
+    return (
+            <div className={classes.container}>
+                {patientProfileStore.selectedPatientReports.length > 0 && patientProfileStore.selectedPatientReports.map(report => {
+                    return <SingleReport key={`patient-report-${report.id}`} report={report} />
+                })}
+                {patientProfileStore.areMoreReportsToLoad && <Button disableElevation className={classes.loadButton} fullWidth onClick={patientProfileStore.loadMoreReports}>{t('commonWords.clickToLoadMore')}</Button>}
+            </div>
+    )
 
 })
 
@@ -112,8 +117,8 @@ const Report = (props) => {
             <ReportItem title={t('commonWords.medication')} content={<TakenMedication report={report} />} />
             <ReportItem type="symptoms-preview" title={t('commonWords.symptoms')} content={<SymptomListPreview list={report.symptoms} />} />
             {report.photoWasRequired && <ReportItem title={t('report.photoSubmitted')} content={<span className={classes.capitalize}>{report.photoUrl ? t('commonWords.yes') : t('commonWords.no')}</span>} />}
-            {report.numberOfDaysAfterRequest > 0 && <Grid style={{marginLeft: "auto", alignSelf: "center"}} container direction="column">
-                 <Tag className={classes.lateTag} backgroundColor={Colors.warningRed}>{`${report.numberOfDaysAfterRequest} ${t('patient.report.dayLate', { count: report.numberOfDaysAfterRequest })}`}</Tag>
+            {report.numberOfDaysAfterRequest > 0 && <Grid style={{ marginLeft: "auto", alignSelf: "center" }} container direction="column">
+                <Tag className={classes.lateTag} backgroundColor={Colors.warningRed}>{`${report.numberOfDaysAfterRequest} ${t('patient.report.dayLate', { count: report.numberOfDaysAfterRequest })}`}</Tag>
             </Grid>}
         </ReportCard>
     )
