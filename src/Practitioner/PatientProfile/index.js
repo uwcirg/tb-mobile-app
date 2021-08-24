@@ -97,8 +97,9 @@ const useStyles = makeStyles({
         ...Styles.profileCard,
         alignSelf: "flex-start",
         backgroundColor: "white",
-        minWidth: "300px",
-        padding: "1em"
+        minWidth: "280px",
+        padding: "1em",
+        marginLeft: "1em"
     },
 
     patientContainer: {
@@ -111,7 +112,8 @@ const useStyles = makeStyles({
     },
     bottom: {
         width: "100%",
-        display: "flex"
+        display: "flex",
+        overflow: "hidden"
     },
     message: {
         width: "100%",

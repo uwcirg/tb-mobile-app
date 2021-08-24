@@ -16,12 +16,12 @@ import ReportCard from './ReportCard';
 import ReportItem from './ReportCardItem';
 import Button from '@material-ui/core/Button';
 import Tag from '../../Components/Tag';
+import Grid from '@material-ui/core/Grid'
 
 const useStyles = makeStyles({
     container: {
-        flexGrow: "1",
-        overflow: "scroll",
-        maxHeight: "60vh"
+        height: "100%",
+        padding: "1em 1em 1em 0"
     },
     details: {
         display: "flex",
@@ -53,23 +53,24 @@ const useStyles = makeStyles({
         color: Colors.buttonBlue,
         width: "90%",
         margin: "auto",
-        marginBottom: "2em",
+        marginBottom: "1em",
         display: "block"
     },
-    capitalize:{
+    capitalize: {
         textTransform: "capitalize",
     },
-    small:{
+    small: {
         fontWeight: "normal",
         fontSize: ".75em"
     },
-    lateTag:{
+    lateTag: {
         marginLeft: "auto",
         marginRight: "1em",
         alignSelf: "center",
         color: "white",
         fontWeight: "bold",
-        letterSpacing: "1px"
+        letterSpacing: "1px",
+        marginBottom: "5px"
     }
 })
 
@@ -111,8 +112,10 @@ const Report = (props) => {
             <ReportItem title={t('commonWords.medication')} content={<TakenMedication report={report} />} />
             <ReportItem type="symptoms-preview" title={t('commonWords.symptoms')} content={<SymptomListPreview list={report.symptoms} />} />
             {report.photoWasRequired && <ReportItem title={t('report.photoSubmitted')} content={<span className={classes.capitalize}>{report.photoUrl ? t('commonWords.yes') : t('commonWords.no')}</span>} />}
-            {report.numberOfDaysAfterRequest > 0 && <Tag className={classes.lateTag} backgroundColor={Colors.warningRed}>{`${report.numberOfDaysAfterRequest} ${t('patient.report.dayLate',{count: report.numberOfDaysAfterRequest})}`}</Tag>}
-        </ReportCard >
+            {report.numberOfDaysAfterRequest > 0 && <Grid style={{marginLeft: "auto", alignSelf: "center"}} container direction="column">
+                 <Tag className={classes.lateTag} backgroundColor={Colors.warningRed}>{`${report.numberOfDaysAfterRequest} ${t('patient.report.dayLate', { count: report.numberOfDaysAfterRequest })}`}</Tag>
+            </Grid>}
+        </ReportCard>
     )
 }
 
@@ -164,7 +167,7 @@ const ReportPhoto = (props) => {
 }
 
 const SymptomListPreview = (props) => {
-    const {t} = useTranslation('translation');
+    const { t } = useTranslation('translation');
     return (<>
         {props.list.length > 0 ? t(`symptoms.${props.list[0]}.title`) : t('coordinator.recentReports.none')}
         {props.list.length > 1 && ` +${props.list.length - 1}`}
@@ -172,7 +175,7 @@ const SymptomListPreview = (props) => {
 }
 
 const FullSymptomList = (props) => {
-    const {t} = useTranslation('translation');
+    const { t } = useTranslation('translation');
     return (<>
         {props.list.length > 0 ? <div> {props.list.map(each => {
             return (<p key={each}>{t(`symptoms.${each}.title`)}</p>)

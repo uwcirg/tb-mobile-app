@@ -21,10 +21,13 @@ const useStyles = makeStyles({
         }
     },
     reportingHistory: {
-        width: "100%"
+        maxHeight: "800px",
+        width: "100%",
+        height: "100%",
+        overflow: "hidden scroll"
     },
     reportsHeader: {
-        padding: ".5em",
+        padding: "1em",
         display: "flex",
         alignItems: "center",
         "& > h2": {
@@ -33,6 +36,8 @@ const useStyles = makeStyles({
         }
     },
     buttonGroup: {
+        marginLeft: "auto",
+        marginRight: "1em",
         "& > button.selected": {
             color: "white",
             backgroundColor: Colors.textDarkGray

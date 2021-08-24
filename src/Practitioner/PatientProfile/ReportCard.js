@@ -12,10 +12,9 @@ const useStyles = makeStyles({
     report: {
         ...Styles.profileCard,
         boxSizing: "border-box",
-        width: "95%",
+        width: "100%",
         backgroundColor: "white",
-        marginBottom: "1em",
-        marginLeft: ".5em",
+        marginBottom: ".75em",
         "& > .preview": {
             transition: "all 2s ease",
             display: "flex",
