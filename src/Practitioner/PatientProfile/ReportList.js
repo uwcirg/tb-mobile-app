@@ -67,10 +67,9 @@ const useStyles = makeStyles({
         marginLeft: "auto",
         marginRight: "1em",
         alignSelf: "center",
-        color: Colors.textDarkGray,
+        color: "white",
         fontWeight: "bold",
-        letterSpacing: "1px",
-        border: `solid 1px ${Colors.textDarkGray}`
+        letterSpacing: "1px"
     }
 })
 
@@ -112,7 +111,7 @@ const Report = (props) => {
             <ReportItem title={t('commonWords.medication')} content={<TakenMedication report={report} />} />
             <ReportItem type="symptoms-preview" title={t('commonWords.symptoms')} content={<SymptomListPreview list={report.symptoms} />} />
             {report.photoWasRequired && <ReportItem title={t('report.photoSubmitted')} content={<span className={classes.capitalize}>{report.photoUrl ? t('commonWords.yes') : t('commonWords.no')}</span>} />}
-            {report.isBackSubmission && <Tag className={classes.lateTag} backgroundColor={"white"}>{t('patient.report.late')}</Tag>}
+            {report.numberOfDaysAfterRequest > 0 && <Tag className={classes.lateTag} backgroundColor={Colors.warningRed}>{`${report.numberOfDaysAfterRequest} ${t('patient.report.dayLate',{count: report.numberOfDaysAfterRequest})}`}</Tag>}
         </ReportCard >
     )
 }

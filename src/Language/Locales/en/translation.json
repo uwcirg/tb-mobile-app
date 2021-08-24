@@ -320,6 +320,8 @@
             }
         },
         "report": {
+            "dayLate": "day late",
+            "dayLate_plural": "days late",
             "late": "Submitted Late",
             "next": "Next",
             "title": "Log Today's Medication",
