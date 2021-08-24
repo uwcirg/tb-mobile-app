@@ -15,6 +15,7 @@ import FeelingBad from '@material-ui/icons/MoodBad';
 import ReportCard from './ReportCard';
 import ReportItem from './ReportCardItem';
 import Button from '@material-ui/core/Button';
+import Tag from '../../Components/Tag';
 
 const useStyles = makeStyles({
     container: {
@@ -26,7 +27,8 @@ const useStyles = makeStyles({
         display: "flex",
         width: "90%",
         justifyContent: "space-between",
-        padding: "1em"
+        padding: "1em",
+        borderTop: "1px solid lightgray"
     },
     reportPhoto: {
         flexBasis: "25%",
@@ -60,6 +62,15 @@ const useStyles = makeStyles({
     small:{
         fontWeight: "normal",
         fontSize: ".75em"
+    },
+    lateTag:{
+        marginLeft: "auto",
+        marginRight: "1em",
+        alignSelf: "center",
+        color: Colors.textDarkGray,
+        fontWeight: "bold",
+        letterSpacing: "1px",
+        border: `solid 1px ${Colors.textDarkGray}`
     }
 })
 
@@ -100,7 +111,8 @@ const Report = (props) => {
             </div>}>
             <ReportItem title={t('commonWords.medication')} content={<TakenMedication report={report} />} />
             <ReportItem type="symptoms-preview" title={t('commonWords.symptoms')} content={<SymptomListPreview list={report.symptoms} />} />
-            {report.photoWasRequired && <ReportItem title={t('report.photoSubmitted')} content={report.photoUrl ? t('commonWords.yes') : t('commonWords.no')} />}
+            {report.photoWasRequired && <ReportItem title={t('report.photoSubmitted')} content={<span className={classes.capitalize}>{report.photoUrl ? t('commonWords.yes') : t('commonWords.no')}</span>} />}
+            {report.isBackSubmission && <Tag className={classes.lateTag} backgroundColor={"white"}>{t('patient.report.late')}</Tag>}
         </ReportCard >
     )
 }

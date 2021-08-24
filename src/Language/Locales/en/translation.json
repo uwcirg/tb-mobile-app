@@ -320,6 +320,7 @@
             }
         },
         "report": {
+            "late": "Submitted Late",
             "next": "Next",
             "title": "Log Today's Medication",
             "medicationTitle": "Please Log Your Medication",
