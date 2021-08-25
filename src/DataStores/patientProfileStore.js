@@ -141,7 +141,7 @@ export default class PatientProfileStore {
     }
 
     @computed get selectedPatientReports() {
-        return Object.values(this.selectedPatient.reports).splice(0, this.reportSplice)
+        return Object.values(this.selectedPatient.reports)
     }
 
     @computed get areMoreReportsToLoad() {
