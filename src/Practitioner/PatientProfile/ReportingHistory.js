@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
@@ -10,8 +10,10 @@ import Typography from '@material-ui/core/Typography';
 import Colors from '../../Basics/Colors';
 import Styles from '../../Basics/Styles';
 import { useTranslation } from 'react-i18next';
-import NotesView from './NotesView'
+import NotesView from './NotesView';
 import Grid from '@material-ui/core/Grid';
+import ReportContainer from './ReportContainer';
+import NewTableIdea from './NewTableIdea';
 
 const useStyles = makeStyles({
     reportingHistoryContainer: {
@@ -41,27 +43,6 @@ const useStyles = makeStyles({
             color: "white",
             backgroundColor: Colors.textDarkGray
         }
-    },
-    labels: {
-        padding: ".5em",
-        width:"100%",
-        " & > *": {
-            display: "flex",
-            flexGrow: "1",
-            borderRight: `solid 1px ${Colors.lightgray}`,
-            paddingLeft: ".5em",
-        },
-        "& > .wide": {
-            flexGrow: "2"
-        },
-        "& > .details": {
-            marginLeft: "auto",
-            flexGrow: 0
-        },
-        "& > *:last-of-type":{
-            borderRight: "none"
-        }
-
     }
 
 })
@@ -85,9 +66,7 @@ const ReportingHistory = observer(() => {
                     reports={patientProfileStore.selectedPatient.reports}
                     treatmentStart={patientProfileStore.selectedPatient.details.treatmentStart}
                 />}
-                {visible === "reports" && <>
-                <Labels />
-                <ReportsView /></>}
+                {visible === "reports" && <NewTableIdea />}
                 {visible === "notes" && <NotesView />}
 
             </div>
@@ -100,15 +79,15 @@ const Labels = () => {
     const { t } = useTranslation('translation');
     const classes = useStyles();
 
-    return(
-        <Grid className={classes.labels} container>
-        <Typography variant="body1" color="initial">Date</Typography>
-        <Typography variant="body1" color="initial">Medication</Typography>
-        <Typography className="wide" variant="body1" color="initial">Symptoms</Typography>
-        <Typography variant="body1" color="initial">Mood</Typography>
-        <Typography className="wide" variant="body1" color="initial">Issues</Typography>
-        <Typography className="details" variant="body1" color="initial">Details</Typography>
-    </Grid>
+    return (
+        <ReportContainer>
+            <Typography variant="body1" color="initial">Date</Typography>
+            <Typography className="wide" variant="body1" color="initial">Medication</Typography>
+            <Typography className="wide" variant="body1" color="initial">Symptoms</Typography>
+            {/* <Typography variant="body1" color="initial">Mood</Typography> */}
+            <Typography className="wide" variant="body1" color="initial">Issues</Typography>
+            <Typography className="details" variant="body1" color="initial">More</Typography>
+        </ReportContainer>
     )
 }
 

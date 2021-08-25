@@ -9,7 +9,9 @@ import ExpandButton from '@material-ui/icons/KeyboardArrowDown';
 import CollapseButton from '@material-ui/icons/KeyboardArrowUp';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-
+import Tag from '../../Components/Tag';
+import { useTranslation } from 'react-i18next';
+import ReportContainer from './ReportContainer';
 const useStyles = makeStyles({
     report: {
         ...Styles.profileCard,
@@ -17,7 +19,7 @@ const useStyles = makeStyles({
         width: "100%",
         backgroundColor: "white",
         marginBottom: ".75em",
-        padding: ".5em"
+        padding: ".5em 0"
     },
     mainReportContent: {
         display: "flex",
@@ -35,7 +37,6 @@ const useStyles = makeStyles({
         height: "auto",
         ...Styles.flexColumn,
         justifyContent: "center",
-        flexShrink: 0,
         "& > span": {
             fontSize: "1.5em",
             margin: 0
@@ -48,28 +49,9 @@ const useStyles = makeStyles({
     preview: {
         width: "100%",
     },
-    details: {
-        justifyContent: "flex-start",
-        flexGrow: 1,
-        " & > *": {
-            paddingLeft: ".5em",
-            display: "flex",
-            flexGrow: "1",
-            borderRight: `solid 1px ${Colors.lightgray}`
-        },
-        "& > .wide": {
-            flexGrow: "2"
-        },
-        "& > .details": {
-            marginLeft: "auto",
-            flexGrow: 0
-        },
-        "& > *:last-of-type": {
-            borderRight: "none"
-        }
-    },
     expandButton: {
-        marginLeft: "auto"
+        borderRadius: 0,
+        boxShadow: "none"
     }
 })
 
@@ -79,21 +61,24 @@ const ReportCard = ({ report }) => {
 
     const classes = useStyles();
     const date = DateTime.fromISO(report.date);
+    const { t } = useTranslation('translation');
 
     return (
 
         <div className={classes.report}>
-                <Grid className={classes.details} container>
-                    <div className={classes.time}>
-                        <span>{date.day}</span>
-                        <p>{date.monthShort}</p>
-                    </div>
-                    <Typography variant="body1" color="initial">Taken</Typography>
-                    <Typography className="wide" variant="body1" color="initial">Dolor de panza</Typography>
-                    <Typography variant="body1" color="initial">Mood</Typography>
-                    <Typography className="wide" variant="body1" color="initial">Issues</Typography>
-                    <IconButton className="details" onClick={() => { setExpanded(!expanded) }}>{expanded ? <CollapseButton /> : <ExpandButton />}</IconButton>
+            <ReportContainer>
+                <div className={classes.time}>
+                    <span>{date.day}</span>
+                    <p>{date.monthShort}</p>
+                </div>
+                <Typography className="wide" variant="body1" color="initial">Taken</Typography>
+                <Typography className="wide" variant="body1" color="initial">Dolor de panza</Typography>
+                {/* <Typography variant="body1" color="initial">Mood</Typography> */}
+                <Grid container direction="column">
+                {report.numberOfDaysAfterRequest > 0 &&<Tag className={classes.lateTag} backgroundColor={Colors.warningRed}>{`${report.numberOfDaysAfterRequest} ${t('patient.report.dayLate', { count: report.numberOfDaysAfterRequest })}`}</Tag>}
                 </Grid>
+                <IconButton className={classes.expandButton} onClick={() => { setExpanded(!expanded) }}>{expanded ? <CollapseButton /> : <ExpandButton />}</IconButton>
+            </ReportContainer>
 
             <Collapse in={expanded}>
 
