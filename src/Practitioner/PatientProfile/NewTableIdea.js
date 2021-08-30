@@ -25,14 +25,18 @@ import Styles from '../../Basics/Styles';
 import TablePagination from '@material-ui/core/TablePagination';
 
 const useRowStyles = makeStyles({
+    capitalize:{
+        textTransform: "capitalize"
+    },
     root: {
         '& > *': {
             borderBottom: 'unset',
-        },
+            padding: ".5em"
+        }
     },
     time: {
-        height: "auto",
         ...Styles.flexColumn,
+        paddingLeft: "1em",
         justifyContent: "center",
         "& > span": {
             fontSize: "1.5em",
@@ -43,22 +47,21 @@ const useRowStyles = makeStyles({
             margin: 0
         }
     },
+    tags:{
+        boxSizing: "border-box",
+        "& > *":{
+            margin: ".25em 0",
+            maxWidth: "120px",
+            textAlign: "center",
+            fontSize: ".8em"
+        },
+    },
+    spacing:{
+        "& > th:nth-child(2), & > td:nth-child(2)":{
+            width: "100px"
+        }
+    }
 });
-
-// function createData(name, calories, fat, carbs, protein, price) {
-//   return {
-//     name,
-//     calories,
-//     fat,
-//     carbs,
-//     protein,
-//     price,
-//     history: [
-//       { date: '2020-01-05', customerId: '11091700', amount: 3 },
-//       { date: '2020-01-02', customerId: 'Anonymous', amount: 1 },
-//     ],
-//   };
-// }
 
 const SymptomListPreview = (props) => {
     const { t } = useTranslation('translation');
@@ -78,18 +81,19 @@ function Row(props) {
 
     return (
         <React.Fragment>
-            <TableRow className={classes.root}>
+            <TableRow className={`${classes.root} ${classes.spacing}`}>
                 <TableCell component="th" scope="row">
                     <div className={classes.time}>
                         <span>{date.day}</span>
                         <p>{date.monthShort}</p>
                     </div>
                 </TableCell>
-                <TableCell >{row.medicationWasTaken ? t('commonWords.yes') : t('commonWords.no')}</TableCell>
+                <TableCell className={classes.capitalize}>{row.medicationWasTaken ? t('commonWords.yes') : t('commonWords.no')}</TableCell>
                 <TableCell ><SymptomListPreview list={row.symptoms} /></TableCell>
                 <TableCell>
-                    <Grid container direction="column">
-                        {row.numberOfDaysAfterRequest > 0 && <Tag backgroundColor={Colors.warningRed}>{`${row.numberOfDaysAfterRequest} ${t('patient.report.dayLate', { count: row.numberOfDaysAfterRequest })}`}</Tag>}
+                    <Grid className={classes.tags} container direction="column">
+                        {row.numberOfDaysAfterRequest> 0 && <Tag backgroundColor={Colors.warningRed}>{`${row.numberOfDaysAfterRequest} ${t('patient.report.dayLate', { count: row.numberOfDaysAfterRequest })}`}</Tag>}
+                        <Tag backgroundColor={Colors.green}>Test Submitted</Tag>
                     </Grid>
                 </TableCell>
                 <TableCell>
@@ -138,28 +142,12 @@ function Row(props) {
     );
 }
 
-// Row.propTypes = {
-//     row: PropTypes.shape({
-//         calories: PropTypes.number.isRequired,
-//         carbs: PropTypes.number.isRequired,
-//         fat: PropTypes.number.isRequired,
-//         history: PropTypes.arrayOf(
-//             PropTypes.shape({
-//                 amount: PropTypes.number.isRequired,
-//                 customerId: PropTypes.string.isRequired,
-//                 date: PropTypes.string.isRequired,
-//             }),
-//         ).isRequired,
-//         name: PropTypes.string.isRequired,
-//         price: PropTypes.number.isRequired,
-//         protein: PropTypes.number.isRequired,
-//     }).isRequired,
-// };
-
 const CollapsibleTable = observer(() => {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(7);
     const { patientProfileStore } = useStores();
+
+    const classes = useRowStyles();
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -172,7 +160,7 @@ const CollapsibleTable = observer(() => {
                     <TableContainer>
                         <Table stickyHeader aria-label="collapsible table">
                             <TableHead>
-                                <TableRow>
+                                <TableRow className={classes.spacing}>
                                     <TableCell>Date</TableCell>
                                     <TableCell>Medication</TableCell>
                                     <TableCell>Symptoms</TableCell>
@@ -201,3 +189,21 @@ const CollapsibleTable = observer(() => {
 });
 
 export default CollapsibleTable;
+
+// Row.propTypes = {
+//     row: PropTypes.shape({
+//         calories: PropTypes.number.isRequired,
+//         carbs: PropTypes.number.isRequired,
+//         fat: PropTypes.number.isRequired,
+//         history: PropTypes.arrayOf(
+//             PropTypes.shape({
+//                 amount: PropTypes.number.isRequired,
+//                 customerId: PropTypes.string.isRequired,
+//                 date: PropTypes.string.isRequired,
+//             }),
+//         ).isRequired,
+//         name: PropTypes.string.isRequired,
+//         price: PropTypes.number.isRequired,
+//         protein: PropTypes.number.isRequired,
+//     }).isRequired,
+// };
