@@ -46,7 +46,7 @@ const useStyles = makeStyles({
     }
 })
 
-const PhotoSidebar = observer((props) => {
+const PhotoSidebar = observer(() => {
     const [expand,setExpand] = useState(false);
 
     const { practitionerStore } = useStores();
@@ -59,8 +59,8 @@ const PhotoSidebar = observer((props) => {
     return (
         <Basicsidebar buttons={
             <>
-                <SharedButton text={"Inconclusive"} onClick={() => { practitionerStore.processPhoto(item.photoId, false) }} color={Colors.yellow} icon={<QIcon />} />
-                <SharedButton text={"Positive"} onClick={() => { practitionerStore.processPhoto(item.photoId, true) }} />
+                <SharedButton text={t('report.inconclusive')} onClick={() => { practitionerStore.processPhoto(item.photoId, false) }} color={Colors.yellow} icon={<QIcon />} />
+                <SharedButton text={t('report.conclusive')} onClick={() => { practitionerStore.processPhoto(item.photoId, true) }} />
             </>}>
             <div className={classes.photoContainer} >
                 <h2>{t("coordinator.sideBar.photoSub")}:</h2>

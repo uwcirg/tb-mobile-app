@@ -10,18 +10,27 @@ import Symptom from '../../Shared/Symptom';
 import Colors from '../../../Basics/Colors';
 
 const useStyles = makeStyles({
-    body:{
-        "& > tr:nth-of-type(odd)":{
+    body: {
+        "& > tr:nth-of-type(odd)": {
             backgroundColor: Colors.lighterGray
         },
-        "& > tr > td:first-of-type":{
+        "& > tr > td:first-of-type": {
             fontWeight: "bold",
-            textAlign: "right"
+            textAlign: "right",
+            verticalAlign: "top",
+            paddingTop: "1em"
         },
-        "& > tr > td:nth-of-type(2)":{
-           paddingLeft: "1em",
-           boxSizing: "border-box"
+        "& > tr > td:nth-of-type(2)": {
+            paddingLeft: "1em",
+            boxSizing: "border-box"
+        },
+        "& > tr > td": {
+            borderBottom: "none"
         }
+
+    },
+    photo:{
+        width: "100px"
     }
 })
 
@@ -29,7 +38,7 @@ const FullSymptomList = (props) => {
     const { t } = useTranslation('translation');
     return (<>
         {props.list.length > 0 ? <div> {props.list.map(symptom => {
-            return ( <p key={`report-symptom-list-${symptom}`}><Symptom icon string={symptom} /></p>)
+            return (<p key={`report-symptom-list-${symptom}`}><Symptom icon string={symptom} /></p>)
         })} </div> : <p>{t('coordinator.recentReports.none')}</p>}
     </>)
 }
@@ -39,25 +48,33 @@ const FullReport = ({ row }) => {
     const { t } = useTranslation('translation');
     const classes = useStyles();
 
+    const timeTaken = DateTime.fromISO(row.takenAt).toLocaleString(DateTime.TIME_SIMPLE)
 
     return (<Table size="small" aria-label="report-details">
-        {/* <TableHead>
-            <TableRow>
-                <TableCell>Field</TableCell>
-                <TableCell>Response</TableCell>
-            </TableRow>
-        </TableHead> */}
         <TableBody className={classes.body}>
             <TableRow>
                 <TableCell>Medication</TableCell>
                 <TableCell>
-                    <p>{row.medicationWasTaken ? "Taken at 10:12" : "Not Taken"}</p>
+                    {row.medicationWasTaken ? <p>Taken at: {timeTaken}</p> : <p>Not Taken</p>}
                     <p>{!row.medicationWasTaken && "Reason: Not feeling well"}</p>
-                    </TableCell>
+                </TableCell>
             </TableRow>
             <TableRow>
                 <TableCell>Symptoms</TableCell>
                 <TableCell> <FullSymptomList list={row.symptoms} /></TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell>Doing Okay:</TableCell>
+                <TableCell>
+                    <p>{row.doingOkay ? "Yes" : "Need Support"}</p>
+                    {row.doingOkayReason && <p>Reason: {row.doingOkayReason}</p>}
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell>Photo:</TableCell>
+                <TableCell>
+                    {!row.photoWasRequired ? <p>{t('report.photoNotNeeded')}</p> : <>{row.photoUrl ? <img className={classes.photo} src={row.photoUrl} /> : <p>Not Submitted</p>}</>}
+                </TableCell>
             </TableRow>
             <TableRow>
                 <TableCell>Submitted At:</TableCell>

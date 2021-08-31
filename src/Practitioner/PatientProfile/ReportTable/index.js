@@ -54,8 +54,8 @@ const CollapsibleTable = observer(() => {
                                     <TableCell>Date</TableCell>
                                     <TableCell>Medication</TableCell>
                                     <TableCell>Symptoms</TableCell>
-                                    <TableCell>Flags</TableCell>
-                                    <TableCell align="right">Details</TableCell>
+                                    <TableCell >Flags</TableCell>
+                                    <TableCell align="center">Details</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
