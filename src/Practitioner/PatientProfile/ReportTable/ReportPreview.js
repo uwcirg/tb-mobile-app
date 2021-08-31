@@ -65,10 +65,6 @@ const useStyles = makeStyles({
     },
     expand: {
         paddingRight: "1em"
-    },
-    fullReportHeader:{
-        fontSize: "1.5em",
-        padding: "1em 0"
     }
 })
 
@@ -111,7 +107,7 @@ const ReportPreview = ({ row }) => {
                 <TableCell style={{ padding: 0 }} colSpan={6}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <Box style={{padding: "0 1em"}}>
-                            <Typography className={classes.fullReportHeader} variant="h2">{t('report.for')} {date.toLocaleString(DateTime.DATE_FULL)}</Typography>
+                            {/* <Typography className={classes.fullReportHeader} variant="h2">{t('report.for')} {date.toLocaleString(DateTime.DATE_FULL)}</Typography> */}
                             <FullReport row={row} />
                         </Box>
                     </Collapse>
