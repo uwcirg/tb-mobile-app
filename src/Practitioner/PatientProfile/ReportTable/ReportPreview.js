@@ -14,6 +14,10 @@ import Tag from '../../../Components/Tag';
 import Grid from '@material-ui/core/Grid';
 import Styles from '../../../Basics/Styles';
 import FullReport from './FullReport';
+import Check from '@material-ui/icons/Check';
+import Clear from '@material-ui/icons/Clear';
+import { Typography } from '@material-ui/core';
+
 
 const useStyles = makeStyles({
     root: {
@@ -26,7 +30,8 @@ const useStyles = makeStyles({
     time: {
         ...Styles.flexColumn,
         justifyContent: "center",
-        padding: "0 .5em",
+        padding: "0",
+        paddingLeft: "1em",
         "& > span": {
             fontSize: "1.5em",
             margin: 0
@@ -42,16 +47,29 @@ const useStyles = makeStyles({
             margin: ".25em 0",
             maxWidth: "120px",
             textAlign: "center",
-            fontSize: ".8em"
+            fontSize: ".8em",
+            color: "white"
         },
     },
     capitalize: {
         textTransform: "capitalize"
     },
+    meds: {
+        height: "25px",
+        width: "25px",
+        display: "inline-block",
+        backgroundColor: props => props.taken ? Colors.green : Colors.red,
+        color: "white",
+        borderRadius: "5px",
+        alignItems: "center"
+    },
+    expand: {
+        paddingRight: "1em"
+    }
 })
 
 
-const ReportPreview = ({row}) => {
+const ReportPreview = ({ row }) => {
 
     const [open, setOpen] = React.useState(false);
     const classes = useStyles();
@@ -67,16 +85,19 @@ const ReportPreview = ({row}) => {
                         <p>{date.monthShort}</p>
                     </div>
                 </TableCell>
-                <TableCell className={classes.capitalize}>{row.medicationWasTaken ? t('commonWords.yes') : t('commonWords.no')}</TableCell>
+                <TableCell className={classes.capitalize}>
+                    <Meds taken={row.medicationWasTaken} />
+                </TableCell>
                 <TableCell >
                     <SymptomListPreview list={row.symptoms} />
                 </TableCell>
                 <TableCell>
                     <Grid className={classes.tags} container direction="column">
-                        {row.numberOfDaysAfterRequest > 0 && <Tag backgroundColor={Colors.warningRed}>{`${row.numberOfDaysAfterRequest} ${t('patient.report.dayLate', { count: row.numberOfDaysAfterRequest })}`}</Tag>}
+                        {row.numberOfDaysAfterRequest > 0 && <Tag backgroundColor={Colors.yellow}>{`${row.numberOfDaysAfterRequest} ${t('patient.report.dayLate', { count: row.numberOfDaysAfterRequest })}`}</Tag>}
+                        {row.photoUrl && <Tag backgroundColor={Colors.green}>{t('report.photoSubmitted')}</Tag>}
                     </Grid>
                 </TableCell>
-                <TableCell alig>
+                <TableCell className={classes.expand} align="right">
                     <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
                         {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </IconButton>
@@ -93,6 +114,15 @@ const ReportPreview = ({row}) => {
             </TableRow>
         </React.Fragment>
     );
+}
+
+const Meds = ({ taken }) => {
+    const classes = useStyles({ taken: taken })
+    return (
+        <div className={classes.meds} container>
+            {taken ? <Check /> : <Clear />}
+        </div>
+    )
 }
 
 const SymptomListPreview = (props) => {

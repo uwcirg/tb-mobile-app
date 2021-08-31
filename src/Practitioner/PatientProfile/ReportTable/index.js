@@ -34,7 +34,7 @@ const useRowStyles = makeStyles({
 
 const CollapsibleTable = observer(() => {
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(7);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const { patientProfileStore } = useStores();
 
     const classes = useRowStyles();
@@ -55,7 +55,7 @@ const CollapsibleTable = observer(() => {
                                     <TableCell>Medication</TableCell>
                                     <TableCell>Symptoms</TableCell>
                                     <TableCell>Flags</TableCell>
-                                    <TableCell align="right" />
+                                    <TableCell align="right">Details</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>

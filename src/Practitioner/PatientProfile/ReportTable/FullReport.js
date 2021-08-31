@@ -3,21 +3,33 @@ import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { useTranslation } from 'react-i18next';
-import {DateTime} from 'luxon';
+import { DateTime } from 'luxon';
+import Symptom from '../../Shared/Symptom';
+import Colors from '../../../Basics/Colors';
 
 const useStyles = makeStyles({
-  
+    body:{
+        "& > tr:nth-of-type(odd)":{
+            backgroundColor: Colors.lighterGray
+        },
+        "& > tr > td:first-of-type":{
+            fontWeight: "bold",
+            textAlign: "right"
+        },
+        "& > tr > td:nth-of-type(2)":{
+           paddingLeft: "1em",
+           boxSizing: "border-box"
+        }
+    }
 })
 
 const FullSymptomList = (props) => {
     const { t } = useTranslation('translation');
     return (<>
-        {props.list.length > 0 ? <div> {props.list.map(each => {
-            return (<p key={each}>{t(`symptoms.${each}.title`)}</p>)
+        {props.list.length > 0 ? <div> {props.list.map(symptom => {
+            return ( <p key={`report-symptom-list-${symptom}`}><Symptom icon string={symptom} /></p>)
         })} </div> : <p>{t('coordinator.recentReports.none')}</p>}
     </>)
 }
@@ -27,31 +39,30 @@ const FullReport = ({ row }) => {
     const { t } = useTranslation('translation');
     const classes = useStyles();
 
+
     return (<Table size="small" aria-label="report-details">
-        <TableHead>
+        {/* <TableHead>
             <TableRow>
-                <TableCell>Created At</TableCell>
-                <TableCell>Symptoms</TableCell>
-                <TableCell>Mood</TableCell>
-                <TableCell>Photo</TableCell>
+                <TableCell>Field</TableCell>
+                <TableCell>Response</TableCell>
             </TableRow>
-        </TableHead>
-        <TableBody>
-                <TableRow>
-                    <TableCell component="th" scope="row">
-                        {DateTime.fromISO(row.createdAt).toLocaleString(DateTime.DATETIME_SHORT)}
+        </TableHead> */}
+        <TableBody className={classes.body}>
+            <TableRow>
+                <TableCell>Medication</TableCell>
+                <TableCell>
+                    <p>{row.medicationWasTaken ? "Taken at 10:12" : "Not Taken"}</p>
+                    <p>{!row.medicationWasTaken && "Reason: Not feeling well"}</p>
                     </TableCell>
-                    <TableCell>
-                        <FullSymptomList list={row.symptoms} />
-                    </TableCell>
-                    <TableCell>
-                        {row.doingOkay ? "Yes" : "No"}
-                    </TableCell>
-                    <TableCell align="right">
-                        {row.photoRequested && "Requested"}
-                        {row.photoUrl && <img style={{width: "100px"}} src={row.photoUrl} />}
-                        </TableCell>
-                </TableRow>
+            </TableRow>
+            <TableRow>
+                <TableCell>Symptoms</TableCell>
+                <TableCell> <FullSymptomList list={row.symptoms} /></TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell>Submitted At:</TableCell>
+                <TableCell>{DateTime.fromISO(row.createdAt).toLocaleString(DateTime.DATETIME_SHORT)}</TableCell>
+            </TableRow>
         </TableBody>
     </Table>)
 }
