@@ -776,7 +776,8 @@
         "missedPhoto": "Photo Not Submitted",
         "submittedAt": "Submitted At",
         "feeling": "Feeling",
-        "photoSubmitted": "Photo Submitted"
+        "photoSubmitted": "Photo Submitted",
+        "flags": "Flags"
     },
     "appointments": {
         "noUpcoming": "No Upcoming Appointments",

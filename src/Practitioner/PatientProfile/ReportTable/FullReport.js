@@ -29,7 +29,7 @@ const useStyles = makeStyles({
         }
 
     },
-    photo:{
+    photo: {
         width: "100px"
     }
 })
@@ -53,35 +53,37 @@ const FullReport = ({ row }) => {
     return (<Table size="small" aria-label="report-details">
         <TableBody className={classes.body}>
             <TableRow>
-                <TableCell>Medication</TableCell>
+                <TableCell>{t('commonWords.medication')}</TableCell>
                 <TableCell>
-                    {row.medicationWasTaken ? <p>Taken at: {timeTaken}</p> : <p>Not Taken</p>}
-                    <p>{!row.medicationWasTaken && "Reason: Not feeling well"}</p>
-                </TableCell>
+                    {row.medicationWasTaken ? <p>{t('patient.report.confirmation.takenAt')}: {timeTaken}</p> : <p>{t('coordinator.tasksSidebar.notTaken')}</p>}
+                    {!row.medicationWasTaken &&
+                        <>{row.whyMedicationNotTaken ? <p>{t('coordinator.message')}: {row.whyMedicationNotTaken}</p> : <p>
+                            {t('coordinator.sideBar.noReason')}</p>}</>}
+                    </TableCell>
             </TableRow>
-            <TableRow>
-                <TableCell>Symptoms</TableCell>
-                <TableCell> <FullSymptomList list={row.symptoms} /></TableCell>
-            </TableRow>
-            <TableRow>
-                <TableCell>Doing Okay:</TableCell>
-                <TableCell>
-                    <p>{row.doingOkay ? "Yes" : "Need Support"}</p>
-                    {row.doingOkayReason && <p>Reason: {row.doingOkayReason}</p>}
-                </TableCell>
-            </TableRow>
-            <TableRow>
-                <TableCell>Photo:</TableCell>
-                <TableCell>
-                    {!row.photoWasRequired ? <p>{t('report.photoNotNeeded')}</p> : <>{row.photoUrl ? <img className={classes.photo} src={row.photoUrl} /> : <p>Not Submitted</p>}</>}
-                </TableCell>
-            </TableRow>
-            <TableRow>
-                <TableCell>Submitted At:</TableCell>
-                <TableCell>{DateTime.fromISO(row.createdAt).toLocaleString(DateTime.DATETIME_SHORT)}</TableCell>
-            </TableRow>
+                <TableRow>
+                    <TableCell>{t('commonWords.symptoms')}</TableCell>
+                    <TableCell> <FullSymptomList list={row.symptoms} /></TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>{t('patient.report.doingWell')}:</TableCell>
+                    <TableCell>
+                        <p>{row.doingOkay ? "Yes" : "Need Support"}</p>
+                        {row.doingOkayReason && <p>Reason: {row.doingOkayReason}</p>}
+                    </TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>{t('coordinator.patientProfile.photo')}:</TableCell>
+                    <TableCell>
+                        {!row.photoWasRequired ? <p>{t('report.photoNotNeeded')}</p> : <>{row.photoUrl ? <img className={classes.photo} src={row.photoUrl} /> : <p>Not Submitted</p>}</>}
+                    </TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>{t('report.submittedAt')}:</TableCell>
+                    <TableCell>{DateTime.fromISO(row.createdAt).toLocaleString(DateTime.DATETIME_SHORT)}</TableCell>
+                </TableRow>
         </TableBody>
     </Table>)
 }
 
-export default FullReport;
+        export default FullReport;

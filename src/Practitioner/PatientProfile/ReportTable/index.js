@@ -13,20 +13,21 @@ import useStores from '../../../Basics/UseStores';
 import Styles from '../../../Basics/Styles';
 import TablePagination from '@material-ui/core/TablePagination';
 import Row from './ReportPreview';
+import { useTranslation } from 'react-i18next';
 
 const useRowStyles = makeStyles({
     spacing: {
         "& > thead > tr > th:nth-child(2), & > tbody > tr > td:nth-child(2)": {
             width: "100px"
         },
-        "& > thead > tr > th":{
+        "& > thead > tr > th": {
             padding: "1em .5em"
         },
-        "& > thead > tr > th:nth-of-type(1)":{
+        "& > thead > tr > th:nth-of-type(1)": {
             paddingLeft: "1em"
         }
     },
-    table:{
+    table: {
         ...Styles.profileCard,
         overflow: "hidden"
     }
@@ -34,8 +35,9 @@ const useRowStyles = makeStyles({
 
 const CollapsibleTable = observer(() => {
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const rowsPerPage = 10;
     const { patientProfileStore } = useStores();
+    const { t } = useTranslation('translation');
 
     const classes = useRowStyles();
 
@@ -51,11 +53,11 @@ const CollapsibleTable = observer(() => {
                         <Table className={classes.spacing} stickyHeader aria-label="collapsible table">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>Date</TableCell>
-                                    <TableCell>Medication</TableCell>
-                                    <TableCell>Symptoms</TableCell>
-                                    <TableCell >Flags</TableCell>
-                                    <TableCell align="center">Details</TableCell>
+                                    <TableCell>{t('coordinator.patientProfile.date')}</TableCell>
+                                    <TableCell>{t('commonWords.medication')}</TableCell>
+                                    <TableCell>{t('commonWords.symptoms')}</TableCell>
+                                    <TableCell>{t('report.flags')}</TableCell>
+                                    <TableCell align="center">{t('coordinator.patientTableLabels.details')}</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
