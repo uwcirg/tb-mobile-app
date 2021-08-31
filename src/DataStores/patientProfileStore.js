@@ -20,6 +20,7 @@ export default class PatientProfileStore {
         details: {},
         notes: [],
         loaded: false,
+        reportsLoaded: false,
         accessError: false
     }
 
@@ -88,6 +89,7 @@ export default class PatientProfileStore {
             details: {},
             notes: [],
             loaded: false,
+            reportsLoaded: false,
             accessError: false
         }
         this.reportSplice = 10;
@@ -95,6 +97,7 @@ export default class PatientProfileStore {
 
     @action addPatientReports = (reports) => {
         this.selectedPatient.reports = reports;
+        this.selectedPatient.reportsLoaded = true;
     }
 
     @action setPatientSymptomSummary = (symptoms) => {

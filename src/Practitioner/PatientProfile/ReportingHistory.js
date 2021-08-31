@@ -11,8 +11,7 @@ import Colors from '../../Basics/Colors';
 import Styles from '../../Basics/Styles';
 import { useTranslation } from 'react-i18next';
 import NotesView from './NotesView';
-import Grid from '@material-ui/core/Grid';
-import ReportContainer from './ReportContainer';
+import ReportsLoading from './ReportsLoading';
 import NewTableIdea from './NewTableIdea';
 
 const useStyles = makeStyles({
@@ -28,7 +27,7 @@ const useStyles = makeStyles({
         height: "100%"
     },
     reportsHeader: {
-        padding: "1em",
+        padding: "1em 0",
         display: "flex",
         alignItems: "center",
         "& > h2": {
@@ -38,13 +37,11 @@ const useStyles = makeStyles({
     },
     buttonGroup: {
         marginLeft: "auto",
-        marginRight: "1em",
         "& > button.selected": {
             color: "white",
             backgroundColor: Colors.textDarkGray
         }
     }
-
 })
 
 const ReportingHistory = observer(() => {
@@ -59,7 +56,7 @@ const ReportingHistory = observer(() => {
     return (
         <div className={classes.reportingHistoryContainer}>
             <ReportingHistoryLabel setVisible={setVisible} visible={visible} />
-            <div className={classes.reportingHistory}>
+            {patientProfileStore.selectedPatient.reportsLoaded ? <div className={classes.reportingHistory}>
                 {visible === "calendar" && <CalendarTest
                     selectedDay={day}
                     handleChange={handleChange}
@@ -69,27 +66,11 @@ const ReportingHistory = observer(() => {
                 {visible === "reports" && <NewTableIdea />}
                 {visible === "notes" && <NotesView />}
 
-            </div>
+            </div>: <ReportsLoading />}
         </div>
     )
 
 })
-
-const Labels = () => {
-    const { t } = useTranslation('translation');
-    const classes = useStyles();
-
-    return (
-        <ReportContainer>
-            <Typography variant="body1" color="initial">Date</Typography>
-            <Typography className="wide" variant="body1" color="initial">Medication</Typography>
-            <Typography className="wide" variant="body1" color="initial">Symptoms</Typography>
-            {/* <Typography variant="body1" color="initial">Mood</Typography> */}
-            <Typography className="wide" variant="body1" color="initial">Issues</Typography>
-            <Typography className="details" variant="body1" color="initial">More</Typography>
-        </ReportContainer>
-    )
-}
 
 const ReportingHistoryLabel = (props) => {
     const classes = useStyles();

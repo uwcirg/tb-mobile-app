@@ -10,7 +10,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
@@ -25,13 +24,14 @@ import Styles from '../../Basics/Styles';
 import TablePagination from '@material-ui/core/TablePagination';
 
 const useRowStyles = makeStyles({
-    capitalize:{
+    capitalize: {
         textTransform: "capitalize"
     },
     root: {
         '& > *': {
             borderBottom: 'unset',
-            padding: ".5em"
+            padding: ".5em",
+
         }
     },
     time: {
@@ -47,19 +47,23 @@ const useRowStyles = makeStyles({
             margin: 0
         }
     },
-    tags:{
+    tags: {
         boxSizing: "border-box",
-        "& > *":{
+        "& > *": {
             margin: ".25em 0",
             maxWidth: "120px",
             textAlign: "center",
             fontSize: ".8em"
         },
     },
-    spacing:{
-        "& > th:nth-child(2), & > td:nth-child(2)":{
+    spacing: {
+        "& > th:nth-child(2), & > td:nth-child(2)": {
             width: "100px"
         }
+    },
+    table:{
+        ...Styles.profileCard,
+        overflow: "hidden"
     }
 });
 
@@ -89,11 +93,13 @@ function Row(props) {
                     </div>
                 </TableCell>
                 <TableCell className={classes.capitalize}>{row.medicationWasTaken ? t('commonWords.yes') : t('commonWords.no')}</TableCell>
-                <TableCell ><SymptomListPreview list={row.symptoms} /></TableCell>
+                <TableCell >
+                    <SymptomListPreview list={row.symptoms} />
+                </TableCell>
                 <TableCell>
                     <Grid className={classes.tags} container direction="column">
-                        {row.numberOfDaysAfterRequest> 0 && <Tag backgroundColor={Colors.warningRed}>{`${row.numberOfDaysAfterRequest} ${t('patient.report.dayLate', { count: row.numberOfDaysAfterRequest })}`}</Tag>}
-                        <Tag backgroundColor={Colors.green}>Test Submitted</Tag>
+                        {row.numberOfDaysAfterRequest > 0 && <Tag backgroundColor={Colors.warningRed}>{`${row.numberOfDaysAfterRequest} ${t('patient.report.dayLate', { count: row.numberOfDaysAfterRequest })}`}</Tag>}
+                        {row.photoUrl && <Tag backgroundColor={Colors.green}>Photo Submitted</Tag>}
                     </Grid>
                 </TableCell>
                 <TableCell>
@@ -103,43 +109,59 @@ function Row(props) {
                 </TableCell>
             </TableRow>
             <TableRow>
-                <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                <TableCell style={{ padding: 0 }} colSpan={6}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
-                        <Box margin={1}>
-                            <Typography variant="h6" gutterBottom component="div">
-                                @TODO add the body content here
-                            </Typography>
-                            {/* <Table size="small" aria-label="purchases">
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>Date</TableCell>
-                                        <TableCell>Customer</TableCell>
-                                        <TableCell align="right">Amount</TableCell>
-                                        <TableCell align="right">Total price ($)</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {row.history.map((historyRow) => (
-                                        <TableRow key={historyRow.date}>
-                                            <TableCell component="th" scope="row">
-                                                {historyRow.date}
-                                            </TableCell>
-                                            <TableCell>{historyRow.customerId}</TableCell>
-                                            <TableCell align="right">{historyRow.amount}</TableCell>
-                                            <TableCell align="right">
-                                                {Math.round(historyRow.amount * row.price * 100) / 100}
-                                            </TableCell>
-                                        </TableRow>
-                                    ))} 
-                                    <div>Add body here</div>
-                                </TableBody>
-                            </Table> */}
+                        <Box>
+                            <FullReport row={row} />
                         </Box>
                     </Collapse>
                 </TableCell>
             </TableRow>
         </React.Fragment>
     );
+}
+
+const FullSymptomList = (props) => {
+    const { t } = useTranslation('translation');
+    return (<>
+        {props.list.length > 0 ? <div> {props.list.map(each => {
+            return (<p key={each}>{t(`symptoms.${each}.title`)}</p>)
+        })} </div> : <p>{t('coordinator.recentReports.none')}</p>}
+    </>)
+}
+
+const FullReport = ({ row }) => {
+
+    const { t } = useTranslation('translation');
+    const classes = useRowStyles();
+
+    return (<Table size="small" aria-label="report-details">
+        <TableHead>
+            <TableRow>
+                <TableCell>Created At</TableCell>
+                <TableCell>Symptoms</TableCell>
+                <TableCell>Mood</TableCell>
+                <TableCell align="right">Photo</TableCell>
+            </TableRow>
+        </TableHead>
+        <TableBody>
+                <TableRow>
+                    <TableCell component="th" scope="row">
+                        {DateTime.fromISO(row.createdAt).toLocaleString(DateTime.DATETIME_SHORT)}
+                    </TableCell>
+                    <TableCell>
+                        <FullSymptomList list={row.symptoms} />
+                    </TableCell>
+                    <TableCell>
+                        {row.doingOkay ? "Yes" : "No"}
+                    </TableCell>
+                    <TableCell align="right">
+                        {row.photoRequested && "Requested"}
+                        {row.photoUrl && <img style={{width: "100px"}} src={row.photoUrl} />}
+                        </TableCell>
+                </TableRow>
+        </TableBody>
+    </Table>)
 }
 
 const CollapsibleTable = observer(() => {
@@ -156,7 +178,7 @@ const CollapsibleTable = observer(() => {
     return (
         <>
             {patientProfileStore.selectedPatientReports.length > 0 &&
-                <Paper>
+                <Paper className={classes.table}>
                     <TableContainer>
                         <Table stickyHeader aria-label="collapsible table">
                             <TableHead>
