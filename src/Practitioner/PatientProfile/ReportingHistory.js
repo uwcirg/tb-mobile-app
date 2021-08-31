@@ -12,7 +12,7 @@ import Styles from '../../Basics/Styles';
 import { useTranslation } from 'react-i18next';
 import NotesView from './NotesView';
 import ReportsLoading from './ReportsLoading';
-import NewTableIdea from './NewTableIdea';
+import NewTableIdea from './ReportTable';
 
 const useStyles = makeStyles({
     reportingHistoryContainer: {
