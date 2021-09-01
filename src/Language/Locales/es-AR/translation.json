@@ -34,8 +34,8 @@
         "copied": "Copiado",
         "copyExplanation": "Copiar Enlace",
         "archived": "Archivado",
-        "successMessage": "Successfully Updated",
-        "errorMessage": "An error has occured. Please try again later.",
+        "successMessage": "Actualizado Exitosamente",
+        "errorMessage": "Se ha producido un error. Por favor, inténtelo de nuevo más tarde.",
         "atTime": "a las"
     },
     "userTypes": {
@@ -167,13 +167,13 @@
             },
             "contactTracing": {
                 "one": "¿Con cuántas personas vive?",
-                "two": "How many have been tested for TB?",
+                "two": "¿Cuántos se han hecho pruebas para la TB?",
                 "some": "Algunos",
                 "all": "Todos",
                 "none": "Ninguno",
                 "unsure": "No Estoy Seguro",
-                "important": "It is important that everyone you live with gets tested for TB.",
-                "explanation": "Please let us know the status of your household so we can send you more information."
+                "important": "Es importante que todas las personas con las que vive se hagan la prueba de TB.",
+                "explanation": "Por favor, háganos saber el estado de su hogar para que podamos enviarle más información."
             },
             "success": "Finalizando la Configuración de su Cuenta",
             "next": "Siguiente",
@@ -288,7 +288,7 @@
             "missedDays": {
                 "missing": "Reportes Que Faltan",
                 "missing_plural": "Reportes Que Faltan",
-                "missedPhoto": "Submit missed test"
+                "missedPhoto": "Enviar prueba perdida"
             },
             "chatReminder": {
                 "body": "¿Sabías que puedes chatear anónimamente con otros pacientes?",
@@ -320,6 +320,9 @@
             }
         },
         "report": {
+            "dayLate": "día tarde",
+            "dayLate_plural": "días tarde",
+            "late": "Enviado Tarde",
             "next": "Siguiente",
             "title": "Reporte la Medicación de Hoy",
             "medicationTitle": "Por favor reporte la toma de Medicamentos",
@@ -594,7 +597,7 @@
         "daysInTreatment": "Días en Tratamiento",
         "patientProfile": {
             "details":{
-                "progress": "Progress"
+                "progress": "Progreso"
             },
             "adherenceSection": {
                 "reportedTaking": "Reportó Tomando",
@@ -906,21 +909,21 @@
         }
     },
     "householdTesting": {
-        "updated": "Updated",
-        "button": "Update household testing status",
-        "title": "Household testing",
-        "thanks": "Thank you for your input",
-        "recorded": "Your response has been recorded",
-        "reachOut": "Not all of your contacts have been tested yet, please reach out to your treatment assistant for more information and recommendations.",
-        "completed": "Great job ensuring the health of those with whom you live.",
-        "membersTested": "Members tested",
-        "noResponse": "Not yet completed"
+        "updated": "Actualizado",
+        "button": "Actualizar el estado de las pruebas en el hogar",
+        "title": "Pruebas en el hogar",
+        "thanks": "Gracias por sus comentarios",
+        "recorded": "Su respuesta ha sido registrada",
+        "reachOut": "Todavía no se han probado todos sus contactos, comuníquese con su asistente de tratamiento para obtener más información y recomendaciones.",
+        "completed": "Gran trabajo asegurando la salud de aquellos con quienes vives.",
+        "membersTested": "Miembros probados",
+        "noResponse": "Todavía no completado"
     },
     "missedPhotoDetails":{
-        "topBarText": "Missed request",
-        "future": "In the future please submit your test on the day it is requested so we can see your treatment progress.",
-        "requestedOn": "Submitting for the request sent on",
-        "notRequired": "You do not have any missed test requests at this time. Keep up the great work!",
-        "confirmation": "Your photo was submitted, thanks for letting us know how you are doing!"
+        "topBarText": "Solicitud perdida",
+        "future": "En el futuro, envíe su prueba el día en que se solicite para que podamos ver el progreso de su tratamiento.",
+        "requestedOn": "Envío para la solicitud enviada el",
+        "notRequired": "No tiene ninguna solicitud de prueba perdida en este momento. ¡Sigan con el gran trabajo!",
+        "confirmation": "Su foto fue enviada, gracias por hacernos saber cómo estás!"
     }
 }

@@ -16,14 +16,16 @@ import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles({
     body: {
+        "& td p":{
+            margin: 0,
+            padding: 0
+        },
         "& > tr:nth-of-type(odd)": {
             backgroundColor: Colors.lighterGray
         },
         "& > tr > td:first-of-type": {
             fontWeight: "bold",
-            textAlign: "right",
-            verticalAlign: "top",
-            paddingTop: "1em"
+            textAlign: "right"
         },
         "& > tr > td:nth-of-type(2)": {
             paddingLeft: "1em",
@@ -42,6 +44,9 @@ const useStyles = makeStyles({
     },
     fullReportHeader:{
         fontSize: "1.5em"
+    },
+    warningHighlight:{
+        backgroundColor: Colors.calendarRed
     }
 })
 
@@ -76,7 +81,7 @@ const FullReport = ({ row }) => {
                     <TableRow>
                         <TableCell>{t('commonWords.medication')}</TableCell>
                         <TableCell>
-                            {row.medicationWasTaken ? <p>{t('patient.report.confirmation.takenAt')}: {timeTaken}</p> : <p>{t('coordinator.tasksSidebar.notTaken')}</p>}
+                            {row.medicationWasTaken ? <p>{t('patient.report.confirmation.takenAt')}: {timeTaken}</p> : <p className={classes.warningHighlight}>{t('coordinator.tasksSidebar.notTaken')}</p>}
                             {!row.medicationWasTaken &&
                                 <>{row.whyMedicationNotTaken ? <p>{t('coordinator.message')}: {row.whyMedicationNotTaken}</p> : <p>
                                     {t('coordinator.sideBar.noReason')}</p>}</>}
@@ -89,7 +94,7 @@ const FullReport = ({ row }) => {
                     <TableRow>
                         <TableCell>{t('patient.report.doingWell')}:</TableCell>
                         <TableCell>
-                            <p className={classes.capitalize}>{row.doingOkay ? t('commonWords.yes') : t('patient.report.needSupport')}</p>
+                            <p className={classes.capitalize}>{row.doingOkay ? t('commonWords.yes') : <span className={classes.warningHighlight}>{t('patient.report.needSupport')}</span>}</p>
                             {row.doingOkayReason && <p>{t('coordinator.message')}: {row.doingOkayReason}</p>}
                         </TableCell>
                     </TableRow>

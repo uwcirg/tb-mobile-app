@@ -8,7 +8,7 @@ const useStyles = makeStyles({
         padding: "5px 8px",
         textTransform: "uppercase",
         fontSize: ".75em",
-        borderRadius: "5px"
+        borderRadius: "5%"
     }
 })
 

@@ -774,6 +774,7 @@
         "pending": "Pending",
         "photoNotNeeded": "Photo Not Required",
         "missedPhoto": "Photo Not Submitted",
+        "missedPhotoShort": "Missed Photo",
         "submittedAt": "Submitted At",
         "feeling": "Feeling",
         "photoSubmitted": "Photo Submitted",

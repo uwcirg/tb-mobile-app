@@ -65,6 +65,10 @@ const useStyles = makeStyles({
     },
     expand: {
         paddingRight: "1em"
+    },
+    tagTest:{
+        color: Colors.textDarkGray,
+        fontWeight: "bold"
     }
 })
 
@@ -75,6 +79,9 @@ const ReportPreview = ({ row }) => {
     const classes = useStyles();
     const date = DateTime.fromISO(row.date);
     const { t } = useTranslation('translation');
+
+    const needSupport = row.status.moodReport && !row.doingOkay;
+    const missedPhoto = row.photoWasRequired && !row.photoUrl;
 
     return (
         <React.Fragment>
@@ -93,8 +100,10 @@ const ReportPreview = ({ row }) => {
                 </TableCell>
                 <TableCell>
                     <Grid className={classes.tags} container direction="column">
-                        {row.numberOfDaysAfterRequest > 0 && <Tag backgroundColor={Colors.yellow}>{`${row.numberOfDaysAfterRequest} ${t('patient.report.dayLate', { count: row.numberOfDaysAfterRequest })}`}</Tag>}
-                        {row.photoUrl && <Tag backgroundColor={Colors.green}>{t('report.photoSubmitted')}</Tag>}
+                        {row.numberOfDaysAfterRequest > 0 && <Tag className={classes.tagTest} backgroundColor={Colors.timelineYellow}>{`${row.numberOfDaysAfterRequest} ${t('patient.report.dayLate', { count: row.numberOfDaysAfterRequest })}`}</Tag>}
+                        {row.photoUrl && <Tag className={classes.tagTest} backgroundColor={Colors.timelineGreen}>{t('report.photoSubmitted')}</Tag>}
+                        {needSupport && <Tag className={classes.tagTest} backgroundColor={Colors.calendarRed}>{t('dashboard.needsSupport')}</Tag>}
+                        {missedPhoto && <Tag className={classes.tagTest} backgroundColor={Colors.calendarRed}>{t('report.missedPhotoShort')}</Tag>}
                     </Grid>
                 </TableCell>
                 <TableCell className={classes.expand} align="right">
@@ -107,7 +116,6 @@ const ReportPreview = ({ row }) => {
                 <TableCell style={{ padding: 0 }} colSpan={6}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <Box style={{padding: "0 1em"}}>
-                            {/* <Typography className={classes.fullReportHeader} variant="h2">{t('report.for')} {date.toLocaleString(DateTime.DATE_FULL)}</Typography> */}
                             <FullReport row={row} />
                         </Box>
                     </Collapse>
