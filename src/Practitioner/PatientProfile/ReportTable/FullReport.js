@@ -12,11 +12,15 @@ import ImagePopUp from '../../Shared/ImagePopUp';
 import ClickableText from '../../../Basics/ClickableText';
 import ExpandIcon from '@material-ui/icons/AspectRatio';
 import useToggle from '../../../Hooks/useToggle';
-import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles({
     body: {
-        "& td p":{
+        marginBottom: "2em",
+        "& td": {
+            fontSize: "1.1em",
+            padding: ".5em"
+        },
+        "& td p": {
             margin: 0,
             padding: 0
         },
@@ -25,7 +29,8 @@ const useStyles = makeStyles({
         },
         "& > tr > td:first-of-type": {
             fontWeight: "bold",
-            textAlign: "right"
+            textAlign: "right",
+            width: "25%"
         },
         "& > tr > td:nth-of-type(2)": {
             paddingLeft: "1em",
@@ -42,11 +47,21 @@ const useStyles = makeStyles({
     capitalize: {
         textTransform: "capitalize"
     },
-    fullReportHeader:{
-        fontSize: "1.5em"
+    fullReportHeader: {
+        fontSize: "1.5em",
+        width: "100%"
     },
-    warningHighlight:{
-        backgroundColor: Colors.calendarRed
+    highlight: {
+        backgroundColor: Colors.timelineYellow,
+        padding: "5px",
+        borderRadius: "5px",
+        marginBottom: ".5em"
+    },
+    warningHighlight: {
+        backgroundColor: Colors.calendarRed,
+        padding: "5px",
+        borderRadius: "5px",
+        marginBottom: ".5em"
     }
 })
 
@@ -74,14 +89,24 @@ const FullReport = ({ row }) => {
             <Table size="small" aria-label="report-details">
                 <TableBody className={classes.body}>
                     <TableRow>
-                    <TableCell align="left" colSpan={2}>
-                        <Typography className={classes.fullReportHeader} variant="h2">{t('report.for')} {date.toLocaleString(DateTime.DATE_FULL)}</Typography>
+                        <TableCell>
+                            {t('report.for')}
+                        </TableCell>
+                        <TableCell>
+                            {date.toLocaleString(DateTime.DATE_FULL)}
+                        </TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>{t('report.submittedAt')}:</TableCell>
+                        <TableCell>
+                            <p>{DateTime.fromISO(row.createdAt).toLocaleString(DateTime.DATETIME_MED)}</p>
+                            {row.numberOfDaysAfterRequest > 0 && <p><span className={classes.highlight}>{`${row.numberOfDaysAfterRequest} ${t('patient.report.dayLate', { count: row.numberOfDaysAfterRequest })}`}</span></p>}
                         </TableCell>
                     </TableRow>
                     <TableRow>
                         <TableCell>{t('commonWords.medication')}</TableCell>
                         <TableCell>
-                            {row.medicationWasTaken ? <p>{t('patient.report.confirmation.takenAt')}: {timeTaken}</p> : <p className={classes.warningHighlight}>{t('coordinator.tasksSidebar.notTaken')}</p>}
+                            {row.medicationWasTaken ? <p>{t('patient.report.confirmation.takenAt')}: {timeTaken}</p> : <p><span className={classes.warningHighlight}>{t('coordinator.tasksSidebar.notTaken')}</span></p>}
                             {!row.medicationWasTaken &&
                                 <>{row.whyMedicationNotTaken ? <p>{t('coordinator.message')}: {row.whyMedicationNotTaken}</p> : <p>
                                     {t('coordinator.sideBar.noReason')}</p>}</>}
@@ -107,10 +132,6 @@ const FullReport = ({ row }) => {
                                 <ClickableText onClick={toggleExpanded} hideIcon text={<><ExpandIcon className={classes.expandIcon} />{t('coordinator.sideBar.expandPhoto')}</>} />
                             </> : <p>{t('report.missedPhoto')}</p>}</>}
                         </TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell>{t('report.submittedAt')}:</TableCell>
-                        <TableCell>{DateTime.fromISO(row.createdAt).toLocaleString(DateTime.DATETIME_SHORT)}</TableCell>
                     </TableRow>
                 </TableBody>
             </Table>
