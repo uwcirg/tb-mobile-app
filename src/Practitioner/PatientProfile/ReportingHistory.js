@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
@@ -10,7 +10,9 @@ import Typography from '@material-ui/core/Typography';
 import Colors from '../../Basics/Colors';
 import Styles from '../../Basics/Styles';
 import { useTranslation } from 'react-i18next';
-import NotesView from './NotesView'
+import NotesView from './NotesView';
+import ReportsLoading from './ReportsLoading';
+import NewTableIdea from './ReportTable';
 
 const useStyles = makeStyles({
     reportingHistoryContainer: {
@@ -21,10 +23,11 @@ const useStyles = makeStyles({
         }
     },
     reportingHistory: {
-        width: "100%"
+        width: "100%",
+        height: "100%"
     },
     reportsHeader: {
-        padding: ".5em",
+        padding: "1em 0",
         display: "flex",
         alignItems: "center",
         "& > h2": {
@@ -33,12 +36,12 @@ const useStyles = makeStyles({
         }
     },
     buttonGroup: {
+        marginLeft: "auto",
         "& > button.selected": {
             color: "white",
             backgroundColor: Colors.textDarkGray
         }
     }
-
 })
 
 const ReportingHistory = observer(() => {
@@ -53,17 +56,17 @@ const ReportingHistory = observer(() => {
     return (
         <div className={classes.reportingHistoryContainer}>
             <ReportingHistoryLabel setVisible={setVisible} visible={visible} />
-            <div className={classes.reportingHistory}>
+            {patientProfileStore.selectedPatient.reportsLoaded ? <div className={classes.reportingHistory}>
                 {visible === "calendar" && <CalendarTest
                     selectedDay={day}
                     handleChange={handleChange}
                     reports={patientProfileStore.selectedPatient.reports}
                     treatmentStart={patientProfileStore.selectedPatient.details.treatmentStart}
                 />}
-                {visible === "reports" && <ReportsView />}
+                {visible === "reports" && <NewTableIdea />}
                 {visible === "notes" && <NotesView />}
 
-            </div>
+            </div>: <ReportsLoading />}
         </div>
     )
 

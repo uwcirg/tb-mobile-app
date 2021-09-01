@@ -33,7 +33,10 @@
         "copy": "Copiar",
         "copied": "Copiado",
         "copyExplanation": "Copiar Enlace",
-        "archived": "Archivado"
+        "archived": "Archivado",
+        "successMessage": "Actualizado Exitosamente",
+        "errorMessage": "Se ha producido un error. Por favor, inténtelo de nuevo más tarde.",
+        "atTime": "a las"
     },
     "userTypes": {
         "patient": "Paciente",
@@ -61,15 +64,14 @@
         "loadMore": "Cargar más mensajes",
         "yourSite": "Anuncios de la Clínica",
         "search": "Buscar",
-        "moderation":{
+        "moderation": {
             "hideUI": "Esconder",
             "hide": "Ocultar para los pacientes",
             "unhide": "Mostrar el mensaje",
             "isHidden": "Este mensaje fue ocultado para los pacientes.",
             "view": "Ver el Mensaje"
-
         },
-        "creation":{
+        "creation": {
             "errorInfo": "El título debe existir y tener menos de 50 caracteres. El subtítulo debe tener menos de 100 caracteres.",
             "error": "Error Creando La Discusión",
             "fab": "Añadir Una Nueva Discusión",
@@ -107,7 +109,7 @@
         "noon": "mediodía"
     },
     "patient": {
-        "tabNames":{
+        "tabNames": {
             "home": "pantalla inicial",
             "calendar": "Calendario",
             "messaging": "Mensajes",
@@ -165,11 +167,13 @@
             },
             "contactTracing": {
                 "one": "¿Con cuántas personas vive?",
-                "two": "¿Cuántos han completado el control de la tuberculosis?",
+                "two": "¿Cuántos se han hecho pruebas para la TB?",
                 "some": "Algunos",
                 "all": "Todos",
                 "none": "Ninguno",
-                "unsure": "No Estoy Seguro"
+                "unsure": "No Estoy Seguro",
+                "important": "Es importante que todas las personas con las que vive se hagan la prueba de TB.",
+                "explanation": "Por favor, háganos saber el estado de su hogar para que podamos enviarle más información."
             },
             "success": "Finalizando la Configuración de su Cuenta",
             "next": "Siguiente",
@@ -230,7 +234,7 @@
             "options": "Editar o Deshabilitar",
             "reminderEnabled": "Recordatorio Habilitado",
             "reminderDisabled": "Recordatorio Desactivado",
-            "at": "at",
+            "at": "a las",
             "successMessage": "Añadido con Éxito"
         },
         "demo": {
@@ -274,18 +278,19 @@
                 "myLearning": "Aprendizaje"
             },
             "confirmAndSubmit": "Por Favor Confirme y Envíe su Reporte",
-            "helpVideos":{
+            "helpVideos": {
                 "needHelp": "¿Necesita ayuda con la aplicación?",
                 "hide": "Esconder",
                 "seeAll": "Ver Todos Los Vídeos",
                 "collapse": "Esconder Lista",
                 "viewOnInfo": "Siempre puedes ver estos videos en la página de información."
             },
-            "missedDays":{
+            "missedDays": {
                 "missing": "Reportes Que Faltan",
-                "missing_plural": "Reportes Que Faltan"
+                "missing_plural": "Reportes Que Faltan",
+                "missedPhoto": "Enviar prueba perdida"
             },
-            "chatReminder":{
+            "chatReminder": {
                 "body": "¿Sabías que puedes chatear anónimamente con otros pacientes?",
                 "button": "Muéstrame cómo"
             }
@@ -315,6 +320,9 @@
             }
         },
         "report": {
+            "dayLate": "día tarde",
+            "dayLate_plural": "días tarde",
+            "late": "Enviado Tarde",
             "next": "Siguiente",
             "title": "Reporte la Medicación de Hoy",
             "medicationTitle": "Por favor reporte la toma de Medicamentos",
@@ -334,7 +342,7 @@
                 "retakePhoto": "Volver a Tomar la foto",
                 "openCamera": "Abrir la Camara",
                 "how": "¿Cómo hago la prueba? ",
-                "help":{
+                "help": {
                     "remember": "Por favor recuerde ",
                     "wait": "Dejar que la tira reactiva reaccione por 15 minutos.",
                     "straight": "Tome la foto directamente encima de la tira reactiva.",
@@ -345,7 +353,6 @@
                 "unable": "¿No puedes enviar una foto? Dinos por qué.",
                 "whyUnable": "¿Por qué no puedes enviar una foto?",
                 "back": "Regresar al paso anterior"
-
             },
             "symptoms": {
                 "nauseaRating": "¿Que severa es su náusea?",
@@ -365,14 +372,13 @@
                 "notTaken": "No lo tomé porque",
                 "review": "Revisar la foto"
             },
-            "offline":{
+            "offline": {
                 "report": "reportes completados sin conexión",
                 "report_plural": "reportes completados sin conexión",
                 "allDone": "Hemos recibido todos los reportes que completó sin conexión",
                 "youHave": "Usted tiene",
                 "explanation": "Se cargarán cuando tenga conexión a Internet",
                 "uploading": "Subiendo los reportes que completó sin conexión"
-
             },
             "photoUploading": "Tu foto se está subiendo.",
             "photoUploadError": "Hubo un problema al subir su reporte. Inténtelo de nuevo o póngase en contacto con su asistente de tratamiento."
@@ -393,14 +399,13 @@
             "upcoming": "Próximos",
             "calendar": "Calendario de Reportes",
             "submissionLimit": "Durante las primeras dos semanas del tratamiento podrá completar los reportes de los días que no los haya enviado.\nA partir de las dos semanas, si algún día no envía un reporte solo podrá completar y enviar los reportes de los últimos 3 días. ",
-            "calendarKey":{
+            "calendarKey": {
                 "button": "Qué significan estos colores",
                 "description": "Este es el calendario, donde puede revisar sus reportes. Los colores representan lo siguiente:",
                 "good": "Todas las partes enviadas.",
                 "missed": "No se envió el reporte. Si Ud no envió algún reporte puede completar los correspondientes a los últimos 3 días.",
                 "notTaken": "Reportó que no tomó la medicación",
                 "symptoms": "Síntomas Reportados"
-
             }
         },
         "addMilestone": {
@@ -434,10 +439,9 @@
                 "messaging": "Página de Mensajes"
             }
         },
-
-        "chatReminder":{
+        "chatReminder": {
             "howTo": "Aquí es cómo",
-            "list":[
+            "list": [
                 "Vaya a la página de mensajes.",
                 "Hacia abajo, seleccione en cualquiera de los discusiones.",
                 "Hable con otros pacientes con TB. Haga preguntas, reciba apoyo, y deje comentarios. Solo su asistente de tratamiento puede ver su nombre."
@@ -508,12 +512,12 @@
     },
     "coordinator": {
         "mobileWarning": "El diseño para móviles está incompleto. Puede ver sus tareas, pero no aprobarlas. El sistema de mensajes está listo.",
-        "priority":{
+        "priority": {
             "high": "Alto",
             "medium": "Mediano",
             "low": "Bajo"
         },
-        "cohortOverview":{
+        "cohortOverview": {
             "title": "Visión General de los Pacientes",
             "high": "Alta prioridad",
             "medium": "prioridad intermedia",
@@ -533,7 +537,6 @@
             "activationCode": "Código de Activación",
             "clickToCopy": "Haga clic para copiar",
             "success": "Copiado exitosamente"
-
         },
         "titles": {
             "myTasks": "Mis Tareas",
@@ -593,19 +596,22 @@
         "false": "Falso",
         "daysInTreatment": "Días en Tratamiento",
         "patientProfile": {
-            "adherenceSection":{
+            "details":{
+                "progress": "Progreso"
+            },
+            "adherenceSection": {
                 "reportedTaking": "Reportó Tomando",
                 "didntTake": "Reportó No Tomando",
                 "didntReport": "Reportes Perdidos",
                 "missedRequest": "Solicitas Pérdidas"
             },
-            "notes":{
+            "notes": {
                 "noneFound": "No Hay Notas",
                 "title": "Título",
                 "detail": "Detalle"
             },
             "accessError": "Esta paciente no existe en su grupo.",
-            "editDetails":{
+            "editDetails": {
                 "success": "La información del paciente fue actualizado.",
                 "title": "Editar Detalles Del Paciente",
                 "newPhone": "Nuevo Número de Teléfono",
@@ -676,7 +682,7 @@
             "notTaken": "No Tomado",
             "noneYet": "No Se Han Enviado Reportes Todavía"
         },
-        "settingsPage":{
+        "settingsPage": {
             "account": "Mi Cuenta",
             "language": "Selección de Idioma",
             "updatePassword": "Actualizar Contraseña",
@@ -685,14 +691,14 @@
             "applicationHelp": "Ayuda Sobre La Aplicación",
             "patientViewExplanation": "Esta es la información que los pacientes pueden ver desde la aplicación móvil."
         },
-        "documents":{
+        "documents": {
             "manual": "Manual de la Aplicación",
             "instructions": "Instrucciones Para La Tira Reactiva"
         }
     },
     "errors": {
         "offline": "no está disponible. Conéctese a Internet para utilizar esta función.",
-        "page":{
+        "page": {
             "header": "Algo anduvo mal.",
             "sorry": "Disculpe",
             "furtherSupport": "Contáctenos Para Obtener Más Ayuda",
@@ -701,7 +707,6 @@
             "reloadStep": "Volver a cargar la página ",
             "loginStep": "Cerrar Su Sesión e Iniciar Una Nueva Sesión",
             "closeStep": "Cierre completamente la aplicación o cierre su navegador"
-
         },
         "login": {
             "badPhone": "No se puede encontrar una cuenta con ese número de teléfono",
@@ -768,7 +773,7 @@
         "feeling": "Sintiendo",
         "photoSubmitted": "Foto Enviada"
     },
-    "appointments":{
+    "appointments": {
         "noUpcoming": "No Hay Visitas Agendadas",
         "typeQuestion": "¿Qué tipo de cita quiere añadir?",
         "selectDate": "Seleccione la fecha y la hora",
@@ -785,20 +790,20 @@
         "showAll": "Mostar Todos",
         "showLess": "Mostar Menos"
     },
-    "update":{
+    "update": {
         "update": "Actualizar",
         "updateAvailable": "Actualización Disponible",
         "alreadyDownloaded": "Ya se ha descargado y se puede utilizar inmediatamente.",
         "clickButton": "Haga clic en el botón de abajo para completar la actualización.",
         "doLater": "Completar Más Tarde"
     },
-    "forcePasswordUpdate":{
+    "forcePasswordUpdate": {
         "temporaryPassword": "Código Temporal",
         "title": "Su contraseña fue restablecida, por favor cree una nueva.",
         "exit": "Completa esto más tarde.",
         "success": "Contraseña Actualizada Exitosamente"
     },
-"treatmentUpdates":{
+    "treatmentUpdates": {
         "0": "Por favor revise las nuevas instrucciones para las tiras reactivas.",
         "3": "La Tuberculosis Pulmonar se contagia cuando una persona enferma al toser, estornudar o al hablar elimina con la tos secreciones que contienen los bacilos que producen la enfermedad. Siempre tratar de toser en lugar bien ventilado, nunca cerrado, si es posible cubrirse la boca y/o utilizar barbijo. ",
         "5": "¿Sabías que puedes chatear con otros pacientes en tratamiento anónimamente?",
@@ -820,94 +825,105 @@
         "70": "Ante cualquier complicación, el personal de salud de su lugar de atención puede controlar el tratamiento. Recordar que la única manera de prevenir en Tuberculosis es CURAR a todos los pacientes. ",
         "80": "Un tratamiento exitoso depende del cumplimiento de todas las tomas de la medicación. Tratar de respetar los horarios.",
         "90": "La mejoría de los síntomas no es lo mismo que curación. Curar significa que hay que continuar habitualmente con un tratamiento 6 meses. Adelante! "
-},
-
-"mayTestStripUpdate":{
-    "title": "Actualización Importante",
-    "subtitle": "Instrucciones para las Nuevas Tiras Reactivas",
-    "body": "Las instrucciones de las tiras reactivas han cambiado, revísalas antes de realizar la siguiente prueba.",
-    "textInstructions": "Instrucciones de Texto",
-    "videoInstructions": "Instrucciones de Video"
-},
-
-"dashboard":{
-    "category": "Categoría",
-    "reported": "Reportado",
-    "requested": "Solicitado",
-    "submitted": "Enviado",
-    "submissions": "Entregos",
-    "percentage": "Porcentaje",
-    "dailyReports": "Reportes Diarios",
-    "percentageOfReports": "Porcentaje de Reportes",
-    "photoReports": "Reportes de Foto",
-    "metric": "métrico",
-    "lessThan": "menos que",
-    "registrationOfPatients": "Registro de pacientes a lo largo del tiempo",
-    "reportsVsRequests": "Reportes Enviados / Número Total de Pacientes Activos",
-    "photosVsRequests": "Fotos Diarias Enviadas / Número Solicitado",
-    "adherenceVis": "Adherencia vs Días en Tratamiento",
-    "skippedPhoto": "Foto Omitida",
-    "needsSupport": "Necesita Apoyo",
-    "sideEffects": "Efectos Secundarios"
-},
-
-"summaries":{
-    "averageAdherence": "Adherencia Promedia",
-    "averagePhotoAdherence": "Adherencia Media de Fotos",
-    "siteSummary": "Resumen de Pacientes Activos",
-    "loading": "Cargando lista de pacientes"
-},
-
-"archive":{
-    "notSelected": "Nada Seleccionado",
-    "warningTitle": "Paciente Archivado",
-    "explanation": "Si el paciente ha completado su tiempo usando la aplicación, complete su último día y haga clic en el botón de abajo para archivarlo. Ya no aparecerán en las listas de tareas, pero se puede ver su perfil desde la pestaña \"Mis Pacientes\"",
-    "appEndField": "Último día usando la aplicación",
-    "warningShort": "Este paciente ha sido archivado y ya no puede mandar reportes.",
-    "warningLong": "Este paciente se ha archivado y ya no aparecerá en sus tareas. Si necesita deshacer esta acción, comuníquese con el personal técnico del estudio para obtener asistencia.",
-    "treatmentOutcome": "Resultado del Tratamiento",
-    "continue": "Continuar con el Perfil del Paciente",
-    "outcomeTypes": {
-        "success": "Éxito",
-        "default": "Abandonado",
-        "withdraw": "Desviado",
-        "lost-to-follow-up": "Perdido de seguimiento",
-        "transferred": "Derivado",
-        "deceased": "Fallecido"
     },
-    "complete": "Completo",
-    "endSurvey": "Encuesta",
-    "patientSide":{
-        "congrats": "¡Felicitaciones por completar con éxito su tratamiento!",
-        "subtitle": "Sabemos que completar el tratamiento no es fácil y que hizo un excelente trabajo. Si tiene alguna pregunta, su asistente estará allí para ayudarlo.",
-        "details": "Ya no necesita mandar reportes, pero puede utilizar los demás recursos de la aplicación.",
-        "survey": "Complete esta encuesta para informarnos sobre su experiencia con la aplicación.",
-        "surveyButton": "Cuéntenos su experiencia",
-        "statusChange": "El estado de su tratamiento ha cambiado y ya no puede reportar. Comuníquese con su asistente para obtener más detalles."
+    "mayTestStripUpdate": {
+        "title": "Actualización Importante",
+        "subtitle": "Instrucciones para las Nuevas Tiras Reactivas",
+        "body": "Las instrucciones de las tiras reactivas han cambiado, revísalas antes de realizar la siguiente prueba.",
+        "textInstructions": "Instrucciones de Texto",
+        "videoInstructions": "Instrucciones de Video"
     },
-    "surveyText": "Por favor envíe este enlace al paciente para que nos cuente su experiencia."
-},
-
-"notificationInstructions":{
-    "steps": {
-        "title": "Cómo activar las notificaciones",
-        "goToSettings": "Vaya a la aplicación de configuración en su teléfono",
-        "clickNotifications": "Haga clic en la configuración de notificaciones",
-        "clickApp": "Haga clic en Asistente",
-        "allowNotifications": "Permitir notificaciones"
+    "dashboard": {
+        "category": "Categoría",
+        "reported": "Reportado",
+        "requested": "Solicitado",
+        "submitted": "Enviado",
+        "submissions": "Entregos",
+        "percentage": "Porcentaje",
+        "dailyReports": "Reportes Diarios",
+        "percentageOfReports": "Porcentaje de Reportes",
+        "photoReports": "Reportes de Foto",
+        "metric": "métrico",
+        "lessThan": "menos que",
+        "registrationOfPatients": "Registro de pacientes a lo largo del tiempo",
+        "reportsVsRequests": "Reportes Enviados / Número Total de Pacientes Activos",
+        "photosVsRequests": "Fotos Diarias Enviadas / Número Solicitado",
+        "adherenceVis": "Adherencia vs Días en Tratamiento",
+        "skippedPhoto": "Foto Omitida",
+        "needsSupport": "Necesita Apoyo",
+        "sideEffects": "Efectos Secundarios"
     },
-    "warning":{
-        "title": "Las notificaciones están desactivadas. ",
-        "subtitle": "De esta manera no podrá recibir:",
-        "medicationReminders": "Recordatorios de Medicamentos",
-        "aptReminders": "Recordatorios de Citas",
-        "msgAlerts": "Nuevos mensajes de su asistente",
-        "button": "Vea las instrucciones para activarlas",
-        "unsupported": "Este aparato no permite notificaciones.",
-        "unsupportedDetails": "No recibirás recordatorios ni notificaciones sobre mensajes nuevos.",
-        "ask": "Permitir"
+    "summaries": {
+        "averageAdherence": "Adherencia Promedia",
+        "averagePhotoAdherence": "Adherencia Media de Fotos",
+        "siteSummary": "Resumen de Pacientes Activos",
+        "loading": "Cargando lista de pacientes"
+    },
+    "archive": {
+        "notSelected": "Nada Seleccionado",
+        "warningTitle": "Paciente Archivado",
+        "explanation": "Si el paciente ha completado su tiempo usando la aplicación, complete su último día y haga clic en el botón de abajo para archivarlo. Ya no aparecerán en las listas de tareas, pero se puede ver su perfil desde la pestaña \"Mis Pacientes\"",
+        "appEndField": "Último día usando la aplicación",
+        "warningShort": "Este paciente ha sido archivado y ya no puede mandar reportes.",
+        "warningLong": "Este paciente se ha archivado y ya no aparecerá en sus tareas. Si necesita deshacer esta acción, comuníquese con el personal técnico del estudio para obtener asistencia.",
+        "treatmentOutcome": "Resultado del Tratamiento",
+        "continue": "Continuar con el Perfil del Paciente",
+        "outcomeTypes": {
+            "success": "Éxito",
+            "default": "Abandonado",
+            "withdraw": "Desviado",
+            "lost-to-follow-up": "Perdido de seguimiento",
+            "transferred": "Derivado",
+            "deceased": "Fallecido"
+        },
+        "complete": "Completo",
+        "endSurvey": "Encuesta",
+        "patientSide": {
+            "congrats": "¡Felicitaciones por completar con éxito su tratamiento!",
+            "subtitle": "Sabemos que completar el tratamiento no es fácil y que hizo un excelente trabajo. Si tiene alguna pregunta, su asistente estará allí para ayudarlo.",
+            "details": "Ya no necesita mandar reportes, pero puede utilizar los demás recursos de la aplicación.",
+            "survey": "Complete esta encuesta para informarnos sobre su experiencia con la aplicación.",
+            "surveyButton": "Cuéntenos su experiencia",
+            "statusChange": "El estado de su tratamiento ha cambiado y ya no puede reportar. Comuníquese con su asistente para obtener más detalles."
+        },
+        "surveyText": "Por favor envíe este enlace al paciente para que nos cuente su experiencia."
+    },
+    "notificationInstructions": {
+        "steps": {
+            "title": "Cómo activar las notificaciones",
+            "goToSettings": "Vaya a la aplicación de configuración en su teléfono",
+            "clickNotifications": "Haga clic en la configuración de notificaciones",
+            "clickApp": "Haga clic en Asistente",
+            "allowNotifications": "Permitir notificaciones"
+        },
+        "warning": {
+            "title": "Las notificaciones están desactivadas. ",
+            "subtitle": "De esta manera no podrá recibir:",
+            "medicationReminders": "Recordatorios de Medicamentos",
+            "aptReminders": "Recordatorios de Citas",
+            "msgAlerts": "Nuevos mensajes de su asistente",
+            "button": "Vea las instrucciones para activarlas",
+            "unsupported": "Este aparato no permite notificaciones.",
+            "unsupportedDetails": "No recibirás recordatorios ni notificaciones sobre mensajes nuevos.",
+            "ask": "Permitir"
+        }
+    },
+    "householdTesting": {
+        "updated": "Actualizado",
+        "button": "Actualizar el estado de las pruebas en el hogar",
+        "title": "Pruebas en el hogar",
+        "thanks": "Gracias por sus comentarios",
+        "recorded": "Su respuesta ha sido registrada",
+        "reachOut": "Todavía no se han probado todos sus contactos, comuníquese con su asistente de tratamiento para obtener más información y recomendaciones.",
+        "completed": "Gran trabajo asegurando la salud de aquellos con quienes vives.",
+        "membersTested": "Miembros probados",
+        "noResponse": "Todavía no completado"
+    },
+    "missedPhotoDetails":{
+        "topBarText": "Solicitud perdida",
+        "future": "En el futuro, envíe su prueba el día en que se solicite para que podamos ver el progreso de su tratamiento.",
+        "requestedOn": "Envío para la solicitud enviada el",
+        "notRequired": "No tiene ninguna solicitud de prueba perdida en este momento. ¡Sigan con el gran trabajo!",
+        "confirmation": "Su foto fue enviada, gracias por hacernos saber cómo estás!"
     }
-}
-
-
 }

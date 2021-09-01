@@ -35,7 +35,8 @@
         "copyExplanation": "Copy link to clipboard",
         "archived": "Archived",
         "successMessage": "Successfully Updated",
-        "errorMessage": "An error has occured. Please try again later."
+        "errorMessage": "An error has occured. Please try again later.",
+        "atTime": "a las"
     },
     "userTypes": {
         "patient": "Patient",
@@ -319,6 +320,9 @@
             }
         },
         "report": {
+            "dayLate": "day late",
+            "dayLate_plural": "days late",
+            "late": "Submitted Late",
             "next": "Next",
             "title": "Log Today's Medication",
             "medicationTitle": "Please Log Your Medication",
@@ -770,9 +774,11 @@
         "pending": "Pending",
         "photoNotNeeded": "Photo Not Required",
         "missedPhoto": "Photo Not Submitted",
+        "missedPhotoShort": "Missed Photo",
         "submittedAt": "Submitted At",
         "feeling": "Feeling",
-        "photoSubmitted": "Photo Submitted"
+        "photoSubmitted": "Photo Submitted",
+        "flags": "Flags"
     },
     "appointments": {
         "noUpcoming": "No Upcoming Appointments",

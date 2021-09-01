@@ -17,15 +17,15 @@ const useStyles = makeStyles({
         position: "relative"
     },
     warning: {
-        position: "absolute",
-        left: "-1.5em",
+        // position: "absolute",
+        // left: "-1.5em",
         fontSize: "1em"
     }
 })
 
 const Symptom = (props) => {
     const { string } = props;
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
     const classes = useStyles();
 
     const isSevere = SevereSymptoms.includes(string);

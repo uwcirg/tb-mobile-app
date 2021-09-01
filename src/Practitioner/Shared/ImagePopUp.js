@@ -6,7 +6,8 @@ import PopOver from './PopOver'
 
 const useStyles = makeStyles({
   image:{
-      height: "80vh"
+      height: "80vh",
+      maxWidth: "90vw"
   }
 })
 

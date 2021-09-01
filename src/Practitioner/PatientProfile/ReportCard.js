@@ -4,29 +4,28 @@ import Styles from '../../Basics/Styles';
 import Collapse from '@material-ui/core/Collapse';
 import { DateTime } from 'luxon';
 import IconButton from '@material-ui/core/IconButton'
-import ExpandButton from '@material-ui/icons/KeyboardArrowDown'
-import CollapseButton from '@material-ui/icons/KeyboardArrowUp'
+import ExpandButton from '@material-ui/icons/KeyboardArrowDown';
+import CollapseButton from '@material-ui/icons/KeyboardArrowUp';
+import Tag from '../../Components/Tag';
 
 const useStyles = makeStyles({
     report: {
         ...Styles.profileCard,
         boxSizing: "border-box",
-        width: "95%",
+        width: "100%",
         backgroundColor: "white",
-        marginBottom: "1em",
-        marginLeft: ".5em",
+        marginBottom: ".75em",
         "& > .preview": {
-            minHeight: "85px",
             transition: "all 2s ease",
             display: "flex",
-            padding: ".5em 1em .5em 1em",
+            padding: ".75em",
             alignItems: "center",
             "& > button.expand": {
                 marginLeft: "auto",
             },
             "& > .time": {
                 height: "auto",
-                marginRight: "1em",
+                padding: "0 1em",
                 ...Styles.flexColumn,
                 justifyContent: "center",
                 alignItems: "center",
@@ -44,9 +43,8 @@ const useStyles = makeStyles({
     },
     mainReportContent: {
         display: "flex",
-        marginLeft: "2em",
+        flexGrow: "1",
         "& > div.section": {
-
             marginLeft: "1em",
             paddingRight: "1em",
             borderRight: "solid 1px gray"
@@ -54,20 +52,9 @@ const useStyles = makeStyles({
         "& > div.section:last-of-type": {
             borderRight: "none"
         },
-    },
-    tag: {
-        backgroundColor: props => props.backgroundColor,
-        padding: "5px",
-        textTransform: "uppercase",
-        letterSpacing: "1.15px",
-        fontSize: ".75em"
     }
 })
 
-const Tag = (props) => {
-    const classes = useStyles(props);
-    return <span className={classes.tag}>{props.children}</span>
-}
 
 const ReportCard = (props) => {
     const [expanded, setExpanded] = useState(false);

@@ -10,9 +10,9 @@ const useStyles = makeStyles({
         fontSize: ".875em",
         letterSpacing: ".15px",
         color: Colors.textDarkGray,
+        // minWidth: props => props.type === "symptoms-preview" && "160px",
         "& > span": {
             fontWeight: "bold",
-            textTransform: "capitalize",
             "& > svg": {
                 fontSize: '4em'
             }
@@ -33,7 +33,7 @@ const ReportItem = (props) => {
     const classes = useStyles(props);
     return (
         <div className={`section ${classes.reportItem}`}>
-            <p>{props.title}</p>
+            {/* <p>{props.title}</p> */}
             <span>{props.content}</span>
         </div>
     )
