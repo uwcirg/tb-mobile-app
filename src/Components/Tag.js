@@ -14,7 +14,7 @@ const useStyles = makeStyles({
 
 const Tag = (props) => {
     const classes = useStyles(props);
-    return <Typography className={`${classes.tag} ${props.className}`}>{props.children}</Typography>
+    return <Typography component={"span"} className={`${classes.tag} ${props.className}`}>{props.children}</Typography>
 }
 
 export default Tag;

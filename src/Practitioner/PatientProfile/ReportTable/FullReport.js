@@ -12,6 +12,8 @@ import ImagePopUp from '../../Shared/ImagePopUp';
 import ClickableText from '../../../Basics/ClickableText';
 import ExpandIcon from '@material-ui/icons/AspectRatio';
 import useToggle from '../../../Hooks/useToggle';
+import PhotoStatus from '../../../Components/PhotoStatus';
+import { IconButton } from '@material-ui/core';
 
 const useStyles = makeStyles({
     body: {
@@ -42,7 +44,7 @@ const useStyles = makeStyles({
 
     },
     photo: {
-        width: "100px"
+        height: "200px"
     },
     capitalize: {
         textTransform: "capitalize"
@@ -62,6 +64,10 @@ const useStyles = makeStyles({
         padding: "5px",
         borderRadius: "5px",
         marginBottom: ".5em"
+    },
+    photoArea: {
+        display: "flex",
+        alignItems: "flex-start"
     }
 })
 
@@ -126,11 +132,16 @@ const FullReport = ({ row }) => {
                     <TableRow>
                         <TableCell>{t('coordinator.patientProfile.photo')}:</TableCell>
                         <TableCell>
-                            {!row.photoWasRequired ? <p>{t('report.photoNotNeeded')}</p> : <>{row.photoUrl ? <>
-                                <img className={classes.photo} src={row.photoUrl} />
-                                <br />
-                                <ClickableText onClick={toggleExpanded} hideIcon text={<><ExpandIcon className={classes.expandIcon} />{t('coordinator.sideBar.expandPhoto')}</>} />
-                            </> : <p>{t('report.missedPhoto')}</p>}</>}
+                            {!row.photoWasRequired ? <p>{t('report.photoNotNeeded')}</p> : <>{row.photoUrl ? <div className={classes.photoArea}>
+                                <div>
+                                    <img className={classes.photo} src={row.photoUrl} />
+                                    <IconButton onClick={toggleExpanded}>
+                                        <ExpandIcon className={classes.expandIcon} />
+                                    </IconButton>
+                                </div>
+
+                                <PhotoStatus conclusive={row.photoDetails && row.photoDetails.approvalStatus} />
+                            </div> : <p>{t('report.missedPhoto')}</p>}</>}
                         </TableCell>
                     </TableRow>
                 </TableBody>

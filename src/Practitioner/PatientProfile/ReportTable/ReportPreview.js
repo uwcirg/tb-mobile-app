@@ -16,15 +16,12 @@ import Styles from '../../../Basics/Styles';
 import FullReport from './FullReport';
 import Check from '@material-ui/icons/Check';
 import Clear from '@material-ui/icons/Clear';
-import { Typography } from '@material-ui/core';
-
 
 const useStyles = makeStyles({
     root: {
         '& > *': {
             borderBottom: 'unset',
             padding: ".5em",
-
         }
     },
     time: {
@@ -71,7 +68,6 @@ const useStyles = makeStyles({
         fontWeight: "bold"
     }
 })
-
 
 const ReportPreview = ({ row }) => {
 
