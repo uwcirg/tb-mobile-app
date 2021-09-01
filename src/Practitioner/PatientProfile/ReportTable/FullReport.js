@@ -9,11 +9,12 @@ import { DateTime } from 'luxon';
 import Symptom from '../../Shared/Symptom';
 import Colors from '../../../Basics/Colors';
 import ImagePopUp from '../../Shared/ImagePopUp';
-import ClickableText from '../../../Basics/ClickableText';
 import ExpandIcon from '@material-ui/icons/AspectRatio';
 import useToggle from '../../../Hooks/useToggle';
 import PhotoStatus from '../../../Components/PhotoStatus';
 import { IconButton } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import Tag from './ReportTag';
 
 const useStyles = makeStyles({
     body: {
@@ -23,8 +24,7 @@ const useStyles = makeStyles({
             padding: ".5em"
         },
         "& td p": {
-            margin: 0,
-            padding: 0
+            margin: ".5em 0"
         },
         "& > tr:nth-of-type(odd)": {
             backgroundColor: Colors.lighterGray
@@ -68,8 +68,15 @@ const useStyles = makeStyles({
     photoArea: {
         display: "flex",
         alignItems: "flex-start"
+    },
+    photoExpand:{
+        padding: 0,
+        borderRadius: "none",
+        marginLeft: "1em"
     }
 })
+
+const DATETIME_FORMAT = { day: "numeric", month: "long", year: "numeric", hour: "numeric", minute: "numeric" };
 
 const FullSymptomList = (props) => {
 
@@ -85,27 +92,24 @@ const FullSymptomList = (props) => {
 const FullReport = ({ row }) => {
 
     const { t } = useTranslation('translation');
-    const [expand, toggleExpanded] = useToggle(false);
     const classes = useStyles();
     const date = DateTime.fromISO(row.date);
     const timeTaken = DateTime.fromISO(row.takenAt).toLocaleString(DateTime.TIME_SIMPLE)
 
-    return (
-        <>
-            <Table size="small" aria-label="report-details">
+    return (<Table size="small" aria-label="report-details">
                 <TableBody className={classes.body}>
                     <TableRow>
                         <TableCell>
                             {t('report.for')}
                         </TableCell>
                         <TableCell>
-                            {date.toLocaleString(DateTime.DATE_FULL)}
+                            <p>{date.toLocaleString(DateTime.DATE_FULL)}</p>
                         </TableCell>
                     </TableRow>
                     <TableRow>
                         <TableCell>{t('report.submittedAt')}:</TableCell>
                         <TableCell>
-                            <p>{DateTime.fromISO(row.createdAt).toLocaleString(DateTime.DATETIME_MED)}</p>
+                            <p>{DateTime.fromISO(row.createdAt).toLocaleString(DATETIME_FORMAT)}</p>
                             {row.numberOfDaysAfterRequest > 0 && <p><span className={classes.highlight}>{`${row.numberOfDaysAfterRequest} ${t('patient.report.dayLate', { count: row.numberOfDaysAfterRequest })}`}</span></p>}
                         </TableCell>
                     </TableRow>
@@ -132,23 +136,37 @@ const FullReport = ({ row }) => {
                     <TableRow>
                         <TableCell>{t('coordinator.patientProfile.photo')}:</TableCell>
                         <TableCell>
-                            {!row.photoWasRequired ? <p>{t('report.photoNotNeeded')}</p> : <>{row.photoUrl ? <div className={classes.photoArea}>
-                                <div>
-                                    <img className={classes.photo} src={row.photoUrl} />
-                                    <IconButton onClick={toggleExpanded}>
-                                        <ExpandIcon className={classes.expandIcon} />
-                                    </IconButton>
-                                </div>
-
-                                <PhotoStatus conclusive={row.photoDetails && row.photoDetails.approvalStatus} />
-                            </div> : <p>{t('report.missedPhoto')}</p>}</>}
+                            <PhotoRow row={row} />
                         </TableCell>
                     </TableRow>
                 </TableBody>
-            </Table>
-            {expand && <ImagePopUp close={toggleExpanded} imageSrc={row.photoUrl} />}
+            </Table>)
+}
+
+const PhotoRow = ({ row }) => {
+    
+    const { t } = useTranslation('translation');
+    const classes = useStyles();
+    const [expand, toggleExpanded] = useToggle(false);
+
+    return (<>
+        {!row.photoWasRequired ? <p>{t('report.photoNotNeeded')}</p> : <>{row.photoUrl ? <>
+            <div className={classes.photoArea}>
+                <div>
+                    <img className={classes.photo} src={row.photoUrl} />
+                    <Grid alignItems="flex-start" container>
+                        <PhotoStatus conclusive={row.photoDetails && row.photoDetails.approvalStatus} />
+                        <IconButton className={classes.photoExpand} onClick={toggleExpanded}>
+                            <ExpandIcon className={classes.expandIcon} />
+                        </IconButton>
+                    </Grid>
+                </div>
+            </div>
+            {row.photoDetails.createdAt && <p>{t('report.submittedAt')}: {DateTime.fromISO(row.photoDetails.createdAt).toLocaleString(DATETIME_FORMAT)}</p>}
         </>
-    )
+            : <p><span className={classes.warningHighlight}>{t('report.missedPhoto')}</span></p>}</>}
+             {expand && <ImagePopUp close={toggleExpanded} imageSrc={row.photoUrl} />}
+    </>)
 }
 
 export default FullReport;

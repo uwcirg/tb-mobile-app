@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Colors from '../Basics/Colors';
-import Tag from '../Components/Tag';
+import Tag from '../Practitioner/PatientProfile/ReportTable/ReportTag';
 
 const useStyles = makeStyles({
     body: {
@@ -36,7 +36,7 @@ const PhotoStatus = ({ conclusive = null }) => {
     }
 
     return (
-        <Tag className={classes.body} backgroundColor={getColor(conclusive)}>{text}</Tag>
+        <Tag backgroundColor={getColor(conclusive)}>{text}</Tag>
     )
 
 }

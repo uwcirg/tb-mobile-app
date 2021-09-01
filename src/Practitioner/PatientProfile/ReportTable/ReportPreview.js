@@ -10,7 +10,7 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { useTranslation } from 'react-i18next';
 import Colors from '../../../Basics/Colors';
 import { DateTime } from 'luxon';
-import Tag from '../../../Components/Tag';
+import Tag from './ReportTag';
 import Grid from '@material-ui/core/Grid';
 import Styles from '../../../Basics/Styles';
 import FullReport from './FullReport';
@@ -38,16 +38,6 @@ const useStyles = makeStyles({
             margin: 0
         }
     },
-    tags: {
-        boxSizing: "border-box",
-        "& > *": {
-            margin: ".25em 0",
-            maxWidth: "120px",
-            textAlign: "center",
-            fontSize: ".8em",
-            color: "white"
-        },
-    },
     capitalize: {
         textTransform: "capitalize"
     },
@@ -62,10 +52,6 @@ const useStyles = makeStyles({
     },
     expand: {
         paddingRight: "1em"
-    },
-    tagTest:{
-        color: Colors.textDarkGray,
-        fontWeight: "bold"
     }
 })
 
@@ -96,10 +82,10 @@ const ReportPreview = ({ row }) => {
                 </TableCell>
                 <TableCell>
                     <Grid className={classes.tags} container direction="column">
-                        {row.numberOfDaysAfterRequest > 0 && <Tag className={classes.tagTest} backgroundColor={Colors.timelineYellow}>{`${row.numberOfDaysAfterRequest} ${t('patient.report.dayLate', { count: row.numberOfDaysAfterRequest })}`}</Tag>}
-                        {row.photoUrl && <Tag className={classes.tagTest} backgroundColor={Colors.timelineGreen}>{t('report.photoSubmitted')}</Tag>}
-                        {needSupport && <Tag className={classes.tagTest} backgroundColor={Colors.calendarRed}>{t('dashboard.needsSupport')}</Tag>}
-                        {missedPhoto && <Tag className={classes.tagTest} backgroundColor={Colors.calendarRed}>{t('report.missedPhotoShort')}</Tag>}
+                        {row.numberOfDaysAfterRequest > 0 && <Tag backgroundColor={Colors.timelineYellow}>{`${row.numberOfDaysAfterRequest} ${t('patient.report.dayLate', { count: row.numberOfDaysAfterRequest })}`}</Tag>}
+                        {row.photoUrl && <Tag backgroundColor={Colors.timelineGreen}>{t('report.photoSubmitted')}</Tag>}
+                        {needSupport && <Tag backgroundColor={Colors.calendarRed}>{t('dashboard.needsSupport')}</Tag>}
+                        {missedPhoto && <Tag backgroundColor={Colors.calendarRed}>{t('report.missedPhotoShort')}</Tag>}
                     </Grid>
                 </TableCell>
                 <TableCell className={classes.expand} align="right">
