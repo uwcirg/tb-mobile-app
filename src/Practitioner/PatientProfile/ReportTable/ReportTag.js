@@ -18,7 +18,7 @@ const ReportTag = (props) => {
 
     const classes = useStyles();
 
-    return(<Tag className={classes.tag} {...props} />)
+    return(<Tag {...props} className={`${classes.tag} ${props.className}`} />)
 
 }
 

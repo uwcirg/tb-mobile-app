@@ -16,6 +16,7 @@ import { IconButton } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Tag from './ReportTag';
 
+
 const useStyles = makeStyles({
     body: {
         marginBottom: "2em",
@@ -69,9 +70,12 @@ const useStyles = makeStyles({
         display: "flex",
         alignItems: "flex-start"
     },
-    photoExpand:{
+    photoExpand: {
         padding: 0,
         borderRadius: "none",
+        marginLeft: "1em"
+    },
+    photoLateTag:{
         marginLeft: "1em"
     }
 })
@@ -97,54 +101,54 @@ const FullReport = ({ row }) => {
     const timeTaken = DateTime.fromISO(row.takenAt).toLocaleString(DateTime.TIME_SIMPLE)
 
     return (<Table size="small" aria-label="report-details">
-                <TableBody className={classes.body}>
-                    <TableRow>
-                        <TableCell>
-                            {t('report.for')}
-                        </TableCell>
-                        <TableCell>
-                            <p>{date.toLocaleString(DateTime.DATE_FULL)}</p>
-                        </TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell>{t('report.submittedAt')}:</TableCell>
-                        <TableCell>
-                            <p>{DateTime.fromISO(row.createdAt).toLocaleString(DATETIME_FORMAT)}</p>
-                            {row.numberOfDaysAfterRequest > 0 && <p><span className={classes.highlight}>{`${row.numberOfDaysAfterRequest} ${t('patient.report.dayLate', { count: row.numberOfDaysAfterRequest })}`}</span></p>}
-                        </TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell>{t('commonWords.medication')}</TableCell>
-                        <TableCell>
-                            {row.medicationWasTaken ? <p>{t('patient.report.confirmation.takenAt')}: {timeTaken}</p> : <p><span className={classes.warningHighlight}>{t('coordinator.tasksSidebar.notTaken')}</span></p>}
-                            {!row.medicationWasTaken &&
-                                <>{row.whyMedicationNotTaken ? <p>{t('coordinator.message')}: {row.whyMedicationNotTaken}</p> : <p>
-                                    {t('coordinator.sideBar.noReason')}</p>}</>}
-                        </TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell>{t('commonWords.symptoms')}</TableCell>
-                        <TableCell> <FullSymptomList list={row.symptoms} /></TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell>{t('patient.report.doingWell')}:</TableCell>
-                        <TableCell>
-                            <p className={classes.capitalize}>{row.doingOkay ? t('commonWords.yes') : <span className={classes.warningHighlight}>{t('patient.report.needSupport')}</span>}</p>
-                            {row.doingOkayReason && <p>{t('coordinator.message')}: {row.doingOkayReason}</p>}
-                        </TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell>{t('coordinator.patientProfile.photo')}:</TableCell>
-                        <TableCell>
-                            <PhotoRow row={row} />
-                        </TableCell>
-                    </TableRow>
-                </TableBody>
-            </Table>)
+        <TableBody className={classes.body}>
+            <TableRow>
+                <TableCell>
+                    {t('report.for')}
+                </TableCell>
+                <TableCell>
+                    <p>{date.toLocaleString(DateTime.DATE_FULL)}</p>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell>{t('report.submittedAt')}:</TableCell>
+                <TableCell>
+                    <p>{DateTime.fromISO(row.createdAt).toLocaleString(DATETIME_FORMAT)}</p>
+                    {row.numberOfDaysAfterRequest > 0 && <p><span className={classes.highlight}>{`${row.numberOfDaysAfterRequest} ${t('patient.report.dayLate', { count: row.numberOfDaysAfterRequest })}`}</span></p>}
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell>{t('commonWords.medication')}</TableCell>
+                <TableCell>
+                    {row.medicationWasTaken ? <p>{t('patient.report.confirmation.takenAt')}: {timeTaken}</p> : <p><span className={classes.warningHighlight}>{t('coordinator.tasksSidebar.notTaken')}</span></p>}
+                    {!row.medicationWasTaken &&
+                        <>{row.whyMedicationNotTaken ? <p>{t('coordinator.message')}: {row.whyMedicationNotTaken}</p> : <p>
+                            {t('coordinator.sideBar.noReason')}</p>}</>}
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell>{t('commonWords.symptoms')}</TableCell>
+                <TableCell> <FullSymptomList list={row.symptoms} /></TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell>{t('patient.report.doingWell')}:</TableCell>
+                <TableCell>
+                    <p className={classes.capitalize}>{row.doingOkay ? t('commonWords.yes') : <span className={classes.warningHighlight}>{t('patient.report.needSupport')}</span>}</p>
+                    {row.doingOkayReason && <p>{t('coordinator.message')}: {row.doingOkayReason}</p>}
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell>{t('coordinator.patientProfile.photo')}:</TableCell>
+                <TableCell>
+                    <PhotoRow row={row} />
+                </TableCell>
+            </TableRow>
+        </TableBody>
+    </Table>)
 }
 
 const PhotoRow = ({ row }) => {
-    
+
     const { t } = useTranslation('translation');
     const classes = useStyles();
     const [expand, toggleExpanded] = useToggle(false);
@@ -162,10 +166,16 @@ const PhotoRow = ({ row }) => {
                     </Grid>
                 </div>
             </div>
-            {row.photoDetails.createdAt && <p>{t('report.submittedAt')}: {DateTime.fromISO(row.photoDetails.createdAt).toLocaleString(DATETIME_FORMAT)}</p>}
+            {row.photoDetails.createdAt && <Grid alignItems="center" container>
+                <p>{t('report.submittedAt')}: {DateTime.fromISO(row.photoDetails.createdAt).toLocaleString(DATETIME_FORMAT)}</p>
+                {row.photoDetails.backSubmission && <Tag className={classes.photoLateTag} backgroundColor={Colors.highlightYellow}>{t('patient.report.late')}</Tag>}
+            </Grid>}
         </>
-            : <p><span className={classes.warningHighlight}>{t('report.missedPhoto')}</span></p>}</>}
-             {expand && <ImagePopUp close={toggleExpanded} imageSrc={row.photoUrl} />}
+            : <>
+            <p><span className={classes.warningHighlight}>{t('report.missedPhoto')}</span></p>
+            <p> {row.whyPhotoWasSkipped ? <>{t('coordinator.message')}: {row.whyPhotoWasSkipped}</> : t('coordinator.sideBar.noReason') }</p>
+            </>}</>}
+        {expand && <ImagePopUp close={toggleExpanded} imageSrc={row.photoUrl} />}
     </>)
 }
 
