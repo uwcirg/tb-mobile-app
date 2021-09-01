@@ -7,6 +7,7 @@ import ContactTracingCard from './HouseholdTestingCard';
 import WarningIcon from '@material-ui/icons/Warning';
 import MissedReports from './MissedReports';
 import MissedPhoto from './MissedPhoto';
+import SurveyCard from './SurveyCard';
 
 const RequiresAction = observer(() => {
 
@@ -16,10 +17,12 @@ const RequiresAction = observer(() => {
     const shouldShowContactTracing = patientStore.contactTracingNeeded;
     const shouldShowMissedReports = patientStore.missingReports.length > 0;
     const shouldRender = !uiStore.offline && (shouldShowMissedReports || shouldShowContactTracing || shouldShowMissedPhoto);
+    
 
     return (
         <>
             {shouldRender && <HomePageSectionContainer upperText={<><WarningIcon />{t('patient.home.cardTitles.actionNeeded')}</>}>
+                <SurveyCard />
                 {shouldShowMissedPhoto && <MissedPhoto />}
                 {shouldShowMissedReports && <MissedReports />}
                 {shouldShowContactTracing && <ContactTracingCard />}
