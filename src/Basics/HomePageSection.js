@@ -18,7 +18,7 @@ const HomePageSection = (props) => {
     return (<HomePageSectionContainer upperText={props.upperText}>
         <HomePageCard {...props} />
         {props.hideCard && <div className={classes.bottomText} onClick={props.hideCard}>
-            <span>{t('commonWords.hideThis')}</span>
+            <span>{props.hideText}{t('commonWords.hideThis')}</span>
             <HideIcon style={{ fontSize: "1.25em", marginLeft: ".5em" }} />
         </div>}
     </HomePageSectionContainer>)

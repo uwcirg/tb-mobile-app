@@ -56,7 +56,7 @@ const CollapsibleTable = observer(() => {
                                     <TableCell>{t('coordinator.patientProfile.date')}</TableCell>
                                     <TableCell>{t('commonWords.medication')}</TableCell>
                                     <TableCell>{t('commonWords.symptoms')}</TableCell>
-                                    <TableCell>{t('report.flags')}</TableCell>
+                                    <TableCell>{t('patient.report.important')}</TableCell>
                                     <TableCell align="center">{t('coordinator.patientTableLabels.details')}</TableCell>
                                 </TableRow>
                             </TableHead>
@@ -81,6 +81,8 @@ const CollapsibleTable = observer(() => {
 });
 
 export default CollapsibleTable;
+
+// @TODO: Could be nice to have proptypes for this component 
 
 // Row.propTypes = {
 //     row: PropTypes.shape({

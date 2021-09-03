@@ -10,8 +10,8 @@ import WarningOutlined from '@material-ui/icons/ReportProblemRounded';
 import Grow from '@material-ui/core/Collapse';
 import { DateTime } from 'luxon';
 import MissedReportInfo from '../../Progress/MissedReportCriteria';
-import useToggle from '../../../Hooks/useToggle';
 import MissedActionCard from './MissedActionCard';
+import useToggle from '../../../Hooks/useToggle';
 import ButtonLayout from './ButtonLayout';
 
 const useStyles = makeStyles({
