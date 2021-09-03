@@ -19,6 +19,8 @@ import TestIcon from '@material-ui/icons/FormatColorFill'
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 import TrackChangesIcon from '@material-ui/icons/TrackChanges';
 
+import ListAltIcon from '@material-ui/icons/ListAlt';
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import PlayIcon from '@material-ui/icons/PlayCircleOutline';
 import HomeIcon from '@material-ui/icons/Home'
 import ChatIcon from '@material-ui/icons/QuestionAnswer';
@@ -34,9 +36,12 @@ import { observer } from 'mobx-react'
 import NotificationInstructions from './NotificationInstructions';
 import usePushEnabled from '../../Hooks/PushEnabled';
 
+import NewButton from '../../Basics/NewButton';
+
 const file = raw("./information.md");
 
 const TCButton = (props) => {
+
     const classes = useStyles();
     const { patientUIStore } = useStores();
 
@@ -52,10 +57,11 @@ const TCButton = (props) => {
 }
 
 const Info = observer(() => {
+
     const { t } = useTranslation('translation');
     const classes = useStyles();
     const { patientUIStore, patientStore } = useStores();
-    
+    const surveyLink = window._env.REDCAP_EOT_SURVEY_LINK || "";
     const pushEnabledState = usePushEnabled();
     const surveyAvailable = patientStore.patientInformation.weeksInTreatment >= 20;
 
@@ -67,6 +73,9 @@ const Info = observer(() => {
             <Section title={<><LiveHelpIcon />{t('patient.information.helpSection')}</>}>
                 <HelpSection />
             </Section>
+            {surveyAvailable && <Section title={<><ListAltIcon />{t('archive.patientSide.surveyButton')}</>}>
+                <NewButton href={surveyLink} icon={<ListAltIcon />} text={t('appSurvey.goToSurvey')} />
+            </Section>}
             <Section title={<><VideoIcon />{t('patient.information.videos')}</>}>
                 <Videos />
             </Section>
