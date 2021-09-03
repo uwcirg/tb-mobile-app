@@ -19,6 +19,8 @@ import TestIcon from '@material-ui/icons/FormatColorFill'
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 import TrackChangesIcon from '@material-ui/icons/TrackChanges';
 
+import Typography from '@material-ui/core/Typography';
+
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import PlayIcon from '@material-ui/icons/PlayCircleOutline';
@@ -74,7 +76,10 @@ const Info = observer(() => {
                 <HelpSection />
             </Section>
             {surveyAvailable && <Section title={<><ListAltIcon />{t('archive.patientSide.surveyButton')}</>}>
-                <NewButton href={surveyLink} icon={<ListAltIcon />} text={t('appSurvey.goToSurvey')} />
+                <div className={classes.survey}>
+                    <Typography variant="body1">{t('archive.patientSide.survey')}</Typography>
+                    <NewButton href={surveyLink} icon={<ListAltIcon />} text={t('appSurvey.goToSurvey')} />
+                </div>
             </Section>}
             <Section title={<><VideoIcon />{t('patient.information.videos')}</>}>
                 <Videos />
@@ -136,6 +141,12 @@ const TreatmentMessages = () => {
 
 //Convert markdown file to expandable cards format
 const useStyles = makeStyles({
+    survey:{
+        padding: "1em",
+        "& > p":{
+            marginBottom: "1em"
+        }
+    },
     container: {
         "& > h1": {
             marginBottom: "1em",
