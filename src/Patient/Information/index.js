@@ -54,8 +54,10 @@ const TCButton = (props) => {
 const Info = observer(() => {
     const { t } = useTranslation('translation');
     const classes = useStyles();
-    const { patientUIStore } = useStores();
+    const { patientUIStore, patientStore } = useStores();
+    
     const pushEnabledState = usePushEnabled();
+    const surveyAvailable = patientStore.patientInformation.weeksInTreatment >= 20;
 
     return (
         <div className={classes.container}>
@@ -63,15 +65,7 @@ const Info = observer(() => {
                 <NotificationInstructions />
             </Section>}
             <Section title={<><LiveHelpIcon />{t('patient.information.helpSection')}</>}>
-                <div className={classes.help}>
-                    <h2>{t('patient.information.walkthrough.title')}</h2>
-                    <TCButton step={0}><><PlayIcon />{t('patient.information.walkthrough.start')}</></TCButton>
-                    <TCButton step={3} ><HomeIcon />{t('patient.information.walkthrough.home')}</TCButton>
-                    <TCButton step={7} ><CalendarIcon />{t('patient.information.walkthrough.calendar')}</TCButton>
-                    <TCButton step={10} ><ChatIcon />{t('patient.information.walkthrough.messaging')}</TCButton>
-                    <h2>{t('patient.information.helpVideos')}</h2>
-                    <HelpVideos />
-                </div>
+                <HelpSection />
             </Section>
             <Section title={<><VideoIcon />{t('patient.information.videos')}</>}>
                 <Videos />
@@ -95,6 +89,23 @@ const Info = observer(() => {
         </div>
     )
 })
+
+const HelpSection = () => {
+    const { t } = useTranslation('translation');
+    const classes = useStyles();
+
+    return (
+        <div className={classes.help}>
+            <h2>{t('patient.information.walkthrough.title')}</h2>
+            <TCButton step={0}><><PlayIcon />{t('patient.information.walkthrough.start')}</></TCButton>
+            <TCButton step={3} ><HomeIcon />{t('patient.information.walkthrough.home')}</TCButton>
+            <TCButton step={7} ><CalendarIcon />{t('patient.information.walkthrough.calendar')}</TCButton>
+            <TCButton step={10} ><ChatIcon />{t('patient.information.walkthrough.messaging')}</TCButton>
+            <h2>{t('patient.information.helpVideos')}</h2>
+            <HelpVideos />
+        </div>
+    )
+}
 
 const TreatmentMessages = () => {
     const classes = useStyles();

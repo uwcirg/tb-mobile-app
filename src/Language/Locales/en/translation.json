@@ -320,6 +320,7 @@
             }
         },
         "report": {
+            "important": "Important",
             "dayLate": "day late",
             "dayLate_plural": "days late",
             "late": "Submitted Late",

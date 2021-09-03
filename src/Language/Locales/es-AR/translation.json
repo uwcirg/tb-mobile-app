@@ -320,6 +320,7 @@
             }
         },
         "report": {
+            "important": "Importante",
             "dayLate": "día tarde",
             "dayLate_plural": "días tarde",
             "late": "Enviado Tarde",
