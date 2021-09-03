@@ -2,7 +2,7 @@ import Colors from "./Colors";
 
 const patientPageTitle = {
     textTransform: "uppercase",
-    marginBottom: "1em",
+    marginBottom: ".5em",
     fontSize: "1em"
 }
 

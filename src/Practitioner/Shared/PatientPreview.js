@@ -7,7 +7,7 @@ import PatientPicture from '../../Basics/PatientIcon'
 import { DateTime } from 'luxon'
 import { observer } from 'mobx-react';
 import Styles from '../../Basics/Styles';
-import ProfileButton from '../PatientProfile/ProfileButton'
+import ProfileButton from '../../Components/FlatButton'
 import Add from '@material-ui/icons/AddCircle';
 
 

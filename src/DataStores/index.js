@@ -6,7 +6,7 @@ import { PatientStore } from "./patientStore"
 import {UIStore} from "./uiStore"
 import {MessagingStore} from "./messagingStore"
 import PractitionerUIStore from './practitionerUIStore'
-import APIHelper from './Requests'
+import APIHelper from '../API/Requests'
 import ReminderStore from './reminderStore'
 
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';

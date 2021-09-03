@@ -16,6 +16,9 @@ import ErrorListener from './ErrorListener';
 import ForcePasswordChange from './ForcePasswordChange';
 import EducationalMessage from './Home/Education';
 import { usePageVisibility } from '../Hooks/PageVisibility';
+import UpdateContactTracing from './HouseholdTesting';
+import MissedPhotoFlow from './ReportingFlows/MissedPhotoFlow/';
+import AppSurvey from './AppSurvey';
 
 const PatientHome = observer((props) => {
 
@@ -63,14 +66,24 @@ const PatientHome = observer((props) => {
     }
   }, [isVisible])
 
-
-
   if (patientStore.hasForcedPasswordChange) {
     return <ForcePasswordChange />
   }
 
   if (patientStore.status === "Pending") {
     return <Onboarding />
+  }
+
+  if(uiStore.pathname.startsWith("/contact-tracing")){
+    return <UpdateContactTracing />
+  }
+
+  if(uiStore.pathname.startsWith("/missed-photo")){
+    return <MissedPhotoFlow />
+  }
+
+  if(uiStore.pathname.startsWith("/app-survey")){
+    return <AppSurvey />
   }
 
   return (

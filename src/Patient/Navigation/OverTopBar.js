@@ -12,10 +12,12 @@ import PropTypes from 'prop-types';
 import Colors from '../../Basics/Colors'
 
 const useStyles = makeStyles({
-  bar: {
+  fixed:{
     zIndex: "10",
     position: "fixed",
-    top: 0,
+    top: 0
+  },
+  bar: {
     backgroundColor: "white",
     color: "black",
     boxShadow: "none",
@@ -48,7 +50,7 @@ const OverTopBar = (props) => {
   let buttonToDisplay = props.icon ? props.icon : <ChevronLeft className={classes.back} />
   
   return(
-        <AppBar className={`${classes.bar} ${props.altColor ? classes.altColor : ""} ${props.reverse && classes.reverse}`} color={"primary"} position="static" style={{flexGrow: 1}}>
+        <AppBar className={`${classes.bar} ${props.altColor ? classes.altColor : ""} ${!props.notFixed && classes.fixed} ${props.reverse && classes.reverse}`} color={"primary"} position="static" style={{flexGrow: 1}}>
           <Toolbar>
           <IconButton onClick={props.handleBack} edge="start"  color="inherit" aria-label="menu">
             {buttonToDisplay}
@@ -66,7 +68,8 @@ const OverTopBar = (props) => {
 OverTopBar.propTypes = {
   reverse: PropTypes.bool,
   title: PropTypes.string,
-  handleBack: PropTypes.func
+  handleBack: PropTypes.func,
+  notFixed: PropTypes.bool
 
 }
 

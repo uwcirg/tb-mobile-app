@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button'
-import Colors from '../../Basics/Colors';
+import Colors from '../Basics/Colors';
 
 const useStyles = makeStyles({
     button: {
@@ -36,7 +36,7 @@ const useStyles = makeStyles({
 
 })
 
-const ProfileButton = (props) => {
+const FlatButton = (props) => {
 
     const classes = useStyles(props);
 
@@ -46,4 +46,4 @@ const ProfileButton = (props) => {
 
 }
 
-export default ProfileButton;
+export default FlatButton;

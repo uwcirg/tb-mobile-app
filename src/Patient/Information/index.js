@@ -19,6 +19,10 @@ import TestIcon from '@material-ui/icons/FormatColorFill'
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 import TrackChangesIcon from '@material-ui/icons/TrackChanges';
 
+import Typography from '@material-ui/core/Typography';
+
+import ListAltIcon from '@material-ui/icons/ListAlt';
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import PlayIcon from '@material-ui/icons/PlayCircleOutline';
 import HomeIcon from '@material-ui/icons/Home'
 import ChatIcon from '@material-ui/icons/QuestionAnswer';
@@ -34,9 +38,12 @@ import { observer } from 'mobx-react'
 import NotificationInstructions from './NotificationInstructions';
 import usePushEnabled from '../../Hooks/PushEnabled';
 
+import NewButton from '../../Basics/NewButton';
+
 const file = raw("./information.md");
 
 const TCButton = (props) => {
+
     const classes = useStyles();
     const { patientUIStore } = useStores();
 
@@ -52,10 +59,13 @@ const TCButton = (props) => {
 }
 
 const Info = observer(() => {
+
     const { t } = useTranslation('translation');
     const classes = useStyles();
-    const { patientUIStore } = useStores();
+    const { patientUIStore, patientStore } = useStores();
+    const surveyLink = window._env.REDCAP_EOT_SURVEY_LINK || "";
     const pushEnabledState = usePushEnabled();
+    const surveyAvailable = patientStore.patientInformation.weeksInTreatment >= 20;
 
     return (
         <div className={classes.container}>
@@ -63,16 +73,14 @@ const Info = observer(() => {
                 <NotificationInstructions />
             </Section>}
             <Section title={<><LiveHelpIcon />{t('patient.information.helpSection')}</>}>
-                <div className={classes.help}>
-                    <h2>{t('patient.information.walkthrough.title')}</h2>
-                    <TCButton step={0}><><PlayIcon />{t('patient.information.walkthrough.start')}</></TCButton>
-                    <TCButton step={3} ><HomeIcon />{t('patient.information.walkthrough.home')}</TCButton>
-                    <TCButton step={7} ><CalendarIcon />{t('patient.information.walkthrough.calendar')}</TCButton>
-                    <TCButton step={10} ><ChatIcon />{t('patient.information.walkthrough.messaging')}</TCButton>
-                    <h2>{t('patient.information.helpVideos')}</h2>
-                    <HelpVideos />
-                </div>
+                <HelpSection />
             </Section>
+            {surveyAvailable && <Section title={<><ListAltIcon />{t('archive.patientSide.surveyButton')}</>}>
+                <div className={classes.survey}>
+                    <Typography variant="body1">{t('archive.patientSide.survey')}</Typography>
+                    <NewButton href={surveyLink} icon={<ListAltIcon />} text={t('appSurvey.goToSurvey')} />
+                </div>
+            </Section>}
             <Section title={<><VideoIcon />{t('patient.information.videos')}</>}>
                 <Videos />
             </Section>
@@ -96,6 +104,23 @@ const Info = observer(() => {
     )
 })
 
+const HelpSection = () => {
+    const { t } = useTranslation('translation');
+    const classes = useStyles();
+
+    return (
+        <div className={classes.help}>
+            <h2>{t('patient.information.walkthrough.title')}</h2>
+            <TCButton step={0}><><PlayIcon />{t('patient.information.walkthrough.start')}</></TCButton>
+            <TCButton step={3} ><HomeIcon />{t('patient.information.walkthrough.home')}</TCButton>
+            <TCButton step={7} ><CalendarIcon />{t('patient.information.walkthrough.calendar')}</TCButton>
+            <TCButton step={10} ><ChatIcon />{t('patient.information.walkthrough.messaging')}</TCButton>
+            <h2>{t('patient.information.helpVideos')}</h2>
+            <HelpVideos />
+        </div>
+    )
+}
+
 const TreatmentMessages = () => {
     const classes = useStyles();
     const { t } = useTranslation('translation');
@@ -116,6 +141,12 @@ const TreatmentMessages = () => {
 
 //Convert markdown file to expandable cards format
 const useStyles = makeStyles({
+    survey:{
+        padding: "1em",
+        "& > p":{
+            marginBottom: "1em"
+        }
+    },
     container: {
         "& > h1": {
             marginBottom: "1em",

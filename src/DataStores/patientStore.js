@@ -5,6 +5,7 @@ import EducationStore from './educationStore';
 import ReportStore from './reportStore';
 import { addReportToOfflineCache, getNumberOfCachedReports } from './SaveReportOffline'
 import resizeImage from '../Utility/ResizeImage';
+import {daysSinceISODateTime, daysSincePhotoRequest} from "../Utility/TimeUtils";
 
 const ROUTES = {
     login: ["/authenticate", "POST"],
@@ -34,6 +35,8 @@ export class PatientStore extends UserStore {
 
     @observable hasForcedPasswordChange = false;
     @observable photoSchedule = {};
+    @observable lastPhotoRequestStatus = {};
+    @observable lastContactTracingSurvey = {};
     @observable educationStatus = [];
 
     @observable status = "Active";
@@ -120,9 +123,11 @@ export class PatientStore extends UserStore {
         this.patientInformation.currentStreak = json.currentStreak;
         this.educationStore.educationStatus = json.educationStatus;
         this.hasForcedPasswordChange = json.hasForcedPasswordChange;
-        this.patientInformation.loaded = true;
         this.treatmentOutcome = json.treatmentOutcome;
-
+        this.lastPhotoRequestStatus = json.lastPhotoRequestStatus;
+        this.lastContactTracingSurvey = json.lastContactTracingSurvey;
+        this.patientInformation.loaded = true;
+        
         localStorage.setItem("cachedProfile", JSON.stringify({
             photoSchedule: this.photoSchedule,
             givenName: json.givenName,
@@ -246,7 +251,8 @@ export class PatientStore extends UserStore {
     @action submitReport = (offline) => {
 
         if (!offline) {
-            this.modifyReportAndUpload(this.report)
+            //Tryting to solve issue with back reporting
+            //this.modifyReportAndUpload(this.report);
         } else {
             addReportToOfflineCache(toJS(this.report)).then(value => {
                 this.report.hasConfirmedAndSubmitted = true;
@@ -386,32 +392,38 @@ export class PatientStore extends UserStore {
 
     @computed get missingReports() {
 
+        const checkDate = (date) => {
+            // console.log(this.savedReports[date]);
+            return this.savedReports[date] && this.savedReports[date].status && this.savedReports[date].status.complete
+        }
+
         //So that the missing days card stays hidden before the reports load from server
         if (!this.savedReportsLoaded) {
             return 0;
         }
 
-        let missedDays = [];
+        //Prevent duplicated days by using a hash and extracting keys
+        let missedDays = {};
+
+        for (let j = 0; j < 14; j++) {
+            let newDate = DateTime.fromISO(this.treatmentStart).plus({ days: j })
+            const date = newDate.toISODate();
+            if (!checkDate(date) && newDate.diffNow("days").days < -1) {
+                missedDays[date] = true;
+            }
+        }
 
         //Past 3 days
         for (let i = 3; i > 0; i--) {
             let date = DateTime.local().minus({ days: i })
             const isoDate = date.toISODate();
      
-            if (!this.savedReports[isoDate] && DateTime.fromISO(this.treatmentStart).diff(date,"days").days <= -1) {
-                missedDays.push(isoDate)
+            if (!checkDate(isoDate) && DateTime.fromISO(this.treatmentStart).diff(date,"days").days <= -1) {
+                    missedDays[isoDate] = true;
             }
         }
 
-        for (let j = 0; j < 14; j++) {
-            let newDate = DateTime.fromISO(this.treatmentStart).plus({ days: j })
-            const date = newDate.toISODate();
-            if (!this.savedReports[date] && newDate.diffNow("days").days < -1) {
-                missedDays.push(date)
-            }
-        }
-
-        return missedDays;
+        return Object.keys(missedDays);
     }
 
     @action exitForcedPasswordChange = () => {
@@ -455,6 +467,10 @@ export class PatientStore extends UserStore {
         return streak;
     }
 
+    @computed get contactTracingNeeded(){
+        return !this.lastContactTracingSurvey || (daysSinceISODateTime(this.lastContactTracingSurvey.createdAt) > 30 && (this.lastContactTracingSurvey.numberOfContactsTested < this.lastContactTracingSurvey.numberOfContacts))
+    }
+
     defaultReport = {
         date: DateTime.local().toISODate(),
         timeTaken: DateTime.local().startOf('second').startOf("minute").toISOTime({ suppressSeconds: true }),
@@ -480,5 +496,9 @@ export class PatientStore extends UserStore {
         return this.status === "Archived"
     }
 
+    @computed get eligibleForBackPhoto(){
+        const daysSinceRequest = daysSincePhotoRequest(this.lastPhotoRequestStatus.dateOfRequest);
+        return daysSinceRequest <= 3 && !this.lastPhotoRequestStatus.photoWasSubmitted;
+    }
 
 }

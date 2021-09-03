@@ -24,7 +24,8 @@ const useStyles = makeStyles({
       textAlign: "left"
     },
     "& > svg":{
-      marginLeft: 'auto'
+      marginLeft: 'auto',
+      padding: ".5em"
     }
   }
 })

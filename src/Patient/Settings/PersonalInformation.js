@@ -37,10 +37,10 @@ const useStyles = makeStyles({
     },
 })
 
-const LanguageQuestion = () => {
+const PersonalInformation = () => {
     const classes = useStyles();
     const { patientUIStore } = useStores();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
     return (
         <div className={classes.container}>
@@ -49,12 +49,9 @@ const LanguageQuestion = () => {
                 <Typography variant="h2">{t("patient.profile.personalInfo")}</Typography>
             </div>
             <Button onClick={patientUIStore.goToPasswordUpdate} >{t("patient.profile.changePassword")}</Button>
-            {/*
-            <Button onClick={() => { }} >{t("patient.profile.editNotifications") } (Coming Soon)</Button>
-            <Button onClick={() => { }} >{t("patient.profile.changeUsername")} (Coming Soon)</Button>
-            */}
+            <Button onClick={patientUIStore.goToContactTracingUpdate} >{t('householdTesting.button')}</Button>
         </div>
     );
 }
 
-export default LanguageQuestion;
+export default PersonalInformation;

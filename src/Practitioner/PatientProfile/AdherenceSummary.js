@@ -10,8 +10,6 @@ import SectionLabel from '../../Components/SectionLabel'
 
 const useStyles = makeStyles({
     container: {
-        flexGrow: 1,
-        maxWidth: "280px",
         padding: "1em",
         backgroundColor: "white",
         "& > h2": {

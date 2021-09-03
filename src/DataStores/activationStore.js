@@ -3,7 +3,7 @@ import APIStore from './apiStore'
 import { DateTime } from "luxon";
 
 const ROUTES = {
-    activate: ["/patient/self/activate", "POST"],
+    activate: ["/v2/patient/self/activation", "POST"],
     setPassword: ["/patient/self/password", "POST"]
 }
 
@@ -23,7 +23,7 @@ export class ActivationStore extends APIStore {
         notificationTime: DateTime.local().toISOTime(),
         date: DateTime.local().toISODate(),
         numberOfContacts: 0,
-        contactsTested: "Yes",
+        numberOfContactsTested: 0,
         genderOther: ""
     }
 
@@ -39,11 +39,18 @@ export class ActivationStore extends APIStore {
   
     }
 
-    @action addToNumberOfContacts(value) {
-        const temp = this.onboardingInformation.numberOfContacts + value;
-        if (temp >= 0) this.onboardingInformation.numberOfContacts += value;
+    @action setNumberOfContacts = (number) => {
+        this.onboardingInformation.numberOfContacts = number;
+
+        //You cant have more people tested than they live with
+        if(this.onboardingInformation.numberOfContacts < this.onboardingInformation.numberOfContactsTested){
+            this.onboardingInformation.numberOfContactsTested = number;
+        }
     }
 
+    @action setNumberOfContactsTested = (number) => {
+        this.onboardingInformation.numberOfContactsTested = number;
+    }
 
     @action register(body) {
         return this.executeRequest('register', body).then(json => {
@@ -54,7 +61,8 @@ export class ActivationStore extends APIStore {
     @action submitActivation = () => {
         this.isLoading = true;
         this.onboardingInformation.currentDate = DateTime.local().toISODate();
-        return this.executeRequest('activate', this.onboardingInformation,{allowErrors: true}).then(json => {
+
+        return this.executeRequest('activate', this.requestBody() ,{allowErrors: true}).then(json => {
             if(json.error){
                 this.activationError = true;
                 this.activtionErrorDetail = json.error;
@@ -95,6 +103,26 @@ export class ActivationStore extends APIStore {
 
     @computed get passwordsMatch() {
         return (this.passwordUpdate.password === this.passwordUpdate.passwordConfirmation)
+    }
+
+    requestBody = () => {
+        return(
+            {
+                date: this.onboardingInformation.currentDate,
+                enableNotifications: this.onboardingInformation.enableNotifications,
+                notificationTime: this.onboardingInformation.notificationTime,
+                
+                contactTracingSurvey: {
+                    numberOfContacts: this.onboardingInformation.numberOfContacts,
+                    numberOfContactsTested: this.onboardingInformation.numberOfContactsTested
+                },
+                patient: {
+                    gender: this.onboardingInformation.gender,
+                    genderOther: this.onboardingInformation.genderOther,
+                    age: this.onboardingInformation.age
+                }
+            }
+        )
     }
 
 

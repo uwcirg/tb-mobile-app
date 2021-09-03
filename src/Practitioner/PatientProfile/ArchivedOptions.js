@@ -8,7 +8,7 @@ import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Styles from '../../Basics/Styles'
-import ProfileButton from './ProfileButton'
+import ProfileButton from '../../Components/FlatButton'
 import EditIcon from '@material-ui/icons/Edit'
 
 const useStyles = makeStyles({

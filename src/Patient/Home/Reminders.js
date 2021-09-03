@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
-import InteractionCard from '../../Basics/HomePageCard';
+import InteractionCard from '../../Basics/HomePageSection';
 import { useTranslation } from 'react-i18next';
 import Colors from '../../Basics/Colors'
 import ReminderItem from './Reminder/ReminderLineItem'

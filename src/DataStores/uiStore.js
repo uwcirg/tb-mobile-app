@@ -1,4 +1,4 @@
-import { action, observable, computed } from "mobx";
+import { action, observable, computed, toJS } from "mobx";
 
 export class UIStore {
 
@@ -23,6 +23,7 @@ export class UIStore {
     @observable alertText = "";
     @observable alertType = "success";
 
+    //Alert type success or error
     @action setAlert = (text, type) => {
         this.alertVisible = true;
         this.alertText = text;
@@ -37,7 +38,6 @@ export class UIStore {
     @action toggleMenu = () => {
         this.menuOpened = !this.menuOpened;
     }
-
 
     @action goToSpecificChannel = (channelID) => {
         this.router.push(`/messaging/channel/${channelID}`)
@@ -109,5 +109,30 @@ export class UIStore {
     @action goToTestInstructions = () => {
         this.router.push("/information?testStripInstructions=true")
     }
+
+    @computed get pathname() {
+        return this.router.location.pathname;
+    }
+
+
+    //Steps for flows that work with back button, etc
+    @computed get step(){
+        const valueFromSearchParams = new URLSearchParams(this.router.location.search).get("step")
+        return parseInt(valueFromSearchParams) || 0;
+    }
+
+    @action goToStep = (number) => {
+        this.router.push(`${this.router.location.pathname}?step=${number}`)
+    }
+
+    @action nextStep = () => {
+        this.goToStep(this.step + 1)
+    }
+    
+    @action prevStep = () => {
+        this.goToStep(this.step - 1)
+    }
+
+
 
 }

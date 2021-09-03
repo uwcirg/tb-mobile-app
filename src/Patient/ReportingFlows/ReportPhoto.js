@@ -1,27 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { observer } from 'mobx-react';
 import SimpleButton from '../../Basics/SimpleButton';
-import ButtonBase from '@material-ui/core/ButtonBase'
 import Camera from '../../ImageCapture/Camera';
-import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import Colors from '../../Basics/Colors'
 import useStores from '../../Basics/UseStores';
 import ClickableText from '../../Basics/ClickableText';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import Instructions from '../Information/TestInstructions';
-import Typography from '@material-ui/core/Typography';
-import WarningBox from '../../Basics/WarningBox';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
-import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown'
-import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp'
-import Grow from '@material-ui/core/Collapse'
 import TextField from '@material-ui/core/TextField'
 import TimeIcon from '@material-ui/icons/Update';
-
-//Styles at the bottom of this file
-
+import TestStripPhotoInfo from '../../Components/Patient/TestStripPhotoInfo';
+import PhotoPrompt from '../../Components/Patient/PhotoPrompt';
+0
 const ReportPhoto = observer((props) => {
 
     const classes = useStyles();
@@ -65,7 +57,6 @@ const ReportPhoto = observer((props) => {
 
     return (
         <div style={{ width: "100%" }}>
-
             {!patientStore.report.photoWasSkipped ? <>
                 {patientStore.report.photoWasTaken ?
                     <>
@@ -74,49 +65,17 @@ const ReportPhoto = observer((props) => {
                     </>
                     :
                     <>
-                        <ButtonBase onClick={() => { patientStore.uiState.cameraIsOpen = true }} className={classes.button}>
-                            <PhotoPrompt >
-                            </PhotoPrompt>
-                        </ButtonBase>
-                        <PhotoInfo />
+                        <PhotoPrompt onClick={() => { patientStore.uiState.cameraIsOpen = true }} />
+                        <TestStripPhotoInfo />
                     </>}
 
                 {!patientStore.report.photoWasTaken && <Buttons />}
             </> : <CantTakePhoto />}
-
             <SimpleButton alignRight onClick={handleNext} disabled={nextDisabled()} backgroundColor={Colors.green}>{t("patient.report.next")}</SimpleButton>
             {patientStore.uiState.cameraIsOpen ? <Camera handleExit={handleExit} returnPhoto={handlePhoto} /> : ""}
-
         </div>
     )
 });
-
-const PhotoInfo = () => {
-    const classes = useStyles();
-    const { t } = useTranslation();
-    const togglePopUp = () => { setShowPopUp(!showPopUp) }
-    const [showPopUp, setShowPopUp] = useState(false);
-
-    return (
-        <WarningBox className={classes.infoBox}>
-            <ClickableText onClick={togglePopUp} className={classes.info} hideIcon text={<span>{t('patient.report.photo.help.instructions')}{showPopUp ? <KeyboardArrowUp /> : <KeyboardArrowDown />}</span>} />
-            <Grow in={showPopUp}>
-                <div className={classes.instructions}>
-                    <Instructions />
-                </div>
-            </Grow>
-            <div className={classes.photoInfo}>
-                <h2>{t('patient.report.photo.help.remember')}:</h2>
-                <ul>
-                    <li>{t('patient.report.photo.help.wait')}</li>
-                    <li>{t('patient.report.photo.help.straight')}</li>
-                    <li>{t('patient.report.photo.help.retakeIf')}</li>
-                </ul>
-            </div>
-
-        </WarningBox>
-    )
-}
 
 const Buttons = () => {
     const classes = useStyles();
@@ -131,7 +90,6 @@ const Buttons = () => {
                 text={<>{t('patient.report.photo.submitLater')} <KeyboardArrowRight /></>} icon={<TimeIcon />} />
             <ClickableText className={classes.unable} text={<>{t('patient.report.photo.unable')} <KeyboardArrowRight /></>} onClick={() => { patientStore.report.photoWasSkipped = true }} />
         </div>
-
     )
 }
 
@@ -148,19 +106,6 @@ const CantTakePhoto = observer((props) => {
         </div>
     )
 });
-
-const PhotoPrompt = () => {
-
-    const classes = useStyles();
-    const { t } = useTranslation();
-
-    return (<div className={classes.photoPrompt}>
-        <CameraAltIcon />
-        <Typography variant="body1" className={classes.buttonText}>
-            {t("patient.report.photo.openCamera")}
-        </Typography>
-    </div>)
-}
 
 const useStyles = makeStyles({
 
@@ -189,39 +134,8 @@ const useStyles = makeStyles({
         textAlign: "left",
         marginLeft: "1em"
     },
-    button: {
-        width: "90%",
-        margin: "auto",
-        display: "flex",
-        color: Colors.buttonBlue,
-        "& > div": {
-            borderColor: Colors.buttonBlue,
-            border: "solid 2px",
-        },
-        borderRadius: "10px"
-    },
-    buttonText: {
-        fontSize: "1.5em",
-        fontWeight: "bold",
-        textAlign: "center",
-        width: "auto"
-    },
-    infoBox: {
-        width: "90%",
-        margin: "auto",
-        marginBottom: ".5em",
-        marginTop: ".5em"
-    },
     leftMargin: {
         marginLeft: "1.5em"
-    },
-    photoPrompt: {
-        width: "100%",
-        display: "flex",
-        borderRadius: "10px",
-        padding: "1em",
-        justifyContent: "center",
-        alignItems: "center"
     },
     cantSubmit: {
         width: '90%',
@@ -232,30 +146,6 @@ const useStyles = makeStyles({
             justifyContent: 'flex-start',
             marginBottom: '1em'
         }
-
-    },
-    photoInfo: {
-        "& > h2": {
-            fontSize: "1em",
-            margin: ".5em 0 .5em 0"
-        },
-        "& > ul": {
-            display: "block",
-            margin: "0",
-            padding: 0,
-            marginLeft: "1em",
-            "& > li": {
-                margin: 0,
-                padding: 0,
-                marginTop: "5px",
-                "& > span": {
-                    fontWeight: "bold"
-                },
-                "& > li": {
-                    marginLeft: "1em",
-                }
-            }
-        },
     },
     later: {
         color: "green"

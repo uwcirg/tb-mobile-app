@@ -15,7 +15,7 @@ import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import RefreshIcon from '@material-ui/icons/Refresh';
 import Priority from '../Shared/Priority';
-import ProfileButton from '../PatientProfile/ProfileButton';
+import ProfileButton from '../../Components/FlatButton';
 import AddPatient from './AddPatient';
 import SectionTitle from '../../Components/Practitioner/SectionTitle';
 import { Typography } from '@material-ui/core';
