@@ -1,3 +1,22 @@
+## v2.7
+Released September 2nd, 2021
+
+Patient Side:
+
+- Allow for back submission of missed photos up to 3 days after the request
+- Add new household testing survey, keep prompting for update until they have tested all contacts
+- Update onboarding survey contact tracing to match new format
+- Show link to end of treatment survey after 20 weeks
+
+
+Assistant Side:
+
+- Add visual of treatment progress on patient profile 
+- View of contact tracing status on patient profile
+- Redesign of reports table, clearly label back submissions
+- Fix bug where patients who havent reported today would show up in missed medication reprot category
+
+
 ## v2.6 
 Released July 20th, 2021
 
