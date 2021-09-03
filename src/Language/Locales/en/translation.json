@@ -889,7 +889,7 @@
             "congrats": "Congrats on successfully completing treatment!",
             "subtitle": "We know completing treatment is not easy, and you did an excellent job. If you have any questions your assistant will be there to support you.",
             "details": "You do not need to report anymore, but feel free to use the other resources in the app.",
-            "survey": "Please complete this survey to let us know about your experience using the application.",
+            "survey": "If you have not yet done so, please complete this survey to let us know about your experience using the application.",
             "surveyButton": "Tell us about your experience",
             "statusChange": "Your study status has changed and you can no longer report. Please contact your assistant for more details."
         },
@@ -932,5 +932,9 @@
         "requestedOn": "Submitting for the request sent on",
         "notRequired": "You do not have any missed test requests at this time. Keep up the great work!",
         "confirmation": "Your photo was submitted, thanks for letting us know how you are doing!"
+    },
+    "appSurvey":{
+        "goToSurvey": "Go to survey",
+        "markAsCompleted": "Mark as completed"
     }
 }

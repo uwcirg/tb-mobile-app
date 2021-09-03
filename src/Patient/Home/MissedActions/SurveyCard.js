@@ -11,21 +11,24 @@ import useToggle from '../../../Hooks/useToggle';
 import Grow from '@material-ui/core/Collapse';
 import NewButton from '../../../Basics/NewButton';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 
 const useStyles = makeStyles({
     card: {
         marginBottom: ".5em"
     },
     body: {
-        padding: ".5em",
-        "& > button:first-of-type":{
+        padding: ".75em",
+        "& > button, & > a": {
+            fontWeight: "normal",
             margin: ".5em 0",
-            width: "100%"
+            width: "100%",
+            boxSizing: "border-box"
         }
     }
 })
 
-const SurveyCard = () => {
+const SurveyCard = ({ setHidden }) => {
 
     const classes = useStyles();
     const { t } = useTranslation('translation');
@@ -49,9 +52,8 @@ const SurveyCard = () => {
             <Grow in={showDetails} className={classes.grow}>
                 <div className={classes.body}>
                     <Typography variant="body1">{t('archive.patientSide.survey')}</Typography>
-                    <NewButton icon={<ListAltIcon />} text={'Go to survey'} />
-                    <Typography>Already completed?</Typography>
-                    <ClickableText icon={<VisibilityOff />} text={'hide this'} />
+                    <NewButton href={link} icon={<ListAltIcon />} text={t('appSurvey.goToSurvey')} />
+                    <NewButton onClick={setHidden} icon={<AssignmentTurnedInIcon />} positive text={t('appSurvey.markAsCompleted')} />
                 </div>
             </Grow>
 

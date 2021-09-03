@@ -769,9 +769,11 @@
         "pending": "Pendiente",
         "photoNotNeeded": "No Se Requiere Foto",
         "missedPhoto": "Foto No Fue Enviada ",
+        "missedPhotoShort": "Photo Perdida",
         "submittedAt": "Enviada a las",
         "feeling": "Sintiendo",
-        "photoSubmitted": "Foto Enviada"
+        "photoSubmitted": "Foto Enviada",
+        "flags": "Información Importante  "
     },
     "appointments": {
         "noUpcoming": "No Hay Visitas Agendadas",
@@ -882,7 +884,7 @@
             "congrats": "¡Felicitaciones por completar con éxito su tratamiento!",
             "subtitle": "Sabemos que completar el tratamiento no es fácil y que hizo un excelente trabajo. Si tiene alguna pregunta, su asistente estará allí para ayudarlo.",
             "details": "Ya no necesita mandar reportes, pero puede utilizar los demás recursos de la aplicación.",
-            "survey": "Complete esta encuesta para informarnos sobre su experiencia con la aplicación.",
+            "survey": "Si todavía no lo ha hecho, por favor complete esta encuesta para dejarnos saber su experiencia usando la aplicación.",
             "surveyButton": "Cuéntenos su experiencia",
             "statusChange": "El estado de su tratamiento ha cambiado y ya no puede reportar. Comuníquese con su asistente para obtener más detalles."
         },
@@ -925,5 +927,9 @@
         "requestedOn": "Envío para la solicitud enviada el",
         "notRequired": "No tiene ninguna solicitud de prueba perdida en este momento. ¡Sigan con el gran trabajo!",
         "confirmation": "Su foto fue enviada, gracias por hacernos saber cómo estás!"
+    },
+    "appSurvey":{
+        "goToSurvey": "Ir a la encuesta",
+        "markAsCompleted": "Marcar como completado"
     }
 }
