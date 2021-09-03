@@ -9,7 +9,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 const useStyles = makeStyles({
     container: {
         width: "100%",
-        minHeight: "150px"
+        minHeight: "200px"
     },
     text:{
         fontSize: "1.5em",
@@ -22,8 +22,8 @@ const ReportsLoading = () => {
     const classes = useStyles();
     const { t } = useTranslation('translation');
 
-    return (<Grid alignItems="center" justify="center" container spacing={1}>
-        <Typography className={classes.text} variant="h2">{t('commonWords.loading')} {t('coordinator.patientProfile.listReports')}</Typography>
+    return (<Grid className={classes.container} alignItems="center" justify="center" container spacing={1}>
+        {/* <Typography className={classes.text} variant="h2">{t('commonWords.loading')} {t('coordinator.patientProfile.listReports')}</Typography> */}
         <CircularProgress variant="indeterminate" />
     </Grid>)
 
