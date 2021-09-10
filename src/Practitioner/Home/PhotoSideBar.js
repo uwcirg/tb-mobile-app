@@ -3,7 +3,6 @@ import Basicsidebar from '../Shared/BasicSidebar'
 import useStores from '../../Basics/UseStores'
 import { observer } from 'mobx-react'
 import { makeStyles } from '@material-ui/core/styles';
-import { DateTime } from 'luxon'
 import Styles from '../../Basics/Styles';
 import Colors from '../../Basics/Colors';
 import SharedButton from '../Shared/SharedButton'
@@ -39,7 +38,8 @@ const useStyles = makeStyles({
     expand:{
         width: "100%",
         display: "flex",
-        paddingLeft: "10%"
+        paddingLeft: "10%",
+        marginTop: "1em"
     },
     expandIcon:{
         marginRight: "5px"
@@ -64,6 +64,7 @@ const PhotoSidebar = observer(() => {
             </>}>
             <div className={classes.photoContainer} >
                 <h2>{t("coordinator.sideBar.photoSub")}:</h2>
+                {item.backSubmission && <p>Back Submission</p>}
                 <img className={classes.photoPreview} src={item.url} />
                 <div className={classes.expand}>
                     <ClickableText onClick={toggleExpanded} hideIcon text={<><ExpandIcon className={classes.expandIcon} />{t('coordinator.sideBar.expandPhoto')}</>} />
