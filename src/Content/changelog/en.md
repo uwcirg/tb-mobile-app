@@ -1,3 +1,7 @@
+## v2.7.1
+WIP (September 2021)
+- Flag late photo submissions on the coordinator page
+
 ## v2.7
 Released September 2nd, 2021
 

@@ -15,11 +15,11 @@ const useStyles = makeStyles({
   }
 })
 
-const Label = ({text, backgroundColor}) => {
+const Label = ({text, backgroundColor, className}) => {
 
     const classes = useStyles({backgroundColor: backgroundColor});
 
-    return(<Typography className={`${classes.label} category-label`} variant="body1">{text}</Typography>)
+    return(<Typography className={`${classes.label} ${className} category-label`} variant="body1">{text}</Typography>)
 
 }
 

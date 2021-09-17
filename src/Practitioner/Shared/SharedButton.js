@@ -1,8 +1,6 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores'
-import ClearIcon from '@material-ui/icons/Clear';
 import Button from '@material-ui/core/Button';
 import CheckIcon from '@material-ui/icons/Check'
 import Colors from '../../Basics/Colors';
@@ -13,11 +11,13 @@ const useStyles = makeStyles({
         display: "flex",
         alignItems: "center",
         backgroundColor: props => props.color,
-        borderRadius: "10px",
+        borderRadius: "5px",
         width: "100%",
         textTransform: "capitalize",
         padding: "1em",
         color: "white",
+        fontSize: "1em",
+        lineHeight: "1.2em",
         "& > span > svg":{
             fontSize: ".95em",
             marginRight: "5px"
@@ -26,11 +26,8 @@ const useStyles = makeStyles({
             backgroundColor: Colors.accentBlue
         }
     },
-    text: {
-        marginLeft: "5px"
-    },
     icon: {
-        marginLeft: "5px",
+        padding: "0 1em",
         "& > svg": {
             fontSize: "1em"
         }
