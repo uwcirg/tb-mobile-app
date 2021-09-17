@@ -96,7 +96,7 @@ const LateSubmissionInfo = ({photoReport}) => {
 
     return (
         <div className={classes.lateArea}>
-            <Label className={classes.label} backgroundColor={Colors.yellow} text={"Submitted Late"} />
+            <Label className={classes.label} backgroundColor={Colors.yellow} text={t('patient.report.late')} />
             <Typography><strong>{t('dashboard.requested')}:</strong> {requestDate}</Typography>
             <Typography><strong>{t('dashboard.submitted')}:</strong> {submittedDatetime}</Typography>
         </div>
