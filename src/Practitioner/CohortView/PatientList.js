@@ -5,11 +5,29 @@ import { observer } from 'mobx-react';
 import { Table, TableBody, TableHead, TableCell, TableRow } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import Priority from '../Shared/Priority';
+import Colors from '../../Basics/Colors';
 
 
 const useStyles = makeStyles({
-
+    profileLink:{
+        "&, &:visited":{
+            color: Colors.buttonBlue,
+            textDecoration: "none"
+        }
+    }
 })
+
+const Name = ({fullName,id}) => {
+
+    const classes = useStyles();
+    const {push} = useStores().routingStore;
+    //Handle Patient Link
+    const handlePatientClick = (event) => {
+        event.preventDefault();
+        push(`/patients/${id}`)
+    }
+    return <a className={classes.profileLink} href={`/patients/${id}`} onClick={handlePatientClick}>{fullName}</a>
+}
 
 const percentComponent = (value) => {
     return `${Math.round(value * 100)}%`
@@ -18,7 +36,8 @@ const percentComponent = (value) => {
 const fields = [
     {
         key: "fullName",
-        displayName: "Name"
+        displayName: "Name",
+        component: (value,patient) => <Name {...patient}/>
     },
     {
         key: "priority",
@@ -63,14 +82,14 @@ const PatientList = observer(() => {
 
 });
 
-const PatientRow = ({ patient }) => {
+const PatientRow = ({ patient, index }) => {
 
     const { fullName, phoneNumber, priority, treatmentStart, adherence } = patient;
     const { t } = useTranslation('translation');
     const classes = useStyles();
 
     return (<TableRow>
-        {fields.map(field => <TableCell>{field.component ? field.component(patient[field.key]) : patient[field.key]} </TableCell>)}
+        {fields.map(field => <TableCell>{field.component ? field.component(patient[field.key], patient) : patient[field.key]} </TableCell>)}
     </TableRow>)
 }
 
