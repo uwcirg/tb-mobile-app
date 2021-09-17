@@ -2,25 +2,51 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react';
-import { Table, TableBody, TableHead, TableCell, TableRow } from '@material-ui/core';
+import { Table, TableBody, TableHead, TableCell, TableRow, TableSortLabel } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import Priority from '../Shared/Priority';
 import Colors from '../../Basics/Colors';
 
+function descendingComparator(a, b, orderBy) {
+    if (b[orderBy] < a[orderBy]) {
+        return -1;
+    }
+    if (b[orderBy] > a[orderBy]) {
+        return 1;
+    }
+    return 0;
+}
+
+function getComparator(order, orderBy) {
+    return order === 'desc'
+        ? (a, b) => descendingComparator(a, b, orderBy)
+        : (a, b) => -descendingComparator(a, b, orderBy);
+}
+
+function stableSort(array, comparator) {
+    const stabilizedThis = array.map((el, index) => [el, index]);
+    stabilizedThis.sort((a, b) => {
+        const order = comparator(a[0], b[0]);
+        if (order !== 0) return order;
+        return a[1] - b[1];
+    });
+    return stabilizedThis.map((el) => el[0]);
+}
+
 
 const useStyles = makeStyles({
-    profileLink:{
-        "&, &:visited":{
+    profileLink: {
+        "&, &:visited": {
             color: Colors.buttonBlue,
             textDecoration: "none"
         }
     }
 })
 
-const Name = ({fullName,id}) => {
+const Name = ({ fullName, id }) => {
 
     const classes = useStyles();
-    const {push} = useStores().routingStore;
+    const { push } = useStores().routingStore;
     //Handle Patient Link
     const handlePatientClick = (event) => {
         event.preventDefault();
@@ -37,12 +63,12 @@ const fields = [
     {
         key: "fullName",
         displayName: "Name",
-        component: (value,patient) => <Name {...patient}/>
+        formatter: (value, patient) => <Name {...patient} />
     },
     {
         key: "priority",
         displayName: "Priority",
-        component: (value) => <Priority index={value} />
+        formatter: (value) => <Priority index={value} />
     },
     {
         key: "treatmentStart",
@@ -51,31 +77,61 @@ const fields = [
     {
         key: "adherence",
         displayName: "Adherence",
-        component: percentComponent
+        formatter: percentComponent
     },
     {
         key: "photoAdherence",
         displayName: "Photo Adherence",
-        component: percentComponent
+        formatter: percentComponent
     }
 ]
+
+const TableHeader = (props) => {
+    const { order, orderBy, onRequestSort } = props;
+
+    const createSortHandler = (property) => (event) => {
+        onRequestSort(event, property);
+    };
+
+    return (<TableHead>
+        <TableRow>
+            {fields.map(field => <TableCell
+                sortDirection={orderBy === field.key ? order : false}
+            >
+                {field.displayName}
+                <TableSortLabel
+                    active={orderBy === field.key}
+                    direction={orderBy === field.key ? order : 'asc'}
+                    onClick={createSortHandler(field.key)}
+              />
+            </TableCell>)}
+        </TableRow>
+    </TableHead>)
+}
 
 const PatientList = observer(() => {
 
     const classes = useStyles();
     const patients = useStores().practitionerStore.patientList;
+    const [order, setOrder] = React.useState('asc');
+    const [orderBy, setOrderBy] = React.useState('treatmentStart');
+
+    const handleRequestSort = (event, property) => {
+        const isAsc = orderBy === property && order === 'asc';
+        setOrder(isAsc ? 'desc' : 'asc');
+        setOrderBy(property);
+    };
 
     return (<div>
         <h1>Patients: {patients.length}</h1>
 
         <Table>
-            <TableHead>
-                <TableRow>
-                    {fields.map(field => <TableCell>{field.displayName}</TableCell>)}
-                </TableRow>
-            </TableHead>
+            <TableHeader
+                order={order}
+                orderBy={orderBy}
+                onRequestSort={handleRequestSort} />
             <TableBody>
-                {patients && patients.map(patient => <PatientRow key={patient.id} patient={patient} />)}
+                {stableSort(patients, getComparator(order, orderBy)).map(patient => <PatientRow key={patient.id} patient={patient} />)}
             </TableBody>
         </Table>
     </div>)
@@ -89,7 +145,7 @@ const PatientRow = ({ patient, index }) => {
     const classes = useStyles();
 
     return (<TableRow>
-        {fields.map(field => <TableCell>{field.component ? field.component(patient[field.key], patient) : patient[field.key]} </TableCell>)}
+        {fields.map(field => <TableCell>{field.formatter ? field.formatter(patient[field.key], patient) : patient[field.key]} </TableCell>)}
     </TableRow>)
 }
 
