@@ -4,11 +4,16 @@ import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react';
 import { Table, TableBody, TableHead, TableCell, TableRow } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import Priority from '../Shared/Priority';
 
 
 const useStyles = makeStyles({
 
 })
+
+const percentComponent = (value) => {
+    return `${Math.round(value * 100)}%`
+}
 
 const fields = [
     {
@@ -17,7 +22,8 @@ const fields = [
     },
     {
         key: "priority",
-        displayName: "Priority"
+        displayName: "Priority",
+        component: (value) => <Priority index={value} />
     },
     {
         key: "treatmentStart",
@@ -26,10 +32,13 @@ const fields = [
     {
         key: "adherence",
         displayName: "Adherence",
-        formatter: (value) => {
-            return `${Math.round(value * 100)}%`
-        }
-}
+        component: percentComponent
+    },
+    {
+        key: "photoAdherence",
+        displayName: "Photo Adherence",
+        component: percentComponent
+    }
 ]
 
 const PatientList = observer(() => {
@@ -43,7 +52,7 @@ const PatientList = observer(() => {
         <Table>
             <TableHead>
                 <TableRow>
-                {fields.map( field => <TableCell>{field.displayName}</TableCell>)}
+                    {fields.map(field => <TableCell>{field.displayName}</TableCell>)}
                 </TableRow>
             </TableHead>
             <TableBody>
@@ -61,12 +70,7 @@ const PatientRow = ({ patient }) => {
     const classes = useStyles();
 
     return (<TableRow>
-        {/* <TableCell>{fullName}</TableCell>
-        <TableCell align="center">{priority}</TableCell>
-        <TableCell>{treatmentStart}</TableCell>
-        <TableCell>2 days ago</TableCell>
-        <TableCell>{adherence}</TableCell> */}
-        {fields.map( field => <TableCell>{field.formatter ? field.formatter(patient[field.key]) : patient[field.key]} </TableCell>)}
+        {fields.map(field => <TableCell>{field.component ? field.component(patient[field.key]) : patient[field.key]} </TableCell>)}
     </TableRow>)
 }
 
