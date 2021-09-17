@@ -20,6 +20,7 @@ import AddPatient from './AddPatient';
 import SectionTitle from '../../Components/Practitioner/SectionTitle';
 import { Typography } from '@material-ui/core';
 import ActivationCodePopup from './ActivationCodePopUp'
+import PatientList from './PatientList';
 
 const PatientsView = observer((props) => {
     const classes = useStyles();
@@ -39,6 +40,7 @@ const PatientsView = observer((props) => {
            <ActivationCodePopup activationCode={practitionerStore.newActivationCode} close={() => { practitionerStore.newActivationCode = "" }}  />
             <div className={classes.superContainer}>
                 <div className={classes.container}>
+                    <PatientList />
                     <div className={classes.header}>
                         <SectionTitle>{t("coordinator.titles.myPatients")}</SectionTitle>
                         {!practitionerStore.onAddPatientFlow && <ProfileButton onClick={toggleAddPatient} className={classes.addPatient}><PlusIcon />{t('coordinator.addPatientFlow.title')}</ProfileButton>}
