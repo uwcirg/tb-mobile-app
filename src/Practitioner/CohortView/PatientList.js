@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react';
@@ -6,6 +6,9 @@ import { Table, TableBody, TableHead, TableCell, TableRow, TableSortLabel } from
 import { useTranslation } from 'react-i18next';
 import Priority from '../Shared/Priority';
 import Colors from '../../Basics/Colors';
+import { DateTime } from 'luxon';
+import Search from '../../Basics/SearchBar'
+import { common } from '@material-ui/core/colors';
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -40,8 +43,14 @@ const useStyles = makeStyles({
             color: Colors.buttonBlue,
             textDecoration: "none"
         }
-    }
+    },
+    search: {
+        width: 'fit-content',
+        margin: 'unset',
+        paddingRight: "1em"
+    },
 })
+
 
 const Name = ({ fullName, id }) => {
 
@@ -72,17 +81,20 @@ const fields = [
     },
     {
         key: "treatmentStart",
-        displayName: "App Start"
+        displayName: "App Start",
+        formatter: (value) => `${DateTime.fromISO(value).toLocaleString(DateTime.DATE_MED)}`
     },
     {
         key: "adherence",
         displayName: "Adherence",
-        formatter: percentComponent
+        formatter: percentComponent,
+        align: "right"
     },
     {
         key: "photoAdherence",
         displayName: "Photo Adherence",
-        formatter: percentComponent
+        formatter: percentComponent,
+        align: "right"
     }
 ]
 
@@ -96,6 +108,7 @@ const TableHeader = (props) => {
     return (<TableHead>
         <TableRow>
             {fields.map(field => <TableCell
+                align={field.align}
                 sortDirection={orderBy === field.key ? order : false}
             >
                 {field.displayName}
@@ -111,10 +124,14 @@ const TableHeader = (props) => {
 
 const PatientList = observer(() => {
 
+    const { t } = useTranslation('translation');
+
     const classes = useStyles();
     const patients = useStores().practitionerStore.patientList;
-    const [order, setOrder] = React.useState('asc');
-    const [orderBy, setOrderBy] = React.useState('treatmentStart');
+
+    const [order, setOrder] = useState('asc');
+    const [orderBy, setOrderBy] = useState('treatmentStart');
+    const [search,setSearch] = useState('');
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -122,16 +139,17 @@ const PatientList = observer(() => {
         setOrderBy(property);
     };
 
-    return (<div>
-        <h1>Patients: {patients.length}</h1>
+    const patientSearch = patients.filter(each => {return each.fullName && each.fullName.toLowerCase().includes(search.toLowerCase())})
 
+    return (<div>
+        <Search className={classes.search} handleChange={(event) => { setSearch(event.target.value) }} placeholder={t('coordinator.cohortOverview.searchByName')} />
         <Table>
             <TableHeader
                 order={order}
                 orderBy={orderBy}
                 onRequestSort={handleRequestSort} />
             <TableBody>
-                {stableSort(patients, getComparator(order, orderBy)).map(patient => <PatientRow key={patient.id} patient={patient} />)}
+                {stableSort(patientSearch, getComparator(order, orderBy)).map(patient => <PatientRow key={patient.id} patient={patient} />)}
             </TableBody>
         </Table>
     </div>)
@@ -140,12 +158,11 @@ const PatientList = observer(() => {
 
 const PatientRow = ({ patient, index }) => {
 
-    const { fullName, phoneNumber, priority, treatmentStart, adherence } = patient;
     const { t } = useTranslation('translation');
     const classes = useStyles();
 
     return (<TableRow>
-        {fields.map(field => <TableCell>{field.formatter ? field.formatter(patient[field.key], patient) : patient[field.key]} </TableCell>)}
+        {fields.map(field => <TableCell align={field.align}>{field.formatter ? field.formatter(patient[field.key], patient) : patient[field.key]} </TableCell>)}
     </TableRow>)
 }
 
