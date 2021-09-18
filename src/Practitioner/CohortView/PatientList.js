@@ -85,6 +85,11 @@ const fields = [
         formatter: (value) => `${DateTime.fromISO(value).toLocaleString(DateTime.DATE_MED)}`
     },
     {
+        key: "daysSinceLastReport",
+        displayName: "Last Report",
+        formatter: (value) => value ? `${value} days ago` : 'No Reports'
+    },
+    {
         key: "adherence",
         displayName: "Adherence",
         formatter: percentComponent,
