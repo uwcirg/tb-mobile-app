@@ -1,6 +1,7 @@
 import { action, observable, computed, toJS } from "mobx";
 import { UserStore } from './userStore'
 import { DateTime } from "luxon";
+import {daysSinceISODateTime} from "../Utility/TimeUtils";
 
 const ROUTES = {
     addPatient: ["/patients", "POST"],
@@ -126,7 +127,7 @@ export class PractitionerStore extends UserStore {
     @computed get patientList() {
         return Object.values(this.patients).map( patient => {
             return {...patient, daysSinceLastReport: patient.lastReport ? 
-                (Math.round(DateTime.fromISO(patient.lastReport.createdAt).diffNow('days').days * -1)) : 
+                (Math.round(daysSinceISODateTime(patient.lastReport.createdAt))) : 
                 false}})
     }
 

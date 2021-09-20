@@ -19,11 +19,11 @@ const useStyles = makeStyles({
     superContainer: {
         boxSizing: "border-box",
         width: "100%",
-        padding: "0 0 1em 1em"
+        padding: "0"
     },
     container: {
         marginLeft: "auto",
-        width: "80%",
+        width: "100%",
         height: "250px",
         display: "flex",
         flexDirection: "column",
@@ -70,7 +70,8 @@ const useStyles = makeStyles({
     yLabel: {
         height: "100%",
         position: "absolute",
-        left: "-3em",
+        right: "-3em",
+        padding: "5px 0",
         display: "flex",
         flexDirection: "column-reverse",
         justifyContent: "space-between",

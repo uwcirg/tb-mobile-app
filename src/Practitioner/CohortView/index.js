@@ -13,6 +13,9 @@ import ActivationCodePopup from './ActivationCodePopUp'
 import PatientList from './PatientList';
 import Search from '../../Basics/SearchBar';
 import Grid from '@material-ui/core/Grid'
+import { Tab, Tabs } from '@material-ui/core';
+import Badge from '@material-ui/core/Badge'
+import Button from '@material-ui/core/Button'
 
 const PatientsView = observer((props) => {
     const classes = useStyles();
@@ -20,6 +23,12 @@ const PatientsView = observer((props) => {
     const { practitionerStore } = useStores();
 
     const [search, setSearch] = useState('');
+
+    const [value, setValue] = React.useState(0);
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
 
     useEffect(() => {
         practitionerStore.getArchivedPatients();
@@ -41,10 +50,15 @@ const PatientsView = observer((props) => {
                     <AdherenceGraph />
                     <div className={classes.patientListContainer}>
                         <Grid className={classes.options} container justify='space-between'>
-                            <SectionTitle>{t("Active Patients")}</SectionTitle>
-                            <Search className={classes.search} handleChange={(event) => { setSearch(event.target.value) }} 
-                            placeholder={t('coordinator.cohortOverview.searchByName').toLocaleLowerCase()} />
+                            <SectionTitle>{t("List of Patients")}</SectionTitle>
+                            <Search className={classes.search} handleChange={(event) => { setSearch(event.target.value) }}
+                                placeholder={t('coordinator.cohortOverview.searchByName').toLocaleLowerCase()} />
                         </Grid>
+                        <div className={classes.tabs}>
+                            <Button onClick={() => { }}>Active (35)</Button>
+                            <Button className={`${classes.offTab}`} onClick={() => { }}>Pending (2)</Button>
+                            <Button className={`${classes.offTab}`} onClick={() => { }}>Archived (10)</Button>
+                        </div>
                         <PatientList search={search} />
                     </div>
                 </div>
@@ -57,8 +71,28 @@ const PatientsView = observer((props) => {
 })
 
 const useStyles = makeStyles({
+    offTab: {
+        backgroundColor: "#ECECEC !important",
+        color: Colors.textGray,
+        border: "solid 1px lightgray !important"
+    },
+    tabs: {
+        marginBottom: "1em",
+        fontSize: "1em",
+        "& > button, & > span > button": {
+            padding: ".5em .75em .25em .75em",
+            borderRadius: "8px 8px 0 0",
+            backgroundColor: "#F7F7F7",
+            color: Colors.textDarkGray,
+            border: "solid 1px gray",
+            borderBottom: "none",
+        },
+        "& > button:hover":{
+            backgroundColor: "white"
+        }
+    },
     patientListContainer: {
-        
+
 
     },
     superContainer: {
@@ -70,7 +104,7 @@ const useStyles = makeStyles({
         maxWidth: "950px",
         flexGrow: 1,
         display: "flex",
-        padding: "0 2em",
+        padding: "0 4em",
         flexDirection: "column",
         justifyContent: "flex-start",
         "& > div": {
