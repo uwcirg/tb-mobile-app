@@ -124,7 +124,10 @@ export class PractitionerStore extends UserStore {
     }
 
     @computed get patientList() {
-        return Object.values(this.patients).map( patient => {return {...patient, daysSinceLastReport: patient.lastReport ? (Math.round(DateTime.fromISO(patient.lastReport.createdAt).diffNow('days').days * -1)) : 0}})
+        return Object.values(this.patients).map( patient => {
+            return {...patient, daysSinceLastReport: patient.lastReport ? 
+                (Math.round(DateTime.fromISO(patient.lastReport.createdAt).diffNow('days').days * -1)) : 
+                false}})
     }
 
     getPatient = (id) => {

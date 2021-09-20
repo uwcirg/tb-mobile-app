@@ -42,7 +42,8 @@ const PatientsView = observer((props) => {
                     <div className={classes.patientListContainer}>
                         <Grid className={classes.options} container justify='space-between'>
                             <SectionTitle>{t("Active Patients")}</SectionTitle>
-                            <Search className={classes.search} handleChange={(event) => { setSearch(event.target.value) }} placeholder={t('coordinator.cohortOverview.searchByName')} />
+                            <Search className={classes.search} handleChange={(event) => { setSearch(event.target.value) }} 
+                            placeholder={t('coordinator.cohortOverview.searchByName').toLocaleLowerCase()} />
                         </Grid>
                         <PatientList search={search} />
                     </div>
@@ -97,8 +98,7 @@ const useStyles = makeStyles({
         margin: 'unset',
         paddingRight: "1em",
         "&:placeholder": {
-            fontSize: "14px",
-            textTransform: "lowercase"
+            fontSize: "14px"
         }
     }
 })

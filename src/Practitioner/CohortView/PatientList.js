@@ -4,10 +4,9 @@ import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react';
 import { Table, TableBody, TableHead, TableCell, TableRow, TableSortLabel } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import Priority from '../Shared/Priority';
 import Colors from '../../Basics/Colors';
-import { DateTime } from 'luxon';
-import Grid from '@material-ui/core/Grid'
+import Grid from '@material-ui/core/Grid';
+import fields from './TableFields';
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -37,12 +36,6 @@ function stableSort(array, comparator) {
 
 
 const useStyles = makeStyles({
-    profileLink: {
-        "&, &:visited": {
-            color: Colors.buttonBlue,
-            textDecoration: "none"
-        }
-    },
     table: {
         "& > tbody > tr:nth-of-type(2n+3)": {
             backgroundColor: Colors.lighterGray
@@ -75,59 +68,6 @@ const useStyles = makeStyles({
         }
     }
 })
-
-
-const Name = ({ fullName, id }) => {
-
-    const classes = useStyles();
-    const { push } = useStores().routingStore;
-    //Handle Patient Link
-    const handlePatientClick = (event) => {
-        event.preventDefault();
-        push(`/patients/${id}`)
-    }
-    return <a className={classes.profileLink} href={`/patients/${id}`} onClick={handlePatientClick}>{fullName}</a>
-}
-
-const percentComponent = (value) => {
-    return `${Math.round(value * 100)}%`
-}
-
-const fields = [
-    {
-        key: "fullName",
-        displayName: "Name",
-        formatter: (value, patient) => <Name {...patient} />
-    },
-    {
-        key: "priority",
-        displayName: "Priority",
-        align: "center",
-        formatter: (value) => <Priority index={value} />
-    },
-    {
-        key: "treatmentStart",
-        displayName: "App Start",
-        formatter: (value) => `${DateTime.fromISO(value).toLocaleString(DateTime.DATE_MED)}`
-    },
-    {
-        key: "daysSinceLastReport",
-        displayName: "Last Report",
-        formatter: (value) => value ? `${value} days ago` : 'No Reports'
-    },
-    {
-        key: "adherence",
-        displayName: "Adherence",
-        formatter: percentComponent,
-        align: "right"
-    },
-    {
-        key: "photoAdherence",
-        displayName: "Photo Adherence",
-        formatter: percentComponent,
-        align: "right"
-    }
-]
 
 const TableHeader = (props) => {
 
