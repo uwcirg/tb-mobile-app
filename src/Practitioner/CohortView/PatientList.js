@@ -54,9 +54,9 @@ const useStyles = makeStyles({
             borderRight: "none",
         },
         "& > * > tr > th": {
-            paddingLeft: ".5em",
             borderRight: "1px solid darkgray",
             padding: 0,
+            paddingLeft: "1em",
             borderBottom: "none"
         }
 
@@ -66,6 +66,11 @@ const useStyles = makeStyles({
             height: "1em",
             display: "table-row",
             content: 'TEEST'
+        }
+    },
+    placeholderRow:{
+        "& > td": {
+            padding: "8px"
         }
     }
 })
@@ -96,6 +101,7 @@ const fields = [
     {
         key: "priority",
         displayName: "Priority",
+        align: "center",
         formatter: (value) => <Priority index={value} />
     },
     {
@@ -196,7 +202,7 @@ const EmptyPatientRow = ({ patient, index }) => {
     const { t } = useTranslation('translation');
     const classes = useStyles();
 
-    return (<TableRow style={{padding: "0"}}>
+    return (<TableRow className={classes.placeholderRow}>
         {fields.map(field => <TableCell align={field.align}></TableCell>)}
     </TableRow>)
 }

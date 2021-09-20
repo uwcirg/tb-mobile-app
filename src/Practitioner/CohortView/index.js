@@ -12,6 +12,7 @@ import SectionTitle from '../../Components/Practitioner/SectionTitle';
 import ActivationCodePopup from './ActivationCodePopUp'
 import PatientList from './PatientList';
 import Search from '../../Basics/SearchBar';
+import Grid from '@material-ui/core/Grid'
 
 const PatientsView = observer((props) => {
     const classes = useStyles();
@@ -38,7 +39,10 @@ const PatientsView = observer((props) => {
                         {!practitionerStore.onAddPatientFlow && <ProfileButton onClick={toggleAddPatient} className={classes.addPatient}><PlusIcon />{t('coordinator.addPatientFlow.title')}</ProfileButton>}
                     </div>
                     <div className={classes.patientListContainer}>
-                        <Search className={classes.search} handleChange={(event) => { setSearch(event.target.value) }} placeholder={t('coordinator.cohortOverview.searchByName')} />
+                        <Grid className={classes.options} container justify='space-between'>
+                            <SectionTitle>{t("Active Patients")}</SectionTitle>
+                            <Search className={classes.search} handleChange={(event) => { setSearch(event.target.value) }} placeholder={t('coordinator.cohortOverview.searchByName')} />
+                        </Grid>
                         <PatientList search={search} />
                     </div>
                     <AdherenceGraph />
@@ -55,7 +59,7 @@ const useStyles = makeStyles({
     patientListContainer: {
         width: "80%",
         padding: "1em"
-        
+
     },
     superContainer: {
         width: "100%",
@@ -85,10 +89,17 @@ const useStyles = makeStyles({
         marginLeft: "auto",
         boxSizing: "border-box",
     },
+    options:{
+        margin: "1em 0"
+    },
     search: {
         width: 'fit-content',
         margin: 'unset',
-        paddingRight: "1em"
+        paddingRight: "1em",
+        "&:placeholder": {
+            fontSize: "14px",
+            textTransform: "lowercase"
+        }
     }
 })
 

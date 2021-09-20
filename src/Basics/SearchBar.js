@@ -27,7 +27,7 @@ const SearchBar = (props) => {
 
     return (
         <div className={`${classes.container} ${props.className && props.className}`}>
-            <SearchIcon />
+            <SearchIcon style={{fontSize: "1.1em",color: Colors.textDarkGray}} />
             <InputBase
                 placeholder={props.placeholder}
                 className={classes.search}
