@@ -7,8 +7,6 @@ import { useTranslation } from 'react-i18next';
 import Priority from '../Shared/Priority';
 import Colors from '../../Basics/Colors';
 import { DateTime } from 'luxon';
-import Search from '../../Basics/SearchBar'
-import { common } from '@material-ui/core/colors';
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -44,11 +42,32 @@ const useStyles = makeStyles({
             textDecoration: "none"
         }
     },
-    search: {
-        width: 'fit-content',
-        margin: 'unset',
-        paddingRight: "1em"
+    table: {
+        "& > tbody > tr:nth-of-type(even)": {
+            backgroundColor: Colors.lighterGray
+        },
+        "& > * > tr > *": {
+            verticalAlign: 'top',
+            border: "none"
+        },
+        "& > * > tr > th:last-of-type": {
+            borderRight: "none",
+        },
+        "& > * > tr > th": {
+            paddingLeft: ".5em",
+            borderRight: "1px solid darkgray",
+            padding: 0,
+            borderBottom: "none"
+        }
+
     },
+    tableTop: {
+        "&:after": {
+            height: "1em",
+            display: "table-row",
+            content: 'TEEST'
+        }
+    }
 })
 
 
@@ -104,30 +123,32 @@ const fields = [
 ]
 
 const TableHeader = (props) => {
+    
     const { order, orderBy, onRequestSort } = props;
+    const classes = useStyles();
 
     const createSortHandler = (property) => (event) => {
         onRequestSort(event, property);
     };
 
-    return (<TableHead>
+    return (<TableHead className={classes.tableTop}>
         <TableRow>
             {fields.map(field => <TableCell
                 align={field.align}
                 sortDirection={orderBy === field.key ? order : false}
             >
-                {field.displayName}
+                <span>{field.displayName}</span>
                 <TableSortLabel
                     active={orderBy === field.key}
                     direction={orderBy === field.key ? order : 'asc'}
                     onClick={createSortHandler(field.key)}
-              />
+                />
             </TableCell>)}
         </TableRow>
     </TableHead>)
 }
 
-const PatientList = observer(() => {
+const PatientList = observer(({ search }) => {
 
     const { t } = useTranslation('translation');
 
@@ -136,7 +157,6 @@ const PatientList = observer(() => {
 
     const [order, setOrder] = useState('asc');
     const [orderBy, setOrderBy] = useState('treatmentStart');
-    const [search,setSearch] = useState('');
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -144,20 +164,20 @@ const PatientList = observer(() => {
         setOrderBy(property);
     };
 
-    const patientSearch = patients.filter(each => {return each.fullName && each.fullName.toLowerCase().includes(search.toLowerCase())})
+    const patientSearch = patients.filter(each => { return each.fullName && each.fullName.toLowerCase().includes(search.toLowerCase()) })
 
-    return (<div>
-        <Search className={classes.search} handleChange={(event) => { setSearch(event.target.value) }} placeholder={t('coordinator.cohortOverview.searchByName')} />
-        <Table>
+    return (
+        <Table className={classes.table}>
             <TableHeader
                 order={order}
                 orderBy={orderBy}
                 onRequestSort={handleRequestSort} />
             <TableBody>
+                <EmptyPatientRow />
                 {stableSort(patientSearch, getComparator(order, orderBy)).map(patient => <PatientRow key={patient.id} patient={patient} />)}
             </TableBody>
         </Table>
-    </div>)
+    )
 
 });
 
@@ -168,6 +188,16 @@ const PatientRow = ({ patient, index }) => {
 
     return (<TableRow>
         {fields.map(field => <TableCell align={field.align}>{field.formatter ? field.formatter(patient[field.key], patient) : patient[field.key]} </TableCell>)}
+    </TableRow>)
+}
+
+const EmptyPatientRow = ({ patient, index }) => {
+
+    const { t } = useTranslation('translation');
+    const classes = useStyles();
+
+    return (<TableRow style={{padding: "0"}}>
+        {fields.map(field => <TableCell align={field.align}></TableCell>)}
     </TableRow>)
 }
 
