@@ -34,10 +34,10 @@ const PatientsView = observer((props) => {
             <ActivationCodePopup activationCode={practitionerStore.newActivationCode} close={() => { practitionerStore.newActivationCode = "" }} />
             <div className={classes.superContainer}>
                 <div className={classes.container}>
-                    <div className={classes.header}>
+                    <Grid className={classes.options} container justify='space-between'>
                         <SectionTitle>{t("coordinator.titles.myPatients")}</SectionTitle>
                         {!practitionerStore.onAddPatientFlow && <ProfileButton onClick={toggleAddPatient} className={classes.addPatient}><PlusIcon />{t('coordinator.addPatientFlow.title')}</ProfileButton>}
-                    </div>
+                    </Grid>
                     <div className={classes.patientListContainer}>
                         <Grid className={classes.options} container justify='space-between'>
                             <SectionTitle>{t("Active Patients")}</SectionTitle>
@@ -57,8 +57,7 @@ const PatientsView = observer((props) => {
 
 const useStyles = makeStyles({
     patientListContainer: {
-        width: "80%",
-        padding: "1em"
+        
 
     },
     superContainer: {
@@ -67,6 +66,7 @@ const useStyles = makeStyles({
         flexDirection: "row"
     },
     container: {
+        maxWidth: "950px",
         flexGrow: 1,
         display: "flex",
         padding: "0 2em",
@@ -89,7 +89,7 @@ const useStyles = makeStyles({
         marginLeft: "auto",
         boxSizing: "border-box",
     },
-    options:{
+    options: {
         margin: "1em 0"
     },
     search: {

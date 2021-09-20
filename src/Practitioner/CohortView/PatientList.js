@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import Priority from '../Shared/Priority';
 import Colors from '../../Basics/Colors';
 import { DateTime } from 'luxon';
+import Grid from '@material-ui/core/Grid'
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -43,7 +44,7 @@ const useStyles = makeStyles({
         }
     },
     table: {
-        "& > tbody > tr:nth-of-type(even)": {
+        "& > tbody > tr:nth-of-type(2n+3)": {
             backgroundColor: Colors.lighterGray
         },
         "& > * > tr > *": {
@@ -68,7 +69,7 @@ const useStyles = makeStyles({
             content: 'TEEST'
         }
     },
-    placeholderRow:{
+    placeholderRow: {
         "& > td": {
             padding: "8px"
         }
@@ -129,7 +130,7 @@ const fields = [
 ]
 
 const TableHeader = (props) => {
-    
+
     const { order, orderBy, onRequestSort } = props;
     const classes = useStyles();
 
@@ -141,14 +142,14 @@ const TableHeader = (props) => {
         <TableRow>
             {fields.map(field => <TableCell
                 align={field.align}
-                sortDirection={orderBy === field.key ? order : false}
-            >
-                <span>{field.displayName}</span>
-                <TableSortLabel
-                    active={orderBy === field.key}
-                    direction={orderBy === field.key ? order : 'asc'}
-                    onClick={createSortHandler(field.key)}
-                />
+                sortDirection={orderBy === field.key ? order : false}>
+                <Grid container justify="space-between">
+                    <span>{field.displayName}</span>
+                    <TableSortLabel
+                        active={orderBy === field.key}
+                        direction={orderBy === field.key ? order : 'asc'}
+                        onClick={createSortHandler(field.key)} />
+                </Grid>
             </TableCell>)}
         </TableRow>
     </TableHead>)
