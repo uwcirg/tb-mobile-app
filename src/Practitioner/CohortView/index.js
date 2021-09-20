@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Colors from '../../Basics/Colors';
-import AdherenceGraph from '../AdherenceGraph';
+import AdherenceGraph from './AdherenceGraph';
 import { useTranslation } from 'react-i18next';
 import PlusIcon from '@material-ui/icons/AddOutlined'
 import useStores from '../../Basics/UseStores';
@@ -38,6 +38,7 @@ const PatientsView = observer((props) => {
                         <SectionTitle>{t("coordinator.titles.myPatients")}</SectionTitle>
                         {!practitionerStore.onAddPatientFlow && <ProfileButton onClick={toggleAddPatient} className={classes.addPatient}><PlusIcon />{t('coordinator.addPatientFlow.title')}</ProfileButton>}
                     </Grid>
+                    <AdherenceGraph />
                     <div className={classes.patientListContainer}>
                         <Grid className={classes.options} container justify='space-between'>
                             <SectionTitle>{t("Active Patients")}</SectionTitle>
@@ -45,7 +46,6 @@ const PatientsView = observer((props) => {
                         </Grid>
                         <PatientList search={search} />
                     </div>
-                    <AdherenceGraph />
                 </div>
                 <div className={classes.sidebar}>
                     {practitionerStore.onAddPatientFlow && <AddPatient />}

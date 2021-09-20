@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { observer } from 'mobx-react';
-import useStores from '../Basics/UseStores';
-import Colors from '../Basics/Colors';
+import useStores from '../../Basics/UseStores';
+import Colors from '../../Basics/Colors';
 import Tooltip from '@material-ui/core/Tooltip';
-import Card from './Shared/Card';
+import Card from '../Shared/Card';
 import { useTranslation } from 'react-i18next';
 
 const GRAPH_MARKER_SIZE = 20;
@@ -12,12 +12,17 @@ const divider = .9;
 
 const useStyles = makeStyles({
 
+    visContainer:{
+        fontWeight: "medium",
+        color: Colors.textDarkGray
+    },
     superContainer: {
-        width: "90%",
-        padding: "4em 1em 4em 1em"
+        boxSizing: "border-box",
+        width: "100%",
+        padding: "0 0 1em 1em"
     },
     container: {
-        margin: "auto",
+        marginLeft: "auto",
         width: "80%",
         height: "250px",
         display: "flex",
@@ -32,13 +37,15 @@ const useStyles = makeStyles({
     box: {
         height: `${GRAPH_MARKER_SIZE}px`,
         width: `${GRAPH_MARKER_SIZE}px`,
-        borderRadius: `${GRAPH_MARKER_SIZE / 2}px`,
-        border: "solid 1px white",
+        borderRadius: `100%`,
         backgroundColor: Colors.buttonBlue,
+        border: "solid .5px white",
         position: "absolute"
     },
     backgroundContainer: {
-        opacity: "75%",
+        borderRadius: "4px",
+        overflow: "hidden",
+        opacity: "33%",
         display: "flex",
         flexDirection: "column",
         position: "absolute",
@@ -52,7 +59,7 @@ const useStyles = makeStyles({
     xLabel: {
         position: "absolute",
         textAlign: "center",
-        top: "-2em",
+        bottom: "-2em",
         display: "flex",
         width: "100%",
         "& > div": {
@@ -72,10 +79,10 @@ const useStyles = makeStyles({
             display: "flex",
             alignItems: "flex-end"
         },
-        "& > div:last-child":{
+        "& > div:last-child": {
             alignItems: "flex-start"
         },
-        "& > div:nth-child(2)":{
+        "& > div:nth-child(2)": {
             alignItems: "center"
         },
 
@@ -127,19 +134,17 @@ const Adherence = observer(() => {
 
 
     return (
-        <Card title={t("coordinator.cardTitles.overviewOfProgress")}>
-            <div className={classes.superContainer}>
-                <div className={classes.container}>
-                    <Background />
-                    <div className={classes.top}>
-                        {top.map((each,i) => { return (<DataPoint key={`datapoint-top-${i}`} {...each} top />) })}
-                    </div>
-                    <div className={classes.bottom}>
-                        {bottom.map((each,i) => { return (<DataPoint key={`datapoint-bottom-${i}`} {...each} />) })}
-                    </div>
+        <div className={classes.superContainer}>
+            <div className={classes.container}>
+                <Background />
+                <div className={classes.top}>
+                    {top.map((each, i) => { return (<DataPoint key={`datapoint-top-${i}`} {...each} top />) })}
+                </div>
+                <div className={classes.bottom}>
+                    {bottom.map((each, i) => { return (<DataPoint key={`datapoint-bottom-${i}`} {...each} />) })}
                 </div>
             </div>
-        </Card>)
+        </div>)
 
 });
 
@@ -150,9 +155,9 @@ const DataPoint = (props) => {
 
     let bottomCalc;
     if (props.top) {
-        bottomCalc = props.adherence > 0 ? `calc(${((props.adherence - divider) / (1 - divider)) * 100}% - ${GRAPH_MARKER_SIZE}px)` : "0px";
+        bottomCalc = props.adherence > 0 ? `calc(${((props.adherence - divider) / (1 - divider)) * 100}%)` : "0px";
     } else {
-        bottomCalc = props.adherence > 0 ? `calc(${(props.adherence/divider) * 100}% - ${GRAPH_MARKER_SIZE}px)` : "0px";
+        bottomCalc = props.adherence > 0 ? `calc(${(props.adherence / divider) * 100}%)` : "0px";
     }
 
     return (
@@ -188,16 +193,18 @@ const Background = () => {
     let months = []
 
     for (let step = 0; step < 6; step++) {
-        months.push(<div key={`background-month-${step}`} className="month">{t("coordinator.months")} {step + 1}</div>)
+        months.push(<div key={`background-month-${step}`} className="month">{step + 1}</div>)
         dividers.push(<div key={`background-divider-${step}`}></div>)
     }
 
     return (
-        <div className={classes.backgroundContainer}>
+        <div className={classes.visContainer}>
+            <div className={classes.backgroundContainer}>
+                {column}
+            </div>
             <div className={classes.xLabel}>{months} </div>
             <div className={classes.yLabel}>{labels}</div>
             <div className={classes.xDivider}>{dividers}</div>
-            {column}
         </div>
     )
 }
