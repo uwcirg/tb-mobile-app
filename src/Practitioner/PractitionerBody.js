@@ -30,12 +30,7 @@ const PractitionerBody = observer(() => {
 
     if (practitionerUIStore.onSettings) view = <Settings />
     if (practitionerUIStore.onMessaging) view = <Messages />
-    if (practitionerUIStore.onPatients) {
-        view = <PatientsView
-            patientList={practitionerStore.patientList}
-            tempList={practitionerStore.temporaryPatients}
-            handlePatientClick={handlePatientClick} />
-    }
+    if (practitionerUIStore.onPatients) view = <PatientsView />
     if (practitionerUIStore.onSinglePatient) view = <PatientProfile id={practitionerUIStore.pathNumber} patient={practitionerStore.getPatient(practitionerUIStore.pathNumber)} />
     if (practitionerUIStore.onReview) view = <Review />
 

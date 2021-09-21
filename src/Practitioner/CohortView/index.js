@@ -12,10 +12,8 @@ import SectionTitle from '../../Components/Practitioner/SectionTitle';
 import ActivationCodePopup from './ActivationCodePopUp'
 import PatientList from './PatientList';
 import Search from '../../Basics/SearchBar';
-import Grid from '@material-ui/core/Grid'
-import { Tab, Tabs } from '@material-ui/core';
-import Badge from '@material-ui/core/Badge'
-import Button from '@material-ui/core/Button'
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 
 const PatientsView = observer((props) => {
     const classes = useStyles();
@@ -24,10 +22,10 @@ const PatientsView = observer((props) => {
 
     const [search, setSearch] = useState('');
 
-    const [value, setValue] = React.useState(0);
+    const [tab, setTab] = React.useState(0);
 
     const handleChange = (event, newValue) => {
-        setValue(newValue);
+        setTab(newValue);
     };
 
     useEffect(() => {
@@ -38,10 +36,18 @@ const PatientsView = observer((props) => {
         practitionerStore.onAddPatientFlow = !practitionerStore.onAddPatientFlow
     }
 
+    const tabOptions = [
+        {text: "Active",list: practitionerStore.patientList},
+        {text: "Pending", list: practitionerStore.pendingPatients}
+    ]
+
+    const tabProps = { selectedTab: tab, setSelectedTab: setTab }
+
     return (
         <>
             <ActivationCodePopup activationCode={practitionerStore.newActivationCode} close={() => { practitionerStore.newActivationCode = "" }} />
             <div className={classes.superContainer}>
+                {practitionerStore.onAddPatientFlow && <AddPatient />}
                 <div className={classes.container}>
                     <Grid className={classes.options} container justify='space-between'>
                         <SectionTitle>{t("coordinator.titles.myPatients")}</SectionTitle>
@@ -49,35 +55,41 @@ const PatientsView = observer((props) => {
                     </Grid>
                     <AdherenceGraph />
                     <div className={classes.patientListContainer}>
-                        <Grid className={classes.options} container justify='space-between'>
-                            <SectionTitle>{t("List of Patients")}</SectionTitle>
-                            <Search className={classes.search} handleChange={(event) => { setSearch(event.target.value) }}
+                        <SectionTitle>{t("List of Patients")}</SectionTitle>
+                        <Grid className={classes.options} container justify='space-between' alignItems="center">
+                            <div className={classes.tabs}>
+                                {tabOptions.map((tab, index) => {
+                                    return <Tab {...tabProps} index={index}>{tab.text}: ({tab.list.length})</Tab>
+                                })}
+                            </div>
+                            <Search className={classes.search} handleChange={(event) => { setSearch(event.target.tab) }}
                                 placeholder={t('coordinator.cohortOverview.searchByName').toLocaleLowerCase()} />
                         </Grid>
-                        <div className={classes.tabs}>
-                            <Button onClick={() => { }}>Active (35)</Button>
-                            <Button className={`${classes.offTab}`} onClick={() => { }}>Pending (2)</Button>
-                            <Button className={`${classes.offTab}`} onClick={() => { }}>Archived (10)</Button>
-                        </div>
-                        <PatientList search={search} />
+                        <PatientList patients={tabOptions[tab].list} search={search} />
                     </div>
-                </div>
-                <div className={classes.sidebar}>
-                    {practitionerStore.onAddPatientFlow && <AddPatient />}
                 </div>
             </div>
         </>
     )
 })
 
+const Tab = ({ index, selectedTab, children, setSelectedTab }) => {
+    const classes = useStyles({ index: index });
+    return (<Button className={`${(index !== selectedTab) && classes.offTab}`} onClick={() => { setSelectedTab(index) }}>{children}</Button>)
+}
+
 const useStyles = makeStyles({
+    patientListContainer:{
+        paddingTop: "2em"
+    },
     offTab: {
-        backgroundColor: "#ECECEC !important",
+        backgroundColor: `${Colors.lightgray} !important`,
         color: Colors.textGray,
-        border: "solid 1px lightgray !important"
+        border: `solid 1px lightgray`,
+        borderLeft: "none"
     },
     tabs: {
-        marginBottom: "1em",
+        alignSelf: "flex-end",
         fontSize: "1em",
         "& > button, & > span > button": {
             padding: ".5em .75em .25em .75em",
@@ -87,13 +99,9 @@ const useStyles = makeStyles({
             border: "solid 1px gray",
             borderBottom: "none",
         },
-        "& > button:hover":{
+        "& > button:hover": {
             backgroundColor: "white"
         }
-    },
-    patientListContainer: {
-
-
     },
     superContainer: {
         width: "100%",
@@ -116,20 +124,9 @@ const useStyles = makeStyles({
         height: "100vh",
         overflow: "scroll"
     },
-    sidebar: {
-        width: "300px",
-        overflow: "hidden",
-        height: "100vh",
-        border: "solid 2px lightgray",
-        marginLeft: "auto",
-        boxSizing: "border-box",
-    },
-    options: {
-        margin: "1em 0"
-    },
     search: {
+        margin: "1em 0",
         width: 'fit-content',
-        margin: 'unset',
         paddingRight: "1em",
         "&:placeholder": {
             fontSize: "14px"

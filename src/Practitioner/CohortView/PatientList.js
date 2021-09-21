@@ -37,18 +37,21 @@ function stableSort(array, comparator) {
 
 const useStyles = makeStyles({
     table: {
-        "& > tbody > tr:nth-of-type(2n+3)": {
-            backgroundColor: Colors.lighterGray
+        // "& > tbody > tr:nth-of-type(2n+3)": {
+        //     backgroundColor: Colors.lighterGray
+        // },
+        "& > tbody > tr": {
+            borderBottom: "1px solid lightgray"
         },
         "& > * > tr > *": {
             verticalAlign: 'top',
             border: "none"
         },
-        "& > * > tr > th:last-of-type": {
+        "& > * > tr > th:last-of-type > div": {
             borderRight: "none",
         },
         "& > * > tr > th": {
-            borderRight: "1px solid darkgray",
+            backgroundColor: Colors.lighterGray,
             padding: 0,
             paddingLeft: "1em",
             borderBottom: "none"
@@ -66,6 +69,10 @@ const useStyles = makeStyles({
         "& > td": {
             padding: "8px"
         }
+    },
+    headerDiv: {
+        margin: "1em 0",
+        borderRight: "1px solid darkgray"
     }
 })
 
@@ -83,7 +90,7 @@ const TableHeader = (props) => {
             {fields.map(field => <TableCell
                 align={field.align}
                 sortDirection={orderBy === field.key ? order : false}>
-                <Grid container justify="space-between">
+                <Grid className={classes.headerDiv} container justify="space-between">
                     <span>{field.displayName}</span>
                     <TableSortLabel
                         active={orderBy === field.key}
@@ -95,12 +102,11 @@ const TableHeader = (props) => {
     </TableHead>)
 }
 
-const PatientList = observer(({ search }) => {
+const PatientList = observer(({ search, patients }) => {
 
     const { t } = useTranslation('translation');
 
     const classes = useStyles();
-    const patients = useStores().practitionerStore.patientList;
 
     const [order, setOrder] = useState('asc');
     const [orderBy, setOrderBy] = useState('treatmentStart');
@@ -120,7 +126,6 @@ const PatientList = observer(({ search }) => {
                 orderBy={orderBy}
                 onRequestSort={handleRequestSort} />
             <TableBody>
-                <EmptyPatientRow />
                 {stableSort(patientSearch, getComparator(order, orderBy)).map(patient => <PatientRow key={patient.id} patient={patient} />)}
             </TableBody>
         </Table>
@@ -130,7 +135,6 @@ const PatientList = observer(({ search }) => {
 
 const PatientRow = ({ patient, index }) => {
 
-    const { t } = useTranslation('translation');
     const classes = useStyles();
 
     return (<TableRow>
@@ -140,7 +144,6 @@ const PatientRow = ({ patient, index }) => {
 
 const EmptyPatientRow = ({ patient, index }) => {
 
-    const { t } = useTranslation('translation');
     const classes = useStyles();
 
     return (<TableRow className={classes.placeholderRow}>

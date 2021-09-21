@@ -9,7 +9,7 @@ const ROUTES = {
     getOrganizations: ["/organizations", "GET"],
     getPatients: ["/v2/patients", "GET"],
     getArchivedPatients: ["/v2/patients?archived=true", "GET"],
-    getTemporaryPatients: ["/practitioner/temporary_patients", "GET"],
+    getPendingPatients: ["/practitioner/temporary_patients", "GET"],
     getPatientPhotos: ["/patients/photo_reports", "GET"],
     getProcessedPatientPhotos: ["/patients/photo_reports/processed", "GET"],
     getPatientNames: ["/practitioner/patients?namesOnly=true", "GET"],
@@ -77,7 +77,7 @@ export class PractitionerStore extends UserStore {
     @observable patients = {};
     @observable archivedPatients = [];
     @observable patientsLoaded = false;
-    @observable temporaryPatients = [];
+    @observable pendingPatients = [];
 
     //Currently viewed patient
     @observable selectedPatient = {
@@ -152,7 +152,7 @@ export class PractitionerStore extends UserStore {
 
             if (json && json.code) {
                 this.newPatient.code = json.code;
-                this.getTemporaryPatients();
+                this.getPendingPatients();
             }
         })
     }
@@ -182,12 +182,12 @@ export class PractitionerStore extends UserStore {
             this.patients = patientHash;
             this.patientsLoaded = true;
         })
-        this.getTemporaryPatients();
+        this.getPendingPatients();
     }
 
-    @action getTemporaryPatients = () => {
-        this.executeRequest('getTemporaryPatients').then(response => {
-            this.temporaryPatients = response;
+    @action getPendingPatients = () => {
+        this.executeRequest('getPendingPatients').then(response => {
+            this.pendingPatients = response;
         })
     }
 
