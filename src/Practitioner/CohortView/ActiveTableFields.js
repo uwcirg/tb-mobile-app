@@ -38,6 +38,12 @@ const Translate = ({string}) => {
     return text
 }
 
+const DaysAgo = ({days}) => {
+    const {t} = useTranslation('translation');
+    return  !(days === false) ? (days > 0 ? `${days} ${t('time.day_ago', { count: days })}` : t('patient.home.today')) : t('coordinator.noReports')
+
+}
+
 const fields = [
     {
         key: "fullName",
@@ -58,7 +64,7 @@ const fields = [
     {
         key: "daysSinceLastReport",
         displayName: <Translate string='coordinator.patientTableLabels.lastSubmission' />,
-        formatter: (value) => !(value === false) ? (value > 0 ? `${value} days ago` : "Today") : 'No Reports'
+        formatter: value => <DaysAgo days={value} />
     },
     {
         key: "adherence",

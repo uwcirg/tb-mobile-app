@@ -106,7 +106,9 @@
         "weeks": "weeks",
         "month": "month",
         "all": "all",
-        "noon": "noon"
+        "noon": "noon",
+        "day_ago": "day ago",
+        "day_ago_plural": "days ago"
     },
     "patient": {
         "tabNames": {
@@ -593,6 +595,7 @@
             "streak": "Streak",
             "details": "Details"
         },
+        "noReports": "No Reports",
         "noTasks": "No Tasks Found",
         "profile": "Profile",
         "message": "Message",
