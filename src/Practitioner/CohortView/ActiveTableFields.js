@@ -4,6 +4,7 @@ import { DateTime } from 'luxon';
 import { makeStyles } from '@material-ui/core/styles';
 import Colors from '../../Basics/Colors';
 import useStores from '../../Basics/UseStores';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
     profileLink: {
@@ -31,37 +32,43 @@ const percentComponent = (value) => {
     return `${Math.round(value * 100)}%`
 }
 
+const Translate = ({string}) => {
+    const { t } = useTranslation('translation');
+    const text = t(string);
+    return text
+}
+
 const fields = [
     {
         key: "fullName",
-        displayName: "Name",
+        displayName: <Translate string='coordinator.patientTableLabels.name' />,
         formatter: (value, patient) => <Name {...patient} />
     },
     {
         key: "priority",
-        displayName: "Priority",
+        displayName: <Translate string='coordinator.patientTableLabels.priority' />,
         align: "center",
         formatter: (value) => <Priority index={value} />
     },
     {
         key: "treatmentStart",
-        displayName: "App Start",
+        displayName: <Translate string='coordinator.patientTableLabels.treatmentStart' />,
         formatter: (value) => `${DateTime.fromISO(value).toLocaleString(DateTime.DATE_MED)}`
     },
     {
         key: "daysSinceLastReport",
-        displayName: "Last Report",
+        displayName: <Translate string='coordinator.patientTableLabels.lastSubmission' />,
         formatter: (value) => !(value === false) ? (value > 0 ? `${value} days ago` : "Today") : 'No Reports'
     },
     {
         key: "adherence",
-        displayName: "Adherence",
+        displayName: <Translate string='coordinator.patientTableLabels.adherence' />,
         formatter: percentComponent,
         align: "right"
     },
     {
         key: "photoAdherence",
-        displayName: "Photo Adherence",
+        displayName: <Translate string='coordinator.patientTableLabels.photoAdherence' />,
         formatter: percentComponent,
         align: "right"
     }

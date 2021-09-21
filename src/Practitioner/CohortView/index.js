@@ -21,12 +21,7 @@ const PatientsView = observer((props) => {
     const { practitionerStore } = useStores();
 
     const [search, setSearch] = useState('');
-
     const [tab, setTab] = React.useState(0);
-
-    const handleChange = (event, newValue) => {
-        setTab(newValue);
-    };
 
     useEffect(() => {
         practitionerStore.getArchivedPatients();
@@ -37,9 +32,9 @@ const PatientsView = observer((props) => {
     }
 
     const tabOptions = [
-        {text: "Active",list: practitionerStore.patientList},
-        {text: "Pending", list: practitionerStore.pendingPatients},
-        {text: "Archived", list: practitionerStore.archivedPatients}
+        {text: t('coordinator.cohortOverview.active'),list: practitionerStore.patientList},
+        {text: t('coordinator.cohortOverview.pending'), list: practitionerStore.pendingPatients},
+        {text: t('commonWords.archived'), list: practitionerStore.archivedPatients}
     ]
 
     const tabProps = { selectedTab: tab, setSelectedTab: setTab }
@@ -84,7 +79,7 @@ const useStyles = makeStyles({
         paddingTop: "2em"
     },
     offTab: {
-        backgroundColor: `${Colors.gray} !important`,
+        backgroundColor: `${Colors.lighterGray} !important`,
         color: `${Colors.textDarkGray} !important`,
         border: `solid 1px lightgray`,
         borderLeft: "none"
@@ -94,8 +89,8 @@ const useStyles = makeStyles({
         fontSize: "1em",
         "& > button, & > span > button": {
             padding: ".5em .75em .25em .75em",
-            borderRadius: "8px 8px 0 0",
-            backgroundColor: Colors.lighterGray,
+            borderRadius: "4px 4px 0 0",
+            backgroundColor: "white",
             color: Colors.blue,
             border: "solid 1px gray",
             borderBottom: "none",

@@ -6,7 +6,7 @@ import { Table, TableBody, TableHead, TableCell, TableRow, TableSortLabel } from
 import { useTranslation } from 'react-i18next';
 import Colors from '../../Basics/Colors';
 import Grid from '@material-ui/core/Grid';
-import fields from './TableFields';
+import fields from './ActiveTableFields';
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -48,10 +48,13 @@ const useStyles = makeStyles({
             borderRight: "none",
         },
         "& > * > tr > th": {
-            backgroundColor: Colors.lighterGray,
+            // backgroundColor: Colors.lighterGray,
             padding: 0,
             paddingLeft: "1em",
             borderBottom: "none"
+        },
+        "& > * tr > th":{
+            borderBottom: "1px solid lightgray"
         }
 
     },
