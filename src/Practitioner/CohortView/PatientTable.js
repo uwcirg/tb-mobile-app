@@ -111,6 +111,7 @@ const TableHeader = (props) => {
     return (<TableHead className={classes.tableTop}>
         <TableRow>
             {fields.map(field => <TableCell
+                key={`patient-table-${field.key}`}
                 align={field.align}
                 sortDirection={orderBy === field.key ? order : false}>
                 <Grid className={classes.headerDiv} container justify={(field.align && field.align) === "right" ? "flex-end" : "space-between"}>
@@ -128,7 +129,7 @@ const TableHeader = (props) => {
 const PatientRow = ({ patient, fields }) => {
 
     return (<TableRow>
-        {fields.map(field => <TableCell align={field.align}>{field.formatter ? field.formatter(patient[field.key], patient) : patient[field.key]} </TableCell>)}
+        {fields.map(field => <TableCell key={`patient-${patient.id}-${field.key}`} align={field.align}>{field.formatter ? field.formatter(patient[field.key], patient) : patient[field.key]} </TableCell>)}
     </TableRow>)
 }
 

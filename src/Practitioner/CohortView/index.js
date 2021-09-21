@@ -58,9 +58,7 @@ const PatientsView = observer((props) => {
                         <SectionTitle>{t("List of Patients")}</SectionTitle>
                         <Grid className={classes.options} container justify='space-between' alignItems="center">
                             <div className={classes.tabs}>
-                                {tabOptions.map((tab, index) => {
-                                    return <Tab {...tabProps} index={index}>{tab.text}: ({tab.list.length})</Tab>
-                                })}
+                                {tabOptions.map((tab, index) => {return <Tab key={`table-tab-${index}`} {...tabProps} index={index}>{tab.text}: ({tab.list.length})</Tab>})}
                             </div>
                             <Search value={search} className={classes.search} handleChange={(event) => { setSearch(event.target.value) }}
                                 placeholder={t('coordinator.cohortOverview.searchByName').toLocaleLowerCase()} />
