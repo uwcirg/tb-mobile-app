@@ -37,9 +37,6 @@ function stableSort(array, comparator) {
 
 const useStyles = makeStyles({
     table: {
-        // "& > tbody > tr:nth-of-type(2n+3)": {
-        //     backgroundColor: Colors.lighterGray
-        // },
         "& > tbody > tr": {
             borderBottom: "1px solid lightgray"
         },
@@ -57,13 +54,6 @@ const useStyles = makeStyles({
             borderBottom: "none"
         }
 
-    },
-    tableTop: {
-        "&:after": {
-            height: "1em",
-            display: "table-row",
-            content: 'TEEST'
-        }
     },
     placeholderRow: {
         "& > td": {
@@ -133,21 +123,10 @@ const PatientList = observer(({ search, patients }) => {
 
 });
 
-const PatientRow = ({ patient, index }) => {
-
-    const classes = useStyles();
+const PatientRow = ({ patient }) => {
 
     return (<TableRow>
         {fields.map(field => <TableCell align={field.align}>{field.formatter ? field.formatter(patient[field.key], patient) : patient[field.key]} </TableCell>)}
-    </TableRow>)
-}
-
-const EmptyPatientRow = ({ patient, index }) => {
-
-    const classes = useStyles();
-
-    return (<TableRow className={classes.placeholderRow}>
-        {fields.map(field => <TableCell align={field.align}></TableCell>)}
     </TableRow>)
 }
 

@@ -38,7 +38,8 @@ const PatientsView = observer((props) => {
 
     const tabOptions = [
         {text: "Active",list: practitionerStore.patientList},
-        {text: "Pending", list: practitionerStore.pendingPatients}
+        {text: "Pending", list: practitionerStore.pendingPatients},
+        {text: "Archived", list: practitionerStore.archivedPatients}
     ]
 
     const tabProps = { selectedTab: tab, setSelectedTab: setTab }
@@ -62,7 +63,7 @@ const PatientsView = observer((props) => {
                                     return <Tab {...tabProps} index={index}>{tab.text}: ({tab.list.length})</Tab>
                                 })}
                             </div>
-                            <Search className={classes.search} handleChange={(event) => { setSearch(event.target.tab) }}
+                            <Search value={search} className={classes.search} handleChange={(event) => { setSearch(event.target.value) }}
                                 placeholder={t('coordinator.cohortOverview.searchByName').toLocaleLowerCase()} />
                         </Grid>
                         <PatientList patients={tabOptions[tab].list} search={search} />
@@ -83,8 +84,8 @@ const useStyles = makeStyles({
         paddingTop: "2em"
     },
     offTab: {
-        backgroundColor: `${Colors.lightgray} !important`,
-        color: Colors.textGray,
+        backgroundColor: `${Colors.gray} !important`,
+        color: `${Colors.textDarkGray} !important`,
         border: `solid 1px lightgray`,
         borderLeft: "none"
     },
@@ -94,8 +95,8 @@ const useStyles = makeStyles({
         "& > button, & > span > button": {
             padding: ".5em .75em .25em .75em",
             borderRadius: "8px 8px 0 0",
-            backgroundColor: "#F7F7F7",
-            color: Colors.textDarkGray,
+            backgroundColor: Colors.lighterGray,
+            color: Colors.blue,
             border: "solid 1px gray",
             borderBottom: "none",
         },

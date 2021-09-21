@@ -29,6 +29,7 @@ const SearchBar = (props) => {
         <div className={`${classes.container} ${props.className && props.className}`}>
             <SearchIcon style={{fontSize: "1.1em",color: Colors.textDarkGray}} />
             <InputBase
+                value={props.value}
                 placeholder={props.placeholder}
                 className={classes.search}
                 id={`search-input-${props.kind}`}
