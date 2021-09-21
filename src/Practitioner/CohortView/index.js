@@ -15,9 +15,9 @@ import Search from '../../Basics/SearchBar';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
-
 import activeFields from './TableViews/ActiveTableFields'
 import pendingFields from './TableViews/PendingTableFields'
+import archivedFields from './TableViews/ArchivedTableFields'
 
 const PatientsView = observer((props) => {
     const classes = useStyles();
@@ -38,7 +38,7 @@ const PatientsView = observer((props) => {
     const tabOptions = [
         {text: t('coordinator.cohortOverview.active'),list: practitionerStore.patientList,fields: activeFields },
         {text: t('coordinator.cohortOverview.pending'), list: practitionerStore.pendingPatients, fields: pendingFields},
-        {text: t('commonWords.archived'), list: practitionerStore.archivedPatients, fields: activeFields}
+        {text: t('commonWords.archived'), list: practitionerStore.archivedPatients, fields: archivedFields}
     ]
 
     const tabProps = { selectedTab: tab, setSelectedTab: setTab }
@@ -51,7 +51,7 @@ const PatientsView = observer((props) => {
                 <div className={classes.container}>
                     <Grid className={classes.options} container justify='space-between'>
                         <SectionTitle>{t("coordinator.titles.myPatients")}</SectionTitle>
-                        {!practitionerStore.onAddPatientFlow && <ProfileButton onClick={toggleAddPatient} className={classes.addPatient}><PlusIcon />{t('coordinator.addPatientFlow.title')}</ProfileButton>}
+                        {!practitionerStore.onAddPatientFlow && <ProfileButton onClick={toggleAddPatient}><PlusIcon />{t('coordinator.addPatientFlow.title')}</ProfileButton>}
                     </Grid>
                     <AdherenceGraph />
                     <div className={classes.patientListContainer}>
@@ -106,7 +106,8 @@ const useStyles = makeStyles({
     superContainer: {
         width: "100%",
         display: "flex",
-        flexDirection: "row"
+        flexDirection: "row",
+        backgroundColor: Colors.lighterGray
     },
     container: {
         maxWidth: "950px",

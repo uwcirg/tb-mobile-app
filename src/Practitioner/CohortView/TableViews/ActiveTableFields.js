@@ -2,23 +2,13 @@ import React from 'react';
 import Priority from '../../Shared/Priority';
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
-import ProfileLink from './ProfileLink'
-
-
-const percentComponent = (value) => {
-    return `${Math.round(value * 100)}%`
-}
-
-const Translate = ({string}) => {
-    const { t } = useTranslation('translation');
-    const text = t(string);
-    return text
-}
+import ProfileLink from './ProfileLink';
+import Translate from './Translate';
+import percentComponent from './Percent';
 
 const DaysAgo = ({days}) => {
     const {t} = useTranslation('translation');
     return  !(days === false) ? (days > 0 ? `${days} ${t('time.day_ago', { count: days })}` : t('patient.home.today')) : t('coordinator.noReports')
-
 }
 
 const fields = [

@@ -33,6 +33,7 @@ function stableSort(array, comparator) {
 
 const useStyles = makeStyles({
     table: {
+        backgroundColor: "white",
         "& > tbody > tr": {
             borderBottom: "1px solid lightgray"
         },
@@ -47,7 +48,8 @@ const useStyles = makeStyles({
             // backgroundColor: Colors.lighterGray,
             padding: 0,
             paddingLeft: "1em",
-            borderBottom: "none"
+            borderBottom: "none",
+            borderRadius: "4px"
         },
         "& > * tr > th":{
             borderBottom: "1px solid lightgray"
