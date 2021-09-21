@@ -1,32 +1,9 @@
 import React from 'react';
-import Priority from '../Shared/Priority';
+import Priority from '../../Shared/Priority';
 import { DateTime } from 'luxon';
-import { makeStyles } from '@material-ui/core/styles';
-import Colors from '../../Basics/Colors';
-import useStores from '../../Basics/UseStores';
 import { useTranslation } from 'react-i18next';
+import ProfileLink from './ProfileLink'
 
-const useStyles = makeStyles({
-    profileLink: {
-        "&, &:visited": {
-            color: Colors.buttonBlue,
-            textDecoration: "none"
-        }
-    }
-})
-
-
-const Name = ({ fullName, id }) => {
-
-    const classes = useStyles();
-    const { push } = useStores().routingStore;
-    //Handle Patient Link
-    const handlePatientClick = (event) => {
-        event.preventDefault();
-        push(`/patients/${id}`)
-    }
-    return <a className={classes.profileLink} href={`/patients/${id}`} onClick={handlePatientClick}>{fullName}</a>
-}
 
 const percentComponent = (value) => {
     return `${Math.round(value * 100)}%`
@@ -48,7 +25,7 @@ const fields = [
     {
         key: "fullName",
         displayName: <Translate string='coordinator.patientTableLabels.name' />,
-        formatter: (value, patient) => <Name {...patient} />
+        formatter: (value, patient) => <ProfileLink {...patient} />
     },
     {
         key: "priority",

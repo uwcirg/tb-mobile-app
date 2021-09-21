@@ -10,10 +10,14 @@ import ProfileButton from '../../Components/FlatButton';
 import AddPatient from './AddPatient';
 import SectionTitle from '../../Components/Practitioner/SectionTitle';
 import ActivationCodePopup from './ActivationCodePopUp'
-import PatientList from './PatientList';
+import PatientList from './PatientTable';
 import Search from '../../Basics/SearchBar';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+
+
+import activeFields from './TableViews/ActiveTableFields'
+import pendingFields from './TableViews/PendingTableFields'
 
 const PatientsView = observer((props) => {
     const classes = useStyles();
@@ -32,9 +36,9 @@ const PatientsView = observer((props) => {
     }
 
     const tabOptions = [
-        {text: t('coordinator.cohortOverview.active'),list: practitionerStore.patientList},
-        {text: t('coordinator.cohortOverview.pending'), list: practitionerStore.pendingPatients},
-        {text: t('commonWords.archived'), list: practitionerStore.archivedPatients}
+        {text: t('coordinator.cohortOverview.active'),list: practitionerStore.patientList,fields: activeFields },
+        {text: t('coordinator.cohortOverview.pending'), list: practitionerStore.pendingPatients, fields: pendingFields},
+        {text: t('commonWords.archived'), list: practitionerStore.archivedPatients, fields: activeFields}
     ]
 
     const tabProps = { selectedTab: tab, setSelectedTab: setTab }
@@ -61,7 +65,7 @@ const PatientsView = observer((props) => {
                             <Search value={search} className={classes.search} handleChange={(event) => { setSearch(event.target.value) }}
                                 placeholder={t('coordinator.cohortOverview.searchByName').toLocaleLowerCase()} />
                         </Grid>
-                        <PatientList patients={tabOptions[tab].list} search={search} />
+                        <PatientList patients={tabOptions[tab].list} search={search} fields={tabOptions[tab].fields} />
                     </div>
                 </div>
             </div>

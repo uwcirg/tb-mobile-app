@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import useStores from '../../Basics/UseStores';
-import { observer } from 'mobx-react';
 import { Table, TableBody, TableHead, TableCell, TableRow, TableSortLabel } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import Colors from '../../Basics/Colors';
 import Grid from '@material-ui/core/Grid';
-import fields from './ActiveTableFields';
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -69,33 +65,7 @@ const useStyles = makeStyles({
     }
 })
 
-const TableHeader = (props) => {
-
-    const { order, orderBy, onRequestSort } = props;
-    const classes = useStyles();
-
-    const createSortHandler = (property) => (event) => {
-        onRequestSort(event, property);
-    };
-
-    return (<TableHead className={classes.tableTop}>
-        <TableRow>
-            {fields.map(field => <TableCell
-                align={field.align}
-                sortDirection={orderBy === field.key ? order : false}>
-                <Grid className={classes.headerDiv} container justify="space-between">
-                    <span>{field.displayName}</span>
-                    <TableSortLabel
-                        active={orderBy === field.key}
-                        direction={orderBy === field.key ? order : 'asc'}
-                        onClick={createSortHandler(field.key)} />
-                </Grid>
-            </TableCell>)}
-        </TableRow>
-    </TableHead>)
-}
-
-const PatientList = observer(({ search, patients }) => {
+const PatientList = ({ search, patients, fields }) => {
 
     const { t } = useTranslation('translation');
 
@@ -115,18 +85,45 @@ const PatientList = observer(({ search, patients }) => {
     return (
         <Table className={classes.table}>
             <TableHeader
+                fields={fields}
                 order={order}
                 orderBy={orderBy}
                 onRequestSort={handleRequestSort} />
             <TableBody>
-                {stableSort(patientSearch, getComparator(order, orderBy)).map(patient => <PatientRow key={patient.id} patient={patient} />)}
+                {stableSort(patientSearch, getComparator(order, orderBy)).map(patient => <PatientRow fields={fields} key={patient.id} patient={patient} />)}
             </TableBody>
         </Table>
     )
+};
 
-});
+const TableHeader = (props) => {
 
-const PatientRow = ({ patient }) => {
+    const { order, orderBy, onRequestSort, fields } = props;
+    const classes = useStyles();
+
+    const createSortHandler = (property) => (event) => {
+        onRequestSort(event, property);
+    };
+
+
+    return (<TableHead className={classes.tableTop}>
+        <TableRow>
+            {fields.map(field => <TableCell
+                align={field.align}
+                sortDirection={orderBy === field.key ? order : false}>
+                <Grid className={classes.headerDiv} container justify={(field.align && field.align) === "right" ? "flex-end" : "space-between"}>
+                    <span>{field.displayName}</span>
+                    {!field.disableSorting && <TableSortLabel
+                        active={orderBy === field.key}
+                        direction={orderBy === field.key ? order : 'asc'}
+                        onClick={createSortHandler(field.key)} />}
+                </Grid>
+            </TableCell>)}
+        </TableRow>
+    </TableHead>)
+}
+
+const PatientRow = ({ patient, fields }) => {
 
     return (<TableRow>
         {fields.map(field => <TableCell align={field.align}>{field.formatter ? field.formatter(patient[field.key], patient) : patient[field.key]} </TableCell>)}
