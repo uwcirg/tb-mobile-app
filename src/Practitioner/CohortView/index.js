@@ -14,6 +14,8 @@ import Search from '../../Basics/SearchBar';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
+import Collapse from '@material-ui/core/Collapse';
+
 import activeFields from './TableViews/ActiveTableFields'
 import pendingFields from './TableViews/PendingTableFields'
 import archivedFields from './TableViews/ArchivedTableFields'
@@ -27,16 +29,12 @@ const PatientsView = observer((props) => {
     const { practitionerStore } = useStores();
 
     const [search, setSearch] = useState('');
-    const [showForm,toggleShowForm] = useToggle(true);
+    const [showForm, toggleShowForm] = useToggle(false);
     const [tab, setTab] = React.useState(0);
 
     useEffect(() => {
         practitionerStore.getArchivedPatients();
     }, [])
-
-    const toggleAddPatient = () => {
-        practitionerStore.onAddPatientFlow = !practitionerStore.onAddPatientFlow
-    }
 
     const tabOptions = [
         { text: t('coordinator.cohortOverview.active'), list: practitionerStore.patientList, fields: activeFields },
@@ -51,20 +49,24 @@ const PatientsView = observer((props) => {
             <ActivationCodePopup activationCode={practitionerStore.newActivationCode} close={() => { practitionerStore.newActivationCode = "" }} />
             <div className={classes.superContainer}>
                 <div className={classes.container}>
-                    <Grid className={classes.options} container justify='space-between'>
-                        <SectionTitle>{t("coordinator.titles.myPatients")}</SectionTitle>
-                        {!practitionerStore.onAddPatientFlow && <ProfileButton onClick={toggleAddPatient}><PlusIcon />{t('coordinator.addPatientFlow.title')}</ProfileButton>}
-                    </Grid>
+                    <SectionTitle>{t("coordinator.titles.myPatients")}</SectionTitle>
                     <AdherenceGraph />
-                    {showForm && <AddPatient />}
+                    <div>
+                    <Collapse in={showForm}>
+                            <AddPatient toggleForm={toggleShowForm} />
+                    </Collapse>
+                    </div>
                     <div className={classes.patientListContainer}>
-                        <SectionTitle>{t("List of Patients")}</SectionTitle>
+                        <Grid className={classes.options} container justify='space-between'>
+                            <SectionTitle>{t("coordinator.titles.myPatients")}</SectionTitle>
+                            {!showForm && <ProfileButton onClick={toggleShowForm}><PlusIcon />{t('coordinator.addPatientFlow.title')}</ProfileButton>}
+                        </Grid>
                         <Grid className={classes.options} container justify='space-between' alignItems="center">
                             <div className={classes.tabs}>
                                 {tabOptions.map((tab, index) => { return <Tab key={`table-tab-${index}`} {...tabProps} index={index}>{tab.text}: ({tab.list.length})</Tab> })}
                             </div>
                             <Search value={search} className={classes.search} handleChange={(event) => { setSearch(event.target.value) }}
-                                placeholder={t('coordinator.cohortOverview.searchByName').toLocaleLowerCase()} />
+                                placeholder={t('coordinator.cohortOverview.searchByName')} />
                         </Grid>
                         <PatientList patients={tabOptions[tab].list} search={search} fields={tabOptions[tab].fields} />
                     </div>
@@ -87,18 +89,23 @@ const useStyles = makeStyles({
         backgroundColor: `${Colors.lighterGray} !important`,
         color: `${Colors.textDarkGray} !important`,
         border: `solid 1px lightgray`,
-        borderLeft: "none"
+        borderLeft: "none",
+        borderBottom: "none"
     },
     tabs: {
         alignSelf: "flex-end",
         fontSize: "1em",
-        "& > button, & > span > button": {
+        "& > button": {
+            borderRadius: 0,
             padding: ".5em .75em .25em .75em",
-            borderRadius: "4px 4px 0 0",
             backgroundColor: "white",
             color: Colors.blue,
-            border: "solid 1px gray",
+            border: `solid 1px ${Colors.lightgray}`,
             borderBottom: "none",
+            borderRight: "none"
+        },
+        "& > button:last-of-type":{
+            borderRight: `solid 1px ${Colors.lightgray}`
         },
         "& > button:hover": {
             backgroundColor: "white"
@@ -111,7 +118,7 @@ const useStyles = makeStyles({
         maxWidth: "950px",
         flexGrow: 1,
         display: "flex",
-        padding: "0 4em",
+        padding: "2em 4em",
         flexDirection: "column",
         justifyContent: "flex-start",
         "& > div": {

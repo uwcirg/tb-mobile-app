@@ -1,27 +1,111 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import FlatButton from '../../../Components/FlatButton';
 import useStores from '../../../Basics/UseStores';
+import Styles from '../../../Basics/Styles';
 import { observer } from 'mobx-react';
-import TextField from '@material-ui/core/TextField'
 import { useTranslation } from 'react-i18next';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Loading from '../../Shared/Loading';
 import DatePicker from '../../../Basics/DatePicker';
 import ActivationCodePopup from '../ActivationCodePopUp';
-import SectionTitle from '../../../Components/Practitioner/SectionTitle';
 import Colors from '../../../Basics/Colors';
-import FlatButton from '../../../Components/FlatButton';
 import Grid from '@material-ui/core/Grid'
-import { Typography } from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import PatientInput from './Input';
+import SectionTitle from '../../../Components/Practitioner/SectionTitle';
+import { IconButton } from '@material-ui/core';
+import Clear from '@material-ui/icons/Clear';
+import WarningBox from '../../../Basics/WarningBox';
+
+{/* If you want to enable creation of seed data - will allow patient histories to be created at random on server
+    {(window && window._env && window._env.DOCKER_TAG != "master") && <GenerateTestDataOption />}
+*/}
+
+const AddPatient = observer(({ toggleForm }) => {
+
+    const { t } = useTranslation('translation');
+    const { practitionerStore } = useStores();
+    const classes = useStyles();
+
+    const handleExit = () => {
+        toggleForm();
+        practitionerStore.clearNewPatient();
+    }
+
+    return (
+        <div className={classes.base}>
+            <Grid container justify="space-between">
+                <SectionTitle className={classes.header}>{t("coordinator.addPatientFlow.formTitle")}</SectionTitle>
+                <IconButton onClick={handleExit}>
+                    <Clear />
+                </IconButton>
+            </Grid>
+
+            {practitionerStore.newPatient.loading && <Grid className={classes.loading} container alignItems="center" justify="center">
+                <CircularProgress variant="indeterminate" />
+            </Grid>}
+            <ActivationCodePopup activationCode={practitionerStore.newPatient.code} close={practitionerStore.clearNewPatient} />
+            {practitionerStore.newPatient.code ? <p>{practitionerStore.newPatient.code}</p> :
+                <>
+                    <AddPatientForm submit={practitionerStore.addNewPatient} />
+                </>}
+        </div>)
+
+})
+
+const AddPatientForm = observer((props) => {
+    const classes = useStyles();
+    const { t } = useTranslation('translation');
+    const { practitionerStore } = useStores();
+
+    const handleDateTimeChange = (datetime) => {
+        practitionerStore.newPatient.params.treatmentStart = datetime.toISO();
+    }
+
+    const displayError = practitionerStore.newPatient.errors["phoneNumber"]
+    const submitDisabled = !practitionerStore.newPatient.params.givenName || !practitionerStore.newPatient.params.givenName || (practitionerStore.newPatient.params.phoneNumber.length < 5)
+
+    return (
+        <div className={classes.newPatientForm}>
+            <form className={classes.inputBody} noValidate autoComplete="off">
+                {displayError && <WarningBox className={classes.warning}>{t('coordinator.patientProfile.editDetails.inputError')}</WarningBox>}
+                <Typography className={classes.formLabels}>{t('coordinator.patientTableLabels.name')}</Typography>
+                <PatientInput id="givenName" />
+                <PatientInput id="familyName" />
+                <br />
+                <Typography className={classes.formLabels}>{t('coordinator.patientProfile.phoneNumber')}</Typography>
+                <PatientInput id="phoneNumber" />
+                <Typography className={classes.formLabels}>{t('patient.userFields.treatmentStart')}</Typography>
+                <div className={classes.datePicker}>
+                    <DatePicker
+                        inputVariant="outlined"
+                        size="small"
+                        InputProps={{ className: classes.input }}
+                        value={practitionerStore.newPatient.params.treatmentStart}
+                        onChange={handleDateTimeChange}
+                        disableFuture
+                    />
+                </div>
+            </form>
+            <Grid className={classes.formBottom} container alignItems="center" justify="flex-end">
+                {submitDisabled && <Typography style={{ maxWidth: "50%", marginRight: "auto" }}>{t('commonWords.fillAll')} *</Typography>}
+                <FlatButton disabled={submitDisabled} className={classes.submit} onClick={props.submit}>{t('coordinator.patientProfile.editDetails.submit')}</FlatButton>
+            </Grid>
+        </div>
+    )
+})
 
 const useStyles = makeStyles({
+    header: {
+        padding: ".5em 0",
+    },
     formLabels: {
+        ...Styles.header,
         marginTop: "1em",
         marginBottom: ".5em",
         fontSize: "1em",
         "&:first-of-type": {
-            marginTop: 0
+            marginTop: ".5em"
         }
     },
     input: {
@@ -37,110 +121,43 @@ const useStyles = makeStyles({
     },
     submit: {
         fontSize: "1em"
-
     },
-    inputBody: {
+    base: {
+        position: "relative",
         backgroundColor: Colors.lighterGray,
         borderRadius: "4px",
         padding: "1em",
         margin: "1em 0",
-        width: "fit-content",
-        "& > div": {
+        width: "500px",
+    },
+    inputBody: {
+        borderBottom: `1px solid ${Colors.lightgray}`,
+        borderTop: `1px solid ${Colors.lightgray}`,
+        paddingBottom: "1em",
+        "& .MuiInputBase-root": {
             marginRight: "1em"
         }
     },
     formBottom: {
         marginTop: "2em",
         marginBottom: ".5em"
+    },
+    loading: {
+        position: "absolute",
+        width: "100%",
+        height: "100%",
+        top: 0,
+        boxSizing: "border-box",
+        backgroundColor: Colors.lighterGray,
+        zIndex: 5
+    },
+    warning: {
+        padding:"1em",
+        margin: "1em 0",
+        borderRadius: "4px",
+        border: "none",
+        backgroundColor: Colors.calendarRed
     }
 })
-
-const AddPatient = observer(() => {
-
-    const { practitionerStore } = useStores();
-    const classes = useStyles();
-    
-    const { t } = useTranslation('translation');
-
-    return (
-        <div className={classes.base}>
-            <ActivationCodePopup activationCode={practitionerStore.newPatient.code} close={practitionerStore.clearNewPatient} />
-            {practitionerStore.newPatient.code ? <p>{practitionerStore.newPatient.code}</p> :
-                <>
-                    <SectionTitle>{t('coordinator.addPatientFlow.title')}</SectionTitle>
-                    {practitionerStore.newPatient.loading ? <Loading /> : <AddPatientForm submit={practitionerStore.addNewPatient} />}
-                </>}
-        </div>)
-
-})
-
-const AddPatientForm = observer((props) => {
-    const classes = useStyles();
-    const { t } = useTranslation('translation');
-    const { practitionerStore } = useStores();
-
-    const handleDateTimeChange = (datetime) => {
-        practitionerStore.newPatient.params.treatmentStart = datetime.toISO();
-    }
-
-    const submitDisabled = !practitionerStore.newPatient.params.givenName || !practitionerStore.newPatient.params.givenName || (practitionerStore.newPatient.params.phoneNumber.length < 5)
-
-    return (
-        <div className={classes.newPatientForm}>
-            {practitionerStore.newPatient.errors["phoneNumber"] && practitionerStore.newPatient.errors["phoneNumber"].includes("has already been taken") &&
-                <p>{t('coordinator.patientProfile.editDetails.inputError')}</p>}
-            <form className={classes.inputBody} noValidate autoComplete="off">
-                <SectionTitle className={classes.formLabels}>{t('coordinator.patientTableLabels.name')}</SectionTitle>
-                <PatientInput id="givenName" />
-                <PatientInput id="familyName" />
-                <br />
-                <SectionTitle className={classes.formLabels}>{t('coordinator.patientProfile.phoneNumber')}</SectionTitle>
-                <PatientInput id="phoneNumber" />
-                <SectionTitle className={classes.formLabels}>{t('patient.userFields.treatmentStart')}</SectionTitle>
-                <div className={classes.datePicker}>
-                    <DatePicker
-                        inputVariant="outlined"
-                        size="small"
-                        InputProps={{ className: classes.input }}
-                        value={practitionerStore.newPatient.params.treatmentStart}
-                        onChange={handleDateTimeChange}
-                        disableFuture
-                    />
-                </div>
-                {/* If you want to enable creation of seed data {(window && window._env && window._env.DOCKER_TAG != "master") && <GenerateTestDataOption />} */}
-                <Grid className={classes.formBottom} container alignItems="center" justify="space-between">
-                    {submitDisabled && <Typography style={{maxWidth: "50%"}}>{t('commonWords.fillAll')} *</Typography>}
-                    <FlatButton disabled={submitDisabled} className={classes.submit} onClick={props.submit}>{t('coordinator.patientProfile.editDetails.submit')}</FlatButton>
-                </Grid>
-            </form>
-        </div>
-    )
-})
-
-const PatientInput = observer((props) => {
-
-    const { t } = useTranslation('translation');
-    const classes = useStyles();
-    const { practitionerStore } = useStores();
-
-    const handleInputs = (e) => {
-        practitionerStore.newPatient.params[e.target.id] = e.target.value;
-    }
-
-    return (
-        <TextField
-            size="small"
-            variant="outlined"
-            id={props.id}
-            label={t(`patient.userFields.${props.id}`)}
-            onClick={props.onClick}
-            type={props.type}
-            onChange={handleInputs}
-            error={practitionerStore.newPatient.errorReturned && practitionerStore.newPatient.errors[props.id] != undefined}
-            className={classes.input}
-            value={practitionerStore.newPatient.params[props.id]} />
-    )
-
-});
 
 export default AddPatient;

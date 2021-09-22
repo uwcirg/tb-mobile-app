@@ -537,6 +537,7 @@
         },
         "addPatientFlow": {
             "title": "Add Patient",
+            "formTitle": "New Patient Details",
             "addedPatient": "Added Patient",
             "codeToSend": "Code to send to patient",
             "resetCode": "Reset Code",
