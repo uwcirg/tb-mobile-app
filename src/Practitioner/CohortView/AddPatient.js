@@ -11,22 +11,15 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Loading from '../Shared/Loading';
 import DatePicker from '../../Basics/DatePicker';
 import ActivationCodePopup from './ActivationCodePopUp';
+import SectionTitle from '../../Components/Practitioner/SectionTitle';
+import Colors from '../../Basics/Colors';
+import FlatButton from '../../Components/FlatButton';
+import Grid from '@material-ui/core/Grid'
 
 const useStyles = makeStyles({
-
-    base: {
-        padding: "1em"
-    },
-    inputBody: {
-        display: "flex",
-        flexDirection: "column",
-        width: "80%",
-        margin: "auto"
-    },
     input: {
-        marginTop: "1em",
-        marginBottom: "1em",
-        width: "100%"
+        margin: "1em 1em 1em 0",
+        backgroundColor: "white"
     },
     newPatientForm: {
         display: "flex",
@@ -42,13 +35,15 @@ const useStyles = makeStyles({
         "& > span": {
             fontSize: ".75em"
         }
-
+    },
+    inputBody: {
+        backgroundColor: Colors.lighterGray,
+        borderRadius: "4px",
+        padding: "1em",
+        margin: "1em 0",
+        width: "fit-content"
     },
     datePicker: {
-        "& > div": {
-            width: "100%",
-        },
-
         margin: "1em 0 1em 0"
     }
 })
@@ -68,7 +63,7 @@ const AddPatient = observer(() => {
             <ActivationCodePopup activationCode={practitionerStore.newPatient.code} close={practitionerStore.clearNewPatient} />
             {practitionerStore.newPatient.code ? <p>{practitionerStore.newPatient.code}</p> :
                 <>
-                    <SideBarTop handleExit={handleExit} title={t('coordinator.addPatientFlow.title')} />
+                    <SectionTitle>{t('coordinator.addPatientFlow.title')}</SectionTitle>
                     {practitionerStore.newPatient.loading ? <Loading /> : <AddPatientForm submit={practitionerStore.addNewPatient} />}
                 </>}
         </div>)
@@ -77,7 +72,7 @@ const AddPatient = observer(() => {
 
 const AddPatientForm = observer((props) => {
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
     const { practitionerStore } = useStores();
 
     const handleDateTimeChange = (datetime) => {
@@ -91,9 +86,12 @@ const AddPatientForm = observer((props) => {
             <form className={classes.inputBody} noValidate autoComplete="off">
                 <PatientInput id="givenName" />
                 <PatientInput id="familyName" />
+                <br />
                 <PatientInput id="phoneNumber" />
                 <div className={classes.datePicker}>
                     <DatePicker
+                        inputVariant="outlined"
+                        size="small"
                         className={classes.datePicker}
                         value={practitionerStore.newPatient.params.treatmentStart}
                         label={t('patient.userFields.treatmentStart')}
@@ -101,9 +99,11 @@ const AddPatientForm = observer((props) => {
                         disableFuture
                     />
                 </div>
-                {(window && window._env && window._env.DOCKER_TAG != "master") && <UsabilityTestQuestion />}
+                {/* {(window && window._env && window._env.DOCKER_TAG != "master") && <UsabilityTestQuestion />} */}
+                <Grid container justify="flex-end" spacing={1}>
+                    <FlatButton className={classes.submit} onClick={props.submit}>{t('coordinator.patientProfile.editDetails.submit')}</FlatButton>
+                </Grid>
             </form>
-            <SimpleButton className={classes.submit} onClick={props.submit}>{t('coordinator.addPatientFlow.title')}</SimpleButton>
         </div>
     )
 })
@@ -123,7 +123,7 @@ const UsabilityTestQuestion = observer(() => {
 
 const PatientInput = observer((props) => {
 
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
     const classes = useStyles();
     const { practitionerStore } = useStores();
 
@@ -133,12 +133,12 @@ const PatientInput = observer((props) => {
 
     return (
         <TextField
+            size="small"
+            variant="outlined"
             id={props.id}
-            required
             label={t(`patient.userFields.${props.id}`)}
             onClick={props.onClick}
             type={props.type}
-            className={classes.input}
             onChange={handleInputs}
             error={practitionerStore.newPatient.errorReturned && practitionerStore.newPatient.errors[props.id] != undefined}
             className={classes.input}

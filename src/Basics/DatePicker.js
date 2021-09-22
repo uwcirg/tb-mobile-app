@@ -27,6 +27,7 @@ const LocalizedDatePicker = observer((props) => {
             <DatePicker
                 TextFieldComponent={props.TextFieldComponent}
                 inputVariant={props.inputVariant}
+                size={props.size}
                 InputProps={props.InputProps}
                 error={props.error}
                 label={props.label}

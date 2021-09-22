@@ -36,9 +36,9 @@ const PatientsView = observer((props) => {
     }
 
     const tabOptions = [
-        {text: t('coordinator.cohortOverview.active'),list: practitionerStore.patientList,fields: activeFields },
-        {text: t('coordinator.cohortOverview.pending'), list: practitionerStore.pendingPatients, fields: pendingFields},
-        {text: t('commonWords.archived'), list: practitionerStore.archivedPatients, fields: archivedFields}
+        { text: t('coordinator.cohortOverview.active'), list: practitionerStore.patientList, fields: activeFields },
+        { text: t('coordinator.cohortOverview.pending'), list: practitionerStore.pendingPatients, fields: pendingFields },
+        { text: t('commonWords.archived'), list: practitionerStore.archivedPatients, fields: archivedFields }
     ]
 
     const tabProps = { selectedTab: tab, setSelectedTab: setTab }
@@ -47,18 +47,19 @@ const PatientsView = observer((props) => {
         <>
             <ActivationCodePopup activationCode={practitionerStore.newActivationCode} close={() => { practitionerStore.newActivationCode = "" }} />
             <div className={classes.superContainer}>
-                {practitionerStore.onAddPatientFlow && <AddPatient />}
                 <div className={classes.container}>
                     <Grid className={classes.options} container justify='space-between'>
                         <SectionTitle>{t("coordinator.titles.myPatients")}</SectionTitle>
                         {!practitionerStore.onAddPatientFlow && <ProfileButton onClick={toggleAddPatient}><PlusIcon />{t('coordinator.addPatientFlow.title')}</ProfileButton>}
                     </Grid>
                     <AdherenceGraph />
+                    {/* {practitionerStore.onAddPatientFlow && <AddPatient />} */}
+                    {practitionerStore.onAddPatientFlow && <AddPatient />}
                     <div className={classes.patientListContainer}>
                         <SectionTitle>{t("List of Patients")}</SectionTitle>
                         <Grid className={classes.options} container justify='space-between' alignItems="center">
                             <div className={classes.tabs}>
-                                {tabOptions.map((tab, index) => {return <Tab key={`table-tab-${index}`} {...tabProps} index={index}>{tab.text}: ({tab.list.length})</Tab>})}
+                                {tabOptions.map((tab, index) => { return <Tab key={`table-tab-${index}`} {...tabProps} index={index}>{tab.text}: ({tab.list.length})</Tab> })}
                             </div>
                             <Search value={search} className={classes.search} handleChange={(event) => { setSearch(event.target.value) }}
                                 placeholder={t('coordinator.cohortOverview.searchByName').toLocaleLowerCase()} />
@@ -77,7 +78,7 @@ const Tab = ({ index, selectedTab, children, setSelectedTab }) => {
 }
 
 const useStyles = makeStyles({
-    patientListContainer:{
+    patientListContainer: {
         paddingTop: "2em"
     },
     offTab: {
@@ -102,10 +103,7 @@ const useStyles = makeStyles({
         }
     },
     superContainer: {
-        width: "100%",
-        display: "flex",
-        flexDirection: "row",
-        backgroundColor: Colors.lighterGray
+        width: "100%"
     },
     container: {
         maxWidth: "950px",
