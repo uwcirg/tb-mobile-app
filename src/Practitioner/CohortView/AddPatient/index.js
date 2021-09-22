@@ -1,32 +1,31 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import useStores from '../../Basics/UseStores';
+import useStores from '../../../Basics/UseStores';
 import { observer } from 'mobx-react';
-import SideBarTop from '../Shared/SideBarHeader';
 import TextField from '@material-ui/core/TextField'
 import { useTranslation } from 'react-i18next';
-import SimpleButton from '../../Basics/MuiButton';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Loading from '../Shared/Loading';
-import DatePicker from '../../Basics/DatePicker';
-import ActivationCodePopup from './ActivationCodePopUp';
-import SectionTitle from '../../Components/Practitioner/SectionTitle';
-import Colors from '../../Basics/Colors';
-import FlatButton from '../../Components/FlatButton';
+import Loading from '../../Shared/Loading';
+import DatePicker from '../../../Basics/DatePicker';
+import ActivationCodePopup from '../ActivationCodePopUp';
+import SectionTitle from '../../../Components/Practitioner/SectionTitle';
+import Colors from '../../../Basics/Colors';
+import FlatButton from '../../../Components/FlatButton';
 import Grid from '@material-ui/core/Grid'
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles({
-    formLabels:{
+    formLabels: {
         marginTop: "1em",
         marginBottom: ".5em",
         fontSize: "1em",
-        "&:first-of-type":{
+        "&:first-of-type": {
             marginTop: 0
         }
     },
     input: {
-        "& input":{
+        "& input": {
             backgroundColor: "white",
             borderRadius: "4px"
         }
@@ -40,21 +39,19 @@ const useStyles = makeStyles({
         fontSize: "1em"
 
     },
-    checkbox: {
-        marginTop: "2em",
-        "& > span": {
-            fontSize: ".75em"
-        }
-    },
     inputBody: {
         backgroundColor: Colors.lighterGray,
         borderRadius: "4px",
         padding: "1em",
         margin: "1em 0",
         width: "fit-content",
-        "& > div":{
+        "& > div": {
             marginRight: "1em"
         }
+    },
+    formBottom: {
+        marginTop: "2em",
+        marginBottom: ".5em"
     }
 })
 
@@ -62,10 +59,7 @@ const AddPatient = observer(() => {
 
     const { practitionerStore } = useStores();
     const classes = useStyles();
-    const handleExit = () => {
-        practitionerStore.onAddPatientFlow = !practitionerStore.onAddPatientFlow
-        practitionerStore.clearNewPatient();
-    }
+    
     const { t } = useTranslation('translation');
 
     return (
@@ -89,48 +83,38 @@ const AddPatientForm = observer((props) => {
         practitionerStore.newPatient.params.treatmentStart = datetime.toISO();
     }
 
+    const submitDisabled = !practitionerStore.newPatient.params.givenName || !practitionerStore.newPatient.params.givenName || (practitionerStore.newPatient.params.phoneNumber.length < 5)
+
     return (
         <div className={classes.newPatientForm}>
             {practitionerStore.newPatient.errors["phoneNumber"] && practitionerStore.newPatient.errors["phoneNumber"].includes("has already been taken") &&
-                <p>Phone number must be unique</p>}
+                <p>{t('coordinator.patientProfile.editDetails.inputError')}</p>}
             <form className={classes.inputBody} noValidate autoComplete="off">
-                <SectionTitle className={classes.formLabels}>Nombre</SectionTitle>
+                <SectionTitle className={classes.formLabels}>{t('coordinator.patientTableLabels.name')}</SectionTitle>
                 <PatientInput id="givenName" />
                 <PatientInput id="familyName" />
                 <br />
-                <SectionTitle className={classes.formLabels}>Phone</SectionTitle>
+                <SectionTitle className={classes.formLabels}>{t('coordinator.patientProfile.phoneNumber')}</SectionTitle>
                 <PatientInput id="phoneNumber" />
                 <SectionTitle className={classes.formLabels}>{t('patient.userFields.treatmentStart')}</SectionTitle>
                 <div className={classes.datePicker}>
                     <DatePicker
                         inputVariant="outlined"
                         size="small"
-                        InputProps={{className: classes.input}}
+                        InputProps={{ className: classes.input }}
                         value={practitionerStore.newPatient.params.treatmentStart}
                         onChange={handleDateTimeChange}
                         disableFuture
                     />
                 </div>
-                {/* {(window && window._env && window._env.DOCKER_TAG != "master") && <UsabilityTestQuestion />} */}
-                <Grid container justify="flex-end" spacing={1}>
-                    <FlatButton className={classes.submit} onClick={props.submit}>{t('coordinator.patientProfile.editDetails.submit')}</FlatButton>
+                {/* If you want to enable creation of seed data {(window && window._env && window._env.DOCKER_TAG != "master") && <GenerateTestDataOption />} */}
+                <Grid className={classes.formBottom} container alignItems="center" justify="space-between">
+                    {submitDisabled && <Typography style={{maxWidth: "50%"}}>{t('commonWords.fillAll')} *</Typography>}
+                    <FlatButton disabled={submitDisabled} className={classes.submit} onClick={props.submit}>{t('coordinator.patientProfile.editDetails.submit')}</FlatButton>
                 </Grid>
             </form>
         </div>
     )
-})
-
-const UsabilityTestQuestion = observer(() => {
-    const { practitionerStore } = useStores();
-    const classes = useStyles();
-    return (
-        <FormControlLabel
-            control={<Checkbox color="primary" checked={practitionerStore.newPatient.params.isTester} onChange={() => { practitionerStore.newPatient.params.isTester = !practitionerStore.newPatient.params.isTester }} name="checkedA" />}
-            className={classes.checkbox}
-            label="Generate Random Treatment History (For Testing)"
-        />
-    )
-
 })
 
 const PatientInput = observer((props) => {

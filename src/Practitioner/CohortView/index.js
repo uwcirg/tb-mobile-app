@@ -7,7 +7,6 @@ import PlusIcon from '@material-ui/icons/AddOutlined'
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import ProfileButton from '../../Components/FlatButton';
-import AddPatient from './AddPatient';
 import SectionTitle from '../../Components/Practitioner/SectionTitle';
 import ActivationCodePopup from './ActivationCodePopUp'
 import PatientList from './PatientTable';
@@ -18,6 +17,9 @@ import Button from '@material-ui/core/Button';
 import activeFields from './TableViews/ActiveTableFields'
 import pendingFields from './TableViews/PendingTableFields'
 import archivedFields from './TableViews/ArchivedTableFields'
+import useToggle from '../../Hooks/useToggle';
+
+import AddPatient from './AddPatient'
 
 const PatientsView = observer((props) => {
     const classes = useStyles();
@@ -25,6 +27,7 @@ const PatientsView = observer((props) => {
     const { practitionerStore } = useStores();
 
     const [search, setSearch] = useState('');
+    const [showForm,toggleShowForm] = useToggle(true);
     const [tab, setTab] = React.useState(0);
 
     useEffect(() => {
@@ -53,8 +56,7 @@ const PatientsView = observer((props) => {
                         {!practitionerStore.onAddPatientFlow && <ProfileButton onClick={toggleAddPatient}><PlusIcon />{t('coordinator.addPatientFlow.title')}</ProfileButton>}
                     </Grid>
                     <AdherenceGraph />
-                    {/* {practitionerStore.onAddPatientFlow && <AddPatient />} */}
-                    {practitionerStore.onAddPatientFlow && <AddPatient />}
+                    {showForm && <AddPatient />}
                     <div className={classes.patientListContainer}>
                         <SectionTitle>{t("List of Patients")}</SectionTitle>
                         <Grid className={classes.options} container justify='space-between' alignItems="center">
