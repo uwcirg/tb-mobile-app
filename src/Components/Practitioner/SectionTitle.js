@@ -11,11 +11,11 @@ const useStyles = makeStyles({
     }
 })
 
-const SectionTitle = ({children}) => {
+const SectionTitle = ({children,className}) => {
 
     const classes = useStyles();
 
-    return(<Typography className={classes.sectionTitle} variant="h1">{children}</Typography>)
+    return(<Typography className={`${classes.sectionTitle} ${className}`} variant="h1">{children}</Typography>)
 
 }
 

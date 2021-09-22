@@ -17,9 +17,19 @@ import FlatButton from '../../Components/FlatButton';
 import Grid from '@material-ui/core/Grid'
 
 const useStyles = makeStyles({
+    formLabels:{
+        marginTop: "1em",
+        marginBottom: ".5em",
+        fontSize: "1em",
+        "&:first-of-type":{
+            marginTop: 0
+        }
+    },
     input: {
-        margin: "1em 1em 1em 0",
-        backgroundColor: "white"
+        "& input":{
+            backgroundColor: "white",
+            borderRadius: "4px"
+        }
     },
     newPatientForm: {
         display: "flex",
@@ -27,7 +37,7 @@ const useStyles = makeStyles({
         alignContent: "center"
     },
     submit: {
-        margin: "1em 1em 0 auto",
+        fontSize: "1em"
 
     },
     checkbox: {
@@ -41,10 +51,10 @@ const useStyles = makeStyles({
         borderRadius: "4px",
         padding: "1em",
         margin: "1em 0",
-        width: "fit-content"
-    },
-    datePicker: {
-        margin: "1em 0 1em 0"
+        width: "fit-content",
+        "& > div":{
+            marginRight: "1em"
+        }
     }
 })
 
@@ -84,17 +94,19 @@ const AddPatientForm = observer((props) => {
             {practitionerStore.newPatient.errors["phoneNumber"] && practitionerStore.newPatient.errors["phoneNumber"].includes("has already been taken") &&
                 <p>Phone number must be unique</p>}
             <form className={classes.inputBody} noValidate autoComplete="off">
+                <SectionTitle className={classes.formLabels}>Nombre</SectionTitle>
                 <PatientInput id="givenName" />
                 <PatientInput id="familyName" />
                 <br />
+                <SectionTitle className={classes.formLabels}>Phone</SectionTitle>
                 <PatientInput id="phoneNumber" />
+                <SectionTitle className={classes.formLabels}>{t('patient.userFields.treatmentStart')}</SectionTitle>
                 <div className={classes.datePicker}>
                     <DatePicker
                         inputVariant="outlined"
                         size="small"
-                        className={classes.datePicker}
+                        InputProps={{className: classes.input}}
                         value={practitionerStore.newPatient.params.treatmentStart}
-                        label={t('patient.userFields.treatmentStart')}
                         onChange={handleDateTimeChange}
                         disableFuture
                     />

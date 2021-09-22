@@ -14,6 +14,12 @@ const useStyles = makeStyles({
         borderRadius: "5px",
         color: "white",
         padding: ".5em"
+    },
+    input:{
+        "& input":{
+            cursor: "pointer"
+        }
+        
     }
 })
 
@@ -28,7 +34,7 @@ const LocalizedDatePicker = observer((props) => {
                 TextFieldComponent={props.TextFieldComponent}
                 inputVariant={props.inputVariant}
                 size={props.size}
-                InputProps={props.InputProps}
+                InputProps={{...props.InputProps, className:` ${classes.input} ${props.InputProps && props.InputProps.className}`}}
                 error={props.error}
                 label={props.label}
                 value={props.value}
