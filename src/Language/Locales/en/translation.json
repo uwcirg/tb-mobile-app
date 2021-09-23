@@ -544,7 +544,8 @@
             "forPatient": "Activation Code For Patient",
             "activationCode": "Activation Code",
             "clickToCopy": "Click to copy",
-            "success": "Successfully copied"
+            "success": "Successfully copied",
+            "patientSuccess": "Patient Successfully Added"
         },
         "titles": {
             "myTasks": "My Tasks",
