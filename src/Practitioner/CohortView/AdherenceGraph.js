@@ -6,28 +6,32 @@ import Colors from '../../Basics/Colors';
 import Tooltip from '@material-ui/core/Tooltip';
 import Card from '../Shared/Card';
 import { useTranslation } from 'react-i18next';
+import Grid from '@material-ui/core/Grid'
 
 const GRAPH_MARKER_SIZE = 20;
 const divider = .9;
 
 const useStyles = makeStyles({
-
-    visContainer:{
+    xLabelAndGraph: {
+        flexGrow: 1
+    },
+    visContainer: {
         fontWeight: "medium",
-        color: Colors.textDarkGray
+        color: Colors.textDarkGray,
+        width: "100%"
     },
     superContainer: {
         boxSizing: "border-box",
         width: "100%",
-        padding: "0"
+        padding: "0",
+        display: "flex"
     },
     container: {
-        marginLeft: "auto",
-        width: "100%",
-        height: "250px",
         display: "flex",
         flexDirection: "column",
-        position: "relative"
+        position: "relative",
+        height: "250px",
+        width: "100%"
 
     },
     column: {
@@ -57,9 +61,9 @@ const useStyles = makeStyles({
         }
     },
     xLabel: {
-        position: "absolute",
+        height: "35px",
         textAlign: "center",
-        bottom: "-2em",
+        alignItems: "center",
         display: "flex",
         width: "100%",
         "& > div": {
@@ -68,24 +72,20 @@ const useStyles = makeStyles({
         }
     },
     yLabel: {
+        width: "55px",
         height: "100%",
-        position: "absolute",
-        right: "-3em",
-        padding: "5px 0",
+        padding: "0 .5em",
         display: "flex",
         flexDirection: "column-reverse",
         justifyContent: "space-between",
-        "& > div": {
-            flexGrow: "1",
-            display: "flex",
-            alignItems: "flex-end"
-        },
         "& > div:last-child": {
             alignItems: "flex-start"
         },
         "& > div:nth-child(2)": {
             alignItems: "center"
         },
+        paddingBottom: "70px",
+        boxSizing: "border-box"
 
     },
     xDivider: {
@@ -103,14 +103,17 @@ const useStyles = makeStyles({
         }
     },
     bottom: {
-        height: "50%",
+        flex: "1 1 0",
         width: "100%",
         position: "relative"
     },
     top: {
-        height: "50%",
+        flex: "1 1 0",
         width: "100%",
         position: "relative"
+    },
+    monthLabel:{
+        height: "35px"
     }
 })
 
@@ -132,16 +135,47 @@ const Adherence = observer(() => {
         return patient.adherence > divider && patient.daysInTreatment < 180
     })
 
+
+    let labels = []
+    let dividers = []
+    let column = []
+    const colors = [Colors.green, Colors.red]
+
+    for (let step = 0; step < 10; step++) {
+        const color = step < 5 ? colors[0] : colors[1];
+        column.push(<div className="row" key={`background-column-${step}`} style={{ backgroundColor: color }} />)
+        //labels.push(<div className="yLabel">.{step * 10}</div>)
+    }
+
+    labels.push(<span key={`background-label-0`} className="yLabel">0%</span>)
+    labels.push(<span key={`background-label-1`} className="yLabel">90%</span>)
+    labels.push(<span key={`background-label-2`} className="yLabel">100%</span>)
+
+
+    let months = []
+
+    for (let step = 0; step < 6; step++) {
+        months.push(<div key={`background-month-${step}`} className="month">{step + 1}</div>)
+        dividers.push(<div key={`background-divider-${step}`}></div>)
+    }
+
     return (
         <div className={classes.superContainer}>
-            <div className={classes.container}>
-                <Background />
-                <div className={classes.top}>
-                    {top.map((each, i) => { return (<DataPoint key={`datapoint-top-${i}`} {...each} top />) })}
+            <div className={classes.yLabel}>{labels}</div>
+            <div className={classes.xLabelAndGraph}>
+                <div className={classes.container}>
+                    <Background />
+                    <div className={classes.top}>
+                        {top.map((each, i) => { return (<DataPoint key={`datapoint-top-${i}`} {...each} top />) })}
+                    </div>
+                    <div className={classes.bottom}>
+                        {bottom.map((each, i) => { return (<DataPoint key={`datapoint-bottom-${i}`} {...each} />) })}
+                    </div>
                 </div>
-                <div className={classes.bottom}>
-                    {bottom.map((each, i) => { return (<DataPoint key={`datapoint-bottom-${i}`} {...each} />) })}
-                </div>
+                <div className={classes.xLabel}>{months} </div>
+                <Grid className={classes.monthLabel} container justify="center" spacing={1}>
+                    <span>Months</span>
+                </Grid>
             </div>
         </div>)
 
@@ -150,7 +184,7 @@ const Adherence = observer(() => {
 
 const DataPoint = (props) => {
     const classes = useStyles();
-    const {t} = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
     let bottomCalc;
     if (props.top) {
@@ -197,14 +231,14 @@ const Background = () => {
     }
 
     return (
-        <div className={classes.visContainer}>
-            <div className={classes.backgroundContainer}>
-                {column}
+        <div>
+            <div className={classes.visContainer}>
+                <div className={classes.backgroundContainer}>
+                    {column}
+                </div>
+                <div className={classes.xDivider}>{dividers}</div>
             </div>
-            <div className={classes.xLabel}>{months} </div>
-            <div className={classes.yLabel}>{labels}</div>
-            <div className={classes.xDivider}>{dividers}</div>
-        </div>
+        </div >
     )
 }
 
