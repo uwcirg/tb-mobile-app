@@ -16,6 +16,8 @@ import SectionTitle from '../../../Components/Practitioner/SectionTitle';
 import { IconButton } from '@material-ui/core';
 import Clear from '@material-ui/icons/Clear';
 import WarningBox from '../../../Basics/WarningBox';
+import TextCopy from '../../../Utility/Copiable';
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
 
 {/* If you want to enable creation of seed data - will allow patient histories to be created at random on server
     {(window && window._env && window._env.DOCKER_TAG != "master") && <GenerateTestDataOption />}
@@ -40,18 +42,26 @@ const AddPatient = observer(({ toggleForm }) => {
                     <Clear />
                 </IconButton>
             </Grid>
-
             {practitionerStore.newPatient.loading && <Grid className={classes.loading} container alignItems="center" justify="center">
                 <CircularProgress variant="indeterminate" />
             </Grid>}
-            <ActivationCodePopup activationCode={practitionerStore.newPatient.code} close={practitionerStore.clearNewPatient} />
-            {practitionerStore.newPatient.code ? <p>{practitionerStore.newPatient.code}</p> :
-                <>
-                    <AddPatientForm submit={practitionerStore.addNewPatient} />
-                </>}
+            {practitionerStore.newPatient.code ? <ActivationCode /> : <AddPatientForm submit={practitionerStore.addNewPatient} />}
         </div>)
 
 })
+
+const ActivationCode = observer((props) => {
+    const { t } = useTranslation('translation');
+    const { practitionerStore } = useStores();
+    const classes = useStyles();
+
+    return (<div>
+            <Typography variant="body1">{t('coordinator.addPatientFlow.forPatient')}:</Typography>
+            <div className={classes.copyContainer}>
+                <TextCopy className={classes.copy} icon={<VpnKeyIcon />} text={practitionerStore.newPatient.code} />
+            </div>
+        </div>)
+});
 
 const AddPatientForm = observer((props) => {
     const classes = useStyles();
@@ -96,6 +106,13 @@ const AddPatientForm = observer((props) => {
 })
 
 const useStyles = makeStyles({
+    copyContainer: {
+        padding: "1em 0",
+        width: "60%",
+        "& > div > div": {
+            backgroundColor: "white"
+        }
+    },
     header: {
         padding: ".5em 0",
     },
@@ -152,7 +169,7 @@ const useStyles = makeStyles({
         zIndex: 5
     },
     warning: {
-        padding:"1em",
+        padding: "1em",
         margin: "1em 0",
         borderRadius: "4px",
         border: "none",

@@ -45,34 +45,32 @@ const PatientsView = observer((props) => {
     const tabProps = { selectedTab: tab, setSelectedTab: setTab }
 
     return (
-        <>
+        <div className={classes.superContainer}>
             <ActivationCodePopup activationCode={practitionerStore.newActivationCode} close={() => { practitionerStore.newActivationCode = "" }} />
-            <div className={classes.superContainer}>
-                <div className={classes.container}>
-                    <SectionTitle>{t("coordinator.titles.myPatients")}</SectionTitle>
-                    <AdherenceGraph />
-                    <div>
+            <div className={classes.container}>
+                <SectionTitle>{t("coordinator.titles.myPatients")}</SectionTitle>
+                <AdherenceGraph />
+                <div>
                     <Collapse in={showForm}>
-                            <AddPatient toggleForm={toggleShowForm} />
+                        <AddPatient toggleForm={toggleShowForm} />
                     </Collapse>
-                    </div>
-                    <div className={classes.patientListContainer}>
-                        <Grid className={classes.options} container justify='space-between'>
-                            <SectionTitle>{t("coordinator.titles.myPatients")}</SectionTitle>
-                            {!showForm && <ProfileButton onClick={toggleShowForm}><PlusIcon />{t('coordinator.addPatientFlow.title')}</ProfileButton>}
-                        </Grid>
-                        <Grid className={classes.options} container justify='space-between' alignItems="center">
-                            <div className={classes.tabs}>
-                                {tabOptions.map((tab, index) => { return <Tab key={`table-tab-${index}`} {...tabProps} index={index}>{tab.text}: ({tab.list.length})</Tab> })}
-                            </div>
-                            <Search value={search} className={classes.search} handleChange={(event) => { setSearch(event.target.value) }}
-                                placeholder={t('coordinator.cohortOverview.searchByName')} />
-                        </Grid>
-                        <PatientList patients={tabOptions[tab].list} search={search} fields={tabOptions[tab].fields} />
-                    </div>
+                </div>
+                <div className={classes.patientListContainer}>
+                    <Grid className={classes.options} container justify='space-between'>
+                        <SectionTitle>{t("coordinator.titles.myPatients")}</SectionTitle>
+                        {!showForm && <ProfileButton onClick={toggleShowForm}><PlusIcon />{t('coordinator.addPatientFlow.title')}</ProfileButton>}
+                    </Grid>
+                    <Grid className={classes.options} container justify='space-between' alignItems="center">
+                        <div className={classes.tabs}>
+                            {tabOptions.map((tab, index) => { return <Tab key={`table-tab-${index}`} {...tabProps} index={index}>{tab.text}: ({tab.list.length})</Tab> })}
+                        </div>
+                        <Search value={search} className={classes.search} handleChange={(event) => { setSearch(event.target.value) }}
+                            placeholder={t('coordinator.cohortOverview.searchByName')} />
+                    </Grid>
+                    <PatientList patients={tabOptions[tab].list} search={search} fields={tabOptions[tab].fields} />
                 </div>
             </div>
-        </>
+        </div>
     )
 })
 
@@ -104,7 +102,7 @@ const useStyles = makeStyles({
             borderBottom: "none",
             borderRight: "none"
         },
-        "& > button:last-of-type":{
+        "& > button:last-of-type": {
             borderRight: `solid 1px ${Colors.lightgray}`
         },
         "& > button:hover": {
@@ -115,6 +113,7 @@ const useStyles = makeStyles({
         width: "100%"
     },
     container: {
+        boxSizing: "border-box",
         maxWidth: "950px",
         flexGrow: 1,
         display: "flex",

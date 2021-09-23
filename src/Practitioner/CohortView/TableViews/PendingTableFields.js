@@ -8,7 +8,6 @@ import Translate from './Translate';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-
 const useStyles = makeStyles({
     button:{
         fontSize: "1em"
@@ -42,6 +41,7 @@ const fields = [
     {
         displayName: <Translate string="coordinator.addPatientFlow.activationCode" />,
         disableSorting: true,
+        align: "right",
         formatter: (value, patient) => <ResetCode patient={patient} />
     }
 ]

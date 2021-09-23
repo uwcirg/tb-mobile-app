@@ -19,7 +19,7 @@ const useStyles = makeStyles({
         border: `1px solid ${Colors.gray}`,
         borderRadius: "5px",
         width: "100%",
-        overflow: "hiddden"
+        overflow: "hiddden",
     },
     textDisplay: {
         color: Colors.textDarkGray,

@@ -317,7 +317,7 @@ export class PractitionerStore extends UserStore {
                 givenName: "",
                 familyName: "",
                 phoneNumber: "",
-                startDate: new Date().toISOString(),
+                treatmentStart: new Date().toISOString(),
                 isTester: false
             }
     }
