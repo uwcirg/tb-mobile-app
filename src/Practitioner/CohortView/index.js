@@ -50,16 +50,16 @@ const PatientsView = observer((props) => {
         <>
             <ActivationCodePopup activationCode={practitionerStore.newActivationCode} close={() => { practitionerStore.newActivationCode = "" }} />
             <div className={classes.container}>
-                <SectionTitle>{t("coordinator.titles.myPatients")}</SectionTitle>
+                <SectionTitle>{t('coordinator.cohortOverview.adherenceGraph')}</SectionTitle>
                 <AdherenceGraph />
                 <div>
                     <Collapse in={showForm}>
                         <AddPatient toggleForm={toggleShowForm} />
                     </Collapse>
                 </div>
-                <div className={classes.patientListContainer}>
-                    <Grid className={classes.options} container justify='flex-end'>
-                        {/* <SectionTitle>{t("coordinator.titles.myPatients")}</SectionTitle> */}
+                <div>
+                    <Grid className={classes.options} container justify='space-between'>
+                        <SectionTitle>{t("coordinator.titles.myPatients")}</SectionTitle>
                         {!showForm && <ProfileButton onClick={toggleShowForm}><PlusIcon />{t('coordinator.addPatientFlow.title')}</ProfileButton>}
                     </Grid>
                     <Grid className={classes.options} container justify='space-between' alignItems="center">
@@ -90,13 +90,6 @@ const useStyles = makeStyles({
         width: "100%",
         height: "300px"
     },
-    patientListContainer: {
-        paddingTop: "2em"
-    },
-
-    onTab:{
-
-    },
     offTab: {
         backgroundColor: `${Colors.lighterGray} !important`,
         color: `${Colors.textDarkGray} !important`,
@@ -109,7 +102,7 @@ const useStyles = makeStyles({
         fontSize: "1em",
         "& > button": {
             borderRadius: 0,
-            padding: ".5em .75em .25em .75em",
+            padding: ".5em 1em",
             backgroundColor: "white",
             color: Colors.blue,
             border: `solid 1px ${Colors.lightgray}`,

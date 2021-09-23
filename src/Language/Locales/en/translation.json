@@ -525,6 +525,7 @@
             "low": "Low"
         },
         "cohortOverview": {
+            "adherenceGraph": "Summary of Adherence",
             "title": "Cohort Overview",
             "high": "High Priority",
             "medium": "Medium Priority",
