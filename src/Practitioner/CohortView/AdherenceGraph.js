@@ -4,7 +4,6 @@ import { observer } from 'mobx-react';
 import useStores from '../../Basics/UseStores';
 import Colors from '../../Basics/Colors';
 import Tooltip from '@material-ui/core/Tooltip';
-import Card from '../Shared/Card';
 import { useTranslation } from 'react-i18next';
 import Grid from '@material-ui/core/Grid'
 
@@ -113,7 +112,8 @@ const useStyles = makeStyles({
         position: "relative"
     },
     monthLabel:{
-        height: "35px"
+        height: "35px",
+        textTransform: "capitalize"
     }
 })
 
@@ -174,7 +174,7 @@ const Adherence = observer(() => {
                 </div>
                 <div className={classes.xLabel}>{months} </div>
                 <Grid className={classes.monthLabel} container justify="center" spacing={1}>
-                    <span>Months</span>
+                    <span>{t('time.month')}</span>
                 </Grid>
             </div>
         </div>)
@@ -207,9 +207,7 @@ const Background = () => {
 
     const colors = [Colors.green, Colors.red]
     const classes = useStyles();
-    const { t } = useTranslation('translation');
 
-    let labels = []
     let dividers = []
     let column = []
 
@@ -219,14 +217,7 @@ const Background = () => {
         //labels.push(<div className="yLabel">.{step * 10}</div>)
     }
 
-    labels.push(<div key={`background-label-0`} className="yLabel">0%</div>)
-    labels.push(<div key={`background-label-1`} className="yLabel">90%</div>)
-    labels.push(<div key={`background-label-2`} className="yLabel">100%</div>)
-
-    let months = []
-
     for (let step = 0; step < 6; step++) {
-        months.push(<div key={`background-month-${step}`} className="month">{step + 1}</div>)
         dividers.push(<div key={`background-divider-${step}`}></div>)
     }
 
