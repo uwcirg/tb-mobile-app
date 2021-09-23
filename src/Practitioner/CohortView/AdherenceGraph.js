@@ -132,8 +132,6 @@ const Adherence = observer(() => {
         return patient.adherence > divider && patient.daysInTreatment < 180
     })
 
-
-
     return (
         <div className={classes.superContainer}>
             <div className={classes.container}>
@@ -152,7 +150,7 @@ const Adherence = observer(() => {
 
 const DataPoint = (props) => {
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const {t} = useTranslation('translation');
 
     let bottomCalc;
     if (props.top) {
@@ -175,7 +173,7 @@ const Background = () => {
 
     const colors = [Colors.green, Colors.red]
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
     let labels = []
     let dividers = []

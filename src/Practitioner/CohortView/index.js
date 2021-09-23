@@ -64,7 +64,7 @@ const PatientsView = observer((props) => {
                     </Grid>
                     <Grid className={classes.options} container justify='space-between' alignItems="center">
                         <div className={classes.tabs}>
-                            {tabOptions.map((tab, index) => { return <Tab key={`table-tab-${index}`} {...tabProps} index={index}>{tab.text}: ({tab.list.length})</Tab> })}
+                            {tabOptions.map((tab, index) => { return <Tab key={`table-tab-${index}`} {...tabProps} index={index}>{tab.text}: {tab.list.length}</Tab> })}
                         </div>
                         <Search value={search} className={classes.search} handleChange={(event) => { setSearch(event.target.value) }}
                             placeholder={t('coordinator.cohortOverview.searchByName')} />
@@ -81,7 +81,8 @@ const PatientsView = observer((props) => {
 
 const Tab = ({ index, selectedTab, children, setSelectedTab }) => {
     const classes = useStyles({ index: index });
-    return (<Button className={`${(index !== selectedTab) && classes.offTab}`} onClick={() => { setSelectedTab(index) }}>{children}</Button>)
+    const selected = index == selectedTab;
+    return (<Button className={`${classes.tab} ${selected ? classes.onTab : classes.offTab}`} onClick={() => { setSelectedTab(index) }}>{children}</Button>)
 }
 
 const useStyles = makeStyles({
@@ -91,6 +92,10 @@ const useStyles = makeStyles({
     },
     patientListContainer: {
         paddingTop: "2em"
+    },
+
+    onTab:{
+
     },
     offTab: {
         backgroundColor: `${Colors.lighterGray} !important`,
