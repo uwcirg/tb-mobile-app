@@ -6,11 +6,11 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Styles from '../../../Basics/Styles';
 import Colors from '../../../Basics/Colors';
-import PatientInput from './Input';
 import WarningBox from '../../../Basics/WarningBox';
 import DatePicker from '../../../Basics/DatePicker';
 import FlatButton from '../../../Components/FlatButton';
 import { useTranslation } from 'react-i18next';
+import PatientInput from './Input';
 
 const useStyles = makeStyles({
     formLabels: {

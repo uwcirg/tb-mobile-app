@@ -22,6 +22,8 @@ import archivedFields from './TableViews/ArchivedTableFields'
 import useToggle from '../../Hooks/useToggle';
 
 import AddPatient from './AddPatient'
+import { CircularProgress } from '@material-ui/core';
+
 
 const PatientsView = observer((props) => {
     const classes = useStyles();
@@ -45,7 +47,7 @@ const PatientsView = observer((props) => {
     const tabProps = { selectedTab: tab, setSelectedTab: setTab }
 
     return (
-        <div className={classes.superContainer}>
+        <>
             <ActivationCodePopup activationCode={practitionerStore.newActivationCode} close={() => { practitionerStore.newActivationCode = "" }} />
             <div className={classes.container}>
                 <SectionTitle>{t("coordinator.titles.myPatients")}</SectionTitle>
@@ -56,8 +58,8 @@ const PatientsView = observer((props) => {
                     </Collapse>
                 </div>
                 <div className={classes.patientListContainer}>
-                    <Grid className={classes.options} container justify='space-between'>
-                        <SectionTitle>{t("coordinator.titles.myPatients")}</SectionTitle>
+                    <Grid className={classes.options} container justify='flex-end'>
+                        {/* <SectionTitle>{t("coordinator.titles.myPatients")}</SectionTitle> */}
                         {!showForm && <ProfileButton onClick={toggleShowForm}><PlusIcon />{t('coordinator.addPatientFlow.title')}</ProfileButton>}
                     </Grid>
                     <Grid className={classes.options} container justify='space-between' alignItems="center">
@@ -68,9 +70,12 @@ const PatientsView = observer((props) => {
                             placeholder={t('coordinator.cohortOverview.searchByName')} />
                     </Grid>
                     <PatientList patients={tabOptions[tab].list} search={search} fields={tabOptions[tab].fields} />
+                    {!practitionerStore.patientsLoaded && <Grid className={classes.tableLoading} container justify="center" alignItems="center">
+                        <CircularProgress variant="indeterminate" />
+                    </Grid>}
                 </div>
             </div>
-        </div>
+        </>
     )
 })
 
@@ -80,6 +85,10 @@ const Tab = ({ index, selectedTab, children, setSelectedTab }) => {
 }
 
 const useStyles = makeStyles({
+    tableLoading:{
+        width: "100%",
+        height: "300px"
+    },
     patientListContainer: {
         paddingTop: "2em"
     },
@@ -109,10 +118,8 @@ const useStyles = makeStyles({
             backgroundColor: "white"
         }
     },
-    superContainer: {
-        width: "100%"
-    },
     container: {
+        width: "100%",
         boxSizing: "border-box",
         maxWidth: "950px",
         flexGrow: 1,
