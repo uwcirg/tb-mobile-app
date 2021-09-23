@@ -106,7 +106,9 @@
         "weeks": "weeks",
         "month": "month",
         "all": "all",
-        "noon": "noon"
+        "noon": "noon",
+        "day_ago": "day ago",
+        "day_ago_plural": "days ago"
     },
     "patient": {
         "tabNames": {
@@ -523,6 +525,7 @@
             "low": "Low"
         },
         "cohortOverview": {
+            "adherenceGraph": "Summary of Adherence",
             "title": "Cohort Overview",
             "high": "High Priority",
             "medium": "Medium Priority",
@@ -535,13 +538,15 @@
         },
         "addPatientFlow": {
             "title": "Add Patient",
+            "formTitle": "New Patient Details",
             "addedPatient": "Added Patient",
             "codeToSend": "Code to send to patient",
             "resetCode": "Reset Code",
             "forPatient": "Activation Code For Patient",
             "activationCode": "Activation Code",
             "clickToCopy": "Click to copy",
-            "success": "Successfully copied"
+            "success": "Successfully copied",
+            "patientSuccess": "Patient Successfully Added"
         },
         "titles": {
             "myTasks": "My Tasks",
@@ -593,6 +598,7 @@
             "streak": "Streak",
             "details": "Details"
         },
+        "noReports": "No Reports",
         "noTasks": "No Tasks Found",
         "profile": "Profile",
         "message": "Message",

@@ -2,20 +2,18 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
+import Colors from './Colors';
 
 
 const useStyles = makeStyles({
-    search: {
-
-    },
     container: {
-        borderRadius: "10px",
+        borderRadius: "4px",
         padding: "1px",
         display: "flex",
         alignItems: "center",
         width: "80%",
         margin: "auto",
-        backgroundColor: "lightgray",
+        backgroundColor: Colors.lightgray,
         "& > svg": {
             margin: "5px"
         }
@@ -29,8 +27,9 @@ const SearchBar = (props) => {
 
     return (
         <div className={`${classes.container} ${props.className && props.className}`}>
-            <SearchIcon />
+            <SearchIcon style={{fontSize: "1.1em",color: Colors.textDarkGray}} />
             <InputBase
+                value={props.value}
                 placeholder={props.placeholder}
                 className={classes.search}
                 id={`search-input-${props.kind}`}

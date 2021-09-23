@@ -1,6 +1,7 @@
-import { action, observable, computed, toJS } from "mobx";
+import { action, observable, computed } from "mobx";
 import { UserStore } from './userStore'
 import { DateTime } from "luxon";
+import {daysSinceISODateTime} from "../Utility/TimeUtils";
 
 const ROUTES = {
     addPatient: ["/patients", "POST"],
@@ -8,7 +9,7 @@ const ROUTES = {
     getOrganizations: ["/organizations", "GET"],
     getPatients: ["/v2/patients", "GET"],
     getArchivedPatients: ["/v2/patients?archived=true", "GET"],
-    getTemporaryPatients: ["/practitioner/temporary_patients", "GET"],
+    getPendingPatients: ["/practitioner/temporary_patients", "GET"],
     getPatientPhotos: ["/patients/photo_reports", "GET"],
     getProcessedPatientPhotos: ["/patients/photo_reports/processed", "GET"],
     getPatientNames: ["/practitioner/patients?namesOnly=true", "GET"],
@@ -76,7 +77,7 @@ export class PractitionerStore extends UserStore {
     @observable patients = {};
     @observable archivedPatients = [];
     @observable patientsLoaded = false;
-    @observable temporaryPatients = [];
+    @observable pendingPatients = [];
 
     //Currently viewed patient
     @observable selectedPatient = {
@@ -124,7 +125,10 @@ export class PractitionerStore extends UserStore {
     }
 
     @computed get patientList() {
-        return Object.values(this.patients)
+        return Object.values(this.patients).map( patient => {
+            return {...patient, daysSinceLastReport: patient.lastReport ? 
+                (Math.round(daysSinceISODateTime(patient.lastReport.createdAt))) : 
+                false}})
     }
 
     getPatient = (id) => {
@@ -148,7 +152,7 @@ export class PractitionerStore extends UserStore {
 
             if (json && json.code) {
                 this.newPatient.code = json.code;
-                this.getTemporaryPatients();
+                this.getPendingPatients();
             }
         })
     }
@@ -178,12 +182,12 @@ export class PractitionerStore extends UserStore {
             this.patients = patientHash;
             this.patientsLoaded = true;
         })
-        this.getTemporaryPatients();
+        this.getPendingPatients();
     }
 
-    @action getTemporaryPatients = () => {
-        this.executeRequest('getTemporaryPatients').then(response => {
-            this.temporaryPatients = response;
+    @action getPendingPatients = () => {
+        this.executeRequest('getPendingPatients').then(response => {
+            this.pendingPatients = response;
         })
     }
 
@@ -313,7 +317,7 @@ export class PractitionerStore extends UserStore {
                 givenName: "",
                 familyName: "",
                 phoneNumber: "",
-                startDate: new Date().toISOString(),
+                treatmentStart: new Date().toISOString(),
                 isTester: false
             }
     }
