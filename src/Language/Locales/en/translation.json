@@ -848,6 +848,15 @@
         "textInstructions": "Text Instructions",
         "videoInstructions": "Video Instructions"
     },
+    "exitInterviewAlert":{
+        "title": "Feedback",
+        "intro": "You are almost done with treatment, great work!",
+        "ask": "To gather feedback, a member of the study team might call you after you have finished using the app.",
+        "survey": "We also have a short survey on your home screen.",
+        "thanks": "Thank you"
+
+
+    },
     "dashboard": {
         "category": "Category",
         "reported": "Reported",

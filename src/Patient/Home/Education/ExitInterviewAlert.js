@@ -11,7 +11,8 @@ const useStyles = makeStyles({
         padding: ".5em",
         "& img": {
             width: "90%",
-            margin: "auto"
+            margin: "auto",
+            marginBottom: ".5em"
         },
         "& p": {
             marginBottom: "1em",
@@ -36,15 +37,15 @@ const ExitInterviewAlert = () => {
     }
 
     return (<div className={classes.container}>
-        <Typography variant="h1" color="initial">Survey and Interviews</Typography>
+        <Typography variant="h1" color="initial">{t('exitInterviewAlert.title')}</Typography>
         <img src="img/feedback.png"></img>
         <div className={classes.body}>
-            <Typography variant="body1">You are almost done with treatment, great work!</Typography>
-            <Typography variant="body1"> To gather feedback, a member of the study team might call you after you have finished using the app.</Typography>
-            <Typography variant="body1"> We also have a short survey on your home screen.</Typography>
+            <Typography variant="body1">{t('exitInterviewAlert.intro')}</Typography>
+            <Typography variant="body1">{t('exitInterviewAlert.ask')}</Typography>
+            <Typography variant="body1">{t('exitInterviewAlert.survey')}</Typography>
         </div>
-        <Typography>Thank you! 🙂</Typography>
-        <NewButton icon={<Home />} text="Continue" onClick={handleRate} />
+        <Typography>{t('exitInterviewAlert.thanks')} 🙂</Typography>
+        <NewButton icon={<Home />} text={t('patient.home.progress.close')} onClick={handleRate} />
     </div>)
 
 }
