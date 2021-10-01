@@ -23,10 +23,6 @@ it("defaults to blank when no local date is found", () => {
 patientStore.patientInformation.loaded = true;
 patientStore.patientInformation.daysInTreatment = 180;
 
-it("shows all messages as availble when patient has completed treatment", () =>{
-    expect(education.availableMessages.length).toBe(21);
-})
-
 it("shows earliest message available first", () =>{
     expect(education.message).toBe(Object.values(education.treatmentUpdates)[0]);
 })
