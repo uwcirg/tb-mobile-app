@@ -130,10 +130,4 @@ export default class EducationStore {
         this.exited = value;
     }
 
-
-
-
-
-
-
 }
