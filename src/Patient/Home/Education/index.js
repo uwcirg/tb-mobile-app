@@ -52,15 +52,21 @@ const EducationalMessage = observer((props) => {
 
     return (
         <>
-            {visible ?
-                <PopUp className={classes.container} handleClickAway={handleClose}>
-                    <ComponentToDisplay treatmentDay={education.dayShown} />
-                </PopUp> : ""}
+            {visible && <PopUp className={classes.container} handleClickAway={handleClose}>
+                <ComponentToDisplay treatmentDay={education.dayShown} />
+            </PopUp>}
         </>)
 
 })
 
-const ComponentToDisplay = ({treatmentDay}) => {
+const ComponentToDisplay = ({ treatmentDay }) => {
+
+    /*
+
+    To display a custom formatted message, add the day as a case here
+    You can use the RateButtons component to add the feedback to the bottom of the custom compoenent
+
+    */
 
     switch (treatmentDay) {
         case "0": return <TestStripUpdate />
