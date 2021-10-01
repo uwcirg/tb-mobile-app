@@ -838,7 +838,8 @@
         "62": "Después del segundo mes el tratamiento es más sencillo con menor cantidad de medicación. Es importante continuar con todos los controles y examen del catarro para saber si las drogas me sirven para curarme. ",
         "70": "Ante cualquier complicación, el personal de salud de su lugar de atención puede controlar el tratamiento. Recordar que la única manera de prevenir en Tuberculosis es CURAR a todos los pacientes. ",
         "80": "Un tratamiento exitoso depende del cumplimiento de todas las tomas de la medicación. Tratar de respetar los horarios.",
-        "90": "La mejoría de los síntomas no es lo mismo que curación. Curar significa que hay que continuar habitualmente con un tratamiento 6 meses. Adelante! "
+        "90": "La mejoría de los síntomas no es lo mismo que curación. Curar significa que hay que continuar habitualmente con un tratamiento 6 meses. Adelante! ",
+        "141": "Let us know how we are doing! Someone from the study might reach out to you and ask about your experience with the app. We also have a survey that is available on the homepage. Thanks!"
     },
     "mayTestStripUpdate": {
         "title": "Important Update",
@@ -846,6 +847,15 @@
         "body": "The instructions for the test strips have changed, please review them before completing your next test.",
         "textInstructions": "Text Instructions",
         "videoInstructions": "Video Instructions"
+    },
+    "exitInterviewAlert":{
+        "title": "Feedback",
+        "intro": "You are almost done with treatment, great work!",
+        "ask": "To gather feedback, a member of the study team might call you after you have finished using the app.",
+        "survey": "We also have a short survey on your home screen.",
+        "thanks": "Thank you"
+
+
     },
     "dashboard": {
         "category": "Category",

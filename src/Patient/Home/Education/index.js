@@ -1,14 +1,15 @@
-import PopUp from '../../Navigation/PopUp'
-import React, { useEffect, useState } from 'react'
+import PopUp from '../../Navigation/PopUp';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Styles from '../../../Basics/Styles';
 import { observer } from 'mobx-react';
 import useStores from '../../../Basics/UseStores';
 import { useTranslation } from 'react-i18next';
-import { usePageVisibility } from '../../../Hooks/PageVisibility'
-import TestStripUpdate from './TestStripUpdateMay'
+import { usePageVisibility } from '../../../Hooks/PageVisibility';
+import TestStripUpdate from './TestStripUpdateMay';
 import ChatReminder from './ChatReminder';
-import DefaultLayout from './DefaultMessage'
+import DefaultLayout from './DefaultMessage';
+import ExitInterviewAlert from './ExitInterviewAlert'
 
 const useStyles = makeStyles({
     container: {
@@ -51,19 +52,26 @@ const EducationalMessage = observer((props) => {
 
     return (
         <>
-            {visible ?
-                <PopUp className={classes.container} handleClickAway={handleClose}>
-                    <ComponentToDisplay treatmentDay={education.dayShown} />
-                </PopUp> : ""}
+            {visible && <PopUp className={classes.container} handleClickAway={handleClose}>
+                <ComponentToDisplay treatmentDay={education.dayShown} />
+            </PopUp>}
         </>)
 
 })
 
-const ComponentToDisplay = ({treatmentDay}) => {
+const ComponentToDisplay = ({ treatmentDay }) => {
+
+    /*
+
+    To display a custom formatted message, add the day as a case here
+    You can use the RateButtons component to add the feedback to the bottom of the custom compoenent
+
+    */
 
     switch (treatmentDay) {
         case "0": return <TestStripUpdate />
         case "5": return <ChatReminder />
+        case "141": return <ExitInterviewAlert />
         default: return <DefaultLayout />
     }
 }
