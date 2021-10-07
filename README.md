@@ -16,7 +16,7 @@ Version 2 aims to provide a feedback driven UI, better user encouragement, impro
  Code: [tb-mobile-app](https://github.com/uwcirg/tb-mobile-app) (this repo)
  
 **Back End:** 
-Ruby on Rails API
+Ruby on Rails API + Docker-Compose Deployment Configuration
 Code: [tb-foundation](https://github.com/uwcirg/tb-foundation)
 
 
