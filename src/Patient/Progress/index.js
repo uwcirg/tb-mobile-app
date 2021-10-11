@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { makeStyles } from '@material-ui/core';
+import { CircularProgress, makeStyles } from '@material-ui/core';
 import DayDrawer from './DayDrawer'
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
-import CustomCalendar from './CustomCalendar';
+import CustomCalendar from './Calendar/CustomCalendar';
 import MedicationFlow from '../ReportingFlows';
 import { useTranslation } from 'react-i18next';
 import ClickableText from '../../Basics/ClickableText';
 import QuestionIcon from '@material-ui/icons/HelpOutline';
 import Key from './Key'
 import PreventOffline from '../../Basics/PreventOffline';
+import Grid from '@material-ui/core/Grid'
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -63,12 +64,17 @@ const Progress = observer(() => {
     const { patientUIStore } = useStores();
     const { t } = useTranslation('translation');
 
+    const reportsLoaded = false;
+
     if (patientUIStore.onHistoricalReport) return (<ReportOldMedication />)
 
     return (<div id="intro-progress" className={`${classes.container}`} >
         {showKey && <Key close={() => { setShowKey(false) }} />}
         <ClickableText className={classes.keyButton} icon={<QuestionIcon />} text={t('patient.progress.calendarKey.button')} onClick={() => { setShowKey(true) }} />
-        <CustomCalendar />
+        {reportsLoaded ? <CustomCalendar /> : <Grid style={{height: "300px"}} direction="column" container justify="center" alignItems="center">
+            <p>Reporting history loading</p>
+            <CircularProgress variant="indeterminate" />
+        </Grid>}
         <DayDrawer />
     </div>)
 });
