@@ -61,17 +61,15 @@ const Progress = observer(() => {
     const [showKey, setShowKey] = useState(false);
 
     const classes = useStyles();
-    const { patientUIStore } = useStores();
+    const { patientUIStore, patientStore } = useStores();
     const { t } = useTranslation('translation');
-
-    const reportsLoaded = false;
 
     if (patientUIStore.onHistoricalReport) return (<ReportOldMedication />)
 
     return (<div id="intro-progress" className={`${classes.container}`} >
         {showKey && <Key close={() => { setShowKey(false) }} />}
         <ClickableText className={classes.keyButton} icon={<QuestionIcon />} text={t('patient.progress.calendarKey.button')} onClick={() => { setShowKey(true) }} />
-        {reportsLoaded ? <CustomCalendar /> : <Grid style={{height: "300px"}} direction="column" container justify="center" alignItems="center">
+        {patientStore.savedReportsLoaded  ? <CustomCalendar /> : <Grid style={{height: "300px"}} direction="column" container justify="center" alignItems="center">
             <p>Reporting history loading</p>
             <CircularProgress variant="indeterminate" />
         </Grid>}
