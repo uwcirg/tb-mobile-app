@@ -1,6 +1,8 @@
-## v2.7.1
+## v2.8
 WIP (September 2021)
 - Flag late photo submissions on the coordinator page
+- Fix calendar styling bugs on patient side
+- Add loading message when reporting history is loaded to prevent confusion about missing data
 
 ## v2.7
 Released September 2nd, 2021
