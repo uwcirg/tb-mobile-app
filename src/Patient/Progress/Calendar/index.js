@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Calendar from 'react-calendar';
 import { DateTime } from 'luxon';
 import useStores from '../../../Basics/UseStores';
@@ -12,6 +12,7 @@ const CustomCalendar = observer(() => {
 
     const classes = useCalendarStyles();
     const { patientStore, uiStore } = useStores();
+    const [month,setMonth] = useState(new DateTime.local().startOf('month'))
 
     const handleChange = (date) => {
         patientStore.uiState.selectedCalendarDate = DateTime.fromJSDate(date).toISODate();
@@ -22,6 +23,11 @@ const CustomCalendar = observer(() => {
             DateTime.fromJSDate(date) > DateTime.local() ||
             (DateTime.fromJSDate(date).startOf('day') < DateTime.fromISO(patientStore.treatmentStart).startOf('day')))
     }
+    //If desired to disble going past treatment bounds
+    // const showLeft = month > DateTime.fromISO(patientStore.treatmentStart).startOf('month');
+    // const showRight = month < DateTime.local().startOf('month')
+    const showLeft = true;
+    const showRight = true;
 
     return (
         <Calendar
@@ -31,7 +37,6 @@ const CustomCalendar = observer(() => {
             calendarType="US"
             minDetail="month"
             view="month"
-            onChange={() => { }}
             value={new Date()}
             locale={uiStore.locale}
             className={`${classes.calendar} intro-calendar-full`}
@@ -45,9 +50,13 @@ const CustomCalendar = observer(() => {
             )}
             next2Label={null}
             prev2Label={null}
-            nextLabel={<ChevronRight />}
-            prevLabel={<ChevronLeft />}
+            nextLabel={showRight ? <ChevronRight />: null}
+            prevLabel={showLeft ? <ChevronLeft /> : null}
             onChange={handleChange}
+            onActiveStartDateChange={(event)=> {
+                setMonth(DateTime.fromJSDate(event.activeStartDate));
+            }}
+            
         />
     )
 });
