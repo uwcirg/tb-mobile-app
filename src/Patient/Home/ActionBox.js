@@ -6,7 +6,8 @@ import InteractionCard from '../../Basics/HomePageSection';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next';
-import { CircularProgress, makeStyles } from '@material-ui/core';
+import  makeStyles from '@material-ui/core/styles/makeStyles';
+import CircularProgress from '@material-ui/core/CircularProgress'
 import Colors from '../../Basics/Colors';
 import ActionIcon from '@material-ui/icons/PlaylistAddCheck';
 import PatientReport from '../../Basics/PatientReport';
@@ -134,7 +135,7 @@ const Review = observer(() => {
 const LoadingMessage = () => {
     const classes = useStyles();
     const {t} = useTranslation();
-    
+
     return <Grid className={classes.loadingMessage} alignItems="center" container wrap="nowrap" >
         <div><CircularProgress variant="indeterminate" /></div>
         <p>{t('patient.home.actions.loading')}</p>
