@@ -1,10 +1,9 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import useStores from '../../Basics/UseStores';
-import {observer} from 'mobx-react'
-import { DemoDay as Day } from './Calendar'
 import PopUp from '../Navigation/PopUp';
 import { useTranslation } from 'react-i18next';
+import useCalendarStyles from './Calendar/styles';
+import Colors from '../../Basics/Colors';
 
 const useStyles = makeStyles({
     key: {
@@ -38,7 +37,7 @@ const useStyles = makeStyles({
 
 const Key = (props) => {
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
     return (
         <PopUp handleClickAway={props.close}><div className={classes.key}>
@@ -64,6 +63,17 @@ const KeyItem = (props) => {
             <span>
                 {props.children}
             </span>
+        </div>
+    )
+}
+
+const Day = (props) => {
+    const classes = useCalendarStyles();
+
+    return (
+        <div style={{ width: "40px", height: "40px" }} className={`${classes.day} ${classes.single} ${!props.modifier && (props.tookMedication ? classes.positive : classes.negative)}`}>
+            <p>{props.date}</p>
+            {props.modifier ? <div style={props.symptom && { backgroundColor: Colors.yellow }} className={classes.modifier}> </div> : ""}
         </div>
     )
 }

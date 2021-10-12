@@ -7,39 +7,7 @@ import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ChevronRight from '@material-ui/icons/ChevronRight';
 import { observer } from 'mobx-react'
 import useCalendarStyles from './styles';
-
-class CalendarDay {
-    modifiers = [];
-    color = "white";
-
-    constructor(report,datetime) {
-        this.color = this.getColor(report,datetime);
-        if (report) {
-            this.modifier = this.getModifier(report);
-        }
-    }
-
-    getModifier(report) {
-        if (!report.medicationWasTaken) {
-            this.modifiers.push("red")
-        }
-
-        if (report.symptoms && report.symptoms.length > 0) {
-            this.modifiers.push("yellow")
-        }
-    }
-
-    getColor(object,datetime) {
-        const isToday = datetime.startOf('day').equals(DateTime.local().startOf('day'));
-        if(!object){
-            return isToday ? "white" : Colors.calendarRed;
-        }
-        if (object.medicationWasTaken) return Colors.calendarGreen
-
-    }
-
-}
-
+import CalendarDayStyleHelper from './styleHelper';
 
 const CustomCalendar = observer(() => {
 
@@ -89,47 +57,27 @@ const Day = observer((props) => {
     const classes = useCalendarStyles();
     const { patientStore } = useStores();
 
-    let dt = DateTime.fromJSDate(props.dateObj);
-
-    let compositeClass;
+    let datetime = DateTime.fromJSDate(props.dateObj);
+    const isToday = datetime.startOf('day').equals(DateTime.local().startOf('day'));
+    const isWithinTreatmentBounds = datetime.diff(DateTime.fromISO(patientStore.treatmentStart), "days").days >= 0 && datetime.diffNow("days").days < 0;
 
     //Day shown as "selected" in blue on calendar
-    const selectedDay = dt.startOf('day').equals(DateTime.fromISO(patientStore.uiState.selectedCalendarDate));
-    const selectedDayIsValid = dt.diff(DateTime.fromISO(patientStore.treatmentStart), "days").days >= 0 && dt.diffNow("days").days < 0
-
-
-
-    const dayBefore = new CalendarDay(patientStore.savedReports[`${dt.startOf('day').minus(1, 'day').toISODate()}`], dt)
-    const dayFromServer = new CalendarDay(patientStore.savedReports[`${dt.startOf('day').toISODate()}`],dt)
-    const dayAfter = new CalendarDay(patientStore.savedReports[`${dt.endOf('day').plus(1, 'day').toISODate()}`],dt)
-
-    const today = dt.startOf('day').equals(DateTime.local().startOf('day'));
-    const start = dt.startOf('day').equals(DateTime.fromISO(patientStore.treatmentStart).startOf('day'));
-
-    if (dayBefore.color != dayFromServer.color) compositeClass += ' ' + classes.start;
-    if (dayAfter.color != dayFromServer.color) compositeClass += ' ' + classes.end;
+    const selectedDay = datetime.startOf('day').equals(DateTime.fromISO(patientStore.uiState.selectedCalendarDate));
+    
+    const relevantDay = new CalendarDayStyleHelper({
+        previous: patientStore.savedReports[`${datetime.startOf('day').minus(1, 'day').toISODate()}`],
+        current: patientStore.savedReports[`${datetime.startOf('day').toISODate()}`],
+        next: patientStore.savedReports[`${datetime.endOf('day').plus(1, 'day').toISODate()}`]
+    }, isToday)
 
     return (
-        <div style={{ backgroundColor: selectedDayIsValid ? dayFromServer.color : "white" }} className={`${classes.day} ${compositeClass}`}>
+        <div style={{ backgroundColor: isWithinTreatmentBounds ? relevantDay.color : "white" }} className={`${classes.day} ${relevantDay.rightRounding && classes.end} ${relevantDay.leftRounding && classes.start}`}>
             {selectedDay ? <div className={classes.selectedDay}><p>{props.date}</p> </div> : <p>{props.date}</p>}
             <div className={classes.bottomDots}>
-                {dayFromServer.modifiers.map(each => <div key={`${dt.toISODate}-mod-${each}`} style={{ backgroundColor: each }} className={classes.modifier} />)}
+                {relevantDay.modifiers.map(each => <div key={`${datetime.toISODate}-mod-${each}`} style={{ backgroundColor: each }} className={classes.modifier} />)}
             </div>
         </div>
     )
 });
 
-//TODO: Fix this
-const DemoDay = (props) => {
-    const classes = useCalendarStyles();
-
-    return (
-        <div style={{ width: "40px", height: "40px" }} style={{ backgroundColor: dayFromServer.color }} className={classes.day}>
-            <p>{props.date}</p>
-            {props.modifier ? <div style={props.symptom && { backgroundColor: Colors.yellow }} className={classes.modifier}> </div> : ""}
-        </div>
-    )
-}
-
 export default CustomCalendar;
-export { DemoDay };
