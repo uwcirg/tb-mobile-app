@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { CircularProgress, makeStyles } from '@material-ui/core';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Typography from '@material-ui/core/Typography';
 import DayDrawer from './DayDrawer'
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
@@ -36,6 +38,12 @@ const useStyles = makeStyles(theme => ({
             marginRight: "5px",
             fontSize: "1em"
         }
+    },
+    loading:{
+        height: "300px",
+        "& p":{
+            marginBottom: "1em"
+        }
     }
 
 }));
@@ -69,10 +77,7 @@ const Progress = observer(() => {
     return (<div id="intro-progress" className={`${classes.container}`} >
         {showKey && <Key close={() => { setShowKey(false) }} />}
         <ClickableText className={classes.keyButton} icon={<QuestionIcon />} text={t('patient.progress.calendarKey.button')} onClick={() => { setShowKey(true) }} />
-        {patientStore.savedReportsLoaded  ? <CustomCalendar /> : <Grid style={{height: "300px"}} direction="column" container justify="center" alignItems="center">
-            <p>Reporting history loading</p>
-            <CircularProgress variant="indeterminate" />
-        </Grid>}
+        {patientStore.savedReportsLoaded ? <CustomCalendar /> : <Loading />}
         <DayDrawer />
     </div>)
 });
@@ -86,6 +91,15 @@ const ProgressWithOfflineOverride = () => {
             <Progress />
         </PreventOffline>
     )
+}
+
+const Loading = () => {
+    const { t } = useTranslation('translation');
+    const classes = useStyles();
+    return <Grid className={classes.loading} direction="column" container justify="center" alignItems="center">
+        <Typography>{t('patient.progress.loading')}</Typography>
+        <CircularProgress variant="indeterminate" />
+    </Grid>
 }
 
 export default ProgressWithOfflineOverride;
