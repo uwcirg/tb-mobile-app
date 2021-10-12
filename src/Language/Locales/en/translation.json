@@ -256,7 +256,8 @@
             "today": "Today",
             "actions": {
                 "logMedication": "Begin Report",
-                "uploadPhoto": "Upload Photo"
+                "uploadPhoto": "Upload Photo",
+                "loading": "Checking if todays report has been submitted"
             },
             "todaysActions": {
                 "logMedication": "Begin Report",
@@ -402,6 +403,7 @@
             "upcoming": "Upcoming",
             "calendar": "Calendar of Reports",
             "submissionLimit": "If you miss a day, you can only submit for the 3 previous days, and any days you missed in your first 2 weeks",
+            "loading": "Reporting history loading",
             "calendarKey": {
                 "button": "What do these colors mean",
                 "description": "This is the calendar, where you can review your submissions. The colors show the following:",

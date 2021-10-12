@@ -13,8 +13,10 @@ export default class ReportStore {
 
     @observable todaysDate = DateTime.local().toISODate();
     @observable todaysReportFromServer = {}
+    @observable todaysReportLoaded = false;
 
     @action setTodaysReport = (report) => {
+        this.todaysReportLoaded = true;
         this.todaysReportFromServer = report;
     }
 

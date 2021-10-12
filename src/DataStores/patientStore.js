@@ -61,13 +61,6 @@ export class PatientStore extends UserStore {
 
     @observable treatmentFlowLength = 0;
 
-    @observable newMilestone = {
-        datetime: DateTime.local(),
-        title: "",
-        location: "",
-        allDay: false
-    }
-
     @observable lastSubmission = DateTime.local().toISO();
 
     @observable photoIsUploading = false;
