@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import DayDrawer from './DayDrawer'
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
-import CustomCalendar from './Calendar/CustomCalendar';
+import CustomCalendar from './Calendar';
 import MedicationFlow from '../ReportingFlows';
 import { useTranslation } from 'react-i18next';
 import ClickableText from '../../Basics/ClickableText';
