@@ -8,6 +8,38 @@ import ChevronRight from '@material-ui/icons/ChevronRight';
 import { observer } from 'mobx-react'
 import useCalendarStyles from './styles';
 
+class CalendarDay {
+    modifiers = [];
+    color = "white";
+
+    constructor(report,datetime) {
+        this.color = this.getColor(report,datetime);
+        if (report) {
+            this.modifier = this.getModifier(report);
+        }
+    }
+
+    getModifier(report) {
+        if (!report.medicationWasTaken) {
+            this.modifiers.push("red")
+        }
+
+        if (report.symptoms && report.symptoms.length > 0) {
+            this.modifiers.push("yellow")
+        }
+    }
+
+    getColor(object,datetime) {
+        const isToday = datetime.startOf('day').equals(DateTime.local().startOf('day'));
+        if(!object){
+            return isToday ? "white" : Colors.calendarRed;
+        }
+        if (object.medicationWasTaken) return Colors.calendarGreen
+
+    }
+
+}
+
 
 const CustomCalendar = observer(() => {
 
@@ -63,61 +95,36 @@ const Day = observer((props) => {
 
     //Day shown as "selected" in blue on calendar
     const selectedDay = dt.startOf('day').equals(DateTime.fromISO(patientStore.uiState.selectedCalendarDate));
-    const selectedDayIsValid = dt.diff(DateTime.fromISO(patientStore.treatmentStart), "days").days >= 0
+    const selectedDayIsValid = dt.diff(DateTime.fromISO(patientStore.treatmentStart), "days").days >= 0 && dt.diffNow("days").days < 0
 
 
-    //Check to ensure the date is before the treatment end date so if a patient logs in after a while they 
-    //wont have tons of red on their calendar for dates they cant report for
-    const afterAppEndFn = () => {
-        if(!patientStore.treatmentOutcome || !patientStore.treatmentOutcome.appEndDate){return false}
-        return dt.startOf('day') > DateTime.fromISO(patientStore.treatmentOutcome.appEndDate).startOf('day')
-    }
 
-    const afterAppEnd = afterAppEndFn();
-
-    let modifier = false;
-    let symptom = false;
-
-    const dayBefore = patientStore.savedReports[`${dt.startOf('day').minus(1, 'day').toISODate()}`]
-    const dayFromServer = patientStore.savedReports[`${dt.startOf('day').toISODate()}`]
-    const dayAfter = patientStore.savedReports[`${dt.endOf('day').plus(1, 'day').toISODate()}`]
+    const dayBefore = new CalendarDay(patientStore.savedReports[`${dt.startOf('day').minus(1, 'day').toISODate()}`], dt)
+    const dayFromServer = new CalendarDay(patientStore.savedReports[`${dt.startOf('day').toISODate()}`],dt)
+    const dayAfter = new CalendarDay(patientStore.savedReports[`${dt.endOf('day').plus(1, 'day').toISODate()}`],dt)
 
     const today = dt.startOf('day').equals(DateTime.local().startOf('day'));
     const start = dt.startOf('day').equals(DateTime.fromISO(patientStore.treatmentStart).startOf('day'));
 
-    if (selectedDayIsValid) {
-        if (dayFromServer && dayFromServer.medicationWasTaken) { compositeClass += ' ' + classes.positive }
-        else if (dayFromServer && !dayFromServer.medicationWasTaken) { modifier = "red" }
-        else if (!dayFromServer && !props.disabled && !today && !afterAppEnd) { compositeClass += ' ' + classes.negative }
-
-        if (dayBefore && dayAfter && dayFromServer) {
-            if (dayBefore.medicationWasTaken != dayFromServer.medicationWasTaken) compositeClass += ' ' + classes.start;
-            if (dayAfter.medicationWasTaken != dayFromServer.medicationWasTaken) compositeClass += ' ' + classes.end;
-            if (dayFromServer.medicationWasTaken && !dayBefore.medicationWasTaken && !dayAfter.medicationWasTaken) compositeClass += ' ' + classes.single;
-        }
-
-        if ((dayFromServer && !dayAfter) || (!dayFromServer && dayAfter) || today) compositeClass += ' ' + classes.end;
-        if ((dayFromServer && !dayBefore) || (!dayFromServer && dayBefore) || start) compositeClass += ' ' + classes.start;
-
-        if (dayFromServer && dayFromServer.symptoms.length > 0) symptom = true
-    }
+    if (dayBefore.color != dayFromServer.color) compositeClass += ' ' + classes.start;
+    if (dayAfter.color != dayFromServer.color) compositeClass += ' ' + classes.end;
 
     return (
-        <div className={`${classes.day} ${compositeClass}`}>
+        <div style={{ backgroundColor: selectedDayIsValid ? dayFromServer.color : "white" }} className={`${classes.day} ${compositeClass}`}>
             {selectedDay ? <div className={classes.selectedDay}><p>{props.date}</p> </div> : <p>{props.date}</p>}
             <div className={classes.bottomDots}>
-                {modifier ? <div className={classes.modifier}> </div> : ""}
-                {symptom ? <div style={{ backgroundColor: Colors.yellow }} className={classes.modifier}> </div> : ""}
+                {dayFromServer.modifiers.map(each => <div key={`${dt.toISODate}-mod-${each}`} style={{ backgroundColor: each }} className={classes.modifier} />)}
             </div>
         </div>
     )
 });
 
+//TODO: Fix this
 const DemoDay = (props) => {
     const classes = useCalendarStyles();
 
     return (
-        <div style={{ width: "40px", height: "40px" }} className={`${classes.day} ${classes.single} ${!props.modifier && (props.tookMedication ? classes.positive : classes.negative)}`}>
+        <div style={{ width: "40px", height: "40px" }} style={{ backgroundColor: dayFromServer.color }} className={classes.day}>
             <p>{props.date}</p>
             {props.modifier ? <div style={props.symptom && { backgroundColor: Colors.yellow }} className={classes.modifier}> </div> : ""}
         </div>

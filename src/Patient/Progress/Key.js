@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import {observer} from 'mobx-react'
-import { DemoDay as Day } from './Calendar/CustomCalendar'
+import { DemoDay as Day } from './Calendar'
 import PopUp from '../Navigation/PopUp';
 import { useTranslation } from 'react-i18next';
 
