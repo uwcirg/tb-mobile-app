@@ -18,13 +18,17 @@ export default class ReportStore {
     @action setTodaysReport = (report) => {
         this.todaysReportLoaded = true;
         this.todaysReportFromServer = report;
+
+        if (report.status && report.status.complete) {
+            this.rootStore.report.hasSubmitted = true;
+        }
     }
 
-    @computed get medicationWasTakenToday(){
+    @computed get medicationWasTakenToday() {
         return this.todaysReportFromServer &&
-        this.todaysReportFromServer.status &&
-        this.todaysReportFromServer.status.tookMedication
-        
+            this.todaysReportFromServer.status &&
+            this.todaysReportFromServer.status.tookMedication
+
     }
 
     @computed get baseReportComplete() {
@@ -40,8 +44,9 @@ export default class ReportStore {
     }
 
     @computed get allReportComplete() {
+
         if (this.checkOffline()) {
-            return this.rootStore.report.hasSubmitted && this.rootStore.report.hasSubmittedPhoto;
+            return this.rootStore.report.hasSubmitted && (!this.rootStore.isPhotoDay || this.rootStore.report.hasSubmittedPhoto);
         }
         return this.todaysReportFromServer &&
             this.todaysReportFromServer.status &&
@@ -78,8 +83,10 @@ export default class ReportStore {
 
     getTodaysReport() {
         this.updateCurrentDate();
-        this.rootStore.executeRawRequest(`/v2/daily_report?date=${this.todaysDate}`).then(res => {
-            this.setTodaysReport(res);
+        this.rootStore.executeRawRequest(`/v2/daily_report?date=${this.todaysDate}`).then(report => {
+            if (report || (this.todaysDate != this.rootStore.report.date)) {
+                this.setTodaysReport(report);
+            }
         })
     }
 
