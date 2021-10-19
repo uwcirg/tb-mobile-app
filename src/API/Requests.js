@@ -31,7 +31,7 @@ const authenticatedRequest = (url, method, body, options) => {
             if (options && options.includeStatus) json.httpStatus = requestStatus;
             return json
         }).catch(error => {
-            console.log('Error with request. JSON body likely not valid ', error)
+            console.log('Error with request. JSON body likely not valid ')
         })
 }
 
