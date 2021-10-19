@@ -44,6 +44,7 @@ export default class ReportStore {
     }
 
     @computed get allReportComplete() {
+        //console.log(toJS(this.rootStore.report))
         if (this.checkOffline()) {
             return this.rootStore.report.hasSubmitted && (!this.rootStore.isPhotoDay || this.rootStore.report.hasSubmittedPhoto);
         }
@@ -82,9 +83,10 @@ export default class ReportStore {
 
     getTodaysReport() {
         this.updateCurrentDate();
-        this.rootStore.executeRawRequest(`/v2/daily_report?date=${this.todaysDate}`).then(res => {
-            if (res) {
-                this.setTodaysReport(res);
+        this.rootStore.executeRawRequest(`/v2/daily_report?date=${this.todaysDate}`).then(report => {
+
+            if (report || (this.todaysDate != this.rootStore.report.date)) {
+                this.setTodaysReport(report);
             }
         })
     }
