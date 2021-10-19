@@ -49,7 +49,17 @@ self.addEventListener('push', function (event) {
     badge: 'images/badge.png',
     url: json.url,
     click_action: json.url,
-    data: json.data
+    data: json.data,
+    actions: [
+      {
+        action: 'good',
+        title: 'All Good!'
+      },
+      {
+        action: 'issue',
+        title: 'Need help'
+      }
+    ]
   };
   event.waitUntil(self.registration.showNotification(title, options));
 });
@@ -70,7 +80,8 @@ self.addEventListener('notificationclick', function (event) {
       if (isBroadcastChannelSupported()) {
         //Send a message to the client to route to the proper state
         const channel = new BroadcastChannel('notifications');
-        channel.postMessage({ url: event.notification.data.url, type: event.notification.type });
+        console.log(event.action);
+        channel.postMessage({action: event.action, url: event.notification.data.url, type: event.notification.type });
       }
 
       //matchingClient.postMessage({msg: 'Hello from SW'})

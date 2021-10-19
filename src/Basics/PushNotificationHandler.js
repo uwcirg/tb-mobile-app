@@ -2,10 +2,13 @@ import React, {useEffect} from 'react'
 import useStores from './UseStores';
 import isBroadcastChannelSupported from '../Utility/BroadcastChannelCheck'
 
+//Handles the event when a push notification is clicked
 const PushHandler = (props) => {
     const {uiStore} = useStores();
 
     const handleMessageFromServiceworker = (message) => {
+        console.log(message.action);
+        console.log("This is from main app - not service worker")
         if (message.url) {
             uiStore.push(message.url)
         }
