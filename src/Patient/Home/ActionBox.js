@@ -56,7 +56,7 @@ const ActionBox = observer(() => {
     useEffect(() => {
         if (isVisible) {
             //Ensure that we check if the date has changed
-            // patientStore.reportStore.getTodaysReport();
+            patientStore.loadDailyReport();
         }
 
     }, [isVisible])

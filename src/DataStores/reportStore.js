@@ -12,24 +12,8 @@ export default class ReportStore {
     @observable error = "";
 
     @observable todaysDate = DateTime.local().toISODate();
-    @observable todaysReportFromServer = {}
+
     @observable todaysReportLoaded = false;
-
-    @action setTodaysReport = (report) => {
-        this.todaysReportLoaded = true;
-        this.todaysReportFromServer = report;
-
-        if (report.status && report.status.complete) {
-            this.rootStore.report.hasSubmitted = true;
-        }
-    }
-
-    @computed get medicationWasTakenToday() {
-        return this.todaysReportFromServer &&
-            this.todaysReportFromServer.status &&
-            this.todaysReportFromServer.status.tookMedication
-
-    }
 
     @computed get baseReportComplete() {
 
@@ -38,23 +22,12 @@ export default class ReportStore {
     }
 
     @computed get allReportComplete() {
-
         return this.rootStore.report.hasSubmitted && (!this.rootStore.isPhotoDay || this.rootStore.report.hasSubmittedPhoto);
 
     }
 
     @computed get photoReportComplete() {
         return this.rootStore.report.hasSubmittedPhoto;
-    }
-
-    @action processReport = (report) => {
-        if (report && report.date) {
-            this.todaysReportFromServer = report;
-            this.rootStore.savedReports[report.date] = report;
-        } else {
-            console.log("error uploading last part of report");
-            this.error = "there was an error"
-        }
     }
 
     @action clearError = () => {
@@ -65,14 +38,7 @@ export default class ReportStore {
         this.todaysDate = DateTime.local().toISODate()
     }
 
-    getTodaysReport() {
-        this.updateCurrentDate();
-        this.rootStore.executeRawRequest(`/v2/daily_report?date=${this.todaysDate}`).then(report => {
-            if (report || (this.todaysDate != this.rootStore.report.date)) {
-                this.setTodaysReport(report);
-            }
-        })
-    }
+
 
     submitPhoto = () => {
         this.rootStore.hasSubmittedPhoto = true;

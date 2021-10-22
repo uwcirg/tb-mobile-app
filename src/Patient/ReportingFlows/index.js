@@ -44,6 +44,8 @@ const MedicationFlow = observer(() => {
         }
 
         if(patientUIStore.reportStep === Tabs.length - 1){
+            console.log("In handle last step")
+            patientStore.getReports();
             patientUIStore.endReport();
             return
         }

@@ -102,7 +102,7 @@ const DidntTakeMedication = observer((props) => {
 
 const ReportMedication = observer((props) => {
 
-    const { patientStore, patientUIStore} = useStores();
+    const { patientStore } = useStores();
     const { t } = useTranslation('translation');
 
     useEffect(() => {
