@@ -50,16 +50,17 @@ self.addEventListener('push', function (event) {
     url: json.url,
     click_action: json.url,
     data: json.data,
-    actions: [
-      {
-        action: 'good',
-        title: 'All Good!'
-      },
-      {
-        action: 'issue',
-        title: 'Need help'
-      }
-    ]
+    // Disabling these for now - was testing how it works on android
+    // actions: [
+    //   {
+    //     action: 'good',
+    //     title: 'All Good!'
+    //   },
+    //   {
+    //     action: 'issue',
+    //     title: 'Need help'
+    //   }
+    // ]
   };
   event.waitUntil(self.registration.showNotification(title, options));
 });
