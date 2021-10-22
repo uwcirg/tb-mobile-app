@@ -6,7 +6,7 @@ import InteractionCard from '../../Basics/HomePageSection';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next';
-import  makeStyles from '@material-ui/core/styles/makeStyles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Colors from '../../Basics/Colors';
 import ActionIcon from '@material-ui/icons/PlaylistAddCheck';
@@ -16,6 +16,7 @@ import ExpansionPanel from '../../Basics/ExpansionPanel';
 import PhotoUploading from '../../Basics/Loading/PhotoUploading';
 import ConfirmationLayout from '../../Components/Patient/ConfirmationLayout';
 import Grid from '@material-ui/core/Grid'
+import { usePageVisibility } from '../../Hooks/PageVisibility';
 
 const useStyles = makeStyles({
     check: {
@@ -36,9 +37,9 @@ const useStyles = makeStyles({
             margin: "auto"
         }
     },
-    loadingMessage:{
+    loadingMessage: {
         padding: "1em",
-        "& div:first-of-type":{
+        "& div:first-of-type": {
             marginRight: ".5em"
         }
     }
@@ -49,12 +50,17 @@ const ActionBox = observer(() => {
     const { t } = useTranslation('translation');
     const [counter, changeCounter] = useState(0);
 
-    useEffect(() => {
-        //if (document.visibilityState === "visible") {
-        //Ensure that we check if the date has changed
-        patientStore.reportStore.getTodaysReport();
+    const isVisible = usePageVisibility();
 
-    }, [])
+    // useEffect(()=>{patientStore.reportStore.getTodaysReport()},[])
+
+    useEffect(() => {
+        if (isVisible) {
+            //Ensure that we check if the date has changed
+            patientStore.reportStore.getTodaysReport();
+        }
+
+    }, [isVisible])
 
 
     //Once a minute refresh the local report check
@@ -134,7 +140,7 @@ const Review = observer(() => {
 
 const LoadingMessage = () => {
     const classes = useStyles();
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
     return <Grid className={classes.loadingMessage} alignItems="center" container wrap="nowrap" >
         <div><CircularProgress variant="indeterminate" /></div>
