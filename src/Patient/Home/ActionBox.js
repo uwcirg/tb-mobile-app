@@ -77,6 +77,7 @@ const ActionBox = observer(() => {
 
     const handleReportClick = () => {
         patientUIStore.moveToReportFlow();
+        patientStore.refreshReportDate();
     }
 
     const handlePhotoClick = () => {

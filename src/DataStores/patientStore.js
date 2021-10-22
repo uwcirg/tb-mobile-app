@@ -67,6 +67,11 @@ export class PatientStore extends UserStore {
 
     @observable newReminderTime = "";
 
+    //Actions
+    @action refreshReportDate = () => {
+        this.report.date = DateTime.local().toISODate();
+    }
+
     @action initalize() {
         this.loadCachedProfile();
         super.initalize();
