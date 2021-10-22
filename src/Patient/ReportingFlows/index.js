@@ -20,7 +20,7 @@ const useStyles = makeStyles({
     }
 });
 
-const MedicationFlow = observer((props) => {
+const MedicationFlow = observer(() => {
     const classes = useStyles();
     const { patientStore, patientUIStore } = useStores();
     const { t } = useTranslation('translation');
@@ -44,6 +44,7 @@ const MedicationFlow = observer((props) => {
         }
 
         if(patientUIStore.reportStep === Tabs.length - 1){
+            patientStore.getReports();
             patientUIStore.endReport();
             return
         }

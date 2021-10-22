@@ -296,7 +296,7 @@ export class PatientStore extends UserStore {
     }
 
     @action getReports = () => {
-
+        this.savedReportsLoaded = false;
         this.executeRequest('patientReports').then(json => {
             this.savedReportsLoaded = true;
             this.savedReports = json;
@@ -457,8 +457,9 @@ export class PatientStore extends UserStore {
     //If the user has completed their treatment today, this will add oneday
     @computed get getCurrentStreak() {
         let streak = this.patientInformation.currentStreak;
+        const todayCounts = this.report.date === DateTime.local().toISODate() && this.report.tookMedication && this.report.hasSubmitted
         if (streak === null) streak = 0;
-        if (this.reportStore.medicationWasTakenToday) {
+        if (todayCounts) {
             streak += 1;
         }
 
@@ -477,7 +478,7 @@ export class PatientStore extends UserStore {
         photoString: "",
         tookMedication: true,
         whyMedicationNotTaken: "",
-        headerText: "When did you take your medication?",
+        headerText: "",
         hasSubmitted: false,
         hasSubmittedPhoto: false,
         hasConfirmedAndSubmitted: false,
