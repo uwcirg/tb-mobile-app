@@ -33,34 +33,18 @@ export default class ReportStore {
 
     @computed get baseReportComplete() {
 
-        if (this.checkOffline()) {
-            return this.rootStore.report.hasSubmitted;
-        }
+        return this.rootStore.report.hasSubmitted;
 
-        return this.todaysReportFromServer &&
-            this.todaysReportFromServer.status &&
-            this.todaysReportFromServer.status.medicationReport &&
-            this.todaysReportFromServer.status.symptomReport
     }
 
     @computed get allReportComplete() {
 
-        if (this.checkOffline()) {
-            return this.rootStore.report.hasSubmitted && (!this.rootStore.isPhotoDay || this.rootStore.report.hasSubmittedPhoto);
-        }
-        return this.todaysReportFromServer &&
-            this.todaysReportFromServer.status &&
-            this.todaysReportFromServer.status.complete
+        return this.rootStore.report.hasSubmitted && (!this.rootStore.isPhotoDay || this.rootStore.report.hasSubmittedPhoto);
+
     }
 
     @computed get photoReportComplete() {
-        if (this.checkOffline()) {
-            return this.rootStore.report.hasSubmittedPhoto;
-
-        }
-        return this.todaysReportFromServer &&
-            this.todaysReportFromServer.status &&
-            this.todaysReportFromServer.status.photoReport
+        return this.rootStore.report.hasSubmittedPhoto;
     }
 
     @action processReport = (report) => {

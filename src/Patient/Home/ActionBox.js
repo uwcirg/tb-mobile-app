@@ -52,12 +52,11 @@ const ActionBox = observer(() => {
 
     const isVisible = usePageVisibility();
 
-    // useEffect(()=>{patientStore.reportStore.getTodaysReport()},[])
 
     useEffect(() => {
         if (isVisible) {
             //Ensure that we check if the date has changed
-            patientStore.reportStore.getTodaysReport();
+            // patientStore.reportStore.getTodaysReport();
         }
 
     }, [isVisible])
@@ -99,7 +98,7 @@ const ActionBox = observer(() => {
                     {patientStore.isPhotoDay && <NewButton positive={patientStore.reportStore.photoReportComplete} onClick={handlePhotoClick} icon={<Camera />} text={t("patient.home.todaysActions.uploadPhoto")} />}
                 </>}
             {patientStore.photoIsUploading && <PhotoUploading />}
-            {!patientStore.reportStore.todaysReportLoaded && <LoadingMessage />}
+            {/* {!patientStore.reportStore.todaysReportLoaded && <LoadingMessage />} */}
         </InteractionCard>
     )
 });

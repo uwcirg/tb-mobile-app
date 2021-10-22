@@ -20,7 +20,7 @@ const useStyles = makeStyles({
     }
 });
 
-const MedicationFlow = observer((props) => {
+const MedicationFlow = observer(() => {
     const classes = useStyles();
     const { patientStore, patientUIStore } = useStores();
     const { t } = useTranslation('translation');
