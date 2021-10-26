@@ -65,7 +65,6 @@ const ActionBox = observer(() => {
     //Once a minute refresh the local report check
     //Prevents a bug where the old state can be shown until the page is refreshed
     useEffect(() => {
-        //patientStore.reportStore.getTodaysReport();
         const interval = setInterval(() => {
             changeCounter(prevCounter => prevCounter + 1);
             patientStore.loadDailyReport();

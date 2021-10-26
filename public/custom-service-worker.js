@@ -50,7 +50,7 @@ self.addEventListener('push', function (event) {
     url: json.url,
     click_action: json.url,
     data: json.data,
-    // Disabling these for now - was testing how it works on android
+    // TODO: Enable actions for quick survey completion on homepage
     // actions: [
     //   {
     //     action: 'good',
@@ -81,7 +81,6 @@ self.addEventListener('notificationclick', function (event) {
       if (isBroadcastChannelSupported()) {
         //Send a message to the client to route to the proper state
         const channel = new BroadcastChannel('notifications');
-        console.log(event.action);
         channel.postMessage({action: event.action, url: event.notification.data.url, type: event.notification.type });
       }
 
