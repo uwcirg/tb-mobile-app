@@ -1,5 +1,9 @@
 ## v2.8
 WIP (September 2021)
+- Bug fixes:
+    - Back report not falling off of the list properly
+    - New patient table spacing
+    - Consistant reporting state when connection is intermittent
 - Flag late photo submissions on the coordinator page
 - Fix calendar styling bugs on patient side
 - Add loading message when reporting history is loaded to prevent confusion about missing data
