@@ -45,7 +45,6 @@ const useStyles = makeStyles({
             borderRight: "none",
         },
         "& > * > tr > th": {
-            // backgroundColor: Colors.lighterGray,
             padding: 0,
             paddingLeft: "1em",
             borderBottom: "none",
@@ -56,14 +55,13 @@ const useStyles = makeStyles({
         }
 
     },
-    placeholderRow: {
-        "& > td": {
-            padding: "8px"
-        }
-    },
     headerDiv: {
+        height: "50px",
         margin: "1em 0",
-        borderRight: "1px solid darkgray"
+        borderRight: "1px solid darkgray",
+        "& span":{
+            textAlign: "left"
+        }
     }
 })
 
@@ -114,9 +112,10 @@ const TableHeader = (props) => {
                 key={`patient-table-${field.key}`}
                 align={field.align}
                 sortDirection={orderBy === field.key ? order : false}>
-                <Grid className={classes.headerDiv} container justify={(field.align && field.align) === "right" ? "flex-end" : "space-between"}>
-                    <span>{field.displayName}</span>
+                <Grid wrap="nowrap" alignItems="center" className={classes.headerDiv} container justify={(field.align && field.align) === "right" ? "flex-end" : "space-between"}>
+                    <span style={{height: "auto"}}>{field.displayName}</span>
                     {!field.disableSorting && <TableSortLabel
+
                         active={orderBy === field.key}
                         direction={orderBy === field.key ? order : 'asc'}
                         onClick={createSortHandler(field.key)} />}

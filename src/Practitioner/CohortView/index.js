@@ -119,7 +119,6 @@ const useStyles = makeStyles({
     container: {
         width: "100%",
         boxSizing: "border-box",
-        maxWidth: "950px",
         flexGrow: 1,
         display: "flex",
         padding: "2em 4em",
