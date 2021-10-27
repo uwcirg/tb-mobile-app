@@ -102,18 +102,17 @@ export class PatientStore extends UserStore {
 
     @action getPatientInformation = () => {
         return this.executeRequest(`getCurrentPatient`).then((json) => {
-            if (json.status) {
-                this.status = json.status;
-                this.hasForcedPasswordChange = json.hasForcedPasswordChange;
-                this.reminderTime = json.dailyNotificationTime;
-                this.patientInformation.weeksInTreatment = json.weeksInTreatment;
-                this.educationStore.educationStatus = json.educationStatus;
-                this.photoSchedule = json.photoSchedule.reduce((a, b) => (a[b] = true, a), {});
-            }
+            if (json.status) {this.setAccountInformation(json)}
         });
     }
 
     @action setAccountInformation(json) {
+
+        //Newly added when refactoring getPatientInformation
+        this.reminderTime = json.dailyNotificationTime;
+        this.status = json.status;
+
+
         this.photoSchedule = json.photoSchedule.reduce((a, b) => (a[b] = true, a), {});
         this.patientInformation.weeksInTreatment = json.weeksInTreatment;
         this.treatmentStart = json.treatmentStart
@@ -221,18 +220,6 @@ export class PatientStore extends UserStore {
         });
     }
 
-    @action reportMedication(body) {
-        return this.executeRequest('reportMedication', body).then(json => {
-            this.getPatientInformation();
-        });
-    }
-
-    @action reportSymptoms(body) {
-        return this.executeRequest('reportSymptoms', body).then(json => {
-            this.getPatientInformation();
-        });
-    }
-
     @action saveReportingState = () => {
         this.lastSubmission = DateTime.local().toISO();
         if (!this.report.isHistoricalReport) {
@@ -246,41 +233,11 @@ export class PatientStore extends UserStore {
         this.uiState.onTreatmentFlow = true;
     }
 
-    @action submitReport = (offline) => {
-
-        if (!offline) {
-            //Tryting to solve issue with back reporting
-            //this.modifyReportAndUpload(this.report);
-        } else {
+    @action submitOfflineReport = () => {
             addReportToOfflineCache(toJS(this.report)).then(value => {
                 this.report.hasConfirmedAndSubmitted = true;
                 this.saveReportingState();
             })
-        }
-    }
-
-    modifyReportAndUpload = (report) => {
-        let body = {};
-        report.selectedSymptoms.map((value) => {
-            body[value] = true
-        })
-        body.date = report.date;
-        body.medicationWasTaken = report.tookMedication;
-        body.whyMedicationNotTaken = report.whyMedicationNotTaken;
-        body.dateTimeTaken = report.timeTaken;
-        body.doingOkay = report.doingOkay;
-        body.doingOkayReason = report.supportReason;
-        body.isHistoricalReport = report.isHistoricalReport;
-        body.nauseaRating = report.nauseaRating;
-
-        if (report.photoString) {
-            this.uploadPhoto().then(res => {
-                body.photoUrl = res
-                this.uploadReport(body);
-            })
-        } else {
-            this.uploadReport(body);
-        }
     }
 
     @action uploadReport = (body) => {
@@ -391,7 +348,7 @@ export class PatientStore extends UserStore {
     @computed get missingReports() {
 
         const checkDate = (date) => {
-            return this.savedReports[date]
+            return this.savedReports && this.savedReports[date]
         }
 
         //So that the missing days card stays hidden before the reports load from server

@@ -45,7 +45,7 @@ const AddPatient = observer(({ toggleForm }) => {
 
 })
 
-const ActivationCode = observer((props) => {
+const ActivationCode = observer(() => {
     const { t } = useTranslation('translation');
     const { practitionerStore } = useStores();
     const classes = useStyles();

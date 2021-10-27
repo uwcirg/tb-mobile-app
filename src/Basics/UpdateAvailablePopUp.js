@@ -19,17 +19,17 @@ const useStyles = makeStyles({
             fontSize: "1.5em",
             margin: ".5em 0 .5em 0"
         },
-        "& > p":{
+        "& > p": {
             justifyContent: "space-evenly",
             width: "90%",
             margin: ".5em 0 .5em 0",
             textAlign: "center"
         }
     },
-    button:{
+    button: {
         width: "auto",
         marginTop: "1em",
-        "& > span":{
+        "& > span": {
             width: "100%",
             textAlign: "center"
         }
@@ -37,14 +37,14 @@ const useStyles = makeStyles({
 })
 
 const UpdatePopUp = (props) => {
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
     const classes = useStyles();
 
     return (<PopUp handleClickAway={props.optOut} className={classes.body}>
         <DoctorIcon />
         <Typography variant="h1">{t('update.updateAvailable')}</Typography>
         <Typography variant="body1">{t('update.alreadyDownloaded')}</Typography>
-    <Typography variant="body1">{t('update.clickButton')}</Typography>
+        <Typography variant="body1">{t('update.clickButton')}</Typography>
         <NewButton onClick={props.completeUpdate} className={classes.button} text={t('update.update')} />
         <ClickableText onClick={props.optOut} hideIcon text={t('update.doLater')} />
     </PopUp>)

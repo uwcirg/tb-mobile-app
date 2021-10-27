@@ -256,8 +256,7 @@
             "today": "Today",
             "actions": {
                 "logMedication": "Begin Report",
-                "uploadPhoto": "Upload Photo",
-                "loading": "Checking if todays report has been submitted"
+                "uploadPhoto": "Upload Photo"
             },
             "todaysActions": {
                 "logMedication": "Begin Report",

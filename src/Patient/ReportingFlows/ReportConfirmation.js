@@ -21,7 +21,9 @@ const ReportConfirmation = observer(() => {
     patientStore.report.headerText = t("patient.report.confirmation.title")
 
     const handleSubmit = () => {
-        patientStore.submitReport(uiStore.offline);
+        if(uiStore.offline){
+            patientStore.submitOfflineReport(uiStore.offline);
+        }
         patientUIStore.endReport();
         patientStore.getReports();
     }

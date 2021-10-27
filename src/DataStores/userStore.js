@@ -28,12 +28,17 @@ export class UserStore extends APIStore {
   }
 
   @action setAccountInformation(json) {
+
+    json.dailyNotificationTime && (this.reminderTime = json.dailyNotificationTime)
+
     this.givenName = json.givenName;
     this.familyName = json.familyName;
     this.organizationID = json.organizationId;
     this.userID = json.id;
     this.status = json.status;
     this.forcePasswordChange = json.forcePasswordChange;
+
+    this.isLoggedIn = true;
   }
 
   @action logout = () => {
@@ -60,8 +65,6 @@ export class UserStore extends APIStore {
       this.authorizationError = false;
       if (json.id) {
         this.setAccountInformation(json)
-        this.isLoggedIn = true;
-        json.dailyNotificationTime && (this.reminderTime = json.dailyNotificationTime)
         if(this.status !== "Pending"){
           this.subscribeToNotifications();
         }

@@ -49,7 +49,7 @@ const PatientHome = observer((props) => {
   useEffect(() => {
     if (!uiStore.offline && dailyReportStore.numberOfflineReports > 0) {
       dailyReportStore.syncOfflineReports().then(() => {
-        patientStore.reportStore.getTodaysReport();
+        patientStore.getReports();
       })
     }
   }, [uiStore.offline, dailyReportStore.numberOfflineReports])

@@ -67,8 +67,6 @@ const useStyles = makeStyles({
 
 const PatientList = ({ search, patients, fields }) => {
 
-    const { t } = useTranslation('translation');
-
     const classes = useStyles();
 
     const [order, setOrder] = useState('asc');

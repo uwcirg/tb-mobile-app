@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { observer } from 'mobx-react';
 import ReportMedication from './ReportMedication'
 import ReportSymptoms from './ReportSymptoms'
@@ -45,6 +45,7 @@ const MedicationFlow = observer(() => {
 
         if(patientUIStore.reportStep === Tabs.length - 1){
             patientStore.getReports();
+            patientStore.getPatientInformation();
             patientUIStore.endReport();
             return
         }

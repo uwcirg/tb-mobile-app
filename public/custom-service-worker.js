@@ -28,7 +28,7 @@ try {
   registerRoute(navigationRoute);
 
 } catch (error) {
-  console.log("Error Caught - Offline Precaching will not work in CRA development mode. Edit gain  ")
+  console.log("Error Caught - Offline Precaching will not work in CRA development mode. Edit to test  ")
 }
 
 //Non-Workbox stuff (WebPush handlers, ect.)

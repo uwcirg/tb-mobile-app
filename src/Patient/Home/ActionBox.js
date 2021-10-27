@@ -7,7 +7,6 @@ import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import CircularProgress from '@material-ui/core/CircularProgress'
 import Colors from '../../Basics/Colors';
 import ActionIcon from '@material-ui/icons/PlaylistAddCheck';
 import PatientReport from '../../Basics/PatientReport';
@@ -15,7 +14,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import ExpansionPanel from '../../Basics/ExpansionPanel';
 import PhotoUploading from '../../Basics/Loading/PhotoUploading';
 import ConfirmationLayout from '../../Components/Patient/ConfirmationLayout';
-import Grid from '@material-ui/core/Grid'
 import { usePageVisibility } from '../../Hooks/PageVisibility';
 
 const useStyles = makeStyles({
@@ -97,7 +95,6 @@ const ActionBox = observer(() => {
                     {patientStore.isPhotoDay && <NewButton positive={patientStore.reportStore.photoReportComplete} onClick={handlePhotoClick} icon={<Camera />} text={t("patient.home.todaysActions.uploadPhoto")} />}
                 </>}
             {patientStore.photoIsUploading && <PhotoUploading />}
-            {/* {!patientStore.reportStore.todaysReportLoaded && <LoadingMessage />} */}
         </InteractionCard>
     )
 });
@@ -136,16 +133,5 @@ const Review = observer(() => {
         />
     )
 })
-
-const LoadingMessage = () => {
-    const classes = useStyles();
-    const { t } = useTranslation();
-
-    return <Grid className={classes.loadingMessage} alignItems="center" container wrap="nowrap" >
-        <div><CircularProgress variant="indeterminate" /></div>
-        <p>{t('patient.home.actions.loading')}</p>
-    </Grid>
-}
-
 
 export default ActionBox;

@@ -106,7 +106,9 @@
         "weeks": "semanas",
         "month": "mes",
         "all": "Todas",
-        "noon": "mediodía"
+        "noon": "mediodía",
+        "day_ago": "day ago",
+        "day_ago_plural": "days ago"
     },
     "patient": {
         "tabNames": {
@@ -400,6 +402,7 @@
             "upcoming": "Próximos",
             "calendar": "Calendario de Reportes",
             "submissionLimit": "Durante las primeras dos semanas del tratamiento podrá completar los reportes de los días que no los haya enviado.\nA partir de las dos semanas, si algún día no envía un reporte solo podrá completar y enviar los reportes de los últimos 3 días. ",
+            "loading": "Reporting history loading",
             "calendarKey": {
                 "button": "Qué significan estos colores",
                 "description": "Este es el calendario, donde puede revisar sus reportes. Los colores representan lo siguiente:",
@@ -519,6 +522,7 @@
             "low": "Bajo"
         },
         "cohortOverview": {
+            "adherenceGraph": "Resumen de Adherencia",
             "title": "Visión General de los Pacientes",
             "high": "Alta prioridad",
             "medium": "prioridad intermedia",
@@ -531,13 +535,15 @@
         },
         "addPatientFlow": {
             "title": "Agregar Paciente",
+            "formTitle": "Detalles de Nuevo Paciente",
             "addedPatient": "Paciente Agregado",
             "codeToSend": "Código para enviar al paciente",
             "resetCode": "Reiniciar Código",
             "forPatient": "Código de activación del paciente",
             "activationCode": "Código de Activación",
             "clickToCopy": "Haga clic para copiar",
-            "success": "Copiado exitosamente"
+            "success": "Copiado exitosamente",
+            "patientSuccess": "Paciente Agregado Exitosamente"
         },
         "titles": {
             "myTasks": "Mis Tareas",
@@ -588,6 +594,7 @@
             "streak": "Ultimos Dias",
             "details": "Detalles"
         },
+        "noReports": "Sin Reportes",
         "noTasks": "No Hay Tareas",
         "profile": "Perfil",
         "message": "Mensaje",
@@ -770,7 +777,7 @@
         "pending": "Pendiente",
         "photoNotNeeded": "No Se Requiere Foto",
         "missedPhoto": "Foto No Fue Enviada ",
-        "missedPhotoShort": "Photo Perdida",
+        "missedPhotoShort": "Photo Pérdida",
         "submittedAt": "Enviada a las",
         "feeling": "Sintiendo",
         "photoSubmitted": "Foto Enviada",
@@ -827,7 +834,8 @@
         "62": "Después del segundo mes el tratamiento es más sencillo con menor cantidad de medicación. Es importante continuar con todos los controles y examen del catarro para saber si las drogas me sirven para curarme. ",
         "70": "Ante cualquier complicación, el personal de salud de su lugar de atención puede controlar el tratamiento. Recordar que la única manera de prevenir en Tuberculosis es CURAR a todos los pacientes. ",
         "80": "Un tratamiento exitoso depende del cumplimiento de todas las tomas de la medicación. Tratar de respetar los horarios.",
-        "90": "La mejoría de los síntomas no es lo mismo que curación. Curar significa que hay que continuar habitualmente con un tratamiento 6 meses. Adelante! "
+        "90": "La mejoría de los síntomas no es lo mismo que curación. Curar significa que hay que continuar habitualmente con un tratamiento 6 meses. Adelante! ",
+        "141": "Déjenos saber cómo estamos haciendo! Es posible que alguien del estudio se comunicarse con usted y preguntarle sobre su experiencia con la aplicación. También tenemos una encuesta que está disponible en la página de inicio. ¡Gracias!"
     },
     "mayTestStripUpdate": {
         "title": "Actualización Importante",
@@ -835,6 +843,15 @@
         "body": "Las instrucciones de las tiras reactivas han cambiado, revísalas antes de realizar la siguiente prueba.",
         "textInstructions": "Instrucciones de Texto",
         "videoInstructions": "Instrucciones de Video"
+    },
+    "exitInterviewAlert":{
+        "title": "Comentario",
+        "intro": "Ya casi acaba con tratamiento, ¡gran trabajo!",
+        "ask": "Para collectar comentarios, es posible que un miembro del equipo del estudio le llame después que acabe de usar la aplicación.",
+        "survey": "También tenemos una encuesta corta en la página principal. ",
+        "thanks": "Gracias"
+
+
     },
     "dashboard": {
         "category": "Categoría",
@@ -913,8 +930,8 @@
     },
     "householdTesting": {
         "updated": "Actualizado",
-        "button": "Actualizar el estado de las pruebas en el hogar",
-        "title": "Pruebas en el hogar",
+        "button": "Actualizar el estado de las pruebas de su hogar",
+        "title": "Pruebas de su hogar",
         "thanks": "Gracias por sus comentarios",
         "recorded": "Su respuesta ha sido registrada",
         "reachOut": "Todavía no se han probado todos sus contactos, comuníquese con su asistente de tratamiento para obtener más información y recomendaciones.",
@@ -923,7 +940,7 @@
         "noResponse": "Todavía no completado"
     },
     "missedPhotoDetails":{
-        "topBarText": "Solicitud perdida",
+        "topBarText": "Solicitud pérdida",
         "future": "En el futuro, envíe su prueba el día en que se solicite para que podamos ver el progreso de su tratamiento.",
         "requestedOn": "Envío para la solicitud enviada el",
         "notRequired": "No tiene ninguna solicitud de prueba perdida en este momento. ¡Sigan con el gran trabajo!",
