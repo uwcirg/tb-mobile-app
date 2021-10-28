@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import Colors from '../../../Basics/Colors';
 
 export default class CalendarDayStyleHelper {
@@ -7,18 +8,14 @@ export default class CalendarDayStyleHelper {
     rightRounding = false;
     isToday = false;
 
-    constructor(reports, isToday) {
-        this.isToday = isToday
-        this.color = this.getColor(reports.current);
-        this.getModifiers(reports.current);
-        this.getRounding(reports);
+    constructor(report, surroundingColors) {
+        this.report = report
+        // this.isToday = DateTime.local().startOf('day').equals(datetime.startOf('day'));
+        this.getModifiers(report);
+        this.getRounding(surroundingColors);
     }
 
-    getRounding(reports) {
-        const prevColor = this.getColor(reports.previous);
-        const currentColor = this.getColor(reports.current, this.isToday);
-        const nextColor = this.getColor(reports.next);
-
+    getRounding({prevColor,currentColor,nextColor }) {
         this.leftRounding = prevColor != currentColor;
         this.rightRounding = nextColor != currentColor;
     }
@@ -34,11 +31,4 @@ export default class CalendarDayStyleHelper {
         }
     }
 
-    getColor(object, isToday = false) {
-        if (!object) {
-            return isToday ? "white" : Colors.calendarRed;
-        }
-        if (object.medicationWasTaken) return Colors.calendarGreen
-    
-    }
 }

@@ -452,8 +452,10 @@ export class PatientStore extends UserStore {
     }
 
     @computed get eligibleForBackPhoto(){
-        const daysSinceRequest = daysSincePhotoRequest(this.lastPhotoRequestStatus.dateOfRequest);
-        return daysSinceRequest <= 3 && !this.lastPhotoRequestStatus.photoWasSubmitted;
+        if(this.lastPhotoRequestStatus.photoWasSubmitted){
+            return false;
+        }
+        return daysSincePhotoRequest(this.lastPhotoRequestStatus.dateOfRequest) <= 3
     }
 
 }
