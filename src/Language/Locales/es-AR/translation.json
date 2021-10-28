@@ -107,8 +107,8 @@
         "month": "mes",
         "all": "Todas",
         "noon": "mediodía",
-        "day_ago": "day ago",
-        "day_ago_plural": "days ago"
+        "day_ago": "día pasado",
+        "day_ago_plural": "días pasado"
     },
     "patient": {
         "tabNames": {
@@ -402,7 +402,7 @@
             "upcoming": "Próximos",
             "calendar": "Calendario de Reportes",
             "submissionLimit": "Durante las primeras dos semanas del tratamiento podrá completar los reportes de los días que no los haya enviado.\nA partir de las dos semanas, si algún día no envía un reporte solo podrá completar y enviar los reportes de los últimos 3 días. ",
-            "loading": "Reporting history loading",
+            "loading": "Cargando historia de reportes ",
             "calendarKey": {
                 "button": "Qué significan estos colores",
                 "description": "Este es el calendario, donde puede revisar sus reportes. Los colores representan lo siguiente:",
