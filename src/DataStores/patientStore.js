@@ -348,7 +348,7 @@ export class PatientStore extends UserStore {
     @computed get missingReports() {
 
         const checkDate = (date) => {
-            return this.savedReports && this.savedReports[date]
+            return this.savedReports && this.savedReports[date] && this.savedReports[date].status.medicationReport
         }
 
         //So that the missing days card stays hidden before the reports load from server
@@ -369,14 +369,12 @@ export class PatientStore extends UserStore {
 
         //Past 3 days
         for (let i = 3; i > 0; i--) {
-            let date = DateTime.local().minus({ days: i })
+            let date = DateTime.local().minus({ days: i }).startOf('day')
             const isoDate = date.toISODate();
-     
-            if (!checkDate(isoDate) && DateTime.fromISO(this.treatmentStart).diff(date,"days").days <= -1) {
+            if (!checkDate(isoDate) && DateTime.fromISO(this.treatmentStart).startOf('day').diff(date,"days").days <= 0) {
                     missedDays[isoDate] = true;
             }
         }
-
         return Object.keys(missedDays);
     }
 

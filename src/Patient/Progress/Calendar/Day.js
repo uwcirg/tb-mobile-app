@@ -46,9 +46,7 @@ const Day = observer((props) => {
 
     const [prevColor,currentColor,nextColor] = getRelevantReportColors(datetime);
 
-    
     const relevantDay = new CalendarDayStyleHelper(patientStore.savedReports[datetime.toISODate()],{prevColor,currentColor,nextColor})
-
 
     return (
         <div style={{ backgroundColor: currentColor}} className={`${classes.day} ${relevantDay.rightRounding && classes.end} ${relevantDay.leftRounding && classes.start}`}>
