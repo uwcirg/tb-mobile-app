@@ -26,6 +26,7 @@ const ReportConfirmation = observer(() => {
         }
         patientUIStore.endReport();
         patientStore.getReports();
+        patientStore.getPatientInformation();
     }
 
     return (

@@ -32,7 +32,7 @@ const useStyles = makeStyles({
 
 const Section = (props) => {
     const classes = useStyles({ highlight: props.highlight });
-    const [expanded, setExpanded] = useState(props.expanded);
+    const [expanded, setExpanded] = useState(props.expanded || false);
 
     return (
         <ExpansionPanel onClick={() => { setExpanded(!expanded) }} expanded={expanded} className={classes.panel}>
