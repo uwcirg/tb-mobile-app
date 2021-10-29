@@ -348,7 +348,7 @@ export class PatientStore extends UserStore {
     @computed get missingReports() {
 
         const checkDate = (date) => {
-            return this.savedReports && this.savedReports[date] && this.savedReports[date].status.medicationReport
+            return this.savedReports && this.savedReports[date] && this.savedReports[date].status && this.savedReports[date].status.medicationReport
         }
 
         //So that the missing days card stays hidden before the reports load from server
