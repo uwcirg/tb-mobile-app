@@ -55,7 +55,7 @@ const useStyles = makeStyles({
 const AddTopic = observer(() => {
 
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
     const { messagingStore } = useStores();
     const add = messagingStore.newChannel.visible;
 
@@ -109,9 +109,6 @@ const AddDiscussion = observer(() => {
             placeholder={t("messaging.creation.description")} />
 
     {values.length > 0 && <p className={classes.errorInfo}>{t("messaging.creation.errorInfo")}</p>}
-
-
-
     </div>)
 
 })

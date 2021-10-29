@@ -6,7 +6,7 @@ import APIStore from './apiStore'
 const ROUTES = {
     getChannels: ["/v2/channels", "GET"],
     getUnreadMessages: ["/unread_messages", "GET"],
-    postNewChannel: ["/v2/channels", "POST"]
+    postNewChannel: ["/channels", "POST"]
 }
 
 export class MessagingStore extends APIStore {
@@ -320,10 +320,7 @@ export class MessagingStore extends APIStore {
         this.selectedChannel.title = channel.title;
         this.selectedChannel.isCoordinatorChannel = channel.userType === "Patient"
         this.selectedChannel.firstMessageID = channel.firstMessageId
-        
         this.tabNumber = channel.isPrivate ? 0 : 1;
-
-
         this.getInitalMessages();
     }
 

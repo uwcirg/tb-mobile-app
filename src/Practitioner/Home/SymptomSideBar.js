@@ -3,14 +3,11 @@ import React, { useEffect } from 'react'
 import Basicsidebar from '../Shared/BasicSidebar'
 import useStores from '../../Basics/UseStores'
 import { observer } from 'mobx-react'
-import { groupBy } from 'lodash';
 import makeStyles from '@material-ui/core/styles/makeStyles'
 import Colors from '../../Basics/Colors';
 import SharedButton from '../Shared/SharedButton'
-import QIcon from '@material-ui/icons/HelpOutline';
 import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
-import Question from '@material-ui/icons/HelpOutline';
 import Symptom from '../Shared/Symptom'
 import { SevereSymptoms, findCommonElements } from '../../Basics/SymptomsSeperation';
 
@@ -89,18 +86,17 @@ const useStyles = makeStyles({
     }
 })
 
-const SymptomSidebar = observer((props) => {
+const SymptomSidebar = observer(() => {
 
 
     const { practitionerStore } = useStores();
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
     const dates = Object.keys(practitionerStore.selectedPatientSymptoms.summary);
 
     useEffect(() => {
         practitionerStore.getSelectedPatientSymptoms();
-
     }, [practitionerStore.selectedRow.index])
 
     return (
