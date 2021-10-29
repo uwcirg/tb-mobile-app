@@ -114,7 +114,7 @@ const Card = observer(() => {
                 <Grid className={classes.menuContainer} container justify="flex-end">
                     <ClickableText className={classes.capitalize} onClick={handleClick} icon={<MoreVertIcon style={{ fontSize: "1.2em" }} />} text={t('patient.reminders.options')}></ClickableText>
                 </Grid>
-                <MenuTest anchorEl={anchorEl} handleChange={openTimeDialog} handleClose={handleClose} handleDisable={patientStore.disableMedicationReminder} />
+                {anchorEl && <MenuTest anchorEl={anchorEl} handleChange={openTimeDialog} handleClose={handleClose} handleDisable={patientStore.disableMedicationReminder} />}
             </> :
                 <>
                     <Grid className={classes.top} style={{ paddingBottom: ".5em" }} justify="space-between" alignItems="center" wrap="nowrap" container>
@@ -166,6 +166,7 @@ const MenuTest = ({ anchorEl, handleClose, handleChange, handleDisable }) => {
 
     return (
         <Menu
+    
             id="simple-menu"
             anchorEl={anchorEl}
             keepMounted

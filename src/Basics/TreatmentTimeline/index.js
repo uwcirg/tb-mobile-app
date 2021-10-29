@@ -151,15 +151,14 @@ const MonthPreview = (props) => {
                 <div className={`${classes.monthNumber}`}>{props.month}</div>
             </div>
             <div className={`${classes.panelContainer} ${props.isCurrentMonth && classes.currentMonthBackground}`}>
-                {TimelineData.months[monthNumber].map((each) => {
-                    return (
-                        <>
-                            <Event
+                {TimelineData.months[monthNumber].map((each,index) => {
+                    return (<Event
+                                key={`timeline-month-${index}`}
                                 tense={0}
                                 weeksInTreatment={props.weeksInTreatment}
                                 title={t(`timeline.${each.title}`)}
                                 subtitle={each.subtitle ? t(`timeline.${each.subtitle}`) : ""}
-                            /></>)
+                            />)
                 })}
             </div>
         </>
