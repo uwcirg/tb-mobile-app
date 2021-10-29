@@ -22,7 +22,6 @@ import TrackChangesIcon from '@material-ui/icons/TrackChanges';
 import Typography from '@material-ui/core/Typography';
 
 import ListAltIcon from '@material-ui/icons/ListAlt';
-import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import PlayIcon from '@material-ui/icons/PlayCircleOutline';
 import HomeIcon from '@material-ui/icons/Home'
 import ChatIcon from '@material-ui/icons/QuestionAnswer';
