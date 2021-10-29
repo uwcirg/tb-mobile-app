@@ -192,7 +192,7 @@ HomePageCard.propTypes = {
 };
 
 SingleLine.propTypes = {
-    id: PropTypes.number.isRequired
+    id: PropTypes.number
 };
 
 

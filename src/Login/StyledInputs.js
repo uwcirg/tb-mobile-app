@@ -28,7 +28,7 @@ const IdentifierInput = (props) => {
     <div>
       <InputLabel htmlFor="input-with-icon-adornment">{props.defaultValue}</InputLabel>
       <Input
-        inputProps={props.isNumeric && {inputMode: 'numeric'}}
+        inputProps={props.isNumeric ? {inputMode: 'numeric'} : {}}
         autoComplete="username"
         placeholder={props.defaultValue}
         // defaultValue={ props.defaultValue}
