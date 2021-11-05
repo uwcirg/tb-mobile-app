@@ -7,6 +7,7 @@ import Styles from './Styles';
 
 const useStyles = makeStyles({
     button:{
+      borderRadius: "5px",
       backgroundColor: Colors.buttonBlue,
       color: "white",
       fontSize: "1em",
@@ -17,7 +18,7 @@ const useStyles = makeStyles({
       }
     },
     inner:{
-      padding: "0 .75em 0 .75em"
+      padding: "0 .5em 0 .5em"
     },
     aligned:{
       ...Styles.alignRight

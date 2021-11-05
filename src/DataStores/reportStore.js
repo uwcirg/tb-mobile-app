@@ -147,6 +147,10 @@ export default class ReportStore {
         this.rootStore.saveReportingState();
     }
 
+    @action setTookMedication = (tookMedication) => {
+        this.rootStore.report.tookMedication = tookMedication;
+    }
+
 
 
 }
