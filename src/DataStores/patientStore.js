@@ -289,7 +289,7 @@ export class PatientStore extends UserStore {
         this.report = {
             date: newDate.toISODate(),
             step: 0,
-            timeTaken: newDate.toISOTime({ suppressSeconds: true }),
+            // timeTaken: newDate.toISOTime({ suppressSeconds: true }),
             selectedSymptoms: [],
             photoWasTaken: false,
             photoString: "",
@@ -383,9 +383,9 @@ export class PatientStore extends UserStore {
         this.hasForcedPasswordChange = false;
     }
 
-    @action setReportTime = (value) => {
-        this.report.timeTaken = value;
-    }
+    // @action setReportTime = (value) => {
+    //     this.report.timeTaken = value;
+    // }
 
     @action logoutPatient() {
         this.logout();
@@ -427,7 +427,7 @@ export class PatientStore extends UserStore {
 
     defaultReport = {
         date: DateTime.local().toISODate(),
-        timeTaken: DateTime.local().startOf('second').startOf("minute").toISOTime({ suppressSeconds: true }),
+        // timeTaken: DateTime.local().startOf('second').startOf("minute").toISOTime({ suppressSeconds: true }),
         selectedSymptoms: [],
         photoWasTaken: false,
         photoString: "",

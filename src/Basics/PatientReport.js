@@ -110,7 +110,7 @@ const PatientReport = (props) => {
 
     return (<div className={`${classes.container}`}>
         <ListItem first negative={!props.medicationWasTaken} icon={<PillIcon />} title={t("commonWords.medication")} editAction={patientUIStore.editReport} hideEdit={props.pastReport} >
-            <p> {props.medicationWasTaken ? `${t("patient.report.confirmation.takenAt")} ${DateTime.fromISO(props.timeTaken).toLocaleString(DateTime.TIME_24_SIMPLE)}` : `${t("patient.report.confirmation.notTaken")}:`}</p>
+            <p> {props.medicationWasTaken ? `${t("coordinator.patientProfile.taken")}` : `${t("patient.report.confirmation.notTaken")}:`}</p>
             {props.medicationNotTakenReason && <p>{props.medicationNotTakenReason}</p>}
         </ListItem>
 

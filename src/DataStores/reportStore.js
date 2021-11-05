@@ -129,8 +129,7 @@ export default class ReportStore {
     getMedicationBody = () => {
         let body = {
             date: this.rootStore.report.date,
-            medicationWasTaken: this.rootStore.report.tookMedication,
-            datetimeTaken: this.rootStore.report.timeTaken
+            medicationWasTaken: this.rootStore.report.tookMedication
         }
 
         if (!this.rootStore.report.tookMedication && this.rootStore.report.whyMedicationNotTaken !== null) {
