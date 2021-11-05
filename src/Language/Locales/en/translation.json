@@ -330,6 +330,7 @@
             "title": "Log Today's Medication",
             "medicationTitle": "Please Log Your Medication",
             "medicationTime": "What time did you take your medication?",
+            "didYouTake": "Did you take your medication today?",
             "didTake": "I took my medication",
             "didNotTake": "I didn't take my medication",
             "whyNotTaken": "Why didn't you take your medication?",
