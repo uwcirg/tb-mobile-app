@@ -5,13 +5,18 @@ import Styles from '../../Basics/Styles';
 
 const useStyles = makeStyles({
     container: {
-        ...Styles.modifiedPaper,
+        borderRadius: "8px",
+        boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.15)",
+        margin: "auto",
+        marginTop: "10px",
+        width: "93%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         marginBottom: "1em",
         padding: ".5em",
         paddingTop: "1em",
+        boxSizing: "border-box"
     },
 })
 

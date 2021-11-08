@@ -221,7 +221,6 @@ export class PatientStore extends UserStore {
     }
 
     @action saveReportingState = () => {
-        console.log(toJS(this.report));
         this.lastSubmission = DateTime.local().toISO();
         if (!this.report.isHistoricalReport) {
             localStorage.setItem(`medicationReport`, JSON.stringify(this.report));
