@@ -19,6 +19,7 @@ import { Button, ButtonBase, Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid'
 import { ArrowRight, CheckBox, KeyboardArrowRightRounded, ThumbUpRounded } from '@material-ui/icons';
 import FlatButton from '../../Components/FlatButton';
+import DailyReportPhoto from '../../Basics/Icons/daily-checkin.png'
 
 const useStyles = makeStyles({
     check: {
@@ -47,18 +48,19 @@ const useStyles = makeStyles({
     },
     list: {
         margin: 0,
-        padding: "1.1em .5em",
-        fontSize: "10px",
+        padding: "1em 1.25em",
+        paddingRight: "0",
         "& li p": {
-            lineHeight: "1em"
+            lineHeight: "1em",
+            fontSize: "14px"
         }
     },
     action: { width: "90%", backgroundColor: "white", borderRadius: "5px", color: Colors.textDarkGray },
-    bottomButton:{
+    bottomButton: {
         fontSize: "1em",
         padding: "0"
     },
-    card:{
+    card: {
         padding: 0,
         justifyContent: "flex-start"
     }
@@ -66,17 +68,22 @@ const useStyles = makeStyles({
 
 const OneStepActions = () => {
     const classes = useStyles();
-    return (<Grid style={{ width: "100%", textAlign: "left", padding: "0 .5em" }} alignItems="center" justify="flex-start" container>
-            <div>
-                <Typography variant="h1" style={{ fontSize: "1em", fontWeight: "bold" }}>Everything going okay?</Typography>
-                <ul className={classes.list} style={{ textAlign: "left" }}>
-                    <li><Typography>You took your medication</Typography></li>
-                    <li><Typography>Feeling good</Typography></li>
-                </ul>
-                <FlatButton className={classes.bottomButton}>One tap check-in <KeyboardArrowRightRounded style={{fontSize: "1.5em",padding: 0}} /></FlatButton>
-            </div>
-            <KeyboardArrowRightRounded style={{ marginLeft: "auto" }} />
-        </Grid>)
+    return (
+        <div style={{padding: ".75em" }}>
+            <Typography variant="h1">Everything going well?</Typography>
+            <Grid wrap="nowrap" style={{ width: "100%", textAlign: "left"}} alignItems="center" justify="flex-start" container>
+                <div>
+                    <ul className={classes.list} style={{ textAlign: "left" }}>
+                        <li><Typography>You took your medication</Typography></li>
+                        <li><Typography>Feeling well</Typography></li>
+                        <li><Typography>No side effects</Typography></li>
+                    </ul>
+                    <FlatButton className={classes.bottomButton}>One tap check-in <KeyboardArrowRightRounded style={{ fontSize: "1.5em", padding: 0 }} /></FlatButton>
+                </div>
+                <img style={{ width: "40%", alignSelf: "flex-end" }} src={DailyReportPhoto} />
+            </Grid>
+        </div>
+    )
 }
 
 const ActionBox = observer(() => {
@@ -122,9 +129,13 @@ const ActionBox = observer(() => {
     }
 
     return (
+        <>
         <InteractionCard className={classes.card} upperText={<><CheckBox /> Daily Check-In </>}>
             <OneStepActions />
+            <Typography variant="body1">or record issues / request help</Typography>
+            <NewButton>Report an issue</NewButton>
         </InteractionCard>
+        </>
 
     )
 });

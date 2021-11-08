@@ -11,7 +11,7 @@ const useStyles = makeStyles({
         ...Styles.secondaryText,
         fontSize: ".8em",
         textAlign: "left",
-        width: "85%",
+        width: "93%",
         margin: "auto",
         display: "flex",
         alignItems: "center",
@@ -26,11 +26,10 @@ const HomePageSectionContainer = (props) => {
 
     const classes = useStyles();
 
-    return(<div className={classes.superContainer} >
+    return (<div className={classes.superContainer} >
         {props.upperText && <span className={classes.upperText}>{props.upperText}</span>}
         {props.children}
-        </div>
-        )
+    </div>)
 
 }
 
