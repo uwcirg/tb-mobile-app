@@ -47,17 +47,18 @@ self.addEventListener('push', function (event) {
   const actions = isMedicationReminder ? [
     {
       action: 'good',
-      title: 'All Good!'
+      title: 'Estoy Bien'
     },
     {
       action: 'issue',
-      title: 'Need help'
+      title: 'Ayuda'
     }
   ] : [];
 
-  const title = json.title;
+  const title = "Recordatorio de reporte diario"
+
   let options = {
-    body: json.body,
+    body: "Recuerde tomar su medicación. Seleccione la opción abajo para informarnos cómo le está yendo hoy.",
     icon: json.icon,
     badge: 'images/badge.png',
     url: json.url,

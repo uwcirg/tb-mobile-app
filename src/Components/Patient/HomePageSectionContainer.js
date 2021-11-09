@@ -11,7 +11,7 @@ const useStyles = makeStyles({
         ...Styles.secondaryText,
         fontSize: ".8em",
         textAlign: "left",
-        width: "93%",
+        width: "90%",
         margin: "auto",
         display: "flex",
         alignItems: "center",
