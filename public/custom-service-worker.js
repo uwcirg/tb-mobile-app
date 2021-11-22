@@ -47,7 +47,7 @@ self.addEventListener('push', function (event) {
   const actions = isMedicationReminder ? [
     {
       action: 'good',
-      title: 'Estoy Bien'
+      title: '👍 Todo Bien'
     },
     {
       action: 'issue',
