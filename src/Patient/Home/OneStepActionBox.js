@@ -14,12 +14,13 @@ import ExpansionPanel from '../../Basics/ExpansionPanel';
 import PhotoUploading from '../../Basics/Loading/PhotoUploading';
 import ConfirmationLayout from '../../Components/Patient/ConfirmationLayout';
 import { usePageVisibility } from '../../Hooks/PageVisibility';
-import { Button, ButtonBase, Typography } from '@material-ui/core';
+import { Box, Button, ButtonBase, Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid'
-import { ArrowRight, CheckBox, KeyboardArrowRightRounded, List, ThumbUpRounded } from '@material-ui/icons';
+import { ArrowRight, CheckBox, KeyboardArrowRightRounded, List, ThumbDown, ThumbUp, ThumbUpRounded } from '@material-ui/icons';
 import FlatButton from '../../Components/FlatButton';
 import DailyReportPhoto from '../../Basics/Icons/daily-checkin.png'
 import Clipboard from '@material-ui/icons/Assignment';
+
 
 
 const useStyles = makeStyles({
@@ -52,8 +53,8 @@ const useStyles = makeStyles({
         padding: "1em 1.5em",
         paddingRight: "0",
         "& li p": {
-            lineHeight: "1em",
-            fontSize: "14px"
+            lineHeight: "1.1em",
+            fontSize: "1em"
         }
     },
     action: { width: "90%", backgroundColor: "white", borderRadius: "5px", color: Colors.textDarkGray },
@@ -66,7 +67,7 @@ const useStyles = makeStyles({
         justifyContent: "flex-start"
     },
     allGood: {
-        width: "unset",
+        width: "100%",
         fontSize: "1em",
         padding: ".5em",
         margin: 0,
@@ -89,33 +90,22 @@ const OneStepActions = () => {
     return (
         <Grid wrap="nowrap" style={{ padding: ".75em 1em", width: "100%", textAlign: "left", position: "relative" }} alignItems="center" justify="flex-start" container>
             <div style={{ width: "100%" }}>
-                <Typography variant="h1">Everything going well?</Typography>
-                <ul className={classes.list} style={{ textAlign: "left" }}>
-                    <li><Typography>You took your medication</Typography></li>
-                    <li><Typography>Feeling well</Typography></li>
-                    <li><Typography>No side effects</Typography></li>
-                </ul>
-                <NewButton className={classes.allGood} text="Reportar Todo Bien" icon={<Clipboard />} />
+                <Grid container wrap="nowrap" style={{paddingBottom: ".5em"}}>
+                    <div>
+                        <Typography variant="h1">Everything going well?</Typography>
+                        <ul className={classes.list}>
+                            <li><Typography>You took your medication</Typography></li>
+                            <li><Typography>Feeling well</Typography></li>
+                            <li><Typography>No side effects</Typography></li>
+                        </ul>
+                    </div>
+                    <img style={{width: "50px", objectFit: "contain", marginLeft: "auto", padding: "0 .5em" }} src={DailyReportPhoto} />
+                </Grid>
+                <NewButton className={classes.allGood} text="Si, Todo Bien" icon={<ThumbUp />} />
+                <Box height=".5em" />
+                <NewButton className={classes.allGood} text='No, Track Issues & Get Support' icon={<ThumbDown />} />
             </div>
-            <img style={{ height: "150px", position: "absolute", right: ".5em" }} src={DailyReportPhoto} />
         </Grid>
-    )
-}
-
-const IssueButton = () => {
-    const classes = useStyles();
-
-    return (
-        <div style={{padding: ".5em 1em"}}>
-            <Grid justify="center" container>
-                <NewButton className={`${classes.allGood} ${classes.issueButton}`} text="Meds" icon={<Clipboard />} />
-                <NewButton className={`${classes.allGood} ${classes.issueButton}`} text="Side Effects" icon={<Clipboard />} />
-            </Grid>
-            <Grid style={{paddingTop: ".5em" }} justify="center" container>
-                <NewButton className={`${classes.allGood} ${classes.issueButton}`} text="Meds" icon={<Clipboard />} />
-                <NewButton className={`${classes.allGood} ${classes.issueButton}`} text="Side Effects" icon={<Clipboard />} />
-            </Grid>
-        </div>
     )
 }
 
@@ -165,15 +155,11 @@ const ActionBox = observer(() => {
         <>
             <InteractionCard className={classes.card} upperText={<><CheckBox /> Daily Check-In </>}>
                 <OneStepActions />
-                <Typography variant="body1">Record issues or Request Help</Typography>
-                <IssueButton />
             </InteractionCard>
         </>
 
     )
 });
-
-//////////////
 
 const Confirmation = (props) => {
     const classes = useStyles();
