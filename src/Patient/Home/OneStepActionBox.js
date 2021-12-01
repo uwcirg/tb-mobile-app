@@ -19,7 +19,7 @@ import Grid from '@material-ui/core/Grid'
 import { ArrowRight, CheckBox, KeyboardArrowRightRounded, List, ThumbDown, ThumbUp, ThumbUpRounded } from '@material-ui/icons';
 import FlatButton from '../../Components/FlatButton';
 import DailyReportPhoto from '../../Basics/Icons/daily-checkin.png'
-import Clipboard from '@material-ui/icons/Assignment';
+import AssessmentIcon from '@material-ui/icons/Assessment';
 
 
 
@@ -50,7 +50,7 @@ const useStyles = makeStyles({
     },
     list: {
         margin: 0,
-        padding: "1em 1.5em",
+        padding: "0 1.5em",
         paddingRight: "0",
         "& li p": {
             lineHeight: "1.1em",
@@ -82,6 +82,30 @@ const useStyles = makeStyles({
         "&:nth-of-type(odd)": {
             marginRight: ".5em"
         }
+    },
+    yesNoButtons: {
+
+        "& button": {
+            border: "none",
+            "& p:first-of-type, & svg:first-of-type": {
+                fontWeight: "bold",
+                padding: ".25em .5em",
+                margin: "0"
+            },
+            "& span": {
+                margin: "0 .5em"
+            }
+        },
+
+        "& button:first-of-type": {
+            backgroundColor: Colors.green,
+            color: "white"
+        },
+        "& button:nth-of-type(2)": {
+            backgroundColor: Colors.buttonBlue,
+            color: "white"
+        },
+
     }
 })
 
@@ -90,21 +114,33 @@ const OneStepActions = () => {
     return (
         <Grid wrap="nowrap" style={{ padding: ".75em 1em", width: "100%", textAlign: "left", position: "relative" }} alignItems="center" justify="flex-start" container>
             <div style={{ width: "100%" }}>
-                <Grid container wrap="nowrap" style={{paddingBottom: ".5em"}}>
-                    <div>
-                        <Typography variant="h1">Everything going well?</Typography>
-                        <ul className={classes.list}>
-                            <li><Typography>You took your medication</Typography></li>
-                            <li><Typography>Feeling well</Typography></li>
-                            <li><Typography>No side effects</Typography></li>
-                        </ul>
-                    </div>
-                    <img style={{width: "50px", objectFit: "contain", marginLeft: "auto", padding: "0 .5em" }} src={DailyReportPhoto} />
-                </Grid>
-                <NewButton className={classes.allGood} text="Si, Todo Bien" icon={<ThumbUp />} />
+                <Typography variant="h1">How is everything going today?</Typography>
+                <Typography variant="body1" style={{lineHeight: "1em", margin: "1em 0"}}>
+                    Please let us know if you <strong>missed a dose</strong>, are experiencing <strong>side effects</strong>, or need any <strong>support</strong>.
+                </Typography>
                 <Box height=".5em" />
-                <NewButton className={classes.allGood} text='No, Track Issues & Get Support' icon={<ThumbDown />} />
+                <Grid direction="column" container className={classes.yesNoButtons}>
+                    <NewButton className={classes.allGood} text="Todo Bien" icon={<ThumbUp />} />
+                    <Box height=".5em" />
+                    <NewButton className={classes.allGood} text='Report Issues & Get Support' icon={<AssessmentIcon />} />
+                </Grid>
             </div>
+        </Grid>
+    )
+}
+
+const WhenToReport = () => {
+    return (
+        <Grid container wrap="nowrap" style={{ paddingBottom: ".5em" }}>
+            <div>
+                <p style={{ margin: 0 }}>Please let us know if:</p>
+                <ul className={classes.list}>
+                    <li><Typography>Missed a dose</Typography></li>
+                    <li><Typography>Have any side effects</Typography></li>
+                    <li><Typography>Have questions or need assitance</Typography></li>
+                </ul>
+            </div>
+            {/* <img style={{ width: "50px", objectFit: "contain", marginLeft: "auto", padding: "0 .5em" }} src={DailyReportPhoto} /> */}
         </Grid>
     )
 }
