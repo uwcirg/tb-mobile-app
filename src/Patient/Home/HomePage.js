@@ -1,6 +1,6 @@
 import React from 'react';
 import Progress from './Progress';
-import ActionBox from './OneStepActionBox';
+import ActionBox from './OneStepActions/';
 import Alerts from './Alerts';
 import Colors from '../../Basics/Colors';
 import Greeting from './Greeting';
