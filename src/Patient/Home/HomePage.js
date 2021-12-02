@@ -11,6 +11,7 @@ import VideoCard from './Videos';
 import RequiresAction from './MissedActions';
 import PushNotificationEnrollment from './PushEnrollmentReminder';
 import { makeStyles } from '@material-ui/core/styles';
+import PhotoRequestCard from './PhotoRequestCard';
 
 const useStyles = makeStyles({
   body:{

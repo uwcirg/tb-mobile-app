@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import NewButton from '../../../Basics/NewButton';
 import InteractionCard from '../../../Basics/HomePageSection';
 import useStores from '../../../Basics/UseStores';
 import { observer } from 'mobx-react'
@@ -11,18 +10,19 @@ import ConfirmationLayout from '../../../Components/Patient/ConfirmationLayout';
 import { usePageVisibility } from '../../../Hooks/PageVisibility';
 import { Box, Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid'
-import { CheckBox, ThumbUp, Announcement } from '@material-ui/icons';
-import EventIcon from '@material-ui/icons/Event';
+import { CheckBox, ThumbUp, Announcement, CameraAlt } from '@material-ui/icons';
 import useStyles from './styles';
+import ActionButton from '../ActionButton';
+import Colors from '../../../Basics/Colors';
 
 
-const ButtonTestTwo = () => <Grid style={{ width: "unset", padding: "2px 1em" }} alignItems="center" container direction="column">
+const ButtonTestTwo = () => <Grid style={{ width: "unset", padding: "2px .5em" }} alignItems="center" container direction="column">
     <Announcement style={{ padding: 0 }} />
     <Typography style={{ padding: 0 }} variant="body1">No</Typography>
 </Grid>
 
 
-const ButtonTest = () => <Grid style={{ width: "unset", padding: "2px 1em" }} alignItems="center" container direction="column">
+const ButtonTest = () => <Grid style={{ width: "unset", padding: "2px .5em" }} alignItems="center" container direction="column">
     <ThumbUp style={{ padding: 0 }} />
     <Typography style={{ padding: 0 }} variant="body1">Sí</Typography>
 </Grid>
@@ -33,14 +33,13 @@ const OneStepActions = () => {
         <Grid wrap="nowrap" style={{ padding: ".75em 1em", width: "100%", textAlign: "left", position: "relative" }} alignItems="center" justify="flex-start" container>
             <div style={{ width: "100%" }}>
                 <Grid alignItems="center" container wrap="nowrap">
-                    <EventIcon style={{fontSize: "2em", marginRight: ".5em "}} />
-                    <p style={{ fontSize: "1.2em", margin: "0", display: "block"}}>Is everything going okay with your treatment today?</p>
+                    <p style={{ fontSize: "1.2em", margin: "0", display: "block", width: "80%" }}>Is everything going okay with your treatment today?</p>
                 </Grid>
                 <Box height="1em" />
                 <Grid direction="column" container className={classes.yesNoButtons}>
-                    <NewButton hideArrow className={classes.allGood} text="Tomé mis medicamentos y me siento bien" icon={<ButtonTest />} />
+                    <ActionButton text="Tomé mis medicamentos y me siento bien" icon={<ButtonTest />} backgroundColor={Colors.calendarGreen} />
                     <Box height=".5em" />
-                    <NewButton hideArrow className={classes.allGood} text='Reportar algun problema o pedir ayuda' icon={<ButtonTestTwo />} />
+                    <ActionButton text='Reportar algun problema o pedir ayuda' icon={<ButtonTestTwo />} backgroundColor={Colors.highlightYellow} />
                 </Grid>
             </div>
         </Grid>
@@ -90,11 +89,14 @@ const ActionBox = observer(() => {
     }
 
     return (
-        <>
-            <InteractionCard className={classes.card} upperText={<><CheckBox /> Daily Check-In </>}>
-                <OneStepActions />
-            </InteractionCard>
-        </>
+        <InteractionCard className={classes.card} upperText={<><CheckBox /> Daily Check-In </>}>
+            <Box padding="1em">
+                <p style={{ fontSize: "1.2em", margin: "0", display: "block", width: "90%" }}>Please complete a test strip to confirm your progress</p>
+                <Box height="1em" />
+                <ActionButton text="Complete Test Strip and Submit Photo" icon={<CameraAlt />} backgroundColor={Colors.accentBlue} />
+            </Box>
+            <OneStepActions />
+        </InteractionCard>
 
     )
 });

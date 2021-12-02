@@ -60,32 +60,6 @@ const useStyles = makeStyles({
         "&:nth-of-type(odd)": {
             marginRight: ".5em"
         }
-    },
-    yesNoButtons: {
-
-        "& button": {
-            
-            borderRadius: "5px",
-            "& p:first-of-type, & svg:first-of-type": {
-                fontWeight: "bold",
-                padding: ".25em .5em",
-                margin: "0"
-            },
-            "& span": {
-                margin: "0 .5em",
-            }
-        },
-        "& button:nth-of-type(1)": {
-            backgroundColor: Colors.calendarGreen,
-            border: "none",
-            color: Colors.textDarkGray
-        },
-        "& button:nth-of-type(2)": {
-            backgroundColor: Colors.highlightYellow,
-            color: Colors.textDarkGray,
-            border: "none"
-        },
-
     }
 })
 
