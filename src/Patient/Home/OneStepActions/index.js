@@ -40,6 +40,7 @@ const OneStepActions = () => {
                     <ActionButton text="Tomé mis medicamentos y me siento bien" icon={<ButtonTest />} backgroundColor={Colors.calendarGreen} />
                     <Box height=".5em" />
                     <ActionButton text='Reportar algun problema o pedir ayuda' icon={<ButtonTestTwo />} backgroundColor={Colors.highlightYellow} />
+                    <Box height=".5em" />
                 </Grid>
             </div>
         </Grid>
@@ -93,7 +94,7 @@ const ActionBox = observer(() => {
             <Box padding="1em">
                 <p style={{ fontSize: "1.2em", margin: "0", display: "block", width: "90%" }}>Please complete a test strip to confirm your progress</p>
                 <Box height="1em" />
-                <ActionButton text="Complete Test Strip and Submit Photo" icon={<CameraAlt />} backgroundColor={Colors.accentBlue} />
+                <ActionButton text="Complete Test Strip and Submit Photo" icon={<CameraAlt />} backgroundColor={Colors.actionBlue} />
             </Box>
             <OneStepActions />
         </InteractionCard>

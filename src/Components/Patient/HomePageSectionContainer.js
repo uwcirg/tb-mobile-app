@@ -15,6 +15,7 @@ const useStyles = makeStyles({
         margin: "auto",
         display: "flex",
         alignItems: "center",
+        paddingLeft:   "1em",
         "& > svg": {
             fontSize: "1.25em",
             marginRight: ".25em"
