@@ -119,7 +119,10 @@
         },
         "oneStepReporting":{
             "photoRequestTitle": "Please complete a test strip to confirm your progress",
-            "photoRequestButton": "Complete Test Strip and Submit Photo"
+            "photoRequestButton": "Complete Test Strip and Submit Photo",
+            "supportTitle": "Is everything going okay with your treatment today?",
+            "goodOption": "Took Medication and Feeling Good",
+            "helpOption": "Track Issues or Request Support"
         },
         "onboarding": {
             "landing": {

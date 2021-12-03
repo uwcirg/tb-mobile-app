@@ -26,42 +26,16 @@ const useStyles = makeStyles({
             marginRight: ".5em"
         }
     },
-    list: {
-        margin: 0,
-        padding: "0 1.5em",
-        paddingRight: "0",
-        "& li p": {
-            lineHeight: "1.1em",
-            fontSize: "1em"
-        }
-    },
-    action: { width: "90%", backgroundColor: "white", borderRadius: "5px", color: Colors.textDarkGray },
-    bottomButton: {
-        fontSize: "1em",
-        padding: "0"
-    },
     card: {
-        padding: 0,
-        justifyContent: "flex-start"
+        padding: 0
     },
-    allGood: {
-        width: "100%",
-        fontSize: "1em",
-        padding: ".5em",
-        margin: 0,
-        marginRight: 0,
-        "& > span": {
-        },
-    },
-    issueButton: {
-        flex: "1 1 0",
-        color: Colors.textDarkGray,
-        border: `1px solid ${Colors.textDarkGray}`,
-        "&:nth-of-type(odd)": {
-            marginRight: ".5em"
-        }
-    },
-    sectionHeader:{ lineHeight: "1.1em", fontSize: "1.2em", margin: "0", display: "block", width: "90%" }
+    sectionHeader: { lineHeight: "1.1em", fontSize: "1.2em", margin: "0", display: "block", width: "90%" },
+    buttonLabel: { 
+        width: "unset", 
+        padding: "2px .5em",
+        "& svg, & p":{padding: 0},
+        "& p": {fontSize: ".8em",textTransform: "capitalize"}
+     }
 })
 
 export default useStyles;

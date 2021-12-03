@@ -53,7 +53,8 @@ const useStyles = makeStyles({
         margin: "auto",
         marginBottom: ".5em",
         marginTop: ".5em",
-        paddingBottom: "1em"
+        paddingBottom: "1em",
+        border: "none"
     },
 })
 
