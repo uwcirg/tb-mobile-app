@@ -13,6 +13,9 @@ const useStyles = makeStyles({
       fontSize: "1em",
       textTransform: "capitalize",
       padding: ".5em",
+      "&:hover": {
+        background: Colors.buttonBlue
+      },
       "&:focus": {
         background: Colors.buttonBlue
       }
