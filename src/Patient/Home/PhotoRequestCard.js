@@ -6,7 +6,7 @@ import InteractionCard from '../../Basics/HomePageSection';
 import Typography from '@material-ui/core/Typography'
 import { Box, Button } from '@material-ui/core';
 import { CameraAlt } from '@material-ui/icons';
-import ActionButton from './ActionButton';
+import ActionButton from './OneStepActions/ActionButton';
 import Colors from '../../Basics/Colors';
 
 const useStyles = makeStyles({

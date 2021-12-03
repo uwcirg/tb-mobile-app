@@ -5,7 +5,7 @@ import Paper from '@material-ui/core/Paper';
 const useStyles = makeStyles({
     container: {
         borderRadius: "8px",
-        boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.15)",
+        boxShadow: "none",
         margin: "auto",
         marginTop: "10px",
         width: "90%",

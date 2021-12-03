@@ -43,6 +43,7 @@ const ReportPhoto = observer((props) => {
         if (!patientUIStore.skippedToPhotoFlow) {
             props.advance();
         } else {
+            patientStore.saveReportingState();
             patientUIStore.goToHome();
             patientUIStore.skippedToPhotoFlow = false;
         }

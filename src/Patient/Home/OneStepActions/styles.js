@@ -60,7 +60,8 @@ const useStyles = makeStyles({
         "&:nth-of-type(odd)": {
             marginRight: ".5em"
         }
-    }
+    },
+    sectionHeader:{ lineHeight: "1.1em", fontSize: "1.2em", margin: "0", display: "block", width: "90%" }
 })
 
 export default useStyles;

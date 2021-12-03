@@ -117,6 +117,10 @@
             "messaging": "Messaging",
             "information": "Information"
         },
+        "oneStepReporting":{
+            "photoRequestTitle": "Please complete a test strip to confirm your progress",
+            "photoRequestButton": "Complete Test Strip and Submit Photo"
+        },
         "onboarding": {
             "landing": {
                 "welcome": "Welcome",

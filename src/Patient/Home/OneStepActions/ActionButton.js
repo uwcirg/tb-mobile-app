@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import NewButton from '../../Basics/NewButton';
-import Colors from '../../Basics/Colors';
+import NewButton from '../../../Basics/NewButton';
+import Colors from '../../../Basics/Colors';
 
 const useStyles = makeStyles({
         button: {

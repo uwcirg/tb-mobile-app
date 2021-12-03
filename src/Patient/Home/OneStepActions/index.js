@@ -12,50 +12,59 @@ import { Box, Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid'
 import { CheckBox, ThumbUp, Announcement, CameraAlt } from '@material-ui/icons';
 import useStyles from './styles';
-import ActionButton from '../ActionButton';
+import ActionButton from './ActionButton';
 import Colors from '../../../Basics/Colors';
+import Fade from '@material-ui/core/Fade';
+
+import PhotoRequestArea from './PhotoRequestArea';
 
 
 const ButtonTestTwo = () => <Grid style={{ width: "unset", padding: "2px .5em" }} alignItems="center" container direction="column">
     <Announcement style={{ padding: 0 }} />
-    <Typography style={{ padding: 0 }} variant="body1">No</Typography>
+    <Typography style={{ fontSize: ".8em", padding: 0 }} variant="body1">No</Typography>
 </Grid>
 
 
 const ButtonTest = () => <Grid style={{ width: "unset", padding: "2px .5em" }} alignItems="center" container direction="column">
     <ThumbUp style={{ padding: 0 }} />
-    <Typography style={{ padding: 0 }} variant="body1">Sí</Typography>
+    <Typography style={{ fontSize: ".8em", padding: 0 }} variant="body1">Sí</Typography>
 </Grid>
 
-const OneStepActions = () => {
+const OneStepActions = observer(({ handleComplete }) => {
+
+    const { patientStore, patientUIStore } = useStores();
     const classes = useStyles();
+
+    const handleReportClick = () => {
+        patientUIStore.moveToReportFlow();
+        patientStore.refreshReportDate();
+    }
+
     return (
-        <Grid wrap="nowrap" style={{ padding: ".75em 1em", width: "100%", textAlign: "left", position: "relative" }} alignItems="center" justify="flex-start" container>
+        <Grid wrap="nowrap" style={{ width: "100%", textAlign: "left" }} alignItems="center" justify="flex-start" container>
             <div style={{ width: "100%" }}>
                 <Grid alignItems="center" container wrap="nowrap">
                     <p style={{ fontSize: "1.2em", margin: "0", display: "block", width: "80%" }}>Is everything going okay with your treatment today?</p>
                 </Grid>
                 <Box height="1em" />
                 <Grid direction="column" container className={classes.yesNoButtons}>
-                    <ActionButton text="Tomé mis medicamentos y me siento bien" icon={<ButtonTest />} backgroundColor={Colors.calendarGreen} />
+                    <ActionButton onClick={handleComplete} text="Tomé mis medicamentos y me siento bien" icon={<ButtonTest />} backgroundColor={Colors.calendarGreen} />
                     <Box height=".5em" />
-                    <ActionButton text='Reportar algun problema o pedir ayuda' icon={<ButtonTestTwo />} backgroundColor={Colors.highlightYellow} />
+                    <ActionButton onClick={handleReportClick} text='Reportar algun problema o pedir ayuda' icon={<ButtonTestTwo />} backgroundColor={Colors.highlightYellow} />
                     <Box height=".5em" />
                 </Grid>
             </div>
         </Grid>
     )
-}
+})
 
 const ActionBox = observer(() => {
-    const { patientStore, patientUIStore } = useStores();
+    const { patientStore} = useStores();
     const { t } = useTranslation('translation');
-    const [counter, changeCounter] = useState(0);
 
+    const [complete, setComplete] = useState(false);
     const isVisible = usePageVisibility();
-
     const classes = useStyles();
-
 
     useEffect(() => {
         if (isVisible) {
@@ -65,44 +74,28 @@ const ActionBox = observer(() => {
 
     }, [isVisible])
 
-
-    //Once a minute refresh the local report check
-    //Prevents a bug where the old state can be shown until the page is refreshed
-    useEffect(() => {
-        const interval = setInterval(() => {
-            changeCounter(prevCounter => prevCounter + 1);
-            patientStore.loadDailyReport();
-        }, 60000);
-
-        return () => clearInterval(interval);
-    }, []);
-
-    const handleReportClick = () => {
-        patientUIStore.moveToReportFlow();
-        patientStore.refreshReportDate();
-    }
-
-    const handlePhotoClick = () => {
-        if (!patientStore.report.hasSubmitted) {
-            patientUIStore.skippedToPhotoFlow = true;
-        }
-        patientUIStore.openPhotoReport();
-    }
-
     return (
         <InteractionCard className={classes.card} upperText={<><CheckBox /> Daily Check-In </>}>
-            <Box padding="1em">
-                <p style={{ fontSize: "1.2em", margin: "0", display: "block", width: "90%" }}>Please complete a test strip to confirm your progress</p>
-                <Box height="1em" />
-                <ActionButton text="Complete Test Strip and Submit Photo" icon={<CameraAlt />} backgroundColor={Colors.actionBlue} />
+            {patientStore.report.hasSubmittedPhoto ? "Yes" : "No"}
+            <Box width="100%" padding="1em" style={{ boxSizing: "border-box" }}>
+                {!complete ? <div>
+                    {(patientStore.isPhotoDay && !patientStore.reportStore.photoReportComplete) && <PhotoRequestArea />}
+                    <OneStepActions handleComplete={() => { setComplete(true) }} />
+                    {patientStore.reportStore.photoReportComplete && <p>Your Photo Has Been Submitted</p>}
+                </div>
+                    :
+                    <Fade timeout={2000} in={complete}>
+                        <div>
+                            <Confirmation />
+                        </div>
+                    </Fade>}
             </Box>
-            <OneStepActions />
         </InteractionCard>
 
     )
 });
 
-const Confirmation = (props) => {
+const Confirmation = () => {
     const classes = useStyles();
     const { t } = useTranslation('translation');
 

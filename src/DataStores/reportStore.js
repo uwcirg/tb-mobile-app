@@ -38,8 +38,6 @@ export default class ReportStore {
         this.todaysDate = DateTime.local().toISODate()
     }
 
-
-
     submitPhoto = () => {
         this.rootStore.hasSubmittedPhoto = true;
         if (this.checkIfOfflineAndSaveReportLocally()) {
@@ -56,7 +54,7 @@ export default class ReportStore {
         } else {
             this.rootStore.executeRawRequest('/v2/photo_reports', "POST", body).then(this.processReport);
         }
-
+        // this.rootStore.saveReportingState();
     }
 
     submitMedication = () => {
