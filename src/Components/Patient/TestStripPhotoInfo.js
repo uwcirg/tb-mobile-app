@@ -42,21 +42,20 @@ const useStyles = makeStyles({
     }
 })
 
-const TestStripPhotoInfo = ({showSkipOptions = true}) => {
+const TestStripPhotoInfo = ({ showSkipOptions = true }) => {
     const classes = useStyles();
     const { t } = useTranslation();
     const { patientUIStore, patientStore } = useStores();
 
     return (
         <WarningBox className={classes.infoBox}>
-            <Typography variant="body1">{t('patient.report.important')}</Typography>
+            <Typography variant="body1"><strong>{t('patient.report.important')}</strong>:</Typography>
             <ExpansionPanel className={classes.panel} expanded={false} >
                 <ExpansionPanelSummary className={classes.summary}>
                     <TimeIcon className={classes.timeIcon} />
                     <Typography className={classes.infoText} variant="body1" color="initial">{t('patient.report.photo.help.wait')}</Typography>
                 </ExpansionPanelSummary>
             </ExpansionPanel>
-            <Typography style={{padding: ".5em 0"}} variant="body1">{t('patient.report.photo.other')}:</Typography>
             <ExpansionPanel className={classes.panel}>
                 <ExpansionPanelSummary className={classes.summary} expandIcon={<Right />}>
                     <HelpIcon className={classes.timeIcon} />
@@ -66,20 +65,20 @@ const TestStripPhotoInfo = ({showSkipOptions = true}) => {
                     <Instructions />
                 </ExpansionPanelDetails>
             </ExpansionPanel>
-
             {showSkipOptions && <>
-            <ExpansionPanel  onClick={patientUIStore.goToHome} className={classes.panel} expanded={false} >
-                <ExpansionPanelSummary className={classes.summary} expandIcon={<Right />}>
-                    <LaterIcon className={classes.timeIcon} />
-                    <Typography className={classes.infoText} variant="body1" color="initial">{t('patient.report.photo.submitLater')}</Typography>
-                </ExpansionPanelSummary>
-            </ExpansionPanel>
-            <ExpansionPanel onClick={patientStore.setPhotoSkipped} className={classes.panel} expanded={false}>
-                <ExpansionPanelSummary className={classes.summary} expandIcon={<Right />}>
-                    <BlockIcon className={classes.timeIcon} />
-                    <Typography className={classes.infoText} variant="body1" color="initial">{t('patient.report.photo.unable')}</Typography>
-                </ExpansionPanelSummary>
-            </ExpansionPanel>
+                <Typography style={{ padding: ".5em 0" }} variant="body1"><strong>{t('patient.report.photo.other')}</strong>:</Typography>
+                <ExpansionPanel onClick={patientUIStore.goToHome} className={classes.panel} expanded={false} >
+                    <ExpansionPanelSummary className={classes.summary} expandIcon={<Right />}>
+                        <LaterIcon className={classes.timeIcon} />
+                        <Typography className={classes.infoText} variant="body1" color="initial">{t('patient.report.photo.submitLater')}</Typography>
+                    </ExpansionPanelSummary>
+                </ExpansionPanel>
+                <ExpansionPanel onClick={patientStore.setPhotoSkipped} className={classes.panel} expanded={false}>
+                    <ExpansionPanelSummary className={classes.summary} expandIcon={<Right />}>
+                        <BlockIcon className={classes.timeIcon} />
+                        <Typography className={classes.infoText} variant="body1" color="initial">{t('patient.report.photo.unable')}</Typography>
+                    </ExpansionPanelSummary>
+                </ExpansionPanel>
             </>}
         </WarningBox>
     )
