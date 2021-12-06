@@ -17,6 +17,7 @@ import Colors from '../../../Basics/Colors';
 import Fade from '@material-ui/core/Fade';
 
 import PhotoRequestArea from './PhotoRequestArea';
+import PartialConfirmation from './PartialConfirmation';
 
 const ButtonLabel = ({ text, icon }) => {
     const classes = useStyles();
@@ -83,7 +84,7 @@ const ActionBox = observer(() => {
                 {!patientStore.reportStore.allReportComplete ? <div>
                     {(patientStore.isPhotoDay && !patientStore.reportStore.photoReportComplete) && <PhotoRequestArea />}
                     <OneStepActions />
-                    {patientStore.reportStore.photoReportComplete && <p>TODO: Nice visual for your Photo Has Been Submitted</p>}
+                    {patientStore.reportStore.photoReportComplete && <PartialConfirmation />}
                 </div>
                     :
                     <Fade timeout={2000} in={patientStore.reportStore.allReportComplete} >
