@@ -12,6 +12,7 @@ import Colors from '../../Basics/Colors';
 import Check from '@material-ui/icons/CheckRounded';
 import Clear from '@material-ui/icons/ClearRounded';
 
+
 const useStyles = makeStyles({
 
     textArea: {
@@ -87,14 +88,30 @@ const ReportMedication = observer((props) => {
     )
 });
 
+const SelectionButton = ({ selected, value, handleClick }) => {
+    const classes = useButtonStyles({ selected: selected, value: value });
+    const { t } = useTranslation();
+    return <ButtonBase className={`${classes.button}`} onClick={() => { handleClick(value) }}>
+        <Grid className={classes.buttonContent} wrap="nowrap" alignItems="center" direction="column" container>
+            <Grid container alignItems="center" justify="center" style={{height: '100px', width: '100px'}}>
+            {value ? <Check /> : <Clear />}
+            </Grid>
+            {value ? t('commonWords.yes') : t('commonWords.no')}
+        </Grid>
+        <div className={`${classes.buttonBack} ${value ? classes.yes : classes.no}`}></div>
+    </ButtonBase>
+}
+
+
 
 const useButtonStyles = makeStyles({
     button: {
         overflow: "hidden",
+        boxSizing: "border-box",
         flex: "1 1 0",
         padding: ".5em 1em",
         fontSize: "2em",
-        borderRadius: "4px",
+        borderRadius: "10px",
         textTransform: "capitalize",
         backgroundColor: "none",
         "& .MuiSvgIcon-root": {
@@ -111,32 +128,21 @@ const useButtonStyles = makeStyles({
         backgroundColor: props => props.selected ? Colors.calendarRed : "white"
     },
     buttonBack: {
+        borderRadius: "10px",
         boxSizing: "border-box",
         position: "absolute",
         width: "100%",
         height: "100%",
         zIndex: 0,
         opacity: props => props.selected ? "1" : ".5",
-        border: props => props.selected ? "none" : `3px solid ${Colors.gray}`
+        border: props => props.selected ? "none" : `2px solid lightgray`
     },
     buttonContent: {
-        zIndex: 1
+        borderRadius: "10px"
     },
     yesIcon: {
         color: props => !props.selected ? Colors.green : "white",
     }
 })
-
-const SelectionButton = ({ selected, value, handleClick }) => {
-    const classes = useButtonStyles({ selected: selected, value: value });
-    const { t } = useTranslation();
-    return <ButtonBase className={`${classes.button}`} onClick={() => { handleClick(value) }}>
-        <Grid className={classes.buttonContent} wrap="nowrap" alignItems="center" direction="column" container>
-            {value ? <Check /> : <Clear />}
-            {value ? t('commonWords.yes') : t('commonWords.no')}
-        </Grid>
-        <div className={`${classes.buttonBack} ${value ? classes.yes : classes.no}`}></div>
-    </ButtonBase>
-}
 
 export default ReportMedication;
