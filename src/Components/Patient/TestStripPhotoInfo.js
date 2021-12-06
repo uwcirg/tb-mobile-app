@@ -1,13 +1,11 @@
 import React from 'react';
 import Instructions from '../../Patient/Information/TestInstructions';
 import { makeStyles } from '@material-ui/core/styles';
-import useToggle from '../../Hooks/useToggle';
 import { useTranslation } from 'react-i18next';
 import WarningBox from '../../Basics/WarningBox';
 import Typography from '@material-ui/core/Typography'
 import TimeIcon from '@material-ui/icons/WatchLater';
 import HelpIcon from '@material-ui/icons/Help';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails } from '@material-ui/core';
 import Right from '@material-ui/icons/KeyboardArrowRight'
 import BlockIcon from '@material-ui/icons/Block';
@@ -44,21 +42,21 @@ const useStyles = makeStyles({
     }
 })
 
-const TestStripPhotoInfo = () => {
+const TestStripPhotoInfo = ({showSkipOptions = true}) => {
     const classes = useStyles();
     const { t } = useTranslation();
     const { patientUIStore, patientStore } = useStores();
 
     return (
         <WarningBox className={classes.infoBox}>
-            {/* <Typography variant="body1">{t('patient.report.important')}</Typography> */}
+            <Typography variant="body1">{t('patient.report.important')}</Typography>
             <ExpansionPanel className={classes.panel} expanded={false} >
                 <ExpansionPanelSummary className={classes.summary}>
                     <TimeIcon className={classes.timeIcon} />
                     <Typography className={classes.infoText} variant="body1" color="initial">{t('patient.report.photo.help.wait')}</Typography>
                 </ExpansionPanelSummary>
             </ExpansionPanel>
-            <Typography style={{padding: ".5em 0"}} variant="body1">Other Options:</Typography>
+            <Typography style={{padding: ".5em 0"}} variant="body1">{t('patient.report.photo.other')}:</Typography>
             <ExpansionPanel className={classes.panel}>
                 <ExpansionPanelSummary className={classes.summary} expandIcon={<Right />}>
                     <HelpIcon className={classes.timeIcon} />
@@ -68,10 +66,12 @@ const TestStripPhotoInfo = () => {
                     <Instructions />
                 </ExpansionPanelDetails>
             </ExpansionPanel>
+
+            {showSkipOptions && <>
             <ExpansionPanel  onClick={patientUIStore.goToHome} className={classes.panel} expanded={false} >
                 <ExpansionPanelSummary className={classes.summary} expandIcon={<Right />}>
                     <LaterIcon className={classes.timeIcon} />
-                    <Typography className={classes.infoText} variant="body1" color="initial">Submit Later</Typography>
+                    <Typography className={classes.infoText} variant="body1" color="initial">{t('patient.report.photo.submitLater')}</Typography>
                 </ExpansionPanelSummary>
             </ExpansionPanel>
             <ExpansionPanel onClick={patientStore.setPhotoSkipped} className={classes.panel} expanded={false}>
@@ -80,7 +80,7 @@ const TestStripPhotoInfo = () => {
                     <Typography className={classes.infoText} variant="body1" color="initial">{t('patient.report.photo.unable')}</Typography>
                 </ExpansionPanelSummary>
             </ExpansionPanel>
-
+            </>}
         </WarningBox>
     )
 }

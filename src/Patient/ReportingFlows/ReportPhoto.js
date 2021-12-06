@@ -72,9 +72,6 @@ const ReportPhoto = observer((props) => {
                         <Box height=".5em" />
                         <TestStripPhotoInfo />
                     </>}
-
-                {!patientStore.report.photoWasTaken && <>
-                    <Box height=".5em" /><Buttons /></>}
             </> : <CantTakePhoto />}
             <Box height="1em" />
             <SimpleButton className={classes.buttonFix} alignRight onClick={handleNext} disabled={nextDisabled()} backgroundColor={Colors.green}>{t("patient.report.next")}</SimpleButton>
@@ -82,30 +79,6 @@ const ReportPhoto = observer((props) => {
         </div>
     )
 });
-
-const Buttons = () => {
-    const classes = useStyles();
-    const { t } = useTranslation();
-    const { patientUIStore, patientStore } = useStores();
-
-    return (
-        <div className={classes.cantSubmitContainer}>
-            {/* <ClickableText
-                className={classes.later}
-                onClick={patientUIStore.goToHome}
-                text={<>{t('patient.report.photo.submitLater')} <KeyboardArrowRight /></>} icon={<TimeIcon />} />
-            <ClickableText className={classes.unable} text={<>{t('patient.report.photo.unable')} <KeyboardArrowRight /></>} onClick={() => { patientStore.report.photoWasSkipped = true }} /> */}
-            {/* <OptionButton onClick={patientUIStore.goToHome} backgroundColor={Colors.calendarGreen} text={t('patient.report.photo.submitLater')} />
-            <Box height=".5em" />
-            <ActionButton onClick={patientStore.setPhotoSkipped} backgroundColor={Colors.highlightYellow} text={t('patient.report.photo.unable')} /> */}
-        </div>
-    )
-}
-
-const OptionButton = (props) => {
-    const classes = useStyles();
-    return <ActionButton {...props} className={classes.optionButton} />
-}
 
 const CantTakePhoto = observer((props) => {
 

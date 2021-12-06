@@ -360,6 +360,7 @@
                     "retakeIf": "Retake photo if it is blurry or the square marker is not visible",
                     "instructions": "View Test Strip Instructions"
                 },
+                "other": "Other Options",
                 "submitLater": "Submit Later",
                 "unable": "Unable to submit? Tell us why",
                 "whyUnable": "Why are you unable to submit?",
