@@ -8,54 +8,26 @@ import Grow from '@material-ui/core/Collapse';
 import { useTranslation } from 'react-i18next';
 import WarningBox from '../../Basics/WarningBox';
 import ClickableText from '../../Basics/ClickableText';
+import Typography from '@material-ui/core/Typography'
+import TimeIcon from '@material-ui/icons/WatchLater';
+import Grid from '@material-ui/core/Grid'
 
 const useStyles = makeStyles({
-    photoInfo: {
-        "& > h2": {
-            fontSize: "1em",
-            margin: ".5em 0 .5em 0"
-        },
-        "& > ul": {
-            display: "block",
-            margin: "0",
-            padding: 0,
-            marginLeft: "1em",
-            "& > li": {
-                margin: 0,
-                padding: 0,
-                marginTop: "5px",
-                "& > span": {
-                    fontWeight: "bold"
-                },
-                "& > li": {
-                    marginLeft: "1em",
-                }
-            }
-        },
-    },
     info: {
         fontSize: "1em",
-        width: "100%",
-        display: "flex",
-        justifyContent: "left",
-        alignItems: "center",
-        margin: ".5em 0 .5em 0",
-        "& > span": {
-            alignItems: "center",
-            display: "flex",
-            textAlign: "left",
-            width: "100%",
-            textTransform: "none"
-        }
+        width: "100%"
     },
     infoBox: {
-        width: "90%",
-        margin: "auto",
-        marginBottom: ".5em",
-        marginTop: ".5em",
-        paddingBottom: "1em",
+        width: "100%",
+        padding: "1em",
         border: "none"
     },
+    timeIcon:{
+        marginRight: ".5em"
+    },
+    infoText:{
+        lineHeight: "1em"
+    }
 })
 
 const TestStripPhotoInfo = () => {
@@ -65,18 +37,14 @@ const TestStripPhotoInfo = () => {
 
     return (
         <WarningBox className={classes.infoBox}>
+            <Grid alignItems="center" wrap="nowrap" container className={classes.info}>
+                <TimeIcon className={classes.timeIcon} />
+                <Typography className={classes.infoText} variant="body1" color="initial">{t('patient.report.photo.help.wait')}</Typography>
+            </Grid>
             <ClickableText onClick={togglePopUp} className={classes.info} hideIcon text={<span>{t('patient.report.photo.help.instructions')}{showPopUp ? <KeyboardArrowUp /> : <KeyboardArrowDown />}</span>} />
             <Grow in={showPopUp}>
-                    <Instructions />
+                <Instructions />
             </Grow>
-            <div className={classes.photoInfo}>
-                <h2>{t('patient.report.photo.help.remember')}:</h2>
-                <ul>
-                    <li>{t('patient.report.photo.help.wait')}</li>
-                    <li>{t('patient.report.photo.help.straight')}</li>
-                    <li>{t('patient.report.photo.help.retakeIf')}</li>
-                </ul>
-            </div>
         </WarningBox>
     )
 }

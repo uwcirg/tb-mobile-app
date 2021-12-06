@@ -18,12 +18,6 @@ import Fade from '@material-ui/core/Fade';
 
 import PhotoRequestArea from './PhotoRequestArea';
 
-
-const ButtonTestTwo = () => <Grid style={{ width: "unset", padding: "2px .5em" }} alignItems="center" container direction="column">
-    <Announcement style={{ padding: 0 }} />
-    <Typography style={{ fontSize: ".8em", padding: 0 }} variant="body1">No</Typography>
-</Grid>
-
 const ButtonLabel = ({ text, icon }) => {
     const classes = useStyles();
     return <Grid className={classes.buttonLabel} alignItems="center" container direction="column">
@@ -59,7 +53,7 @@ const OneStepActions = observer(() => {
                         <Box height=".5em" />
                         <ActionButton onClick={handleReportClick} 
                         text={t('patient.oneStepReporting.helpOption')} 
-                        icon={<ButtonTestTwo />} 
+                        icon={<ButtonLabel icon={<Announcement />} text={t('commonWords.no')} />}
                         backgroundColor={Colors.highlightYellow} 
                         />
                         <Box height=".5em" />

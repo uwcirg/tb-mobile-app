@@ -22,8 +22,7 @@ const useStyles = makeStyles({
         width: "auto"
     },
     button: {
-        width: "90%",
-        margin: "auto",
+        width: "100%",
         display: "flex",
         color: Colors.buttonBlue,
         "& > div": {

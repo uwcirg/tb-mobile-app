@@ -278,6 +278,10 @@ export class PatientStore extends UserStore {
         });
     }
 
+    @action setPhotoSkipped = () => {
+        this.report.photoWasSkipped = true
+    }
+
     disableMedicationReminder = () => {
         this.updateNotificationTime(true);
     }

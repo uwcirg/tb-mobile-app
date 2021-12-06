@@ -12,11 +12,6 @@ const useStyles = makeStyles({
             width: "100%",
             fontSize: "1em",
             borderRadius: "5px",
-            "& p:first-of-type, & svg:first-of-type": {
-                fontWeight: "bold",
-                padding: ".25em .5em",
-                margin: "0"
-            },
             "& span": {
                 margin: "0 .5em",
             },
@@ -26,11 +21,11 @@ const useStyles = makeStyles({
         },
 })
 
-const ActionButton = ({text, icon, backgroundColor, onClick, color}) => {
+const ActionButton = ({text, icon, backgroundColor, onClick, color, className}) => {
 
     const classes = useStyles({backgroundColor: backgroundColor, color: color});
 
-    return( <NewButton onClick={onClick} style={{backgroundColor: backgroundColor}} className={classes.button} text={text} icon={icon} />)
+    return( <NewButton onClick={onClick} style={{backgroundColor: backgroundColor}} className={`${classes.button} ${className}`} text={text} icon={icon} />)
 
 }
 

@@ -34,7 +34,7 @@ const useStyles = makeStyles({
         width: "unset", 
         padding: "2px .5em",
         "& svg, & p":{padding: 0},
-        "& p": {fontSize: ".8em",textTransform: "capitalize"}
+        "& p": {fontSize: ".8em",textTransform: "capitalize",fontWeight: "bold"},
      }
 })
 

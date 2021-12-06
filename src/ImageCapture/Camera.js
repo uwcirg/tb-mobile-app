@@ -195,6 +195,7 @@ const Container = styled.div`
   .webcam-container{
     position: fixed;
     top: 0;
+    left: 0;
     z-index: 11;
 
   }
