@@ -14,7 +14,8 @@ import TimeIcon from '@material-ui/icons/Update';
 import TestStripPhotoInfo from '../../Components/Patient/TestStripPhotoInfo';
 import PhotoPrompt from '../../Components/Patient/PhotoPrompt';
 import ActionButton from '../Home/OneStepActions/ActionButton';
-0
+import { Box } from '@material-ui/core';
+
 const ReportPhoto = observer((props) => {
 
     const classes = useStyles();
@@ -68,11 +69,14 @@ const ReportPhoto = observer((props) => {
                     :
                     <>
                         <PhotoPrompt onClick={() => { patientStore.uiState.cameraIsOpen = true }} />
+                        <Box height=".5em" />
                         <TestStripPhotoInfo />
                     </>}
 
-                {!patientStore.report.photoWasTaken && <Buttons />}
+                {!patientStore.report.photoWasTaken && <>
+                    <Box height=".5em" /><Buttons /></>}
             </> : <CantTakePhoto />}
+            <Box height="1em" />
             <SimpleButton className={classes.buttonFix} alignRight onClick={handleNext} disabled={nextDisabled()} backgroundColor={Colors.green}>{t("patient.report.next")}</SimpleButton>
             {patientStore.uiState.cameraIsOpen ? <Camera handleExit={handleExit} returnPhoto={handlePhoto} /> : ""}
         </div>
@@ -91,8 +95,9 @@ const Buttons = () => {
                 onClick={patientUIStore.goToHome}
                 text={<>{t('patient.report.photo.submitLater')} <KeyboardArrowRight /></>} icon={<TimeIcon />} />
             <ClickableText className={classes.unable} text={<>{t('patient.report.photo.unable')} <KeyboardArrowRight /></>} onClick={() => { patientStore.report.photoWasSkipped = true }} /> */}
-            <OptionButton onClick={patientUIStore.goToHome} backgroundColor={Colors.calendarGreen} text={t('patient.report.photo.submitLater')} />
-            <ActionButton onClick={patientStore.setPhotoSkipped} backgroundColor={Colors.highlightYellow} text={t('patient.report.photo.unable')} />
+            {/* <OptionButton onClick={patientUIStore.goToHome} backgroundColor={Colors.calendarGreen} text={t('patient.report.photo.submitLater')} />
+            <Box height=".5em" />
+            <ActionButton onClick={patientStore.setPhotoSkipped} backgroundColor={Colors.highlightYellow} text={t('patient.report.photo.unable')} /> */}
         </div>
     )
 }

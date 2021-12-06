@@ -24,11 +24,8 @@ const useStyles = makeStyles({
     button: {
         width: "100%",
         display: "flex",
-        color: Colors.buttonBlue,
-        "& > div": {
-            borderColor: Colors.buttonBlue,
-            border: "solid 2px",
-        },
+        backgroundColor: Colors.actionBlue,
+        color: Colors.textDarkGray,
         borderRadius: "10px"
     },
     icon:{

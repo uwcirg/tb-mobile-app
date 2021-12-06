@@ -1,50 +1,86 @@
 import React from 'react';
 import Instructions from '../../Patient/Information/TestInstructions';
-import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
-import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import { makeStyles } from '@material-ui/core/styles';
 import useToggle from '../../Hooks/useToggle';
-import Grow from '@material-ui/core/Collapse';
 import { useTranslation } from 'react-i18next';
 import WarningBox from '../../Basics/WarningBox';
-import ClickableText from '../../Basics/ClickableText';
 import Typography from '@material-ui/core/Typography'
 import TimeIcon from '@material-ui/icons/WatchLater';
-import Grid from '@material-ui/core/Grid'
+import HelpIcon from '@material-ui/icons/Help';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails } from '@material-ui/core';
+import Right from '@material-ui/icons/KeyboardArrowRight'
+import BlockIcon from '@material-ui/icons/Block';
+import LaterIcon from '@material-ui/icons/Update';
+import useStores from '../../Basics/UseStores';
 
 const useStyles = makeStyles({
+
+    panel: {
+        boxShadow: "none",
+        // backgroundColor: Colors.highlightYellow,
+    },
     info: {
         fontSize: "1em",
-        width: "100%"
+        width: "100%",
+        "& span": {
+            lineHeight: "1em"
+        }
+
     },
     infoBox: {
-        width: "100%",
-        padding: "1em",
-        border: "none"
+        padding: "0",
+        backgroundColor: "white",
+        border: "none",
+        "& div.MuiButtonBase-root.MuiExpansionPanelSummary-root": {
+            margin: 0,
+        }
     },
-    timeIcon:{
+    timeIcon: {
         marginRight: ".5em"
     },
-    infoText:{
-        lineHeight: "1em"
+    summary: {
+        padding: "0em"
     }
 })
 
 const TestStripPhotoInfo = () => {
     const classes = useStyles();
     const { t } = useTranslation();
-    const [showPopUp, togglePopUp] = useToggle(false);
+    const { patientUIStore, patientStore } = useStores();
 
     return (
         <WarningBox className={classes.infoBox}>
-            <Grid alignItems="center" wrap="nowrap" container className={classes.info}>
-                <TimeIcon className={classes.timeIcon} />
-                <Typography className={classes.infoText} variant="body1" color="initial">{t('patient.report.photo.help.wait')}</Typography>
-            </Grid>
-            <ClickableText onClick={togglePopUp} className={classes.info} hideIcon text={<span>{t('patient.report.photo.help.instructions')}{showPopUp ? <KeyboardArrowUp /> : <KeyboardArrowDown />}</span>} />
-            <Grow in={showPopUp}>
-                <Instructions />
-            </Grow>
+            {/* <Typography variant="body1">{t('patient.report.important')}</Typography> */}
+            <ExpansionPanel className={classes.panel} expanded={false} >
+                <ExpansionPanelSummary className={classes.summary}>
+                    <TimeIcon className={classes.timeIcon} />
+                    <Typography className={classes.infoText} variant="body1" color="initial">{t('patient.report.photo.help.wait')}</Typography>
+                </ExpansionPanelSummary>
+            </ExpansionPanel>
+            <Typography style={{padding: ".5em 0"}} variant="body1">Other Options:</Typography>
+            <ExpansionPanel className={classes.panel}>
+                <ExpansionPanelSummary className={classes.summary} expandIcon={<Right />}>
+                    <HelpIcon className={classes.timeIcon} />
+                    <Typography className={classes.infoText} variant="body1" color="initial">{t('patient.information.testInstructions')}</Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                    <Instructions />
+                </ExpansionPanelDetails>
+            </ExpansionPanel>
+            <ExpansionPanel  onClick={patientUIStore.goToHome} className={classes.panel} expanded={false} >
+                <ExpansionPanelSummary className={classes.summary} expandIcon={<Right />}>
+                    <LaterIcon className={classes.timeIcon} />
+                    <Typography className={classes.infoText} variant="body1" color="initial">Submit Later</Typography>
+                </ExpansionPanelSummary>
+            </ExpansionPanel>
+            <ExpansionPanel onClick={patientStore.setPhotoSkipped} className={classes.panel} expanded={false}>
+                <ExpansionPanelSummary className={classes.summary} expandIcon={<Right />}>
+                    <BlockIcon className={classes.timeIcon} />
+                    <Typography className={classes.infoText} variant="body1" color="initial">{t('patient.report.photo.unable')}</Typography>
+                </ExpansionPanelSummary>
+            </ExpansionPanel>
+
         </WarningBox>
     )
 }
