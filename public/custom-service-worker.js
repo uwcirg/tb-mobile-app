@@ -80,7 +80,6 @@ self.addEventListener('notificationclick', function (event) {
   let redirectURL = event.notification.data.url;
 
   if (event.notification.data.type === "MedicationReminder") {
-    console.log(event.action)
     if (event.action === "good") {
       redirectURL = "/quick-report?noIssues=true"
     } else if (event.action === "issue") {
