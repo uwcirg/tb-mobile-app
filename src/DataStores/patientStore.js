@@ -286,13 +286,11 @@ export class PatientStore extends UserStore {
         this.updateNotificationTime(true);
     }
 
-    @action startHistoricalReport = () => {
-        const newDate = DateTime.fromISO(this.uiState.selectedCalendarDate).set({ hour: 12, minute: 0 })
+    @action startHistoricalReport = (date) => {
 
         this.report = {
-            date: newDate.toISODate(),
+            date: DateTime.fromISO(date),
             step: 0,
-            // timeTaken: newDate.toISOTime({ suppressSeconds: true }),
             selectedSymptoms: [],
             photoWasTaken: false,
             photoString: "",

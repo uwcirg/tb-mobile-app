@@ -39,9 +39,9 @@ const useStyles = makeStyles(theme => ({
             fontSize: "1em"
         }
     },
-    loading:{
+    loading: {
         height: "300px",
-        "& p":{
+        "& p": {
             marginBottom: "1em"
         }
     }
@@ -51,14 +51,12 @@ const useStyles = makeStyles(theme => ({
 const ReportOldMedication = () => {
     const { patientStore, patientUIStore } = useStores();
     useEffect(() => {
-        patientStore.startHistoricalReport();
-        patientUIStore.startHistoricalReport();
-
+        //When the historical report is exited, reset to store a normal day report
         return function cleanup() {
             patientStore.loadDailyReport();
             patientStore.report.isHistoricalReport = false;
         }
-    })
+    }, [])
 
     return (<MedicationFlow />)
 

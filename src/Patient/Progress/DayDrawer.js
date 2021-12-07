@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { DateTime } from 'luxon'
+import { DateTime } from 'luxon';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import useStores from '../../Basics/UseStores'
+import useStores from '../../Basics/UseStores';
 import { makeStyles } from '@material-ui/core';
 import { observer } from 'mobx-react';
 import Colors from '../../Basics/Colors';
@@ -11,11 +11,11 @@ import PatientReport from '../../Basics/PatientReport';
 import Styles from '../../Basics/Styles';
 import { useTranslation } from 'react-i18next';
 import NewButton from '../../Basics/NewButton';
-import TempIcon from '../../Basics/Icons/Temp.js'
-import PillIcon from '../../Basics/Icons/Pill.js'
-import Camera from '@material-ui/icons/CameraAlt'
-import MissedReportInfo from './MissedReportCriteria'
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
+import TempIcon from '../../Basics/Icons/Temp.js';
+import PillIcon from '../../Basics/Icons/Pill.js';
+import Camera from '@material-ui/icons/CameraAlt';
+import MissedReportInfo from './MissedReportCriteria';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
 const DayDrawer = observer((props) => {
   const classes = useStyles();
@@ -68,7 +68,7 @@ const DayDrawer = observer((props) => {
 
 const Header = (props) => {
   const classes = useStyles();
-  const { t, i18n } = useTranslation('translation');
+  const { t } = useTranslation('translation');
 
   let newFormat = DateTime.DATE_FULL
   delete newFormat.year
@@ -91,6 +91,7 @@ const Body = observer((props) => {
     if (patientStore.uiState.selectedCalendarDate === DateTime.local().toISODate()) {
       patientUIStore.moveToReportFlow();
     } else {
+      patientStore.startHistoricalReport(patientStore.uiState.selectedCalendarDate)
       patientUIStore.startHistoricalReport();
     }
   }
@@ -107,13 +108,11 @@ const Body = observer((props) => {
           {props.canSubmit ? <NewButton onClick={handleDrawerClick} icon={<PillIcon />} text={t("patient.home.todaysActions.logMedication")} /> :
             <MissedReportInfo />
           }
-
         </>
       }
     </>
   )
 });
-
 
 const useStyles = makeStyles({
   drawer: {
@@ -130,7 +129,6 @@ const useStyles = makeStyles({
   drawerImage: {
     width: "100%",
   },
-
   drawerTitle: {
     margin: 0,
     fontSize: "1.25em"

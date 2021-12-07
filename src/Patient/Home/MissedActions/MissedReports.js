@@ -39,6 +39,7 @@ const MissedReports = observer(() => {
 
     const handleReportClick = (date) => {
         patientStore.uiState.selectedCalendarDate = date;
+        patientStore.startHistoricalReport(date);
         patientUIStore.startHistoricalReport();
     }
 
