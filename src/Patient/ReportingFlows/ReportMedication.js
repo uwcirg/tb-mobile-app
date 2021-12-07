@@ -54,11 +54,7 @@ const ReportMedication = observer((props) => {
     const tookMedication = patientStore.report.tookMedication;
     const nextEnabled = tookMedication || (patientStore.report.whyMedicationNotTaken && patientStore.report.whyMedicationNotTaken.length > 0)
 
-    // patientStore.reportStore.setReportHeader(t("patient.report.didYouTake"));
-
-    // useEffect(() => {
-    //     patientStore.reportStore.setReportHeader(t("patient.report.didYouTake"));
-    // }, [uiStore.locale]) //Fixed to prevent incorrent translation on reload
+    patientStore.setReportHeader(t("patient.report.didYouTake"));
 
     const handleNext = () => {
         patientStore.reportStore.submitMedication();

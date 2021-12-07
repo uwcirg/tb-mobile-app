@@ -297,7 +297,7 @@ export class PatientStore extends UserStore {
             photoWasTaken: false,
             photoString: "",
             tookMedication: true,
-            headerText: "When did you take your medication?",
+            headerText: "",
             hasSubmitted: false,
             hasSubmittedPhoto: false,
             isHistoricalReport: true
@@ -458,5 +458,10 @@ export class PatientStore extends UserStore {
     @action setTookMedication = (tookMedication) => {
         this.report.tookMedication = tookMedication;
     }
+
+    @action setReportHeader = (text) => {
+        this.report.headerText = text;
+    }
+
 
 }

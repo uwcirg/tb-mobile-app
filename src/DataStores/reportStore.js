@@ -141,9 +141,4 @@ export default class ReportStore {
         this.rootStore.saveReportingState();
         this.rootStore.getReports();
     }
-
-    @action setReportHeader = (text) => {
-        this.rootStore.report.headerText = text;
-    }
-
 }
