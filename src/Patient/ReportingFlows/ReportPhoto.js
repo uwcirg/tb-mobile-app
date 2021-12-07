@@ -13,7 +13,9 @@ import TextField from '@material-ui/core/TextField'
 import TimeIcon from '@material-ui/icons/Update';
 import TestStripPhotoInfo from '../../Components/Patient/TestStripPhotoInfo';
 import PhotoPrompt from '../../Components/Patient/PhotoPrompt';
-0
+import ActionButton from '../Home/OneStepActions/ActionButton';
+import { Box } from '@material-ui/core';
+
 const ReportPhoto = observer((props) => {
 
     const classes = useStyles();
@@ -43,6 +45,7 @@ const ReportPhoto = observer((props) => {
         if (!patientUIStore.skippedToPhotoFlow) {
             props.advance();
         } else {
+            patientStore.saveReportingState();
             patientUIStore.goToHome();
             patientUIStore.skippedToPhotoFlow = false;
         }
@@ -56,7 +59,7 @@ const ReportPhoto = observer((props) => {
     }
 
     return (
-        <div style={{ width: "100%" }}>
+        <div className={classes.container}>
             {!patientStore.report.photoWasSkipped ? <>
                 {patientStore.report.photoWasTaken ?
                     <>
@@ -66,32 +69,16 @@ const ReportPhoto = observer((props) => {
                     :
                     <>
                         <PhotoPrompt onClick={() => { patientStore.uiState.cameraIsOpen = true }} />
+                        <Box height=".5em" />
                         <TestStripPhotoInfo />
                     </>}
-
-                {!patientStore.report.photoWasTaken && <Buttons />}
             </> : <CantTakePhoto />}
-            <SimpleButton alignRight onClick={handleNext} disabled={nextDisabled()} backgroundColor={Colors.green}>{t("patient.report.next")}</SimpleButton>
+            <Box height="1em" />
+            <SimpleButton className={classes.buttonFix} alignRight onClick={handleNext} disabled={nextDisabled()} backgroundColor={Colors.green}>{t("patient.report.next")}</SimpleButton>
             {patientStore.uiState.cameraIsOpen ? <Camera handleExit={handleExit} returnPhoto={handlePhoto} /> : ""}
         </div>
     )
 });
-
-const Buttons = () => {
-    const classes = useStyles();
-    const { t } = useTranslation();
-    const { patientUIStore, patientStore } = useStores();
-
-    return (
-        <div className={classes.cantSubmitContainer}>
-            <ClickableText
-                className={classes.later}
-                onClick={patientUIStore.goToHome}
-                text={<>{t('patient.report.photo.submitLater')} <KeyboardArrowRight /></>} icon={<TimeIcon />} />
-            <ClickableText className={classes.unable} text={<>{t('patient.report.photo.unable')} <KeyboardArrowRight /></>} onClick={() => { patientStore.report.photoWasSkipped = true }} />
-        </div>
-    )
-}
 
 const CantTakePhoto = observer((props) => {
 
@@ -109,13 +96,23 @@ const CantTakePhoto = observer((props) => {
 
 const useStyles = makeStyles({
 
+    buttonFix: {
+        width: "100%",
+        "& > button": {
+            marginRight: "0"
+        }
+    },
+    container: {
+        boxSizing: "border-box",
+        width: "100%",
+        padding: "0 1em"
+    },
     info: {
         fontSize: "1em",
         width: "100%",
         display: "flex",
         justifyContent: "left",
         alignItems: "center",
-        margin: ".5em 0 .5em 0",
         "& > span": {
             alignItems: "center",
             display: "flex",
@@ -156,7 +153,7 @@ const useStyles = makeStyles({
     },
     strip: {
         height: '50vh',
-        width: '90%',
+        width: '100%',
         "& >img": {
             objectFit: 'contain',
             height: '100%',
@@ -166,8 +163,11 @@ const useStyles = makeStyles({
         textAlign: 'center'
     },
     cantSubmitContainer: {
-        padding: "1em",
-        width: "60%"
+        width: "70%",
+        boxSizing: "border-box"
+    },
+    optionButton: {
+        padding: ".5em"
     }
 
 })

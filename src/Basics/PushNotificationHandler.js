@@ -7,6 +7,7 @@ const PushHandler = (props) => {
     const {uiStore} = useStores();
 
     const handleMessageFromServiceworker = (message) => {
+
         if (message.url) {
             uiStore.push(message.url)
         }

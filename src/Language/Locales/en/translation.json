@@ -117,6 +117,13 @@
             "messaging": "Messaging",
             "information": "Information"
         },
+        "oneStepReporting":{
+            "photoRequestTitle": "Please complete a test strip to confirm your progress",
+            "photoRequestButton": "Complete Test Strip and Submit Photo",
+            "supportTitle": "Is everything going okay with your treatment today?",
+            "goodOption": "Took Medication and Feeling Good",
+            "helpOption": "Track Issues or Request Support"
+        },
         "onboarding": {
             "landing": {
                 "welcome": "Welcome",
@@ -330,6 +337,7 @@
             "title": "Log Today's Medication",
             "medicationTitle": "Please Log Your Medication",
             "medicationTime": "What time did you take your medication?",
+            "didYouTake": "Did you take your medication today?",
             "didTake": "I took my medication",
             "didNotTake": "I didn't take my medication",
             "whyNotTaken": "Why didn't you take your medication?",
@@ -352,6 +360,7 @@
                     "retakeIf": "Retake photo if it is blurry or the square marker is not visible",
                     "instructions": "View Test Strip Instructions"
                 },
+                "other": "Other Options",
                 "submitLater": "Submit Later",
                 "unable": "Unable to submit? Tell us why",
                 "whyUnable": "Why are you unable to submit?",
@@ -387,10 +396,14 @@
             "photoUploadError": "There was a problem uploading your report. Please try again, or contact your treatment assistant"
         },
         "reportConfirmation": {
+            "view": "View",
+            "hide":"Hide",
             "viewOrEdit": "View / Edit Report",
             "goodJob": "Good Job",
             "photoNeeded": "You also need to upload a photo of your test strip today",
-            "doLater": "Do Later Today"
+            "doLater": "Do Later Today",
+            "baseComplete": "Your daily report has been successfully submitted",
+            "photoComplete": "Your test strip has been successfully submitted"
         },
         "progress": {
             "noReport": "No report for this day",

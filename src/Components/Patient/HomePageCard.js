@@ -1,17 +1,21 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import Styles from '../../Basics/Styles';
 
 const useStyles = makeStyles({
     container: {
-        ...Styles.modifiedPaper,
+        borderRadius: "8px",
+        boxShadow: "none",
+        margin: "auto",
+        marginTop: "10px",
+        width: "90%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         marginBottom: "1em",
         padding: ".5em",
         paddingTop: "1em",
+        boxSizing: "border-box"
     },
 })
 
@@ -19,12 +23,9 @@ const HomePageCard = (props) => {
 
     const classes = useStyles();
 
-    return (
-        <Paper id={props.id} className={`${classes.container} ${props.className}`}>
+    return (<Paper id={props.id} className={`${classes.container} ${props.className}`}>
             {props.children}
-        </Paper>
-    )
-
+        </Paper>)
 }
 
 export default HomePageCard;

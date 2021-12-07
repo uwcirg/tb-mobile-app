@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { observer } from 'mobx-react';
 import { useTranslation } from 'react-i18next';
-import styled from 'styled-components';
-import { DateTime } from 'luxon'
 import Fade from '@material-ui/core/Fade';
-import ClickableText from '../../Basics/ClickableText';
 import useStores from '../../Basics/UseStores';
 import TextField from '@material-ui/core/OutlinedInput';
-import { makeStyles } from '@material-ui/core';
-import Colors from '../../Basics/Colors';
-import Styles from '../../Basics/Styles';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import Typography from '@material-ui/core/Typography';
 import SimpleButton from '../../Basics/SimpleButton';
-import SimpleTimePicker from '../../Basics/SimpleTimePicker';
-import SecondaryButton from '../../Basics/SecondaryButton';
+import Grid from '@material-ui/core/Grid'
+import Box from '@material-ui/core/Box'
+import Colors from '../../Basics/Colors';
+import Check from '@material-ui/icons/CheckRounded';
+import Clear from '@material-ui/icons/ClearRounded';
 
 const useStyles = makeStyles({
 
@@ -27,150 +27,119 @@ const useStyles = makeStyles({
             padding: 0,
         }
     },
-    time: {
-        fontSize: "4em",
-        color: Colors.buttonBlue,
-        borderBottom: `solid 5px ${Colors.buttonBlue}`,
-        width: "80%"
-    },
-    popOver: {
-        ...Styles.flexCenter,
-        backgroundColor: "rgba(0,0,0,.5)",
-        position: "fixed",
-        width: "100vw",
-        height: "100vh",
-        top: 0,
-        left: 0,
-        zIndex: 100
+    selectionContainer: {
+        minHeight: "60vh",
 
     },
-    timeContainer: {
-        width: "100%",
-        display: "flex",
-        justifyContent: "center"
+    yesNoButtons: {
+        alignSelf: "center",
+        padding: '1em',
+
     },
-    addMargin: {
-        marginBottom: "1em"
+    reasonContainer: {
+        padding: "0 1em"
+    },
+    inputLabel: {
+        padding: ".5em 0"
+    },
+    radioGroup: {
+        color: "blue"
     }
-});
-
-
-const TimeQuestion = observer(() => {
-
-    const { patientStore, uiStore } = useStores();
-    const classes = useStyles({ wide: uiStore.locale === "en" });
-
-    return (
-        <Fade timeout={1000} in={true}>
-            <div className={classes.timeContainer}>
-                <SimpleTimePicker
-                    value={patientStore.report.timeTaken}
-                    setValue={ (value) => patientStore.setReportTime(value)}
-                />
-            </div>
-        </Fade>)
-});
-
-function DidTakeMedication(props) {
-    const { t } = useTranslation('translation');
-    const classes = useStyles();
-    return (
-        <>
-            <TimeQuestion />
-            <div className="clickable-container">
-                <ClickableText className={classes.addMargin} onClick={props.toggle} text={t("patient.report.didNotTake")} />
-            </div>
-        </>
-    )
-}
-
-const DidntTakeMedication = observer((props) => {
-
-    const { patientStore } = useStores();
-    const classes = useStyles();
-    const { t } = useTranslation('translation');
-
-    return (
-        <>
-            <TextField multiline value={patientStore.report.whyMedicationNotTaken} onChange={(e) => { patientStore.report.whyMedicationNotTaken = e.target.value }} className={classes.textArea} variant="outlined" />
-            <div className="clickable-container">
-                <ClickableText onClick={props.toggle} text={t("patient.report.didTake")} />
-            </div>
-        </>
-    )
 });
 
 const ReportMedication = observer((props) => {
 
-    const { patientStore } = useStores();
+    const { patientStore, uiStore } = useStores();
     const { t } = useTranslation('translation');
+    const classes = useStyles({ wide: uiStore.locale === "en" });
 
-    useEffect(() => {
-        if (patientStore.report.tookMedication) {
-            patientStore.report.headerText = t("patient.report.medicationTime")
-        } else {
-            patientStore.report.headerText = t("patient.report.whyNotTaken")
-        }
-    })
+    const tookMedication = patientStore.report.tookMedication;
+    const nextEnabled = tookMedication || (patientStore.report.whyMedicationNotTaken && patientStore.report.whyMedicationNotTaken.length > 0)
 
-    const toggleTookMedication = () => {
-        patientStore.report.tookMedication = !patientStore.report.tookMedication
-    }
+    patientStore.setReportHeader(t("patient.report.didYouTake"));
 
     const handleNext = () => {
         patientStore.reportStore.submitMedication();
         props.advance()
     }
 
+    const handleClick = (value) => { patientStore.setTookMedication(value) }
+
     return (
-        <>
-            <Container id="intro-medication-time">
-                {patientStore.report.tookMedication ? <DidTakeMedication toggle={toggleTookMedication} /> : <DidntTakeMedication toggle={toggleTookMedication} />}
-                <SimpleButton alignRight onClick={handleNext}>{t("patient.report.next")}</SimpleButton>
-            </Container>
-        </>
+        <div>
+            <Fade timeout={1000} in={true}>
+                <Grid direction="column" container className={classes.selectionContainer} >
+                    <Grid justify="center" className={classes.yesNoButtons} container>
+                        <SelectionButton value={true} handleClick={handleClick} selected={tookMedication === true} />
+                        <Box width="1em" />
+                        <SelectionButton value={false} handleClick={handleClick} selected={tookMedication === false} />
+                    </Grid>
+                    {!tookMedication && <div className={classes.reasonContainer}>
+                        <Typography className={classes.inputLabel} variant="body1">{t('patient.report.whyNotTaken')}</Typography>
+                        <TextField multiline value={patientStore.report.whyMedicationNotTaken} onChange={(e) => { patientStore.report.whyMedicationNotTaken = e.target.value }} className={classes.textArea} variant="outlined" />
+                    </div>}
+                </Grid>
+            </Fade>
+            <SimpleButton disabled={!nextEnabled} alignRight onClick={handleNext}>{t("patient.report.next")}</SimpleButton>
+        </div>
     )
 });
 
-
-const Container = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: flex-start;
-align-content: center;
-align-items: center;
-margin-left: 1em;
-width: 90%;
-min-height: 40vh;
-
-
-h1{
-    display: block;
-    width: 100%;
-    font-size: 1em;
-    font-weight: 600;
-    text-align: center;
-    padding: 0;
-    margin-top: 2em;
+const SelectionButton = ({ selected, value, handleClick }) => {
+    const classes = useButtonStyles({ selected: selected, value: value });
+    const { t } = useTranslation();
+    return <ButtonBase className={`${classes.button}`} onClick={() => { handleClick(value) }}>
+        <Grid className={classes.buttonContent} wrap="nowrap" alignItems="center" direction="column" container>
+            <Grid container alignItems="center" justify="center" style={{height: '100px', width: '100px'}}>
+            {value ? <Check /> : <Clear />}
+            </Grid>
+            {value ? t('commonWords.yes') : t('commonWords.no')}
+        </Grid>
+        <div className={`${classes.buttonBack} ${value ? classes.yes : classes.no}`}></div>
+    </ButtonBase>
 }
 
 
-div > label{
-    font-size: 25px;
-}
 
-.MuiFormControl-root > div{
-    width: 50%;
-    margin: auto;
-}
-
-.clickable-container{
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    margin-top: 2em;
-}
-
-`
+const useButtonStyles = makeStyles({
+    button: {
+        overflow: "hidden",
+        boxSizing: "border-box",
+        flex: "1 1 0",
+        padding: ".5em 1em",
+        fontSize: "2em",
+        borderRadius: "10px",
+        textTransform: "capitalize",
+        backgroundColor: "none",
+        "& .MuiSvgIcon-root": {
+            fontSize: "1.25em",
+            paddingBottom: ".5em",
+            color: props => !props.selected ? (props.value ? Colors.green : Colors.warningRed) : Colors.textDarkGray
+        },
+        boxSizing: "border-box"
+    },
+    yes: {
+        backgroundColor: props => props.selected ? Colors.calendarGreen : "white",
+    },
+    no: {
+        backgroundColor: props => props.selected ? Colors.calendarRed : "white"
+    },
+    buttonBack: {
+        borderRadius: "10px",
+        boxSizing: "border-box",
+        position: "absolute",
+        width: "100%",
+        height: "100%",
+        zIndex: 0,
+        opacity: props => props.selected ? "1" : ".5",
+        border: props => props.selected ? "none" : `2px solid lightgray`
+    },
+    buttonContent: {
+        borderRadius: "10px"
+    },
+    yesIcon: {
+        color: props => !props.selected ? Colors.green : "white",
+    }
+})
 
 export default ReportMedication;

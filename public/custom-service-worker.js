@@ -42,32 +42,51 @@ self.addEventListener('push', function (event) {
     channel.postMessage({ url: json.data.url });
   }
 
-  const title = json.title;
-  const options = {
-    body: json.body,
+  const isMedicationReminder = (json.data.type === "MedicationReminder")
+
+  const actions = isMedicationReminder ? [
+    {
+      action: 'good',
+      title: '👍 Todo Bien'
+    },
+    {
+      action: 'issue',
+      title: 'Ayuda'
+    }
+  ] : [];
+
+  const title = "Recordatorio de reporte diario"
+
+  let options = {
+    body: "Recuerde tomar su medicación. Seleccione la opción abajo para informarnos cómo le está yendo hoy.",
     icon: json.icon,
     badge: 'images/badge.png',
     url: json.url,
     click_action: json.url,
-    data: json.data,
-    // TODO: Enable actions for quick survey completion on homepage
-    // actions: [
-    //   {
-    //     action: 'good',
-    //     title: 'All Good!'
-    //   },
-    //   {
-    //     action: 'issue',
-    //     title: 'Need help'
-    //   }
-    // ]
+    data: json.data
   };
+
+  if (isMedicationReminder) {
+    options.actions = actions;
+  }
+
   event.waitUntil(self.registration.showNotification(title, options));
 });
 
 
 self.addEventListener('notificationclick', function (event) {
   logNotificationClick(event.notification.data.id);
+
+  let redirectURL = event.notification.data.url;
+
+  if (event.notification.data.type === "MedicationReminder") {
+    console.log(event.action)
+    if (event.action === "good") {
+      redirectURL = "/quick-report?noIssues=true"
+    } else if (event.action === "issue") {
+      redirectURL = "/quick-report?issues=true"
+    }
+  }
 
   const promiseChain = clients.matchAll().then((windowClients) => {
     let matchingClient = null;
@@ -81,17 +100,16 @@ self.addEventListener('notificationclick', function (event) {
       if (isBroadcastChannelSupported()) {
         //Send a message to the client to route to the proper state
         const channel = new BroadcastChannel('notifications');
-        channel.postMessage({action: event.action, url: event.notification.data.url, type: event.notification.type });
+        channel.postMessage({ action: event.action, url: redirectURL, type: event.notification.type });
       }
 
-      //matchingClient.postMessage({msg: 'Hello from SW'})
       event.notification.close();
       return matchingClient.focus();
     } else {
 
       //If the app / a tab of it is not open, then open it to the UI state
       event.notification.close();
-      return clients.openWindow(event.notification.data);
+      return clients.openWindow(redirectURL);
     }
 
   });
@@ -167,9 +185,11 @@ function logNotificationClick(notificationId) {
 
 function callAnalyticsAPI(notificationId, body) {
   const url = `${react_env.URL_API}/v2/push_notification_status/${notificationId}`
-  fetch(url, { method: "PATCH", body: JSON.stringify(body), credentials: "include", headers: {
-    "Content-Type": "application/json"
-} })
+  fetch(url, {
+    method: "PATCH", body: JSON.stringify(body), credentials: "include", headers: {
+      "Content-Type": "application/json"
+    }
+  })
 }
 
 function getCurrentISODateTime() {

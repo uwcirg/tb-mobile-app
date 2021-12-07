@@ -160,7 +160,7 @@ export class PatientStore extends UserStore {
         return this.checkPhotoDay(DateTime.local())
     }
 
-    //Precondiditon - Requires a luxon datetime object
+    //date : DateTime (Luxon Object)
     checkPhotoDay(date) {
         date = date.toISODate();
         return (this.photoSchedule[date] !== undefined)
@@ -278,22 +278,24 @@ export class PatientStore extends UserStore {
         });
     }
 
+    @action setPhotoSkipped = () => {
+        this.report.photoWasSkipped = true
+    }
+
     disableMedicationReminder = () => {
         this.updateNotificationTime(true);
     }
 
-    @action startHistoricalReport = () => {
-        const newDate = DateTime.fromISO(this.uiState.selectedCalendarDate).set({ hour: 12, minute: 0 })
+    @action startHistoricalReport = (date) => {
 
         this.report = {
-            date: newDate.toISODate(),
+            date: DateTime.fromISO(date),
             step: 0,
-            timeTaken: newDate.toISOTime({ suppressSeconds: true }),
             selectedSymptoms: [],
             photoWasTaken: false,
             photoString: "",
             tookMedication: true,
-            headerText: "When did you take your medication?",
+            headerText: "",
             hasSubmitted: false,
             hasSubmittedPhoto: false,
             isHistoricalReport: true
@@ -382,10 +384,6 @@ export class PatientStore extends UserStore {
         this.hasForcedPasswordChange = false;
     }
 
-    @action setReportTime = (value) => {
-        this.report.timeTaken = value;
-    }
-
     @action logoutPatient() {
         this.logout();
         //@TODO Cleanup this method with cookie update
@@ -426,7 +424,6 @@ export class PatientStore extends UserStore {
 
     defaultReport = {
         date: DateTime.local().toISODate(),
-        timeTaken: DateTime.local().startOf('second').startOf("minute").toISOTime({ suppressSeconds: true }),
         selectedSymptoms: [],
         photoWasTaken: false,
         photoString: "",
@@ -455,5 +452,14 @@ export class PatientStore extends UserStore {
         }
         return daysSincePhotoRequest(this.lastPhotoRequestStatus.dateOfRequest) <= 3
     }
+
+    @action setTookMedication = (tookMedication) => {
+        this.report.tookMedication = tookMedication;
+    }
+
+    @action setReportHeader = (text) => {
+        this.report.headerText = text;
+    }
+
 
 }

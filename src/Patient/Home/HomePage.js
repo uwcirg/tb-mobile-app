@@ -1,6 +1,6 @@
 import React from 'react';
 import Progress from './Progress';
-import ActionBox from './ActionBox';
+import ActionBox from './OneStepActions/';
 import Alerts from './Alerts';
 import Colors from '../../Basics/Colors';
 import Greeting from './Greeting';
@@ -11,6 +11,7 @@ import VideoCard from './Videos';
 import RequiresAction from './MissedActions';
 import PushNotificationEnrollment from './PushEnrollmentReminder';
 import { makeStyles } from '@material-ui/core/styles';
+import PhotoRequestCard from './PhotoRequestCard';
 
 const useStyles = makeStyles({
   body:{

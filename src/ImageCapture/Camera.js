@@ -195,6 +195,7 @@ const Container = styled.div`
   .webcam-container{
     position: fixed;
     top: 0;
+    left: 0;
     z-index: 11;
 
   }
@@ -202,14 +203,11 @@ const Container = styled.div`
   .camera-buttons{
       position: fixed;
       bottom: 60px;
+      left: 0;
       z-index: 12;
       width: 100%;
       display: flex;
       justify-content: center;
-
-      button:first-of-type{
-        margin-right: 1em;
-      }
       
   }
 

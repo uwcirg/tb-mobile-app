@@ -1,81 +1,85 @@
 import React from 'react';
 import Instructions from '../../Patient/Information/TestInstructions';
-import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
-import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import { makeStyles } from '@material-ui/core/styles';
-import useToggle from '../../Hooks/useToggle';
-import Grow from '@material-ui/core/Collapse';
 import { useTranslation } from 'react-i18next';
 import WarningBox from '../../Basics/WarningBox';
-import ClickableText from '../../Basics/ClickableText';
+import Typography from '@material-ui/core/Typography'
+import TimeIcon from '@material-ui/icons/WatchLater';
+import HelpIcon from '@material-ui/icons/Help';
+import { ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails } from '@material-ui/core';
+import Right from '@material-ui/icons/KeyboardArrowRight'
+import BlockIcon from '@material-ui/icons/Block';
+import LaterIcon from '@material-ui/icons/Update';
+import useStores from '../../Basics/UseStores';
 
 const useStyles = makeStyles({
-    photoInfo: {
-        "& > h2": {
-            fontSize: "1em",
-            margin: ".5em 0 .5em 0"
-        },
-        "& > ul": {
-            display: "block",
-            margin: "0",
-            padding: 0,
-            marginLeft: "1em",
-            "& > li": {
-                margin: 0,
-                padding: 0,
-                marginTop: "5px",
-                "& > span": {
-                    fontWeight: "bold"
-                },
-                "& > li": {
-                    marginLeft: "1em",
-                }
-            }
-        },
+
+    panel: {
+        boxShadow: "none",
+        // backgroundColor: Colors.highlightYellow,
     },
     info: {
         fontSize: "1em",
         width: "100%",
-        display: "flex",
-        justifyContent: "left",
-        alignItems: "center",
-        margin: ".5em 0 .5em 0",
-        "& > span": {
-            alignItems: "center",
-            display: "flex",
-            textAlign: "left",
-            width: "100%",
-            textTransform: "none"
+        "& span": {
+            lineHeight: "1em"
         }
+
     },
     infoBox: {
-        width: "90%",
-        margin: "auto",
-        marginBottom: ".5em",
-        marginTop: ".5em",
-        paddingBottom: "1em"
+        padding: "0",
+        backgroundColor: "white",
+        border: "none",
+        "& div.MuiButtonBase-root.MuiExpansionPanelSummary-root": {
+            margin: 0,
+        }
     },
+    timeIcon: {
+        marginRight: ".5em"
+    },
+    summary: {
+        padding: "0em"
+    }
 })
 
-const TestStripPhotoInfo = () => {
+const TestStripPhotoInfo = ({ showSkipOptions = true }) => {
     const classes = useStyles();
     const { t } = useTranslation();
-    const [showPopUp, togglePopUp] = useToggle(false);
+    const { patientUIStore, patientStore } = useStores();
 
     return (
         <WarningBox className={classes.infoBox}>
-            <ClickableText onClick={togglePopUp} className={classes.info} hideIcon text={<span>{t('patient.report.photo.help.instructions')}{showPopUp ? <KeyboardArrowUp /> : <KeyboardArrowDown />}</span>} />
-            <Grow in={showPopUp}>
+            <Typography variant="body1"><strong>{t('patient.report.important')}</strong>:</Typography>
+            <ExpansionPanel className={classes.panel} expanded={false} >
+                <ExpansionPanelSummary className={classes.summary}>
+                    <TimeIcon className={classes.timeIcon} />
+                    <Typography className={classes.infoText} variant="body1" color="initial">{t('patient.report.photo.help.wait')}</Typography>
+                </ExpansionPanelSummary>
+            </ExpansionPanel>
+            <ExpansionPanel className={classes.panel}>
+                <ExpansionPanelSummary className={classes.summary} expandIcon={<Right />}>
+                    <HelpIcon className={classes.timeIcon} />
+                    <Typography className={classes.infoText} variant="body1" color="initial">{t('patient.information.testInstructions')}</Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
                     <Instructions />
-            </Grow>
-            <div className={classes.photoInfo}>
-                <h2>{t('patient.report.photo.help.remember')}:</h2>
-                <ul>
-                    <li>{t('patient.report.photo.help.wait')}</li>
-                    <li>{t('patient.report.photo.help.straight')}</li>
-                    <li>{t('patient.report.photo.help.retakeIf')}</li>
-                </ul>
-            </div>
+                </ExpansionPanelDetails>
+            </ExpansionPanel>
+            {showSkipOptions && <>
+                <Typography style={{ padding: ".5em 0" }} variant="body1"><strong>{t('patient.report.photo.other')}</strong>:</Typography>
+                <ExpansionPanel onClick={patientUIStore.goToHome} className={classes.panel} expanded={false} >
+                    <ExpansionPanelSummary className={classes.summary} expandIcon={<Right />}>
+                        <LaterIcon className={classes.timeIcon} />
+                        <Typography className={classes.infoText} variant="body1" color="initial">{t('patient.report.photo.submitLater')}</Typography>
+                    </ExpansionPanelSummary>
+                </ExpansionPanel>
+                <ExpansionPanel onClick={patientStore.setPhotoSkipped} className={classes.panel} expanded={false}>
+                    <ExpansionPanelSummary className={classes.summary} expandIcon={<Right />}>
+                        <BlockIcon className={classes.timeIcon} />
+                        <Typography className={classes.infoText} variant="body1" color="initial">{t('patient.report.photo.unable')}</Typography>
+                    </ExpansionPanelSummary>
+                </ExpansionPanel>
+            </>}
         </WarningBox>
     )
 }
