@@ -9,7 +9,8 @@ import ClickableText from '../../../Basics/ClickableText';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import Review from './ReviewSubmission';
 import useToggle from '../../../Hooks/useToggle';
-
+import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
     container: {
@@ -38,17 +39,20 @@ const PartialConfirmation = ({ isPhoto = false }) => {
 
     const classes = useStyles();
     const [showPreview, toggleShowPreview] = useToggle(false);
+    const { t } = useTranslation('translation');
 
     return (<div>
         <Grid wrap="nowrap" className={classes.container} container alignItems="center">
             <CheckCircleIcon fontSize="large" style={{ color: Colors.green }} />
             <Box width="2em" />
             <Typography className={classes.text} variant="body1">
-                {isPhoto ? "Your photo was successfully submitted and uploaded" : "Your daily report has been recorded successfully"}
+                {isPhoto ? t('patient.reportConfirmation.photoComplete') : t('patient.reportConfirmation.baseComplete')}
             </Typography>
             <ButtonBase onClick={toggleShowPreview} className={classes.editButton}>
-                <KeyboardArrowDown className={classes.editIcon} />
-                <Typography className={classes.editText} variant="body1">View</Typography>
+                {showPreview ? <KeyboardArrowUp className={classes.editIcon} /> : <KeyboardArrowDown className={classes.editIcon} />}
+                <Typography className={classes.editText} variant="body1">
+                    {showPreview ? t('patient.reportConfirmation.hide') : t('patient.reportConfirmation.view')}
+                </Typography>
             </ButtonBase>
         </Grid>
         <Collapse in={showPreview}>

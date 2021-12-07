@@ -396,10 +396,14 @@
             "photoUploadError": "There was a problem uploading your report. Please try again, or contact your treatment assistant"
         },
         "reportConfirmation": {
+            "view": "View",
+            "hide":"Hide",
             "viewOrEdit": "View / Edit Report",
             "goodJob": "Good Job",
             "photoNeeded": "You also need to upload a photo of your test strip today",
-            "doLater": "Do Later Today"
+            "doLater": "Do Later Today",
+            "baseComplete": "Your daily report has been successfully recorded",
+            "photoComplete": "Your test strip has been successfully submitted and uploaded"
         },
         "progress": {
             "noReport": "No report for this day",
