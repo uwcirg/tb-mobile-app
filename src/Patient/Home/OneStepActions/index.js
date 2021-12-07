@@ -3,7 +3,6 @@ import InteractionCard from '../../../Basics/HomePageSection';
 import useStores from '../../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next';
-import PatientReport from '../../../Basics/PatientReport';
 import EditIcon from '@material-ui/icons/Edit';
 import ExpansionPanel from '../../../Basics/ExpansionPanel';
 import ConfirmationLayout from '../../../Components/Patient/ConfirmationLayout';
@@ -18,6 +17,7 @@ import Fade from '@material-ui/core/Fade';
 
 import PhotoRequestArea from './PhotoRequestArea';
 import PartialConfirmation from './PartialConfirmation';
+import Review from './ReviewSubmission';
 
 const ButtonLabel = ({ text, icon }) => {
     const classes = useStyles();
@@ -41,7 +41,7 @@ const OneStepActions = observer(() => {
 
     return (
         <Box style={{ width: "100%" }}>
-            {patientStore.reportStore.baseReportComplete ? <> Base Complete </> :
+            {patientStore.reportStore.baseReportComplete ? <PartialConfirmation /> :
                 <>
                     <Grid alignItems="center" container wrap="nowrap">
                         <Typography variant="body1" className={classes.sectionHeader}>{t('patient.oneStepReporting.supportTitle')}</Typography>
@@ -84,7 +84,7 @@ const ActionBox = observer(() => {
                 {!patientStore.reportStore.allReportComplete ? <div>
                     {(patientStore.isPhotoDay && !patientStore.reportStore.photoReportComplete) && <PhotoRequestArea />}
                     <OneStepActions />
-                    {patientStore.reportStore.photoReportComplete && <PartialConfirmation />}
+                    {patientStore.reportStore.photoReportComplete && <PartialConfirmation isPhoto />}
                 </div>
                     :
                     <Fade timeout={2000} in={patientStore.reportStore.allReportComplete} >
@@ -114,22 +114,5 @@ const Confirmation = () => {
         </div>
     )
 }
-
-const Review = observer(() => {
-
-    const { patientStore } = useStores();
-
-    return (
-        <PatientReport
-            medicationNotTakenReason={patientStore.report.whyMedicationNotTaken}
-            medicationWasTaken={patientStore.report.tookMedication}
-            timeTaken={patientStore.report.timeTaken}
-            selectedSymptoms={patientStore.report.selectedSymptoms}
-            photoString={patientStore.report.photoString}
-            isPhotoDay={patientStore.isPhotoDay}
-            feelingWell={patientStore.report.doingOkay}
-        />
-    )
-})
 
 export default ActionBox;
