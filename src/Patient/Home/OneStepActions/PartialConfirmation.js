@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import Colors from '../../../Basics/Colors';
 import { Box, ButtonBase, Collapse, Grow, Typography } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
-import ClickableText from '../../../Basics/ClickableText';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import Review from './ReviewSubmission';
 import useToggle from '../../../Hooks/useToggle';
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import { useTranslation } from 'react-i18next';
+import useStores from '../../../Basics/UseStores';
 
 const useStyles = makeStyles({
     container: {
@@ -40,6 +40,26 @@ const PartialConfirmation = ({ isPhoto = false }) => {
     const classes = useStyles();
     const [showPreview, toggleShowPreview] = useToggle(false);
     const { t } = useTranslation('translation');
+    const { patientStore, patientUIStore } = useStores();
+
+    const handlePhotoClick = () => {
+        if (patientStore.isPhotoDay) {
+            if (!patientStore.report.hasSubmitted) {
+                patientUIStore.skippedToPhotoFlow = true;
+            }
+            patientUIStore.openPhotoReport();
+        }
+    }
+
+    const handleClick = () => {
+        if (isPhoto) {
+            handlePhotoClick();
+        } else {
+            toggleShowPreview();
+        }
+    }
+
+
 
     return (<div>
         <Grid wrap="nowrap" className={classes.container} container alignItems="center">
@@ -48,11 +68,8 @@ const PartialConfirmation = ({ isPhoto = false }) => {
             <Typography className={classes.text} variant="body1">
                 {isPhoto ? t('patient.reportConfirmation.photoComplete') : t('patient.reportConfirmation.baseComplete')}
             </Typography>
-            <ButtonBase onClick={toggleShowPreview} className={classes.editButton}>
-                {showPreview ? <KeyboardArrowUp className={classes.editIcon} /> : <KeyboardArrowDown className={classes.editIcon} />}
-                <Typography className={classes.editText} variant="body1">
-                    {showPreview ? t('patient.reportConfirmation.hide') : t('patient.reportConfirmation.view')}
-                </Typography>
+            <ButtonBase onClick={handleClick} className={classes.editButton}>
+                {isPhoto ? <PhotoButtonContent /> : <ReportButtonContent showPreview={showPreview} toggleShowPreview={toggleShowPreview} />}
             </ButtonBase>
         </Grid>
         <Collapse in={showPreview}>
@@ -60,6 +77,33 @@ const PartialConfirmation = ({ isPhoto = false }) => {
         </Collapse>
     </div>)
 
+}
+
+const PhotoButtonContent = () => {
+    const classes = useStyles();
+    const { t } = useTranslation();
+
+    return (
+        <>
+            <EditIcon />
+            <Typography className={classes.editText} variant="body1">{t('commonWords.edit')}</Typography>
+        </>
+    )
+}
+
+const ReportButtonContent = ({ showPreview }) => {
+
+    const classes = useStyles();
+    const { t } = useTranslation();
+
+    return (
+        <>
+            {showPreview ? <KeyboardArrowUp className={classes.editIcon} /> : <KeyboardArrowDown className={classes.editIcon} />}
+            <Typography className={classes.editText} variant="body1">
+                {showPreview ? t('patient.reportConfirmation.hide') : t('patient.reportConfirmation.view')}
+            </Typography>
+        </>
+    )
 }
 
 export default PartialConfirmation;
