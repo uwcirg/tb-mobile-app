@@ -12,7 +12,6 @@ import Colors from '../../Basics/Colors';
 import Check from '@material-ui/icons/CheckRounded';
 import Clear from '@material-ui/icons/ClearRounded';
 
-
 const useStyles = makeStyles({
 
     textArea: {
@@ -53,9 +52,9 @@ const ReportMedication = observer((props) => {
     const classes = useStyles({ wide: uiStore.locale === "en" });
 
     const tookMedication = patientStore.report.tookMedication;
-    const nextEnabled = tookMedication || patientStore.report.whyMedicationNotTaken.length > 0
+    const nextEnabled = tookMedication || (patientStore.report.whyMedicationNotTaken && patientStore.report.whyMedicationNotTaken.length > 0)
 
-    patientStore.reportStore.setReportHeader(t("patient.report.didYouTake"));
+    // patientStore.reportStore.setReportHeader(t("patient.report.didYouTake"));
 
     // useEffect(() => {
     //     patientStore.reportStore.setReportHeader(t("patient.report.didYouTake"));
@@ -66,7 +65,7 @@ const ReportMedication = observer((props) => {
         props.advance()
     }
 
-    const handleClick = (value) => { patientStore.reportStore.setTookMedication(value) }
+    const handleClick = (value) => { patientStore.setTookMedication(value) }
 
     return (
         <div>

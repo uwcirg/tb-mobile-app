@@ -455,4 +455,8 @@ export class PatientStore extends UserStore {
         return daysSincePhotoRequest(this.lastPhotoRequestStatus.dateOfRequest) <= 3
     }
 
+    @action setTookMedication = (tookMedication) => {
+        this.report.tookMedication = tookMedication;
+    }
+
 }

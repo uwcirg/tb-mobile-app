@@ -142,10 +142,6 @@ export default class ReportStore {
         this.rootStore.getReports();
     }
 
-    @action setTookMedication = (tookMedication) => {
-        this.rootStore.report.tookMedication = tookMedication;
-    }
-
     @action setReportHeader = (text) => {
         this.rootStore.report.headerText = text;
     }
