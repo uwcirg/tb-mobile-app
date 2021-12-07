@@ -91,7 +91,7 @@ const Body = observer((props) => {
     if (patientStore.uiState.selectedCalendarDate === DateTime.local().toISODate()) {
       patientUIStore.moveToReportFlow();
     } else {
-      patientStore.startHistoricalReport(patientStore.uiState.selectedCalendarDate)
+      patientStore.startHistoricalReport(patientStore.uiState.selectedCalendarDate);
       patientUIStore.startHistoricalReport();
     }
   }
