@@ -44,35 +44,40 @@ self.addEventListener('push', function (event) {
 
   const isMedicationReminder = (json.data.type === "MedicationReminder")
 
-  const actions = isMedicationReminder ? [
-    {
-      action: 'good',
-      title: '👍 Todo Bien'
-    },
-    {
-      action: 'issue',
-      title: 'Ayuda'
-    }
-  ] : [];
-
-  const title = "Recordatorio de reporte diario"
+  // const actions = isMedicationReminder ? [
+  //   {
+  //     action: 'good',
+  //     title: '👍 Todo Bien'
+  //   },
+  //   {
+  //     action: 'issue',
+  //     title: 'Ayuda'
+  //   }
+  // ] : [];
 
   let options = {
-    body: "Recuerde tomar su medicación. Seleccione la opción abajo para informarnos cómo le está yendo hoy.",
+    // title: json.title,
+    body: json.body,
     icon: 'logo.png',
-    badge: 'images/badge.png',
+    badge: 'push-badge.png',
     url: json.url,
     click_action: json.url,
-    data: json.data
+    data: json.data,
+    actions: json.actions
+    // body: "Recuerde tomar su medicación. Seleccione la opción abajo para informarnos cómo le está yendo hoy.",
+    // icon: 'logo.png',
+    // badge: 'images/badge.png',
+    // url: json.url,
+    // click_action: json.url,
+    // data: json.data
   };
 
-  if (isMedicationReminder) {
-    options.actions = actions;
-  }
+  // if (isMedicationReminder) {
+  //   options.actions = actions;
+  // }
 
-  event.waitUntil(self.registration.showNotification(title, options));
+  event.waitUntil(self.registration.showNotification(json.title, options));
 });
-
 
 self.addEventListener('notificationclick', function (event) {
   logNotificationClick(event.notification.data.id);
@@ -108,7 +113,7 @@ self.addEventListener('notificationclick', function (event) {
 
       //If the app / a tab of it is not open, then open it to the UI state
       event.notification.close();
-      return clients.openWindow(redirectURL);
+      return clients.openWindow(redirectURL).then(function (client) { client.focus(); });
     }
 
   });
@@ -148,7 +153,6 @@ self.addEventListener('message', (event) => {
   }
 });
 
-
 function isBroadcastChannelSupported() {
   if (!("BroadcastChannel" in self)) {
     return false;
@@ -162,7 +166,6 @@ function isBroadcastChannelSupported() {
     return false;
   }
 }
-
 
 function invokeServiceWorkerUpdateFlow(registration) {
   notification.show("New version of the app is available. Refresh now?");

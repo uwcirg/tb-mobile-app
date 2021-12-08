@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 
 const MedicationFlow = observer(() => {
     const classes = useStyles();
-    const { patientStore, patientUIStore } = useStores();
+    const { patientStore, patientUIStore, routingStore } = useStores();
     const { t } = useTranslation('translation');
 
     let Tabs;
@@ -60,11 +60,7 @@ const MedicationFlow = observer(() => {
     }
 
     const handleBack = () => {
-        if (patientUIStore.reportStep > Tabs.length - 1) {
-            patientUIStore.updateStep(Tabs.length - 2)
-            return
-        }
-        patientUIStore.previousReportStep();
+        routingStore.goBack();
     }
 
     const tabNumber = (patientStore.uiState.onPhotoFlow ? 3 : step + 1);

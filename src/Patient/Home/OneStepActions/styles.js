@@ -29,7 +29,7 @@ const useStyles = makeStyles({
     card: {
         padding: 0
     },
-    sectionHeader: { lineHeight: "1.1em", fontSize: "1.2em", margin: "0", display: "block", width: "90%" },
+    sectionHeader: { lineHeight: "1.1em", fontSize: "1.1em", fontWeight: "light", margin: "0", display: "block", width: "100%" },
     buttonLabel: { 
         width: "unset", 
         padding: "2px .5em",
