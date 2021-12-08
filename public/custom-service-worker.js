@@ -59,7 +59,7 @@ self.addEventListener('push', function (event) {
 
   let options = {
     body: "Recuerde tomar su medicación. Seleccione la opción abajo para informarnos cómo le está yendo hoy.",
-    icon: json.icon,
+    icon: 'logo.png',
     badge: 'images/badge.png',
     url: json.url,
     click_action: json.url,
