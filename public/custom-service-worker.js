@@ -42,44 +42,24 @@ self.addEventListener('push', function (event) {
     channel.postMessage({ url: json.data.url });
   }
 
-  const isMedicationReminder = (json.data.type === "MedicationReminder")
-
-  // const actions = isMedicationReminder ? [
-  //   {
-  //     action: 'good',
-  //     title: '👍 Todo Bien'
-  //   },
-  //   {
-  //     action: 'issue',
-  //     title: 'Ayuda'
-  //   }
-  // ] : [];
-
   let options = {
-    // title: json.title,
     body: json.body,
     icon: 'logo.png',
     badge: 'push-badge.png',
     url: json.url,
     click_action: json.url,
-    data: json.data,
-    actions: json.actions
-    // body: "Recuerde tomar su medicación. Seleccione la opción abajo para informarnos cómo le está yendo hoy.",
-    // icon: 'logo.png',
-    // badge: 'images/badge.png',
-    // url: json.url,
-    // click_action: json.url,
-    // data: json.data
+    data: json.data
   };
 
-  // if (isMedicationReminder) {
-  //   options.actions = actions;
-  // }
+  if(json.actions){
+      options.actions = json.actions
+  }
 
   event.waitUntil(self.registration.showNotification(json.title, options));
 });
 
 self.addEventListener('notificationclick', function (event) {
+  console.log("Link Click")
   logNotificationClick(event.notification.data.id);
 
   let redirectURL = event.notification.data.url;
@@ -113,6 +93,7 @@ self.addEventListener('notificationclick', function (event) {
 
       //If the app / a tab of it is not open, then open it to the UI state
       event.notification.close();
+      console.log("Open Window")
       return clients.openWindow(redirectURL).then(function (client) { client.focus(); });
     }
 
