@@ -1,4 +1,4 @@
-import { observable, action, computed, autorun } from 'mobx';
+import { observable, action, computed } from 'mobx';
 import onboardingTabs from '../Patient/Onboarding/StepList';
 
 //Extends this file https://github.com/alisd23/mobx-react-router/blob/master/src/store.js
@@ -7,7 +7,6 @@ export default class PatientUIStore {
 
     constructor(routerStore) {
         this.router = routerStore;
-
     }
 
     @observable onWalkthrough = false;
@@ -225,4 +224,5 @@ export default class PatientUIStore {
     @action goToContactTracingUpdate = () => {
         this.router.push("/contact-tracing")
     }
+
 }

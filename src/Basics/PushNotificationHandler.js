@@ -22,8 +22,6 @@ const PushHandler = (props) => {
         }
     }, [])
 
-
-
     return (<>{props.children}</>) 
 
 }

@@ -1,17 +1,6 @@
 import React, { useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react';
-import { CircularProgress, Typography } from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import IconButton from '@material-ui/core/IconButton'
-import Home from '@material-ui/icons/Home'
-import useToggle from '../../Hooks/useToggle';
-import ReportSymptoms from './ReportSymptoms';
-
-const useStyles = makeStyles({
-
-})
 
 const PushActionReportingFlow = observer(() => {
 
@@ -23,14 +12,13 @@ const PushActionReportingFlow = observer(() => {
 
     useEffect(() => {
         if (noIssues) {
-            patientStore.reportStore.happyPathForToday();
+            patientStore.reportStore.oneStepReport();
             uiStore.push("/")
+        } else if (hadIssues) {
+            patientUIStore.moveToReportFlow();
         }
     }, [search])
 
-    if (hadIssues) {
-        patientUIStore.moveToReportFlow();
-    }
 })
 
 

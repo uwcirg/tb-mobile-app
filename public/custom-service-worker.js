@@ -42,37 +42,21 @@ self.addEventListener('push', function (event) {
     channel.postMessage({ url: json.data.url });
   }
 
-  const isMedicationReminder = (json.data.type === "MedicationReminder")
-
-  const actions = isMedicationReminder ? [
-    {
-      action: 'good',
-      title: '👍 Todo Bien'
-    },
-    {
-      action: 'issue',
-      title: 'Ayuda'
-    }
-  ] : [];
-
-  const title = "Recordatorio de reporte diario"
-
   let options = {
-    body: "Recuerde tomar su medicación. Seleccione la opción abajo para informarnos cómo le está yendo hoy.",
-    icon: json.icon,
-    badge: 'images/badge.png',
+    body: json.body,
+    icon: 'logo.png',
+    badge: 'push-badge.png',
     url: json.url,
     click_action: json.url,
     data: json.data
   };
 
-  if (isMedicationReminder) {
-    options.actions = actions;
+  if(json.actions){
+      options.actions = json.actions
   }
 
-  event.waitUntil(self.registration.showNotification(title, options));
+  event.waitUntil(self.registration.showNotification(json.title, options));
 });
-
 
 self.addEventListener('notificationclick', function (event) {
   logNotificationClick(event.notification.data.id);
@@ -80,7 +64,6 @@ self.addEventListener('notificationclick', function (event) {
   let redirectURL = event.notification.data.url;
 
   if (event.notification.data.type === "MedicationReminder") {
-    console.log(event.action)
     if (event.action === "good") {
       redirectURL = "/quick-report?noIssues=true"
     } else if (event.action === "issue") {
@@ -109,7 +92,7 @@ self.addEventListener('notificationclick', function (event) {
 
       //If the app / a tab of it is not open, then open it to the UI state
       event.notification.close();
-      return clients.openWindow(redirectURL);
+      return clients.openWindow(redirectURL).then(function (client) { client.focus(); });
     }
 
   });
@@ -149,7 +132,6 @@ self.addEventListener('message', (event) => {
   }
 });
 
-
 function isBroadcastChannelSupported() {
   if (!("BroadcastChannel" in self)) {
     return false;
@@ -163,7 +145,6 @@ function isBroadcastChannelSupported() {
     return false;
   }
 }
-
 
 function invokeServiceWorkerUpdateFlow(registration) {
   notification.show("New version of the app is available. Refresh now?");
