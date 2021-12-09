@@ -59,7 +59,6 @@ self.addEventListener('push', function (event) {
 });
 
 self.addEventListener('notificationclick', function (event) {
-  console.log("Link Click")
   logNotificationClick(event.notification.data.id);
 
   let redirectURL = event.notification.data.url;
@@ -93,7 +92,6 @@ self.addEventListener('notificationclick', function (event) {
 
       //If the app / a tab of it is not open, then open it to the UI state
       event.notification.close();
-      console.log("Open Window")
       return clients.openWindow(redirectURL).then(function (client) { client.focus(); });
     }
 
