@@ -120,7 +120,7 @@
         "oneStepReporting":{
             "photoRequestTitle": "Por favor manda una foto de tu tira reactiva para confirmar tu progresso.",
             "photoRequestButton": "Subir foto de la tira reactiva",
-            "supportTitle": "Is everything going okay with your treatment today?",
+            "supportTitle": "¿Cómo estás hoy, va todo bien?",
             "goodOption": "Tomé mis medicamentos y me siento bien",
             "helpOption": "Reportar asuntos y pedir ayuda"
         },
@@ -329,6 +329,7 @@
             }
         },
         "report": {
+            "topTitle": "Reporte de Hoy",
             "important": "Importante",
             "dayLate": "día tarde",
             "dayLate_plural": "días tarde",
@@ -402,8 +403,8 @@
             "goodJob": "Bien Hecho",
             "photoNeeded": "Hoy también tiene que subir una foto de la tira reactiva.",
             "doLater": "Lo Haré Más Tarde",
-            "baseComplete": "Your daily report has been successfully submitted",
-            "photoComplete": "Your test strip has been successfully submitted"
+            "baseComplete": "Tu reporte diario ha sido mandado exitosamente",
+            "photoComplete": "Tu foto ha sido mandado exitosamente"
         },
         "progress": {
             "noReport": "No hay reporte para este día",

@@ -329,6 +329,7 @@
             }
         },
         "report": {
+            "topTitle": "Todays Report",
             "important": "Important",
             "dayLate": "day late",
             "dayLate_plural": "days late",
