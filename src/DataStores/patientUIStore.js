@@ -225,4 +225,8 @@ export default class PatientUIStore {
         this.router.push("/contact-tracing")
     }
 
+    @action setSkippedToPhoto = (value) => {
+        this.skippedToPhotoFlow = !!value;
+    }
+
 }

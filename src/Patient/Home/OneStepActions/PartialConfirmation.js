@@ -45,7 +45,7 @@ const PartialConfirmation = ({ isPhoto = false }) => {
     const handlePhotoClick = () => {
         if (patientStore.isPhotoDay) {
             if (!patientStore.report.hasSubmitted) {
-                patientUIStore.skippedToPhotoFlow = true;
+                patientUIStore.setSkippedToPhoto(true);
             }
             patientUIStore.openPhotoReport();
         }

@@ -73,7 +73,7 @@ const MedicationFlow = observer(() => {
     return (
         <div className={classes.container}>
             <NumberedTitle number={tabNumber} title={patientStore.report.headerText} />
-            <OverTopBar title={patientUIStore.onHistoricalReport ? `${t("report.for")} ${topDateString}` : t("patient.report.title")} handleBack={handleBack} />
+            <OverTopBar title={patientUIStore.skippedToPhotoFlow ? "Skipped to Photo " : "Didnt "} handleBack={handleBack} />
             {React.cloneElement(Tabs[step], { advance: advance })}
         </div>)
 });

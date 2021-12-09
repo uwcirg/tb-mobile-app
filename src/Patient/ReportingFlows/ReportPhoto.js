@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import SimpleButton from '../../Basics/SimpleButton';
 import Camera from '../../ImageCapture/Camera';
@@ -7,13 +7,10 @@ import useStores from '../../Basics/UseStores';
 import ClickableText from '../../Basics/ClickableText';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
 import TextField from '@material-ui/core/TextField'
-import TimeIcon from '@material-ui/icons/Update';
 import TestStripPhotoInfo from '../../Components/Patient/TestStripPhotoInfo';
 import PhotoPrompt from '../../Components/Patient/PhotoPrompt';
-import ActionButton from '../Home/OneStepActions/ActionButton';
 import { Box } from '@material-ui/core';
 
 const ReportPhoto = observer((props) => {
@@ -47,7 +44,6 @@ const ReportPhoto = observer((props) => {
         } else {
             patientStore.saveReportingState();
             patientUIStore.goToHome();
-            patientUIStore.skippedToPhotoFlow = false;
         }
     }
 
@@ -57,6 +53,12 @@ const ReportPhoto = observer((props) => {
         }
         return !patientStore.report.photoWasTaken;
     }
+
+    useEffect(()=>{
+        return function cleanup(){
+            patientUIStore.setSkippedToPhoto(false);
+        }
+    },[])
 
     return (
         <div className={classes.container}>
