@@ -62,7 +62,8 @@ export class PatientStore extends UserStore {
 
     @observable oneStepStatus = {
         error: false,
-        loading: false
+        loading: false,
+        loadingComplete: false
     }
 
     @observable treatmentFlowLength = 0;
@@ -473,6 +474,7 @@ export class PatientStore extends UserStore {
                 this.oneStepStatus.loading = false;
                 if (response && !response.error) {
                     this.report.hasSubmitted = true;
+                    this.oneStepStatus.loadingComplete = true;
                     this.submissionError = false;
                     this.saveReportingState();
                     this.getReports();
