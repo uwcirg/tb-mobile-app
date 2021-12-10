@@ -21,6 +21,7 @@ const Profile = observer((props) => {
     const classes = useStyles();
     const { t } = useTranslation('translation');
 
+
     const closeResetPassword = () => {
         patientProfileStore.closeResetPassword();
         practitionerStore.newActivationCode = ""
