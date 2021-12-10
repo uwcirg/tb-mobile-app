@@ -37,6 +37,10 @@ const OneStepActions = observer(() => {
         patientStore.refreshReportDate();
     }
 
+    const handleOneStepClick = () => {
+        patientStore.submitOneStepReport();
+    }
+
     const { t } = useTranslation('translation');
 
     return (
@@ -48,7 +52,7 @@ const OneStepActions = observer(() => {
                     </Grid>
                     <Box height="1em" />
                     <Grid direction="column" container className={classes.yesNoButtons}>
-                        <ActionButton onClick={patientStore.reportStore.oneStepReport}
+                        <ActionButton onClick={handleOneStepClick}
                             text={t('patient.oneStepReporting.goodOption')}
                             icon={<ButtonLabel icon={<ThumbUp />} text={t('commonWords.yes')} />} backgroundColor={Colors.calendarGreen} />
                         <Box height=".5em" />
