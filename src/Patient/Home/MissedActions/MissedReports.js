@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import NewButton from '../../../Basics/NewButton';
-import Clipboard from '@material-ui/icons/Assignment'
 import useStores from '../../../Basics/UseStores';
 import Colors from '../../../Basics/Colors';
 import { observer } from 'mobx-react';
@@ -14,10 +12,9 @@ import MissedActionCard from './MissedActionCard';
 import useToggle from '../../../Hooks/useToggle';
 import ButtonLayout from './ButtonLayout';
 import Grid from '@material-ui/core/Grid';
-import { CheckBox, ThumbUp, Announcement } from '@material-ui/icons';
+import { ThumbUp, Announcement } from '@material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
 import CircularProgress from '@material-ui/core/CircularProgress'
-import Fade from '@material-ui/core/Fade';
 
 const useStyles = makeStyles({
     grow: {
@@ -27,7 +24,7 @@ const useStyles = makeStyles({
         }
     },
     criteria: {
-        padding: "1em",
+        padding: "1em 0",
         boxSizing: "border-box",
         "& > button": {
             width: "100%"
@@ -35,13 +32,23 @@ const useStyles = makeStyles({
     },
     oneStep: {
         width: "100%",
-        padding: ".5em 1em"
+        padding: ".5em 0",
+        "&:last-of-type": {
+            borderBottom: `solid 1px ${Colors.lightgray}`
+        }
     },
     reportOption: {
         color: "black",
         borderRadius: "5px",
         backgroundColor: props => props.yes ? Colors.calendarGreen : Colors.highlightYellow
-    }
+    },
+    header: {
+        borderBottom: `1px solid ${Colors.lightgray}`
+    },
+    content: {
+        padding: "0 1em"
+    },
+    label: { width: "50px", alignItems: "center", justifyContent: "center", display: "flex", textTransform: "capitalize" }
 })
 
 const MissedReports = observer(() => {
@@ -61,11 +68,23 @@ const MissedReports = observer(() => {
                 onClick={toggleShowDetails}
             />
             <Grow in={showDetails} className={classes.grow}>
-                <MissedReportInfo className={classes.criteria} hideReport />
-                {patientStore.missingReports.map(date => {
-                    return <OneStepBackReport date={date} />
-                    // return <NewButton key={`back-report-${date}`} onClick={() => { handleReportClick(date) }} icon={<Clipboard />} text={DateTime.fromISO(date).toLocaleString(DateTime.DATE_MED)} />
-                })}
+                <div className={classes.content}>
+                    <Grid alignItems="center" className={`${classes.oneStep} ${classes.header}`} container>
+                        <Typography>{t('coordinator.patientProfile.date')}</Typography>
+                        <Box flexGrow="1" />
+                        <div className={classes.label}>
+                            <Typography>{t('commonWords.yes')}</Typography>
+                        </div>
+                        <Box width=".5em" />
+                        <div className={classes.label}>
+                            <Typography>{t('commonWords.no')}</Typography>
+                        </div>
+                    </Grid>
+                    {patientStore.missingReports.map((date, index) => {
+                        return <OneStepBackReport date={date} />
+                    })}
+                    <MissedReportInfo className={classes.criteria} hideReport />
+                </div>
             </Grow>
         </MissedActionCard>
     )
@@ -119,7 +138,7 @@ const OneStepBackReport = observer(({ date }) => {
                         <ThumbUp />
                     </OptionButton>
                     <Box width=".5em" />
-                    <OptionButton  onClick={handleIssue}>
+                    <OptionButton onClick={handleIssue}>
                         <Announcement />
                     </OptionButton>
                 </> : <>
