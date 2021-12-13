@@ -89,7 +89,7 @@ const ActionBox = observer(() => {
     }, [isVisible])
 
     return (
-        <InteractionCard className={classes.card} upperText={<><CheckBox />{t('patient.home.cardTitles.todaysTasks')}</>}>
+        <InteractionCard id="intro-tasks" className={classes.card} upperText={<><CheckBox />{t('patient.home.cardTitles.todaysTasks')}</>}>
             <Box width="100%" padding="1em" style={{ boxSizing: "border-box" }}>
                 {!patientStore.reportStore.allReportComplete ? <div>
                     {(patientStore.isPhotoDay && !patientStore.reportStore.photoReportComplete) && <PhotoRequestArea />}

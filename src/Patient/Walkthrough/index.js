@@ -1,27 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import styled from 'styled-components';
-import ReactJoyride, { ACTIONS, EVENTS, STATUS } from 'react-joyride';
+import ReactJoyride from 'react-joyride';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react';
-import SwipeableViews from 'react-swipeable-views';
-import Pagination from './Pagination';
 import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
 import ClearIcon from '@material-ui/icons/Clear';
-import Back from '@material-ui/icons/ChevronLeft'
-import Next from '@material-ui/icons/ChevronRight'
-import Welcome from './Welcome'
 import { useTranslation } from 'react-i18next';
-import Steps, { a } from './Steps'
-import TreatmentSteps from './TreatmentSteps'
+import Steps from './Steps'
 import TestReport from './ExampleReport'
 import { DateTime } from 'luxon'
 import Colors from '../../Basics/Colors'
-
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import ExitToApp from '@material-ui/icons/ExitToApp'
 import { useMatomo } from '@datapunt/matomo-tracker-react'
 
 const Wrapper = observer((props) => {
@@ -66,14 +57,12 @@ const Intro = observer((props) => {
 
 
   useEffect(()=>{
-    console.log(`Walkthrough Step ${patientUIStore.walkthroughStep}`)
     trackPageView({documentTitle: `Walkthrough Step ${patientUIStore.walkthroughStep}`})
   },[patientUIStore.walkthroughStep])
 
 
   return (
     <div className={classes.container}>
-      {/*<SwipeContainer stepsList={props.stepsList} exit={exit} index={patientUIStore.walkthroughStep} changeIndex={changeStep} /> */}
       <ReactJoyride
         disableOverlayClose
         disableScrolling
