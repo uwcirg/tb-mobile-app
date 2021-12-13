@@ -36,6 +36,11 @@ const useStyles = makeStyles({
     oneStep: {
         width: "100%",
         padding: ".5em 1em"
+    },
+    reportOption: {
+        color: "black",
+        borderRadius: "5px",
+        backgroundColor: props => props.yes ? Colors.calendarGreen : Colors.highlightYellow
     }
 })
 
@@ -110,12 +115,13 @@ const OneStepBackReport = observer(({ date }) => {
                 <Typography>{displaySuccess ? t('commonWords.successMessage') : DateTime.fromISO(date).toLocaleString(DateTime.DATE_MED)}</Typography>
                 <Box flexGrow="1" />
                 {(!loading && !displaySuccess) ? <>
-                    <IconButton onClick={handleOneStep}>
+                    <OptionButton yes onClick={handleOneStep}>
                         <ThumbUp />
-                    </IconButton>
-                    <IconButton onClick={handleIssue}>
+                    </OptionButton>
+                    <Box width=".5em" />
+                    <OptionButton  onClick={handleIssue}>
                         <Announcement />
-                    </IconButton>
+                    </OptionButton>
                 </> : <>
                     {!displaySuccess && <CircularProgress variant="indeterminate" />}
                 </>}
@@ -123,5 +129,10 @@ const OneStepBackReport = observer(({ date }) => {
         </Grow>
     )
 });
+
+const OptionButton = (props) => {
+    const classes = useStyles({ yes: props.yes })
+    return <IconButton {...props} className={classes.reportOption} />
+}
 
 export default MissedReports;
