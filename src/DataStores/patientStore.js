@@ -488,6 +488,10 @@ export class PatientStore extends UserStore {
     submitOneStepBackReport = (date) => {
         return this.executeRequest('oneStepReport', { date: date })
     }
+    
+    @action updateReports = (report) => {
+        this.savedReports[`${report.date}`] = report;
+    }
 
 
 }
