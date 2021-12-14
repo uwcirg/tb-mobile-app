@@ -467,8 +467,18 @@ export class PatientStore extends UserStore {
     }
 
     @action submitOneStepReport = (date = DateTime.local().toISODate()) => {
+
+        if(this.reportStore.checkOffline()){
+            this.report.tookMedication = true;
+            this.report.hasSubmitted = true;
+            this.saveReportingState();
+            this.reportStore.checkIfOfflineAndSaveReportLocally();
+            this.oneStepStatus.loadingComplete = true;
+            return 
+        }
+
         this.oneStepStatus.loading = true;
-       this.executeRequest('oneStepReport', { date: date }).then(
+        this.executeRequest('oneStepReport', { date: date }).then(
             response => {
                 this.oneStepStatus.loading = false;
                 if (response && !response.error) {
@@ -488,7 +498,7 @@ export class PatientStore extends UserStore {
     submitOneStepBackReport = (date) => {
         return this.executeRequest('oneStepReport', { date: date })
     }
-    
+
     @action updateReports = (report) => {
         this.savedReports[`${report.date}`] = report;
     }
