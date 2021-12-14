@@ -11,7 +11,8 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
 import TextField from '@material-ui/core/TextField'
 import TestStripPhotoInfo from '../../Components/Patient/TestStripPhotoInfo';
 import PhotoPrompt from '../../Components/Patient/PhotoPrompt';
-import { Box } from '@material-ui/core';
+import { Box, Button } from '@material-ui/core';
+import RefreshIcon from '@material-ui/icons/Refresh';
 
 const ReportPhoto = observer((props) => {
 
@@ -66,7 +67,7 @@ const ReportPhoto = observer((props) => {
                 {patientStore.report.photoWasTaken ?
                     <>
                         <div className={classes.strip}><img src={patientStore.report.photoString} /> </div>
-                        <ClickableText className={`${classes.info} ${classes.leftMargin}`} hideIcon onClick={handleRetake} text={t("patient.report.photo.retakePhoto")} />
+                        <Button onClick={handleRetake} className={classes.refresh}><RefreshIcon /><Box width=".5em" />{t("patient.report.photo.retakePhoto")}</Button>
                     </>
                     :
                     <>
@@ -170,6 +171,12 @@ const useStyles = makeStyles({
     },
     optionButton: {
         padding: ".5em"
+    },
+    refresh:{
+        color: Colors.buttonBlue,
+        textTransform: "capitalize",
+        fontSize: "1em",
+        fontWeight: "normal"
     }
 
 })
