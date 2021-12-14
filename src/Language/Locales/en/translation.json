@@ -329,6 +329,8 @@
             }
         },
         "report": {
+            "allGood": "Everything Okay",
+            "trackIssues": "Track Issues",
             "topTitle": "Todays Report",
             "important": "Important",
             "dayLate": "day late",

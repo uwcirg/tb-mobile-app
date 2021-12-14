@@ -15,7 +15,6 @@ import Grid from '@material-ui/core/Grid';
 import { ThumbUp, Announcement, CheckCircle } from '@material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
 import CircularProgress from '@material-ui/core/CircularProgress'
-import Check from '@material-ui/icons/Check';
 
 const useStyles = makeStyles({
     grow: {
@@ -49,7 +48,14 @@ const useStyles = makeStyles({
     content: {
         padding: "0 1em"
     },
-    label: { width: "50px", alignItems: "center", justifyContent: "center", display: "flex", textTransform: "capitalize" }
+    label: {
+        width: "50px",
+        alignItems: "center",
+        justifyContent: "center",
+        display: "flex",
+        textTransform: "capitalize",
+        "& > p": { fontSize: ".75em", textAlign: "center", lineHeight: "1em" }
+    }
 })
 
 const MissedReports = observer(() => {
@@ -74,11 +80,11 @@ const MissedReports = observer(() => {
                         <Typography>{t('coordinator.patientProfile.date')}</Typography>
                         <Box flexGrow="1" />
                         <div className={classes.label}>
-                            <Typography style={{fontSize: ".75em", textAlign: "center", lineHeight: "1em"}}>Todo Bien</Typography>
+                            <Typography>{t('patient.report.allGood')}</Typography>
                         </div>
                         <Box width=".5em" />
                         <div className={classes.label}>
-                            <Typography style={{fontSize: ".75em", textAlign: "center", lineHeight: "1em"}}>Reportar asuntos </Typography>
+                            <Typography >{t('patient.report.trackIssues')}</Typography>
                         </div>
                     </Grid>
                     {patientStore.missingReports.map((date, index) => {
@@ -120,9 +126,9 @@ const OneStepBackReport = observer(({ date }) => {
         setLoading(false);
         if (!response.error) {
             setDisplaySuccess(true);
-            setTimeout(()=>{
+            setTimeout(() => {
                 patientStore.updateReports(response);
-            },3000)
+            }, 3000)
         }
     }
 
@@ -135,7 +141,7 @@ const OneStepBackReport = observer(({ date }) => {
     return (
         <Grow timeout={1500} in={!success}>
             <Grid alignItems="center" className={classes.oneStep} container>
-                <Typography>{displaySuccess ? <SuccessMessage /> : DateTime.fromISO(date).toLocaleString(DateTime.DATE_MED)}</Typography>
+                {displaySuccess ? <SuccessMessage /> : <Typography>{DateTime.fromISO(date).toLocaleString(DateTime.DATE_MED)}</Typography>}
                 <Box flexGrow="1" />
                 {(!loading && !displaySuccess) ? <>
                     <OptionButton yes onClick={handleOneStep}>
@@ -155,12 +161,17 @@ const OneStepBackReport = observer(({ date }) => {
 
 const SuccessMessage = () => {
     const { t } = useTranslation('translation');
-    return <Grid container alignItems="center" ><CheckCircle color={Colors.approvedGreen} />{t('commonWords.successMessage')}</Grid>
+    return (<Grid container alignItems="center" ><CheckCircle style={{ color: Colors.green }} />
+        <Box width=".5em" />
+        <Typography variant="body1">{t('commonWords.successMessage')}</Typography>
+    </Grid>)
 }
 
 const OptionButton = (props) => {
     const classes = useStyles({ yes: props.yes })
-    return <IconButton {...props} className={classes.reportOption} />
+    let newProps = { ...props }
+    delete newProps.yes
+    return <IconButton {...newProps} className={classes.reportOption} />
 }
 
 export default MissedReports;
