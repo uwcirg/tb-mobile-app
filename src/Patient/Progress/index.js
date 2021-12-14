@@ -75,8 +75,10 @@ const Progress = observer(() => {
     return (<div id="intro-progress" className={`${classes.container}`} >
         {showKey && <Key close={() => { setShowKey(false) }} />}
         <ClickableText className={classes.keyButton} icon={<QuestionIcon />} text={t('patient.progress.calendarKey.button')} onClick={() => { setShowKey(true) }} />
-        {patientStore.savedReportsLoaded ? <CustomCalendar /> : <Loading />}
+        {patientStore.savedReportsLoaded ? <>
+        <CustomCalendar />
         <DayDrawer />
+        </> : <Loading />}
     </div>)
 });
 
