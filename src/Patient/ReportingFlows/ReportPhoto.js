@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import SimpleButton from '../../Basics/SimpleButton';
 import Camera from '../../ImageCapture/Camera';
@@ -7,14 +7,12 @@ import useStores from '../../Basics/UseStores';
 import ClickableText from '../../Basics/ClickableText';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
 import TextField from '@material-ui/core/TextField'
-import TimeIcon from '@material-ui/icons/Update';
 import TestStripPhotoInfo from '../../Components/Patient/TestStripPhotoInfo';
 import PhotoPrompt from '../../Components/Patient/PhotoPrompt';
-import ActionButton from '../Home/OneStepActions/ActionButton';
-import { Box } from '@material-ui/core';
+import { Box, Button } from '@material-ui/core';
+import RefreshIcon from '@material-ui/icons/Refresh';
 
 const ReportPhoto = observer((props) => {
 
@@ -47,7 +45,6 @@ const ReportPhoto = observer((props) => {
         } else {
             patientStore.saveReportingState();
             patientUIStore.goToHome();
-            patientUIStore.skippedToPhotoFlow = false;
         }
     }
 
@@ -58,13 +55,19 @@ const ReportPhoto = observer((props) => {
         return !patientStore.report.photoWasTaken;
     }
 
+    useEffect(()=>{
+        return function cleanup(){
+            patientUIStore.setSkippedToPhoto(false);
+        }
+    },[])
+
     return (
         <div className={classes.container}>
             {!patientStore.report.photoWasSkipped ? <>
                 {patientStore.report.photoWasTaken ?
                     <>
                         <div className={classes.strip}><img src={patientStore.report.photoString} /> </div>
-                        <ClickableText className={`${classes.info} ${classes.leftMargin}`} hideIcon onClick={handleRetake} text={t("patient.report.photo.retakePhoto")} />
+                        <Button onClick={handleRetake} className={classes.refresh}><RefreshIcon /><Box width=".5em" />{t("patient.report.photo.retakePhoto")}</Button>
                     </>
                     :
                     <>
@@ -168,6 +171,12 @@ const useStyles = makeStyles({
     },
     optionButton: {
         padding: ".5em"
+    },
+    refresh:{
+        color: Colors.buttonBlue,
+        textTransform: "capitalize",
+        fontSize: "1em",
+        fontWeight: "normal"
     }
 
 })

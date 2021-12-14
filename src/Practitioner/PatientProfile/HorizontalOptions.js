@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 import Colors from '../../Basics/Colors';
 import ProfileButton from '../../Components/FlatButton'
 import Message from '@material-ui/icons/ChatBubble';
@@ -12,6 +12,9 @@ import ArchiveIcon from '@material-ui/icons/Restore';
 import KeyIcon from '@material-ui/icons/VpnKey';
 import { useTranslation } from 'react-i18next';
 import Styles from '../../Basics/Styles';
+import IconButton from '@material-ui/core/IconButton'
+import { MoreVert } from '@material-ui/icons';
+import { Menu, MenuItem } from '@material-ui/core';
 
 const useStyles = makeStyles({
     buttons: {
@@ -38,7 +41,55 @@ const OptionButtons = observer(() => {
             <ProfileButton onClick={patientProfileStore.toggleOnChangeDetails}><EditIcon />{t("coordinator.patientProfile.options.edit")}</ProfileButton>
             <ProfileButton onClick={patientProfileStore.toggleOnPasswordReset} border><KeyIcon />{t("coordinator.patientProfile.options.resetPassword")}</ProfileButton>
             {!patientProfileStore.isArchived && <ProfileButton className={classes.archive} onClick={patientProfileStore.toggleOnArchive} backgroundColor={Colors.warningRed}><ArchiveIcon />{t("coordinator.patientProfile.options.archive")}</ProfileButton>}
+            <MoreOptions />
         </Grid>
     )
 })
+
+
+const MoreOptions = () => {
+
+    const {patientProfileStore} = useStores();
+
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleTestNotification = () => {
+        patientProfileStore.sendTestReminder();
+        handleClose();
+    }
+
+    return (
+        <div>
+            <IconButton aria-label="" onClick={handleClick}>
+                <MoreVert />
+            </IconButton>
+            <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                  }}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+            >
+                <MenuItem onClick={handleTestNotification}>Send a test report reminder</MenuItem>
+            </Menu>
+        </div>
+    ); v
+}
+
 export default OptionButtons;

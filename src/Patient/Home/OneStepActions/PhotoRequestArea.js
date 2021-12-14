@@ -16,17 +16,15 @@ const PhotoRequestArea = () => {
 
     const handlePhotoClick = () => {
         if (patientStore.isPhotoDay) {
-            if (!patientStore.report.hasSubmitted) {
-                patientUIStore.skippedToPhotoFlow = true;
-            }
+            patientUIStore.setSkippedToPhoto(true);
             patientUIStore.openPhotoReport();
         }
     }
 
     return (<Box paddingBottom="1em">
-            <Typography className={classes.sectionHeader} variant="body1" color="initial">{t('patient.oneStepReporting.photoRequestTitle')}</Typography>
-            <Box height="1em" />
-            <ActionButton onClick={handlePhotoClick} text={t('patient.oneStepReporting.photoRequestButton')} icon={<CameraAlt />} backgroundColor={Colors.actionBlue} />
+        <Typography className={classes.sectionHeader} variant="body1" color="initial">{t('patient.oneStepReporting.photoRequestTitle')}</Typography>
+        <Box height="1em" />
+        <ActionButton onClick={handlePhotoClick} text={t('patient.oneStepReporting.photoRequestButton')} icon={<CameraAlt />} backgroundColor={Colors.actionBlue} />
     </Box>)
 
 }

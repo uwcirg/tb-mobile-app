@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import OverTopBar from '../Navigation/OverTopBar';
 import useStores from '../../Basics/UseStores';
-import SimpleButton from '../../Basics/SimpleButton';
 import { useTranslation } from 'react-i18next';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import { observer } from 'mobx-react';

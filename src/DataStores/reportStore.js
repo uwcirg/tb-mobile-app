@@ -133,12 +133,4 @@ export default class ReportStore {
         return body;
     }
 
-    @action oneStepReport = (date = DateTime.local()) => {
-        this.submitMedication();
-        this.submitSymptoms();
-        this.submitMood();
-        this.rootStore.report.hasSubmitted = true;
-        this.rootStore.saveReportingState();
-        this.rootStore.getReports();
-    }
 }

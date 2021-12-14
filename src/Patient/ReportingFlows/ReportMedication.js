@@ -99,8 +99,6 @@ const SelectionButton = ({ selected, value, handleClick }) => {
     </ButtonBase>
 }
 
-
-
 const useButtonStyles = makeStyles({
     button: {
         overflow: "hidden",

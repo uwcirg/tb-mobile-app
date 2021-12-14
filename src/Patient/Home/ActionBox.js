@@ -78,7 +78,7 @@ const ActionBox = observer(() => {
 
     const handlePhotoClick = () => {
         if (!patientStore.report.hasSubmitted) {
-            patientUIStore.skippedToPhotoFlow = true;
+            patientUIStore.setSkippedToPhoto(true)
         }
         patientUIStore.openPhotoReport();
     }

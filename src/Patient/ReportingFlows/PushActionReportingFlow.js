@@ -12,8 +12,8 @@ const PushActionReportingFlow = observer(() => {
 
     useEffect(() => {
         if (noIssues) {
-            patientStore.reportStore.oneStepReport();
-            uiStore.push("/")
+            patientStore.submitOneStepReport();
+            uiStore.push("/home")
         } else if (hadIssues) {
             patientUIStore.moveToReportFlow();
         }
