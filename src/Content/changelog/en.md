@@ -2,6 +2,7 @@
 ( Work In Progresss December 2021 )
 
 Features:
+
 - Enabled one step reporting for patients who are not having issues
     - If medication was taken, and they are not having any issues, they can fill the report with one button press
     - If they have issues to log, the normal survey is available
@@ -9,6 +10,7 @@ Features:
 - Removed time input for medication survey
 
 UI Changes:
+
 - Improved interface on photo submisison page
 - Improved button and spacing consistancy in daily survey
 - Removed shadows from cards and buttons
@@ -17,9 +19,11 @@ UI Changes:
 - Freshened up UI that displays number of offline reports
 
 Bug Fixes:
+
 - Fixes bug where photo appeared to not submit when skipping to photo portion of survey
 
 ## v2.8
+
 - Bug fixes:
     - Back report not falling off of the list properly
     - New patient table spacing
