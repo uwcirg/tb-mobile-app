@@ -8,7 +8,6 @@ import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
 import Grid from '@material-ui/core/Grid'
 import { WifiOff } from '@material-ui/icons';
-import { Box } from '@material-ui/core';
 
 const useStyles = makeStyles({
     container: {
@@ -27,6 +26,7 @@ const useStyles = makeStyles({
 })
 
 const CachedReports = observer(() => {
+    
     const classes = useStyles();
     const { patientStore, dailyReportStore, uiStore } = useStores();
     const { t } = useTranslation('translation');
@@ -59,7 +59,6 @@ const CachedReports = observer(() => {
             </div>}
         </>
     )
-
 })
 
 const OfflineMessage = observer(() => {
