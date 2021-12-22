@@ -1,11 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import { Box, Button, Typography } from '@material-ui/core';
+import { Box, Button, IconButton, Typography } from '@material-ui/core';
 import Colors from '../../Basics/Colors';
 import HomePageSection from '../../Basics/HomePageSection';
 import Grid from '@material-ui/core/Grid'
-import { Stars } from '@material-ui/icons';
+import { Clear, Stars } from '@material-ui/icons';
 
 
 const useStyles = makeStyles({
@@ -37,7 +37,10 @@ const useStyles = makeStyles({
         backgroundColor: Colors.highlightYellow,
         borderRadius: "4px"
     },
-    body: {
+    button: {
+        backgroundColor: Colors.actionBlue,
+        border: "none",
+        textTransform: "capitalize"
     }
 })
 
@@ -56,6 +59,9 @@ const OneStepReportingUpdate = () => {
                         <Typography variant="h2">{t('oneStepReporting.newFeature')}:</Typography>
                         <Typography variant="h2">{t('oneStepReporting.oneStep')}</Typography>
                     </div>
+                    <IconButton style={{marginLeft: "auto", alignSelf: "flex-start", padding: 0}}>
+                        <Clear />
+                    </IconButton>
                 </Grid>
                 <div className={classes.body}>
                     <Box height=".5em" />
@@ -68,7 +74,7 @@ const OneStepReportingUpdate = () => {
                     <Typography variant="body1">{t('oneStepReporting.homeScreen')}</Typography>
                 </div>
                 <Grid container style={{ width: "100%" }} justify="flex-end">
-                    <Button variant="outlined">Okay</Button>
+                    <Button className={classes.button} variant="outlined">Okay</Button>
                 </Grid>
             </div>
         </HomePageSection>
