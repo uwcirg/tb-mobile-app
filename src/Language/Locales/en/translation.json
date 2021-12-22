@@ -970,5 +970,13 @@
     "appSurvey":{
         "goToSurvey": "Go to survey",
         "markAsCompleted": "Mark as completed"
+    },
+    "oneStepReporting":{
+        "top": "No issues and took your medication?",
+        "tap": "Tap the",
+        "greenButton": "green button",
+        "complete": "to complete your report in one step",
+        "needHelp": "Need help or have an issue?",
+        "yellowButton": "yellow button"
     }
 }
