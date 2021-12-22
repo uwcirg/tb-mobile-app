@@ -55,7 +55,7 @@ const OneStepReportingUpdate = () => {
     }
 
     return (
-        <Collapse timeout={2000} in={!hide}>
+        <Collapse enter={false} timeout={1000} in={!hide}>
         <HomePageSection upperText={<><Stars /> {t('oneStepReporting.newFeature')}</>} className={classes.card}>
             <div className={classes.container}>
                 <Grid alignItems="center" container wrap="nowrap" className={classes.top} >
@@ -80,7 +80,7 @@ const OneStepReportingUpdate = () => {
                     <Typography variant="body1">{t('oneStepReporting.homeScreen')}</Typography>
                 </div>
                 <Grid container style={{ width: "100%" }} justify="flex-end">
-                    <Button onClick={handleClick} className={classes.button} variant="outlined">Okay</Button>
+                    <Button onClick={handleClick} className={classes.button} variant="outlined">{t('patient.report.symptoms.warning.button')}</Button>
                 </Grid>
             </div>
         </HomePageSection>
