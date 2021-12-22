@@ -64,32 +64,29 @@ const useStyles = makeStyles({
 })
 
 
+// const PushEnrollmentReminder = () => {
+
+//     const pushEnabledState = usePushEnabled();
+
+//     switch (pushEnabledState) {
+//         case 'unsupported':
+//             return <UnsupportedWarning />;
+//         case 'denied':
+//             return <DeniedWarning />;
+//         case 'default':
+//             return <AskToEnroll />;
+//         default:
+//             return <></>
+//     }
+// }
+
 const PushEnrollmentReminder = () => {
 
     const pushEnabledState = usePushEnabled();
 
-    switch (pushEnabledState) {
-        case 'unsupported':
-            return <UnsupportedWarning />;
-        case 'denied':
-            return <DeniedWarning />;
-        case 'default':
-            return <AskToEnroll />;
-        default:
-            return <></>
-    }
-}
-
-const DeniedWarning = () => {
-
     const { t } = useTranslation('translation');
     const classes = useStyles();
     const [showDetails, setShowDetails] = useState(false);
-
-    const { uiStore } = useStores();
-    const goToInstructions = () => {
-        uiStore.push("/information?onPushEnrollmentInstructions=true")
-    }
 
     const toggle = () => { setShowDetails(!showDetails) }
 
@@ -98,35 +95,62 @@ const DeniedWarning = () => {
             <Grid wrap="nowrap" onClick={toggle} alignItems="center" justify="space-around" container className={`${classes.alert} ${classes.warning}`}>
                 <Box width="1em" />
                 <WarningIcon className={classes.warningIconLarge} />
-                <span>
-                    {t('notificationInstructions.warning.title')}
+                <span style={{flexGrow: 1}}>
+                    <GetMessage type={pushEnabledState} />
                 </span>
                 <IconButton onClick={toggle}>
                     {showDetails ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
                 </IconButton>
             </Grid>
             <Collapse in={showDetails}>
-                <Grid onClick={() => { setShowDetails(true) }} direction="column" className={classes.warningContainer} container spacing={1}>
-                    <PushFeatureList />
-                    <ProfileButton className={classes.button} onClick={goToInstructions}>{t('notificationInstructions.warning.button')}<RightIcon /></ProfileButton>
-                </Grid>
+                <GetDetails type={pushEnabledState} />
             </Collapse>
         </>
     )
 }
 
+const GetMessage = ({type}) => {
+
+    const {t} = useTranslation();
+
+    if(type === 'denied' || type === 'default') {
+        return <>{t('notificationInstructions.warning.title')}</>
+    }
+    return <></>
+}
+
+const GetDetails = ({ type }) => {
+
+    const { t } = useTranslation('translation');
+    const classes = useStyles();
+
+    const { uiStore } = useStores();
+
+    const goToInstructions = () => {
+        uiStore.push("/information?onPushEnrollmentInstructions=true")
+    }
+
+    if (type === 'denied') {
+        return (<Grid onClick={() => { setShowDetails(true) }} direction="column" className={classes.warningContainer}>
+            <PushFeatureList />
+            <ProfileButton className={classes.button} onClick={goToInstructions}>{t('notificationInstructions.warning.button')}<RightIcon /></ProfileButton>
+        </Grid>)
+    }
+    return <></>
+}
+
 const UnsupportedWarning = () => {
     const { t } = useTranslation('translation');
     const classes = useStyles();
+
     return (
-        <Grid alignItems="center" justify="space-around" container className={classes.alert}>
+        <Grid wrap="nowrap" alignItems="center" justify="space-around" container className={classes.alert}>
             <WarningIcon className={classes.warningIconLarge} />
-            <span>
-                {t('notificationInstructions.warning.unsupported')}
-                <br />
-                <br />
-                {t('notificationInstructions.warning.unsupportedDetails')}
-            </span>
+            <div>
+                <Typography style={{ lineHeight: "1em" }} variant="body1">{t('notificationInstructions.warning.unsupported')}</Typography>
+                <Box height="1em" />
+                <Typography style={{ lineHeight: "1em" }} variant="body1">{t('notificationInstructions.warning.unsupportedDetails')} </Typography>
+            </div>
         </Grid>
     )
 }
@@ -146,3 +170,4 @@ const AskToEnroll = () => {
 }
 
 export default PushEnrollmentReminder;
+// export default UnsupportedWarning;
