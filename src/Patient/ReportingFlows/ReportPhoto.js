@@ -83,7 +83,7 @@ const ReportPhoto = observer((props) => {
     )
 });
 
-const CantTakePhoto = observer((props) => {
+const CantTakePhoto = observer(() => {
 
     const { patientStore } = useStores();
     const classes = useStyles();
