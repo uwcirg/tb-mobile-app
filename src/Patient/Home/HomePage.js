@@ -11,9 +11,10 @@ import VideoCard from './Videos';
 import RequiresAction from './MissedActions';
 import PushNotificationEnrollment from './PushEnrollmentReminder';
 import { makeStyles } from '@material-ui/core/styles';
+import OneStepReportingUpdate from './OneStepReportingUpdate';
 
 const useStyles = makeStyles({
-  body:{
+  body: {
     width: '100%',
     minHeight: '90vh',
     display: 'flex',
@@ -25,22 +26,23 @@ const useStyles = makeStyles({
 })
 
 const HomePage = () => {
-    const classes = useStyles();
-    return (
-        <div className={classes.body}>
-             {/* Some of these components are conditionally rendered within thier implementaion */}
-            <PushNotificationEnrollment />
-            <Greeting />
-            <ActionBox />
-            <CachedReports />
-            <RequiresAction />
-            <VideoCard />
-            <Alerts />
-            <Progress />
-            <MedicationReminder />
-            <Reminders />
-        </div>
-    )
+  const classes = useStyles();
+  return (
+    <div className={classes.body}>
+      {/* Some of these components are conditionally rendered within thier implementaion */}
+      <OneStepReportingUpdate />
+      <PushNotificationEnrollment />
+      <Greeting />
+      <ActionBox />
+      <CachedReports />
+      <RequiresAction />
+      <VideoCard />
+      <Alerts />
+      <Progress />
+      <MedicationReminder />
+      <Reminders />
+    </div>
+  )
 
 };
 
