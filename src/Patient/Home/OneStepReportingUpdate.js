@@ -38,8 +38,6 @@ const useStyles = makeStyles({
         borderRadius: "4px"
     },
     button: {
-        backgroundColor: Colors.actionBlue,
-        border: "none",
         textTransform: "capitalize"
     }
 })
@@ -50,11 +48,11 @@ const OneStepReportingUpdate = () => {
     const { t } = useTranslation('translation');
 
     return (
-        <HomePageSection className={classes.card}>
+        <HomePageSection upperText={<><Stars /> {t('oneStepReporting.newFeature')}</>} className={classes.card}>
             <div className={classes.container}>
                 <Grid alignItems="center" container wrap="nowrap" className={classes.top} >
                     <Stars className={classes.star} />
-                    <Box width=".5em" />
+                    <Box width="1em" />
                     <div>
                         <Typography variant="h2">{t('oneStepReporting.newFeature')}:</Typography>
                         <Typography variant="h2">{t('oneStepReporting.oneStep')}</Typography>
@@ -64,7 +62,7 @@ const OneStepReportingUpdate = () => {
                     </IconButton>
                 </Grid>
                 <div className={classes.body}>
-                    <Box height=".5em" />
+                    <Box height="1em" />
                     <Typography variant="body1">{t('oneStepReporting.top')} - </Typography>
                     <Typography variant="body1">{t('oneStepReporting.tap')} <span className={classes.green}>{t('oneStepReporting.greenButton')}</span></Typography>
                     <Box height=".5em" />

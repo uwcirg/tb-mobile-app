@@ -30,9 +30,9 @@ const HomePage = () => {
   return (
     <div className={classes.body}>
       {/* Some of these components are conditionally rendered within thier implementaion */}
-      <OneStepReportingUpdate />
       <PushNotificationEnrollment />
       <Greeting />
+      <OneStepReportingUpdate />
       <ActionBox />
       <CachedReports />
       <RequiresAction />
