@@ -1,27 +1,43 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import { Typography } from '@material-ui/core';
+import { Box, Button, Typography } from '@material-ui/core';
 import Colors from '../../Basics/Colors';
+import HomePageSection from '../../Basics/HomePageSection';
+import Grid from '@material-ui/core/Grid'
+import { Stars } from '@material-ui/icons';
+
 
 const useStyles = makeStyles({
-    container:{
+    card: {
+        padding: "1em"
+    },
+    container: {
         boxSizing: "border-box",
-        padding: "1em",
-        backgroundColor: "white",
         width: "100%"
     },
     top: {
-        width: "100%",
-        padding: ".5em",
         borderBottom: "1px solid gray",
-        "& > h2": {
-            fontSize: "1.5em"
+        paddingBottom: ".5em",
+        "& > div > h2": {
+            fontSize: "1.25em"
         }
     },
-    green:{
-        padding: "5px",
-        backgroundColor: Colors.calendarGreen
+    green: {
+        padding: "2px 5px",
+        backgroundColor: Colors.calendarGreen,
+        borderRadius: "4px"
+    },
+    star: {
+        color: Colors.buttonBlue,
+        fontSize: "2em",
+    },
+    yellow: {
+        padding: "2px 5px",
+        backgroundColor: Colors.highlightYellow,
+        borderRadius: "4px"
+    },
+    body: {
     }
 })
 
@@ -30,14 +46,33 @@ const OneStepReportingUpdate = () => {
     const classes = useStyles();
     const { t } = useTranslation('translation');
 
-    return (<div className={classes.container}>
-        <div className={classes.top}>
-            <Typography variant="h2">New Feature</Typography>
-            <Typography variant="h2">One Step Reporing</Typography>
-        </div>
-        <Typography variant="body1">{t('oneStepReporting.top')} - </Typography>
-        <Typography variant="body1">{t('oneStepReporting.tap')} <span className={classes.green}>{t('oneStepReporting.green')}</span></Typography>
-    </div>)
+    return (
+        <HomePageSection className={classes.card}>
+            <div className={classes.container}>
+                <Grid alignItems="center" container wrap="nowrap" className={classes.top} >
+                    <Stars className={classes.star} />
+                    <Box width=".5em" />
+                    <div>
+                        <Typography variant="h2">{t('oneStepReporting.newFeature')}:</Typography>
+                        <Typography variant="h2">{t('oneStepReporting.oneStep')}</Typography>
+                    </div>
+                </Grid>
+                <div className={classes.body}>
+                    <Box height=".5em" />
+                    <Typography variant="body1">{t('oneStepReporting.top')} - </Typography>
+                    <Typography variant="body1">{t('oneStepReporting.tap')} <span className={classes.green}>{t('oneStepReporting.greenButton')}</span></Typography>
+                    <Box height=".5em" />
+                    <Typography variant="body1">{t('oneStepReporting.needHelp')} - </Typography>
+                    <Typography variant="body1">{t('oneStepReporting.tap')} <span className={classes.yellow}>{t('oneStepReporting.yellowButton')}</span></Typography>
+                    <Box height=".5em" />
+                    <Typography variant="body1">{t('oneStepReporting.homeScreen')}</Typography>
+                </div>
+                <Grid container style={{ width: "100%" }} justify="flex-end">
+                    <Button variant="outlined">Okay</Button>
+                </Grid>
+            </div>
+        </HomePageSection>
+    )
 
 }
 

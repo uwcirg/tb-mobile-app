@@ -973,10 +973,13 @@
     },
     "oneStepReporting":{
         "top": "No issues and took your medication?",
-        "tap": "Tap the",
+        "tap": "tap the",
         "greenButton": "green button",
         "complete": "to complete your report in one step",
         "needHelp": "Need help or have an issue?",
-        "yellowButton": "yellow button"
+        "yellowButton": "yellow button",
+        "newFeature": "New Feature",
+        "oneStep": "One Step Reporting",
+        "homeScreen": "You can also now complete your report for the day from your homescreen by reporting straight from your medication reminder"
     }
 }
