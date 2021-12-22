@@ -1,13 +1,17 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import { Box, Button, IconButton, Typography, Collapse } from '@material-ui/core';
+import Box from '@material-ui/core/Box'
+import Button from '@material-ui/core/Button'
+import IconButton from '@material-ui/core/IconButton'
+import Typography from '@material-ui/core/Typography'
+import Collapse from '@material-ui/core/Collapse'
 import Colors from '../../Basics/Colors';
 import HomePageSection from '../../Basics/HomePageSection';
 import Grid from '@material-ui/core/Grid'
-import { Clear, Stars } from '@material-ui/icons';
+import Clear from '@material-ui/icons/Clear'
+import Stars from '@material-ui/icons/Stars';
 import useLocalValue from '../../Hooks/useLocalValue';
-
 
 const useStyles = makeStyles({
     card: {
@@ -86,7 +90,6 @@ const OneStepReportingUpdate = () => {
         </HomePageSection>
         </Collapse>
     )
-
 }
 
 export default OneStepReportingUpdate;
