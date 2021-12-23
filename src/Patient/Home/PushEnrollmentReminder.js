@@ -12,7 +12,9 @@ import usePushEnabled from '../../Hooks/PushEnabled'
 import PushFeatureList from '../Information/PushFeatureList'
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown'
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp'
-import { Box, Collapse, IconButton } from '@material-ui/core'
+import Box from '@material-ui/core/Box'
+import Collapse from '@material-ui/core/Collapse'
+import IconButton from '@material-ui/core/IconButton'
 
 const useStyles = makeStyles({
     warningContainer: {
@@ -63,28 +65,9 @@ const useStyles = makeStyles({
     }
 })
 
-
-// const PushEnrollmentReminder = () => {
-
-//     const pushEnabledState = usePushEnabled();
-
-//     switch (pushEnabledState) {
-//         case 'unsupported':
-//             return <UnsupportedWarning />;
-//         case 'denied':
-//             return <DeniedWarning />;
-//         case 'default':
-//             return <AskToEnroll />;
-//         default:
-//             return <></>
-//     }
-// }
-
 const PushEnrollmentReminder = () => {
 
     const pushEnabledState = usePushEnabled();
-
-    const { t } = useTranslation('translation');
     const classes = useStyles();
     const [showDetails, setShowDetails] = useState(false);
 
@@ -92,31 +75,35 @@ const PushEnrollmentReminder = () => {
 
     return (
         <>
-            <Grid wrap="nowrap" onClick={toggle} alignItems="center" justify="space-around" container className={`${classes.alert} ${classes.warning}`}>
-                <Box width="1em" />
-                <WarningIcon className={classes.warningIconLarge} />
-                <span style={{flexGrow: 1}}>
-                    <GetMessage type={pushEnabledState} />
-                </span>
-                <IconButton onClick={toggle}>
-                    {showDetails ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
-                </IconButton>
-            </Grid>
-            <Collapse in={showDetails}>
-                <GetDetails type={pushEnabledState} />
-            </Collapse>
+            {pushEnabledState !== "granted" &&
+                <>
+                    <Grid wrap="nowrap" onClick={toggle} alignItems="center" justify="space-around" container className={`${classes.alert} ${classes.warning}`}>
+                        <Box width="1em" />
+                        <WarningIcon className={classes.warningIconLarge} />
+                        <span style={{ flexGrow: 1 }}>
+                            <GetMessage type={pushEnabledState} />
+                        </span>
+                        <IconButton onClick={toggle}>
+                            {showDetails ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+                        </IconButton>
+                    </Grid>
+                    <Collapse style={{ width: "100%" }} in={showDetails}>
+                        <GetDetails type={pushEnabledState} />
+                    </Collapse>
+                </>}
         </>
     )
 }
 
-const GetMessage = ({type}) => {
+const GetMessage = ({ type }) => {
 
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
-    if(type === 'denied' || type === 'default') {
+    if (type === 'denied' || type === 'default') {
         return <>{t('notificationInstructions.warning.title')}</>
     }
-    return <></>
+
+    return <>{t('notificationInstructions.warning.unsupported')}</>
 }
 
 const GetDetails = ({ type }) => {
@@ -124,49 +111,39 @@ const GetDetails = ({ type }) => {
     const { t } = useTranslation('translation');
     const classes = useStyles();
 
-    const { uiStore } = useStores();
+    const { uiStore, patientStore } = useStores();
 
     const goToInstructions = () => {
         uiStore.push("/information?onPushEnrollmentInstructions=true")
     }
 
     if (type === 'denied') {
-        return (<Grid onClick={() => { setShowDetails(true) }} direction="column" className={classes.warningContainer}>
+        return (<Box className={classes.warningContainer}>
             <PushFeatureList />
-            <ProfileButton className={classes.button} onClick={goToInstructions}>{t('notificationInstructions.warning.button')}<RightIcon /></ProfileButton>
-        </Grid>)
+            <ProfileButton className={classes.button} onClick={goToInstructions}>
+                {t('notificationInstructions.warning.button')}
+                <RightIcon />
+            </ProfileButton>
+        </Box>)
     }
-    return <></>
-}
 
-const UnsupportedWarning = () => {
-    const { t } = useTranslation('translation');
-    const classes = useStyles();
+    if (type === 'default') {
+        return (
+            <Box className={classes.warningContainer}>
+                <PushFeatureList />
+                <ProfileButton className={classes.button} onClick={patientStore.subscribeToNotifications}>
+                    {t('notificationInstructions.warning.ask')}
+                    <RightIcon />
+                </ProfileButton>
+            </Box>
+        )
+    }
 
-    return (
-        <Grid wrap="nowrap" alignItems="center" justify="space-around" container className={classes.alert}>
-            <WarningIcon className={classes.warningIconLarge} />
-            <div>
-                <Typography style={{ lineHeight: "1em" }} variant="body1">{t('notificationInstructions.warning.unsupported')}</Typography>
-                <Box height="1em" />
-                <Typography style={{ lineHeight: "1em" }} variant="body1">{t('notificationInstructions.warning.unsupportedDetails')} </Typography>
-            </div>
-        </Grid>
-    )
-}
 
-const AskToEnroll = () => {
-    const { t } = useTranslation('translation');
-    const classes = useStyles();
-    const { patientStore } = useStores();
-
-    return (<Grid direction="column" className={classes.warningContainer} container spacing={1}>
-        <Typography className={classes.title} variant="h2">{t('notificationInstructions.warning.title')}<WarningIcon /></Typography>
+    return (<Box className={classes.warningContainer}>
+        <Typography style={{ lineHeight: "1em" }} variant="body1">{t('notificationInstructions.warning.unsupportedDetails')} </Typography>
         <PushFeatureList />
-        <ProfileButton className={classes.button} onClick={patientStore.subscribeToNotifications}>{t('notificationInstructions.warning.ask')}<RightIcon /></ProfileButton>
-    </Grid>
-
-    )
+    </Box>)
 }
 
 export default PushEnrollmentReminder;
