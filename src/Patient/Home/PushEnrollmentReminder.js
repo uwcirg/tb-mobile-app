@@ -147,4 +147,3 @@ const GetDetails = ({ type }) => {
 }
 
 export default PushEnrollmentReminder;
-// export default UnsupportedWarning;
