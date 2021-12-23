@@ -105,6 +105,9 @@ const useCalendarStyles = makeStyles({
         display: "flex",
         justifyContent: "center",
         position: "absolute",
+    },
+    nonDisabledDay:{
+        "& > p": {color: "black"}
     }
 
 })

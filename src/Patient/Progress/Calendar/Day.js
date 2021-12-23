@@ -48,14 +48,12 @@ const Day = observer((props) => {
 
     const relevantDay = new CalendarDayStyleHelper(patientStore.savedReports[datetime.toISODate()],{prevColor,currentColor,nextColor})
 
-    return (
-        <div style={{ backgroundColor: currentColor}} className={`${classes.day} ${relevantDay.rightRounding && classes.end} ${relevantDay.leftRounding && classes.start}`}>
+    return (<div style={{ backgroundColor: currentColor}} className={`${classes.day} ${!props.disabled && classes.nonDisabledDay} ${relevantDay.rightRounding && classes.end} ${relevantDay.leftRounding && classes.start}`}>
             {selectedDay ? <div className={classes.selectedDay}><p>{props.date}</p> </div> : <p>{props.date}</p>}
             <div className={classes.bottomDots}>
                 {relevantDay.modifiers.map(each => <div key={`${datetime.toISODate}-mod-${each}`} style={{ backgroundColor: each }} className={classes.modifier} />)}
             </div>
-        </div>
-    )
+        </div>)
 });
 
 export default Day;
