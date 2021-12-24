@@ -76,7 +76,9 @@ const OneStepActions = observer(({ setCompletedNow }) => {
 const ActionBox = observer(() => {
     const { patientStore } = useStores();
     const { t } = useTranslation('translation');
+
     const [completedNow, setCompletedNow] = useState(false);
+    const [counter, changeCounter] = useState(0);
 
     const isVisible = usePageVisibility();
     const classes = useStyles();
@@ -85,7 +87,7 @@ const ActionBox = observer(() => {
         const interval = setInterval(() => {
             changeCounter(prevCounter => prevCounter + 1);
             patientStore.loadDailyReport();
-        }, 60000);
+        }, 6000);
 
         return () => clearInterval(interval);
     }, []);
@@ -94,13 +96,12 @@ const ActionBox = observer(() => {
         if (isVisible) {
             patientStore.loadDailyReport(); //Ensure that we check if the date has changed
         }
-
     }, [isVisible])
 
     return (
         <InteractionCard id="intro-tasks" className={classes.card} upperText={<><CheckBox />{t('patient.home.cardTitles.todaysTasks')}</>}>
             <Box width="100%" padding="1em" style={{ boxSizing: "border-box" }}>
-                {!patientStore.reportStore.allReportComplete ? <div>
+                {(counter >=0 && !patientStore.reportStore.allReportComplete) ? <div>
                     {(patientStore.isPhotoDay && !patientStore.reportStore.photoReportComplete) && <PhotoRequestArea />}
                     <OneStepActions setCompletedNow={setCompletedNow} />
                     {patientStore.reportStore.photoReportComplete && <PartialConfirmation isPhoto />}
@@ -125,19 +126,21 @@ const ActionBox = observer(() => {
     )
 });
 
-const Confirmation = () => {
+const Confirmation = observer(() => {
+
     const classes = useStyles();
     const { t } = useTranslation('translation');
+    const {patientStore} = useStores();
 
     return (
         <div className={classes.confirmationSuperContainer}>
             <ConfirmationLayout title={t("patient.home.completed.title")} subtitle={t("patient.home.completed.subtitle")} />
-            <p style={{
+            {patientStore.todaysReportHasIssue && <p style={{
                     textAlign: "center",
                     backgroundColor: `${Colors.highlightYellow}`,
                     borderRadius: "5px",
                     padding: ".5em"
-                }}>{t('patient.home.completed.issue')}</p>
+                }}>{t('patient.home.completed.issue')}</p>}
             <ExpansionPanel
                 previewClassName={classes.reportPreview}
                 preview={t("patient.reportConfirmation.viewOrEdit")}
@@ -146,6 +149,6 @@ const Confirmation = () => {
             </ExpansionPanel>
         </div>
     )
-}
+})
 
 export default ActionBox;

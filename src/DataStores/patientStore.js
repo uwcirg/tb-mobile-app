@@ -503,5 +503,9 @@ export class PatientStore extends UserStore {
         this.savedReports[`${report.date}`] = report;
     }
 
+    @computed get todaysReportHasIssue(){
+        return(this.report.selectedSymptoms.length > 0 || !this.report.tookMedication || !this.report.doingOkay)
+    }
+
 
 }
