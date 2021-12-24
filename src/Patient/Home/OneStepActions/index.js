@@ -27,7 +27,7 @@ const ButtonLabel = ({ text, icon }) => {
     </Grid>
 }
 
-const OneStepActions = observer(({setCompletedNow}) => {
+const OneStepActions = observer(({ setCompletedNow }) => {
 
     const { patientStore, patientUIStore } = useStores();
     const classes = useStyles();
@@ -123,6 +123,12 @@ const Confirmation = () => {
     return (
         <div className={classes.confirmationSuperContainer}>
             <ConfirmationLayout title={t("patient.home.completed.title")} subtitle={t("patient.home.completed.subtitle")} />
+            <p style={{
+                    textAlign: "center",
+                    backgroundColor: `${Colors.highlightYellow}`,
+                    borderRadius: "5px",
+                    padding: ".5em"
+                }}>{t('patient.home.completed.issue')}</p>
             <ExpansionPanel
                 previewClassName={classes.reportPreview}
                 preview={t("patient.reportConfirmation.viewOrEdit")}

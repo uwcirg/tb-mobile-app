@@ -278,6 +278,7 @@
             "completed": {
                 "title": "Complete",
                 "subtitle": "Todays Report Has Been Submitted",
+                "issue": "We have recieved your issue and your assistant will be in touch soon",
                 "modify": "Modify Your Report"
             },
             "cardTitles": {

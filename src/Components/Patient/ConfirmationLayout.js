@@ -33,7 +33,7 @@ const useStyles = makeStyles({
     },
 })
 
-const CompName = ({title,subtitle}) => {
+const ConfirmationLayout = ({title,subtitle}) => {
 
     const classes = useStyles();
 
@@ -47,4 +47,4 @@ const CompName = ({title,subtitle}) => {
 
 }
 
-export default CompName;
+export default ConfirmationLayout;
