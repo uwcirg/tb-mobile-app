@@ -1,7 +1,5 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import useStores from '../../Basics/UseStores';
-import { observer } from 'mobx-react';
 import Styles from '../../Basics/Styles';
 import { ReactComponent as DoctorIcon } from '../../Basics/Icons/doctor.svg';
 import CheckIcon from '@material-ui/icons/Check';
@@ -33,7 +31,7 @@ const useStyles = makeStyles({
     },
 })
 
-const CompName = ({title,subtitle}) => {
+const ConfirmationLayout = ({title,subtitle}) => {
 
     const classes = useStyles();
 
@@ -47,4 +45,4 @@ const CompName = ({title,subtitle}) => {
 
 }
 
-export default CompName;
+export default ConfirmationLayout;

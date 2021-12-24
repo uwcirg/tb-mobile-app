@@ -1,21 +1,21 @@
 import React, { useEffect } from 'react'
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 import useStores from '../../Basics/UseStores'
 import { observer } from 'mobx-react'
 import HomePageCard from '../Shared/HomePageCard'
-import AlertIcon from '@material-ui/icons/Error';
-import ListIcon from '@material-ui/icons/PlaylistAddCheck';
+import AlertIcon from '@material-ui/icons/Error'
+import ListIcon from '@material-ui/icons/PlaylistAddCheck'
 import PillIcon from '../../Basics/Icons/Pill.js'
 import PhotoSidebar from './PhotoSideBar'
 import SymptomSidebar from './SymptomSideBar'
 import MedicationSideBar from './MedicationSideBar'
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 import TaskSideBar from './TaskSidebar'
-import SupportSidebar from './SupportSidebar';
+import SupportSidebar from './SupportSidebar'
 import useResize from '../../Hooks/Resize'
 import MissedPhotoSideBar from './MissedPhotoSideBar'
 import CohortSummary from './CohortSummary'
-import SectionTitle from '../../Components/Practitioner/SectionTitle';
+import SectionTitle from '../../Components/Practitioner/SectionTitle'
 
 const useStyles = makeStyles({
     left: {
@@ -30,7 +30,6 @@ const useStyles = makeStyles({
         display: "flex",
         flexDirection: "column",
         overflowX: "hidden",
-
     },
     container: {
         width: "100%",
@@ -55,9 +54,8 @@ const useStyles = makeStyles({
         "& > div": {
             marginTop: "1.5em",
             "&:last-of-type": { marginBottom: "2em" }
-        },
+        }
     }
-
 })
 
 const Home = observer(() => {
