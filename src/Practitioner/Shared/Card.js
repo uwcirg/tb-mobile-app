@@ -12,7 +12,7 @@ const useStyles = makeStyles({
         borderRadius: "1em",
         backgroundColor: "white",
         width: "90%",
-        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.25);"
+        border: `solid 1px ${Colors.lightgray}`
     },
     header: {
         display: "flex",
@@ -55,9 +55,9 @@ const Card = (props) => {
             {props.icon}
             <h2>{props.title}</h2>
             {visible && props.headerChildren}
-            <Button className={classes.collapse} onClick={toggleVisibility}>{!visible ? <>{t('patient.home.progress.viewAll')}<DownIcon /></>
+            <Button className={classes.collapse} onClick={toggleVisibility}>{!visible ? <DownIcon />
                 :
-                <>{t('patient.home.progress.close')} <UpIcon /></>
+                <><UpIcon /></>
             }</Button>
         </div>
         <div className={props.bodyClassName}>
