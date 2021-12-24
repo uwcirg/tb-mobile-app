@@ -12,7 +12,7 @@ import Styles from '../../Basics/Styles';
 import { useTranslation } from 'react-i18next';
 import NotesView from './NotesView';
 import ReportsLoading from './ReportsLoading';
-import NewTableIdea from './ReportTable';
+import ReportTable from './ReportTable';
 
 const useStyles = makeStyles({
     reportingHistoryContainer: {
@@ -63,7 +63,7 @@ const ReportingHistory = observer(() => {
                     reports={patientProfileStore.selectedPatient.reports}
                     treatmentStart={patientProfileStore.selectedPatient.details.treatmentStart}
                 />}
-                {visible === "reports" && <NewTableIdea />}
+                {visible === "reports" && <ReportTable />}
                 {visible === "notes" && <NotesView />}
 
             </div>: <ReportsLoading />}
