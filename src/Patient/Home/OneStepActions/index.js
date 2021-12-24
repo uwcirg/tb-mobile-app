@@ -82,6 +82,15 @@ const ActionBox = observer(() => {
     const classes = useStyles();
 
     useEffect(() => {
+        const interval = setInterval(() => {
+            changeCounter(prevCounter => prevCounter + 1);
+            patientStore.loadDailyReport();
+        }, 60000);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    useEffect(() => {
         if (isVisible) {
             patientStore.loadDailyReport(); //Ensure that we check if the date has changed
         }
