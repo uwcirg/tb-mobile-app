@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect } from 'react';
 import Channel from './Channel';
 import useStores from '../Basics/UseStores';
 import { makeStyles } from '@material-ui/core/styles';
