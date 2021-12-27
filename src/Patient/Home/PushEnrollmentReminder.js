@@ -48,7 +48,7 @@ const useStyles = makeStyles({
     alert: {
         backgroundColor: Colors.accentBlue,
         color: "white",
-        padding: "1em 0",
+        padding: ".5em 0",
         width: "100%",
         "& > span": {
             padding: "0 1em",
