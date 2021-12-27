@@ -5,7 +5,7 @@ import EducationStore from './educationStore';
 import ReportStore from './reportStore';
 import { addReportToOfflineCache, getNumberOfCachedReports } from './SaveReportOffline'
 import resizeImage from '../Utility/ResizeImage';
-import {daysSinceISODateTime, daysSincePhotoRequest} from "../Utility/TimeUtils";
+import { daysSinceISODateTime, daysSincePhotoRequest } from "../Utility/TimeUtils";
 
 const ROUTES = {
     login: ["/authenticate", "POST"],
@@ -14,7 +14,8 @@ const ROUTES = {
     patientReports: ["/daily_reports", "GET"],
     getPhotoUploadURL: ["/patient/daily_reports/photo_upload_url", "GET"],
     updateNotificationTime: ["/patient/reminder", "PATCH"],
-    updateEducationStatus: ["/patient/me/education_status", "POST"]
+    updateEducationStatus: ["/patient/me/education_status", "POST"],
+    oneStepReport: ["/v2/daily_report?noIssues=true", "POST"]
 }
 
 export class PatientStore extends UserStore {
@@ -59,6 +60,12 @@ export class PatientStore extends UserStore {
 
     @observable report = this.defaultReport;
 
+    @observable oneStepStatus = {
+        error: false,
+        loading: false,
+        loadingComplete: false
+    }
+
     @observable treatmentFlowLength = 0;
 
     @observable lastSubmission = DateTime.local().toISO();
@@ -102,7 +109,7 @@ export class PatientStore extends UserStore {
 
     @action getPatientInformation = () => {
         return this.executeRequest(`getCurrentPatient`).then((json) => {
-            if (json.status) {this.setAccountInformation(json)}
+            if (json.status) { this.setAccountInformation(json) }
         });
     }
 
@@ -111,7 +118,6 @@ export class PatientStore extends UserStore {
         //Newly added when refactoring getPatientInformation
         this.reminderTime = json.dailyNotificationTime;
         this.status = json.status;
-
 
         this.photoSchedule = json.photoSchedule.reduce((a, b) => (a[b] = true, a), {});
         this.patientInformation.weeksInTreatment = json.weeksInTreatment;
@@ -124,7 +130,7 @@ export class PatientStore extends UserStore {
         this.lastPhotoRequestStatus = json.lastPhotoRequestStatus;
         this.lastContactTracingSurvey = json.lastContactTracingSurvey;
         this.patientInformation.loaded = true;
-        
+
         localStorage.setItem("cachedProfile", JSON.stringify({
             photoSchedule: this.photoSchedule,
             givenName: json.givenName,
@@ -160,7 +166,7 @@ export class PatientStore extends UserStore {
         return this.checkPhotoDay(DateTime.local())
     }
 
-    //Precondiditon - Requires a luxon datetime object
+    //date : DateTime (Luxon Object)
     checkPhotoDay(date) {
         date = date.toISODate();
         return (this.photoSchedule[date] !== undefined)
@@ -234,10 +240,10 @@ export class PatientStore extends UserStore {
     }
 
     @action submitOfflineReport = () => {
-            addReportToOfflineCache(toJS(this.report)).then(value => {
-                this.report.hasConfirmedAndSubmitted = true;
-                this.saveReportingState();
-            })
+        addReportToOfflineCache(toJS(this.report)).then(value => {
+            this.report.hasConfirmedAndSubmitted = true;
+            this.saveReportingState();
+        })
     }
 
     @action uploadReport = (body) => {
@@ -249,7 +255,6 @@ export class PatientStore extends UserStore {
             }
             this.getReports();
         })
-
     }
 
     @action getReports = () => {
@@ -278,22 +283,24 @@ export class PatientStore extends UserStore {
         });
     }
 
+    @action setPhotoSkipped = () => {
+        this.report.photoWasSkipped = true
+    }
+
     disableMedicationReminder = () => {
         this.updateNotificationTime(true);
     }
 
-    @action startHistoricalReport = () => {
-        const newDate = DateTime.fromISO(this.uiState.selectedCalendarDate).set({ hour: 12, minute: 0 })
+    @action startHistoricalReport = (date) => {
 
         this.report = {
-            date: newDate.toISODate(),
+            date: DateTime.fromISO(date),
             step: 0,
-            timeTaken: newDate.toISOTime({ suppressSeconds: true }),
             selectedSymptoms: [],
             photoWasTaken: false,
             photoString: "",
             tookMedication: true,
-            headerText: "When did you take your medication?",
+            headerText: "",
             hasSubmitted: false,
             hasSubmittedPhoto: false,
             isHistoricalReport: true
@@ -318,8 +325,8 @@ export class PatientStore extends UserStore {
         return this.savedReports[`${date.toISODate()}`]
     }
 
-    @action uploadPhoto = async() =>{
-        const resizedImage= await resizeImage(this.report.photoString);
+    @action uploadPhoto = async () => {
+        const resizedImage = await resizeImage(this.report.photoString);
         const imageString = resizedImage.replace(/^data:image\/\w+;base64,/, "")
         const file = new Buffer(imageString, 'base64')
 
@@ -371,8 +378,8 @@ export class PatientStore extends UserStore {
         for (let i = 3; i > 0; i--) {
             let date = DateTime.local().minus({ days: i }).startOf('day')
             const isoDate = date.toISODate();
-            if (!checkDate(isoDate) && DateTime.fromISO(this.treatmentStart).startOf('day').diff(date,"days").days <= 0) {
-                    missedDays[isoDate] = true;
+            if (!checkDate(isoDate) && DateTime.fromISO(this.treatmentStart).startOf('day').diff(date, "days").days <= 0) {
+                missedDays[isoDate] = true;
             }
         }
         return Object.keys(missedDays);
@@ -380,10 +387,6 @@ export class PatientStore extends UserStore {
 
     @action exitForcedPasswordChange = () => {
         this.hasForcedPasswordChange = false;
-    }
-
-    @action setReportTime = (value) => {
-        this.report.timeTaken = value;
     }
 
     @action logoutPatient() {
@@ -420,13 +423,12 @@ export class PatientStore extends UserStore {
         return streak;
     }
 
-    @computed get contactTracingNeeded(){
+    @computed get contactTracingNeeded() {
         return !this.lastContactTracingSurvey || (daysSinceISODateTime(this.lastContactTracingSurvey.createdAt) > 30 && (this.lastContactTracingSurvey.numberOfContactsTested < this.lastContactTracingSurvey.numberOfContacts))
     }
 
     defaultReport = {
         date: DateTime.local().toISODate(),
-        timeTaken: DateTime.local().startOf('second').startOf("minute").toISOTime({ suppressSeconds: true }),
         selectedSymptoms: [],
         photoWasTaken: false,
         photoString: "",
@@ -445,15 +447,65 @@ export class PatientStore extends UserStore {
         whyPhotoWasSkipped: ""
     }
 
-    @computed get isArchived(){
+    @computed get isArchived() {
         return this.status === "Archived"
     }
 
-    @computed get eligibleForBackPhoto(){
-        if(this.lastPhotoRequestStatus.photoWasSubmitted){
+    @computed get eligibleForBackPhoto() {
+        if (this.lastPhotoRequestStatus.photoWasSubmitted) {
             return false;
         }
         return daysSincePhotoRequest(this.lastPhotoRequestStatus.dateOfRequest) <= 3
     }
+
+    @action setTookMedication = (tookMedication) => {
+        this.report.tookMedication = tookMedication;
+    }
+
+    @action setReportHeader = (text) => {
+        this.report.headerText = text;
+    }
+
+    @action submitOneStepReport = (date = DateTime.local().toISODate()) => {
+
+        if(this.reportStore.checkOffline()){
+            this.report.tookMedication = true;
+            this.report.hasSubmitted = true;
+            this.saveReportingState();
+            this.reportStore.checkIfOfflineAndSaveReportLocally();
+            this.oneStepStatus.loadingComplete = true;
+            return 
+        }
+
+        this.oneStepStatus.loading = true;
+        this.executeRequest('oneStepReport', { date: date }).then(
+            response => {
+                this.oneStepStatus.loading = false;
+                if (response && !response.error) {
+                    this.report.hasSubmitted = true;
+                    this.oneStepStatus.loadingComplete = true;
+                    this.submissionError = false;
+                    this.saveReportingState();
+                    this.getReports();
+                } else {
+                    this.submissionError = true;
+                }
+
+            }
+        )
+    }
+
+    submitOneStepBackReport = (date) => {
+        return this.executeRequest('oneStepReport', { date: date })
+    }
+
+    @action updateReports = (report) => {
+        this.savedReports[`${report.date}`] = report;
+    }
+
+    @computed get todaysReportHasIssue(){
+        return(this.report.selectedSymptoms.length > 0 || !this.report.tookMedication || !this.report.doingOkay)
+    }
+
 
 }

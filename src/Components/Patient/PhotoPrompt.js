@@ -22,14 +22,11 @@ const useStyles = makeStyles({
         width: "auto"
     },
     button: {
-        width: "90%",
-        margin: "auto",
+        padding: "1em 0",
+        width: "100%",
         display: "flex",
-        color: Colors.buttonBlue,
-        "& > div": {
-            borderColor: Colors.buttonBlue,
-            border: "solid 2px",
-        },
+        backgroundColor: Colors.actionBlue,
+        color: Colors.textDarkGray,
         borderRadius: "10px"
     },
     icon:{

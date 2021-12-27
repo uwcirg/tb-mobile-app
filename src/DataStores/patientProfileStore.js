@@ -260,5 +260,9 @@ export default class PatientProfileStore {
         this.onArchive = true;
     }
 
+    sendTestReminder = () => {
+        this.apiHelper.executeRawRequest(`/v2/patient/${this.selectedPatient.details.id}/test_medication_reminder`, "POST")
+    }
+
 
 }

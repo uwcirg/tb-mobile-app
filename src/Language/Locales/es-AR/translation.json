@@ -117,6 +117,13 @@
             "messaging": "Mensajes",
             "information": "Información"
         },
+        "oneStepReporting":{
+            "photoRequestTitle": "Por favor manda una foto de tu tira reactiva para confirmar tu progresso.",
+            "photoRequestButton": "Subir foto de la tira reactiva",
+            "supportTitle": "¿Cómo estás hoy, va todo bien?",
+            "goodOption": "Tomé mis medicamentos y me siento bien",
+            "helpOption": "Reportar asuntos y pedir ayuda"
+        },
         "onboarding": {
             "landing": {
                 "welcome": "Bienvenido",
@@ -270,7 +277,7 @@
             },
             "completed": {
                 "title": "Completo",
-                "subtitle": "Su Reporte de Hoy Fue Enviado",
+                "subtitle": "Su reporte de hoy fue enviado",
                 "modify": "Editar su Reporte"
             },
             "cardTitles": {
@@ -322,6 +329,9 @@
             }
         },
         "report": {
+            "allGood": "Todo Bien",
+            "trackIssues": "Reportar asuntos",
+            "topTitle": "Reporte de Hoy",
             "important": "Importante",
             "dayLate": "día tarde",
             "dayLate_plural": "días tarde",
@@ -330,6 +340,7 @@
             "title": "Reporte la Medicación de Hoy",
             "medicationTitle": "Por favor reporte la toma de Medicamentos",
             "medicationTime": "A qué hora tomó su medicamento? ",
+            "didYouTake": "¿Tomaste tu medicación hoy?",
             "didTake": "Tomé mi medicación.",
             "didNotTake": "No tomé mis medicamentos.",
             "whyNotTaken": "Porque no tomó sus medicamentos?",
@@ -352,6 +363,7 @@
                     "retakeIf": "Vuelva a tomar la foto si está borrosa o si el marcador cuadrado no está visible.",
                     "instructions": "Ver las instrucciones para las tiras reactivas."
                 },
+                "other": "Otras opciones",
                 "submitLater": "Enviar Después",
                 "unable": "¿No puedes enviar una foto? Dinos por qué.",
                 "whyUnable": "¿Por qué no puedes enviar una foto?",
@@ -387,10 +399,14 @@
             "photoUploadError": "Hubo un problema al subir su reporte. Inténtelo de nuevo o póngase en contacto con su asistente de tratamiento."
         },
         "reportConfirmation": {
+            "view": "Ver",
+            "hide":"Esconder",
             "viewOrEdit": "Ver / Editar Reporte",
             "goodJob": "Bien Hecho",
             "photoNeeded": "Hoy también tiene que subir una foto de la tira reactiva.",
-            "doLater": "Lo Haré Más Tarde"
+            "doLater": "Lo Haré Más Tarde",
+            "baseComplete": "Tu reporte diario ha sido mandado exitosamente",
+            "photoComplete": "Tu foto ha sido mandado exitosamente"
         },
         "progress": {
             "noReport": "No hay reporte para este día",
@@ -494,9 +510,13 @@
             "subtitle": "Hinchazón de la cara, los labios, la lengua, o la garganta"
         },
         "dizziness": {
-            "title": "Mareos"},
+            "title": "Mareos",
+            "subtitle": ""
+        },
         "headache": {
-            "title": "Dolor de cabeza"},
+            "title": "Dolor de cabeza",
+            "subtitle": ""
+        },
         "other": {
             "title": "Otros síntomas",
             "subtitle": "Registrar otros síntomas no mencionados anteriormente"
@@ -949,5 +969,16 @@
     "appSurvey":{
         "goToSurvey": "Ir a la encuesta",
         "markAsCompleted": "Marcar como completado"
+    },
+    "oneStepReporting":{
+        "top": "No tengo asuntos y tomé mis medicamentos",
+        "tap": "tocar el",
+        "greenButton": "botón verde",
+        "complete": "para completar tu reporte en un paso",
+        "needHelp": "Necesitas ayuda o tienes un asunto?",
+        "yellowButton": "botón amarillo",
+        "newFeature": "Nueva Función",
+        "oneStep": "Reportando En Un Paso",
+        "homeScreen": "También puedes completar tu reporte por el día desde el recordatorio de la pantalla principal."
     }
 }

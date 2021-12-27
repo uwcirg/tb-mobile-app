@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -14,6 +13,8 @@ import Styles from '../../../Basics/Styles';
 import TablePagination from '@material-ui/core/TablePagination';
 import Row from './ReportPreview';
 import { useTranslation } from 'react-i18next';
+import Grid from '@material-ui/core/Grid'
+import { Typography } from '@material-ui/core';
 
 const useRowStyles = makeStyles({
     spacing: {
@@ -47,7 +48,7 @@ const CollapsibleTable = observer(() => {
 
     return (
         <>
-            {patientProfileStore.selectedPatientReports.length > 0 &&
+            {patientProfileStore.selectedPatientReports.length > 0 ?
                 <Paper className={classes.table}>
                     <TableContainer>
                         <Table className={classes.spacing} stickyHeader aria-label="collapsible table">
@@ -75,29 +76,11 @@ const CollapsibleTable = observer(() => {
                         page={page}
                         onChangePage={handleChangePage}
                     />
-                </Paper>}
+                </Paper> : <Grid alignItems="center" justify="center" container style={{width: "100%", height: "300px"}}>
+                  <Typography variant="body1">{t('coordinator.tasksSidebar.noneYet')}</Typography>
+                </Grid>}
         </>
     );
 });
 
 export default CollapsibleTable;
-
-// @TODO: Could be nice to have proptypes for this component 
-
-// Row.propTypes = {
-//     row: PropTypes.shape({
-//         calories: PropTypes.number.isRequired,
-//         carbs: PropTypes.number.isRequired,
-//         fat: PropTypes.number.isRequired,
-//         history: PropTypes.arrayOf(
-//             PropTypes.shape({
-//                 amount: PropTypes.number.isRequired,
-//                 customerId: PropTypes.string.isRequired,
-//                 date: PropTypes.string.isRequired,
-//             }),
-//         ).isRequired,
-//         name: PropTypes.string.isRequired,
-//         price: PropTypes.number.isRequired,
-//         protein: PropTypes.number.isRequired,
-//     }).isRequired,
-// };

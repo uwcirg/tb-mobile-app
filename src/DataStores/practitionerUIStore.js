@@ -66,12 +66,6 @@ export default class PractitionerUIStore {
     }
 
     @action goToMessaging = () =>{
-        const lastID = localStorage.getItem('lastChannelID')
-
-        if(lastID){
-            this.router.push(`/messaging/channels/${lastID}`)
-            return
-        }
         this.router.push(`/messaging`)
     }
 

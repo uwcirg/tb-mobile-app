@@ -117,6 +117,13 @@
             "messaging": "Messaging",
             "information": "Information"
         },
+        "oneStepReporting":{
+            "photoRequestTitle": "Please complete a test strip to confirm your progress",
+            "photoRequestButton": "Complete Test Strip and Submit Photo",
+            "supportTitle": "Is everything going okay with your treatment today?",
+            "goodOption": "Took Medication and Feeling Good",
+            "helpOption": "Track Issues or Request Support"
+        },
         "onboarding": {
             "landing": {
                 "welcome": "Welcome",
@@ -271,6 +278,7 @@
             "completed": {
                 "title": "Complete",
                 "subtitle": "Todays Report Has Been Submitted",
+                "issue": "We have recieved your issue and your assistant will be in touch soon",
                 "modify": "Modify Your Report"
             },
             "cardTitles": {
@@ -322,6 +330,9 @@
             }
         },
         "report": {
+            "allGood": "Everything Okay",
+            "trackIssues": "Track Issues",
+            "topTitle": "Todays Report",
             "important": "Important",
             "dayLate": "day late",
             "dayLate_plural": "days late",
@@ -330,6 +341,7 @@
             "title": "Log Today's Medication",
             "medicationTitle": "Please Log Your Medication",
             "medicationTime": "What time did you take your medication?",
+            "didYouTake": "Did you take your medication today?",
             "didTake": "I took my medication",
             "didNotTake": "I didn't take my medication",
             "whyNotTaken": "Why didn't you take your medication?",
@@ -352,6 +364,7 @@
                     "retakeIf": "Retake photo if it is blurry or the square marker is not visible",
                     "instructions": "View Test Strip Instructions"
                 },
+                "other": "Other Options",
                 "submitLater": "Submit Later",
                 "unable": "Unable to submit? Tell us why",
                 "whyUnable": "Why are you unable to submit?",
@@ -387,10 +400,14 @@
             "photoUploadError": "There was a problem uploading your report. Please try again, or contact your treatment assistant"
         },
         "reportConfirmation": {
+            "view": "View",
+            "hide":"Hide",
             "viewOrEdit": "View / Edit Report",
             "goodJob": "Good Job",
             "photoNeeded": "You also need to upload a photo of your test strip today",
-            "doLater": "Do Later Today"
+            "doLater": "Do Later Today",
+            "baseComplete": "Your daily report has been successfully submitted",
+            "photoComplete": "Your test strip has been successfully submitted"
         },
         "progress": {
             "noReport": "No report for this day",
@@ -819,7 +836,6 @@
         "success": "Password Updated Successfully"
     },
     "treatmentUpdates": {
-        "0": "Please review the new instructions for the test strips",
         "3": "La Tuberculosis Pulmonar se contagia cuando una persona enferma al toser, estornudar o al hablar elimina con la tos secreciones que contienen los bacilos que producen la enfermedad. Siempre tratar de toser en lugar bien ventilado, nunca cerrado, si es posible cubrirse la boca y/o utilizar barbijo. ",
         "5": "¿Sabías que puedes chatear con otros pacientes en tratamiento anónimamente?",
         "7": "Una de las drogas utilizadas, la Rifampicina, colorea la orina, saliva o lagrimas de color naranja o rojo. Esto es  normal. Las lentes de contacto pueden teñirse de manera irreversible.",
@@ -954,5 +970,16 @@
     "appSurvey":{
         "goToSurvey": "Go to survey",
         "markAsCompleted": "Mark as completed"
+    },
+    "oneStepReporting":{
+        "top": "No issues and took your medication?",
+        "tap": "tap the",
+        "greenButton": "green button",
+        "complete": "to complete your report in one step",
+        "needHelp": "Need help or have an issue?",
+        "yellowButton": "yellow button",
+        "newFeature": "New Feature",
+        "oneStep": "One Step Reporting",
+        "homeScreen": "You can also now complete your report for the day from your homescreen by reporting straight from your medication reminder"
     }
 }

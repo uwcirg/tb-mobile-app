@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 
 const MedicationFlow = observer(() => {
     const classes = useStyles();
-    const { patientStore, patientUIStore } = useStores();
+    const { patientStore, patientUIStore, routingStore } = useStores();
     const { t } = useTranslation('translation');
 
     let Tabs;
@@ -60,11 +60,7 @@ const MedicationFlow = observer(() => {
     }
 
     const handleBack = () => {
-        if (patientUIStore.reportStep > Tabs.length - 1) {
-            patientUIStore.updateStep(Tabs.length - 2)
-            return
-        }
-        patientUIStore.previousReportStep();
+        routingStore.goBack();
     }
 
     const tabNumber = (patientStore.uiState.onPhotoFlow ? 3 : step + 1);
@@ -76,8 +72,8 @@ const MedicationFlow = observer(() => {
 
     return (
         <div className={classes.container}>
-            <NumberedTitle number={tabNumber} title={patientStore.report.headerText} />
-            <OverTopBar title={patientUIStore.onHistoricalReport ? `${t("report.for")} ${topDateString}` : t("patient.report.title")} handleBack={handleBack} />
+            {!patientUIStore.skippedToPhotoFlow && <NumberedTitle number={tabNumber} title={patientStore.report.headerText} />}
+            <OverTopBar title={patientUIStore.onHistoricalReport ? `${t("report.for")} ${topDateString}` : t("patient.report.topTitle")} handleBack={handleBack} />
             {React.cloneElement(Tabs[step], { advance: advance })}
         </div>)
 });

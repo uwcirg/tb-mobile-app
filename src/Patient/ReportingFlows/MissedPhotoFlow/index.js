@@ -14,18 +14,18 @@ import ReplayIcon from '@material-ui/icons/Replay';
 import { useTranslation } from 'react-i18next';
 import ConfirmationLayout from '../../../Components/Patient/ConfirmationLayout';
 import BottomButton from './BottomButton';
-import { CircularProgress } from '@material-ui/core';
+import { Box, CircularProgress } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import GenericErrorMessage from '../../../Components/GenericErrorMessage';
 
 const useStyles = makeStyles({
     container: {
         width: "100%",
-        marginTop: "1em",
+        padding: "1em",
+        boxSizing: "border-box"
     },
     topText: {
-        width: "90%",
-        margin: "1em auto"
+        padding: "1em 0"
     },
     strip: {
         display: "block",
@@ -159,7 +159,8 @@ const PreSubmissionView = ({ photo, eligible, setPhoto, handleSubmit, requestDat
             {eligible ? <>
                 <BackSubmissionText photo={photo !== false} requestDateFormatted={requestDateFormatted} />
                 <PhotoPrompt onClick={() => { setCameraOpen(true) }} />
-                <TestStripPhotoInfo />
+                <Box height=".5em" />
+                <TestStripPhotoInfo showSkipOptions={false} />
             </> : <NotEligible />}
         </>}
         {cameraOpen && <Camera handleExit={handleExit} returnPhoto={handlePhoto} />}

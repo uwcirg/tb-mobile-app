@@ -2,7 +2,6 @@ import { toJS, action, observable, computed } from "mobx";
 import { DateTime } from 'luxon';
 import { addReportToOfflineCache } from './SaveReportOffline'
 
-
 export default class ReportStore {
 
     constructor(rootStore) {
@@ -16,14 +15,11 @@ export default class ReportStore {
     @observable todaysReportLoaded = false;
 
     @computed get baseReportComplete() {
-
         return this.rootStore.report.hasSubmitted;
-
     }
 
     @computed get allReportComplete() {
         return this.rootStore.report.hasSubmitted && (!this.rootStore.isPhotoDay || this.rootStore.report.hasSubmittedPhoto);
-
     }
 
     @computed get photoReportComplete() {
@@ -37,8 +33,6 @@ export default class ReportStore {
     @action updateCurrentDate = () => {
         this.todaysDate = DateTime.local().toISODate()
     }
-
-
 
     submitPhoto = () => {
         this.rootStore.hasSubmittedPhoto = true;
@@ -56,7 +50,7 @@ export default class ReportStore {
         } else {
             this.rootStore.executeRawRequest('/v2/photo_reports', "POST", body).then(this.processReport);
         }
-
+        // this.rootStore.saveReportingState();
     }
 
     submitMedication = () => {
@@ -129,8 +123,7 @@ export default class ReportStore {
     getMedicationBody = () => {
         let body = {
             date: this.rootStore.report.date,
-            medicationWasTaken: this.rootStore.report.tookMedication,
-            datetimeTaken: this.rootStore.report.timeTaken
+            medicationWasTaken: this.rootStore.report.tookMedication
         }
 
         if (!this.rootStore.report.tookMedication && this.rootStore.report.whyMedicationNotTaken !== null) {
@@ -139,7 +132,5 @@ export default class ReportStore {
 
         return body;
     }
-
-
 
 }

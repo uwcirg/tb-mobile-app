@@ -33,7 +33,7 @@ const useStyles = makeStyles({
         },
         width: "45%",
         padding: "2em 1em .5em 1em",
-        border: "1px solid lightgray",
+        border: "2px solid lightgray",
         borderRadius: "10px",
         display: "flex",
         flexDirection: "column",
@@ -53,7 +53,8 @@ const useStyles = makeStyles({
         minHeight: "60vh"
     },
     selected: {
-        backgroundColor: Colors.accentBlue
+        backgroundColor: Colors.accentBlue,
+        borderColor: Colors.accentBlue
     },
     supportReason: {
         marginTop: "2em",

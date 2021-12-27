@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { inject, observer } from 'mobx-react';
+import React from 'react';
+import { observer } from 'mobx-react';
 import SymptomsList from './SymptomsList.js'
 import SimpleButton from '../../Basics/SimpleButton'
 import InteractionCard from '../../Basics/HomePageSection';

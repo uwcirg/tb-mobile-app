@@ -18,8 +18,9 @@ import EducationalMessage from './Home/Education';
 import { usePageVisibility } from '../Hooks/PageVisibility';
 import UpdateContactTracing from './HouseholdTesting';
 import MissedPhotoFlow from './ReportingFlows/MissedPhotoFlow/';
+import PushActionReportingFlow from './ReportingFlows/PushActionReportingFlow';
 
-const PatientHome = observer((props) => {
+const PatientHome = observer(() => {
 
   const { patientUIStore, patientStore, uiStore, dailyReportStore } = useStores();
   const tabs = [<Home />, <Progress />, <Messaging />, <Info />];
@@ -81,6 +82,10 @@ const PatientHome = observer((props) => {
     return <MissedPhotoFlow />
   }
 
+  if(uiStore.pathname.startsWith("/quick-report")){
+    return <PushActionReportingFlow />
+  }
+
   return (
     <div className="main-screen" style={{ backgroundColor: `${Colors.white}`, minHeight: "100vh" }}>
       <ErrorListener />
@@ -91,7 +96,7 @@ const PatientHome = observer((props) => {
       <div style={{ paddingTop: "60px", paddingBottom: "60px" }}>
         {routeTab}
       </div>
-      <BottomBar />
+      {!patientUIStore.onReportFlow && <BottomBar />}
     </div>
   );
 }

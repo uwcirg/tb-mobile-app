@@ -115,7 +115,7 @@ const Messaging = observer(() => {
 const Channels = observer((props) => {
     const classes = useStyles();
     const { messagingStore, uiStore } = useStores();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
     let channels = "";
     if (props.channels.length > 0) {

@@ -98,7 +98,7 @@ const FullReport = ({ row }) => {
     const { t } = useTranslation('translation');
     const classes = useStyles();
     const date = DateTime.fromISO(row.date);
-    const timeTaken = DateTime.fromISO(row.takenAt).toLocaleString(DateTime.TIME_SIMPLE)
+    const timeTaken = row.takenAt ? DateTime.fromISO(row.takenAt).toLocaleString(DateTime.TIME_SIMPLE) : t('commonWords.yes')
 
     return (<Table size="small" aria-label="report-details">
         <TableBody className={classes.body}>
@@ -120,7 +120,7 @@ const FullReport = ({ row }) => {
             <TableRow>
                 <TableCell>{t('commonWords.medication')}</TableCell>
                 <TableCell>
-                    {row.medicationWasTaken ? <p>{t('patient.report.confirmation.takenAt')}: {timeTaken}</p> : <p><span className={classes.warningHighlight}>{t('coordinator.tasksSidebar.notTaken')}</span></p>}
+                    {row.medicationWasTaken ? <p>{row.takenAt && <>{t('patient.report.confirmation.takenAt')}:</>} {timeTaken}</p> : <p><span className={classes.warningHighlight}>{t('coordinator.tasksSidebar.notTaken')}</span></p>}
                     {!row.medicationWasTaken &&
                         <>{row.whyMedicationNotTaken ? <p>{t('coordinator.message')}: {row.whyMedicationNotTaken}</p> : <p>
                             {t('coordinator.sideBar.noReason')}</p>}</>}
