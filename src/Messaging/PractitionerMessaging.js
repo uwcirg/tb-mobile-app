@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect } from 'react';
 import Channel from './Channel';
 import useStores from '../Basics/UseStores';
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,6 +8,8 @@ import useResize from '../Hooks/Resize'
 import MobileMessages from './MobilePractitionerMsg'
 import ChannelNavigation from './ChannelNavigation'
 import Sidebar from './Sidebar'
+import { Typography } from '@material-ui/core';
+import { ArrowLeft, KeyboardArrowLeft } from '@material-ui/icons';
 
 const useStyles = makeStyles({
     superContainer: {
@@ -23,9 +25,8 @@ const useStyles = makeStyles({
         display: "flex",
         width: "100%",
         height: "100%",
-        "& > h1": {
-            padding: "2em",
-            width: "60%"
+        "& > h2": {
+            fontSize: "1.25em"
         },
         justifyContent: "center",
         alignItems: "center"
@@ -33,7 +34,7 @@ const useStyles = makeStyles({
     sideBar: {
         flexGrow: 1
     },
-    navContainer:{
+    navContainer: {
         width: "320px",
         borderRight: "solid 1px lightgray",
 
@@ -42,9 +43,9 @@ const useStyles = makeStyles({
 });
 
 const Messaging = observer(() => {
-    const {isMobile} = useResize();
-    const {t} = useTranslation('translation');
-    const { messagingStore, practitionerStore, uiStore} = useStores();
+    const { isMobile } = useResize();
+    const { t } = useTranslation('translation');
+    const { messagingStore, practitionerStore, uiStore } = useStores();
     const classes = useStyles();
 
     useEffect(() => {
@@ -60,24 +61,27 @@ const Messaging = observer(() => {
     }, [uiStore.pathNumber])
 
 
-    if(isMobile){
+    if (isMobile) {
         return <MobileMessages />
     }
 
     return (
         <div className={classes.superContainer}>
             <div className={classes.navContainer}>
-            <ChannelNavigation />
+                <ChannelNavigation />
             </div>
             <div className={classes.channelContainer}>
-                {messagingStore.selectedChannel && messagingStore.selectedChannel.id !== "" ?
+                {messagingStore.selectedChannel && messagingStore.selectedChannel.id !== 0 ?
                     <Channel
                         isCoordinator
                         isPrivate={messagingStore.coordinatorSelectedChannel && messagingStore.coordinatorSelectedChannel.isPrivate}
                         userID={practitionerStore.userID}
                         selectedChannel={messagingStore.selectedChannel}
                     />
-                    : <div className={classes.selectChannel}><h1> {t('messaging.selectChannel')}</h1></div>
+                    : <div className={classes.selectChannel}>
+                        <KeyboardArrowLeft />
+                        <Typography align="center" variant="h2">{t('messaging.selectChannel')}</Typography>
+                        </div>
                 }
             </div>
             <div className={classes.sideBar}>

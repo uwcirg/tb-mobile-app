@@ -65,8 +65,8 @@ const useStyles = makeStyles({
 const PractitionerDrawer = observer(() => {
   const classes = useStyles();
   const { routingStore, practitionerStore, practitionerUIStore, messagingStore, loginStore } = useStores();
-  const { location, push, goBack } = routingStore;
-  const { t, i18n } = useTranslation('translation');
+  const {push} = routingStore;
+  const { t } = useTranslation('translation');
 
   const handleLogout = () => {
     practitionerStore.logout();
@@ -81,11 +81,9 @@ const PractitionerDrawer = observer(() => {
           <ListItem className={`${practitionerUIStore.tabNumber === 0 && classes.selected}`} button key={"Home"} onClick={() => { push('/home') }}>
             <ListItemIcon><HomeIcon className={classes.test} /></ListItemIcon>
           </ListItem>
-
           <ListItem button className={practitionerUIStore.tabNumber === 1 ? classes.selected : ""} key={"Patients"} onClick={() => { push('/patients') }}>
             <ListItemIcon><PatientsIcon /></ListItemIcon>
           </ListItem>
-
           <ListItem button className={practitionerUIStore.tabNumber === 2 ? classes.selected : ""} key={"Messaging"} onClick={practitionerUIStore.goToMessaging}>
             <ListItemIcon>
               <Badge color="primary" badgeContent={messagingStore.numberUnread}>
@@ -93,7 +91,6 @@ const PractitionerDrawer = observer(() => {
               </Badge>
             </ListItemIcon>
           </ListItem>
-
           <ListItem button className={practitionerUIStore.tabNumber === 3 ? classes.selected : ""} key={"Settings"} onClick={() => { push('/settings') }}>
             <ListItemIcon><Settings /></ListItemIcon>
           </ListItem>
