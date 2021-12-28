@@ -60,7 +60,12 @@ const MedicationFlow = observer(() => {
     }
 
     const handleBack = () => {
-        routingStore.goBack();
+        if(step !== 0){
+            routingStore.goBack();
+        }else{
+            patientUIStore.goToHome();
+        }
+        
     }
 
     const tabNumber = (patientStore.uiState.onPhotoFlow ? 3 : step + 1);
