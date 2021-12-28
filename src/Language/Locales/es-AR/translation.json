@@ -278,6 +278,7 @@
             "completed": {
                 "title": "Completo",
                 "subtitle": "Su reporte de hoy fue enviado",
+                "issue": "Se recibió su reporte de un problema y su asistente de tratamiento se comunicará pronto",
                 "modify": "Editar su Reporte"
             },
             "cardTitles": {
