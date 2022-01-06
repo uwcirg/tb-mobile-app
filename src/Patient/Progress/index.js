@@ -21,15 +21,6 @@ const useStyles = makeStyles(theme => ({
         alignItems: "center",
         flexDirection: "column",
         backgroundColor: "white",
-        paddingTop: "1em"
-    },
-    fullHeight: {
-        height: "100vh",
-        position: "fixed",
-        zIndex: "10",
-        backgroundColor: "white",
-        justifyContent: "flex-start",
-        paddingTop: "60px"
     },
     keyButton: {
         fontSize: "1em",
@@ -88,6 +79,7 @@ const ProgressWithOfflineOverride = () => {
 
     return (
         <PreventOffline type={t('patient.tabNames.calendar')}>
+            <p style={{textAlign: "center"}}>Top Bar Here </p>
             <Progress />
         </PreventOffline>
     )

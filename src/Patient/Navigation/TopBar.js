@@ -11,7 +11,6 @@ import Colors from '../../Basics/Colors';
 
 import Settings from '@material-ui/icons/Settings'
 import useStores from '../../Basics/UseStores';
-import { Hidden } from '@material-ui/core';
 
 const useStyles = makeStyles({
   personIcon: {
