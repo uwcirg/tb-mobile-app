@@ -13,6 +13,7 @@ import QuestionIcon from '@material-ui/icons/HelpOutline';
 import Key from './Key'
 import PreventOffline from '../../Basics/PreventOffline';
 import Grid from '@material-ui/core/Grid'
+import Tabs from './Tabs'
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -24,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     },
     keyButton: {
         fontSize: "1em",
-        margin: ".25em 0 .5em 0",
+        margin: "1em",
         "& > svg": {
             marginRight: "5px",
             fontSize: "1em"
@@ -67,21 +68,29 @@ const Progress = observer(() => {
         {showKey && <Key close={() => { setShowKey(false) }} />}
         <ClickableText className={classes.keyButton} icon={<QuestionIcon />} text={t('patient.progress.calendarKey.button')} onClick={() => { setShowKey(true) }} />
         {patientStore.savedReportsLoaded ? <>
-        <CustomCalendar />
-        <DayDrawer />
+            <CustomCalendar />
+            <DayDrawer />
         </> : <Loading />}
     </div>)
 });
+
+const WrappedProgress = () => {
+    const { t } = useTranslation('translation');
+    return (<PreventOffline type={t('patient.tabNames.calendar')}>
+        <Progress />
+    </PreventOffline>)
+}
 
 const ProgressWithOfflineOverride = () => {
 
     const { t } = useTranslation('translation');
 
+    const [activeTab, setTab] = useState(0);
+
     return (
-        <PreventOffline type={t('patient.tabNames.calendar')}>
-            <p style={{textAlign: "center"}}>Top Bar Here </p>
-            <Progress />
-        </PreventOffline>
+        <>
+            <Tabs content={[<WrappedProgress />, <p>Photo List</p>]} activeTab={activeTab} setTab={setTab} />
+        </>
     )
 }
 

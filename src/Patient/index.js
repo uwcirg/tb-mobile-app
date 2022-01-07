@@ -19,7 +19,7 @@ import { usePageVisibility } from '../Hooks/PageVisibility';
 import UpdateContactTracing from './HouseholdTesting';
 import MissedPhotoFlow from './ReportingFlows/MissedPhotoFlow/';
 import PushActionReportingFlow from './ReportingFlows/PushActionReportingFlow';
-import { Box } from '@material-ui/core';
+import { Box, Hidden } from '@material-ui/core';
 
 const PatientHome = observer(() => {
 
@@ -75,15 +75,15 @@ const PatientHome = observer(() => {
     return <Onboarding />
   }
 
-  if(uiStore.pathname.startsWith("/contact-tracing")){
+  if (uiStore.pathname.startsWith("/contact-tracing")) {
     return <UpdateContactTracing />
   }
 
-  if(uiStore.pathname.startsWith("/missed-photo")){
+  if (uiStore.pathname.startsWith("/missed-photo")) {
     return <MissedPhotoFlow />
   }
 
-  if(uiStore.pathname.startsWith("/quick-report")){
+  if (uiStore.pathname.startsWith("/quick-report")) {
     return <PushActionReportingFlow />
   }
 
@@ -92,11 +92,10 @@ const PatientHome = observer(() => {
   return (
     <div className="main-screen" style={{ backgroundColor: `${Colors.white}`, minHeight: "100vh" }}>
       <ErrorListener />
-      {showTopBar && <>
-      <TopBar />
-      <Box height="60px" />
-      </>
-      }
+      <div hidden={!showTopBar}>
+        <TopBar />
+        <Box height="60px" />
+      </div>
       <EducationalMessage />
       {patientUIStore.onWalkthrough && <Intro />}
       <TopMenu />
