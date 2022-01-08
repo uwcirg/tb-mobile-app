@@ -14,6 +14,7 @@ import Key from './Key'
 import PreventOffline from '../../Basics/PreventOffline';
 import Grid from '@material-ui/core/Grid'
 import Tabs from './Tabs'
+import PhotoList from './PhotoList';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -89,7 +90,7 @@ const ProgressWithOfflineOverride = () => {
 
     return (
         <>
-            <Tabs content={[<WrappedProgress />, <p>Photo List</p>]} activeTab={activeTab} setTab={setTab} />
+            <Tabs content={[<WrappedProgress />, <PhotoList />]} activeTab={activeTab} setTab={setTab} />
         </>
     )
 }
