@@ -513,7 +513,7 @@ export class PatientStore extends UserStore {
 
     @action getPhotoReports = () => {
         this.executeRequest("getPhotoReports").then( res => {
-            console.log(res)
+            this.photoReports = res;
         })
     }
 
