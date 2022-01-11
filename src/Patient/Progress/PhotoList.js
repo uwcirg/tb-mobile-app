@@ -9,6 +9,8 @@ import { useTranslation } from 'react-i18next';
 import AspectRatioIcon from '@material-ui/icons/ZoomOutMap';
 import PhotoStatus from '../../Components/PhotoStatus';
 import { DateTime } from 'luxon';
+import Tag from '../../Components/Tag';
+import { Timelapse } from '@material-ui/icons';
 
 
 const useStyles = makeStyles({
@@ -46,18 +48,27 @@ const useStyles = makeStyles({
     },
     date: {
         display: "block",
-        fontSize: ".75em",
+        fontSize: ".8em",
         fontWeight: "bold",
         color: Colors.textDarkGray
     },
     tag: {
         display: "block",
-        fontSize: ".75em",
+        fontSize: ".8em",
         width: "fit-content",
         padding: "2px 8px",
-        marginTop: "auto"
+        marginTop: "auto",
+        fontWeight: "bold"
     }
 })
+
+const Result = ({ approved }) => {
+    const classes = useStyles();
+    if (approved !== null) {
+        return approved ? <Tag className={classes.tag} backgroundColor={Colors.calendarGreen}>Medication Detected</Tag> : <Tag className={classes.tag} backgroundColor={Colors.highlightYellow}>Unclear Result</Tag>;
+    }
+    return <Tag className={classes.tag} backgroundColor={Colors.lightgray}>Awaiting Review</Tag>
+}
 
 const PhotoList = observer(({ photos }) => {
 
@@ -67,14 +78,17 @@ const PhotoList = observer(({ photos }) => {
 
     return (<div className={classes.container}>
         <Typography className={classes.title} variant="h2">{t('dashboard.photoReports')}</Typography>
-        {patientStore.photoReports.map(photoReport => {
+        {patientStore.photoReports.map((photoReport) => {
             const displayDate = DateTime.fromISO(photoReport.date).toLocaleString(DateTime.DATE_MED);
             return (
-                <div key={`photo-list-${photoReport.id}`}>
+                <div key={`photo-list-${photoReport.photoId}`}>
                     <Grid alignItems="stretch" wrap="nowrap" className={classes.item} container>
-                        <div style={{flexGrow: "1", display: "flex", flexDirection: "column"}}>
+                        <div style={{ flexGrow: "1", display: "flex", flexDirection: "column" }}>
                             <Typography className={classes.date}>{displayDate}</Typography>
-                            <PhotoStatus className={classes.tag} conclusive={photoReport.approved} />
+                            {photoReport.url ? <Result approved={photoReport.approved} /> : 
+                            <><Tag>Skipped Photo</Tag>
+                            <Typography variant="body1">Reason: {photoReport.skippedReason}</Typography>
+                            </>}
                         </div>
                         <ButtonBase style={{ backgroundImage: `url(${photoReport.url})` }} className={classes.photo}>
                             <AspectRatioIcon className={classes.expandIcon} />
