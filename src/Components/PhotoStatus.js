@@ -5,9 +5,8 @@ import Colors from '../Basics/Colors';
 import Tag from '../Practitioner/PatientProfile/ReportTable/ReportTag';
 
 const useStyles = makeStyles({
-    body: {
-        textTransform: "capitalize",
-        fontSize: "1em"
+    tag: {
+
     }
 })
 
@@ -23,7 +22,7 @@ const getColor = (conclusive) => {
 
 const PhotoStatus = ({ conclusive = null }) => {
 
-    const classes = useStyles({ conclusive: conclusive });
+    const classes = useStyles();
     const { t } = useTranslation('translation');
     let text;
 
@@ -36,7 +35,7 @@ const PhotoStatus = ({ conclusive = null }) => {
     }
 
     return (
-        <Tag backgroundColor={getColor(conclusive)}>{text}</Tag>
+        <Tag className={classes.tag} backgroundColor={getColor(conclusive)}>{text}</Tag>
     )
 
 }

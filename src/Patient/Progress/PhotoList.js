@@ -7,12 +7,18 @@ import Grid from '@material-ui/core/Grid'
 import { Box, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import AspectRatioIcon from '@material-ui/icons/ZoomOutMap';
+import Tag from '../../Components/Tag';
+import PhotoStatus from '../../Components/PhotoStatus';
 
 const useStyles = makeStyles({
     container: {
         padding: "0 .5em"
     },
     photo: {
+        display: "flex",
+        justifyContent: "flex-end",
+        alignItems: "flex-end",
+        padding: ".5em",
         backgroundColor: Colors.lightgray,
         height: "75px",
         width: "75px",
@@ -29,8 +35,8 @@ const useStyles = makeStyles({
         fontSize: "1.5em",
         padding: ".5em 0"
     },
-    expand:{
-        fontSize: "1em",
+    expandIcon:{
+        fontSize: "1.25em",
         color: "white"
     }
 })
@@ -49,9 +55,10 @@ const PhotoList = observer(({ photos }) => {
                     <Grid className={classes.item} container>
                         <Box flexGrow="1">
                             <Typography>{photoReport.date}</Typography>
+                            <PhotoStatus conclusive={photoReport.approved} />
                         </Box>
                         <div style={{ backgroundImage: `url(${photoReport.url})` }} className={classes.photo}>
-                            <AspectRatioIcon className={classes.expand} />
+                            <AspectRatioIcon className={classes.expandIcon} />
                         </div>
                         <Box width=".5em" />
                     </Grid>
