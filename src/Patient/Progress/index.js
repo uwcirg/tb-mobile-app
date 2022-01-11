@@ -86,7 +86,7 @@ const ProgressWithOfflineOverride = () => {
 
     const { t } = useTranslation('translation');
 
-    const [activeTab, setTab] = useState(0);
+    const [activeTab, setTab] = useState(1);
 
     return (
         <>

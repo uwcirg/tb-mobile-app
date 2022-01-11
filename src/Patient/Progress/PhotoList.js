@@ -4,11 +4,11 @@ import { observer } from 'mobx-react';
 import useStores from '../../Basics/UseStores';
 import Colors from '../../Basics/Colors';
 import Grid from '@material-ui/core/Grid'
-import { Box, Typography } from '@material-ui/core';
+import { Box, ButtonBase, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import AspectRatioIcon from '@material-ui/icons/ZoomOutMap';
-import Tag from '../../Components/Tag';
 import PhotoStatus from '../../Components/PhotoStatus';
+import { DateTime } from 'luxon';
 
 const useStyles = makeStyles({
     container: {
@@ -25,19 +25,25 @@ const useStyles = makeStyles({
         backgroundSize: "fill",
         backgroundPosition: "top center",
         backgroundRepeat: "no-repeat",
-        borderRadius: "4px"
+        borderRadius: "4px",
+        border: "none"
     },
     item: {
         padding: ".5em",
         backgroundColor: Colors.lighterGray
     },
     title: {
-        fontSize: "1.5em",
+        fontSize: "1.25em",
         padding: ".5em 0"
     },
-    expandIcon:{
+    expandIcon: {
         fontSize: "1.25em",
         color: "white"
+    },
+    date:{
+        fontSize: ".75em",
+        fontWeight: "bold",
+        color: Colors.textDarkGray
     }
 })
 
@@ -50,16 +56,18 @@ const PhotoList = observer(({ photos }) => {
     return (<div className={classes.container}>
         <Typography className={classes.title} variant="h2">{t('dashboard.photoReports')}</Typography>
         {patientStore.photoReports.map(photoReport => {
+            const displayDate = DateTime.fromISO(photoReport.date).toLocaleString(DateTime.DATE_MED);
             return (
                 <div key={`photo-list-${photoReport.id}`}>
                     <Grid className={classes.item} container>
                         <Box flexGrow="1">
-                            <Typography>{photoReport.date}</Typography>
+                            <Typography className={classes.date}>{displayDate}</Typography>
+                            <Box height=".5em" />
                             <PhotoStatus conclusive={photoReport.approved} />
                         </Box>
-                        <div style={{ backgroundImage: `url(${photoReport.url})` }} className={classes.photo}>
+                        <ButtonBase style={{ backgroundImage: `url(${photoReport.url})` }} className={classes.photo}>
                             <AspectRatioIcon className={classes.expandIcon} />
-                        </div>
+                        </ButtonBase>
                         <Box width=".5em" />
                     </Grid>
                     <Box height=".5em" />
