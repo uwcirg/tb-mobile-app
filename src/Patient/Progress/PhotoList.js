@@ -10,6 +10,7 @@ import AspectRatioIcon from '@material-ui/icons/ZoomOutMap';
 import PhotoStatus from '../../Components/PhotoStatus';
 import { DateTime } from 'luxon';
 
+
 const useStyles = makeStyles({
     container: {
         padding: "0 .5em"
@@ -25,12 +26,15 @@ const useStyles = makeStyles({
         backgroundSize: "fill",
         backgroundPosition: "top center",
         backgroundRepeat: "no-repeat",
+        border: "none",
         borderRadius: "4px",
-        border: "none"
+        flexShrink: 0,
     },
     item: {
         padding: ".5em",
-        backgroundColor: Colors.lighterGray
+        backgroundColor: Colors.lighterGray,
+        boxSizing: "border-box",
+        borderRadius: "4px",
     },
     title: {
         fontSize: "1.25em",
@@ -40,10 +44,18 @@ const useStyles = makeStyles({
         fontSize: "1.25em",
         color: "white"
     },
-    date:{
+    date: {
+        display: "block",
         fontSize: ".75em",
         fontWeight: "bold",
         color: Colors.textDarkGray
+    },
+    tag: {
+        display: "block",
+        fontSize: ".75em",
+        width: "fit-content",
+        padding: "2px 8px",
+        marginTop: "auto"
     }
 })
 
@@ -59,16 +71,14 @@ const PhotoList = observer(({ photos }) => {
             const displayDate = DateTime.fromISO(photoReport.date).toLocaleString(DateTime.DATE_MED);
             return (
                 <div key={`photo-list-${photoReport.id}`}>
-                    <Grid className={classes.item} container>
-                        <Box flexGrow="1">
+                    <Grid alignItems="stretch" wrap="nowrap" className={classes.item} container>
+                        <div style={{flexGrow: "1", display: "flex", flexDirection: "column"}}>
                             <Typography className={classes.date}>{displayDate}</Typography>
-                            <Box height=".5em" />
-                            <PhotoStatus conclusive={photoReport.approved} />
-                        </Box>
+                            <PhotoStatus className={classes.tag} conclusive={photoReport.approved} />
+                        </div>
                         <ButtonBase style={{ backgroundImage: `url(${photoReport.url})` }} className={classes.photo}>
                             <AspectRatioIcon className={classes.expandIcon} />
                         </ButtonBase>
-                        <Box width=".5em" />
                     </Grid>
                     <Box height=".5em" />
                 </div>

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
-import DayDrawer from './DayDrawer'
+import DayDrawer from './DayDrawer';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import CustomCalendar from './Calendar';
@@ -10,10 +10,10 @@ import MedicationFlow from '../ReportingFlows';
 import { useTranslation } from 'react-i18next';
 import ClickableText from '../../Basics/ClickableText';
 import QuestionIcon from '@material-ui/icons/HelpOutline';
-import Key from './Key'
+import Key from './Key';
 import PreventOffline from '../../Basics/PreventOffline';
-import Grid from '@material-ui/core/Grid'
-import Tabs from './Tabs'
+import Grid from '@material-ui/core/Grid';
+import Tabs from './Tabs';
 import PhotoList from './PhotoList';
 
 const useStyles = makeStyles(theme => ({
@@ -84,15 +84,9 @@ const WrappedProgress = () => {
 
 const ProgressWithOfflineOverride = () => {
 
-    const { t } = useTranslation('translation');
-
     const [activeTab, setTab] = useState(1);
 
-    return (
-        <>
-            <Tabs content={[<WrappedProgress />, <PhotoList />]} activeTab={activeTab} setTab={setTab} />
-        </>
-    )
+    return <Tabs content={[<WrappedProgress />, <PhotoList />]} activeTab={activeTab} setTab={setTab} />
 }
 
 const Loading = () => {
