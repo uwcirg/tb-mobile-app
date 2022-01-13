@@ -984,6 +984,11 @@
         "homeScreen": "You can also now complete your report for the day from your homescreen by reporting straight from your medication reminder"
     },
     "photoReportReview":{
-        "allLoaded": "all reports loaded"
+        "allLoaded": "all reports loaded",
+        "detected": "medication detected",
+        "unclear": "unclear result",
+        "resubmit": "resubmission requested",
+        "awaiting": "awaiting review"
+
     }
 }

@@ -11,6 +11,7 @@ import Tag from '../../../Components/Tag';
 import useToggle from '../../../Hooks/useToggle';
 import Dialog from '@material-ui/core/Dialog';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import { useTranslation } from 'react-i18next';
 
 
 const useStyles = makeStyles({
@@ -77,15 +78,32 @@ const useStyles = makeStyles({
     },
 })
 
-const Result = ({ approved }) => {
+const Result = ({ approved, skipped }) => {
+
+    const { t } = useTranslation('translation');
     const classes = useStyles();
-    if (approved !== null) {
-        return approved ? <Tag className={classes.tag} backgroundColor={Colors.calendarGreen}>Medication Detected</Tag> : <Tag className={classes.tag} backgroundColor={Colors.highlightYellow}>Unclear Result</Tag>;
+
+    let text = "";
+    let color = "";
+
+    if (skipped) {
+        color = Colors.calendarRed;
+        text = t('dashboard.skippedPhoto');
+    }else if (approved === null) {
+       color = Colors.lightgray;
+       text = t('photoReportReview.awaiting');
+    }else if (approved){
+        color = Colors.calendarGreen;
+        text = t('photoReportReview.detected');
+    }else{
+        color = Colors.highlightYellow;
+        text = t('photoReportReview.unclear');
     }
-    return <Tag className={classes.tag} backgroundColor={Colors.lightgray}>Awaiting Review</Tag>
+
+    return <Tag className={classes.tag} backgroundColor={color}>{text}</Tag>
 }
 
-const PhotoResponseItem = ({ date, photoId, approved, url, whyPhotoWasSkipped }) => {
+const PhotoResponseItem = ({ date, approved, url, whyPhotoWasSkipped }) => {
 
     const classes = useStyles();
     const displayDate = DateTime.fromISO(date).toLocaleString(DateTime.DATE_MED);
@@ -106,12 +124,11 @@ const PhotoResponseItem = ({ date, photoId, approved, url, whyPhotoWasSkipped })
                 <div className={classes.reportData}>
                     <Typography className={classes.date}>{displayDate}</Typography>
                     <Box height=".33em" />
-                    {url ? <Result approved={approved} /> :
-                        <>
-                            <Tag backgroundColor={Colors.calendarRed} className={classes.tag}>Skipped Photo</Tag>
-                            <Box height=".33em" />
-                            <Typography className={classes.reason} variant="body1">{whyPhotoWasSkipped || "None provided"}</Typography>
-                        </>}
+                    <Result skipped={!url} approved={approved} />
+                    {!url && <>
+                        <Box height=".33em" />
+                        <Typography className={classes.reason} variant="body1">{whyPhotoWasSkipped || t('coordinator.sideBar.noReason')}</Typography>
+                    </>}
                 </div>
             </Grid>
             <Box height=".5em" />
