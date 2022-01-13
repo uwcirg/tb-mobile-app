@@ -1,15 +1,7 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Colors from '../Basics/Colors';
 import Tag from '../Practitioner/PatientProfile/ReportTable/ReportTag';
-
-const useStyles = makeStyles({
-    body: {
-        textTransform: "capitalize",
-        fontSize: "1em"
-    }
-})
 
 const getColor = (conclusive) => {
     if (conclusive === false) {
@@ -21,22 +13,21 @@ const getColor = (conclusive) => {
     }
 }
 
-const PhotoStatus = ({ conclusive = null }) => {
+const PhotoStatus = ({ conclusive = null, className }) => {
 
-    const classes = useStyles({ conclusive: conclusive });
     const { t } = useTranslation('translation');
     let text;
 
     if (conclusive === false) {
-        text = t('report.inconclusive')
+        text = t('report.inconclusive');
     } else if (conclusive === true) {
-        text = t('report.conclusive')
+        text = t('report.conclusive');
     } else {
-        text = t('report.pending')
+        text = t('report.pending');
     }
 
     return (
-        <Tag backgroundColor={getColor(conclusive)}>{text}</Tag>
+        <Tag className={className} backgroundColor={getColor(conclusive)}>{text}</Tag>
     )
 
 }

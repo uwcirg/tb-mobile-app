@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
-import DayDrawer from './DayDrawer'
+import DayDrawer from './DayDrawer';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import CustomCalendar from './Calendar';
@@ -10,9 +10,11 @@ import MedicationFlow from '../ReportingFlows';
 import { useTranslation } from 'react-i18next';
 import ClickableText from '../../Basics/ClickableText';
 import QuestionIcon from '@material-ui/icons/HelpOutline';
-import Key from './Key'
+import Key from './Key';
 import PreventOffline from '../../Basics/PreventOffline';
-import Grid from '@material-ui/core/Grid'
+import Grid from '@material-ui/core/Grid';
+import Tabs from './Tabs';
+import PhotoList from './PhotoList/';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -21,19 +23,10 @@ const useStyles = makeStyles(theme => ({
         alignItems: "center",
         flexDirection: "column",
         backgroundColor: "white",
-        paddingTop: "1em"
-    },
-    fullHeight: {
-        height: "100vh",
-        position: "fixed",
-        zIndex: "10",
-        backgroundColor: "white",
-        justifyContent: "flex-start",
-        paddingTop: "60px"
     },
     keyButton: {
         fontSize: "1em",
-        margin: ".25em 0 .5em 0",
+        margin: "1em",
         "& > svg": {
             marginRight: "5px",
             fontSize: "1em"
@@ -72,34 +65,37 @@ const Progress = observer(() => {
 
     if (patientUIStore.onHistoricalReport) return (<ReportOldMedication />)
 
-    return (<div id="intro-progress" className={`${classes.container}`} >
-        {showKey && <Key close={() => { setShowKey(false) }} />}
-        <ClickableText className={classes.keyButton} icon={<QuestionIcon />} text={t('patient.progress.calendarKey.button')} onClick={() => { setShowKey(true) }} />
-        {patientStore.savedReportsLoaded ? <>
-        <CustomCalendar />
-        <DayDrawer />
-        </> : <Loading />}
-    </div>)
+    return (
+        <div id="intro-progress" className={`${classes.container}`} >
+            {showKey && <Key close={() => { setShowKey(false) }} />}
+            <ClickableText className={classes.keyButton} icon={<QuestionIcon />} text={t('patient.progress.calendarKey.button')} onClick={() => { setShowKey(true) }} />
+            {patientStore.savedReportsLoaded ? <>
+                <CustomCalendar />
+                <DayDrawer />
+            </> : <Loading />}
+        </div>)
 });
 
-const ProgressWithOfflineOverride = () => {
-
+const ProgressPage = observer(() => {
+    
     const { t } = useTranslation('translation');
+    const [activeTab, setTab] = useState(0);
+    const { photoReports } = useStores().patientStore;
 
-    return (
-        <PreventOffline type={t('patient.tabNames.calendar')}>
-            <Progress />
-        </PreventOffline>
-    )
-}
+    return (<PreventOffline type={t('patient.tabNames.calendar')}>
+        <Tabs content={[<Progress />, <PhotoList initalPhotos={photoReports} />]} activeTab={activeTab} setTab={setTab} />
+    </PreventOffline>)
+})
 
 const Loading = () => {
+
     const { t } = useTranslation('translation');
     const classes = useStyles();
+
     return <Grid className={classes.loading} direction="column" container justify="center" alignItems="center">
         <Typography>{t('patient.progress.loading')}</Typography>
         <CircularProgress variant="indeterminate" />
     </Grid>
 }
 
-export default ProgressWithOfflineOverride;
+export default ProgressPage;
