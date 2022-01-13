@@ -8,6 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Tag from '../../../Components/Tag';
+import useToggle from '../../../Hooks/useToggle';
+import Dialog from '@material-ui/core/Dialog';
 
 
 const useStyles = makeStyles({
@@ -59,20 +61,24 @@ const Result = ({ approved }) => {
     return <Tag className={classes.tag} backgroundColor={Colors.lightgray}>Awaiting Review</Tag>
 }
 
-const PhotoResponseItem = ({date, photoId, approved, url, whyPhotoWasSkipped }) => {
-    
+const PhotoResponseItem = ({ date, photoId, approved, url, whyPhotoWasSkipped }) => {
+
     const classes = useStyles();
     const displayDate = DateTime.fromISO(date).toLocaleString(DateTime.DATE_MED);
+    const [showFull, toggleShowFull] = useToggle(false);
 
     return (
         <div key={`photo-list-${photoId}`}>
+            <Dialog onClose={toggleShowFull} open={showFull}>
+                <img src={url} />
+            </Dialog>
             <Grid alignItems="stretch" wrap="nowrap" className={classes.item} container>
                 <div style={{ flexGrow: "1", display: "flex", flexDirection: "column" }}>
                     <Typography className={classes.date}>{displayDate}</Typography>
                     {url ? <Result approved={approved} /> :
                         <><Tag backgroundColor={Colors.calendarRed} className={classes.tag}>Skipped Photo</Tag></>}
                 </div>
-                {url ? <ButtonBase style={{ backgroundImage: `url(${url})` }} className={classes.photo}>
+                {url ? <ButtonBase onClick={toggleShowFull} style={{ backgroundImage: `url(${url})` }} className={classes.photo}>
                     <AspectRatioIcon className={classes.expandIcon} />
                 </ButtonBase> : <Box minHeight="75px">  <Typography variant="body1">Reason: {whyPhotoWasSkipped || "None provided"}</Typography></Box>}
             </Grid>
