@@ -17,15 +17,19 @@ const useStyles = makeStyles({
         fontSize: "1.25em",
         padding: ".5em 0"
     },
-    loadContainer:{
+    loadContainer: {
 
     },
-    loadButton:{
+    loadButton: {
         textTransform: "capitalize",
         width: "100%",
         color: Colors.buttonBlue,
-        backgroundColor: Colors.lighterGray
-        
+        backgroundColor: Colors.lighterGray,
+        "&:disabled":{
+            backgroundColor: Colors.lighterGray,
+            color: Colors.textDarkGray
+        }
+
     }
 })
 
@@ -35,17 +39,17 @@ const PhotoList = observer(() => {
     const { t } = useTranslation('translation');
 
     const [photos, setPhotos] = useState([]);
+    const [allItemsLoaded, setAllItemsLoaded] = useState(photos.length % 10 !== 0);
 
     const api = new PatientInformationAPI();
 
     const loadPhotos = async (offset = 0) => {
         const newPhotos = await api.getPhotoReports(offset);
+        setAllItemsLoaded(newPhotos.length < 10);
         setPhotos([...photos, ...newPhotos]);
     }
 
     const handleLoadMore = () => { loadPhotos(photos.length) }
-
-    const allItemsLoaded = photos.length % 10 !== 0;
 
     useEffect(() => {
         loadPhotos();
@@ -55,12 +59,11 @@ const PhotoList = observer(() => {
         <Typography className={classes.title} variant="h2">{t('dashboard.photoReports')}</Typography>
         {photos.map((photoReport) => <PhotoResponseItem {...photoReport} />)}
         <Grid className={classes.loadContainer} container justify="center">
-            {allItemsLoaded ? <Typography variant="body1">{t('photoReportReview.allLoaded')}</Typography> :
-            <Button variant="contained" disableElevation className={classes.loadButton} onClick={handleLoadMore}>
-                <Refresh />
+            <Button disabled={allItemsLoaded} variant="contained" disableElevation className={classes.loadButton} onClick={handleLoadMore}>
+                {!allItemsLoaded && <Refresh />}
                 <Box width="5px" />
-                {t('commonWords.loadMore')}
-                </Button>}
+                {!allItemsLoaded ? t('commonWords.loadMore') : t('photoReportReview.allLoaded')}
+            </Button>
         </Grid>
         <Box height="1em" />
     </div>)
