@@ -42,7 +42,8 @@ const useStyles = makeStyles({
     date: {
         display: "block",
         fontWeight: "bold",
-        color: Colors.textDarkGray
+        color: Colors.textDarkGray,
+        lineHeight: "1em"
     },
     tag: {
         display: "block",
@@ -58,9 +59,9 @@ const useStyles = makeStyles({
     },
     reason: {
         lineHeight: "1.1em",
-        padding: ".5em 0"
+        color: Colors.textDarkGray
     },
-    noPhoto:{
+    noPhoto: {
         alignSelf: "center",
         justifySelf: "center",
         color: Colors.warningRed,
@@ -99,13 +100,16 @@ const PhotoResponseItem = ({ date, photoId, approved, url, whyPhotoWasSkipped })
                 {url ? <ButtonBase onClick={toggleShowFull} style={{ backgroundImage: `url(${url})` }} className={classes.photo}>
                     <AspectRatioIcon className={classes.expandIcon} />
                 </ButtonBase> : <ButtonBase disabled className={classes.skipped}>
-                        <HighlightOffIcon className={classes.noPhoto} />
+                    <HighlightOffIcon className={classes.noPhoto} />
                 </ButtonBase>}
                 <Box width="1em" />
                 <div className={classes.reportData}>
                     <Typography className={classes.date}>{displayDate}</Typography>
+                    <Box height=".33em" />
                     {url ? <Result approved={approved} /> :
-                        <><Tag backgroundColor={Colors.calendarRed} className={classes.tag}>Skipped Photo</Tag>
+                        <>
+                            <Tag backgroundColor={Colors.calendarRed} className={classes.tag}>Skipped Photo</Tag>
+                            <Box height=".33em" />
                             <Typography className={classes.reason} variant="body1">{whyPhotoWasSkipped || "None provided"}</Typography>
                         </>}
                 </div>
