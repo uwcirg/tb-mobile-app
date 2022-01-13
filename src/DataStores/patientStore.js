@@ -15,7 +15,8 @@ const ROUTES = {
     getPhotoUploadURL: ["/patient/daily_reports/photo_upload_url", "GET"],
     updateNotificationTime: ["/patient/reminder", "PATCH"],
     updateEducationStatus: ["/patient/me/education_status", "POST"],
-    oneStepReport: ["/v2/daily_report?noIssues=true", "POST"]
+    oneStepReport: ["/v2/daily_report?noIssues=true", "POST"],
+    getPhotoReports: ["/v2/photo_reports","GET"]
 }
 
 export class PatientStore extends UserStore {
@@ -74,6 +75,8 @@ export class PatientStore extends UserStore {
 
     @observable newReminderTime = "";
 
+    @observable photoReports = [];
+
     //Actions
     @action refreshReportDate = () => {
         this.report.date = DateTime.local().toISODate();
@@ -84,6 +87,7 @@ export class PatientStore extends UserStore {
         super.initalize();
         this.loadDailyReport();
         this.getReports();
+        this.getPhotoReports();
 
         this.newReminderTime = this.reminderTime || DateTime.local().toISO();
 
@@ -505,6 +509,12 @@ export class PatientStore extends UserStore {
 
     @computed get todaysReportHasIssue(){
         return(this.report.selectedSymptoms.length > 0 || !this.report.tookMedication || !this.report.doingOkay)
+    }
+
+    @action getPhotoReports = () => {
+        this.executeRequest("getPhotoReports").then( res => {
+            this.photoReports = res;
+        })
     }
 
 
