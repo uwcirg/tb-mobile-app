@@ -10,6 +10,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import Tag from '../../../Components/Tag';
 import useToggle from '../../../Hooks/useToggle';
 import Dialog from '@material-ui/core/Dialog';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 
 const useStyles = makeStyles({
@@ -40,7 +41,6 @@ const useStyles = makeStyles({
     },
     date: {
         display: "block",
-        fontSize: ".8em",
         fontWeight: "bold",
         color: Colors.textDarkGray
     },
@@ -50,7 +50,30 @@ const useStyles = makeStyles({
         width: "fit-content",
         padding: "2px 8px",
         fontWeight: "bold"
-    }
+    },
+    reportData: {
+        flexGrow: "1",
+        display: "flex",
+        flexDirection: "column"
+    },
+    reason: {
+        lineHeight: "1.1em",
+        padding: ".5em 0"
+    },
+    noPhoto:{
+        alignSelf: "center",
+        justifySelf: "center",
+        color: Colors.warningRed,
+        fontSize: "3em"
+    },
+    skipped: {
+        display: "flex",
+        backgroundColor: Colors.lightgray,
+        minHeight: "75px",
+        width: "75px",
+        borderRadius: "4px",
+        flexShrink: 0
+    },
 })
 
 const Result = ({ approved }) => {
@@ -73,14 +96,19 @@ const PhotoResponseItem = ({ date, photoId, approved, url, whyPhotoWasSkipped })
                 <img src={url} />
             </Dialog>
             <Grid alignItems="stretch" wrap="nowrap" className={classes.item} container>
-                <div style={{ flexGrow: "1", display: "flex", flexDirection: "column" }}>
-                    <Typography className={classes.date}>{displayDate}</Typography>
-                    {url ? <Result approved={approved} /> :
-                        <><Tag backgroundColor={Colors.calendarRed} className={classes.tag}>Skipped Photo</Tag></>}
-                </div>
                 {url ? <ButtonBase onClick={toggleShowFull} style={{ backgroundImage: `url(${url})` }} className={classes.photo}>
                     <AspectRatioIcon className={classes.expandIcon} />
-                </ButtonBase> : <Box minHeight="75px">  <Typography variant="body1">Reason: {whyPhotoWasSkipped || "None provided"}</Typography></Box>}
+                </ButtonBase> : <ButtonBase disabled className={classes.skipped}>
+                        <HighlightOffIcon className={classes.noPhoto} />
+                </ButtonBase>}
+                <Box width="1em" />
+                <div className={classes.reportData}>
+                    <Typography className={classes.date}>{displayDate}</Typography>
+                    {url ? <Result approved={approved} /> :
+                        <><Tag backgroundColor={Colors.calendarRed} className={classes.tag}>Skipped Photo</Tag>
+                            <Typography className={classes.reason} variant="body1">{whyPhotoWasSkipped || "None provided"}</Typography>
+                        </>}
+                </div>
             </Grid>
             <Box height=".5em" />
         </div>)
