@@ -92,7 +92,7 @@ const PhotoResponseItem = ({ date, photoId, approved, url, whyPhotoWasSkipped })
     const [showFull, toggleShowFull] = useToggle(false);
 
     return (
-        <div key={`photo-list-${photoId}`}>
+        <div>
             <Dialog onClose={toggleShowFull} open={showFull}>
                 <img src={url} />
             </Dialog>

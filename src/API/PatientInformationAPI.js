@@ -66,12 +66,8 @@ export default class PatientInformationAPI {
     }
 
     async getPhotoReports(offset){
-
-        console.log(typeof(offset))
         const params = (offset && offset > 0 ) ? `?offset=${offset}` : ""
-
         return this.request("/v2/photo_reports" + params)
     }
-
 
 }

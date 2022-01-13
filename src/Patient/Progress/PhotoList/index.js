@@ -57,7 +57,7 @@ const PhotoList = observer(() => {
 
     return (<div className={classes.container}>
         <Typography className={classes.title} variant="h2">{t('dashboard.photoReports')}</Typography>
-        {photos.map((photoReport) => <PhotoResponseItem {...photoReport} />)}
+        {photos.map((photoReport) => <PhotoResponseItem key={`photo-list-${photoReport.photoId}`} {...photoReport} />)}
         <Grid className={classes.loadContainer} container justify="center">
             <Button disabled={allItemsLoaded} variant="contained" disableElevation className={classes.loadButton} onClick={handleLoadMore}>
                 {!allItemsLoaded && <Refresh />}
