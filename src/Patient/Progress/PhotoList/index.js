@@ -25,7 +25,6 @@ const useStyles = makeStyles({
             backgroundColor: Colors.lighterGray,
             color: Colors.textDarkGray
         }
-
     }
 })
 

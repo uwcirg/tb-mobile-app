@@ -65,38 +65,37 @@ const Progress = observer(() => {
 
     if (patientUIStore.onHistoricalReport) return (<ReportOldMedication />)
 
-    return (<div id="intro-progress" className={`${classes.container}`} >
-        {showKey && <Key close={() => { setShowKey(false) }} />}
-        <ClickableText className={classes.keyButton} icon={<QuestionIcon />} text={t('patient.progress.calendarKey.button')} onClick={() => { setShowKey(true) }} />
-        {patientStore.savedReportsLoaded ? <>
-            <CustomCalendar />
-            <DayDrawer />
-        </> : <Loading />}
-    </div>)
+    return (
+        <div id="intro-progress" className={`${classes.container}`} >
+            {showKey && <Key close={() => { setShowKey(false) }} />}
+            <ClickableText className={classes.keyButton} icon={<QuestionIcon />} text={t('patient.progress.calendarKey.button')} onClick={() => { setShowKey(true) }} />
+            {patientStore.savedReportsLoaded ? <>
+                <CustomCalendar />
+                <DayDrawer />
+            </> : <Loading />}
+        </div>)
 });
 
-const WrappedProgress = () => {
+const ProgressPage = observer(() => {
+    
     const { t } = useTranslation('translation');
-    return (<PreventOffline type={t('patient.tabNames.calendar')}>
-        <Progress />
-    </PreventOffline>)
-}
-
-const ProgressWithOfflineOverride = observer(() => {
-
     const [activeTab, setTab] = useState(0);
-    const {photoReports} = useStores().patientStore;
+    const { photoReports } = useStores().patientStore;
 
-    return <Tabs content={[<WrappedProgress />, <PhotoList initalPhotos={photoReports} />]} activeTab={activeTab} setTab={setTab} />
+    return (<PreventOffline type={t('patient.tabNames.calendar')}>
+        <Tabs content={[<Progress />, <PhotoList initalPhotos={photoReports} />]} activeTab={activeTab} setTab={setTab} />
+    </PreventOffline>)
 })
 
 const Loading = () => {
+
     const { t } = useTranslation('translation');
     const classes = useStyles();
+
     return <Grid className={classes.loading} direction="column" container justify="center" alignItems="center">
         <Typography>{t('patient.progress.loading')}</Typography>
         <CircularProgress variant="indeterminate" />
     </Grid>
 }
 
-export default ProgressWithOfflineOverride;
+export default ProgressPage;
