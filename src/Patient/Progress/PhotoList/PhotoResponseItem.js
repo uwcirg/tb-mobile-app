@@ -23,7 +23,7 @@ const useStyles = makeStyles({
         backgroundColor: Colors.lightgray,
         height: "75px",
         width: "75px",
-        backgroundSize: "fill",
+        backgroundSize: "cover",
         backgroundPosition: "top center",
         backgroundRepeat: "no-repeat",
         border: "none",
