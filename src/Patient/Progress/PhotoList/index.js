@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { observer } from 'mobx-react';
 import { Box, Grid, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import PatientInformationAPI from '../../../API/PatientInformationAPI';
@@ -22,7 +21,7 @@ const useStyles = makeStyles({
         width: "100%",
         color: Colors.buttonBlue,
         backgroundColor: Colors.lighterGray,
-        "&:disabled":{
+        "&:disabled": {
             backgroundColor: Colors.lighterGray,
             color: Colors.textDarkGray
         }
@@ -30,12 +29,12 @@ const useStyles = makeStyles({
     }
 })
 
-const PhotoList = observer(() => {
+const PhotoList = ({ initalPhotos = [] }) => {
 
     const classes = useStyles();
     const { t } = useTranslation('translation');
 
-    const [photos, setPhotos] = useState([]);
+    const [photos, setPhotos] = useState(initalPhotos);
     const [allItemsLoaded, setAllItemsLoaded] = useState(photos.length % 10 !== 0);
 
     const api = new PatientInformationAPI();
@@ -49,7 +48,9 @@ const PhotoList = observer(() => {
     const handleLoadMore = () => { loadPhotos(photos.length) }
 
     useEffect(() => {
-        loadPhotos();
+        if (initalPhotos.length === 0) {
+            handleLoadMore();
+        }
     }, [])
 
     return (<div className={classes.container}>
@@ -65,6 +66,6 @@ const PhotoList = observer(() => {
         <Box height="1em" />
     </div>)
 
-})
+}
 
 export default PhotoList;

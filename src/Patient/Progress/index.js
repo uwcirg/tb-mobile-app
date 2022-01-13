@@ -82,12 +82,13 @@ const WrappedProgress = () => {
     </PreventOffline>)
 }
 
-const ProgressWithOfflineOverride = () => {
+const ProgressWithOfflineOverride = observer(() => {
 
-    const [activeTab, setTab] = useState(1);
+    const [activeTab, setTab] = useState(0);
+    const {photoReports} = useStores().patientStore;
 
-    return <Tabs content={[<WrappedProgress />, <PhotoList />]} activeTab={activeTab} setTab={setTab} />
-}
+    return <Tabs content={[<WrappedProgress />, <PhotoList initalPhotos={photoReports} />]} activeTab={activeTab} setTab={setTab} />
+})
 
 const Loading = () => {
     const { t } = useTranslation('translation');
