@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { observer } from 'mobx-react';
-import { Box, Typography } from '@material-ui/core';
+import { Box, Grid, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import PatientInformationAPI from '../../../API/PatientInformationAPI';
 import PhotoResponseItem from './PhotoResponseItem';
-
+import Button from '@material-ui/core/Button';
+import { Refresh } from '@material-ui/icons';
+import Colors from '../../../Basics/Colors';
 
 const useStyles = makeStyles({
     container: {
@@ -14,6 +16,16 @@ const useStyles = makeStyles({
     title: {
         fontSize: "1.25em",
         padding: ".5em 0"
+    },
+    loadContainer:{
+
+    },
+    loadButton:{
+        textTransform: "capitalize",
+        width: "100%",
+        color: Colors.buttonBlue,
+        backgroundColor: Colors.lighterGray
+        
     }
 })
 
@@ -31,6 +43,10 @@ const PhotoList = observer(() => {
         setPhotos([...photos, ...newPhotos]);
     }
 
+    const handleLoadMore = () => { loadPhotos(photos.length) }
+
+    const allItemsLoaded = photos.length % 10 !== 0;
+
     useEffect(() => {
         loadPhotos();
     }, [])
@@ -38,9 +54,15 @@ const PhotoList = observer(() => {
     return (<div className={classes.container}>
         <Typography className={classes.title} variant="h2">{t('dashboard.photoReports')}</Typography>
         {photos.map((photoReport) => <PhotoResponseItem {...photoReport} />)}
-        <Box padding="1em 0">
-            <button onClick={() => { loadPhotos(photos.length) }}>{t('commonWords.clickToLoadMore')}</button>
-        </Box>
+        <Grid className={classes.loadContainer} container justify="center">
+            {allItemsLoaded ? <Typography variant="body1">{t('photoReportReview.allLoaded')}</Typography> :
+            <Button variant="contained" disableElevation className={classes.loadButton} onClick={handleLoadMore}>
+                <Refresh />
+                <Box width="5px" />
+                {t('commonWords.loadMore')}
+                </Button>}
+        </Grid>
+        <Box height="1em" />
     </div>)
 
 })
