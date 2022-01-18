@@ -1,4 +1,4 @@
-import { observable, action, computed, autorun } from 'mobx';
+import { observable, action, computed } from 'mobx';
 
 //Extends this file https://github.com/alisd23/mobx-react-router/blob/master/src/store.js
 
