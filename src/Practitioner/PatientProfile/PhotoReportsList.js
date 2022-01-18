@@ -9,9 +9,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { useTranslation } from 'react-i18next';
 import useStores from '../../Basics/UseStores';
-import PatientInformationAPI from '../../API/PatientInformationAPI';
 import ExpandablePhoto from '../../Components/ExpandablePhoto';
 import PhotoResultTag from '../../Components/Shared/PhotoResultTag';
+import PhotoReportsProvider from '../../Components/Shared/PhotoReportsProvider';
 
 const useStyles = makeStyles({
     header: {
@@ -23,23 +23,19 @@ const useStyles = makeStyles({
 
 const PhotoReportsList = () => {
 
+    const { patientId } = useStores().patientProfileStore;
+    return (
+        <>
+            {!!patientId && <PhotoReportsProvider patientId={patientId} listComponent={<ReportListComponent />} />}
+        </>
+    )
+
+}
+
+const ReportListComponent = ({ photos }) => {
+
     const { t } = useTranslation('translation');
     const classes = useStyles();
-    const { patientId } = useStores().patientProfileStore;
-    const [photos, setPhotos] = useState([]);
-
-    const api = new PatientInformationAPI();
-
-    const getPhotos = async (offset = 0) => {
-        if (patientId) {
-            let reports = await api.getPhotoReports(offset, patientId);
-            setPhotos([...reports, ...photos]);
-        }
-    }
-
-    useEffect(() => {
-        getPhotos();
-    }, [patientId])
 
     return (<Paper className={classes.table}>
         <TableContainer>
@@ -66,7 +62,6 @@ const PhotoReportsList = () => {
 const Row = ({ date, approved, url, whyPhotoWasSkipped }) => {
 
     const { t } = useTranslation('translation');
-    const classes = useStyles();
 
     return (
         <>
@@ -77,7 +72,7 @@ const Row = ({ date, approved, url, whyPhotoWasSkipped }) => {
                 <TableCell>{date}</TableCell>
                 <TableCell>
                     <PhotoResultTag skipped={!url} approved={approved} />
-                    </TableCell>
+                </TableCell>
                 <TableCell>{!url && <>{whyPhotoWasSkipped || t('coordinator.sideBar.noReason')}</>}</TableCell>
             </TableRow>
         </>

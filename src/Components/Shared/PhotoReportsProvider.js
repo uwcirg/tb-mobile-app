@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     }
 })
 
-const PhotoReportsProvider = ({ initalPhotos = [], listComponent }) => {
+const PhotoReportsProvider = ({ initalPhotos = [], listComponent, patientId }) => {
 
     const [photos, setPhotos] = useState(initalPhotos);
     const [allItemsLoaded, setAllItemsLoaded] = useState(photos.length % 10 !== 0);
@@ -32,7 +32,7 @@ const PhotoReportsProvider = ({ initalPhotos = [], listComponent }) => {
     const api = new PatientInformationAPI();
 
     const loadPhotos = async (offset = 0) => {
-        const newPhotos = await api.getPhotoReports(offset);
+        const newPhotos = await api.getPhotoReports(offset, patientId);
         setAllItemsLoaded(newPhotos.length < 10);
         setPhotos([...photos, ...newPhotos]);
     }
@@ -48,7 +48,7 @@ const PhotoReportsProvider = ({ initalPhotos = [], listComponent }) => {
 
     return (
         <>
-            {React.cloneElement(listComponent, { photos: photos })}
+            {React.cloneElement(listComponent, { photos: photos, patientId: patientId })}
             <Grid container justify="center">
                 <Button disabled={allItemsLoaded} variant="contained" disableElevation className={classes.loadButton} onClick={handleLoadMore}>
                     {!allItemsLoaded && <Refresh />}
