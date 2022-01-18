@@ -989,7 +989,8 @@
         "detected": "medication detected",
         "unclear": "unclear result",
         "resubmit": "resubmission requested",
-        "awaiting": "awaiting review"
+        "awaiting": "awaiting review",
+        "result": "result"
 
     }
 }
