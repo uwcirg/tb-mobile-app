@@ -6,6 +6,7 @@
     "updating": "Updating",
     "demoWarning": "This is a demo of the application and should not be used for real patient data",
     "commonWords": {
+        "photos": "photos",
         "fillAll": "Please fill all fields before continuing",
         "edit": "Edit",
         "error": "Error",
