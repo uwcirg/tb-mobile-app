@@ -10,20 +10,14 @@ import Paper from '@material-ui/core/Paper';
 import { useTranslation } from 'react-i18next';
 import useStores from '../../Basics/UseStores';
 import PatientInformationAPI from '../../API/PatientInformationAPI';
-import useToggle from '../../Hooks/useToggle';
-import { ButtonBase } from '@material-ui/core';
-import Dialog from '@material-ui/core/Dialog';
-import AspectRatioIcon from '@material-ui/icons/AspectRatio'
 import ExpandablePhoto from '../../Components/ExpandablePhoto';
+import PhotoResultTag from '../../Components/Shared/PhotoResultTag';
 
 const useStyles = makeStyles({
     header: {
         "& > th": {
             textTransform: "capitalize"
         }
-    },
-    image: {
-        width: "100px"
     }
 })
 
@@ -52,10 +46,10 @@ const PhotoReportsList = () => {
             <Table className={classes.spacing} stickyHeader aria-label="collapsible table">
                 <TableHead>
                     <TableRow className={classes.header}>
+                        <TableCell>{t('Photo')}</TableCell>
                         <TableCell>{t('coordinator.patientProfile.date')}</TableCell>
                         <TableCell>{t('photoReportReview.result')}</TableCell>
                         <TableCell>{t('report.flags')}</TableCell>
-                        <TableCell>{t('Photo')}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -73,17 +67,18 @@ const Row = ({ date, approved, url, whyPhotoWasSkipped }) => {
 
     const { t } = useTranslation('translation');
     const classes = useStyles();
-    const [expanded, setExpanded] = useToggle(false);
 
     return (
         <>
             <TableRow>
-                <TableCell>{date}</TableCell>
-                <TableCell>{approved ? "yes" : "no"}</TableCell>
-                <TableCell></TableCell>
                 <TableCell>
                     <ExpandablePhoto url={url} />
                 </TableCell>
+                <TableCell>{date}</TableCell>
+                <TableCell>
+                    <PhotoResultTag skipped={!url} approved={approved} />
+                    </TableCell>
+                <TableCell></TableCell>
             </TableRow>
         </>
     )
