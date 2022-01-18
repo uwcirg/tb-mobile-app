@@ -10,16 +10,20 @@ import Paper from '@material-ui/core/Paper';
 import { useTranslation } from 'react-i18next';
 import useStores from '../../Basics/UseStores';
 import PatientInformationAPI from '../../API/PatientInformationAPI';
+import useToggle from '../../Hooks/useToggle';
+import { ButtonBase } from '@material-ui/core';
+import Dialog from '@material-ui/core/Dialog';
+import AspectRatioIcon from '@material-ui/icons/AspectRatio'
+import ExpandablePhoto from '../../Components/ExpandablePhoto';
 
 const useStyles = makeStyles({
     header: {
-        "& > th":{
+        "& > th": {
             textTransform: "capitalize"
         }
     },
-    image:{
-        height: "75px",
-        width: "75px"
+    image: {
+        width: "100px"
     }
 })
 
@@ -27,21 +31,21 @@ const PhotoReportsList = () => {
 
     const { t } = useTranslation('translation');
     const classes = useStyles();
-    const { selectedPatientReports, patientId } = useStores().patientProfileStore;
-    const [photos,setPhotos] = useState([]);
+    const { patientId } = useStores().patientProfileStore;
+    const [photos, setPhotos] = useState([]);
 
     const api = new PatientInformationAPI();
 
     const getPhotos = async (offset = 0) => {
-        if(patientId){
-            let reports = await api.getPhotoReports(offset,patientId);
-            setPhotos([...reports,...photos]);
+        if (patientId) {
+            let reports = await api.getPhotoReports(offset, patientId);
+            setPhotos([...reports, ...photos]);
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         getPhotos();
-    },[patientId])
+    }, [patientId])
 
     return (<Paper className={classes.table}>
         <TableContainer>
@@ -50,7 +54,7 @@ const PhotoReportsList = () => {
                     <TableRow className={classes.header}>
                         <TableCell>{t('coordinator.patientProfile.date')}</TableCell>
                         <TableCell>{t('photoReportReview.result')}</TableCell>
-                        <TableCell>{t('flags')}</TableCell>
+                        <TableCell>{t('report.flags')}</TableCell>
                         <TableCell>{t('Photo')}</TableCell>
                     </TableRow>
                 </TableHead>
@@ -67,14 +71,22 @@ const PhotoReportsList = () => {
 
 const Row = ({ date, approved, url, whyPhotoWasSkipped }) => {
 
+    const { t } = useTranslation('translation');
     const classes = useStyles();
+    const [expanded, setExpanded] = useToggle(false);
 
-    return (<TableRow>
-        <TableCell>{date}</TableCell>
-        <TableCell>{approved ? "yes" : "no"}</TableCell>
-        <TableCell>Flags</TableCell>
-        <TableCell>{url ? <img className={classes.image} src={url} /> : "Skipped"}</TableCell>
-    </TableRow>)
+    return (
+        <>
+            <TableRow>
+                <TableCell>{date}</TableCell>
+                <TableCell>{approved ? "yes" : "no"}</TableCell>
+                <TableCell></TableCell>
+                <TableCell>
+                    <ExpandablePhoto url={url} />
+                </TableCell>
+            </TableRow>
+        </>
+    )
 }
 
 export default PhotoReportsList;
