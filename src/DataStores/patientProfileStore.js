@@ -264,5 +264,9 @@ export default class PatientProfileStore {
         this.apiHelper.executeRawRequest(`/v2/patient/${this.selectedPatient.details.id}/test_medication_reminder`, "POST")
     }
 
+    @computed get patientId(){
+        return this.selectedPatient.details.id;
+    }
+
 
 }

@@ -6,6 +6,7 @@
     "updating": "Updating",
     "demoWarning": "This is a demo of the application and should not be used for real patient data",
     "commonWords": {
+        "photos": "photos",
         "fillAll": "Please fill all fields before continuing",
         "edit": "Edit",
         "error": "Error",
@@ -988,7 +989,8 @@
         "detected": "medication detected",
         "unclear": "unclear result",
         "resubmit": "resubmission requested",
-        "awaiting": "awaiting review"
+        "awaiting": "awaiting review",
+        "result": "result"
 
     }
 }
