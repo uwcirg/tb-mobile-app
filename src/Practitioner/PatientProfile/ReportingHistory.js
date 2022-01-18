@@ -45,7 +45,7 @@ const useStyles = makeStyles({
 })
 
 const ReportingHistory = observer(() => {
-    const [visible, setVisible] = useState('reports');
+    const [visible, setVisible] = useState('photos');
     const [day, setDay] = useState(new Date())
     const classes = useStyles();
     const { patientProfileStore } = useStores();

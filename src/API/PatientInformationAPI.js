@@ -65,9 +65,13 @@ export default class PatientInformationAPI {
         });
     }
 
-    async getPhotoReports(offset){
+    async getPhotoReports(offset,patientId){
         const params = (offset && offset > 0 ) ? `?offset=${offset}` : ""
-        return this.request("/v2/photo_reports" + params)
+        if(patientId){
+            return this.request(`/v2/patient/${patientId}/photo_reports${params}`);
+        }
+
+        return this.request("/v2/photo_reports" + params);
     }
 
 }
