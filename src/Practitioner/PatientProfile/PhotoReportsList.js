@@ -78,7 +78,7 @@ const Row = ({ date, approved, url, whyPhotoWasSkipped }) => {
                 <TableCell>
                     <PhotoResultTag skipped={!url} approved={approved} />
                     </TableCell>
-                <TableCell></TableCell>
+                <TableCell>{!url && <>{whyPhotoWasSkipped || t('coordinator.sideBar.noReason')}</>}</TableCell>
             </TableRow>
         </>
     )
