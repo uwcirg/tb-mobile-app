@@ -6,6 +6,7 @@
     "updating": "Actualizando",
     "demoWarning": "Esta es una demostración de la aplicación y no debe usarse para los datos de pacientes reales.",
     "commonWords": {
+        "photos": "photos",
         "fillAll": "Complete todas las secciones antes de continuar",
         "edit": "Editar",
         "error": "Error",
@@ -36,7 +37,8 @@
         "archived": "Archivado",
         "successMessage": "Actualizado Exitosamente",
         "errorMessage": "Se ha producido un error. Por favor, inténtelo de nuevo más tarde.",
-        "atTime": "a las"
+        "atTime": "a las",
+        "loadMore": "load more"
     },
     "userTypes": {
         "patient": "Paciente",
@@ -835,7 +837,6 @@
         "success": "Contraseña Actualizada Exitosamente"
     },
     "treatmentUpdates": {
-        "0": "Por favor revise las nuevas instrucciones para las tiras reactivas.",
         "3": "La Tuberculosis Pulmonar se contagia cuando una persona enferma al toser, estornudar o al hablar elimina con la tos secreciones que contienen los bacilos que producen la enfermedad. Siempre tratar de toser en lugar bien ventilado, nunca cerrado, si es posible cubrirse la boca y/o utilizar barbijo. ",
         "5": "¿Sabías que puedes chatear con otros pacientes en tratamiento anónimamente?",
         "7": "Una de las drogas utilizadas, la Rifampicina, colorea la orina, saliva o lagrimas de color naranja o rojo. Esto es normal. Las lentes de contacto pueden teñirse de manera irreversible.",
@@ -981,5 +982,14 @@
         "newFeature": "Nueva Función",
         "oneStep": "Reportando En Un Paso",
         "homeScreen": "También puedes completar tu reporte por el día desde el recordatorio de la pantalla principal."
+    },
+    "photoReportReview":{
+        "allLoaded": "all reports loaded",
+        "detected": "medication detected",
+        "unclear": "unclear result",
+        "resubmit": "resubmission requested",
+        "awaiting": "awaiting review",
+        "result": "result"
+
     }
 }

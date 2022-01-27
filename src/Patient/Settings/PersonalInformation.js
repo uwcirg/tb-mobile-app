@@ -13,20 +13,17 @@ const useStyles = makeStyles({
         width: "100%",
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
+        alignItems: "flex-start",
         "& > button": {
             alignSelf: "flex-start",
-            marginLeft: "5%",
             color: Colors.buttonBlue,
             textTransform: "capitalize"
         },
     },
     header: {
-        width: "90%",
-        marginLeft: "1em",
         display: "flex",
-        alignItems: "center",
         justifyContent: "flex-start",
+        alignItems: "flex-start",
         "& > svg":{
             fontSize: "1em",
             marginRight: "5px"

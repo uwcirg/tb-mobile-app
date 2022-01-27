@@ -7,7 +7,7 @@ import { observer } from 'mobx-react';
 //Components
 import AppLogo from '../Basics/AppLogo';
 import IconButton from '@material-ui/core/IconButton';
-import LoginPage from './LoginForm';
+import LoginForm from './LoginForm';
 
 //Icons
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
@@ -119,7 +119,7 @@ const LoginRouter = observer(() => {
             </div>
             <div className={classes.containerBottom}>
                 {loginStore.onForgotPassword ? <ForgotPassword /> :
-                    <>{!loginStore.selectedUserType ? <Selection /> : <LoginPage />}</>}
+                    <>{!loginStore.selectedUserType ? <Selection /> : <LoginForm />}</>}
             </div>
         </div>
     )

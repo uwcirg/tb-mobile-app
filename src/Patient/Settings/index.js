@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import OverTopBar from '../Navigation/OverTopBar';
@@ -14,6 +14,7 @@ import useLogout from '../../Basics/Logout';
 import Debugging from './Debugging';
 import Language from './Language';
 import Colors from '../../Basics/Colors';
+import { Button, Collapse } from '@material-ui/core';
 
 const HealthProfile = observer(() => {
 
@@ -42,26 +43,38 @@ const MainSettings = observer(() => {
     const { t } = useTranslation('translation');
     const logout = useLogout();
 
+    const [showDebugging,setShowDebugging] = useState(false);
+
     return (
         <>
             <OverTopBar title={t("patient.profile.title")} handleBack={patientUIStore.closeSettings} ></OverTopBar>
-            <div className={classes.header}>
-                <div className={classes.photoContainer}>
-                    <div className={classes.photo}>{patientStore.givenName[0]}</div>
+            <div className={classes.fullContainer}>
+                <div className={classes.header}>
+                    <div className={classes.photoContainer}>
+                        <div className={classes.photo}>{patientStore.givenName[0]}</div>
+                    </div>
+                    <Typography className={classes.name} className={classes.name} variant="h2">{patientStore.givenName} {patientStore.familyName}</Typography>
                 </div>
-                <Typography className={classes.name} className={classes.name} variant="h2">{patientStore.givenName} {patientStore.familyName}</Typography>
-            </div>
-            <Language />
-            <PersonalInformation />
-            <Debugging />
-            <div className={classes.logoutContainer}>
-                <NewButton onClick={logout} className={classes.logout} icon={<ExitToApp />} text={t("patient.profile.logout")} />
+                <Language />
+                <PersonalInformation />
+                <Button onClick={()=>{setShowDebugging(!showDebugging)}}>Show Debugging</Button>
+                <Collapse in={showDebugging}>
+                    <Debugging />
+                </Collapse>
+                <div className={classes.logoutContainer}>
+                    <NewButton onClick={logout} className={classes.logout} icon={<ExitToApp />} text={t("patient.profile.logout")} />
+                </div>
             </div>
         </>
     )
 })
 
 const useStyles = makeStyles({
+    fullContainer: {
+        width: "100%",
+        padding: "1em",
+        boxSizing: "border-box"
+    },
     logout: {
         width: "90%"
     },
@@ -96,46 +109,13 @@ const useStyles = makeStyles({
         fontSize: "1em",
         margin: ".5em 0 .5em 0",
     },
-    profileItem: {
-        ...Styles.flexRow,
-        margin: ".5em",
-        alignItems: "center",
-        "& > svg": {
-            color: "gray"
-        },
-        "& > div": {
-            ...Styles.flexColumn,
-            margin: " 0 0 0 1em",
-            "& > h1,p": {
-                fontSize: ".9em",
-                padding: "5px 0 0 0",
-                margin: 0
-            }
-        }
-    },
-    preference: {
-        ...Styles.flexRow,
-        justifyContent: "space-between",
-        width: "90%",
-        margin: "auto"
-
-    },
-    blueText: {
-        fontSize: "1em"
-    },
-    line: {
-        display: "block",
-        width: "100%",
-        borderBottom: "solid 1px lightgray"
-    },
     logoutContainer: {
         width: "100%",
         display: "flex",
         position: "fixed",
         justifyContent: "center",
-        bottom: "0px",
-        padding: "5px",
-        backgroundColor: "white"
+        backgroundColor: "white",
+        boxSizing: "border-box"
     },
     pwContainer: {
         width: "90%",
