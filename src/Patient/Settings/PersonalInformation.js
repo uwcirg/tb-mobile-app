@@ -19,19 +19,7 @@ const useStyles = makeStyles({
             color: Colors.buttonBlue,
             textTransform: "capitalize"
         },
-    },
-    header: {
-        display: "flex",
-        justifyContent: "flex-start",
-        alignItems: "flex-start",
-        "& > svg":{
-            fontSize: "1em",
-            marginRight: "5px"
-        },
-        "& > h2": {
-            fontSize: "1.25em",
-        }
-    },
+    }
 })
 
 const PersonalInformation = () => {
@@ -41,10 +29,6 @@ const PersonalInformation = () => {
 
     return (
         <div className={classes.container}>
-            <div className={classes.header}>
-                <Lock />
-                <Typography variant="h2">{t("patient.profile.personalInfo")}</Typography>
-            </div>
             <Button onClick={patientUIStore.goToPasswordUpdate} >{t("patient.profile.changePassword")}</Button>
             <Button onClick={patientUIStore.goToContactTracingUpdate} >{t('householdTesting.button')}</Button>
         </div>

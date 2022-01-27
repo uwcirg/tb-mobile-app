@@ -14,7 +14,14 @@ import useLogout from '../../Basics/Logout';
 import Debugging from './Debugging';
 import Language from './Language';
 import Colors from '../../Basics/Colors';
-import { Button, Collapse } from '@material-ui/core';
+import { Avatar, Button, Collapse, Grid } from '@material-ui/core';
+import Globe from '@material-ui/icons/Language';
+import { Lock } from '@material-ui/icons';
+
+const SectionLabel = ({ children }) => {
+    const classes = useStyles();
+    return <Grid className={classes.sectionLabel} container alignItems="center">{children}</Grid>;
+}
 
 const HealthProfile = observer(() => {
 
@@ -43,21 +50,27 @@ const MainSettings = observer(() => {
     const { t } = useTranslation('translation');
     const logout = useLogout();
 
-    const [showDebugging,setShowDebugging] = useState(false);
+    const [showDebugging, setShowDebugging] = useState(false);
 
     return (
         <>
             <OverTopBar title={t("patient.profile.title")} handleBack={patientUIStore.closeSettings} ></OverTopBar>
             <div className={classes.fullContainer}>
                 <div className={classes.header}>
-                    <div className={classes.photoContainer}>
-                        <div className={classes.photo}>{patientStore.givenName[0]}</div>
-                    </div>
-                    <Typography className={classes.name} className={classes.name} variant="h2">{patientStore.givenName} {patientStore.familyName}</Typography>
+                    <Avatar className={classes.avatar}>{patientStore.givenName[0]}</Avatar>
+                    <Typography variant="body1">{patientStore.givenName} {patientStore.familyName}</Typography>
                 </div>
-                <Language />
+                <SectionLabel>
+                    <Lock />
+                    <Typography variant="h2">{t("patient.profile.personalInfo")}</Typography>
+                </SectionLabel>
                 <PersonalInformation />
-                <Button onClick={()=>{setShowDebugging(!showDebugging)}}>Show Debugging</Button>
+                <SectionLabel>
+                    <Globe />
+                    <Typography variant='h2'>{t('patient.profile.options.language')}</Typography>
+                </SectionLabel>
+                <Language />
+                <Button onClick={() => { setShowDebugging(!showDebugging) }}>Show Debugging</Button>
                 <Collapse in={showDebugging}>
                     <Debugging />
                 </Collapse>
@@ -70,6 +83,21 @@ const MainSettings = observer(() => {
 })
 
 const useStyles = makeStyles({
+    sectionLabel: {
+        display: "flex",
+        justifyContent: "flex-start",
+        "& > svg": {
+            fontSize: "1em",
+            marginRight: "5px"
+        },
+        "& > h2": {
+            fontSize: "1.25em",
+        },
+        paddingBottom: ".5em"
+    },
+    avatar: {
+        backgroundColor: Colors.approvedGreen
+    },
     fullContainer: {
         width: "100%",
         padding: "1em",
@@ -79,24 +107,9 @@ const useStyles = makeStyles({
         width: "90%"
     },
     header: {
+        width: "100%",
         ...Styles.flexColumn,
-        alignContent: "center"
-    },
-    photoContainer: {
-        width: "50px",
-        height: "50px",
-        borderRadius: "25px",
-        backgroundColor: Colors.approvedGreen,
-        position: "relative",
-        color: "white",
-        margin: "auto"
-    },
-    photo: {
-        fontSize: "2em",
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%,-50%)"
+        alignItems: "center"
     },
     container: {
         ...Styles.flexColumn,
