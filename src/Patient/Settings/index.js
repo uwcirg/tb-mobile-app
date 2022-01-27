@@ -16,7 +16,7 @@ import Language from './Language';
 import Colors from '../../Basics/Colors';
 import { Avatar, Box, Button, Collapse, Grid, IconButton } from '@material-ui/core';
 import Globe from '@material-ui/icons/Language';
-import { Close, Lock } from '@material-ui/icons';
+import { Close, Lock, Translate } from '@material-ui/icons';
 
 const SectionLabel = ({ children }) => {
     const classes = useStyles();
@@ -54,11 +54,11 @@ const MainSettings = observer(() => {
 
     return (
         <>
+                    <div className={classes.fullContainer}>
             <Grid container alignItems='center'>
                 <IconButton onClick={patientUIStore.closeSettings}> <Close /></IconButton>
                 <Typography>{t("patient.profile.title")}</Typography>
             </Grid>
-            <div className={classes.fullContainer}>
                 <div className={classes.header}>
                     <Avatar className={classes.avatar}>{patientStore.givenName[0]}</Avatar>
                     <Typography variant="body1">{patientStore.givenName} {patientStore.familyName}</Typography>
@@ -69,7 +69,7 @@ const MainSettings = observer(() => {
                 </SectionLabel>
                 <PersonalInformation />
                 <SectionLabel>
-                    <Globe />
+                    <Translate />
                     <Typography variant='h2'>{t('patient.profile.options.language')}</Typography>
                 </SectionLabel>
                 <Language />
@@ -77,6 +77,7 @@ const MainSettings = observer(() => {
                 <Collapse in={showDebugging}>
                     <Debugging />
                 </Collapse>
+                <Box flexGrow={1} />
                 <div className={classes.logoutContainer}>
                     <NewButton onClick={logout} className={classes.logout} icon={<ExitToApp />} text={t("patient.profile.logout")} />
                 </div>
@@ -96,15 +97,19 @@ const useStyles = makeStyles({
         "& > h2": {
             fontSize: "1em",
         },
-        paddingBottom: ".5em"
+        padding: "1em 0"
     },
     avatar: {
         backgroundColor: Colors.approvedGreen
     },
     fullContainer: {
         width: "100%",
-        padding: "1em",
+        padding: "0 1em",
         boxSizing: "border-box",
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh"
+
     },
     logout: {
         width: "100%",
@@ -113,13 +118,10 @@ const useStyles = makeStyles({
     header: {
         width: "100%",
         ...Styles.flexColumn,
-        alignItems: "center"
-    },
-    container: {
-        ...Styles.flexColumn,
         alignItems: "center",
-        margin: "1em",
-        width: "100%",
+        padding: "1em 0",
+        backgroundColor: Colors.lightgray,
+        borderRadius: "4px"
     },
     name: {
         textAlign: "center",
