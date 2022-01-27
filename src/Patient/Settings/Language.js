@@ -8,19 +8,25 @@ import Button from "@material-ui/core/Button";
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
+    group:{
+        borderColor: Colors.textDarkGray
+    },
     selected: {
-        backgroundColor: Colors.buttonBlue,
-        color: "white",
+        borderColor: Colors.gray,
+        backgroundColor: Colors.lightgray,
+        color: Colors.textDarkGray,
         "&:hover": {
-            color: Colors.white,
-            backgroundColor: Colors.buttonBlue
+            borderColor: Colors.gray,
+            color: Colors.textDarkGray,
+            backgroundColor: Colors.lightgray
         }
     },
     default: {
+        borderColor: Colors.gray,
         backgroundColor: "white",
-        color: Colors.buttonBlue,
+        color: Colors.textDarkGray,
         "&:hover": {
-            color: Colors.buttonBlue,
+            color: Colors.lightgray,
             backgroundColor: Colors.accentBlue
         }
     },

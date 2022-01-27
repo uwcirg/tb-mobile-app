@@ -14,9 +14,9 @@ import useLogout from '../../Basics/Logout';
 import Debugging from './Debugging';
 import Language from './Language';
 import Colors from '../../Basics/Colors';
-import { Avatar, Button, Collapse, Grid } from '@material-ui/core';
+import { Avatar, Box, Button, Collapse, Grid, IconButton } from '@material-ui/core';
 import Globe from '@material-ui/icons/Language';
-import { Lock } from '@material-ui/icons';
+import { Close, Lock } from '@material-ui/icons';
 
 const SectionLabel = ({ children }) => {
     const classes = useStyles();
@@ -54,7 +54,10 @@ const MainSettings = observer(() => {
 
     return (
         <>
-            <OverTopBar title={t("patient.profile.title")} handleBack={patientUIStore.closeSettings} ></OverTopBar>
+            <Grid container alignItems='center'>
+                <IconButton onClick={patientUIStore.closeSettings}> <Close /></IconButton>
+                <Typography>{t("patient.profile.title")}</Typography>
+            </Grid>
             <div className={classes.fullContainer}>
                 <div className={classes.header}>
                     <Avatar className={classes.avatar}>{patientStore.givenName[0]}</Avatar>
@@ -91,7 +94,7 @@ const useStyles = makeStyles({
             marginRight: "5px"
         },
         "& > h2": {
-            fontSize: "1.25em",
+            fontSize: "1em",
         },
         paddingBottom: ".5em"
     },
@@ -101,7 +104,7 @@ const useStyles = makeStyles({
     fullContainer: {
         width: "100%",
         padding: "1em",
-        boxSizing: "border-box"
+        boxSizing: "border-box",
     },
     logout: {
         width: "100%",

@@ -38,9 +38,9 @@ const useStyles = makeStyles(theme => ({
   },
   contentContainer: {
     height: "100vh",
-    marginTop: "60px",
     ...Styles.flexColumn,
-    alignItems: "center"
+    alignItems: "center",
+    boxSizing: "border-box"
   },
   drawer: {
     width: drawerWidth,
