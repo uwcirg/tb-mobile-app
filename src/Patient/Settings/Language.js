@@ -13,7 +13,7 @@ const useStyles = makeStyles({
         color: "white",
         "&:hover": {
             color: Colors.white,
-            backgroundColor: Colors.accentBlue
+            backgroundColor: Colors.buttonBlue
         }
     },
     default: {

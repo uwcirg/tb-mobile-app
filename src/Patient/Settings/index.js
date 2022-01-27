@@ -104,7 +104,8 @@ const useStyles = makeStyles({
         boxSizing: "border-box"
     },
     logout: {
-        width: "90%"
+        width: "100%",
+        boxSizing: "border-box"
     },
     header: {
         width: "100%",
@@ -125,9 +126,7 @@ const useStyles = makeStyles({
     logoutContainer: {
         width: "100%",
         display: "flex",
-        position: "fixed",
         justifyContent: "center",
-        backgroundColor: "white",
         boxSizing: "border-box"
     },
     pwContainer: {
