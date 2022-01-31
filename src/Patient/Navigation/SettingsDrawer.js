@@ -3,10 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import { observer } from 'mobx-react';
 import Settings from '../Settings';
-import Styles from '../../Basics/Styles';
 import useStores from '../../Basics/UseStores';
 
-const TopMenu = observer(() => {
+const SettingsDrawer = observer(() => {
 
   const classes = useStyles();
   const {patientUIStore} = useStores();
@@ -28,14 +27,6 @@ const TopMenu = observer(() => {
 const drawerWidth = "100%";
 
 const useStyles = makeStyles(theme => ({
-  icon: {
-    justifySelf: "flex-end"
-  },
-  header: {
-    fontSize: "1.5em",
-    marginRight: "auto",
-    marginLeft: "1em"
-  },
   contentContainer: {
     height: "100vh",
     width: "100vw",
@@ -44,16 +35,7 @@ const useStyles = makeStyles(theme => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
-  },
-  drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    justifyContent: 'center',
-  },
-  logout:{
-    marginTop: "2em"
   }
 }));
 
-export default TopMenu;
+export default SettingsDrawer;
