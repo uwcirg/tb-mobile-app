@@ -112,7 +112,7 @@ const LoginRouter = observer(() => {
                 {loginStore.onForgotPassword ? <ForgotPassword /> :
                     <>{!loginStore.selectedUserType ? <Selection /> : <LoginForm />}</>}
             </div>
-            <LoginLanguage />
+            {!loginStore.selectedUserType  && <LoginLanguage />}
         </div>
     )
 });

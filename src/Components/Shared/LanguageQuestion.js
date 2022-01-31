@@ -12,19 +12,22 @@ const useStyles = makeStyles({
         borderColor: Colors.textDarkGray
     },
     selected: {
-        borderColor: Colors.gray,
-        backgroundColor: "white",
-        color: "black",
+        borderColor: "#88b3f8",
+        backgroundColor: "#88b3f8",
+        color: "#04193c",
+        "& .label":{
+            fontWeight: "bold"
+        },
         "&:hover": {
-            borderColor: Colors.gray,
-            backgroundColor: "white",
-            color: "black",
+            borderColor: "#88b3f8",
+            backgroundColor: "#88b3f8",
+            color: "#04193c"
         }
     },
     default: {
-        borderColor: Colors.gray,
-        backgroundColor: Colors.lightgray,
-        color: Colors.textDarkGray,
+        borderColor: "#efefe",
+        backgroundColor: "#295aad",
+        color: "#efefef",
         "&:hover": {
             color: Colors.lightgray,
             backgroundColor: Colors.accentBlue
@@ -40,7 +43,7 @@ const useStyles = makeStyles({
 
 })
 
-const Flag = ({ children }) => <Typography style={{ fontSize: "2em", lineHeight: "1em" }}>{children}</Typography>;
+const Flag = ({ children }) => <Typography style={{ fontSize: "1.5em", lineHeight: "1em" }}>{children}</Typography>;
 
 const Label = ({ children }) => <Typography variant="body1" className="label" style={{ textTransform: "capitalize" }}>{children}</Typography>
 
