@@ -19,7 +19,7 @@ import { usePageVisibility } from '../Hooks/PageVisibility';
 import UpdateContactTracing from './HouseholdTesting';
 import MissedPhotoFlow from './ReportingFlows/MissedPhotoFlow/';
 import PushActionReportingFlow from './ReportingFlows/PushActionReportingFlow';
-import { Box, Hidden } from '@material-ui/core';
+import Box from '@material-ui/core/Box';
 
 const PatientHome = observer(() => {
 
@@ -90,7 +90,7 @@ const PatientHome = observer(() => {
   const showTopBar = !uiStore.pathname.startsWith("/progress")
 
   return (
-    <div className="main-screen" style={{ backgroundColor: `${Colors.white}`, minHeight: "100vh" }}>
+    <div className="main-screen" style={{ backgroundColor: `${Colors.white}`, height: "100vh", overflowY: patientUIStore.onSettings ? "hidden" : "scroll" }}>
       <ErrorListener />
       <div hidden={!showTopBar}>
         <TopBar />

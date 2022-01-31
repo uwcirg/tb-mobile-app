@@ -8,7 +8,7 @@ import useStores from '../../Basics/UseStores';
 const SettingsDrawer = observer(() => {
 
   const classes = useStyles();
-  const {patientUIStore} = useStores();
+  const { patientUIStore } = useStores();
 
   return (
     <Drawer
