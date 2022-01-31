@@ -12,15 +12,15 @@ const useStyles = makeStyles({
         borderColor: Colors.textDarkGray
     },
     selected: {
-        borderColor: "#88b3f8",
-        backgroundColor: "#88b3f8",
+        borderColor: Colors.gray,
+        backgroundColor: Colors.gray,
         color: "#04193c",
         "& .label":{
-            fontWeight: "bold"
+            textDecoration: "underline",
         },
         "&:hover": {
-            borderColor: "#88b3f8",
-            backgroundColor: "#88b3f8",
+            borderColor: Colors.gray,
+            backgroundColor: Colors.gray,
             color: "#04193c"
         }
     },
@@ -29,7 +29,7 @@ const useStyles = makeStyles({
         backgroundColor: "#295aad",
         color: "#efefef",
         "&:hover": {
-            color: Colors.lightgray,
+            color: Colors.gray,
             backgroundColor: Colors.accentBlue
         }
     },
@@ -43,9 +43,9 @@ const useStyles = makeStyles({
 
 })
 
-const Flag = ({ children }) => <Typography style={{ fontSize: "1.5em", lineHeight: "1em" }}>{children}</Typography>;
+const Flag = ({ children }) => <div style={{ fontSize: "1.5em", lineHeight: ".75em", padding: "5px 0"}}>{children}</div>;
 
-const Label = ({ children }) => <Typography variant="body1" className="label" style={{ textTransform: "capitalize" }}>{children}</Typography>
+const Label = ({ children }) => <Typography variant="body1" className="label" style={{ lineHeight: "1em", textTransform: "capitalize" }}>{children}</Typography>
 
 const LanguageQuestion = observer(() => {
 
