@@ -17,7 +17,7 @@ const useStyles = makeStyles({
         backgroundColor: props => props.selectedBackgroundColor,
         color: props => props.selectedTextColor,
         "& .label": {
-            textDecoration: "underline",
+           // textDecoration: "underline",
         },
         "&:hover": {
             borderColor: props => props.selectedBorderColor,

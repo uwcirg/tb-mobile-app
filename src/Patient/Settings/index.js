@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import OverTopBar from '../Navigation/OverTopBar';
@@ -14,8 +14,8 @@ import useLogout from '../../Basics/Logout';
 import Debugging from './Debugging';
 import Language from '../../Components/Shared/LanguageQuestion';
 import Colors from '../../Basics/Colors';
-import { Avatar, Box, Button, Collapse, Grid, IconButton } from '@material-ui/core';
-import { Close, LanguageOutlined, Lock, Translate } from '@material-ui/icons';
+import { Avatar, Box, Grid } from '@material-ui/core';
+import { LanguageOutlined, Lock } from '@material-ui/icons';
 
 const SectionLabel = ({ children }) => {
     const classes = useStyles();
@@ -24,23 +24,17 @@ const SectionLabel = ({ children }) => {
 
 const HealthProfile = observer(() => {
 
-    const classes = useStyles();
     const { patientUIStore } = useStores();
     const { t } = useTranslation('translation');
 
-    let Component = <MainSettings />
-    if (patientUIStore.onPasswordUpdate) Component = (
-        <div className={classes.pwContainer} >
-            <OverTopBar title={t("settings.updatePassword")} handleBack={patientUIStore.closePasswordUpdate} ></OverTopBar>
+    return patientUIStore.onPasswordUpdate ? <>
+        <OverTopBar notFixed title={t("settings.updatePassword")} handleBack={patientUIStore.closePasswordUpdate} ></OverTopBar>
+        <Box padding="1em">
             <PasswordUpdate />
-        </div>)
+        </Box>
 
-    return (<>
-        <div className={classes.container}>
-            {Component}
-        </div>
-    </>
-    )
+    </> : <MainSettings />;
+
 })
 
 const MainSettings = observer(() => {
@@ -49,15 +43,11 @@ const MainSettings = observer(() => {
     const { t } = useTranslation('translation');
     const logout = useLogout();
 
-    const [showDebugging, setShowDebugging] = useState(false);
-
     return (
         <>
+            <OverTopBar notFixed title={t("patient.profile.title")} handleBack={patientUIStore.closeSettings} ></OverTopBar>
             <div className={classes.fullContainer}>
-                <Grid container alignItems='center'>
-                    <IconButton onClick={patientUIStore.closeSettings}> <Close /></IconButton>
-                    <Typography>{t("patient.profile.title")}</Typography>
-                </Grid>
+                <Box height="1em" />
                 <div className={classes.header}>
                     <Avatar className={classes.avatar}>{patientStore.givenName[0]}</Avatar>
                     <Typography variant="body1">{patientStore.givenName} {patientStore.familyName}</Typography>
@@ -72,19 +62,15 @@ const MainSettings = observer(() => {
                     <Typography variant='h2'>{t('patient.profile.options.language')}</Typography>
                 </SectionLabel>
                 <Language
-                    selectedBackgroundColor={"white"}
-                    selectedTextColor={Colors.textDarkGray}
+                    selectedBackgroundColor={Colors.textDarkGray}
+                    selectedTextColor="white"
                     defaultBackgroundColor={Colors.lightgray}
                     defaultTextColor={Colors.textDarkGray}
                     defaultBorderColor={Colors.gray}
                     selectedBorderColor={Colors.gray}
 
                 />
-                <Button onClick={() => { setShowDebugging(!showDebugging) }}>Show Debugging</Button>
-                <Collapse in={showDebugging}>
-                    <Debugging />
-                </Collapse>
-                <Box flexGrow={1} />
+                <Debugging />
                 <div className={classes.logoutContainer}>
                     <NewButton onClick={logout} className={classes.logout} icon={<ExitToApp />} text={t("patient.profile.logout")} />
                 </div>
@@ -115,7 +101,6 @@ const useStyles = makeStyles({
         boxSizing: "border-box",
         display: "flex",
         flexDirection: "column",
-        minHeight: "100vh"
 
     },
     logout: {
@@ -140,12 +125,7 @@ const useStyles = makeStyles({
         display: "flex",
         justifyContent: "center",
         boxSizing: "border-box"
-    },
-    // pwContainer: {
-    //     width: "90%",
-    //     height: "100%"
-    // }
-
+    }
 
 })
 

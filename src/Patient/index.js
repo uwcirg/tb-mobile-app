@@ -6,7 +6,7 @@ import Info from './Information'
 import Messaging from '../Messaging';
 import Progress from './Progress';
 import TopBar from './Navigation/TopBar';
-import TopMenu from './Navigation/TopMenu';
+import TopMenu from './Navigation/SettingsDrawer';
 import Intro from './Walkthrough/';
 import useStores from '../Basics/UseStores';
 import Onboarding from './Onboarding';
