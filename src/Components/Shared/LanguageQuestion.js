@@ -36,6 +36,7 @@ const useStyles = makeStyles({
         }
     },
     languageContainer: {
+        maxWidth: "400px",
         width: "100%",
         boxSizing: "border-box",
         display: "flex",

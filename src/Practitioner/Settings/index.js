@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import Colors from '../../Basics/Colors';
 import { observer } from 'mobx-react';
 import Language from '../../Components/Shared/LanguageQuestion';
 import { useTranslation } from 'react-i18next';
-import { ButtonBase, Typography } from '@material-ui/core';
+import { Box, ButtonBase, Typography } from '@material-ui/core';
 import GlobeIcon from '@material-ui/icons/Public';
 import PasswordIcon from '@material-ui/icons/Lock';
 import LogoutIcon from '@material-ui/icons/ExitToApp';
@@ -124,7 +124,7 @@ const Settings = (props) => {
 
 };
 
-const SettingsNav = (props) => {
+const SettingsNav = () => {
     const { t } = useTranslation('translation');
     const classes = useStyles();
     return (
@@ -164,7 +164,7 @@ const NavItem = observer((props) => {
             return
         }
 
-        if(!id){
+        if (!id) {
             return
         }
 
@@ -187,7 +187,16 @@ const BodyRouter = observer((props) => {
         <div className={classes.body}>
             <Typography className={classes.header} variant="h2">{t(`coordinator.settingsPage.${practitionerUIStore.settingsTab}`)}</Typography>
             <div className={classes.bodyContent}>
-                {practitionerUIStore.settingsTab === "language" && <Language />}
+                {practitionerUIStore.settingsTab === "language" && <Box padding="2em 0"><Language
+                    selectedBackgroundColor={Colors.textDarkGray}
+                    selectedTextColor="white"
+                    defaultBackgroundColor={Colors.lightgray}
+                    defaultTextColor={Colors.textDarkGray}
+                    defaultBorderColor={Colors.gray}
+                    selectedBorderColor={Colors.gray}
+
+                />
+                </Box>}
                 {practitionerUIStore.settingsTab === "documents" && <Documents />}
                 {practitionerUIStore.settingsTab === "updatePassword" && <div className={classes.password}><PasswordReset /></div>}
                 {practitionerUIStore.settingsTab === "account" && <Profile />}
