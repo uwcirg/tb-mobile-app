@@ -12,10 +12,10 @@ import PasswordUpdate from '../../Components/PasswordUpdate';
 import PersonalInformation from './PersonalInformation';
 import useLogout from '../../Basics/Logout';
 import Debugging from './Debugging';
-import Language from '../../Components/Shared/Language';
+import Language from '../../Components/Shared/LanguageQuestion';
 import Colors from '../../Basics/Colors';
 import { Avatar, Box, Button, Collapse, Grid, IconButton } from '@material-ui/core';
-import { Close, Lock, Translate } from '@material-ui/icons';
+import { Close, LanguageOutlined, Lock, Translate } from '@material-ui/icons';
 
 const SectionLabel = ({ children }) => {
     const classes = useStyles();
@@ -68,7 +68,8 @@ const MainSettings = observer(() => {
                 </SectionLabel>
                 <PersonalInformation />
                 <SectionLabel>
-                    <Translate />
+                    {/* <Translate /> */}
+                    <LanguageOutlined />
                     <Typography variant='h2'>{t('patient.profile.options.language')}</Typography>
                 </SectionLabel>
                 <Language />

@@ -8,22 +8,22 @@ import Button from "@material-ui/core/Button";
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
-    group:{
+    group: {
         borderColor: Colors.textDarkGray
     },
     selected: {
         borderColor: Colors.gray,
-        backgroundColor: Colors.lightgray,
-        color: Colors.textDarkGray,
+        backgroundColor: "white",
+        color: "black",
         "&:hover": {
             borderColor: Colors.gray,
-            color: Colors.textDarkGray,
-            backgroundColor: Colors.lightgray
+            backgroundColor: "white",
+            color: "black",
         }
     },
     default: {
         borderColor: Colors.gray,
-        backgroundColor: "white",
+        backgroundColor: Colors.lightgray,
         color: Colors.textDarkGray,
         "&:hover": {
             color: Colors.lightgray,
@@ -42,22 +42,16 @@ const useStyles = makeStyles({
 
 const Flag = ({ children }) => <Typography style={{ fontSize: "2em", lineHeight: "1em" }}>{children}</Typography>;
 
-const Label = ({children}) => <Typography style={{ textTransform: "capitalize"}}>{children}</Typography>
+const Label = ({ children }) => <Typography variant="body1" className="label" style={{ textTransform: "capitalize" }}>{children}</Typography>
 
 const LanguageQuestion = observer(() => {
+
     const classes = useStyles();
     const { uiStore } = useStores();
 
     return (
         <div className={classes.languageContainer}>
             <ButtonGroup className={classes.group} fullWidth color="primary">
-                <Button onClick={() => { uiStore.setLocale("en") }} className={uiStore.locale === "en" ? classes.selected : classes.default}>
-                    <div>
-                        <Flag>🇺🇸</Flag>
-                        <Label>English</Label>
-                        
-                    </div>
-                </Button>
                 <Button onClick={() => { uiStore.setLocale("es-AR") }} className={uiStore.locale === "es-AR" ? classes.selected : classes.default}>
                     <div>
                         <Flag>🇦🇷</Flag>
@@ -68,6 +62,13 @@ const LanguageQuestion = observer(() => {
                     <div>
                         <Flag>🇮🇩</Flag>
                         <Label>Indonesia</Label>
+                    </div>
+                </Button>
+                <Button onClick={() => { uiStore.setLocale("en") }} className={uiStore.locale === "en" ? classes.selected : classes.default}>
+                    <div>
+                        <Flag>🇺🇸</Flag>
+                        <Label>English</Label>
+
                     </div>
                 </Button>
             </ButtonGroup>

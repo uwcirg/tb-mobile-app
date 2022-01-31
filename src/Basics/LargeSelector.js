@@ -6,8 +6,8 @@ import ButtonBase from '@material-ui/core/ButtonBase'
 const LargeSelector = (props) => {
 
     const BaseStyles = {
-        borderRadius: "5px",
-        width: "75%",
+        borderRadius: "4px",
+        width: "100%",
         margin: "1em auto 0 auto",
         fontSize: "1em",
         backgroundColor: props.backgroundColor

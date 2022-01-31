@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import Colors from '../../Basics/Colors';
 import { observer } from 'mobx-react';
-import Language from '../../Components/Shared/Language';
+import Language from '../../Components/Shared/LanguageQuestion';
 import { useTranslation } from 'react-i18next';
 import { ButtonBase, Typography } from '@material-ui/core';
 import GlobeIcon from '@material-ui/icons/Public';
