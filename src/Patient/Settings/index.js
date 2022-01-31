@@ -12,28 +12,29 @@ import PasswordUpdate from '../../Components/PasswordUpdate';
 import PersonalInformation from './PersonalInformation';
 import useLogout from '../../Basics/Logout';
 import Debugging from './Debugging';
-import Language from './Language';
+import Language from '../../Components/Shared/LanguageQuestion';
 import Colors from '../../Basics/Colors';
+import { Avatar, Box, Grid } from '@material-ui/core';
+import { LanguageOutlined, Lock } from '@material-ui/icons';
+
+const SectionLabel = ({ children }) => {
+    const classes = useStyles();
+    return <Grid className={classes.sectionLabel} container alignItems="center">{children}</Grid>;
+}
 
 const HealthProfile = observer(() => {
 
-    const classes = useStyles();
     const { patientUIStore } = useStores();
     const { t } = useTranslation('translation');
 
-    let Component = <MainSettings />
-    if (patientUIStore.onPasswordUpdate) Component = (
-        <div className={classes.pwContainer} >
-            <OverTopBar title={t("settings.updatePassword")} handleBack={patientUIStore.closePasswordUpdate} ></OverTopBar>
+    return patientUIStore.onPasswordUpdate ? <>
+        <OverTopBar notFixed title={t("settings.updatePassword")} handleBack={patientUIStore.closePasswordUpdate} ></OverTopBar>
+        <Box padding="1em">
             <PasswordUpdate />
-        </div>)
+        </Box>
 
-    return (<>
-        <div className={classes.container}>
-            {Component}
-        </div>
-    </>
-    )
+    </> : <MainSettings />;
+
 })
 
 const MainSettings = observer(() => {
@@ -44,104 +45,87 @@ const MainSettings = observer(() => {
 
     return (
         <>
-            <OverTopBar title={t("patient.profile.title")} handleBack={patientUIStore.closeSettings} ></OverTopBar>
-            <div className={classes.header}>
-                <div className={classes.photoContainer}>
-                    <div className={classes.photo}>{patientStore.givenName[0]}</div>
+            <OverTopBar notFixed title={t("patient.profile.title")} handleBack={patientUIStore.closeSettings} ></OverTopBar>
+            <div className={classes.fullContainer}>
+                <Box height="1em" />
+                <div className={classes.header}>
+                    <Avatar className={classes.avatar}>{patientStore.givenName[0]}</Avatar>
+                    <Typography variant="body1">{patientStore.givenName} {patientStore.familyName}</Typography>
                 </div>
-                <Typography className={classes.name} className={classes.name} variant="h2">{patientStore.givenName} {patientStore.familyName}</Typography>
-            </div>
-            <Language />
-            <PersonalInformation />
-            <Debugging />
-            <div className={classes.logoutContainer}>
-                <NewButton onClick={logout} className={classes.logout} icon={<ExitToApp />} text={t("patient.profile.logout")} />
+                <SectionLabel>
+                    <Lock />
+                    <Typography variant="h2">{t("patient.profile.personalInfo")}</Typography>
+                </SectionLabel>
+                <PersonalInformation />
+                <SectionLabel>
+                    <LanguageOutlined />
+                    <Typography variant='h2'>{t('patient.profile.options.language')}</Typography>
+                </SectionLabel>
+                <Language
+                    selectedBackgroundColor={Colors.textDarkGray}
+                    selectedTextColor="white"
+                    defaultBackgroundColor={Colors.lightgray}
+                    defaultTextColor={Colors.textDarkGray}
+                    defaultBorderColor={Colors.gray}
+                    selectedBorderColor={Colors.gray}
+
+                />
+                <Debugging />
+                <div className={classes.logoutContainer}>
+                    <NewButton onClick={logout} className={classes.logout} icon={<ExitToApp />} text={t("patient.profile.logout")} />
+                </div>
             </div>
         </>
     )
 })
 
 const useStyles = makeStyles({
+    sectionLabel: {
+        display: "flex",
+        justifyContent: "flex-start",
+        "& > svg": {
+            fontSize: "1em",
+            marginRight: "5px"
+        },
+        "& > h2": {
+            fontSize: "1em",
+        },
+        padding: "1em 0"
+    },
+    avatar: {
+        backgroundColor: Colors.approvedGreen
+    },
+    fullContainer: {
+        width: "100%",
+        padding: "0 1em",
+        boxSizing: "border-box",
+        display: "flex",
+        flexDirection: "column",
+
+    },
     logout: {
-        width: "90%"
+        width: "100%",
+        boxSizing: "border-box"
     },
     header: {
-        ...Styles.flexColumn,
-        alignContent: "center"
-    },
-    photoContainer: {
-        width: "50px",
-        height: "50px",
-        borderRadius: "25px",
-        backgroundColor: Colors.approvedGreen,
-        position: "relative",
-        color: "white",
-        margin: "auto"
-    },
-    photo: {
-        fontSize: "2em",
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%,-50%)"
-    },
-    container: {
+        width: "100%",
         ...Styles.flexColumn,
         alignItems: "center",
-        margin: "1em",
-        width: "100%",
+        padding: "1em 0",
+        backgroundColor: Colors.lightgray,
+        borderRadius: "4px"
     },
     name: {
         textAlign: "center",
         fontSize: "1em",
         margin: ".5em 0 .5em 0",
     },
-    profileItem: {
-        ...Styles.flexRow,
-        margin: ".5em",
-        alignItems: "center",
-        "& > svg": {
-            color: "gray"
-        },
-        "& > div": {
-            ...Styles.flexColumn,
-            margin: " 0 0 0 1em",
-            "& > h1,p": {
-                fontSize: ".9em",
-                padding: "5px 0 0 0",
-                margin: 0
-            }
-        }
-    },
-    preference: {
-        ...Styles.flexRow,
-        justifyContent: "space-between",
-        width: "90%",
-        margin: "auto"
-
-    },
-    blueText: {
-        fontSize: "1em"
-    },
-    line: {
-        display: "block",
-        width: "100%",
-        borderBottom: "solid 1px lightgray"
-    },
     logoutContainer: {
         width: "100%",
         display: "flex",
-        position: "fixed",
         justifyContent: "center",
-        bottom: "0px",
-        padding: "5px",
-        backgroundColor: "white"
-    },
-    pwContainer: {
-        width: "90%",
-        height: "100%"
+        boxSizing: "border-box"
     }
-
 
 })
 

@@ -13,28 +13,13 @@ const useStyles = makeStyles({
         width: "100%",
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
+        alignItems: "flex-start",
         "& > button": {
             alignSelf: "flex-start",
-            marginLeft: "5%",
             color: Colors.buttonBlue,
             textTransform: "capitalize"
         },
-    },
-    header: {
-        width: "90%",
-        marginLeft: "1em",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "flex-start",
-        "& > svg":{
-            fontSize: "1em",
-            marginRight: "5px"
-        },
-        "& > h2": {
-            fontSize: "1.25em",
-        }
-    },
+    }
 })
 
 const PersonalInformation = () => {
@@ -44,10 +29,6 @@ const PersonalInformation = () => {
 
     return (
         <div className={classes.container}>
-            <div className={classes.header}>
-                <Lock />
-                <Typography variant="h2">{t("patient.profile.personalInfo")}</Typography>
-            </div>
             <Button onClick={patientUIStore.goToPasswordUpdate} >{t("patient.profile.changePassword")}</Button>
             <Button onClick={patientUIStore.goToContactTracingUpdate} >{t('householdTesting.button')}</Button>
         </div>

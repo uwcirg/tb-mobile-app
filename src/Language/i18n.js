@@ -2,6 +2,7 @@
 import i18n from 'i18next';
 import English from "./Locales/en/translation.json"
 import Spanish from "./Locales/es-AR/translation.json"
+import Indonesian from "./Locales/id/translation.json"
 import { initReactI18next } from "react-i18next";
 
 // import XHR from 'i18next-xhr-backend';
@@ -10,9 +11,9 @@ import { initReactI18next } from "react-i18next";
 // }
 
 const resources = {
-  en: {translation: English }
-  ,
-  "es-AR": {translation: Spanish}
+  en: {translation: English },
+  "es-AR": {translation: Spanish},
+  id: {translation: Indonesian}
 };
 
 // const getLanguage = () => {

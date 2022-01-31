@@ -7,7 +7,7 @@ import { observer } from 'mobx-react';
 //Components
 import AppLogo from '../Basics/AppLogo';
 import IconButton from '@material-ui/core/IconButton';
-import LoginPage from './LoginForm';
+import LoginForm from './LoginForm';
 
 //Icons
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
@@ -16,9 +16,10 @@ import Colors from '../Basics/Colors';
 import ChevronLeftOutlined from '@material-ui/icons/ChevronLeftOutlined';
 
 import { useTranslation } from 'react-i18next';
-import { ButtonBase } from '@material-ui/core';
-import Globe from '@material-ui/icons/Language';
 import ForgotPassword from './ForgotPassword';
+import { Box, Grid, Typography } from '@material-ui/core';
+import LoginLanguage from './LoginLanguage';
+import PersonIcon from '@material-ui/icons/Person';
 
 const useStyles = makeStyles({
     backContainer: {
@@ -26,23 +27,19 @@ const useStyles = makeStyles({
     },
     container: {
         width: "100%",
-        height: "100vh",
         display: "flex",
         justifyContent: "center",
         flexDirection: "column"
     },
     selectionContainer: {
-        maxWidth: "400px",
         margin: "auto",
+        width: "75%",
+        maxWidth: "400px",
         display: "flex",
-        height: "100%",
         flexDirection: "column",
-        justifyItems: "center",
+        alignItems: "center",
         justifyContent: "center",
-        alignContent: "center",
-        "& > h2": {
-            marginTop: "auto"
-        }
+        padding: "2em 0"
 
     },
     logo: {
@@ -62,8 +59,7 @@ const useStyles = makeStyles({
         fontSize: "1em",
         margin: 0,
         padding: 0,
-        textAlign: "center",
-        fontWeight: 500
+        width: "100%"
     },
 
     back: {
@@ -81,27 +77,22 @@ const useStyles = makeStyles({
         width: "5000px",
         backgroundColor: "#0e3782"
     },
-    languageChange: {
-        color: "white",
-        marginTop: "auto",
-        fontSize: ".75em",
-        "& > svg": {
-            marginRight: "5px"
-        }
-    }
 });
 
 const Selection = () => {
     const classes = useStyles();
     const { t } = useTranslation('translation');
-    const { uiStore, loginStore } = useStores();
+    const { loginStore } = useStores();
 
     return (
         <div className={classes.selectionContainer}>
-            <h2 className={classes.subtitle}>{t("login.selectType")}:</h2>
+            <Grid container style={{color: "white"}}>
+                <PersonIcon />
+                <Box width="5px" />
+                <Typography variant='body1' align='left' >{t("login.selectType")}:</Typography>
+            </Grid>
             <LargeSelector onClick={loginStore.selectPatient} id="Patient" backgroundColor={Colors.blue}><AccountBoxIcon /><span>{t("userTypes.patient")}</span></LargeSelector>
             <LargeSelector onClick={loginStore.selectPractitioner} id="Practitioner" backgroundColor={Colors.blue}><SupervisorAccountIcon /><span>{t("userTypes.provider")}</span></LargeSelector>
-            <ButtonBase className={classes.languageChange} onClick={uiStore.toggleLanguage}><Globe />{t("login.changeLanguage")}</ButtonBase>
         </div>)
 }
 
@@ -119,8 +110,9 @@ const LoginRouter = observer(() => {
             </div>
             <div className={classes.containerBottom}>
                 {loginStore.onForgotPassword ? <ForgotPassword /> :
-                    <>{!loginStore.selectedUserType ? <Selection /> : <LoginPage />}</>}
+                    <>{!loginStore.selectedUserType ? <Selection /> : <LoginForm />}</>}
             </div>
+            {!loginStore.selectedUserType  && <LoginLanguage />}
         </div>
     )
 });

@@ -45,7 +45,6 @@ const PhotoReportsProvider = ({ initalPhotos = [], listComponent, patientId }) =
         }
     }, [])
 
-
     return (
         <>
             {React.cloneElement(listComponent, { photos: photos, patientId: patientId })}
