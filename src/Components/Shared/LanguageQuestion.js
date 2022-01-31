@@ -7,30 +7,32 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
 import Typography from '@material-ui/core/Typography';
 
+
 const useStyles = makeStyles({
     group: {
         borderColor: Colors.textDarkGray
     },
     selected: {
-        borderColor: Colors.gray,
-        backgroundColor: Colors.gray,
-        color: "#04193c",
-        "& .label":{
+        borderColor: props => props.selectedBorderColor,
+        backgroundColor: props => props.selectedBackgroundColor,
+        color: props => props.selectedTextColor,
+        "& .label": {
             textDecoration: "underline",
         },
         "&:hover": {
-            borderColor: Colors.gray,
-            backgroundColor: Colors.gray,
-            color: "#04193c"
+            borderColor: props => props.selectedBorderColor,
+            backgroundColor: props => props.selectedBackgroundColor,
+            color: props => props.selectedTextColor,
         }
     },
     default: {
-        borderColor: "#efefe",
-        backgroundColor: "#295aad",
-        color: "#efefef",
+        borderColor: props => props.defaultBorderColor,
+        backgroundColor: props => props.defaultBackgroundColor,
+        color: props => props.defaultTextColor,
         "&:hover": {
-            color: Colors.gray,
-            backgroundColor: Colors.accentBlue
+            borderColor: props => props.defaultBorderColor,
+            backgroundColor: props => props.defaultBackgroundColor,
+            color: props => props.defaultTextColor,
         }
     },
     languageContainer: {
@@ -43,13 +45,15 @@ const useStyles = makeStyles({
 
 })
 
-const Flag = ({ children }) => <div style={{ fontSize: "1.5em", lineHeight: ".75em", padding: "5px 0"}}>{children}</div>;
+const Flag = ({ children }) => <div style={{ fontSize: "1.5em", lineHeight: ".75em", padding: "5px 0" }}>{children}</div>;
 
 const Label = ({ children }) => <Typography variant="body1" className="label" style={{ lineHeight: "1em", textTransform: "capitalize" }}>{children}</Typography>
 
-const LanguageQuestion = observer(() => {
+const LanguageQuestion = observer((props) => {
 
-    const classes = useStyles();
+    // Available Props { selectedBackgroundColor, defaultBackgroundColor, selectedTextColor, defaultTextColor, defaultBorderColor } = props;
+
+    const classes = useStyles(props);
     const { uiStore } = useStores();
 
     return (

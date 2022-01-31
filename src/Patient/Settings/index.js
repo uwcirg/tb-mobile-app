@@ -53,11 +53,11 @@ const MainSettings = observer(() => {
 
     return (
         <>
-                    <div className={classes.fullContainer}>
-            <Grid container alignItems='center'>
-                <IconButton onClick={patientUIStore.closeSettings}> <Close /></IconButton>
-                <Typography>{t("patient.profile.title")}</Typography>
-            </Grid>
+            <div className={classes.fullContainer}>
+                <Grid container alignItems='center'>
+                    <IconButton onClick={patientUIStore.closeSettings}> <Close /></IconButton>
+                    <Typography>{t("patient.profile.title")}</Typography>
+                </Grid>
                 <div className={classes.header}>
                     <Avatar className={classes.avatar}>{patientStore.givenName[0]}</Avatar>
                     <Typography variant="body1">{patientStore.givenName} {patientStore.familyName}</Typography>
@@ -68,11 +68,18 @@ const MainSettings = observer(() => {
                 </SectionLabel>
                 <PersonalInformation />
                 <SectionLabel>
-                    {/* <Translate /> */}
                     <LanguageOutlined />
                     <Typography variant='h2'>{t('patient.profile.options.language')}</Typography>
                 </SectionLabel>
-                <Language />
+                <Language
+                    selectedBackgroundColor={"white"}
+                    selectedTextColor={Colors.textDarkGray}
+                    defaultBackgroundColor={Colors.lightgray}
+                    defaultTextColor={Colors.textDarkGray}
+                    defaultBorderColor={Colors.gray}
+                    selectedBorderColor={Colors.gray}
+
+                />
                 <Button onClick={() => { setShowDebugging(!showDebugging) }}>Show Debugging</Button>
                 <Collapse in={showDebugging}>
                     <Debugging />
@@ -134,10 +141,10 @@ const useStyles = makeStyles({
         justifyContent: "center",
         boxSizing: "border-box"
     },
-    pwContainer: {
-        width: "90%",
-        height: "100%"
-    }
+    // pwContainer: {
+    //     width: "90%",
+    //     height: "100%"
+    // }
 
 
 })

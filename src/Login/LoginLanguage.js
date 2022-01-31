@@ -1,18 +1,12 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import LanguageQuestion from '../Components/Shared/LanguageQuestion';
 import { Box, Grid, Typography } from '@material-ui/core';
 import { Language } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-
-
-const useStyles = makeStyles({
-
-})
+import Colors from '../Basics/Colors';
 
 const LoginLanguage = () => {
 
-    const classes = useStyles();
     const { t } = useTranslation('translation');
 
     return (<Box width="75%" maxWidth="400px" margin="0 auto" >
@@ -21,7 +15,14 @@ const LoginLanguage = () => {
             <Box width=".25em" />
             <Typography variant="body1">{t('coordinator.settingsPage.language')}:</Typography>
         </Grid>
-        <LanguageQuestion isLoginPage />
+        <LanguageQuestion
+            selectedBorderColor={Colors.gray}
+            selectedBackgroundColor={Colors.gray}
+            selectedTextColor={"#04193c"}
+            defaultBackgroundColor={"#295aad"}
+            defaultTextColor={"#efefef"}
+            defaultBorderColor={"#efefe"}
+            />
     </Box>)
 
 }
