@@ -12,10 +12,9 @@ import PasswordUpdate from '../../Components/PasswordUpdate';
 import PersonalInformation from './PersonalInformation';
 import useLogout from '../../Basics/Logout';
 import Debugging from './Debugging';
-import Language from './Language';
+import Language from '../../Components/Shared/Language';
 import Colors from '../../Basics/Colors';
 import { Avatar, Box, Button, Collapse, Grid, IconButton } from '@material-ui/core';
-import Globe from '@material-ui/icons/Language';
 import { Close, Lock, Translate } from '@material-ui/icons';
 
 const SectionLabel = ({ children }) => {

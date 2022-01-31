@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import Colors from '../../Basics/Colors';
 import { observer } from 'mobx-react';
-import LanguageQuestion from '../../Basics/LanguageQuestion';
+import Language from '../../Components/Shared/Language';
 import { useTranslation } from 'react-i18next';
 import { ButtonBase, Typography } from '@material-ui/core';
 import GlobeIcon from '@material-ui/icons/Public';
@@ -187,7 +187,7 @@ const BodyRouter = observer((props) => {
         <div className={classes.body}>
             <Typography className={classes.header} variant="h2">{t(`coordinator.settingsPage.${practitionerUIStore.settingsTab}`)}</Typography>
             <div className={classes.bodyContent}>
-                {practitionerUIStore.settingsTab === "language" && <LanguageQuestion noTitle />}
+                {practitionerUIStore.settingsTab === "language" && <Language />}
                 {practitionerUIStore.settingsTab === "documents" && <Documents />}
                 {practitionerUIStore.settingsTab === "updatePassword" && <div className={classes.password}><PasswordReset /></div>}
                 {practitionerUIStore.settingsTab === "account" && <Profile />}
