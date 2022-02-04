@@ -13,7 +13,7 @@ const LoginLanguage = () => {
         <Grid style={{ color: "white", padding: ".5em 0" }} container alignItems='center'>
             <Language />
             <Box width=".25em" />
-            <Typography variant="body1">{t('coordinator.settingsPage.language')}:</Typography>
+            <Typography variant="body1">Idioma / Bahasa / Language:</Typography>
         </Grid>
         <LanguageQuestion
             selectedBorderColor={Colors.gray}
