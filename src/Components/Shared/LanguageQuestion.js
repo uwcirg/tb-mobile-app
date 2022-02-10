@@ -3,38 +3,16 @@ import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react';
 import Colors from '../../Basics/Colors';
-import ButtonGroup from "@material-ui/core/ButtonGroup";
-import Button from "@material-ui/core/Button";
 import Typography from '@material-ui/core/Typography';
+import { Box, Grid, MenuItem, Select } from '@material-ui/core';
 
+const LOCALES = [
+    { id: "es-AR", text: "Español", flag: "🇦🇷" },
+    { id: "id", text: "Indonesia", flag: "🇮🇩" },
+    { id: "en", text: "English", flag: "🇺🇸" }
+]
 
 const useStyles = makeStyles({
-    group: {
-        borderColor: Colors.textDarkGray
-    },
-    selected: {
-        borderColor: props => props.selectedBorderColor,
-        backgroundColor: props => props.selectedBackgroundColor,
-        color: props => props.selectedTextColor,
-        "& .label": {
-           // textDecoration: "underline",
-        },
-        "&:hover": {
-            borderColor: props => props.selectedBorderColor,
-            backgroundColor: props => props.selectedBackgroundColor,
-            color: props => props.selectedTextColor,
-        }
-    },
-    default: {
-        borderColor: props => props.defaultBorderColor,
-        backgroundColor: props => props.defaultBackgroundColor,
-        color: props => props.defaultTextColor,
-        "&:hover": {
-            borderColor: props => props.defaultBorderColor,
-            backgroundColor: props => props.defaultBackgroundColor,
-            color: props => props.defaultTextColor,
-        }
-    },
     languageContainer: {
         maxWidth: "400px",
         width: "100%",
@@ -42,46 +20,56 @@ const useStyles = makeStyles({
         display: "flex",
         flexDirection: "column",
         alignItems: "center"
-    }
+    },
+    select: {
+        width: "100%",
+        maxWidth: "400px",
+        backgroundColor: "white"
+    },
+    flag: { fontSize: "1.5em", lineHeight: ".75em", padding: "5px 0" },
+    label: { lineHeight: "1em", textTransform: "capitalize" }
+
 
 })
 
-const Flag = ({ children }) => <div style={{ fontSize: "1.5em", lineHeight: ".75em", padding: "5px 0" }}>{children}</div>;
+const Flag = ({ children }) => {
+    const classes = useStyles();
+    return <div className={classes.flag}>{children}</div>
+}
 
-const Label = ({ children }) => <Typography variant="body1" className="label" style={{ lineHeight: "1em", textTransform: "capitalize" }}>{children}</Typography>
+const Label = ({ children }) => {
+    const classes = useStyles();
+    return <Typography className={classes.label} variant="body1" className="label">{children}</Typography>
+}
 
-const LanguageQuestion = observer((props) => {
+const LanguageQuestion = observer(() => {
 
-    // Available Props { selectedBackgroundColor, defaultBackgroundColor, selectedTextColor, defaultTextColor, defaultBorderColor } = props;
-
-    const classes = useStyles(props);
+    const classes = useStyles();
     const { uiStore } = useStores();
 
-    return (
-        <div className={classes.languageContainer}>
-            <ButtonGroup className={classes.group} fullWidth color="primary">
-                <Button onClick={() => { uiStore.setLocale("es-AR") }} className={uiStore.locale === "es-AR" ? classes.selected : classes.default}>
-                    <div>
-                        <Flag>🇦🇷</Flag>
-                        <Label>Español</Label>
-                    </div>
-                </Button>
-                <Button onClick={() => { uiStore.setLocale("id") }} className={uiStore.locale === "id" ? classes.selected : classes.default}>
-                    <div>
-                        <Flag>🇮🇩</Flag>
-                        <Label>Indonesia</Label>
-                    </div>
-                </Button>
-                <Button onClick={() => { uiStore.setLocale("en") }} className={uiStore.locale === "en" ? classes.selected : classes.default}>
-                    <div>
-                        <Flag>🇺🇸</Flag>
-                        <Label>English</Label>
+    const handleChange = (e) => {
+        uiStore.setLocale(e.target.value)
+    }
 
-                    </div>
-                </Button>
-            </ButtonGroup>
-        </div>
-    );
-})
+    return (<Select
+        variant="outlined"
+        margin='dense'
+        className={classes.select}
+        labelId="language-select-label"
+        id="language-select"
+        value={uiStore.locale}
+        onChange={handleChange}>
+        {LOCALES.map((_locale) => {
+            const { flag, text, id } = _locale;
+            return (<MenuItem key={`language-select-${id}`} id={id} value={id}>
+                <Grid alignItems='center' container wrap="nowrap">
+                    <Flag>{flag}</Flag>
+                    <Box width=".5em" />
+                    <Label>{text}</Label>
+                </Grid>
+            </MenuItem>)
+        })}
+    </Select >);
+});
 
 export default LanguageQuestion;

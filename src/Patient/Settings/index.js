@@ -45,8 +45,9 @@ const MainSettings = observer(() => {
 
     return (
         <>
-            <OverTopBar notFixed title={t("patient.profile.title")} handleBack={patientUIStore.closeSettings} ></OverTopBar>
+            <OverTopBar title={t("patient.profile.title")} handleBack={patientUIStore.closeSettings} ></OverTopBar>
             <div className={classes.fullContainer}>
+                <Box height="60px" />
                 <Box height="1em" />
                 <div className={classes.header}>
                     <Avatar className={classes.avatar}>{patientStore.givenName[0]}</Avatar>
@@ -61,16 +62,9 @@ const MainSettings = observer(() => {
                     <LanguageOutlined />
                     <Typography variant='h2'>{t('patient.profile.options.language')}</Typography>
                 </SectionLabel>
-                <Language
-                    selectedBackgroundColor={Colors.textDarkGray}
-                    selectedTextColor="white"
-                    defaultBackgroundColor={Colors.lightgray}
-                    defaultTextColor={Colors.textDarkGray}
-                    defaultBorderColor={Colors.gray}
-                    selectedBorderColor={Colors.gray}
-
-                />
+                <Language />
                 <Debugging />
+                <Box flex="1" />
                 <div className={classes.logoutContainer}>
                     <NewButton onClick={logout} className={classes.logout} icon={<ExitToApp />} text={t("patient.profile.logout")} />
                 </div>
@@ -97,6 +91,7 @@ const useStyles = makeStyles({
     },
     fullContainer: {
         width: "100%",
+        minHeight: "100vh",
         padding: "0 1em",
         boxSizing: "border-box",
         display: "flex",
