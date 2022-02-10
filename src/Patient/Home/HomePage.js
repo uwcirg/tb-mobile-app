@@ -32,7 +32,6 @@ const HomePage = () => {
       {/* Some of these components are conditionally rendered within thier implementaion */}
       <PushNotificationEnrollment />
       <Greeting />
-      <OneStepReportingUpdate />
       <ActionBox />
       <CachedReports />
       <RequiresAction />
