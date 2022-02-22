@@ -61,6 +61,9 @@ export default class WebCam {
     endVideo(){
 
             let stream = this.webcamElement.srcObject;
+
+            if(!stream) return; // Prevents error that was crashing app when exiting after denial
+
             let tracks = stream.getTracks();
           
             tracks.forEach(function(track) {
