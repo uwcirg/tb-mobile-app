@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import fixRotation from 'fix-image-rotation';
 import Webcam from './WebCam'
 import styled from 'styled-components';
-import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close';
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import Fab from '@material-ui/core/Fab';
@@ -24,7 +23,6 @@ export default class Camera extends Component {
         return ArrayOfFilesToBeRotated
         let blobOfArray = await fixRotation.fixRotation(ArrayOfFilesToBeRotated)
         return blobOfArray
-        
     }
 
     captureImage = async () => {
@@ -70,20 +68,16 @@ export default class Camera extends Component {
         })
     }
 
-    uploadImage = () => {
-        
-    }
-
     componentDidMount() {
         // initialize the camera
         this.canvasElement = document.createElement('canvas');
         this.webcam = new Webcam(
             document.getElementById('webcam'),
-            this.canvasElement
+            this.canvasElement,
+            this.handleOutcome
         );
-        this.webcam.setup().catch(() => {
-            alert('Error getting access to your camera');
-        });
+
+        this.webcam.setup().then(()=>{ console.log("Then")}).catch(err => {console.log("Now error is here")})
     }
 
     componentWillUnmount() {
@@ -111,7 +105,7 @@ export default class Camera extends Component {
                 <Fab onClick={this.captureImage}><CameraAltIcon /></Fab>
             </div>
 
-        const exit = (<Exit><IconButton onClick={this.props.handleExit}><CloseIcon /></IconButton></Exit>)
+        const exit = (<Exit><Fab size='small' onClick={this.props.handleExit}><CloseIcon /></Fab></Exit>)
 
 
         return (
@@ -132,24 +126,12 @@ export default class Camera extends Component {
     }
 }
 
-const CameraButton = styled.div`
-height: 40px;
-width: 40px;
-border: solid 2px white;
-border-radius: 40px;
-background-color: lightgray;
-display: flex;
-justify-content: center;
-align-content: center;
-align-items: center;
-`
-
 const Exit = styled.div`
 position: fixed;
-top: 0px;
+top: 10px;
 left: 10px;
 color: white;
-z-index: 12;
+z-index: 13;
 `
 
 const Container = styled.div`
@@ -193,6 +175,7 @@ const Container = styled.div`
   }
 
   .webcam-container{
+    background-color: black;
     position: fixed;
     top: 0;
     left: 0;
@@ -202,7 +185,7 @@ const Container = styled.div`
 
   .camera-buttons{
       position: fixed;
-      bottom: 60px;
+      bottom: 30px;
       left: 0;
       z-index: 12;
       width: 100%;
