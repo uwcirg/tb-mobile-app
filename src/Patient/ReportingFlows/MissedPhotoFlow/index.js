@@ -17,6 +17,7 @@ import BottomButton from './BottomButton';
 import { Box, CircularProgress } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import GenericErrorMessage from '../../../Components/GenericErrorMessage';
+import PermissionsError from '../../../ImageCapture/PermissionsError';
 
 const useStyles = makeStyles({
     container: {
@@ -132,6 +133,7 @@ const PreSubmissionView = ({ photo, eligible, setPhoto, handleSubmit, requestDat
     const { t } = useTranslation('translation');
     const classes = useStyles();
     const [cameraOpen, setCameraOpen] = useState(false);
+    const [permissionsError, setPermissionsError] = useState(false);
 
     const handleExit = () => {
         setCameraOpen(false);
@@ -140,6 +142,11 @@ const PreSubmissionView = ({ photo, eligible, setPhoto, handleSubmit, requestDat
     const handlePhoto = (newPhoto) => {
         setPhoto(newPhoto);
         setCameraOpen(false);
+    }
+
+    const handlePermissionsError = () => {
+        handleExit();
+        setPermissionsError(true);
     }
 
     if (loading) {
@@ -159,11 +166,15 @@ const PreSubmissionView = ({ photo, eligible, setPhoto, handleSubmit, requestDat
             {eligible ? <>
                 <BackSubmissionText photo={photo !== false} requestDateFormatted={requestDateFormatted} />
                 <PhotoPrompt onClick={() => { setCameraOpen(true) }} />
+                {permissionsError && <PermissionsError />}
                 <Box height=".5em" />
                 <TestStripPhotoInfo showSkipOptions={false} />
             </> : <NotEligible />}
         </>}
-        {cameraOpen && <Camera handleExit={handleExit} returnPhoto={handlePhoto} />}
+        {cameraOpen && <Camera 
+        handlePermissionsError={handlePermissionsError}
+        handleExit={handleExit} 
+        returnPhoto={handlePhoto} />}
     </>)
 }
 
