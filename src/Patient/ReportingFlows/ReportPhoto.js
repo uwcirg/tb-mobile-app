@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import SimpleButton from '../../Basics/SimpleButton';
 import Camera from '../../ImageCapture/Camera';
@@ -18,6 +18,7 @@ const ReportPhoto = observer((props) => {
 
     const classes = useStyles();
     const { t } = useTranslation('translation');
+    const [permissionError,setPermissionError] = useState(false);
 
     const { patientStore, patientUIStore } = useStores();
     patientStore.report.headerText = t("patient.report.photoTitle")
@@ -55,11 +56,16 @@ const ReportPhoto = observer((props) => {
         return !patientStore.report.photoWasTaken;
     }
 
-    useEffect(()=>{
-        return function cleanup(){
+    const handlePermissionsError = () => {
+        handleExit();
+        setPermissionError(true);
+    }
+
+    useEffect(() => {
+        return function cleanup() {
             patientUIStore.setSkippedToPhoto(false);
         }
-    },[])
+    }, [])
 
     return (
         <div className={classes.container}>
@@ -71,14 +77,21 @@ const ReportPhoto = observer((props) => {
                     </>
                     :
                     <>
-                        <PhotoPrompt onClick={() => { patientStore.uiState.cameraIsOpen = true }} />
+                        <PhotoPrompt onClick={() => { 
+                            patientStore.uiState.cameraIsOpen = true;
+                            setPermissionError(false);
+                            }} />
+                        {permissionError && <p>Permission Error</p>}
                         <Box height=".5em" />
                         <TestStripPhotoInfo />
                     </>}
             </> : <CantTakePhoto />}
             <Box height="1em" />
             <SimpleButton className={classes.buttonFix} alignRight onClick={handleNext} disabled={nextDisabled()} backgroundColor={Colors.green}>{t("patient.report.next")}</SimpleButton>
-            {patientStore.uiState.cameraIsOpen ? <Camera handleExit={handleExit} returnPhoto={handlePhoto} /> : ""}
+            {patientStore.uiState.cameraIsOpen && <Camera
+                handlePermissionsError={handlePermissionsError}
+                handleExit={handleExit}
+                returnPhoto={handlePhoto} />}
         </div>
     )
 });
@@ -172,7 +185,7 @@ const useStyles = makeStyles({
     optionButton: {
         padding: ".5em"
     },
-    refresh:{
+    refresh: {
         color: Colors.buttonBlue,
         textTransform: "capitalize",
         fontSize: "1em",

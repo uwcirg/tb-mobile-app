@@ -7,8 +7,8 @@ import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import Fab from '@material-ui/core/Fab';
 
 export default class Camera extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.webcam = null;
         this.state = {
             capturedImage: null,
@@ -77,7 +77,11 @@ export default class Camera extends Component {
             this.handleOutcome
         );
 
-        this.webcam.setup().then(()=>{ console.log("Then")}).catch(err => {console.log("Now error is here")})
+        this.webcam.setup().then(()=>{ 
+            //TODO Handle success ?
+        }).catch((err) => {
+                this.props.handlePermissionsError();
+            })
     }
 
     componentWillUnmount() {
