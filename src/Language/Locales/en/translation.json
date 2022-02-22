@@ -355,6 +355,7 @@
             "whySupport": "How can we support you?",
             "photoTitle": "Capture Strip Photo",
             "photo": {
+                "permissionsError": "There was an error getting access to your camera. Please make sure to accept if prompted, and try again.",
                 "usePhoto": "Use Photo",
                 "retakePhoto": "Retake Photo",
                 "openCamera": "Open Camera",

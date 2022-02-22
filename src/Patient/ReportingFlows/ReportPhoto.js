@@ -13,12 +13,13 @@ import TestStripPhotoInfo from '../../Components/Patient/TestStripPhotoInfo';
 import PhotoPrompt from '../../Components/Patient/PhotoPrompt';
 import { Box, Button } from '@material-ui/core';
 import RefreshIcon from '@material-ui/icons/Refresh';
+import PermissionsError from '../../ImageCapture/PermissionsError';
 
 const ReportPhoto = observer((props) => {
 
     const classes = useStyles();
     const { t } = useTranslation('translation');
-    const [permissionError,setPermissionError] = useState(false);
+    const [permissionsError, setPermissionsError] = useState(false);
 
     const { patientStore, patientUIStore } = useStores();
     patientStore.report.headerText = t("patient.report.photoTitle")
@@ -58,7 +59,7 @@ const ReportPhoto = observer((props) => {
 
     const handlePermissionsError = () => {
         handleExit();
-        setPermissionError(true);
+        setPermissionsError(true);
     }
 
     useEffect(() => {
@@ -77,11 +78,11 @@ const ReportPhoto = observer((props) => {
                     </>
                     :
                     <>
-                        <PhotoPrompt onClick={() => { 
+                        <PhotoPrompt onClick={() => {
                             patientStore.uiState.cameraIsOpen = true;
-                            setPermissionError(false);
-                            }} />
-                        {permissionError && <p>Permission Error</p>}
+                            setPermissionsError(false);
+                        }} />
+                        {permissionsError && <PermissionsError />}
                         <Box height=".5em" />
                         <TestStripPhotoInfo />
                     </>}
