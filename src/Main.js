@@ -65,7 +65,7 @@ const UserHome = observer(() => {
 
 const Main = observer(() => {
   const { uiStore, loginStore } = useStores();
-  const {pushInstruction} = useMatomo();
+  const {pushInstruction,trackPageView} = useMatomo();
 
   let versionNumber = process.env.REACT_APP_GITHUB_VERSION || "Unknown";
 
@@ -76,6 +76,10 @@ const Main = observer(() => {
     pushInstruction('enableJSErrorTracking')
 
   }, [])
+
+  useEffect(()=>{
+    trackPageView();
+  },[uiStore.fullPath])
 
   const listenForConnectivityChanges = () => {
     window.addEventListener('online', () => {
