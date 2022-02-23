@@ -73,6 +73,7 @@ const Main = observer(() => {
     initalizeApplicationState();
     listenForConnectivityChanges();
     pushInstruction('setCustomVariable',1,"appVersion",versionNumber,"visit");
+    pushInstruction('enableJSErrorTracking')
 
   }, [])
 
