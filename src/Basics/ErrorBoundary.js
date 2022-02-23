@@ -187,8 +187,14 @@ const NonFixedButtons = () => {
   const classes = useStyles();
 
   const logout = useLogout();
+
+  const handleLogout = () => {
+    logout();
+    location.reload();
+  }
+
   return (<ButtonGroup className={classes.buttons} fullWidth>
-    <Button onClick={logout}>{t('patient.profile.logout')}</Button>
+    <Button onClick={handleLogout}>{t('patient.profile.logout')}</Button>
     <Button onClick={() => { location.reload(); }}>{t('errors.reload')}</Button>
   </ButtonGroup>)
 }

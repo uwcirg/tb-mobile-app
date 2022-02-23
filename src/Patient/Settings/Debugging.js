@@ -19,6 +19,8 @@ const Debugging = observer((props) => {
     const { patientStore, uiStore } = useStores();
     const [showDebugging, setShowDebugging] = useState(false);
 
+    const [doError,setDoError] = useState(false);
+
     return (
         <>
             {window._env.ENVIRONMENT === "development" ?
@@ -42,6 +44,10 @@ const Debugging = observer((props) => {
                             <button onClick={() => {
                                 patientStore.educationStore.setLocalToOldDateForTesting(DateTime.local().minus({ days: 2 }).toISODate())
                             }}>Update Date of Last Update Read to 2 days ago</button>
+                            <br />
+                            <Button onClick={()=>{setDoError(true)}}>Click to crash app</Button>
+
+                            {doError && <p>{thisisNotdefinted}</p>}
 
                         </div> </Collapse></> :
                 <Box height="1em" />}
