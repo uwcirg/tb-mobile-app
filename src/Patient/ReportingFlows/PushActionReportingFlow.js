@@ -22,6 +22,7 @@ const PushActionReportingFlow = observer(() => {
             uiStore.push("/home")
         } else if (hadIssues) {
             value="had-issues"
+            patientStore.refreshReportDate();
             patientUIStore.moveToReportFlow();
         }
         trackEvent({ category: 'push-action-use', action: 'click-event', value: value })
