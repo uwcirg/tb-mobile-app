@@ -2,7 +2,7 @@
 // should refactor out reusable part, and seperate the actual error boundry
 // also "NonFixedButtons" needs to be renamed 
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import useLogout from './Logout'
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,6 +11,7 @@ import { ReactComponent as ErrorIcon } from './Icons/Error.svg';
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography'
+import { useMatomo } from '@datapunt/matomo-tracker-react';
 
 const useStyles = makeStyles({
   background: {
@@ -114,7 +115,7 @@ export default class ErrorBoundary extends React.Component {
     if (this.state.hasError) {
       // You can render any custom fallback UI
       return (<Container>
-
+        <TrackAnalyticsEvent />
         <Header />
         <Resolve />
         <Contact />
@@ -124,6 +125,14 @@ export default class ErrorBoundary extends React.Component {
 
     return this.props.children;
   }
+}
+
+const TrackAnalyticsEvent = () => {
+  const {trackEvent} = useMatomo();
+  useEffect(()=>{
+    trackEvent({ category: 'error-boundry', action: 'render' })
+  },[])
+  return <></>
 }
 
 const Header = () => {
