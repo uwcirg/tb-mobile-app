@@ -4,18 +4,20 @@ import useStores from '../../../Basics/UseStores';
 import { observer } from 'mobx-react';
 import Colors from '../../../Basics/Colors';
 import { Link } from 'react-router-dom';
-import { Avatar, Box, Grid } from '@material-ui/core';
+import { Avatar, Box, Grid, IconButton } from '@material-ui/core';
 import ProfileButton from '../../../Components/FlatButton';
 import Message from '@material-ui/icons/ChatBubbleOutlineRounded';
 import Add from '@material-ui/icons/AddCircle';
 import { useTranslation } from 'react-i18next';
+import ClearIcon from '@material-ui/icons/Clear';
+import PatientDataSummmary from './PatientSummary';
 
 const useStyles = makeStyles({
-    headerContainer: {
-
-    },
-    buttonContainer: {
-
+    container:{
+        width: "100%",
+        padding: "0 .5em 1em 1em",
+        boxSizing: "border-box",
+        borderBottom: "solid 1px lightgray"
     },
     profileLink: {
         display: "flex",
@@ -23,15 +25,19 @@ const useStyles = makeStyles({
         textDecoration: "none",
         color: Colors.buttonBlue
     },
-    avatar:{
+    avatar: {
         backgroundColor: Colors.green
+    },
+    clear:{
+        marginLeft: "auto",
+        padding: 0
     }
 })
 
 const Header = observer(({ selectedPatient }) => {
 
     const { t } = useTranslation('translation');
-    const { practitionerUIStore } = useStores();
+    const { practitionerUIStore, practitionerStore } = useStores();
 
     const openNewNote = () => {
         practitionerUIStore.openNoteForSelectedPatient(selectedPatient.id)
@@ -43,13 +49,23 @@ const Header = observer(({ selectedPatient }) => {
         return selectedPatient.givenName.charAt(0) + selectedPatient.familyName.charAt(0);
     }
 
-    return (<div className={classes.headerContainer}>
-        <Link className={classes.profileLink} to={`/patients/${selectedPatient.id}`}>
-            <Avatar className={classes.avatar}>{initals()}</Avatar>
-            <Box width=".5em" />
-            <h2>{selectedPatient.fullName}</h2>
-        </Link>
-        <Grid container className={classes.buttonContainer}>
+
+    const handleClose = () => {
+        practitionerStore.selectedRow.clearSelection();
+    }
+
+    return (<div className={classes.container}>
+        <Grid wrap='nowrap' container alignItems='center'>
+            <Link className={classes.profileLink} to={`/patients/${selectedPatient.id}`}>
+                <Avatar className={classes.avatar}>{initals()}</Avatar>
+                <Box width=".5em" />
+                <h2>{selectedPatient.fullName}</h2>
+            </Link>
+            <IconButton className={classes.clear} onClick={handleClose}><ClearIcon /></IconButton>
+        </Grid>
+        <PatientDataSummmary />
+        <Box height=".5em" />
+        <Grid container>
             <ProfileButton onClick={() => { practitionerUIStore.goToChannel(selectedPatient.channelId) }} ><Message />{t("coordinator.patientProfile.options.message")}</ProfileButton>
             <Box width=".5em" />
             <ProfileButton backgroundColor={"white"}
