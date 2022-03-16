@@ -1,20 +1,14 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
-import useStores from '../../Basics/UseStores'
+import useStores from '../../../Basics/UseStores'
 import ClearIcon from '@material-ui/icons/Clear';
 import IconButton from '@material-ui/core/IconButton';
-import Colors from '../../Basics/Colors'
-import PatientPicture from '../../Basics/PatientIcon'
+import Colors from '../../../Basics/Colors'
 import { DateTime } from 'luxon'
 import { observer } from 'mobx-react';
-import PersonButton from '@material-ui/icons/PersonRounded'
-import ChatIcon from '@material-ui/icons/Forum'
-import Styles from '../../Basics/Styles';
-import ProfileButton from '../../Components/FlatButton'
-
-import Message from '@material-ui/icons/ChatBubbleOutlineRounded';
-import Add from '@material-ui/icons/AddCircle';
+import Styles from '../../../Basics/Styles';
+import Header from './Header';
 
 
 const useStyles = makeStyles({
@@ -54,30 +48,6 @@ const useStyles = makeStyles({
         padding: ".5em 0 .5em 0"
 
 
-    },
-    buttonContainer: {
-        margin: "1em",
-        width: "100%",
-        ...Styles.flexRow,
-        justifyContent: "center",
-        "& > button:first-child": {
-            marginRight: ".5em"
-        }
-    },
-    header: {
-        display: "flex",
-        flexDirection: "column",
-        width: "100%",
-        justifyContent: "center",
-        alignItems: "center",
-        "& > h2": {
-            padding: 0,
-            margin: 0,
-            color: Colors.buttonBlue
-        },
-        "& > h2:hover": {
-            cursor: "pointer"
-        }
     },
     profileItem: {
         display: "flex",
@@ -121,14 +91,6 @@ const Card = observer((props) => {
 
     const { practitionerStore } = useStores();
 
-    const setSidebar = (id, type) => {
-        practitionerStore.selectedRow.visible = true;
-    }
-
-    const handleClick = (id, type) => {
-
-    }
-
     const handleClose = () => {
         practitionerStore.selectedRow.clearSelection();
     }
@@ -149,31 +111,14 @@ const Card = observer((props) => {
     )
 });
 
-const PatientPreview = observer((props) => {
+const PatientPreview = observer(() => {
     const classes = useStyles();
-    const { practitionerStore, practitionerUIStore } = useStores();
-    const { t, i18n } = useTranslation('translation');
+    const { practitionerStore } = useStores();
+    const { t } = useTranslation('translation');
 
     return (
         <div className={classes.profile}>
-            <div className={classes.header}>
-                <PatientPicture name={practitionerStore.getSelectedPatient.fullName} />
-                <h2
-                    onClick={() => { practitionerUIStore.goToPatient(practitionerStore.getSelectedPatient.id) }}>
-                    {practitionerStore.getSelectedPatient.fullName}
-                </h2>
-                <div className={classes.buttonContainer}>
-                    <ProfileButton onClick={() => { practitionerUIStore.goToChannel(practitionerStore.getSelectedPatient.channelId) }} ><Message />{t("coordinator.patientProfile.options.message")}</ProfileButton>
-                    <ProfileButton backgroundColor={"white"}
-                        border color={Colors.buttonBlue}
-                        onClick={() => {
-                            practitionerUIStore.goToPatient(practitionerStore.getSelectedPatient.id)
-                            practitionerUIStore.openAddPatientNote();
-                        }}
-                    ><Add />{t("coordinator.patientProfile.options.note")}</ProfileButton>
-                </div>
-            </div>
-
+            <Header selectedPatient={practitionerStore.getSelectedPatient} />
             <div className={classes.patientInfo}>
                 <ProfileItem text={t("coordinator.adherence")} value={practitionerStore.getSelectedPatient.adherence} />
                 <ProfileItem text={t("coordinator.daysInTreatment")} value={practitionerStore.getSelectedPatient.daysInTreatment} />

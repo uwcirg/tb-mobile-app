@@ -94,4 +94,8 @@ export default class PractitionerUIStore {
     @action resetPath = () => {
         this.router.push('/')
     }
+
+    @action openNoteForSelectedPatient = (id) => {
+
+    }
 }
