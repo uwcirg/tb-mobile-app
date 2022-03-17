@@ -17,11 +17,16 @@ import IconButton from '@material-ui/core/IconButton';
 
 import MinusIcon from '@material-ui/icons/IndeterminateCheckBox';
 import PlusIcon from '@material-ui/icons/AddBox';
+import FlatButton from '../../Components/FlatButton';
+import { KeyboardArrowRight } from '@material-ui/icons';
 
 
 const useStyles = makeStyles({
     title: {
         margin: 0
+    },
+    titleContainer: {
+        width: "100%",
     },
     photoPreview: {
         maxHeight: "400px",
@@ -53,9 +58,13 @@ const useStyles = makeStyles({
     },
     resultLabel: {
         color: Colors.textDarkGray,
-        "&.MuiFormLabel-root.Mui-focused":{
-            color: Colors.textDarkGray 
+        "&.MuiFormLabel-root.Mui-focused": {
+            color: Colors.textDarkGray
         }
+    },
+    submitButtonContainer: {
+        width: "100%",
+        padding: "0 1em"
     }
 })
 
@@ -85,14 +94,15 @@ const PhotoSidebar = observer(() => {
 
     const medicationValue = state.medicationDetected === null ? null : (state.medicationDetected ? "true" : "false");
     const showResubmissionOption = state.medicationDetected === false;
+    const enableSubmit = state.medicationDetected !== null;
 
     return (
-        <Basicsidebar >
+        <Basicsidebar buttons={<SubmitButon enabled={enableSubmit} />}>
             <Box padding="1em">
-                <Grid alignItems='center' container>
+                <Grid alignItems='center' container className={classes.titleContainer}>
                     <h2 className={classes.title}>{t("coordinator.sideBar.photoSub")}</h2>
                     {item.backSubmission && <>
-                        <Box width=".5em" />
+                        <Box flexGrow="1" />
                         <Label backgroundColor={Colors.yellow} text={t('patient.report.late')} />
                     </>}
                 </Grid>
@@ -127,6 +137,17 @@ const PhotoSidebar = observer(() => {
         </Basicsidebar>
     )
 });
+
+const SubmitButon = ({enabled}) => {
+    const { t } = useTranslation('translation');
+    const classes = useStyles();
+    return (<Grid className={classes.submitButtonContainer} justify="flex-end" container>
+        <FlatButton disabled={!enabled}>
+            <Typography style={{lineHeight: "1"}}>Submit</Typography>
+            <KeyboardArrowRight style={{padding: 0}} /> 
+            </FlatButton>
+    </Grid>)
+}
 
 const LateSubmissionInfo = ({ photoReport }) => {
     const { t } = useTranslation('translation');
