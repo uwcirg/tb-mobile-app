@@ -31,6 +31,12 @@ const useStyles = makeStyles({
     clear:{
         marginLeft: "auto",
         padding: 0
+    },
+    smallButton:{
+        padding: ".5em .75em",
+        "& > span":{
+            padding: "0"
+        }
     }
 })
 
@@ -66,9 +72,9 @@ const Header = observer(({ selectedPatient }) => {
         <PatientDataSummmary />
         <Box height=".5em" />
         <Grid container>
-            <ProfileButton onClick={() => { practitionerUIStore.goToChannel(selectedPatient.channelId) }} ><Message />{t("coordinator.patientProfile.options.message")}</ProfileButton>
+            <ProfileButton className={classes.smallButton} onClick={() => { practitionerUIStore.goToChannel(selectedPatient.channelId) }} ><Message />{t("coordinator.patientProfile.options.message")}</ProfileButton>
             <Box width=".5em" />
-            <ProfileButton backgroundColor={"white"}
+            <ProfileButton  className={classes.smallButton} backgroundColor={"white"}
                 border color={Colors.buttonBlue}
                 onClick={openNewNote}
             ><Add />{t("coordinator.patientProfile.options.note")}</ProfileButton>
