@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import Basicsidebar from '../Shared/Sidebar'
-import useStores from '../../Basics/UseStores'
-import { observer } from 'mobx-react'
+import React, { useState } from 'react';
+import Basicsidebar from '../Shared/Sidebar';
+import useStores from '../../Basics/UseStores';
+import { observer } from 'mobx-react';
 import { makeStyles } from '@material-ui/core/styles';
 import Styles from '../../Basics/Styles';
 import Colors from '../../Basics/Colors';
@@ -9,25 +9,24 @@ import { useTranslation } from 'react-i18next';
 import ImagePopUp from '../Shared/ImagePopUp';
 import ExpandIcon from '@material-ui/icons/AspectRatio';
 import Label from '../../Components/Label';
-import { Box, Checkbox, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Typography } from '@material-ui/core';
+import { Box, Checkbox, Fade, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Typography } from '@material-ui/core';
 import { DateTime } from 'luxon';
 import { DATETIME_MED_NO_YEAR } from '../../Utility/TimeUtils';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 
-const useStyles = makeStyles({
+import MinusIcon from '@material-ui/icons/IndeterminateCheckBox';
+import PlusIcon from '@material-ui/icons/AddBox';
 
-    photoPreview:{
-        height: "300px",
+
+const useStyles = makeStyles({
+    title: {
+        margin: 0
+    },
+    photoPreview: {
+        maxHeight: "400px",
         width: "100%",
         objectFit: "contain"
-    },
-    photoContainer: {
-        padding: ".5em",
-        "& > h2": {
-            fontSize: "1em",
-            width: "90%"
-        }
     },
     buttonContainer: {
         marginTop: "2em",
@@ -37,12 +36,26 @@ const useStyles = makeStyles({
         justifyContent: "space-evenly"
     },
     expand: {
-        padding: ".5em",
-        color: Colors.buttonBlue
+        padding: "5px",
+        color: Colors.buttonBlue,
+        backgroundColor: "white",
+        position: "absolute",
+        bottom: 0,
+        right: 0,
+        borderRadius: 0,
+        "&:hover": {
+            backgroundColor: "white"
+        }
     },
     lateArea: {
         width: "100%",
         boxSizing: "border-box"
+    },
+    resultLabel: {
+        color: Colors.textDarkGray,
+        "&.MuiFormLabel-root.Mui-focused":{
+            color: Colors.textDarkGray 
+        }
     }
 })
 
@@ -71,36 +84,46 @@ const PhotoSidebar = observer(() => {
     }
 
     const medicationValue = state.medicationDetected === null ? null : (state.medicationDetected ? "true" : "false");
+    const showResubmissionOption = state.medicationDetected === false;
 
     return (
         <Basicsidebar >
-            <div className={classes.photoContainer} >
-                <Grid alignItems='center' container><h2>{t("coordinator.sideBar.photoSub")}</h2>
+            <Box padding="1em">
+                <Grid alignItems='center' container>
+                    <h2 className={classes.title}>{t("coordinator.sideBar.photoSub")}</h2>
                     {item.backSubmission && <>
-                    <Box width=".5em" />
-                    <Label backgroundColor={Colors.yellow} text={t('patient.report.late')} /> 
+                        <Box width=".5em" />
+                        <Label backgroundColor={Colors.yellow} text={t('patient.report.late')} />
                     </>}
                 </Grid>
                 {item.backSubmission && <LateSubmissionInfo photoReport={item} />}
-                <div>
+                <Box position="relative">
                     <img className={classes.photoPreview} src={item.url} />
                     <IconButton className={classes.expand} onClick={toggleExpanded}><ExpandIcon /></IconButton>
-                </div>
+                </Box>
+                <Box height="1em" />
                 {expand && <ImagePopUp close={toggleExpanded} imageSrc={item.url} />}
                 <FormControl component="fieldset">
-                    <FormLabel component="legend">Test Result</FormLabel>
+                    <FormLabel foc className={classes.resultLabel} component="legend">Select Test Result</FormLabel>
                     <RadioGroup name="medicationDetected" value={medicationValue} onChange={handleDetectedChange}>
-                        <FormControlLabel value="true" control={<Radio color='primary' />} label="Detected" />
-                        <FormControlLabel value="false" control={<Radio color='primary' />} label="Not Detected" />
+                        <Grid container direction='column'>
+                            <FormControlLabel value="true" control={<Radio color='primary' />} label={<Grid container alignItems='center'><PlusIcon /><Typography>Detected</Typography></Grid>} />
+                            <FormControlLabel value="false" control={<Radio color='primary' />} label={<Grid container alignItems='center'><MinusIcon /><Typography>Not Detected</Typography></Grid>} />
+                        </Grid>
                     </RadioGroup>
                 </FormControl>
-                <br />
-                <FormControlLabel
-                    disabled={state.medicationDetected !== false}
-                    control={<Checkbox color='primary' checked={state.resubmissionNeeded} onChange={handleChange} name="resubmissionNeeded" />}
-                    label="Ask patient to resubmit"
-                />
-            </div>
+                <Box height="1em" />
+                <Fade in={showResubmissionOption}>
+                    <div>
+                        <FormLabel className={classes.resultLabel} component="legend">Additional Options</FormLabel>
+                        <FormControlLabel
+                            disabled={!showResubmissionOption}
+                            control={<Checkbox color='primary' checked={state.resubmissionNeeded} onChange={handleChange} name="resubmissionNeeded" />}
+                            label="Ask patient to resubmit test"
+                        />
+                    </div>
+                </Fade>
+            </Box>
         </Basicsidebar>
     )
 });
@@ -114,8 +137,8 @@ const LateSubmissionInfo = ({ photoReport }) => {
 
     return (
         <div className={classes.lateArea}>
-            <Typography><strong>{t('dashboard.requested')}:</strong> {requestDate}</Typography>
-            <Typography><strong>{t('dashboard.submitted')}:</strong> {submittedDatetime}</Typography>
+            <Typography>{t('dashboard.requested')}: {requestDate}</Typography>
+            <Typography>{t('dashboard.submitted')}: {submittedDatetime}</Typography>
         </div>
     )
 
