@@ -51,7 +51,6 @@ const PatientDataSummmary = observer(() => {
             </div>)
 })
 
-
 const ProfileItem = (props) => {
     const classes = useStyles();
 

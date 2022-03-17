@@ -121,7 +121,7 @@ const useStyles = makeStyles({
         boxSizing: "border-box",
         flexGrow: 1,
         display: "flex",
-        padding: "2em 4em",
+        padding: "2em",
         flexDirection: "column",
         justifyContent: "flex-start",
         "& > div": {
