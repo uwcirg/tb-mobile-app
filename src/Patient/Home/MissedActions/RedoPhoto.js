@@ -34,9 +34,9 @@ const RedoPhoto = () => {
             <Buttonlayout
                 text={
                     <div style={{paddingLeft: ".5em"}}>
-                        {"Issue with last test"}
+                        {"Resubmit test strip"}
                         <br />
-                        <span className={classes.subText}>Your assistant has provided feedback to review</span>
+                        <span className={classes.subText}>Review the issue your treatment supporter identified</span>
                     </div>
                 }
                 icon={<Badge badgeContent={<FeedbackIcon style={{color: Colors.yellow, fontSize: "1.25em"}} />}>

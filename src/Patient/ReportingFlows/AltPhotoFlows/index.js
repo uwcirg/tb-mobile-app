@@ -12,12 +12,13 @@ import { observer } from 'mobx-react';
 import ClickableText from '../../../Basics/ClickableText';
 import ReplayIcon from '@material-ui/icons/Replay';
 import { useTranslation } from 'react-i18next';
-import ConfirmationLayout from '../../../Components/Patient/ConfirmationLayout';
 import BottomButton from './BottomButton';
 import { Box, CircularProgress } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import GenericErrorMessage from '../../../Components/GenericErrorMessage';
 import PermissionsError from '../../../ImageCapture/PermissionsError';
+import Confirmation from './Confirmation';
+import ContentContainer from './ContentContainer';
 
 const useStyles = makeStyles({
     container: {
@@ -40,10 +41,6 @@ const useStyles = makeStyles({
         margin: 'auto'
     },
     errorMessage: {
-        minHeight: "50vh"
-    },
-    notEligible: {
-        padding: "1em",
         minHeight: "50vh"
     },
     fullWidth: {
@@ -104,17 +101,17 @@ const PostSubmissionView = ({ response }) => {
 }
 
 const Error = () => {
-    
+
     const { patientUIStore } = useStores();
     const classes = useStyles();
     const { t } = useTranslation('translation');
 
     return (
         <>
-        <div className={classes.notEligible}>
-            <GenericErrorMessage />
-        </div>
-        <BottomButton onClick={patientUIStore.goToHome}>{t('patient.report.symptoms.warning.button')}</BottomButton>
+            <ContentContainer>
+                <GenericErrorMessage />
+            </ContentContainer>
+            <BottomButton onClick={patientUIStore.goToHome}>{t('patient.report.symptoms.warning.button')}</BottomButton>
         </>
     )
 }
@@ -171,10 +168,10 @@ const PreSubmissionView = ({ photo, eligible, setPhoto, handleSubmit, requestDat
                 <TestStripPhotoInfo showSkipOptions={false} />
             </> : <NotEligible />}
         </>}
-        {cameraOpen && <Camera 
-        handlePermissionsError={handlePermissionsError}
-        handleExit={handleExit} 
-        returnPhoto={handlePhoto} />}
+        {cameraOpen && <Camera
+            handlePermissionsError={handlePermissionsError}
+            handleExit={handleExit}
+            returnPhoto={handlePhoto} />}
     </>)
 }
 
@@ -202,34 +199,12 @@ const NotEligible = () => {
 
     return (
         <>
-            <div className={classes.notEligible}>
+            <ContentContainer>
                 <Typography variant="body1" className={classes.fullWidth}>
                     {t('missedPhotoDetails.notRequired')}
                 </Typography>
-            </div>
+            </ContentContainer>
             <BottomButton onClick={patientUIStore.goToHome}>{t('patient.report.symptoms.warning.button')}</BottomButton>
-        </>
-    )
-}
-
-const Confirmation = () => {
-
-    const { t } = useTranslation('translation');
-    const classes = useStyles();
-    const { patientUIStore, patientStore } = useStores();
-
-    const handleConfirmation = () => {
-        patientUIStore.goToHome();
-        patientStore.initalize();
-    }
-
-    return (
-        <>
-            <div className={classes.notEligible}>
-                <ConfirmationLayout title={t('commonWords.successMessage')} />
-                <Typography align="center" variant="body1" color="initial">{t('missedPhotoDetails.confirmation')}</Typography>
-            </div>
-            <BottomButton onClick={handleConfirmation}>{t('patient.home.completed.title')}</BottomButton>
         </>
     )
 }
