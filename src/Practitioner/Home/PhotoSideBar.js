@@ -19,6 +19,7 @@ import MinusIcon from '@material-ui/icons/IndeterminateCheckBox';
 import PlusIcon from '@material-ui/icons/AddBox';
 import FlatButton from '../../Components/FlatButton';
 import { KeyboardArrowRight } from '@material-ui/icons';
+import TextField from '@material-ui/core/TextField'
 
 
 const useStyles = makeStyles({
@@ -71,7 +72,7 @@ const useStyles = makeStyles({
 const PhotoSidebar = observer(() => {
     const [expand, setExpand] = useState(false);
 
-    const [state, setState] = useState({ medicationDetected: null, resubmissionNeeded: false });
+    const [state, setState] = useState({ approved: null, redoFlag: false, redoReason: "" });
 
     const { practitionerStore } = useStores();
     const classes = useStyles();
@@ -92,18 +93,22 @@ const PhotoSidebar = observer(() => {
         setState({ ...newState })
     }
 
-    const medicationValue = state.medicationDetected === null ? null : (state.medicationDetected ? "true" : "false");
-    const showResubmissionOption = state.medicationDetected === false;
-    const enableSubmit = state.medicationDetected !== null;
+    const resetState = () => {
+        setState({ approved: null, redoFlag: false, redoReason: "" })
+    }
+
+    const medicationValue = state.approved === null ? null : (state.approved ? "true" : "false");
+    const showResubmissionOption = state.approved === false;
+    const enableSubmit = state.approved !== null;
 
     return (
-        <Basicsidebar buttons={<SubmitButon enabled={enableSubmit} />}>
+        <Basicsidebar buttons={<SubmitButon resetState={resetState} photoReport={item} enabled={enableSubmit} reviewState={state} />}>
             <Box padding="1em">
                 <Grid alignItems='center' container className={classes.titleContainer}>
                     <h2 className={classes.title}>{t("coordinator.sideBar.photoSub")}</h2>
                     {item.backSubmission && <>
                         <Box flexGrow="1" />
-                        <Label backgroundColor={Colors.yellow} text={t('patient.report.late')} />
+                        <Label backgroundColor={Colors.warningRed} text={t('patient.report.late')} />
                     </>}
                 </Grid>
                 {item.backSubmission && <LateSubmissionInfo photoReport={item} />}
@@ -115,7 +120,7 @@ const PhotoSidebar = observer(() => {
                 {expand && <ImagePopUp close={toggleExpanded} imageSrc={item.url} />}
                 <FormControl component="fieldset">
                     <FormLabel foc className={classes.resultLabel} component="legend">Select Test Result</FormLabel>
-                    <RadioGroup name="medicationDetected" value={medicationValue} onChange={handleDetectedChange}>
+                    <RadioGroup name="approved" value={medicationValue} onChange={handleDetectedChange}>
                         <Grid container direction='column'>
                             <FormControlLabel value="true" control={<Radio color='primary' />} label={<Grid container alignItems='center'><PlusIcon /><Typography>Detected</Typography></Grid>} />
                             <FormControlLabel value="false" control={<Radio color='primary' />} label={<Grid container alignItems='center'><MinusIcon /><Typography>Not Detected</Typography></Grid>} />
@@ -125,12 +130,19 @@ const PhotoSidebar = observer(() => {
                 <Box height="1em" />
                 <Fade in={showResubmissionOption}>
                     <div>
-                        <FormLabel className={classes.resultLabel} component="legend">Additional Options</FormLabel>
                         <FormControlLabel
                             disabled={!showResubmissionOption}
-                            control={<Checkbox color='primary' checked={state.resubmissionNeeded} onChange={handleChange} name="resubmissionNeeded" />}
+                            control={<Checkbox color='primary' checked={state.redoFlag} onChange={handleChange} name="redoFlag" />}
                             label="Ask patient to resubmit test"
                         />
+                    </div>
+                </Fade>
+                <Box height="1em" />
+                <Fade in={state.redoFlag}>
+                    <div>
+                        <FormLabel className={classes.resultLabel} component="legend">Message to patient</FormLabel>
+                        <Box height=".5em" />
+                        <TextField variant="outlined" fullWidth onChange={(e) => { setState({ ...state, redoReason: e.target.value }) }} value={state.redoReason} multiline rows={2} />
                     </div>
                 </Fade>
             </Box>
@@ -138,14 +150,23 @@ const PhotoSidebar = observer(() => {
     )
 });
 
-const SubmitButon = ({enabled}) => {
+const SubmitButon = ({ enabled, reviewState, photoReport, resetState }) => {
+
     const { t } = useTranslation('translation');
     const classes = useStyles();
+    const { practitionerStore } = useStores();
+
+    const handleSubmit = () => {
+        practitionerStore.processPhoto(photoReport.photoId, reviewState).then(() => {
+            resetState();
+        })
+    }
+
     return (<Grid className={classes.submitButtonContainer} justify="flex-end" container>
-        <FlatButton disabled={!enabled}>
-            <Typography style={{lineHeight: "1"}}>Submit</Typography>
-            <KeyboardArrowRight style={{padding: 0}} /> 
-            </FlatButton>
+        <FlatButton onClick={handleSubmit} disabled={!enabled}>
+            <Typography style={{ lineHeight: "1" }}>Submit</Typography>
+            <KeyboardArrowRight style={{ padding: 0 }} />
+        </FlatButton>
     </Grid>)
 }
 

@@ -215,10 +215,8 @@ export class PractitionerStore extends UserStore {
         })
     }
 
-    @action processPhoto = (id, approved) => {
-        let body = { approved: approved }
-        this.executeRawRequest(`/photo_submission/${id}`, "PATCH", body).then(response => {
-            //TODO: Could update this to just remove the updated photo submission from list instead of fetching again
+    @action processPhoto = (id, body) => {
+        return this.executeRawRequest(`/v2/photo_reports/${id}`, "PATCH", body).then( res => {
             this.adjustIndex();
             this.getPhotoReports();
         })
