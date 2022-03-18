@@ -30,10 +30,13 @@ const useStyles = makeStyles({
     fullWidth: {
         padding: "0 1em",
         boxSizing: "border-box"
+    },
+    loading: {
+        height: "80vh"
     }
 })
 
-const PreSubmissionView = ({ photo, eligible, setPhoto, handleSubmit, requestDateFormatted, loading }) => {
+const PreSubmissionView = ({ photo, eligible, setPhoto, handleSubmit, requestDateFormatted, loading, isRedo }) => {
 
     const { t } = useTranslation('translation');
     const classes = useStyles();
@@ -69,7 +72,7 @@ const PreSubmissionView = ({ photo, eligible, setPhoto, handleSubmit, requestDat
             <BottomButton disabled={(eligible && !photo)} onClick={handleSubmit}>{t('coordinator.patientProfile.editDetails.submit')}</BottomButton>
         </> : <>
             {eligible ? <>
-                <BackSubmissionText photo={photo !== false} requestDateFormatted={requestDateFormatted} />
+                {isRedo ? <p> Redo text here </p> :<BackSubmissionText photo={photo !== false} requestDateFormatted={requestDateFormatted} />}
                 <PhotoPrompt onClick={() => { setCameraOpen(true) }} />
                 {permissionsError && <PermissionsError />}
                 <Box height=".5em" />
