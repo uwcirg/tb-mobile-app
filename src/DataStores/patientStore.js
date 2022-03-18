@@ -462,6 +462,14 @@ export class PatientStore extends UserStore {
         return daysSincePhotoRequest(this.lastPhotoRequestStatus.dateOfRequest) <= 3
     }
 
+    @computed get eligibleForRedoPhoto(){
+        if(this.photoReports.length > 0){
+            return this.photoReports[0].redoFlag;
+        }
+
+        return false;
+    }
+
     @action setTookMedication = (tookMedication) => {
         this.report.tookMedication = tookMedication;
     }
