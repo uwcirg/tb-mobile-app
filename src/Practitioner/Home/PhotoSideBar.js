@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Basicsidebar from '../Shared/Sidebar';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react';
@@ -79,6 +79,10 @@ const PhotoSidebar = observer(() => {
     const { t } = useTranslation('translation');
     const item = practitionerStore.filteredPatients.photo[practitionerStore.selectedRow.index];
 
+    useEffect(()=>{
+        resetState();
+    },[practitionerStore.selectedRow.index])
+
     const toggleExpanded = () => { setExpand(!expand) }
 
     const handleChange = (e) => {
@@ -117,7 +121,7 @@ const PhotoSidebar = observer(() => {
                 <Box height="1em" />
                 {expand && <ImagePopUp close={toggleExpanded} imageSrc={item.url} />}
                 <FormControl component="fieldset">
-                    <FormLabel foc className={classes.resultLabel} component="legend">{t('redoPhoto.selectResult')}</FormLabel>
+                    <FormLabel  className={classes.resultLabel} component="legend">{t('redoPhoto.selectResult')}</FormLabel>
                     <RadioGroup name="approved" value={medicationValue} onChange={handleDetectedChange}>
                         <Grid container direction='column'>
                             <FormControlLabel value="true" control={<Radio color='primary' />} label={<Grid container alignItems='center'><PlusIcon /><Typography>{t('redoPhoto.detected')}</Typography></Grid>} />

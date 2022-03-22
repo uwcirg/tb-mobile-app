@@ -995,6 +995,7 @@
     },
     "redoPhoto":{
         "title": "Resubmit test strip",
+        "subtitle": "Review the issue your treatment supporter identified",
         "flag": "Resubmission",
         "explanation": "There was an issue with your last test submission and you have been asked to resubmit. Please review the instructions carefully.",
         "assistantMessage": "Your assistant left this feedback",
