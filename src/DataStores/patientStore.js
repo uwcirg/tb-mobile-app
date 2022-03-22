@@ -470,6 +470,14 @@ export class PatientStore extends UserStore {
         return false;
     }
 
+    @computed get redoPhotoReason(){
+        if(!this.eligibleForRedoPhoto){
+            return ""
+        }
+
+        return  this.photoReports[0].redoReason;
+    }
+
     @action setTookMedication = (tookMedication) => {
         this.report.tookMedication = tookMedication;
     }

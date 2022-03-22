@@ -38,14 +38,13 @@ const RedoPhotoFlow = observer(() => {
         })
     }
 
-    const requestDateFormatted = DateTime.fromISO(patientStore.lastPhotoRequestStatus.dateOfRequest).toLocaleString({ day: "numeric", month: "long" });
-
     return (<>
         <OverTopBar notFixed handleBack={patientUIStore.goToHome} title={"Resubmit Photo"} />
         <div className={classes.container}>
             {response ? <PostSubmissionView response={response} /> :
                 <PreSubmissionView
                     isRedo
+                    redoReason={patientStore.redoPhotoReason}
                     photo={photo}
                     eligible={eligible}
                     setPhoto={setPhoto}

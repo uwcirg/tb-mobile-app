@@ -992,5 +992,9 @@
         "awaiting": "awaiting review",
         "result": "result"
 
+    },
+    "redoPhoto":{
+        "explanation": "There was an issue with your last test submission and you have been asked to resubmit. Please review the instructions carefully.",
+        "assistantMessage": "Your assistant left this feedback"
     }
 }
