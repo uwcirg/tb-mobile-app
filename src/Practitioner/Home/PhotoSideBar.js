@@ -102,7 +102,7 @@ const PhotoSidebar = observer(() => {
     }
 
     const medicationValue = state.approved === null ? null : (state.approved ? "true" : "false");
-    const showResubmissionOption = state.approved === false;
+    const showResubmissionOption = state.approved === false && !item.isRedo;
     const enableSubmit = state.approved !== null;
 
     return (
