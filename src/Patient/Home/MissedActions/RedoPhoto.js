@@ -17,6 +17,10 @@ const useStyles = makeStyles({
         display: "block",
         fontSize: "14px",
         lineHeight: "16px"
+    },
+    badge:{
+        color: Colors.yellow, 
+        fontSize: "1.25em"
     }
 })
 
@@ -25,21 +29,21 @@ const RedoPhoto = () => {
 
     const classes = useStyles();
     const { t } = useTranslation('translation');
-    const { uiStore, patientStore } = useStores();
+    const { uiStore} = useStores();
+    
     const openMissedPhoto = () => { uiStore.push('/redo-photo') };
-    const formattedDate = DateTime.fromISO(patientStore.lastPhotoRequestStatus.dateOfRequest).toLocaleString({month: "long", day: "numeric"});
 
     return (
         <MissedActionCard on>
             <Buttonlayout
                 text={
                     <div style={{paddingLeft: ".5em"}}>
-                        {"Resubmit test strip"}
+                        {t('redoPhoto.title')}
                         <br />
-                        <span className={classes.subText}>Review the issue your treatment supporter identified</span>
+                        <span className={classes.subText}>{t('redoPhoto.subtitle')}</span>
                     </div>
                 }
-                icon={<Badge badgeContent={<FeedbackIcon style={{color: Colors.yellow, fontSize: "1.25em"}} />}>
+                icon={<Badge badgeContent={<FeedbackIcon className={classes.badge} />}>
                     <PhotoIcon/> 
                     </Badge>}
                    
