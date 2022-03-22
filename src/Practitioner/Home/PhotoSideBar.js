@@ -117,11 +117,11 @@ const PhotoSidebar = observer(() => {
                 <Box height="1em" />
                 {expand && <ImagePopUp close={toggleExpanded} imageSrc={item.url} />}
                 <FormControl component="fieldset">
-                    <FormLabel foc className={classes.resultLabel} component="legend">Select Test Result</FormLabel>
+                    <FormLabel foc className={classes.resultLabel} component="legend">{t('redoPhoto.selectResult')}</FormLabel>
                     <RadioGroup name="approved" value={medicationValue} onChange={handleDetectedChange}>
                         <Grid container direction='column'>
-                            <FormControlLabel value="true" control={<Radio color='primary' />} label={<Grid container alignItems='center'><PlusIcon /><Typography>Detected</Typography></Grid>} />
-                            <FormControlLabel value="false" control={<Radio color='primary' />} label={<Grid container alignItems='center'><MinusIcon /><Typography>Not Detected</Typography></Grid>} />
+                            <FormControlLabel value="true" control={<Radio color='primary' />} label={<Grid container alignItems='center'><PlusIcon /><Typography>{t('redoPhoto.detected')}</Typography></Grid>} />
+                            <FormControlLabel value="false" control={<Radio color='primary' />} label={<Grid container alignItems='center'><MinusIcon /><Typography>{t('redoPhoto.notDetected')}</Typography></Grid>} />
                         </Grid>
                     </RadioGroup>
                 </FormControl>
@@ -131,14 +131,14 @@ const PhotoSidebar = observer(() => {
                         <FormControlLabel
                             disabled={!showResubmissionOption}
                             control={<Checkbox color='primary' checked={state.redoFlag} onChange={handleChange} name="redoFlag" />}
-                            label="Ask patient to resubmit test"
+                            label={t('redoPhoto.ask')}
                         />
                     </div>
                 </Fade>
                 <Box height="1em" />
                 <Fade in={state.redoFlag}>
                     <div>
-                        <FormLabel className={classes.resultLabel} component="legend">Message to patient</FormLabel>
+                        <FormLabel className={classes.resultLabel} component="legend">{t('redoPhoto.attachMessage')}</FormLabel>
                         <Box height=".5em" />
                         <TextField variant="outlined" fullWidth onChange={(e) => { setState({ ...state, redoReason: e.target.value }) }} value={state.redoReason} multiline rows={2} />
                     </div>
@@ -162,7 +162,7 @@ const SubmitButon = ({ enabled, reviewState, photoReport, resetState }) => {
 
     return (<Grid className={classes.submitButtonContainer} justify="flex-end" container>
         <FlatButton onClick={handleSubmit} disabled={!enabled}>
-            <Typography style={{ lineHeight: "1" }}>Submit</Typography>
+            <Typography style={{ lineHeight: "1" }}>{t('coordinator.patientProfile.editDetails.submit')}</Typography>
             <KeyboardArrowRight style={{ padding: 0 }} />
         </FlatButton>
     </Grid>)

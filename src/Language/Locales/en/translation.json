@@ -997,6 +997,11 @@
         "title": "Resubmit test strip",
         "flag": "Resubmission",
         "explanation": "There was an issue with your last test submission and you have been asked to resubmit. Please review the instructions carefully.",
-        "assistantMessage": "Your assistant left this feedback"
+        "assistantMessage": "Your assistant left this feedback",
+        "selectResult": "Select test result",
+        "detected": "Medication detected",
+        "notDetected": "Not detected",
+        "ask": "Ask patient to resubmit test",
+        "attachMessage": "Message to patient"
     }
 }
