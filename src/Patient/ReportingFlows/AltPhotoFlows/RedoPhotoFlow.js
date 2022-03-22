@@ -3,7 +3,6 @@ import PatientInformationAPI from '../../../API/PatientInformationAPI';
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../../Basics/UseStores';
 import OverTopBar from '../../Navigation/OverTopBar';
-import { DateTime } from 'luxon';
 import { observer } from 'mobx-react';
 import { useTranslation } from 'react-i18next';
 
@@ -31,20 +30,27 @@ const RedoPhotoFlow = observer(() => {
     const eligible = patientStore.eligibleForBackPhoto;
 
     const handleSubmit = () => {
+        if (!patientStore.photoReportWithRedoRequest) {
+            throw new Error("PhotoReport with resubmission flag not found")
+        }
+
+        const date = patientStore.photoReportWithRedoRequest.date;
+        const reportId = patientStore.photoReportWithRedoRequest.photoId;
+
         setLoading(true);
-        new PatientInformationAPI().submitBackPhotoReport(photo, patientStore.lastPhotoRequestStatus.dateOfRequest).then(report => {
+        new PatientInformationAPI().submitBackPhotoReport(photo, date, reportId).then(report => {
             setLoading(false);
             setResponse(report);
         })
     }
 
     return (<>
-        <OverTopBar notFixed handleBack={patientUIStore.goToHome} title={"Resubmit Photo"} />
+        <OverTopBar notFixed handleBack={patientUIStore.goToHome} title={t('redoPhoto.title')} />
         <div className={classes.container}>
             {response ? <PostSubmissionView response={response} /> :
                 <PreSubmissionView
                     isRedo
-                    redoReason={patientStore.redoPhotoReason}
+                    redoReason={patientStore.photoReportWithRedoRequest && patientStore.photoReportWithRedoRequest.redoReason}
                     photo={photo}
                     eligible={eligible}
                     setPhoto={setPhoto}
@@ -57,7 +63,7 @@ const RedoPhotoFlow = observer(() => {
 
 const PostSubmissionView = ({ response }) => {
     const success = response.httpStatus < 400;
-    return (<>{ success ? <Confirmation /> : <ErrorMessage />}</>);
+    return (<>{success ? <Confirmation /> : <ErrorMessage />}</>);
 }
 
 export default RedoPhotoFlow;

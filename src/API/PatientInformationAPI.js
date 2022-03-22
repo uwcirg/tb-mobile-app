@@ -26,15 +26,14 @@ export default class PatientInformationAPI {
         return this.request(`${this.patientPath}/contact_tracing_surveys`, "POST", body)
     }
 
-    async submitBackPhotoReport(photoString, date) {
+    async submitBackPhotoReport(photoString, date, redoForReportId = null ) {
         //Get presigned upload url from API
         const { uploadURL, fileName } = await this.getPhotoUploadURL();
 
         //Actually send the photo to the file server
         const uploaded = await this.uploadPhoto(uploadURL, photoString);
-        console.log("uploaded , ",uploaded)
         if (uploaded) {
-            const newReport = await this.postPhotoReport({ date: date, photoUrl: fileName, backSubmission: true })
+            const newReport = await this.postPhotoReport({ date: date, photoUrl: fileName, backSubmission: true, redoForReportId: redoForReportId })
             return newReport;
         } else {
             console.log("error uploading photo")
