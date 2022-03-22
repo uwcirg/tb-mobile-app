@@ -106,10 +106,8 @@ const PhotoSidebar = observer(() => {
             <Box padding="1em">
                 <Grid alignItems='center' container className={classes.titleContainer}>
                     <h2 className={classes.title}>{t("coordinator.sideBar.photoSub")}</h2>
-                    {item.backSubmission && <>
-                        <Box flexGrow="1" />
-                        <Label backgroundColor={Colors.warningRed} text={t('patient.report.late')} />
-                    </>}
+                    <Box flexGrow="1" />
+                    {item.backSubmission && <Label backgroundColor={Colors.warningRed} text={item.isRedo ? t('redoPhoto.flag') : t('patient.report.late')} />}
                 </Grid>
                 {item.backSubmission && <LateSubmissionInfo photoReport={item} />}
                 <Box position="relative">
