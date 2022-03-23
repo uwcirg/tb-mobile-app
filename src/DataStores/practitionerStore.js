@@ -216,10 +216,7 @@ export class PractitionerStore extends UserStore {
     }
 
     @action processPhoto = (id, body) => {
-        return this.executeRawRequest(`/v2/photo_reports/${id}`, "PATCH", body).then( res => {
-            this.adjustIndex();
-            this.getPhotoReports();
-        })
+        return this.executeRawRequest(`/v2/photo_reports/${id}`, "PATCH", body)
     }
 
     @action resetActivationCode = (id) => {

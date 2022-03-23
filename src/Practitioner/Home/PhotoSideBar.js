@@ -156,10 +156,16 @@ const SubmitButon = ({ enabled, reviewState, photoReport, resetState }) => {
 
     const { t } = useTranslation('translation');
     const classes = useStyles();
-    const { practitionerStore } = useStores();
+    const { practitionerStore, uiStore } = useStores();
 
     const handleSubmit = () => {
-        practitionerStore.processPhoto(photoReport.photoId, reviewState).then(() => {
+        practitionerStore.processPhoto(photoReport.photoId, reviewState).then((res) => {
+            if(!res.photoId){
+                uiStore.setAlert("Error updating photo report. Please try again", "error" )
+                return
+            }
+            practitionerStore.adjustIndex();
+            practitionerStore.getPhotoReports();
             resetState();
         })
     }
