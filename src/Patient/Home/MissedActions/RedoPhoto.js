@@ -5,9 +5,8 @@ import MissedActionCard from './MissedActionCard';
 import { useTranslation } from 'react-i18next';
 import Colors from '../../../Basics/Colors';
 import Buttonlayout from './ButtonLayout';
-import { DateTime } from 'luxon';
-import { observer } from 'mobx-react';
-import { Badge, makeStyles } from '@material-ui/core';
+import Badge from '@material-ui/core/Badge';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import FeedbackIcon from '@material-ui/icons/Feedback';
 
 const useStyles = makeStyles({
@@ -19,6 +18,7 @@ const useStyles = makeStyles({
         lineHeight: "16px"
     },
     badge:{
+        zIndex: 0,
         color: Colors.yellow, 
         fontSize: "1.25em"
     }
