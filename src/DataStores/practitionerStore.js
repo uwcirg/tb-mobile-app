@@ -470,4 +470,12 @@ export class PractitionerStore extends UserStore {
         })
     }
 
+    updateTaskPageData = () => {
+        this.getMissingPhotos();
+        this.getSeverePatients();
+        this.getPhotoReports();
+        this.getMissingPatients();
+        this.getSupportRequests();
+    }
+
 }

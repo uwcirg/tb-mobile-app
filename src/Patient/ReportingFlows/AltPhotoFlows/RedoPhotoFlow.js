@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PatientInformationAPI from '../../../API/PatientInformationAPI';
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../../Basics/UseStores';
@@ -27,7 +27,14 @@ const RedoPhotoFlow = observer(() => {
     const [response, setResponse] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const eligible = patientStore.eligibleForBackPhoto;
+    const eligible = patientStore.eligibleForRedoPhoto;
+
+    useEffect(()=>{
+        setLoading(true);
+        patientStore.getPhotoReports().then( () => {
+            setLoading(false);
+        })
+    },[])
 
     const handleSubmit = () => {
         if (!patientStore.photoReportWithRedoRequest) {

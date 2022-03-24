@@ -528,7 +528,7 @@ export class PatientStore extends UserStore {
     }
 
     @action getPhotoReports = () => {
-        this.executeRequest("getPhotoReports").then( res => {
+        return this.executeRequest("getPhotoReports").then( res => {
             this.photoReports = res;
         })
     }

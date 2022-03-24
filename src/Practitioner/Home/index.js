@@ -16,6 +16,8 @@ import useResize from '../../Hooks/Resize'
 import MissedPhotoSideBar from './MissedPhotoSideBar'
 import CohortSummary from './CohortSummary'
 import SectionTitle from '../../Components/Practitioner/SectionTitle'
+import { Grid, IconButton } from '@material-ui/core'
+import { Refresh } from '@material-ui/icons'
 
 const useStyles = makeStyles({
     left: {
@@ -49,7 +51,7 @@ const useStyles = makeStyles({
     mobile: {
         padding: "0 1em 0 1em"
     },
-    tasks:{
+    tasks: {
         padding: "2em",
         "& > div": {
             marginTop: "1.5em",
@@ -69,11 +71,7 @@ const Home = observer(() => {
     }, [])
 
     const fetchData = () => {
-        practitionerStore.getMissingPhotos();
-        practitionerStore.getSeverePatients();
-        practitionerStore.getPhotoReports();
-        practitionerStore.getMissingPatients();
-        practitionerStore.getSupportRequests();
+        practitionerStore.updateTaskPageData();
     }
 
     const classes = useStyles();
@@ -85,44 +83,50 @@ const Home = observer(() => {
             <div className={classes.left}>
                 <CohortSummary />
                 <div className={classes.tasks}>
-                <SectionTitle>{t("coordinator.titles.myTasks")}</SectionTitle>
-                {isMobile && <p className={classes.mobile}>{t("coordinator.mobileWarning")}</p>}
-                <Card
-                    key={'missed-photo'}
-                    icon={<AlertIcon />}
-                    title={t("coordinator.cardTitles.missedPhoto")}
-                    patientList={practitionerStore.filteredPatients.missedPhoto}
-                    type="missedPhoto"
-                />
-                <Card
-                    key={'symptoms-review'}
-                    icon={<AlertIcon />}
-                    title={t("coordinator.cardTitles.patientsWithSymptoms")}
-                    patientList={practitionerStore.filteredPatients.symptom}
-                    type="symptom"
-                />
-                <Card
-                    key={'requested-support-review'}
-                    icon={<AlertIcon />}
-                    title={t("coordinator.cardTitles.requestedSupport")}
-                    patientList={practitionerStore.filteredPatients.support}
-                    type="support"
-                />
+                    <Grid alignItems='center' container>
+                      <SectionTitle>{t("coordinator.titles.myTasks")}</SectionTitle>   
+                      <IconButton onClick={fetchData}>
+                            <Refresh />
+                      </IconButton>
+                    </Grid>
+                   
+                    {isMobile && <p className={classes.mobile}>{t("coordinator.mobileWarning")}</p>}
+                    <Card
+                        key={'missed-photo'}
+                        icon={<AlertIcon />}
+                        title={t("coordinator.cardTitles.missedPhoto")}
+                        patientList={practitionerStore.filteredPatients.missedPhoto}
+                        type="missedPhoto"
+                    />
+                    <Card
+                        key={'symptoms-review'}
+                        icon={<AlertIcon />}
+                        title={t("coordinator.cardTitles.patientsWithSymptoms")}
+                        patientList={practitionerStore.filteredPatients.symptom}
+                        type="symptom"
+                    />
+                    <Card
+                        key={'requested-support-review'}
+                        icon={<AlertIcon />}
+                        title={t("coordinator.cardTitles.requestedSupport")}
+                        patientList={practitionerStore.filteredPatients.support}
+                        type="support"
+                    />
 
-                <Card
-                    key={'photo-review'}
-                    icon={<ListIcon />}
-                    title={t("coordinator.cardTitles.photosToReview")}
-                    patientList={practitionerStore.filteredPatients.photo}
-                    type="photo"
-                />
-                <Card
-                    key={'missed-review'}
-                    icon={<PillIcon />}
-                    title={t("coordinator.cardTitles.missedReport")}
-                    patientList={practitionerStore.filteredPatients.missed}
-                    type="missed"
-                />
+                    <Card
+                        key={'photo-review'}
+                        icon={<ListIcon />}
+                        title={t("coordinator.cardTitles.photosToReview")}
+                        patientList={practitionerStore.filteredPatients.photo}
+                        type="photo"
+                    />
+                    <Card
+                        key={'missed-review'}
+                        icon={<PillIcon />}
+                        title={t("coordinator.cardTitles.missedReport")}
+                        patientList={practitionerStore.filteredPatients.missed}
+                        type="missed"
+                    />
                 </div>
             </div>
             {!isMobile && <SideBarRouter />}
