@@ -1,13 +1,11 @@
-import React, { useEffect } from 'react'
-import Basicsidebar from '../Shared/BasicSidebar'
+import React from 'react'
+import Basicsidebar from '../Shared/Sidebar'
 import useStores from '../../Basics/UseStores'
 import { observer } from 'mobx-react'
 import { makeStyles } from '@material-ui/core/styles';
-import { DateTime } from 'luxon'
 import Styles from '../../Basics/Styles';
 import Colors from '../../Basics/Colors';
 import SharedButton from '../Shared/SharedButton'
-import QIcon from '@material-ui/icons/HelpOutline';
 import { useTranslation } from 'react-i18next';
 import SidebarList from './SidebarList'
 
@@ -23,10 +21,7 @@ const useStyles = makeStyles({
             objectFit: "contain"
         },
         "& > h2": {
-            fontSize: "1em",
-            display: "block",
-            width: "60%",
-            textAlign: "center"
+            fontSize: "1em"
         }
     },
     buttonContainer: {
@@ -46,26 +41,24 @@ const useStyles = makeStyles({
     }
 })
 
-const MissedPhotoSideBar = observer((props) => {
+const MissedPhotoSideBar = observer(() => {
     const { practitionerStore } = useStores();
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
     const patientResponse = practitionerStore.filteredPatients.missedPhoto[`${Object.keys(practitionerStore.filteredPatients.missedPhoto)[practitionerStore.selectedRow.index]}`];
     const days = patientResponse.data
 
     const cleanedData = days && days.map(each => {return {date: each.date, details: [each.reason || t('coordinator.sideBar.noReason')]}})
 
+
+    const handleResolution = () => { practitionerStore.resolveMissedPhoto(patientResponse.patientId) };
+
     return (
-        <Basicsidebar
-            buttons={
-                <>
-                    <SharedButton text={t('coordinator.sideBar.contactedPatient')} onClick={() => { practitionerStore.resolveMissedPhoto(patientResponse.patientId) }} />
-                </>}>
+        <Basicsidebar buttons={<SharedButton text={t('coordinator.sideBar.contactedPatient')} onClick={handleResolution} />}>
             <div className={classes.photoContainer} >
                 <h2>{t("coordinator.sideBar.daysMissed")}: {days && days.length} </h2>
                 {practitionerStore.missedDays.loading ? t('commonWords.loading') : <SidebarList data={cleanedData}  />}
-
             </div>
         </Basicsidebar>
     )

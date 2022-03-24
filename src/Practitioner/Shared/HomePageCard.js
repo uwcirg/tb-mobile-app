@@ -9,6 +9,7 @@ import useStores from '../../Basics/UseStores';
 import Styles from '../../Basics/Styles';
 import { DateTime } from 'luxon';
 import { getFirstSevereSymptomFromArray } from '../../Basics/SymptomsSeperation';
+import Label from '../../Components/Label';
 
 
 const useStyles = makeStyles({
@@ -112,6 +113,7 @@ const HomePageCard = (props) => {
 
     const patientList = props.patientList.map((each, index) => {
         return (<SingleLine
+            isPhotoRedo={props.type === "photo" && each.isRedo}
             type={props.type}
             selected={props.selectedType === props.type && props.selectedId === index}
             key={`${props.type}-${index}-line`}
@@ -145,7 +147,7 @@ const SingleLine = observer((props) => {
             {patient ?
                 <>
                     <p>{patient.fullName} </p>
-                    <TaskInfo missedPhotoItem={props.missedPhotoItem} photoDate={props.photoDate} {...patient} type={props.type} />
+                    <TaskInfo isPhotoRedo={props.isPhotoRedo} missedPhotoItem={props.missedPhotoItem} photoDate={props.photoDate} {...patient} type={props.type} />
                 </> :
                 <p>{t('coordinator.sideBar.loading')}...</p>}
         </div>
@@ -154,13 +156,12 @@ const SingleLine = observer((props) => {
 
 
 const TaskInfo = (props) => {
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
     const classes = useStyles();
 
     if (props.type === 'symptom') {
         if (!props.lastSymptoms || !(props.lastSymptoms.symptomList.length > 0)) return ""
         const symptomToDisplay = getFirstSevereSymptomFromArray(props.lastSymptoms.symptomList)
-
         const displayedSymptom = t(`symptoms.${symptomToDisplay || props.lastSymptoms.symptomList[0]}.title`)
         const more = props.lastSymptoms.symptomList.length - 1
 
@@ -172,7 +173,10 @@ const TaskInfo = (props) => {
         )
     } else if (props.type === 'photo') {
         return (
+            <>
+            {props.isPhotoRedo && <Label backgroundColor={Colors.warningRed} text={t('redoPhoto.flag')} />}
             <p className={classes.reportDate}>{props.photoDate ? DateTime.fromISO(props.photoDate).toLocaleString(DateTime.DATETIME_SHORT) : "N/A"}</p>
+            </>
         )
     } else if (props.type === 'missed') {
         return <p className={classes.reportDate}>{props.lastMissedDay ? DateTime.fromISO(props.lastMissedDay).toLocaleString(DateTime.DATE_SHORT) : "N/A"}</p>

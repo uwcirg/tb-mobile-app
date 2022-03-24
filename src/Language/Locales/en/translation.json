@@ -338,7 +338,7 @@
             "important": "Important",
             "dayLate": "day late",
             "dayLate_plural": "days late",
-            "late": "Submitted Late",
+            "late": "Late",
             "next": "Next",
             "title": "Log Today's Medication",
             "medicationTitle": "Please Log Your Medication",
@@ -992,5 +992,17 @@
         "awaiting": "awaiting review",
         "result": "result"
 
+    },
+    "redoPhoto":{
+        "title": "Resubmit test strip",
+        "subtitle": "Review the issue your treatment supporter identified",
+        "flag": "Resubmission",
+        "explanation": "There was an issue with your last test submission and you have been asked to resubmit. Please review the instructions carefully.",
+        "assistantMessage": "Your assistant left this feedback",
+        "selectResult": "Select test result",
+        "detected": "Medication detected",
+        "notDetected": "Not detected",
+        "ask": "Ask patient to resubmit test",
+        "attachMessage": "Message to patient"
     }
 }

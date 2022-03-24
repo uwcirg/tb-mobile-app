@@ -215,13 +215,8 @@ export class PractitionerStore extends UserStore {
         })
     }
 
-    @action processPhoto = (id, approved) => {
-        let body = { approved: approved }
-        this.executeRawRequest(`/photo_submission/${id}`, "PATCH", body).then(response => {
-            //TODO: Could update this to just remove the updated photo submission from list instead of fetching again
-            this.adjustIndex();
-            this.getPhotoReports();
-        })
+    @action processPhoto = (id, body) => {
+        return this.executeRawRequest(`/v2/photo_reports/${id}`, "PATCH", body)
     }
 
     @action resetActivationCode = (id) => {
@@ -473,6 +468,14 @@ export class PractitionerStore extends UserStore {
         this.executeRequest("getArchivedPatients").then(response => {
             this.setArchivedPatients(response)
         })
+    }
+
+    updateTaskPageData = () => {
+        this.getMissingPhotos();
+        this.getSeverePatients();
+        this.getPhotoReports();
+        this.getMissingPatients();
+        this.getSupportRequests();
     }
 
 }

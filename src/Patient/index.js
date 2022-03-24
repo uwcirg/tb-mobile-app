@@ -17,9 +17,10 @@ import ForcePasswordChange from './ForcePasswordChange';
 import EducationalMessage from './Home/Education';
 import { usePageVisibility } from '../Hooks/PageVisibility';
 import UpdateContactTracing from './HouseholdTesting';
-import MissedPhotoFlow from './ReportingFlows/MissedPhotoFlow/';
+import MissedPhotoFlow from './ReportingFlows/AltPhotoFlows';
 import PushActionReportingFlow from './ReportingFlows/PushActionReportingFlow';
 import Box from '@material-ui/core/Box';
+import RedoPhotoFlow from './ReportingFlows/AltPhotoFlows/RedoPhotoFlow';
 
 const PatientHome = observer(() => {
 
@@ -81,6 +82,11 @@ const PatientHome = observer(() => {
 
   if (uiStore.pathname.startsWith("/missed-photo")) {
     return <MissedPhotoFlow />
+  }
+
+
+  if (uiStore.pathname.startsWith("/redo-photo")) {
+    return <RedoPhotoFlow/>
   }
 
   if (uiStore.pathname.startsWith("/quick-report")) {

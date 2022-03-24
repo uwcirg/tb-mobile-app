@@ -5,10 +5,12 @@ import Colors from '../Basics/Colors';
 
 const useStyles = makeStyles({
     button: {
+        display:"flex",
         justifyContent: "flex-start",
         padding: ".15em .5em .15em .5em",
         borderRadius: "4px",
         fontSize: ".875em",
+        boxSizing: "border-box",
         color: props => props.color || "white",
         backgroundColor: props => props.backgroundColor || Colors.buttonBlue,
         border: props => props.border ? `solid 2px ${props.color}` : "none",

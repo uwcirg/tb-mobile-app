@@ -22,7 +22,6 @@ const useStyles = makeStyles({
     },
     text: {
         lineHeight: "1.25em",
-        textTransform: "capitalize",
         padding: ".5em 0"
     }
 })

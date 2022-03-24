@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import Basicsidebar from '../Shared/BasicSidebar'
+import Basicsidebar from '../Shared/Sidebar'
 import useStores from '../../Basics/UseStores'
 import { observer } from 'mobx-react'
 import { makeStyles } from '@material-ui/core/styles';
@@ -48,7 +48,7 @@ const useStyles = makeStyles({
 const MissedMedicationSidebar = observer((props) => {
     const { practitionerStore } = useStores();
     const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
     useEffect(() => {
         practitionerStore.getPatientMissedDays()

@@ -1,40 +1,73 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 
 /* Fixes bug with update popup overriding styles and making title text huge 07-12-2021 */
-.MuiTypography-h1{
+.MuiTypography-h1 {
     font-size: 1.25em !important;
 }
 
-html, body{
+html,
+body {
     margin: 0;
     padding: 0;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
 }
 
 body::-webkit-scrollbar {
     display: none;
-  }
+}
 
 body {
     overscroll-behavior: contain;
 }
 
-
-#root > div > div > div.makeStyles-container-155 > div > div > div > div.MuiPickersBasePicker-pickerView > div:nth-child(1) > div.MuiPickersCalendarHeader-daysHeader{
+#root
+    > div
+    > div
+    > div.makeStyles-container-155
+    > div
+    > div
+    > div
+    > div.MuiPickersBasePicker-pickerView
+    > div:nth-child(1)
+    > div.MuiPickersCalendarHeader-daysHeader {
     position: relative;
     top: -3em;
 }
 
-#root > div > div > div.makeStyles-container-155 > div > div > div > div.MuiPickersBasePicker-pickerView > div:nth-child(1) > div.MuiPickersCalendarHeader-switchHeader{
+#root
+    > div
+    > div
+    > div.makeStyles-container-155
+    > div
+    > div
+    > div
+    > div.MuiPickersBasePicker-pickerView
+    > div:nth-child(1)
+    > div.MuiPickersCalendarHeader-switchHeader {
     position: relative;
     top: 2em;
 }
 
 * {
-    -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important; 
-    -webkit-focus-ring-color: rgba(255, 255, 255, 0) !important; 
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important;
+    -webkit-focus-ring-color: rgba(255, 255, 255, 0) !important;
     outline: none !important;
+}
 
-    
-} 
+/* .force-scrollbar::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+    border: solid 10px transparent;
+}
+
+.force-scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+    border: solid 3px transparent;
+}
+
+.force-scrollbar::-webkit-scrollbar-track {
+
+    border: solid 3px transparent;
+} */

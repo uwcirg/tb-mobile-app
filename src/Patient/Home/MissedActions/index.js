@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { observer } from 'mobx-react';
 import { useTranslation } from 'react-i18next';
 import useStores from '../../../Basics/UseStores';
@@ -9,6 +9,7 @@ import MissedReports from './MissedReports';
 import MissedPhoto from './MissedPhoto';
 import SurveyCard from './SurveyCard';
 import useLocalValue from '../../../Hooks/useLocalValue';
+import RedoPhoto from './RedoPhoto';
 
 const RequiresAction = observer(() => {
 
@@ -17,16 +18,18 @@ const RequiresAction = observer(() => {
 
     const [surveyHidden, setSurveyHidden] = useLocalValue("appSurveyHidden", true);
 
+    const shouldShowRedoPhoto = patientStore.eligibleForRedoPhoto;
     const shouldShowMissedPhoto = patientStore.eligibleForBackPhoto;
     const shouldShowContactTracing = patientStore.contactTracingNeeded;
     const shouldShowMissedReports = patientStore.missingReports.length > 0;
     const shouldShowAppSurvey = patientStore.patientInformation.weeksInTreatment >= 20 && !surveyHidden;
 
-    const shouldRender = !uiStore.offline && (shouldShowMissedReports || shouldShowContactTracing || shouldShowMissedPhoto || shouldShowAppSurvey);
+    const shouldRender = !uiStore.offline && (shouldShowMissedReports || shouldShowContactTracing || shouldShowMissedPhoto || shouldShowAppSurvey || shouldShowRedoPhoto);
 
     return (
         <>
             {shouldRender && <HomePageSectionContainer upperText={<><WarningIcon />{t('patient.home.cardTitles.actionNeeded')}</>}>
+                {shouldShowRedoPhoto && <RedoPhoto />}
                 {shouldShowAppSurvey && <SurveyCard setHidden={() => {setSurveyHidden(true)}} />}
                 {shouldShowMissedPhoto && <MissedPhoto />}
                 {shouldShowMissedReports && <MissedReports />}

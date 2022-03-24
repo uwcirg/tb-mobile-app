@@ -8,4 +8,7 @@ function daysSincePhotoRequest(isoDateTime){
     return DateTime.fromISO(isoDateTime).endOf("day").diffNow("days").days * -1;
 }
 
-export {daysSinceISODateTime,daysSincePhotoRequest}
+let DATETIME_MED_NO_YEAR = {...DateTime.DATETIME_MED}
+delete DATETIME_MED_NO_YEAR.year
+
+export {daysSinceISODateTime,daysSincePhotoRequest, DATETIME_MED_NO_YEAR}

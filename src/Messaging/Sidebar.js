@@ -22,7 +22,7 @@ const PatientMessageSidebar = observer(() => {
 
     const classes = useStyles();
     const {messagingStore} = useStores();
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
     const id = messagingStore.coordinatorSelectedChannel && messagingStore.coordinatorSelectedChannel.userId
 
