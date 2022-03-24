@@ -31,7 +31,7 @@ const useStyles = makeStyles({
         width: "100%",
     },
     photoPreview: {
-        maxHeight: "200px",
+        maxHeight: "300px",
         width: "100%",
         objectFit: "contain"
     },

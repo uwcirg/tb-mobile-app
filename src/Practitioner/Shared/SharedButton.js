@@ -1,6 +1,5 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import useStores from '../../Basics/UseStores'
 import Button from '@material-ui/core/Button';
 import CheckIcon from '@material-ui/icons/Check'
 import Colors from '../../Basics/Colors';
@@ -15,7 +14,7 @@ const useStyles = makeStyles({
         padding: ".5em",
         color: "white",
         lineHeight: "1.2em",
-        "&:hover":{
+        "&:hover": {
             backgroundColor: Colors.accentBlue
         }
     },
@@ -35,7 +34,7 @@ const SharedButton = (props) => {
         <Button className={`${classes.button} ${props.className}`} onClick={props.onClick}>
             {props.icon ? props.icon : <CheckIcon />}
             <Box padding="0 .5em">
-            {props.text && props.text}
+                {props.text && props.text}
             </Box>
         </Button>
     )
