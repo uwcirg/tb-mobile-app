@@ -24,13 +24,14 @@ import TextField from '@material-ui/core/TextField'
 
 const useStyles = makeStyles({
     title: {
-        margin: 0
+        margin: 0,
+        fontSize: "1em"
     },
     titleContainer: {
         width: "100%",
     },
     photoPreview: {
-        maxHeight: "400px",
+        maxHeight: "200px",
         width: "100%",
         objectFit: "contain"
     },

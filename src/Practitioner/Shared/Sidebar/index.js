@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 import Styles from '../../../Basics/Styles';
 import PatientPreview from './Header';
 import useStores from '../../../Basics/UseStores';
+import { Grid } from '@material-ui/core';
 
 const useStyles = makeStyles({
     container: {
@@ -11,29 +12,17 @@ const useStyles = makeStyles({
         width: "100%",
         backgroundColor: "white",
         borderLeft: "solid 1px lightgray",
-        ...Styles.flexColumn,
         justifyContent: "flex-start",
-        alignItems: "center"
+        alignItems: "center",
+        ...Styles.flexColumn
     },
     resolutionButtons: {
-        width: "100%",
-        display: "flex",
-        justifyContent: "center",
-        marginTop: "auto",
-        marginBottom: "1em",
-        "& > button": {
-            flexBasis: "40%",
-            margin: ".5em",
-            padding: '.5em',
-            "& > span": {
-                fontSize: "1em",
-                display: "flex",
-                alignItems: "center",
-            },
-        }
+        height: "75px"
     },
     childrenContainer: {
-        width: "100%"
+        width: "100%",
+        flexGrow: 1,
+        overflowY: "scroll",
     }
 })
 
@@ -45,12 +34,12 @@ const Card = observer((props) => {
     return (
             <div className={classes.container}>
                 {!props.isCohortView && <PatientPreview selectedPatient={practitionerStore.getSelectedPatient} />}
-                <div className={classes.childrenContainer}>
+                <div className={`${classes.childrenContainer} force-scrollbar`}>
                     {props.children}
                 </div>
-                <div className={classes.resolutionButtons}>
+                <Grid container alignItems='center' justify='flex-end' className={classes.resolutionButtons}>
                     {props.buttons}
-                </div>
+                </Grid>
             </div>
     )
 });
