@@ -17,7 +17,8 @@ const useStyles = makeStyles({
         ...Styles.flexColumn
     },
     resolutionButtons: {
-        height: "75px"
+        height: "75px",
+        borderTop: "solid 1px lightgray"
     },
     childrenContainer: {
         width: "100%",

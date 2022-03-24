@@ -4,24 +4,17 @@ import useStores from '../../Basics/UseStores'
 import Button from '@material-ui/core/Button';
 import CheckIcon from '@material-ui/icons/Check'
 import Colors from '../../Basics/Colors';
+import { Box } from '@material-ui/core';
 
 const useStyles = makeStyles({
     button: {
-        flexDirection: "row",
-        display: "flex",
-        alignItems: "center",
+        margin: "0 auto",
         backgroundColor: props => props.color,
         borderRadius: "5px",
-        width: "100%",
         textTransform: "capitalize",
-        padding: "1em",
+        padding: ".5em",
         color: "white",
-        fontSize: "1em",
         lineHeight: "1.2em",
-        "& > span > svg":{
-            fontSize: ".95em",
-            marginRight: "5px"
-        },
         "&:hover":{
             backgroundColor: Colors.accentBlue
         }
@@ -38,12 +31,12 @@ const SharedButton = (props) => {
     const styleProps = { color: props.color ? props.color : Colors.buttonBlue }
     const classes = useStyles(styleProps);
 
-    const { practitionerStore } = useStores();
-
     return (
         <Button className={`${classes.button} ${props.className}`} onClick={props.onClick}>
             {props.icon ? props.icon : <CheckIcon />}
-            {props.text ? props.text : "Button"}
+            <Box padding="0 .5em">
+            {props.text && props.text}
+            </Box>
         </Button>
     )
 }
