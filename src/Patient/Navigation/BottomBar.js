@@ -8,7 +8,6 @@ import InfoIcon from '@material-ui/icons/Info';
 import { observer } from 'mobx-react';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import useStores from '../../Basics/UseStores';
-import Colors from '../../Basics/Colors';
 
 import Badge from '@material-ui/core/Badge'
 import { Link } from 'react-router-dom';
@@ -30,21 +29,7 @@ const useStyles = makeStyles({
       alignItems: "center",
       justifyContent: "center",
     }
-  },
-  newMessages: {
-    backgroundColor: Colors.red,
-    color: "white",
-    position: "absolute",
-    top: "-8px",
-    right: "-8px",
-    width: "15px",
-    height: "15px",
-    borderRadius: "15px",
-  },
-  messageContainer: {
-    position: "relative"
   }
-
 });
 
 const BottomBar = observer(() => {
