@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
@@ -11,6 +11,7 @@ import useStores from '../../Basics/UseStores';
 import Colors from '../../Basics/Colors';
 
 import Badge from '@material-ui/core/Badge'
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {
@@ -20,8 +21,17 @@ const useStyles = makeStyles({
     position: "fixed",
     bottom: 0,
     borderTop: "1px solid lightgray",
+    boxSizing: "border-box",
+    display: "flex",
+    "& a":{
+      boxSizing: "border-box",
+      flex: "1 1 0",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    }
   },
-  newMessages:{
+  newMessages: {
     backgroundColor: Colors.red,
     color: "white",
     position: "absolute",
@@ -31,19 +41,19 @@ const useStyles = makeStyles({
     height: "15px",
     borderRadius: "15px",
   },
-  messageContainer:{
+  messageContainer: {
     position: "relative"
   }
 
 });
 
-const BottomBar = observer((props) => {
-  const {messagingStore, patientUIStore} = useStores();
+const BottomBar = observer(() => {
+  const { messagingStore, patientUIStore } = useStores();
   const classes = useStyles();
 
-  useEffect(()=>{
+  useEffect(() => {
     messagingStore.getUnreadMessages();
-  },[])
+  }, [])
 
   return (
     <BottomNavigation
@@ -51,15 +61,17 @@ const BottomBar = observer((props) => {
       showLabels
       className={classes.root}
     >
-      <BottomNavigationAction id="intro-home-button" onClick={patientUIStore.goToHome} className="intro-home-button" icon={<HomeIcon />} />
-      <BottomNavigationAction onClick={patientUIStore.goToProgress} className="intro-progress-button" icon={<EventAvailableIcon />} />
-      <BottomNavigationAction onClick={patientUIStore.goToMessaging} className="intro-messaging-button" icon={
-      <Badge color={"primary"} invisible={messagingStore.numberUnread < 1} badgeContent={messagingStore.numberUnread} >
-        <ForumIcon />
+      <BottomLink to="/home" id="intro-home-button" className="intro-home-button" icon={<HomeIcon />} />
+      <BottomLink to="/progress/calendar" className="intro-progress-button" icon={<EventAvailableIcon />} />
+      <BottomLink to="/messaging"  className="intro-messaging-button" icon={
+        <Badge color={"primary"} invisible={messagingStore.numberUnread < 1} badgeContent={messagingStore.numberUnread} >
+          <ForumIcon />
         </Badge>} />
-      <BottomNavigationAction id="intro-information-button" onClick={patientUIStore.goToInformation} icon={<InfoIcon  />} />
+      <BottomLink to="/information" id="intro-information-button" onClick={patientUIStore.goToInformation} icon={<InfoIcon />} />
     </BottomNavigation>
   );
 });
+
+const BottomLink = (props) => {return <BottomNavigationAction component={Link} {...props} />};
 
 export default BottomBar;
