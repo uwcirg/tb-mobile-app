@@ -34,10 +34,6 @@ const useStyles = makeStyles({
     },
     loading: {
         height: "80vh"
-    },
-    feedback: {
-        fontStyle: "italic",
-        paddingBottom: "1em"
     }
 })
 
@@ -82,7 +78,7 @@ const PreSubmissionView = ({ photo, eligible, setPhoto, handleSubmit,
                     <BackSubmissionText photo={photo !== false} requestDateFormatted={requestDateFormatted} />}
                 <PhotoPrompt onClick={() => { setCameraOpen(true) }} />
                 {permissionsError && <PermissionsError />}
-                <Box height=".5em" />
+                <Box height="1em" />
                 <TestStripPhotoInfo showSkipOptions={false} />
             </> : <NotEligible />}
         </>}

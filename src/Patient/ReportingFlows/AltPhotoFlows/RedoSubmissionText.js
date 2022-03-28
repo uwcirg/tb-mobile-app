@@ -10,6 +10,10 @@ const useStyles = makeStyles({
     reportDetails: {
         padding: "1em 0",
         width: "100%"
+    },
+    feedback: {
+        fontStyle: "italic",
+        paddingBottom: "1em"
     }
 })
 
