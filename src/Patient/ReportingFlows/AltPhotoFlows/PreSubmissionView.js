@@ -14,6 +14,7 @@ import PermissionsError from '../../../ImageCapture/PermissionsError';
 import BackSubmissionText from './BackSubmissionText';
 import NotEligible from './NotEligible';
 import { CircularProgress, Typography } from '@material-ui/core';
+import RedoSubmissionText from './RedoSubmissionText';
 
 const useStyles = makeStyles({
     strip: {
@@ -40,7 +41,8 @@ const useStyles = makeStyles({
     }
 })
 
-const PreSubmissionView = ({ photo, eligible, setPhoto, handleSubmit, requestDateFormatted, loading, isRedo, redoReason }) => {
+const PreSubmissionView = ({ photo, eligible, setPhoto, handleSubmit,
+    requestDateFormatted, loading, isRedo, redoReason, redoOriginalReportUrl }) => {
 
     const { t } = useTranslation('translation');
     const classes = useStyles();
@@ -76,12 +78,8 @@ const PreSubmissionView = ({ photo, eligible, setPhoto, handleSubmit, requestDat
             <BottomButton disabled={(eligible && !photo)} onClick={handleSubmit}>{t('coordinator.patientProfile.editDetails.submit')}</BottomButton>
         </> : <>
             {eligible ? <>
-                {isRedo ? <div>
-                    <Typography>{t('redoPhoto.explanation')}</Typography>
-                    <br />
-                    <Typography><strong>{t('redoPhoto.assistantMessage')}:</strong></Typography>
-                    <Typography className={classes.feedback}>{redoReason}</Typography>
-                </div> : <BackSubmissionText photo={photo !== false} requestDateFormatted={requestDateFormatted} />}
+                {isRedo ? <RedoSubmissionText redoReason={redoReason} redoOriginalReportUrl={redoOriginalReportUrl} /> :
+                    <BackSubmissionText photo={photo !== false} requestDateFormatted={requestDateFormatted} />}
                 <PhotoPrompt onClick={() => { setCameraOpen(true) }} />
                 {permissionsError && <PermissionsError />}
                 <Box height=".5em" />
