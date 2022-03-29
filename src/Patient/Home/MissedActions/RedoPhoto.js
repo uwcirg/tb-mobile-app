@@ -25,7 +25,6 @@ const useStyles = makeStyles({
     }
 })
 
-
 const RedoPhoto = () => {
 
     const classes = useStyles();

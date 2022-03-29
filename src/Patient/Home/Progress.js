@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react';
 import useStores from '../../Basics/UseStores'
 import { CircularProgressbarWithChildren as CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
@@ -9,8 +9,7 @@ import InteractionCard from '../../Basics/HomePageSection';
 import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
 import ClickableText from '../../Basics/ClickableText';
-import TreatmentTimeline, { MonthPreview } from '../../Basics/TreatmentTimeline'
-import Event from '../../Basics/TreatmentTimeline/Event'
+import TreatmentTimeline, { MonthPreview } from '../../Basics/TreatmentTimeline';
 import Typography from '@material-ui/core/Typography';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import Down from '@material-ui/icons/KeyboardArrowDown';
