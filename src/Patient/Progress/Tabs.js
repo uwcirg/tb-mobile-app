@@ -5,6 +5,7 @@ import Tab from '@material-ui/core/Tab';
 import Colors from '../../Basics/Colors';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import Pill from '../../Basics/Icons/Pill';
+import { Link } from 'react-router-dom';
 
 function a11yProps(index) {
     return {
@@ -33,16 +34,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SimpleTabs({ activeTab, setTab, content }) {
     const classes = useStyles();
-
-    const handleChange = (event, newValue) => {
-        setTab(newValue);
-    };
-
     return (
         <>
-            <Tabs centered classes={{ indicator: classes.indicator }} className={classes.tabs} value={activeTab} onChange={handleChange} aria-label="progress view switch">
-                <Tab className={classes.tab} label={<Pill />} {...a11yProps(0)} />
-                <Tab className={classes.tab} label={<PhotoLibraryIcon />} {...a11yProps(1)} />
+            <Tabs centered classes={{ indicator: classes.indicator }} className={classes.tabs} value={activeTab} aria-label="progress view switch">
+                <Tab component={Link} to="/progress/calendar" className={classes.tab} label={<Pill />} {...a11yProps(0)} />
+                <Tab component={Link} to="/progress/photos" className={classes.tab} label={<PhotoLibraryIcon />} {...a11yProps(1)} />
             </Tabs>
             {content[activeTab]}
         </>
