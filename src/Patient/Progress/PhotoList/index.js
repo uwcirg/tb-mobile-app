@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import PhotoResponseItem from './PhotoResponseItem';
 import PhotoReportsProvider from '../../../Components/Shared/PhotoReportsProvider';
