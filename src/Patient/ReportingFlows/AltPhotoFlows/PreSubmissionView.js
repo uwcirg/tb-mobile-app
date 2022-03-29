@@ -12,8 +12,9 @@ import Grid from '@material-ui/core/Grid';
 import PermissionsError from '../../../ImageCapture/PermissionsError';
 
 import BackSubmissionText from './BackSubmissionText';
-import NotEligible from './NotEligible';
 import { CircularProgress, Typography } from '@material-ui/core';
+import PhotoRedoDetails from '../../../Components/Shared/PhotoRedoDetails';
+import NotEligible from './NotEligible';
 
 const useStyles = makeStyles({
     strip: {
@@ -33,14 +34,11 @@ const useStyles = makeStyles({
     },
     loading: {
         height: "80vh"
-    },
-    feedback: {
-        fontStyle: "italic",
-        paddingBottom: "1em"
     }
 })
 
-const PreSubmissionView = ({ photo, eligible, setPhoto, handleSubmit, requestDateFormatted, loading, isRedo, redoReason }) => {
+const PreSubmissionView = ({ photo, eligible, setPhoto, handleSubmit,
+    requestDateFormatted, loading, isRedo, redoReason,redoURL }) => {
 
     const { t } = useTranslation('translation');
     const classes = useStyles();
@@ -76,15 +74,11 @@ const PreSubmissionView = ({ photo, eligible, setPhoto, handleSubmit, requestDat
             <BottomButton disabled={(eligible && !photo)} onClick={handleSubmit}>{t('coordinator.patientProfile.editDetails.submit')}</BottomButton>
         </> : <>
             {eligible ? <>
-                {isRedo ? <div>
-                    <Typography>{t('redoPhoto.explanation')}</Typography>
-                    <br />
-                    <Typography><strong>{t('redoPhoto.assistantMessage')}:</strong></Typography>
-                    <Typography className={classes.feedback}>{redoReason}</Typography>
-                </div> : <BackSubmissionText photo={photo !== false} requestDateFormatted={requestDateFormatted} />}
+                {isRedo ? <RedoSubmissionText url={redoURL} reason={redoReason} /> :
+                    <BackSubmissionText photo={photo !== false} requestDateFormatted={requestDateFormatted} />}
                 <PhotoPrompt onClick={() => { setCameraOpen(true) }} />
                 {permissionsError && <PermissionsError />}
-                <Box height=".5em" />
+                <Box height="1em" />
                 <TestStripPhotoInfo showSkipOptions={false} />
             </> : <NotEligible />}
         </>}
@@ -95,6 +89,16 @@ const PreSubmissionView = ({ photo, eligible, setPhoto, handleSubmit, requestDat
     </>)
 }
 
+const RedoSubmissionText = (props) => {
+
+    const { t } = useTranslation('translation');
+
+    return (<>
+        <Typography>{t('redoPhoto.explanation')}</Typography>
+        <PhotoRedoDetails {...props}  />
+    </>)
+
+}
 
 const Loading = () => {
     const classes = useStyles();

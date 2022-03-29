@@ -1,39 +1,11 @@
-import React, {useEffect} from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 import Colors from '../../Basics/Colors';
-import { CameraAlt } from '@material-ui/icons';
+import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import Pill from '../../Basics/Icons/Pill';
-
-function TabPanel(props) {
-    const { children, value, index, ...other } = props;
-
-    return (
-        <div
-            role="tabpanel"
-            hidden={value !== index}
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
-            {...other}
-        >
-            {value === index && (
-                <Box p={3}>
-                    <Typography>{children}</Typography>
-                </Box>
-            )}
-        </div>
-    );
-}
-
-TabPanel.propTypes = {
-    children: PropTypes.node,
-    index: PropTypes.any.isRequired,
-    value: PropTypes.any.isRequired,
-};
+import { Link } from 'react-router-dom';
 
 function a11yProps(index) {
     return {
@@ -48,10 +20,15 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.background.paper,
     },
     tabs: {
-        boxShadow: "none",
-        backgroundColor: Colors.lightgray,
+        zIndex: 2,
+        boxShadow: "none",        
+        position: "sticky",
+        top: 0,
+        left: 0,
+        backgroundColor: "white"
     },
     tab: {
+
         display: "flex",
         flexGrow: 1,
         color: Colors.buttonBlue
@@ -61,22 +38,13 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function SimpleTabs({ activeTab, setTab, content }) {
+export default function SimpleTabs({ activeTab, content }) {
     const classes = useStyles();
-
-    useEffect(()=>{
-        
-    },[])
-
-    const handleChange = (event, newValue) => {
-        setTab(newValue);
-    };
-
     return (
         <>
-            <Tabs centered classes={{ indicator: classes.indicator }} className={classes.tabs} value={activeTab} onChange={handleChange} aria-label="progress view switch">
-                <Tab className={classes.tab} label={<Pill />} {...a11yProps(0)} />
-                <Tab className={classes.tab} label={<CameraAlt />} {...a11yProps(1)} />
+            <Tabs centered classes={{ indicator: classes.indicator }} className={classes.tabs} value={activeTab} aria-label="progress view switch">
+                <Tab component={Link} to="/progress/calendar" className={classes.tab} label={<Pill />} {...a11yProps(0)} />
+                <Tab component={Link} to="/progress/photos" className={classes.tab} label={<PhotoLibraryIcon />} {...a11yProps(1)} />
             </Tabs>
             {content[activeTab]}
         </>

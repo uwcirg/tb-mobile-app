@@ -26,16 +26,18 @@ const useStyles = makeStyles({
     }
 })
 
-const ButtonLayout = ({ icon, text, onClick, isDropdownOpen, color }) => {
+const ButtonLayout = ({ icon, text, onClick, isDropdownOpen, color, children }) => {
 
     const classes = useStyles({ buttonColor: color });
 
     return (
         <Grid wrap="nowrap" alignItems="center" className={classes.container} container onClick={onClick}>
             {React.cloneElement(icon, { className: classes.icon })}
-            <Typography className={classes.text} variant="body1" color="initial">
+            {text && <Typography className={classes.text} variant="body1" color="initial">
                 {text}
-            </Typography><ButtonToDisplay isDropdownOpen={isDropdownOpen} />
+            </Typography>}
+            {children}
+            <ButtonToDisplay isDropdownOpen={isDropdownOpen} />
         </Grid>)
 }
 

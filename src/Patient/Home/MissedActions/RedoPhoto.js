@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import Colors from '../../../Basics/Colors';
 import Buttonlayout from './ButtonLayout';
 import Badge from '@material-ui/core/Badge';
+import Box from '@material-ui/core/Box';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import FeedbackIcon from '@material-ui/icons/Feedback';
 
@@ -17,39 +18,34 @@ const useStyles = makeStyles({
         fontSize: "14px",
         lineHeight: "16px"
     },
-    badge:{
+    badge: {
         zIndex: 0,
-        color: Colors.yellow, 
+        color: Colors.yellow,
         fontSize: "1.25em"
     }
 })
-
 
 const RedoPhoto = () => {
 
     const classes = useStyles();
     const { t } = useTranslation('translation');
-    const { uiStore} = useStores();
-    
+    const { uiStore } = useStores();
+
     const openMissedPhoto = () => { uiStore.push('/redo-photo') };
 
     return (
         <MissedActionCard on>
             <Buttonlayout
-                text={
-                    <div style={{paddingLeft: ".5em"}}>
-                        {t('redoPhoto.title')}
-                        <br />
-                        <span className={classes.subText}>{t('redoPhoto.subtitle')}</span>
-                    </div>
-                }
                 icon={<Badge badgeContent={<FeedbackIcon className={classes.badge} />}>
-                    <PhotoIcon/> 
-                    </Badge>}
-                   
+                    <PhotoIcon />
+                </Badge>}
                 color={Colors.warningRed}
-                onClick={openMissedPhoto}
-            />
+                onClick={openMissedPhoto}>
+                <Box padding=".5em">
+                    <span>{t('redoPhoto.title')}</span>
+                    <span className={classes.subText}>{t('redoPhoto.subtitle')}</span>
+                </Box>
+            </Buttonlayout>
         </MissedActionCard>)
 
 }

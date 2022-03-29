@@ -42,7 +42,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ReportOldMedication = () => {
-    const { patientStore, patientUIStore } = useStores();
+    const { patientStore } = useStores();
+
     useEffect(() => {
         //When the historical report is exited, reset to store a normal day report
         return function cleanup() {
@@ -79,11 +80,12 @@ const Progress = observer(() => {
 const ProgressPage = observer(() => {
     
     const { t } = useTranslation('translation');
-    const [activeTab, setTab] = useState(0);
-    const { photoReports } = useStores().patientStore;
+    const { patientStore, uiStore} = useStores();
+    const { photoReports } = patientStore;
+    const activeTab = uiStore.pathname === "/progress/photos" ? 1 : 0;
 
     return (<PreventOffline type={t('patient.tabNames.calendar')}>
-        <Tabs content={[<Progress />, <PhotoList initalPhotos={photoReports} />]} activeTab={activeTab} setTab={setTab} />
+        <Tabs content={[<Progress />, <PhotoList initalPhotos={photoReports} />]} activeTab={activeTab} />
     </PreventOffline>)
 })
 
