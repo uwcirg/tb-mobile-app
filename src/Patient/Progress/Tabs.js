@@ -20,9 +20,15 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.background.paper,
     },
     tabs: {
-        boxShadow: "none",
+        zIndex: 2,
+        boxShadow: "none",        
+        position: "sticky",
+        top: 0,
+        left: 0,
+        backgroundColor: "white"
     },
     tab: {
+
         display: "flex",
         flexGrow: 1,
         color: Colors.buttonBlue
