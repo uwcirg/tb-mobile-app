@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function SimpleTabs({ activeTab, setTab, content }) {
+export default function SimpleTabs({ activeTab, content }) {
     const classes = useStyles();
     return (
         <>

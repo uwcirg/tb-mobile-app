@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import PhotoResponseItem from './PhotoResponseItem';
 import PhotoReportsProvider from '../../../Components/Shared/PhotoReportsProvider';
+import useStores from '../../../Basics/UseStores';
 
 const useStyles = makeStyles({
     container: {
@@ -21,12 +22,17 @@ const PhotoList = ({ initalPhotos = [] }) => {
 
 }
 
-const ListComponent = ({photos}) => {
+const ListComponent = ({ photos }) => {
 
     const classes = useStyles();
-    const {t} = useTranslation();
+    const { t } = useTranslation();
+    const { patientStore } = useStores();
 
-    return(<div className={classes.container}>
+    useEffect(() => {
+        patientStore.getPhotoReports();
+    }, [])
+
+    return (<div className={classes.container}>
         <Typography className={classes.title} variant="h2">{t('dashboard.photoReports')}</Typography>
         {photos.map((photoReport) => <PhotoResponseItem key={`photo-list-${photoReport.photoId}`} {...photoReport} />)}
     </div>)
