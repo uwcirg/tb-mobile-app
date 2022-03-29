@@ -57,8 +57,8 @@ const RedoPhotoFlow = observer(() => {
             {response ? <PostSubmissionView response={response} /> :
                 <PreSubmissionView
                     isRedo
-                    redoOriginalReportUrl={patientStore.photoReportWithRedoRequest && patientStore.photoReportWithRedoRequest.url}
-                    redoReason={patientStore.photoReportWithRedoRequest && patientStore.photoReportWithRedoRequest.redoReason}
+                    redoURL={patientStore.photoReportWithRedoRequest?.url}
+                    redoReason={patientStore.photoReportWithRedoRequest?.redoReason}
                     photo={photo}
                     eligible={eligible}
                     setPhoto={setPhoto}

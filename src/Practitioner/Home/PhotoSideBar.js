@@ -2,24 +2,22 @@ import React, { useEffect, useState } from 'react';
 import Basicsidebar from '../Shared/Sidebar';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react';
-import { makeStyles } from '@material-ui/core/styles';
 import Styles from '../../Basics/Styles';
 import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
 import ImagePopUp from '../Shared/ImagePopUp';
-import ExpandIcon from '@material-ui/icons/AspectRatio';
 import Label from '../../Components/Label';
-import { Box, Checkbox, Fade, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Typography } from '@material-ui/core';
+import { Box, Checkbox, Fade, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Typography, TextField, IconButton, Grid, makeStyles } from '@material-ui/core';
 import { DateTime } from 'luxon';
 import { DATETIME_MED_NO_YEAR } from '../../Utility/TimeUtils';
-import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
+import FlatButton from '../../Components/FlatButton';
 
+import ExpandIcon from '@material-ui/icons/AspectRatio';
 import MinusIcon from '@material-ui/icons/IndeterminateCheckBox';
 import PlusIcon from '@material-ui/icons/AddBox';
-import FlatButton from '../../Components/FlatButton';
-import { KeyboardArrowRight } from '@material-ui/icons';
-import TextField from '@material-ui/core/TextField'
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import PhotoRedoDetails from '../../Components/Shared/PhotoRedoDetails';
+import { toJS } from 'mobx';
 
 
 const useStyles = makeStyles({
@@ -80,9 +78,9 @@ const PhotoSidebar = observer(() => {
     const { t } = useTranslation('translation');
     const item = practitionerStore.filteredPatients.photo[practitionerStore.selectedRow.index];
 
-    useEffect(()=>{
+    useEffect(() => {
         resetState();
-    },[practitionerStore.selectedRow.index])
+    }, [practitionerStore.selectedRow.index])
 
     const toggleExpanded = () => { setExpand(!expand) }
 
@@ -115,6 +113,7 @@ const PhotoSidebar = observer(() => {
                     {item.backSubmission && <Label backgroundColor={Colors.warningRed} text={item.isRedo ? t('redoPhoto.flag') : t('patient.report.late')} />}
                 </Grid>
                 {item.backSubmission && <LateSubmissionInfo photoReport={item} />}
+                {item.isRedo && <PhotoRedoDetails {...item.redoOriginalDetails} />}
                 <Box position="relative">
                     <img className={classes.photoPreview} src={item.url} />
                     <IconButton className={classes.expand} onClick={toggleExpanded}><ExpandIcon /></IconButton>
@@ -122,7 +121,7 @@ const PhotoSidebar = observer(() => {
                 <Box height="1em" />
                 {expand && <ImagePopUp close={toggleExpanded} imageSrc={item.url} />}
                 <FormControl component="fieldset">
-                    <FormLabel  className={classes.resultLabel} component="legend">{t('redoPhoto.selectResult')}</FormLabel>
+                    <FormLabel className={classes.resultLabel} component="legend">{t('redoPhoto.selectResult')}</FormLabel>
                     <RadioGroup name="approved" value={medicationValue} onChange={handleDetectedChange}>
                         <Grid container direction='column'>
                             <FormControlLabel value="true" control={<Radio color='primary' />} label={<Grid container alignItems='center'><PlusIcon /><Typography>{t('redoPhoto.detected')}</Typography></Grid>} />
@@ -136,8 +135,7 @@ const PhotoSidebar = observer(() => {
                         <FormControlLabel
                             disabled={!showResubmissionOption}
                             control={<Checkbox color='primary' checked={state.redoFlag} onChange={handleChange} name="redoFlag" />}
-                            label={t('redoPhoto.ask')}
-                        />
+                            label={t('redoPhoto.ask')} />
                     </div>
                 </Fade>
                 <Box height="1em" />
@@ -161,8 +159,8 @@ const SubmitButon = ({ enabled, reviewState, photoReport, resetState }) => {
 
     const handleSubmit = () => {
         practitionerStore.processPhoto(photoReport.photoId, reviewState).then((res) => {
-            if(!res.photoId){
-                uiStore.setAlert("Error updating photo report. Please try again", "error" )
+            if (!res.photoId) {
+                uiStore.setAlert("Error updating photo report. Please try again", "error")
                 return
             }
             practitionerStore.adjustIndex();
