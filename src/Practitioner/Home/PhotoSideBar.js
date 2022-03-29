@@ -108,12 +108,13 @@ const PhotoSidebar = observer(() => {
         <Basicsidebar buttons={<SubmitButon resetState={resetState} photoReport={item} enabled={enableSubmit} reviewState={state} />}>
             <Box padding="1em">
                 <Grid alignItems='center' container className={classes.titleContainer}>
-                    <h2 className={classes.title}>{t("coordinator.sideBar.photoSub")}</h2>
+                    <Typography className={classes.title}><strong>{t("coordinator.sideBar.photoSub")}:</strong></Typography>
                     <Box flexGrow="1" />
                     {item.backSubmission && <Label backgroundColor={Colors.warningRed} text={item.isRedo ? t('redoPhoto.flag') : t('patient.report.late')} />}
                 </Grid>
                 {item.backSubmission && <LateSubmissionInfo photoReport={item} />}
                 {item.isRedo && <PhotoRedoDetails {...item.redoOriginalDetails} />}
+                <Typography><strong>{t('redoPhoto.newSubmission')}:</strong></Typography>
                 <Box position="relative">
                     <img className={classes.photoPreview} src={item.url} />
                     <IconButton className={classes.expand} onClick={toggleExpanded}><ExpandIcon /></IconButton>

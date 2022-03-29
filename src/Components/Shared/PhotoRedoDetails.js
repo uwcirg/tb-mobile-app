@@ -22,8 +22,8 @@ const PhotoRedoDetails = ({ reason, url }) => {
 
     return (<Grid className={classes.reportDetails} wrap="nowrap" container>
         <div>
-            <Typography><strong>{t('redoPhoto.assistantMessage')}:</strong></Typography>
-            <Typography className={classes.feedback}>{reason}</Typography>
+            <Typography><strong>{t('redoPhoto.originalSubmission')}:</strong></Typography>
+            <Typography className={classes.feedback}>{t('redoPhoto.feedback')}: {reason}</Typography>
         </div>
         <Box flexGrow="1" />
         <ExpandablePhoto url={url} />
