@@ -994,6 +994,7 @@
 
     },
     "redoPhoto":{
+        "viewMyPhotos": "View photo submssions",
         "title": "Resubmit test strip",
         "subtitle": "Review the issue your treatment supporter identified",
         "flag": "Resubmission",

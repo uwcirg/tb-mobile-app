@@ -4,8 +4,6 @@ import useStores from '../../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next';
 
-import ExpansionPanel from '../../../Basics/ExpansionPanel';
-import ConfirmationLayout from '../../../Components/Patient/ConfirmationLayout';
 import { usePageVisibility } from '../../../Hooks/PageVisibility';
 
 import {Grid, Box, CircularProgress, Typography, Fade } from '@material-ui/core';
@@ -17,7 +15,7 @@ import Colors from '../../../Basics/Colors';
 
 import PhotoRequestArea from './PhotoRequestArea';
 import PartialConfirmation from './PartialConfirmation';
-import Review from './ReviewSubmission';
+import Confirmation from './Confirmation';
 
 const ButtonLabel = ({ text, icon }) => {
     const classes = useStyles();
@@ -122,33 +120,8 @@ const ActionBox = observer(() => {
                 }
             </Box>
         </InteractionCard>
-
     )
 });
 
-const Confirmation = observer(() => {
 
-    const classes = useStyles();
-    const { t } = useTranslation('translation');
-    const {patientStore} = useStores();
-
-    return (
-        <div className={classes.confirmationSuperContainer}>
-            <ConfirmationLayout title={t("patient.home.completed.title")} subtitle={t("patient.home.completed.subtitle")} />
-            {patientStore.todaysReportHasIssue && <p style={{
-                    textAlign: "center",
-                    backgroundColor: `${Colors.highlightYellow}`,
-                    borderRadius: "5px",
-                    padding: ".5em"
-                }}>{t('patient.home.completed.issue')}</p>}
-            <ExpansionPanel
-                previewClassName={classes.reportPreview}
-                preview={t("patient.reportConfirmation.viewOrEdit")}
-                icon={<Edit style={{ fontSize: "1em" }} />}>
-                <Review />
-            </ExpansionPanel>
-        </div>
-    )
-})
-
-export default ActionBox;
+export default ActionBox
