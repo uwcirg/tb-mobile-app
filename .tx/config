@@ -1,10 +1,11 @@
 [main]
 host = https://www.transifex.com
 
-[tb-app-v2.intl-en-json]
-file_filter = src/Language/Locales/<lang>/translation.json
+[o:tb-treatment-support-tools:p:tb-app-v2:r:intl-en-json]
+file_filter  = src/Language/Locales/<lang>/translation.json
+source_file  = src/Language/Locales/en/translation.json
+source_lang  = en
+type         = STRUCTURED_JSON
 minimum_perc = 0
-source_file = src/Language/Locales/en/translation.json
-source_lang = en
-lang_map = es_AR: es-AR
-type = STRUCTURED_JSON
+lang_map     = es_AR: es-AR
+

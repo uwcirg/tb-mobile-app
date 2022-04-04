@@ -2,7 +2,6 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 
-
 const useStyles = makeStyles({
     container: {
         width: "100%",
@@ -45,7 +44,7 @@ const Instructions = (props) => {
 
     return (<div className={`${classes.container} ${props.className}`}>
         <div className={classes.body}>
-            <img className={classes.image} src="/img/es-Ar/v3_strip_instructions.jpg" />
+            <img className={classes.image} src={t('testStripInstructions.imgSrc')} />
             <ol className={classes.list}>
                 <li>{t('testStripInstructions.one')}</li>
                 <li>{t('testStripInstructions.two')}</li>

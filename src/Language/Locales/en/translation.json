@@ -362,7 +362,7 @@
                 "how": "How do I take the test?",
                 "help": {
                     "remember": "Please remember to",
-                    "wait": "Let the test strip sit for 15 minutes",
+                    "wait": "Let the test strip sit for 20 minutes before taking a photo",
                     "straight": "Capture the photo straight above the test strip",
                     "retakeIf": "Retake photo if it is blurry or the square marker is not visible",
                     "instructions": "View Test Strip Instructions"
@@ -1008,6 +1008,7 @@
         "attachMessage": "Message to patient"
     },
     "testStripInstructions":{
+        "imgSrc": "/img/en/v3-strip-instructions.jpg",
         "one": "Collect a small amount of urine in a container (about 2 fingers deep)",
         "two": "Take the test out of the bag",
         "three": "Dip the strip into the urine for about 2 seconds to the line marked dip. Do not let the test for longer than 2 seconds in the urine.",
