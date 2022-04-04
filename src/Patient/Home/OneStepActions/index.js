@@ -3,17 +3,17 @@ import InteractionCard from '../../../Basics/HomePageSection';
 import useStores from '../../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next';
-import EditIcon from '@material-ui/icons/Edit';
+
 import ExpansionPanel from '../../../Basics/ExpansionPanel';
 import ConfirmationLayout from '../../../Components/Patient/ConfirmationLayout';
 import { usePageVisibility } from '../../../Hooks/PageVisibility';
-import { Box, CircularProgress, Typography } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid'
-import { CheckBox, ThumbUp, Announcement } from '@material-ui/icons';
+
+import {Grid, Box, CircularProgress, Typography, Fade } from '@material-ui/core';
+import { CheckBox, ThumbUp, Announcement, Edit } from '@material-ui/icons';
+
 import useStyles from './styles';
 import ActionButton from './ActionButton';
 import Colors from '../../../Basics/Colors';
-import Fade from '@material-ui/core/Fade';
 
 import PhotoRequestArea from './PhotoRequestArea';
 import PartialConfirmation from './PartialConfirmation';
@@ -144,7 +144,7 @@ const Confirmation = observer(() => {
             <ExpansionPanel
                 previewClassName={classes.reportPreview}
                 preview={t("patient.reportConfirmation.viewOrEdit")}
-                icon={<EditIcon style={{ fontSize: "1em" }} />}>
+                icon={<Edit style={{ fontSize: "1em" }} />}>
                 <Review />
             </ExpansionPanel>
         </div>
