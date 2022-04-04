@@ -998,11 +998,26 @@
         "subtitle": "Revise el asunto que su asistente identificó",
         "flag": "Reenvío",
         "explanation": "Hay un asunto con su foto de la tira reactiva y su asistente ha pedido que reenvíe el test. Por favor revise las instrucciones cuidadosamente. ",
-        "assistantMessage": "Comentarios de asistente",
+        "feedback": "Comentario",
+        "originalSubmission": "Envío original",
+        "newSubmission": "Nueva original",
         "selectResult": "Seleccione resultado",
         "detected": "Medicamento detectado",
         "notDetected": "No detectado",
         "ask": "Solicitar al paciente que reenvíe el test",
         "attachMessage": "Mensaje para el paciente"
+    },
+    "testStripInstructions":{
+        "one": "Recoja una pequeña cantidad de orina en un recipiente (mas o menos 2 dedos).",
+        "two": "Saque la tira de la bolsa.",
+        "three": "Sumerja la tira en la orina por aproximadamente 2 segundos hasta la línea marcada “Sumerja.” No deje que la tira sobrepase el tiempo en la orina.",
+        "four": "Espere 20 minutos. Después de los 20 minutos podrá sacar la foto para enviar al asistente.",
+        "five" : {
+            "main": "Abra la aplicación y haga click en ‘SUBIR FOTO’.",
+            "a": "Asegúrese de que la foto muestre toda la tira, incluyendo las marcas. ",
+            "b":  "Tome la foto y haga click en la ’SIGUIENTE’."
+        },
+        "six": "Coloque la tira en la bolsa y descartela en la basura."
+
     }
 }
