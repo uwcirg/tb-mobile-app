@@ -30,7 +30,7 @@ const Instructions = (props) => {
 
     return (<div className={`${classes.container} ${props.className}`}>
         <div className={classes.body}>
-            <img className={classes.image} src="/img/new_strip_instructions.png" />
+            <img className={classes.image} src="/img/es-Ar/v3_strip_instructions.jpg" />
             <ol className={classes.list}>
                 <li>Recoja una pequeña cantidad de orina en un recipiente (aproximadamente 2.5 cm).</li>
                 <li>Saque una tira reactiva y vuelva a sellar la bolsa.</li>

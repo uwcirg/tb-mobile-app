@@ -55,7 +55,6 @@ const Update = () => {
         education.setExited(true);
     }
 
-
     return (<div className={classes.container}>
         <Typography className={classes.title} variant="h1">{t('mayTestStripUpdate.title')}</Typography>
         <Typography className={classes.subTitle} variant="h2">{t('mayTestStripUpdate.subtitle')}</Typography>
