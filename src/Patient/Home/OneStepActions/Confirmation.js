@@ -29,15 +29,15 @@ const Confirmation = observer(() => {
                 borderRadius: "5px",
                 padding: ".5em"
             }}>{t('patient.home.completed.issue')}</p>}
-            <ExpansionPanel
+                        <Box paddingTop="1em">
+                <ReviewPhotos />
+            </Box>
+            {/* <ExpansionPanel
                 previewClassName={classes.reportPreview}
                 preview={t("patient.reportConfirmation.viewOrEdit")}
                 icon={<Edit style={{ fontSize: "1em" }} />}>
                 <Review />
-            </ExpansionPanel>
-            <Box paddingTop="1em">
-                <ReviewPhotos />
-            </Box>
+            </ExpansionPanel> */}
         </div>
     )
 })
