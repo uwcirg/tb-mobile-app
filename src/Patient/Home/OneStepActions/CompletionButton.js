@@ -20,7 +20,7 @@ const useStyles = makeStyles({
     }
 })
 
-const CompletionButton = ({ to, icon, text, onClick }) => {
+const CompletionButton = ({ to, icon, text, onClick, arrowIcon }) => {
 
     const classes = useStyles();
 
@@ -30,7 +30,7 @@ const CompletionButton = ({ to, icon, text, onClick }) => {
             <Box width=".5em" />
             <Typography >{text}</Typography>
             <Box flexGrow={1} />
-            <KeyboardArrowRight />
+            {arrowIcon ? arrowIcon : <KeyboardArrowRight />}
             <Box width=".5em" />
         </Grid>
     </ButtonBase>)

@@ -29,7 +29,7 @@ const ReviewPhotos = () => {
         <div className={classes.container}>
              <CompletionButton to="/progress" icon={<DateRangeIcon />} text={t('patient.progress.calendar')} />
             <Box height=".5em" />
-            <CompletionButton icon={<PhotoLibraryIcon />} text={t('redoPhoto.viewMyPhotos')} />
+            <CompletionButton  to="/progress/photos" icon={<PhotoLibraryIcon />} text={t('redoPhoto.viewMyPhotos')} />
         </div>
     )
 }
