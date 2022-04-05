@@ -3,7 +3,7 @@ import useStores from '../../../Basics/UseStores';
 import { observer } from 'mobx-react';
 import useStyles from './styles';
 import ConfirmationLayout from '../../../Components/Patient/ConfirmationLayout';
-import ReviewPhotos from './ReviewPhotos';
+import ProgressLinks from './ProgressLinks';
 import { useTranslation } from 'react-i18next';
 import { Box, Collapse, Typography } from '@material-ui/core';
 import CompletionButton from './CompletionButton';
@@ -39,7 +39,7 @@ const Confirmation = observer(() => {
                 </Box>
             </Collapse>
             <Box height="1em" />
-            <ReviewPhotos />
+            <ProgressLinks />
         </div>
     )
 })
