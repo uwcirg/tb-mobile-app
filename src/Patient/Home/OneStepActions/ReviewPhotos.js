@@ -3,7 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom'
 import { Box, Grid, Typography } from '@material-ui/core';
 import Colors from '../../../Basics/Colors';
-import { Image, KeyboardArrowDown, KeyboardArrowRight } from '@material-ui/icons';
+import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
     container: {
@@ -18,19 +20,21 @@ const useStyles = makeStyles({
     }
 })
 
+
 const ReviewPhotos = () => {
 
     const classes = useStyles();
+    const { t } = useTranslation('translation');
 
     return (
         <div className={classes.container}>
             <Link to="/progress/photos">
                 <Grid alignItems='center' container>
-                    <Image style={{color: Colors.buttonBlue}} />
+                    <PhotoLibraryIcon style={{color: Colors.buttonBlue}} />
                     <Box width=".5em" />
                     <Typography>{t('redoPhoto.viewMyPhotos')}</Typography>
                     <Box flexGrow={1} />
-                    <KeyboardArrowRight style={{color: Colors.textGray}} />
+                    <KeyboardArrowRightIcon style={{color: Colors.textGray}} />
                 </Grid>
             </Link>
         </div>
