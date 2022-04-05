@@ -30,12 +30,19 @@ const useStyles = makeStyles({
         padding: 0
     },
     sectionHeader: { lineHeight: "1.1em", fontSize: "1.1em", fontWeight: "light", margin: "0", display: "block", width: "100%" },
-    buttonLabel: { 
-        width: "unset", 
+    buttonLabel: {
+        width: "unset",
         padding: "2px .5em",
-        "& svg, & p":{padding: 0},
-        "& p": {fontSize: ".8em",textTransform: "capitalize",fontWeight: "bold"},
-     }
+        "& svg, & p": { padding: 0 },
+        "& p": { fontSize: ".8em", textTransform: "capitalize", fontWeight: "bold" },
+    },
+    reportIssueText: {
+        textAlign: "center",
+        backgroundColor: `${Colors.highlightYellow}`,
+        borderRadius: "5px",
+        padding: ".5em"
+
+    }
 })
 
 export default useStyles;

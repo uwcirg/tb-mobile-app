@@ -2,17 +2,14 @@ import React from 'react';
 import useStores from '../../../Basics/UseStores';
 import { observer } from 'mobx-react';
 import useStyles from './styles';
-
-import ExpansionPanel from '../../../Basics/ExpansionPanel';
 import ConfirmationLayout from '../../../Components/Patient/ConfirmationLayout';
-
-import { Edit } from '@material-ui/icons';
-import Colors from '../../../Basics/Colors';
-
-import Review from './ReviewSubmission';
+import Edit from '@material-ui/icons/Edit';
 import ReviewPhotos from './ReviewPhotos';
 import { useTranslation } from 'react-i18next';
-import { Box } from '@material-ui/core';
+import { Box, Collapse, Typography } from '@material-ui/core';
+import CompletionButton from './CompletionButton';
+import Review from './ReviewSubmission';
+import useToggle from '../../../Hooks/useToggle';
 
 const Confirmation = observer(() => {
 
@@ -20,24 +17,18 @@ const Confirmation = observer(() => {
     const { t } = useTranslation('translation');
     const { patientStore } = useStores();
 
+    const [showEdit,toggleEdit] = useToggle(false);
+
     return (
         <div className={classes.confirmationSuperContainer}>
             <ConfirmationLayout title={t("patient.home.completed.title")} subtitle={t("patient.home.completed.subtitle")} />
-            {patientStore.todaysReportHasIssue && <p style={{
-                textAlign: "center",
-                backgroundColor: `${Colors.highlightYellow}`,
-                borderRadius: "5px",
-                padding: ".5em"
-            }}>{t('patient.home.completed.issue')}</p>}
-                        <Box paddingTop="1em">
-                <ReviewPhotos />
-            </Box>
-            {/* <ExpansionPanel
-                previewClassName={classes.reportPreview}
-                preview={t("patient.reportConfirmation.viewOrEdit")}
-                icon={<Edit style={{ fontSize: "1em" }} />}>
+            {patientStore.todaysReportHasIssue && <Typography className={classes.reportIssueText}>{t('patient.home.completed.issue')}</Typography>}
+            <CompletionButton icon={<Edit />} text={t('patient.reportConfirmation.viewOrEdit')} onClick={toggleEdit} />
+            <Collapse in={showEdit}>
                 <Review />
-            </ExpansionPanel> */}
+            </Collapse>
+            <Box height="1em" />
+            <ReviewPhotos />
         </div>
     )
 })

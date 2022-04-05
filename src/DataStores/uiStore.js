@@ -118,7 +118,6 @@ export class UIStore {
         return this.router.location.pathname;
     }
 
-
     //Steps for flows that work with back button, etc
     @computed get step(){
         const valueFromSearchParams = new URLSearchParams(this.router.location.search).get("step")
