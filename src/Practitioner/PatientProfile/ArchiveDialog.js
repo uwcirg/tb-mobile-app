@@ -9,7 +9,7 @@ import { observer } from 'mobx-react'
 import ProfileButton from '../../Components/FlatButton'
 import CheckIcon from '@material-ui/icons/PlaylistAddCheck';
 import Colors from '../../Basics/Colors'
-import TreatmentOutcomeSelection from '../Shared/TreatmentOutcomeSelection'
+import TreatmentOutcomeSelection from './TreatmentOutcomeSelection'
 
 const useStyles = makeStyles({
     bottomButton: {

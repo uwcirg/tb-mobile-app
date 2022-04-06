@@ -919,7 +919,8 @@
             "withdraw": "Withdraw",
             "lost-to-follow-up": "Lost to follow up",
             "transferred": "Transfered",
-            "deceased": "Deceased"
+            "deceased": "Deceased",
+            "refuse-to-use-app": "Refuse to use app"
         },
         "complete": "Complete",
         "endSurvey": "Survey",
