@@ -6,27 +6,15 @@ import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import { useTranslation } from 'react-i18next';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import CompletionButton from './CompletionButton'
+import useStyles from './styles';
 
-const useStyles = makeStyles({
-    container: {
-        boxSizing: "border-box",
-        width: "100%",
-        borderTop: `1px solid ${Colors.lightgray}`,
-        paddingTop: "1em",
-        "& a:visited , & a":{
-            color: "black",
-            textDecoration: "none"
-        }
-    }
-})
-
-const ReviewPhotos = () => {
+const ProgressLinks = () => {
 
     const classes = useStyles();
     const { t } = useTranslation('translation');
 
     return (
-        <div className={classes.container}>
+        <div className={classes.progressLinks}>
              <CompletionButton to="/progress" icon={<DateRangeIcon />} text={t('patient.progress.calendar')} />
             <Box height=".5em" />
             <CompletionButton  to="/progress/photos" icon={<PhotoLibraryIcon />} text={t('redoPhoto.viewMyPhotos')} />
@@ -34,4 +22,4 @@ const ReviewPhotos = () => {
     )
 }
 
-export default ReviewPhotos;
+export default ProgressLinks;
