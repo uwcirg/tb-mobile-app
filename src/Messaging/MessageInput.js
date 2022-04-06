@@ -89,7 +89,7 @@ export const toBase64 = file => new Promise((resolve, reject) => {
 const MessageInput = observer((props) => {
 
    
-    const { t, i18n } = useTranslation('translation');
+    const { t } = useTranslation('translation');
 
     const [preview, setPreview] = useState(false);
 
@@ -118,8 +118,8 @@ const MessageInput = observer((props) => {
                 {messagingStore.file &&
                     <div className={classes.imagePreview}><img src={messagingStore.file} ></img>
                         <div className={classes.imageText}>
-                            <p>Image will be sent with message</p>
-                            <ButtonBase onClick={messagingStore.toggleImagePreview} className={classes.viewLarger}>View Larger</ButtonBase>
+                            <p>{t('messaging.imageWillSend')}</p>
+                            <ButtonBase onClick={messagingStore.toggleImagePreview} className={classes.viewLarger}>{t('coordinator.sideBar.expandPhoto')}</ButtonBase>
                         </div>
                         <IconButton onClick={messagingStore.clearFile}>
                             <Clear />
@@ -144,7 +144,7 @@ const MessageInput = observer((props) => {
                 </div>
             </div>
         </> : <div>
-            <span>Sending...</span>
+            <span>{t('messaging.sending')}...</span>
             <CircularProgress color="secondary" />
             </div>}
         </>

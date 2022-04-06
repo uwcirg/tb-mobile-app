@@ -98,7 +98,9 @@
         "found": "Found",
         "empty": "No messages have been sent yet. Send the first one!",
         "private": "Private",
-        "clinicChat": "Assistants and patients at your clinic"
+        "clinicChat": "Assistants and patients at your clinic",
+        "imageWillSend": "Image will be sent with message",
+        "sending": "Sending"
     },
     "time": {
         "day": "day",
