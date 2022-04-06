@@ -17,8 +17,6 @@ import MinusIcon from '@material-ui/icons/IndeterminateCheckBox';
 import PlusIcon from '@material-ui/icons/AddBox';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import PhotoRedoDetails from '../../Components/Shared/PhotoRedoDetails';
-import { toJS } from 'mobx';
-
 
 const useStyles = makeStyles({
     title: {
@@ -114,7 +112,7 @@ const PhotoSidebar = observer(() => {
                 </Grid>
                 {item.backSubmission && <LateSubmissionInfo photoReport={item} />}
                 {item.isRedo && <PhotoRedoDetails {...item.redoOriginalDetails} />}
-                <Typography><strong>{t('redoPhoto.newSubmission')}:</strong></Typography>
+                {item.isRedo &&<Typography><strong>{t('redoPhoto.newSubmission')}:</strong></Typography>}
                 <Box position="relative">
                     <img className={classes.photoPreview} src={item.url} />
                     <IconButton className={classes.expand} onClick={toggleExpanded}><ExpandIcon /></IconButton>
