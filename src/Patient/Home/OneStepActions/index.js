@@ -3,21 +3,19 @@ import InteractionCard from '../../../Basics/HomePageSection';
 import useStores from '../../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next';
-import EditIcon from '@material-ui/icons/Edit';
-import ExpansionPanel from '../../../Basics/ExpansionPanel';
-import ConfirmationLayout from '../../../Components/Patient/ConfirmationLayout';
+
 import { usePageVisibility } from '../../../Hooks/PageVisibility';
-import { Box, CircularProgress, Typography } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid'
-import { CheckBox, ThumbUp, Announcement } from '@material-ui/icons';
+
+import {Grid, Box, CircularProgress, Typography, Fade } from '@material-ui/core';
+import { CheckBox, ThumbUp, Announcement, Edit } from '@material-ui/icons';
+
 import useStyles from './styles';
 import ActionButton from './ActionButton';
 import Colors from '../../../Basics/Colors';
-import Fade from '@material-ui/core/Fade';
 
 import PhotoRequestArea from './PhotoRequestArea';
 import PartialConfirmation from './PartialConfirmation';
-import Review from './ReviewSubmission';
+import Confirmation from './Confirmation';
 
 const ButtonLabel = ({ text, icon }) => {
     const classes = useStyles();
@@ -122,33 +120,8 @@ const ActionBox = observer(() => {
                 }
             </Box>
         </InteractionCard>
-
     )
 });
 
-const Confirmation = observer(() => {
 
-    const classes = useStyles();
-    const { t } = useTranslation('translation');
-    const {patientStore} = useStores();
-
-    return (
-        <div className={classes.confirmationSuperContainer}>
-            <ConfirmationLayout title={t("patient.home.completed.title")} subtitle={t("patient.home.completed.subtitle")} />
-            {patientStore.todaysReportHasIssue && <p style={{
-                    textAlign: "center",
-                    backgroundColor: `${Colors.highlightYellow}`,
-                    borderRadius: "5px",
-                    padding: ".5em"
-                }}>{t('patient.home.completed.issue')}</p>}
-            <ExpansionPanel
-                previewClassName={classes.reportPreview}
-                preview={t("patient.reportConfirmation.viewOrEdit")}
-                icon={<EditIcon style={{ fontSize: "1em" }} />}>
-                <Review />
-            </ExpansionPanel>
-        </div>
-    )
-})
-
-export default ActionBox;
+export default ActionBox

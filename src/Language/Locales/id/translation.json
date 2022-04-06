@@ -362,7 +362,7 @@
                 "how": "Bagaimana caranya saya melakukan test?",
                 "help": {
                     "remember": "Tolong ingat untuk",
-                    "wait": "Biarkan strip test ini di tempat yang rata sekitar 15 menit.",
+                    "wait": "Let the test strip sit for 20 minutes before taking a photo",
                     "straight": "Ambil gambar foto hasil strip test tepat diatas.",
                     "retakeIf": "Foto kembali jika kabur atau tanda kotak tidak terlihat",
                     "instructions": "Lihat instruksi strip test"
@@ -998,11 +998,27 @@
         "subtitle": "Review the issue your treatment supporter identified",
         "flag": "Resubmission",
         "explanation": "There was an issue with your last test submission and you have been asked to resubmit. Please review the instructions carefully.",
-        "assistantMessage": "Assistant feedback",
+        "feedback": "Feedback",
+        "originalSubmission": "Original Submission",
+        "newSubmission": "New Submission",
         "selectResult": "Select test result",
         "detected": "Medication detected",
         "notDetected": "Not detected",
         "ask": "Ask patient to resubmit test",
         "attachMessage": "Message to patient"
+    },
+    "testStripInstructions":{
+        "imgSrc": "/img/es-Ar/v3-strip-instructions.jpg",
+        "one": "Collect a small amount of urine in a container (about 2 fingers deep)",
+        "two": "Take the test out of the bag",
+        "three": "Dip the strip into the urine for about 2 seconds to the line marked dip. Do not let the test for longer than 2 seconds in the urine.",
+        "four": "Wait 20 minutes for the test to process before proceeding",
+        "five" : {
+            "main": "Open the application and click \"Submit Photo\".",
+            "a": "Make sure the photo shows the entire strip, including the barcodes.",
+            "b":  "Take the picture and click \"Next\"."
+        },
+        "six": "Put the test back in its bag and discard in the trash"
+
     }
 }

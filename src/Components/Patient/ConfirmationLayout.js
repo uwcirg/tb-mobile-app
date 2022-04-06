@@ -4,12 +4,21 @@ import Styles from '../../Basics/Styles';
 import { ReactComponent as DoctorIcon } from '../../Basics/Icons/doctor.svg';
 import CheckIcon from '@material-ui/icons/Check';
 import Colors from '../../Basics/Colors';
+import { Box, Grid, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles({
-    confirmation: {
-        ...Styles.flexRow,
-        marginBottom: "1em",
-        alignItems: "flex-end",
+    iconContainer: {
+        position: "relative"
+    },
+    check: {
+        position: "absolute",
+        top: "25%",
+        right: 0,
+        fontSize: "2em",
+        color: "white",
+        backgroundColor: Colors.green,
+        padding: "5px",
+        borderRadius: "50%"
     },
     confirmationText: {
         ...Styles.flexColumn,
@@ -20,28 +29,34 @@ const useStyles = makeStyles({
         height: "100%",
         textAlign: "left",
     },
-    confirmationHeader: {
-        ...Styles.flexRow,
-        fontSize: "1.25em",
+    confirmationHeaderText: {
+        fontSize: "1.5em",
         margin: 0,
-        "& > svg": {
-            color: Colors.approvedGreen,
-            marginLeft: ".5em"
-        }
+        alignSelf: "flex-end"
     },
+    lowerText: {
+        lineHeight: "1.25em"
+    }
 })
 
-const ConfirmationLayout = ({title,subtitle}) => {
+const ConfirmationLayout = ({ title, subtitle }) => {
 
     const classes = useStyles();
 
-    return (<div className={classes.confirmation}>
-        <DoctorIcon />
-        <div className={classes.confirmationText}>
-            <div className={classes.confirmationHeader}>{title}<CheckIcon /></div>
-            <p>{subtitle}</p>
+    return (<Grid container alignItems="center">
+        <div className={classes.iconContainer}>
+            <DoctorIcon />
+            <CheckIcon className={classes.check} />
         </div>
-    </div>)
+        <div className={classes.confirmationText}>
+            <Grid wrap='nowrap' container>
+                <div>
+                    <Typography className={classes.confirmationHeaderText}>{title}</Typography>
+                    <Typography className={classes.lowerText}>{subtitle} 👍</Typography>
+                </div>
+            </Grid>
+        </div>
+    </Grid>)
 
 }
 

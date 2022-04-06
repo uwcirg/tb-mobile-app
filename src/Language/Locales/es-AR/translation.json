@@ -6,7 +6,7 @@
     "updating": "Actualizando",
     "demoWarning": "Esta es una demostración de la aplicación y no debe usarse para los datos de pacientes reales.",
     "commonWords": {
-        "photos": "photos",
+        "photos": "fotos",
         "fillAll": "Complete todas las secciones antes de continuar",
         "edit": "Editar",
         "error": "Error",
@@ -38,7 +38,7 @@
         "successMessage": "Actualizado Exitosamente",
         "errorMessage": "Se ha producido un error. Por favor, inténtelo de nuevo más tarde.",
         "atTime": "a las",
-        "loadMore": "load more"
+        "loadMore": "cargar más"
     },
     "userTypes": {
         "patient": "Paciente",
@@ -221,7 +221,7 @@
             "weekCalendar": "Ese es una vista previa de sus últimos 5 reportes. Puede tocar aquí para ver su calendario completo. ",
             "calendar": "El calendario completo le da un visual de su progreso. Los días que no ha reportado están en rojo",
             "calendarBottom": "Puede tocar esta área en la parte inferior de la pantalla para ver los detalles de su reporte",
-            "milestones": "De regreso a la sección de su progreso, puede manejar sus eventos importantes",
+            "milestones": "De regreso a la sección de su progreso, puede manejar sus eventos importantes desde aqui",
             "messaging": {
                 "header": "Ahora estamos en la sección de los mensajes",
                 "text": "Esta sección le permite comunicarse directamente con su asistente y también con otros pacientes.",
@@ -338,7 +338,7 @@
             "important": "Importante",
             "dayLate": "día tarde",
             "dayLate_plural": "días tarde",
-            "late": "Tarde",
+            "late": "tarde",
             "next": "Siguiente",
             "title": "Reporte la Medicación de Hoy",
             "medicationTitle": "Por favor reporte la toma de Medicamentos",
@@ -355,14 +355,14 @@
             "whySupport": "¿Como podemos ayudarlo?",
             "photoTitle": "Tomar Foto de la Tira Reactiva",
             "photo": {
-                "permissionsError": "There was an error getting access to your camera. Please try again and make sure to allow access if prompted.",
+                "permissionsError": "Hubo un error al acceder a su cámara. Por favor permita el acceso a su camara e intentelo otra vez.",
                 "usePhoto": "Usar foto",
                 "retakePhoto": "Volver a Tomar la foto",
                 "openCamera": "Abrir la Camara",
                 "how": "¿Cómo hago la prueba? ",
                 "help": {
                     "remember": "Por favor recuerde ",
-                    "wait": "Dejar que la tira reactiva reaccione por 15 minutos.",
+                    "wait": "Espere 20 minutos para que se revele la tira reactiva antes de tomar una foto",
                     "straight": "Tome la foto directamente encima de la tira reactiva.",
                     "retakeIf": "Vuelva a tomar la foto si está borrosa o si el marcador cuadrado no está visible.",
                     "instructions": "Ver las instrucciones para las tiras reactivas."
@@ -905,7 +905,7 @@
     "archive": {
         "notSelected": "Nada Seleccionado",
         "warningTitle": "Paciente Archivado",
-        "explanation": "Si el paciente ha completado su tiempo usando la aplicación, complete su último día y haga clic en el botón de abajo para archivarlo. Ya no aparecerán en las listas de tareas, pero se puede ver su perfil desde la pestaña \"Mis Pacientes\"",
+        "explanation": "Si el paciente ha completado su tiempo usando la aplicación, complete su último día y haga clic en el botón de abajo para archivarlo. Ya no aparecerá en las listas de tareas, pero se puede ver su perfil desde la pestaña \"Mis Pacientes\".",
         "appEndField": "Último día usando la aplicación",
         "warningShort": "Este paciente ha sido archivado y ya no puede mandar reportes.",
         "warningLong": "Este paciente se ha archivado y ya no aparecerá en sus tareas. Si necesita deshacer esta acción, comuníquese con el personal técnico del estudio para obtener asistencia.",
@@ -985,12 +985,41 @@
         "homeScreen": "También puedes completar tu reporte por el día desde el recordatorio de la pantalla principal."
     },
     "photoReportReview":{
-        "allLoaded": "all reports loaded",
-        "detected": "medication detected",
-        "unclear": "unclear result",
-        "resubmit": "resubmission requested",
-        "awaiting": "awaiting review",
-        "result": "result"
+        "allLoaded": "todos reportes cargados",
+        "detected": "medicamento detectado",
+        "unclear": "Resultado no concluyente",
+        "resubmit": "otra sumisión solicitada ",
+        "awaiting": "esperando evaluación",
+        "result": "resultado"
+
+    },
+    "redoPhoto":{
+        "viewMyPhotos": "Resultados de sus fotos",
+        "title": "Por favor reenviar la foto del test de la tira reactiva",
+        "subtitle": "Revise el asunto que su asistente identificó",
+        "flag": "Reenvío",
+        "explanation": "Hay un asunto con su foto de la tira reactiva y su asistente ha pedido que reenvíe el test. Por favor revise las instrucciones cuidadosamente. ",
+        "feedback": "Comentario",
+        "originalSubmission": "Envío original",
+        "newSubmission": "Nueva original",
+        "selectResult": "Seleccione resultado",
+        "detected": "Medicamento detectado",
+        "notDetected": "No detectado",
+        "ask": "Solicitar al paciente que reenvíe el test",
+        "attachMessage": "Mensaje para el paciente"
+    },
+    "testStripInstructions":{
+        "imgSrc": "/img/es-Ar/v3-strip-instructions.jpg",
+        "one": "Recoja una pequeña cantidad de orina en un recipiente (mas o menos 2 dedos).",
+        "two": "Saque la tira de la bolsa.",
+        "three": "Sumerja la tira en la orina por aproximadamente 2 segundos hasta la línea marcada “Sumerja.” No deje que la tira sobrepase el tiempo en la orina.",
+        "four": "Espere 20 minutos. Después de los 20 minutos podrá sacar la foto para enviar al asistente.",
+        "five" : {
+            "main": "Abra la aplicación y haga click en ‘SUBIR FOTO’.",
+            "a": "Asegúrese de que la foto muestre toda la tira, incluyendo las marcas. ",
+            "b":  "Tome la foto y haga click en la ’SIGUIENTE’."
+        },
+        "six": "Coloque la tira en la bolsa y descartela en la basura."
 
     }
 }
