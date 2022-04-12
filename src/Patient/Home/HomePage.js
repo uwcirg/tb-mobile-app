@@ -11,11 +11,12 @@ import VideoCard from './Videos';
 import RequiresAction from './MissedActions';
 import PushNotificationEnrollment from './PushEnrollmentReminder';
 import { makeStyles } from '@material-ui/core/styles';
+import isIndonesiaPilot from '../../Utility/CheckIfIndonesiaPilot';
+import IndonesiaPatientHome from '../../Indonesia';
 
 const useStyles = makeStyles({
   body: {
     width: '100%',
-    minHeight: '90vh',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
@@ -26,6 +27,11 @@ const useStyles = makeStyles({
 
 const HomePage = () => {
   const classes = useStyles();
+
+  if(isIndonesiaPilot){
+    return <IndonesiaPatientHome />
+  }
+
   return (
     <div className={classes.body}>
       {/* Some of these components are conditionally rendered within thier implementaion */}
