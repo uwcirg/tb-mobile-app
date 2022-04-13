@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, makeStyles, Typography, Box } from '@material-ui/core';
+import { makeStyles, Typography, Box } from '@material-ui/core';
 
 const useStyles = makeStyles({
     pageItem:{
@@ -7,7 +7,8 @@ const useStyles = makeStyles({
         flexBasis: "45%",
         padding: "1em",
         boxSizing: "border-box",
-        backgroundColor: "lightgray"
+        backgroundColor: "lightgray",
+        minHeight: "150px"
     },
     container:{
         padding: "1em",
@@ -18,7 +19,7 @@ const useStyles = makeStyles({
     }
 })
 
-const IndonesiaPatientHome = () => {
+const IndonesiaSettingsPage = () => {
 
     const classes = useStyles();
 
@@ -40,4 +41,4 @@ const PageItem = ({text}) => {
 
 }
 
-export default IndonesiaPatientHome;
+export default IndonesiaSettingsPage;

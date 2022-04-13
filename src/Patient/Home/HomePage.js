@@ -12,7 +12,7 @@ import RequiresAction from './MissedActions';
 import PushNotificationEnrollment from './PushEnrollmentReminder';
 import { makeStyles } from '@material-ui/core/styles';
 import isIndonesiaPilot from '../../Utility/CheckIfIndonesiaPilot';
-import IndonesiaPatientHome from '../../Indonesia';
+import IndonesiaPatientHome from '../../Indonesia/Settings';
 
 const useStyles = makeStyles({
   body: {
@@ -27,10 +27,6 @@ const useStyles = makeStyles({
 
 const HomePage = () => {
   const classes = useStyles();
-
-  if(isIndonesiaPilot){
-    return <IndonesiaPatientHome />
-  }
 
   return (
     <div className={classes.body}>
