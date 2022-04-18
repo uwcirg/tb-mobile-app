@@ -44,7 +44,7 @@ const PatientCard = ({ patient }) => {
             <Box flexGrow={1} />
             <Typography>{patient.adherence}</Typography>
         </Grid>
-        <Box>
+        <Box padding=".5em 0">
             <Typography className={classes.messaged}><strong>Messaged:</strong> 1 day ago</Typography>
         </Box>
         <Grid alignItems='center' wrap="nowrap" container className={classes.bottomSection}>
