@@ -3,6 +3,7 @@ import { makeStyles, Grid, IconButton, Box, Typography } from '@material-ui/core
 import { Check, Message } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import Colors from '../../Basics/Colors';
+import IssueArea from './IssueArea';
 
 const useStyles = makeStyles({
     container: {
@@ -15,9 +16,15 @@ const useStyles = makeStyles({
         }
     },
     name:{
-        fontSize: "1em",
+        fontSize: "1.25em",
         color: Colors.buttonBlue
-
+    },
+    bottomSection:{
+        width: "100%"
+    },
+    messaged:{
+        fontSize: ".9em",
+        color: Colors.textDarkGray
     }
 })
 
@@ -37,7 +44,11 @@ const PatientCard = ({ patient }) => {
             <Box flexGrow={1} />
             <Typography>{patient.adherence}</Typography>
         </Grid>
-        <Grid container style={{width: "100%"}}>
+        <Box>
+            <Typography className={classes.messaged}><strong>Messaged:</strong> 1 day ago</Typography>
+        </Box>
+        <Grid alignItems='center' wrap="nowrap" container className={classes.bottomSection}>
+            <IssueArea />
             <Box flexGrow={1} />
             <ButtonArea />
         </Grid>
