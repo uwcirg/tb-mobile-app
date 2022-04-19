@@ -16,8 +16,7 @@ const PractitionerHome = () => {
 
     const { data, refresh, error, loading } = useRequestInitalData(PractitionerAPI.getPatients)
 
-    return (
-        <div>
+    return (<div>
             <OverTopBar hideIconButton title={<Grid alignItems='center' container>
                     Review Patients
                 <IconButton onClick={refresh}>
@@ -28,6 +27,7 @@ const PractitionerHome = () => {
             {loading && <p>Data is loading</p>}
             {data && <>
                 <Grid direction="column">
+                    <Box height={".5em"} aria-hidden />
                     {data.map(patient => {
                         return <Box padding='0 .5em .5em .5em'>
                             <PatientCard key={`review-patient-${patient.id}`} patient={patient} />
@@ -35,11 +35,7 @@ const PractitionerHome = () => {
                     })}
                     <Box height="60px" aria-hidden />
                 </Grid>
-            </>
-            }
-        </div>
-    )
-
+            </>}</div>)
 }
 
 export default PractitionerHome;

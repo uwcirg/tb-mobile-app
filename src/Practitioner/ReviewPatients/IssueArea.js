@@ -10,32 +10,47 @@ const useStyles = makeStyles({
             fontSize: "1.5em",
             color: Colors.textGray
         }
+    },
+    badge: {
+        backgroundColor: "white"
     }
 })
 
-const IssueArea = (props) => {
+const issueIconMap = {
+    missedMedication: <Pill />,
+    reportedSymptoms: <Assignment />,
+    hasUnreviewedPhoto: <CameraAlt />,
+    reportedFeelingBad: <SentimentDissatisfied />
+}
+
+const getIssues = (patient) => {
+    return([{icon: issueIconMap.missedMedication, number: 2},{icon: issueIconMap.reportedSymptoms, number: 1}])
+}
+
+const IssueArea = ({patient}) => {
 
     const classes = useStyles();
-
-    const icons = [<Pill />,
-    <Assignment />,
-    <CameraAlt />,
-    <SentimentDissatisfied />]
+    const issues = getIssues(patient);
 
     return (<Grid className={classes.issueContainer} container>
-        {icons.map((_icon,index) => {return(<CustomBadge key={`issue-icon-${index}`}>{_icon}</CustomBadge>)})}
+        {issues.map((item, index) => { return (<CustomBadge key={`issue-icon-${index}-${patient.id}`}>{item.icon}</CustomBadge>) })}
     </Grid>)
 
 }
 
 const CustomBadge = (props) => {
+
+    const classes = useStyles();
+
     return (
         <>
-        <Badge {...props} anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-        }} badgeContent={1} />
-        <Box width=".5em" />
+            <Badge {...props} anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+            }} badgeContent={1}
+                classes={{ badge: classes.badge }}
+            />
+            <Box width=".5em" />
         </>
     )
 }

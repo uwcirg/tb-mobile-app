@@ -4,11 +4,12 @@ import { Check, Message } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import Colors from '../../Basics/Colors';
 import IssueArea from './IssueArea';
+import AdherenceLabel from './AdherenceLabel';
 
 const useStyles = makeStyles({
     container: {
         width: "100%",
-        backgroundColor: Colors.lighterGray,
+        backgroundColor: "white",
         boxSizing: "border-box",
         boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.15)",
         "& a, & a:visited":{
@@ -42,13 +43,13 @@ const PatientCard = ({ patient }) => {
               <Typography className={classes.name} >{patient.fullName}</Typography>  
                 </Link>
             <Box flexGrow={1} />
-            <Typography>{patient.adherence}</Typography>
+            <AdherenceLabel patient={patient} />
         </Grid>
         <Box padding=".5em 0">
             <Typography className={classes.messaged}><strong>Messaged:</strong> 1 day ago</Typography>
         </Box>
         <Grid alignItems='center' wrap="nowrap" container className={classes.bottomSection}>
-            <IssueArea />
+            <IssueArea patient={patient} />
             <Box flexGrow={1} />
             <ButtonArea />
         </Grid>
