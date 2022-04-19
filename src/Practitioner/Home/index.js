@@ -5,37 +5,43 @@ import useRequestInitalData from '../../Hooks/useRequestInitalData';
 import PatientCard from '../ReviewPatients/PatientCard';
 import { Refresh } from '@material-ui/icons';
 import OverTopBar from '../../Patient/Navigation/OverTopBar';
+import useStores from '../../Basics/UseStores';
+import MessagingPopover from '../ReviewPatients/MessagingPopover';
+import { observer } from 'mobx-react';
 
 const useStyles = makeStyles({
 
 })
 
-const PractitionerHome = () => {
+const PractitionerHome = observer(() => {
 
     const classes = useStyles();
-
+    const { uiStore } = useStores();
     const { data, refresh, error, loading } = useRequestInitalData(PractitionerAPI.getPatients)
 
+    const channelId =  new URLSearchParams(uiStore.urlSearchParams).get('onMessagingChannelId')
+
     return (<div>
-            <OverTopBar hideIconButton title={<Grid alignItems='center' container>
-                    Review Patients
-                <IconButton onClick={refresh}>
-                    <Refresh />
-                </IconButton>
-            </Grid>} />
-            <Box aria-hidden height="60px" />
-            {loading && <p>Data is loading</p>}
-            {data && <>
-                <Grid direction="column">
-                    <Box height={".5em"} aria-hidden />
-                    {data.map(patient => {
-                        return <Box padding='0 .5em .5em .5em'>
-                            <PatientCard key={`review-patient-${patient.id}`} patient={patient} />
-                        </Box>
-                    })}
-                    <Box height="60px" aria-hidden />
-                </Grid>
-            </>}</div>)
-}
+        <MessagingPopover channelId={channelId} open={!!channelId} />
+        <OverTopBar hideIconButton title={<Grid alignItems='center' container>
+            Review Patients
+            <IconButton onClick={refresh}>
+                <Refresh />
+            </IconButton>
+        </Grid>} />
+        <Box aria-hidden height="60px" />
+        {loading && <p>Data is loading</p>}
+        {data && <>
+            <Grid container direction="column">
+                <Box height={".5em"} aria-hidden />
+                {data.map(patient => {
+                    return <Box key={`review-patient-${patient.id}`} padding='0 .5em .5em .5em'>
+                        <PatientCard patient={patient} />
+                    </Box>
+                })}
+                <Box height="60px" aria-hidden />
+            </Grid>
+        </>}</div>)
+})
 
 export default PractitionerHome;

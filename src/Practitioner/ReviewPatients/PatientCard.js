@@ -51,16 +51,16 @@ const PatientCard = ({ patient }) => {
         <Grid alignItems='center' wrap="nowrap" container className={classes.bottomSection}>
             <IssueArea patient={patient} />
             <Box flexGrow={1} />
-            <ButtonArea />
+            <ButtonArea patient={patient} />
         </Grid>
     </Box>)
 
 }
 
-const ButtonArea = () => {
+const ButtonArea = ({patient}) => {
     return (
         <>
-            <IconButton style={{backgroundColor: 'rgba(66, 133, 244, 0.15)', padding: ".25em"}}>
+            <IconButton component={Link} to={`?onMessagingChannelId=${patient.channelId}`} style={{backgroundColor: 'rgba(66, 133, 244, 0.15)', padding: ".25em"}}>
                 <Message style={{color: Colors.buttonBlue}} />
             </IconButton>
             <Box width=".5em" />

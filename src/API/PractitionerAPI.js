@@ -8,5 +8,9 @@ export default class PractitionerAPI{
         return api.executeRawRequest("/v2/patients")
     }
 
+    static async getMessages(channelId){
+        return api.executeRawRequest(`/v2/channel/${channelId}/messages`)
+    }
+
 
 }
