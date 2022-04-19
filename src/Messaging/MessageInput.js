@@ -11,6 +11,7 @@ import Clear from '@material-ui/icons/Clear'
 import ButtonBase from '@material-ui/core/ButtonBase'
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress'
+import { Box } from '@material-ui/core'
 
 const useStyles = makeStyles({
     container: {
@@ -88,8 +89,8 @@ export const toBase64 = file => new Promise((resolve, reject) => {
 
 const MessageInput = observer((props) => {
 
-   
-    const { t, i18n } = useTranslation('translation');
+
+    const { t } = useTranslation('translation');
 
     const [preview, setPreview] = useState(false);
 
@@ -111,42 +112,58 @@ const MessageInput = observer((props) => {
 
     return (
         <>
-        { !(messagingStore.fileUploading || messagingStore.newMessageLoading) ?
-        <>
-            {preview && <ImagePreview close={() => { setPreview(true) }} />}
-            <div className={classes.container}>
-                {messagingStore.file &&
-                    <div className={classes.imagePreview}><img src={messagingStore.file} ></img>
-                        <div className={classes.imageText}>
-                            <p>Image will be sent with message</p>
-                            <ButtonBase onClick={messagingStore.toggleImagePreview} className={classes.viewLarger}>View Larger</ButtonBase>
+            {!(messagingStore.fileUploading || messagingStore.newMessageLoading) ?
+                <>
+                    {preview && <ImagePreview close={() => { setPreview(true) }} />}
+                    <div className={classes.container}>
+                        {messagingStore.file &&
+                            <div className={classes.imagePreview}><img src={messagingStore.file} ></img>
+                                <div className={classes.imageText}>
+                                    <p>{t('messaging.imageWillSend')}</p>
+                                    <ButtonBase onClick={messagingStore.toggleImagePreview} className={classes.viewLarger}>{t('coordinator.sideBar.expandPhoto')}</ButtonBase>
+                                </div>
+                                <IconButton onClick={messagingStore.clearFile}>
+                                    <Clear />
+                                </IconButton>
+                            </div>}
+                        <div className={classes.base}>
+                            <input accept="image/*" className={classes.input} onChange={handleFileInput} id="icon-button-file" type="file" />
+                            <label htmlFor="icon-button-file">
+                                <IconButton onClick={messagingStore.getUploadUrl} color="primary" aria-label="upload picture" component="span">
+                                    <Photo />
+                                </IconButton>
+                            </label>
+                            <InputBase
+                                value={props.value}
+                                className={classes.input}
+                                placeholder={t('messaging.typeHere')}
+                                inputProps={{ 'aria-label': 'message input' }}
+                                multiline
+                                onChange={handleChange}
+                            />
+                            <IconButton disabled={props.disableSend} onClick={props.handleSend} className={classes.send}><SendIcon /></IconButton>
                         </div>
-                        <IconButton onClick={messagingStore.clearFile}>
-                            <Clear />
+                    </div>
+                </> :
+                <div className={classes.container}>
+                    <div className={classes.base}>
+                        <IconButton disabled>
+                            <Photo style={{ color: "gray" }} />
                         </IconButton>
-                    </div>}
-                <div className={classes.base}>
-                    <input accept="image/*" className={classes.input} onChange={handleFileInput} id="icon-button-file" type="file" />
-                    <label htmlFor="icon-button-file">
-                        <IconButton onClick={messagingStore.getUploadUrl} color="primary" aria-label="upload picture" component="span">
-                            <Photo />
-                        </IconButton>
-                    </label>
-                    <InputBase
-                        value={props.value}
-                        className={classes.input}
-                        placeholder={t('messaging.typeHere')}
-                        inputProps={{ 'aria-label': 'message input' }}
-                        multiline
-                        onChange={handleChange}
-                    />
-                    <IconButton disabled={props.disableSend} onClick={props.handleSend} className={classes.send}><SendIcon /></IconButton>
-                </div>
-            </div>
-        </> : <div>
-            <span>Sending...</span>
-            <CircularProgress color="secondary" />
-            </div>}
+                        <InputBase
+                            disabled
+                            value={t('messaging.sending')}
+                            className={classes.input}
+                            placeholder={t('messaging.typeHere')}
+                            inputProps={{ 'aria-label': 'message input' }}
+                            multiline
+                            onChange={handleChange}
+                        />
+                        <Box paddingRight="1em">
+                            <CircularProgress size="30px" variant='indeterminate' />
+                        </Box>
+                    </div>
+                </div>}
         </>
     )
 

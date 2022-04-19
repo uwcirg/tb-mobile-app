@@ -98,7 +98,9 @@
         "found": "Found",
         "empty": "No messages have been sent yet. Send the first one!",
         "private": "Private",
-        "clinicChat": "Assistants and patients at your clinic"
+        "clinicChat": "Assistants and patients at your clinic",
+        "imageWillSend": "Image will be sent with message",
+        "sending": "Sending"
     },
     "time": {
         "day": "day",
@@ -362,7 +364,7 @@
                 "how": "How do I take the test?",
                 "help": {
                     "remember": "Please remember to",
-                    "wait": "Let the test strip sit for 15 minutes",
+                    "wait": "Let the test strip sit for 20 minutes before taking a photo",
                     "straight": "Capture the photo straight above the test strip",
                     "retakeIf": "Retake photo if it is blurry or the square marker is not visible",
                     "instructions": "View Test Strip Instructions"
@@ -917,7 +919,8 @@
             "withdraw": "Withdraw",
             "lost-to-follow-up": "Lost to follow up",
             "transferred": "Transfered",
-            "deceased": "Deceased"
+            "deceased": "Deceased",
+            "refuse-to-use-app": "Refuse to use app"
         },
         "complete": "Complete",
         "endSurvey": "Survey",
@@ -994,6 +997,7 @@
 
     },
     "redoPhoto":{
+        "viewMyPhotos": "View photo submssions",
         "title": "Resubmit test strip",
         "subtitle": "Review the issue your treatment supporter identified",
         "flag": "Resubmission",
@@ -1006,5 +1010,19 @@
         "notDetected": "Not detected",
         "ask": "Ask patient to resubmit test",
         "attachMessage": "Message to patient"
+    },
+    "testStripInstructions":{
+        "imgSrc": "/img/en/v3-strip-instructions.jpg",
+        "one": "Collect a small amount of urine in a container (about 2 fingers deep)",
+        "two": "Take the test out of the bag",
+        "three": "Dip the strip into the urine for about 2 seconds to the line marked dip. Do not let the test for longer than 2 seconds in the urine.",
+        "four": "Wait 20 minutes for the test to process before proceeding",
+        "five" : {
+            "main": "Open the application and click \"Submit Photo\".",
+            "a": "Make sure the photo shows the entire strip, including the barcodes.",
+            "b":  "Take the picture and click \"Next\"."
+        },
+        "six": "Put the test back in its bag and discard in the trash"
+
     }
 }

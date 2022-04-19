@@ -1,16 +1,16 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid'
+import { makeStyles, Box, ButtonBase, Collapse, Typography, Grid } from '@material-ui/core';
+
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import Colors from '../../../Basics/Colors';
-import { Box, ButtonBase, Collapse, Grow, Typography } from '@material-ui/core';
-import EditIcon from '@material-ui/icons/Edit';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
-import Review from './ReviewSubmission';
-import useToggle from '../../../Hooks/useToggle';
+import EditIcon from '@material-ui/icons/Edit';
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
-import { useTranslation } from 'react-i18next';
+
 import useStores from '../../../Basics/UseStores';
+import Colors from '../../../Basics/Colors';
+import useToggle from '../../../Hooks/useToggle';
+import Review from './ReviewSubmission';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
     container: {
@@ -59,8 +59,6 @@ const PartialConfirmation = ({ isPhoto = false }) => {
         }
     }
 
-
-
     return (<div>
         <Grid wrap="nowrap" className={classes.container} container alignItems="center">
             <CheckCircleIcon fontSize="large" style={{ color: Colors.green }} />
@@ -76,7 +74,6 @@ const PartialConfirmation = ({ isPhoto = false }) => {
             <Review />
         </Collapse>
     </div>)
-
 }
 
 const PhotoButtonContent = () => {

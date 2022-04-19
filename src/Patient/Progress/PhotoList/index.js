@@ -16,9 +16,9 @@ const useStyles = makeStyles({
     }
 })
 
-const PhotoList = ({ initalPhotos = [] }) => {
+const PhotoList = () => {
 
-    return (<PhotoReportsProvider initalPhotos={initalPhotos} listComponent={<ListComponent />} />)
+    return (<PhotoReportsProvider listComponent={<ListComponent />} />)
 
 }
 

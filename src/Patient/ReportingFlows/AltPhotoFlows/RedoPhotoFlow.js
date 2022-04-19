@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import Confirmation from './Confirmation';
 import ErrorMessage from './ErrorMessage';
 import PreSubmissionView from './PreSubmissionView';
+import capitalizeFirstLetter from '../../../Utility/StringUtils';
 
 const useStyles = makeStyles({
     container: {
@@ -52,7 +53,7 @@ const RedoPhotoFlow = observer(() => {
     }
 
     return (<>
-        <OverTopBar notFixed handleBack={patientUIStore.goToHome} title={t('redoPhoto.title')} />
+        <OverTopBar notFixed handleBack={patientUIStore.goToHome} title={ capitalizeFirstLetter(t('photoReportReview.resubmit'))} />
         <div className={classes.container}>
             {response ? <PostSubmissionView response={response} /> :
                 <PreSubmissionView

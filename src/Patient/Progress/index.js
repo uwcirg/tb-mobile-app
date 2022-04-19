@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import {makeStyles, Grid, Typography} from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Typography from '@material-ui/core/Typography';
 import DayDrawer from './DayDrawer';
 import useStores from '../../Basics/UseStores';
+import PreventOffline from '../../Basics/PreventOffline';
+
 import { observer } from 'mobx-react'
 import CustomCalendar from './Calendar';
 import MedicationFlow from '../ReportingFlows';
 import { useTranslation } from 'react-i18next';
 import ClickableText from '../../Basics/ClickableText';
-import QuestionIcon from '@material-ui/icons/HelpOutline';
+
 import Key from './Key';
-import PreventOffline from '../../Basics/PreventOffline';
-import Grid from '@material-ui/core/Grid';
 import Tabs from './Tabs';
 import PhotoList from './PhotoList/';
+
+import QuestionIcon from '@material-ui/icons/HelpOutline';
+
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -80,12 +82,11 @@ const Progress = observer(() => {
 const ProgressPage = observer(() => {
     
     const { t } = useTranslation('translation');
-    const { patientStore, uiStore} = useStores();
-    const { photoReports } = patientStore;
+    const { uiStore} = useStores();
     const activeTab = uiStore.pathname === "/progress/photos" ? 1 : 0;
 
     return (<PreventOffline type={t('patient.tabNames.calendar')}>
-        <Tabs content={[<Progress />, <PhotoList initalPhotos={photoReports} />]} activeTab={activeTab} />
+        <Tabs content={[<Progress />, <PhotoList />]} activeTab={activeTab} />
     </PreventOffline>)
 })
 

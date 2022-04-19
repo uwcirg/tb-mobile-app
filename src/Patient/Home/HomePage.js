@@ -1,6 +1,6 @@
 import React from 'react';
 import Progress from './Progress';
-import ActionBox from './OneStepActions/';
+import OneStepActions from './OneStepActions/';
 import Alerts from './Alerts';
 import Colors from '../../Basics/Colors';
 import Greeting from './Greeting';
@@ -12,7 +12,7 @@ import TestInstructions from './TestInstructions';
 import RequiresAction from './MissedActions';
 import PushNotificationEnrollment from './PushEnrollmentReminder';
 import { makeStyles } from '@material-ui/core/styles';
-import OneStepReportingUpdate from './OneStepReportingUpdate';
+import ActionBox from './OneStepActions/';
 
 const useStyles = makeStyles({
   body: {
@@ -22,9 +22,9 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: Colors.backgroundGray
-  }
-})
+    backgroundColor: Colors.backgroundGray,
+  },
+});
 
 const HomePage = () => {
   const classes = useStyles();
@@ -35,6 +35,7 @@ const HomePage = () => {
       <Greeting />
       <ActionBox />
       <TestInstructions />
+      <OneStepActions />
       <CachedReports />
       <RequiresAction />
       <VideoCard />
@@ -43,9 +44,7 @@ const HomePage = () => {
       <MedicationReminder />
       <Reminders />
     </div>
-  )
-
+  );
 };
 
 export default HomePage;
-
