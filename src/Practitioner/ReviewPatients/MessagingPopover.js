@@ -22,7 +22,9 @@ const ChannelDisplay = observer(({channelId}) => {
     },[])
 
     return(
-        <Channel isCoordinator isPrivate selectedChannel={messagingStore.selectedChannel} userId={practitionerStore.userId} />
+        <>
+        {messagingStore.selectedChannel.id && <Channel isCoordinator isPrivate selectedChannel={messagingStore.selectedChannel} userId={practitionerStore.userId} />}
+        </>
     )
 });
 
