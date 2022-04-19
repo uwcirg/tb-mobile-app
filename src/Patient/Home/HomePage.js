@@ -8,6 +8,7 @@ import Reminders from './Reminders';
 import MedicationReminder from './MedicationReminder';
 import CachedReports from './CachedReports';
 import VideoCard from './Videos';
+import TestInstructions from './TestInstructions';
 import RequiresAction from './MissedActions';
 import PushNotificationEnrollment from './PushEnrollmentReminder';
 import { makeStyles } from '@material-ui/core/styles';
@@ -33,6 +34,7 @@ const HomePage = () => {
       <PushNotificationEnrollment />
       <Greeting />
       <ActionBox />
+      <TestInstructions />
       <CachedReports />
       <RequiresAction />
       <VideoCard />

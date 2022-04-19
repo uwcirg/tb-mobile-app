@@ -21,6 +21,9 @@ import MissedPhotoFlow from './ReportingFlows/AltPhotoFlows';
 import PushActionReportingFlow from './ReportingFlows/PushActionReportingFlow';
 import Box from '@material-ui/core/Box';
 import RedoPhotoFlow from './ReportingFlows/AltPhotoFlows/RedoPhotoFlow';
+import OverTopBar from './Navigation/OverTopBar';
+import TestInstructions from './Home/TestInstructions';
+import TestSteps from './Home/TestSteps';
 
 const PatientHome = observer(() => {
 
@@ -84,6 +87,11 @@ const PatientHome = observer(() => {
     return <MissedPhotoFlow />
   }
 
+  if(uiStore.pathname.startsWith("/test-instructions")){
+    return <div>
+      <TestSteps />
+    </div>
+  }
 
   if (uiStore.pathname.startsWith("/redo-photo")) {
     return <RedoPhotoFlow/>
