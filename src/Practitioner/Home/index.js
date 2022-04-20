@@ -8,6 +8,7 @@ import OverTopBar from '../../Patient/Navigation/OverTopBar';
 import useStores from '../../Basics/UseStores';
 import MessagingPopover from '../ReviewPatients/MessagingPopover';
 import { observer } from 'mobx-react';
+import LoadingPatients from '../ReviewPatients/LoadingPatients';
 
 const useStyles = makeStyles({
 
@@ -33,7 +34,7 @@ const PractitionerHome = observer(() => {
             </IconButton>
         </Grid>} />
         <Box aria-hidden height="60px" />
-        {loading && <p>Data is loading</p>}
+        {loading && <LoadingPatients />}
         {data && <>
             <Grid container direction="column">
                 <Box height={".5em"} aria-hidden />
