@@ -67,7 +67,7 @@ const OverTopBar = (props) => {
 OverTopBar.propTypes = {
   hideIconButton: PropTypes.bool,
   reverse: PropTypes.bool,
-  title: PropTypes.string,
+  title: PropTypes.any,
   handleBack: PropTypes.func,
   notFixed: PropTypes.bool
 

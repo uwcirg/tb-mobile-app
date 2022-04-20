@@ -20,9 +20,12 @@ const PractitionerHome = observer(() => {
     const { data, refresh, error, loading } = useRequestInitalData(PractitionerAPI.getPatients)
 
     const channelId =  new URLSearchParams(uiStore.urlSearchParams).get('onMessagingChannelId')
+    const channelName = data?.find( each => {
+        return each.channelId === parseInt(channelId)
+    })?.fullName
 
     return (<div>
-        <MessagingPopover channelId={channelId} open={!!channelId} />
+        <MessagingPopover channelName={channelName} channelId={channelId} open={!!channelId} />
         <OverTopBar hideIconButton title={<Grid alignItems='center' container>
             Review Patients
             <IconButton onClick={refresh}>
