@@ -9,31 +9,46 @@ import useStores from '../../Basics/UseStores';
 import MessagingPopover from '../ReviewPatients/MessagingPopover';
 import { observer } from 'mobx-react';
 import LoadingPatients from '../ReviewPatients/LoadingPatients';
+import ReviewPatientTabs from '../ReviewPatients/Tabs';
 
 const useStyles = makeStyles({
 
 })
 
+const TopBar = ({ refresh }) => {
+    return (
+        <>
+            <OverTopBar hideIconButton title={<Grid alignItems='center' container>
+                Review Patients
+                <IconButton onClick={refresh}>
+                    <Refresh />
+                </IconButton>
+            </Grid>} />
+            <Box aria-hidden height="60px" />
+        </>)
+}
+
 const PractitionerHome = observer(() => {
 
     const classes = useStyles();
     const { uiStore } = useStores();
-    const { data, refresh, error, loading } = useRequestInitalData(PractitionerAPI.getPatients)
+    const { data, refresh, loading } = useRequestInitalData(PractitionerAPI.getPatients)
 
-    const channelId =  new URLSearchParams(uiStore.urlSearchParams).get('onMessagingChannelId')
-    const channelName = data?.find( each => {
+
+    const value = uiStore.pathname === "/home/reviewed" ? 1 : 0
+
+    const channelId = new URLSearchParams(uiStore.urlSearchParams).get('onMessagingChannelId')
+    const channelName = data?.find(each => {
         return each.channelId === parseInt(channelId)
     })?.fullName
 
+    // const patientsToDisplay = data.filter(_patient => {return })
+
     return (<div>
+        {/* <TopBar refresh={refresh} /> */}
+        <ReviewPatientTabs value={value} />
+        <Box height="48px" />
         <MessagingPopover channelName={channelName} channelId={channelId} open={!!channelId} />
-        <OverTopBar hideIconButton title={<Grid alignItems='center' container>
-            Review Patients
-            <IconButton onClick={refresh}>
-                <Refresh />
-            </IconButton>
-        </Grid>} />
-        <Box aria-hidden height="60px" />
         {loading && <LoadingPatients />}
         {data && <>
             <Grid container direction="column">
@@ -45,7 +60,8 @@ const PractitionerHome = observer(() => {
                 })}
                 <Box height="60px" aria-hidden />
             </Grid>
-        </>}</div>)
+        </>}
+        </div>)
 })
 
 export default PractitionerHome;
