@@ -32,7 +32,7 @@ const PractitionerHome = observer(() => {
 
     const classes = useStyles();
     const { uiStore } = useStores();
-    const { data, refresh, loading } = useRequestInitalData(PractitionerAPI.getPatients)
+    const { data, refresh, loading } = useRequestInitalData(PractitionerAPI.getPatientIssues)
 
 
     const value = uiStore.pathname === "/home/reviewed" ? 1 : 0

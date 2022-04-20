@@ -7,6 +7,8 @@ import IssueArea from './IssueArea';
 import AdherenceLabel from './AdherenceLabel';
 import { daysSinceISODateTime } from '../../Utility/TimeUtils';
 import { useTranslation } from 'react-i18next';
+import useAsync from '../../Hooks/useAsync';
+import PractitionerAPI from '../../API/PractitionerAPI';
 
 const useStyles = makeStyles({
     container: {
@@ -36,6 +38,12 @@ const PatientCard = ({ patient }) => {
     const classes = useStyles();
     const { t } = useTranslation('translation');
 
+    const resolvePatient = async () => {
+        return PractitionerAPI.resolvePatient(patient.id);
+    }
+
+    const { execute, status, value, error } = useAsync(resolvePatient, false);
+
     if (!patient) {
         return <p>Error</p>
     }
@@ -59,20 +67,20 @@ const PatientCard = ({ patient }) => {
         <Grid alignItems='center' wrap="nowrap" container className={classes.bottomSection}>
             <IssueArea patient={patient} />
             <Box flexGrow={1} />
-            <ButtonArea patient={patient} />
+            <ButtonArea patient={patient} resolvePatient={execute} />
         </Grid>
     </Box>)
 
 }
 
-const ButtonArea = ({ patient }) => {
+const ButtonArea = ({ patient, resolvePatient }) => {
     return (
         <>
             <IconButton component={Link} to={`?onMessagingChannelId=${patient.channelId}`} style={{ backgroundColor: 'rgba(66, 133, 244, 0.15)', padding: ".25em" }}>
                 <Message style={{ color: Colors.buttonBlue }} />
             </IconButton>
             <Box width=".5em" />
-            <IconButton style={{ backgroundColor: Colors.calendarGreen, padding: ".25em" }}>
+            <IconButton onClick={resolvePatient} style={{ backgroundColor: Colors.calendarGreen, padding: ".25em" }}>
                 <Check style={{ color: Colors.approvedGreen }} />
             </IconButton>
         </>
