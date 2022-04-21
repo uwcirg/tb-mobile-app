@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles, Grid, Box, IconButton } from '@material-ui/core';
 import PractitionerAPI from '../../API/PractitionerAPI';
 import PatientCard from '../ReviewPatients/PatientCard';
@@ -56,6 +56,10 @@ const PractitionerHome = observer(() => {
         tempValue[indexOfPatient].lastGeneralResolution = DateTime.local().toISO()
         setValue(tempValue)
     }
+
+    useEffect(()=>{
+        if(!!channelId){execute()}
+    },[channelId])
 
     return (<div>
         {/* <TopBar refresh={refresh} /> */}

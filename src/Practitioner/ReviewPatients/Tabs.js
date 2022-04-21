@@ -60,7 +60,7 @@ const ReviewPatientTabs = observer(({value}) => {
 
     const classes = useStyles();
 
-    return (<AppBar className={classes.root} color="default">
+    return (<AppBar elevation={1} className={classes.root} color="default">
         <Tabs
             value={value}
             indicatorColor="primary"

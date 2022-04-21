@@ -9,6 +9,7 @@ import { daysSinceISODateTime } from '../../Utility/TimeUtils';
 import { useTranslation } from 'react-i18next';
 import useAsync from '../../Hooks/useAsync';
 import PractitionerAPI from '../../API/PractitionerAPI';
+import TreatmentWeek from './TreatmentWeek';
 
 const useStyles = makeStyles({
     container: {
@@ -70,12 +71,16 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed }) => {
     return (
         <Collapse onExited={handleExit} in={!reviewed}>
             <Box className={classes.container} padding=".75em">
-                {success ? <p>Successfully Reviewed</p> : <>
-                    <Grid container wrap='nowrap'>
+                {success ? <Grid container alignItems='center' style={{height: "100%", width: "100%"}}>
+                    <p>Review Submitted</p>
+                </Grid> : <>
+                    <Grid alignItems='center' container wrap='nowrap'>
                         <Link to={`/patients/${patient.id}`}>
                             <Typography className={classes.name} >{patient.fullName}</Typography>
                         </Link>
                         <Box flexGrow={1} />
+                        <TreatmentWeek patient={patient} />
+                        <Box width=".5em" />
                         <AdherenceLabel patient={patient} />
                     </Grid>
                     <Typography className={classes.messaged}>
@@ -91,7 +96,6 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed }) => {
             </Box>
         </Collapse>
     )
-
 }
 
 const ButtonArea = ({ patient, resolvePatient, loading, isReviewed }) => {
