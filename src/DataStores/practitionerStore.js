@@ -160,7 +160,6 @@ export class PractitionerStore extends UserStore {
     @action
     initalize() {
         this.userType = "Practitioner"
-        this.getPatients();
         super.initalize();
     }
 

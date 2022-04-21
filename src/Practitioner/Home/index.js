@@ -9,7 +9,7 @@ import MessagingPopover from '../ReviewPatients/MessagingPopover';
 import { observer } from 'mobx-react';
 import LoadingPatients from '../ReviewPatients/LoadingPatients';
 import ReviewPatientTabs from '../ReviewPatients/Tabs';
-import {DateTime} from 'luxon';
+import { DateTime } from 'luxon';
 import useAsync from '../../Hooks/useAsync';
 
 const useStyles = makeStyles({
@@ -19,13 +19,13 @@ const useStyles = makeStyles({
 const TopBar = ({ refresh }) => {
     return (
         <>
-            <OverTopBar hideIconButton title={<Grid alignItems='center' container>
+            <OverTopBar notFixed hideIconButton title={<Grid alignItems='center' container>
                 Review Patients
                 <IconButton onClick={refresh}>
                     <Refresh />
                 </IconButton>
             </Grid>} />
-            <Box aria-hidden height="60px" />
+
         </>)
 }
 
@@ -36,7 +36,7 @@ const wasToday = (isoTime) => {
 const PractitionerHome = observer(() => {
 
     const { uiStore } = useStores();
-    const { value, execute, status, setValue } = useAsync(PractitionerAPI.getPatientIssues,true)
+    const { value, execute, status, setValue } = useAsync(PractitionerAPI.getPatientIssues, true)
 
     const tabValue = uiStore.pathname === "/home/reviewed" ? 1 : 0
 
@@ -45,24 +45,23 @@ const PractitionerHome = observer(() => {
         return each.channelId === parseInt(channelId)
     })?.fullName
 
-    const patientsToDisplay = (value || []).filter( _patient => { 
+    const patientsToDisplay = (value || []).filter(_patient => {
         const alreadyReviewed = wasToday(_patient.lastGeneralResolution);
-        return tabValue === 0 ? !alreadyReviewed : alreadyReviewed 
+        return tabValue === 0 ? !alreadyReviewed : alreadyReviewed
     })
 
     const markPatientAsReviewed = (patientId) => {
         let tempValue = [...value]
-        const indexOfPatient = tempValue.findIndex(each => {return each.id === patientId})
+        const indexOfPatient = tempValue.findIndex(each => { return each.id === patientId })
         tempValue[indexOfPatient].lastGeneralResolution = DateTime.local().toISO()
         setValue(tempValue)
     }
 
-    useEffect(()=>{
-        if(!!channelId){execute()}
-    },[channelId])
+    useEffect(() => {
+        if (!!channelId) { execute() }
+    }, [channelId])
 
     return (<div>
-        {/* <TopBar refresh={refresh} /> */}
         <ReviewPatientTabs value={tabValue} />
         <Box height="48px" />
         <MessagingPopover channelName={channelName} channelId={channelId} open={!!channelId} />
@@ -78,7 +77,7 @@ const PractitionerHome = observer(() => {
                 <Box height="60px" aria-hidden />
             </Grid>
         </>}
-        </div>)
+    </div>)
 })
 
 export default PractitionerHome;

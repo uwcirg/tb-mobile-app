@@ -17,15 +17,6 @@ const PractitionerBody = observer(() => {
     const { location, push, goBack } = routingStore;
     const { t, i18n } = useTranslation('translation');
 
-    //Handle Patient Link
-    const handlePatientClick = (id) => {
-        push(`/patients/${id}`)
-    }
-
-    useEffect(()=>{
-        messagingStore.getUnreadMessages();
-    },[])
-
     let view = <Home />
 
     if (practitionerUIStore.onSettings) view = <Settings />
