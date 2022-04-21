@@ -32,7 +32,7 @@ const useAsync = (asyncFunction, immediate = true) => {
         execute();
       }
     }, [execute, immediate]);
-    return { execute, status, value, error };
+    return { execute, status, value, error, setValue };
   };
 
   export default useAsync;

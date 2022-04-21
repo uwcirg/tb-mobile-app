@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles, Grid, IconButton, Box, Typography } from '@material-ui/core';
 import { Check, Message } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
@@ -33,7 +33,7 @@ const useStyles = makeStyles({
     }
 })
 
-const PatientCard = ({ patient }) => {
+const PatientCard = ({ patient, markPatientAsReviewed }) => {
 
     const classes = useStyles();
     const { t } = useTranslation('translation');
@@ -43,6 +43,12 @@ const PatientCard = ({ patient }) => {
     }
 
     const { execute, status, value, error } = useAsync(resolvePatient, false);
+
+    useEffect(()=>{
+        if(status === "success"){
+            markPatientAsReviewed(patient.id);
+        }
+    },[status])
 
     if (!patient) {
         return <p>Error</p>
