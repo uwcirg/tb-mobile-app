@@ -9,6 +9,7 @@ import { inject, observer } from 'mobx-react';
 import useStores from '../Basics/UseStores';
 import Colors from '../Basics/Colors';
 import Badge from '@material-ui/core/Badge'
+import { People, PhotoAlbum, PhotoLibrary } from '@material-ui/icons';
 
 const useStyles = makeStyles({
     root: {
@@ -50,11 +51,13 @@ const BottomBar = observer((props) => {
             className={classes.root}
             value={practitionerUIStore.mobileTabNumber}
         >
-            <BottomNavigationAction id="intro-home-button" onClick={practitionerUIStore.goToHome} className="intro-home-button" icon={<HomeIcon />} />
+            <BottomNavigationAction id="intro-home-button" onClick={practitionerUIStore.goToHome} className="intro-home-button" icon={<People />} />
+            <BottomNavigationAction onClick={practitionerUIStore.goToHome} className="intro-home-button" icon={<PhotoLibrary />} />
             <BottomNavigationAction onClick={practitionerUIStore.goToMessaging} className="intro-messaging-button" icon={
                 <Badge color={"primary"} invisible={messagingStore.numberUnread < 1} badgeContent={messagingStore.numberUnread} >
                     <ForumIcon />
                 </Badge>} />
+            {/* <BottomNavigationAction onClick={practitionerUIStore.goToSettings} icon={<People />} /> */}
             <BottomNavigationAction id="intro-information-button" onClick={practitionerUIStore.goToSettings} icon={<InfoIcon />} />
         </BottomNavigation>
     );

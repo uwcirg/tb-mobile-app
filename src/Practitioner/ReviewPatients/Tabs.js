@@ -72,15 +72,22 @@ const ReviewPatientTabs = observer(({value}) => {
                 className={classes.tab}
                 component={Link}
                 to="/home/needs-review"
-                label={<LabelWithDot text="Unreviewed"
+                label={<LabelWithDot text="ToDo"
                     color={Colors.yellow} />} {...a11yProps(0)} />
             <Tab
                 className={classes.tab}
                 component={Link}
                 to="/home/reviewed"
-                label={<LabelWithDot text="Reviewed"
+                label={<LabelWithDot text="Checked"
                     color={Colors.green} />} {...a11yProps(1)} />
+                    <Tab
+                className={classes.tab}
+                component={Link}
+                to="/home/reviewed"
+                label={<LabelWithDot text="All"
+                    color={Colors.buttonBlue} />} {...a11yProps(1)} />
         </Tabs>
+
     </AppBar>);
 })
 
