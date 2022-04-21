@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { makeStyles, Grid, IconButton, Box, Typography } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { makeStyles, Grid, IconButton, Box, Typography, Collapse, CircularProgress } from '@material-ui/core';
 import { Check, Message } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import Colors from '../../Basics/Colors';
@@ -12,6 +12,7 @@ import PractitionerAPI from '../../API/PractitionerAPI';
 
 const useStyles = makeStyles({
     container: {
+        minHeight: "112px",
         width: "100%",
         backgroundColor: "white",
         boxSizing: "border-box",
@@ -33,62 +34,77 @@ const useStyles = makeStyles({
     }
 })
 
-const PatientCard = ({ patient, markPatientAsReviewed }) => {
+const PatientCard = ({ patient, markPatientAsReviewed, isReviewed }) => {
 
     const classes = useStyles();
     const { t } = useTranslation('translation');
+    const [reviewed, setReviewed] = useState(false);
 
     const resolvePatient = async () => {
         return PractitionerAPI.resolvePatient(patient.id);
     }
 
     const { execute, status, value, error } = useAsync(resolvePatient, false);
+    const success = status === "success";
 
-    useEffect(()=>{
-        if(status === "success"){
+    const handleExit = () => {
+        if (success) {
             markPatientAsReviewed(patient.id);
         }
-    },[status])
-
-    if (!patient) {
-        return <p>Error</p>
     }
+
+    useEffect(() => {
+        let timeout;
+        if (success) {
+            timeout = setTimeout(() => {
+                setReviewed(true);
+            }, 2000)
+        }
+        return function cleanup() {
+            clearTimeout(timeout);
+        }
+    }, [status])
 
     const daysSinceLastMessage = patient.lastContacted ? Math.round(daysSinceISODateTime(patient.lastContacted)) : "N/A"
 
-    return (<Box className={classes.container} padding="1em">
-        <Grid container wrap='nowrap'>
-            <Link to={`/patients/${patient.id}`}>
-                <Typography className={classes.name} >{patient.fullName}</Typography>
-            </Link>
-            <Box flexGrow={1} />
-            <AdherenceLabel patient={patient} />
-        </Grid>
-        <Box padding=".5em 0">
-            <Typography className={classes.messaged}>
-                <strong>Messaged: </strong>
-                {daysSinceLastMessage} {t('time.day_ago', { count: daysSinceLastMessage })}
-            </Typography>
-        </Box>
-        <Grid alignItems='center' wrap="nowrap" container className={classes.bottomSection}>
-            <IssueArea patient={patient} />
-            <Box flexGrow={1} />
-            <ButtonArea patient={patient} resolvePatient={execute} />
-        </Grid>
-    </Box>)
+    return (
+        <Collapse onExited={handleExit} in={!reviewed}>
+            <Box className={classes.container} padding=".75em">
+                {success ? <p>Successfully Reviewed</p> : <>
+                    <Grid container wrap='nowrap'>
+                        <Link to={`/patients/${patient.id}`}>
+                            <Typography className={classes.name} >{patient.fullName}</Typography>
+                        </Link>
+                        <Box flexGrow={1} />
+                        <AdherenceLabel patient={patient} />
+                    </Grid>
+                    <Typography className={classes.messaged}>
+                        <strong>Messaged: </strong>
+                        {daysSinceLastMessage} {t('time.day_ago', { count: daysSinceLastMessage })}
+                    </Typography>
+                    <Grid alignItems='center' wrap="nowrap" container className={classes.bottomSection}>
+                        <IssueArea patient={patient} />
+                        <Box flexGrow={1} />
+                        <ButtonArea isReviewed={isReviewed} loading={status === "pending"} patient={patient} resolvePatient={execute} />
+                    </Grid>
+                </>}
+            </Box>
+        </Collapse>
+    )
 
 }
 
-const ButtonArea = ({ patient, resolvePatient }) => {
+const ButtonArea = ({ patient, resolvePatient, loading, isReviewed }) => {
     return (
         <>
             <IconButton component={Link} to={`?onMessagingChannelId=${patient.channelId}`} style={{ backgroundColor: 'rgba(66, 133, 244, 0.15)', padding: ".25em" }}>
                 <Message style={{ color: Colors.buttonBlue }} />
             </IconButton>
-            <Box width=".5em" />
-            <IconButton onClick={resolvePatient} style={{ backgroundColor: Colors.calendarGreen, padding: ".25em" }}>
-                <Check style={{ color: Colors.approvedGreen }} />
-            </IconButton>
+            {!isReviewed && <>
+                <Box width=".5em" />
+                <IconButton onClick={resolvePatient} style={{ backgroundColor: Colors.calendarGreen, padding: ".25em" }}>
+                    {loading ? <CircularProgress style={{ color: Colors.gray }} size="1em" variant='indeterminate' /> : <Check style={{ color: Colors.approvedGreen }} />}
+                </IconButton></>}
         </>
     )
 }

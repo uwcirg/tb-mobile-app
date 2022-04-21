@@ -61,7 +61,6 @@ const PractitionerHome = observer(() => {
         {/* <TopBar refresh={refresh} /> */}
         <ReviewPatientTabs value={tabValue} />
         <Box height="48px" />
-        <button onClick={execute}>Refresh</button>
         <MessagingPopover channelName={channelName} channelId={channelId} open={!!channelId} />
         {status === "pending" && <LoadingPatients />}
         {value && <>
@@ -69,7 +68,7 @@ const PractitionerHome = observer(() => {
                 <Box height={".5em"} aria-hidden />
                 {patientsToDisplay.map(patient => {
                     return <Box key={`review-patient-${patient.id}`} padding='0 .5em .5em .5em'>
-                        <PatientCard markPatientAsReviewed={markPatientAsReviewed} patient={patient} />
+                        <PatientCard isReviewed={tabValue === 1} markPatientAsReviewed={markPatientAsReviewed} patient={patient} />
                     </Box>
                 })}
                 <Box height="60px" aria-hidden />
