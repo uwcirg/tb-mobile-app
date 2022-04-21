@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles, Grid, IconButton, Box, Typography, Collapse, CircularProgress } from '@material-ui/core';
-import { Check, Message } from '@material-ui/icons';
+import { makeStyles, Grid, IconButton, Box, Typography, Collapse, CircularProgress, ExpansionPanel, Button } from '@material-ui/core';
+import { Check, KeyboardArrowDown, Message } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import Colors from '../../Basics/Colors';
 import IssueArea from './IssueArea';
@@ -10,10 +10,12 @@ import { useTranslation } from 'react-i18next';
 import useAsync from '../../Hooks/useAsync';
 import PractitionerAPI from '../../API/PractitionerAPI';
 import TreatmentWeek from './TreatmentWeek';
+import useToggle from '../../Hooks/useToggle';
+import Plus from '@material-ui/icons/AddCircle';
+import Minus from '@material-ui/icons/RemoveCircle';
 
 const useStyles = makeStyles({
     container: {
-        minHeight: "112px",
         width: "100%",
         backgroundColor: "white",
         boxSizing: "border-box",
@@ -40,6 +42,7 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed }) => {
     const classes = useStyles();
     const { t } = useTranslation('translation');
     const [reviewed, setReviewed] = useState(false);
+    const [showDetails, toggleDetails] = useToggle(false);
 
     const resolvePatient = async () => {
         return PractitionerAPI.resolvePatient(patient.id);
@@ -71,7 +74,7 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed }) => {
     return (
         <Collapse onExited={handleExit} in={!reviewed}>
             <Box className={classes.container} padding=".75em">
-                {success ? <Grid container alignItems='center' style={{height: "100%", width: "100%"}}>
+                {success ? <Grid container alignItems='center' style={{ height: "100%", width: "100%" }}>
                     <p>Review Submitted</p>
                 </Grid> : <>
                     <Grid alignItems='center' container wrap='nowrap'>
@@ -83,15 +86,27 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed }) => {
                         <Box width=".5em" />
                         <AdherenceLabel patient={patient} />
                     </Grid>
-                    <Typography className={classes.messaged}>
+                    {/* <Typography className={classes.messaged}>
                         <strong>Messaged: </strong>
                         {daysSinceLastMessage} {t('time.day_ago', { count: daysSinceLastMessage })}
-                    </Typography>
+                    </Typography> */}
+                    <Box height=".5em" />
                     <Grid alignItems='center' wrap="nowrap" container className={classes.bottomSection}>
                         <IssueArea patient={patient} />
                         <Box flexGrow={1} />
-                        <ButtonArea isReviewed={isReviewed} loading={status === "pending"} patient={patient} resolvePatient={execute} />
+                        <Button style={{ width: "fit-content", paddingRight: "0", justifyContent: "flex-end", textTransform: "none", color: Colors.buttonBlue }} onClick={toggleDetails}>
+                            {!showDetails && <Typography style={{ paddingRight: ".5em" }} noWrap>Review Issues</Typography>}
+                            {showDetails ? <Minus /> : <Plus />}
+                        </Button>
                     </Grid>
+                    <Collapse in={showDetails}>
+                        <Box padding="1em 0">
+                            <Typography>Photo to Review</Typography>
+                            <Typography>Symptoms</Typography>
+                            <Typography>Missed Reporting</Typography>
+                        </Box>
+                        <ButtonArea isReviewed={isReviewed} loading={status === "pending"} patient={patient} resolvePatient={execute} />
+                    </Collapse>
                 </>}
             </Box>
         </Collapse>
@@ -100,7 +115,7 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed }) => {
 
 const ButtonArea = ({ patient, resolvePatient, loading, isReviewed }) => {
     return (
-        <>
+        <Grid wrap="nowrap" justify='flex-end' container>
             <IconButton component={Link} to={`?onMessagingChannelId=${patient.channelId}`} style={{ backgroundColor: 'rgba(66, 133, 244, 0.15)', padding: ".25em" }}>
                 <Message style={{ color: Colors.buttonBlue }} />
             </IconButton>
@@ -109,7 +124,7 @@ const ButtonArea = ({ patient, resolvePatient, loading, isReviewed }) => {
                 <IconButton onClick={resolvePatient} style={{ backgroundColor: Colors.calendarGreen, padding: ".25em" }}>
                     {loading ? <CircularProgress style={{ color: Colors.gray }} size="1em" variant='indeterminate' /> : <Check style={{ color: Colors.approvedGreen }} />}
                 </IconButton></>}
-        </>
+        </Grid>
     )
 }
 

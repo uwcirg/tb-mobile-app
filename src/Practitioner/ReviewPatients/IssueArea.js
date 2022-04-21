@@ -6,6 +6,7 @@ import Pill from '../../Basics/Icons/Pill';
 
 const useStyles = makeStyles({
     issueContainer: {
+        width: "fit-content",
         "& svg": {
             fontSize: "1.5em",
             color: Colors.textGray
