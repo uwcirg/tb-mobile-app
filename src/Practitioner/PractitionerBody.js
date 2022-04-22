@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+import React from 'react';
 import styled from 'styled-components'
 import { observer } from 'mobx-react'
 import useStores from '../Basics/UseStores';
@@ -8,29 +7,35 @@ import PatientsView from './CohortView/'
 import Home from './Home/'
 import Settings from './Settings/index'
 import PatientProfile from './PatientProfile/'
-import Review from './Review';
 import Alert from '../Basics/Alert'
-
+import { Switch, Route } from 'react-router-dom'
 
 const PractitionerBody = observer(() => {
-    const { practitionerStore, routingStore, practitionerUIStore,messagingStore } = useStores();
-    const { location, push, goBack } = routingStore;
-    const { t, i18n } = useTranslation('translation');
+    const { practitionerStore, practitionerUIStore } = useStores();
 
     let view = <Home />
 
-    if (practitionerUIStore.onSettings) view = <Settings />
-    if (practitionerUIStore.onMessaging) view = <Messages />
-    if (practitionerUIStore.onPatients) view = <PatientsView />
-    if (practitionerUIStore.onSinglePatient) view = <PatientProfile id={practitionerUIStore.pathNumber} patient={practitionerStore.getPatient(practitionerUIStore.pathNumber)} />
-    if (practitionerUIStore.onReview) view = <Review />
+    //TODO - convert to react router routes to make more understandble
+    // if (practitionerUIStore.onSettings) view = <Settings />
+    // if (practitionerUIStore.onMessaging) view = <Messages />
+    // if (practitionerUIStore.onPatients) view = <PatientsView />
+    // if (practitionerUIStore.onSinglePatient) view = <PatientProfile id={practitionerUIStore.pathNumber} patient={practitionerStore.getPatient(practitionerUIStore.pathNumber)} />
+
+
 
     return (
         <>
-        <Body>
-            {view}
-        </Body>
-        {practitionerUIStore.alert && <Alert onClose={()=>{practitionerUIStore.alert = ""}} text={practitionerUIStore.alert} />}
+            <Body>
+                <Switch>
+                    <Route path="/home">
+                        <Home />
+                    </Route>
+                    <Route path="/messaging">
+                        <Messages />
+                    </Route>
+                </Switch>
+            </Body>
+            {practitionerUIStore.alert && <Alert onClose={() => { practitionerUIStore.alert = "" }} text={practitionerUIStore.alert} />}
         </>
     )
 });

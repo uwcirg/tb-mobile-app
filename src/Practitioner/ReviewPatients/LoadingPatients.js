@@ -26,7 +26,6 @@ const LoadingPatients = () => {
     return (
         <Grid
             alignItems='center'
-            justifyContent='center'
             direction="column"
             container className={classes.container}>
             <img className={classes.image} src={Visual} />

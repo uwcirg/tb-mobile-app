@@ -13,6 +13,7 @@ import TreatmentWeek from './TreatmentWeek';
 import useToggle from '../../Hooks/useToggle';
 import Plus from '@material-ui/icons/AddCircle';
 import Minus from '@material-ui/icons/RemoveCircle';
+import Down from '@material-ui/icons/ArrowDropDownCircle';
 
 const useStyles = makeStyles({
     container: {
@@ -34,6 +35,9 @@ const useStyles = makeStyles({
     messaged: {
         fontSize: ".9em",
         color: Colors.textDarkGray
+    },
+    rotate:{
+        transform: "rotate(180deg)"
     }
 })
 
@@ -96,7 +100,8 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed }) => {
                         <Box flexGrow={1} />
                         <Button style={{ width: "fit-content", paddingRight: "0", justifyContent: "flex-end", textTransform: "none", color: Colors.buttonBlue }} onClick={toggleDetails}>
                             {!showDetails && <Typography style={{ paddingRight: ".5em" }} noWrap>Review Issues</Typography>}
-                            {showDetails ? <Minus /> : <Plus />}
+                            {/* {showDetails ? <Minus /> : <Plus />} */}
+                            <Down className={showDetails ? classes.rotate : ""} />
                         </Button>
                     </Grid>
                     <Collapse in={showDetails}>
