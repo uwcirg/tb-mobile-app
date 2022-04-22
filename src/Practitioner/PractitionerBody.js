@@ -13,26 +13,15 @@ import { Switch, Route } from 'react-router-dom'
 const PractitionerBody = observer(() => {
     const { practitionerStore, practitionerUIStore } = useStores();
 
-    let view = <Home />
-
-    //TODO - convert to react router routes to make more understandble
-    // if (practitionerUIStore.onSettings) view = <Settings />
-    // if (practitionerUIStore.onMessaging) view = <Messages />
-    // if (practitionerUIStore.onPatients) view = <PatientsView />
-    // if (practitionerUIStore.onSinglePatient) view = <PatientProfile id={practitionerUIStore.pathNumber} patient={practitionerStore.getPatient(practitionerUIStore.pathNumber)} />
-
-
-
     return (
         <>
             <Body>
                 <Switch>
-                    <Route path="/home">
-                        <Home />
-                    </Route>
-                    <Route path="/messaging">
-                        <Messages />
-                    </Route>
+                    <Route path="/messaging" children={<Messages />} />
+                    <Route path="/settings" children={<Settings />} />
+                    <Route path="/patients/" children={<PatientProfile id={practitionerUIStore.pathNumber} patient={practitionerStore.getPatient(practitionerUIStore.pathNumber)} />} />
+                    <Route path="/patients" children={<PatientsView />} />
+                    <Route path="/" children={<Home />} />
                 </Switch>
             </Body>
             {practitionerUIStore.alert && <Alert onClose={() => { practitionerUIStore.alert = "" }} text={practitionerUIStore.alert} />}
