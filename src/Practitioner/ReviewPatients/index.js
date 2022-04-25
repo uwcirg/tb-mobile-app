@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { makeStyles, Grid, Box, IconButton } from '@material-ui/core';
+import { makeStyles, Grid, Box, IconButton, Typography } from '@material-ui/core';
 import PractitionerAPI from '../../API/PractitionerAPI';
 import PatientCard from './PatientCard';
-import { Refresh } from '@material-ui/icons';
+import { Refresh, Search } from '@material-ui/icons';
 import OverTopBar from '../../Patient/Navigation/OverTopBar';
 import useStores from '../../Basics/UseStores';
 import MessagingPopover from './MessagingPopover';
@@ -11,18 +11,17 @@ import LoadingPatients from './LoadingPatients';
 import ReviewPatientTabs from './Tabs';
 import { DateTime } from 'luxon';
 import useAsync from '../../Hooks/useAsync';
-
-const useStyles = makeStyles({
-
-})
+import StickyTopBar from '../../Components/Shared/StickyTopBar';
+import Colors from '../../Basics/Colors';
 
 const TopBar = ({ refresh }) => {
     return (
         <>
             <OverTopBar notFixed hideIconButton title={<Grid alignItems='center' container>
-                Review Patients
-                <IconButton onClick={refresh}>
-                    <Refresh />
+                <Typography>Review Patients</Typography>
+                <Box flexGrow="1" />
+                <IconButton style={{backgroundColor: Colors.lightgray, padding: "5px"}}>
+                    <Search />
                 </IconButton>
             </Grid>} />
 
@@ -61,23 +60,27 @@ const PractitionerHome = observer(() => {
         if (!!channelId) { execute() }
     }, [channelId])
 
-    return (<div>
-        <ReviewPatientTabs value={tabValue} />
-        <Box height="48px" />
-        <MessagingPopover channelName={channelName} channelId={channelId} open={!!channelId} />
-        {status === "pending" && <LoadingPatients />}
-        {value && <>
-            <Grid container direction="column">
-                <Box height={".5em"} aria-hidden />
-                {patientsToDisplay.map(patient => {
-                    return <Box key={`review-patient-${patient.id}`} padding='0 .5em .5em .5em'>
-                        <PatientCard isReviewed={tabValue === 1} markPatientAsReviewed={markPatientAsReviewed} patient={patient} />
-                    </Box>
-                })}
-                <Box height="60px" aria-hidden />
-            </Grid>
-        </>}
-    </div>)
+    return (
+        <>
+            <StickyTopBar>
+                <TopBar refresh={execute} />
+                <ReviewPatientTabs value={tabValue} />
+            </StickyTopBar>
+            <div>
+                <MessagingPopover channelName={channelName} channelId={channelId} open={!!channelId} />
+                {status === "pending" && <LoadingPatients />}
+                {value && <>
+                    <Grid container direction="column">
+                        <Box height={".5em"} aria-hidden />
+                        {patientsToDisplay.map(patient => {
+                            return <Box key={`review-patient-${patient.id}`} padding='0 .5em .5em .5em'>
+                                <PatientCard isReviewed={tabValue === 1} markPatientAsReviewed={markPatientAsReviewed} patient={patient} />
+                            </Box>
+                        })}
+                        <Box height="60px" aria-hidden />
+                    </Grid>
+                </>}
+            </div></>)
 })
 
 export default PractitionerHome;

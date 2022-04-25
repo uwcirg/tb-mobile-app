@@ -48,8 +48,7 @@ function a11yProps(index) {
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        position: "fixed",
-        top: 0,
+        position: "static"
     },
     tab: {
         textTransform: "none"

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles, Grid, IconButton, Box, Typography, Collapse, CircularProgress, ExpansionPanel, Button } from '@material-ui/core';
-import { Check, KeyboardArrowDown, Message } from '@material-ui/icons';
+import { makeStyles, Grid, IconButton, Box, Typography, Collapse, CircularProgress, Button } from '@material-ui/core';
+import { Check, Message, ArrowDropDownCircle as Down } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import Colors from '../../Basics/Colors';
 import IssueArea from './IssueArea';
@@ -11,9 +11,6 @@ import useAsync from '../../Hooks/useAsync';
 import PractitionerAPI from '../../API/PractitionerAPI';
 import TreatmentWeek from './TreatmentWeek';
 import useToggle from '../../Hooks/useToggle';
-import Plus from '@material-ui/icons/AddCircle';
-import Minus from '@material-ui/icons/RemoveCircle';
-import Down from '@material-ui/icons/ArrowDropDownCircle';
 
 const useStyles = makeStyles({
     container: {
