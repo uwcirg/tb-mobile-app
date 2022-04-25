@@ -60,7 +60,7 @@ const useStyles = makeStyles({
     }
 })
 
-const Home = observer(() => {
+const OldTasksPage = observer(() => {
 
     const { isMobile } = useResize();
 
@@ -71,6 +71,7 @@ const Home = observer(() => {
     }, [])
 
     const fetchData = () => {
+        practitionerStore.getPatients();
         practitionerStore.updateTaskPageData();
     }
 
@@ -183,4 +184,4 @@ const Card = observer((props) => {
     )
 });
 
-export default Home;
+export default OldTasksPage;

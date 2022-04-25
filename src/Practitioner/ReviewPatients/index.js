@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { makeStyles, Grid, Box, IconButton } from '@material-ui/core';
 import PractitionerAPI from '../../API/PractitionerAPI';
-import PatientCard from '../ReviewPatients/PatientCard';
+import PatientCard from './PatientCard';
 import { Refresh } from '@material-ui/icons';
 import OverTopBar from '../../Patient/Navigation/OverTopBar';
 import useStores from '../../Basics/UseStores';
-import MessagingPopover from '../ReviewPatients/MessagingPopover';
+import MessagingPopover from './MessagingPopover';
 import { observer } from 'mobx-react';
-import LoadingPatients from '../ReviewPatients/LoadingPatients';
-import ReviewPatientTabs from '../ReviewPatients/Tabs';
+import LoadingPatients from './LoadingPatients';
+import ReviewPatientTabs from './Tabs';
 import { DateTime } from 'luxon';
 import useAsync from '../../Hooks/useAsync';
 

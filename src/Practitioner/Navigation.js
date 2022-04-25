@@ -16,6 +16,7 @@ import Badge from '@material-ui/core/Badge'
 import Tooltip from '@material-ui/core/Tooltip'
 import { useTranslation } from 'react-i18next';
 import ReportIssue from '@material-ui/icons/ReportProblem';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 const drawerWidth = 200;
 
@@ -95,6 +96,9 @@ const PractitionerDrawer = observer(() => {
             <ListItemIcon><Settings /></ListItemIcon>
           </ListItem>
         </List>
+        <Link to="/old-tasks">
+            <p>old</p>
+        </Link>
         <div className={classes.bottomButtons}>
           <Tooltip title={t('patient.information.reportIssue')}>
             <IconButton href="https://forms.gle/rRxp9f4bbVT5uB4R9" target="blank" className={classes.settingsIcon}><ReportIssue /></IconButton>
