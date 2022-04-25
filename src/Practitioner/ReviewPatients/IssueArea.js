@@ -17,24 +17,44 @@ const useStyles = makeStyles({
     }
 })
 
-const issueIconMap = {
+const iconMap = {
     missedMedication: <Pill />,
-    reportedSymptoms: <Assignment />,
-    hasUnreviewedPhoto: <CameraAlt />,
-    reportedFeelingBad: <SentimentDissatisfied />
+    symptoms: <Assignment />,
+    unreviewedPhoto: <CameraAlt />,
+    feelingBad: <SentimentDissatisfied />
 }
 
 const getIssues = (patient) => {
-    return([{icon: issueIconMap.missedMedication, number: 2},{icon: issueIconMap.reportedSymptoms, number: 1}])
+
+    const reports = patient.unresolvedReports;
+    let state = { symptoms: 0, missedMedication: 0, feelingBad: 0, photo: 0, missedPhoto: 0 };
+
+    for (let _report of reports) {
+
+        if (_report.symptoms?.length > 0) {
+            state.symptoms++;
+        }
+
+        if (_report.medicationWasTaken === false) {
+            state.missedMedication++;
+        }
+    }
+
+    return state;
 }
 
-const IssueArea = ({patient}) => {
+const IssueArea = ({ patient }) => {
 
     const classes = useStyles();
     const issues = getIssues(patient);
 
     return (<Grid className={classes.issueContainer} container>
-        {issues.map((item, index) => { return (<CustomBadge key={`issue-icon-${index}-${patient.id}`}>{item.icon}</CustomBadge>) })}
+        {Object.keys(issues).map((item, index) => {
+            if (issues[item] > 0) {
+                return (<CustomBadge badgeContent={issues[item]} key={`issue-icon-${index}-${patient.id}`}>{iconMap[item]}</CustomBadge>)
+            }
+
+        })}
     </Grid>)
 
 }
@@ -48,7 +68,7 @@ const CustomBadge = (props) => {
             <Badge {...props} anchorOrigin={{
                 vertical: 'bottom',
                 horizontal: 'right',
-            }} badgeContent={1}
+            }}
                 classes={{ badge: classes.badge }}
             />
             <Box width=".5em" />
