@@ -19,7 +19,7 @@ const useStyles = makeStyles({
 
 const iconMap = {
     missedMedication: <Pill />,
-    missedReporting: <EventBusy style={{color: Colors.red}} />,
+    missedReporting: <EventBusy />,
     symptoms: <Assignment />,
     unreviewedPhoto: <CameraAlt />,
     feelingBad: <SentimentDissatisfied />
@@ -28,7 +28,7 @@ const iconMap = {
 const IssueArea = ({ patient }) => {
 
     const classes = useStyles();
-    const { issues } = patient;
+    const issues = patient.issues.state;
 
     return (<Grid className={classes.issueContainer} container>
         {Object.keys(issues).map((item, index) => {

@@ -113,13 +113,7 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed }) => {
 
                             <Typography>Symptoms</Typography>
                             <Box bgcolor={Colors.lighterGray} padding=".5em">
-                                {patient.unresolvedReports?.map(each => {
-                                    if (each.symptoms) {
-                                        return (<>
-                                            {each.symptoms.map(_symptom => <Symptom string={_symptom} />)}
-                                        </>)
-                                    }
-                                })}
+                                <Symptom string="redness" />
                             </Box>
                             <Typography>Missed Reporting</Typography>
                         </Box>

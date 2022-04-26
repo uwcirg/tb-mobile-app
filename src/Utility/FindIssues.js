@@ -1,64 +1,6 @@
 import { DateTime } from "luxon";
-import report from "../Patient/Walkthrough/ExampleReport";
 
-const addIssuesToPatients = (patients) => {
-    return patients.map(_patient => {
-        const reports = _patient.unresolvedReports;
-        let state = { symptoms: 0, missedReporting: 0, missedMedication: 0, feelingBad: 0, photo: 0, missedPhoto: 0, total: 0, missedMedicationDates: [] };
-
-        let missedDays = getMissedDays(_patient)
-
-        state.missedReporting = missedDays.length;
-        state.missedMedicationDates = missedDays;
-
-        for (let _report of reports) {
-
-            if (_report.symptoms?.length > 0) {
-                state.symptoms++;
-            }
-
-        }
-
-        // Currently the number of unique issues
-        state.total = Object.values(state).reduce((prev, current) => prev + (current > 0 % 1) , 0)
-
-        return { ..._patient, issues: state }
-    })
-}
-
-const getMissedDays = (patient) => {
-    if (!patient.lastGeneralResolution) return;
-    /*
-    
-    Todo:
-
-    - Day of resolution if the report was missed
-    - Return list of missed days
-
-    */
-    let reportsMap = getReportsMap(patient);
-    let iteratorDay = DateTime.fromISO(patient.lastGeneralResolution).startOf('day');
-    const endDay = DateTime.local().startOf('day');
-
-    const getReportForDate = () => {
-        return reportsMap[`${iteratorDay.toISODate()}`];
-    }
-
-    const goToNextDay = () => {
-        iteratorDay = iteratorDay.plus({ days: 1 })
-    }
-
-    let days = [];
-
-    while (!iteratorDay.equals(endDay)) {
-        goToNextDay();
-        let daysReport = getReportForDate();
-        if(daysReport?.medicationWasTaken) continue
-        days.push([iteratorDay.toISODate])
-    }
-
-    return days;
-}
+const sum = (prev, current) => prev + current;
 
 const getReportsMap = (patient) => {
 
@@ -70,5 +12,81 @@ const getReportsMap = (patient) => {
 
     return reports
 }
+
+class PatientIssueState {
+
+    constructor(patient) {
+        this.symptomCounts = this.processSymptoms(patient.unresolvedReports);
+        this.missedDays = this.processMissedDays(patient);
+    }
+
+    get state(){
+        return ( {
+            symptoms: this.numberOfSymptoms,
+            missedReporting: this.numberOfMissedDays
+        })
+    }
+
+    get total() {
+        return this.numberOfSymptoms
+    }
+
+    get numberOfMissedDays() {
+        return this.missedDays.length
+    }
+
+    get numberOfSymptoms() {
+        return Object.values(this.symptomCounts).reduce(sum, 0)
+    }
+
+    processSymptoms(reports) {
+        let localCount = {};
+        for (let report of reports) {
+            report.symptoms.forEach(symptom => {
+                if (localCount[symptom]) {
+                    localCount[symptom]++;
+                } else {
+                    localCount[symptom] = 1;
+                }
+            })
+        }
+        return localCount;
+    }
+
+    processMissedDays(patient) {
+        if (!patient.lastGeneralResolution) return;
+
+        let reportsMap = getReportsMap(patient);
+        let iteratorDay = DateTime.fromISO(patient.lastGeneralResolution).startOf('day');
+        const endDay = DateTime.local().startOf('day');
+
+        const getReportForDate = () => {
+            return reportsMap[`${iteratorDay.toISODate()}`];
+        }
+
+        const goToNextDay = () => {
+            iteratorDay = iteratorDay.plus({ days: 1 })
+        }
+
+        let days = [];
+
+        while (!iteratorDay.equals(endDay)) {
+            goToNextDay();
+            let daysReport = getReportForDate();
+            if (daysReport?.medicationWasTaken) continue
+            days.push([iteratorDay.toISODate])
+        }
+
+        return days;
+    }
+}
+
+function addIssuesToPatients(patients) {
+    return patients.map(patient => {
+        // let state = {symptoms: 0, missedReporting: 0, missedMedication: 0, feelingBad: 0, photo: 0, missedPhoto: 0, total: 0, missedMedicationDates: [], symptomCounts: {} };
+        return { ...patient, issues: new PatientIssueState(patient) }
+    })
+}
+
 
 export default addIssuesToPatients;
