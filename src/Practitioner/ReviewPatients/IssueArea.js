@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles, Grid, Badge, Box } from '@material-ui/core';
-import { Assignment, CameraAlt, SentimentDissatisfied } from '@material-ui/icons';
+import { Assignment, CameraAlt, EventBusy, SentimentDissatisfied } from '@material-ui/icons';
 import Colors from '../../Basics/Colors';
 import Pill from '../../Basics/Icons/Pill';
 
@@ -19,41 +19,22 @@ const useStyles = makeStyles({
 
 const iconMap = {
     missedMedication: <Pill />,
+    missedReporting: <EventBusy style={{color: Colors.red}} />,
     symptoms: <Assignment />,
     unreviewedPhoto: <CameraAlt />,
     feelingBad: <SentimentDissatisfied />
 }
 
-const getIssues = (patient) => {
-
-    const reports = patient.unresolvedReports;
-    let state = { symptoms: 0, missedMedication: 0, feelingBad: 0, photo: 0, missedPhoto: 0 };
-
-    for (let _report of reports) {
-
-        if (_report.symptoms?.length > 0) {
-            state.symptoms++;
-        }
-
-        if (_report.medicationWasTaken === false) {
-            state.missedMedication++;
-        }
-    }
-
-    return state;
-}
-
 const IssueArea = ({ patient }) => {
 
     const classes = useStyles();
-    const issues = getIssues(patient);
+    const { issues } = patient;
 
     return (<Grid className={classes.issueContainer} container>
         {Object.keys(issues).map((item, index) => {
-            if (issues[item] > 0) {
+            if (issues[item] > 0 && iconMap[item]) {
                 return (<CustomBadge badgeContent={issues[item]} key={`issue-icon-${index}-${patient.id}`}>{iconMap[item]}</CustomBadge>)
             }
-
         })}
     </Grid>)
 

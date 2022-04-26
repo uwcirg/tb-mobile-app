@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { makeStyles, Grid, Box, IconButton, Typography } from '@material-ui/core';
+import { Grid, Box, IconButton, Typography } from '@material-ui/core';
 import PractitionerAPI from '../../API/PractitionerAPI';
 import PatientCard from './PatientCard';
-import { Refresh, Search } from '@material-ui/icons';
+import { Search } from '@material-ui/icons';
 import OverTopBar from '../../Patient/Navigation/OverTopBar';
 import useStores from '../../Basics/UseStores';
 import MessagingPopover from './MessagingPopover';
@@ -13,8 +13,9 @@ import { DateTime } from 'luxon';
 import useAsync from '../../Hooks/useAsync';
 import StickyTopBar from '../../Components/Shared/StickyTopBar';
 import Colors from '../../Basics/Colors';
+import addIssuesToPatients from '../../Utility/FindIssues';
 
-const TopBar = ({ refresh }) => {
+const TopBar = () => {
     return (
         <>
             <OverTopBar notFixed hideIconButton title={<Grid alignItems='center' container>
@@ -60,6 +61,11 @@ const PractitionerHome = observer(() => {
         if (!!channelId) { execute() }
     }, [channelId])
 
+    //@Todo - wrap this in a callback since the calculations are complex 
+    const patientsWithIssues = addIssuesToPatients(patientsToDisplay || []).sort((a,b) => {
+        return b.issues.total - a.issues.total;
+    });
+
     return (
         <>
             <StickyTopBar>
@@ -72,7 +78,7 @@ const PractitionerHome = observer(() => {
                 {value && <>
                     <Grid container direction="column">
                         <Box height={".5em"} aria-hidden />
-                        {patientsToDisplay.map(patient => {
+                        {patientsWithIssues.map(patient => {
                             return <Box key={`review-patient-${patient.id}`} padding='0 .5em .5em .5em'>
                                 <PatientCard isReviewed={tabValue === 1} markPatientAsReviewed={markPatientAsReviewed} patient={patient} />
                             </Box>

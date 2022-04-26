@@ -11,6 +11,8 @@ import useAsync from '../../Hooks/useAsync';
 import PractitionerAPI from '../../API/PractitionerAPI';
 import TreatmentWeek from './TreatmentWeek';
 import useToggle from '../../Hooks/useToggle';
+import { Symptoms } from '../../Basics/SymptomsSeperation';
+import Symptom from '../Shared/Symptom';
 
 const useStyles = makeStyles({
     container: {
@@ -33,7 +35,7 @@ const useStyles = makeStyles({
         fontSize: ".9em",
         color: Colors.textDarkGray
     },
-    rotate:{
+    rotate: {
         transform: "rotate(180deg)"
     }
 })
@@ -104,7 +106,17 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed }) => {
                     <Collapse in={showDetails}>
                         <Box padding="1em 0">
                             <Typography>Photo to Review</Typography>
+
                             <Typography>Symptoms</Typography>
+                            <Box bgcolor={Colors.lighterGray} padding=".5em">
+                                {patient.unresolvedReports?.map(each => {
+                                    if (each.symptoms) {
+                                        return (<>
+                                            {each.symptoms.map(_symptom => <Symptom string={_symptom} />)}
+                                        </>)
+                                    }
+                                })}
+                            </Box>
                             <Typography>Missed Reporting</Typography>
                         </Box>
                         <ButtonArea isReviewed={isReviewed} loading={status === "pending"} patient={patient} resolvePatient={execute} />
