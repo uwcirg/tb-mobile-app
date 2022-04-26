@@ -69,6 +69,10 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed }) => {
         }
         return function cleanup() {
             clearTimeout(timeout);
+            if(success){
+                handleExit();
+            }
+
         }
     }, [status])
 
