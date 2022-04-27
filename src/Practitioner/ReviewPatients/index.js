@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Grid, Box, IconButton, Typography } from '@material-ui/core';
+import { Grid, Box, IconButton, Typography, makeStyles } from '@material-ui/core';
 import PractitionerAPI from '../../API/PractitionerAPI';
 import PatientCard from './PatientCard';
 import { Search } from '@material-ui/icons';
@@ -76,7 +76,7 @@ const PractitionerHome = observer(() => {
                 <MessagingPopover channelName={channelName} channelId={channelId} open={!!channelId} />
                 {status === "pending" && <LoadingPatients />}
                 {value && <>
-                    <Grid container direction="column">
+                    <Grid container direction="column" >
                         <Box height={".5em"} aria-hidden />
                         {patientsWithIssues.map(patient => {
                             return <Box key={`review-patient-${patient.id}`} padding='0 .5em .5em .5em'>

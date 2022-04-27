@@ -16,6 +16,7 @@ import IssueDetails from './IssueDetails';
 const useStyles = makeStyles({
     container: {
         width: "100%",
+        overflow: "wrap",
         backgroundColor: "white",
         boxSizing: "border-box",
         boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.15)",

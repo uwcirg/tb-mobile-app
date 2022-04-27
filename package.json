@@ -42,6 +42,7 @@
     "styled-components": "^4.4.1"
   },
   "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "set CI=true && react-app-rewired test --env=jest-environment-jsdom-fifteen",
@@ -68,7 +69,8 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "jest-environment-jsdom-fifteen": "^1.0.2",
-    "react-app-rewired": "^2.1.6"
+    "react-app-rewired": "^2.1.6",
+    "source-map-explorer": "^2.5.2"
   },
   "jest": {
     "collectCoverageFrom": [
