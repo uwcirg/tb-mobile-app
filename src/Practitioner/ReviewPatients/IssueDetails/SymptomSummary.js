@@ -10,8 +10,10 @@ const SymptomSummary = ({patient}) => {
             <Typography>Symptoms</Typography>
             <Box bgcolor={Colors.lighterGray} padding=".5em">
                 {Object.keys(patient.issues.symptomCounts).map((string, index) => {
+                    const count = patient.issues.symptomCounts[string];
                     return (<Grid key={`${patient.id}-symptom-${index}`} container>
-                        <Symptom string={string} />: {patient.issues.symptomCounts[string]}
+                        <Symptom string={string} />
+                        {count > 1 && <>: {count}</>}
                     </Grid>)
                 })}
             </Box>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles, Grid, Badge, Box } from '@material-ui/core';
-import { Assignment, CameraAlt, EventBusy, SentimentDissatisfied } from '@material-ui/icons';
+import { Assignment, CameraAlt, EventAvailable, EventBusy, SentimentDissatisfied } from '@material-ui/icons';
 import Colors from '../../Basics/Colors';
 import Pill from '../../Basics/Icons/Pill';
 
@@ -13,13 +13,14 @@ const useStyles = makeStyles({
         }
     },
     badge: {
-        backgroundColor: "white"
+        backgroundColor: Colors.lighterGray
     }
 })
 
 const iconMap = {
     missedMedication: <Pill />,
-    missedReporting: <EventBusy />,
+    missedReporting: <EventBusy style={{color: Colors.red}} />,
+    goodDays: <EventAvailable style={{color: Colors.approvedGreen}} />,
     symptoms: <Assignment />,
     unreviewedPhotos: <CameraAlt />,
     feelingBad: <SentimentDissatisfied />

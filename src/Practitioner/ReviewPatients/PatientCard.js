@@ -11,8 +11,6 @@ import useAsync from '../../Hooks/useAsync';
 import PractitionerAPI from '../../API/PractitionerAPI';
 import TreatmentWeek from './TreatmentWeek';
 import useToggle from '../../Hooks/useToggle';
-import { Symptoms } from '../../Basics/SymptomsSeperation';
-import Symptom from '../Shared/Symptom';
 import IssueDetails from './IssueDetails';
 
 const useStyles = makeStyles({
@@ -99,7 +97,7 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed }) => {
                         <IssueArea patient={patient} />
                         <Box flexGrow={1} />
                         <Button style={{ width: "fit-content", paddingRight: "0", justifyContent: "flex-end", textTransform: "none", color: Colors.buttonBlue }} onClick={toggleDetails}>
-                            {!showDetails && <Typography style={{ paddingRight: ".5em" }} noWrap>Review Issues</Typography>}
+                            {!showDetails && <Typography style={{ paddingRight: ".5em" }} noWrap>Review</Typography>}
                             <Down className={showDetails ? classes.rotate : ""} />
                         </Button>
                     </Grid>

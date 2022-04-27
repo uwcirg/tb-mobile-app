@@ -16,16 +16,18 @@ const getReportsMap = (patient) => {
 class PatientIssueState {
 
     constructor(patient) {
+        this.goodDays = [];
         this.symptomCounts = this.processSymptoms(patient.unresolvedReports);
         this.missedDays = this.processMissedDays(patient);
-        this.unreviewedPhotos = patient.unreviewedPhotos
+        this.unreviewedPhotos = patient.unreviewedPhotos;
     }
 
     get state(){
         return ( {
-            symptoms: this.numberOfSymptoms,
+            goodDays: this.goodDays.length,
             missedReporting: this.numberOfMissedDays,
-            unreviewedPhotos: this.unreviewedPhotos.length
+            symptoms: this.numberOfSymptoms,
+            unreviewedPhotos: this.unreviewedPhotos.length,
         })
     }
 
@@ -75,8 +77,11 @@ class PatientIssueState {
         while (!iteratorDay.equals(endDay)) {
             goToNextDay();
             let daysReport = getReportForDate();
-            if (daysReport?.medicationWasTaken) continue
-            days.push([iteratorDay.toISODate])
+            if (daysReport?.medicationWasTaken){
+                this.goodDays.push(iteratorDay.toISODate)
+                continue
+            } 
+            days.push(iteratorDay.toISODate)
         }
 
         return days;
