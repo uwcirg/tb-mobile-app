@@ -21,7 +21,7 @@ const iconMap = {
     missedMedication: <Pill />,
     missedReporting: <EventBusy />,
     symptoms: <Assignment />,
-    unreviewedPhoto: <CameraAlt />,
+    unreviewedPhotos: <CameraAlt />,
     feelingBad: <SentimentDissatisfied />
 }
 
@@ -37,7 +37,6 @@ const IssueArea = ({ patient }) => {
             }
         })}
     </Grid>)
-
 }
 
 const CustomBadge = (props) => {

@@ -18,12 +18,14 @@ class PatientIssueState {
     constructor(patient) {
         this.symptomCounts = this.processSymptoms(patient.unresolvedReports);
         this.missedDays = this.processMissedDays(patient);
+        this.unreviewedPhotos = patient.unreviewedPhotos
     }
 
     get state(){
         return ( {
             symptoms: this.numberOfSymptoms,
-            missedReporting: this.numberOfMissedDays
+            missedReporting: this.numberOfMissedDays,
+            unreviewedPhotos: this.unreviewedPhotos.length
         })
     }
 
@@ -79,6 +81,7 @@ class PatientIssueState {
 
         return days;
     }
+
 }
 
 function addIssuesToPatients(patients) {

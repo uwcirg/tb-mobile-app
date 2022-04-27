@@ -13,6 +13,7 @@ import TreatmentWeek from './TreatmentWeek';
 import useToggle from '../../Hooks/useToggle';
 import { Symptoms } from '../../Basics/SymptomsSeperation';
 import Symptom from '../Shared/Symptom';
+import IssueDetails from './IssueDetails';
 
 const useStyles = makeStyles({
     container: {
@@ -93,30 +94,17 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed }) => {
                         <Box width=".5em" />
                         <AdherenceLabel patient={patient} />
                     </Grid>
-                    {/* <Typography className={classes.messaged}>
-                        <strong>Messaged: </strong>
-                        {daysSinceLastMessage} {t('time.day_ago', { count: daysSinceLastMessage })}
-                    </Typography> */}
                     <Box height=".5em" />
                     <Grid alignItems='center' wrap="nowrap" container className={classes.bottomSection}>
                         <IssueArea patient={patient} />
                         <Box flexGrow={1} />
                         <Button style={{ width: "fit-content", paddingRight: "0", justifyContent: "flex-end", textTransform: "none", color: Colors.buttonBlue }} onClick={toggleDetails}>
                             {!showDetails && <Typography style={{ paddingRight: ".5em" }} noWrap>Review Issues</Typography>}
-                            {/* {showDetails ? <Minus /> : <Plus />} */}
                             <Down className={showDetails ? classes.rotate : ""} />
                         </Button>
                     </Grid>
                     <Collapse in={showDetails}>
-                        <Box padding="1em 0">
-                            <Typography>Photo to Review</Typography>
-
-                            <Typography>Symptoms</Typography>
-                            <Box bgcolor={Colors.lighterGray} padding=".5em">
-                                <Symptom string="redness" />
-                            </Box>
-                            <Typography>Missed Reporting</Typography>
-                        </Box>
+                        <IssueDetails patient={patient} />
                         <ButtonArea isReviewed={isReviewed} loading={status === "pending"} patient={patient} resolvePatient={execute} />
                     </Collapse>
                 </>}
