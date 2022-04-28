@@ -37,6 +37,13 @@ const useStyles = makeStyles({
     },
     rotate: {
         transform: "rotate(180deg)"
+    },
+    reviewButton:{
+       backgroundColor: Colors.calendarGreen, 
+       padding: ".25em",
+       "&:disabled":{
+           backgroundColor: Colors.lightgray
+       }
     }
 })
 
@@ -113,15 +120,20 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed }) => {
 }
 
 const ButtonArea = ({ patient, resolvePatient, loading, isReviewed }) => {
+
+    const disable = patient.unreviewedPhotos.length > 0;
+    const classes = useStyles();
+
     return (
-        <Grid wrap="nowrap" justify='flex-end' container>
+        <Grid wrap="nowrap" justify='flex-end' alignItems='center' container>
+            {disable && <Typography >Please review photos before checking this patient off</Typography>}
             <IconButton component={Link} to={`?onMessagingChannelId=${patient.channelId}`} style={{ backgroundColor: 'rgba(66, 133, 244, 0.15)', padding: ".25em" }}>
                 <Message style={{ color: Colors.buttonBlue }} />
             </IconButton>
             {!isReviewed && <>
                 <Box width=".5em" />
-                <IconButton onClick={resolvePatient} style={{ backgroundColor: Colors.calendarGreen, padding: ".25em" }}>
-                    {loading ? <CircularProgress style={{ color: Colors.gray }} size="1em" variant='indeterminate' /> : <Check style={{ color: Colors.approvedGreen }} />}
+                <IconButton disabled={disable} onClick={resolvePatient} className={classes.reviewButton}>
+                    {loading ? <CircularProgress style={{ color: Colors.gray }} size="1em" variant='indeterminate' /> : <Check style={{ color: disable ? Colors.lighterGray : Colors.approvedGreen }} />}
                 </IconButton></>}
         </Grid>
     )

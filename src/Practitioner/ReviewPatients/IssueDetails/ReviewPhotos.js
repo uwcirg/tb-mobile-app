@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Button, ButtonBase, Dialog, Grid, Typography, Popover, Fade, Backdrop } from '@material-ui/core';
 import { DateTime } from 'luxon';
-import { ChevronRight } from '@material-ui/icons';
+import { CameraAlt, ChevronRight } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import useStores from '../../../Basics/UseStores';
 import { observer } from 'mobx-react';
@@ -30,9 +30,11 @@ const useStyles = makeStyles({
     },
     backdrop: {
         zIndex: 10,
-        color: 'rgb(0,0,0)',
-        opacity: '90%'
+        backgroundColor: 'rgb(0,0,0,.8)'
     },
+    popoverContent: {
+        color: "white"
+    }
 })
 
 const ReviewPhotos = ({ patient }) => {
@@ -42,7 +44,10 @@ const ReviewPhotos = ({ patient }) => {
     return (
         <>
             <PhotoPopOver unreviewedPhotos={patient.unreviewedPhotos} />
-            <Typography>Photos to Review ({patient.issues.unreviewedPhotos.length})</Typography>
+            <Grid container>
+                <CameraAlt />
+                <Typography>Photos to Review ({patient.issues.unreviewedPhotos.length})</Typography>
+            </Grid>
             <Typography>Click to launch review</Typography>
             <div>
                 {patient.unreviewedPhotos.map(photo => <PhotoToReview key={`photo-to-review-${photo.photoId}`} photo={photo} />)}
@@ -77,11 +82,19 @@ const PhotoPopOver = observer(({ unreviewedPhotos }) => {
 
     return (<Dialog
         TransitionComponent={Fade}
-        classes={{ paper: classes.popover, root: classes.pr }}
+        classes={{ paper: classes.popover, root: classes.backdrop }}
         open={!!selectedPhoto}>
-        {selectedPhoto && <div>
+        {selectedPhoto && <div className={classes.popoverContent}>
             <Button style={{ color: "white" }} onClick={uiStore.goBack}> Exit</Button>
             <PanImage url={selectedPhoto.url} />
+            <Box paddingTop="1em">
+                <Grid container>
+                    <Button variant="contained" style={{ backgroundColor: "white" }}>Detected</Button>
+                    <Box width=".5em" />
+                    <Button variant="contained" style={{ backgroundColor: "white" }}>Undetected</Button>
+                </Grid>
+            </Box>
+
         </div>}
     </Dialog>)
 

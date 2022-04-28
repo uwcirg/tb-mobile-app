@@ -2,7 +2,7 @@ import useStores from './UseStores'
 
 export default function logoutStores(){
 
-    const { routingStore, practitionerStore, adminStore, patientStore, practitionerUIStore,messagingStore,loginStore, uiStore } = useStores();
+    const { routingStore, practitionerStore, patientStore,loginStore, uiStore } = useStores();
     const {push} = routingStore;
 
     return () => {
@@ -10,7 +10,6 @@ export default function logoutStores(){
         loginStore.logout();
         practitionerStore.logout();
         patientStore.logoutPatient();
-        adminStore.logout();
         push("/")
     }
 
