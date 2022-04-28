@@ -103,7 +103,7 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed }) => {
                         </Button>
                     </Grid>
                     <Collapse in={showDetails}>
-                        <IssueDetails patient={patient} />
+                        <IssueDetails visible={showDetails} patient={patient} />
                         <ButtonArea isReviewed={isReviewed} loading={status === "pending"} patient={patient} resolvePatient={execute} />
                     </Collapse>
                 </>}

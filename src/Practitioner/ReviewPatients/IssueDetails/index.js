@@ -16,7 +16,7 @@ const useStyles = makeStyles({
   }
 })
 
-const IssueDetails = ({patient}) => {
+const IssueDetails = ({patient,visible}) => {
 
     const classes = useStyles();
 
@@ -24,7 +24,7 @@ const IssueDetails = ({patient}) => {
 
     return( <Box padding="1em 0" className={classes.container}>
         <Typography variant='h2'>Since the last review:</Typography>
-       {issues.unreviewedPhotos > 0 && <ReviewPhotos patient={patient} />}
+       {issues.unreviewedPhotos > 0 && visible && <ReviewPhotos patient={patient} />}
        {issues.symptoms > 0 && <SymptomSummary patient={patient} />}
     </Box>)
 
