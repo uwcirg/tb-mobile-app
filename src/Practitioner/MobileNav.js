@@ -52,7 +52,6 @@ const BottomBar = observer((props) => {
             value={practitionerUIStore.mobileTabNumber}
         >
             <BottomNavigationAction id="intro-home-button" onClick={practitionerUIStore.goToHome} className="intro-home-button" icon={<People />} />
-            <BottomNavigationAction onClick={practitionerUIStore.goToHome} className="intro-home-button" icon={<PhotoLibrary />} />
             <BottomNavigationAction onClick={practitionerUIStore.goToMessaging} className="intro-messaging-button" icon={
                 <Badge color={"primary"} invisible={messagingStore.numberUnread < 1} badgeContent={messagingStore.numberUnread} >
                     <ForumIcon />

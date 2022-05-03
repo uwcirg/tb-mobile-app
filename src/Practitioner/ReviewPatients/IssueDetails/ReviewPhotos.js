@@ -41,7 +41,7 @@ const ReviewPhotos = ({ patient }) => {
                 <Box width=".5em" />
                 <Typography>Photos to review</Typography>
                 <Box flexGrow="1" />
-                <Avatar className={classes.avatar} >{patient.issues.unreviewedPhotos.length}</Avatar>
+                {/* <Avatar className={classes.avatar} >{patient.issues.unreviewedPhotos.length}</Avatar> */}
             </Grid>
             <Box height=".5em" />
             <div>
@@ -58,9 +58,8 @@ const PhotoToReview = ({ photo }) => {
     return (<>
         <ButtonBase disableTouchRipple component={Link} to={`?review-photo=${photo.photoId}`} className={classes.photoReport}>
             <Typography>{DateTime.fromISO(photo.createdAt).toLocaleString({ day: "numeric", month: "numeric" })}</Typography>
-            <Box width="1em" />
-            <img style={{ display: "block" }} width="50px" src={photo.url} />
             <Box flexGrow="1" />
+            <img style={{ display: "block" }} width="50px" src={photo.url} />
             <ChevronRight />
         </ButtonBase>
         <Box height="5px" />
