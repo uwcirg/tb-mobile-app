@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, ButtonBase, Grid, Typography, Avatar} from '@material-ui/core';
+import { Box, ButtonBase, Grid, Typography, Avatar } from '@material-ui/core';
 import { DateTime } from 'luxon';
 import { CameraAlt, ChevronRight } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
@@ -18,12 +18,12 @@ const useStyles = makeStyles({
         borderRadius: "4px"
     },
     avatar: {
-        fontSize: ".75em",
+        fontSize: "1em",
         width: "1.5em",
         height: "1.5em",
         backgroundColor: Colors.buttonBlue
     },
-    icon:{
+    icon: {
         color: Colors.textGray
     }
 })
@@ -35,17 +35,19 @@ const ReviewPhotos = ({ patient }) => {
     return (
         <>
             <ReviewPhotoPopOver unreviewedPhotos={patient.unreviewedPhotos} />
+            <Box padding=".5em 0" bgcolor={Colors.lighterGray} borderRadius="4px">
             <Grid wrap="nowrap" alignItems="center" container>
                 <CameraAlt className={classes.icon} />
-                <Box padding="0 .5em">
-                    <Typography>Photos to review</Typography>
-                </Box>
+                <Box width=".5em" />
+                <Typography>Photos to review</Typography>
+                <Box flexGrow="1" />
                 <Avatar className={classes.avatar} >{patient.issues.unreviewedPhotos.length}</Avatar>
             </Grid>
             <Box height=".5em" />
             <div>
                 {patient.unreviewedPhotos.map(photo => <PhotoToReview key={`photo-to-review-${photo.photoId}`} photo={photo} />)}
             </div>
+            </Box>
         </>
     )
 }
