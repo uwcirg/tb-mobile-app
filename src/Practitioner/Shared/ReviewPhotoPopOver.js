@@ -12,6 +12,8 @@ import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 import { Clear } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import FlatButton from '../../Components/FlatButton';
+import useAsync from '../../Hooks/useAsync';
+import PractitionerAPI from '../../API/PractitionerAPI';
 
 const useStyles = makeStyles({
     popover: {
@@ -54,7 +56,6 @@ const useStyles = makeStyles({
 
 const MainInputs = ({state,handleChange}) => {
 
-
     const { t } = useTranslation('translation');
     const classes = useStyles();
 
@@ -70,7 +71,6 @@ const MainInputs = ({state,handleChange}) => {
         </FormControl>
     </div>)
 }
-
 
 const RedoInputs = ({state,handleChange}) => {
 
@@ -112,13 +112,13 @@ const PanImage = ({ url }) => {
     )
 }
 
-const Buttons = () => {
+const Buttons = ({state,setState,submitReview}) => {
 
     const { t } = useTranslation('translation');
     const classes = useStyles();
 
+
     const [onRedo, setOnRedo] = useState(false);
-    const [state, setState] = useState({ approved: null, redoFlag: false, redoReason: "" });
 
     const handleChange = (e) => {
         let tempState = { ...state };
@@ -127,20 +127,18 @@ const Buttons = () => {
     }
 
     const handleNext = () => {
-        if(state.approved === "false"){
-            setOnRedo(true);
-        }
+        if(state.approved === "false" && !onRedo) return setOnRedo(true);
+        submitReview();
     }
 
     const handleBack = () => {
         setOnRedo(false);
     }
 
+
     const showResubmissionOption = state.approved === "false"
     const enableSubmit = state.approved !== null;
-
     const inputProps = {state: state, handleChange: handleChange}
-
 
     return (
         <Grid className={classes.form} container direction='column'>
@@ -150,7 +148,7 @@ const Buttons = () => {
                 <Box aria-hidden flexGrow="1" />
                 {onRedo && <FlatButton onClick={handleBack}>Go Back</FlatButton>}
                 <Box width=".5em" />
-                <FlatButton onClick={handleNext} disabled={!enableSubmit}>Continue</FlatButton>
+                <FlatButton onClick={handleNext} disabled={!enableSubmit}>{showResubmissionOption ? "Continue" : "Submit"}</FlatButton>
             </Grid>
         </Grid>
     )
@@ -161,12 +159,21 @@ const ReviewPhotoPopOver = observer(({ unreviewedPhotos }) => {
     const classes = useStyles();
     const { uiStore } = useStores();
     const photoId = new URLSearchParams(uiStore.urlSearchParams).get("review-photo")
-
     const selectedPhoto = photoId ? unreviewedPhotos.find(each => { return each.photoId === parseInt(photoId) }) : false;
+
+    const getApprovedValue = (value) => {
+        if(value === "true") return true
+        if(value === "false") return false;
+        return null
+    }
+
+    const [state, setState] = useState({ approved: null, redoFlag: false, redoReason: "" });
+    const reviewPhoto = async () => {return PractitionerAPI.reviewPhoto(photoId,{...state, approved: getApprovedValue(state.approved)})}
+    const { execute, status, value, error, setValue } = useAsync(reviewPhoto,false)
 
     return (
         <>
-            {selectedPhoto && <Modal
+            {(selectedPhoto && status !== "success") && <Modal
                 BackdropProps={{ style: { backgroundColor: "white" } }}
                 open={!!selectedPhoto}>
                 <div className={classes.modalContainer}>
@@ -180,7 +187,7 @@ const ReviewPhotoPopOver = observer(({ unreviewedPhotos }) => {
                         </IconButton>
                     </Grid>
                     <PanImage url={selectedPhoto.url} />
-                    <Buttons />
+                    <Buttons state={state} setState={setState} submitReview={execute} />
                 </div>
             </Modal>}
         </>
