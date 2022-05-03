@@ -12,6 +12,9 @@ import { observer } from 'mobx-react';
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 import { Clear } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
+import MuiButton from '../../Basics/MuiButton';
+import NewButton from '../../Basics/NewButton';
+import FlatButton from '../../Components/FlatButton';
 
 const useStyles = makeStyles({
     popover: {
@@ -31,6 +34,18 @@ const useStyles = makeStyles({
     },
     exitButton: {
         paddingLeft: "0"
+    },
+    modalContainer: {
+        height: "100vh",
+        overflow: "scroll",
+
+    },
+    topBar: {
+        position: "sticky",
+        top: 0,
+        backgroundColor: "white",
+        zIndex: "100",
+        borderBottom: "1px solid gray"
     }
 })
 
@@ -49,8 +64,8 @@ const ReviewPhotoPopOver = observer(({ unreviewedPhotos }) => {
                 open={!!selectedPhoto}
 
             >
-                <div>
-                    <Grid container alignItems='center' wrap="nowrap">
+                <div className={classes.modalContainer}>
+                    <Grid className={classes.topBar} container alignItems='center' wrap="nowrap">
                         <Box padding="1em">
                             <Typography>Review Photo</Typography>
                         </Box>
@@ -83,7 +98,7 @@ const PanImage = ({ url }) => {
             initialScale={0.4}
             minScale={0.4}
             centerOnInit>
-            <TransformComponent wrapperStyle={{ backgroundColor: "white", border: "solid 1px lightgray", borderRadius: "4px", width: "100%", maxHeight: "50vh" }}>
+            <TransformComponent wrapperStyle={{ backgroundColor: "white", border: "solid 1px lightgray", borderRadius: "4px", width: "100%", maxHeight: "40vh" }}>
                 <Fade appear in timeout={1000}>
                     <img src={url} alt="test-strip-image-to-review" />
                 </Fade>
@@ -107,9 +122,6 @@ const Buttons = () => {
     // const medicationValue = state.approved === null ? null : (state.approved ? "true" : "false");
     const showResubmissionOption = state.approved === "false"
     const enableSubmit = state.approved !== null;
-
-
-    //const handleChange = (e) => { setState({ ...state, redoReason: e.target.value }) }
 
     return (
         <>
@@ -140,6 +152,10 @@ const Buttons = () => {
                     <TextField name="redoReason" variant="outlined" fullWidth onChange={handleChange} value={state.redoReason} multiline rows={2} />
                 </div>
             </Fade>
+            <Grid container>
+                <Box aria-hidden flexGrow="1" />
+                <FlatButton disabled={!enableSubmit}>Submit</FlatButton>
+            </Grid>
         </>
     )
 }
