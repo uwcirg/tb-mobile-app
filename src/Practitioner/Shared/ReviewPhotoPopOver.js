@@ -55,12 +55,12 @@ const useStyles = makeStyles({
     }
 })
 
-const MainInputs = ({state,handleChange}) => {
+const MainInputs = ({ state, handleChange }) => {
 
     const { t } = useTranslation('translation');
     const classes = useStyles();
 
-    return(<div>
+    return (<div>
         <FormControl component="fieldset">
             <FormLabel className={classes.resultLabel} component="legend">{t('redoPhoto.selectResult')}</FormLabel>
             <RadioGroup name="approved" value={state.approved} onChange={handleChange}>
@@ -73,7 +73,7 @@ const MainInputs = ({state,handleChange}) => {
     </div>)
 }
 
-const RedoInputs = ({state,handleChange}) => {
+const RedoInputs = ({ state, handleChange }) => {
 
     const { t } = useTranslation('translation');
     const classes = useStyles();
@@ -113,11 +113,9 @@ const PanImage = ({ url }) => {
     )
 }
 
-const Buttons = ({state,setState,submitReview}) => {
+const Buttons = ({ state, setState, submitReview }) => {
 
-    const { t } = useTranslation('translation');
     const classes = useStyles();
-
 
     const [onRedo, setOnRedo] = useState(false);
 
@@ -128,7 +126,7 @@ const Buttons = ({state,setState,submitReview}) => {
     }
 
     const handleNext = () => {
-        if(state.approved === "false" && !onRedo) return setOnRedo(true);
+        if (state.approved === "false" && !onRedo) return setOnRedo(true);
         submitReview();
     }
 
@@ -139,7 +137,7 @@ const Buttons = ({state,setState,submitReview}) => {
 
     const showResubmissionOption = state.approved === "false"
     const enableSubmit = state.approved !== null;
-    const inputProps = {state: state, handleChange: handleChange}
+    const inputProps = { state: state, handleChange: handleChange }
 
     return (
         <Grid className={classes.form} container direction='column'>
@@ -155,35 +153,35 @@ const Buttons = ({state,setState,submitReview}) => {
     )
 }
 
-const ReviewPhotoPopOver = observer(({ unreviewedPhotos, markPhotoAsComplete }) => {
+const ReviewPhotoPopOver = ({ photo, markPhotoAsComplete, handleSuccess }) => {
 
     const classes = useStyles();
-    const { uiStore } = useStores();
-    const photoId = new URLSearchParams(uiStore.urlSearchParams).get("review-photo")
-    const selectedPhoto = photoId ? unreviewedPhotos.find(each => { return each.photoId === parseInt(photoId) }) : false;
 
     const getApprovedValue = (value) => {
-        if(value === "true") return true
-        if(value === "false") return false;
+        if (value === "true") return true
+        if (value === "false") return false;
         return null
     }
 
     const [state, setState] = useState({ approved: null, redoFlag: false, redoReason: "" });
-    const reviewPhoto = async () => {return PractitionerAPI.reviewPhoto(photoId,{...state, approved: getApprovedValue(state.approved)})}
-    const { execute, status, value, error, setValue } = useAsync(reviewPhoto,false)
+    const reviewPhoto = async () => { return PractitionerAPI.reviewPhoto(photo.photoId, { ...state, approved: getApprovedValue(state.approved) }) }
+    const { execute, status } = useAsync(reviewPhoto, false)
+
+    useEffect(() => {
+        if (status === "success") {
+            markPhotoAsComplete(photo.patientId, photo.photoId);
+            handleSuccess();
+        }
+    }, [status])
 
     useEffect(()=>{
-        if(status === "success"){
-            markPhotoAsComplete(selectedPhoto.patientId,selectedPhoto.photoId);
-            uiStore.push("/");
-        }
-    },[status])
+        setState({ approved: null, redoFlag: false, redoReason: "" });
+    },[photo])
 
     return (
-        <>
-            {(selectedPhoto) && <Modal
+        <Modal
                 BackdropProps={{ style: { backgroundColor: "white" } }}
-                open={!!selectedPhoto}>
+                open={!!photo}>
                 <div className={classes.modalContainer}>
                     <Grid className={classes.topBar} container alignItems='center' wrap="nowrap">
                         <Box padding="1em">
@@ -194,14 +192,13 @@ const ReviewPhotoPopOver = observer(({ unreviewedPhotos, markPhotoAsComplete }) 
                             <Clear />
                         </IconButton>
                     </Grid>
-                    <PanImage url={selectedPhoto.url} />
+                    <PanImage url={photo.url} />
                     <Buttons state={state} setState={setState} submitReview={execute} />
                 </div>
-            </Modal>}
-        </>
+            </Modal>
     )
 
-});
+};
 
 
 export default ReviewPhotoPopOver;

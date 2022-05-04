@@ -26,31 +26,14 @@ const useStyles = makeStyles({
 })
 
 const ReviewPhotos = ({ patient }) => {
-
-    const { patients, setPatients } = useContext(PatientIssuesContext)
     const { t } = useTranslation('translation');
     const classes = useStyles();
 
-    const markPhotoAsComplete = (patientId, photoId) => {
-        let newPatients = [...patients];
-        const patientIndex = newPatients.findIndex(each => { return each.id === patientId })
-        if (patientIndex < 0) return;
-        const photoIndex = newPatients[patientIndex].unreviewedPhotos.findIndex(each => { return each.photoId === photoId })
-        if (photoIndex < 0) return;
-        newPatients[patientIndex].unreviewedPhotos.splice(photoIndex, 1)
-        setPatients(newPatients);
-    }
-
-    return (
-        <>
-            <ReviewPhotoPopOver markPhotoAsComplete={markPhotoAsComplete} unreviewedPhotos={patient.unreviewedPhotos} />
-            <IssueSection icon={CameraAlt} title={t('coordinator.cardTitles.photosToReview')} number={patient.issues.unreviewedPhotos.length}>
+    return (<IssueSection icon={CameraAlt} title={t('coordinator.cardTitles.photosToReview')} number={patient.issues.unreviewedPhotos.length}>
                 <div>
                     {patient.unreviewedPhotos.map(photo => <PhotoPreview key={`photo-to-review-${photo.photoId}`} photo={photo} />)}
                 </div>
-            </IssueSection>
-        </>
-    )
+            </IssueSection>)
 }
 
 const PhotoPreview = ({ photo }) => {

@@ -15,6 +15,8 @@ import StickyTopBar from '../../Components/Shared/StickyTopBar';
 import Colors from '../../Basics/Colors';
 import addIssuesToPatients from '../../Utility/FindIssues';
 import PatientIssueContext from './PatientIssuesContext';
+import ReviewPhotoPopOver from '../Shared/ReviewPhotoPopOver';
+import ReviewPhoto from './ReviewPhoto';
 
 const TopBar = () => {
     return (
@@ -69,6 +71,7 @@ const PractitionerHome = observer(() => {
 
     return (
         <PatientIssueContext.Provider value={{patients: value, setPatients: setValue}}>
+            <ReviewPhoto />
             <StickyTopBar>
                 <TopBar refresh={execute} />
                 <ReviewPatientTabs value={tabValue} />
