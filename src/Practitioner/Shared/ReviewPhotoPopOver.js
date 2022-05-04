@@ -101,7 +101,7 @@ const PanImage = ({ url }) => {
         <Box padding="1em">
             <TransformWrapper
                 initialScale={0.4}
-                minScale={0.4}
+                minScale={0.2}
                 centerOnInit>
                 <TransformComponent wrapperStyle={{ backgroundColor: "white", border: "solid 1px lightgray", borderRadius: "4px", width: "100%", maxHeight: "40vh" }}>
                     <Fade appear in timeout={1000}>

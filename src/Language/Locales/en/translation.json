@@ -1001,6 +1001,7 @@
         "title": "Resubmit test strip",
         "subtitle": "Review the issue your treatment supporter identified",
         "flag": "Resubmission",
+        "shortFlag": "Redo",
         "explanation": "There was an issue with your last test submission and you have been asked to resubmit. Please review the instructions carefully.",
         "feedback": "Feedback",
         "originalSubmission": "Original Submission",
