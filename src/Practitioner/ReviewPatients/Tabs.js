@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { Link } from 'react-router-dom';
-import useStores from '../../Basics/UseStores';
-import { observer } from 'mobx-react';
 import { Grid } from '@material-ui/core';
 import { FiberManualRecord } from '@material-ui/icons';
 import Colors from '../../Basics/Colors';
@@ -56,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const ReviewPatientTabs = observer(({value}) => {
+const ReviewPatientTabs = ({value}) => {
 
     const classes = useStyles();
 
@@ -83,13 +81,13 @@ const ReviewPatientTabs = observer(({value}) => {
                     <Tab
                 className={classes.tab}
                 component={Link}
-                to="/home/reviewed"
+                to="/home/all"
                 label={<LabelWithDot text="All"
                     color={Colors.buttonBlue} />} {...a11yProps(1)} />
         </Tabs>
 
     </AppBar>);
-})
+}
 
 const LabelWithDot = ({ text, color }) => {
     return (<Grid justify="center" alignItems='center' container>
