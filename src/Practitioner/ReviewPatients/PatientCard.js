@@ -53,8 +53,9 @@ const useStyles = makeStyles({
         color: Colors.buttonBlue
     },
     reviewPhotoPrompt: {
-        lineHeight: "1em",
-        color: Colors.red
+        lineHeight: "1.1em",
+        borderLeft: "solid 3px red",
+        paddingLeft: "5px"
     }
 })
 
@@ -139,7 +140,7 @@ const ButtonArea = ({ patient, resolvePatient, loading, isReviewed }) => {
     const classes = useStyles();
 
     return (
-        <Box padding="1em">
+        <Box padding="1em .5em">
             <Grid wrap="nowrap" justify='flex-end' alignItems='center' container>
                 {disable && <Typography className={classes.reviewPhotoPrompt} >Please review photos before checking this patient off</Typography>}
                 <IconButton component={Link} to={`?onMessagingChannelId=${patient.channelId}`} style={{ backgroundColor: 'rgba(66, 133, 244, 0.15)', padding: ".25em" }}>

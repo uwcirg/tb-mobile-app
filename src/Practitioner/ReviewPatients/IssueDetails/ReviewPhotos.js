@@ -20,7 +20,8 @@ const useStyles = makeStyles({
         padding: ".5em",
         width: "100%",
         borderRadius: "4px",
-        backgroundColor: "white"
+        backgroundColor: "white",
+        border: "solid 1px lightgray"
     }
 })
 

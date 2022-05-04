@@ -25,12 +25,12 @@ const SectionTitle = ({ icon, title, number }) => {
 
 const IssueSection = (props) => {
 
-    return (<Box marginBottom={".5em"}>
+    return (<Box>
         <SectionTitle {...props} />
-        <Box padding=".5em">
-        <Box padding=".5em" borderRadius="4px"  bgcolor={Colors.lightgray} >
-            {props.children}
-        </Box>
+        <Box padding="0 .5em">
+            <Box padding=".5em" borderRadius="0 0 4px 4px" bgcolor={Colors.lighterGray} >
+                {props.children}
+            </Box>
         </Box>
     </Box>)
 
