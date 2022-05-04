@@ -70,26 +70,28 @@ const PractitionerHome = observer(() => {
     });
 
     return (
-        <PatientIssueContext.Provider value={{patients: value, setPatients: setValue}}>
-            <ReviewPhoto />
-            <StickyTopBar>
-                <TopBar refresh={execute} />
-                <ReviewPatientTabs value={tabValue} />
-            </StickyTopBar>
-            <div>
+        <PatientIssueContext.Provider value={{ patients: value, setPatients: setValue }}>
+            <div style={{ maxHeight: "100vh", overflowY: "scroll" }}>
+                <ReviewPhoto />
                 <MessagingPopover channelName={channelName} channelId={channelId} open={!!channelId} />
-                {status === "pending" && <LoadingPatients />}
-                {value && <>
-                    <Grid container direction="column" >
-                        <Box height={".5em"} aria-hidden />
-                        {patientsWithIssues.map(patient => {
-                            return <Box key={`review-patient-${patient.id}`} padding='0 .5em .5em .5em'>
-                                <PatientCard isReviewed={tabValue === 1} markPatientAsReviewed={markPatientAsReviewed} patient={patient} />
-                            </Box>
-                        })}
-                        <Box height="60px" aria-hidden />
-                    </Grid>
-                </>}
+                <StickyTopBar>
+                    <TopBar refresh={execute} />
+                    <ReviewPatientTabs value={tabValue} />
+                </StickyTopBar>
+                <div>
+                    {status === "pending" && <LoadingPatients />}
+                    {value && <>
+                        <Grid container direction="column" >
+                            <Box height={".5em"} aria-hidden />
+                            {patientsWithIssues.map(patient => {
+                                return <Box key={`review-patient-${patient.id}`} padding='0 .5em .5em .5em'>
+                                    <PatientCard isReviewed={tabValue === 1} markPatientAsReviewed={markPatientAsReviewed} patient={patient} />
+                                </Box>
+                            })}
+                            <Box height="60px" aria-hidden />
+                        </Grid>
+                    </>}
+                </div>
             </div>
         </PatientIssueContext.Provider>)
 })

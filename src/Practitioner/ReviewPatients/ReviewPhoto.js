@@ -25,8 +25,14 @@ const ReviewPhoto = observer(() => {
         setPatients(newPatients);
     }
 
+    const exitPopover = () => { uiStore.push("/") }
+
     return (<>
-        {photo && <ReviewPhotoPopOver handleSuccess={() => {uiStore.push("/")}} markPhotoAsComplete={markPhotoAsComplete} photo={photo} />}
+        {photo && <ReviewPhotoPopOver
+            handleSuccess={exitPopover}
+            handleExit={exitPopover}
+            markPhotoAsComplete={markPhotoAsComplete}
+            photo={photo} />}
     </>)
 
 });

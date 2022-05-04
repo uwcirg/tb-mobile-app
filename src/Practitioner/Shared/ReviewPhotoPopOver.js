@@ -153,7 +153,7 @@ const Buttons = ({ state, setState, submitReview }) => {
     )
 }
 
-const ReviewPhotoPopOver = ({ photo, markPhotoAsComplete, handleSuccess }) => {
+const ReviewPhotoPopOver = ({ photo, markPhotoAsComplete, handleSuccess, handleExit }) => {
 
     const classes = useStyles();
 
@@ -188,7 +188,7 @@ const ReviewPhotoPopOver = ({ photo, markPhotoAsComplete, handleSuccess }) => {
                             <Typography>Review Photo</Typography>
                         </Box>
                         <Box flexGrow="1" />
-                        <IconButton className={classes.exitButton} component={Link} to="/">
+                        <IconButton className={classes.exitButton} onClick={handleExit}>
                             <Clear />
                         </IconButton>
                     </Grid>
