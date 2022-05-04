@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
     Box, Grid, Fade, IconButton, FormControl, FormLabel,
@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 import FlatButton from '../../Components/FlatButton';
 import useAsync from '../../Hooks/useAsync';
 import PractitionerAPI from '../../API/PractitionerAPI';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
     popover: {
@@ -154,7 +155,7 @@ const Buttons = ({state,setState,submitReview}) => {
     )
 }
 
-const ReviewPhotoPopOver = observer(({ unreviewedPhotos }) => {
+const ReviewPhotoPopOver = observer(({ unreviewedPhotos, markPhotoAsComplete }) => {
 
     const classes = useStyles();
     const { uiStore } = useStores();
@@ -171,9 +172,16 @@ const ReviewPhotoPopOver = observer(({ unreviewedPhotos }) => {
     const reviewPhoto = async () => {return PractitionerAPI.reviewPhoto(photoId,{...state, approved: getApprovedValue(state.approved)})}
     const { execute, status, value, error, setValue } = useAsync(reviewPhoto,false)
 
+    useEffect(()=>{
+        if(status === "success"){
+            markPhotoAsComplete(selectedPhoto.patientId,selectedPhoto.photoId);
+            uiStore.push("/");
+        }
+    },[status])
+
     return (
         <>
-            {(selectedPhoto && status !== "success") && <Modal
+            {(selectedPhoto) && <Modal
                 BackdropProps={{ style: { backgroundColor: "white" } }}
                 open={!!selectedPhoto}>
                 <div className={classes.modalContainer}>
@@ -182,7 +190,7 @@ const ReviewPhotoPopOver = observer(({ unreviewedPhotos }) => {
                             <Typography>Review Photo</Typography>
                         </Box>
                         <Box flexGrow="1" />
-                        <IconButton className={classes.exitButton} onClick={uiStore.goBack}>
+                        <IconButton className={classes.exitButton} component={Link} to="/">
                             <Clear />
                         </IconButton>
                     </Grid>

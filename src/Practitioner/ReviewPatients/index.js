@@ -14,6 +14,7 @@ import useAsync from '../../Hooks/useAsync';
 import StickyTopBar from '../../Components/Shared/StickyTopBar';
 import Colors from '../../Basics/Colors';
 import addIssuesToPatients from '../../Utility/FindIssues';
+import PatientIssueContext from './PatientIssuesContext';
 
 const TopBar = () => {
     return (
@@ -21,7 +22,7 @@ const TopBar = () => {
             <OverTopBar notFixed hideIconButton title={<Grid alignItems='center' container>
                 <Typography>Review Patients</Typography>
                 <Box flexGrow="1" />
-                <IconButton style={{backgroundColor: Colors.lightgray, padding: "5px"}}>
+                <IconButton style={{ backgroundColor: Colors.lightgray, padding: "5px" }}>
                     <Search />
                 </IconButton>
             </Grid>} />
@@ -62,12 +63,12 @@ const PractitionerHome = observer(() => {
     }, [channelId])
 
     //@Todo - wrap this in a callback since the calculations are complex 
-    const patientsWithIssues = addIssuesToPatients(patientsToDisplay || []).sort((a,b) => {
+    const patientsWithIssues = addIssuesToPatients(patientsToDisplay || []).sort((a, b) => {
         return b.issues.total - a.issues.total;
     });
 
     return (
-        <>
+        <PatientIssueContext.Provider value={{patients: value, setPatients: setValue}}>
             <StickyTopBar>
                 <TopBar refresh={execute} />
                 <ReviewPatientTabs value={tabValue} />
@@ -86,7 +87,8 @@ const PractitionerHome = observer(() => {
                         <Box height="60px" aria-hidden />
                     </Grid>
                 </>}
-            </div></>)
+            </div>
+        </PatientIssueContext.Provider>)
 })
 
 export default PractitionerHome;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, ButtonBase, Grid, Typography, Avatar } from '@material-ui/core';
 import { DateTime } from 'luxon';
@@ -6,6 +6,8 @@ import { CameraAlt, ChevronRight } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import Colors from '../../../Basics/Colors';
 import ReviewPhotoPopOver from '../../Shared/ReviewPhotoPopOver';
+import PatientIssuesContext from '../PatientIssuesContext'
+import IssueSection from './IssueSection';
 
 const useStyles = makeStyles({
     photoReport: {
@@ -16,38 +18,34 @@ const useStyles = makeStyles({
         width: "100%",
         border: "solid 1px lightgray",
         borderRadius: "4px"
-    },
-    avatar: {
-        fontSize: "1em",
-        width: "1.5em",
-        height: "1.5em",
-        backgroundColor: Colors.buttonBlue
-    },
-    icon: {
-        color: Colors.textGray
     }
 })
 
 const ReviewPhotos = ({ patient }) => {
 
+    const { patients, setPatients } = useContext(PatientIssuesContext)
     const classes = useStyles();
+
+    const markPhotoAsComplete = (patientId, photoId) => {
+        let newPatients = [...patients];
+        const patientIndex = newPatients.findIndex(each => { return each.id === patientId })
+        if (patientIndex < 0) return;
+        const photoIndex = newPatients[patientIndex].unreviewedPhotos.findIndex(each => { return each.photoId === photoId })
+        if (photoIndex < 0) return;
+        newPatients[patientIndex].unreviewedPhotos.splice(photoIndex, 1)
+        setPatients(newPatients);
+    }
+
 
     return (
         <>
-            <ReviewPhotoPopOver unreviewedPhotos={patient.unreviewedPhotos} />
-            <Box padding=".5em 0" bgcolor={Colors.lighterGray} borderRadius="4px">
-            <Grid wrap="nowrap" alignItems="center" container>
-                <CameraAlt className={classes.icon} />
-                <Box width=".5em" />
-                <Typography>Photos to review</Typography>
-                <Box flexGrow="1" />
-                {/* <Avatar className={classes.avatar} >{patient.issues.unreviewedPhotos.length}</Avatar> */}
-            </Grid>
-            <Box height=".5em" />
-            <div>
-                {patient.unreviewedPhotos.map(photo => <PhotoToReview key={`photo-to-review-${photo.photoId}`} photo={photo} />)}
-            </div>
-            </Box>
+            <ReviewPhotoPopOver markPhotoAsComplete={markPhotoAsComplete} unreviewedPhotos={patient.unreviewedPhotos} />
+            <IssueSection icon={CameraAlt} title={"Unreviewed Photos"} number={patient.issues.unreviewedPhotos.length}>
+                <div>
+                    {patient.unreviewedPhotos.map(photo => <PhotoToReview key={`photo-to-review-${photo.photoId}`} photo={photo} />)}
+                </div>
+            </IssueSection>
+
         </>
     )
 }

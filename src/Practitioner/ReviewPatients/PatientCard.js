@@ -38,12 +38,23 @@ const useStyles = makeStyles({
     rotate: {
         transform: "rotate(180deg)"
     },
-    reviewButton:{
-       backgroundColor: Colors.calendarGreen, 
-       padding: ".25em",
-       "&:disabled":{
-           backgroundColor: Colors.lightgray
-       }
+    reviewButton: {
+        backgroundColor: Colors.calendarGreen,
+        padding: ".25em",
+        "&:disabled": {
+            backgroundColor: Colors.lightgray
+        }
+    },
+    expand: {
+        width: "fit-content",
+        paddingRight: "0",
+        justifyContent: "flex-end",
+        textTransform: "none",
+        color: Colors.buttonBlue
+    },
+    reviewPhotoPrompt: {
+        lineHeight: "1em",
+        color: Colors.red
     }
 })
 
@@ -76,7 +87,7 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed }) => {
         }
         return function cleanup() {
             clearTimeout(timeout);
-            if(success){
+            if (success) {
                 handleExit();
             }
 
@@ -87,10 +98,10 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed }) => {
 
     return (
         <Collapse onExited={handleExit} in={!reviewed}>
-            <Box className={classes.container} padding=".75em">
+            <Box className={classes.container}>
                 {success ? <Grid container alignItems='center' style={{ height: "100%", width: "100%" }}>
                     <p>Review Submitted</p>
-                </Grid> : <>
+                </Grid> : <><Box padding='.75em'>
                     <Grid alignItems='center' container wrap='nowrap'>
                         <Link to={`/patients/${patient.id}`}>
                             <Typography className={classes.name} >{patient.fullName}</Typography>
@@ -104,16 +115,19 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed }) => {
                     <Grid alignItems='center' wrap="nowrap" container className={classes.bottomSection}>
                         <IssueArea patient={patient} />
                         <Box flexGrow={1} />
-                        <Button style={{ width: "fit-content", paddingRight: "0", justifyContent: "flex-end", textTransform: "none", color: Colors.buttonBlue }} onClick={toggleDetails}>
+                        <Button className={classes.expand} onClick={toggleDetails}>
                             {!showDetails && <Typography style={{ paddingRight: ".5em" }} noWrap>Review</Typography>}
                             <Down className={showDetails ? classes.rotate : ""} />
                         </Button>
                     </Grid>
+
+                </Box>
                     <Collapse in={showDetails}>
                         <IssueDetails visible={showDetails} patient={patient} />
                         <ButtonArea isReviewed={isReviewed} loading={status === "pending"} patient={patient} resolvePatient={execute} />
                     </Collapse>
-                </>}
+                </>
+                }
             </Box>
         </Collapse>
     )
@@ -125,17 +139,19 @@ const ButtonArea = ({ patient, resolvePatient, loading, isReviewed }) => {
     const classes = useStyles();
 
     return (
-        <Grid wrap="nowrap" justify='flex-end' alignItems='center' container>
-            {disable && <Typography >Please review photos before checking this patient off</Typography>}
-            <IconButton component={Link} to={`?onMessagingChannelId=${patient.channelId}`} style={{ backgroundColor: 'rgba(66, 133, 244, 0.15)', padding: ".25em" }}>
-                <Message style={{ color: Colors.buttonBlue }} />
-            </IconButton>
-            {!isReviewed && <>
-                <Box width=".5em" />
-                <IconButton disabled={disable} onClick={resolvePatient} className={classes.reviewButton}>
-                    {loading ? <CircularProgress style={{ color: Colors.gray }} size="1em" variant='indeterminate' /> : <Check style={{ color: disable ? Colors.lighterGray : Colors.approvedGreen }} />}
-                </IconButton></>}
-        </Grid>
+        <Box padding="1em">
+            <Grid wrap="nowrap" justify='flex-end' alignItems='center' container>
+                {disable && <Typography className={classes.reviewPhotoPrompt} >Please review photos before checking this patient off</Typography>}
+                <IconButton component={Link} to={`?onMessagingChannelId=${patient.channelId}`} style={{ backgroundColor: 'rgba(66, 133, 244, 0.15)', padding: ".25em" }}>
+                    <Message style={{ color: Colors.buttonBlue }} />
+                </IconButton>
+                {!isReviewed && <>
+                    <Box width=".5em" />
+                    <IconButton disabled={disable} onClick={resolvePatient} className={classes.reviewButton}>
+                        {loading ? <CircularProgress style={{ color: Colors.gray }} size="1em" variant='indeterminate' /> : <Check style={{ color: disable ? Colors.lighterGray : Colors.approvedGreen }} />}
+                    </IconButton></>}
+            </Grid>
+        </Box>
     )
 }
 
