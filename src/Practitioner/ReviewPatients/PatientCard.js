@@ -19,7 +19,7 @@ const useStyles = makeStyles({
         overflow: "wrap",
         backgroundColor: "white",
         boxSizing: "border-box",
-        boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.15)",
+        boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.25)",
         "& a, & a:visited": {
             textDecoration: "none"
         }

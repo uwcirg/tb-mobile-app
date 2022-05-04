@@ -9,6 +9,8 @@ const useStyles = makeStyles({
         maxWidth: "200px"
     },
     container: {
+        minHeight: "100vh",
+        backgroundColor: "white",
         padding: "2em",
         width: "100%",
         flexGrow: "1"

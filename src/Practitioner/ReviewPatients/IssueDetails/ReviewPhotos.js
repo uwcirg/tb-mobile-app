@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, ButtonBase, Grid, Typography, Avatar } from '@material-ui/core';
+import { Box, ButtonBase, Typography } from '@material-ui/core';
 import { DateTime } from 'luxon';
 import { CameraAlt, ChevronRight } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
-import Colors from '../../../Basics/Colors';
 import ReviewPhotoPopOver from '../../Shared/ReviewPhotoPopOver';
 import PatientIssuesContext from '../PatientIssuesContext'
 import IssueSection from './IssueSection';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
     photoReport: {
@@ -16,14 +16,15 @@ const useStyles = makeStyles({
         justifyContent: "flex-start",
         padding: ".5em",
         width: "100%",
-        border: "solid 1px lightgray",
-        borderRadius: "4px"
+        borderRadius: "4px",
+        backgroundColor: "white"
     }
 })
 
 const ReviewPhotos = ({ patient }) => {
 
     const { patients, setPatients } = useContext(PatientIssuesContext)
+    const { t } = useTranslation('translation');
     const classes = useStyles();
 
     const markPhotoAsComplete = (patientId, photoId) => {
@@ -36,16 +37,14 @@ const ReviewPhotos = ({ patient }) => {
         setPatients(newPatients);
     }
 
-
     return (
         <>
             <ReviewPhotoPopOver markPhotoAsComplete={markPhotoAsComplete} unreviewedPhotos={patient.unreviewedPhotos} />
-            <IssueSection icon={CameraAlt} title={"Unreviewed Photos"} number={patient.issues.unreviewedPhotos.length}>
+            <IssueSection icon={CameraAlt} title={t('coordinator.cardTitles.photosToReview')} number={patient.issues.unreviewedPhotos.length}>
                 <div>
                     {patient.unreviewedPhotos.map(photo => <PhotoToReview key={`photo-to-review-${photo.photoId}`} photo={photo} />)}
                 </div>
             </IssueSection>
-
         </>
     )
 }
@@ -55,7 +54,7 @@ const PhotoToReview = ({ photo }) => {
 
     return (<>
         <ButtonBase disableTouchRipple component={Link} to={`?review-photo=${photo.photoId}`} className={classes.photoReport}>
-            <Typography>{DateTime.fromISO(photo.createdAt).toLocaleString({ day: "numeric", month: "numeric" })}</Typography>
+            <Typography>{DateTime.fromISO(photo.createdAt).toLocaleString({ day: "numeric", month: "short" })}</Typography>
             <Box flexGrow="1" />
             <img style={{ display: "block" }} width="50px" src={photo.url} />
             <ChevronRight />

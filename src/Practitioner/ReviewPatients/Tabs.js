@@ -51,7 +51,8 @@ const useStyles = makeStyles((theme) => ({
         position: "static"
     },
     tab: {
-        textTransform: "none"
+        textTransform: "none",
+        color: Colors.textDarkGray
     }
 }));
 
@@ -71,13 +72,13 @@ const ReviewPatientTabs = observer(({value}) => {
                 className={classes.tab}
                 component={Link}
                 to="/home/needs-review"
-                label={<LabelWithDot text="ToDo"
+                label={<LabelWithDot text="Review"
                     color={Colors.yellow} />} {...a11yProps(0)} />
             <Tab
                 className={classes.tab}
                 component={Link}
                 to="/home/reviewed"
-                label={<LabelWithDot text="Checked"
+                label={<LabelWithDot text="Viewed"
                     color={Colors.green} />} {...a11yProps(1)} />
                     <Tab
                 className={classes.tab}
