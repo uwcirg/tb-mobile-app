@@ -1,6 +1,4 @@
 import React, { useContext } from 'react';
-import useStores from '../../Basics/UseStores';
-import { observer } from 'mobx-react';
 import { DateTime } from 'luxon';
 import PatientIssueContext from './PatientIssuesContext';
 import addIssuesToPatients from '../../Utility/FindIssues';
@@ -23,6 +21,7 @@ const ListOfPatients = ({tabValue}) => {
     }
 
     const patientsToDisplay = (patients || []).filter(_patient => {
+        if(tabValue === 2) return true;
         const alreadyReviewed = wasToday(_patient.lastGeneralResolution);
         return tabValue === 0 ? !alreadyReviewed : alreadyReviewed
     })

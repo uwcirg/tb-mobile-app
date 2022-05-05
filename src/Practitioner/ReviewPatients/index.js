@@ -12,8 +12,9 @@ import ReviewPhoto from './ReviewPhoto';
 import ListOfPatients from './ListOfPatients';
 import MessagePatient from './MessagePatient';
 import LoadingPatients from './LoadingPatients';
-import {useLocation} from 'react-router-dom';
-
+import { useLocation } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom'
+import AllPatientsList from './AllPatientsList';
 const TopBar = () => {
     return (
         <>
@@ -28,7 +29,6 @@ const TopBar = () => {
         </>)
 }
 
-
 const PractitionerHome = () => {
 
     const { value, execute, status, setValue } = useAsync(PractitionerAPI.getPatientIssues, true)
@@ -36,9 +36,9 @@ const PractitionerHome = () => {
     const location = useLocation();
 
     const getTabValue = () => {
-        if(location.pathname === "/home/needs-review") return 0
-        if(location.pathname === "/home/reviewed") return 1
-        if(location.pathname  === "/home/all") return 2
+        if (location.pathname === "/home/needs-review") return 0
+        if (location.pathname === "/home/reviewed") return 1
+        if (location.pathname === "/home/all") return 2
         return 0
     }
 
@@ -54,7 +54,14 @@ const PractitionerHome = () => {
                     <ReviewPatientTabs value={tabValue} />
                 </StickyTopBar>
                 {status === "pending" && <LoadingPatients />}
-                <ListOfPatients tabValue={tabValue} />
+                <Switch>
+                    <Route path="/home/all">
+                        <AllPatientsList />
+                    </Route>
+                    <Route path={"/home"}>
+                        <ListOfPatients tabValue={tabValue} />
+                    </Route>
+                </Switch>
             </div>
         </PatientIssueContext.Provider>)
 }

@@ -5,7 +5,10 @@ const api = new APIHelper();
 
 export default class PractitionerAPI {
 
-    static async getPatients() {
+    static async getPatients(all = false) {
+        if (all) {
+            return api.executeRawRequest("/v2/patients?all=true&shortSerializer=true")
+        }
         return api.executeRawRequest("/v2/patients")
     }
 

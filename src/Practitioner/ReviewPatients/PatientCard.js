@@ -59,7 +59,7 @@ const useStyles = makeStyles({
     }
 })
 
-const PatientCard = ({ patient, markPatientAsReviewed, isReviewed }) => {
+const PatientCard = ({ patient, markPatientAsReviewed, isReviewed, isSimpleView }) => {
 
     const classes = useStyles();
     const { t } = useTranslation('translation');
@@ -113,20 +113,20 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed }) => {
                         <AdherenceLabel patient={patient} />
                     </Grid>
                     <Box height=".5em" />
-                    <Grid alignItems='center' wrap="nowrap" container className={classes.bottomSection}>
+                    {!isSimpleView && <Grid alignItems='center' wrap="nowrap" container className={classes.bottomSection}>
                         <IssueArea patient={patient} />
                         <Box flexGrow={1} />
                         <Button className={classes.expand} onClick={toggleDetails}>
                             {!showDetails && <Typography style={{ paddingRight: ".5em" }} noWrap>Review</Typography>}
                             <Down className={showDetails ? classes.rotate : ""} />
                         </Button>
-                    </Grid>
+                    </Grid>}
 
                 </Box>
-                    <Collapse in={showDetails}>
+                     {!isSimpleView && <Collapse in={showDetails}>
                         <IssueDetails visible={showDetails} patient={patient} />
                         <ButtonArea isReviewed={isReviewed} loading={status === "pending"} patient={patient} resolvePatient={execute} />
-                    </Collapse>
+                    </Collapse>}
                 </>
                 }
             </Box>
@@ -134,7 +134,7 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed }) => {
     )
 }
 
-const ButtonArea = ({ patient, resolvePatient, loading, isReviewed }) => {
+const ButtonArea = ({ patient, resolvePatient, loading, isReviewed, isSimpleView }) => {
 
     const disable = patient.unreviewedPhotos.length > 0;
     const classes = useStyles();
@@ -146,7 +146,7 @@ const ButtonArea = ({ patient, resolvePatient, loading, isReviewed }) => {
                 <IconButton component={Link} to={`?onMessagingChannelId=${patient.channelId}`} style={{ backgroundColor: 'rgba(66, 133, 244, 0.15)', padding: ".25em" }}>
                     <Message style={{ color: Colors.buttonBlue }} />
                 </IconButton>
-                {!isReviewed && <>
+                {(!isReviewed && !isSimpleView) && <>
                     <Box width=".5em" />
                     <IconButton disabled={disable} onClick={resolvePatient} className={classes.reviewButton}>
                         {loading ? <CircularProgress style={{ color: Colors.gray }} size="1em" variant='indeterminate' /> : <Check style={{ color: disable ? Colors.lighterGray : Colors.approvedGreen }} />}
