@@ -58,7 +58,7 @@ const PractitionerHome = () => {
                     <Route path="/home/all">
                         <AllPatientsList />
                     </Route>
-                    <Route path={"/home"}>
+                    <Route path={"/"}>
                         <ListOfPatients tabValue={tabValue} />
                     </Route>
                 </Switch>
