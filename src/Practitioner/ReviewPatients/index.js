@@ -15,6 +15,8 @@ import LoadingPatients from './LoadingPatients';
 import { useLocation } from 'react-router-dom';
 import { Route, Switch } from 'react-router-dom'
 import AllPatientsList from './AllPatientsList';
+import CalendarPopOver from './CalendarPopOver';
+
 const TopBar = () => {
     return (
         <>
@@ -47,6 +49,11 @@ const PractitionerHome = () => {
     return (
         <PatientIssueContext.Provider value={{ patients: value, setPatients: setValue, refreshPatients: execute }}>
             <div style={{ maxHeight: "100vh", overflowY: "scroll" }}>
+
+                <Route path="*/:patientId/calendar" >
+                   <CalendarPopOver />
+                </Route>
+
                 <ReviewPhoto />
                 <MessagePatient />
                 <StickyTopBar>

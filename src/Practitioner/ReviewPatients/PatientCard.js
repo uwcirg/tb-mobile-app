@@ -12,6 +12,7 @@ import PractitionerAPI from '../../API/PractitionerAPI';
 import TreatmentWeek from './TreatmentWeek';
 import useToggle from '../../Hooks/useToggle';
 import IssueDetails from './IssueDetails';
+import { useHistory, useLocation } from 'react-router-dom'
 
 const useStyles = makeStyles({
     container: {
@@ -66,6 +67,9 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed, isSimpleView 
     const [reviewed, setReviewed] = useState(false);
     const [showDetails, toggleDetails] = useToggle(false);
 
+    const history = useHistory();
+    const location = useLocation();
+
     const resolvePatient = async () => {
         return PractitionerAPI.resolvePatient(patient.id);
     }
@@ -95,7 +99,7 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed, isSimpleView 
         }
     }, [status])
 
-    const daysSinceLastMessage = patient.lastContacted ? Math.round(daysSinceISODateTime(patient.lastContacted)) : "N/A"
+    // const daysSinceLastMessage = patient.lastContacted ? Math.round(daysSinceISODateTime(patient.lastContacted)) : "N/A"
 
     return (
         <Collapse onExited={handleExit} in={!reviewed}>
@@ -121,9 +125,9 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed, isSimpleView 
                             <Down className={showDetails ? classes.rotate : ""} />
                         </Button>
                     </Grid>}
-
+                    <Link to={`${location.pathname}/${patient.id}/calendar`}>Calendar</Link>
                 </Box>
-                     {!isSimpleView && <Collapse in={showDetails}>
+                    {!isSimpleView && <Collapse in={showDetails}>
                         <IssueDetails visible={showDetails} patient={patient} />
                         <ButtonArea isReviewed={isReviewed} loading={status === "pending"} patient={patient} resolvePatient={execute} />
                     </Collapse>}
