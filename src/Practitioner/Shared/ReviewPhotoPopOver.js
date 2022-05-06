@@ -15,39 +15,20 @@ import FlatButton from '../../Components/FlatButton';
 import useAsync from '../../Hooks/useAsync';
 import PractitionerAPI from '../../API/PractitionerAPI';
 import { Link } from 'react-router-dom';
+import PopOverV2 from '../../Components/Shared/PopOverV2';
 
 const useStyles = makeStyles({
-    popover: {
-        boxSizing: "border-box",
-        margin: ".5em",
-        width: "100vw",
-        maxWidth: "100vw",
-        height: "100vh",
-        borderRadius: "0",
-        backgroundColor: "unset",
-        boxShadow: "none"
-    },
     backdrop: {
         backgroundColor: 'white'
     },
     popoverContent: {
         flexGrow: 1
     },
-    exitButton: {
-        paddingLeft: "0"
-    },
     modalContainer: {
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column"
 
-    },
-    topBar: {
-        position: "sticky",
-        top: 0,
-        backgroundColor: "white",
-        zIndex: "100",
-        borderBottom: "1px solid lightgray"
     },
     form: {
         flexGrow: "1",
@@ -156,6 +137,7 @@ const Buttons = ({ state, setState, submitReview }) => {
 const ReviewPhotoPopOver = ({ photo, markPhotoAsComplete, handleSuccess, handleExit }) => {
 
     const classes = useStyles();
+    const { t } = useTranslation('translation');
 
     const getApprovedValue = (value) => {
         if (value === "true") return true
@@ -174,28 +156,18 @@ const ReviewPhotoPopOver = ({ photo, markPhotoAsComplete, handleSuccess, handleE
         }
     }, [status])
 
-    useEffect(()=>{
+    useEffect(() => {
         setState({ approved: null, redoFlag: false, redoReason: "" });
-    },[photo])
+    }, [photo])
 
     return (
-        <Modal
-                BackdropProps={{ style: { backgroundColor: "white" } }}
-                open={!!photo}>
-                <div className={classes.modalContainer}>
-                    <Grid className={classes.topBar} container alignItems='center' wrap="nowrap">
-                        <Box padding="1em">
-                            <Typography>Review Photo</Typography>
-                        </Box>
-                        <Box flexGrow="1" />
-                        <IconButton className={classes.exitButton} onClick={handleExit}>
-                            <Clear />
-                        </IconButton>
-                    </Grid>
-                    <PanImage url={photo.url} />
-                    <Buttons state={state} setState={setState} submitReview={execute} />
-                </div>
-            </Modal>
+        <PopOverV2
+            topBarTitle={t('patient.report.confirmation.review')}
+            handleExit={handleExit}
+            open={!!photo}>
+            <PanImage url={photo.url} />
+            <Buttons state={state} setState={setState} submitReview={execute} />
+        </PopOverV2>
     )
 
 };
