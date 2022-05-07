@@ -8,4 +8,8 @@ export default class SharedAPI {
         return api.executeRawRequest(`/v2/photo_reports/${photoId}`)
     }
 
+    static async getDailyReports(patientId) {
+        return api.executeRawRequest(`/v2/patient/${patientId}/daily_reports`)
+    }
+
 }

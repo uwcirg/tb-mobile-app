@@ -67,9 +67,6 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed, isSimpleView 
     const [reviewed, setReviewed] = useState(false);
     const [showDetails, toggleDetails] = useToggle(false);
 
-    const history = useHistory();
-    const location = useLocation();
-
     const resolvePatient = async () => {
         return PractitionerAPI.resolvePatient(patient.id);
     }
@@ -125,7 +122,6 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed, isSimpleView 
                             <Down className={showDetails ? classes.rotate : ""} />
                         </Button>
                     </Grid>}
-                    <Link to={`${location.pathname}/${patient.id}/calendar`}>Calendar</Link>
                 </Box>
                     {!isSimpleView && <Collapse in={showDetails}>
                         <IssueDetails visible={showDetails} patient={patient} />

@@ -49,11 +49,9 @@ const PractitionerHome = () => {
     return (
         <PatientIssueContext.Provider value={{ patients: value, setPatients: setValue, refreshPatients: execute }}>
             <div style={{ maxHeight: "100vh", overflowY: "scroll" }}>
-
                 <Route path="*/:patientId/calendar" >
                    <CalendarPopOver />
                 </Route>
-
                 <ReviewPhoto />
                 <MessagePatient />
                 <StickyTopBar>
