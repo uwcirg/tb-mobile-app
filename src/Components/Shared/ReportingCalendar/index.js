@@ -9,15 +9,15 @@ import useStores from '../../../Basics/UseStores';
 import { observer } from 'mobx-react';
 import report from '../../../Patient/Walkthrough/ExampleReport';
 
-const ReportingCalendar = observer(({ patient, reports }) => {
+const ReportingCalendar = observer(({ patient, reports, handleDateChange, displayStartDate, updateMonth }) => {
 
     const { uiStore } = useStores();
 
     const classes = useCalendarStyles();
-    const [month, setMonth] = useState(new DateTime.local().startOf('month'))
 
     const handleChange = (date) => {
-
+        console.log("On change")
+        handleDateChange(DateTime.fromJSDate(date).toISODate())
     }
 
     const checkDisabled = (date) => {
@@ -33,11 +33,11 @@ const ReportingCalendar = observer(({ patient, reports }) => {
 
     return (
         <Calendar
-            tileDisabled={({ date }) => {return checkDisabled(date)}}
+            activeStartDate={displayStartDate}
+            tileDisabled={({ date }) => { return checkDisabled(date) }}
             calendarType="US"
             minDetail="month"
             view="month"
-            value={new Date()}
             locale={uiStore.locale}
             className={`${classes.calendar} intro-calendar-full`}
             navigationLabel={(
@@ -51,17 +51,16 @@ const ReportingCalendar = observer(({ patient, reports }) => {
                         date={DateTime.fromJSDate(date).day}
                         disabled={checkDisabled(date)} />
                     : null
-            }
-
-            }
+            }}
             next2Label={null}
             prev2Label={null}
             nextLabel={showRight ? <ChevronRight /> : null}
             prevLabel={showLeft ? <ChevronLeft /> : null}
             onChange={handleChange}
-            onActiveStartDateChange={(event) => {
-                setMonth(DateTime.fromJSDate(event.activeStartDate));
+            onActiveStartDateChange={({action}) => {
+                updateMonth(action === "next")
             }}
+            
 
         />
     )

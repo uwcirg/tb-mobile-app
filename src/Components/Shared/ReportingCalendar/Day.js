@@ -45,7 +45,6 @@ const Day = ({ dateObj, reports, treatmentStart, disabled, date }) => {
     const isToday = datetime.toISODate() === DateTime.local().toISODate();
 
     return (<div style={{ backgroundColor: currentColor }} className={`${classes.day} ${!disabled && classes.nonDisabledDay} ${relevantDay.rightRounding && classes.end} ${relevantDay.leftRounding && classes.start}`}>
-        {/* {selectedDay ? <div className={classes.selectedDay}><p>{props.date}</p> </div> : <p>{props.date}</p>} */}
         <p className={`${isToday && classes.today}`}>{date}</p>
         <div className={classes.bottomDots}>
             {relevantDay.modifiers.map(each => <div key={`${datetime.toISODate}-mod-${each}`} style={{ backgroundColor: each }} className={classes.modifier} />)}

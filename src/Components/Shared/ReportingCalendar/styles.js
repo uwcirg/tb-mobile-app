@@ -31,6 +31,8 @@ const useCalendarStyles = makeStyles({
         },
 
         '& > div.react-calendar__navigation': {
+            display: "flex",
+            justifyContent: "space-between",
             marginBottom: "1em",
             "& > button": {
                 fontSize: "1.25em",
