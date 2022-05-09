@@ -10,13 +10,15 @@ const getSurroundingDates = (datetime) => {
     datetime.startOf('day').plus({ days: 1 })]
 }
 
-const Day = ({ dateObj, report, treatmentStart, disabled, date }) => {
+const Day = ({ dateObj, reports, treatmentStart, disabled, date }) => {
 
     const classes = useCalendarStyles();
     const datetime = DateTime.fromJSDate(dateObj);
 
     const getReportColorForDate = (date) => {
         const isWithinTreatmentBounds = date.diff(DateTime.fromISO(DateTime.fromISO(treatmentStart).toISODate()), "days").days >= 0 && datetime.diffNow("days").days < 0;
+
+        const report = reports[date.toISODate()]
 
         if (isWithinTreatmentBounds) {
             const isToday = date.equals(DateTime.local().startOf('day'));
@@ -39,7 +41,7 @@ const Day = ({ dateObj, report, treatmentStart, disabled, date }) => {
 
     const [prevColor, currentColor, nextColor] = getRelevantReportColors(datetime);
 
-    const relevantDay = new CalendarDayStyleHelper(report, { prevColor, currentColor, nextColor })
+    const relevantDay = new CalendarDayStyleHelper(reports[datetime.toISODate()], { prevColor, currentColor, nextColor })
 
     return (<div style={{ backgroundColor: currentColor }} className={`${classes.day} ${!disabled && classes.nonDisabledDay} ${relevantDay.rightRounding && classes.end} ${relevantDay.leftRounding && classes.start}`}>
         {/* {selectedDay ? <div className={classes.selectedDay}><p>{props.date}</p> </div> : <p>{props.date}</p>} */}

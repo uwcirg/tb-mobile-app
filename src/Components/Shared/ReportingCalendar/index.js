@@ -31,9 +31,6 @@ const ReportingCalendar = observer(({ patient, reports }) => {
     const showLeft = true;
     const showRight = true;
 
-
-    console.log(reports)
-
     return (
         <Calendar
             tileDisabled={({ date }) => {
@@ -49,11 +46,10 @@ const ReportingCalendar = observer(({ patient, reports }) => {
                 { date }) => `${DateTime.fromJSDate(date).get("monthLong")} ${DateTime.fromJSDate(date).get("year")}`
             }
             tileContent={({ date, view }) => {
-                const isoDate = DateTime.fromISO(date.toISOString()).toISODate()
                 return view === "month"
                     ? <Day dateObj={date}
                         treatmentStart={patient.treatmentStart}
-                        report={reports[isoDate]}
+                        reports={reports}
                         date={DateTime.fromJSDate(date).day}
                         disabled={checkDisabled(date)} />
                     : null

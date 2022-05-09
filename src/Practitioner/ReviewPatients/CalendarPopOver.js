@@ -38,5 +38,5 @@ export default function CalendarPopOver({ patient }) {
                 </>
             }
         </Grid>
-    </PopOverV2>)
+    </PopOverV2>)   
 }
