@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Grid, Box, IconButton, Typography } from '@material-ui/core';
 import PractitionerAPI from '../../API/PractitionerAPI';
 import { Search } from '@material-ui/icons';
@@ -13,7 +13,7 @@ import ListOfPatients from './ListOfPatients';
 import MessagePatient from './MessagePatient';
 import LoadingPatients from './LoadingPatients';
 import { useLocation } from 'react-router-dom';
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, useParams } from 'react-router-dom'
 import AllPatientsList from './AllPatientsList';
 import CalendarPopOver from './CalendarPopOver';
 
@@ -50,7 +50,7 @@ const PractitionerHome = () => {
         <PatientIssueContext.Provider value={{ patients: value, setPatients: setValue, refreshPatients: execute }}>
             <div style={{ maxHeight: "100vh", overflowY: "scroll" }}>
                 <Route path="*/:patientId/calendar" >
-                   <CalendarPopOver />
+                    <WrappedCalendarPopOver />
                 </Route>
                 <ReviewPhoto />
                 <MessagePatient />
@@ -69,6 +69,14 @@ const PractitionerHome = () => {
                 </Switch>
             </div>
         </PatientIssueContext.Provider>)
+}
+
+const WrappedCalendarPopOver = () => {
+
+    const { patientId } = useParams();
+    const patient = useContext(PatientIssueContext).patients?.find(each => { return each.id === parseInt(patientId) }) || null;
+
+    return <CalendarPopOver patient={patient} />
 }
 
 export default PractitionerHome;
