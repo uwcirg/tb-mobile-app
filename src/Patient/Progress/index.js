@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {makeStyles, Grid, Typography} from '@material-ui/core';
+import { makeStyles, Grid, Typography } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import DayDrawer from './DayDrawer';
 import useStores from '../../Basics/UseStores';
@@ -11,7 +11,7 @@ import MedicationFlow from '../ReportingFlows';
 import { useTranslation } from 'react-i18next';
 import ClickableText from '../../Basics/ClickableText';
 
-import Key from './Key';
+import { Key } from './Key';
 import Tabs from './Tabs';
 import PhotoList from './PhotoList/';
 
@@ -80,9 +80,9 @@ const Progress = observer(() => {
 });
 
 const ProgressPage = observer(() => {
-    
+
     const { t } = useTranslation('translation');
-    const { uiStore} = useStores();
+    const { uiStore } = useStores();
     const activeTab = uiStore.pathname === "/progress/photos" ? 1 : 0;
 
     return (<PreventOffline type={t('patient.tabNames.calendar')}>

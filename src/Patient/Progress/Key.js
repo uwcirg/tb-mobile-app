@@ -35,22 +35,43 @@ const useStyles = makeStyles({
     }
 })
 
+const KeyContent = () => {
+
+    const classes = useStyles();
+    const { t } = useTranslation('translation');
+
+    return (
+        <>
+            <h2>{t('patient.progress.calendar')}</h2>
+            <div className={"days"}>
+                <p>{t('patient.progress.calendarKey.description')}</p>
+                <KeyItem dayProps={{ tookMedication: true }}>{t('patient.progress.calendarKey.good')}</KeyItem>
+                <KeyItem dayProps={{}}>{t('patient.progress.calendarKey.missed')}</KeyItem>
+                <KeyItem dayProps={{ modifier: true }}>{t('patient.progress.calendarKey.notTaken')}</KeyItem>
+                <KeyItem dayProps={{ symptom: true, modifier: true }}>{t('patient.progress.calendarKey.symptoms')}</KeyItem>
+
+            </div>
+        </>
+    )
+}
+
 const Key = (props) => {
     const classes = useStyles();
     const { t } = useTranslation('translation');
 
     return (
         <PopUp handleClickAway={props.close}><div className={classes.key}>
-                <h2>{t('patient.progress.calendar')}</h2>
-                <div className={"days"}>
-                    <p>{t('patient.progress.calendarKey.description')}</p>
-                    <KeyItem dayProps={{ tookMedication: true }}>{t('patient.progress.calendarKey.good')}</KeyItem>
-                    <KeyItem dayProps={{}}>{t('patient.progress.calendarKey.missed')}</KeyItem>
-                    <KeyItem dayProps={{ modifier: true }}>{t('patient.progress.calendarKey.notTaken')}</KeyItem>
-                    <KeyItem dayProps={{ symptom: true, modifier: true }}>{t('patient.progress.calendarKey.symptoms')}</KeyItem>
+            <h2>{t('patient.progress.calendar')}</h2>
+            <div className={"days"}>
+                <p>{t('patient.progress.calendarKey.description')}</p>
+                <KeyItem dayProps={{ tookMedication: true }}>{t('patient.progress.calendarKey.good')}</KeyItem>
+                <KeyItem dayProps={{}}>{t('patient.progress.calendarKey.missed')}</KeyItem>
+                <KeyItem dayProps={{ modifier: true }}>{t('patient.progress.calendarKey.notTaken')}</KeyItem>
+                <KeyItem dayProps={{ symptom: true, modifier: true }}>{t('patient.progress.calendarKey.symptoms')}</KeyItem>
+                <KeyItem isToday>{t('patient.progress.calendarKey.symptoms')}</KeyItem>
 
-                </div>
-            </div></PopUp>
+            </div>
+        </div></PopUp>
     )
 }
 
@@ -72,11 +93,11 @@ const Day = (props) => {
 
     return (
         <div style={{ width: "40px", height: "40px" }} className={`${classes.day} ${classes.single} ${!props.modifier && (props.tookMedication ? classes.positive : classes.negative)}`}>
-            <p>{props.date}</p>
+            <p className={`${props.isToday && classes.today}`}>{props.date}</p>
             {props.modifier ? <div style={props.symptom && { backgroundColor: Colors.yellow }} className={classes.modifier}> </div> : ""}
         </div>
     )
 }
 
 
-export default Key;
+export {Key, KeyContent};

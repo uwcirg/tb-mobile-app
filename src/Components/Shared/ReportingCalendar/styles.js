@@ -36,8 +36,7 @@ const useCalendarStyles = makeStyles({
                 fontSize: "1.25em",
                 color: "black"
             }
-        },
-        width: "90%",
+        }
 
     },
     day: {
@@ -108,6 +107,9 @@ const useCalendarStyles = makeStyles({
     },
     nonDisabledDay:{
         "& > p": {color: "black"}
+    },
+    today:{
+        borderBottom: `2px solid ${Colors.buttonBlue}`
     }
 
 })

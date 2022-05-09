@@ -4,10 +4,14 @@ import { useHistory, useParams } from 'react-router-dom'
 import SharedAPI from '../../API/SharedAPI';
 import useAsync from '../../Hooks/useAsync';
 import ReportingCalendar from '../../Components/Shared/ReportingCalendar';
-import { Box, Grid } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import Loading from '../Shared/CardLoading';
+import CalendarKey from '../../Components/Shared/ReportingCalendar/CalendarKey';
+import { useTranslation } from 'react-i18next';
 
 export default function CalendarPopOver({ patient }) {
+
+    const { t } = useTranslation('translation');
 
     const history = useHistory();
     const { patientId } = useParams();
@@ -29,14 +33,16 @@ export default function CalendarPopOver({ patient }) {
         }, {}) : {}
     }, [value])
 
-    return (<PopOverV2 open={true} handleExit={handleExit}>
-        <Box height="2em" />
-        <Grid container justify='center'>
+    return (<PopOverV2 open={true} topBarTitle={patient ? `${patient.fullName} ${t('coordinator.patientProfile.listReports')}` : ""} handleExit={handleExit}>
+        <Box padding="1em">
             {status === "pending" ? <Loading /> :
                 <>
                     {patient ? <ReportingCalendar patient={patient} reports={reportHash} /> : <p>Patient Not Found</p>}
+                    <Box>
+                        <CalendarKey />
+                    </Box>
                 </>
             }
-        </Grid>
-    </PopOverV2>)   
+        </Box>
+    </PopOverV2 >)
 }

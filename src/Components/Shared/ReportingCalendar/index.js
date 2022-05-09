@@ -33,9 +33,7 @@ const ReportingCalendar = observer(({ patient, reports }) => {
 
     return (
         <Calendar
-            tileDisabled={({ date }) => {
-                return checkDisabled(date)
-            }}
+            tileDisabled={({ date }) => {return checkDisabled(date)}}
             calendarType="US"
             minDetail="month"
             view="month"
