@@ -46,7 +46,7 @@ export default function CalendarPopOver({ patient }) {
     }, [value])
 
     const updateMonth = (forward = true) => {
-        setState({ ...state, calendarStartDate: DateTime.fromJSDate(state.calendarStartDate).startOf("month").plus({month: forward ? 1 : -1}).toJSDate()})
+        setState({ ...state, calendarStartDate: DateTime.fromJSDate(state.calendarStartDate).startOf("month").plus({ month: forward ? 1 : -1 }).toJSDate() })
     }
 
     return (<PopOverV2 open={true} topBarTitle={patient ? `${patient.fullName} ${t('coordinator.patientProfile.listReports')}` : ""} handleExit={handleExit}>

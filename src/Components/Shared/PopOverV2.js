@@ -5,9 +5,10 @@ import { Clear } from '@material-ui/icons';
 
 const useStyles = makeStyles({
     modalContainer: {
-        minHeight: "100vh",
+        height: "100vh",
         display: "flex",
-        flexDirection: "column"
+        flexDirection: "column",
+        overflowY: "scroll"
     },
     topBar: {
         position: "sticky",
@@ -18,6 +19,10 @@ const useStyles = makeStyles({
     },
     exitButton: {
         paddingLeft: "0"
+    },
+    scrollableArea: {
+        flexGrow: 1,
+        overflow: "scroll"
     }
 })
 
@@ -39,7 +44,9 @@ const PopOverV2 = ({ open, children, disableTopBar, topBarTitle, handleExit }) =
                         <Clear />
                     </IconButton>
                 </Grid>}
-                {children}
+                <div className={classes.scrollableArea}>
+                    {children}
+                </div>
             </div>
         </Modal>
     )
