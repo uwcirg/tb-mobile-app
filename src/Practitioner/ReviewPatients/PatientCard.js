@@ -118,13 +118,15 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed, isSimpleView 
                         <IssueArea issues={patient.issues.state} patientId={patient.id} />
                         <Box flexGrow={1} />
                         <Button className={classes.expand} onClick={toggleDetails}>
-                            {!showDetails && <Typography style={{ paddingRight: ".5em" }} noWrap>Review</Typography>}
+                            <Typography style={{ paddingRight: ".5em" }} noWrap>
+                                {showDetails ? "Hide" : "Review"}
+                            </Typography>
                             <Down className={showDetails ? classes.rotate : ""} />
                         </Button>
                     </Grid>}
                 </Box>
                     {!isSimpleView && <Collapse in={showDetails}>
-                        <IssueDetails visible={showDetails} patient={patient} />
+                        {showDetails && <IssueDetails visible={showDetails} patient={patient} />}
                         <ButtonArea isReviewed={isReviewed} loading={status === "pending"} patient={patient} resolvePatient={execute} />
                     </Collapse>}
                 </>

@@ -1,6 +1,6 @@
 import React from 'react';
 import SymptomSummary from './SymptomSummary';
-import { Box, Typography } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import ReviewPhotos from './ReviewPhotos';
 import ReportingSummary from './ReportingSummary';
 import SupportRequests from './SupportRequests';
