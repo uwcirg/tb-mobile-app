@@ -4,7 +4,7 @@ import { useHistory, useParams, useLocation, Switch, Route } from 'react-router-
 import SharedAPI from '../../API/SharedAPI';
 import useAsync from '../../Hooks/useAsync';
 import ReportingCalendar from '../../Components/Shared/ReportingCalendar';
-import { Box } from '@material-ui/core';
+import { Box, Button, Typography } from '@material-ui/core';
 import Loading from '../Shared/CardLoading';
 import CalendarKey from '../../Components/Shared/ReportingCalendar/CalendarKey';
 import { useTranslation } from 'react-i18next';
@@ -12,6 +12,7 @@ import ViewDailyReport from '../../Components/Shared/ViewDailyReport';
 import { DateTime } from 'luxon';
 import Colors from '../../Basics/Colors';
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
+import { ChevronLeft } from '@material-ui/icons';
 
 export default function CalendarPopOver({ patient }) {
 
@@ -57,7 +58,13 @@ export default function CalendarPopOver({ patient }) {
                 timeout={300}>
                 <Switch location={location}>
                     <Route path="*/calendar/:reportDate">
-                        <ViewReport reportHash={reportHash} />
+                        <Box>
+                            <Button onClick={history.goBack}>
+                                <ChevronLeft />
+                                <Typography>Back to Calendar</Typography>
+                            </Button>
+                            <ViewReport reportHash={reportHash} />
+                        </Box>
                     </Route>
                     <Route path="*/calendar">
                         <Box padding="1em">

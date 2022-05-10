@@ -7,28 +7,60 @@ import CameraIcon from '@material-ui/icons/PhotoCamera';
 import ClearIcon from '@material-ui/icons/Clear';
 import PillIcon from '../../Basics/Icons/Pill.js'
 import { useTranslation } from 'react-i18next';
-import { Box, Typography } from '@material-ui/core';
+import { Box, Grid, Typography } from '@material-ui/core';
 import Symptom from '../../Practitioner/Shared/Symptom';
+import { Assignment, Assignment as Clipboard } from '@material-ui/icons'
+import Details from '@material-ui/icons/InsertChart';
 
 const useStyles = makeStyles({
 })
+
+const Label = ({ text, icon }) => {
+    return <Box padding=".5em" borderRadius="4px" bgcolor={Colors.lightgray}>
+        <Grid container>
+            {icon}
+            <Box width=".5em" />
+            <Typography>{text}</Typography>
+        </Grid>
+    </Box>
+}
 
 const DailyReport = ({ report, date }) => {
 
     const classes = useStyles();
     const { t } = useTranslation('translation');
 
-    if(!report) return (<Typography>There was no report on {date}</Typography>);
+    if (!report) return (<Typography>There was no report on {date}</Typography>);
 
-    const { whyMedicationNotTaken, medicationWasTaken, photoWasRequired, symptoms } = report;
+    const { whyMedicationNotTaken, medicationWasTaken, photoWasRequired, symptoms, createdAt, doingOkay, doingOkayReason } = report;
 
     return (<Box minHeight={"80vh"} bgcolor="white" padding="1em">
-        <Typography>Medication</Typography>
-        <Typography> {medicationWasTaken ? "Yes" : "No"}</Typography>
-        {whyMedicationNotTaken && <Typography>Reason: {whyMedicationNotTaken}</Typography>}
-        <Typography>Symptoms</Typography>
-        <SymptomList symptoms={symptoms} />
-    </Box>) 
+        <Label text={t('coordinator.patientTableLabels.details')} icon={<Details />} />
+        <Box>
+            <Typography>Date: {date}</Typography>
+            <Typography>Submitted At: {createdAt}</Typography>
+        </Box>
+
+        <Label text={t('commonWords.medication')} icon={<PillIcon />} />
+        <Box>
+            <Typography>Took medication: {medicationWasTaken ? "Yes" : "No"}</Typography>
+            {whyMedicationNotTaken && <Typography>Reason: {whyMedicationNotTaken}</Typography>}
+        </Box>
+
+        <Label text={t('commonWords.stripPhoto')} icon={<CameraIcon />} />
+
+        <Label text={t('commonWords.symptoms')} icon={<Assignment />} />
+        <Box>
+            <SymptomList symptoms={symptoms} />
+        </Box>
+
+        <Label text={t('coordinator.cardTitles.requestedSupport')} icon={<Assignment />} />
+        <Box>
+            <Typography>{!doingOkay ? t('commonWords.yes') : t('commonWords.no')}</Typography>
+            {doingOkayReason && <Typography>{doingOkayReason}</Typography>}
+        </Box>
+
+    </Box>)
 }
 
 const SymptomList = (props) => {
