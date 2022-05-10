@@ -54,24 +54,6 @@ body {
     outline: none !important;
 }
 
-/* .force-scrollbar::-webkit-scrollbar {
-    -webkit-appearance: none;
-    width: 7px;
-    border: solid 10px transparent;
-}
-
-.force-scrollbar::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: rgba(0, 0, 0, 0.5);
-    box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
-    border: solid 3px transparent;
-}
-
-.force-scrollbar::-webkit-scrollbar-track {
-
-    border: solid 3px transparent;
-} */
-
 .fade-enter {
     opacity: 0;
     z-index: 1;

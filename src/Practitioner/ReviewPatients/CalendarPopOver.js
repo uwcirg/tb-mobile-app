@@ -4,7 +4,7 @@ import { useHistory, useParams, useLocation, Switch, Route } from 'react-router-
 import SharedAPI from '../../API/SharedAPI';
 import useAsync from '../../Hooks/useAsync';
 import ReportingCalendar from '../../Components/Shared/ReportingCalendar';
-import { Box, Fade } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import Loading from '../Shared/CardLoading';
 import CalendarKey from '../../Components/Shared/ReportingCalendar/CalendarKey';
 import { useTranslation } from 'react-i18next';
@@ -50,19 +50,11 @@ export default function CalendarPopOver({ patient }) {
     }
 
     return (<PopOverV2 open={true} topBarTitle={patient ? `${patient.fullName} ${t('coordinator.patientProfile.listReports')}` : ""} handleExit={handleExit}>
-
         {status === "pending" ? <Loading /> : <TransitionGroup>
-            {/*
-            This is no different than other usage of
-            <CSSTransition>, just make sure to pass
-            `location` to `Switch` so it can match
-            the old location as it animates out.
-          */}
             <CSSTransition
                 key={location.pathname}
                 classNames="fade"
-                timeout={300}
-            >
+                timeout={300}>
                 <Switch location={location}>
                     <Route path="*/calendar/:reportDate">
                         <ViewReport reportHash={reportHash} />
