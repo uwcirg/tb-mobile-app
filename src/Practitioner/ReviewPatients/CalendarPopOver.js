@@ -1,31 +1,31 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import PopOverV2 from '../../Components/Shared/PopOverV2'
-import { useHistory, useParams } from 'react-router-dom'
+import { useHistory, useParams, useLocation, Switch, Route } from 'react-router-dom'
 import SharedAPI from '../../API/SharedAPI';
 import useAsync from '../../Hooks/useAsync';
 import ReportingCalendar from '../../Components/Shared/ReportingCalendar';
-import { Box, Button, Dialog, Fade, Grid } from '@material-ui/core';
+import { Box, Fade } from '@material-ui/core';
 import Loading from '../Shared/CardLoading';
 import CalendarKey from '../../Components/Shared/ReportingCalendar/CalendarKey';
 import { useTranslation } from 'react-i18next';
-import DailyReport from '../../Components/Shared/DailyReport';
+import ViewDailyReport from '../../Components/Shared/ViewDailyReport';
 import { DateTime } from 'luxon';
+import Colors from '../../Basics/Colors';
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 export default function CalendarPopOver({ patient }) {
 
     const { t } = useTranslation('translation');
 
     const history = useHistory();
+    const location = useLocation();
     const { patientId } = useParams();
 
     const [state, setState] = useState({
-        currentDate: null,
         calendarStartDate: new Date()
     });
 
     const { currentDate, calendarStartDate } = state;
-
-    const setCurrentDate = (date) => { setState({ ...state, currentDate: date }) }
 
     const getDailyReports = useCallback(() => {
         return SharedAPI.getDailyReports(patientId)
@@ -50,24 +50,44 @@ export default function CalendarPopOver({ patient }) {
     }
 
     return (<PopOverV2 open={true} topBarTitle={patient ? `${patient.fullName} ${t('coordinator.patientProfile.listReports')}` : ""} handleExit={handleExit}>
-        {currentDate ? <div>
-            <DailyReport pastReport report={reportHash[currentDate]} />
-        </div>
-            :
-            <Box flexGrow={1} display="flex" flexDirection="column" padding="1em">
-                {status === "pending" ? <Loading /> :
-                    <>
-                        {patient ? <ReportingCalendar
-                            updateMonth={updateMonth}
-                            displayStartDate={calendarStartDate}
-                            handleDateChange={setCurrentDate}
-                            patient={patient}
-                            reports={reportHash} /> : <p>Patient Not Found</p>}
-                        <Box display="flex" alignItems={"center"} flexGrow={1}>
-                            <CalendarKey />
-                        </Box>
-                    </>}
 
-            </Box>}
+        {status === "pending" ? <Loading /> : <TransitionGroup>
+            {/*
+            This is no different than other usage of
+            <CSSTransition>, just make sure to pass
+            `location` to `Switch` so it can match
+            the old location as it animates out.
+          */}
+            <CSSTransition
+                key={location.pathname}
+                classNames="fade"
+                timeout={300}
+            >
+                <Switch location={location}>
+                    <Route path="*/calendar/:reportDate">
+                        <ViewReport reportHash={reportHash} />
+                    </Route>
+                    <Route path="*/calendar">
+                        <Box padding="1em">
+                            <ReportingCalendar
+                                updateMonth={updateMonth}
+                                displayStartDate={calendarStartDate}
+                                handleDateChange={(date) => { history.push(location.pathname + "/" + date) }}
+                                patient={patient}
+                                reports={reportHash} />
+                            <Box height="2em" />
+                            <Box bgcolor={Colors.lighterGray} padding=".5em" borderRadius="4px">
+                                <CalendarKey />
+                            </Box>
+                        </Box>
+                    </Route>
+                </Switch>
+            </CSSTransition>
+        </TransitionGroup>}
     </PopOverV2 >)
+}
+
+const ViewReport = ({ reportHash }) => {
+    const { reportDate } = useParams();
+    return <ViewDailyReport date={reportDate} report={reportHash[reportDate]} />
 }

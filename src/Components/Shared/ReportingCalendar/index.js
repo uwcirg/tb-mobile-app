@@ -16,7 +16,6 @@ const ReportingCalendar = observer(({ patient, reports, handleDateChange, displa
     const classes = useCalendarStyles();
 
     const handleChange = (date) => {
-        console.log("On change")
         handleDateChange(DateTime.fromJSDate(date).toISODate())
     }
 
@@ -25,11 +24,6 @@ const ReportingCalendar = observer(({ patient, reports, handleDateChange, displa
             DateTime.fromJSDate(date) > DateTime.local() ||
             (DateTime.fromJSDate(date).startOf('day') < DateTime.fromISO(patient.treatmentStart).startOf('day')))
     }
-    //If desired to disble going past treatment bounds
-    // const showLeft = month > DateTime.fromISO(patientStore.treatmentStart).startOf('month');
-    // const showRight = month < DateTime.local().startOf('month')
-    const showLeft = true;
-    const showRight = true;
 
     return (
         <Calendar
@@ -54,8 +48,8 @@ const ReportingCalendar = observer(({ patient, reports, handleDateChange, displa
             }}
             next2Label={null}
             prev2Label={null}
-            nextLabel={showRight ? <ChevronRight /> : null}
-            prevLabel={showLeft ? <ChevronLeft /> : null}
+            nextLabel={<ChevronRight />}
+            prevLabel={<ChevronLeft />}
             onChange={handleChange}
             onActiveStartDateChange={({action}) => {
                 updateMonth(action === "next")

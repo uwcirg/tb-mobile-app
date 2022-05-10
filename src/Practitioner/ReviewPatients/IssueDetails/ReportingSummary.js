@@ -7,12 +7,11 @@ import IssueSection from './IssueSection';
 const ReportingSummary = ({ patient }) => {
 
     const { t } = useTranslation('translation');
-    const history = useHistory();
     const location = useLocation();
 
     return (<IssueSection title={"Reporting Summary"} icon={CalendarToday} >
         <p>Hello this is reporting summary</p>
-        <Link to={`${location.pathname}/${patient.id}/calendar`}>Calendar</Link>
+        <Link to={`${location.pathname ? location.pathname : ""}/${patient.id}/calendar`}>Calendar</Link>
     </IssueSection>)
 
 }

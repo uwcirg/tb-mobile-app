@@ -3,19 +3,17 @@ import React from 'react';
 import Colors from '../../../Basics/Colors';
 import useCalendarStyles from './styles';
 
-
-
 export default function CalendarKey() {
 
     return (<div>
-        <Typography>Calendar Key:</Typography>
         <SingleItem tookMedication={false}>No report for this day</SingleItem>
         <SingleItem tookMedication>Took Medication</SingleItem>
         <SingleItem modifier tookMedication={false}>Didn't take medication</SingleItem>
         <SingleItem symptom modifier>Side effect reported</SingleItem>
         <SingleItem isToday tookMedication={false}>Today</SingleItem>
+        <Box height=".5em" />
+        <Typography>Select a day to see the reporting details</Typography>
     </div>)
-
 }
 
 const SingleItem = (props) => {
