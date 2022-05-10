@@ -1,8 +1,9 @@
 import React from 'react';
 import SymptomSummary from './SymptomSummary';
-import { Box } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import ReviewPhotos from './ReviewPhotos';
 import ReportingSummary from './ReportingSummary';
+import SupportRequests from './SupportRequests';
 
 const IssueDetails = ({ patient, visible }) => {
 
@@ -12,6 +13,7 @@ const IssueDetails = ({ patient, visible }) => {
         <ReportingSummary patient={patient} />
         {issues.unreviewedPhotos > 0 && visible && <ReviewPhotos patient={patient} />}
         {issues.symptoms > 0 && <SymptomSummary patient={patient} />}
+        {issues.supportRequests > 0 && <SupportRequests supportRequests={patient.issues.supportRequests} />}
     </Box>)
 
 }
