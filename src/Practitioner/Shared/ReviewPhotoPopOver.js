@@ -1,21 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
-    Box, Grid, Fade, IconButton, FormControl, FormLabel,
-    RadioGroup, FormControlLabel, Radio, Typography, Checkbox, TextField, Modal
+    Box, Grid, Fade, FormControl, FormLabel,
+    RadioGroup, FormControlLabel, Radio, Typography, Checkbox, TextField
 } from '@material-ui/core';
 import Minus from '@material-ui/icons/IndeterminateCheckBox';
 import Plus from '@material-ui/icons/AddBox';
-import useStores from '../../Basics/UseStores';
-import { observer } from 'mobx-react';
-import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
-import { Clear } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import FlatButton from '../../Components/FlatButton';
 import useAsync from '../../Hooks/useAsync';
 import PractitionerAPI from '../../API/PractitionerAPI';
-import { Link } from 'react-router-dom';
 import PopOverV2 from '../../Components/Shared/PopOverV2';
+import ZoomableImage from '../../Components/Shared/ZoomableImage';
 
 const useStyles = makeStyles({
     backdrop: {
@@ -74,24 +70,6 @@ const RedoInputs = ({ state, handleChange }) => {
             </div>
         </Fade>
     </>)
-}
-
-const PanImage = ({ url }) => {
-
-    return (
-        <Box padding="1em">
-            <TransformWrapper
-                initialScale={0.4}
-                minScale={0.2}
-                centerOnInit>
-                <TransformComponent wrapperStyle={{ backgroundColor: "white", border: "solid 1px lightgray", borderRadius: "4px", width: "100%", maxHeight: "40vh" }}>
-                    <Fade appear in timeout={1000}>
-                        <img src={url} alt="test-strip-image-to-review" />
-                    </Fade>
-                </TransformComponent>
-            </TransformWrapper>
-        </Box>
-    )
 }
 
 const Buttons = ({ state, setState, submitReview }) => {
@@ -165,7 +143,9 @@ const ReviewPhotoPopOver = ({ photo, markPhotoAsComplete, handleSuccess, handleE
             topBarTitle={t('patient.report.confirmation.review')}
             handleExit={handleExit}
             open={!!photo}>
-            <PanImage url={photo.url} />
+            <Box padding="1em">
+                <ZoomableImage url={photo.url} />
+            </Box>
             <Buttons state={state} setState={setState} submitReview={execute} />
         </PopOverV2>
     )

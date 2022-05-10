@@ -10,7 +10,6 @@ const ReportingSummary = ({ patient }) => {
     const location = useLocation();
 
     return (<IssueSection title={"Reporting Summary"} icon={CalendarToday} >
-        <p>Hello this is reporting summary</p>
         <Link to={`${location.pathname ? location.pathname : ""}/${patient.id}/calendar`}>Calendar</Link>
     </IssueSection>)
 

@@ -11,6 +11,7 @@ import { Box, Grid, Typography } from '@material-ui/core';
 import Symptom from '../../Practitioner/Shared/Symptom';
 import { Assignment, Assignment as Clipboard } from '@material-ui/icons'
 import Details from '@material-ui/icons/InsertChart';
+import ZoomableImage from './ZoomableImage';
 
 const useStyles = makeStyles({
 })
@@ -32,7 +33,7 @@ const DailyReport = ({ report, date }) => {
 
     if (!report) return (<Typography>There was no report on {date}</Typography>);
 
-    const { whyMedicationNotTaken, medicationWasTaken, photoWasRequired, symptoms, createdAt, doingOkay, doingOkayReason } = report;
+    const { whyMedicationNotTaken, medicationWasTaken, photoWasRequired, symptoms, createdAt, doingOkay, doingOkayReason, photoUrl } = report;
 
     return (<Box minHeight={"80vh"} bgcolor="white" padding="1em">
         <Label text={t('coordinator.patientTableLabels.details')} icon={<Details />} />
@@ -48,6 +49,9 @@ const DailyReport = ({ report, date }) => {
         </Box>
 
         <Label text={t('commonWords.stripPhoto')} icon={<CameraIcon />} />
+        <Box padding=".5em 0">
+            {photoUrl && <ZoomableImage initialScale={.5} maxHeight="200px" url={photoUrl} />}
+        </Box>
 
         <Label text={t('commonWords.symptoms')} icon={<Assignment />} />
         <Box>

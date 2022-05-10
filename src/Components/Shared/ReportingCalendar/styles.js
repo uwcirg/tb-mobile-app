@@ -99,6 +99,7 @@ const useCalendarStyles = makeStyles({
         height: "5px",
         width: "5px",
         borderRadius: "50%",
+        border: "solid .5px gray"
     },
     bottomDots: {
         bottom: "3px",

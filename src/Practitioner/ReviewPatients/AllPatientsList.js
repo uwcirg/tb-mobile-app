@@ -1,8 +1,8 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import useAsync from '../../Hooks/useAsync';
 import PractitionerAPI from '../../API/PractitionerAPI';
 import PatientCard from './PatientCard';
+import { Box } from '@material-ui/core';
 
 async function getPatients(){
     return PractitionerAPI.getPatients(true);
@@ -14,7 +14,9 @@ const AllPatientsList = () => {
 
     return (<div>
         {value && value.map( each => {
-            return <PatientCard isSimpleView patient={each} />
+            return (<Box padding=".5em"> 
+                <PatientCard isSimpleView patient={each} />
+            </Box>)
         })}
     </div>)
 
