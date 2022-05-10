@@ -20,21 +20,20 @@ const useStyles = makeStyles({
 const iconMap = {
     missedMedication: <Pill />,
     missedReporting: <EventBusy style={{color: Colors.red}} />,
-    goodDays: <EventAvailable style={{color: Colors.approvedGreen}} />,
+    supportRequests: <SentimentDissatisfied />,
     symptoms: <Assignment />,
     unreviewedPhotos: <CameraAlt />,
     feelingBad: <SentimentDissatisfied />
 }
 
-const IssueArea = ({ patient }) => {
+const IssueArea = ({ issues, patientId }) => {
 
     const classes = useStyles();
-    const issues = patient.issues.state;
 
     return (<Grid className={classes.issueContainer} container>
         {Object.keys(issues).map((item, index) => {
             if (issues[item] > 0 && iconMap[item]) {
-                return (<CustomBadge badgeContent={issues[item]} key={`issue-icon-${index}-${patient.id}`}>{iconMap[item]}</CustomBadge>)
+                return (<CustomBadge badgeContent={issues[item]} key={`issue-icon-${index}-${patientId}`}>{iconMap[item]}</CustomBadge>)
             }
         })}
     </Grid>)

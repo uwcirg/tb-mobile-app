@@ -115,7 +115,7 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed, isSimpleView 
                     </Grid>
                     <Box height=".5em" />
                     {!isSimpleView && <Grid alignItems='center' wrap="nowrap" container className={classes.bottomSection}>
-                        <IssueArea patient={patient} />
+                        <IssueArea issues={patient.issues.state} patientId={patient.id} />
                         <Box flexGrow={1} />
                         <Button className={classes.expand} onClick={toggleDetails}>
                             {!showDetails && <Typography style={{ paddingRight: ".5em" }} noWrap>Review</Typography>}
@@ -142,7 +142,9 @@ const ButtonArea = ({ patient, resolvePatient, loading, isReviewed, isSimpleView
     return (
         <Box padding="1em .5em">
             <Grid wrap="nowrap" justify='flex-end' alignItems='center' container>
-                {disable && <Typography className={classes.reviewPhotoPrompt} >Please review photos before checking this patient off</Typography>}
+                {disable && <Box padding=".5em">
+                    <Typography className={classes.reviewPhotoPrompt} >Please review photos before checking this patient off</Typography>
+                </Box>}
                 <IconButton component={Link} to={`?onMessagingChannelId=${patient.channelId}`} style={{ backgroundColor: 'rgba(66, 133, 244, 0.15)', padding: ".25em" }}>
                     <Message style={{ color: Colors.buttonBlue }} />
                 </IconButton>

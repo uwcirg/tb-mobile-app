@@ -17,9 +17,13 @@ class PatientIssueState {
 
     constructor(patient) {
         this.goodDays = [];
-        this.symptomCounts = this.processSymptoms(patient.unresolvedReports);
+        this.supportRequests = [];
+        this.symptomCounts = {};
+        
+        this.processReports(patient.unresolvedReports);
         this.missedDays = this.processMissedDays(patient);
         this.unreviewedPhotos = patient.unreviewedPhotos;
+
     }
 
     get state(){
@@ -28,6 +32,7 @@ class PatientIssueState {
             missedReporting: this.numberOfMissedDays,
             symptoms: this.numberOfSymptoms,
             unreviewedPhotos: this.unreviewedPhotos.length,
+            supportRequests: this.supportRequests.length
         })
     }
 
@@ -43,18 +48,26 @@ class PatientIssueState {
         return Object.values(this.symptomCounts).reduce(sum, 0)
     }
 
-    processSymptoms(reports) {
-        let localCount = {};
+    processReports(reports) {
+
         for (let report of reports) {
+
+            if(report.doingOkay === false){
+                this.supportRequests.push({
+                    date: report.date,
+                    reason: report.doingOkayReason
+                })
+            }
+
             report.symptoms.forEach(symptom => {
-                if (localCount[symptom]) {
-                    localCount[symptom]++;
+                if (this.symptomCounts[symptom]) {
+                    this.symptomCounts[symptom]++;
                 } else {
-                    localCount[symptom] = 1;
+                    this.symptomCounts[symptom] = 1;
                 }
             })
         }
-        return localCount;
+
     }
 
     processMissedDays(patient) {
@@ -78,10 +91,10 @@ class PatientIssueState {
             goToNextDay();
             let daysReport = getReportForDate();
             if (daysReport?.medicationWasTaken){
-                this.goodDays.push(iteratorDay.toISODate)
+                this.goodDays.push(iteratorDay.toISODate())
                 continue
             } 
-            days.push(iteratorDay.toISODate)
+            days.push(iteratorDay.toISODate())
         }
 
         return days;

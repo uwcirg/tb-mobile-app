@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 })
 
 const Label = ({ text, icon }) => {
-    return <Box padding=".5em" borderRadius="4px" bgcolor={Colors.lightgray}>
+    return <Box padding=".5em" borderRadius="4px" bgcolor={Colors.lighterGray}>
         <Grid container>
             {icon}
             <Box width=".5em" />
