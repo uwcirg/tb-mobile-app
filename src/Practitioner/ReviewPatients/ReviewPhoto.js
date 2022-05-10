@@ -25,7 +25,7 @@ const ReviewPhoto = observer(() => {
         setPatients(newPatients);
     }
 
-    const exitPopover = () => { uiStore.push("/") }
+    const exitPopover = () => { uiStore.push("/home/needs-review") }
 
     return (<>
         {photo && <ReviewPhotoPopOver

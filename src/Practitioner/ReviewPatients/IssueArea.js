@@ -19,7 +19,7 @@ const useStyles = makeStyles({
 
 const iconMap = {
     missedMedication: <Pill />,
-    missedReporting: <EventBusy style={{color: Colors.red}} />,
+    missedReporting: <EventBusy />,
     supportRequests: <SentimentDissatisfied />,
     symptoms: <Assignment />,
     unreviewedPhotos: <CameraAlt />,

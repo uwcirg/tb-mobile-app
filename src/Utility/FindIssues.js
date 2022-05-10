@@ -15,11 +15,11 @@ const getReportsMap = (patient) => {
 
 class PatientIssueState {
 
+    supportRequests = [];
+    goodDays = [];
+    symptomCounts = {};
+
     constructor(patient) {
-        this.goodDays = [];
-        this.supportRequests = [];
-        this.symptomCounts = {};
-        
         this.processReports(patient.unresolvedReports);
         this.missedDays = this.processMissedDays(patient);
         this.unreviewedPhotos = patient.unreviewedPhotos;
