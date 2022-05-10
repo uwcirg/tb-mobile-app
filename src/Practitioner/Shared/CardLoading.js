@@ -1,24 +1,23 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Box } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles({
     container:{
         width: "100%",
-        height: "3em",
         display: "flex",
         justifyContent: "center",
         alignItems: "center"
     }
 })
 
-const Loading = () => {
+const Loading = ({height}) => {
 
     const classes = useStyles();
 
-    return(<div className={classes.container}>
+    return(<Box height={height || "3em"} className={classes.container}>
         <CircularProgress color="primary" />
-    </div>)
+    </Box>)
 
 }
 

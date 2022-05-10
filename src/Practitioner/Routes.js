@@ -21,7 +21,6 @@ const Routes = observer(() => {
         <Route path="/patients" children={<PatientsView />} />
         <Route path="/old-tasks" children={<OldTasksPage />} />
         <Route path="/home" children={<ReviewPatients />} />
-
         <Route path="/">
             <Redirect
                 to={{

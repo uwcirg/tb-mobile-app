@@ -50,7 +50,7 @@ export default function CalendarPopOver({ patient }) {
     }
 
     return (<PopOverV2 open={true} topBarTitle={patient ? `${patient.fullName} ${t('coordinator.patientProfile.listReports')}` : ""} handleExit={handleExit}>
-        {status === "pending" ? <Loading /> : <TransitionGroup>
+        {status === "pending" ? <Loading height={"50vh"} /> : <TransitionGroup>
             <CSSTransition
                 key={location.pathname}
                 classNames="fade"
