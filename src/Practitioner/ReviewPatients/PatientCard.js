@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles, Grid, IconButton, Box, Typography, Collapse, CircularProgress, Button } from '@material-ui/core';
-import { Check, Message, ArrowDropDownCircle as Down } from '@material-ui/icons';
+import { Check, Message, ArrowDropDownCircle as Down, CheckCircle } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import Colors from '../../Basics/Colors';
 import IssueArea from './IssueArea';
@@ -96,14 +96,16 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed, isSimpleView 
         }
     }, [status])
 
-    // const daysSinceLastMessage = patient.lastContacted ? Math.round(daysSinceISODateTime(patient.lastContacted)) : "N/A"
-
     return (
         <Collapse onExited={handleExit} in={!reviewed}>
             <Box className={classes.container}>
-                {success ? <Grid container alignItems='center' style={{ height: "100%", width: "100%" }}>
-                    <p>Review Submitted</p>
-                </Grid> : <><Box padding='.75em'>
+                {success ? <Box padding="1em">
+                    <Grid container>
+                        <CheckCircle style={{color: Colors.green}} />
+                        <Box width=".5em" />
+                        <Typography>Review Submitted</Typography>
+                    </Grid>
+                </Box> : <><Box padding='.75em'>
                     <Grid alignItems='center' container wrap='nowrap'>
                         <Link to={`/patients/${patient.id}`}>
                             <Typography className={classes.name} >{patient.fullName}</Typography>
