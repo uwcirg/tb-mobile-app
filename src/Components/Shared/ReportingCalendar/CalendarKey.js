@@ -11,8 +11,6 @@ export default function CalendarKey() {
         <SingleItem modifier tookMedication={false}>Didn't take medication</SingleItem>
         <SingleItem symptom modifier>Side effect reported</SingleItem>
         <SingleItem isToday tookMedication={false}>Today</SingleItem>
-        <Box height=".5em" />
-        <Typography>Select a day to see the reporting details</Typography>
     </div>)
 }
 

@@ -12,30 +12,25 @@ import ViewDailyReport from '../../Components/Shared/ViewDailyReport';
 import { DateTime } from 'luxon';
 import Colors from '../../Basics/Colors';
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
-import { ChevronLeft } from '@material-ui/icons';
+import { CameraAlt, ChevronLeft, EventAvailable, ListAlt } from '@material-ui/icons';
+import LinkTabs from '../../Components/Shared/LinkTabs';
 
-export default function CalendarPopOver({ patient }) {
+const links = [
+    { link: "calendar", text: "Calendar", icon: EventAvailable },
+    { link: "list", text: "List", icon: ListAlt },
+    { link: "photos", text: "Photos", icon: CameraAlt }
+]
+
+export default function CalendarPopOver({ patient, handleExit }) {
 
     const { t } = useTranslation('translation');
 
     const history = useHistory();
-    const location = useLocation();
     const { patientId } = useParams();
-
-    const [state, setState] = useState({
-        calendarStartDate: new Date()
-    });
-
-    const { currentDate, calendarStartDate } = state;
 
     const getDailyReports = useCallback(() => {
         return SharedAPI.getDailyReports(patientId)
     }, [patientId]);
-
-    const handleExit = () => {
-        if (!currentDate) history.goBack();
-        setState({ ...state, currentDate: null })
-    }
 
     const { value, status } = useAsync(getDailyReports);
 
@@ -46,12 +41,40 @@ export default function CalendarPopOver({ patient }) {
         }, {}) : {}
     }, [value])
 
+    return (<PopOverV2 open={true} topBarTitle={patient ? `${patient.fullName} ${t('coordinator.patientProfile.listReports')}` : ""} handleExit={handleExit}>
+        <LinkTabs tabs={links} />
+        {status === "pending" ? <Loading height={"50vh"} /> :
+            <Switch>
+                <Route path="*/calendar">
+                    <CalendarStuff patient={patient} reportHash={reportHash} />
+                </Route>
+                <Route path="*/list">
+                    <p>List</p>
+                </Route>
+                <Route path="*/photos">
+                    <p>Photos</p>
+                </Route>
+            </Switch>}
+    </PopOverV2 >)
+}
+
+const CalendarStuff = ({ patient, reportHash }) => {
+
+    const [state, setState] = useState({
+        calendarStartDate: new Date()
+    });
+
+    const { calendarStartDate } = state;
+
+    const location = useLocation();
+    const history = useHistory();
+
     const updateMonth = (forward = true) => {
         setState({ ...state, calendarStartDate: DateTime.fromJSDate(state.calendarStartDate).startOf("month").plus({ month: forward ? 1 : -1 }).toJSDate() })
     }
 
-    return (<PopOverV2 open={true} topBarTitle={patient ? `${patient.fullName} ${t('coordinator.patientProfile.listReports')}` : ""} handleExit={handleExit}>
-        {status === "pending" ? <Loading height={"50vh"} /> : <TransitionGroup>
+    return (
+        <TransitionGroup>
             <CSSTransition
                 key={location.pathname}
                 classNames="fade"
@@ -82,8 +105,8 @@ export default function CalendarPopOver({ patient }) {
                     </Route>
                 </Switch>
             </CSSTransition>
-        </TransitionGroup>}
-    </PopOverV2 >)
+        </TransitionGroup >
+    )
 }
 
 const ViewReport = ({ reportHash }) => {

@@ -13,7 +13,7 @@ export default function SupportRequests({ supportRequests }) {
         icon={SentimentDissatisfied}
         number={supportRequests.length}  >
         {supportRequests.map(each => {
-            return (<Box>
+            return (<Box key={`suport-${each.date}`}>
                 {each.date}: {each.reason}
             </Box>);
         })}
