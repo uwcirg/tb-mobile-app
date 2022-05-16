@@ -18,10 +18,11 @@ class PatientIssueState {
     supportRequests = [];
     goodDays = [];
     symptomCounts = {};
+    missedDays = []
 
     constructor(patient) {
         this.processReports(patient.unresolvedReports);
-        this.missedDays = this.processMissedDays(patient);
+        this.processMissedDays(patient);
         this.unreviewedPhotos = patient.unreviewedPhotos;
 
     }
@@ -85,8 +86,6 @@ class PatientIssueState {
             iteratorDay = iteratorDay.plus({ days: 1 })
         }
 
-        let days = [];
-
         while (!iteratorDay.equals(endDay)) {
             goToNextDay();
             let daysReport = getReportForDate();
@@ -94,10 +93,10 @@ class PatientIssueState {
                 this.goodDays.push(iteratorDay.toISODate())
                 continue
             } 
-            days.push(iteratorDay.toISODate())
-        }
 
-        return days;
+            if(iteratorDay.toISODate() === DateTime.local().toISODate()) continue;
+            this.missedDays.push(iteratorDay.toISODate())
+        }
     }
 
 }

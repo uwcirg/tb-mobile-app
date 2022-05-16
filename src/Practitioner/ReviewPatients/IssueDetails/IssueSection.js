@@ -4,8 +4,11 @@ import { Box, Grid, Typography } from '@material-ui/core';
 import Colors from '../../../Basics/Colors';
 
 const useStyles = makeStyles({
-    icon: {
-        color: Colors.textGray
+    sectionHeader: {
+        "& svg":{
+            fontSize: "1.5em",
+            color: Colors.textGray
+        }
     }
 })
 
@@ -14,20 +17,20 @@ const SectionTitle = ({ icon, title, number }) => {
     const classes = useStyles();
 
     return (
-            <Box bgcolor={Colors.lighterGray} padding=".5em">
-                <Grid wrap="nowrap" alignItems="center" container>
-                    {React.createElement(icon, { className: classes.icon })}
-                    <Box width=".5em" />
-                    <Typography>{title}: {number}</Typography>
-                </Grid>
+        <Box padding=".5em .25em" >
+            <Grid className={classes.sectionHeader} wrap="nowrap" alignItems="center" container>
+                {React.createElement(icon)}
+                <Box width=".5em" />
+                <Typography>{title}: {number}</Typography>
+            </Grid>
         </Box>)
 }
 
 const IssueSection = (props) => {
 
-    return (<Box margin=".5em" border={`solid 1px ${Colors.lighterGray}`} borderRadius="4px" borderTop="none">
+    return (<Box marginBottom="1em">
         <SectionTitle {...props} />
-        <Box padding="0 .5em">
+        <Box borderRadius="4px" border={`solid 1px ${Colors.lightgray}`} padding="0 .5em">
             <Box padding=".5em" borderRadius="0 0 4px 4px" >
                 {props.children}
             </Box>

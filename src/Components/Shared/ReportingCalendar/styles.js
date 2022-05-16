@@ -49,9 +49,6 @@ const useCalendarStyles = makeStyles({
         margin: "2px 0 2px 0",
         ...Styles.flexCenter
     },
-    today: {
-        fontWeight: "medium"
-    },
     positive: {
         backgroundColor: Colors.calendarGreen,
     },
@@ -112,7 +109,9 @@ const useCalendarStyles = makeStyles({
         "& > p": {color: "black"}
     },
     today:{
-        borderBottom: `2px solid ${Colors.buttonBlue}`
+        padding: "5px",
+        border: `2px solid ${Colors.accentBlue}`,
+        borderRadius: '4px'
     }
 
 })

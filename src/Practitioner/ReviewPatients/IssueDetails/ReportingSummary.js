@@ -1,4 +1,4 @@
-import { CalendarToday } from '@material-ui/icons';
+import { EventAvailable } from '@material-ui/icons';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useHistory, useLocation } from 'react-router-dom';
@@ -9,7 +9,7 @@ const ReportingSummary = ({ patient }) => {
     const { t } = useTranslation('translation');
     const location = useLocation();
 
-    return (<IssueSection title={"Reporting Summary"} icon={CalendarToday} >
+    return (<IssueSection title={"Reporting Summary"} icon={EventAvailable} >
         <Link to={`${location.pathname ? location.pathname : ""}/${patient.id}/calendar`}>Calendar</Link>
     </IssueSection>)
 
