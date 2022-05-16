@@ -1,13 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Calendar from 'react-calendar';
 import { DateTime } from 'luxon';
-import ChevronLeft from '@material-ui/icons/ChevronLeft';
-import ChevronRight from '@material-ui/icons/ChevronRight';
+import { ArrowLeft, ArrowRight } from '@material-ui/icons';
 import useCalendarStyles from './styles';
 import Day from './Day';
 import useStores from '../../../Basics/UseStores';
 import { observer } from 'mobx-react';
-import report from '../../../Patient/Walkthrough/ExampleReport';
+import Colors from '../../../Basics/Colors';
 
 const ReportingCalendar = observer(({ patient, reports, handleDateChange, displayStartDate, updateMonth }) => {
 
@@ -48,13 +47,13 @@ const ReportingCalendar = observer(({ patient, reports, handleDateChange, displa
             }}
             next2Label={null}
             prev2Label={null}
-            nextLabel={<ChevronRight />}
-            prevLabel={<ChevronLeft />}
+            nextLabel={<ArrowRight className={classes.calendarButton} />}
+            prevLabel={<ArrowLeft className={classes.calendarButton} />}
             onChange={handleChange}
-            onActiveStartDateChange={({action}) => {
+            onActiveStartDateChange={({ action }) => {
                 updateMonth(action === "next")
             }}
-            
+
 
         />
     )

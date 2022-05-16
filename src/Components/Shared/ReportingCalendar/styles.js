@@ -112,6 +112,11 @@ const useCalendarStyles = makeStyles({
         padding: "5px",
         border: `2px solid ${Colors.accentBlue}`,
         borderRadius: '4px'
+    },
+    calendarButton:{
+        backgroundColor: Colors.buttonBlue, 
+        borderRadius: "50%", 
+        color: "white"
     }
 
 })
