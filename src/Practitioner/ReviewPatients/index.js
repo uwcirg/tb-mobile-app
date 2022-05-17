@@ -16,19 +16,20 @@ import { useLocation, useHistory } from 'react-router-dom';
 import { Route, Switch, useParams } from 'react-router-dom'
 import AllPatientsList from './AllPatientsList';
 import ReportingPopover from './ReportingPopOver';
+import { PageLabelTitle } from '../../Components/Shared/PageLabel';
 
 const TopBar = () => {
     return (
-        <>
-            <OverTopBar notFixed hideIconButton title={<Grid alignItems='center' container>
-                <Typography>Review Patients</Typography>
+        <Box bgcolor="white" borderBottom="solid 1px lightgray" padding=".5em 1em">
+            <Grid alignItems='center' container>
+                <PageLabelTitle title="Review Patients" />
                 <Box flexGrow="1" />
                 <IconButton style={{ backgroundColor: Colors.lightgray, padding: "5px" }}>
                     <Search />
                 </IconButton>
-            </Grid>} />
-
-        </>)
+            </Grid>
+        </Box>
+    )
 }
 
 const PractitionerHome = () => {
@@ -77,7 +78,7 @@ const WrappedReportingPopover = () => {
     const patient = useContext(PatientIssueContext).patients?.find(each => { return each.id === parseInt(patientId) }) || null;
     const history = useHistory();
 
-    return <ReportingPopover handleExit={()=>{history.push("/home/needs-review")}}  patient={patient} />
+    return <ReportingPopover handleExit={() => { history.push("/home/needs-review") }} patient={patient} />
 }
 
 export default PractitionerHome;

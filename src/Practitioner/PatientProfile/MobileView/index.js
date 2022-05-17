@@ -10,6 +10,7 @@ import Colors from '../../../Basics/Colors';
 import Priority from '../../Shared/Priority';
 import ButtonList from '../ProfileButtonList';
 import Label from '../../../Components/Label';
+import { PageLabel } from '../../../Components/Shared/PageLabel';
 
 const useStyles = makeStyles({
     card: {
@@ -58,7 +59,7 @@ const MobileView = observer(() => {
 
     return (
         <>
-            <TopBar fullName={fullName} />
+            <PageLabel title={fullName} to={"/home/needs-review"}/>
             <Box minHeight="90vh" bgcolor={Colors.lightgray} padding=".5em">
                 <Card>
                     <Typography>Last Report: {lastReport.createdAt}</Typography>

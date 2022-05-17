@@ -1,10 +1,10 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import PopOverV2 from '../../Components/Shared/PopOverV2'
-import { useHistory, useParams, useLocation, Switch, Route } from 'react-router-dom'
+import { useHistory, useParams, Switch, Route } from 'react-router-dom'
 import SharedAPI from '../../API/SharedAPI';
 import useAsync from '../../Hooks/useAsync';
 import ReportingCalendar from '../../Components/Shared/ReportViews/Calendar';
-import { Box, Button, Fade, Grid, IconButton, Slide, Typography } from '@material-ui/core';
+import { Box, Fade, Grid, IconButton, Typography } from '@material-ui/core';
 import Loading from '../Shared/CardLoading';
 import CalendarKey from '../../Components/Shared/ReportViews/Calendar/CalendarKey';
 import { useTranslation } from 'react-i18next';
