@@ -1,21 +1,21 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import PopOverV2 from '../../Components/Shared/PopOverV2'
-import { useHistory, useParams, useLocation, Switch, Route } from 'react-router-dom'
+import { useHistory, useParams, useLocation, Switch, Route, useRouteMatch } from 'react-router-dom'
 import SharedAPI from '../../API/SharedAPI';
 import useAsync from '../../Hooks/useAsync';
 import ReportingCalendar from '../../Components/Shared/ReportViews/Calendar';
-import { Box, Button, Typography } from '@material-ui/core';
+import { Box, Button, Fade, Typography } from '@material-ui/core';
 import Loading from '../Shared/CardLoading';
 import CalendarKey from '../../Components/Shared/ReportViews/Calendar/CalendarKey';
 import { useTranslation } from 'react-i18next';
 import ViewDailyReport from '../../Components/Shared/ViewDailyReport';
 import { DateTime } from 'luxon';
 import Colors from '../../Basics/Colors';
-import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import { CameraAlt, ChevronLeft, Event, ListAlt } from '@material-ui/icons';
 import LinkTabs from '../../Components/Shared/LinkTabs';
 import ReportList from '../../Components/Shared/ReportViews/List';
 import StickyTopBar from '../../Components/Shared/StickyTopBar';
+import useQuery from '../../Hooks/useQuery';
 
 const links = [
     { link: "calendar", text: "Calendar", icon: Event },
@@ -27,7 +27,6 @@ export default function ReportingPopover({ patient, handleExit }) {
 
     const { t } = useTranslation('translation');
 
-    const history = useHistory();
     const { patientId } = useParams();
 
     const getDailyReports = useCallback(() => {
@@ -43,23 +42,50 @@ export default function ReportingPopover({ patient, handleExit }) {
         }, {}) : {}
     }, [value])
 
+
+    const location = useLocation();
+    const history = useHistory();
+    const query = useQuery();
+    const date = query.get('date')
+
+
     return (<PopOverV2 open={true} topBarTitle={patient ? `${patient.fullName} ${t('coordinator.patientProfile.listReports')}` : ""} handleExit={handleExit}>
         <StickyTopBar>
-            <LinkTabs tabs={links} />
+            {date ? <Button onClick={history.goBack}>Go Back</Button> : <LinkTabs tabs={links} />}
         </StickyTopBar>
         {status === "pending" ? <Loading height={"50vh"} /> :
-            <Switch>
-                <Route path="*/calendar">
-                    <CalendarStuff patient={patient} reportHash={reportHash} />
-                </Route>
-                <Route path="*/list">
-                    <ReportList reportHash={reportHash} patient={patient} />
-                </Route>
-                <Route path="*/photos">
-                    <p>Coming Soon</p>
-                </Route>
-            </Switch>}
+            <>{date ?
+                <Fade in appear>
+                    <Box>
+                        <ViewReport reportHash={reportHash} />
+                    </Box>
+                </Fade>
+                :
+                <Switch>
+                    <Route path="*/calendar">
+                        <CalendarStuff patient={patient} reportHash={reportHash} />
+                    </Route>
+                    <Route path="*/list">
+                        <ReportList reportHash={reportHash} patient={patient} />
+                    </Route>
+                    <Route path="*/photos">
+                        <p>Coming Soon</p>
+                    </Route>
+                </Switch>
+            }</>}
     </PopOverV2 >)
+
+}
+
+const Tabs = () => {
+
+    const location = useLocation();
+    const history = useHistory();
+    const date = new URLSearchParams(location.search).get('date')
+
+    return (<StickyTopBar>
+        {date ? <Button onClick={history.goBack}>Go Back</Button> : <LinkTabs tabs={links} />}
+    </StickyTopBar>)
 }
 
 const CalendarStuff = ({ patient, reportHash }) => {
@@ -78,42 +104,25 @@ const CalendarStuff = ({ patient, reportHash }) => {
     }
 
     return (
-        <TransitionGroup>
-            <CSSTransition
-                key={location.pathname}
-                classNames="fade"
-                timeout={300}>
-                <Switch location={location}>
-                    <Route path="*/calendar/:reportDate">
-                        <Box>
-                            <Button onClick={history.goBack}>
-                                <ChevronLeft />
-                                <Typography>Back to Calendar</Typography>
-                            </Button>
-                            <ViewReport reportHash={reportHash} />
-                        </Box>
-                    </Route>
-                    <Route path="*/calendar">
-                        <Box padding="1em">
-                            <ReportingCalendar
-                                updateMonth={updateMonth}
-                                displayStartDate={calendarStartDate}
-                                handleDateChange={(date) => { history.push(location.pathname + "/" + date) }}
-                                patient={patient}
-                                reports={reportHash} />
-                            <Box height="2em" />
-                            <Box bgcolor={Colors.lighterGray} padding=".5em" borderRadius="4px">
-                                <CalendarKey />
-                            </Box>
-                        </Box>
-                    </Route>
-                </Switch>
-            </CSSTransition>
-        </TransitionGroup >
+        <Box padding="1em">
+            <ReportingCalendar
+                updateMonth={updateMonth}
+                displayStartDate={calendarStartDate}
+                handleDateChange={(date) => { history.push(`?date=${date}`) }}
+                patient={patient}
+                reports={reportHash} />
+            <Box height="2em" />
+            <Box bgcolor={Colors.lighterGray} padding=".5em" borderRadius="4px">
+                <CalendarKey />
+            </Box>
+        </Box>
     )
 }
 
 const ViewReport = ({ reportHash }) => {
-    const { reportDate } = useParams();
+
+    const query = useQuery();
+    const reportDate = query.get('date')
+
     return <ViewDailyReport date={reportDate} report={reportHash[reportDate]} />
 }

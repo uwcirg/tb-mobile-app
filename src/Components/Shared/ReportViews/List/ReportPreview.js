@@ -1,4 +1,5 @@
-import { Box, Grid, Typography } from '@material-ui/core'
+import { Box, ButtonBase, Grid, Typography } from '@material-ui/core'
+import { ChevronRight } from '@material-ui/icons'
 import React from 'react'
 import Colors from '../../../../Basics/Colors'
 import IssueArea from '../../../../Practitioner/ReviewPatients/IssueArea'
@@ -15,19 +16,23 @@ export default function ReportPreview({ date, report }) {
     } : null;
 
     const bgcolor = () => {
-        if(report && report.medicationWasTaken) return Colors.calendarGreen
+        if (report && report.medicationWasTaken) return Colors.calendarGreen
         return Colors.calendarRed
     }
 
     return (
-        <Box padding=".5em" border={report && "solid 1px lightgray"} borderRadius="4px" marginBottom=".5em">
-            <Grid container alignItems='center'>
-                <Box bgcolor={bgcolor()} borderRadius="4px" padding=".5em">
-                    <ShortDate date={date} />
-                </Box>
-                <Box flexGrow="1" />
-                {report ? <IssueArea issues={issues} patientId={1} /> : <Typography style={{fontStyle: "italic"}}> No Report Submitted</Typography>}
-            </Grid>
-        </Box>
+        <ButtonBase style={{ width: "100%", marginBottom: ".5em" }} disabled={!report} onClick={() => { console.log("Todo go to report") }}>
+            <Box flexGrow={1} padding=".5em" border={report && "solid 1px lightgray"} borderRadius="4px">
+                <Grid container alignItems='center'>
+                    <Box bgcolor={bgcolor()} borderRadius="4px" padding=".5em">
+                        <ShortDate date={date} />
+                    </Box>
+                    <Box width="1em" />
+                    {report ? <IssueArea issues={issues} patientId={1} /> : <Typography style={{ fontStyle: "italic" }}> No Report Submitted</Typography>}
+                    <Box flexGrow={1} />
+                    {report && <ChevronRight />}
+                </Grid>
+            </Box>
+        </ButtonBase>
     )
 }
