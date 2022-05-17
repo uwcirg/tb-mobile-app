@@ -14,6 +14,10 @@ const useStyles = makeStyles({
             fontSize: "1.5em",
         },
         color: "black"
+    },
+    topBar:{
+        backgroundColor: "white",
+        borderBottom: "solid 1px lightgray"
     }
 })
 

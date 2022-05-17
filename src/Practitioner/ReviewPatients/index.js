@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
-import { Grid, Box, IconButton, Typography } from '@material-ui/core';
+import { Grid, Box, IconButton } from '@material-ui/core';
 import PractitionerAPI from '../../API/PractitionerAPI';
 import { Search } from '@material-ui/icons';
-import OverTopBar from '../../Patient/Navigation/OverTopBar';
 import ReviewPatientTabs from './Tabs';
 import useAsync from '../../Hooks/useAsync';
 import StickyTopBar from '../../Components/Shared/StickyTopBar';

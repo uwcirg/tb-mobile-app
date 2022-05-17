@@ -10,10 +10,10 @@ const IssueDetails = ({ patient, visible }) => {
     const issues = patient.issues.state;
 
     return (<Box padding="0 .5em" >
-        <ReportingSummary patient={patient} />
         {issues.unreviewedPhotos > 0 && visible && <ReviewPhotos patient={patient} />}
         {issues.symptoms > 0 && <SymptomSummary patient={patient} />}
         {issues.supportRequests > 0 && <SupportRequests supportRequests={patient.issues.supportRequests} />}
+        <ReportingSummary patient={patient} />
     </Box>)
 
 }

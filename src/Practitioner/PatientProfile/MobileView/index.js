@@ -11,6 +11,7 @@ import Priority from '../../Shared/Priority';
 import ButtonList from '../ProfileButtonList';
 import Label from '../../../Components/Label';
 import { PageLabel } from '../../../Components/Shared/PageLabel';
+import { DateTime } from 'luxon';
 
 const useStyles = makeStyles({
     card: {
@@ -18,7 +19,7 @@ const useStyles = makeStyles({
             marginTop: ".5em"
         }
     },
-    buttons:{
+    buttons: {
         "& > button:not(:first-child)": {
             marginTop: ".5em"
         }
@@ -57,20 +58,27 @@ const MobileView = observer(() => {
 
     const { fullName, lastReport, weeksInTreatment, priority } = patientProfileStore.selectedPatient.details
 
+    const daysAgo = Math.round(DateTime.fromISO(lastReport.createdAt).diffNow('days').days) * -1
+
     return (
         <>
-            <PageLabel title={fullName} to={"/home/needs-review"}/>
+            <StickyTopBar>
+                <PageLabel title={fullName} to={"/home/needs-review"} />
+            </StickyTopBar>
             <Box minHeight="90vh" bgcolor={Colors.lightgray} padding=".5em">
                 <Card>
-                    <Typography>Last Report: {lastReport.createdAt}</Typography>
+                    <Typography>Last Report: {daysAgo} days ago</Typography>
+                    <Box height={"5px"} />
                     <Grid container>
                         <Typography>Priority:</Typography>
                         <Box width=".5em" />
                         <Priority index={priority} />
                     </Grid>
+                    <Box height={"5px"} />
                     <Grid container>
-                    <Typography>Status:</Typography>
-                    <Label text={`Week ${weeksInTreatment} / 26`} backgroundColor={Colors.accentBlue} />
+                        <Typography>Treatment:</Typography>
+                        <Box width=".5em" />
+                        <Label text={`Week ${weeksInTreatment} / 26`} backgroundColor={Colors.accentBlue} />
                     </Grid>
                 </Card>
                 <Card>

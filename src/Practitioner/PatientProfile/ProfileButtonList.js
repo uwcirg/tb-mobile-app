@@ -10,9 +10,6 @@ import ArchiveIcon from '@material-ui/icons/Restore';
 import KeyIcon from '@material-ui/icons/VpnKey';
 import { useTranslation } from 'react-i18next';
 
-
-
-
 const ButtonList = observer(() => {
 
     const { practitionerUIStore, patientProfileStore } = useStores();
