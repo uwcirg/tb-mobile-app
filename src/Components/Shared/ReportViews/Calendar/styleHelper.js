@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import Colors from '../../../Basics/Colors';
+import Colors from '../../../../Basics/Colors';
 
 export default class CalendarDayStyleHelper {
     modifiers = [];

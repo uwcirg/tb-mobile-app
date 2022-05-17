@@ -2,7 +2,7 @@ import React from 'react'
 import { DateTime } from 'luxon';
 import useCalendarStyles from './styles';
 import CalendarDayStyleHelper from './styleHelper';
-import Colors from '../../../Basics/Colors';
+import Colors from '../../../../Basics/Colors';
 
 const getSurroundingDates = (datetime) => {
     return [datetime.startOf('day').minus({ days: 1 }),

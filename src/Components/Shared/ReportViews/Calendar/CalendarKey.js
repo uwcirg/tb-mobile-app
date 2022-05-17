@@ -1,6 +1,6 @@
 import { Box, Grid, Typography } from '@material-ui/core';
 import React from 'react';
-import Colors from '../../../Basics/Colors';
+import Colors from '../../../../Basics/Colors';
 import useCalendarStyles from './styles';
 
 export default function CalendarKey() {

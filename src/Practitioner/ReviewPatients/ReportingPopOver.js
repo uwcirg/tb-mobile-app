@@ -3,25 +3,27 @@ import PopOverV2 from '../../Components/Shared/PopOverV2'
 import { useHistory, useParams, useLocation, Switch, Route } from 'react-router-dom'
 import SharedAPI from '../../API/SharedAPI';
 import useAsync from '../../Hooks/useAsync';
-import ReportingCalendar from '../../Components/Shared/ReportingCalendar';
+import ReportingCalendar from '../../Components/Shared/ReportViews/Calendar';
 import { Box, Button, Typography } from '@material-ui/core';
 import Loading from '../Shared/CardLoading';
-import CalendarKey from '../../Components/Shared/ReportingCalendar/CalendarKey';
+import CalendarKey from '../../Components/Shared/ReportViews/Calendar/CalendarKey';
 import { useTranslation } from 'react-i18next';
 import ViewDailyReport from '../../Components/Shared/ViewDailyReport';
 import { DateTime } from 'luxon';
 import Colors from '../../Basics/Colors';
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
-import { CameraAlt, ChevronLeft, EventAvailable, ListAlt } from '@material-ui/icons';
+import { CameraAlt, ChevronLeft, Event, ListAlt } from '@material-ui/icons';
 import LinkTabs from '../../Components/Shared/LinkTabs';
+import ReportList from '../../Components/Shared/ReportViews/List';
+import StickyTopBar from '../../Components/Shared/StickyTopBar';
 
 const links = [
-    { link: "calendar", text: "Calendar", icon: EventAvailable },
+    { link: "calendar", text: "Calendar", icon: Event },
     { link: "list", text: "List", icon: ListAlt },
     { link: "photos", text: "Photos", icon: CameraAlt }
 ]
 
-export default function CalendarPopOver({ patient, handleExit }) {
+export default function ReportingPopover({ patient, handleExit }) {
 
     const { t } = useTranslation('translation');
 
@@ -42,17 +44,19 @@ export default function CalendarPopOver({ patient, handleExit }) {
     }, [value])
 
     return (<PopOverV2 open={true} topBarTitle={patient ? `${patient.fullName} ${t('coordinator.patientProfile.listReports')}` : ""} handleExit={handleExit}>
-        <LinkTabs tabs={links} />
+        <StickyTopBar>
+            <LinkTabs tabs={links} />
+        </StickyTopBar>
         {status === "pending" ? <Loading height={"50vh"} /> :
             <Switch>
                 <Route path="*/calendar">
                     <CalendarStuff patient={patient} reportHash={reportHash} />
                 </Route>
                 <Route path="*/list">
-                    <p>List</p>
+                    <ReportList reportHash={reportHash} patient={patient} />
                 </Route>
                 <Route path="*/photos">
-                    <p>Photos</p>
+                    <p>Coming Soon</p>
                 </Route>
             </Switch>}
     </PopOverV2 >)

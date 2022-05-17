@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
-import Styles from '../../../Basics/Styles';
-import Colors from '../../../Basics/Colors';
+import Styles from '../../../../Basics/Styles';
+import Colors from '../../../../Basics/Colors';
 
 const useCalendarStyles = makeStyles({
     calendar: {

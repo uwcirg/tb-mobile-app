@@ -15,7 +15,7 @@ import LoadingPatients from './LoadingPatients';
 import { useLocation, useHistory } from 'react-router-dom';
 import { Route, Switch, useParams } from 'react-router-dom'
 import AllPatientsList from './AllPatientsList';
-import CalendarPopOver from './CalendarPopOver';
+import ReportingPopover from './ReportingPopOver';
 
 const TopBar = () => {
     return (
@@ -50,7 +50,7 @@ const PractitionerHome = () => {
         <PatientIssueContext.Provider value={{ patients: value, setPatients: setValue, refreshPatients: execute }}>
             <div style={{ maxHeight: "100vh", overflowY: "scroll" }}>
                 <Route path="*/:patientId/reports" >
-                    <WrappedCalendarPopOver />
+                    <WrappedReportingPopover />
                 </Route>
                 <ReviewPhoto />
                 <MessagePatient />
@@ -71,13 +71,13 @@ const PractitionerHome = () => {
         </PatientIssueContext.Provider>)
 }
 
-const WrappedCalendarPopOver = () => {
+const WrappedReportingPopover = () => {
 
     const { patientId } = useParams();
     const patient = useContext(PatientIssueContext).patients?.find(each => { return each.id === parseInt(patientId) }) || null;
     const history = useHistory();
 
-    return <CalendarPopOver handleExit={()=>{history.push("/home/needs-review")}}  patient={patient} />
+    return <ReportingPopover handleExit={()=>{history.push("/home/needs-review")}}  patient={patient} />
 }
 
 export default PractitionerHome;

@@ -60,7 +60,7 @@ const LinkTabs = ({ label, tabs }) => {
     }) 
 
 
-    return (<AppBar elevation={1} className={classes.root} color="default">
+    return (<AppBar elevation={0} className={classes.root} color="default">
         <Tabs
             indicatorColor="primary"
             value={tabIndex > -1 ? tabIndex : 0}

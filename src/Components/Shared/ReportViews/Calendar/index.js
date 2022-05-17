@@ -4,9 +4,9 @@ import { DateTime } from 'luxon';
 import { ArrowLeft, ArrowRight } from '@material-ui/icons';
 import useCalendarStyles from './styles';
 import Day from './Day';
-import useStores from '../../../Basics/UseStores';
+import useStores from '../../../../Basics/UseStores';
 import { observer } from 'mobx-react';
-import Colors from '../../../Basics/Colors';
+import Colors from '../../../../Basics/Colors';
 
 const ReportingCalendar = observer(({ patient, reports, handleDateChange, displayStartDate, updateMonth }) => {
 
