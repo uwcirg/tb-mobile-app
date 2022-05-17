@@ -1,17 +1,17 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import PopOverV2 from '../../Components/Shared/PopOverV2'
-import { useHistory, useParams, useLocation, Switch, Route, useRouteMatch } from 'react-router-dom'
+import { useHistory, useParams, useLocation, Switch, Route } from 'react-router-dom'
 import SharedAPI from '../../API/SharedAPI';
 import useAsync from '../../Hooks/useAsync';
 import ReportingCalendar from '../../Components/Shared/ReportViews/Calendar';
-import { Box, Button, Fade, Typography } from '@material-ui/core';
+import { Box, Button, Fade, Grid, IconButton, Slide, Typography } from '@material-ui/core';
 import Loading from '../Shared/CardLoading';
 import CalendarKey from '../../Components/Shared/ReportViews/Calendar/CalendarKey';
 import { useTranslation } from 'react-i18next';
 import ViewDailyReport from '../../Components/Shared/ViewDailyReport';
 import { DateTime } from 'luxon';
 import Colors from '../../Basics/Colors';
-import { CameraAlt, ChevronLeft, Event, ListAlt } from '@material-ui/icons';
+import { CameraAlt, Clear, Event, ListAlt } from '@material-ui/icons';
 import LinkTabs from '../../Components/Shared/LinkTabs';
 import ReportList from '../../Components/Shared/ReportViews/List';
 import StickyTopBar from '../../Components/Shared/StickyTopBar';
@@ -43,7 +43,6 @@ export default function ReportingPopover({ patient, handleExit }) {
     }, [value])
 
 
-    const location = useLocation();
     const history = useHistory();
     const query = useQuery();
     const date = query.get('date')
@@ -51,11 +50,11 @@ export default function ReportingPopover({ patient, handleExit }) {
 
     return (<PopOverV2 open={true} topBarTitle={patient ? `${patient.fullName} ${t('coordinator.patientProfile.listReports')}` : ""} handleExit={handleExit}>
         <StickyTopBar>
-            {date ? <Button onClick={history.goBack}>Go Back</Button> : <LinkTabs tabs={links} />}
+            {date ? <ExitReportView date={date} /> : <LinkTabs tabs={links} />}
         </StickyTopBar>
         {status === "pending" ? <Loading height={"50vh"} /> :
             <>{date ?
-                <Fade in appear>
+                <Fade in timeout={300} appear>
                     <Box>
                         <ViewReport reportHash={reportHash} />
                     </Box>
@@ -77,15 +76,21 @@ export default function ReportingPopover({ patient, handleExit }) {
 
 }
 
-const Tabs = () => {
+const ExitReportView = ({ date }) => {
 
-    const location = useLocation();
     const history = useHistory();
-    const date = new URLSearchParams(location.search).get('date')
 
-    return (<StickyTopBar>
-        {date ? <Button onClick={history.goBack}>Go Back</Button> : <LinkTabs tabs={links} />}
-    </StickyTopBar>)
+    return (
+        <Box bgcolor="white" padding=".5em">
+            <Grid alignItems='center' container>
+                <Typography>Report: {date}</Typography>
+                <Box flexGrow={1} />
+                <IconButton onClick={history.goBack}>
+                    <Clear />
+                </IconButton>
+            </Grid>
+        </Box>
+    )
 }
 
 const CalendarStuff = ({ patient, reportHash }) => {
@@ -96,7 +101,6 @@ const CalendarStuff = ({ patient, reportHash }) => {
 
     const { calendarStartDate } = state;
 
-    const location = useLocation();
     const history = useHistory();
 
     const updateMonth = (forward = true) => {

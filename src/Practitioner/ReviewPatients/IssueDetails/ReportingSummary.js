@@ -1,21 +1,43 @@
-import { Grid } from '@material-ui/core';
-import { EventAvailable } from '@material-ui/icons';
+import { Grid, IconButton, Typography } from '@material-ui/core';
+import { CameraAlt, ListAlt, Event, EventAvailable } from '@material-ui/icons';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import IssueSection from './IssueSection';
+import { makeStyles } from '@material-ui/core/styles';
+import Colors from '../../../Basics/Colors';
+
+const useStyles = makeStyles({
+  buttonContainer:{
+      "& > *": {
+          color: Colors.buttonBlue
+      }
+  }
+})
+
 
 const ReportingSummary = ({ patient }) => {
 
     const { t } = useTranslation('translation');
     const location = useLocation();
+    const classes = useStyles();
 
-    return (<IssueSection title={"Reporting Summary"} icon={EventAvailable} >
-        <Grid direction='column' container>
-            <Link to={`${location.pathname ? location.pathname : ""}/${patient.id}/reports/calendar`}>Calendar</Link>
-            <Link to={`${location.pathname ? location.pathname : ""}/${patient.id}/reports/list`}>List</Link>
-            <Link to={`${location.pathname ? location.pathname : ""}/${patient.id}/reports/photos`}>Photos</Link>
-        </Grid>
+    return (<IssueSection title="Patient Details">
+
+            <Grid justify='space-between' container className={classes.buttonContainer}>
+
+                <IconButton component={Link} to={`${patient.id}/reports/calendar`}>
+                    <Event />
+                </IconButton>
+
+                <IconButton component={Link} to={`${patient.id}/reports/list`}>
+                    <ListAlt />
+                </IconButton>
+
+                <IconButton component={Link} to={`${patient.id}/reports/photos`}>
+                    <CameraAlt />
+                </IconButton>
+            </Grid>
     </IssueSection>)
 
 }

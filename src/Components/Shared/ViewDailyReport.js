@@ -1,15 +1,12 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import Styles from '../../Basics/Styles';
 import Colors from '../../Basics/Colors';
-import CheckIcon from '@material-ui/icons/Check';
 import CameraIcon from '@material-ui/icons/PhotoCamera';
-import ClearIcon from '@material-ui/icons/Clear';
 import PillIcon from '../../Basics/Icons/Pill.js'
 import { useTranslation } from 'react-i18next';
 import { Box, Grid, Typography } from '@material-ui/core';
 import Symptom from '../../Practitioner/Shared/Symptom';
-import { Assignment, Assignment as Clipboard } from '@material-ui/icons'
+import { Assignment } from '@material-ui/icons'
 import Details from '@material-ui/icons/InsertChart';
 import ZoomableImage from './ZoomableImage';
 
@@ -36,11 +33,11 @@ const DailyReport = ({ report, date }) => {
     const { whyMedicationNotTaken, medicationWasTaken, photoWasRequired, symptoms, createdAt, doingOkay, doingOkayReason, photoUrl } = report;
 
     return (<Box minHeight={"80vh"} bgcolor="white" padding="1em">
-        <Label text={t('coordinator.patientTableLabels.details')} icon={<Details />} />
+        {/* <Label text={t('coordinator.patientTableLabels.details')} icon={<Details />} />
         <Box>
             <Typography>Date: {date}</Typography>
             <Typography>Submitted At: {createdAt}</Typography>
-        </Box>
+        </Box> */}
 
         <Label text={t('commonWords.medication')} icon={<PillIcon />} />
         <Box>

@@ -9,7 +9,7 @@ import ShortDate from '../../ShortDate'
 export default function ReportPreview({ date, report }) {
 
     const issues = report ? {
-        missedMedication: report.medicationWasTaken ? 1 : null,
+        missedMedication: !report.medicationWasTaken ? 1 : null,
         supportRequests: !report.doingOkay ? 1 : null,
         symptoms: report.symptoms.length,
         unreviewedPhotos: report.photoUrl ? 1 : null
