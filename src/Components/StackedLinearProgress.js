@@ -15,7 +15,7 @@ const useStyles = makeStyles({
         borderRadius: "5px",
         overflow: "hidden",
         width: "100%",
-        backgroundColor: Colors.warningRed,
+        backgroundColor: Colors.adherence.red,
         display: "flex"
     },
 
@@ -51,8 +51,8 @@ const StackedLinearProgress = ({ partValue, totalValue, detailContent,additional
     return (
         <div className={classes.container}>
             <div className={classes.barContainer}>
-                {partValue > 0 && <div style={{ backgroundColor: Colors.approvedGreen, width: `${partValue}%` }} />}
-                <div style={{ backgroundColor: Colors.yellow, width: `${totalValue - partValue}%` }} />
+                {partValue > 0 && <div style={{ backgroundColor: Colors.adherence.green, width: `${partValue}%` }} />}
+                <div style={{ backgroundColor: Colors.adherence.yellow, width: `${totalValue - partValue}%` }} />
             </div>
             <ExpansionPanel 
             previewClassName={classes.expansionPanel} 
@@ -69,9 +69,9 @@ const StackedLinearProgress = ({ partValue, totalValue, detailContent,additional
 const Details = ({ content = {}, additionalDetails }) => {
     return (<Grid alignItems="flex-end">
         {additionalDetails}
-        <Label color={Colors.green} {...content.green} />
-        <Label color={Colors.yellow} {...content.yellow} />
-        <Label color={Colors.red} {...content.red} />
+        <Label color={Colors.calendarGreen} {...content.green} />
+        <Label color={Colors.timelineYellow} {...content.yellow} />
+        <Label color={Colors.calendarRed} {...content.red} />
     </Grid>)
 }
 

@@ -33,7 +33,12 @@ const Colors = {
     textDarkGray: "#333333",
     warningRed: "#EB5757",
     transparentBlueAccent: "rgba(128,178,255,.75)",
-    timelineGreen: "#d2ebcf"
+    timelineGreen: "#d2ebcf",
+    adherence: {
+        green: "#D2ECCF",
+        yellow: "#FDEAAE",
+        red: "#FAAEAE"
+    }
 
 }
 

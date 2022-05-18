@@ -98,7 +98,9 @@
         "found": "Encontrado",
         "empty": "No se han enviado mensajes todavia. Envie el primero!",
         "private": "Privado",
-        "clinicChat": "Asistentes y Pacientes en su Clínica"
+        "clinicChat": "Asistentes y Pacientes en su Clínica",
+        "imageWillSend": "Image will be sent with message",
+        "sending": "Sending"
     },
     "time": {
         "day": "día",
@@ -917,7 +919,8 @@
             "withdraw": "Desviado",
             "lost-to-follow-up": "Perdido de seguimiento",
             "transferred": "Derivado",
-            "deceased": "Fallecido"
+            "deceased": "Fallecido",
+            "refuse-to-use-app": "Refuse to use app"
         },
         "complete": "Completo",
         "endSurvey": "Encuesta",
@@ -998,6 +1001,7 @@
         "title": "Por favor reenviar la foto del test de la tira reactiva",
         "subtitle": "Revise el asunto que su asistente identificó",
         "flag": "Reenvío",
+        "shortFlag": "reenvíe",
         "explanation": "Hay un asunto con su foto de la tira reactiva y su asistente ha pedido que reenvíe el test. Por favor revise las instrucciones cuidadosamente. ",
         "feedback": "Comentario",
         "originalSubmission": "Envío original",

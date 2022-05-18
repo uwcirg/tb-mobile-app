@@ -28,7 +28,7 @@ const HomePage = () => {
   const classes = useStyles();
   return (
     <div className={classes.body}>
-      {/* Some of these components are conditionally rendered within thier implementaion */}
+      {/* Some of these components are conditionally rendered within their implementaion */}
       <PushNotificationEnrollment />
       <Greeting />
       <OneStepActions />

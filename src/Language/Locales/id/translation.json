@@ -98,7 +98,9 @@
         "found": "Ditemukan",
         "empty": "Pesan anda belum terkirim. Silahkan mengirim pesan!",
         "private": "Rahasia",
-        "clinicChat": "Pendamping and Pasien pada klinik anda"
+        "clinicChat": "Pendamping and Pasien pada klinik anda",
+        "imageWillSend": "Image will be sent with message",
+        "sending": "Sending"
     },
     "time": {
         "day": "Hari",
@@ -917,7 +919,8 @@
             "withdraw": "Mundur",
             "lost-to-follow-up": "Lost to follow up",
             "transferred": "Pindah",
-            "deceased": "Meninggal"
+            "deceased": "Meninggal",
+            "refuse-to-use-app": "Refuse to use app"
         },
         "complete": "Komplit",
         "endSurvey": "Survey",
@@ -994,11 +997,13 @@
 
     },
     "redoPhoto":{
-        "title": "Resubmit test strip",
-        "subtitle": "Review the issue your treatment supporter identified",
+        "viewMyPhotos": "Lihat kembali foto yang telah di unggah",
+        "title": "Unggah kembali foto hasil test strip",
+        "subtitle": "Tinjau masalah yang telah diidentifikasi oleh pendamping berobat anda",
         "flag": "Resubmission",
-        "explanation": "There was an issue with your last test submission and you have been asked to resubmit. Please review the instructions carefully.",
-        "feedback": "Feedback",
+        "shortFlag": "Redo",
+        "explanation": "Ada masalah dengan pengunggahan hasil test anda yang terakhir. Mohon dapat mengunggah kembali foto hasil test anda. Mohon dapat memperhatikan instruksi secara seksama",
+        "feedback": "Masukan",
         "originalSubmission": "Original Submission",
         "newSubmission": "New Submission",
         "selectResult": "Select test result",
@@ -1008,7 +1013,7 @@
         "attachMessage": "Message to patient"
     },
     "testStripInstructions":{
-        "imgSrc": "/img/es-Ar/v3-strip-instructions.jpg",
+        "imgSrc": "/img/en/v3-strip-instructions.jpg",
         "one": "Collect a small amount of urine in a container (about 2 fingers deep)",
         "two": "Take the test out of the bag",
         "three": "Dip the strip into the urine for about 2 seconds to the line marked dip. Do not let the test for longer than 2 seconds in the urine.",

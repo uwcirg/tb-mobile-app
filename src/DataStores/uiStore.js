@@ -111,7 +111,11 @@ export class UIStore {
     }
 
     @computed get fullPath(){
-        return this.router.location.pathname + this.router.location.search
+        return this.router.location.pathname + this.router.location.search;
+    }
+
+    @computed get urlSearchParams(){
+        return this.router.location.search;
     }
 
     @computed get pathname() {
@@ -136,6 +140,9 @@ export class UIStore {
         this.goToStep(this.step - 1)
     }
 
+    @action goBack = () => {
+        this.router.goBack();
+    }
 
 
 }

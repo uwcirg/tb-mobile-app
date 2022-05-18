@@ -6,6 +6,7 @@
     "updating": "Updating",
     "demoWarning": "This is a demo of the application and should not be used for real patient data",
     "commonWords": {
+        "list": "list",
         "photos": "photos",
         "fillAll": "Please fill all fields before continuing",
         "edit": "Edit",
@@ -555,6 +556,7 @@
             "low": "Low Priority",
             "active": "Active",
             "pending": "Pending",
+            "archived": "Archived",
             "reportedTime": "Reported In The Past 7 Days",
             "noPatientsFound": "No Patients Found",
             "searchByName": "Search By Name"
@@ -630,6 +632,7 @@
         "false": "false",
         "daysInTreatment": "Days In Treatment",
         "patientProfile": {
+            "lastReport": "Last report",
             "details":{
                 "progress": "Progress"
             },
@@ -1001,6 +1004,7 @@
         "title": "Resubmit test strip",
         "subtitle": "Review the issue your treatment supporter identified",
         "flag": "Resubmission",
+        "shortFlag": "Redo",
         "explanation": "There was an issue with your last test submission and you have been asked to resubmit. Please review the instructions carefully.",
         "feedback": "Feedback",
         "originalSubmission": "Original Submission",
@@ -1024,5 +1028,11 @@
         },
         "six": "Put the test back in its bag and discard in the trash"
 
+    },
+    "mobileUpdate":{
+        "actions": "Actions",
+        "showActions": "Show All Actions",
+        "treatment": "Treatment",
+        "supportRequests": "Support Requests"
     }
 }

@@ -50,7 +50,6 @@ const DayDrawer = observer((props) => {
           {patientStore.selectedDayReport ?
             <PatientReport
               pastReport
-              isPhotoDay={patientStore.selectedDayWasPhotoDay}
               medicationNotTakenReason={patientStore.selectedDayReport.whyMedicationNotTaken}
               medicationWasTaken={patientStore.selectedDayReport.medicationWasTaken}
               timeTaken={patientStore.selectedDayReport.takenAt}

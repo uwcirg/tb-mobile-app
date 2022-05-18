@@ -2,13 +2,11 @@ import React, { useEffect } from 'react';
 import PatientHome from './Patient/';
 import Login from './Login';
 import PractitionerHome from './Practitioner'
-import AdminHome from './Admin'
 import { ThemeProvider } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { observer } from 'mobx-react';
 import Colors from './Basics/Colors';
 import useStores from './Basics/UseStores';
-import ExpertView from './Expert';
 import Boundry from './Basics/ErrorBoundary'
 import CheckAuthorization from './Basics/HandleAuthorizationError'
 import SWWrapper from './ServiceWorkerWrapper'
@@ -42,24 +40,18 @@ const theme = createMuiTheme({
 });
 
 const UserHome = observer(() => {
-  const { loginStore, patientStore,practitionerStore,adminStore } = useStores();
+  const { loginStore, patientStore,practitionerStore } = useStores();
 
   if (loginStore.userType === "Patient") {
     patientStore.initalize()
     return <PatientHome />
   }
-  if (loginStore.userType === "Administrator"){
-    adminStore.initalize();
-    return <AdminHome />
-  }
+
   if (loginStore.userType === "Practitioner"){
     practitionerStore.initalize();
     return <PractitionerHome />
   }
-  if (loginStore.userType === "Expert"){
-    practitionerStore.initalize();
-    return <ExpertView />
-  }
+ 
   return <Login />
 })
 

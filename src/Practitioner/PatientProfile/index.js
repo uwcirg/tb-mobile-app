@@ -14,12 +14,17 @@ import SectionLabel from '../../Components/SectionLabel';
 import PatientProfileDialogs from './Dialogs';
 import ArchivedOptions from './ArchivedOptions';
 import ProfileHeader from './Header';
+import useWindowSize from '../../Hooks/Resize';
+import MobileView from './MobileView';
 
 const Profile = observer((props) => {
 
     const { practitionerStore, patientProfileStore, uiStore } = useStores();
     const classes = useStyles();
     const { t } = useTranslation('translation');
+
+    const isMobileView = useWindowSize().size.width < 830;
+
 
 
     const closeResetPassword = () => {
@@ -42,28 +47,38 @@ const Profile = observer((props) => {
         }
     }, [patientProfileStore.changes.success])
 
+    if (!patientProfileStore.selectedPatient.loaded) return <Loading />;
+    if (patientProfileStore.selectedPatient.accessError) return <p className={classes.message}>{t('coordinator.patientProfile.accessError')}</p>;
+
     return (
         <>
             <PatientProfileDialogs />
-            {patientProfileStore.selectedPatient.loaded ?
-                <>{!patientProfileStore.selectedPatient.accessError ? <div className={classes.patientContainer}>
-                    <ProfileHeader />
-                    <ArchivedOptions />
-                    <div className={classes.top}>
-                        <PatientInfo />
-                        <TreatmentStatus />
-                        <SymptomSummary />
-                    </div>
-                    <div className={classes.bottom}>
-                        <ReportingHistory />
-                        <div className={classes.treatmentTimeline}>
-                            <SectionLabel>{t('timeline.title')}</SectionLabel>
-                            <TreatmentTimeline weeksInTreatment={patientProfileStore.selectedPatient.details.weeksInTreatment} />
-                        </div>
-                    </div>
-                </div> : <p className={classes.message}>{t('coordinator.patientProfile.accessError')}</p>} </> : <Loading />}
-
+            {isMobileView ? <MobileView /> : <DesktopProfile />}
         </>)
+});
+
+const DesktopProfile = observer(() => {
+    
+    const {patientProfileStore } = useStores();
+    const classes = useStyles();
+    const { t } = useTranslation('translation');
+
+    return (<div className={classes.patientContainer}>
+        <ProfileHeader />
+        <ArchivedOptions />
+        <div className={classes.top}>
+            <PatientInfo />
+            <TreatmentStatus />
+            <SymptomSummary />
+        </div>
+        <div className={classes.bottom}>
+            <ReportingHistory />
+            <div className={classes.treatmentTimeline}>
+                <SectionLabel>{t('timeline.title')}</SectionLabel>
+                <TreatmentTimeline weeksInTreatment={patientProfileStore.selectedPatient.details.weeksInTreatment} />
+            </div>
+        </div>
+    </div>)
 });
 
 const Loading = () => {
