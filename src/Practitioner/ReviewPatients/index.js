@@ -14,7 +14,7 @@ import LoadingPatients from './LoadingPatients';
 import { useLocation, useHistory } from 'react-router-dom';
 import { Route, Switch, useParams } from 'react-router-dom'
 import AllPatientsList from './AllPatientsList';
-import ReportingPopover from './ReportingPopOver';
+import ReportingPopover from '../Shared/ReportingPopOver';
 import { PageLabelTitle } from '../../Components/Shared/PageLabel';
 
 const TopBar = () => {

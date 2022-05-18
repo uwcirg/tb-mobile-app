@@ -6,6 +6,7 @@
     "updating": "Updating",
     "demoWarning": "This is a demo of the application and should not be used for real patient data",
     "commonWords": {
+        "list": "list",
         "photos": "photos",
         "fillAll": "Please fill all fields before continuing",
         "edit": "Edit",
@@ -1025,5 +1026,9 @@
         },
         "six": "Put the test back in its bag and discard in the trash"
 
+    },
+    "mobileUpdate":{
+        "actions": "Actions",
+        "showActions": "Show All Actions"
     }
 }

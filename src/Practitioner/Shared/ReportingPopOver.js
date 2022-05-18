@@ -5,7 +5,7 @@ import SharedAPI from '../../API/SharedAPI';
 import useAsync from '../../Hooks/useAsync';
 import ReportingCalendar from '../../Components/Shared/ReportViews/Calendar';
 import { Box, Fade, Grid, IconButton, Typography } from '@material-ui/core';
-import Loading from '../Shared/CardLoading';
+import Loading from './CardLoading';
 import CalendarKey from '../../Components/Shared/ReportViews/Calendar/CalendarKey';
 import { useTranslation } from 'react-i18next';
 import ViewDailyReport from '../../Components/Shared/ViewDailyReport';
@@ -30,7 +30,7 @@ export default function ReportingPopover({ patient, handleExit }) {
     const { patientId } = useParams();
 
     const getDailyReports = useCallback(() => {
-        return SharedAPI.getDailyReports(patientId)
+        return SharedAPI.getDailyReports(patientId || patient.id)
     }, [patientId]);
 
     const { value, status } = useAsync(getDailyReports);
@@ -43,7 +43,6 @@ export default function ReportingPopover({ patient, handleExit }) {
     }, [value])
 
 
-    const history = useHistory();
     const query = useQuery();
     const date = query.get('date')
 

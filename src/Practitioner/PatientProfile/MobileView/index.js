@@ -3,15 +3,18 @@ import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../../Basics/UseStores';
 import { observer } from 'mobx-react';
 import StickyTopBar from '../../../Components/Shared/StickyTopBar';
-import { Box, Grid, IconButton, Typography } from '@material-ui/core';
-import { ChevronLeft } from '@material-ui/icons';
-import { Link } from 'react-router-dom';
+import { Box, Grid, Typography } from '@material-ui/core';
 import Colors from '../../../Basics/Colors';
 import Priority from '../../Shared/Priority';
-import ButtonList from '../ProfileButtonList';
+import ButtonList from './Buttons';
 import Label from '../../../Components/Label';
 import { PageLabel } from '../../../Components/Shared/PageLabel';
 import { DateTime } from 'luxon';
+import { Switch, Route } from 'react-router-dom';
+import ReportingPopOver from '../../Shared/ReportingPopOver'
+import { Link, useHistory } from 'react-router-dom';
+import ReportingHistoryLinks from '../../../Components/Shared/ReportingHistoryLinks';
+import SectionTitle from './SectionTitle';
 
 const useStyles = makeStyles({
     card: {
@@ -20,21 +23,6 @@ const useStyles = makeStyles({
         }
     }
 })
-
-const TopBar = ({ fullName }) => {
-    return (<StickyTopBar >
-        <Box bgcolor="white" borderBottom="solid 1px gray">
-            <Grid alignItems='center' container wrap="nowrap">
-                <IconButton component={Link} to="/home/needs-review">
-                    <ChevronLeft />
-                </IconButton>
-                <Typography>
-                    {fullName}
-                </Typography>
-            </Grid>
-        </Box>
-    </StickyTopBar>)
-}
 
 const Card = ({ children }) => {
 
@@ -46,13 +34,29 @@ const Card = ({ children }) => {
 
 }
 
+const MobilePatientProfile = observer(() => {
+
+    const { patientProfileStore } = useStores();
+    const history = useHistory();
+
+
+    return (
+        <Switch>
+            <Route path="*/reports">
+                <ReportingPopOver handleExit={() => { history.push(`/patients/${patientProfileStore.selectedPatient.details.id}`) }} patient={patientProfileStore.selectedPatient.details} />
+            </Route>
+            <Route>
+                <MobileView />
+            </Route>
+        </Switch>
+    )
+})
+
 const MobileView = observer(() => {
 
     const classes = useStyles();
     const { patientProfileStore } = useStores();
-
-    const { fullName, lastReport, weeksInTreatment, priority } = patientProfileStore.selectedPatient.details
-
+    const { fullName, lastReport, weeksInTreatment, priority, id } = patientProfileStore.selectedPatient.details
     const daysAgo = Math.round(DateTime.fromISO(lastReport.createdAt).diffNow('days').days) * -1
 
     return (
@@ -62,25 +66,35 @@ const MobileView = observer(() => {
             </StickyTopBar>
             <Box minHeight="90vh" bgcolor={Colors.lightgray} padding=".5em">
                 <Card>
-                    <Typography>Last Report: {daysAgo} days ago</Typography>
+                    <Grid wrap="nowrap" container>
+                        <Typography>Last Report:</Typography>
+                        <Box flexGrow={1} />
+                        <Typography>{daysAgo} days ago</Typography>
+                    </Grid>
                     <Box height={"5px"} />
                     <Grid container>
                         <Typography>Priority:</Typography>
-                        <Box width=".5em" />
+                        <Box flexGrow={1} />
                         <Priority index={priority} />
                     </Grid>
                     <Box height={"5px"} />
                     <Grid container>
                         <Typography>Treatment:</Typography>
-                        <Box width=".5em" />
+                        <Box flexGrow={1} />
                         <Label text={`Week ${weeksInTreatment} / 26`} backgroundColor={Colors.accentBlue} />
                     </Grid>
                 </Card>
                 <Card>
-                    <Typography>Actions</Typography>
-                    <Grid container className={classes.buttons} direction='column'>
-                        <ButtonList />
-                    </Grid>
+                    <SectionTitle>Reporting History</SectionTitle>
+                    <Box height=".5em" />
+                    <Box borderRadius="5px" bgcolor={Colors.lighterGray} padding=".5em">
+                        <Grid container justify='space-between'>
+                            <ReportingHistoryLinks patient={patientProfileStore.selectedPatient.details} />
+                        </Grid>
+                    </Box>
+                </Card>
+                <Card>
+                    <ButtonList />
                 </Card>
             </Box>
         </>)
@@ -118,4 +132,4 @@ treatmentStart: (...)
 weeksInTreatment: (...)
 */
 
-export default MobileView;
+export default MobilePatientProfile;
