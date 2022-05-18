@@ -556,6 +556,7 @@
             "low": "Low Priority",
             "active": "Active",
             "pending": "Pending",
+            "archived": "Archived",
             "reportedTime": "Reported In The Past 7 Days",
             "noPatientsFound": "No Patients Found",
             "searchByName": "Search By Name"
