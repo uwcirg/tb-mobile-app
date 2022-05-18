@@ -631,6 +631,7 @@
         "false": "false",
         "daysInTreatment": "Days In Treatment",
         "patientProfile": {
+            "lastReport": "Last report",
             "details":{
                 "progress": "Progress"
             },
@@ -1029,6 +1030,7 @@
     },
     "mobileUpdate":{
         "actions": "Actions",
-        "showActions": "Show All Actions"
+        "showActions": "Show All Actions",
+        "treatment": "Treatment"
     }
 }

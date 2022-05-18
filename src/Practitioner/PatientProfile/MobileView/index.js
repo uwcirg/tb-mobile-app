@@ -12,10 +12,9 @@ import { PageLabel } from '../../../Components/Shared/PageLabel';
 import { DateTime } from 'luxon';
 import { Switch, Route } from 'react-router-dom';
 import ReportingPopOver from '../../Shared/ReportingPopOver'
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import ReportingHistoryLinks from '../../../Components/Shared/ReportingHistoryLinks';
 import SectionTitle from './SectionTitle';
-import AdherenceSummary from '../AdherenceSummary';
 import PhotoAdherence from '../PhotoAdherence';
 import MedicationAdherence from '../MedicationAdherence';
 
@@ -60,7 +59,6 @@ const MobilePatientProfile = observer(() => {
 const MobileView = observer(() => {
 
     const { t } = useTranslation('translation');
-    const classes = useStyles();
     const { patientProfileStore } = useStores();
     const { fullName, lastReport, weeksInTreatment, priority, id } = patientProfileStore.selectedPatient.details
     const daysAgo = Math.round(DateTime.fromISO(lastReport.createdAt).diffNow('days').days) * -1
@@ -70,30 +68,30 @@ const MobileView = observer(() => {
             <StickyTopBar>
                 <PageLabel title={fullName} to={"/home/needs-review"} />
             </StickyTopBar>
-            <Box minHeight="90vh" bgcolor={Colors.lightgray} padding=".5em">
+            <Box minHeight="90vh" bgcolor={Colors.lightgray} padding="8px">
                 <Card>
                     <Grid wrap="nowrap" container>
-                        <Typography>Last Report:</Typography>
+                        <Typography>{t('coordinator.patientProfile.lastReport')}:</Typography>
                         <Box flexGrow={1} />
-                        <Typography>{daysAgo} days ago</Typography>
+                        <Typography>{daysAgo} {t('time.day_ago', { count: daysAgo })}</Typography>
                     </Grid>
                     <Box height={"5px"} />
                     <Grid container>
-                        <Typography>Priority:</Typography>
+                        <Typography>{t('coordinator.patientTableLabels.priority')}:</Typography>
                         <Box flexGrow={1} />
                         <Priority index={priority} />
                     </Grid>
                     <Box height={"5px"} />
                     <Grid container>
-                        <Typography>Treatment:</Typography>
+                        <Typography>{t('mobileUpdate.treatment')}:</Typography>
                         <Box flexGrow={1} />
                         <Label text={`Week ${weeksInTreatment} / 26`} backgroundColor={Colors.accentBlue} />
                     </Grid>
                 </Card>
                 <Card>
-                    <SectionTitle>Reporting History</SectionTitle>
-                    <Box height=".5em" />
-                    <Box borderRadius="5px" bgcolor={Colors.lighterGray} padding=".5em">
+                    <SectionTitle>{t('coordinator.patientProfile.reportingHistory')}</SectionTitle>
+                    <Box height="8px" />
+                    <Box borderRadius="5px" bgcolor={Colors.lighterGray} padding="8px">
                         <Grid container justify='space-between'>
                             <ReportingHistoryLinks patient={patientProfileStore.selectedPatient.details} />
                         </Grid>
