@@ -4,6 +4,7 @@ import PractitionerContext from '../PractitionerContext';
 import addIssuesToPatients from '../../Utility/FindIssues';
 import { Box, Grid } from '@material-ui/core';
 import PatientCard from './PatientCard';
+import LoadingPatients from './LoadingPatients';
 
 const wasToday = (isoTime) => {
     return DateTime.fromISO(isoTime).toISODate() === DateTime.local().toISODate()
@@ -11,7 +12,7 @@ const wasToday = (isoTime) => {
 
 const ListOfPatients = ({ tabValue }) => {
 
-    const { value: patients, setValue: setPatients } = useContext(PractitionerContext).patientIssues
+    const { value: patients, setValue: setPatients, status } = useContext(PractitionerContext).patientIssues
 
     const markPatientAsReviewed = (patientId) => {
         let tempValue = [...patients]
@@ -30,6 +31,8 @@ const ListOfPatients = ({ tabValue }) => {
     const patientsWithIssues = addIssuesToPatients(patientsToDisplay || []).sort((a, b) => {
         return b.issues.total - a.issues.total;
     });
+
+    if (status === "pending") return <LoadingPatients />;
 
     if (!patients) return "";
 

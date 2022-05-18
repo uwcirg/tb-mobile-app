@@ -1,20 +1,18 @@
-import React from 'react';
-import useAsync from '../../Hooks/useAsync';
-import PractitionerAPI from '../../API/PractitionerAPI';
+import React, { useContext } from 'react';
 import PatientCard from './PatientCard';
 import { Box } from '@material-ui/core';
-
-async function getPatients(){
-    return PractitionerAPI.getPatients(true);
-}
+import PractitionerContext from '../PractitionerContext';
+import LoadingPatients from './LoadingPatients';
 
 const AllPatientsList = () => {
 
-    const { value  } = useAsync(getPatients);
+    const { value: patients, status } = useContext(PractitionerContext).patients;
+
+    if (status === "pending") return <LoadingPatients />;
 
     return (<div>
-        {value && value.map( each => {
-            return (<Box padding=".5em"> 
+        {patients && patients.map(each => {
+            return (<Box padding=".5em">
                 <PatientCard isSimpleView patient={each} />
             </Box>)
         })}

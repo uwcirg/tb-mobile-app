@@ -53,7 +53,6 @@ const PractitionerHome = () => {
                 <TopBar />
                 <ReviewPatientTabs value={tabValue} />
             </StickyTopBar>
-            {status === "pending" && <LoadingPatients />}
             <Switch>
                 <Route path="/home/all">
                     <AllPatientsList />
