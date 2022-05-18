@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import LoadS3Image from '../../../Components/Shared/LoadS3Image';
 import Label from '../../../Components/Label';
 import Colors from '../../../Basics/Colors';
+import ShortDate from '../../../Components/Shared/ShortDate';
 
 const useStyles = makeStyles({
     photoReport: {
@@ -25,13 +26,10 @@ const useStyles = makeStyles({
 
 const ReviewPhotos = ({ patient }) => {
     const { t } = useTranslation('translation');
-    const classes = useStyles();
 
     return (<IssueSection icon={CameraAlt} title={t('coordinator.cardTitles.photosToReview')} number={patient.issues.unreviewedPhotos.length}>
-                <div>
-                    {patient.unreviewedPhotos.map(photo => <PhotoPreview key={`photo-to-review-${photo.photoId}`} photo={photo} />)}
-                </div>
-            </IssueSection>)
+        {patient.unreviewedPhotos.map(photo => <PhotoPreview key={`photo-to-review-${photo.photoId}`} photo={photo} />)}
+    </IssueSection>)
 }
 
 const PhotoPreview = ({ photo }) => {
@@ -41,7 +39,7 @@ const PhotoPreview = ({ photo }) => {
 
     return (<>
         <ButtonBase disableTouchRipple component={Link} to={`?review-photo=${photo.photoId}`} className={classes.photoReport}>
-            <Typography>{DateTime.fromISO(photo.createdAt).toLocaleString({ day: "numeric", month: "short" })}</Typography>
+            <ShortDate date={photo.createdAt} />
             {(!photo.backSubmission && photo.isRedo) && <Box paddingLeft="1em"><Label backgroundColor={Colors.yellow} text={t('patient.report.late')} /></Box>}
             {photo.backSubmission && <Box paddingLeft="1em"><Label backgroundColor={Colors.yellow} text={t('redoPhoto.shortFlag')} /></Box>}
             <Box flexGrow="1" />

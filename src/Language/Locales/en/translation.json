@@ -1032,6 +1032,7 @@
     "mobileUpdate":{
         "actions": "Actions",
         "showActions": "Show All Actions",
-        "treatment": "Treatment"
+        "treatment": "Treatment",
+        "supportRequests": "Support Requests"
     }
 }

@@ -1,14 +1,18 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, Grid, Typography } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 import Colors from '../../../Basics/Colors';
+import SubSectionTitle from '../../../Components/Practitioner/SubSectionTitle';
 
 const useStyles = makeStyles({
     sectionHeader: {
-        "& svg":{
+        "& svg": {
             fontSize: "1.5em",
             color: Colors.textGray
         }
+    },
+    icon:{
+        color: "black"
     }
 })
 
@@ -19,9 +23,9 @@ const SectionTitle = ({ icon, title, number }) => {
     return (
         <Box padding=".5em .25em" >
             <Grid className={classes.sectionHeader} wrap="nowrap" alignItems="center" container>
-                {icon && React.createElement(icon)}
+                {icon && React.createElement(icon,{style:{color: "black"}})}
                 {icon && <Box width=".5em" />}
-                {title && <Typography>{title}: {number}</Typography>}
+                {title && <SubSectionTitle>{title}: {number}</SubSectionTitle>}
             </Grid>
         </Box>)
 }
