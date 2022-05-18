@@ -1,25 +1,20 @@
-import React, { useContext, useEffect } from 'react';
-import useStores from '../../Basics/UseStores';
-import {observer} from 'mobx-react';
-import PatientIssueContext from './PatientIssuesContext';
+import React, { useContext } from 'react';
+import PractitionerContext from '../PractitionerContext';
 import MessagingPopover from './MessagingPopover';
+import useQuery from '../../Hooks/useQuery';
 
-const MessagePatient = observer(() => {
+const MessagePatient = () => {
+    const { value: patients } = useContext(PractitionerContext).patientIssues
 
-    const {uiStore} = useStores();
-    const { patients} = useContext(PatientIssueContext)
+    const channelId = useQuery().get('onMessagingChannelId');
 
-    const channelId = new URLSearchParams(uiStore.urlSearchParams).get('onMessagingChannelId')
     const channelName = patients?.find(each => {
         return each.channelId === parseInt(channelId)
     })?.fullName
 
-    // useEffect(() => {
-    //     if (!!channelId) { execute() }
-    // }, [channelId])
 
-    return( <MessagingPopover channelName={channelName} channelId={channelId} open={!!channelId} />)
+    return (<MessagingPopover channelName={channelName} channelId={channelId} open={!!channelId} />)
 
-});
+};
 
 export default MessagePatient;

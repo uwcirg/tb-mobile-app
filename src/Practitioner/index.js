@@ -6,6 +6,7 @@ import Drawer from './Navigation'
 import MobileNav from './MobileNav'
 import useResize from '../Hooks/Resize'
 import useStores from '../Basics/UseStores';
+import PractitionerDataProvider from './PractitionerDataProvider';
 
 const useStyles = makeStyles({
     container: {
@@ -25,13 +26,15 @@ const PractitionerHome = observer(() => {
     const { practitionerUIStore } = useStores();
 
     return (
-        <div className={classes.container}>
-            {isMobile ? <MobileNav /> : <Drawer />}
-            <div className={classes.body}>
-                <Routes />
+        <PractitionerDataProvider>
+            <div className={classes.container}>
+                {isMobile ? <MobileNav /> : <Drawer />}
+                <div className={classes.body}>
+                    <Routes />
+                </div>
+                {practitionerUIStore.alert && <Alert onClose={() => { practitionerUIStore.alert = "" }} text={practitionerUIStore.alert} />}
             </div>
-            {practitionerUIStore.alert && <Alert onClose={() => { practitionerUIStore.alert = "" }} text={practitionerUIStore.alert} />}
-        </div>
+        </PractitionerDataProvider>
     )
 
 });

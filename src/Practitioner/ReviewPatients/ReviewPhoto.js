@@ -2,14 +2,14 @@ import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react';
-import PatientIssueContext from './PatientIssuesContext';
+import PractitionerContext from '../PractitionerContext';
 import ReviewPhotoPopOver from '../Shared/ReviewPhotoPopOver';
 
 
 const ReviewPhoto = observer(() => {
 
 
-    const { patients, setPatients } = useContext(PatientIssueContext)
+    const { value: patients, setValue: setPatients } = useContext(PractitionerContext).patientIssues;
     const { uiStore } = useStores();
     const photoId = parseInt(new URLSearchParams(uiStore.urlSearchParams).get("review-photo"));
 

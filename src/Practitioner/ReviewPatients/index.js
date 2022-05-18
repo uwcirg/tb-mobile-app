@@ -1,12 +1,10 @@
 import React, { useContext } from 'react';
 import { Grid, Box, IconButton } from '@material-ui/core';
-import PractitionerAPI from '../../API/PractitionerAPI';
 import { Search } from '@material-ui/icons';
 import ReviewPatientTabs from './Tabs';
-import useAsync from '../../Hooks/useAsync';
 import StickyTopBar from '../../Components/Shared/StickyTopBar';
 import Colors from '../../Basics/Colors';
-import PatientIssueContext from './PatientIssuesContext';
+import PatientIssueContext from '../PractitionerContext';
 import ReviewPhoto from './ReviewPhoto';
 import ListOfPatients from './ListOfPatients';
 import MessagePatient from './MessagePatient';
@@ -33,8 +31,6 @@ const TopBar = () => {
 
 const PractitionerHome = () => {
 
-    const { value, execute, status, setValue } = useAsync(PractitionerAPI.getPatientIssues, true)
-
     const location = useLocation();
 
     const getTabValue = () => {
@@ -47,28 +43,26 @@ const PractitionerHome = () => {
     const tabValue = getTabValue();
 
     return (
-        <PatientIssueContext.Provider value={{ patients: value, setPatients: setValue, refreshPatients: execute }}>
-            <div style={{ maxHeight: "100vh", overflowY: "scroll" }}>
-                <Route path="*/:patientId/reports" >
-                    <WrappedReportingPopover />
+        <div style={{ maxHeight: "100vh", overflowY: "scroll" }}>
+            <Route path="*/:patientId/reports" >
+                <WrappedReportingPopover />
+            </Route>
+            <ReviewPhoto />
+            <MessagePatient />
+            <StickyTopBar>
+                <TopBar />
+                <ReviewPatientTabs value={tabValue} />
+            </StickyTopBar>
+            {status === "pending" && <LoadingPatients />}
+            <Switch>
+                <Route path="/home/all">
+                    <AllPatientsList />
                 </Route>
-                <ReviewPhoto />
-                <MessagePatient />
-                <StickyTopBar>
-                    <TopBar refresh={execute} />
-                    <ReviewPatientTabs value={tabValue} />
-                </StickyTopBar>
-                {status === "pending" && <LoadingPatients />}
-                <Switch>
-                    <Route path="/home/all">
-                        <AllPatientsList />
-                    </Route>
-                    <Route path={"/"}>
-                        <ListOfPatients tabValue={tabValue} />
-                    </Route>
-                </Switch>
-            </div>
-        </PatientIssueContext.Provider>)
+                <Route path={"/"}>
+                    <ListOfPatients tabValue={tabValue} />
+                </Route>
+            </Switch>
+        </div>)
 }
 
 const WrappedReportingPopover = () => {

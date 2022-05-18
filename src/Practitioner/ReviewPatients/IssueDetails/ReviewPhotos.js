@@ -1,11 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, ButtonBase, Typography } from '@material-ui/core';
 import { DateTime } from 'luxon';
 import { CameraAlt, ChevronRight } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
-import ReviewPhotoPopOver from '../../Shared/ReviewPhotoPopOver';
-import PatientIssuesContext from '../PatientIssuesContext'
 import IssueSection from './IssueSection';
 import { useTranslation } from 'react-i18next';
 import LoadS3Image from '../../../Components/Shared/LoadS3Image';
