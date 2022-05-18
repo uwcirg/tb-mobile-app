@@ -62,7 +62,7 @@ const MobileView = observer(() => {
     const { t } = useTranslation('translation');
     const { patientProfileStore } = useStores();
     const { fullName, lastReport, weeksInTreatment, priority, id } = patientProfileStore.selectedPatient.details
-    const daysAgo = Math.round(DateTime.fromISO(lastReport.createdAt).diffNow('days').days) * -1
+    const daysAgo = !lastReport ? Math.round(DateTime.fromISO(lastReport.createdAt).diffNow('days').days) * -1 : t('coordinator.tasksSidebar.noneYet')
 
     return (
         <>
