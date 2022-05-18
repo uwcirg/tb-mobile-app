@@ -15,6 +15,11 @@ import ReportingPopOver from '../../Shared/ReportingPopOver'
 import { Link, useHistory } from 'react-router-dom';
 import ReportingHistoryLinks from '../../../Components/Shared/ReportingHistoryLinks';
 import SectionTitle from './SectionTitle';
+import AdherenceSummary from '../AdherenceSummary';
+import PhotoAdherence from '../PhotoAdherence';
+import MedicationAdherence from '../MedicationAdherence';
+
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
     card: {
@@ -54,6 +59,7 @@ const MobilePatientProfile = observer(() => {
 
 const MobileView = observer(() => {
 
+    const { t } = useTranslation('translation');
     const classes = useStyles();
     const { patientProfileStore } = useStores();
     const { fullName, lastReport, weeksInTreatment, priority, id } = patientProfileStore.selectedPatient.details
@@ -96,6 +102,11 @@ const MobileView = observer(() => {
                 <Card>
                     <ButtonList />
                 </Card>
+                <Card>
+                    <MedicationAdherence />
+                    <PhotoAdherence />
+                </Card>
+                <Box height="60px" />
             </Box>
         </>)
 
