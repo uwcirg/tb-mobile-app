@@ -18,11 +18,6 @@ const useStyles = makeStyles({
         "&:not(:first-child)": {
             marginTop: ".5em"
         }
-    },
-    buttons: {
-        "& > button:not(:first-child)": {
-            marginTop: ".5em"
-        }
     }
 })
 
