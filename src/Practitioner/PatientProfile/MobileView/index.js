@@ -19,6 +19,7 @@ import PhotoAdherence from '../PhotoAdherence';
 import MedicationAdherence from '../MedicationAdherence';
 
 import { useTranslation } from 'react-i18next';
+import SymptomSummary from '../SymptomSummary';
 
 const useStyles = makeStyles({
     card: {
@@ -100,7 +101,10 @@ const MobileView = observer(() => {
                     <MedicationAdherence />
                     <PhotoAdherence />
                 </Card>
-                <Box height="60px" />
+                <Card>
+                    <SymptomSummary />
+                </Card>
+                <Box height="60px" aria-hidden />
             </Box>
         </>)
 
