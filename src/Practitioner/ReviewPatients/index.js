@@ -4,11 +4,10 @@ import { Search } from '@material-ui/icons';
 import ReviewPatientTabs from './Tabs';
 import StickyTopBar from '../../Components/Shared/StickyTopBar';
 import Colors from '../../Basics/Colors';
-import PatientIssueContext from '../PractitionerContext';
+import PractitionerContext from '../PractitionerContext';
 import ReviewPhoto from './ReviewPhoto';
 import ListOfPatients from './ListOfPatients';
 import MessagePatient from './MessagePatient';
-import LoadingPatients from './LoadingPatients';
 import { useLocation, useHistory } from 'react-router-dom';
 import { Route, Switch, useParams } from 'react-router-dom'
 import AllPatientsList from './AllPatientsList';
@@ -67,7 +66,7 @@ const PractitionerHome = () => {
 const WrappedReportingPopover = () => {
 
     const { patientId } = useParams();
-    const patient = useContext(PatientIssueContext).patients?.find(each => { return each.id === parseInt(patientId) }) || null;
+    const patient = useContext(PractitionerContext).patientIssues?.value?.find(each => { return each.id === parseInt(patientId) }) || null;
     const history = useHistory();
 
     return <ReportingPopover handleExit={() => { history.push("/home/needs-review") }} patient={patient} />

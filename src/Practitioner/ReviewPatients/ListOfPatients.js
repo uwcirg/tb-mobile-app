@@ -28,6 +28,7 @@ const ListOfPatients = ({ tabValue }) => {
     })
 
     //@Todo - wrap this in a callback since the calculations are complex 
+    // - Create clearer and better algorithim for sorting the patients so issues float to top
     const patientsWithIssues = addIssuesToPatients(patientsToDisplay || []).sort((a, b) => {
         return b.issues.total - a.issues.total;
     });

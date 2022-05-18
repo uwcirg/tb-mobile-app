@@ -27,8 +27,8 @@ class PatientIssueState {
 
     }
 
-    get state(){
-        return ( {
+    get state() {
+        return ({
             goodDays: this.goodDays.length,
             missedReporting: this.numberOfMissedDays,
             symptoms: this.numberOfSymptoms,
@@ -38,7 +38,7 @@ class PatientIssueState {
     }
 
     get total() {
-        return this.numberOfSymptoms
+        return this.numberOfSymptoms + (this.numberOfMissedDays > 0 ? 1 : 0) + this.unreviewedPhotos.length + this.supportRequests.length
     }
 
     get numberOfMissedDays() {
@@ -53,7 +53,7 @@ class PatientIssueState {
 
         for (let report of reports) {
 
-            if(report.doingOkay === false){
+            if (report.doingOkay === false) {
                 this.supportRequests.push({
                     date: report.date,
                     reason: report.doingOkayReason
@@ -89,12 +89,12 @@ class PatientIssueState {
         while (!iteratorDay.equals(endDay)) {
             goToNextDay();
             let daysReport = getReportForDate();
-            if (daysReport?.medicationWasTaken){
+            if (daysReport?.medicationWasTaken) {
                 this.goodDays.push(iteratorDay.toISODate())
                 continue
-            } 
+            }
 
-            if(iteratorDay.toISODate() === DateTime.local().toISODate()) continue;
+            if (iteratorDay.toISODate() === DateTime.local().toISODate()) continue;
             this.missedDays.push(iteratorDay.toISODate())
         }
     }

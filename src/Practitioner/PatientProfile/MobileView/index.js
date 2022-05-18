@@ -91,11 +91,7 @@ const MobileView = observer(() => {
                 <Card>
                     <SectionTitle>{t('coordinator.patientProfile.reportingHistory')}</SectionTitle>
                     <Box height="8px" />
-                    <Box borderRadius="5px" bgcolor={Colors.lighterGray} padding="8px">
-                        <Grid container justify='space-between'>
-                            <ReportingHistoryLinks patient={patientProfileStore.selectedPatient.details} />
-                        </Grid>
-                    </Box>
+                    <ReportingHistoryLinks patient={patientProfileStore.selectedPatient.details} />
                 </Card>
                 <Card>
                     <ButtonList />
