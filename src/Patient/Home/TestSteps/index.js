@@ -1,12 +1,18 @@
-import React, { useEffect } from 'react'
-import { useState } from 'react';
-import OverTopBar from "../../Navigation/OverTopBar";
+import React from 'react';
+import OverTopBar from '../../Navigation/OverTopBar';
 import useStores from '../../../Basics/UseStores';
 import { observer } from 'mobx-react';
-import Step1 from './Step1';
-import { Box, IconButton, makeStyles } from '@material-ui/core';
-import MuiButton from '../../../Basics/MuiButton';
+import Step from './Step';
+import {
+  Box,
+  Button,
+  IconButton,
+  makeStyles,
+  MobileStepper,
+} from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import SimpleButton from '../../../Basics/SimpleButton';
+import Countdown from './Countdown';
 
 const useStyles = makeStyles({
   body: {
@@ -14,49 +20,59 @@ const useStyles = makeStyles({
     minHeight: '90vh',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
   },
   spaced: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between"
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: '#FAFAFA',
+    padding: '1rem',
   },
   big: {
-    fontSize: "5rem"
-  }
-})
+    fontSize: '5rem',
+  },
+});
 
-const TestSteps = observer(() =>{
-  const {patientUIStore, uiStore} = useStores();
+const TestSteps = observer(() => {
+  const { patientUIStore, uiStore } = useStores();
   const classes = useStyles();
   const { t } = useTranslation('translation');
 
+  return (
+    <>
+      <div className={classes.body}>
+        <OverTopBar
+          title="Test Instructions"
+          handleBack={patientUIStore.goToHome}
+          className={classes.body}
+        />
+        <Box height="60px" />
+        <Step currentStep={uiStore.step} />
 
+        {uiStore.step === 3 && <Countdown />}
 
-  // Just kidding. dont do steps below. browser back button has no effect on state.
-  // If we could read the url, we could have that help us as well.
-
-//  1.make the Step1 component into just a Step component which is passed prop state
-//  2. make all of the Step's elements render according to step # (from obj data)
-//  3. be sure the back button on the browsers works for state change too
-  
-
-  return(<>
-  <div className={classes.body}>
-    <OverTopBar title="Test Instructions" handleBack={patientUIStore.goToHome} className={classes.body}/>
-    <Box height='60px'/>
-    <p>{t('commonWords.loading')}</p>
-    <Step1 />
-    <div className={classes.spaced}>
-      {/*  onClick={patientUIStore.router.goBack} */}
-      <MuiButton children="<<" onClick={uiStore.prevStep} disabled={uiStore.step === 0 ? true : false}/>
-      <p>dot dot {uiStore.step}</p>
-      <MuiButton children=">>" onClick={uiStore.nextStep}  />
-   </div>
-  </div>
-    
-  </>
-  )
+        <div className={classes.spaced}>
+          <SimpleButton
+            children="<<"
+            onClick={uiStore.prevStep}
+            disabled={uiStore.step === 0 ? true : false}
+          />
+          <MobileStepper
+            steps={6}
+            variant="dots"
+            position="static"
+            activeStep={uiStore.step}
+          />
+          <SimpleButton
+            children=">>"
+            onClick={uiStore.nextStep}
+            disabled={uiStore.step >= 5 ? true : false}
+          />
+        </div>
+      </div>
+    </>
+  );
 });
 
 export default TestSteps;
