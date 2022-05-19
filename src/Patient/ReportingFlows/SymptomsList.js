@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import styled from 'styled-components'
 import { observer } from 'mobx-react'
 import useStores from '../../Basics/UseStores';
 import { makeStyles } from '@material-ui/core/styles';
@@ -27,7 +26,7 @@ nausea: {
 */
 
 //Renders whole list of symptoms
-const SymptomsList = observer((props) => {
+const SymptomsList = observer(() => {
 
   const {t} = useTranslation('translation');
   const {patientStore} = useStores();
