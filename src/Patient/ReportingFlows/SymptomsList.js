@@ -2,7 +2,6 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { observer } from 'mobx-react'
 import useStores from '../../Basics/UseStores';
-import NauseaPopUp from './NauseaPopUp';
 import symptomList from '../../Content/symptom-list';
 import useToggle from '../../Hooks/useToggle';
 import Colors from '../../Basics/Colors';
@@ -17,11 +16,9 @@ const useStyles = makeStyles({
   }
 });
 
-const SymptomsList = observer(() => {
+const SymptomsList = () => {
 
   const { t } = useTranslation('translation');
-  const { patientStore } = useStores();
-
   const _symptoms = symptomList;
 
   let list = _symptoms.mild.map((name, index) => {
@@ -40,11 +37,10 @@ const SymptomsList = observer(() => {
 
   return (
     <>
-      {patientStore.nasueaSelected && <NauseaPopUp />}
       {list}
     </>
   )
-});
+};
 
 const Symptom = observer((props) => {
 
@@ -97,7 +93,7 @@ const Symptom = observer((props) => {
         </Grid>
       </Box>
       <Collapse in={showSubtitle}>
-        <Box padding="16px" bgcolor={Colors.lightgray}>
+        <Box padding="16px" bgcolor={Colors.lighterGray}>
           <Typography style={{ color: Colors.textDarkGray }}>
             {props.subtitle}
           </Typography>

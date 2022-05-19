@@ -2,11 +2,11 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import SymptomsList from './SymptomsList.js'
 import SimpleButton from '../../Basics/SimpleButton'
-import InteractionCard from '../../Basics/HomePageSection';
 import useStores from '../../Basics/UseStores.js';
 import { Box, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import SymptomWarning from './SymptomWarning.js';
+import NauseaPopUp from './NauseaPopUp';
 
 const ReportSymptoms = observer((props) => {
 
@@ -27,7 +27,7 @@ const ReportSymptoms = observer((props) => {
     const symptoms = t("commonWords.symptoms");
 
     return (
-        <div>
+        <>
             <Box padding="8px 16px">
                 <SymptomsList />
             </Box>
@@ -35,7 +35,8 @@ const ReportSymptoms = observer((props) => {
                 {t("commonWords.report")} {patientStore.report.selectedSymptoms.length === 0 ? t("commonWords.no") : patientStore.report.selectedSymptoms.length} {patientStore.report.selectedSymptoms.length === 1 ? symptoms.substring(0, symptoms.length - 1) : symptoms}
             </SimpleButton>
             {patientStore.uiState.symptomWarningVisible && <SymptomWarning />}
-        </div>)
+            {patientStore.nasueaSelected && <NauseaPopUp />}
+        </>)
 });
 
 const useStyles = makeStyles({
