@@ -39,5 +39,14 @@ const indonesiaSymptoms = {
     ]
 }
 
+const localeSymptoms = isIndonesiaPilot ? indonesiaSymptoms : defaultSymptoms;
 
-export default isIndonesiaPilot ? indonesiaSymptoms : defaultSymptoms;
+
+const allSymptoms = [
+    ...localeSymptoms.mild.map(symptom => { return { name: symptom, severe: false } }),
+    ...localeSymptoms.severe.map(symptom => { return { name: symptom, severe: true } })
+  ]
+
+
+
+export default allSymptoms;

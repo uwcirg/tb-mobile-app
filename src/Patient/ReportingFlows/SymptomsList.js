@@ -19,15 +19,9 @@ const useStyles = makeStyles({
 const SymptomsList = () => {
 
   const { t } = useTranslation('translation');
-  const _symptoms = symptomList;
 
-  const symptoms = [
-    ..._symptoms.mild.map(symptom => { return { name: symptom, severe: false } }),
-    ..._symptoms.severe.map(symptom => { return { name: symptom, severe: true } })
-  ]
-
-  const list = symptoms.map((symptom) => {
-    const { name, severe } = symptom; 
+  symptomList.map((symptom) => {
+    const { name, severe } = symptom;
     return (
       <Symptom severe={severe} key={`symptom-${name}`} name={name} subtitle={t(`symptoms.${name}.subtitle`)} title={t(`symptoms.${name}.title`)} />
     )
