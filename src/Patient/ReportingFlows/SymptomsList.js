@@ -11,7 +11,11 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import NauseaPopUp from './NauseaPopUp';
-import {Symptoms,SevereSymptoms} from '../../Basics/SymptomsSeperation'
+import symptomList from '../../Content/symptom-list';
+import { Box, Collapse, Grid, IconButton } from '@material-ui/core';
+import { KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
+import useToggle from '../../Hooks/useToggle';
+import Colors from '../../Basics/Colors';
 
 /*
 Object that maps all symptoms to strings which are used to fetch thier locations
@@ -28,16 +32,18 @@ nausea: {
 //Renders whole list of symptoms
 const SymptomsList = observer(() => {
 
-  const {t} = useTranslation('translation');
-  const {patientStore} = useStores();
+  const { t } = useTranslation('translation');
+  const { patientStore } = useStores();
 
-  let list = Symptoms.map((name, index) => {
+  const _symptoms = symptomList;
+
+  let list = _symptoms.mild.map((name, index) => {
     return (
       <Symptom key={`symptom-${name}`} name={name} subtitle={t(`symptoms.${name}.subtitle`)} title={t(`symptoms.${name}.title`)} />
     )
   })
 
-  const severeList = SevereSymptoms.map((name, index) => {
+  const severeList = _symptoms.severe.map((name, index) => {
     return (
       <Symptom severe key={`symptom-${name}`} name={name} subtitle={t(`symptoms.${name}.subtitle`)} title={t(`symptoms.${name}.title`)} />
     )
@@ -55,18 +61,22 @@ const SymptomsList = observer(() => {
 
 //Single Symptom in List
 const Symptom = observer((props) => {
+
+
+  const [showSubtitle, toggleShowSubtitle] = useToggle(false);
+
   const classes = useStyles();
   const { patientStore } = useStores();
 
   const handleSelection = (e) => {
-    if(props.severe && e.target.checked === true){
+    if (props.severe && e.target.checked === true) {
       patientStore.toggleSymptomWarningVisibility();
     }
 
     let symptomName = e.target.id
     let index = patientStore.report.selectedSymptoms.indexOf(symptomName);
 
-    
+
 
     if (index === -1) {
       patientStore.report.selectedSymptoms.push(symptomName);
@@ -74,53 +84,58 @@ const Symptom = observer((props) => {
       //Remove from list
       patientStore.report.selectedSymptoms.splice(index, 1);
 
-      if(symptomName === "nausea"){
+      if (symptomName === "nausea") {
         patientStore.report.nauseaRating = ""
       }
     }
   }
 
-  const check = (
-    <Checkbox
-      id={props.name}
-      checked={patientStore.report.selectedSymptoms.includes(props.name)}
-      style={{ marginLeft: "auto", marginRight: "1em" }}
-      value="secondary"
-      color="primary"
-      inputProps={{ 'aria-label': `${name} checkbox` }}
-      onChange={handleSelection}
-    />
-  )
-
   return (
-    <ExpansionPanel className={classes.panel}>
-      <ExpansionPanelSummary
-        className={classes.summary}
-        expandIcon={<ExpandMoreIcon />}
-        aria-label="expand"
-        aria-controls={`additional-${props.title.split()[0]}-content`}
-        id={`additional-${props.title.split()[0]}-header`}
-      >
-        <FormControlLabel
-          aria-label="Acknowledge"
-          onClick={event => event.stopPropagation()}
-          onFocus={event => event.stopPropagation()}
-          control={check}
-          label={props.title}
-        />
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails>
-        <Typography color="textSecondary">
-          {props.subtitle}
-        </Typography>
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
+    <Box marginBottom="8px" border={`solid 1px ${Colors.lightgray}`} borderRadius="5px">
+      <Box padding="0 4px">
+        <Grid alignItems='center' container wrap="nowrap">
+          <Checkbox
+            id={props.name}
+            checked={patientStore.report.selectedSymptoms.includes(props.name)}
+            value="secondary"
+            color="primary"
+            inputProps={{ 'aria-label': `${name} checkbox` }}
+            onChange={handleSelection}
+          />
+          <Box width="8px" aria-hidden />
+          <label onClick={event => event.preventDefault()}
+            onFocus={event => event.preventDefault()} className={classes.label} for={props.name}>
+            {props.title}
+          </label>
+          <Box flexGrow={1} />
+          <Box width="8px" aria-hidden />
+          <IconButton onClick={toggleShowSubtitle}>
+            {showSubtitle ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+          </IconButton>
+        </Grid>
+      </Box>
+      <Collapse in={showSubtitle}>
+        <Box padding="16px" bgcolor={Colors.lightgray}>
+          <Typography style={{color: Colors.textDarkGray}}>
+            {props.subtitle}
+          </Typography>
+        </Box>
+      </Collapse>
+    </Box>
   )
 });
 
 const useStyles = makeStyles({
+  label: {
+    minWidth: "50%",
+    display: "block",
+    wordWrap: "break-word",
+  },
+  labelText: {
+    backgroundColor: "blue",
+  },
   root: {
-    width: '100%',
+    boxSizing: "border-box"
   },
   panel: {
     boxShadow: "none",
@@ -133,15 +148,15 @@ const useStyles = makeStyles({
 
   },
   summary: {
+    display: "flex",
+    justifyContent: "flex-start",
+    boxSizing: "border-box",
     "& > div": {
       marginTop: "0",
       marginBottom: "0",
       paddingTop: ".25em",
       paddingBottom: ".25em"
     }
-  },
-  check: {
-
   }
 });
 
