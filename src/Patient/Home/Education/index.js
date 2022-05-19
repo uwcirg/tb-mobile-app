@@ -10,6 +10,7 @@ import TestStripUpdate from './TestStripUpdateMay';
 import ChatReminder from './ChatReminder';
 import DefaultLayout from './DefaultMessage';
 import ExitInterviewAlert from './ExitInterviewAlert'
+import isIndonesiaPilot from '../../../Utility/CheckIfIndonesiaPilot';
 
 const useStyles = makeStyles({
     container: {
@@ -21,8 +22,6 @@ const useStyles = makeStyles({
 })
 
 const EducationalMessage = observer((props) => {
-
-    const { t } = useTranslation('translation');
 
     const classes = useStyles();
     const { patientUIStore, patientStore } = useStores();
@@ -48,7 +47,7 @@ const EducationalMessage = observer((props) => {
         }
     }
 
-    const visible = education.hasDayPassedSinceLastUpdateRead && education.message && !education.exited && !patientUIStore.onWalkthrough;
+    const visible = !isIndonesiaPilot &&  education.hasDayPassedSinceLastUpdateRead && education.message && !education.exited && !patientUIStore.onWalkthrough;
 
     return (
         <>

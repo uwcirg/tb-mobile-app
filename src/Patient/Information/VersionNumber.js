@@ -1,8 +1,9 @@
-import React, { useEffect, useState, version } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@material-ui/core';
 import Colors from '../../Basics/Colors'
+import isIndonesiaPilot from '../../Utility/CheckIfIndonesiaPilot'
 
 const useStyles = makeStyles({
     container: {
@@ -25,6 +26,8 @@ const useStyles = makeStyles({
 const VersionNumber = ({isLoginScreen}) => {
 
     let versionNumber = process.env.REACT_APP_GITHUB_VERSION || "Unknown";
+
+
     versionNumber = versionNumber.split("-")[0]
 
     const classes = useStyles({isLoginScreen: isLoginScreen});
@@ -34,8 +37,8 @@ const VersionNumber = ({isLoginScreen}) => {
         <Typography variant="body1">{t('patient.information.version')}: </Typography>
         <a href={`https://github.com/uwcirg/tb-mobile-app/commit/${process.env.REACT_APP_BUILD_NUMBER}`}>
             {versionNumber}
+            {isIndonesiaPilot && "- Indonesia"}
         </a>
-
     </div>)
 
 }

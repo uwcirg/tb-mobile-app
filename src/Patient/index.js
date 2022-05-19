@@ -21,6 +21,7 @@ import MissedPhotoFlow from './ReportingFlows/AltPhotoFlows';
 import PushActionReportingFlow from './ReportingFlows/PushActionReportingFlow';
 import Box from '@material-ui/core/Box';
 import RedoPhotoFlow from './ReportingFlows/AltPhotoFlows/RedoPhotoFlow';
+import isIndonesiaPilot from '../Utility/CheckIfIndonesiaPilot';
 
 const PatientHome = observer(() => {
 
@@ -83,7 +84,6 @@ const PatientHome = observer(() => {
   if (uiStore.pathname.startsWith("/missed-photo")) {
     return <MissedPhotoFlow />
   }
-
 
   if (uiStore.pathname.startsWith("/redo-photo")) {
     return <RedoPhotoFlow/>
