@@ -6,7 +6,7 @@ import symptomList from '../../Content/symptom-list';
 import useToggle from '../../Hooks/useToggle';
 import Colors from '../../Basics/Colors';
 import { makeStyles, Checkbox, Typography, Box, Collapse, Grid, IconButton } from '@material-ui/core';
-import { KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
+import { KeyboardArrowDownRounded, KeyboardArrowUpRounded } from '@material-ui/icons';
 
 const useStyles = makeStyles({
   label: {
@@ -21,19 +21,17 @@ const SymptomsList = () => {
   const { t } = useTranslation('translation');
   const _symptoms = symptomList;
 
-  let list = _symptoms.mild.map((name, index) => {
+  const symptoms = [
+    ..._symptoms.mild.map(symptom => { return { name: symptom, severe: false } }),
+    ..._symptoms.severe.map(symptom => { return { name: symptom, severe: true } })
+  ]
+
+  const list = symptoms.map((symptom) => {
+    const { name, severe } = symptom; 
     return (
-      <Symptom key={`symptom-${name}`} name={name} subtitle={t(`symptoms.${name}.subtitle`)} title={t(`symptoms.${name}.title`)} />
+      <Symptom severe={severe} key={`symptom-${name}`} name={name} subtitle={t(`symptoms.${name}.subtitle`)} title={t(`symptoms.${name}.title`)} />
     )
   })
-
-  const severeList = _symptoms.severe.map((name, index) => {
-    return (
-      <Symptom severe key={`symptom-${name}`} name={name} subtitle={t(`symptoms.${name}.subtitle`)} title={t(`symptoms.${name}.title`)} />
-    )
-  })
-
-  list = list.concat(severeList)
 
   return (
     <>
@@ -87,8 +85,8 @@ const Symptom = observer((props) => {
           </label>
           <Box flexGrow={1} />
           <Box width="8px" aria-hidden />
-          <IconButton onClick={toggleShowSubtitle}>
-            {showSubtitle ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+          <IconButton style={{ color: Colors.textDarkGray }} onClick={toggleShowSubtitle}>
+            {showSubtitle ? <KeyboardArrowUpRounded /> : <KeyboardArrowDownRounded />}
           </IconButton>
         </Grid>
       </Box>
