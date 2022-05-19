@@ -11,7 +11,7 @@ import VideoCard from './Videos';
 import RequiresAction from './MissedActions';
 import PushNotificationEnrollment from './PushEnrollmentReminder';
 import { makeStyles } from '@material-ui/core/styles';
-import isIndonesiaPilot from '../../Utility/CheckIfIndonesiaPilot';
+import isIndonesiaPilot from '../../Utility/check-indonesia-flag';
 import IndonesiaPatientHome from '../../Indonesia/Settings';
 
 const useStyles = makeStyles({

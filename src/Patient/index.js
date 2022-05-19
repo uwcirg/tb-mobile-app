@@ -21,7 +21,7 @@ import MissedPhotoFlow from './ReportingFlows/AltPhotoFlows';
 import PushActionReportingFlow from './ReportingFlows/PushActionReportingFlow';
 import Box from '@material-ui/core/Box';
 import RedoPhotoFlow from './ReportingFlows/AltPhotoFlows/RedoPhotoFlow';
-import isIndonesiaPilot from '../Utility/CheckIfIndonesiaPilot';
+import isIndonesiaPilot from '../Utility/check-indonesia-flag';
 
 const PatientHome = observer(() => {
 

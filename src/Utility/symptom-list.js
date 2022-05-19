@@ -1,3 +1,5 @@
+import isIndonesiaPilot from "./check-indonesia-flag"
+
 const defaultSymptomList = [
     "nausea",
     "redness",
@@ -20,7 +22,7 @@ const indonesiaSymptomList = [
     "appetite_loss",
     "nausea",
     "hives",
-
+    
     "vertigo",
     "confusion",
     "oliguria",
@@ -31,3 +33,5 @@ const indonesiaSymptomList = [
     "sleepy"
 
 ]
+
+export default isIndonesiaPilot ? indonesiaSymptomList : defaultSymptomList;

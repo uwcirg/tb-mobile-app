@@ -10,7 +10,7 @@ import TestStripUpdate from './TestStripUpdateMay';
 import ChatReminder from './ChatReminder';
 import DefaultLayout from './DefaultMessage';
 import ExitInterviewAlert from './ExitInterviewAlert'
-import isIndonesiaPilot from '../../../Utility/CheckIfIndonesiaPilot';
+import isIndonesiaPilot from '../../../Utility/check-indonesia-flag';
 
 const useStyles = makeStyles({
     container: {

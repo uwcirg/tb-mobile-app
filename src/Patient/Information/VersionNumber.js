@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@material-ui/core';
 import Colors from '../../Basics/Colors'
-import isIndonesiaPilot from '../../Utility/CheckIfIndonesiaPilot'
+import isIndonesiaPilot from '../../Utility/check-indonesia-flag'
 
 const useStyles = makeStyles({
     container: {
