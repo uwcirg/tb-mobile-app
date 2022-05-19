@@ -28,7 +28,7 @@ const ReportSymptoms = observer((props) => {
 
     return (
         <div>
-            <Box padding="8px">
+            <Box padding="8px 16px">
                 <SymptomsList />
             </Box>
             <SimpleButton alignRight className={classes.button} onClick={handleNext}>
