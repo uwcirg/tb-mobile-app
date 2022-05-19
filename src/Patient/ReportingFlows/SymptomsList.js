@@ -20,16 +20,14 @@ const SymptomsList = () => {
 
   const { t } = useTranslation('translation');
 
-  symptomList.map((symptom) => {
-    const { name, severe } = symptom;
-    return (
-      <Symptom severe={severe} key={`symptom-${name}`} name={name} subtitle={t(`symptoms.${name}.subtitle`)} title={t(`symptoms.${name}.title`)} />
-    )
-  })
-
   return (
     <>
-      {list}
+      {symptomList.map((symptom) => {
+        const { name, severe } = symptom;
+        return (
+          <Symptom severe={severe} key={`symptom-${name}`} name={name} subtitle={t(`symptoms.${name}.subtitle`)} title={t(`symptoms.${name}.title`)} />
+        )
+      })}
     </>
   )
 };
@@ -76,7 +74,7 @@ const Symptom = observer((props) => {
           />
           <Box width="8px" aria-hidden />
           <label onClick={event => event.preventDefault()}
-            onFocus={event => event.preventDefault()} className={classes.label} for={props.name}>
+            onFocus={event => event.preventDefault()} className={classes.label} htmlFor={props.name}>
             {capitalize(props.title)}
           </label>
           <Box flexGrow={1} />

@@ -1,6 +1,5 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-
 import { useTranslation } from 'react-i18next';
 import Colors from '../../Basics/Colors';
 import symptomList from '../../Content/symptom-list'
@@ -26,9 +25,7 @@ const Symptom = (props) => {
     const { t } = useTranslation('translation');
     const classes = useStyles();
 
-    const relevantSymptom = symptomList.find((each) => {
-        each.name === string
-    })
+    const relevantSymptom = symptomList.find((each) => {return each.name === string})
 
     const isSevere = relevantSymptom?.severe;
 
