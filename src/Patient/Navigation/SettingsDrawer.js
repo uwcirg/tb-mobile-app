@@ -20,7 +20,8 @@ const SettingsDrawer = observer(() => {
       open={patientUIStore.onSettings}
     >
       <div className={classes.contentContainer}>
-        {isIndonesiaPilot ? <IndonesiaSettingsPage /> : <Settings />}
+        {/* {isIndonesiaPilot ? <IndonesiaSettingsPage /> : <Settings />} */}
+        <Settings />
       </div>
     </Drawer>
   );

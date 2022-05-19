@@ -12,7 +12,7 @@ const useStyles = makeStyles({
   label: {
     minWidth: "50%",
     display: "block",
-    wordWrap: "break-word",
+    wordWrap: "break-word"
   }
 });
 
@@ -66,6 +66,8 @@ const Symptom = observer((props) => {
     }
   }
 
+  const capitalize = s => s && s[0].toUpperCase() + s.slice(1)
+
   return (
     <Box marginBottom="8px" border={`solid 1px ${Colors.lightgray}`} borderRadius="5px">
       <Box padding="0 4px">
@@ -81,7 +83,7 @@ const Symptom = observer((props) => {
           <Box width="8px" aria-hidden />
           <label onClick={event => event.preventDefault()}
             onFocus={event => event.preventDefault()} className={classes.label} for={props.name}>
-            {props.title}
+            {capitalize(props.title)}
           </label>
           <Box flexGrow={1} />
           <Box width="8px" aria-hidden />
