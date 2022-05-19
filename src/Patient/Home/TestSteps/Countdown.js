@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { observer } from 'mobx-react';
-import { Satellite } from '@material-ui/icons';
 import { DateTime } from 'luxon';
 
 const useStyles = makeStyles({
@@ -16,15 +15,16 @@ const useStyles = makeStyles({
 const Countdown = observer(() => {
   // When it renders - grab the time that we are waiting for
   const [state, setState] = useState({
-    laterTime: null,
+    laterTime: DateTime.local().plus({ minutes: 20 }).toISO(),
     currentTime: DateTime.local(),
   });
 
   useEffect(() => {
     setState({
       ...state,
-      laterTime: localStorage.getItem('later'),
+      laterTime: DateTime.local().plus({ minutes: 20 }).toISO(),
     });
+    localStorage.setItem('later', state.laterTime);
   }, []);
 
   useEffect(() => {
@@ -43,8 +43,8 @@ const Countdown = observer(() => {
 
   const classes = useStyles();
 
-  const setFutureTime = () => {
-    const newTime = DateTime.local().plus({ minutes: 20 }).toISO();
+  const setFutureTime = async () => {
+    const newTime = await DateTime.local().plus({ minutes: 20 }).toISO();
     setState({
       ...state,
       laterTime: newTime,
@@ -52,7 +52,7 @@ const Countdown = observer(() => {
     localStorage.setItem('later', newTime);
   };
 
-  const dif = DateTime.fromISO(state.laterTime).diff(
+  const dif = DateTime.fromISO(localStorage.getItem('later')).diff(
     state.currentTime,
     'seconds'
   ).seconds;
