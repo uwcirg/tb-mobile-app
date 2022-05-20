@@ -3,10 +3,6 @@ import SymptomList from './'
 
 import { render, screen, stores, fireEvent } from '../../../Utility/test-utils'
 
-//This attaches the class containing the API fetch requests to the stores
-//Doing it this way allows you to swap in other data retrival methods for testing
-
-
 it('renders using render function without errror', () => {
     stores.patientStore.initalize();
     render(<SymptomList />)
@@ -21,5 +17,18 @@ test('selects symptom when clicked on label', async () => {
     expect(checkbox).toBeChecked()
     expect(stores.patientStore.report.selectedSymptoms.length).toBe(1)
 });
+
+it('expands subtitle when expansion button is clicked on', () => {
+    stores.patientStore.initalize();
+    const { getByTestId } = render(<SymptomList />)
+    const dropdownButton = getByTestId('dropdown-redness')
+    const subtitle = getByTestId('subtitle-redness')
+    expect(dropdownButton).toBeTruthy()
+    expect(subtitle).not.toBeVisible()
+    fireEvent.click(dropdownButton)
+    expect(subtitle).toBeVisible()
+    expect(subtitle).toHaveTextContent("Swelling, redness, itching of skin")
+    
+})
 
 

@@ -65,7 +65,6 @@ const Symptom = observer((props) => {
       <Box padding="0 4px">
         <Grid alignItems='center' container wrap="nowrap">
           <Checkbox
-            data-testid={`checkbox-${props.name}`}
             id={props.name}
             checked={patientStore.report.selectedSymptoms.includes(props.name)}
             value="secondary"
@@ -80,14 +79,17 @@ const Symptom = observer((props) => {
           </label>
           <Box flexGrow={1} />
           <Box width="8px" aria-hidden />
-          <IconButton style={{ color: Colors.textDarkGray }} onClick={toggleShowSubtitle}>
+          <IconButton
+            data-testid={`dropdown-${props.name}`}
+            style={{ color: Colors.textDarkGray }}
+            onClick={toggleShowSubtitle}>
             {showSubtitle ? <KeyboardArrowUpRounded /> : <KeyboardArrowDownRounded />}
           </IconButton>
         </Grid>
       </Box>
       <Collapse in={showSubtitle}>
         <Box padding="16px" bgcolor={Colors.lighterGray}>
-          <Typography style={{ color: Colors.textDarkGray }}>
+          <Typography data-testid={`subtitle-${props.name}`} style={{ color: Colors.textDarkGray }}>
             {props.subtitle}
           </Typography>
         </Box>
