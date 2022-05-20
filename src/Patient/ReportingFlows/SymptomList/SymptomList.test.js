@@ -18,14 +18,14 @@ test('selects symptom when clicked on label', async () => {
     expect(stores.patientStore.report.selectedSymptoms.length).toBe(1)
 });
 
-it('expands subtitle when expansion button is clicked on', () => {
+it('expands subtitle when expansion button is clicked on', async () => {
     stores.patientStore.initalize();
     const { getByTestId } = render(<SymptomList />)
     const dropdownButton = getByTestId('dropdown-redness')
     const subtitle = getByTestId('subtitle-redness')
     expect(dropdownButton).toBeTruthy()
     expect(subtitle).not.toBeVisible()
-    fireEvent.click(dropdownButton)
+    await fireEvent.click(dropdownButton)
     expect(subtitle).toBeVisible()
     expect(subtitle).toHaveTextContent("Swelling, redness, itching of skin")
     

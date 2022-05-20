@@ -47,7 +47,7 @@ const EducationalMessage = observer((props) => {
         }
     }
 
-    const visible = !isIndonesiaPilot &&  education.hasDayPassedSinceLastUpdateRead && education.message && !education.exited && !patientUIStore.onWalkthrough;
+    const visible =  education.hasDayPassedSinceLastUpdateRead && education.message && !education.exited && !patientUIStore.onWalkthrough;
 
     return (
         <>

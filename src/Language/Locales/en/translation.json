@@ -378,6 +378,7 @@
             },
             "symptoms": {
                 "nauseaRating": "How bad is your nausea?",
+                "instructions": "Please tap an option that represents how you are feeling",
                 "warning": {
                     "title": "You logged a symptom that needs immediate follow up",
                     "subtitle": "Please seek emergency medical attention immediately. Your treatment assistant will follow up with you.",
