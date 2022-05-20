@@ -1,10 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { observer } from 'mobx-react'
-import useStores from '../../Basics/UseStores';
-import symptomList from '../../Content/symptom-list';
-import useToggle from '../../Hooks/useToggle';
-import Colors from '../../Basics/Colors';
+import useStores from '../../../Basics/UseStores';
+import symptomList from '../../../Content/symptom-list';
+import useToggle from '../../../Hooks/useToggle';
+import Colors from '../../../Basics/Colors';
 import { makeStyles, Checkbox, Typography, Box, Collapse, Grid, IconButton } from '@material-ui/core';
 import { KeyboardArrowDownRounded, KeyboardArrowUpRounded } from '@material-ui/icons';
 
@@ -65,6 +65,7 @@ const Symptom = observer((props) => {
       <Box padding="0 4px">
         <Grid alignItems='center' container wrap="nowrap">
           <Checkbox
+            data-testid={`checkbox-${props.name}`}
             id={props.name}
             checked={patientStore.report.selectedSymptoms.includes(props.name)}
             value="secondary"
