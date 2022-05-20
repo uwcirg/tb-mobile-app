@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import PopUp from '../Navigation/PopUp';
 import { useTranslation } from 'react-i18next';
-import Button from '@material-ui/core/Button';
 import Colors from '../../Basics/Colors'
 import { Box, ButtonBase, Grid, Typography } from '@material-ui/core';
 import FlatButton from '../../Components/FlatButton';
@@ -33,10 +32,13 @@ const useStyles = makeStyles({
         width: "100%",
         borderRadius: "5px"
     },
-    submitButton:{
+    submitButton: {
         width: "100%",
         fontSize: "1em",
         justifyContent: "center"
+    },
+    selectedButton: {
+        border: `solid 2px ${Colors.buttonBlue}`
     }
 })
 
@@ -45,32 +47,14 @@ const Nausea = () => {
     const classes = useStyles();
     const { patientStore } = useStores();
     const { t } = useTranslation('translation');
-    const [value, setValue] = useState(1)
-
-
-    const valuetext = (value) => {
-        return `${value} / 10 Nausea Rating`;
-    }
+    const [value, setValue] = useState(null)
 
     const handleClose = () => {
-        patientStore.report.nauseaRating = parseInt(value);
-
+            patientStore.setReportNauseaRating(value !== null ? parseInt(value) : null);
     }
 
-    const handleChange = (e, v) => {
+    const handleChange = (v) => {
         setValue(v);
-    }
-
-    const subtract = () => {
-        if (value > 1) {
-            setValue(value - 1)
-        }
-    }
-
-    const add = () => {
-        if (value < 10) {
-            setValue(value + 1)
-        }
     }
 
     const nums = [0, 2, 4, 6, 8, 10]
@@ -87,18 +71,21 @@ const Nausea = () => {
                         return (
                             <Grid xs={4}>
                                 <Box padding={".25em"}>
-                                    <ButtonBase className={classes.selectionButton}>
+                                    <ButtonBase onClick={() => {
+                                        handleChange(num)
+                                    }} type="radio" className={`${classes.selectionButton} ${value === num ? classes.selectedButton : ""}`}>
                                         <Typography className={classes.buttonNumber} variant="body1">{num}</Typography>
                                         <Box padding="6px">
                                             <img className={classes.buttonImage} src={`/img/nausea-scale/${num}.jpg`} />
                                         </Box>
                                     </ButtonBase>
                                 </Box>
-                            </Grid>)}
+                            </Grid>)
+                    }
                     )}
                 </Grid>
             </Box>
-            <FlatButton className={classes.submitButton}>{t('settings.submit')}</FlatButton>
+            <FlatButton onClick={handleClose} disabled={value === null} className={classes.submitButton}>{t('settings.submit')}</FlatButton>
         </PopUp>
     )
 

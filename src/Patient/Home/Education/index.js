@@ -21,7 +21,7 @@ const useStyles = makeStyles({
     }
 })
 
-const EducationalMessage = observer((props) => {
+const EducationalMessage = observer(() => {
 
     const classes = useStyles();
     const { patientUIStore, patientStore } = useStores();
@@ -47,7 +47,7 @@ const EducationalMessage = observer((props) => {
         }
     }
 
-    const visible =  education.hasDayPassedSinceLastUpdateRead && education.message && !education.exited && !patientUIStore.onWalkthrough;
+    const visible = education.hasDayPassedSinceLastUpdateRead && education.message && !education.exited && !patientUIStore.onWalkthrough;
 
     return (
         <>
