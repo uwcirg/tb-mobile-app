@@ -1,12 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { observer } from 'mobx-react'
-import useStores from '../../../Basics/UseStores';
-import useToggle from '../../../Hooks/useToggle';
-import Colors from '../../../Basics/Colors';
+import useStores from '../../Basics/UseStores';
+import useToggle from '../../Hooks/useToggle';
+import Colors from '../../Basics/Colors';
 import { makeStyles, Checkbox, Typography, Box, Collapse, Grid, IconButton } from '@material-ui/core';
 import { KeyboardArrowDownRounded, KeyboardArrowUpRounded } from '@material-ui/icons';
-import { getSymptoms, localeSymptoms } from '../../../Content/symptom-list';
+import { getSymptoms, localeSymptoms } from '../../Content/symptom-list';
 import PropTypes from 'prop-types'
 
 
@@ -24,14 +24,14 @@ const SymptomsList = ({ symptomLocale = "argentina" }) => {
   const symptomList = getSymptoms(symptomLocale);
 
   return (
-    <>
+    <div data-testid="all-symptoms-list">
       {symptomList.map((symptom) => {
         const { name, severe } = symptom;
         return (
           <Symptom severe={severe} key={`symptom-${name}`} name={name} subtitle={t(`symptoms.${name}.subtitle`)} title={t(`symptoms.${name}.title`)} />
         )
       })}
-    </>
+    </div>
   )
 };
 
@@ -76,8 +76,8 @@ const Symptom = observer((props) => {
             checked={patientStore.report.selectedSymptoms.includes(props.name)}
             value="secondary"
             color="primary"
-            inputProps={{ 'aria-label': `${name} checkbox` }}
-            onChange={handleSelection}
+            inputProps={{ 'aria-label': `${props.name} checkbox`, 'data-testid':`checkbox-${props.name}` }}
+          onChange={handleSelection}
           />
           <Box width="8px" aria-hidden />
           <label onClick={event => event.preventDefault()}

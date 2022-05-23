@@ -37,7 +37,10 @@ const useStyles = makeStyles({
         justifyContent: "center"
     },
     selectedButton: {
-        border: `solid 2px ${Colors.buttonBlue}`
+        border: `solid 2px ${Colors.buttonBlue}`,
+        "& *": {
+            color: Colors.buttonBlue
+        }
     }
 })
 
@@ -64,10 +67,10 @@ const Nausea = () => {
                 <Typography variant='h1' className={classes.topText}>{t('patient.report.symptoms.instructions')}</Typography>
             </Box>
             <Box padding="32px 0">
-                <Grid container>
+                <Grid data-testid="nausea-selections" container>
                     {nums.map(num => {
                         return (
-                            <Grid xs={4}>
+                            <Grid item xs={4}>
                                 <Box padding={".25em"}>
                                     <ButtonBase onClick={() => {
                                         handleChange(num)

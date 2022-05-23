@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import SymptomsList from './SymptomList/index.js'
+import SymptomsList from './SymptomList.js'
 import SimpleButton from '../../Basics/SimpleButton'
 import useStores from '../../Basics/UseStores.js';
 import { Box, makeStyles } from '@material-ui/core';

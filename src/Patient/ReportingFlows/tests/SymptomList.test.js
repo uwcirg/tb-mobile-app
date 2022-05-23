@@ -1,14 +1,14 @@
 import React from 'react';
-import SymptomList from './'
+import SymptomList from '../SymptomList'
 
-import { render, screen, stores, fireEvent } from '../../../Utility/test-utils'
+import { render, stores, fireEvent } from '../../../Utility/test-utils'
 
 it('renders using render function without errror', () => {
     stores.patientStore.initalize();
     render(<SymptomList />)
 });
 
-test('selects symptom when clicked on label', async () => {
+it('selects symptom when clicked on label', async () => {
     const { container } = render(<SymptomList />)
     const checkbox = container.querySelector("#nausea")
     expect(checkbox).toBeTruthy()
@@ -32,7 +32,6 @@ it('renders 14 symptoms when indonesia locale is provided', async () => {
     const { queryAllByRole } = render(<SymptomList symptomLocale="indonesia" />)
     const checkBoxes = queryAllByRole('checkbox');
     expect(checkBoxes.length).toBe(14)
-
 })
 
 
