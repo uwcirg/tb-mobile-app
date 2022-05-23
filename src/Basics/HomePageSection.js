@@ -28,7 +28,6 @@ const useStyles = makeStyles({
 
     bottomText: {
         ...Styles.secondaryText,
-        width: "90%",
         display: "flex",
         justifyContent: "flex-end",
         alignItems: "center"

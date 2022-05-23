@@ -801,6 +801,7 @@
         "submit": "Submit"
     },
     "educationalMessages": {
+        "thoughtsForToday": "Thoughts for today",
         "feedback": "Thank you for your feedback",
         "week": "Week",
         "header": "Important to know",

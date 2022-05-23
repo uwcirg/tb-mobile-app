@@ -1,25 +1,19 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import { DateTime } from 'luxon';
-import Styles from '../../Basics/Styles';
 import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
+import { Box, Grid, Typography } from '@material-ui/core';
+import motivationalMessages from '../../Content/motivational-messages';
 
 const useStyles = makeStyles({
-  container:{
-      ...Styles.flexRow,
-      justifyContent: "flex-start",
-      alignItems: "center",
-      width: "85%",
-      margin: "1em 0"
-  },
-  greeting:{
+  greeting: {
     fontWeight: "medium",
     fontSize: "1.25em"
   },
-  date:{
+  date: {
     marginLeft: "auto",
     textTransform: "uppercase",
     color: Colors.textGray,
@@ -31,14 +25,42 @@ const Greeting = observer(() => {
 
   const { t } = useTranslation('translation');
 
-    const classes = useStyles();
-    const {patientStore} = useStores();
+  const classes = useStyles();
+  const { patientStore } = useStores();
 
-    return(<div id="intro-greeting" className={classes.container}>
-        <div className={classes.greeting}>{t("greeting")} {patientStore.givenName} 👋 </div> 
-        <div className={classes.date}>{DateTime.fromISO(patientStore.reportStore.todaysDate).toLocaleString(DateTime.DATE_FULL)}</div>
-    </div>)
+  const isIndonesia = process.env.REACT_APP_IS_INDONESIA === 'true';
+
+  return (<Box width="100%" padding="1em 0" style={{ boxSizing: "border-box" }} id="intro-greeting">
+    <Grid container>
+      <div className={classes.greeting}>{t("greeting")} {patientStore.givenName} 👋 </div>
+      <Box flexGrow={1} />
+      <div className={classes.date}>{DateTime.fromISO(patientStore.reportStore.todaysDate).toLocaleString(DateTime.DATE_FULL)}</div>
+    </Grid>
+    {isIndonesia && <MotivationalMessage treatmentDay={patientStore.patientInformation.daysInTreatment} />}
+  </Box>)
 
 })
+
+const MotivationalMessage = ({ treatmentDay }) => {
+
+  const messages = motivationalMessages.indonesia;
+  const todaysMessage = messages[treatmentDay.toString()];
+  const { t } = useTranslation('translation');
+
+  if (!todaysMessage) return "";
+
+  return (
+    <Box padding="8px 0">
+      <Box borderRadius="5px" bgcolor={Colors.lighterGray} padding="16px">
+        <Typography>
+          <strong>{t('educationalMessages.thoughtsForToday')}:</strong>
+        </Typography>
+        <Typography variant="body1" data-testid='motivational-message' >
+          {todaysMessage}
+        </Typography>
+      </Box>
+    </Box>)
+
+}
 
 export default Greeting;
