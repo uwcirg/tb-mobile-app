@@ -9,7 +9,6 @@ describe('Symptoms reporting survey', () => {
         stores.patientStore.initalize();
     })
 
-
     it('renders without error', () => {
         render(<ReportSymptoms />)
     });
@@ -21,13 +20,23 @@ describe('Symptoms reporting survey', () => {
     })
 
     it('displays nausea popup when selected', async () => {
-        const { getByTestId, queryByTestId} = render(<ReportSymptoms />)
+        const { getByTestId, queryByTestId } = render(<ReportSymptoms />)
         let nauseaPopup = queryByTestId('nausea-selections')
         expect(nauseaPopup).toBeNull()
         const nauseaCheckbox = getByTestId('checkbox-nausea')
         await fireEvent.click(nauseaCheckbox)
         nauseaPopup = queryByTestId('nausea-selections')
         expect(nauseaPopup).toBeTruthy()
+    })
+
+    it('displays warning for severe sympoms when selected', async () => {
+        const { getByTestId, queryByTestId } = render(<ReportSymptoms />)
+        let warning = queryByTestId("severe-symptom-warning")
+        expect(warning).toBeNull();
+        const rednessCheckbox = getByTestId('checkbox-redness')
+        await fireEvent.click(rednessCheckbox)
+        warning = queryByTestId("severe-symptom-warning")
+        expect(warning).toBeInTheDocument()
     })
 
 })
