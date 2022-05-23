@@ -25,9 +25,9 @@ const SymptomWarning = observer(() => {
 
     return (
         <PopUp handleClickAway={handleExit}>
-            <Box data-testid="severe-symptom-warning" className={classes.container} padding="1em 0">
+            <Box className={classes.container} padding="1em 0">
                 <WarningRounded style={{ color: Colors.warningRed, fontSize: "100px" }} />
-                <h1>{t("patient.report.symptoms.warning.title")}</h1>
+                <h1 data-testid="severe-symptom-warning">{t("patient.report.symptoms.warning.title")}</h1>
                 <p>{t("patient.report.symptoms.warning.subtitle")}</p>
             </Box>
             <FlatButton className={classes.bottomButton} onClick={handleClick}>

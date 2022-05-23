@@ -70,7 +70,7 @@ const Nausea = () => {
                 <Grid data-testid="nausea-selections" container>
                     {nums.map(num => {
                         return (
-                            <Grid item xs={4}>
+                            <Grid key={`nausea-selection-${num}`} item xs={4}>
                                 <Box padding={".25em"}>
                                     <ButtonBase onClick={() => {
                                         handleChange(num)
