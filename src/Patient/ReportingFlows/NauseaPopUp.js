@@ -7,7 +7,6 @@ import Colors from '../../Basics/Colors'
 import { Box, ButtonBase, Grid, Typography } from '@material-ui/core';
 import FlatButton from '../../Components/FlatButton';
 
-
 const useStyles = makeStyles({
     topText: {
         fontSize: "1.2rem",
@@ -59,7 +58,6 @@ const Nausea = () => {
 
     const nums = [0, 2, 4, 6, 8, 10]
 
-
     return (
         <PopUp handleClickAway={handleClose} handleClose={handleClose}>
             <Box paddingTop="32px">
@@ -80,9 +78,7 @@ const Nausea = () => {
                                         </Box>
                                     </ButtonBase>
                                 </Box>
-                            </Grid>)
-                    }
-                    )}
+                            </Grid>)})}
                 </Grid>
             </Box>
             <FlatButton onClick={handleClose} disabled={value === null} className={classes.submitButton}>{t('settings.submit')}</FlatButton>

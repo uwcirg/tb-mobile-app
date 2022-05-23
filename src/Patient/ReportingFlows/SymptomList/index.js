@@ -2,11 +2,13 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { observer } from 'mobx-react'
 import useStores from '../../../Basics/UseStores';
-import symptomList from '../../../Content/symptom-list';
 import useToggle from '../../../Hooks/useToggle';
 import Colors from '../../../Basics/Colors';
 import { makeStyles, Checkbox, Typography, Box, Collapse, Grid, IconButton } from '@material-ui/core';
 import { KeyboardArrowDownRounded, KeyboardArrowUpRounded } from '@material-ui/icons';
+import { getSymptoms, localeSymptoms } from '../../../Content/symptom-list';
+import PropTypes from 'prop-types'
+
 
 const useStyles = makeStyles({
   label: {
@@ -16,9 +18,10 @@ const useStyles = makeStyles({
   }
 });
 
-const SymptomsList = () => {
+const SymptomsList = ({ symptomLocale = "argentina" }) => {
 
   const { t } = useTranslation('translation');
+  const symptomList = getSymptoms(symptomLocale);
 
   return (
     <>
@@ -31,6 +34,10 @@ const SymptomsList = () => {
     </>
   )
 };
+
+SymptomsList.propTypes = {
+  symptomLocale: PropTypes.oneOf(Object.keys(localeSymptoms))
+}
 
 const Symptom = observer((props) => {
 

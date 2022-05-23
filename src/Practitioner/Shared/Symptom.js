@@ -2,8 +2,9 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Colors from '../../Basics/Colors';
-import symptomList from '../../Content/symptom-list'
+import { getSymptoms } from '../../Content/symptom-list'
 import WarningIcon from '@material-ui/icons/WarningRounded';
+import isIndonesiaPilot from '../../Utility/check-indonesia-flag';
 
 const useStyles = makeStyles({
     severe: {
@@ -25,7 +26,8 @@ const Symptom = (props) => {
     const { t } = useTranslation('translation');
     const classes = useStyles();
 
-    const relevantSymptom = symptomList.find((each) => {return each.name === string})
+    const symptoms = getSymptoms(isIndonesiaPilot ? "indonesia" : "argentina");
+    const relevantSymptom = symptoms.find((each) => { return each.name === string })
 
     const isSevere = relevantSymptom?.severe;
 

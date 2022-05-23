@@ -9,7 +9,6 @@ it('renders using render function without errror', () => {
 });
 
 test('selects symptom when clicked on label', async () => {
-    stores.patientStore.initalize();
     const { container } = render(<SymptomList />)
     const checkbox = container.querySelector("#nausea")
     expect(checkbox).toBeTruthy()
@@ -19,7 +18,6 @@ test('selects symptom when clicked on label', async () => {
 });
 
 it('expands subtitle when expansion button is clicked on', async () => {
-    stores.patientStore.initalize();
     const { getByTestId } = render(<SymptomList />)
     const dropdownButton = getByTestId('dropdown-redness')
     const subtitle = getByTestId('subtitle-redness')
@@ -28,7 +26,13 @@ it('expands subtitle when expansion button is clicked on', async () => {
     await fireEvent.click(dropdownButton)
     expect(subtitle).toBeVisible()
     expect(subtitle).toHaveTextContent("Swelling, redness, itching of skin")
-    
+})
+
+it('renders 14 symptoms when indonesia locale is provided', async () => {
+    const { queryAllByRole } = render(<SymptomList symptomLocale="indonesia" />)
+    const checkBoxes = queryAllByRole('checkbox');
+    expect(checkBoxes.length).toBe(14)
+
 })
 
 

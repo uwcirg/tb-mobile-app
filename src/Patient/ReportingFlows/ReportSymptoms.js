@@ -7,6 +7,7 @@ import { Box, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import SymptomWarning from './SymptomWarning.js';
 import NauseaPopUp from './NauseaPopUp';
+import isIndonesiaPilot from '../../Utility/check-indonesia-flag.js';
 
 const ReportSymptoms = observer((props) => {
 
@@ -29,7 +30,7 @@ const ReportSymptoms = observer((props) => {
     return (
         <>
             <Box padding="8px 16px">
-                <SymptomsList />
+                <SymptomsList symptomLocale={isIndonesiaPilot ? "indonesia" : "argentina"} />
             </Box>
             <SimpleButton alignRight className={classes.button} onClick={handleNext}>
                 {t("commonWords.report")} {patientStore.report.selectedSymptoms.length === 0 ? t("commonWords.no") : patientStore.report.selectedSymptoms.length} {patientStore.report.selectedSymptoms.length === 1 ? symptoms.substring(0, symptoms.length - 1) : symptoms}
