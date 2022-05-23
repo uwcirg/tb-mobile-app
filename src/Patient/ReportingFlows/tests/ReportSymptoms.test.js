@@ -36,7 +36,7 @@ describe('Symptoms reporting survey', () => {
         const rednessCheckbox = getByTestId('checkbox-redness')
         await fireEvent.click(rednessCheckbox)
         warning = queryByTestId("severe-symptom-warning")
-        expect(warning).toBeInTheDocument()
+        expect(warning).toBeTruthy();
     })
 
 })
