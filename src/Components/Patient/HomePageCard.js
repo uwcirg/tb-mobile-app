@@ -4,17 +4,17 @@ import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles({
     container: {
-        borderRadius: "8px",
+        borderRadius: "5px",
         boxShadow: "none",
         margin: "auto",
         marginTop: "10px",
-        width: "90%",
+        width: "100%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        marginBottom: "1em",
-        padding: ".5em",
-        paddingTop: "1em",
+        marginBottom: "16px",
+        padding: "8px",
+        paddingTop: "16px",
         boxSizing: "border-box"
     },
 })

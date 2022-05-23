@@ -11,8 +11,7 @@ import VideoCard from './Videos';
 import RequiresAction from './MissedActions';
 import PushNotificationEnrollment from './PushEnrollmentReminder';
 import { makeStyles } from '@material-ui/core/styles';
-import isIndonesiaPilot from '../../Utility/check-indonesia-flag';
-import IndonesiaPatientHome from '../../Indonesia/Settings';
+import { Box } from '@material-ui/core';
 
 const useStyles = makeStyles({
   body: {
@@ -32,15 +31,17 @@ const HomePage = () => {
     <div className={classes.body}>
       {/* Some of these components are conditionally rendered within their implementaion */}
       <PushNotificationEnrollment />
-      <Greeting />
-      <OneStepActions />
-      <CachedReports />
-      <RequiresAction />
-      <VideoCard />
-      <Alerts />
-      <Progress />
-      <MedicationReminder />
-      <Reminders />
+      <Box padding="0 .75rem">
+        <Greeting />
+        <OneStepActions />
+        <CachedReports />
+        <RequiresAction />
+        <VideoCard />
+        <Alerts />
+        <Progress />
+        <MedicationReminder />
+        <Reminders />
+      </Box>
     </div>
   )
 
