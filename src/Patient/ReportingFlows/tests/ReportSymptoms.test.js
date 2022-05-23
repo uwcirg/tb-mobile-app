@@ -33,7 +33,7 @@ describe('Symptoms reporting survey', () => {
         const { getByTestId, queryByTestId } = render(<ReportSymptoms />)
         let warning = queryByTestId("severe-symptom-warning")
         expect(warning).toBeNull();
-        const rednessCheckbox = getByTestId('checkbox-redness')
+        const rednessCheckbox = getByTestId('checkbox-yellow_coloration')
         await fireEvent.click(rednessCheckbox)
         warning = queryByTestId("severe-symptom-warning")
         expect(warning).toBeTruthy();
