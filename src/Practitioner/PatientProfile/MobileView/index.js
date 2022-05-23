@@ -73,19 +73,22 @@ const MobileView = observer(() => {
                 <Card>
                     <Grid wrap="nowrap" container>
                         <Typography>{t('coordinator.patientProfile.lastReport')}:</Typography>
-                        <Box flexGrow={1} />
+                        {/* <Box flexGrow={1} /> */}
+                        <Box width={"8px"} />
                         <Typography>{daysAgo} {t('time.day_ago', { count: daysAgo })}</Typography>
                     </Grid>
                     <Box height={"5px"} />
                     <Grid container>
                         <Typography>{t('coordinator.patientTableLabels.priority')}:</Typography>
-                        <Box flexGrow={1} />
+                        <Box width={"8px"} />
+                        {/* <Box flexGrow={1} /> */}
                         <Priority index={priority} />
                     </Grid>
                     <Box height={"5px"} />
                     <Grid container>
                         <Typography>{t('mobileUpdate.treatment')}:</Typography>
-                        <Box flexGrow={1} />
+                        <Box width={"8px"} />
+                        {/* <Box flexGrow={1} /> */}
                         <Label text={`Week ${weeksInTreatment} / 26`} backgroundColor={Colors.accentBlue} />
                     </Grid>
                 </Card>

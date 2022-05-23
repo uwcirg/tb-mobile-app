@@ -533,5 +533,14 @@ export class PatientStore extends UserStore {
         })
     }
 
+    @action setReportNauseaRating = (rating) => {
+        if(rating !== null){
+            this.report.nauseaRating = rating;
+        }else{
+            const index = this.report.selectedSymptoms.findIndex( each => { each === "nausea"})
+            this.report.selectedSymptoms.splice(index,1)
+        }
+    }
+
 
 }

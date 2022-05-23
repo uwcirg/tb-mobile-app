@@ -378,6 +378,7 @@
             },
             "symptoms": {
                 "nauseaRating": "How bad is your nausea?",
+                "instructions": "Please tap an option that represents how you are feeling",
                 "warning": {
                     "title": "You logged a symptom that needs immediate follow up",
                     "subtitle": "Please seek emergency medical attention immediately. Your treatment assistant will follow up with you.",
@@ -493,7 +494,7 @@
             "subtitle": "Body temperature over 37.5"
         },
         "appetite_loss": {
-            "title": "Appetite Loss",
+            "title": "Loss of appetite",
             "subtitle": "Loss of appetite"
         },
         "blurred_vision": {
@@ -523,6 +524,42 @@
         "headache": {
             "title": "Headache",
             "subtitle": ""
+        },
+        "flu_symptoms": {
+            "title": "Flu Symptoms",
+            "subtitle": "Flu symptoms include fever, chills, headache, and body pain"
+        },
+        "red_urine":{
+            "title": "Red urine",
+            "subtitle": "Urine has a red tint"
+        },
+        "sleepy": {
+            "title": "Sleepy",
+            "subtitle": "Feeling tired all day"
+        },
+        "joint_pain" : {
+            "title": "Joint pain",
+            "subtitle": "Feeling pain in your joints or bones"
+        },
+        "burning_or_numbness": {
+            "title": "Burning, tingling or numbness",
+            "subtitle": "Feeling of burning, tingling, or numbness in your fingers or toes"
+        },
+        "hearing_loss":{
+            "title": "Hearing loss",
+            "subtitle": "Changes in your hearing, or being unable to hear"
+        },
+        "vertigo":{
+            "title": "Vertigo",
+            "subtitle": "Sensation of whirling and loss of balance, associated particularly with looking down from a great height" 
+        },
+        "confusion": {
+            "title": "Confusion",
+            "subtitle": "Increasingly feeling confused"
+        },
+        "oliguria":{
+            "title": "Decrease in urination",
+            "subtitle": "Urinating less than normal, or experiencing difficulty urinating"
         },
         "other": {
             "title": "Other",

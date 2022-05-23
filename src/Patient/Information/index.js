@@ -5,7 +5,7 @@ import MarkdownRender from './Panel'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next';
 import Colors from '../../Basics/Colors'
-import { Button } from '@material-ui/core';
+import { Box, Button } from '@material-ui/core';
 import useStores from '../../Basics/UseStores';
 import Videos from './Videos';
 import Section from './Section'
