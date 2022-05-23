@@ -24,7 +24,7 @@ describe('greeting message', () => {
         const { queryByTestId } = render(<Greeting />)
         stores.patientStore.patientInformation.daysInTreatment = 0;
         let message = queryByTestId('motivational-message')
-        expect(idmessage).not.toBeInTheDocument();
+        expect(message).not.toBeInTheDocument();
     })
 
     it('shows the day zero message on a patients first day', () => {
