@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import { usePageVisibility } from '../../../Hooks/PageVisibility';
 
-import {Grid, Box, CircularProgress, Typography, Fade } from '@material-ui/core';
+import { Grid, Box, CircularProgress, Typography, Fade, ButtonBase } from '@material-ui/core';
 import { CheckBox, ThumbUp, Announcement, Edit } from '@material-ui/icons';
 
 import useStyles from './styles';
@@ -20,9 +20,21 @@ import Confirmation from './Confirmation';
 const ButtonLabel = ({ text, icon }) => {
     const classes = useStyles();
     return <Grid className={classes.buttonLabel} alignItems="center" container direction="column">
-        {icon}
-        <Typography style={{ fontSize: ".8em", padding: 0 }} variant="body1">{text}</Typography>
+
+        <Typography style={{ fontSize: ".8em", padding: 0, fontSize: "12px" }} variant="body1">{text}</Typography>
     </Grid>
+}
+
+const CustomButton = ({ icon, text, onClick, primaryColor, bgColor }) => {
+    return (
+        <ButtonBase onClick={onClick} style={{ border: `1px solid ${primaryColor}`, flex: "1 1 0", borderRadius: "5px", padding: "8px", backgroundColor: bgColor }}>
+            <Grid container alignItems='center' direction="column">
+                {React.cloneElement(icon, { style: { fontSize: "3rem", color: primaryColor } })}
+                <Box height='8px' />
+                <Typography style={{ lineHeight: "1.1rem" }}>{text}</Typography>
+            </Grid>
+        </ButtonBase>
+    )
 }
 
 const OneStepActions = observer(({ setCompletedNow }) => {
@@ -44,20 +56,15 @@ const OneStepActions = observer(({ setCompletedNow }) => {
 
     const ButtonContent = <>
         <Grid alignItems="center" container wrap="nowrap">
-            <Typography variant="body1" className={classes.sectionHeader}>{t('patient.oneStepReporting.supportTitle')}</Typography>
+            <Typography variant="body1" className={classes.sectionHeader}>
+                {t('patient.oneStepReporting.supportTitle')}
+                </Typography>
         </Grid>
         <Box height="1em" />
-        <Grid direction="column" container className={classes.yesNoButtons}>
-            <ActionButton onClick={handleOneStepClick}
-                text={t('patient.oneStepReporting.goodOption')}
-                icon={<ButtonLabel icon={<ThumbUp />} text={t('commonWords.yes')} />} backgroundColor={Colors.calendarGreen} />
-            <Box height=".5em" />
-            <ActionButton onClick={handleReportClick}
-                text={t('patient.oneStepReporting.helpOption')}
-                icon={<ButtonLabel icon={<Announcement />} text={t('commonWords.no')} />}
-                backgroundColor={Colors.highlightYellow}
-            />
-            <Box height=".5em" />
+        <Grid wrap="nowrap" container className={classes.yesNoButtons}>
+            <CustomButton primaryColor={"#388E3C"} bgColor={"#E8F5E9"} icon={<ThumbUp />} text={t('patient.oneStepReporting.goodOption')} onClick={handleOneStepClick} />
+            <Box width="8px" />
+            <CustomButton bgColor={"#FFFDE7"} primaryColor={"#FBC02D"} icon={<Announcement />} text={t('patient.oneStepReporting.helpOption')} onClick={handleReportClick} />
         </Grid>
     </>
 
@@ -99,10 +106,10 @@ const ActionBox = observer(() => {
     return (
         <InteractionCard id="intro-tasks" className={classes.card} upperText={<><CheckBox />{t('patient.home.cardTitles.todaysTasks')}</>}>
             <Box width="100%" padding="1em" style={{ boxSizing: "border-box" }}>
-                {(counter >=0 && !patientStore.reportStore.allReportComplete) ? <div>
-                    {(patientStore.isPhotoDay && !patientStore.reportStore.photoReportComplete) && <PhotoRequestArea />}
+                {(counter >= 0 && !patientStore.reportStore.allReportComplete) ? <div>
+                    {/* {(patientStore.isPhotoDay && !patientStore.reportStore.photoReportComplete) && <PhotoRequestArea />} */}
                     <OneStepActions setCompletedNow={setCompletedNow} />
-                    {patientStore.reportStore.photoReportComplete && <PartialConfirmation isPhoto />}
+                    {/* {patientStore.reportStore.photoReportComplete && <PartialConfirmation isPhoto />} */}
                 </div>
                     :
                     <>
