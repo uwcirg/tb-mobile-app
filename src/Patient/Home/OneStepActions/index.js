@@ -14,8 +14,8 @@ import capitalizeFirstLetter from '../../../Utility/StringUtils';
 
 const CustomButton = ({ icon, text, onClick, primaryColor, bgColor }) => {
     return (
-        <Paper elevation={1}>
-            <ButtonBase onClick={onClick} style={{ flex: "1 1 0", borderRadius: "5px", padding: "16px 8px", backgroundColor: bgColor }}>
+        <Paper style={{ flex: "1 1 0"}} elevation={1}>
+            <ButtonBase onClick={onClick} style={{height: "100%", borderRadius: "5px", padding: "16px 8px", backgroundColor: bgColor }}>
                 <Grid container alignItems='center' direction="column">
                     {React.cloneElement(icon, { style: { fontSize: "3rem", color: primaryColor } })}
                     <Box height='8px' />
