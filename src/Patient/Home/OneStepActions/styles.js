@@ -42,10 +42,11 @@ const useStyles = makeStyles({
     sectionHeader: {
         lineHeight: "1.1em",
         fontSize: "1.1em",
-        fontWeight: "light",
+        fontWeight: "500",
         margin: "0",
         display: "block",
-        width: "100%"
+        width: "100%",
+        padding:".5rem 0"
     },
     buttonLabel: {
         width: "unset",

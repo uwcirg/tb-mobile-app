@@ -9,9 +9,9 @@ const useStyles = makeStyles({
     },
     upperText: {
         ...Styles.secondaryText,
+        paddingLeft: "8px",
         fontSize: ".8rem",
         textAlign: "left",
-        margin: "auto",
         display: "flex",
         alignItems: "center",
         "& > svg": {

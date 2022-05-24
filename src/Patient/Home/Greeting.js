@@ -30,8 +30,8 @@ const Greeting = observer(() => {
 
   const isIndonesia = process.env.REACT_APP_IS_INDONESIA === 'true';
 
-  return (<Box width="100%" padding="1em 0" style={{ boxSizing: "border-box" }} id="intro-greeting">
-    <Grid container>
+  return (<Box width="100%" padding="16px 8px" style={{ boxSizing: "border-box" }} id="intro-greeting">
+    <Grid alignItems='center' container>
       <div className={classes.greeting}>{t("greeting")} {patientStore.givenName} 👋 </div>
       <Box flexGrow={1} />
       <div className={classes.date}>{DateTime.fromISO(patientStore.reportStore.todaysDate).toLocaleString(DateTime.DATE_FULL)}</div>
