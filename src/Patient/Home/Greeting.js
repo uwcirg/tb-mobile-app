@@ -18,6 +18,9 @@ const useStyles = makeStyles({
     textTransform: "uppercase",
     color: Colors.textGray,
     fontSize: ".75em"
+  },
+  motivationTitle: {
+    fontWeight: "500"
   }
 })
 
@@ -30,19 +33,24 @@ const Greeting = observer(() => {
 
   const isIndonesia = process.env.REACT_APP_IS_INDONESIA === 'true';
 
-  return (<Box width="100%" padding="1em 0" style={{ boxSizing: "border-box" }} id="intro-greeting">
-    <Grid container>
-      <div className={classes.greeting}>{t("greeting")} {patientStore.givenName} 👋 </div>
-      <Box flexGrow={1} />
-      <div className={classes.date}>{DateTime.fromISO(patientStore.reportStore.todaysDate).toLocaleString(DateTime.DATE_FULL)}</div>
-    </Grid>
-    {isIndonesia && <MotivationalMessage treatmentDay={patientStore.patientInformation.daysInTreatment} />}
-  </Box>)
+  return (
+    <>
+      <Box width="100%" padding="16px 8px 8px 8px" style={{ boxSizing: "border-box" }} id="intro-greeting">
+        <Grid alignItems='center' container>
+          <div className={classes.greeting}>{t("greeting")} {patientStore.givenName} 👋 </div>
+          <Box flexGrow={1} />
+          <div className={classes.date}>{DateTime.fromISO(patientStore.reportStore.todaysDate).toLocaleString(DateTime.DATE_FULL)}</div>
+        </Grid>
+      </Box>
+      {isIndonesia && <MotivationalMessage treatmentDay={patientStore.patientInformation.daysInTreatment} />}
+    </>
+  )
 
 })
 
 const MotivationalMessage = ({ treatmentDay }) => {
 
+  const classes = useStyles();
   const messages = motivationalMessages.indonesia;
   const todaysMessage = messages[treatmentDay.toString()];
   const { t } = useTranslation('translation');
@@ -50,11 +58,9 @@ const MotivationalMessage = ({ treatmentDay }) => {
   if (!todaysMessage) return "";
 
   return (
-    <Box padding="8px 0">
+    <Box width="100%" padding="8px 0">
       <Box borderRadius="5px" bgcolor={Colors.lighterGray} padding="16px">
-        <Typography>
-          <strong>{t('educationalMessages.thoughtsForToday')}:</strong>
-        </Typography>
+        <Typography className={classes.motivationTitle}>{t('educationalMessages.thoughtsForToday')}:</Typography>
         <Typography variant="body1" data-testid='motivational-message' >
           {todaysMessage}
         </Typography>

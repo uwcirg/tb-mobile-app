@@ -42,10 +42,11 @@ const useStyles = makeStyles({
     sectionHeader: {
         lineHeight: "1.1em",
         fontSize: "1.1em",
-        fontWeight: "light",
+        fontWeight: "500",
         margin: "0",
         display: "block",
-        width: "100%"
+        width: "100%",
+        padding:".5rem 0"
     },
     buttonLabel: {
         width: "unset",
@@ -59,7 +60,30 @@ const useStyles = makeStyles({
         borderRadius: "5px",
         padding: ".5em"
 
-    }
+    },
+    photoButton: { 
+        width: "100%", 
+        backgroundColor: "#E3F2FD", 
+        padding: "16px" 
+    },
+    photoIcon:{
+        color: "#1976D2", 
+        fontSize: "2em"
+    },
+    mainButton: {
+        height: "100%", 
+        borderRadius: "5px", 
+        padding: "16px 8px", 
+        backgroundColor: props => props.bgColor,
+        "& svg": {
+            fontSize: "3rem",
+            color: props => props.primaryColor
+        }
+    },
+    sideBySideArea: {
+        flex: "1 1 0"
+    },
+
 })
 
 export default useStyles;

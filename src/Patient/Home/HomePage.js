@@ -31,7 +31,7 @@ const HomePage = () => {
     <div className={classes.body}>
       {/* Some of these components are conditionally rendered within their implementaion */}
       <PushNotificationEnrollment />
-      <Box padding="0 .75rem">
+      <Box maxWidth="400px" padding="0 .75rem">
         <Greeting />
         <OneStepActions />
         <CachedReports />
