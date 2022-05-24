@@ -4,7 +4,7 @@ import useStores from '../../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next';
 import { usePageVisibility } from '../../../Hooks/PageVisibility';
-import { Grid, Box, CircularProgress, Typography, Fade, ButtonBase, Paper } from '@material-ui/core';
+import { Grid, Box, CircularProgress, Typography, Fade, ButtonBase, Paper, makeStyles } from '@material-ui/core';
 import { CheckBox, ThumbUp, Announcement } from '@material-ui/icons';
 import useStyles from './styles';
 import PhotoRequestArea from './PhotoRequestArea';
@@ -13,11 +13,14 @@ import Confirmation from './Confirmation';
 import capitalizeFirstLetter from '../../../Utility/StringUtils';
 
 const CustomButton = ({ icon, text, onClick, primaryColor, bgColor }) => {
+
+    const classes = useStyles({bgColor: bgColor, primaryColor: primaryColor});
+
     return (
-        <Paper style={{ flex: "1 1 0"}} elevation={1}>
-            <ButtonBase onClick={onClick} style={{height: "100%", borderRadius: "5px", padding: "16px 8px", backgroundColor: bgColor }}>
+        <Paper className={classes.sideBySideArea} elevation={1}>
+            <ButtonBase onClick={onClick} className={classes.mainButton}>
                 <Grid container alignItems='center' direction="column">
-                    {React.cloneElement(icon, { style: { fontSize: "3rem", color: primaryColor } })}
+                    {React.cloneElement(icon)}
                     <Box height='8px' />
                     <Typography style={{ lineHeight: "1rem" }} variant="body1">{capitalizeFirstLetter(text.toLowerCase())}</Typography>
                 </Grid>

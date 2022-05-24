@@ -2,11 +2,9 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography'
 import useStyles from './styles';
 import useStores from '../../../Basics/UseStores';
-import Box from '@material-ui/core/Box';
 import CameraAlt from '@material-ui/icons/CameraAlt';
 import { useTranslation } from 'react-i18next';
-import { ButtonBase, Grid, Paper } from '@material-ui/core';
-import capitalizeFirstLetter from '../../../Utility/StringUtils';
+import { ButtonBase, Grid, Paper, Box, makeStyles } from '@material-ui/core';
 import ButtonText from './ButtonText';
 
 const PhotoRequestArea = () => {
@@ -26,9 +24,9 @@ const PhotoRequestArea = () => {
         <Typography className={classes.sectionHeader} variant="body1" color="initial">{t('patient.oneStepReporting.photoRequestTitle')}</Typography>
         <Box height="1em" />
         <Paper elevation={1}>
-            <ButtonBase style={{ width: "100%", backgroundColor: "#E3F2FD", padding: "16px" }} onClick={handlePhotoClick} >
+            <ButtonBase className={classes.photoButton} onClick={handlePhotoClick} >
                 <Grid alignItems='center' wrap="nowrap" container>
-                    <CameraAlt style={{ color: "#1976D2", fontSize: "2em" }} />
+                    <CameraAlt className={classes.photoIcon} />
                     <Box flexGrow={1}>
                         <ButtonText>{t('patient.oneStepReporting.photoRequestButton')}</ButtonText>
                     </Box>
