@@ -2,15 +2,18 @@ import { Box, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import Colors from '../../../../Basics/Colors';
 import useCalendarStyles from './styles';
+import { useTranslation } from 'react-i18next';
 
 export default function CalendarKey() {
 
+    const { t } = useTranslation('translation');
+
     return (<div>
-        <SingleItem tookMedication={false}>No report for this day</SingleItem>
-        <SingleItem tookMedication>Took Medication</SingleItem>
-        <SingleItem modifier tookMedication={false}>Didn't take medication</SingleItem>
-        <SingleItem symptom modifier>Side effect reported</SingleItem>
-        <SingleItem isToday tookMedication={false}>Today</SingleItem>
+        <SingleItem tookMedication={false}>{t('patient.progress.noReport')}</SingleItem>
+        <SingleItem tookMedication>{t('patient.progress.calendarKey.tookMeds')}</SingleItem>
+        <SingleItem modifier tookMedication={false}>{t('patient.progress.calendarKey.noMeds')}</SingleItem>
+        <SingleItem symptom modifier>{t('patient.progress.calendarKey.sideEffects')}</SingleItem>
+        <SingleItem isToday tookMedication={false}>{t('patient.home.today')}</SingleItem>
     </div>)
 }
 
