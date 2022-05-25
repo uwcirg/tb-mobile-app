@@ -102,7 +102,7 @@ const PatientHome = observer(() => {
         <TopBar />
         <Box height="60px" />
       </div>
-      {!isIndonesiaPilot && <EducationalMessage />}
+      {!isIndonesiaPilot() && <EducationalMessage />}
       {patientUIStore.onWalkthrough && <Intro />}
       <TopMenu />
       <div style={{ paddingBottom: "60px" }}>
