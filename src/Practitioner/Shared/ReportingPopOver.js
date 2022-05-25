@@ -26,7 +26,7 @@ export default function ReportingPopover({ patient, handleExit }) {
     }, [value])
 
     return (<PopOverV2 open={true} topBarTitle={patient ? `${patient.fullName} ${t('coordinator.patientProfile.listReports')}` : ""} handleExit={handleExit}>
-        <ReportViews patient={patient} reports={reportHash} loading={status === "pending"} />
+        {patient && <ReportViews patient={{id: patient.id, photoDays: patient.photoSchedule, treatmentStart: patient.treatmentStart }} reports={reportHash} loading={status === "pending"} />}
     </PopOverV2 >)
 
 }
