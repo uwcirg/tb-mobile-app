@@ -21,22 +21,18 @@ const links = [
     { link: "photos", text: "Photos", icon: CameraAlt }
 ]
 
-export default function ReportingPopover({ initalReports, patient, handleExit, patientId }) {
+export default function ReportingPopover({ reports, loading, patient, handleExit, patientId }) {
 
     const { t } = useTranslation('translation');
 
-    const getDailyReports = useCallback(() => {
-        return SharedAPI.getDailyReports(patientId || patient.id)
-    }, [patientId]);
+    // const { value, status } = useAsync(getDailyReports, true, initalReports);
 
-    const { value, status } = useAsync(getDailyReports, true, initalReports);
-
-    const reportHash = useMemo(() => {
-        return value ? value.reduce((prev, current,) => {
-            const { date } = current;
-            return { ...prev, [date]: current };
-        }, {}) : {}
-    }, [value])
+    // const reportHash = useMemo(() => {
+    //     return value ? value.reduce((prev, current,) => {
+    //         const { date } = current;
+    //         return { ...prev, [date]: current };
+    //     }, {}) : {}
+    // }, [value])
 
 
     const query = useQuery();
@@ -47,7 +43,7 @@ export default function ReportingPopover({ initalReports, patient, handleExit, p
         <Box style={{ position: "sticky", top: "60px" }}>
             {date ? <ExitReportView date={date} /> : <LinkTabs tabs={links} />}
         </Box>
-        {value === null ? <Loading height={"50vh"} /> :
+        {loading ? <Loading height={"50vh"} /> :
             <>{date ?
                 <Fade in timeout={300} appear>
                     <Box>
@@ -57,10 +53,10 @@ export default function ReportingPopover({ initalReports, patient, handleExit, p
                 :
                 <Switch>
                     <Route path="*/calendar">
-                        <CalendarStuff patient={patient} reportHash={reportHash} />
+                        <CalendarStuff patient={patient} reportHash={reports} />
                     </Route>
                     <Route path="*/list">
-                        <ReportList reportHash={reportHash} patient={patient} />
+                        <ReportList reportHash={reports} patient={patient} />
                     </Route>
                     <Route path="*/photos">
                         <p>Coming Soon</p>
