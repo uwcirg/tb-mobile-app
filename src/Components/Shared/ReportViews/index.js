@@ -1,6 +1,5 @@
-import React, { useCallback, useMemo, useState } from 'react'
-import { useHistory, useParams, Switch, Route, Redirect } from 'react-router-dom'
-import useAsync from '../../../Hooks/useAsync';
+import React, { useState } from 'react'
+import { useHistory, Switch, Route, Redirect } from 'react-router-dom'
 import ReportingCalendar from './Calendar';
 import { Box, Fade, Grid, IconButton, Typography } from '@material-ui/core';
 import CalendarKey from './Calendar/CalendarKey';
@@ -12,7 +11,6 @@ import { CameraAlt, Clear, Event, ListAlt } from '@material-ui/icons';
 import LinkTabs from '../LinkTabs';
 import ReportList from './List';
 import useQuery from '../../../Hooks/useQuery';
-import SharedAPI from '../../../API/SharedAPI';
 import Loading from '../../../Practitioner/Shared/CardLoading';
 
 const links = [
@@ -23,21 +21,8 @@ const links = [
 
 export default function ReportingPopover({ reports, loading, patient, handleExit, patientId }) {
 
-    const { t } = useTranslation('translation');
-
-    // const { value, status } = useAsync(getDailyReports, true, initalReports);
-
-    // const reportHash = useMemo(() => {
-    //     return value ? value.reduce((prev, current,) => {
-    //         const { date } = current;
-    //         return { ...prev, [date]: current };
-    //     }, {}) : {}
-    // }, [value])
-
-
     const query = useQuery();
     const date = query.get('date')
-
 
     return (<>
         <Box style={{ position: "sticky", top: "60px" }}>
