@@ -2,12 +2,12 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 
-const useAsync = (asyncFunction, immediate = true) => {
+const useAsync = (asyncFunction, immediate = true, initalValue = null) => {
 
   let unmounted = false;
 
   const [status, setStatus] = useState("idle");
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState(initalValue);
   const [error, setError] = useState(null);
   // The execute function wraps asyncFunction and
   // handles setting state for pending, value, and error.
@@ -15,7 +15,7 @@ const useAsync = (asyncFunction, immediate = true) => {
   // on every render, but only if asyncFunction changes.
   const execute = useCallback(() => {
     setStatus("pending");
-    setValue(null);
+    setValue(initalValue);
     setError(null);
     return asyncFunction()
       .then((response) => {

@@ -9,7 +9,7 @@ const ProgressPage = observer(() => {
 
     return (
         <div>
-            <ReportViews patientId={patientStore.userID} patient={{treatmentStart: patientStore.treatmentStart}} />
+            <ReportViews initalReports={Object.values(patientStore.savedReports)} patientId={patientStore.userID} patient={{treatmentStart: patientStore.treatmentStart}} />
         </div>
     )
 });

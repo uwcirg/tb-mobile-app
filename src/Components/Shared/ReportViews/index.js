@@ -21,7 +21,7 @@ const links = [
     { link: "photos", text: "Photos", icon: CameraAlt }
 ]
 
-export default function ReportingPopover({ patient, handleExit, patientId }) {
+export default function ReportingPopover({ initalReports, patient, handleExit, patientId }) {
 
     const { t } = useTranslation('translation');
 
@@ -29,7 +29,7 @@ export default function ReportingPopover({ patient, handleExit, patientId }) {
         return SharedAPI.getDailyReports(patientId || patient.id)
     }, [patientId]);
 
-    const { value, status } = useAsync(getDailyReports);
+    const { value, status } = useAsync(getDailyReports, true, initalReports);
 
     const reportHash = useMemo(() => {
         return value ? value.reduce((prev, current,) => {
@@ -44,10 +44,10 @@ export default function ReportingPopover({ patient, handleExit, patientId }) {
 
 
     return (<>
-        <Box style={{position: "sticky", top: "60px"}}>
+        <Box style={{ position: "sticky", top: "60px" }}>
             {date ? <ExitReportView date={date} /> : <LinkTabs tabs={links} />}
         </Box>
-        {status === "pending" ? <Loading height={"50vh"} /> :
+        {value === null ? <Loading height={"50vh"} /> :
             <>{date ?
                 <Fade in timeout={300} appear>
                     <Box>
