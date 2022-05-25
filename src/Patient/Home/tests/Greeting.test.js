@@ -1,26 +1,18 @@
 import React from 'react';
 import Greeting from '../Greeting';
 import { render, stores, fireEvent } from '../../../Utility/test-utils'
+import isIndonesiaPilot from '../../../Utility/check-indonesia-flag';
+
+jest.mock('../../../Utility/check-indonesia-flag', () => jest.fn());
 
 describe('greeting message', () => {
-
-    const env = process.env
-
-    beforeEach(() => {
-        jest.resetModules()
-        process.env = { ...env }
-    })
-
-    afterEach(() => {
-        process.env = env
-    })
 
     it('renders without error', () => {
         render(<Greeting />)
     });
 
     it('does not show up when indonesia env variable is not true', () => {
-        process.env.REACT_APP_IS_INDONESIA = 'false'
+        isIndonesiaPilot.mockReturnValue(false)
         const { queryByTestId } = render(<Greeting />)
         stores.patientStore.patientInformation.daysInTreatment = 0;
         let message = queryByTestId('motivational-message')
@@ -28,7 +20,7 @@ describe('greeting message', () => {
     })
 
     it('shows the day zero message on a patients first day', () => {
-        process.env.REACT_APP_IS_INDONESIA = 'true'
+        isIndonesiaPilot.mockReturnValue(true)
         const { getByTestId } = render(<Greeting />)
         stores.patientStore.patientInformation.daysInTreatment = 0;
         const message = getByTestId('motivational-message')
@@ -36,7 +28,7 @@ describe('greeting message', () => {
     })  
 
     it('shows the proper message on a patients 113th day', () => {
-        process.env.REACT_APP_IS_INDONESIA = 'true'
+        isIndonesiaPilot.mockReturnValue(true)
         const { getByTestId } = render(<Greeting />)
         stores.patientStore.patientInformation.daysInTreatment = 113;
         const message = getByTestId('motivational-message')

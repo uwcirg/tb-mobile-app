@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { observer } from 'mobx-react'
 import { Box, Grid, Typography } from '@material-ui/core';
 import motivationalMessages from '../../Content/motivational-messages';
+import isIndonesiaPilot from '../../Utility/check-indonesia-flag';
 
 const useStyles = makeStyles({
   greeting: {
@@ -31,8 +32,6 @@ const Greeting = observer(() => {
   const classes = useStyles();
   const { patientStore } = useStores();
 
-  const isIndonesia = process.env.REACT_APP_IS_INDONESIA === 'true';
-
   return (
     <>
       <Box width="100%" padding="16px 8px 8px 8px" style={{ boxSizing: "border-box" }} id="intro-greeting">
@@ -42,7 +41,7 @@ const Greeting = observer(() => {
           <div className={classes.date}>{DateTime.fromISO(patientStore.reportStore.todaysDate).toLocaleString(DateTime.DATE_FULL)}</div>
         </Grid>
       </Box>
-      {isIndonesia && <MotivationalMessage treatmentDay={patientStore.patientInformation.daysInTreatment} />}
+      {isIndonesiaPilot() && <MotivationalMessage treatmentDay={patientStore.patientInformation.daysInTreatment} />}
     </>
   )
 
