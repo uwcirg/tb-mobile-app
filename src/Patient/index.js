@@ -93,8 +93,6 @@ const PatientHome = observer(() => {
     return <PushActionReportingFlow />
   }
 
-  const showTopBar = !uiStore.pathname.startsWith("/progress")
-
   return (
     <div className="main-screen" style={{ backgroundColor: `${Colors.white}`, height: "100vh", overflowY: patientUIStore.onSettings ? "hidden" : "scroll" }}>
       <ErrorListener />

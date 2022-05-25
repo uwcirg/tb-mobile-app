@@ -118,7 +118,7 @@
     "patient": {
         "tabNames": {
             "home": "Home",
-            "calendar": "Calendar",
+            "calendar": "History",
             "messaging": "Messaging",
             "information": "Information"
         },
