@@ -3,7 +3,6 @@ import { useHistory, Switch, Route, Redirect } from 'react-router-dom'
 import ReportingCalendar from './Calendar';
 import { Box, Fade, Grid, IconButton, Typography } from '@material-ui/core';
 import CalendarKey from './Calendar/CalendarKey';
-import { useTranslation } from 'react-i18next';
 import ViewDailyReport from '../../../Components/Shared/ViewDailyReport';
 import { DateTime } from 'luxon';
 import Colors from '../../../Basics/Colors';
@@ -19,20 +18,20 @@ const links = [
     { link: "photos", text: "Photos", icon: CameraAlt }
 ]
 
-export default function ReportingPopover({ reports, loading, patient, handleExit, patientId }) {
+export default function ReportViews({ reports, loading, patient, tabTopPostition = 0 }) {
 
     const query = useQuery();
     const date = query.get('date')
 
     return (<>
-        <Box style={{ position: "sticky", top: "60px" }}>
+        <Box position="sticky" top={tabTopPostition} zIndex={10}>
             {date ? <ExitReportView date={date} /> : <LinkTabs tabs={links} />}
         </Box>
         {loading ? <Loading height={"50vh"} /> :
             <>{date ?
                 <Fade in timeout={300} appear>
                     <Box>
-                        <ViewReport reportHash={reportHash} />
+                        <ViewReport reportHash={reports} />
                     </Box>
                 </Fade>
                 :

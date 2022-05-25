@@ -12,6 +12,7 @@ const ProgressPage = observer(() => {
     }, [])
 
     return (<ReportViews
+        tabTopPostition={"60px"}
         reports={patientStore.savedReports}
         loading={patientStore.savedReports.length === 0 && !patientStore.savedReportsLoaded}
         patientId={patientStore.userID}
