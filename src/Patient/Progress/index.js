@@ -16,7 +16,7 @@ const ProgressPage = observer(() => {
         reports={patientStore.savedReports}
         loading={patientStore.savedReports.length === 0 && !patientStore.savedReportsLoaded}
         patientId={patientStore.userID}
-        patient={{ treatmentStart: patientStore.treatmentStart }}
+        patient={{ treatmentStart: patientStore.treatmentStart, photoDays: patientStore.photoSchedule  }}
     />);
 });
 

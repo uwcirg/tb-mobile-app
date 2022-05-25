@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
-import { Box, Button, makeStyles } from '@material-ui/core';
+import { Box, Button } from '@material-ui/core';
 import { DateTime } from 'luxon'
 import ReportPreview from './ReportPreview';
 import { useTranslation } from 'react-i18next';
 
-export default function ReportList({reportHash, patient}){
+export default function ReportList({reportHash }){
 
     const { t } = useTranslation('translation');
 
@@ -26,8 +26,6 @@ export default function ReportList({reportHash, patient}){
         {dates.map( date => {
             return <ReportPreview key={`report-list-${date}`} date={date} report={reportHash[date]} />
         })}
-        <Button onClick={()=>{
-            setEndDate(endDate.minus({days: 7}))
-        }}>{t('commonWords.loadMore')}</Button>
+        <Button onClick={showMoreDays}>{t('commonWords.loadMore')}</Button>
     </Box>)
 }

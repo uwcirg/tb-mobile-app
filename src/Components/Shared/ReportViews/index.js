@@ -11,6 +11,7 @@ import LinkTabs from '../LinkTabs';
 import ReportList from './List';
 import useQuery from '../../../Hooks/useQuery';
 import Loading from '../../../Practitioner/Shared/CardLoading';
+import PhotoList from './PhotoList';
 
 const links = [
     { link: "calendar", text: "Calendar", icon: Event },
@@ -43,7 +44,7 @@ export default function ReportViews({ reports, loading, patient, tabTopPostition
                         <ReportList reportHash={reports} patient={patient} />
                     </Route>
                     <Route path="*/photos">
-                        <p>Coming Soon</p>
+                        <PhotoList reportsHash={reports} photoDays={patient.photoDays} />
                     </Route>
                     <Redirect path='*/' to={"/progress/calendar"} />
                 </Switch>
