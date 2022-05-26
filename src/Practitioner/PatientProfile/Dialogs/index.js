@@ -9,6 +9,7 @@ import ArchivedWarning from './ArchivedWarning'
 import { useHistory, useParams } from 'react-router-dom'
 
 import { Switch, Route } from 'react-router-dom'
+import AddAppointment from './AddAppointment';
 
 const Dialogs = observer(() => {
 
@@ -38,7 +39,7 @@ const Dialogs = observer(() => {
                 <ChangePatientDetails handleClose={handleClose} />
             </Route>
             <Route path="/patients/:id/add-appointment">
-                <p>TODO - add appointment UI</p>
+                <AddAppointment handleClose={handleClose} />
             </Route>
         </Switch>)
 
