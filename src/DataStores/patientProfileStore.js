@@ -174,7 +174,7 @@ export default class PatientProfileStore {
     }
 
     postTreatmentOutcome = () => {
-        this.apiHelper.executeRawRequest(`/v2/patient/${this.selectedPatient.details.id}/treatment_outcome`, 'POST', this.treatmentOutcome).then(response => {
+        return this.apiHelper.executeRawRequest(`/v2/patient/${this.selectedPatient.details.id}/treatment_outcome`, 'POST', this.treatmentOutcome).then(response => {
             this.resetAfterSuccessfulUpdate();
             this.onArchive = false;
         })
@@ -253,11 +253,9 @@ export default class PatientProfileStore {
     }
 
     @action toggleUpdateOutcome = () =>{
-
         this.treatmentOutcome.treatmentOutcome = this.selectedPatient.details.treatmentOutcome.treatmentOutcome
         this.treatmentOutcome.appEndDate = this.selectedPatient.details.treatmentOutcome.appEndDate
         this.selectedPatient.details
-        this.onArchive = true;
     }
 
     sendTestReminder = () => {
