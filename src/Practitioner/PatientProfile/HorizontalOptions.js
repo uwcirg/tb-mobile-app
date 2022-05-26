@@ -11,7 +11,6 @@ import Grid from '@material-ui/core/Grid'
 import ArchiveIcon from '@material-ui/icons/Restore';
 import KeyIcon from '@material-ui/icons/VpnKey';
 import { useTranslation } from 'react-i18next';
-import Styles from '../../Basics/Styles';
 import IconButton from '@material-ui/core/IconButton'
 import { MoreVert } from '@material-ui/icons';
 import { Menu, MenuItem } from '@material-ui/core';
@@ -19,7 +18,7 @@ import { Menu, MenuItem } from '@material-ui/core';
 const useStyles = makeStyles({
     buttons: {
         width: "unset",
-        "& > button": {
+        "& > *": {
             margin: "3px",
         }
     }

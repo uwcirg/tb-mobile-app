@@ -1,11 +1,11 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button'
+import { makeStyles, Button } from '@material-ui/core';
 import Colors from '../Basics/Colors';
+import {Link} from 'react-router-dom'
 
 const useStyles = makeStyles({
     button: {
-        display:"flex",
+        display: "flex",
         justifyContent: "flex-start",
         padding: ".15em .5em .15em .5em",
         borderRadius: "4px",
@@ -27,11 +27,11 @@ const useStyles = makeStyles({
             fontSize: "1.2em",
             paddingRight: ".5em"
         },
-        "&:hover":{
+        "&:hover": {
             backgroundColor: Colors.accentBlue,
             color: props => props.hoverColor || "white",
         },
-        "&:disabled":{
+        "&:disabled": {
             backgroundColor: Colors.lightgray
         }
     },
@@ -41,6 +41,12 @@ const useStyles = makeStyles({
 const FlatButton = (props) => {
 
     const classes = useStyles(props);
+
+    if (props.to) {
+        return (<Button disabled={props.disabled} component={Link} to={props.to} size="small" className={`${props.className} ${classes.button}`}>
+            {props.children}
+        </Button>)
+    }
 
     return (<Button disabled={props.disabled} onClick={props.onClick} size="small" className={`${props.className} ${classes.button}`}>
         {props.children}

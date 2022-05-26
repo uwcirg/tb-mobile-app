@@ -15,7 +15,8 @@ const useStyles = makeStyles({
         display: "flex",
         justifyContent: "flex-start",
         alignItems: "center",
-        width: "95%",
+        width: "100%",
+        boxSizing: "border-box"
     },
     rightIcon: {
         marginLeft: "auto"
