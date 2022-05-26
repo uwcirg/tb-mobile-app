@@ -5,7 +5,7 @@ import PopOver from '../Shared/PopOver';
 import MuiButton from '../../Basics/MuiButton';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField'
+import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles({
     popOverBody: {
@@ -24,7 +24,7 @@ const useStyles = makeStyles({
     }
 })
 
-const AddNote = observer((props) => {
+const AddNote = observer(({handleClose}) => {
     const { t } = useTranslation('translation');
     const classes = useStyles();
     const { practitionerStore, practitionerUIStore, patientProfileStore } = useStores();
@@ -39,18 +39,13 @@ const AddNote = observer((props) => {
         }
     }, [])
 
-    const close = () => {
-        practitionerUIStore.closeAddPatientNote();
-    }
-
-
     const submitNote = () => {
         patientProfileStore.postPatientNote(title, note);
         practitionerUIStore.closeAddPatientNote();
     }
 
     return (
-        <PopOver close={close} title={`${t("coordinator.patientProfile.addNote.header")} ${practitionerStore.selectedPatient.details.givenName}`}>
+        <PopOver close={handleClose} title={`${t("coordinator.patientProfile.addNote.header")} ${practitionerStore.selectedPatient.details.givenName}`}>
             <div className={classes.container}>
                 <TextField
                     id="title"

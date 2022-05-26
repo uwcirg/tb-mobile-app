@@ -64,7 +64,7 @@ const useStyles = makeStyles({
     }
 })
 
-const ChangePatientDetails = observer(() => {
+const ChangePatientDetails = observer(({handleClose}) => {
     const { t } = useTranslation('translation');
     const classes = useStyles();
     const { patientProfileStore } = useStores();
@@ -74,7 +74,7 @@ const ChangePatientDetails = observer(() => {
     }, [patientProfileStore.selectedPatient.details])
 
     return (
-        <PopOver ignoreClickAway close={patientProfileStore.toggleOnChangeDetails} title={t('coordinator.patientProfile.editDetails.title')}>
+        <PopOver ignoreClickAway close={handleClose} title={t('coordinator.patientProfile.editDetails.title')}>
             <form className={classes.form}>
                 <p>
                     {t('coordinator.patientProfile.editDetails.warning')}

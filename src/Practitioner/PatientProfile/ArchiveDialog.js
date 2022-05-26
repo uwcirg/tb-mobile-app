@@ -10,6 +10,7 @@ import ProfileButton from '../../Components/FlatButton'
 import CheckIcon from '@material-ui/icons/PlaylistAddCheck';
 import Colors from '../../Basics/Colors'
 import TreatmentOutcomeSelection from './TreatmentOutcomeSelection'
+import {useLocation, useHistory} from 'react-router-dom';
 
 const useStyles = makeStyles({
     bottomButton: {
@@ -34,7 +35,7 @@ const useStyles = makeStyles({
     }
 })
 
-const ArchiveDialog = observer(() => {
+const ArchiveDialog = observer(({handleClose}) => {
 
     const { t } = useTranslation('translation');
     const classes = useStyles();
@@ -42,10 +43,10 @@ const ArchiveDialog = observer(() => {
 
     const allowSubmission = patientProfileStore.treatmentOutcome.appEndDate && patientProfileStore.treatmentOutcome.treatmentOutcome;
 
-    return (<PopOver title={t('coordinator.patientProfile.options.archive')} ignoreClickAway close={patientProfileStore.toggleOnArchive}>
+    return (<PopOver title={t('coordinator.patientProfile.options.archive')} ignoreClickAway close={handleClose}>
         <Typography variant="body1">
             {t('archive.explanation')}
-        </Typography>
+        </Typography>s
         <form className={classes.form}>
             <DatePicker
                 inputVariant="outlined"

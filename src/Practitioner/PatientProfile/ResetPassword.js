@@ -15,13 +15,13 @@ const useStyles = makeStyles({
     }
 })
 
-const ResetPassword = observer(() => {
+const ResetPassword = observer(({handleClose}) => {
     const {t} = useTranslation('translation');
     const classes = useStyles();
     const { patientProfileStore } = useStores();
 
     return(
-    <PopOver ignoreClickAway close={patientProfileStore.toggleOnPasswordReset} title={t("coordinator.patientProfile.resetPassword")}>
+    <PopOver ignoreClickAway close={handleClose} title={t("coordinator.patientProfile.resetPassword")}>
             <Typography className={classes.popOverBody} variant="body1">{t("coordinator.patientProfile.resetPasswordExplanation")}</Typography>
             {patientProfileStore.temporaryPassword ? <CopyableText icon={<LockOpenIcon />} className={classes.copyOverride} text={patientProfileStore.temporaryPassword} /> : <MuiButton onClick={patientProfileStore.resetPassword}>{t("coordinator.patientProfile.resetPassword")}</MuiButton>}
     </PopOver>)

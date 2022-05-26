@@ -16,8 +16,11 @@ import ArchivedOptions from './ArchivedOptions';
 import ProfileHeader from './Header';
 import useWindowSize from '../../Hooks/Resize';
 import MobileView from './MobileView';
+import { useParams } from 'react-router-dom';
 
-const Profile = observer((props) => {
+const Profile = observer(() => {
+
+    const { id: patientId } = useParams();
 
     const { practitionerStore, patientProfileStore, uiStore } = useStores();
     const classes = useStyles();
@@ -25,15 +28,13 @@ const Profile = observer((props) => {
 
     const isMobileView = useWindowSize().size.width < 830;
 
-
-
     const closeResetPassword = () => {
         patientProfileStore.closeResetPassword();
         practitionerStore.newActivationCode = ""
     }
 
     useEffect(() => {
-        patientProfileStore.getPatientDetails(props.id);
+        patientProfileStore.getPatientDetails(patientId);
 
         return function cleanup() {
             closeResetPassword();
@@ -58,8 +59,8 @@ const Profile = observer((props) => {
 });
 
 const DesktopProfile = observer(() => {
-    
-    const {patientProfileStore } = useStores();
+
+    const { patientProfileStore } = useStores();
     const classes = useStyles();
     const { t } = useTranslation('translation');
 
