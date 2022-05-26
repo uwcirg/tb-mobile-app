@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography'
 import Styles from '../../../Basics/Styles'
 import ProfileButton from '../../../Components/FlatButton'
 import EditIcon from '@material-ui/icons/Edit'
+import {useHistory} from 'react-router-dom'
 
 const useStyles = makeStyles({
     archived: {
@@ -53,6 +54,7 @@ const ArchivedOptions = observer(() => {
     const classes = useStyles();
     const { patientProfileStore } = useStores();
 
+
     return (
         <>
             {patientProfileStore.isArchived && <Grid container direction="column" className={classes.archived}>
@@ -79,13 +81,20 @@ const TreatmentOutcomes = observer(() => {
     const { patientProfileStore } = useStores();
     const { treatmentOutcome, appEndDate } = patientProfileStore.treatmentOutcomes;
     const { t } = useTranslation('translation');
+    const history = useHistory();
+
+
+    const handleClick = () => {
+        patientProfileStore.toggleUpdateOutcome()
+        history.push(`/patients/${patientProfileStore.selectedPatient.details.id}/archive`)
+    }
 
     return (
         <div className={classes.details}>
             <OutcomeSection title={t('archive.treatmentOutcome')} 
             body={treatmentOutcome ? t(`archive.outcomeTypes.${treatmentOutcome}`) : t('archive.notSelected')} />
             <OutcomeSection title={t('archive.appEndField')} body={appEndDate} />
-            <ProfileButton onClick={patientProfileStore.toggleUpdateOutcome}>
+            <ProfileButton onClick={handleClick}>
                 <EditIcon />
                 {t("coordinator.patientProfile.options.editOutcome")}
             </ProfileButton>

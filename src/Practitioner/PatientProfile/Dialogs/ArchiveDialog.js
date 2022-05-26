@@ -10,7 +10,6 @@ import ProfileButton from '../../../Components/FlatButton'
 import CheckIcon from '@material-ui/icons/PlaylistAddCheck';
 import Colors from '../../../Basics/Colors'
 import TreatmentOutcomeSelection from './TreatmentOutcomeSelection'
-import {useLocation, useHistory} from 'react-router-dom';
 
 const useStyles = makeStyles({
     bottomButton: {
@@ -35,13 +34,20 @@ const useStyles = makeStyles({
     }
 })
 
-const ArchiveDialog = observer(({handleClose}) => {
+const ArchiveDialog = observer(({ handleClose }) => {
 
     const { t } = useTranslation('translation');
     const classes = useStyles();
     const { patientProfileStore } = useStores();
 
     const allowSubmission = patientProfileStore.treatmentOutcome.appEndDate && patientProfileStore.treatmentOutcome.treatmentOutcome;
+
+    const handleSubmit = () => {
+
+        patientProfileStore.postTreatmentOutcome().then(() => {
+            handleClose();
+        })
+    }
 
     return (<PopOver title={t('coordinator.patientProfile.options.archive')} ignoreClickAway close={handleClose}>
         <Typography variant="body1">
@@ -59,7 +65,7 @@ const ArchiveDialog = observer(({handleClose}) => {
         </form>
         <div className={classes.bottomButton}>
             {!allowSubmission && <Typography variant="body1">{t('commonWords.fillAll')}</Typography>}
-            <ProfileButton disabled={!allowSubmission} onClick={patientProfileStore.postTreatmentOutcome}>
+            <ProfileButton disabled={!allowSubmission} onClick={handleSubmit}>
                 <CheckIcon style={{ fontSize: "1.5em" }} />
                 {t('archive.complete')}
             </ProfileButton>
@@ -71,9 +77,9 @@ const ArchiveDialog = observer(({handleClose}) => {
 const SelectOutcome = observer(() => {
     const { treatmentOutcome, setTreatmentOutcome } = useStores().patientProfileStore;
     const classes = useStyles();
-    return ( <TreatmentOutcomeSelection 
+    return (<TreatmentOutcomeSelection
         className={classes.formControl}
-        value={treatmentOutcome.treatmentOutcome} 
+        value={treatmentOutcome.treatmentOutcome}
         setValue={setTreatmentOutcome} />)
 })
 

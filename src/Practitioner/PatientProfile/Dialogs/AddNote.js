@@ -41,7 +41,7 @@ const AddNote = observer(({handleClose}) => {
 
     const submitNote = () => {
         patientProfileStore.postPatientNote(title, note);
-        practitionerUIStore.closeAddPatientNote();
+        handleClose();
     }
 
     return (

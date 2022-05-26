@@ -6,7 +6,7 @@ import StickyTopBar from '../../../Components/Shared/StickyTopBar';
 import { Box, Grid, Typography } from '@material-ui/core';
 import Colors from '../../../Basics/Colors';
 import Priority from '../../Shared/Priority';
-import ButtonList from './Buttons';
+import ButtonList from '../Buttons';
 import Label from '../../../Components/Label';
 import { PageLabel } from '../../../Components/Shared/PageLabel';
 import { DateTime } from 'luxon';
