@@ -86,19 +86,17 @@ const PatientHome = observer(() => {
   }
 
   if (uiStore.pathname.startsWith("/redo-photo")) {
-    return <RedoPhotoFlow/>
+    return <RedoPhotoFlow />
   }
 
   if (uiStore.pathname.startsWith("/quick-report")) {
     return <PushActionReportingFlow />
   }
 
-  const showTopBar = !uiStore.pathname.startsWith("/progress")
-
   return (
     <div className="main-screen" style={{ backgroundColor: `${Colors.white}`, height: "100vh", overflowY: patientUIStore.onSettings ? "hidden" : "scroll" }}>
       <ErrorListener />
-      <div hidden={!showTopBar}>
+      <div>
         <TopBar />
         <Box height="60px" />
       </div>
@@ -109,7 +107,7 @@ const PatientHome = observer(() => {
         {routeTab}
       </div>
       {!patientUIStore.onReportFlow && <BottomBar />}
-    </div>
+    </div >
   );
 }
 );

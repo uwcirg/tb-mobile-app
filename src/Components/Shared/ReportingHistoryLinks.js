@@ -20,7 +20,6 @@ const useStyles = makeStyles({
     }
 })
 
-
 const ReportingHistoryLinks = ({ patient }) => {
 
     const { t } = useTranslation('translation');

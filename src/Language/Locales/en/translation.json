@@ -118,7 +118,7 @@
     "patient": {
         "tabNames": {
             "home": "Home",
-            "calendar": "Calendar",
+            "calendar": "History",
             "messaging": "Messaging",
             "information": "Information"
         },
@@ -428,6 +428,9 @@
             "submissionLimit": "If you miss a day, you can only submit for the 3 previous days, and any days you missed in your first 2 weeks",
             "loading": "Reporting history loading",
             "calendarKey": {
+                "tookMeds": "Took medication",
+                "sideEffects": "Reported side effects",
+                "noMeds": "Didn't take medication",
                 "button": "What do these colors mean",
                 "description": "This is the calendar, where you can review your submissions. The colors show the following:",
                 "good": "All parts submitted",
