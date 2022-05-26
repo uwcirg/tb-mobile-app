@@ -50,9 +50,7 @@ const useStyles = makeStyles({
 const instructions = [
   {
     index: 1,
-    img: '/img/test-instructions/1.png',
-    description:
-      'Recoja una pequeña cantidad de orina en un recipiente (aproximadamente 2.5 cm).',
+    description: 'testStripInstructions.one'
   },
   {
     index: 2,
@@ -86,7 +84,7 @@ const instructions = [
 
 const Instructions = (props) => {
   const classes = useStyles();
-  const { t } = useTranslation('translation');
+  const { t, i18n } = useTranslation('translation');
 
   return (
     <div className={`${classes.container} ${props.className}`}>
@@ -95,11 +93,11 @@ const Instructions = (props) => {
           return (
             <div key={item.index} className={classes.card}>
               <img
-                className={classes.image}
+                className={`${t('testStripInstructions.imgFolder')}/${item.index}.png`}
                 src={item.img}
                 alt={item.description}
               />
-              <p>{item.description}</p>
+              <p>{t(item.description)}</p>
             </div>
           );
         })}

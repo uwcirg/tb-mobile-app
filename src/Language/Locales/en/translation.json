@@ -1057,7 +1057,7 @@
         "attachMessage": "Message to patient"
     },
     "testStripInstructions":{
-        "imgSrc": "/img/en/v3-strip-instructions.jpg",
+        "imgFolder": "/img/en/",
         "one": "Collect a small amount of urine in a container (about 2 fingers deep)",
         "two": "Take the test out of the bag",
         "three": "Dip the strip into the urine for about 2 seconds to the line marked dip. Do not let the test for longer than 2 seconds in the urine.",
