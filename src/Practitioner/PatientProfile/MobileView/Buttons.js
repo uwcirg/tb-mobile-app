@@ -11,7 +11,7 @@ import NewButton from '../../../Basics/NewButton';
 import { makeStyles } from '@material-ui/core/styles';
 import SectionTitle from './SectionTitle';
 import { Box, Button, Collapse, Grid, Grow } from '@material-ui/core';
-import { KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
+import { Event, KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
 import useToggle from '../../../Hooks/useToggle';
 
 const useStyles = makeStyles({
@@ -41,7 +41,8 @@ const ButtonList = observer(() => {
         { onClick: practitionerUIStore.openAddPatientNote, icon: <Add />, text: t("coordinator.patientProfile.options.note") },
         { onClick: patientProfileStore.toggleOnChangeDetails, icon: <EditIcon />, text: t("coordinator.patientProfile.options.edit") },
         { onClick: patientProfileStore.toggleOnPasswordReset, icon: <KeyIcon />, text: t("coordinator.patientProfile.options.resetPassword") },
-        { onClick: patientProfileStore.toggleOnArchive, icon: <ArchiveIcon />, text: t("coordinator.patientProfile.options.archive"), hide: patientProfileStore.isArchive }
+        { onClick: patientProfileStore.toggleOnArchive, icon: <ArchiveIcon />, text: t("coordinator.patientProfile.options.archive"), hide: patientProfileStore.isArchived },
+        { onClick: () => { console.log("todo")}, icon: <Event />, text: t('appointments.addAppointment') }
     ]
 
     return (<>
@@ -55,9 +56,10 @@ const ButtonList = observer(() => {
         </Grid>
         <Box height=".5em" aria-hidden />
         <NewButton onClick={buttons[0].onClick} className={classes.button} icon={buttons[0].icon} text={buttons[0].text} />
-        <Collapse  in={showActions}>
+        <Collapse in={showActions}>
             <div>
                 {buttons.splice(1).map(each => {
+                    if(each.hide) return;
                     return <NewButton onClick={each.onClick} className={classes.button} icon={each.icon} text={each.text} />
                 })}
             </div>
