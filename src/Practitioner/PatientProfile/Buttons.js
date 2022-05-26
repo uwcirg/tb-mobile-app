@@ -14,6 +14,8 @@ import useToggle from '../../Hooks/useToggle';
 import { useLocation } from 'react-router-dom';
 import FlatButton from '../../Components/FlatButton';
 import { Menu, MenuItem } from '@material-ui/core';
+import Colors from '../../Basics/Colors';
+import isIndonesiaPilot from '../../Utility/check-indonesia-flag';
 
 const useStyles = makeStyles({
     button: {
@@ -27,6 +29,9 @@ const useStyles = makeStyles({
         "& > *": {
             margin: "3px",
         }
+    },
+    redButton:{
+        backgroundColor: Colors.warningRed
     }
 })
 
@@ -48,8 +53,8 @@ const ButtonList = observer(({ isDesktopView }) => {
         { to: `${baseUrl}/add-note`, icon: <Add />, text: t("coordinator.patientProfile.options.note") },
         { to: `${baseUrl}/edit`, icon: <Edit />, text: t("coordinator.patientProfile.options.edit") },
         { to: `${baseUrl}/reset-password`, icon: <Key />, text: t("coordinator.patientProfile.options.resetPassword") },
-        { to: `${baseUrl}/archive`, icon: <Archive />, text: t("coordinator.patientProfile.options.archive"), hide: patientProfileStore.isArchived },
-        { to: `${baseUrl}/add-appointment`, icon: <Event />, text: t('appointments.addAppointment') }
+        { to: `${baseUrl}/add-appointment`, icon: <Event />, text: t('appointments.addAppointment'), hide: !isIndonesiaPilot() },
+        { to: `${baseUrl}/archive`, icon: <Archive />, text: t("coordinator.patientProfile.options.archive"), hide: patientProfileStore.isArchived, red: true },
     ]
 
     if (isDesktopView) {
@@ -57,7 +62,7 @@ const ButtonList = observer(({ isDesktopView }) => {
             <Grid alignItems='center' container justify="flex-end" className={classes.desktopButtons}>
                 {buttons.map(each => {
                     if (each.hide) return;
-                    return <FlatButton to={each.to}>{each.icon}{each.text}</FlatButton>
+                    return <FlatButton className={each.red ? classes.redButton : ""} to={each.to}>{each.icon}{each.text}</FlatButton>
                 })}
                 <MoreOptions />
             </Grid>
