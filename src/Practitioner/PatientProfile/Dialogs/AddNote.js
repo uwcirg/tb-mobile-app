@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import useStores from '../../Basics/UseStores';
+import useStores from '../../../Basics/UseStores';
 import { observer } from 'mobx-react'
-import PopOver from '../Shared/PopOver';
-import MuiButton from '../../Basics/MuiButton';
+import PopOver from '../../Shared/PopOver';
+import MuiButton from '../../../Basics/MuiButton';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';

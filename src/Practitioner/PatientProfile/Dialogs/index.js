@@ -1,5 +1,5 @@
 import React from 'react'
-import useStores from '../../Basics/UseStores';
+import useStores from '../../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import AddNote from './AddNote'
 import ChangePatientDetails from './ChangePatientDetails'

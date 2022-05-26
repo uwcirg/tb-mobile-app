@@ -1,9 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import PopOver from '../Shared/PopOver';
+import PopOver from '../../Shared/PopOver';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
-import CopyableText from '../../Utility/Copiable';
+import CopyableText from '../../../Utility/Copiable';
 import Button from '@material-ui/core/Button';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 

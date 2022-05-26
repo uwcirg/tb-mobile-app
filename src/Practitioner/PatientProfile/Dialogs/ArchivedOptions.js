@@ -1,14 +1,14 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import useStores from '../../Basics/UseStores'
+import useStores from '../../../Basics/UseStores'
 import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next'
-import Colors from '../../Basics/Colors'
+import Colors from '../../../Basics/Colors'
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
-import Styles from '../../Basics/Styles'
-import ProfileButton from '../../Components/FlatButton'
+import Styles from '../../../Basics/Styles'
+import ProfileButton from '../../../Components/FlatButton'
 import EditIcon from '@material-ui/icons/Edit'
 
 const useStyles = makeStyles({

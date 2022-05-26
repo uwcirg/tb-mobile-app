@@ -1,5 +1,5 @@
 import React from 'react'
-import { treatmentOutcomes } from '../../Basics/Enums'
+import { treatmentOutcomes } from '../../../Basics/Enums'
 import { useTranslation } from 'react-i18next'
 import FormControl from '@material-ui/core/FormControl'
 import InputLabel from '@material-ui/core/InputLabel'

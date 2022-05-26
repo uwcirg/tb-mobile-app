@@ -1,9 +1,9 @@
 import React from 'react';
-import useStores from '../../Basics/UseStores';
+import useStores from '../../../Basics/UseStores';
 import { observer } from 'mobx-react'
-import PopOver from '../Shared/PopOver';
-import MuiButton from '../../Basics/MuiButton';
-import CopyableText from '../../Utility/Copiable';
+import PopOver from '../../Shared/PopOver';
+import MuiButton from '../../../Basics/MuiButton';
+import CopyableText from '../../../Utility/Copiable';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
