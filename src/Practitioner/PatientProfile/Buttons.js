@@ -1,20 +1,19 @@
 import { observer } from 'mobx-react';
 import React from 'react';
-import useStores from '../../../Basics/UseStores';
-import Message from '@material-ui/icons/ChatBubble';
-import Add from '@material-ui/icons/AddCircle';
-import EditIcon from '@material-ui/icons/Edit'
-import ArchiveIcon from '@material-ui/icons/Restore';
-import KeyIcon from '@material-ui/icons/VpnKey';
+import useStores from '../../Basics/UseStores';
 import { useTranslation } from 'react-i18next';
-import NewButton from '../../../Basics/NewButton';
-import { makeStyles } from '@material-ui/core/styles';
-import SectionTitle from './SectionTitle';
-import { Box, Button, Collapse, Grid } from '@material-ui/core';
-import { Event, KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
-import useToggle from '../../../Hooks/useToggle';
+import NewButton from '../../Basics/NewButton';
+import SectionTitle from './MobileView/SectionTitle';
+import { Box, Button, Collapse, Grid, makeStyles, IconButton } from '@material-ui/core';
+import {
+    Event, KeyboardArrowDown, KeyboardArrowUp,
+    Edit, Restore as Archive, VpnKey as Key, AddCircle as Add,
+    ChatBubble as Message, MoreVert
+} from '@material-ui/icons';
+import useToggle from '../../Hooks/useToggle';
 import { useLocation } from 'react-router-dom';
-import FlatButton from '../../../Components/FlatButton';
+import FlatButton from '../../Components/FlatButton';
+import { Menu, MenuItem } from '@material-ui/core';
 
 const useStyles = makeStyles({
     button: {
@@ -47,19 +46,20 @@ const ButtonList = observer(({ isDesktopView }) => {
     const buttons = [
         { to: `/messaging/channels/${channelId}`, icon: <Message />, text: t("coordinator.patientProfile.options.message") },
         { to: `${baseUrl}/add-note`, icon: <Add />, text: t("coordinator.patientProfile.options.note") },
-        { to: `${baseUrl}/edit`, icon: <EditIcon />, text: t("coordinator.patientProfile.options.edit") },
-        { to: `${baseUrl}/reset-password`, icon: <KeyIcon />, text: t("coordinator.patientProfile.options.resetPassword") },
-        { to: `${baseUrl}/archive`, icon: <ArchiveIcon />, text: t("coordinator.patientProfile.options.archive"), hide: patientProfileStore.isArchived },
+        { to: `${baseUrl}/edit`, icon: <Edit />, text: t("coordinator.patientProfile.options.edit") },
+        { to: `${baseUrl}/reset-password`, icon: <Key />, text: t("coordinator.patientProfile.options.resetPassword") },
+        { to: `${baseUrl}/archive`, icon: <Archive />, text: t("coordinator.patientProfile.options.archive"), hide: patientProfileStore.isArchived },
         { to: `${baseUrl}/add-appointment`, icon: <Event />, text: t('appointments.addAppointment') }
     ]
 
     if (isDesktopView) {
         return (
-            <Grid container justify="flex-end" className={classes.desktopButtons}>
+            <Grid alignItems='center' container justify="flex-end" className={classes.desktopButtons}>
                 {buttons.map(each => {
                     if (each.hide) return;
                     return <FlatButton to={each.to}>{each.icon}{each.text}</FlatButton>
                 })}
+                <MoreOptions />
             </Grid>
         )
     }
@@ -85,5 +85,51 @@ const ButtonList = observer(({ isDesktopView }) => {
         </Collapse>
     </>)
 })
+
+
+const MoreOptions = () => {
+
+    const { patientProfileStore } = useStores();
+
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleTestNotification = () => {
+        patientProfileStore.sendTestReminder();
+        handleClose();
+    }
+
+    return (
+        <div>
+            <IconButton aria-label="" onClick={handleClick}>
+                <MoreVert />
+            </IconButton>
+            <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                }}
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                }}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+            >
+                <MenuItem onClick={handleTestNotification}>Send a test report reminder</MenuItem>
+            </Menu>
+        </div>
+    ); v
+}
 
 export default ButtonList;
