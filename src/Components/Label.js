@@ -11,7 +11,7 @@ const useStyles = makeStyles({
       backgroundColor: props => props.backgroundColor || "inital",
       textTransform: "uppercase",
       color: "white !important",
-      borderRadius: "2px"
+      borderRadius: "5px"
   }
 })
 

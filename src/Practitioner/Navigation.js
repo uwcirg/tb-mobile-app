@@ -16,10 +16,8 @@ import Badge from '@material-ui/core/Badge'
 import Tooltip from '@material-ui/core/Tooltip'
 import { useTranslation } from 'react-i18next';
 import ReportIssue from '@material-ui/icons/ReportProblem';
-
-const drawerWidth = 200;
-
-//boxShadow: "5px 0px 5px 0px lightgray",
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import ListAltIcon from '@material-ui/icons/ListAlt';
 
 const useStyles = makeStyles({
   drawer: {
@@ -78,8 +76,11 @@ const PractitionerDrawer = observer(() => {
     <>
       <div className={classes.drawer}>
         <List className={classes.list}>
-          <ListItem className={`${practitionerUIStore.tabNumber === 0 && classes.selected}`} button key={"Home"} onClick={() => { push('/home') }}>
+          <ListItem className={`${routingStore.location.pathname.startsWith("/home") && classes.selected}`} button key={"Home"} onClick={() => { push('/home') }}>
             <ListItemIcon><HomeIcon className={classes.test} /></ListItemIcon>
+          </ListItem>
+          <ListItem className={`${routingStore.location.pathname.startsWith("/old-tasks") && classes.selected}`} button key={"Old Tasks"} onClick={() => { push('/old-tasks') }}>
+            <ListItemIcon><ListAltIcon className={classes.test} /></ListItemIcon>
           </ListItem>
           <ListItem button className={practitionerUIStore.tabNumber === 1 ? classes.selected : ""} key={"Patients"} onClick={() => { push('/patients') }}>
             <ListItemIcon><PatientsIcon /></ListItemIcon>

@@ -9,16 +9,14 @@ const useStyles = makeStyles({
     },
     upperText: {
         ...Styles.secondaryText,
-        fontSize: ".8em",
+        paddingLeft: "8px",
+        fontSize: ".8rem",
         textAlign: "left",
-        width: "90%",
-        margin: "auto",
         display: "flex",
         alignItems: "center",
-        paddingLeft:   "1em",
         "& > svg": {
-            fontSize: "1.25em",
-            marginRight: ".25em"
+            fontSize: "1.25rem",
+            marginRight: ".25rem"
         }
     },
 })

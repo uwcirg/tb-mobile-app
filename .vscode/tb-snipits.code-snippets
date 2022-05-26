@@ -64,4 +64,15 @@
 		],
 		"description": "Common hooks to use in a sub component"
 	},
+	"Make Styles": {
+		"prefix": "make-styles",
+		"body": [
+			"import { makeStyles } from '@material-ui/core/styles';",
+			"",
+			"const useStyles = makeStyles({",
+			"  ",
+			"})"
+		],
+		"description": "Scafold MUI makeStyles"
+	},
 }

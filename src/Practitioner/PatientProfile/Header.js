@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react';
-import HorizontalButtons from './HorizontalOptions';
+import Buttons from './Buttons'
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography';
@@ -52,7 +52,7 @@ const ProfileHeader = observer(() => {
                 </Grid>
             </Grid>
         </div>
-        <HorizontalButtons />
+        <Buttons isDesktopView />
     </div>)
 
 });

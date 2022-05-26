@@ -3,26 +3,30 @@ import InteractionCard from '../../../Basics/HomePageSection';
 import useStores from '../../../Basics/UseStores';
 import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next';
-
 import { usePageVisibility } from '../../../Hooks/PageVisibility';
-
-import {Grid, Box, CircularProgress, Typography, Fade } from '@material-ui/core';
-import { CheckBox, ThumbUp, Announcement, Edit } from '@material-ui/icons';
-
+import { Grid, Box, CircularProgress, Typography, Fade, ButtonBase, Paper, makeStyles } from '@material-ui/core';
+import { CheckBox, ThumbUp, Announcement } from '@material-ui/icons';
 import useStyles from './styles';
-import ActionButton from './ActionButton';
-import Colors from '../../../Basics/Colors';
-
 import PhotoRequestArea from './PhotoRequestArea';
 import PartialConfirmation from './PartialConfirmation';
 import Confirmation from './Confirmation';
+import capitalizeFirstLetter from '../../../Utility/StringUtils';
 
-const ButtonLabel = ({ text, icon }) => {
-    const classes = useStyles();
-    return <Grid className={classes.buttonLabel} alignItems="center" container direction="column">
-        {icon}
-        <Typography style={{ fontSize: ".8em", padding: 0 }} variant="body1">{text}</Typography>
-    </Grid>
+const CustomButton = ({ icon, text, onClick, primaryColor, bgColor }) => {
+
+    const classes = useStyles({bgColor: bgColor, primaryColor: primaryColor});
+
+    return (
+        <Paper className={classes.sideBySideArea} elevation={1}>
+            <ButtonBase onClick={onClick} className={classes.mainButton}>
+                <Grid container alignItems='center' direction="column">
+                    {React.cloneElement(icon)}
+                    <Box height='8px' />
+                    <Typography style={{ lineHeight: "1rem" }} variant="body1">{capitalizeFirstLetter(text.toLowerCase())}</Typography>
+                </Grid>
+            </ButtonBase>
+        </Paper>
+    )
 }
 
 const OneStepActions = observer(({ setCompletedNow }) => {
@@ -42,31 +46,21 @@ const OneStepActions = observer(({ setCompletedNow }) => {
 
     const { t } = useTranslation('translation');
 
-    const ButtonContent = <>
-        <Grid alignItems="center" container wrap="nowrap">
-            <Typography variant="body1" className={classes.sectionHeader}>{t('patient.oneStepReporting.supportTitle')}</Typography>
-        </Grid>
-        <Box height="1em" />
-        <Grid direction="column" container className={classes.yesNoButtons}>
-            <ActionButton onClick={handleOneStepClick}
-                text={t('patient.oneStepReporting.goodOption')}
-                icon={<ButtonLabel icon={<ThumbUp />} text={t('commonWords.yes')} />} backgroundColor={Colors.calendarGreen} />
-            <Box height=".5em" />
-            <ActionButton onClick={handleReportClick}
-                text={t('patient.oneStepReporting.helpOption')}
-                icon={<ButtonLabel icon={<Announcement />} text={t('commonWords.no')} />}
-                backgroundColor={Colors.highlightYellow}
-            />
-            <Box height=".5em" />
-        </Grid>
-    </>
-
     return (
         <Box style={{ width: "100%" }}>
-            {patientStore.reportStore.baseReportComplete ? <PartialConfirmation /> :
-                <>
-                    {patientStore.oneStepStatus.loading ? <Grid container justify="center" alignItems="center" style={{ width: "100%", height: "200px" }}><CircularProgress variant="indeterminate" /> </Grid> : ButtonContent}
-                </>}
+            {patientStore.oneStepStatus.loading ? <Grid container justify="center" alignItems="center" style={{ width: "100%", height: "200px" }}><CircularProgress variant="indeterminate" /> </Grid> : <>
+                <Grid alignItems="center" container wrap="nowrap">
+                    <Typography variant="body1" className={classes.sectionHeader}>
+                        {t('patient.oneStepReporting.supportTitle')}
+                    </Typography>
+                </Grid>
+                <Box height="1em" />
+                <Grid wrap="nowrap" container className={classes.yesNoButtons}>
+                    <CustomButton primaryColor={"#388E3C"} bgColor={"#E8F5E9"} icon={<ThumbUp />} text={t('patient.oneStepReporting.goodOption')} onClick={handleOneStepClick} />
+                    <Box width="16px" />
+                    <CustomButton bgColor={"#FFFDE7"} primaryColor={"#FBC02D"} icon={<Announcement />} text={t('patient.oneStepReporting.helpOption')} onClick={handleReportClick} />
+                </Grid>
+            </>}
         </Box>
     )
 })
@@ -99,10 +93,12 @@ const ActionBox = observer(() => {
     return (
         <InteractionCard id="intro-tasks" className={classes.card} upperText={<><CheckBox />{t('patient.home.cardTitles.todaysTasks')}</>}>
             <Box width="100%" padding="1em" style={{ boxSizing: "border-box" }}>
-                {(counter >=0 && !patientStore.reportStore.allReportComplete) ? <div>
+                {(counter >= 0 && !patientStore.reportStore.allReportComplete) ? <div>
+                    {!patientStore.reportStore.baseReportComplete && <OneStepActions setCompletedNow={setCompletedNow} />}
+                    <Box height="16px" />
                     {(patientStore.isPhotoDay && !patientStore.reportStore.photoReportComplete) && <PhotoRequestArea />}
-                    <OneStepActions setCompletedNow={setCompletedNow} />
                     {patientStore.reportStore.photoReportComplete && <PartialConfirmation isPhoto />}
+                    {patientStore.reportStore.baseReportComplete && <PartialConfirmation />}
                 </div>
                     :
                     <>

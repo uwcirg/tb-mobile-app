@@ -21,9 +21,8 @@ import MissedPhotoFlow from './ReportingFlows/AltPhotoFlows';
 import PushActionReportingFlow from './ReportingFlows/PushActionReportingFlow';
 import Box from '@material-ui/core/Box';
 import RedoPhotoFlow from './ReportingFlows/AltPhotoFlows/RedoPhotoFlow';
-import OverTopBar from './Navigation/OverTopBar';
-import TestInstructions from './Home/TestInstructions';
 import TestSteps from './Home/TestSteps';
+import isIndonesiaPilot from '../Utility/check-indonesia-flag';
 
 const PatientHome = observer(() => {
 
@@ -94,30 +93,28 @@ const PatientHome = observer(() => {
   }
 
   if (uiStore.pathname.startsWith("/redo-photo")) {
-    return <RedoPhotoFlow/>
+    return <RedoPhotoFlow />
   }
 
   if (uiStore.pathname.startsWith("/quick-report")) {
     return <PushActionReportingFlow />
   }
 
-  const showTopBar = !uiStore.pathname.startsWith("/progress")
-
   return (
     <div className="main-screen" style={{ backgroundColor: `${Colors.white}`, height: "100vh", overflowY: patientUIStore.onSettings ? "hidden" : "scroll" }}>
       <ErrorListener />
-      <div hidden={!showTopBar}>
+      <div>
         <TopBar />
         <Box height="60px" />
       </div>
-      <EducationalMessage />
+      {!isIndonesiaPilot() && <EducationalMessage />}
       {patientUIStore.onWalkthrough && <Intro />}
       <TopMenu />
       <div style={{ paddingBottom: "60px" }}>
         {routeTab}
       </div>
       {!patientUIStore.onReportFlow && <BottomBar />}
-    </div>
+    </div >
   );
 }
 );

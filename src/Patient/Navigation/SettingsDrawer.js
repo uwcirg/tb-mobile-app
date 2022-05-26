@@ -4,6 +4,8 @@ import Drawer from '@material-ui/core/Drawer';
 import { observer } from 'mobx-react';
 import Settings from '../Settings';
 import useStores from '../../Basics/UseStores';
+import isIndonesiaPilot from '../../Utility/check-indonesia-flag';
+import IndonesiaSettingsPage from '../../Indonesia/Settings';
 
 const SettingsDrawer = observer(() => {
 
@@ -18,6 +20,7 @@ const SettingsDrawer = observer(() => {
       open={patientUIStore.onSettings}
     >
       <div className={classes.contentContainer}>
+        {/* {isIndonesiaPilot ? <IndonesiaSettingsPage /> : <Settings />} */}
         <Settings />
       </div>
     </Drawer>

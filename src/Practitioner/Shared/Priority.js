@@ -11,7 +11,7 @@ const useStyles = makeStyles({
         justifyContent: "center",
         alignItems: "center",
         fontSize: ".75em",
-        padding: ".5em 1em .5em 1em",
+        padding: ".25em .5em",
         color: "white",
         textTransform: "uppercase",
         backgroundColor: props => props.color

@@ -23,7 +23,7 @@ const useStyles = makeStyles({
         backgroundColor: "white",
         width: props => props.fullWidth ? "unset" : "25%",
         minHeight: "25%",
-        minWidth: "350px",
+        minWidth: "300px",
         padding: "1em",
     },
     header:{

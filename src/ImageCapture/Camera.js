@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import fixRotation from 'fix-image-rotation';
 import Webcam from './WebCam'
 import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
@@ -21,8 +20,6 @@ export default class Camera extends Component {
 
     myRotationFunction = async function (ArrayOfFilesToBeRotated) {
         return ArrayOfFilesToBeRotated
-        let blobOfArray = await fixRotation.fixRotation(ArrayOfFilesToBeRotated)
-        return blobOfArray
     }
 
     captureImage = async () => {

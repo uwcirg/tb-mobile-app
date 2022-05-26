@@ -6,7 +6,6 @@ import {daysSinceISODateTime} from "../Utility/TimeUtils";
 const ROUTES = {
     addPatient: ["/patients", "POST"],
     getCurrentPractitioner: ["/practitioner/me", "GET"],
-    getOrganizations: ["/organizations", "GET"],
     getPatients: ["/v2/patients", "GET"],
     getArchivedPatients: ["/v2/patients?archived=true", "GET"],
     getPendingPatients: ["/practitioner/temporary_patients", "GET"],
@@ -160,7 +159,6 @@ export class PractitionerStore extends UserStore {
     @action
     initalize() {
         this.userType = "Practitioner"
-        this.getPatients();
         super.initalize();
     }
 
@@ -343,12 +341,6 @@ export class PractitionerStore extends UserStore {
     @action setMissingPhotos(patients) {
         const values = Object.keys(patients).map(key => { return { patientId: key, lastDate: patients[key][0].date, numberOfDays: patients[key].length, data: patients[key] } });
         this.filteredPatients.missedPhoto = values;
-    }
-
-    getCohortSummary = () => {
-        this.executeRawRequest(`/organizations/${this.organizationID}/cohort_summary`).then(response => {
-            this.setCohortSummary(response);
-        })
     }
 
     getCompletedResolutionsSummary = () => {

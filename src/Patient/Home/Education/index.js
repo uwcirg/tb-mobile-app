@@ -10,6 +10,7 @@ import TestStripUpdate from './TestStripUpdateMay';
 import ChatReminder from './ChatReminder';
 import DefaultLayout from './DefaultMessage';
 import ExitInterviewAlert from './ExitInterviewAlert'
+import isIndonesiaPilot from '../../../Utility/check-indonesia-flag';
 
 const useStyles = makeStyles({
     container: {
@@ -20,9 +21,7 @@ const useStyles = makeStyles({
     }
 })
 
-const EducationalMessage = observer((props) => {
-
-    const { t } = useTranslation('translation');
+const EducationalMessage = observer(() => {
 
     const classes = useStyles();
     const { patientUIStore, patientStore } = useStores();

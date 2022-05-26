@@ -52,9 +52,9 @@ const OverTopBar = (props) => {
   return (
     <AppBar className={`${classes.bar} ${props.altColor ? classes.altColor : ""} ${!props.notFixed && classes.fixed} ${props.reverse && classes.reverse}`} color={"primary"} position="static" style={{ flexGrow: 1 }}>
       <Toolbar>
-        <IconButton onClick={props.handleBack} edge="start" color="inherit" aria-label="menu">
+        {!props.hideIconButton &&<IconButton onClick={props.handleBack} edge="start" color="inherit" aria-label="menu">
           {buttonToDisplay}
-        </IconButton>
+        </IconButton>}
         <Typography variant="h6" className={classes.title}>
           {props.title}
         </Typography>
@@ -66,8 +66,9 @@ const OverTopBar = (props) => {
 };
 
 OverTopBar.propTypes = {
+  hideIconButton: PropTypes.bool,
   reverse: PropTypes.bool,
-  title: PropTypes.string,
+  title: PropTypes.any,
   handleBack: PropTypes.func,
   notFixed: PropTypes.bool
 

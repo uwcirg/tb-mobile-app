@@ -6,6 +6,7 @@
     "updating": "Memperbaharui",
     "demoWarning": "Ini merupakan demo dari aplikasi dan tidak dapat digunakan pada pasien aktif",
     "commonWords": {
+        "list": "list",
         "photos": "Foto-foto",
         "fillAll": "Silahkan isi laman ini sebelum mulai",
         "edit": "edit",
@@ -98,7 +99,9 @@
         "found": "Ditemukan",
         "empty": "Pesan anda belum terkirim. Silahkan mengirim pesan!",
         "private": "Rahasia",
-        "clinicChat": "Pendamping and Pasien pada klinik anda"
+        "clinicChat": "Pendamping and Pasien pada klinik anda",
+        "imageWillSend": "Image will be sent with message",
+        "sending": "Sending"
     },
     "time": {
         "day": "Hari",
@@ -521,6 +524,42 @@
             "title": "Sakit Kepala",
             "subtitle": ""
         },
+        "flu_symptoms": {
+            "title": "Sindrom Flu",
+            "subtitle": "Mengalami demam, menggigil, malaise, sakit kepala, nyeri tulang"
+        },
+        "red_urine":{
+            "title": "Air Kencing berwarna merah",
+            "subtitle": "Saat berkemih air kencing berwarna kemerahan"
+        },
+        "sleepy": {
+            "title": "Mengantuk",
+            "subtitle": "Rasa ingin tidur sepanjang hari"
+        },
+        "joint_pain" : {
+            "title": "Nyeri sendi",
+            "subtitle": "Terasa nyeri pada persendian"
+        },
+        "burning_or_numbness": {
+            "title": "Rasa terbakar, kebas atau kesemutan",
+            "subtitle": "Gejala terasa pada jari-jari tangan dan atau kaki"
+        },
+        "hearing_loss":{
+            "title": "Gangguan Pendengaran",
+            "subtitle": "Mengalami gangguan pendengaran"
+        },
+        "vertigo":{
+            "title": "Pusing / Vertigo",
+            "subtitle": "Nyeri kepala berat atau nyeri kepala setengah" 
+        },
+        "confusion": {
+            "title": "Bingung",
+            "subtitle": "Perasaan kebingungan"
+        },
+        "oliguria":{
+            "title": "Oliguria",
+            "subtitle": "Kesusahan berkemih/produksi urin sedikit"
+        },
         "other": {
             "title": "Lainnya",
             "subtitle": "Tekan disini untuk menambahkan efek samping lainnya"
@@ -553,6 +592,7 @@
             "low": "Prioritas Rendah",
             "active": "Aktif",
             "pending": "Tertunda",
+            "archived": "Archived",
             "reportedTime": "Dilaporkan dalam 7 hari terakhir",
             "noPatientsFound": "Pasien tidak ditemukan",
             "searchByName": "Cari berdasarkan nama pasien"
@@ -628,6 +668,7 @@
         "false": "Salah",
         "daysInTreatment": "Hari dalam pengobatan",
         "patientProfile": {
+            "lastReport": "Last report",
             "details":{
                 "progress": "Perkembangan"
             },
@@ -917,7 +958,8 @@
             "withdraw": "Mundur",
             "lost-to-follow-up": "Lost to follow up",
             "transferred": "Pindah",
-            "deceased": "Meninggal"
+            "deceased": "Meninggal",
+            "refuse-to-use-app": "Refuse to use app"
         },
         "complete": "Komplit",
         "endSurvey": "Survey",
@@ -994,11 +1036,13 @@
 
     },
     "redoPhoto":{
-        "title": "Resubmit test strip",
-        "subtitle": "Review the issue your treatment supporter identified",
+        "viewMyPhotos": "Lihat kembali foto yang telah di unggah",
+        "title": "Unggah kembali foto hasil test strip",
+        "subtitle": "Tinjau masalah yang telah diidentifikasi oleh pendamping berobat anda",
         "flag": "Resubmission",
-        "explanation": "There was an issue with your last test submission and you have been asked to resubmit. Please review the instructions carefully.",
-        "feedback": "Feedback",
+        "shortFlag": "Redo",
+        "explanation": "Ada masalah dengan pengunggahan hasil test anda yang terakhir. Mohon dapat mengunggah kembali foto hasil test anda. Mohon dapat memperhatikan instruksi secara seksama",
+        "feedback": "Masukan",
         "originalSubmission": "Original Submission",
         "newSubmission": "New Submission",
         "selectResult": "Select test result",
@@ -1008,7 +1052,7 @@
         "attachMessage": "Message to patient"
     },
     "testStripInstructions":{
-        "imgSrc": "/img/es-Ar/v3-strip-instructions.jpg",
+        "imgSrc": "/img/en/v3-strip-instructions.jpg",
         "one": "Collect a small amount of urine in a container (about 2 fingers deep)",
         "two": "Take the test out of the bag",
         "three": "Dip the strip into the urine for about 2 seconds to the line marked dip. Do not let the test for longer than 2 seconds in the urine.",
@@ -1020,5 +1064,11 @@
         },
         "six": "Put the test back in its bag and discard in the trash"
 
+    },
+    "mobileUpdate":{
+        "actions": "Actions",
+        "showActions": "Show All Actions",
+        "treatment": "Treatment",
+        "supportRequests": "Support Requests"
     }
 }

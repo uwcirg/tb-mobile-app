@@ -6,6 +6,7 @@
     "updating": "Updating",
     "demoWarning": "This is a demo of the application and should not be used for real patient data",
     "commonWords": {
+        "list": "list",
         "photos": "photos",
         "fillAll": "Please fill all fields before continuing",
         "edit": "Edit",
@@ -117,13 +118,13 @@
     "patient": {
         "tabNames": {
             "home": "Home",
-            "calendar": "Calendar",
+            "calendar": "History",
             "messaging": "Messaging",
             "information": "Information"
         },
         "oneStepReporting":{
             "photoRequestTitle": "Please complete a test strip to confirm your progress",
-            "photoRequestButton": "Complete Test Strip and Submit Photo",
+            "photoRequestButton": "Complete Test Strip",
             "supportTitle": "Is everything going okay with your treatment today?",
             "goodOption": "Took Medication and Feeling Good",
             "helpOption": "Track Issues or Request Support"
@@ -377,6 +378,7 @@
             },
             "symptoms": {
                 "nauseaRating": "How bad is your nausea?",
+                "instructions": "Please tap an option that represents how you are feeling",
                 "warning": {
                     "title": "You logged a symptom that needs immediate follow up",
                     "subtitle": "Please seek emergency medical attention immediately. Your treatment assistant will follow up with you.",
@@ -426,6 +428,9 @@
             "submissionLimit": "If you miss a day, you can only submit for the 3 previous days, and any days you missed in your first 2 weeks",
             "loading": "Reporting history loading",
             "calendarKey": {
+                "tookMeds": "Took medication",
+                "sideEffects": "Reported side effects",
+                "noMeds": "Didn't take medication",
                 "button": "What do these colors mean",
                 "description": "This is the calendar, where you can review your submissions. The colors show the following:",
                 "good": "All parts submitted",
@@ -492,7 +497,7 @@
             "subtitle": "Body temperature over 37.5"
         },
         "appetite_loss": {
-            "title": "Appetite Loss",
+            "title": "Loss of appetite",
             "subtitle": "Loss of appetite"
         },
         "blurred_vision": {
@@ -522,6 +527,42 @@
         "headache": {
             "title": "Headache",
             "subtitle": ""
+        },
+        "flu_symptoms": {
+            "title": "Flu Symptoms",
+            "subtitle": "Flu symptoms include fever, chills, headache, and body pain"
+        },
+        "red_urine":{
+            "title": "Red urine",
+            "subtitle": "Urine has a red tint"
+        },
+        "sleepy": {
+            "title": "Sleepy",
+            "subtitle": "Feeling tired all day"
+        },
+        "joint_pain" : {
+            "title": "Joint pain",
+            "subtitle": "Feeling pain in your joints or bones"
+        },
+        "burning_or_numbness": {
+            "title": "Burning, tingling or numbness",
+            "subtitle": "Feeling of burning, tingling, or numbness in your fingers or toes"
+        },
+        "hearing_loss":{
+            "title": "Hearing loss",
+            "subtitle": "Changes in your hearing, or being unable to hear"
+        },
+        "vertigo":{
+            "title": "Vertigo",
+            "subtitle": "Sensation of whirling and loss of balance, associated particularly with looking down from a great height" 
+        },
+        "confusion": {
+            "title": "Confusion",
+            "subtitle": "Increasingly feeling confused"
+        },
+        "oliguria":{
+            "title": "Decrease in urination",
+            "subtitle": "Urinating less than normal, or experiencing difficulty urinating"
         },
         "other": {
             "title": "Other",
@@ -555,6 +596,7 @@
             "low": "Low Priority",
             "active": "Active",
             "pending": "Pending",
+            "archived": "Archived",
             "reportedTime": "Reported In The Past 7 Days",
             "noPatientsFound": "No Patients Found",
             "searchByName": "Search By Name"
@@ -630,6 +672,7 @@
         "false": "false",
         "daysInTreatment": "Days In Treatment",
         "patientProfile": {
+            "lastReport": "Last report",
             "details":{
                 "progress": "Progress"
             },
@@ -761,6 +804,7 @@
         "submit": "Submit"
     },
     "educationalMessages": {
+        "thoughtsForToday": "Thoughts for today",
         "feedback": "Thank you for your feedback",
         "week": "Week",
         "header": "Important to know",
@@ -1001,6 +1045,7 @@
         "title": "Resubmit test strip",
         "subtitle": "Review the issue your treatment supporter identified",
         "flag": "Resubmission",
+        "shortFlag": "Redo",
         "explanation": "There was an issue with your last test submission and you have been asked to resubmit. Please review the instructions carefully.",
         "feedback": "Feedback",
         "originalSubmission": "Original Submission",
@@ -1024,5 +1069,11 @@
         },
         "six": "Put the test back in its bag and discard in the trash"
 
+    },
+    "mobileUpdate":{
+        "actions": "Actions",
+        "showActions": "Show All Actions",
+        "treatment": "Treatment",
+        "supportRequests": "Support Requests"
     }
 }
