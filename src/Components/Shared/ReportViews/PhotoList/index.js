@@ -1,6 +1,6 @@
-import { Box, Button, Typography } from '@material-ui/core';
+import { Box, Button } from '@material-ui/core';
 import { DateTime } from 'luxon';
-import React, { useReducer, useState } from 'react';
+import React, { useState } from 'react';
 import ShortDate from '../../ShortDate';
 import ReportContainer from '../ReportContainer';
 import { useTranslation } from 'react-i18next';
