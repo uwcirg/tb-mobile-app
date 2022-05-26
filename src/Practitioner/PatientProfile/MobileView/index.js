@@ -71,9 +71,11 @@ const MobileView = observer(() => {
             </StickyTopBar>
             <Box minHeight="90vh" bgcolor={Colors.lightgray} padding="8px">
                 <Card>
+                    <SectionTitle>Details:</SectionTitle>
+                    <Box padding="8px" bgcolor={Colors.lighterGray}>
                     <Grid wrap="nowrap" container>
                         <Typography>{t('coordinator.patientProfile.lastReport')}:</Typography>
-                        {/* <Box flexGrow={1} /> */}
+                        <Box flexGrow={1} />
                         <Box width={"8px"} />
                         <Typography>{daysAgo} {t('time.day_ago', { count: daysAgo })}</Typography>
                     </Grid>
@@ -81,19 +83,19 @@ const MobileView = observer(() => {
                     <Grid container>
                         <Typography>{t('coordinator.patientTableLabels.priority')}:</Typography>
                         <Box width={"8px"} />
-                        {/* <Box flexGrow={1} /> */}
+                        <Box flexGrow={1} />
                         <Priority index={priority} />
                     </Grid>
                     <Box height={"5px"} />
                     <Grid container>
                         <Typography>{t('mobileUpdate.treatment')}:</Typography>
                         <Box width={"8px"} />
-                        {/* <Box flexGrow={1} /> */}
+                        <Box flexGrow={1} />
                         <Label text={`Week ${weeksInTreatment} / 26`} backgroundColor={Colors.accentBlue} />
                     </Grid>
-                </Card>
-                <Card>
-                    <SectionTitle>{t('coordinator.patientProfile.reportingHistory')}</SectionTitle>
+                    </Box>
+                    <Box height="1em" />
+                    <SectionTitle>Reporting History:</SectionTitle>
                     <Box height="8px" />
                     <ReportingHistoryLinks patient={patientProfileStore.selectedPatient.details} />
                 </Card>
@@ -103,9 +105,6 @@ const MobileView = observer(() => {
                 <Card>
                     <MedicationAdherence />
                     <PhotoAdherence />
-                </Card>
-                <Card>
-                    <SymptomSummary />
                 </Card>
                 <Box height="60px" aria-hidden />
             </Box>

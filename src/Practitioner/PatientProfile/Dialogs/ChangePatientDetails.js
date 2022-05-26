@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react'
-import useStores from '../../Basics/UseStores';
+import useStores from '../../../Basics/UseStores';
 import { observer } from 'mobx-react'
-import PopOver from '../Shared/PopOver';
+import PopOver from '../../Shared/PopOver';
 import makeStyles from '@material-ui/styles/makeStyles'
 import TextField from '@material-ui/core/TextField'
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
-import Colors from '../../Basics/Colors';
-import WarningBox from '../../Basics/WarningBox';
-import DatePicker from '../../Basics/DatePicker';
+import Colors from '../../../Basics/Colors';
+import WarningBox from '../../../Basics/WarningBox';
+import DatePicker from '../../../Basics/DatePicker';
 import { DateTime } from 'luxon';
 
 const useStyles = makeStyles({
@@ -64,7 +64,7 @@ const useStyles = makeStyles({
     }
 })
 
-const ChangePatientDetails = observer(() => {
+const ChangePatientDetails = observer(({handleClose}) => {
     const { t } = useTranslation('translation');
     const classes = useStyles();
     const { patientProfileStore } = useStores();
@@ -74,7 +74,7 @@ const ChangePatientDetails = observer(() => {
     }, [patientProfileStore.selectedPatient.details])
 
     return (
-        <PopOver ignoreClickAway close={patientProfileStore.toggleOnChangeDetails} title={t('coordinator.patientProfile.editDetails.title')}>
+        <PopOver ignoreClickAway close={handleClose} title={t('coordinator.patientProfile.editDetails.title')}>
             <form className={classes.form}>
                 <p>
                     {t('coordinator.patientProfile.editDetails.warning')}

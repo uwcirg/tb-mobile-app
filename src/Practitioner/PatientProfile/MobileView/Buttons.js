@@ -10,9 +10,11 @@ import { useTranslation } from 'react-i18next';
 import NewButton from '../../../Basics/NewButton';
 import { makeStyles } from '@material-ui/core/styles';
 import SectionTitle from './SectionTitle';
-import { Box, Button, Collapse, Grid, Grow } from '@material-ui/core';
-import { KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
+import { Box, Button, Collapse, Grid } from '@material-ui/core';
+import { Event, KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
 import useToggle from '../../../Hooks/useToggle';
+import { useLocation } from 'react-router-dom';
+import FlatButton from '../../../Components/FlatButton';
 
 const useStyles = makeStyles({
     button: {
@@ -20,29 +22,47 @@ const useStyles = makeStyles({
     },
     toggle: {
         textTransform: "capitalize"
+    },
+    desktopButtons: {
+        width: "unset",
+        "& > *": {
+            margin: "3px",
+        }
     }
 })
 
-const ButtonList = observer(() => {
+const ButtonList = observer(({ isDesktopView }) => {
 
     const classes = useStyles();
 
     const [showActions, toggleShowActions] = useToggle(false);
 
-    const { practitionerUIStore, patientProfileStore } = useStores();
+    const { patientProfileStore } = useStores();
     const { t } = useTranslation('translation');
 
-    const messagePatient = () => {
-        practitionerUIStore.goToChannel(patientProfileStore.selectedPatient.details.channelId);
-    }
+    const channelId = patientProfileStore.selectedPatient.details.channelId;
+
+    const baseUrl = useLocation().pathname
 
     const buttons = [
-        { onClick: messagePatient, icon: <Message />, text: t("coordinator.patientProfile.options.message") },
-        { onClick: practitionerUIStore.openAddPatientNote, icon: <Add />, text: t("coordinator.patientProfile.options.note") },
-        { onClick: patientProfileStore.toggleOnChangeDetails, icon: <EditIcon />, text: t("coordinator.patientProfile.options.edit") },
-        { onClick: patientProfileStore.toggleOnPasswordReset, icon: <KeyIcon />, text: t("coordinator.patientProfile.options.resetPassword") },
-        { onClick: patientProfileStore.toggleOnArchive, icon: <ArchiveIcon />, text: t("coordinator.patientProfile.options.archive"), hide: patientProfileStore.isArchive }
+        { to: `/messaging/channels/${channelId}`, icon: <Message />, text: t("coordinator.patientProfile.options.message") },
+        { to: `${baseUrl}/add-note`, icon: <Add />, text: t("coordinator.patientProfile.options.note") },
+        { to: `${baseUrl}/edit`, icon: <EditIcon />, text: t("coordinator.patientProfile.options.edit") },
+        { to: `${baseUrl}/reset-password`, icon: <KeyIcon />, text: t("coordinator.patientProfile.options.resetPassword") },
+        { to: `${baseUrl}/archive`, icon: <ArchiveIcon />, text: t("coordinator.patientProfile.options.archive"), hide: patientProfileStore.isArchived },
+        { to: `${baseUrl}/add-appointment`, icon: <Event />, text: t('appointments.addAppointment') }
     ]
+
+    if (isDesktopView) {
+        return (
+            <Grid container justify="flex-end" className={classes.desktopButtons}>
+                {buttons.map(each => {
+                    if (each.hide) return;
+                    return <FlatButton to={each.to}>{each.icon}{each.text}</FlatButton>
+                })}
+            </Grid>
+        )
+    }
 
     return (<>
         <Grid alignItems='center' container>
@@ -54,11 +74,12 @@ const ButtonList = observer(() => {
             </Button>
         </Grid>
         <Box height=".5em" aria-hidden />
-        <NewButton onClick={buttons[0].onClick} className={classes.button} icon={buttons[0].icon} text={buttons[0].text} />
-        <Collapse  in={showActions}>
+        <NewButton to={buttons[0].to} className={classes.button} icon={buttons[0].icon} text={buttons[0].text} />
+        <Collapse in={showActions}>
             <div>
                 {buttons.splice(1).map(each => {
-                    return <NewButton onClick={each.onClick} className={classes.button} icon={each.icon} text={each.text} />
+                    if (each.hide) return;
+                    return <NewButton to={each.to} onClick={each.onClick} className={classes.button} icon={each.icon} text={each.text} />
                 })}
             </div>
         </Collapse>
