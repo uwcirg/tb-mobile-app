@@ -22,6 +22,7 @@ import PushActionReportingFlow from './ReportingFlows/PushActionReportingFlow';
 import Box from '@material-ui/core/Box';
 import RedoPhotoFlow from './ReportingFlows/AltPhotoFlows/RedoPhotoFlow';
 import isIndonesiaPilot from '../Utility/check-indonesia-flag';
+import AddApointment from '../Components/Shared/Appointments/AddAppointment';
 
 const PatientHome = observer(() => {
 
@@ -91,6 +92,10 @@ const PatientHome = observer(() => {
 
   if (uiStore.pathname.startsWith("/quick-report")) {
     return <PushActionReportingFlow />
+  }
+
+  if(uiStore.pathname.startsWith("/add-appointment")){
+    return <AddApointment />
   }
 
   return (

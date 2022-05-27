@@ -12,6 +12,7 @@ import RequiresAction from './MissedActions';
 import PushNotificationEnrollment from './PushEnrollmentReminder';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
   body: {
@@ -34,6 +35,7 @@ const HomePage = () => {
       <Box maxWidth="400px" padding="0 .75rem">
         <Greeting />
         <OneStepActions />
+        <Link to="/add-appointment">Add appointment</Link>
         <CachedReports />
         <RequiresAction />
         <VideoCard />
