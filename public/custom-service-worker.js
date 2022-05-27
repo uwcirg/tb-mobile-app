@@ -36,26 +36,29 @@ self.addEventListener('push', function (event) {
   const json = event.data.json();
   logNotificationDelivery(json.data.id);
 
+  const translationChannel = new BroadcastChannel('push-translation');
+  translationChannel.postMessage({ type: 'push-translation', json: json })
+
   if (json.data.type && json.data.type == "Messaging" && isBroadcastChannelSupported()) {
     //Send a message to the client to route to the proper state
     const channel = new BroadcastChannel('messaging-notification');
     channel.postMessage({ url: json.data.url });
   }
 
-  let options = {
-    body: json.body,
-    icon: 'logo.png',
-    badge: 'push-badge.png',
-    url: json.url,
-    click_action: json.url,
-    data: json.data
-  };
+  // let options = {
+  //   body: json.body,
+  //   icon: 'logo.png',
+  //   badge: 'push-badge.png',
+  //   url: json.url,
+  //   click_action: json.url,
+  //   data: json.data
+  // };
 
-  if(json.actions){
-      options.actions = json.actions
-  }
+  // if (json.actions) {
+  //   options.actions = json.actions
+  // }
 
-  event.waitUntil(self.registration.showNotification(json.title, options));
+  // event.waitUntil(self.registration.showNotification(json.title, options));
 });
 
 self.addEventListener('notificationclick', function (event) {
@@ -125,6 +128,7 @@ self.addEventListener('pushsubscriptionchange', function (event) {
 });
 
 self.addEventListener('message', (event) => {
+
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
   } else if (event.data && event.data.type === 'CHECK_WAITING') {
@@ -176,6 +180,36 @@ function callAnalyticsAPI(notificationId, body) {
 function getCurrentISODateTime() {
   const datetime = new Date();
   return datetime.toISOString();
+}
+
+if (isBroadcastChannelSupported()) {
+
+  console.log("message evnent")
+  const translationChannel = new BroadcastChannel('push-translation')
+  translationChannel.onmessage = (event) => {
+    if (event.data.type === 'push-translation') {
+
+      console.log("Got message event")
+
+      const { json } = event.data;
+
+      let options = {
+        body: json.body,
+        icon: 'logo.png',
+        badge: 'push-badge.png',
+        url: json.url,
+        click_action: json.url,
+        data: json.data
+      };
+
+      if (json.actions) {
+        options.actions = json.actions
+      }
+
+
+      event.waitUntil(self.registration.showNotification(event.data.string));
+    }
+  }
 }
 
 
