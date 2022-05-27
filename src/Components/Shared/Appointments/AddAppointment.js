@@ -17,23 +17,28 @@ const useStyles = makeStyles({
         display: "block",
         display: "flex"
     },
-    selectIcon:{
+    selectIcon: {
         top: "unset",
         right: ".5rem",
         fontSize: "2em",
+    },
+    createButton: {
+        fontSize: "1rem"
     }
 })
 
 
-export default function AddApointment() {
+export default function AddAppointment() {
 
-
+    const classes = useStyles();
     const [state, setState] = useState({
         category: "",
-        time: null
+        time: null,
+        note: ""
     })
 
     const history = useHistory();
+    const disableSubmit = !state.category;
 
     return (
         <PopOverV2 handleExit={() => { history.push("/") }} open topBarTitle={"Add Appointment"}>
@@ -44,12 +49,12 @@ export default function AddApointment() {
                     }} />
                 </Section>
                 <Section title="Add a note">
-                    <TextField variant='outlined' />
+                    <TextField value={state.note} onChange={(e) => { setState({ ...state, note: e.target.value }) }} placeholder='Type note here...' multiline fullWidth variant='outlined' />
                 </Section>
                 <Box height="16px" />
                 <Grid container>
                     <Box flexGrow={1} />
-                    <FlatButton>Create Appointment</FlatButton>
+                    <FlatButton disabled={disableSubmit} className={classes.createButton}>Create Appointment</FlatButton>
                 </Grid>
             </Box>
         </PopOverV2 >
