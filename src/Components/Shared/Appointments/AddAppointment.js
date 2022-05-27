@@ -11,6 +11,7 @@ import TimeDialog from '../../TimeDialog';
 import { DateTime } from 'luxon';
 import TimeInput from './TimeInput';
 import Colors from '../../../Basics/Colors';
+import DateFnsUtils from '@date-io/luxon';
 
 const useStyles = makeStyles({
     select: {
@@ -69,15 +70,16 @@ export default function AddAppointment() {
                 </Section>
 
                 <Section title="What day is the appointment?">
-
-                    {/* <DatePicker
-                    label={t('coordinator.patientProfile.date')}
-                    value={tempTime}
-                    onChange={handleDateTimeChange}
-                    animateYearScrolling
-                    disablePast
-                    handleAccept={handleAccept}
-                /> */}
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <DatePicker
+                            label={t('coordinator.patientProfile.date')}
+                            value={state.datetime}
+                            onChange={(e) => { console.log(e) }}
+                            animateYearScrolling
+                            disablePast
+                            handleAccept={() => { console.log("accept") }}
+                        />
+                    </MuiPickersUtilsProvider>
                 </Section>
 
                 <Section title="What time is the appointment?">
@@ -96,14 +98,19 @@ export default function AddAppointment() {
 }
 
 const Section = ({ title, children }) => {
-    return (<SectionCard>
+    return (
+    <>
+    <SectionCard>
         <Box padding="16px">
             <SectionTitle>{title}</SectionTitle>
             <Box padding="8px 0">
                 {children}
             </Box>
         </Box>
-    </SectionCard>)
+    </SectionCard>
+    <Box height="16px" />
+    </>
+    )
 }
 
 const SectionTitle = withStyles({
@@ -115,7 +122,7 @@ const SectionTitle = withStyles({
 
 const SectionCard = withStyles({
     root: {
-        boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.15)"
+        boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.15)",
     }
 })(Card)
 
