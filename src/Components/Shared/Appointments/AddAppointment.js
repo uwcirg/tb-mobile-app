@@ -10,6 +10,7 @@ import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import TimeDialog from '../../TimeDialog';
 import { DateTime } from 'luxon';
 import TimeInput from './TimeInput';
+import Colors from '../../../Basics/Colors';
 
 const useStyles = makeStyles({
     select: {
@@ -25,6 +26,7 @@ const useStyles = makeStyles({
         top: "unset",
         right: ".5rem",
         fontSize: "2em",
+        color: Colors.textDarkGray
     },
     createButton: {
         fontSize: "1rem"

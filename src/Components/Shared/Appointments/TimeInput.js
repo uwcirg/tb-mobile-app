@@ -41,7 +41,7 @@ export default function TimeInput({ value, setValue }) {
                 setValue={setTempValue}
                 closeDialog={toggleOpen}
                 handleAccept={handleAccept} />
-                <Box role='input' onClick={toggleOpen} padding="8px 16px" borderRadius="4px" border="solid 1px lightgray">
+                <Box role='input' onClick={toggleOpen} padding="8px 8px 8px 16px" borderRadius="4px" border="solid 1px lightgray">
                     <Grid alignItems='center' container>
                         <Typography>{DateTime.fromISO(value).toLocaleString(DateTime.TIME_24_SIMPLE)}</Typography>
                         <Box flexGrow={1} />
