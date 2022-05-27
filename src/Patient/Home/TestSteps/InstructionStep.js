@@ -1,7 +1,10 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { observer } from 'mobx-react';
+import testStripInstructions from '../../../Content/test-strip-instructions';
+import { useTranslation } from 'react-i18next';
 
+// When photos are ready, import from elsewhere
 const instructions = [
   {
     index: 1,
@@ -55,8 +58,9 @@ const useStyles = makeStyles({
   },
 });
 
-const Step = observer(({ currentStep }) => {
+const InstructionStep = observer(({ currentStep }) => {
   const classes = useStyles();
+  const { t, i18n } = useTranslation('translation');
 
   return (
     <div className={classes.body}>
@@ -66,10 +70,10 @@ const Step = observer(({ currentStep }) => {
         className={classes.space}
       />
       <p style={{ padding: '0 20px' }}>
-        {instructions[currentStep].description}
+        {t(`testStripStepperInstructions.${currentStep + 1}`)}
       </p>
     </div>
   );
 });
 
-export default Step;
+export default InstructionStep;

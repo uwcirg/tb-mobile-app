@@ -2,7 +2,7 @@ import React from 'react';
 import OverTopBar from '../../Navigation/OverTopBar';
 import useStores from '../../../Basics/UseStores';
 import { observer } from 'mobx-react';
-import Step from './Step';
+import InstructionStep from './InstructionStep';
 import {
   Box,
   Button,
@@ -48,7 +48,7 @@ const TestSteps = observer(() => {
           className={classes.body}
         />
         <Box height="60px" />
-        <Step currentStep={uiStore.step} />
+        <InstructionStep currentStep={uiStore.step} />
 
         {uiStore.step === 3 && <Countdown />}
 
