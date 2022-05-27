@@ -65,10 +65,8 @@ export default function AddAppointment() {
                 <Section title="Add a note">
                     <TextField value={state.note} onChange={(e) => { setState({ ...state, note: e.target.value }) }} placeholder='Type note here...' multiline fullWidth variant='outlined' />
                 </Section>
-                <Section title="What day is the appointment?">
-                    <button onClick={() => { setUiState({ ...uiState, showDatePicker: true }) }}>Select a date</button>
-                </Section>
 
+                <Section title="What day is the appointment?">
 
                     {/* <DatePicker
                     label={t('coordinator.patientProfile.date')}
@@ -78,9 +76,11 @@ export default function AddAppointment() {
                     disablePast
                     handleAccept={handleAccept}
                 /> */}
+                </Section>
 
-                <TimeInput value={state.datetime} setValue={(newValue) => {setState({...state, datetime: newValue})}} />
-
+                <Section title="What time is the appointment?">
+                    <TimeInput value={state.datetime} setValue={(newValue) => { setState({ ...state, datetime: newValue }) }} />
+                </Section>
 
 
                 <Box height="16px" />
