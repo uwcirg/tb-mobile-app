@@ -1,4 +1,4 @@
-import { Box, Typography, Card, withStyles, Select, MenuItem, TextField, Grid, makeStyles, InputBase } from '@material-ui/core';
+import { Box, Typography, Card, withStyles, Select, MenuItem, TextField, Grid, makeStyles, InputBase, Input } from '@material-ui/core';
 import React, { useState } from 'react';
 import PopOverV2 from '../PopOverV2';
 import { useHistory } from 'react-router-dom';
@@ -6,6 +6,10 @@ import ReminderMenu from '../../../Patient/Home/Reminder/ReminderMenu';
 import { useTranslation } from 'react-i18next';
 import { KeyboardArrowDown } from '@material-ui/icons';
 import FlatButton from '../../FlatButton';
+import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import TimeDialog from '../../TimeDialog';
+import { DateTime } from 'luxon';
+import TimeInput from './TimeInput';
 
 const useStyles = makeStyles({
     select: {
@@ -30,11 +34,21 @@ const useStyles = makeStyles({
 
 export default function AddAppointment() {
 
+    const { t } = useTranslation('translation');
+
     const classes = useStyles();
+
     const [state, setState] = useState({
         category: "",
         time: null,
-        note: ""
+        note: "",
+        datetime: DateTime.local().toISO(),
+        tempDatetime: DateTime.local().toISO()
+    })
+
+    const [uiState, setUiState] = useState({
+        showDatePicker: false,
+        showTimePicker: false
     })
 
     const history = useHistory();
@@ -51,6 +65,24 @@ export default function AddAppointment() {
                 <Section title="Add a note">
                     <TextField value={state.note} onChange={(e) => { setState({ ...state, note: e.target.value }) }} placeholder='Type note here...' multiline fullWidth variant='outlined' />
                 </Section>
+                <Section title="What day is the appointment?">
+                    <button onClick={() => { setUiState({ ...uiState, showDatePicker: true }) }}>Select a date</button>
+                </Section>
+
+
+                    {/* <DatePicker
+                    label={t('coordinator.patientProfile.date')}
+                    value={tempTime}
+                    onChange={handleDateTimeChange}
+                    animateYearScrolling
+                    disablePast
+                    handleAccept={handleAccept}
+                /> */}
+
+                <TimeInput value={state.datetime} setValue={(newValue) => {setState({...state, datetime: newValue})}} />
+
+
+
                 <Box height="16px" />
                 <Grid container>
                     <Box flexGrow={1} />
