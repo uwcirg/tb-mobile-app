@@ -65,12 +65,14 @@ const InstructionStep = observer(({ currentStep }) => {
   return (
     <div className={classes.body}>
       <img
+        // placeholder for now until images are uploaded into their folders
         src={instructions[currentStep].img}
+        // src={`${t('testStripInstructions.imgFolder')}/${currentStep + 1}.png`}
         alt={`step # ${currentStep}`}
         className={classes.space}
       />
       <p style={{ padding: '0 20px' }}>
-        {t(`testStripStepperInstructions.${currentStep + 1}`)}
+        {t(testStripInstructions[currentStep])}
       </p>
     </div>
   );

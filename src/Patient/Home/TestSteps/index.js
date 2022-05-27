@@ -13,11 +13,13 @@ import {
 import { useTranslation } from 'react-i18next';
 import SimpleButton from '../../../Basics/SimpleButton';
 import Countdown from './Countdown';
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import ChevronRight from '@material-ui/icons/ChevronRight';
 
 const useStyles = makeStyles({
   body: {
     width: '100%',
-    minHeight: '90vh',
+    minHeight: '95vh',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
@@ -32,6 +34,7 @@ const useStyles = makeStyles({
   big: {
     fontSize: '5rem',
   },
+  step: { maxWidth: '400px' },
 });
 
 const TestSteps = observer(() => {
@@ -41,23 +44,24 @@ const TestSteps = observer(() => {
 
   return (
     <>
-      <div className={classes.body}>
+      <Box className={classes.body}>
         <OverTopBar
           title="Test Instructions"
           handleBack={patientUIStore.goToHome}
           className={classes.body}
         />
         <Box height="60px" />
-        <InstructionStep currentStep={uiStore.step} />
+        <InstructionStep className="step" currentStep={uiStore.step} />
 
         {uiStore.step === 3 && <Countdown />}
 
         <div className={classes.spaced}>
           <SimpleButton
-            children="<<"
+            children={<ChevronLeft />}
             onClick={uiStore.prevStep}
             disabled={uiStore.step === 0 ? true : false}
           />
+
           <MobileStepper
             steps={6}
             variant="dots"
@@ -65,12 +69,12 @@ const TestSteps = observer(() => {
             activeStep={uiStore.step}
           />
           <SimpleButton
-            children=">>"
+            children={<ChevronRight fontSize="default" />}
             onClick={uiStore.nextStep}
             disabled={uiStore.step >= 5 ? true : false}
           />
         </div>
-      </div>
+      </Box>
     </>
   );
 });
