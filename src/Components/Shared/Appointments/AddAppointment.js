@@ -1,17 +1,14 @@
-import { Box, Typography, Card, withStyles, Select, MenuItem, TextField, Grid, makeStyles, InputBase, Input } from '@material-ui/core';
+import { Box, Typography, Card, withStyles, Select, MenuItem, TextField, Grid, makeStyles } from '@material-ui/core';
 import React, { useState } from 'react';
 import PopOverV2 from '../PopOverV2';
 import { useHistory } from 'react-router-dom';
-import ReminderMenu from '../../../Patient/Home/Reminder/ReminderMenu';
 import { useTranslation } from 'react-i18next';
 import { KeyboardArrowDown } from '@material-ui/icons';
 import FlatButton from '../../FlatButton';
-import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
-import TimeDialog from '../../TimeDialog';
-import { DateTime } from 'luxon';
 import TimeInput from './TimeInput';
 import Colors from '../../../Basics/Colors';
-import DateFnsUtils from '@date-io/luxon';
+import DateInput from './DateInput';
+import { DateTime } from 'luxon';
 
 const useStyles = makeStyles({
     select: {
@@ -49,18 +46,23 @@ export default function AddAppointment() {
         tempDatetime: DateTime.local().toISO()
     })
 
-    const [uiState, setUiState] = useState({
-        showDatePicker: false,
-        showTimePicker: false
-    })
-
     const history = useHistory();
     const disableSubmit = !state.category;
+
+    const handleDateChange = (dt) => {
+        const tempDT = dt.set({ hour: state.datetime.hour, minute: state.datetime.minute }).startOf('minute')
+        setState({ ...state, datetime: tempDT.toISO() })
+    }
+
+    const handleTimeChange = (newTime) => {
+        const tempDT = DateTime.fromISO(state.datetime).set({ hour: newTime.hour, minute: newTime.minute }).startOf('minute')
+        setState({ ...state, datetime: tempDT.toISO() })
+    }
 
     return (
         <PopOverV2 handleExit={() => { history.push("/") }} open topBarTitle={"Add Appointment"}>
             <Box padding="16px 8px">
-                <Section title='What type of appointment is this?'>
+                <Section title={t('appointments.typeQuestion')}>
                     <TypeSelect value={state.category} handleChange={(value) => {
                         setState({ ...state, category: value })
                     }} />
@@ -69,47 +71,37 @@ export default function AddAppointment() {
                     <TextField value={state.note} onChange={(e) => { setState({ ...state, note: e.target.value }) }} placeholder='Type note here...' multiline fullWidth variant='outlined' />
                 </Section>
 
-                <Section title="What day is the appointment?">
-                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                        <DatePicker
-                            label={t('coordinator.patientProfile.date')}
-                            value={state.datetime}
-                            onChange={(e) => { console.log(e) }}
-                            animateYearScrolling
-                            disablePast
-                            handleAccept={() => { console.log("accept") }}
-                        />
-                    </MuiPickersUtilsProvider>
+                <Section title={t('appointments.whatDay')}>
+                    <DateInput value={state.datetime} setValue={handleDateChange} />
                 </Section>
 
                 <Section title="What time is the appointment?">
-                    <TimeInput value={state.datetime} setValue={(newValue) => { setState({ ...state, datetime: newValue }) }} />
+                    <TimeInput value={state.datetime} setValue={handleTimeChange} />
                 </Section>
-
-
                 <Box height="16px" />
                 <Grid container>
                     <Box flexGrow={1} />
                     <FlatButton disabled={disableSubmit} className={classes.createButton}>Create Appointment</FlatButton>
                 </Grid>
             </Box>
+            <Box height="2rem" aria-hidden />
         </PopOverV2 >
     )
 }
 
 const Section = ({ title, children }) => {
     return (
-    <>
-    <SectionCard>
-        <Box padding="16px">
-            <SectionTitle>{title}</SectionTitle>
-            <Box padding="8px 0">
-                {children}
-            </Box>
-        </Box>
-    </SectionCard>
-    <Box height="16px" />
-    </>
+        <>
+            <SectionCard>
+                <Box padding="16px">
+                    <SectionTitle>{title}</SectionTitle>
+                    <Box padding="8px 0">
+                        {children}
+                    </Box>
+                </Box>
+            </SectionCard>
+            <Box height="16px" />
+        </>
     )
 }
 
