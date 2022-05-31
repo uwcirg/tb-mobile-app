@@ -1,5 +1,5 @@
 import React from 'react';
-import TimeDialog from "../../TimeDialog";
+import TimeDialog from "../../../TimeDialog";
 import { useTranslation } from 'react-i18next';
 import { useState } from "react";
 import { DateTime } from "luxon";

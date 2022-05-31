@@ -22,7 +22,7 @@ import PushActionReportingFlow from './ReportingFlows/PushActionReportingFlow';
 import Box from '@material-ui/core/Box';
 import RedoPhotoFlow from './ReportingFlows/AltPhotoFlows/RedoPhotoFlow';
 import isIndonesiaPilot from '../Utility/check-indonesia-flag';
-import AddApointment from '../Components/Shared/Appointments/AddAppointment';
+import AddApointment from '../Components/Shared/Appointments/AddAppointment/';
 
 const PatientHome = observer(() => {
 

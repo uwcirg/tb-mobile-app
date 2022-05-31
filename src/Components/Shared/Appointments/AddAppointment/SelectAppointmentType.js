@@ -2,7 +2,7 @@ import React from 'react';
 import { Select, MenuItem, makeStyles } from '@material-ui/core';
 import { KeyboardArrowDown } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import Colors from '../../../Basics/Colors';
+import Colors from '../../../../Basics/Colors';
 
 const useStyles = makeStyles({
     select: {
@@ -21,8 +21,6 @@ const useStyles = makeStyles({
         color: Colors.textDarkGray
     }
 })
-
-
 
 const SelectAppointmentType = ({ value, handleChange }) => {
 

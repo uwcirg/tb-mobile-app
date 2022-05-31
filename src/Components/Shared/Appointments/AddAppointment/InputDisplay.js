@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Grid, Typography } from "@material-ui/core";
 import { KeyboardArrowDown } from '@material-ui/icons';
-import Colors from '../../../Basics/Colors';
+import Colors from '../../../../Basics/Colors';
 
 export default function InputDisplay(props) {
 

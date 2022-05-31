@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import PopOverV2 from '../PopOverV2';
+import PopOverV2 from '../../PopOverV2';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Box, TextField, Grid, makeStyles } from '@material-ui/core';
-import FlatButton from '../../FlatButton';
+import FlatButton from '../../../FlatButton';
 import TimeInput from './TimeInput';
-import Colors from '../../../Basics/Colors';
 import DateInput from './DateInput';
 import { DateTime } from 'luxon';
 import Section from './InputCard'
@@ -17,20 +16,11 @@ const useStyles = makeStyles({
     }
 })
 
-
-export default function AddAppointment() {
+export default function Form({state,setState}) {
 
     const { t } = useTranslation('translation');
 
     const classes = useStyles();
-
-    const [state, setState] = useState({
-        category: "",
-        time: null,
-        note: "",
-        datetime: DateTime.local().toISO(),
-        tempDatetime: DateTime.local().toISO()
-    })
 
     const history = useHistory();
     const disableSubmit = !state.category;
