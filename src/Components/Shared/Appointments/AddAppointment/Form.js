@@ -16,7 +16,7 @@ const useStyles = makeStyles({
     }
 })
 
-export default function Form({state,setState}) {
+export default function Form({ state, setState, handleSubmit }) {
 
     const { t } = useTranslation('translation');
 
@@ -36,35 +36,33 @@ export default function Form({state,setState}) {
     }
 
     return (
-        <PopOverV2 handleExit={() => { history.push("/") }} open topBarTitle={t('appointments.addAppointment')}>
-            <Box padding="16px 8px">
-                <Section title={t('appointments.typeQuestion')}>
-                    <SelectAppointmentType value={state.category} handleChange={(value) => {
-                        setState({ ...state, category: value })
-                    }} />
-                </Section>
-                <Section title={t('coordinator.patientProfile.options.note')}>
-                    <TextField
-                        value={state.note}
-                        onChange={(e) => { setState({ ...state, note: e.target.value }) }}
-                        placeholder={t('appointments.typeNote') + '...'}
-                        multiline fullWidth variant='outlined' />
-                </Section>
+        <Box padding="16px 8px">
+            <Section title={t('appointments.typeQuestion')}>
+                <SelectAppointmentType value={state.category} handleChange={(value) => {
+                    setState({ ...state, category: value })
+                }} />
+            </Section>
+            <Section title={t('coordinator.patientProfile.options.note')}>
+                <TextField
+                    value={state.note}
+                    onChange={(e) => { setState({ ...state, note: e.target.value }) }}
+                    placeholder={t('appointments.typeNote') + '...'}
+                    multiline fullWidth variant='outlined' />
+            </Section>
 
-                <Section title={t('appointments.whatDay')}>
-                    <DateInput value={state.datetime} setValue={handleDateChange} />
-                </Section>
+            <Section title={t('appointments.whatDay')}>
+                <DateInput value={state.datetime} setValue={handleDateChange} />
+            </Section>
 
-                <Section title={t('appointments.whatTime')}>
-                    <TimeInput value={state.datetime} setValue={handleTimeChange} />
-                </Section>
-                <Box height="16px" />
-                <Grid container>
-                    <Box flexGrow={1} />
-                    <FlatButton disabled={disableSubmit} className={classes.createButton}>{t('appointments.createAppointment')}</FlatButton>
-                </Grid>
-            </Box>
+            <Section title={t('appointments.whatTime')}>
+                <TimeInput value={state.datetime} setValue={handleTimeChange} />
+            </Section>
+            <Box height="16px" />
+            <Grid container>
+                <Box flexGrow={1} />
+                <FlatButton disabled={disableSubmit} onClick={handleSubmit} className={classes.createButton}>{t('appointments.createAppointment')}</FlatButton>
+            </Grid>
             <Box height="2rem" aria-hidden />
-        </PopOverV2 >
+        </Box>
     )
 }
