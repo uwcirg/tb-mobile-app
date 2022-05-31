@@ -854,8 +854,12 @@
         "flags": "Flags"
     },
     "appointments": {
+        "typeNote": "Type note here",
+        "createAppointment": "Create Appointment",
         "noUpcoming": "No Upcoming Appointments",
         "whatDay": "What day is the appointment?",
+        "whatTime": "What time is the appointment?",
+        "select": "Select an appointment type",
         "typeQuestion": "What type of appointment would you like to add?",
         "selectDate": "Select a date and time",
         "addAppointment": "Add Appointment",

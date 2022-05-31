@@ -1,8 +1,8 @@
-import { Box, Typography, Card, withStyles, Select, MenuItem, TextField, Grid, makeStyles } from '@material-ui/core';
 import React, { useState } from 'react';
 import PopOverV2 from '../PopOverV2';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Box, Typography, Card, withStyles, Select, MenuItem, TextField, Grid, makeStyles } from '@material-ui/core';
 import { KeyboardArrowDown } from '@material-ui/icons';
 import FlatButton from '../../FlatButton';
 import TimeInput from './TimeInput';
@@ -60,28 +60,32 @@ export default function AddAppointment() {
     }
 
     return (
-        <PopOverV2 handleExit={() => { history.push("/") }} open topBarTitle={"Add Appointment"}>
+        <PopOverV2 handleExit={() => { history.push("/") }} open topBarTitle={t('appointments.addAppointment')}>
             <Box padding="16px 8px">
                 <Section title={t('appointments.typeQuestion')}>
                     <TypeSelect value={state.category} handleChange={(value) => {
                         setState({ ...state, category: value })
                     }} />
                 </Section>
-                <Section title="Add a note">
-                    <TextField value={state.note} onChange={(e) => { setState({ ...state, note: e.target.value }) }} placeholder='Type note here...' multiline fullWidth variant='outlined' />
+                <Section title={t('coordinator.patientProfile.options.note')}>
+                    <TextField
+                        value={state.note}
+                        onChange={(e) => { setState({ ...state, note: e.target.value }) }}
+                        placeholder={t('appointments.typeNote') + '...'}
+                        multiline fullWidth variant='outlined' />
                 </Section>
 
                 <Section title={t('appointments.whatDay')}>
                     <DateInput value={state.datetime} setValue={handleDateChange} />
                 </Section>
 
-                <Section title="What time is the appointment?">
+                <Section title={t('appointments.whatTime')}>
                     <TimeInput value={state.datetime} setValue={handleTimeChange} />
                 </Section>
                 <Box height="16px" />
                 <Grid container>
                     <Box flexGrow={1} />
-                    <FlatButton disabled={disableSubmit} className={classes.createButton}>Create Appointment</FlatButton>
+                    <FlatButton disabled={disableSubmit} className={classes.createButton}>{t('appointments.createAppointment')}</FlatButton>
                 </Grid>
             </Box>
             <Box height="2rem" aria-hidden />
@@ -138,7 +142,7 @@ const TypeSelect = ({ value, handleChange }) => {
             id="appointment-type"
             value={value}
             onChange={(e) => { handleChange(e.target.value) }}>
-            <MenuItem value="" disabled>Select an appointment type</MenuItem>
+            <MenuItem value="" disabled>{t('appointments.select')}</MenuItem>
             {categories.map((each) => <MenuItem key={`category-${each}`} value={each}>{t(`appointments.types.${each}`)}</MenuItem>)}
         </Select>
     )
