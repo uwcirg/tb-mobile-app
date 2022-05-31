@@ -2,30 +2,16 @@ import React, { useState } from 'react';
 import PopOverV2 from '../PopOverV2';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Box, Typography, Card, withStyles, Select, MenuItem, TextField, Grid, makeStyles } from '@material-ui/core';
-import { KeyboardArrowDown } from '@material-ui/icons';
+import { Box, TextField, Grid, makeStyles } from '@material-ui/core';
 import FlatButton from '../../FlatButton';
 import TimeInput from './TimeInput';
 import Colors from '../../../Basics/Colors';
 import DateInput from './DateInput';
 import { DateTime } from 'luxon';
+import Section from './InputCard'
+import SelectAppointmentType from './SelectAppointmentType';
 
 const useStyles = makeStyles({
-    select: {
-        padding: "16px"
-    },
-    selectRoot: {
-        border: "none",
-        width: "100%",
-        display: "block",
-        display: "flex"
-    },
-    selectIcon: {
-        top: "unset",
-        right: ".5rem",
-        fontSize: "2em",
-        color: Colors.textDarkGray
-    },
     createButton: {
         fontSize: "1rem"
     }
@@ -63,7 +49,7 @@ export default function AddAppointment() {
         <PopOverV2 handleExit={() => { history.push("/") }} open topBarTitle={t('appointments.addAppointment')}>
             <Box padding="16px 8px">
                 <Section title={t('appointments.typeQuestion')}>
-                    <TypeSelect value={state.category} handleChange={(value) => {
+                    <SelectAppointmentType value={state.category} handleChange={(value) => {
                         setState({ ...state, category: value })
                     }} />
                 </Section>
@@ -90,60 +76,5 @@ export default function AddAppointment() {
             </Box>
             <Box height="2rem" aria-hidden />
         </PopOverV2 >
-    )
-}
-
-const Section = ({ title, children }) => {
-    return (
-        <>
-            <SectionCard>
-                <Box padding="16px">
-                    <SectionTitle>{title}</SectionTitle>
-                    <Box padding="8px 0">
-                        {children}
-                    </Box>
-                </Box>
-            </SectionCard>
-            <Box height="16px" />
-        </>
-    )
-}
-
-const SectionTitle = withStyles({
-    root: {
-        fontSize: "1.125rem",
-        fontWeight: "bold"
-    }
-})(Typography)
-
-const SectionCard = withStyles({
-    root: {
-        boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.15)",
-    }
-})(Card)
-
-const TypeSelect = ({ value, handleChange }) => {
-
-    const { t } = useTranslation('translation');
-    const classes = useStyles();
-    const categories = Object.keys(t('appointments.types', { returnObjects: true }));
-
-    return (
-        <Select
-            displayEmpty
-            variant='outlined'
-            className={classes.selectRoot}
-            classes={{
-                outlined: classes.select,
-                icon: classes.selectIcon
-            }}
-            IconComponent={KeyboardArrowDown}
-            labelId="select-appointment-type"
-            id="appointment-type"
-            value={value}
-            onChange={(e) => { handleChange(e.target.value) }}>
-            <MenuItem value="" disabled>{t('appointments.select')}</MenuItem>
-            {categories.map((each) => <MenuItem key={`category-${each}`} value={each}>{t(`appointments.types.${each}`)}</MenuItem>)}
-        </Select>
     )
 }
