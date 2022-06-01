@@ -35,7 +35,6 @@ const HomePage = () => {
       <Box maxWidth="400px" padding="0 .75rem">
         <Greeting />
         <OneStepActions />
-        <Link to="/add-appointment">Add appointment</Link>
         <CachedReports />
         <RequiresAction />
         <VideoCard />

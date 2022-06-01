@@ -11,6 +11,9 @@ import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
 import AddReminder from './Reminder/index'
 import EventIcon from '@material-ui/icons/Event';
+import NewButton from '../../Basics/NewButton';
+import { Event } from '@material-ui/icons';
+import { Box } from '@material-ui/core';
 
 const useStyles = makeStyles({
     header: { fontSize: "1em", fontWeight: "bold", textAlign: "left", width: "100%", paddingLeft: "1em" },
@@ -42,15 +45,15 @@ const useStyles = makeStyles({
         boxShadow: "none",
         marginLeft: ".5em"
     },
-    reminderTitle:{
+    reminderTitle: {
         display: "flex",
         width: "100%",
         justifyContent: "space-between",
-        "& > button":{
+        "& > button": {
             flexBasis: "50%"
         }
     },
-    noUpcoming:{
+    noUpcoming: {
         width: "100%",
         textAlign: "center"
     }
@@ -73,12 +76,12 @@ const Card = observer(() => {
 
     const classes = useStyles();
     const { t } = useTranslation('translation');
-    const { patientStore, reminderStore, patientUIStore,uiStore } = useStores();
+    const { patientStore, reminderStore, patientUIStore, uiStore } = useStores();
     const [showAll, setShowAll] = useState(false);
 
     useEffect(() => {
-        if(patientStore.userID){
-             reminderStore.getReminders(patientStore.userID)
+        if (patientStore.userID) {
+            reminderStore.getReminders(patientStore.userID)
         }
     }, [patientStore.userID])
 
@@ -93,16 +96,15 @@ const Card = observer(() => {
 
         <div className={classes.upcoming}>
             <div className={classes.reminderTitle}>
-                {reminderStore.reminders && reminderStore.reminders.length > 0 && <ClickableText hideIcon text={!showAll ? t('appointments.showAll') : t('appointments.showLess')}  onClick={() => { setShowAll(!showAll) }}></ClickableText>}
+                {reminderStore.reminders && reminderStore.reminders.length > 0 && <ClickableText hideIcon text={!showAll ? t('appointments.showAll') : t('appointments.showLess')} onClick={() => { setShowAll(!showAll) }}></ClickableText>}
             </div>
             <div className={classes.reminder}>
                 {showAll ? <RemindersList /> :
                     <>{reminderStore.reminders && reminderStore.reminders.length > 0 ? <ReminderItem reminder={reminderStore.reminders[0]} /> : <p className={classes.noUpcoming}>{t('appointments.noUpcoming')}</p>}</>}
             </div>
-            <div className={classes.addContainer}>
-                <p>{t('appointments.addAppointment')}</p>
-                <Fab onClick={patientUIStore.goToAddReminder} className={classes.add}><AddIcon /></Fab>
-            </div>
+            <Box padding=".5em">
+                <NewButton to={"/add-appointment"} icon={<Event />} text={t('appointments.addAppointment')} />
+            </Box>
         </div>
     </InteractionCard>)
 })
