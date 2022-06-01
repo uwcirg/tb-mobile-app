@@ -14,6 +14,7 @@ import EventIcon from '@material-ui/icons/Event';
 import NewButton from '../../Basics/NewButton';
 import { Event } from '@material-ui/icons';
 import { Box } from '@material-ui/core';
+import { DateTime } from 'luxon';
 
 const useStyles = makeStyles({
     header: { fontSize: "1em", fontWeight: "bold", textAlign: "left", width: "100%", paddingLeft: "1em" },
@@ -92,15 +93,18 @@ const Card = observer(() => {
         }
     }, [reminderStore.deleteSuccess])
 
+    const futureReminders = reminderStore.reminders.filter( each => { 
+        return DateTime.fromISO(each.datetime).diff(DateTime.local().startOf('day'),'days').days > 0 })
+
     return (<InteractionCard upperText={<><EventIcon />{t('patient.reminders.appointments').split(" ")[0]}</>} id="intro-reminders-card">
 
         <div className={classes.upcoming}>
             <div className={classes.reminderTitle}>
-                {reminderStore.reminders && reminderStore.reminders.length > 0 && <ClickableText hideIcon text={!showAll ? t('appointments.showAll') : t('appointments.showLess')} onClick={() => { setShowAll(!showAll) }}></ClickableText>}
+                {futureReminders && futureReminders.length > 0 && <ClickableText hideIcon text={!showAll ? t('appointments.showAll') : t('appointments.showLess')} onClick={() => { setShowAll(!showAll) }}></ClickableText>}
             </div>
             <div className={classes.reminder}>
                 {showAll ? <RemindersList /> :
-                    <>{reminderStore.reminders && reminderStore.reminders.length > 0 ? <ReminderItem reminder={reminderStore.reminders[0]} /> : <p className={classes.noUpcoming}>{t('appointments.noUpcoming')}</p>}</>}
+                    <>{futureReminders && futureReminders.length > 0 ? <ReminderItem reminder={futureReminders[0]} /> : <p className={classes.noUpcoming}>{t('appointments.noUpcoming')}</p>}</>}
             </div>
             <Box padding=".5em">
                 <NewButton to={"/add-appointment"} icon={<Event />} text={t('appointments.addAppointment')} />

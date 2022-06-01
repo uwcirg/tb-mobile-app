@@ -2,10 +2,6 @@ import { action, observable, computed } from "mobx";
 import APIStore from './apiStore'
 import { DateTime } from "luxon";
 
-const ROUTES = {
-    addPatient: ["/patient", "POST"]
-}
-
 const initalizeReport = {
     category: "check_in",
     otherCategory: "",
@@ -25,7 +21,7 @@ export default class ReminderStore extends APIStore {
     @observable newReminder = initalizeReport;
 
     constructor(strategy) {
-        super(strategy, ROUTES);
+        super(strategy);
     }
 
     @action setCategory = (category) => {
