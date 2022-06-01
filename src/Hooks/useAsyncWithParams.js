@@ -1,5 +1,6 @@
 /**
- * Idea for implementation taken from https://stackoverflow.com/questions/56450975/to-fix-cancel-all-subscriptions-and-asynchronous-tasks-in-a-useeffect-cleanup-f
+ * Some ideas about this implementation taken from 
+ * https://stackoverflow.com/questions/56450975/to-fix-cancel-all-subscriptions-and-asynchronous-tasks-in-a-useeffect-cleanup-f
  */
 
 /**
@@ -23,18 +24,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react"
 
-const initialProps = {
 
-}
-
-
-const useAsyncV2 = (props = initialProps) => {
-    const {
-        asyncFunc, immediate, funcParams, initialData
-    } = {
-        ...initialProps,
-        ...props
-    }
+const useAsyncWithParams = ({asyncFunc, immediate, funcParams, initialData}) => {
 
     const [status, setStatus] = useState("idle");
     const [value, setValue] = useState(initialData)
@@ -75,4 +66,4 @@ const useAsyncV2 = (props = initialProps) => {
     }
 }
 
-export default useAsyncV2;
+export default useAsyncWithParams;

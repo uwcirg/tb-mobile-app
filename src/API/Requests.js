@@ -72,7 +72,7 @@ export default class APIHelper {
 
     checkAuth(response) {
         if (response && (response.status === 401) && !response.isLogin) {
-            this.uiStore.setAuthError();
+            // this.uiStore.setAuthError();
         }
     }
 

@@ -1,13 +1,11 @@
 import { DateTime } from 'luxon';
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import SharedAPI from '../../../../API/SharedAPI';
-import useAsync from '../../../../Hooks/useAsync';
 import TopPageLabel from '../../TopPageLabel';
 import Form from './Form';
 import { useTranslation } from 'react-i18next';
-import Loading from '../../../../Practitioner/Shared/CardLoading';
 import { Box } from '@material-ui/core';
-import useAsyncV2 from '../../../../Hooks/useAsyncV2';
+import useAsync from '../../../../Hooks/useAsyncWithParams';
 
 export default function AddAppointment({ patientId }) {
 
@@ -22,7 +20,7 @@ export default function AddAppointment({ patientId }) {
     })
 
 
-    const { execute, status, value, error} = useAsyncV2({
+    const { execute, status, value, error} = useAsync({
         asyncFunc: SharedAPI.addAppointment,
         immediate: false,
         funcParams: [patientId, state ]
