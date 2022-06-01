@@ -48,11 +48,6 @@ const authenticatedRequest = (url, method, body, options) => {
     return fetch(`${baseURL}${url}`, requestOptions)
         .then(resolve => {
             requestStatus = resolve.status;
-            //Default Error Handling, or use options.allowErrors to accept the returned body of error from server
-            if (resolve.status >= 400 && (!options || options.allowErrors === false)) {
-            return new Error(resolve.status);
-
-            }
             return resolve.json()
         })
         .then(json => {
@@ -72,7 +67,7 @@ export default class APIHelper {
 
     checkAuth(response) {
         if (response && (response.status === 401) && !response.isLogin) {
-            // this.uiStore.setAuthError();
+            this.uiStore.setAuthError();
         }
     }
 
