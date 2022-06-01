@@ -17,9 +17,7 @@ import ReportingHistoryLinks from '../../../Components/Shared/ReportingHistoryLi
 import SectionTitle from './SectionTitle';
 import PhotoAdherence from '../PhotoAdherence';
 import MedicationAdherence from '../MedicationAdherence';
-
 import { useTranslation } from 'react-i18next';
-import SymptomSummary from '../SymptomSummary';
 
 const useStyles = makeStyles({
     card: {
