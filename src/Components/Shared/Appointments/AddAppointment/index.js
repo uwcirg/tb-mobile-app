@@ -1,10 +1,13 @@
 import { DateTime } from 'luxon';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import SharedAPI from '../../../../API/SharedAPI';
 import useAsync from '../../../../Hooks/useAsync';
 import TopPageLabel from '../../TopPageLabel';
 import Form from './Form';
 import { useTranslation } from 'react-i18next';
+import Loading from '../../../../Practitioner/Shared/CardLoading';
+import { Box } from '@material-ui/core';
+import useAsyncV2 from '../../../../Hooks/useAsyncV2';
 
 export default function AddAppointment({ patientId }) {
 
@@ -18,18 +21,24 @@ export default function AddAppointment({ patientId }) {
         tempDatetime: DateTime.local().toISO()
     })
 
-    const createAppointment = async () => {
-        return SharedAPI.addAppointment(patientId, state);
-    }
 
-    const { execute, value, error, status } = useAsync(createAppointment, false)
-
+    const { execute, status, value, error} = useAsyncV2({
+        asyncFunc: SharedAPI.addAppointment,
+        immediate: false,
+        funcParams: [patientId, state ]
+    })
 
     return (
 
         <>
             <TopPageLabel sticky title={t('appointments.addAppointment')} />
-            <Form state={state} setState={setState} handleSubmit={execute} />
+            <p>Status: {status}</p>
+            {error && <p>Error: {error.status}</p>}
+            {status === "idle" && <Form state={state} setState={setState} handleSubmit={execute} />}
+            {status === "loading" && <p>Loading</p>}
+            {value && <Box paddingTop="10rem">
+                <p>Succesfully added</p>
+            </Box>}
         </>
     )
 }

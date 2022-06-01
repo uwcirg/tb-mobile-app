@@ -1,6 +1,8 @@
 import APIHelper from "./Requests";
 
-const { executeRawRequest: request } = new APIHelper();
+const api = new APIHelper();
+
+const { request } = api;
 
 export default class SharedAPI {
 

@@ -95,7 +95,7 @@ const PatientHome = observer(() => {
   }
 
   if(uiStore.pathname.startsWith("/add-appointment")){
-    return <AddApointment />
+    return <AddApointment patientId={patientStore.userID} />
   }
 
   return (
