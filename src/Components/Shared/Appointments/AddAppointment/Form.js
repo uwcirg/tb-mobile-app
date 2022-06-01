@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import PopOverV2 from '../../PopOverV2';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Box, TextField, Grid, makeStyles } from '@material-ui/core';

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Box, ButtonBase, Grid, InputBase, Typography } from "@material-ui/core";
+import React from 'react';
+import { Box, ButtonBase, Grid, Typography } from "@material-ui/core";
 import { KeyboardArrowDown } from '@material-ui/icons';
 import Colors from '../../../../Basics/Colors';
 
