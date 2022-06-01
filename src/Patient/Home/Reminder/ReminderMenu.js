@@ -16,7 +16,7 @@ const useStyles = makeStyles({
     }
 })
 
-const SimpleMenu = observer((props) => {
+const ReminderMenu = observer((props) => {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const patientID = useStores().patientStore.userID;
@@ -54,4 +54,4 @@ const SimpleMenu = observer((props) => {
     );
 })
 
-export default SimpleMenu;
+export default ReminderMenu;

@@ -4,8 +4,6 @@ import React, { useState, useEffect, useCallback } from "react";
 
 const useAsync = (asyncFunction, immediate = true, initalValue = null) => {
 
-  let unmounted = false;
-
   const [status, setStatus] = useState("idle");
   const [value, setValue] = useState(initalValue);
   const [error, setError] = useState(null);
@@ -19,16 +17,12 @@ const useAsync = (asyncFunction, immediate = true, initalValue = null) => {
     setError(null);
     return asyncFunction()
       .then((response) => {
-        if (!unmounted) {
           setValue(response);
           setStatus("success");
-        }
       })
       .catch((error) => {
-        if (!unmounted) {
           setError(error);
           setStatus("error");
-        }
       });
   }, [asyncFunction]);
   // Call execute if we want to fire it right away.
@@ -37,9 +31,6 @@ const useAsync = (asyncFunction, immediate = true, initalValue = null) => {
   useEffect(() => {
     if (immediate) {
       execute();
-    }
-    return function cleanup() {
-      unmounted = true;
     }
   }, [execute, immediate]);
   return { execute, status, value, error, setValue };

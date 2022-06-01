@@ -10,7 +10,8 @@ import { Link } from 'react-router-dom';
 const useStyles = makeStyles({
     button: {
         ...Styles.buttonBase,
-        border: `1px solid ${Colors.buttonBlue}`,
+        borderRadius: "5px",
+        border: `1.5px solid ${Colors.buttonBlue}`,
         color: Colors.buttonBlue,
         display: "flex",
         justifyContent: "flex-start",
