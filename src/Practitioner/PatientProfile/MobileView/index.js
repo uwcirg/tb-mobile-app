@@ -61,7 +61,7 @@ const MobileView = observer(() => {
 
     const { t } = useTranslation('translation');
     const { patientProfileStore } = useStores();
-    const { fullName, lastReport, weeksInTreatment, priority, id } = patientProfileStore.selectedPatient.details
+    const { fullName, lastReport, weeksInTreatment, priority, id, nextReminder } = patientProfileStore.selectedPatient.details
     const daysAgo = !!lastReport ? Math.round(DateTime.fromISO(lastReport.createdAt).diffNow('days').days) * -1 : t('coordinator.tasksSidebar.noneYet')
 
     return (
@@ -92,6 +92,13 @@ const MobileView = observer(() => {
                         <Box width={"8px"} />
                         <Box flexGrow={1} />
                         <Label text={`Week ${weeksInTreatment} / 26`} backgroundColor={Colors.accentBlue} />
+                    </Grid>
+                    <Box height={"5px"} />
+                    <Grid container>
+                        <Typography>Next Appointment:</Typography>
+                        <Box width={"8px"} />
+                        <Box flexGrow={1} />
+                        {nextReminder ? <Label text={DateTime.fromISO(nextReminder.datetime).toLocaleString(DateTime.DATE_SHORT)} backgroundColor={Colors.accentBlue} /> : "None Set"}
                     </Grid>
                     </Box>
                     <Box height="1em" />
