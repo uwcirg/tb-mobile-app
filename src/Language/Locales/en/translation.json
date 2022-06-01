@@ -249,7 +249,7 @@
             "reminderEnabled": "Reminder Enabled",
             "reminderDisabled": "Reminder Disabled",
             "at": "at",
-            "successMessage": "Successfully Added"
+            "successMessage": "Your appointment was successfully added"
         },
         "demo": {
             "showDemo": "Show Demo"
@@ -873,7 +873,8 @@
             "other": "Other"
         },
         "showAll": "Show All",
-        "showLess": "Show Less"
+        "showLess": "Show Less",
+        "addAnother": "Add another"
     },
     "update": {
         "update": "Update",

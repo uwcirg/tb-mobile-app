@@ -25,16 +25,23 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 
 
-const useAsyncWithParams = ({asyncFunc, immediate, funcParams, initialData}) => {
+const useAsyncWithParams = ({ asyncFunc, immediate, funcParams, initialData }) => {
 
     const [status, setStatus] = useState("idle");
     const [value, setValue] = useState(initialData)
     const [error, setError] = useState(null)
     const mountedRef = useRef(true)
 
+    const reset = () => {
+        if (!mountedRef.current) return null
+        setStatus("idle");
+        setValue(initialData)
+        setError(null)
+    }
+
     const execute = useCallback(() => {
         setStatus("pending")
-        return asyncFunc( ...funcParams)
+        return asyncFunc(...funcParams)
             .then(res => {
                 if (!mountedRef.current) return null
                 setValue(res)
@@ -62,7 +69,8 @@ const useAsyncWithParams = ({asyncFunc, immediate, funcParams, initialData}) => 
         execute,
         status,
         value,
-        error
+        error,
+        reset
     }
 }
 

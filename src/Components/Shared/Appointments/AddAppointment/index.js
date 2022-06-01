@@ -6,37 +6,46 @@ import Form from './Form';
 import { useTranslation } from 'react-i18next';
 import { Box } from '@material-ui/core';
 import useAsync from '../../../../Hooks/useAsyncWithParams';
+import Success from './Success';
+import { useHistory } from 'react-router-dom';
+import Loading from '../../../../Practitioner/Shared/CardLoading';
+
+const initalState = {
+    category: "",
+    time: null,
+    note: "",
+    datetime: DateTime.local().toISO(),
+    tempDatetime: DateTime.local().toISO()
+}
 
 export default function AddAppointment({ patientId }) {
 
     const { t } = useTranslation('translation');
+    const history = useHistory();
 
     const [state, setState] = useState({
-        category: "",
-        time: null,
-        note: "",
-        datetime: DateTime.local().toISO(),
-        tempDatetime: DateTime.local().toISO()
+        ...initalState
     })
 
-
-    const { execute, status, value, error} = useAsync({
+    const { execute, status, value, error, reset } = useAsync({
         asyncFunc: SharedAPI.addAppointment,
         immediate: false,
-        funcParams: [patientId, state ]
+        funcParams: [patientId, state]
     })
+
+    const resetState = () => {
+        setState({ ...initalState })
+        reset();
+
+    }
 
     return (
 
         <>
             <TopPageLabel sticky title={t('appointments.addAppointment')} />
-            <p>Status: {status}</p>
-            {error && <p>Error: {error.status}</p>}
             {status === "idle" && <Form state={state} setState={setState} handleSubmit={execute} />}
-            {status === "loading" && <p>Loading</p>}
-            {value && <Box paddingTop="10rem">
-                <p>Succesfully added</p>
-            </Box>}
+            {status === "loading" && <Loading />}
+            {status === "success" &&  <Success handleExit={history.goBack} handleReset={resetState} />}
         </>
     )
 }
