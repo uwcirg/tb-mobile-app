@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react';
 import InteractionCard from '../../Basics/HomePageSection';
 import { useTranslation } from 'react-i18next';
-import Colors from '../../Basics/Colors'
-import ReminderItem from './Reminder/ReminderLineItem'
+import ReminderItem from './Reminder/ReminderLineItem';
 import ClickableText from '../../Basics/ClickableText';
-import Fab from '@material-ui/core/Fab'
-import AddIcon from '@material-ui/icons/Add'
 import AddReminder from './Reminder/index'
 import EventIcon from '@material-ui/icons/Event';
 import NewButton from '../../Basics/NewButton';
@@ -20,32 +17,7 @@ const useStyles = makeStyles({
     header: { fontSize: "1em", fontWeight: "bold", textAlign: "left", width: "100%", paddingLeft: "1em" },
     daily: { width: "100%", marginBottom: "1em", borderBottom: "solid 1px lightgray" },
     upcoming: { width: "100%" },
-    options: {
-        display: "flex", flexDirection: "row", padding: "0 1em 0 1em", alignItems: "center", justifyContent: "center",
-        "& > p": {
-            fontSize: ".75em"
-        },
-        "& > p > span": {
-            color: Colors.buttonBlue,
-            fontSize: "2em",
-            padding: ".5em"
-        }
-    },
     reminder: { padding: "1em 1em 0 1em" },
-    addContainer: {
-        width: "100%",
-        display: "flex",
-        justifyContent: "flex-end",
-        alignItems: "center"
-    },
-    add: {
-        width: "35px",
-        height: "35px",
-        backgroundColor: Colors.buttonBlue,
-        color: "white",
-        boxShadow: "none",
-        marginLeft: ".5em"
-    },
     reminderTitle: {
         display: "flex",
         width: "100%",
@@ -53,12 +25,7 @@ const useStyles = makeStyles({
         "& > button": {
             flexBasis: "50%"
         }
-    },
-    noUpcoming: {
-        width: "100%",
-        textAlign: "center"
     }
-
 })
 
 const Reminders = observer(() => {
