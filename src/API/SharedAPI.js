@@ -2,14 +2,20 @@ import APIHelper from "./Requests";
 
 const api = new APIHelper();
 
+const { request } = api;
+
 export default class SharedAPI {
 
     static async getPhoto(photoId) {
-        return api.executeRawRequest(`/v2/photo_reports/${photoId}`)
+        return request(`/v2/photo_reports/${photoId}`)
     }
 
     static async getDailyReports(patientId) {
-        return api.executeRawRequest(`/v2/patient/${patientId}/daily_reports`)
+        return request(`/v2/patient/${patientId}/daily_reports`)
+    }
+
+    static async addAppointment(patientId, body) {
+        return request(`/v2/patient/${patientId}/reminders`, "POST", body)
     }
 
 }
