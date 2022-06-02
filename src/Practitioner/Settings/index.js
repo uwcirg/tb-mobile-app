@@ -18,7 +18,8 @@ import PatientInformation from '../../Patient/Information';
 import useLogout from '../../Basics/Logout';
 import Profile from './Profile';
 import useWindowSize from '../../Hooks/Resize';
-import { Switch, Route, Link, Redirect, useLocation } from 'react-router-dom';
+import { Switch, Route, Link, useLocation } from 'react-router-dom';
+import { PageLabel } from '../../Components/Shared/PageLabel';
 
 const useStyles = makeStyles({
   image: {
@@ -57,10 +58,9 @@ const useStyles = makeStyles({
   },
   mobileNav: {
     boxSizing: 'border-box',
-    width: '100%',
+    width: '95%',
     height: '100%',
     paddingTop: '1em',
-    borderRight: 'solid 1px lightgray',
   },
 
   mobileNavLinks: {
@@ -133,7 +133,7 @@ const Settings = (props) => {
   }, []);
 
   return (
-    <div className={classes.container}>
+    <div>
       {isMobile ? (
         <>
           <MobileRouter />
@@ -160,13 +160,13 @@ const SettingsNav = () => {
       </Typography>
       <ul className={classes.list}>
         <NavItem
-          id="documents"
+          to="documents"
           icon={<DocIcon />}
           text={t('coordinator.settingsPage.documents')}
         />
 
         <NavItem
-          id="patientInformation"
+          to="patient-information"
           icon={<PatientIcon />}
           text={t('coordinator.settingsPage.patientInformation')}
         />
@@ -184,17 +184,17 @@ const SettingsNav = () => {
       <ul className={classes.list}>
         {/*<NavItem id="account" icon={<PersonIcon />} text={t('patient.profile.options.account')} /> */}
         <NavItem
-          id="language"
+          to="language"
           icon={<GlobeIcon />}
           text={t('patient.profile.options.language')}
         />
         <NavItem
-          id="updatePassword"
+          to="update-password"
           icon={<PasswordIcon />}
           text={t('patient.profile.changePassword')}
         />
         <NavItem
-          id="logout"
+          isLogout
           icon={<LogoutIcon />}
           text={t('patient.profile.logout')}
         />
@@ -215,11 +215,11 @@ const NavItem = observer((props) => {
 
   const LinkButton = (props) => (
     <ButtonBase
+      component={props.to ? Link : 'button'}
+      to={props.to}
       href={props.href}
-      target="blank"
-      onClick={() => {
-        handleClick(props.id);
-      }}
+      target={props.href ? 'blank' : null}
+      onClick={props.onClick}
       className={classes.navItem}
     >
       {props.icon}
@@ -227,58 +227,67 @@ const NavItem = observer((props) => {
     </ButtonBase>
   );
 
-  const handleClick = (id) => {
-    if (id === 'logout') {
-      logout();
-      return;
-    }
+  //   const handleClick = (id) => {
+  //     if (id === 'logout') {
+  //       logout();
+  //       return;
+  //     }
 
-    if (!id) {
-      return;
-    }
+  //     if (!id) {
+  //       return;
+  //     }
 
-    practitionerUIStore.settingsTab = props.id;
-  };
+  //     practitionerUIStore.settingsTab = props.id;
+  //   };
 
   return (
     <li className={classes.navItemContainer}>
-      {props.id === undefined || props.id === 'logout' ? (
-        <LinkButton
-          icon={props.icon}
-          href={props.href}
-          id={props.id}
-          text={props.text}
-        />
-      ) : (
-        <Link to={`/settings/${props.id}`} className={classes.mobileNavLinks}>
-          <LinkButton
-            icon={props.icon}
-            href={props.href}
-            id={props.id}
-            text={props.text}
-          />
-        </Link>
-      )}
+      <LinkButton
+        to={props.to && `/settings/${props.to}`}
+        icon={props.icon}
+        href={props.href}
+        text={props.text}
+        onClick={props.isLogout && logout}
+      />
     </li>
   );
 });
 
 const MobileRouter = observer((props) => {
+  const { practitionerUIStore } = useStores();
+  const { t } = useTranslation('translation');
+  const location = useLocation();
   return (
-    <Switch>
-      <Route path="/settings/documents" children={<Documents />} />
-      <Route
-        path="/settings/patientInformation"
-        children={<PatientInformation />}
-      />
-      <Route path="/settings/language" children={<Language />} />
-      <Route path="/settings/updatePassword" children={<PasswordReset />} />
-      <Route path="/">
-        <SettingsNav />
-      </Route>
-    </Switch>
+    <>
+      <Switch>
+        <WrappedRoute
+          path="/settings/documents"
+          children={<Documents />}
+          title={t('coordinator.settingsPage.documents')}
+        />
+        <WrappedRoute
+          path="/settings/patient-information"
+          children={<PatientInformation />}
+          title=""
+        />
+        <Route path="/settings/language" children={<Language />} />
+        <Route path="/settings/update-password" children={<PasswordReset />} />
+        <Route path="/">
+          <SettingsNav />
+        </Route>
+      </Switch>
+    </>
   );
 });
+
+const WrappedRoute = (props) => {
+  return (
+    <Route {...props}>
+      <PageLabel title={props.title} to="/settings" />
+      {props.children}
+    </Route>
+  );
+};
 
 const BodyRouter = observer((props) => {
   const { practitionerUIStore } = useStores();
@@ -286,37 +295,12 @@ const BodyRouter = observer((props) => {
   const classes = useStyles();
   return (
     <div className={classes.body}>
-      <Typography className={classes.header} variant="h2">
+      {/* <Typography className={classes.header} variant="h2">
         {t(`coordinator.settingsPage.${practitionerUIStore.settingsTab}`)}
-      </Typography>
+      </Typography> */}
+
       <div className={classes.bodyContent}>
-        {practitionerUIStore.settingsTab === 'language' && (
-          <Box padding="2em 0">
-            <Language
-              selectedBackgroundColor={Colors.textDarkGray}
-              selectedTextColor="white"
-              defaultBackgroundColor={Colors.lightgray}
-              defaultTextColor={Colors.textDarkGray}
-              defaultBorderColor={Colors.gray}
-              selectedBorderColor={Colors.gray}
-            />
-          </Box>
-        )}
-        {practitionerUIStore.settingsTab === 'documents' && <Documents />}
-        {practitionerUIStore.settingsTab === 'updatePassword' && (
-          <div className={classes.password}>
-            <PasswordReset />
-          </div>
-        )}
-        {practitionerUIStore.settingsTab === 'account' && <Profile />}
-        {practitionerUIStore.settingsTab === 'patientInformation' && (
-          <div className={classes.patientInformation}>
-            <Typography className={classes.topInfo} variant="body1">
-              {t('coordinator.settingsPage.patientViewExplanation')}
-            </Typography>
-            <PatientInformation />
-          </div>
-        )}
+        <MobileRouter />
       </div>
     </div>
   );
