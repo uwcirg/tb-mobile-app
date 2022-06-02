@@ -1073,7 +1073,15 @@
             "a": "Make sure the photo shows the entire strip, including the barcodes.",
             "b":  "Take the picture and click \"Next\"."
         },
-        "six": "Put the test back in its bag and discard in the trash"
+        "six": "Put the test back in its bag and discard in the trash",
+        "imageText": {
+            "testStrip": "Test strip",
+            "bag": "Bag",
+            "twentyMinutes": "20 Minutes",
+            "twoSeconds": "2 Seconds",
+            "rest": "Rest the strip horizontally",
+            "flat": "on a flat surface"
+        }
 
     },
     "mobileUpdate":{
