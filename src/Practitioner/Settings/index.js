@@ -18,6 +18,7 @@ import PatientInformation from '../../Patient/Information';
 import useLogout from '../../Basics/Logout';
 import Profile from './Profile';
 import useWindowSize from '../../Hooks/Resize';
+import { Switch, Route, Link, Redirect, useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles({
   image: {
@@ -54,6 +55,18 @@ const useStyles = makeStyles({
     paddingTop: '1em',
     borderRight: 'solid 1px lightgray',
   },
+  mobileNav: {
+    boxSizing: 'border-box',
+    width: '100%',
+    height: '100%',
+    paddingTop: '1em',
+    borderRight: 'solid 1px lightgray',
+  },
+
+  mobileNavLinks: {
+    textDecoration: 'none',
+  },
+
   navItemContainer: {
     listStyle: 'none',
     height: '2.5em',
@@ -122,7 +135,9 @@ const Settings = (props) => {
   return (
     <div className={classes.container}>
       {isMobile ? (
-        <SettingsNav />
+        <>
+          <MobileRouter />
+        </>
       ) : (
         <>
           <SettingsNav />
@@ -136,8 +151,10 @@ const Settings = (props) => {
 const SettingsNav = () => {
   const { t } = useTranslation('translation');
   const classes = useStyles();
+  const { isMobile } = useWindowSize();
+  //   Links returned if isMobile
   return (
-    <div className={classes.navigation}>
+    <div className={isMobile ? classes.mobileNav : classes.navigation}>
       <Typography className={classes.header} variant="h2">
         {t('patient.tabNames.information')}
       </Typography>
@@ -147,11 +164,13 @@ const SettingsNav = () => {
           icon={<DocIcon />}
           text={t('coordinator.settingsPage.documents')}
         />
+
         <NavItem
           id="patientInformation"
           icon={<PatientIcon />}
           text={t('coordinator.settingsPage.patientInformation')}
         />
+
         <NavItem
           href="https://forms.gle/rRxp9f4bbVT5uB4R9"
           icon={<ReportProblem />}
@@ -192,6 +211,21 @@ const NavItem = observer((props) => {
     isLogout: props.id === 'logout',
   });
   const logout = useLogout();
+  const { isMobile } = useWindowSize();
+
+  const LinkButton = (props) => (
+    <ButtonBase
+      href={props.href}
+      target="blank"
+      onClick={() => {
+        handleClick(props.id);
+      }}
+      className={classes.navItem}
+    >
+      {props.icon}
+      <span>{props.text}</span>
+    </ButtonBase>
+  );
 
   const handleClick = (id) => {
     if (id === 'logout') {
@@ -208,18 +242,41 @@ const NavItem = observer((props) => {
 
   return (
     <li className={classes.navItemContainer}>
-      <ButtonBase
-        href={props.href}
-        target="blank"
-        onClick={() => {
-          handleClick(props.id);
-        }}
-        className={classes.navItem}
-      >
-        {props.icon}
-        <span>{props.text}</span>
-      </ButtonBase>
+      {props.id === undefined || props.id === 'logout' ? (
+        <LinkButton
+          icon={props.icon}
+          href={props.href}
+          id={props.id}
+          text={props.text}
+        />
+      ) : (
+        <Link to={`/settings/${props.id}`} className={classes.mobileNavLinks}>
+          <LinkButton
+            icon={props.icon}
+            href={props.href}
+            id={props.id}
+            text={props.text}
+          />
+        </Link>
+      )}
     </li>
+  );
+});
+
+const MobileRouter = observer((props) => {
+  return (
+    <Switch>
+      <Route path="/settings/documents" children={<Documents />} />
+      <Route
+        path="/settings/patientInformation"
+        children={<PatientInformation />}
+      />
+      <Route path="/settings/language" children={<Language />} />
+      <Route path="/settings/updatePassword" children={<PasswordReset />} />
+      <Route path="/">
+        <SettingsNav />
+      </Route>
+    </Switch>
   );
 });
 
