@@ -18,7 +18,7 @@ import PatientInformation from '../../Patient/Information';
 import useLogout from '../../Basics/Logout';
 import Profile from './Profile';
 import useWindowSize from '../../Hooks/Resize';
-import { Switch, Route, Link, useLocation } from 'react-router-dom';
+import { Switch, Route, Link, Redirect, useLocation } from 'react-router-dom';
 import { PageLabel } from '../../Components/Shared/PageLabel';
 
 const useStyles = makeStyles({
@@ -126,6 +126,7 @@ const Settings = (props) => {
   const classes = useStyles();
   const { practitionerUIStore } = useStores();
   const { isMobile } = useWindowSize();
+  const location = useLocation();
 
   //Default To Account Page
   useEffect(() => {
@@ -135,13 +136,11 @@ const Settings = (props) => {
   return (
     <div>
       {isMobile ? (
-        <>
-          <MobileRouter />
-        </>
+        <>{location.pathname === '/settings' ? <SettingsNav /> : <Routes />}</>
       ) : (
         <>
           <SettingsNav />
-          <BodyRouter />
+          <Routes />
         </>
       )}
     </div>
@@ -211,7 +210,6 @@ const NavItem = observer((props) => {
     isLogout: props.id === 'logout',
   });
   const logout = useLogout();
-  const { isMobile } = useWindowSize();
 
   const LinkButton = (props) => (
     <ButtonBase
@@ -227,19 +225,6 @@ const NavItem = observer((props) => {
     </ButtonBase>
   );
 
-  //   const handleClick = (id) => {
-  //     if (id === 'logout') {
-  //       logout();
-  //       return;
-  //     }
-
-  //     if (!id) {
-  //       return;
-  //     }
-
-  //     practitionerUIStore.settingsTab = props.id;
-  //   };
-
   return (
     <li className={classes.navItemContainer}>
       <LinkButton
@@ -253,9 +238,9 @@ const NavItem = observer((props) => {
   );
 });
 
-const MobileRouter = observer((props) => {
-  const { practitionerUIStore } = useStores();
+const Routes = observer((props) => {
   const { t } = useTranslation('translation');
+  const { isMobile } = useWindowSize();
   const location = useLocation();
   return (
     <>
@@ -272,9 +257,11 @@ const MobileRouter = observer((props) => {
         />
         <Route path="/settings/language" children={<Language />} />
         <Route path="/settings/update-password" children={<PasswordReset />} />
-        <Route path="/">
-          <SettingsNav />
-        </Route>
+        <WrappedRoute
+          path="/"
+          children={<Documents />}
+          title={t('coordinator.settingsPage.documents')}
+        />
       </Switch>
     </>
   );
@@ -289,21 +276,15 @@ const WrappedRoute = (props) => {
   );
 };
 
-const BodyRouter = observer((props) => {
-  const { practitionerUIStore } = useStores();
-  const { t } = useTranslation('translation');
-  const classes = useStyles();
-  return (
-    <div className={classes.body}>
-      {/* <Typography className={classes.header} variant="h2">
-        {t(`coordinator.settingsPage.${practitionerUIStore.settingsTab}`)}
-      </Typography> */}
-
-      <div className={classes.bodyContent}>
-        <MobileRouter />
-      </div>
-    </div>
-  );
-});
+// const BodyRouter = observer((props) => {
+//   const classes = useStyles();
+//   return (
+//     <div className={classes.body}>
+//       <div>
+//         <Routes />
+//       </div>
+//     </div>
+//   );
+// });
 
 export default Settings;
