@@ -53,14 +53,14 @@ const useStyles = makeStyles({
     width: '250px',
     minWidth: '250px',
     height: '100%',
-    paddingTop: '1em',
+    padding: '1em',
     borderRight: 'solid 1px lightgray',
   },
   mobileNav: {
     boxSizing: 'border-box',
-    width: '95%',
+    width: '100%',
     height: '100%',
-    paddingTop: '1em',
+    padding: '1em',
   },
 
   mobileNavLinks: {
@@ -69,15 +69,16 @@ const useStyles = makeStyles({
 
   navItemContainer: {
     listStyle: 'none',
+    width: '100%',
     height: '2.5em',
   },
   navItem: {
     boxSizing: 'border-box',
     height: '100%',
-    margin: '.5em 0 0 0',
-    padding: '.25em',
+    margin: '1em 0 0 0',
+    padding: '1.5em 1.2em',
     display: 'flex',
-    width: '90%',
+    width: '100%',
     borderRadius: '7px',
     color: (props) => (props.selected ? 'white' : Colors.buttonBlue),
     backgroundColor: (props) =>
@@ -124,24 +125,20 @@ const useStyles = makeStyles({
 
 const Settings = (props) => {
   const classes = useStyles();
-  const { practitionerUIStore } = useStores();
   const { isMobile } = useWindowSize();
   const location = useLocation();
-
-  //Default To Account Page
-  useEffect(() => {
-    practitionerUIStore.settingsTab = 'documents';
-  }, []);
 
   return (
     <div>
       {isMobile ? (
         <>{location.pathname === '/settings' ? <SettingsNav /> : <Routes />}</>
       ) : (
-        <>
-          <SettingsNav />
-          <Routes />
-        </>
+        <div className={classes.report}>
+          <SettingsNav className={classes.body} />
+          <div className={classes.body}>
+            <Routes />
+          </div>
+        </div>
       )}
     </div>
   );
@@ -204,11 +201,18 @@ const SettingsNav = () => {
 
 const NavItem = observer((props) => {
   const { t } = useTranslation('translation');
-  const { practitionerUIStore } = useStores();
+  const location = useLocation();
+  const { isMobile } = useWindowSize();
+
   const classes = useStyles({
-    selected: practitionerUIStore.settingsTab === props.id,
-    isLogout: props.id === 'logout',
+    selected:
+      (props.to === 'documents' &&
+        location.pathname === '/settings' &&
+        !isMobile) ||
+      (props.to === location.pathname.split('/')[2] && props.to),
+    isLogout: props.isLogout,
   });
+
   const logout = useLogout();
 
   const LinkButton = (props) => (
@@ -218,7 +222,7 @@ const NavItem = observer((props) => {
       href={props.href}
       target={props.href ? 'blank' : null}
       onClick={props.onClick}
-      className={classes.navItem}
+      className={`${classes.navItem}`}
     >
       {props.icon}
       <span>{props.text}</span>
@@ -241,9 +245,9 @@ const NavItem = observer((props) => {
 const Routes = observer((props) => {
   const { t } = useTranslation('translation');
   const { isMobile } = useWindowSize();
-  const location = useLocation();
+
   return (
-    <>
+    <div>
       <Switch>
         <WrappedRoute
           path="/settings/documents"
@@ -253,38 +257,37 @@ const Routes = observer((props) => {
         <WrappedRoute
           path="/settings/patient-information"
           children={<PatientInformation />}
-          title=""
+          title={t('coordinator.settingsPage.patientInformation')}
         />
-        <Route path="/settings/language" children={<Language />} />
-        <Route path="/settings/update-password" children={<PasswordReset />} />
+        <WrappedRoute
+          title={t('coordinator.settingsPage.language')}
+          path="/settings/language"
+          children={<Language />}
+        />
+        <WrappedRoute
+          title={t('coordinator.settingsPage.updatePassword')}
+          path="/settings/update-password"
+          children={<PasswordReset />}
+        />
         <WrappedRoute
           path="/"
           children={<Documents />}
           title={t('coordinator.settingsPage.documents')}
         />
       </Switch>
-    </>
+    </div>
   );
 });
 
 const WrappedRoute = (props) => {
+  const { isMobile } = useWindowSize();
+
   return (
     <Route {...props}>
-      <PageLabel title={props.title} to="/settings" />
+      <PageLabel title={props.title} to="/settings" isMobile={isMobile} />
       {props.children}
     </Route>
   );
 };
-
-// const BodyRouter = observer((props) => {
-//   const classes = useStyles();
-//   return (
-//     <div className={classes.body}>
-//       <div>
-//         <Routes />
-//       </div>
-//     </div>
-//   );
-// });
 
 export default Settings;
