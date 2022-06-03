@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import useStores from '../../Basics/UseStores';
 import Colors from '../../Basics/Colors';
 import { observer } from 'mobx-react';
 import Language from '../../Components/Shared/LanguageQuestion';
 import { useTranslation } from 'react-i18next';
-import { Box, ButtonBase, Typography } from '@material-ui/core';
+import { ButtonBase, Typography } from '@material-ui/core';
 import GlobeIcon from '@material-ui/icons/Public';
 import PasswordIcon from '@material-ui/icons/Lock';
 import LogoutIcon from '@material-ui/icons/ExitToApp';
@@ -16,9 +15,8 @@ import DocIcon from '@material-ui/icons/Description';
 import ReportProblem from '@material-ui/icons/ReportProblem';
 import PatientInformation from '../../Patient/Information';
 import useLogout from '../../Basics/Logout';
-import Profile from './Profile';
 import useWindowSize from '../../Hooks/Resize';
-import { Switch, Route, Link, Redirect, useLocation } from 'react-router-dom';
+import { Switch, Route, Link, useLocation } from 'react-router-dom';
 import { PageLabel } from '../../Components/Shared/PageLabel';
 
 const useStyles = makeStyles({
@@ -200,7 +198,6 @@ const SettingsNav = () => {
 };
 
 const NavItem = observer((props) => {
-  const { t } = useTranslation('translation');
   const location = useLocation();
   const { isMobile } = useWindowSize();
 
@@ -244,7 +241,6 @@ const NavItem = observer((props) => {
 
 const Routes = observer((props) => {
   const { t } = useTranslation('translation');
-  const { isMobile } = useWindowSize();
 
   return (
     <div>
