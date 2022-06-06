@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Colors from '../../Basics/Colors';
 import Language from '../../Components/Shared/LanguageQuestion';
 import { useTranslation } from 'react-i18next';
-import { ButtonBase, Typography } from '@material-ui/core';
+import { Box, ButtonBase, Typography } from '@material-ui/core';
 import GlobeIcon from '@material-ui/icons/Public';
 import PasswordIcon from '@material-ui/icons/Lock';
 import LogoutIcon from '@material-ui/icons/ExitToApp';
@@ -232,12 +232,17 @@ const Routes = (props) => {
 };
 
 const WrappedRoute = (props) => {
+
+  const { children, title } = props;
+
   const { isMobile } = useWindowSize();
 
   return (
     <Route {...props}>
-      <PageLabel title={props.title} to="/settings" isMobile={isMobile} />
-      {props.children}
+      {isMobile ? <PageLabel title={title} to="/settings" /> : <Box padding="0 16px 16px 16px" borderBottom="solid 1px lightgray" >
+        <Typography style={{ fontSize: "24px" }} variant='h2'>{title}</Typography>
+      </Box>}
+      {children}
     </Route>
   );
 };
