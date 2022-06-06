@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { KeyboardArrowDown } from '@material-ui/icons';
 
 const useStyles = makeStyles({
     "@keyframes collapse": {
         "0%": {
-            transform: "rotate(360deg)"
+            transform: "rotate(0deg)"
         },
         "100%": {
             transform: "rotate(180deg)"
@@ -17,20 +17,19 @@ const useStyles = makeStyles({
             transform: "rotate(180deg)"
         },
         "100%": {
-            transform: "rotate(360deg)"
+            transform: "rotate(0deg)"
         }
     },
     expanded: {
-        animation: `$collapse .1s linear forwards`
+        animation: `$collapse .2s linear forwards`
     },
-    collapsed:{
-        animation: `$collapsed .1s linear forwards`
+    collapsed: {
+        animation: `$collapsed .2s linear forwards`
     },
-    icon:{
+    icon: {
         transform: props => props.expanded ? "rotate(180deg)" : ""
     }
-    
-    
+
     ,
 })
 

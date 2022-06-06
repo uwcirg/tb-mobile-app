@@ -20,7 +20,7 @@ const useStyles = makeStyles({
     icon: {
         color: "black"
     },
-    toggleButton:{
+    toggleButton: {
         padding: "0"
     }
 })
@@ -33,6 +33,7 @@ const SectionTitle = ({ icon, title, number, showDetails, toggleDetails }) => {
         {icon && React.createElement(icon, { style: { color: "black" } })}
         {icon && <Box width=".5em" />}
         {title && <SubSectionTitle>{title}: {number}</SubSectionTitle>}
+        <Box flexGrow={1} />
         <IconButton onClick={toggleDetails} className={classes.toggleButton}>
             <ExpansionToggle expanded={showDetails} />
         </IconButton>
