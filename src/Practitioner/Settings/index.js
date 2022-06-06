@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Colors from '../../Basics/Colors';
-import { observer } from 'mobx-react';
 import Language from '../../Components/Shared/LanguageQuestion';
 import { useTranslation } from 'react-i18next';
 import { ButtonBase, Typography } from '@material-ui/core';
@@ -20,36 +19,14 @@ import { Switch, Route, Link, useLocation } from 'react-router-dom';
 import { PageLabel } from '../../Components/Shared/PageLabel';
 
 const useStyles = makeStyles({
-  image: {
-    height: '100px',
-    marginLeft: 'auto',
-  },
+
   report: {
     display: 'flex',
     width: '100%',
-    border: '2px solid lightgray',
-  },
-  container: {
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    marginLeft: '1em',
-  },
-  reportContainer: {
-    width: '50%',
-  },
-  patient: {
-    backgroundColor: 'lightgray',
-  },
-  button: {
-    display: 'block',
-    margin: 'auto',
-    marginTop: '2em',
   },
   navigation: {
+    minHeight: "100vh",
     boxSizing: 'border-box',
-    width: '250px',
-    minWidth: '250px',
     height: '100%',
     padding: '1em',
     borderRight: 'solid 1px lightgray',
@@ -60,11 +37,9 @@ const useStyles = makeStyles({
     height: '100%',
     padding: '1em',
   },
-
   mobileNavLinks: {
     textDecoration: 'none',
   },
-
   navItemContainer: {
     listStyle: 'none',
     width: '100%',
@@ -99,26 +74,12 @@ const useStyles = makeStyles({
     margin: 0,
   },
   body: {
-    padding: '1em',
+    padding: '1em 0',
     flex: 1,
     height: '100vh',
     overflow: 'scroll',
     boxSizing: 'border-box',
-  },
-  bodyContent: {
-    borderTop: '1px solid black',
-    marginTop: '1em',
-    width: '100%',
-  },
-  patientInformation: {
-    width: '50%',
-  },
-  topInfo: {
-    padding: '1em',
-  },
-  password: {
-    width: '50%',
-  },
+  }
 });
 
 const Settings = (props) => {
@@ -197,16 +158,11 @@ const SettingsNav = () => {
   );
 };
 
-const NavItem = observer((props) => {
+const NavItem = (props) => {
   const location = useLocation();
-  const { isMobile } = useWindowSize();
 
   const classes = useStyles({
-    selected:
-      (props.to === 'documents' &&
-        location.pathname === '/settings' &&
-        !isMobile) ||
-      (props.to === location.pathname.split('/')[2] && props.to),
+    selected: (props.to === location.pathname.split('/')[2] && props.to),
     isLogout: props.isLogout,
   });
 
@@ -237,9 +193,9 @@ const NavItem = observer((props) => {
       />
     </li>
   );
-});
+};
 
-const Routes = observer((props) => {
+const Routes = (props) => {
   const { t } = useTranslation('translation');
 
   return (
@@ -273,7 +229,7 @@ const Routes = observer((props) => {
       </Switch>
     </div>
   );
-});
+};
 
 const WrappedRoute = (props) => {
   const { isMobile } = useWindowSize();
