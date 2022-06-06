@@ -1,6 +1,4 @@
 import React, { useReducer } from 'react';
-import useStores from '../../../Basics/UseStores';
-import { observer } from 'mobx-react';
 import InstructionStep from './InstructionStep';
 import { Grid, Box, makeStyles, MobileStepper, IconButton } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
@@ -49,7 +47,6 @@ const TestSteps = () => {
   return (
     <>
       <PageLabel
-        to="/settings"
         title={t('patient.information.testInstructions')}
       />
       <Grid className={classes.container} direction='column' container>

@@ -32,7 +32,7 @@ const InstructionStep = ({ currentStep }) => {
         alt={`step # ${currentStep}`}
       />
       <Typography className={classes.text} variant="body2">
-        {t(testStripInstructions[currentStep])}
+        {typeof(testStripInstructions[currentStep]) === "string" ? t(testStripInstructions[currentStep]) : testStripInstructions[currentStep]}
       </Typography>
     </div>
   );
