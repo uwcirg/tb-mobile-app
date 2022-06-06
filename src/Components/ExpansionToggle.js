@@ -29,7 +29,6 @@ const useStyles = makeStyles({
     icon: {
         transform: props => props.expanded ? "rotate(180deg)" : ""
     }
-
     ,
 })
 

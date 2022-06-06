@@ -4,12 +4,12 @@ import { Box, ButtonBase, Typography } from '@material-ui/core';
 import { DateTime } from 'luxon';
 import { CameraAlt, ChevronRight } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
-import IssueSection from './IssueSection';
 import { useTranslation } from 'react-i18next';
 import LoadS3Image from '../../../Components/Shared/LoadS3Image';
 import Label from '../../../Components/Label';
 import Colors from '../../../Basics/Colors';
 import ShortDate from '../../../Components/Shared/ShortDate';
+import ExpandableCard from '../../../Components/ExpandableCard';
 
 const useStyles = makeStyles({
     photoReport: {
@@ -27,9 +27,9 @@ const useStyles = makeStyles({
 const ReviewPhotos = ({ patient }) => {
     const { t } = useTranslation('translation');
 
-    return (<IssueSection icon={CameraAlt} title={t('coordinator.cardTitles.photosToReview')} number={patient.issues.unreviewedPhotos.length}>
+    return (<ExpandableCard icon={CameraAlt} title={t('coordinator.cardTitles.photosToReview')} number={patient.issues.unreviewedPhotos.length}>
         {patient.unreviewedPhotos.map(photo => <PhotoPreview key={`photo-to-review-${photo.photoId}`} photo={photo} />)}
-    </IssueSection>)
+    </ExpandableCard>)
 }
 
 const PhotoPreview = ({ photo }) => {
