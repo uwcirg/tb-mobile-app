@@ -1,31 +1,26 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Colors from '../../Basics/Colors';
-import Language from '../../Components/Shared/LanguageQuestion';
 import { useTranslation } from 'react-i18next';
-import { Box, ButtonBase, Typography } from '@material-ui/core';
+import { ButtonBase, Typography } from '@material-ui/core';
 import GlobeIcon from '@material-ui/icons/Public';
 import PasswordIcon from '@material-ui/icons/Lock';
 import LogoutIcon from '@material-ui/icons/ExitToApp';
-import PasswordReset from '../../Components/PasswordUpdate';
-import Documents from './Documents';
 import PatientIcon from '@material-ui/icons/Accessibility';
 import DocIcon from '@material-ui/icons/Description';
 import ReportProblem from '@material-ui/icons/ReportProblem';
-import PatientInformation from '../../Patient/Information';
 import useLogout from '../../Basics/Logout';
 import useWindowSize from '../../Hooks/Resize';
-import { Switch, Route, Link, useLocation } from 'react-router-dom';
-import { PageLabel } from '../../Components/Shared/PageLabel';
+import { Link, useLocation } from 'react-router-dom';
+import Routes from './WrappedRoute';
 
 const useStyles = makeStyles({
-
   report: {
     display: 'flex',
     width: '100%',
   },
   navigation: {
-    minHeight: "100vh",
+    minHeight: '100vh',
     boxSizing: 'border-box',
     height: '100%',
     padding: '1em',
@@ -79,7 +74,7 @@ const useStyles = makeStyles({
     height: '100vh',
     overflow: 'scroll',
     boxSizing: 'border-box',
-  }
+  },
 });
 
 const Settings = (props) => {
@@ -162,7 +157,7 @@ const NavItem = (props) => {
   const location = useLocation();
 
   const classes = useStyles({
-    selected: (props.to === location.pathname.split('/')[2] && props.to),
+    selected: props.to === location.pathname.split('/')[2] && props.to,
     isLogout: props.isLogout,
   });
 
@@ -192,58 +187,6 @@ const NavItem = (props) => {
         onClick={props.isLogout && logout}
       />
     </li>
-  );
-};
-
-const Routes = (props) => {
-  const { t } = useTranslation('translation');
-
-  return (
-    <div>
-      <Switch>
-        <WrappedRoute
-          path="/settings/documents"
-          children={<Documents />}
-          title={t('coordinator.settingsPage.documents')}
-        />
-        <WrappedRoute
-          path="/settings/patient-information"
-          children={<PatientInformation />}
-          title={t('coordinator.settingsPage.patientInformation')}
-        />
-        <WrappedRoute
-          title={t('coordinator.settingsPage.language')}
-          path="/settings/language"
-          children={<Language />}
-        />
-        <WrappedRoute
-          title={t('coordinator.settingsPage.updatePassword')}
-          path="/settings/update-password"
-          children={<PasswordReset />}
-        />
-        <WrappedRoute
-          path="/"
-          children={<Documents />}
-          title={t('coordinator.settingsPage.documents')}
-        />
-      </Switch>
-    </div>
-  );
-};
-
-const WrappedRoute = (props) => {
-
-  const { children, title } = props;
-
-  const { isMobile } = useWindowSize();
-
-  return (
-    <Route {...props}>
-      {isMobile ? <PageLabel title={title} to="/settings" isMobile /> : <Box padding="0 16px 16px 16px" borderBottom="solid 1px lightgray" >
-        <Typography style={{ fontSize: "24px" }} variant='h2'>{title}</Typography>
-      </Box>}
-      {children}
-    </Route>
   );
 };
 
