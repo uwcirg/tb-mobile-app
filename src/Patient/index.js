@@ -21,6 +21,7 @@ import MissedPhotoFlow from './ReportingFlows/AltPhotoFlows';
 import PushActionReportingFlow from './ReportingFlows/PushActionReportingFlow';
 import Box from '@material-ui/core/Box';
 import RedoPhotoFlow from './ReportingFlows/AltPhotoFlows/RedoPhotoFlow';
+import TestSteps from './Information/TestInstructions';
 import isIndonesiaPilot from '../Utility/check-indonesia-flag';
 import AddApointment from '../Components/Shared/Appointments/AddAppointment/';
 
@@ -84,6 +85,12 @@ const PatientHome = observer(() => {
 
   if (uiStore.pathname.startsWith("/missed-photo")) {
     return <MissedPhotoFlow />
+  }
+
+  if(uiStore.pathname.startsWith("/test-instructions")){
+    return <div>
+      <TestSteps />
+    </div>
   }
 
   if (uiStore.pathname.startsWith("/redo-photo")) {

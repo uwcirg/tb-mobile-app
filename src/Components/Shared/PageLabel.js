@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, IconButton, Typography } from '@material-ui/core';
 import { ChevronLeftRounded } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles({
   title: {
@@ -26,7 +26,9 @@ export function PageLabel({ title, handleExit, to, isMobile }) {
 
   const buttonProps = to
     ? { component: Link, to: to }
-    : { onClick: handleExit };
+    : {onClick: handleExit || history.goBack};
+
+    const history = useHistory();
 
   return (
     <Grid
