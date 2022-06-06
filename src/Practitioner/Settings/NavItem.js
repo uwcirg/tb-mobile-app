@@ -14,11 +14,11 @@ const useStyles = makeStyles({
   navItem: {
     boxSizing: 'border-box',
     height: '100%',
-    margin: '1em 0 0 0',
-    padding: '1.5em 1.2em',
+    margin: '1rem 0 0 0',
+    padding: '1.5rem .75rem',
     display: 'flex',
     width: '100%',
-    borderRadius: '7px',
+    borderRadius: '4px',
     color: (props) => (props.selected ? 'white' : Colors.buttonBlue),
     backgroundColor: (props) =>
       props.selected ? Colors.textGray : Colors.lightgray,
@@ -28,7 +28,7 @@ const useStyles = makeStyles({
     alignItems: 'center',
     justifyContent: 'flex-start',
     '& > *:first-child': {
-      marginRight: '5px',
+      marginRight: '8px',
     },
     fontSize: '1em',
   },
@@ -37,7 +37,7 @@ const useStyles = makeStyles({
 const LinkButton = (props) => {
   const location = useLocation();
   const classes = useStyles({
-    selected: props.to === location.pathname && props.to,
+    selected: props.to === location.pathname,
     isLogout: props.isLogout,
   });
 
@@ -57,8 +57,8 @@ const LinkButton = (props) => {
 };
 
 const NavItem = (props) => {
+  
   const classes = useStyles();
-
   const logout = useLogout();
 
   return (

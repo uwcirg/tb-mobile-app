@@ -36,10 +36,11 @@ const useStyles = makeStyles({
   },
   header: {
     fontSize: '1.5em',
+    margin: 0
   },
   list: {
-    padding: '1em 0 0 0',
-    margin: 0,
+    padding: 0,
+    margin: 0
   },
   body: {
     padding: '1em 0',
@@ -75,7 +76,7 @@ const SettingsNav = () => {
   const { t } = useTranslation('translation');
   const classes = useStyles();
   const { isMobile } = useWindowSize();
-  //   Links returned if isMobile
+  
   return (
     <div className={isMobile ? classes.mobileNav : classes.navigation}>
       <Typography className={classes.header} variant="h2">
@@ -105,7 +106,6 @@ const SettingsNav = () => {
         {t('patient.profile.title')}
       </Typography>
       <ul className={classes.list}>
-        {/*<NavItem id="account" icon={<PersonIcon />} text={t('patient.profile.options.account')} /> */}
         <NavItem
           to="language"
           icon={<GlobeIcon />}
