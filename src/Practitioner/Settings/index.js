@@ -1,21 +1,20 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
-import { ButtonBase, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import GlobeIcon from '@material-ui/icons/Public';
 import PasswordIcon from '@material-ui/icons/Lock';
 import LogoutIcon from '@material-ui/icons/ExitToApp';
 import PatientIcon from '@material-ui/icons/Accessibility';
 import DocIcon from '@material-ui/icons/Description';
 import ReportProblem from '@material-ui/icons/ReportProblem';
-import useLogout from '../../Basics/Logout';
 import useWindowSize from '../../Hooks/Resize';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Routes from './WrappedRoute';
+import NavItem from './NavItem';
 
 const useStyles = makeStyles({
-  report: {
+  desktopContainer: {
     display: 'flex',
     width: '100%',
   },
@@ -34,32 +33,6 @@ const useStyles = makeStyles({
   },
   mobileNavLinks: {
     textDecoration: 'none',
-  },
-  navItemContainer: {
-    listStyle: 'none',
-    width: '100%',
-    height: '2.5em',
-  },
-  navItem: {
-    boxSizing: 'border-box',
-    height: '100%',
-    margin: '1em 0 0 0',
-    padding: '1.5em 1.2em',
-    display: 'flex',
-    width: '100%',
-    borderRadius: '7px',
-    color: (props) => (props.selected ? 'white' : Colors.buttonBlue),
-    backgroundColor: (props) =>
-      props.selected ? Colors.textGray : Colors.lightgray,
-    '& > span:first-letter': {
-      textTransform: 'capitalize',
-    },
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    '& > *:first-child': {
-      marginRight: '5px',
-    },
-    fontSize: '1em',
   },
   header: {
     fontSize: '1.5em',
@@ -87,8 +60,8 @@ const Settings = (props) => {
       {isMobile ? (
         <>{location.pathname === '/settings' ? <SettingsNav /> : <Routes />}</>
       ) : (
-        <div className={classes.report}>
-          <SettingsNav className={classes.body} />
+        <div className={classes.desktopContainer}>
+          <SettingsNav />
           <div className={classes.body}>
             <Routes />
           </div>
@@ -150,46 +123,6 @@ const SettingsNav = () => {
         />
       </ul>
     </div>
-  );
-};
-
-const LinkButton = (props) => {
-  const location = useLocation();
-  const classes = useStyles({
-    selected: props.to === location.pathname && props.to,
-    isLogout: props.isLogout,
-  });
-
-  return (
-    <ButtonBase
-      component={props.to ? Link : 'button'}
-      to={props.to}
-      href={props.href}
-      target={props.href ? 'blank' : null}
-      onClick={props.onClick}
-      className={`${classes.navItem}`}
-    >
-      {props.icon}
-      <span>{props.text}</span>
-    </ButtonBase>
-  );
-};
-
-const NavItem = (props) => {
-  const classes = useStyles();
-
-  const logout = useLogout();
-
-  return (
-    <li className={classes.navItemContainer}>
-      <LinkButton
-        to={props.to && `/settings/${props.to}`}
-        icon={props.icon}
-        href={props.href}
-        text={props.text}
-        onClick={props.isLogout && logout}
-      />
-    </li>
   );
 };
 
