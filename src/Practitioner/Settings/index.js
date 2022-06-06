@@ -239,7 +239,7 @@ const WrappedRoute = (props) => {
 
   return (
     <Route {...props}>
-      {isMobile ? <PageLabel title={title} to="/settings" /> : <Box padding="0 16px 16px 16px" borderBottom="solid 1px lightgray" >
+      {isMobile ? <PageLabel title={title} to="/settings" isMobile /> : <Box padding="0 16px 16px 16px" borderBottom="solid 1px lightgray" >
         <Typography style={{ fontSize: "24px" }} variant='h2'>{title}</Typography>
       </Box>}
       {children}
