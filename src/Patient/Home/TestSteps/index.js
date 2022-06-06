@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import useStores from '../../../Basics/UseStores';
 import { observer } from 'mobx-react';
 import InstructionStep from './InstructionStep';
@@ -9,6 +9,17 @@ import ChevronRight from '@material-ui/icons/ChevronRight';
 import Colors from '../../../Basics/Colors';
 import { PageLabel } from '../../../Components/Shared/PageLabel';
 import { withStyles } from '@material-ui/styles';
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'next':
+      return state + 1;
+    case 'previous':
+      return state - 1;
+    default:
+      throw new Error();
+  }
+}
 
 const useStyles = makeStyles({
   spaced: {
@@ -29,10 +40,11 @@ const useStyles = makeStyles({
   }
 });
 
-const TestSteps = observer(() => {
-  const { uiStore } = useStores();
+const TestSteps = () => {
   const classes = useStyles();
   const { t } = useTranslation('translation');
+
+  const [step, dispatch] = useReducer(reducer, 0);
 
   return (
     <>
@@ -41,32 +53,31 @@ const TestSteps = observer(() => {
         title={t('patient.information.testInstructions')}
       />
       <Grid className={classes.container} direction='column' container>
-        <Box style={{boxSizing: "border-box"}} flexGrow="1" padding="0 1em" width="100%" maxWidth="500px">
-          <InstructionStep className="step" currentStep={uiStore.step} />
+        <Box style={{ boxSizing: "border-box" }} flexGrow="1" padding="0 1em" width="100%" maxWidth="500px">
+          <InstructionStep className="step" currentStep={step} />
 
         </Box>
         <Grid justify='space-between' container>
           <StepperButton
             children={<ChevronLeft />}
-            onClick={uiStore.prevStep}
-            disabled={uiStore.step === 0} />
+            onClick={() => { dispatch({ type: 'previous' }) }}
+            disabled={step === 0} />
           <MobileStepper
             style={{ backgroundColor: "white" }}
             steps={6}
             variant="dots"
             position="static"
-            activeStep={uiStore.step} />
+            activeStep={step} />
           <StepperButton
-
             children={<ChevronRight />}
-            onClick={uiStore.nextStep}
-            disabled={uiStore.step >= 5}
+            onClick={() => { dispatch({ type: 'next' }) }}
+            disabled={step >= 5}
           />
         </Grid>
       </Grid >
     </>
   );
-});
+};
 
 const StepperButton = withStyles({
   root: {
