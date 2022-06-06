@@ -8,12 +8,10 @@ import Reminders from './Reminders';
 import MedicationReminder from './MedicationReminder';
 import CachedReports from './CachedReports';
 import VideoCard from './Videos';
-import TestInstructions from './TestInstructions';
 import RequiresAction from './MissedActions';
 import PushNotificationEnrollment from './PushEnrollmentReminder';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
-import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
   body: {
@@ -38,7 +36,6 @@ const HomePage = () => {
         <OneStepActions />
         <CachedReports />
         <RequiresAction />
-        <TestInstructions />
         <VideoCard />
         <Alerts />
         <Progress />

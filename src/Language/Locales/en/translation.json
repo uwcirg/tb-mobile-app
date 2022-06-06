@@ -1067,21 +1067,13 @@
         "one": "Collect a small amount of urine in a container (about 2 fingers deep)",
         "two": "Take the test out of the bag",
         "three": "Dip the strip into the urine for about 2 seconds to the line marked dip. Do not let the test for longer than 2 seconds in the urine.",
-        "four": "Wait 20 minutes for the test to process before proceeding",
+        "four": "Let the test sit flat for 20 minutes before submitting ",
         "five" : {
             "main": "Open the application and click \"Submit Photo\".",
             "a": "Make sure the photo shows the entire strip, including the barcodes.",
             "b":  "Take the picture and click \"Next\"."
         },
-        "six": "Put the test back in its bag and discard in the trash",
-        "imageText": {
-            "testStrip": "Test strip",
-            "bag": "Bag",
-            "twentyMinutes": "20 Minutes",
-            "twoSeconds": "2 Seconds",
-            "rest": "Rest the strip horizontally",
-            "flat": "on a flat surface"
-        }
+        "six": "Put the test back in its bag and discard in the trash"
 
     },
     "mobileUpdate":{

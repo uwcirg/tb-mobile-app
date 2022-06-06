@@ -8,8 +8,6 @@ import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles({
     title: {
-        // backgroundColor: props => props.highlight ? props.highlight : "unset",
-        // padding: props => props.highlight ? ".5em" : "unset",
         borderRadius: props => props.highlight ? "5px" : "unset",
         display: "flex",
         alignItems: "center",
@@ -34,8 +32,12 @@ const Section = (props) => {
     const classes = useStyles({ highlight: props.highlight });
     const [expanded, setExpanded] = useState(props.expanded || false);
 
+    const toggleExpanded = () => {
+         setExpanded(!expanded)
+    }
+
     return (
-        <ExpansionPanel onClick={() => { setExpanded(!expanded) }} expanded={expanded} className={classes.panel}>
+        <ExpansionPanel onClick={props.onClick || toggleExpanded} expanded={expanded} className={classes.panel}>
             <ExpansionPanelSummary
                 className={classes.summary}
                 expandIcon={<Down className={classes.icon} />}
@@ -44,9 +46,9 @@ const Section = (props) => {
             >
                 <Typography className={classes.title}>{props.title}</Typography>
             </ExpansionPanelSummary>
-            <ExpansionPanelDetails className={classes.details}>
+            {props.children && <ExpansionPanelDetails className={classes.details}>
                 {props.children}
-            </ExpansionPanelDetails>
+            </ExpansionPanelDetails>}
         </ExpansionPanel>
     )
 }

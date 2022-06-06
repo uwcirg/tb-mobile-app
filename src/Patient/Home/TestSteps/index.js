@@ -1,29 +1,16 @@
 import React from 'react';
-import OverTopBar from '../../Navigation/OverTopBar';
 import useStores from '../../../Basics/UseStores';
 import { observer } from 'mobx-react';
 import InstructionStep from './InstructionStep';
-import {
-  Box,
-  Button,
-  IconButton,
-  makeStyles,
-  MobileStepper,
-} from '@material-ui/core';
+import { Grid, Box, makeStyles, MobileStepper, IconButton } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import SimpleButton from '../../../Basics/SimpleButton';
-import Countdown from './Countdown';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ChevronRight from '@material-ui/icons/ChevronRight';
+import Colors from '../../../Basics/Colors';
+import { PageLabel } from '../../../Components/Shared/PageLabel';
+import { withStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles({
-  body: {
-    width: '100%',
-    minHeight: '95vh',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-  },
   spaced: {
     display: 'flex',
     flexDirection: 'row',
@@ -35,48 +22,59 @@ const useStyles = makeStyles({
     fontSize: '5rem',
   },
   step: { maxWidth: '400px' },
+  container: {
+    boxSizing: "border-box",
+    minHeight: "calc(90vh - 60px)",
+    padding: "1em"
+  }
 });
 
 const TestSteps = observer(() => {
-  const { patientUIStore, uiStore } = useStores();
+  const { uiStore } = useStores();
   const classes = useStyles();
   const { t } = useTranslation('translation');
 
   return (
     <>
-      <Box className={classes.body}>
-        <OverTopBar
-          title="Test Instructions"
-          handleBack={patientUIStore.goToHome}
-          className={classes.body}
-        />
-        <Box height="60px" />
+      <PageLabel
+        to="/settings"
+        title={t('patient.information.testInstructions')}
+      />
+      <Grid className={classes.container} direction='column' container>
         <InstructionStep className="step" currentStep={uiStore.step} />
-
-        {uiStore.step === 3 && <Countdown />}
-
-        <div className={classes.spaced}>
-          <SimpleButton
+        <Box flexGrow={1} />
+        <Grid justify='space-between' container>
+          <StepperButton
             children={<ChevronLeft />}
             onClick={uiStore.prevStep}
-            disabled={uiStore.step === 0 ? true : false}
-          />
-
+            disabled={uiStore.step === 0} />
           <MobileStepper
+            style={{ backgroundColor: "white" }}
             steps={6}
             variant="dots"
             position="static"
-            activeStep={uiStore.step}
-          />
-          <SimpleButton
-            children={<ChevronRight fontSize="default" />}
+            activeStep={uiStore.step} />
+          <StepperButton
+
+            children={<ChevronRight />}
             onClick={uiStore.nextStep}
-            disabled={uiStore.step >= 5 ? true : false}
+            disabled={uiStore.step >= 5}
           />
-        </div>
-      </Box>
+        </Grid>
+      </Grid >
     </>
   );
 });
+
+const StepperButton = withStyles({
+  root: {
+    "&:focus":{
+      backgroundColor: Colors.buttonBlue
+    },
+    borderRadius: "4px",
+    backgroundColor: Colors.buttonBlue,
+    color: "white"
+  },
+})(IconButton)
 
 export default TestSteps;
