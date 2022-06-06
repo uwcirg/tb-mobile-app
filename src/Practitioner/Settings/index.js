@@ -153,17 +153,14 @@ const SettingsNav = () => {
   );
 };
 
-const NavItem = (props) => {
+const LinkButton = (props) => {
   const location = useLocation();
-
   const classes = useStyles({
-    selected: props.to === location.pathname.split('/')[2] && props.to,
+    selected: props.to === location.pathname && props.to,
     isLogout: props.isLogout,
   });
 
-  const logout = useLogout();
-
-  const LinkButton = (props) => (
+  return (
     <ButtonBase
       component={props.to ? Link : 'button'}
       to={props.to}
@@ -176,6 +173,12 @@ const NavItem = (props) => {
       <span>{props.text}</span>
     </ButtonBase>
   );
+};
+
+const NavItem = (props) => {
+  const classes = useStyles();
+
+  const logout = useLogout();
 
   return (
     <li className={classes.navItemContainer}>
