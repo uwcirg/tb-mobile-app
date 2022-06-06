@@ -2,7 +2,7 @@ import React from 'react'
 import { Grid, IconButton, Typography } from "@material-ui/core";
 import { ChevronLeftRounded } from "@material-ui/icons";
 import { makeStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles({
     title: {
@@ -23,9 +23,12 @@ const useStyles = makeStyles({
 
 export function PageLabel({ title, handleExit, to }) {
 
+
+    const history = useHistory();
+
     const classes = useStyles();
 
-    const buttonProps = to ? {component: Link, to: to} : {onClick: handleExit}
+    const buttonProps = to ? {component: Link, to: to} : {onClick: handleExit || history.goBack}
 
     return (<Grid className={classes.topBar} container alignItems='center' wrap="nowrap">
         <IconButton className={classes.backButton} {...buttonProps}>

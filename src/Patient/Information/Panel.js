@@ -49,6 +49,7 @@ function Panel(props) {
     return (
         <ExpansionPanel className={classes.panel}>
             <ExpansionPanelSummary
+                onClick={props.onClick}
                 className={classes.summary}
                 expandIcon={<ExpandMoreIcon className={classes.icon} />}
                 aria-controls="panel-content"

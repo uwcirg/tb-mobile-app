@@ -14,7 +14,7 @@ import HelpIcon from '@material-ui/icons/Help';
 import InfoIcon from '@material-ui/icons/Info';
 import { StaticVersion as ErrorReporting } from '../../Basics/ErrorBoundary'
 import ErrorIcon from '@material-ui/icons/ReportProblem';
-import Instructions from './TestInstructions'
+// import Instructions from './TestInstructions'
 import TestIcon from '@material-ui/icons/FormatColorFill'
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 import TrackChangesIcon from '@material-ui/icons/TrackChanges';
@@ -39,9 +39,13 @@ import usePushEnabled from '../../Hooks/PushEnabled';
 
 import NewButton from '../../Basics/NewButton';
 
+import { useHistory } from 'react-router-dom';
+
 const file = raw("./information.md");
 
 const TCButton = (props) => {
+
+
 
     const classes = useStyles();
     const { patientUIStore } = useStores();
@@ -66,6 +70,9 @@ const Info = observer(() => {
     const pushEnabledState = usePushEnabled();
     const surveyAvailable = patientStore.patientInformation.weeksInTreatment >= 20;
 
+    const history = useHistory();
+
+
     return (
         <div className={classes.container}>
             {pushEnabledState != 'granted' && <Section highlight={Colors.highlightYellow} expanded={patientUIStore.onPushEnrollmentInstructions} title={<><HelpIcon />{t('notificationInstructions.steps.title')}</>}>
@@ -86,8 +93,8 @@ const Info = observer(() => {
             <Section title={<><InfoIcon />{t('patient.information.education')}</>}>
                 <TreatmentMessages />
             </Section>
-            <Section expanded={patientUIStore.onInfoTestInstructions} title={<><TestIcon />{t('patient.information.testInstructions')}</>}>
-                <Instructions />
+            <Section onClick={()=>{history.push("/test-instructions")}} title={<><TestIcon />{t('patient.information.testInstructions')}</>}>
+
             </Section>
             <Section title={<><HelpIcon />{t('patient.information.questions')}</>}>
                 <Markdown options={{ overrides: { Drawer: { component: MarkdownRender } } }} children={file} />
@@ -140,9 +147,9 @@ const TreatmentMessages = () => {
 
 //Convert markdown file to expandable cards format
 const useStyles = makeStyles({
-    survey:{
+    survey: {
         padding: "1em",
-        "& > p":{
+        "& > p": {
             marginBottom: "1em"
         }
     },
