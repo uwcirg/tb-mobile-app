@@ -41,8 +41,10 @@ const TestSteps = observer(() => {
         title={t('patient.information.testInstructions')}
       />
       <Grid className={classes.container} direction='column' container>
-        <InstructionStep className="step" currentStep={uiStore.step} />
-        <Box flexGrow={1} />
+        <Box style={{boxSizing: "border-box"}} flexGrow="1" padding="0 1em" width="100%" maxWidth="500px">
+          <InstructionStep className="step" currentStep={uiStore.step} />
+
+        </Box>
         <Grid justify='space-between' container>
           <StepperButton
             children={<ChevronLeft />}
@@ -68,7 +70,7 @@ const TestSteps = observer(() => {
 
 const StepperButton = withStyles({
   root: {
-    "&:focus":{
+    "&:focus, &:hover": {
       backgroundColor: Colors.buttonBlue
     },
     borderRadius: "4px",

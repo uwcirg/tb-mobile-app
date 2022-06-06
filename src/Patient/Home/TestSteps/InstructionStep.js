@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import testStripInstructions from '../../../Content/test-strip-instructions';
 import { useTranslation } from 'react-i18next';
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles({
   space: {
@@ -14,6 +15,10 @@ const useStyles = makeStyles({
     justifyContent: 'flex-start',
     flexGrow: '1',
   },
+  text:{
+    padding: "16px 0",
+    fontSize: "18px"
+  }
 });
 
 const InstructionStep = ({ currentStep }) => {
@@ -26,9 +31,9 @@ const InstructionStep = ({ currentStep }) => {
         src={`/img/${i18n.language}/test-instructions/${currentStep + 1}.png`}
         alt={`step # ${currentStep}`}
       />
-      <p style={{ padding: '0 20px' }}>
+      <Typography className={classes.text} variant="body2">
         {t(testStripInstructions[currentStep])}
-      </p>
+      </Typography>
     </div>
   );
 };
