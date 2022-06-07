@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, ButtonBase, Typography } from '@material-ui/core';
-import { DateTime } from 'luxon';
+import { Box, ButtonBase } from '@material-ui/core';
 import { CameraAlt, ChevronRight } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';

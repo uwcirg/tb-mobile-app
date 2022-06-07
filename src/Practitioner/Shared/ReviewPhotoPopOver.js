@@ -144,7 +144,7 @@ const ReviewPhotoPopOver = ({ photo, markPhotoAsComplete, handleSuccess, handleE
             handleExit={handleExit}
             open={!!photo}>
             <Box padding="1em">
-                <ZoomableImage url={photo.url} />
+                <ZoomableImage photo={photo} url={photo.url} />
             </Box>
             <Buttons state={state} setState={setState} submitReview={execute} />
         </PopOverV2>
