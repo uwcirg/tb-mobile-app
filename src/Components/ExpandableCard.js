@@ -24,7 +24,7 @@ const useStyles = makeStyles({
     }
 })
 
-const SectionTitle = ({ icon, title, number, showDetails, toggleDetails }) => {
+const SectionTitle = ({ icon, title, number, showDetails, toggleDetails, hideToggle }) => {
 
     const classes = useStyles();
 
@@ -33,9 +33,9 @@ const SectionTitle = ({ icon, title, number, showDetails, toggleDetails }) => {
         {icon && <Box width=".5em" />}
         {title && <SubSectionTitle>{title}: {number}</SubSectionTitle>}
         <Box flexGrow={1} />
-        <IconButton onClick={toggleDetails} className={classes.toggleButton}>
+        {!hideToggle && <IconButton onClick={toggleDetails} className={classes.toggleButton}>
             <ExpansionToggle expanded={showDetails} />
-        </IconButton>
+        </IconButton>}
     </Grid>)
 }
 
@@ -63,7 +63,6 @@ const ExpandableCard = (props) => {
             </Hidden>
         </>
     )
-
 }
 
 ExpandableCard.propTypes = {
@@ -72,7 +71,8 @@ ExpandableCard.propTypes = {
         PropTypes.node
     ]),
     title: PropTypes.string,
-    icon: PropTypes.elementType
+    icon: PropTypes.elementType,
+    hideToggle: PropTypes.bool
 }
 
 export default ExpandableCard;

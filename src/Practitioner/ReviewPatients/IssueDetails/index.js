@@ -2,7 +2,6 @@ import React from 'react';
 import SymptomSummary from './SymptomSummary';
 import { Box, Grid } from '@material-ui/core';
 import ReviewPhotos from './ReviewPhotos';
-import ReportingSummary from './ReportingSummary';
 import SupportRequests from './SupportRequests';
 import ReportingHistoryLinks from '../../../Components/Shared/ReportingHistoryLinks';
 
@@ -16,7 +15,6 @@ const IssueDetails = ({ patient, visible }) => {
             {issues.symptoms > 0 && <SymptomSummary patient={patient} />}
             {issues.supportRequests > 0 && <SupportRequests supportRequests={patient.issues.supportRequests} />}
             <ReportingHistoryLinks patient={patient} />
-            {/* <ReportingSummary patient={patient} /> */}
         </Grid>
     </Box>)
 

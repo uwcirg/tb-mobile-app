@@ -6,7 +6,7 @@ import PillIcon from '../../Basics/Icons/Pill.js'
 import { useTranslation } from 'react-i18next';
 import { Box, Grid, Typography } from '@material-ui/core';
 import Symptom from '../../Practitioner/Shared/Symptom';
-import { Assignment } from '@material-ui/icons'
+import { Assignment, SentimentDissatisfied } from '@material-ui/icons'
 import Details from '@material-ui/icons/InsertChart';
 import ZoomableImage from './ZoomableImage';
 import ExpandableCard from '../ExpandableCard';
@@ -35,26 +35,24 @@ const DailyReport = ({ report, date }) => {
 
     return (<Box minHeight={"80vh"} bgcolor="white" padding="1em">
 
-        <ExpandableCard title={t('commonWords.medication')} icon={PillIcon}>
+        <ExpandableCard hideToggle title={t('commonWords.medication')} icon={PillIcon}>
             <Typography>Took medication: {medicationWasTaken ? "Yes" : "No"}</Typography>
             {whyMedicationNotTaken && <Typography>Reason: {whyMedicationNotTaken}</Typography>}
         </ExpandableCard>
 
-        <Label text={t('commonWords.stripPhoto')} icon={<CameraIcon />} />
-        <Box padding=".5em 0">
-            {photoUrl && <ZoomableImage initialScale={.5} maxHeight="200px" url={photoUrl} />}
-        </Box>
-
-        <Label text={t('commonWords.symptoms')} icon={<Assignment />} />
-        <Box>
+        <ExpandableCard hideToggle title={t('commonWords.symptoms')} icon={Assignment}>
             <SymptomList symptoms={symptoms} />
-        </Box>
+        </ExpandableCard>
 
-        <Label text={t('coordinator.cardTitles.requestedSupport')} icon={<Assignment />} />
-        <Box>
+        <ExpandableCard hideToggle title={t('coordinator.cardTitles.requestedSupport')} icon={SentimentDissatisfied}>
             <Typography>{!doingOkay ? t('commonWords.yes') : t('commonWords.no')}</Typography>
             {doingOkayReason && <Typography>{doingOkayReason}</Typography>}
-        </Box>
+        </ExpandableCard>
+
+
+        <ExpandableCard hideToggle title={t('commonWords.stripPhoto')} icon={CameraIcon}>
+            {photoUrl && <ZoomableImage initialScale={.5} maxHeight="200px" url={photoUrl} />}
+        </ExpandableCard>
 
     </Box>)
 }

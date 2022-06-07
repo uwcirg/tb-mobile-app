@@ -49,6 +49,7 @@ export default function AddAppointment({ patientId }) {
                 <Loading />
             </>}
             {status === "success" && <Success handleExit={history.goBack} handleReset={resetState} />}
+            {status === "error" && <p> Error </p>}
         </>
     )
 }
