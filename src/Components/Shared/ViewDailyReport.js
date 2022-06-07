@@ -52,7 +52,12 @@ const DailyReport = ({ report, date }) => {
             <Typography style={{ fontStyle: "italic" }}>{t('patient.report.didYouTake')}</Typography>
             <YesNo value={medicationWasTaken} />
 
-            {whyMedicationNotTaken && <Typography>Reason: {whyMedicationNotTaken}</Typography>}
+            {!medicationWasTaken &&
+                <>
+                    <Box width="100%" borderTop="solid 1px lightgray" margin="8px 0" />
+                    <Typography style={{ fontStyle: "italic" }}>{t('patient.report.whyNotTaken')}</Typography>
+                    <Typography>{whyMedicationNotTaken || "No reason given"}</Typography>
+                </>}
         </ExpandableCard>
 
         <ExpandableCard hideToggle title={t('commonWords.symptoms')} icon={Assignment}>
