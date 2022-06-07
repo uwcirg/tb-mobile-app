@@ -4,7 +4,7 @@ import PillIcon from '../../Basics/Icons/Pill.js'
 import { useTranslation } from 'react-i18next';
 import { Box, Grid, Typography } from '@material-ui/core';
 import Symptom from '../../Practitioner/Shared/Symptom';
-import { Assignment, SentimentDissatisfied } from '@material-ui/icons'
+import { Assignment, SentimentDissatisfied, SentimentSatisfied } from '@material-ui/icons'
 import ZoomableImage from './ZoomableImage';
 import ExpandableCard from '../ExpandableCard';
 
@@ -18,11 +18,25 @@ const YesNo = ({ value }) => {
 
     return <Grid container>
         {value ? <CheckCircleIcon style={{ color: Colors.green }} /> : <HighlightOffIcon style={{ color: Colors.red }} />}
-        <Typography style={{textTransform: "capitalize"}}>{value ? t('commonWords.yes') : t('commonWords.no')}</Typography>
+        <Box width="8px" />
+        <Typography style={{ textTransform: "capitalize" }}>
+            {value ? t('commonWords.yes') : t('commonWords.no')}
+        </Typography>
     </Grid>
 }
 
+const DoingOkay = ({ value }) => {
 
+    const { t } = useTranslation('translation');
+
+    return <Grid container>
+        {value ? <CheckCircleIcon style={{ color: Colors.green }} /> : <HighlightOffIcon style={{ color: Colors.red }} />}
+        <Box width="8px" />
+        <Typography style={{ textTransform: "capitalize" }}>
+            {value ? t('patient.report.doingWell') : t('patient.report.needSupport')}
+        </Typography>
+    </Grid>
+}
 
 const DailyReport = ({ report, date }) => {
 
@@ -35,18 +49,19 @@ const DailyReport = ({ report, date }) => {
     return (<Box bgcolor="white" padding="0 1em">
 
         <ExpandableCard hideToggle title={t('commonWords.medication')} icon={PillIcon}>
-                <Typography style={{fontStyle: "italic"}}>{t('patient.report.didYouTake')}</Typography>
-                <YesNo value={medicationWasTaken} />
+            <Typography style={{ fontStyle: "italic" }}>{t('patient.report.didYouTake')}</Typography>
+            <YesNo value={medicationWasTaken} />
 
-                {whyMedicationNotTaken && <Typography>Reason: {whyMedicationNotTaken}</Typography>}
+            {whyMedicationNotTaken && <Typography>Reason: {whyMedicationNotTaken}</Typography>}
         </ExpandableCard>
 
         <ExpandableCard hideToggle title={t('commonWords.symptoms')} icon={Assignment}>
+            <DoingOkay value={symptoms.length === 0} />
             <SymptomList symptoms={symptoms} />
         </ExpandableCard>
 
         <ExpandableCard hideToggle title={t('patient.report.moodTitle')} icon={SentimentDissatisfied}>
-            <Typography>{!doingOkay ? t('commonWords.yes') : t('commonWords.no')}</Typography>
+            <DoingOkay value={doingOkay} />
             {doingOkayReason && <Typography>{doingOkayReason}</Typography>}
         </ExpandableCard>
 
@@ -65,7 +80,7 @@ const SymptomList = (props) => {
         return t('coordinator.recentReports.noSymptoms')
     }
     return (
-        <div className={classes.symptoms}>
+        <div>
             {props.symptoms.map((each, index) => {
                 return <Symptom key={`symptom-${index}`} string={each} />
             })}
