@@ -9,6 +9,7 @@ import Symptom from '../../Practitioner/Shared/Symptom';
 import { Assignment } from '@material-ui/icons'
 import Details from '@material-ui/icons/InsertChart';
 import ZoomableImage from './ZoomableImage';
+import ExpandableCard from '../ExpandableCard';
 
 const useStyles = makeStyles({
 })
@@ -33,17 +34,11 @@ const DailyReport = ({ report, date }) => {
     const { whyMedicationNotTaken, medicationWasTaken, photoWasRequired, symptoms, createdAt, doingOkay, doingOkayReason, photoUrl } = report;
 
     return (<Box minHeight={"80vh"} bgcolor="white" padding="1em">
-        {/* <Label text={t('coordinator.patientTableLabels.details')} icon={<Details />} />
-        <Box>
-            <Typography>Date: {date}</Typography>
-            <Typography>Submitted At: {createdAt}</Typography>
-        </Box> */}
 
-        <Label text={t('commonWords.medication')} icon={<PillIcon />} />
-        <Box>
+        <ExpandableCard title={t('commonWords.medication')} icon={PillIcon}>
             <Typography>Took medication: {medicationWasTaken ? "Yes" : "No"}</Typography>
             {whyMedicationNotTaken && <Typography>Reason: {whyMedicationNotTaken}</Typography>}
-        </Box>
+        </ExpandableCard>
 
         <Label text={t('commonWords.stripPhoto')} icon={<CameraIcon />} />
         <Box padding=".5em 0">

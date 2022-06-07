@@ -5,6 +5,7 @@ import Colors from '../Basics/Colors';
 import SubSectionTitle from './Practitioner/SubSectionTitle';
 import useToggle from '../Hooks/useToggle';
 import ExpansionToggle from './ExpansionToggle';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles({
     sectionHeader: {
@@ -45,7 +46,7 @@ const ExpandableCard = (props) => {
 
     return (
         <>
-            <Grid xs={12} md={"auto"}>
+            <Grid item xs={12} md={"auto"}>
                 <Box marginBottom="1em">
                     {(icon || title) && <SectionTitle showDetails={showDetails} toggleDetails={toggleDetails} {...props} />}
                     <Collapse in={showDetails}>
@@ -63,6 +64,15 @@ const ExpandableCard = (props) => {
         </>
     )
 
+}
+
+ExpandableCard.propTypes = {
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node
+    ]),
+    title: PropTypes.string,
+    icon: PropTypes.elementType
 }
 
 export default ExpandableCard;
