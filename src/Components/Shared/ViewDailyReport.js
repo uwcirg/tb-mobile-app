@@ -51,8 +51,8 @@ const DailyReport = ({ report, date }) => {
 
     return (<Box bgcolor="white" padding="0 1em">
 
-        <ExpandableCard hideToggle title={t('commonWords.medication')} icon={PillIcon}>
-            <Typography style={{ fontStyle: "italic" }}>{t('patient.report.didYouTake')}</Typography>
+        <ExpandableCard hideToggle title={t('patient.report.didYouTake')} icon={PillIcon}>
+            {/* <Typography style={{ fontStyle: "italic" }}>{t('patient.report.didYouTake')}</Typography> */}
             <YesNo value={medicationWasTaken} />
 
             {!medicationWasTaken &&
@@ -63,8 +63,8 @@ const DailyReport = ({ report, date }) => {
                 </>}
         </ExpandableCard>
 
-        <ExpandableCard hideToggle title={t('commonWords.symptoms')} icon={Assignment}>
-            <Typography style={{ fontStyle: "italic" }}>{t('patient.report.symptomsTitle')}</Typography>
+        <ExpandableCard hideToggle title={t('patient.report.symptomsTitle')} icon={Assignment}>
+            {/* <Typography style={{ fontStyle: "italic" }}>{t('patient.report.symptomsTitle')}</Typography> */}
             <Grid container>
                 {!hadSymptoms ? <CheckCircleIcon style={{ color: Colors.green }} /> : <HighlightOffIcon style={{ color: Colors.red }} />}
                 <Box width="8px" />

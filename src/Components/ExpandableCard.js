@@ -31,7 +31,7 @@ const SectionTitle = ({ icon, title, number, showDetails, toggleDetails, hideTog
     return (<Grid className={classes.sectionHeader} wrap="nowrap" alignItems="center" container>
         {icon && React.createElement(icon, { style: { color: "black" } })}
         {icon && <Box width=".5em" />}
-        {title && <SubSectionTitle>{title}: {number}</SubSectionTitle>}
+        {title && <SubSectionTitle>{title} {number}</SubSectionTitle>}
         <Box flexGrow={1} />
         {!hideToggle && <IconButton onClick={toggleDetails} className={classes.toggleButton}>
             <ExpansionToggle expanded={showDetails} />
