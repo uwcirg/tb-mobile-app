@@ -12,6 +12,8 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Colors from '../../Basics/Colors.js';
 
+const Seperator = () => <Box width="100%" borderTop="solid 1px lightgray" margin="8px 0" />;
+
 const YesNo = ({ value }) => {
 
     const { t } = useTranslation('translation');
@@ -45,6 +47,7 @@ const DailyReport = ({ report, date }) => {
     if (!report) return (<Typography>There was no report on {date}</Typography>);
 
     const { whyMedicationNotTaken, medicationWasTaken, photoWasRequired, symptoms, createdAt, doingOkay, doingOkayReason, photoUrl } = report;
+    const hadSymptoms = symptoms.length !== 0;
 
     return (<Box bgcolor="white" padding="0 1em">
 
@@ -54,15 +57,23 @@ const DailyReport = ({ report, date }) => {
 
             {!medicationWasTaken &&
                 <>
-                    <Box width="100%" borderTop="solid 1px lightgray" margin="8px 0" />
+                    <Seperator />
                     <Typography style={{ fontStyle: "italic" }}>{t('patient.report.whyNotTaken')}</Typography>
                     <Typography>{whyMedicationNotTaken || "No reason given"}</Typography>
                 </>}
         </ExpandableCard>
 
         <ExpandableCard hideToggle title={t('commonWords.symptoms')} icon={Assignment}>
-            <DoingOkay value={symptoms.length === 0} />
-            <SymptomList symptoms={symptoms} />
+            <Typography style={{ fontStyle: "italic" }}>{t('patient.report.symptomsTitle')}</Typography>
+            <Grid container>
+                {!hadSymptoms ? <CheckCircleIcon style={{ color: Colors.green }} /> : <HighlightOffIcon style={{ color: Colors.red }} />}
+                <Box width="8px" />
+                <Typography>{hadSymptoms ? t('coordinator.sideBar.symptomsSince') : t('coordinator.recentReports.noSymptoms')}</Typography>
+            </Grid>
+            {hadSymptoms && <>
+                <Seperator />
+                <SymptomList symptoms={symptoms}  />
+            </>}
         </ExpandableCard>
 
         <ExpandableCard hideToggle title={t('patient.report.moodTitle')} icon={SentimentDissatisfied}>
@@ -78,15 +89,15 @@ const DailyReport = ({ report, date }) => {
     </Box>)
 }
 
-const SymptomList = (props) => {
+const SymptomList = ({symptoms}) => {
     const { t } = useTranslation('translation');
 
-    if (!(props.symptoms && props.symptoms.length > 0)) {
+    if (!(symptoms && symptoms.length > 0)) {
         return t('coordinator.recentReports.noSymptoms')
     }
     return (
         <div>
-            {props.symptoms.map((each, index) => {
+            {symptoms.map((each, index) => {
                 return <Symptom key={`symptom-${index}`} string={each} />
             })}
         </div>
