@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   },
 });
 
-export function PageLabel({ title, handleExit, to, isMobile }) {
+export function PageLabel({ title, handleExit, to, hideBackButton}) {
   const classes = useStyles();
 
   const buttonProps = to
@@ -37,7 +37,7 @@ export function PageLabel({ title, handleExit, to, isMobile }) {
       alignItems="center"
       wrap="nowrap"
     >
-      {isMobile && (
+      {!hideBackButton && (
         <IconButton className={classes.backButton} {...buttonProps}>
           <ChevronLeftRounded />
         </IconButton>
