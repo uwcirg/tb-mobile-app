@@ -50,7 +50,7 @@ const ExpandableCard = (props) => {
                 <Box marginBottom="1em">
                     {(icon || title) && <SectionTitle showDetails={showDetails} toggleDetails={toggleDetails} {...props} />}
                     <Collapse in={showDetails}>
-                        <Box borderRadius="4px" border={`solid 1px ${Colors.lightgray}`} padding="0 .5em">
+                        <Box borderRadius="4px" border={`solid 1px ${Colors.lightgray}`}>
                             <Box padding=".5em" borderRadius="0 0 4px 4px" >
                                 {children}
                             </Box>

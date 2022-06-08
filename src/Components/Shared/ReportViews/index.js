@@ -3,7 +3,7 @@ import { useHistory, Switch, Route, Redirect } from 'react-router-dom'
 import ReportingCalendar from './Calendar';
 import { Box, Fade, Grid, IconButton, Typography } from '@material-ui/core';
 import CalendarKey from './Calendar/CalendarKey';
-import ViewDailyReport from '../../../Components/Shared/ViewDailyReport';
+import ViewDailyReport from '../ViewDailyReport';
 import { DateTime } from 'luxon';
 import Colors from '../../../Basics/Colors';
 import { CameraAlt, Clear, Event, ListAlt } from '@material-ui/icons';

@@ -1,16 +1,27 @@
-import React from 'react'
+import React from 'react';
 import CameraIcon from '@material-ui/icons/PhotoCamera';
-import PillIcon from '../../Basics/Icons/Pill.js'
+import PillIcon from '../../../Basics/Icons/Pill.js'
 import { useTranslation } from 'react-i18next';
 import { Box, Grid, Typography } from '@material-ui/core';
-import Symptom from '../../Practitioner/Shared/Symptom';
-import { Assignment, SentimentDissatisfied, SentimentSatisfied } from '@material-ui/icons'
-import ZoomableImage from './ZoomableImage';
-import ExpandableCard from '../ExpandableCard';
+import Symptom from '../../../Practitioner/Shared/Symptom';
+import { Assignment, SentimentDissatisfied } from '@material-ui/icons';
+import ZoomableImage from '../ZoomableImage';
+import ExpandableCard from '../../ExpandableCard';
 
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import Colors from '../../Basics/Colors.js';
+import Colors from '../../../Basics/Colors.js';
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+
+const Status = ({ text, icon, color }) => {
+    return (<Grid container >
+        {React.createElement(icon, { style: { color: color } })}
+        <Box width="8px" />
+        <Typography>
+            {text}
+        </Typography>
+    </Grid >)
+}
 
 const Seperator = () => <Box width="100%" borderTop="solid 1px lightgray" margin="8px 0" />;
 
@@ -46,7 +57,7 @@ const DailyReport = ({ report, date }) => {
 
     if (!report) return (<Typography>There was no report on {date}</Typography>);
 
-    const { whyMedicationNotTaken, medicationWasTaken, photoWasRequired, symptoms, createdAt, doingOkay, doingOkayReason, photoUrl } = report;
+    const { whyMedicationNotTaken, medicationWasTaken, photoWasRequired, symptoms, createdAt, doingOkay, doingOkayReason, photoUrl, whyPhotoWasSkipped } = report;
     const hadSymptoms = symptoms.length !== 0;
 
     return (<Box bgcolor="white" padding="0 1em">
@@ -64,7 +75,6 @@ const DailyReport = ({ report, date }) => {
         </ExpandableCard>
 
         <ExpandableCard hideToggle title={t('patient.report.symptomsTitle')} icon={Assignment}>
-            {/* <Typography style={{ fontStyle: "italic" }}>{t('patient.report.symptomsTitle')}</Typography> */}
             <Grid container>
                 {!hadSymptoms ? <CheckCircleIcon style={{ color: Colors.green }} /> : <HighlightOffIcon style={{ color: Colors.red }} />}
                 <Box width="8px" />
@@ -72,7 +82,7 @@ const DailyReport = ({ report, date }) => {
             </Grid>
             {hadSymptoms && <>
                 <Seperator />
-                <SymptomList symptoms={symptoms}  />
+                <SymptomList symptoms={symptoms} />
             </>}
         </ExpandableCard>
 
@@ -80,21 +90,23 @@ const DailyReport = ({ report, date }) => {
             <DoingOkay value={doingOkay} />
             {doingOkayReason && <Typography>{doingOkayReason}</Typography>}
         </ExpandableCard>
-
-
         <ExpandableCard hideToggle title={t('commonWords.stripPhoto')} icon={CameraIcon}>
-            {photoUrl && <ZoomableImage initialScale={.5} maxHeight="200px" url={photoUrl} />}
+            {photoWasRequired ? <>
+                {photoUrl ? <>
+                    <ZoomableImage initialScale={.5} maxHeight="200px" url={photoUrl} />
+                </> : <>
+                    <Status text={t('report.missedPhoto')} icon={HighlightOffIcon} color={Colors.red} />
+                    <Seperator />
+                    <Typography>{t('patient.report.photo.whyUnable')}</Typography>
+                    <Typography>{whyPhotoWasSkipped || t('coordinator.sideBar.noReason')}</Typography>
+                </>}
+            </> : <Status text={t('patient.report.confirmation.noPhoto')} color={Colors.textGray} icon={RemoveCircleIcon} />}
         </ExpandableCard>
 
     </Box>)
 }
 
-const SymptomList = ({symptoms}) => {
-    const { t } = useTranslation('translation');
-
-    if (!(symptoms && symptoms.length > 0)) {
-        return t('coordinator.recentReports.noSymptoms')
-    }
+const SymptomList = ({ symptoms }) => {
     return (
         <div>
             {symptoms.map((each, index) => {
