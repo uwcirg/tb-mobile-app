@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import BottomBar from './Navigation/BottomBar';
 import { observer } from 'mobx-react';
 import Home from './Home'
-import Info from './Information'
+import Info from './Information/'
 import Messaging from '../Messaging';
 import Progress from './Progress';
 import TopBar from './Navigation/TopBar';

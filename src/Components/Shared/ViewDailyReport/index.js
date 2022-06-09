@@ -15,7 +15,7 @@ import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
-    answer:{
+    answer: {
         fontStyle: "italic",
     }
 })

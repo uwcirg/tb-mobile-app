@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Switch, Route } from 'react-router-dom';
 import Documents from './Documents';
-import PatientInformation from '../../Patient/Information';
+import PatientInformation from '../../Patient/Information/OldInformation';
 import Language from '../../Components/Shared/LanguageQuestion';
 import PasswordReset from '../../Components/PasswordUpdate';
 import useWindowSize from '../../Hooks/Resize';
