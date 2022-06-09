@@ -12,6 +12,13 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Colors from '../../../Basics/Colors.js';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+    answer:{
+        fontStyle: "italic",
+    }
+})
 
 const Status = ({ text, icon, color }) => {
 
@@ -24,31 +31,14 @@ const Status = ({ text, icon, color }) => {
     </Grid >)
 }
 
+const AnswerText = ({ children }) => {
+    const classes = useStyles()
+    return (
+        <Typography className={classes.answer}>{children}</Typography>
+    )
+}
+
 const Seperator = () => <Box width="100%" borderTop="solid 1px lightgray" margin="8px 0" />;
-
-const YesNo = ({ value }) => {
-
-    const { t } = useTranslation('translation');
-
-    return <Grid container>
-        {value ? <CheckCircleIcon style={{ color: Colors.green }} /> : <HighlightOffIcon style={{ color: Colors.red }} />}
-        <Box width="8px" />
-        <Typography style={{ textTransform: "capitalize" }}>
-            {value ? t('commonWords.yes') : t('commonWords.no')}
-        </Typography>
-    </Grid>
-}
-
-const DoingOkay = ({ value }) => {
-
-    const { t } = useTranslation('translation');
-
-    return (<Status
-        text={value ? t('commonWords.yes') : t('commonWords.no')}
-        icon={value ? CheckCircleIcon : HighlightOffIcon}
-        color={vale ? Colors.green : Colors.red}
-    />)
-}
 
 const DailyReport = ({ report, date }) => {
 
@@ -72,7 +62,7 @@ const DailyReport = ({ report, date }) => {
                 <>
                     <Seperator />
                     <Typography>{t('patient.report.whyNotTaken')}</Typography>
-                    <Typography style={{ fontStyle: "italic" }}>{whyMedicationNotTaken || t('coordinator.sideBar.noReason')}</Typography>
+                    <AnswerText>{whyMedicationNotTaken || t('coordinator.sideBar.noReason')}</AnswerText>
                 </>}
         </ExpandableCard>
 
@@ -104,7 +94,7 @@ const DailyReport = ({ report, date }) => {
                     <Status text={t('report.missedPhoto')} icon={HighlightOffIcon} color={Colors.red} />
                     <Seperator />
                     <Typography>{t('patient.report.photo.whyUnable')}</Typography>
-                    <Typography>{whyPhotoWasSkipped || t('coordinator.sideBar.noReason')}</Typography>
+                    <AnswerText>{whyPhotoWasSkipped || t('coordinator.sideBar.noReason')}</AnswerText>
                 </>}
             </> : <Status text={t('patient.report.confirmation.noPhoto')} color={Colors.textGray} icon={RemoveCircleIcon} />}
         </ExpandableCard>
