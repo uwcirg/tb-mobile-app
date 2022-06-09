@@ -21,14 +21,15 @@ const useStyles = makeStyles({
   },
 });
 
-export function PageLabel({ title, handleExit, to, isMobile }) {
+export function PageLabel({ title, handleExit, to, hideBackButton}) {
+  
+  const history = useHistory();
+
   const classes = useStyles();
 
   const buttonProps = to
     ? { component: Link, to: to }
     : {onClick: handleExit || history.goBack};
-
-    const history = useHistory();
 
   return (
     <Grid
@@ -37,7 +38,7 @@ export function PageLabel({ title, handleExit, to, isMobile }) {
       alignItems="center"
       wrap="nowrap"
     >
-      {isMobile && (
+      {!hideBackButton && (
         <IconButton className={classes.backButton} {...buttonProps}>
           <ChevronLeftRounded />
         </IconButton>

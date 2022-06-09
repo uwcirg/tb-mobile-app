@@ -1,15 +1,15 @@
 import { Box, Grid, Typography } from '@material-ui/core'
 import React from 'react'
-import IssueSection from './IssueSection'
 import { useTranslation } from 'react-i18next';
 import { SentimentDissatisfied } from '@material-ui/icons';
 import ShortDate from '../../../Components/Shared/ShortDate';
+import ExpandableCard from '../../../Components/ExpandableCard';
 
 export default function SupportRequests({ supportRequests }) {
 
     const { t } = useTranslation('translation');
 
-    return (<IssueSection
+    return (<ExpandableCard
         title={t('mobileUpdate.supportRequests')}
         icon={SentimentDissatisfied}
         number={supportRequests.length}  >
@@ -20,5 +20,5 @@ export default function SupportRequests({ supportRequests }) {
                 <Typography>{each.reason}</Typography>
             </Grid>);
         })}
-    </IssueSection>)
+    </ExpandableCard>)
 }
