@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Grid, Box, IconButton, ButtonBase } from '@material-ui/core';
+import { Grid, Box, IconButton } from '@material-ui/core';
 import { Search, Add } from '@material-ui/icons';
 import ReviewPatientTabs from './Tabs';
 import StickyTopBar from '../../Components/Shared/StickyTopBar';
@@ -13,11 +13,8 @@ import { Route, Switch, useParams, Link } from 'react-router-dom';
 import AllPatientsList from './AllPatientsList';
 import ReportingPopover from '../Shared/ReportingPopOver';
 import { PageLabelTitle } from '../../Components/Shared/PageLabel';
-import FlatButton from '../../Components/FlatButton';
-import { useTranslation } from 'react-i18next';
 
 const TopBar = () => {
-  let { t } = useTranslation('translation');
   return (
     <Box bgcolor="white" borderBottom="solid 1px lightgray" padding=".5em 1em">
       <Grid alignItems="center" container>
@@ -34,10 +31,9 @@ const TopBar = () => {
           <Search />
         </IconButton>
 
-        <FlatButton component={Link} to={'/patients/add-patient'}>
+        <IconButton component={Link} to={'/patients/add-patient'}>
           {<Add />}
-          {t('coordinator.addPatientFlow.title')}
-        </FlatButton>
+        </IconButton>
       </Grid>
     </Box>
   );
