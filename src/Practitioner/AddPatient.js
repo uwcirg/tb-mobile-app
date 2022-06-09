@@ -13,21 +13,21 @@ import Success from '../Components/Shared/Appointments/AddAppointment/Success';
 import { useHistory } from 'react-router-dom';
 
 const initialState = {
-  firstName: '',
-  lastName: '',
+  givenName: '',
+  familyName: '',
   phoneNumber: '',
-  datetime: DateTime.local().toISO(),
+  treatmentStart: DateTime.local().toISO(),
 };
 
-export default function AddPatient({ patientId }) {
+export default function AddPatient() {
   const { t } = useTranslation('translation');
   const [state, setState] = useState({ ...initialState });
   const history = useHistory();
 
-  const { execute, status, value, error, reset } = useAsync({
+  const { execute, status, reset } = useAsync({
     asyncFunc: PractitionerAPI.addPatient,
     immediate: false,
-    funcParams: [patientId, state],
+    funcParams: [state],
   });
 
   // if state === body of POST, how do I set these values to the values Kyle wants?
@@ -52,7 +52,9 @@ export default function AddPatient({ patientId }) {
         </>
       )}
       {status === 'success' && (
-        <Success handleExit={history.goBack} handleReset={resetState} />
+        <>
+          <Success handleExit={history.goBack} handleReset={resetState} />
+        </>
       )}
     </>
   );
@@ -61,19 +63,27 @@ export default function AddPatient({ patientId }) {
 const Form = ({ state, setState, handleSubmit }) => {
   const handleDateChange = (dt) => {
     const tempDT = dt
-      .set({ hour: state.datetime.hour, minute: state.datetime.minute })
+      .set({
+        hour: state.treatmentStart.hour,
+        minute: state.treatmentStart.minute,
+      })
       .startOf('minute');
-    setState({ ...state, datetime: tempDT.toISO() });
+    setState({ ...state, treatmentStart: tempDT.toISO() });
   };
+
+  const validPhone = state.phoneNumber.length >= 5;
+
+  const submitDisabled =
+    state.firstName === '' || state.lastName === '' || !validPhone;
 
   const { t } = useTranslation('translation');
   return (
     <Box margin="2em" maxWidth="700px">
       <InputCard title={t('patient.userFields.firstName')}>
         <TextField
-          value={state.firstName}
+          value={state.givenName}
           onChange={(e) => {
-            setState({ ...state, firstName: e.target.value });
+            setState({ ...state, givenName: e.target.value });
           }}
           placeholder={t('patient.userFields.firstName') + '...'}
           multiline
@@ -84,9 +94,9 @@ const Form = ({ state, setState, handleSubmit }) => {
 
       <InputCard title={t('patient.userFields.lastName')}>
         <TextField
-          value={state.lastName}
+          value={state.familyName}
           onChange={(e) => {
-            setState({ ...state, lastName: e.target.value });
+            setState({ ...state, familyName: e.target.value });
           }}
           placeholder={t('patient.userFields.lastName') + '...'}
           multiline
@@ -109,11 +119,11 @@ const Form = ({ state, setState, handleSubmit }) => {
       </InputCard>
 
       <InputCard title={t('patient.userFields.treatmentStart')}>
-        <DateInput value={state.datetime} setValue={handleDateChange} />
+        <DateInput value={state.treatmentStart} setValue={handleDateChange} />
       </InputCard>
       <Grid container>
         <Box flexGrow={1} />
-        <FlatButton onClick={handleSubmit}>
+        <FlatButton onClick={handleSubmit} disabled={submitDisabled}>
           {t('coordinator.addPatientFlow.title')}
         </FlatButton>
       </Grid>

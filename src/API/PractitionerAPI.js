@@ -29,18 +29,8 @@ export default class PractitionerAPI {
     });
   }
 
-  // What is actually important to post?.
-  // The objects that get processed rn with add patient
-  // return account:{...}, code: "numberString"
-
-  static async addPatient(patientId, body) {
-    console.log(body);
-    return api.executeRawRequest('/patients', 'POST', {
-      givenName: body.firstName,
-      familyName: body.lastname,
-      phoneNumber: body.phoneNumber,
-      treatmentStart: body.datetime,
-    });
+  static async addPatient(body) {
+    return api.request('/patients', 'POST', body);
   }
 
   static async reviewPhoto(photoReportId, body) {
