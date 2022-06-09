@@ -10,45 +10,48 @@ import Success from './Success';
 import { useHistory } from 'react-router-dom';
 import Loading from '../../../../Practitioner/Shared/CardLoading';
 
-const initalState = {
-    category: "",
-    time: null,
-    note: "",
-    datetime: DateTime.local().toISO(),
-    tempDatetime: DateTime.local().toISO()
-}
+const initialState = {
+  category: '',
+  time: null,
+  note: '',
+  datetime: DateTime.local().toISO(),
+  tempDatetime: DateTime.local().toISO(),
+};
 
 export default function AddAppointment({ patientId }) {
+  const { t } = useTranslation('translation');
+  const history = useHistory();
 
-    const { t } = useTranslation('translation');
-    const history = useHistory();
+  const [state, setState] = useState({
+    ...initialState,
+  });
 
-    const [state, setState] = useState({
-        ...initalState
-    })
+  const { execute, status, value, error, reset } = useAsync({
+    asyncFunc: SharedAPI.addAppointment,
+    immediate: false,
+    funcParams: [patientId, state],
+  });
 
-    const { execute, status, value, error, reset } = useAsync({
-        asyncFunc: SharedAPI.addAppointment,
-        immediate: false,
-        funcParams: [patientId, state]
-    })
+  const resetState = () => {
+    setState({ ...initialState });
+    reset();
+  };
 
-    const resetState = () => {
-        setState({ ...initalState })
-        reset();
-
-    }
-
-    return (
-
+  return (
+    <>
+      <TopPageLabel sticky title={t('appointments.addAppointment')} />
+      {status === 'idle' && (
+        <Form state={state} setState={setState} handleSubmit={execute} />
+      )}
+      {status === 'loading' && (
         <>
-            <TopPageLabel sticky title={t('appointments.addAppointment')} />
-            {status === "idle" && <Form state={state} setState={setState} handleSubmit={execute} />}
-            {status === "loading" && <>
-                <Box height="3rem" />
-                <Loading />
-            </>}
-            {status === "success" && <Success handleExit={history.goBack} handleReset={resetState} />}
+          <Box height="3rem" />
+          <Loading />
         </>
-    )
+      )}
+      {status === 'success' && (
+        <Success handleExit={history.goBack} handleReset={resetState} />
+      )}
+    </>
+  );
 }

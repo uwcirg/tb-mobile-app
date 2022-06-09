@@ -34,8 +34,13 @@ export default class PractitionerAPI {
   // return account:{...}, code: "numberString"
 
   static async addPatient(patientId, body) {
-    console.log(patientId);
-    return api.executeRawRequest('/patients', 'POST', body);
+    console.log(body);
+    return api.executeRawRequest('/patients', 'POST', {
+      givenName: body.firstName,
+      familyName: body.lastname,
+      phoneNumber: body.phoneNumber,
+      treatmentStart: body.datetime,
+    });
   }
 
   static async reviewPhoto(photoReportId, body) {

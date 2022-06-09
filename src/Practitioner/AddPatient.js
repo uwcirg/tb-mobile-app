@@ -6,6 +6,11 @@ import { Box, TextField, Grid } from '@material-ui/core';
 import InputCard from '../Components/Shared/Appointments/AddAppointment/InputCard';
 import DateInput from '../Components/Shared/Appointments/AddAppointment/DateInput';
 import FlatButton from '../Components/FlatButton';
+import useAsync from '../Hooks/useAsyncWithParams';
+import PractitionerAPI from '../API/PractitionerAPI';
+import Loading from './Shared/CardLoading';
+import Success from '../Components/Shared/Appointments/AddAppointment/Success';
+import { useHistory } from 'react-router-dom';
 
 const initialState = {
   firstName: '',
@@ -17,15 +22,38 @@ const initialState = {
 export default function AddPatient({ patientId }) {
   const { t } = useTranslation('translation');
   const [state, setState] = useState({ ...initialState });
+  const history = useHistory();
+
+  const { execute, status, value, error, reset } = useAsync({
+    asyncFunc: PractitionerAPI.addPatient,
+    immediate: false,
+    funcParams: [patientId, state],
+  });
+
+  // if state === body of POST, how do I set these values to the values Kyle wants?
+  // { givenName: Firstname, familyName: Lastname phoneNumber: 123456789,
+  // treatmentStart: DateTime.local().toISO(), ( any iso datetime ) },
+
+  const resetState = () => {
+    setState({ ...initialState });
+    reset();
+  };
 
   return (
     <>
       <TopPageLabel sticky title={t('coordinator.addPatientFlow.title')} />
-      <Form
-        state={state}
-        setState={setState}
-        handleSubmit={() => console.log('execute from async!')}
-      />
+      {status === 'idle' && (
+        <Form state={state} setState={setState} handleSubmit={execute} />
+      )}
+      {status === 'pending' && (
+        <>
+          <Box height="3em" />
+          <Loading />
+        </>
+      )}
+      {status === 'success' && (
+        <Success handleExit={history.goBack} handleReset={resetState} />
+      )}
     </>
   );
 }
@@ -85,7 +113,7 @@ const Form = ({ state, setState, handleSubmit }) => {
       </InputCard>
       <Grid container>
         <Box flexGrow={1} />
-        <FlatButton disabled={true}>
+        <FlatButton onClick={handleSubmit}>
           {t('coordinator.addPatientFlow.title')}
         </FlatButton>
       </Grid>
