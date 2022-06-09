@@ -4,6 +4,7 @@ import { Route, Switch, Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import TopPageLabel from '../../Components/Shared/TopPageLabel';
 import { PageLabel } from '../../Components/Shared/PageLabel';
+import { VideoCallOutlined, YouTube } from '@material-ui/icons';
 
 const useStyles = makeStyles({
     grid: {
@@ -13,16 +14,40 @@ const useStyles = makeStyles({
     },
     box: {
         border: "solid 1px lightgray",
-        borderRadius: "4px",
+        borderRadius: "5px",
         display: "flex",
         aspectRatio: "1",
         alignItems: "center",
+        flexDirection: "column",
         justifyContent: "center",
         "& *": {
             textAlign: "center"
+        },
+        "& svg": {
+            fontSize: "4em"
         }
     }
 })
+
+
+const buttonData = [
+
+    {
+        sectionTitle: "Information about treatment", items: [
+            { translationKey: "Videos", to: "/information/videos", icon: <YouTube /> },
+            { translationKey: "Questions and Answers", to: "/information/faq" }
+        ]
+    },
+    {
+        sectionTitle: "Help with app",
+        items: [
+            { translationKey: "Help Videos", to: "/information/help-videos" },
+            { translationKey: "Report an Issue", to: "/information/issue" },
+        ]
+    }
+
+
+]
 
 const InfoRoute = (props) => {
 
@@ -37,12 +62,19 @@ const InfoRoute = (props) => {
 }
 
 export default function InformationPage() {
+
+
+    const buttons = []
+
+    buttonData.forEach(d => {
+        buttons.push(...d.items)
+    })
+
     return (
         <Switch>
-
-            {buttonData.map(each => {
-                const { to, translationKey } = each;
-                return <InfoRoute title={translationKey} path={to}>
+            {buttons.map(_each => {
+                const { to, translationKey } = _each;
+                return <InfoRoute key={`route-${to}`} title={translationKey} path={to}>
                     <p>Content!</p>
                 </InfoRoute>
             })}
@@ -53,25 +85,26 @@ export default function InformationPage() {
     )
 }
 
-const buttonData = [
-    { translationKey: "Videos", to: "/information/videos" },
-    { translationKey: "Help", to: "/information/help" },
-    { translationKey: "Questions and Answers", to: "/information/faq" },
-    { translationKey: "Report an Issue", to: "/information/issue" },
-]
-
-
 const Buttons = () => {
     const classes = useStyles();
+
     return (
-        <Box padding="16px">
-            <div className={classes.grid}>
-                {buttonData.map(each => {
-                    return <ButtonBase className={classes.box} component={Link} to={each.to}>
-                        <Typography>{each.translationKey}</Typography>
-                    </ButtonBase>
-                })}
-            </div>
-        </Box>
+        <Box padding="0 16px">
+            {buttonData.map(each => {
+                return <React.Fragment key={each.sectionTitle}>
+                    <p>{each.sectionTitle}</p>
+                    <div className={classes.grid}>
+                        {each.items.map(_each => {
+                            const { icon, translationKey, to } = _each;
+                            return <ButtonBase key={`button-${to}`} className={classes.box} component={Link} to={to}>
+                                {icon}
+                                <Typography>{translationKey}</Typography>
+                            </ButtonBase>
+                        })}
+                    </div>
+                </React.Fragment>
+
+            })}
+        </Box >
     )
 }
