@@ -72,9 +72,6 @@ const PatientsView = observer((props) => {
         <AdherenceGraph />
         <div>
           <Collapse in={showForm}>
-            {/* !! */}
-            {/* Extract to own page?? the component below */}
-            {/* !! */}
             <AddPatient toggleForm={toggleShowForm} />
           </Collapse>
         </div>

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Grid, Box, IconButton, ButtonBase } from '@material-ui/core';
-import { Search } from '@material-ui/icons';
+import { Search, Add } from '@material-ui/icons';
 import ReviewPatientTabs from './Tabs';
 import StickyTopBar from '../../Components/Shared/StickyTopBar';
 import Colors from '../../Basics/Colors';
@@ -13,27 +13,31 @@ import { Route, Switch, useParams, Link } from 'react-router-dom';
 import AllPatientsList from './AllPatientsList';
 import ReportingPopover from '../Shared/ReportingPopOver';
 import { PageLabelTitle } from '../../Components/Shared/PageLabel';
+import FlatButton from '../../Components/FlatButton';
+import { useTranslation } from 'react-i18next';
 
 const TopBar = () => {
+  let { t } = useTranslation('translation');
   return (
     <Box bgcolor="white" borderBottom="solid 1px lightgray" padding=".5em 1em">
       <Grid alignItems="center" container>
         <PageLabelTitle title="Review Patients" />
         <Box flexGrow="1" />
+
         <IconButton
-          style={{ backgroundColor: Colors.lightgray, padding: '5px' }}
+          style={{
+            backgroundColor: Colors.lightgray,
+            padding: '5px',
+            marginRight: '1em',
+          }}
         >
           <Search />
         </IconButton>
-        {/* !! */}
-        {/* button to link to add patient page */}
-        {/* !! */}
-        <ButtonBase
-          component={Link}
-          to="/patients/add-patient"
-          children="Add Patient"
-          style={{ background: `${Colors.blue}`, marginLeft: '2em' }}
-        />
+
+        <FlatButton component={Link} to={'/patients/add-patient'}>
+          {<Add />}
+          {t('coordinator.addPatientFlow.title')}
+        </FlatButton>
       </Grid>
     </Box>
   );
