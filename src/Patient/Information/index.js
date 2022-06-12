@@ -9,6 +9,7 @@ import HelpVideos from './HelpVideos';
 import { useTranslation } from 'react-i18next';
 import { t } from 'i18next';
 import QuestionsAndAnswers from './QuestionsAndAnswers';
+import Videos from './Videos';
 
 const useStyles = makeStyles({
     grid: {
@@ -58,7 +59,7 @@ const buttonData = [
     {
         sectionTitle: 'patient.information.infoSection', items: [
             { translationKey: 'patient.information.questions', to: "/information/faq", icon: <QuestionAnswerRounded />, page: <QuestionsAndAnswers /> },
-            { translationKey: 'patient.information.videos', to: "/information/videos", icon: <YouTube /> },
+            { translationKey: 'patient.information.videos', to: "/information/videos", icon: <YouTube />, page: <Videos /> },
         ]
     },
     {
