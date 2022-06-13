@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { t } from 'i18next';
 import QuestionsAndAnswers from './QuestionsAndAnswers';
 import Videos from './Videos';
+import MedicationReminder from './MedicationReminder';
 
 const useStyles = makeStyles({
     grid: {
@@ -53,7 +54,7 @@ const Translate = ({ children }) => {
 const buttonData = [
     {
         sectionTitle: 'patient.profile.title', items: [
-            { translationKey: 'patient.profile.options.medicationReminder', to: "/information/reminder", icon: <AccessAlarmRounded /> },
+            { translationKey: 'patient.profile.options.medicationReminder', to: "/information/medication-reminder", icon: <AccessAlarmRounded />, page: <MedicationReminder /> },
         ]
     },
     {
