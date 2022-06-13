@@ -52,8 +52,8 @@ export default function AddPatient() {
       )}
       {status === 'success' && !!value?.paramErrors && (
         <>
-          <Box color="red" padding="0">
-            {`${t('commonWords.error')}: ${t('errors.page.try')}`}
+          <Box color="red" padding="1em">
+            {`${t('commonWords.error')}: ${t('commonWords.fillAll')}`}
           </Box>
           <Form
             state={state}
@@ -93,7 +93,7 @@ const Form = ({ state, setState, handleSubmit, error }) => {
   const { t } = useTranslation('translation');
   return (
     <Box padding="1em" maxWidth="700px">
-      <InputCard title={t('patient.userFields.firstName')}>
+      <InputCard title={`${t('patient.userFields.firstName')} *`}>
         <TextField
           value={state.givenName}
           onChange={(e) => {
@@ -107,7 +107,7 @@ const Form = ({ state, setState, handleSubmit, error }) => {
         />
       </InputCard>
 
-      <InputCard title={t('patient.userFields.lastName')}>
+      <InputCard title={`${t('patient.userFields.lastName')} *`}>
         <TextField
           value={state.familyName}
           onChange={(e) => {
@@ -121,11 +121,11 @@ const Form = ({ state, setState, handleSubmit, error }) => {
         />
       </InputCard>
 
-      <InputCard title={t('coordinator.patientProfile.phoneNumber')}>
+      <InputCard title={`${t('coordinator.patientProfile.phoneNumber')} *`}>
         {error?.phoneNumber && (
           <Box color="red" padding="0">
             {' '}
-            ****invalid message***
+            {t('coordinator.patientProfile.editDetails.inputError')}
           </Box>
         )}
         <TextField
