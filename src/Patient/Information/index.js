@@ -1,9 +1,9 @@
 import { Box } from '@material-ui/core';
-import React from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, Route, Switch, useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { PageLabel } from '../../Components/Shared/PageLabel';
-import { Settings as SettingsIcon, AccessAlarmRounded, ContactSupport, ContactSupportRounded, FeedbackRounded, MenuBook, OndemandVideoRounded, QuestionAnswerRounded, SettingsApplications, VideoCallOutlined, YouTube } from '@material-ui/icons';
+import { Settings as SettingsIcon, AccessAlarmRounded, ContactSupportRounded, FeedbackRounded, OndemandVideoRounded, QuestionAnswerRounded, YouTube, ExitToApp } from '@material-ui/icons';
 import HelpVideos from './HelpVideos';
 import { useTranslation } from 'react-i18next';
 import QuestionsAndAnswers from './QuestionsAndAnswers';
@@ -12,13 +12,20 @@ import MedicationReminder from './MedicationReminder';
 import Colors from '../../Basics/Colors';
 import InformationLink from './InformationLink';
 import TestInstructions from './TestInstructions';
-import capitalizeFirstLetter from '../../Utility/StringUtils';
 import VersionNumber from './VersionNumber';
 import ChangeLog from '../../Basics/Changelog';
 import { StaticVersion } from '../../Basics/ErrorBoundary';
 import Settings from '../Settings';
+import FlatButton from '../../Components/FlatButton';
+import useLogout from '../../Basics/Logout';
 
 const useStyles = makeStyles({
+    logout: {
+        width: "100%",
+        justifyContent: "center",
+        fontSize: "1rem",
+        boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.15)"
+    },
     grid: {
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
@@ -65,8 +72,6 @@ const content = [
             { translationKey: 'patient.information.reportIssue', to: "/information/report-issue", icon: <FeedbackRounded /> },
         ]
     }
-
-
 ]
 
 const InfoRoute = (props) => {
@@ -83,6 +88,20 @@ const InfoRoute = (props) => {
 
 export default function InformationPage() {
 
+    const { t } = useTranslation('translation');
+
+    const { pathname } = useLocation();
+
+    useEffect(()=>{
+        const element = document.getElementById('main-patient-app-content')
+        if(element){
+            element.scrollTop = 0;
+        }
+    },[pathname])
+
+    const classes = useStyles();
+    const logout = useLogout();
+
     const buttons = []
 
     content.forEach(d => {
@@ -93,8 +112,11 @@ export default function InformationPage() {
         <Switch>
             {buttons.map(_each => {
                 const { to, translationKey, page } = _each;
-                return <InfoRoute key={`route-${to}`} title={translationKey} path={to}>
-                    {page || <p>Content missing, please add it</p>}
+                return <InfoRoute key={`route-${translationKey}`} title={translationKey} path={to}>
+                    {page || <>
+                        <p>{t('commonWords.error')}</p>
+                        <Link to="/">{t('patient.report.photo.back')}</Link>
+                    </>}
                 </InfoRoute>
             })}
             <InfoRoute path="/information/change-log" title={'patient.information.changeLog'} >
@@ -102,37 +124,46 @@ export default function InformationPage() {
             </InfoRoute>
             <Route>
                 <Buttons />
+                <Box padding="1rem">
+                    <FlatButton className={classes.logout} onClick={logout}>
+                        <span>{t('patient.profile.logout')}</span>
+                        <Box width=".5rem" />
+                        <ExitToApp />
+                    </FlatButton>
+                </Box>
+                <Box padding="0 1rem 1rem 1rem">
+                    <VersionNumber />
+                </Box>
             </Route>
         </Switch>
     )
 }
 
 const SectionTitle = ({ children }) => {
+
     const classes = useStyles()
 
     return (<h2 className={classes.sectionTitle}>{children}</h2>)
 }
 
 const Buttons = () => {
+
     const classes = useStyles();
 
     return (
         <Box padding="0 16px">
-            {content.map(each => {
-                return <React.Fragment key={each.sectionTitle}>
+            {content.map((each) => {
+                return <div key={`information-section-${each.sectionTitle}}`}>
                     <SectionTitle>
                         <Translate>
                             {each.sectionTitle}
                         </Translate>
                     </SectionTitle>
                     <div className={classes.grid}>
-                        {each.items.map(_each => <InformationLink {..._each} />)}
+                        {each.items.map(_each => <InformationLink {..._each} key={_each.translationKey} />)}
                     </div>
-                </React.Fragment>
+                </div>
             })}
-            <Box padding="1rem 0">
-                <VersionNumber />
-            </Box>
         </Box >
     )
 }

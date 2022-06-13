@@ -15,7 +15,7 @@ const useStyles = makeStyles({
     justifyContent: 'flex-start',
     flexGrow: '1',
   },
-  text:{
+  text: {
     padding: "16px 0",
     fontSize: "18px"
   }
@@ -32,7 +32,7 @@ const InstructionStep = ({ currentStep }) => {
         alt={`step # ${currentStep}`}
       />
       <Typography className={classes.text} variant="body2">
-        {typeof(testStripInstructions[currentStep]) === "string" ? t(testStripInstructions[currentStep]) : testStripInstructions[currentStep]}
+        {typeof (testStripInstructions[currentStep]) === "string" ? t(testStripInstructions[currentStep]) : testStripInstructions[currentStep]}
       </Typography>
     </div>
   );

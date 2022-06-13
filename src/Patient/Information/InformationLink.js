@@ -45,7 +45,7 @@ export default function InformationLink({ icon, translationKey, to }) {
     const classes = useStyles();
     const { t } = useTranslation('translation');
 
-    return (<Paper className={classes.new} key={`button-${to}`}>
+    return (<Paper className={classes.new}>
         <ButtonBase className={classes.box} component={Link} to={to}>
             <Box padding=".5em 0">
                 {icon}
