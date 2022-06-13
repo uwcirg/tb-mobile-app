@@ -41,7 +41,7 @@ import NewButton from '../../Basics/NewButton';
 
 import { useHistory } from 'react-router-dom';
 
-const file = raw("./information.md");
+const file = raw('../../Content/faq.md');
 
 const TCButton = (props) => {
 

@@ -5,7 +5,7 @@ import Markdown from 'markdown-to-jsx';
 import raw from "raw.macro";
 import MarkdownRender from './Panel';
 
-const file = raw("./information.md");
+const file = raw('../../Content/faq.md');
 
 export default function QuestionsAndAnswers() {
     return (<Box>

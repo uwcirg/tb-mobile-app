@@ -1,16 +1,16 @@
-import { Box, ButtonBase, Grid, Paper, Typography } from '@material-ui/core';
+import { Box} from '@material-ui/core';
 import React from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import TopPageLabel from '../../Components/Shared/TopPageLabel';
 import { PageLabel } from '../../Components/Shared/PageLabel';
 import { AccessAlarm, AccessAlarmRounded, MenuBook, QuestionAnswerRounded, VideoCallOutlined, YouTube } from '@material-ui/icons';
 import HelpVideos from './HelpVideos';
 import { useTranslation } from 'react-i18next';
-import { t } from 'i18next';
 import QuestionsAndAnswers from './QuestionsAndAnswers';
 import Videos from './Videos';
 import MedicationReminder from './MedicationReminder';
+import Colors from '../../Basics/Colors';
+import InformationLink from './InformationLink';
 
 const useStyles = makeStyles({
     grid: {
@@ -18,31 +18,11 @@ const useStyles = makeStyles({
         gridTemplateColumns: "1fr 1fr",
         gridGap: "16px"
     },
-    box: {
-        // border: `solid 2px gray`,
-        backgroundColor: "#E3F2FD",
-        borderRadius: "5px",
-        display: "flex",
-        padding: "8px",
-        aspectRatio: "1",
-        alignItems: "center",
-        flexDirection: "column",
-        justifyContent: "center",
-        "& *": {
-            textAlign: "center"
-        },
-        "& svg": {
-            fontSize: "4em"
-        }
-    },
     sectionTitle: {
-        fontSize: "1.25rem"
-    },
-    buttonText: {
-        lineHeight: "1.1rem",
+        fontSize: "1.15rem",
         fontWeight: "500",
-        textTransform: "capitalize"
-    }
+        color: Colors.textDarkGray
+    },
 })
 
 const Translate = ({ children }) => {
@@ -66,7 +46,7 @@ const buttonData = [
     {
         sectionTitle: 'patient.information.helpSection',
         items: [
-            { translationKey: "Help Videos", to: "/information/help-videos", icon: <YouTube />, page: <HelpVideos /> },
+            { translationKey: 'patient.information.helpVideos', to: "/information/help-videos", icon: <YouTube />, page: <HelpVideos /> },
         ]
     }
 
@@ -128,18 +108,7 @@ const Buttons = () => {
                     </SectionTitle>
                     <div className={classes.grid}>
                         {each.items.map(_each => {
-                            const { icon, translationKey, to } = _each;
-                            return <Paper elevation={2} key={`button-${to}`}>
-                                <ButtonBase className={classes.box} component={Link} to={to}>
-                                    {icon}
-                                    <Box height="8px" />
-                                    <Typography className={classes.buttonText}>
-                                        <Translate>
-                                            {translationKey}
-                                        </Translate>
-                                    </Typography>
-                                </ButtonBase>
-                            </Paper>
+                            return <InformationLink {..._each} />
                         })}
                     </div>
                 </React.Fragment>
