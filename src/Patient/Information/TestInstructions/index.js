@@ -38,7 +38,7 @@ const useStyles = makeStyles({
   }
 });
 
-const TestSteps = () => {
+const TestInstructions = () => {
   const classes = useStyles();
   const { t } = useTranslation('translation');
 
@@ -87,4 +87,4 @@ const StepperButton = withStyles({
   },
 })(IconButton)
 
-export default TestSteps;
+export default TestInstructions;

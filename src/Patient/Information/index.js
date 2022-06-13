@@ -11,12 +11,14 @@ import Videos from './Videos';
 import MedicationReminder from './MedicationReminder';
 import Colors from '../../Basics/Colors';
 import InformationLink from './InformationLink';
+import TestInstructions from './TestInstructions';
 
 const useStyles = makeStyles({
     grid: {
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
-        gridGap: "16px"
+        gridGap: "16px",
+        maxWidth: "400px"
     },
     sectionTitle: {
         fontSize: "1.15rem",
@@ -30,8 +32,12 @@ const Translate = ({ children }) => {
     return <>{t(children)}</>
 }
 
+const TestStripImage = () => {
+    return <img width="90px" src="/img/test-instructions.png" />
+}
 
-const buttonData = [
+
+const content = [
     {
         sectionTitle: 'patient.profile.title', items: [
             { translationKey: 'patient.profile.options.medicationReminder', to: "/information/medication-reminder", icon: <AccessAlarmRounded />, page: <MedicationReminder /> },
@@ -46,6 +52,7 @@ const buttonData = [
     {
         sectionTitle: 'patient.information.helpSection',
         items: [
+            { translationKey: 'patient.information.helpVideos', to: "/information/test-instructions", icon: <TestStripImage />, page: <TestInstructions /> },
             { translationKey: 'patient.information.helpVideos', to: "/information/help-videos", icon: <YouTube />, page: <HelpVideos /> },
         ]
     }
@@ -69,7 +76,7 @@ export default function InformationPage() {
 
     const buttons = []
 
-    buttonData.forEach(d => {
+    content.forEach(d => {
         buttons.push(...d.items)
     })
 
@@ -99,7 +106,7 @@ const Buttons = () => {
 
     return (
         <Box padding="0 16px">
-            {buttonData.map(each => {
+            {content.map(each => {
                 return <React.Fragment key={each.sectionTitle}>
                     <SectionTitle>
                         <Translate>
