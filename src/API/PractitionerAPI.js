@@ -30,7 +30,7 @@ export default class PractitionerAPI {
   }
 
   static async addPatient(body) {
-    return api.request('/patients', 'POST', body);
+    return api.executeRawRequest('/patients', 'POST', body);
   }
 
   static async reviewPhoto(photoReportId, body) {

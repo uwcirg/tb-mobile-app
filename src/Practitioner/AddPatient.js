@@ -24,15 +24,14 @@ export default function AddPatient() {
   const [state, setState] = useState({ ...initialState });
   const history = useHistory();
 
-  const { execute, status, reset } = useAsync({
+  const { execute, status, reset, value, error } = useAsync({
     asyncFunc: PractitionerAPI.addPatient,
     immediate: false,
     funcParams: [state],
   });
 
-  // if state === body of POST, how do I set these values to the values Kyle wants?
-  // { givenName: Firstname, familyName: Lastname phoneNumber: 123456789,
-  // treatmentStart: DateTime.local().toISO(), ( any iso datetime ) },
+  // if response has field called error or status === error...
+  // let em know and show + tell what's wrong
 
   const resetState = () => {
     setState({ ...initialState });
@@ -51,16 +50,31 @@ export default function AddPatient() {
           <Loading />
         </>
       )}
-      {status === 'success' && (
+      {status === 'success' && !!value?.paramErrors && (
+        <>
+          <Box color="red" padding="0">
+            {`${t('commonWords.error')}: ${t('errors.page.try')}`}
+          </Box>
+          <Form
+            state={state}
+            error={value?.paramErrors}
+            setState={setState}
+            handleSubmit={execute}
+          />
+        </>
+      )}
+      {status === 'success' && !!!value?.paramErrors && (
         <>
           <Success handleExit={history.goBack} handleReset={resetState} />
         </>
       )}
+      {/* check what is in value response to see if it is valid for phone # */}
+      {/* build request within this file */}
     </>
   );
 }
 
-const Form = ({ state, setState, handleSubmit }) => {
+const Form = ({ state, setState, handleSubmit, error }) => {
   const handleDateChange = (dt) => {
     const tempDT = dt
       .set({
@@ -71,14 +85,14 @@ const Form = ({ state, setState, handleSubmit }) => {
     setState({ ...state, treatmentStart: tempDT.toISO() });
   };
 
-  const validPhone = state.phoneNumber.length >= 5;
+  const validPhone = state.phoneNumber.length >= 9;
 
   const submitDisabled =
     state.firstName === '' || state.lastName === '' || !validPhone;
 
   const { t } = useTranslation('translation');
   return (
-    <Box margin="2em" maxWidth="700px">
+    <Box padding="1em" maxWidth="700px">
       <InputCard title={t('patient.userFields.firstName')}>
         <TextField
           value={state.givenName}
@@ -89,6 +103,7 @@ const Form = ({ state, setState, handleSubmit }) => {
           multiline
           fullWidth
           variant="outlined"
+          error={error?.givenName ? true : false}
         />
       </InputCard>
 
@@ -102,10 +117,17 @@ const Form = ({ state, setState, handleSubmit }) => {
           multiline
           fullWidth
           variant="outlined"
+          error={error?.familyName ? true : false}
         />
       </InputCard>
 
       <InputCard title={t('coordinator.patientProfile.phoneNumber')}>
+        {error?.phoneNumber && (
+          <Box color="red" padding="0">
+            {' '}
+            ****invalid message***
+          </Box>
+        )}
         <TextField
           value={state.phoneNumber}
           onChange={(e) => {
@@ -115,6 +137,7 @@ const Form = ({ state, setState, handleSubmit }) => {
           multiline
           fullWidth
           variant="outlined"
+          error={error?.phoneNumber ? true : false}
         />
       </InputCard>
 
@@ -127,7 +150,7 @@ const Form = ({ state, setState, handleSubmit }) => {
           {t('coordinator.addPatientFlow.title')}
         </FlatButton>
       </Grid>
-      <Box height="2.5rem" aria-hidden />
+      <Box height="3.5rem" aria-hidden />
     </Box>
   );
 };
