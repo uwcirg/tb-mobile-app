@@ -3,7 +3,7 @@ import React from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { PageLabel } from '../../Components/Shared/PageLabel';
-import { AccessAlarm, AccessAlarmRounded, MenuBook, QuestionAnswerRounded, VideoCallOutlined, YouTube } from '@material-ui/icons';
+import { AccessAlarm, AccessAlarmRounded, ContactSupport, ContactSupportRounded, FeedbackRounded, MenuBook, OndemandVideoRounded, QuestionAnswerRounded, VideoCallOutlined, YouTube } from '@material-ui/icons';
 import HelpVideos from './HelpVideos';
 import { useTranslation } from 'react-i18next';
 import QuestionsAndAnswers from './QuestionsAndAnswers';
@@ -15,6 +15,7 @@ import TestInstructions from './TestInstructions';
 import capitalizeFirstLetter from '../../Utility/StringUtils';
 import VersionNumber from './VersionNumber';
 import ChangeLog from '../../Basics/Changelog';
+import { StaticVersion } from '../../Basics/ErrorBoundary';
 
 const useStyles = makeStyles({
     grid: {
@@ -50,7 +51,7 @@ const content = [
     {
         sectionTitle: 'patient.information.infoSection', items: [
             { translationKey: 'patient.information.questions', to: "/information/faq", icon: <QuestionAnswerRounded />, page: <QuestionsAndAnswers /> },
-            { translationKey: 'patient.information.videos', to: "/information/videos", icon: <YouTube />, page: <Videos /> },
+            { translationKey: 'patient.information.videos', to: "/information/videos", icon: <OndemandVideoRounded />, page: <Videos /> },
         ]
     },
     {
@@ -58,6 +59,8 @@ const content = [
         items: [
             { translationKey: 'patient.information.testInstructions', to: "/information/test-instructions", icon: <TestStripImage />, page: <TestInstructions /> },
             { translationKey: 'patient.information.helpVideos', to: "/information/help-videos", icon: <YouTube />, page: <HelpVideos /> },
+            { translationKey: 'patient.information.techSupport', to: "/information/tech-support", icon: <ContactSupportRounded />, page: <StaticVersion /> },
+            { translationKey: 'patient.information.reportIssue', to: "/information/report-issue", icon: <FeedbackRounded /> },
         ]
     }
 

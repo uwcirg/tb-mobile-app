@@ -29,7 +29,9 @@ const useStyles = makeStyles({
         width: "100%",
         lineHeight: "1.1rem",
         fontWeight: "500",
-        textAlign: "center"
+        textAlign: "center",
+        maxWidth: "140px",
+        overflowWrap: "break-word"
     },
     new: {
         boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.15)",
