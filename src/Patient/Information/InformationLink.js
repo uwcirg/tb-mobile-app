@@ -3,6 +3,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next';
 import Colors from '../../Basics/Colors';
 import { Link } from 'react-router-dom';
+import capitalizeFirstLetter from '../../Utility/StringUtils';
 
 const useStyles = makeStyles({
     box: {
@@ -19,18 +20,20 @@ const useStyles = makeStyles({
             textAlign: "center",
             fontSize: ".9rem"
         },
-        "& > svg": {
+        "&  svg": {
             fontSize: "4em",
             color: Colors.buttonBlue
         }
     },
     buttonText: {
+        width: "100%",
         lineHeight: "1.1rem",
         fontWeight: "500",
-        textTransform: "capitalize"
+        textAlign: "center"
     },
     new: {
-        boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.15)"
+        boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.15)",
+        borderRadius: "5px"
     }
 })
 
@@ -42,11 +45,14 @@ export default function InformationLink({ icon, translationKey, to }) {
 
     return (<Paper className={classes.new} key={`button-${to}`}>
         <ButtonBase className={classes.box} component={Link} to={to}>
-            {icon}
-            <Box height="8px" />
-            <Typography className={classes.buttonText}>
-                {t(translationKey)}
-            </Typography>
+            <Box padding=".5em 0">
+                {icon}
+            </Box>
+            <Box padding="0 .5rem" width="100%" display="flex" alignItems="flex-end" justifyContent="center">
+                <Typography className={classes.buttonText}>
+                    {capitalizeFirstLetter(t(translationKey).toLowerCase())}
+                </Typography>
+            </Box>
         </ButtonBase>
     </Paper>)
 }

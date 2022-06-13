@@ -12,6 +12,7 @@ import MedicationReminder from './MedicationReminder';
 import Colors from '../../Basics/Colors';
 import InformationLink from './InformationLink';
 import TestInstructions from './TestInstructions';
+import capitalizeFirstLetter from '../../Utility/StringUtils';
 
 const useStyles = makeStyles({
     grid: {
@@ -27,13 +28,14 @@ const useStyles = makeStyles({
     },
 })
 
+
 const Translate = ({ children }) => {
     const { t } = useTranslation();
     return <>{t(children)}</>
 }
 
 const TestStripImage = () => {
-    return <img width="90px" src="/img/test-instructions.png" />
+    return <img width="64px" src="/img/test-instructions.png" />
 }
 
 
@@ -52,7 +54,7 @@ const content = [
     {
         sectionTitle: 'patient.information.helpSection',
         items: [
-            { translationKey: 'patient.information.helpVideos', to: "/information/test-instructions", icon: <TestStripImage />, page: <TestInstructions /> },
+            { translationKey: 'patient.information.testInstructions', to: "/information/test-instructions", icon: <TestStripImage />, page: <TestInstructions /> },
             { translationKey: 'patient.information.helpVideos', to: "/information/help-videos", icon: <YouTube />, page: <HelpVideos /> },
         ]
     }
@@ -114,9 +116,7 @@ const Buttons = () => {
                         </Translate>
                     </SectionTitle>
                     <div className={classes.grid}>
-                        {each.items.map(_each => {
-                            return <InformationLink {..._each} />
-                        })}
+                        {each.items.map(_each => <InformationLink {..._each} />)}
                     </div>
                 </React.Fragment>
             })}
