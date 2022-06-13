@@ -1,4 +1,4 @@
-import { Box} from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import React from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -13,6 +13,8 @@ import Colors from '../../Basics/Colors';
 import InformationLink from './InformationLink';
 import TestInstructions from './TestInstructions';
 import capitalizeFirstLetter from '../../Utility/StringUtils';
+import VersionNumber from './VersionNumber';
+import ChangeLog from '../../Basics/Changelog';
 
 const useStyles = makeStyles({
     grid: {
@@ -90,6 +92,9 @@ export default function InformationPage() {
                     {page || <p>Content missing, please add it</p>}
                 </InfoRoute>
             })}
+            <InfoRoute path="/information/change-log" title={'patient.information.changeLog'} >
+                <ChangeLog />
+            </InfoRoute>
             <Route>
                 <Buttons />
             </Route>
@@ -120,7 +125,9 @@ const Buttons = () => {
                     </div>
                 </React.Fragment>
             })}
-            <Box height="60px" />
+            <Box padding="1rem 0">
+                <VersionNumber />
+            </Box>
         </Box >
     )
 }
