@@ -3,7 +3,7 @@ import React from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { PageLabel } from '../../Components/Shared/PageLabel';
-import { AccessAlarm, AccessAlarmRounded, ContactSupport, ContactSupportRounded, FeedbackRounded, MenuBook, OndemandVideoRounded, QuestionAnswerRounded, VideoCallOutlined, YouTube } from '@material-ui/icons';
+import { Settings as SettingsIcon, AccessAlarmRounded, ContactSupport, ContactSupportRounded, FeedbackRounded, MenuBook, OndemandVideoRounded, QuestionAnswerRounded, SettingsApplications, VideoCallOutlined, YouTube } from '@material-ui/icons';
 import HelpVideos from './HelpVideos';
 import { useTranslation } from 'react-i18next';
 import QuestionsAndAnswers from './QuestionsAndAnswers';
@@ -16,6 +16,7 @@ import capitalizeFirstLetter from '../../Utility/StringUtils';
 import VersionNumber from './VersionNumber';
 import ChangeLog from '../../Basics/Changelog';
 import { StaticVersion } from '../../Basics/ErrorBoundary';
+import Settings from '../Settings';
 
 const useStyles = makeStyles({
     grid: {
@@ -46,6 +47,7 @@ const content = [
     {
         sectionTitle: 'patient.profile.title', items: [
             { translationKey: 'patient.profile.options.medicationReminder', to: "/information/medication-reminder", icon: <AccessAlarmRounded />, page: <MedicationReminder /> },
+            { translationKey: 'patient.information.otherSettings', to: "/information/settings", page: <Settings />, icon: <SettingsIcon /> },
         ]
     },
     {

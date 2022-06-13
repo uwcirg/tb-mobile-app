@@ -22,7 +22,7 @@ const SectionLabel = ({ children }) => {
     return <Grid className={classes.sectionLabel} container alignItems="center">{children}</Grid>;
 }
 
-const HealthProfile = observer(() => {
+const Settings = observer(() => {
 
     const { patientUIStore } = useStores();
     const { t } = useTranslation('translation');
@@ -44,10 +44,7 @@ const MainSettings = observer(() => {
     const logout = useLogout();
 
     return (
-        <>
-            <OverTopBar title={t("patient.profile.title")} handleBack={patientUIStore.closeSettings} ></OverTopBar>
             <div className={classes.fullContainer}>
-                <Box height="60px" />
                 <Box height="1em" />
                 <div className={classes.header}>
                     <Avatar className={classes.avatar}>{patientStore.givenName[0]}</Avatar>
@@ -69,7 +66,6 @@ const MainSettings = observer(() => {
                     <NewButton onClick={logout} className={classes.logout} icon={<ExitToApp />} text={t("patient.profile.logout")} />
                 </div>
             </div>
-        </>
     )
 })
 
@@ -124,4 +120,4 @@ const useStyles = makeStyles({
 
 })
 
-export default HealthProfile;
+export default Settings;

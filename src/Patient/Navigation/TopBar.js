@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -11,6 +11,7 @@ import Colors from '../../Basics/Colors';
 
 import Settings from '@material-ui/icons/Settings'
 import useStores from '../../Basics/UseStores';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
   personIcon: {
@@ -50,7 +51,7 @@ const useStyles = makeStyles({
 const TopBar = observer(() => {
 
   const classes = useStyles();
-  const { patientUIStore, uiStore } = useStores();
+  const { uiStore } = useStores();
 
   return (
     <AppBar className={classes.bar} color={!uiStore.offline ? "secondary" : "primary"} >
@@ -58,7 +59,7 @@ const TopBar = observer(() => {
         <img src="/logo-white.png" style={{display: "none"}}/>
         <img className={classes.logo} src={`${window ? window._env.URL_CLIENT : ""}/${uiStore.offline ? 'logo-white.png' : 'logo.png'}`} />
         <GetTitle />
-        <IconButton className={classes.menuContainer} onClick={patientUIStore.goToSettings} edge="start" color="inherit" aria-label="menu">
+        <IconButton component={Link} className={classes.menuContainer} to="/information/settings" edge="start" color="inherit" aria-label="menu">
           <Settings style={{ color: uiStore.offline ? "white" : Colors.buttonBlue }} className={classes.personIcon} />
         </IconButton>
       </Toolbar>
