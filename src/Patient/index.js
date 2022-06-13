@@ -87,12 +87,6 @@ const PatientHome = observer(() => {
     return <MissedPhotoFlow />
   }
 
-  if(uiStore.pathname.startsWith("/test-instructions")){
-    return <div>
-      <TestSteps />
-    </div>
-  }
-
   if (uiStore.pathname.startsWith("/redo-photo")) {
     return <RedoPhotoFlow />
   }
