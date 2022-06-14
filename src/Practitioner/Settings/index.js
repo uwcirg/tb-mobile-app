@@ -10,7 +10,7 @@ import DocIcon from '@material-ui/icons/Description';
 import ReportProblem from '@material-ui/icons/ReportProblem';
 import useWindowSize from '../../Hooks/Resize';
 import { useLocation } from 'react-router-dom';
-import Routes from './WrappedRoute';
+import Routes from './Routes';
 import NavItem from './NavItem';
 
 const useStyles = makeStyles({
@@ -51,7 +51,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Settings = (props) => {
+const Settings = () => {
   const classes = useStyles();
   const { isMobile } = useWindowSize();
   const location = useLocation();
@@ -90,7 +90,7 @@ const SettingsNav = () => {
         />
 
         <NavItem
-          to="patient-information"
+          to="information"
           icon={<PatientIcon />}
           text={t('coordinator.settingsPage.patientInformation')}
         />

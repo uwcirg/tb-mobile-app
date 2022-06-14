@@ -83,7 +83,7 @@ const InfoRoute = (props) => {
 
     const { title, children } = props;
 
-    return <Route {...props}>
+    return <Route {...props} to={`*/${props.to}`}>
         <Box width="100%" bgcolor="white" zIndex={10} position="fixed" top={0}>
             <PageLabel title={<Translate>{title}</Translate>} />
         </Box>
@@ -97,12 +97,12 @@ export default function InformationPage() {
 
     const { pathname } = useLocation();
 
-    useEffect(()=>{
+    useEffect(() => {
         const element = document.getElementById('main-patient-app-content')
-        if(element){
+        if (element) {
             element.scrollTop = 0;
         }
-    },[pathname])
+    }, [pathname])
 
     const classes = useStyles();
     const logout = useLogout();
@@ -170,5 +170,28 @@ const Buttons = () => {
                 </div>
             })}
         </Box >
+    )
+}
+
+const practitionerContent = [
+    { translationKey: 'patient.information.questions', to: "/information/faq", icon: <QuestionAnswerRounded />, page: <QuestionsAndAnswers /> },
+    { translationKey: 'patient.information.videos', to: "/information/videos", icon: <OndemandVideoRounded />, page: <Videos /> },
+    { translationKey: 'patient.information.testInstructions', to: "/information/test-instructions", icon: <TestStripImage />, page: <TestInstructions /> },
+    { translationKey: 'patient.information.helpVideos', to: "/information/help-videos", icon: <YouTube />, page: <HelpVideos /> },
+    { translationKey: 'patient.information.techSupport', to: "/information/tech-support", icon: <ContactSupportRounded />, page: <StaticVersion /> },
+    { translationKey: 'patient.information.reportIssue', to: "/information/report-issue", icon: <FeedbackRounded /> },
+    { translationKey: 'notificationInstructions.steps.title', to: "/information/notification-instructions", icon: <Notifications />, page: <NotificationInstructions /> },
+]
+
+
+export function PractitionerView() {
+
+    const classes = useStyles();
+
+    return (<Box padding="1rem">
+        <div className={classes.grid}>
+            {practitionerContent.map(_each => <InformationLink {..._each} key={_each.translationKey} />)}
+        </div>
+    </Box>
     )
 }
