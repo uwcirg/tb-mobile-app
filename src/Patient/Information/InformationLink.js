@@ -7,8 +7,6 @@ import capitalizeFirstLetter from '../../Utility/StringUtils';
 
 const useStyles = makeStyles({
     box: {
-        // border: `solid 2px gray`,
-        // backgroundColor: "#E3F2FD",
         borderRadius: "5px",
         display: "flex",
         padding: "8px",

@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { Link, Route, Switch, useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { PageLabel } from '../../Components/Shared/PageLabel';
-import { Settings as SettingsIcon, AccessAlarmRounded, ContactSupportRounded, FeedbackRounded, OndemandVideoRounded, QuestionAnswerRounded, YouTube, ExitToApp, NotificationImportant, Notifications } from '@material-ui/icons';
+import { Settings as SettingsIcon, AccessAlarmRounded, ContactSupportRounded, FeedbackRounded, OndemandVideoRounded, QuestionAnswerRounded, YouTube, ExitToApp, Notifications, Map } from '@material-ui/icons';
 import HelpVideos from './HelpVideos';
 import { useTranslation } from 'react-i18next';
 import QuestionsAndAnswers from './QuestionsAndAnswers';
@@ -19,6 +19,7 @@ import Settings from '../Settings';
 import FlatButton from '../../Components/FlatButton';
 import useLogout from '../../Basics/Logout';
 import NotificationInstructions from './NotificationInstructions';
+import Walkthough from './Walkthrough';
 
 const useStyles = makeStyles({
     logout: {
@@ -69,6 +70,7 @@ const content = [
         items: [
             { translationKey: 'patient.information.testInstructions', to: "/information/test-instructions", icon: <TestStripImage />, page: <TestInstructions /> },
             { translationKey: 'patient.information.helpVideos', to: "/information/help-videos", icon: <YouTube />, page: <HelpVideos /> },
+            { translationKey: 'patient.information.walkthrough.title', to: "/information/walkthrough", icon: <Map />, page: <Walkthough /> },
             { translationKey: 'patient.information.techSupport', to: "/information/tech-support", icon: <ContactSupportRounded />, page: <StaticVersion /> },
             { translationKey: 'patient.information.reportIssue', to: "/information/report-issue", icon: <FeedbackRounded /> },
             { translationKey: 'notificationInstructions.steps.title', to: "/information/notification-instructions", icon: <Notifications />, page: <NotificationInstructions /> },
