@@ -45,8 +45,20 @@ export default function AddAppointment({ patientId }) {
       )}
       {status === 'loading' && (
         <>
-          <Box height="3rem" />
-          <Loading />
+          <TopPageLabel sticky title={t('appointments.addAppointment')} />
+          {status === 'idle' && (
+            <Form state={state} setState={setState} handleSubmit={execute} />
+          )}
+          {status === 'loading' && (
+            <>
+              <Box height="3rem" />
+              <Loading />
+            </>
+          )}
+          {status === 'success' && (
+            <Success handleExit={history.goBack} handleReset={resetState} />
+          )}
+          {status === 'error' && <p> Error </p>}
         </>
       )}
       {status === 'success' && (

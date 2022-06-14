@@ -3,7 +3,7 @@ import { useHistory, Switch, Route, Redirect } from 'react-router-dom'
 import ReportingCalendar from './Calendar';
 import { Box, Fade, Grid, IconButton, Typography } from '@material-ui/core';
 import CalendarKey from './Calendar/CalendarKey';
-import ViewDailyReport from '../../../Components/Shared/ViewDailyReport';
+import ViewDailyReport from '../ViewDailyReport';
 import { DateTime } from 'luxon';
 import Colors from '../../../Basics/Colors';
 import { CameraAlt, Clear, Event, ListAlt } from '@material-ui/icons';
@@ -12,6 +12,7 @@ import ReportList from './List';
 import useQuery from '../../../Hooks/useQuery';
 import Loading from '../../../Practitioner/Shared/CardLoading';
 import PhotoList from './PhotoList';
+import { useTranslation } from 'react-i18next';
 
 const links = [
     { link: "calendar", text: "Calendar", icon: Event },
@@ -25,14 +26,15 @@ export default function ReportViews({ reports, loading, patient, tabTopPostition
     const date = query.get('date')
 
     return (<>
+
         <Box position="sticky" top={tabTopPostition} zIndex={10}>
             {date ? <ExitReportView date={date} /> : <LinkTabs tabs={links} />}
         </Box>
         {loading ? <Loading height={"50vh"} /> :
             <>{date ?
-                <Fade in timeout={300} appear>
+                <Fade in timeout={1000} appear>
                     <Box>
-                        <ViewReport reportHash={reports} />
+                        <ViewDailyReport date={date} report={reports[date]} />
                     </Box>
                 </Fade>
                 :
@@ -54,13 +56,13 @@ export default function ReportViews({ reports, loading, patient, tabTopPostition
 }
 
 const ExitReportView = ({ date }) => {
-
+    const { t } = useTranslation('translation');
     const history = useHistory();
 
     return (
-        <Box bgcolor="white" padding=".5em">
+        <Box bgcolor="white" padding=".5em 1em">
             <Grid alignItems='center' container>
-                <Typography>Report: {date}</Typography>
+                <Typography variant="h6">{DateTime.fromISO(date).toLocaleString({ day: "numeric", month: "long", year: "numeric" })}</Typography>
                 <Box flexGrow={1} />
                 <IconButton onClick={history.goBack}>
                     <Clear />
@@ -99,10 +101,10 @@ const CalendarStuff = ({ patient, reportHash }) => {
     )
 }
 
-const ViewReport = ({ reportHash }) => {
+// const ViewReport = ({ reportHash }) => {
 
-    const query = useQuery();
-    const reportDate = query.get('date')
+//     const query = useQuery();
+//     const reportDate = query.get('date')
 
-    return <ViewDailyReport date={reportDate} report={reportHash[reportDate]} />
-}
+//     return <ViewDailyReport date={reportDate} report={reportHash[reportDate]} />
+// }

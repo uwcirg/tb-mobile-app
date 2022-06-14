@@ -9,7 +9,6 @@ import ArchivedWarning from './ArchivedWarning'
 import { useHistory, useParams } from 'react-router-dom'
 
 import { Switch, Route } from 'react-router-dom'
-import { PageLabel } from '../../../Components/Shared/PageLabel';
 import AddAppointment from '../../../Components/Shared/Appointments/AddAppointment';
 import PopOverV2 from '../../../Components/Shared/PopOverV2';
 
