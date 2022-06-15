@@ -174,24 +174,38 @@ const Buttons = () => {
 }
 
 const practitionerContent = [
-    { translationKey: 'patient.information.questions', to: "/information/faq", icon: <QuestionAnswerRounded />, page: <QuestionsAndAnswers /> },
-    { translationKey: 'patient.information.videos', to: "/information/videos", icon: <OndemandVideoRounded />, page: <Videos /> },
-    { translationKey: 'patient.information.testInstructions', to: "/information/test-instructions", icon: <TestStripImage />, page: <TestInstructions /> },
-    { translationKey: 'patient.information.helpVideos', to: "/information/help-videos", icon: <YouTube />, page: <HelpVideos /> },
-    { translationKey: 'patient.information.techSupport', to: "/information/tech-support", icon: <ContactSupportRounded />, page: <StaticVersion /> },
-    { translationKey: 'patient.information.reportIssue', to: "/information/report-issue", icon: <FeedbackRounded /> },
-    { translationKey: 'notificationInstructions.steps.title', to: "/information/notification-instructions", icon: <Notifications />, page: <NotificationInstructions /> },
+    { translationKey: 'patient.information.questions', to: "/settings/information/faq", icon: <QuestionAnswerRounded />, page: <QuestionsAndAnswers /> },
+    { translationKey: 'patient.information.videos', to: "/settings/information/videos", icon: <OndemandVideoRounded />, page: <Videos /> },
+    { translationKey: 'patient.information.testInstructions', to: "/settings/information/test-instructions", icon: <TestStripImage />, page: <TestInstructions /> },
+    { translationKey: 'patient.information.helpVideos', to: "/settings/information/help-videos", icon: <YouTube />, page: <HelpVideos /> },
+    { translationKey: 'patient.information.techSupport', to: "/settings/information/tech-support", icon: <ContactSupportRounded />, page: <StaticVersion /> },
+    { translationKey: 'notificationInstructions.steps.title', to: "/settings/information/notification-instructions", icon: <Notifications />, page: <NotificationInstructions /> },
 ]
 
 
 export function PractitionerView() {
 
-    const classes = useStyles();
+    const { t } = useTranslation();
 
-    return (<Box padding="1rem">
-        <div className={classes.grid}>
-            {practitionerContent.map(_each => <InformationLink {..._each} key={_each.translationKey} />)}
-        </div>
-    </Box>
-    )
+    const classes = useStyles();
+    return <Switch>
+        {practitionerContent.map(_each => {
+            const { to, translationKey, page } = _each;
+            return <InfoRoute key={`route-${translationKey}`} title={translationKey} path={to}>
+                {page || <>
+                    <p>{t('commonWords.error')}</p>
+                    <Link to="/">{t('patient.report.photo.back')}</Link>
+                </>}
+            </InfoRoute>
+        })}
+
+        <Route>
+            <Box padding="1rem">
+                <div className={classes.grid}>
+                    {practitionerContent.map(_each => <InformationLink {..._each} key={_each.translationKey} />)}
+                </div>
+            </Box>
+        </Route>
+    </Switch>
+
 }
