@@ -7,6 +7,8 @@ import capitalizeFirstLetter from '../../Utility/StringUtils';
 
 const useStyles = makeStyles({
     box: {
+        boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.15)",
+        borderRadius: "5px",
         borderRadius: "5px",
         display: "flex",
         padding: "8px",
@@ -30,29 +32,24 @@ const useStyles = makeStyles({
         textAlign: "center",
         maxWidth: "140px",
         overflowWrap: "break-word"
-    },
-    new: {
-        boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.15)",
-        borderRadius: "5px"
     }
 })
 
 
-export default function InformationLink({ icon, translationKey, to }) {
+export default function InformationLink({ icon, translationKey, to, href }) {
 
     const classes = useStyles();
     const { t } = useTranslation('translation');
 
-    return (<Paper className={classes.new}>
-        <ButtonBase className={classes.box} component={Link} to={to}>
-            <Box padding=".5em 0">
-                {icon}
-            </Box>
-            <Box padding="0 .5rem" width="100%" display="flex" alignItems="flex-end" justifyContent="center">
-                <Typography className={classes.buttonText}>
-                    {capitalizeFirstLetter(t(translationKey).toLowerCase())}
-                </Typography>
-            </Box>
-        </ButtonBase>
-    </Paper>)
+    return (<ButtonBase className={classes.box} component={href ? 'a' : Link} to={href ? null : to} onClick={href ? () => { window.open(href)} : null }>
+
+        <Box padding=".5em 0">
+            {icon}
+        </Box>
+        <Box padding="0 .5rem" width="100%" display="flex" alignItems="flex-end" justifyContent="center">
+            <Typography className={classes.buttonText}>
+                {capitalizeFirstLetter(t(translationKey).toLowerCase())}
+            </Typography>
+        </Box>
+    </ButtonBase>)
 }

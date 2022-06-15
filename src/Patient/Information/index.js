@@ -72,7 +72,7 @@ const content = [
             { translationKey: 'patient.information.helpVideos', to: "/information/help-videos", icon: <YouTube />, page: <HelpVideos /> },
             { translationKey: 'patient.information.walkthrough.title', to: "/information/walkthrough", icon: <Map />, page: <Walkthough /> },
             { translationKey: 'patient.information.techSupport', to: "/information/tech-support", icon: <ContactSupportRounded />, page: <StaticVersion /> },
-            { translationKey: 'patient.information.reportIssue', to: "/information/report-issue", icon: <FeedbackRounded /> },
+            { translationKey: 'patient.information.reportIssue', href: "https://forms.gle/gZHLZ4CGJT2J1V6p7", icon: <FeedbackRounded /> },
             { translationKey: 'notificationInstructions.steps.title', to: "/information/notification-instructions", icon: <Notifications />, page: <NotificationInstructions /> },
 
         ]
@@ -115,7 +115,7 @@ export default function InformationPage() {
 
     return (
         <Switch>
-            {buttons.map(_each => {
+            {buttons.filter((item) => {return !!item.to}).map(_each => {
                 const { to, translationKey, page } = _each;
                 return <InfoRoute key={`route-${translationKey}`} title={translationKey} path={to}>
                     {page || <>
