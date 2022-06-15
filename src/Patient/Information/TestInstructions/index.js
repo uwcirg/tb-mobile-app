@@ -38,17 +38,13 @@ const useStyles = makeStyles({
   }
 });
 
-const TestSteps = () => {
+const TestInstructions = () => {
   const classes = useStyles();
   const { t } = useTranslation('translation');
 
   const [step, dispatch] = useReducer(reducer, 0);
 
   return (
-    <>
-      <PageLabel
-        title={t('patient.information.testInstructions')}
-      />
       <Grid className={classes.container} direction='column' container>
         <Box style={{ boxSizing: "border-box" }} flexGrow="1" padding="0 1em" width="100%" maxWidth="500px">
           <InstructionStep className="step" currentStep={step} />
@@ -72,7 +68,6 @@ const TestSteps = () => {
           />
         </Grid>
       </Grid >
-    </>
   );
 };
 
@@ -87,4 +82,4 @@ const StepperButton = withStyles({
   },
 })(IconButton)
 
-export default TestSteps;
+export default TestInstructions;

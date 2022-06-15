@@ -449,6 +449,7 @@
             ]
         },
         "information": {
+            "otherSettings": "Other Settings",
             "changeLog": "Application Change Log",
             "version": "Version",
             "questions": "Questions and answers",
