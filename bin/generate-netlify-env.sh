@@ -1,8 +1,20 @@
-#!/bin/sh -eu
+#!/bin/sh -e
+
+# Use: URL_API="test" URL="test" DEFAULT_LOCALE="test" DOCKER_TAG="test" bin/generate-netlify-env.sh
 
 if [[ -z $URL_API || -z $URL || -z $DEFAULT_LOCALE || -z $DOCKER_TAG  ]]; then
-  echo 'one or more variables are undefined. URL_API , URL_CLIENT, DEFAULT_LOCALE, and DOCKER_TAG are required'
+  echo 'one or more variables are undefined. URL_API , URL, DEFAULT_LOCALE, and DOCKER_TAG are required'
   exit 1
+fi
+
+
+
+# a: variable is set
+if [[ -n ${INDONESIA_PILOT_FLAG+1} ]];
+then
+    id_flag="true"
+else
+    id_flag="false"
 fi
 
 
@@ -14,6 +26,7 @@ DEFAULT_LOCALE:"$DEFAULT_LOCALE",
 DOCKER_TAG: "$DOCKER_TAG",
 MATOMO_ID: "${MATOMO_ID:-not_set}",
 MATOMO_URL: "${MATOMO_URL:-not_set}",
-REDCAP_EOT_SURVEY_LINK: "${REDCAP_EOT_SURVEY_LINK:- }"
+REDCAP_EOT_SURVEY_LINK: "${REDCAP_EOT_SURVEY_LINK:- }",
+INDONESIA_PILOT_FLAG: "${id_flag}"
 };
 EOF
