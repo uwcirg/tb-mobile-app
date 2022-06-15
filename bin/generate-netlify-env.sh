@@ -7,17 +7,6 @@ if [[ -z $URL_API || -z $URL || -z $DEFAULT_LOCALE || -z $DOCKER_TAG  ]]; then
   exit 1
 fi
 
-
-
-# a: variable is set
-if [[ -n ${INDONESIA_PILOT_FLAG+1} ]];
-then
-    id_flag="true"
-else
-    id_flag="false"
-fi
-
-
 cat <<EOF
 const react_env = {
 URL_API: "$URL_API",
@@ -27,6 +16,6 @@ DOCKER_TAG: "$DOCKER_TAG",
 MATOMO_ID: "${MATOMO_ID:-not_set}",
 MATOMO_URL: "${MATOMO_URL:-not_set}",
 REDCAP_EOT_SURVEY_LINK: "${REDCAP_EOT_SURVEY_LINK:- }",
-INDONESIA_PILOT_FLAG: "${id_flag}"
+INDONESIA_PILOT_FLAG: "${INDONESIA_PILOT_FLAG:- }"
 };
 EOF
