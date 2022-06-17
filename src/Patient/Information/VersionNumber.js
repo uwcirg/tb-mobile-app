@@ -1,9 +1,10 @@
-import React from 'react'
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@material-ui/core';
-import Colors from '../../Basics/Colors'
-import isIndonesiaPilot from '../../Utility/check-indonesia-flag'
+import Colors from '../../Basics/Colors';
+import isIndonesiaPilot from '../../Utility/check-indonesia-flag';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
     container: {
@@ -23,22 +24,24 @@ const useStyles = makeStyles({
     }
 })
 
-const VersionNumber = ({isLoginScreen}) => {
+const VersionNumber = ({ isLoginScreen }) => {
 
     let versionNumber = process.env.REACT_APP_GITHUB_VERSION || "Unknown";
 
 
     versionNumber = versionNumber.split("-")[0]
 
-    const classes = useStyles({isLoginScreen: isLoginScreen});
+    const classes = useStyles({ isLoginScreen: isLoginScreen });
     const { t } = useTranslation('translation');
+
+    // Note: old way to link to commit hash `https://github.com/uwcirg/tb-mobile-app/commit/${process.env.REACT_APP_BUILD_NUMBER}`
 
     return (<div className={classes.container}>
         <Typography variant="body1">{t('patient.information.version')}: </Typography>
-        <a href={`https://github.com/uwcirg/tb-mobile-app/commit/${process.env.REACT_APP_BUILD_NUMBER}`}>
+        <Link to="/information/change-log">
             {versionNumber}
             {isIndonesiaPilot() && "- Indonesia"}
-        </a>
+        </Link>
     </div>)
 
 }

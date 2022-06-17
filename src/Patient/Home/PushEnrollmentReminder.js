@@ -114,7 +114,7 @@ const GetDetails = ({ type }) => {
     const { uiStore, patientStore } = useStores();
 
     const goToInstructions = () => {
-        uiStore.push("/information?onPushEnrollmentInstructions=true")
+        uiStore.push("/information/notification-instructions")
     }
 
     if (type === 'denied') {

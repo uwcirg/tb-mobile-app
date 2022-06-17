@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import BottomBar from './Navigation/BottomBar';
 import { observer } from 'mobx-react';
 import Home from './Home'
-import Info from './Information'
+import Info from './Information/'
 import Messaging from '../Messaging';
 import Progress from './Progress';
 import TopBar from './Navigation/TopBar';
@@ -22,6 +22,7 @@ import PushActionReportingFlow from './ReportingFlows/PushActionReportingFlow';
 import Box from '@material-ui/core/Box';
 import RedoPhotoFlow from './ReportingFlows/AltPhotoFlows/RedoPhotoFlow';
 import isIndonesiaPilot from '../Utility/check-indonesia-flag';
+import AddApointment from '../Components/Shared/Appointments/AddAppointment/';
 
 const PatientHome = observer(() => {
 
@@ -93,8 +94,12 @@ const PatientHome = observer(() => {
     return <PushActionReportingFlow />
   }
 
+  if(uiStore.pathname.startsWith("/add-appointment")){
+    return <AddApointment patientId={patientStore.userID} />
+  }
+
   return (
-    <div className="main-screen" style={{ backgroundColor: `${Colors.white}`, height: "100vh", overflowY: patientUIStore.onSettings ? "hidden" : "scroll" }}>
+    <div id="main-patient-app-content" className="main-screen" style={{ backgroundColor: `${Colors.white}`, height: "100vh", overflowY: patientUIStore.onSettings ? "hidden" : "scroll" }}>
       <ErrorListener />
       <div>
         <TopBar />

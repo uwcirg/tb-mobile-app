@@ -5,9 +5,7 @@ import { observer } from 'mobx-react';
 import PractitionerContext from '../PractitionerContext';
 import ReviewPhotoPopOver from '../Shared/ReviewPhotoPopOver';
 
-
 const ReviewPhoto = observer(() => {
-
 
     const { value: patients, setValue: setPatients } = useContext(PractitionerContext).patientIssues;
     const { uiStore } = useStores();

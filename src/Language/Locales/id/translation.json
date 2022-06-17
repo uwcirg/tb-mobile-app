@@ -6,7 +6,7 @@
     "updating": "Memperbaharui",
     "demoWarning": "Ini merupakan demo dari aplikasi dan tidak dapat digunakan pada pasien aktif",
     "commonWords": {
-        "list": "list",
+        "list": "daftar",
         "photos": "Foto-foto",
         "fillAll": "Silahkan isi laman ini sebelum mulai",
         "edit": "edit",
@@ -100,8 +100,8 @@
         "empty": "Pesan anda belum terkirim. Silahkan mengirim pesan!",
         "private": "Rahasia",
         "clinicChat": "Pendamping and Pasien pada klinik anda",
-        "imageWillSend": "Image will be sent with message",
-        "sending": "Sending"
+        "imageWillSend": "Gambar akan dikirim dengan pesan",
+        "sending": "Mengirim"
     },
     "time": {
         "day": "Hari",
@@ -118,13 +118,13 @@
     "patient": {
         "tabNames": {
             "home": "Beranda",
-            "calendar": "Kalender",
+            "calendar": "History",
             "messaging": "Mengirim Pesan",
             "information": "Informasi"
         },
         "oneStepReporting":{
             "photoRequestTitle": "Silahkan melakukan strip test untuk mengkonfirmasi perkembangan pengobatan anda",
-            "photoRequestButton": "Lengkapi strip test dan kirim foto ",
+            "photoRequestButton": "Complete Test Strip",
             "supportTitle": "Apakah semuanya baik-baik saja dengan pengobatan anda hari ini?",
             "goodOption": "Telah minum obat dan tidak ada keluhan",
             "helpOption": "Jelajah masalah dan minta pertolongan"
@@ -249,7 +249,7 @@
             "reminderEnabled": "Mengaktifkan alaram pengingat",
             "reminderDisabled": "Menonaktifkan alaram pengingat",
             "at": "Pada",
-            "successMessage": "Sukses ditambahkan"
+            "successMessage": "Your appointment was successfully added"
         },
         "demo": {
             "showDemo": "Tunjukan demo"
@@ -341,7 +341,7 @@
             "important": "Penting",
             "dayLate": "Hari terlambat",
             "dayLate_plural": "Hari terlambat",
-            "late": "Late",
+            "late": "Terlambat",
             "next": "Berikut",
             "title": "Laporan aktifitas untuk pengobatan hari ini",
             "medicationTitle": "Silahkan laporkan pengobatan anda",
@@ -358,14 +358,14 @@
             "whySupport": "Bagaimana kami dapat membantu anda?",
             "photoTitle": "Ambil gambar foto strip",
             "photo": {
-                "permissionsError": "There was an error getting access to your camera. Please try again and make sure to allow access if prompted.",
+                "permissionsError": "Terjadi kesalahan saat mendapatkan akses ke kamera Anda. Harap coba lagi dan pastikan untuk mengizinkan akses jika diminta.",
                 "usePhoto": "Pakai foto",
                 "retakePhoto": "ambil foto kembali",
                 "openCamera": "Buka kamera",
                 "how": "Bagaimana caranya saya melakukan test?",
                 "help": {
                     "remember": "Tolong ingat untuk",
-                    "wait": "Let the test strip sit for 20 minutes before taking a photo",
+                    "wait": "Diamkan strip tes selama 20 menit sebelum mengambil foto",
                     "straight": "Ambil gambar foto hasil strip test tepat diatas.",
                     "retakeIf": "Foto kembali jika kabur atau tanda kotak tidak terlihat",
                     "instructions": "Lihat instruksi strip test"
@@ -378,6 +378,7 @@
             },
             "symptoms": {
                 "nauseaRating": "Seberapa berat rasa mual yang anda rasakan?",
+                "instructions": "Please tap an option that represents how you are feeling",
                 "warning": {
                     "title": "Anda Melaporkan gejala-gejala yang perlu segera ditindaklanjuti",
                     "subtitle": "Segera cari pertolongan medis darurat. Pendamping minum obat anda akan segera menghubungi anda",
@@ -427,6 +428,9 @@
             "submissionLimit": "Jika anda lupa minum obat satu hari, anda hanya dapat memasukkan laporan untuk 3 hari sebelumnya, and hari apa saja yang anda lupa pada 2 minggu pertama",
             "loading": "Pelaporan riwayat pengunggahan",
             "calendarKey": {
+                "tookMeds": "Took medication",
+                "sideEffects": "Reported side effects",
+                "noMeds": "Didn't take medication",
                 "button": "Apa arti dari warna ini",
                 "description": "Ini merupakan kalender dimana anda dapat melihat aktifitas laporan anda. Warna-warna yang ada menunjukkan:",
                 "good": "Semuanya telah di laporkan",
@@ -493,7 +497,7 @@
             "subtitle": "Temperatur tubuh lebih dari 37.5 C"
         },
         "appetite_loss": {
-            "title": "Hilang nafsu makan",
+            "title": "Loss of appetite",
             "subtitle": "Hilang nafsu makan"
         },
         "blurred_vision": {
@@ -592,7 +596,7 @@
             "low": "Prioritas Rendah",
             "active": "Aktif",
             "pending": "Tertunda",
-            "archived": "Archived",
+            "archived": "Diarsipkan",
             "reportedTime": "Dilaporkan dalam 7 hari terakhir",
             "noPatientsFound": "Pasien tidak ditemukan",
             "searchByName": "Cari berdasarkan nama pasien"
@@ -668,7 +672,7 @@
         "false": "Salah",
         "daysInTreatment": "Hari dalam pengobatan",
         "patientProfile": {
-            "lastReport": "Last report",
+            "lastReport": "Laporan terakhir",
             "details":{
                 "progress": "Perkembangan"
             },
@@ -800,6 +804,7 @@
         "submit": "Kirim"
     },
     "educationalMessages": {
+        "thoughtsForToday": "Thoughts for today",
         "feedback": "Terima kasih atas masukkan anda",
         "week": "Minggu",
         "header": "Hal yang penting diketahui",
@@ -849,7 +854,12 @@
         "flags": "Bendera"
     },
     "appointments": {
+        "typeNote": "Type note here",
+        "createAppointment": "Create Appointment",
         "noUpcoming": "Tidak ada janji yang akan datang",
+        "whatDay": "What day is the appointment?",
+        "whatTime": "What time is the appointment?",
+        "select": "Select an appointment type",
         "typeQuestion": "Jenis janji temu apa yang ingin anda tambahkan?",
         "selectDate": "Pilih Waktu dan Tanggal",
         "addAppointment": "Tambahkan Janji Temu",
@@ -899,7 +909,7 @@
         "70": "Ante cualquier complicación, el personal de salud de su lugar de atención puede controlar el tratamiento. Recordar que la única manera de prevenir en Tuberculosis es CURAR a todos los pacientes. ",
         "80": "Un tratamiento exitoso depende del cumplimiento de todas las tomas de la medicación. Tratar de respetar los horarios.",
         "90": "La mejoría de los síntomas no es lo mismo que curación. Curar significa que hay que continuar habitualmente con un tratamiento 6 meses. Adelante! ",
-        "141": "Let us know how we are doing! Someone from the study might reach out to you and ask about your experience with the app. We also have a survey that is available on the homepage. Thanks!"
+        "141": "Beri masukkan kepada kami! Seseorang dari penelitian ini mungkin menghubungi Anda dan bertanya tentang pengalaman Anda dengan aplikasi ini. Kami juga memiliki survei yang tersedia di beranda. Terima kasih!"
     },
     "mayTestStripUpdate": {
         "title": "Pembaruan penting",
@@ -959,7 +969,7 @@
             "lost-to-follow-up": "Lost to follow up",
             "transferred": "Pindah",
             "deceased": "Meninggal",
-            "refuse-to-use-app": "Refuse to use app"
+            "refuse-to-use-app": "Menolak menggunakan aplikasi "
         },
         "complete": "Komplit",
         "endSurvey": "Survey",
@@ -1039,36 +1049,36 @@
         "viewMyPhotos": "Lihat kembali foto yang telah di unggah",
         "title": "Unggah kembali foto hasil test strip",
         "subtitle": "Tinjau masalah yang telah diidentifikasi oleh pendamping berobat anda",
-        "flag": "Resubmission",
-        "shortFlag": "Redo",
+        "flag": "Unggah kembali",
+        "shortFlag": "Ulangi tindakan",
         "explanation": "Ada masalah dengan pengunggahan hasil test anda yang terakhir. Mohon dapat mengunggah kembali foto hasil test anda. Mohon dapat memperhatikan instruksi secara seksama",
         "feedback": "Masukan",
-        "originalSubmission": "Original Submission",
-        "newSubmission": "New Submission",
-        "selectResult": "Select test result",
-        "detected": "Medication detected",
-        "notDetected": "Not detected",
-        "ask": "Ask patient to resubmit test",
-        "attachMessage": "Message to patient"
+        "originalSubmission": "Pengajuan awal",
+        "newSubmission": "Pengajuan baru",
+        "selectResult": "Pilih hasil tes",
+        "detected": "Obat terdeteksi",
+        "notDetected": "Tidak terdeteksi",
+        "ask": "Minta pasien untuk memasukan kembali hasil tes",
+        "attachMessage": "Kirim pesan ke pasien"
     },
     "testStripInstructions":{
         "imgSrc": "/img/en/v3-strip-instructions.jpg",
-        "one": "Collect a small amount of urine in a container (about 2 fingers deep)",
-        "two": "Take the test out of the bag",
-        "three": "Dip the strip into the urine for about 2 seconds to the line marked dip. Do not let the test for longer than 2 seconds in the urine.",
-        "four": "Wait 20 minutes for the test to process before proceeding",
+        "one": "Tampung sedikit urin dalam wadah (sedalam sekitar 2 jari)",
+        "two": "Keuarkan alat tes dari pembungkus",
+        "three": "Celupkan strip ke dalam urin selama sekitar 2 detik ke garis yang ditandai. Jangan biarkan tes lebih dari 2 detik dalam urin.",
+        "four": "Tunggu 20 menit hingga tes diproses sebelum melanjutkan ke tahap berikut",
         "five" : {
-            "main": "Open the application and click \"Submit Photo\".",
-            "a": "Make sure the photo shows the entire strip, including the barcodes.",
-            "b":  "Take the picture and click \"Next\"."
+            "main": "Buka aplikasi dan tekan \"unggah foto\".",
+            "a": "Pastikan foto memuat gambar seluruh strip, termasuk barcode.",
+            "b":  "Ambil gambar dan tekan \"Berikut\""
         },
-        "six": "Put the test back in its bag and discard in the trash"
+        "six": "Masukkan kembali tes ke dalam pembungkusnya dan buang ke tempat sampah"
 
     },
     "mobileUpdate":{
-        "actions": "Actions",
-        "showActions": "Show All Actions",
-        "treatment": "Treatment",
-        "supportRequests": "Support Requests"
+        "actions": "Tindakan",
+        "showActions": "Munculkan semua tindakan",
+        "treatment": "Pengobatan",
+        "supportRequests": "Butuh bantuan"
     }
 }

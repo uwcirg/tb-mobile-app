@@ -1,10 +1,6 @@
-import { action, observable, computed } from "mobx";
+import { action, observable } from "mobx";
 import APIStore from './apiStore'
 import { DateTime } from "luxon";
-
-const ROUTES = {
-    addPatient: ["/patient", "POST"]
-}
 
 const initalizeReport = {
     category: "check_in",
@@ -25,7 +21,7 @@ export default class ReminderStore extends APIStore {
     @observable newReminder = initalizeReport;
 
     constructor(strategy) {
-        super(strategy, ROUTES);
+        super(strategy);
     }
 
     @action setCategory = (category) => {
@@ -52,7 +48,7 @@ export default class ReminderStore extends APIStore {
     }
 
     @action getReminders = (id) => {
-        this.executeRawRequest(`/patient/${id}/reminders`, "GET").then(response => {
+        this.executeRawRequest(`/v2/patient/${id}/reminders`, "GET").then(response => {
             this.reminders = response;
         })
     }

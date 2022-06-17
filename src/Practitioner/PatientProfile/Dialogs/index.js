@@ -9,13 +9,15 @@ import ArchivedWarning from './ArchivedWarning'
 import { useHistory, useParams } from 'react-router-dom'
 
 import { Switch, Route } from 'react-router-dom'
+import AddAppointment from '../../../Components/Shared/Appointments/AddAppointment';
+import PopOverV2 from '../../../Components/Shared/PopOverV2';
 
 const Dialogs = observer(() => {
 
     const { patientProfileStore } = useStores();
 
     const history = useHistory();
-    const {id: patientId} = useParams();
+    const { id: patientId } = useParams();
 
     if (patientProfileStore.onArchiveWarning) return <ArchivedWarning handleClose={patientProfileStore.closeArchiveWarning} />
 
@@ -38,7 +40,9 @@ const Dialogs = observer(() => {
                 <ChangePatientDetails handleClose={handleClose} />
             </Route>
             <Route path="/patients/:id/add-appointment">
-                <p>TODO - add appointment UI</p>
+                <PopOverV2 open disableTopBar>
+                    <AddAppointment patientId={patientId} />
+                </PopOverV2>
             </Route>
         </Switch>)
 

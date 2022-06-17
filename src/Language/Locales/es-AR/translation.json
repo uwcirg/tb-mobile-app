@@ -6,6 +6,7 @@
     "updating": "Actualizando",
     "demoWarning": "Esta es una demostración de la aplicación y no debe usarse para los datos de pacientes reales.",
     "commonWords": {
+        "list": "list",
         "photos": "fotos",
         "fillAll": "Complete todas las secciones antes de continuar",
         "edit": "Editar",
@@ -117,13 +118,13 @@
     "patient": {
         "tabNames": {
             "home": "pantalla inicial",
-            "calendar": "Calendario",
+            "calendar": "History",
             "messaging": "Mensajes",
             "information": "Información"
         },
         "oneStepReporting":{
             "photoRequestTitle": "Por favor manda una foto de tu tira reactiva para confirmar tu progresso.",
-            "photoRequestButton": "Subir foto de la tira reactiva",
+            "photoRequestButton": "Complete Test Strip",
             "supportTitle": "¿Cómo estás hoy, va todo bien?",
             "goodOption": "Tomé mis medicamentos y me siento bien",
             "helpOption": "Reportar asuntos y pedir ayuda"
@@ -248,7 +249,7 @@
             "reminderEnabled": "Recordatorio Habilitado",
             "reminderDisabled": "Recordatorio Desactivado",
             "at": "a las",
-            "successMessage": "Añadido con Éxito"
+            "successMessage": "Your appointment was successfully added"
         },
         "demo": {
             "showDemo": "Mostrar Demostración"
@@ -377,6 +378,7 @@
             },
             "symptoms": {
                 "nauseaRating": "¿Que severa es su náusea?",
+                "instructions": "Please tap an option that represents how you are feeling",
                 "warning": {
                     "title": "Has reportado un malestar que requiere inmediata atención médica.",
                     "subtitle": "Por favor busque atención médica inmediatamente! Su asistente se comunicará con ud. más tarde para confirmar que esté bien.",
@@ -426,6 +428,9 @@
             "submissionLimit": "Durante las primeras dos semanas del tratamiento podrá completar los reportes de los días que no los haya enviado.\nA partir de las dos semanas, si algún día no envía un reporte solo podrá completar y enviar los reportes de los últimos 3 días. ",
             "loading": "Cargando historia de reportes ",
             "calendarKey": {
+                "tookMeds": "Took medication",
+                "sideEffects": "Reported side effects",
+                "noMeds": "Didn't take medication",
                 "button": "Qué significan estos colores",
                 "description": "Este es el calendario, donde puede revisar sus reportes. Los colores representan lo siguiente:",
                 "good": "Todas las partes enviadas.",
@@ -492,7 +497,7 @@
             "subtitle": "Temperatura más de  37.5"
         },
         "appetite_loss": {
-            "title": "Pérdida de apetito",
+            "title": "Loss of appetite",
             "subtitle": "Pérdida de apetito"
         },
         "blurred_vision": {
@@ -522,6 +527,42 @@
         "headache": {
             "title": "Dolor de cabeza",
             "subtitle": ""
+        },
+        "flu_symptoms": {
+            "title": "Flu Symptoms",
+            "subtitle": "Flu symptoms include fever, chills, headache, and body pain"
+        },
+        "red_urine":{
+            "title": "Red urine",
+            "subtitle": "Urine has a red tint"
+        },
+        "sleepy": {
+            "title": "Sleepy",
+            "subtitle": "Feeling tired all day"
+        },
+        "joint_pain" : {
+            "title": "Joint pain",
+            "subtitle": "Feeling pain in your joints or bones"
+        },
+        "burning_or_numbness": {
+            "title": "Burning, tingling or numbness",
+            "subtitle": "Feeling of burning, tingling, or numbness in your fingers or toes"
+        },
+        "hearing_loss":{
+            "title": "Hearing loss",
+            "subtitle": "Changes in your hearing, or being unable to hear"
+        },
+        "vertigo":{
+            "title": "Vertigo",
+            "subtitle": "Sensation of whirling and loss of balance, associated particularly with looking down from a great height" 
+        },
+        "confusion": {
+            "title": "Confusion",
+            "subtitle": "Increasingly feeling confused"
+        },
+        "oliguria":{
+            "title": "Decrease in urination",
+            "subtitle": "Urinating less than normal, or experiencing difficulty urinating"
         },
         "other": {
             "title": "Otros síntomas",
@@ -555,6 +596,7 @@
             "low": "Baja prioridad",
             "active": "Activo",
             "pending": "Pendiente",
+            "archived": "Archived",
             "reportedTime": "Reportado en los últimos 7 días",
             "noPatientsFound": "No se encuentran pacientes",
             "searchByName": "Busqueda por nombre"
@@ -630,6 +672,7 @@
         "false": "Falso",
         "daysInTreatment": "Días en Tratamiento",
         "patientProfile": {
+            "lastReport": "Last report",
             "details":{
                 "progress": "Progreso"
             },
@@ -761,6 +804,7 @@
         "submit": "Enviar"
     },
     "educationalMessages": {
+        "thoughtsForToday": "Thoughts for today",
         "feedback": "Gracias Por Su Respuesta",
         "week": "Semana",
         "header": "Importante conocer",
@@ -810,7 +854,12 @@
         "flags": "Información Importante  "
     },
     "appointments": {
+        "typeNote": "Type note here",
+        "createAppointment": "Create Appointment",
         "noUpcoming": "No Hay Visitas Agendadas",
+        "whatDay": "What day is the appointment?",
+        "whatTime": "What time is the appointment?",
+        "select": "Select an appointment type",
         "typeQuestion": "¿Qué tipo de cita quiere añadir?",
         "selectDate": "Seleccione la fecha y la hora",
         "addAppointment": "Añadir Nueva Cita",
@@ -1025,5 +1074,11 @@
         },
         "six": "Coloque la tira en la bolsa y descartela en la basura."
 
+    },
+    "mobileUpdate":{
+        "actions": "Actions",
+        "showActions": "Show All Actions",
+        "treatment": "Treatment",
+        "supportRequests": "Support Requests"
     }
 }

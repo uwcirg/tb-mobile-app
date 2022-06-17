@@ -20,9 +20,9 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: Colors.backgroundGray
-  }
-})
+    backgroundColor: Colors.backgroundGray,
+  },
+});
 
 const HomePage = () => {
   const classes = useStyles();
@@ -43,9 +43,7 @@ const HomePage = () => {
         <Reminders />
       </Box>
     </div>
-  )
-
+  );
 };
 
 export default HomePage;
-

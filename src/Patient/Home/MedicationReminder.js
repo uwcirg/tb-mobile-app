@@ -166,14 +166,12 @@ const MenuTest = ({ anchorEl, handleClose, handleChange, handleDisable }) => {
 
     return (
         <Menu
-    
             id="simple-menu"
             anchorEl={anchorEl}
             keepMounted
             open={Boolean(anchorEl)}
             onClose={handleClose}
-            classes={{ list: classes.noPadding, paper: classes.noPadding }}
-        >
+            classes={{ list: classes.noPadding, paper: classes.noPadding }}>
             <MenuItem style={{ color: Colors.buttonBlue }} className={classes.delete} onClick={change}>{t('patient.reminders.changeTime')}</MenuItem>
             <MenuItem style={{ color: Colors.red }} onClick={disable}>{t('patient.reminders.disable')}</MenuItem>
         </Menu>
