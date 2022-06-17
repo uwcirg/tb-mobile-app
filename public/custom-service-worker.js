@@ -171,7 +171,9 @@ function logNotificationClick(notificationId) {
 function callAnalyticsAPI(notificationId, body) {
   const url = `${react_env.URL_API}/v2/push_notification_status/${notificationId}`
   fetch(url, {
-    method: "PATCH", body: JSON.stringify(body), credentials: "include", headers: {
+    method: "PATCH", body: JSON.stringify(body),
+    credentials: "include",
+    headers: {
       "Content-Type": "application/json"
     }
   })
@@ -184,30 +186,18 @@ function getCurrentISODateTime() {
 
 if (isBroadcastChannelSupported()) {
 
-  console.log("message evnent")
   const translationChannel = new BroadcastChannel('push-translation')
   translationChannel.onmessage = (event) => {
-    if (event.data.type === 'push-translation') {
+    if (event.data.type === 'push-translation-return') {
 
-      console.log("Got message event")
+      console.log("IN SW")
+      console.log(event.data)
 
-      const { json } = event.data;
+      let options = event.data.body;
 
-      let options = {
-        body: json.body,
-        icon: 'logo.png',
-        badge: 'push-badge.png',
-        url: json.url,
-        click_action: json.url,
-        data: json.data
-      };
+      console.log(options.title)
 
-      if (json.actions) {
-        options.actions = json.actions
-      }
-
-
-      event.waitUntil(self.registration.showNotification(event.data.string));
+      self.registration.showNotification(options.title, options);
     }
   }
 }
