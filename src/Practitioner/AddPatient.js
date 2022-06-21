@@ -16,6 +16,8 @@ import CheckCircle from '@material-ui/icons/CheckCircle';
 import Colors from '../Basics/Colors';
 import NewButton from '../Basics/NewButton';
 import ExitToApp from '@material-ui/icons/ExitToApp';
+import TextCopy from '../Utility/Copiable';
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
 
 const initialState = {
   givenName: '',
@@ -35,14 +37,6 @@ export default function AddPatient() {
     immediate: false,
     funcParams: [state],
   });
-
-  // if response has field called error or status === error...
-  // let em know and show + tell what's wrong
-
-  const resetState = () => {
-    setState({ ...initialState });
-    reset();
-  };
 
   return (
     <>
@@ -76,6 +70,7 @@ export default function AddPatient() {
               refreshPatients();
               history.goBack();
             }}
+            activationCode={value?.code}
           />
         </>
       )}
@@ -166,7 +161,7 @@ const Form = ({ state, setState, handleSubmit, error }) => {
   );
 };
 
-const Success = ({ handleExit }) => {
+const Success = ({ handleExit, activationCode }) => {
   const { t } = useTranslation('translation');
 
   return (
@@ -180,6 +175,16 @@ const Success = ({ handleExit }) => {
             </Typography>
           </Box>
         </Grid>
+      </Box>
+      <Box padding="32px 16px">
+        <div>
+          <Typography variant="body1">
+            {t('coordinator.addPatientFlow.forPatient')}:
+          </Typography>
+          <div>
+            <TextCopy icon={<VpnKeyIcon />} text={activationCode} />
+          </div>
+        </div>
       </Box>
       <Box padding="0 1em">
         <NewButton
