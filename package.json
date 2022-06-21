@@ -48,7 +48,8 @@
     "test": "set CI=true && react-app-rewired test --env=jest-environment-jsdom-fifteen",
     "eject": "react-app-rewired eject",
     "test:coverage": "set CI=true && react-app-rewired test --coverage",
-    "serve_build": "react-app-rewired build; serve ./build"
+    "serve_build": "react-app-rewired build; serve ./build",
+    "indonesia_netlify_build": "react-app-rewired build && . bin/generate-netlify-env.sh > build/config.js"
   },
   "eslintConfig": {
     "extends": "react-app"

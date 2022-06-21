@@ -45,7 +45,7 @@ export default class PatientUIStore {
     }
 
     @action goToTestInstructions = () => {
-        this.router.push("/test-instructions")
+        this.router.push("/information/test-instructions")
     } 
 
     @action goToNextStep = (step) => {

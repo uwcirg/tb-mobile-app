@@ -3,6 +3,7 @@ import APIStore from './apiStore';
 
 const ROUTES = {
     login: ["/auth", "POST"],
+    deleteCookie:["/auth/cookie", "DELETE"],
     checkActivationCode: ["/patient/activation/check","POST"],
     activatePatient: ["/patient/activation","POST"]
 }
@@ -121,6 +122,10 @@ export default class LoginStore extends APIStore {
 
     @computed get onForgotPassword(){
         return this.routingStore.location.pathname === "/login/forgot-password"
+    }
+
+    deleteCookie = () => {
+        this.executeRequest("deleteCookie")
     }
 
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Switch, Route } from 'react-router-dom';
 import Documents from './Documents';
-import PatientInformation from '../../Patient/Information';
+import {PractitionerView} from '../../Patient/Information';
 import Language from '../../Components/Shared/LanguageQuestion';
 import PasswordReset from '../../Components/PasswordUpdate';
 import useWindowSize from '../../Hooks/Resize';
@@ -21,8 +21,8 @@ const Routes = (props) => {
           title={t('coordinator.settingsPage.documents')}
         />
         <WrappedRoute
-          path="/settings/patient-information"
-          children={<PatientInformation />}
+          path="/settings/information"
+          children={<PractitionerView />}
           title={t('coordinator.settingsPage.patientInformation')}
         />
         <WrappedRoute

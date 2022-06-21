@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { observer } from 'mobx-react'
 import useStores from './UseStores'
 import Alert from './Alert'
@@ -14,10 +14,13 @@ const CheckAuthorization = observer(() => {
         uiStore.resetAuthError();
     }
 
-    if (uiStore.authError) {
-        loginStore.logout();
-        push("")
-    }
+    useEffect(() => {
+        if (uiStore.authError) {
+            loginStore.deleteCookie();
+            loginStore.logout();
+            push("")
+        }
+    }, [uiStore.authError])
 
     return (<>
 

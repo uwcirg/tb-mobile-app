@@ -107,7 +107,7 @@ export default class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    console.log("error here")
+    console.log(error)
 
   }
 
@@ -128,10 +128,10 @@ export default class ErrorBoundary extends React.Component {
 }
 
 const TrackAnalyticsEvent = () => {
-  const {trackEvent} = useMatomo();
-  useEffect(()=>{
+  const { trackEvent } = useMatomo();
+  useEffect(() => {
     trackEvent({ category: 'error-boundry', action: 'render' })
-  },[])
+  }, [])
   return <></>
 }
 
@@ -202,9 +202,13 @@ const NonFixedButtons = () => {
     location.reload();
   }
 
+  const handleReload = () => {
+    window.location.href = "/"
+  }
+
   return (<ButtonGroup className={classes.buttons} fullWidth>
     <Button onClick={handleLogout}>{t('patient.profile.logout')}</Button>
-    <Button onClick={() => { location.reload(); }}>{t('errors.reload')}</Button>
+    <Button onClick={handleReload}>{t('errors.reload')}</Button>
   </ButtonGroup>)
 }
 
@@ -234,4 +238,4 @@ const StaticVersion = () => {
   )
 }
 
-export {StaticVersion}
+export { StaticVersion }

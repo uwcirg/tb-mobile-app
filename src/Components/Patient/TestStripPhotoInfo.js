@@ -54,7 +54,7 @@ const TestStripPhotoInfo = ({ showSkipOptions = true }) => {
                     <Typography className={classes.infoText} variant="body1" color="initial">{t('patient.report.photo.help.wait')}</Typography>
                 </ExpansionPanelSummary>
             </ExpansionPanel>
-            <ExpansionPanel onClick={()=>{patientUIStore.router.push("/test-instructions")}} className={classes.panel}>
+            <ExpansionPanel onClick={()=>{patientUIStore.router.push("/information/test-instructions")}} className={classes.panel}>
                 <ExpansionPanelSummary className={classes.summary} expandIcon={<Right />}>
                     <HelpIcon className={classes.timeIcon} />
                     <Typography className={classes.infoText} variant="body1" color="initial">{t('patient.information.testInstructions')}</Typography>

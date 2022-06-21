@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography'
 import { useTranslation } from 'react-i18next';
 import Colors from '../../Basics/Colors';
 import Grid from '@material-ui/core/Grid'
+import { Avatar, Box } from '@material-ui/core';
 
 const useStyles = makeStyles({
     container: {
@@ -32,6 +33,9 @@ const useStyles = makeStyles({
         width: "1.25em",
         height: "1.25em",
         marginBottom: ".5em"
+    },
+    avatar:{
+        backgroundColor: Colors.accentBlue
     }
 })
 
@@ -55,13 +59,17 @@ const NotificationInstructions = () => {
 const Item = ({ number, text }) => {
     const classes = useStyles();
     return (<li>
-        <Grid container justify="center" alignItems="center" className={classes.number} spacing={1}>
-            <span >{number}</span>
+        <Grid alignItems='center' wrap="nowrap" container>
+            {/* <Grid container justify="center" alignItems="center" className={classes.number} spacing={1}>
+                <span >{number}</span>
+            </Grid> */}
+            <Avatar className={classes.avatar} >{number}</Avatar>
+            <Box width="1rem" />
+            <Typography variant="body1" children={text} />
         </Grid>
-        <Typography variant="body1">
-            {text}
-        </Typography>
-        <img src={`/img/es-Ar/notification-instructions/${number}.jpg`} />
+        <Box width="100%" padding="16px" style={{boxSizing: "border-box"}}>
+            <img width="100%" src={`/img/es-Ar/notification-instructions/${number}.jpg`} />
+        </Box>
     </li>)
 }
 export default NotificationInstructions;
