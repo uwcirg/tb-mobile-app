@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { DateTime } from 'luxon';
 import TopPageLabel from '../Components/Shared/TopPageLabel';
 import { useTranslation } from 'react-i18next';
@@ -12,6 +12,7 @@ import Loading from './Shared/CardLoading';
 import Success from '../Components/Shared/Appointments/AddAppointment/Success';
 import { useHistory } from 'react-router-dom';
 import GenericErrorMessage from '../Components/GenericErrorMessage';
+import PractitionerContext from './PractitionerContext';
 
 const initialState = {
   givenName: '',
@@ -24,6 +25,7 @@ export default function AddPatient() {
   const { t } = useTranslation('translation');
   const [state, setState] = useState({ ...initialState });
   const history = useHistory();
+  const { execute: refreshPatients } = useContext(PractitionerContext).patients;
 
   const { execute, status, reset, value, error } = useAsync({
     asyncFunc: PractitionerAPI.addPatient,
@@ -66,7 +68,13 @@ export default function AddPatient() {
       )}
       {status === 'success' && !!!value?.paramErrors && (
         <>
-          <Success handleExit={history.goBack} handleReset={resetState} />
+          <Success
+            handleExit={() => {
+              refreshPatients();
+              history.goBack();
+            }}
+            handleReset={resetState}
+          />
         </>
       )}
       {/* check what is in value response to see if it is valid for phone # */}
