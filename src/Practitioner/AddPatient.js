@@ -2,17 +2,20 @@ import React, { useContext, useState } from 'react';
 import { DateTime } from 'luxon';
 import TopPageLabel from '../Components/Shared/TopPageLabel';
 import { useTranslation } from 'react-i18next';
-import { Box, TextField, Grid } from '@material-ui/core';
+import { Box, TextField, Grid, Typography } from '@material-ui/core';
 import InputCard from '../Components/Shared/Appointments/AddAppointment/InputCard';
 import DateInput from '../Components/Shared/Appointments/AddAppointment/DateInput';
 import FlatButton from '../Components/FlatButton';
 import useAsync from '../Hooks/useAsyncWithParams';
 import PractitionerAPI from '../API/PractitionerAPI';
 import Loading from './Shared/CardLoading';
-import Success from '../Components/Shared/Appointments/AddAppointment/Success';
 import { useHistory } from 'react-router-dom';
 import GenericErrorMessage from '../Components/GenericErrorMessage';
 import PractitionerContext from './PractitionerContext';
+import CheckCircle from '@material-ui/icons/CheckCircle';
+import Colors from '../Basics/Colors';
+import NewButton from '../Basics/NewButton';
+import ExitToApp from '@material-ui/icons/ExitToApp';
 
 const initialState = {
   givenName: '',
@@ -73,7 +76,6 @@ export default function AddPatient() {
               refreshPatients();
               history.goBack();
             }}
-            handleReset={resetState}
           />
         </>
       )}
@@ -160,6 +162,32 @@ const Form = ({ state, setState, handleSubmit, error }) => {
         </FlatButton>
       </Grid>
       <Box height="3.5rem" aria-hidden />
+    </Box>
+  );
+};
+
+const Success = ({ handleExit }) => {
+  const { t } = useTranslation('translation');
+
+  return (
+    <Box>
+      <Box padding="32px 16px">
+        <Grid alignItems="center" container wrap="nowrap">
+          <CheckCircle style={{ color: Colors.green, fontSize: '5rem' }} />
+          <Box padding="0 1rem">
+            <Typography style={{ fontSize: '1.5rem', lineHeight: '1.75rem' }}>
+              {t('coordinator.addPatientFlow.patientSuccess')}
+            </Typography>
+          </Box>
+        </Grid>
+      </Box>
+      <Box padding="0 1em">
+        <NewButton
+          onClick={handleExit}
+          text={t('archive.complete')}
+          icon={<ExitToApp />}
+        />
+      </Box>
     </Box>
   );
 };
