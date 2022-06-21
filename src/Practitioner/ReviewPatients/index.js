@@ -13,12 +13,14 @@ import { Route, Switch, useParams, Link } from 'react-router-dom';
 import AllPatientsList from './AllPatientsList';
 import ReportingPopover from '../Shared/ReportingPopOver';
 import { PageLabelTitle } from '../../Components/Shared/PageLabel';
+import { useTranslation } from 'react-i18next';
 
 const TopBar = () => {
+  const { t } = useTranslation('translation');
   return (
     <Box bgcolor="white" borderBottom="solid 1px lightgray" padding=".5em 1em">
       <Grid alignItems="center" container>
-        <PageLabelTitle title="Review Patients" />
+        <PageLabelTitle title={`${t('coordinator.cardTitles.allPatients')}`} />
         <Box flexGrow="1" />
 
         <IconButton
@@ -31,7 +33,15 @@ const TopBar = () => {
           <Search />
         </IconButton>
 
-        <IconButton component={Link} to={'/patients/add-patient'}>
+        <IconButton
+          style={{
+            backgroundColor: Colors.buttonBlue,
+            color: 'white',
+            padding: '5px',
+          }}
+          component={Link}
+          to={'/patients/add-patient'}
+        >
           {<Add />}
         </IconButton>
       </Grid>

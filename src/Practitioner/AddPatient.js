@@ -11,6 +11,7 @@ import PractitionerAPI from '../API/PractitionerAPI';
 import Loading from './Shared/CardLoading';
 import Success from '../Components/Shared/Appointments/AddAppointment/Success';
 import { useHistory } from 'react-router-dom';
+import GenericErrorMessage from '../Components/GenericErrorMessage';
 
 const initialState = {
   givenName: '',
@@ -52,8 +53,8 @@ export default function AddPatient() {
       )}
       {status === 'success' && !!value?.paramErrors && (
         <>
-          <Box color="red" padding="1em">
-            {`${t('commonWords.error')}: ${t('commonWords.fillAll')}`}
+          <Box padding="1em">
+            <GenericErrorMessage />
           </Box>
           <Form
             state={state}
@@ -103,7 +104,7 @@ const Form = ({ state, setState, handleSubmit, error }) => {
           multiline
           fullWidth
           variant="outlined"
-          error={error?.givenName ? true : false}
+          error={!!error?.givenName}
         />
       </InputCard>
 
@@ -117,7 +118,7 @@ const Form = ({ state, setState, handleSubmit, error }) => {
           multiline
           fullWidth
           variant="outlined"
-          error={error?.familyName ? true : false}
+          error={!!error?.familyName}
         />
       </InputCard>
 
@@ -137,7 +138,7 @@ const Form = ({ state, setState, handleSubmit, error }) => {
           multiline
           fullWidth
           variant="outlined"
-          error={error?.phoneNumber ? true : false}
+          error={!!error?.phoneNumber}
         />
       </InputCard>
 
