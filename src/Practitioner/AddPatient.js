@@ -177,16 +177,16 @@ const Success = ({ handleExit, activationCode }) => {
         </Grid>
       </Box>
       <Box padding="32px 16px">
-        <div>
+        <Box maxWidth="500px">
           <Typography variant="body1">
             {t('coordinator.addPatientFlow.forPatient')}:
           </Typography>
-          <div>
+          <Box padding="0 1em">
             <TextCopy icon={<VpnKeyIcon />} text={activationCode} />
-          </div>
-        </div>
+          </Box>
+        </Box>
       </Box>
-      <Box padding="0 1em">
+      <Box padding="0 1em" maxWidth="500px">
         <NewButton
           onClick={handleExit}
           text={t('archive.complete')}
