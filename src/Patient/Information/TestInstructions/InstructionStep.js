@@ -17,8 +17,6 @@ const useStyles = makeStyles({
     alignItems: 'flex-start',
   },
   img: {
-    display: 'flex',
-    alignItems: 'flex-start',
     height: 'auto',
     width: '100%',
   },
