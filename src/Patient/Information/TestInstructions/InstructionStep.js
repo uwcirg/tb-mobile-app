@@ -6,7 +6,7 @@ import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles({
   space: {
-    maxWidth: "500px",
+    maxWidth: '500px',
   },
   body: {
     width: '100%',
@@ -14,11 +14,16 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     flexGrow: '1',
+    alignItems: 'flex-start',
+  },
+  img: {
+    height: 'auto',
+    width: '100%',
   },
   text: {
-    padding: "16px 0",
-    fontSize: "18px"
-  }
+    padding: '16px 0',
+    fontSize: '18px',
+  },
 });
 
 const InstructionStep = ({ currentStep }) => {
@@ -28,11 +33,14 @@ const InstructionStep = ({ currentStep }) => {
   return (
     <div className={classes.body}>
       <img
+        className={classes.img}
         src={`/img/${i18n.language}/test-instructions/${currentStep + 1}.png`}
         alt={`step # ${currentStep}`}
       />
       <Typography className={classes.text} variant="body2">
-        {typeof (testStripInstructions[currentStep]) === "string" ? t(testStripInstructions[currentStep]) : testStripInstructions[currentStep]}
+        {typeof testStripInstructions[currentStep] === 'string'
+          ? t(testStripInstructions[currentStep])
+          : testStripInstructions[currentStep]}
       </Typography>
     </div>
   );
