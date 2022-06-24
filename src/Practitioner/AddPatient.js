@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { DateTime } from 'luxon';
 import TopPageLabel from '../Components/Shared/TopPageLabel';
 import { useTranslation } from 'react-i18next';
@@ -32,11 +32,19 @@ export default function AddPatient() {
   const history = useHistory();
   const { execute: refreshPatients } = useContext(PractitionerContext).patients;
 
-  const { execute, status, reset, value, error } = useAsync({
+  useEffect(() => {
+
+    return function cleanup() {
+      refreshPatients();
+    }
+  }, [])
+
+  const { execute, status, value } = useAsync({
     asyncFunc: PractitionerAPI.addPatient,
     immediate: false,
     funcParams: [state],
   });
+
 
   return (
     <>
@@ -52,8 +60,8 @@ export default function AddPatient() {
       )}
       {status === 'success' && !!value?.paramErrors && (
         <>
-          <Box padding="1em">
-            <GenericErrorMessage />
+          <Box margin="16px" padding="0 16px" borderLeft="2px solid red">
+            <Typography>{t('commonWords.errorMessage')}</Typography>
           </Box>
           <Form
             state={state}
@@ -67,15 +75,12 @@ export default function AddPatient() {
         <>
           <Success
             handleExit={() => {
-              refreshPatients();
               history.goBack();
             }}
             activationCode={value?.code}
           />
         </>
       )}
-      {/* check what is in value response to see if it is valid for phone # */}
-      {/* build request within this file */}
     </>
   );
 }
@@ -97,6 +102,7 @@ const Form = ({ state, setState, handleSubmit, error }) => {
     state.firstName === '' || state.lastName === '' || !validPhone;
 
   const { t } = useTranslation('translation');
+
   return (
     <Box padding="1em" maxWidth="700px">
       <InputCard title={`${t('patient.userFields.firstName')} *`}>
@@ -129,8 +135,7 @@ const Form = ({ state, setState, handleSubmit, error }) => {
 
       <InputCard title={`${t('coordinator.patientProfile.phoneNumber')} *`}>
         {error?.phoneNumber && (
-          <Box color="red" padding="0">
-            {' '}
+          <Box borderLeft="2px solid red" marginBottom="16px" padding="0 16px">
             {t('coordinator.patientProfile.editDetails.inputError')}
           </Box>
         )}
