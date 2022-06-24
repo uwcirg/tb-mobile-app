@@ -6,6 +6,7 @@ import Settings from './Settings/index';
 import PatientProfile from './PatientProfile';
 import OldTasksPage from './OldTasksPage';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
+import AddPatient from './AddPatient';
 
 const Routes = () => {
   const location = useLocation();
@@ -14,6 +15,7 @@ const Routes = () => {
     <Switch>
       <Route path="/messaging" children={<Messages />} />
       <Route path="/settings" children={<Settings />} />
+      <Route path="/patients/add-patient" children={<AddPatient />} />
       <Route path="/patients/:id" children={<PatientProfile />} />
       <Route path="/patients" children={<PatientsView />} />
       <Route path="/old-tasks" children={<OldTasksPage />} />
