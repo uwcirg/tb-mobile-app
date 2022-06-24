@@ -9,7 +9,7 @@ fi
 
 cat <<EOF
 const react_env = {
-URL_API: "$URL_API",
+URL_API: "/api",
 URL_CLIENT:"$URL",
 DEFAULT_LOCALE:"$DEFAULT_LOCALE",
 DOCKER_TAG: "$DOCKER_TAG",
