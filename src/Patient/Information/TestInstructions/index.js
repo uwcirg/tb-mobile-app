@@ -46,11 +46,7 @@ const TestInstructions = () => {
 
   return (
       <Grid className={classes.container} direction='column' container>
-        <Box style={{ boxSizing: "border-box" }} flexGrow="1" padding="0 1em" width="100%" maxWidth="500px">
-          <InstructionStep className="step" currentStep={step} />
-
-        </Box>
-        <Grid justify='space-between' container>
+         <Grid justify='space-between' container>
           <StepperButton
             children={<ChevronLeft />}
             onClick={() => { dispatch({ type: 'previous' }) }}
@@ -67,6 +63,10 @@ const TestInstructions = () => {
             disabled={step >= 5}
           />
         </Grid>
+        <Box style={{ boxSizing: "border-box" }} flexGrow="1" padding="0 1em" width="100%" maxWidth="500px">
+          <InstructionStep className="step" currentStep={step} />
+
+        </Box>
       </Grid >
   );
 };
