@@ -62,7 +62,7 @@ let steps = [
         translationString: "patient.walkthrough.reminders"
     },
     {
-        push: "progress/calendar",
+        push: "/progress/calendar",
         target: ".intro-progress-button",
         placement: "top",
         fillBackground: true,
@@ -71,18 +71,13 @@ let steps = [
     },
     {
         scrollToTop: true,
-        push: "progress/calendar",
+        push: "/progress/calendar",
         target: ".intro-calendar-full",
         translationString: "patient.walkthrough.calendar",
         spotlightPadding: 10
     },
-    // {
-    //     push: "progress/calendar",
-    //     target: "#calendar-day-preview",
-    //     translationString: "patient.walkthrough.calendarBottom"
-    // },
     {
-        push: "messaging",
+        push: "/messaging",
         target: ".intro-messaging-button",
         placement: "top",
         fillBackground: true,
@@ -90,18 +85,18 @@ let steps = [
         
     },
     {
-        push: "messaging",
+        push: "/messaging",
         target: "#intro-chat",
         translationString: "patient.walkthrough.messaging.one"
     },
     {
         hideExit: true,
-        push: "messaging",
+        push: "/messaging",
         target: "#intro-chat-public",
         translationString: "patient.walkthrough.messaging.two"
     },
     {
-        push: "home",
+        push: "/home",
         target: "#intro-greeting",
         placement: "center",
         fillBackground: true,

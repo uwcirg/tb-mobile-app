@@ -53,13 +53,13 @@ const Wrapper = observer((props) => {
 const Intro = observer((props) => {
 
   const classes = useStyles();
-  const { patientUIStore} = useStores();
-  const {trackPageView } = useMatomo();
+  const { patientUIStore } = useStores();
+  const { trackPageView } = useMatomo();
 
 
-  useEffect(()=>{
-    trackPageView({documentTitle: `Walkthrough Step ${patientUIStore.walkthroughStep}`})
-  },[patientUIStore.walkthroughStep])
+  useEffect(() => {
+    trackPageView({ documentTitle: `Walkthrough Step ${patientUIStore.walkthroughStep}` })
+  }, [patientUIStore.walkthroughStep])
 
 
   return (
@@ -206,6 +206,7 @@ const useStyles = makeStyles({
   },
   exit: {
     position: "fixed",
+    top: 0,
     zIndex: "151",
     width: "100%",
     height: "60px",
