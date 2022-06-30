@@ -14,9 +14,10 @@ import Colors from '../../Basics/Colors'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { useMatomo } from '@datapunt/matomo-tracker-react'
+import { useHistory } from 'react-router-dom';
 
 const Wrapper = observer((props) => {
-  const { patientUIStore, patientStore, routingStore } = useStores();
+  const { patientUIStore, patientStore } = useStores();
   const classes = useStyles();
 
   //Load Test Data for calendar example
@@ -52,7 +53,7 @@ const Wrapper = observer((props) => {
 const Intro = observer((props) => {
 
   const classes = useStyles();
-  const { patientUIStore, routingStore } = useStores();
+  const { patientUIStore} = useStores();
   const {trackPageView } = useMatomo();
 
 
@@ -88,19 +89,15 @@ const Intro = observer((props) => {
 });
 
 const Tooltip = observer(({
-  continuous,
   index,
   step,
-  backProps,
-  closeProps,
-  primaryProps,
-  tooltipProps,
-  nextTest
+  tooltipProps
 }) => {
 
   const classes = useStyles();
-  const { t, i18n } = useTranslation('translation');
+  const { t } = useTranslation('translation');
   const { routingStore, patientUIStore } = useStores();
+  const history = useHistory();
 
   const isLastStep = patientUIStore.walkthroughStep === Steps.length - 1;
   const isFirstStep = patientUIStore.walkthroughStep === 0;
@@ -120,7 +117,8 @@ const Tooltip = observer(({
   }
 
   const changePage = (newValue) => {
-    routingStore.push(Steps[newValue].push)
+    // routingStore.push(Steps[newValue].push)
+    history.push(Steps[newValue].push)
     patientUIStore.setWalkthroughStep(newValue)
   }
 

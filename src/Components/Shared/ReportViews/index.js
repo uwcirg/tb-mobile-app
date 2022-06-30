@@ -40,7 +40,7 @@ export default function ReportViews({ reports, loading, patient, tabTopPostition
                 :
                 <Switch>
                     <Route path="*/calendar">
-                        <CalendarStuff patient={patient} reportHash={reports} />
+                            <CalendarStuff patient={patient} reportHash={reports} />
                     </Route>
                     <Route path="*/list">
                         <ReportList reportHash={reports} patient={patient} />
@@ -88,13 +88,14 @@ const CalendarStuff = ({ patient, reportHash }) => {
 
     return (
         <Box padding="1em">
+            <p id="wk-test">Test</p>
             <ReportingCalendar
                 updateMonth={updateMonth}
                 displayStartDate={calendarStartDate}
                 handleDateChange={(date) => { history.push(`?date=${date}`) }}
                 patient={patient}
                 reports={reportHash} />
-            <Box bgcolor={Colors.lighterGray} padding=".5em" borderRadius="4px">
+            <Box  bgcolor={Colors.lighterGray} padding=".5em" borderRadius="4px">
                 <CalendarKey />
             </Box>
         </Box>
