@@ -87,8 +87,7 @@ const CalendarStuff = ({ patient, reportHash }) => {
     }
 
     return (
-        <Box padding="1em">
-            <p id="wk-test">Test</p>
+        <Box bgcolor="white" padding="1em">
             <ReportingCalendar
                 updateMonth={updateMonth}
                 displayStartDate={calendarStartDate}
