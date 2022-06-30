@@ -5,14 +5,12 @@ import { Link } from 'react-router-dom';
 import Colors from '../../Basics/Colors';
 import IssueArea from './IssueArea';
 import AdherenceLabel from './AdherenceLabel';
-import { daysSinceISODateTime } from '../../Utility/TimeUtils';
 import { useTranslation } from 'react-i18next';
 import useAsync from '../../Hooks/useAsync';
 import PractitionerAPI from '../../API/PractitionerAPI';
 import TreatmentWeek from './TreatmentWeek';
 import useToggle from '../../Hooks/useToggle';
 import IssueDetails from './IssueDetails';
-import { useHistory, useLocation } from 'react-router-dom'
 
 const useStyles = makeStyles({
     container: {
@@ -101,9 +99,9 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed, isSimpleView 
             <Box className={classes.container}>
                 {success ? <Box padding="1em">
                     <Grid container>
-                        <CheckCircle style={{color: Colors.green}} />
+                        <CheckCircle style={{ color: Colors.green }} />
                         <Box width=".5em" />
-                        <Typography>Review Submitted</Typography>
+                        <Typography>{t('reviewIssues.submitted')}</Typography>
                     </Grid>
                 </Box> : <><Box padding='.75em'>
                     <Grid alignItems='center' container wrap='nowrap'>
@@ -121,7 +119,7 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed, isSimpleView 
                         <Box flexGrow={1} />
                         <Button className={classes.expand} onClick={toggleDetails}>
                             <Typography style={{ paddingRight: ".5em" }} noWrap>
-                                {showDetails ? "Hide" : "Review"}
+                                {showDetails ? t('messaging.moderation.hideUI') : t('reviewIssues.review')}
                             </Typography>
                             <Down className={showDetails ? classes.rotate : ""} />
                         </Button>
@@ -147,7 +145,7 @@ const ButtonArea = ({ patient, resolvePatient, loading, isReviewed, isSimpleView
         <Box padding="1em .5em">
             <Grid wrap="nowrap" justify='flex-end' alignItems='center' container>
                 {disable && <Box padding=".5em">
-                    <Typography className={classes.reviewPhotoPrompt} >Please review photos before checking this patient off</Typography>
+                    <Typography className={classes.reviewPhotoPrompt}>{t('reviewIssues.reviewBefore')}</Typography>
                 </Box>}
                 <IconButton component={Link} to={`?onMessagingChannelId=${patient.channelId}`} style={{ backgroundColor: 'rgba(66, 133, 244, 0.15)', padding: ".25em" }}>
                     <Message style={{ color: Colors.buttonBlue }} />
