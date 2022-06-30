@@ -138,6 +138,7 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed, isSimpleView 
 
 const ButtonArea = ({ patient, resolvePatient, loading, isReviewed, isSimpleView }) => {
 
+    const { t } = useTranslation('translation');
     const disable = patient.unreviewedPhotos.length > 0;
     const classes = useStyles();
 
