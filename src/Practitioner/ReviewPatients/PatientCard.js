@@ -173,7 +173,8 @@ const ButtonArea = ({ patient, resolvePatient, loading, isReviewed, isSimpleView
                 {(!isReviewed && !isSimpleView) && <>
                     <Box width=".5em" />
                     <IconButton disabled={disable} onClick={resolvePatient} className={classes.reviewButton}>
-                        {loading ? <CircularProgress style={{ color: Colors.gray }} size="1em" variant='indeterminate' /> : <Check style={{ color: Colors.green }} />}
+                        {loading ? <CircularProgress style={{ color: Colors.gray }} size="1em" variant='indeterminate' /> :
+                            <Check style={{ color: disable ? "white" : Colors.green }} />}
                     </IconButton></>}
             </Grid>
         </Box>
