@@ -1,12 +1,11 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import Typography from '@material-ui/core/Typography'
 import { useTranslation } from 'react-i18next'
 import 'react-circular-progressbar/dist/styles.css'
-import PhotoAdherence from './PhotoAdherence'
-import MedicationAdherence from './MedicationAdherence'
+import PhotoAdherence from './Photo'
+import MedicationAdherence from './Medication'
 import Grid from '@material-ui/core/Grid'
-import SectionLabel from '../../Components/SectionLabel'
+import SectionLabel from '../../../Components/SectionLabel'
 
 const useStyles = makeStyles({
     container: {

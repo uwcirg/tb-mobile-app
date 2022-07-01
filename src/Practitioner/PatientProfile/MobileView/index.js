@@ -15,8 +15,8 @@ import ReportingPopOver from '../../Shared/ReportingPopOver'
 import { useHistory } from 'react-router-dom';
 import ReportingHistoryLinks from '../../../Components/Shared/ReportingHistoryLinks';
 import SectionTitle from './SectionTitle';
-import PhotoAdherence from '../PhotoAdherence';
-import MedicationAdherence from '../MedicationAdherence';
+import PhotoAdherence from '../Adherence/Photo';
+import MedicationAdherence from '../Adherence/Medication';
 import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
@@ -69,38 +69,38 @@ const MobileView = observer(() => {
             </StickyTopBar>
             <Box minHeight="90vh" bgcolor={Colors.lightgray} padding="8px">
                 <Card>
-                    <SectionTitle>Details:</SectionTitle>
+                    <SectionTitle>{t('coordinator.patientTableLabels.details')}:</SectionTitle>
                     <Box padding="8px" bgcolor={Colors.lighterGray}>
-                    <Grid wrap="nowrap" container>
-                        <Typography>{t('coordinator.patientProfile.lastReport')}:</Typography>
-                        <Box flexGrow={1} />
-                        <Box width={"8px"} />
-                        <Typography>{daysAgo} {t('time.day_ago', { count: daysAgo })}</Typography>
-                    </Grid>
-                    <Box height={"5px"} />
-                    <Grid container>
-                        <Typography>{t('coordinator.patientTableLabels.priority')}:</Typography>
-                        <Box width={"8px"} />
-                        <Box flexGrow={1} />
-                        <Priority index={priority} />
-                    </Grid>
-                    <Box height={"5px"} />
-                    <Grid container>
-                        <Typography>{t('mobileUpdate.treatment')}:</Typography>
-                        <Box width={"8px"} />
-                        <Box flexGrow={1} />
-                        <Label text={`Week ${weeksInTreatment} / 26`} backgroundColor={Colors.accentBlue} />
-                    </Grid>
-                    <Box height={"5px"} />
-                    <Grid container>
-                        <Typography>Next Appointment:</Typography>
-                        <Box width={"8px"} />
-                        <Box flexGrow={1} />
-                        {nextReminder ? <Label text={DateTime.fromISO(nextReminder.datetime).toLocaleString(DateTime.DATE_SHORT)} backgroundColor={Colors.accentBlue} /> : "None Set"}
-                    </Grid>
+                        <Grid wrap="nowrap" container>
+                            <Typography>{t('coordinator.patientProfile.lastReport')}:</Typography>
+                            <Box flexGrow={1} />
+                            <Box width={"8px"} />
+                            <Typography>{daysAgo} {t('time.day_ago', { count: daysAgo })}</Typography>
+                        </Grid>
+                        <Box height={"5px"} />
+                        <Grid container>
+                            <Typography>{t('coordinator.patientTableLabels.priority')}:</Typography>
+                            <Box width={"8px"} />
+                            <Box flexGrow={1} />
+                            <Priority index={priority} />
+                        </Grid>
+                        <Box height={"5px"} />
+                        <Grid container>
+                            <Typography>{t('mobileUpdate.treatment')}:</Typography>
+                            <Box width={"8px"} />
+                            <Box flexGrow={1} />
+                            <Label text={`Week ${weeksInTreatment} / 26`} backgroundColor={Colors.accentBlue} />
+                        </Grid>
+                        <Box height={"5px"} />
+                        <Grid container>
+                            <Typography>{t('appointments.nextAppointment')}:</Typography>
+                            <Box width={"8px"} />
+                            <Box flexGrow={1} />
+                            {nextReminder ? <Label text={DateTime.fromISO(nextReminder.datetime).toLocaleString(DateTime.DATE_SHORT)} backgroundColor={Colors.accentBlue} /> : "None Set"}
+                        </Grid>
                     </Box>
                     <Box height="1em" />
-                    <SectionTitle>Reporting History:</SectionTitle>
+                    <SectionTitle>{t('coordinator.patientProfile.reportingHistory')}:</SectionTitle>
                     <Box height="8px" />
                     <ReportingHistoryLinks patient={patientProfileStore.selectedPatient.details} />
                 </Card>
@@ -108,6 +108,8 @@ const MobileView = observer(() => {
                     <ButtonList />
                 </Card>
                 <Card>
+                    <SectionTitle>{t('coordinator.cohortOverview.adherenceGraph')}:</SectionTitle>
+                    <Box height="8px" />
                     <MedicationAdherence />
                     <PhotoAdherence />
                 </Card>

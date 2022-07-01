@@ -875,7 +875,8 @@
         },
         "showAll": "Show All",
         "showLess": "Show Less",
-        "addAnother": "Add another"
+        "addAnother": "Add another",
+        "nextAppointment": "Next appointment"
     },
     "update": {
         "update": "Update",
