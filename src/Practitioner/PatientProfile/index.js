@@ -6,7 +6,7 @@ import Styles from '../../Basics/Styles';
 import Colors from '../../Basics/Colors';
 import { useTranslation } from 'react-i18next';
 import PatientInfo from './Details/PatientInfo';
-import TreatmentStatus from './AdherenceSummary';
+import TreatmentStatus from './Adherence/AdherenceSummary';
 import SymptomSummary from './SymptomSummary';
 import TreatmentTimeline from '../../Basics/TreatmentTimeline';
 import ReportingHistory from './ReportingHistory';

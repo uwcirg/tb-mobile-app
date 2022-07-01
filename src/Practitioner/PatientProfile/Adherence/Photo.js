@@ -1,12 +1,14 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import useStores from '../../Basics/UseStores';
-import StackedLinearProgress from '../../Components/StackedLinearProgress';
+import useStores from '../../../Basics/UseStores';
+import StackedLinearProgress from '../../../Components/StackedLinearProgress';
 import { observer } from 'mobx-react';
-import AdherenceValue from '../../Components/AdherenceValue';
+import AdherenceValue from '../../../Components/AdherenceValue';
 import { useTranslation } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
+import AdherenceDetails from './Details';
+import LabeledBar from './LabeledBar';
 
 const useStyles = makeStyles({
   percent: { fontSize: '1.75em' },
@@ -25,36 +27,40 @@ const PhotoAdherence = observer(() => {
   const missed =
     patient.photoSummary.requested - patient.photoSummary.submitted;
 
+  const detailContent = {
+    green: {
+      label: t('report.conclusive'),
+      data: patient.photoSummary.conclusive,
+    },
+    yellow: {
+      label: t('report.inconclusive'),
+      data: patient.photoSummary.inconclusive || 0,
+    },
+    red: {
+      label: t(
+        'coordinator.patientProfile.adherenceSection.missedRequest'
+      ),
+      data: missed || 0,
+    },
+  }
+
   return (
     <div>
       <Typography>{t('coordinator.patientTableLabels.photoAdherence')}</Typography>
-      <AdherenceValue
-        title={t('commonWords.photos')}
-        adherence={patient.photoAdherence}
-        icon="camera"
-      >
-        <StackedLinearProgress
+
+      <LabeledBar
+        type="photo"
+        adherenceValue={patient.photoAdherence}
+        bar={<StackedLinearProgress
           partValue={partV}
           totalValue={totalV}
-          additionalDetails={<Details submitted={totalV} conclusive={partV} />}
-          detailContent={{
-            green: {
-              label: t('report.conclusive'),
-              data: patient.photoSummary.conclusive,
-            },
-            yellow: {
-              label: t('report.inconclusive'),
-              data: patient.photoSummary.inconclusive || 0,
-            },
-            red: {
-              label: t(
-                'coordinator.patientProfile.adherenceSection.missedRequest'
-              ),
-              data: missed || 0,
-            },
-          }}
-        />
-      </AdherenceValue>
+        />}
+      />
+
+      <AdherenceDetails
+        detailContent={detailContent}
+        additionalDetails={<Details submitted={totalV} conclusive={partV} />}
+      />
     </div>
   );
 });

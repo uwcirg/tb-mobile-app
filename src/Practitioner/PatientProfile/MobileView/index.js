@@ -15,8 +15,8 @@ import ReportingPopOver from '../../Shared/ReportingPopOver'
 import { useHistory } from 'react-router-dom';
 import ReportingHistoryLinks from '../../../Components/Shared/ReportingHistoryLinks';
 import SectionTitle from './SectionTitle';
-import PhotoAdherence from '../PhotoAdherence';
-import MedicationAdherence from '../MedicationAdherence';
+import PhotoAdherence from '../Adherence/Photo';
+import MedicationAdherence from '../Adherence/Medication';
 import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
