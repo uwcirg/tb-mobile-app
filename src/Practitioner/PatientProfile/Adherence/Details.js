@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { useTranslation } from 'react-i18next';
 import AdherenceValue from '../../../Components/AdherenceValue';
 import StackedLinearProgress from '../../../Components/StackedLinearProgress';
-import { Typography, makeStyles, Grid } from '@material-ui/core';
+import { Typography, makeStyles, Grid, Box } from '@material-ui/core';
 import Colors from '../../../Basics/Colors';
 import ExpansionPanel from '../../../Components/SimpleExpansionPanel'
 
@@ -40,7 +40,9 @@ export default function AdherenceDetails({ detailContent, additionalDetails }) {
         previewClosedText={t('commonWords.viewDetails')}
         previewOpenText={t('commonWords.hideDetails')}
     >
-        <Details content={detailContent} additionalDetails={additionalDetails} />
+        <Box padding="1rem 0">
+            <Details content={detailContent} additionalDetails={additionalDetails} />
+        </Box>
     </ExpansionPanel>)
 }
 

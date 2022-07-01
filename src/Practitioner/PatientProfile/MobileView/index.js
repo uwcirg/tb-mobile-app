@@ -108,6 +108,8 @@ const MobileView = observer(() => {
                     <ButtonList />
                 </Card>
                 <Card>
+                    <SectionTitle>{t('coordinator.cohortOverview.adherenceGraph')}:</SectionTitle>
+                    <Box height="8px" />
                     <MedicationAdherence />
                     <PhotoAdherence />
                 </Card>
