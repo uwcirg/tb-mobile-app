@@ -34,9 +34,11 @@ const AllPatientsList = () => {
           return (
             <>
               {showSection && (
-                <ListSectionLabel>
-                  {t(`coordinator.cohortOverview.${each.status.toLowerCase()}`)}
-                </ListSectionLabel>
+                <Box padding="1em 0 0 .5em">
+                  <ListSectionLabel>
+                    {t(`coordinator.cohortOverview.${each.status.toLowerCase()}`)}
+                  </ListSectionLabel>
+                </Box>
               )}
               <Box padding="8px 8px 0 8px">
                 <PatientCard isSimpleView patient={each} />

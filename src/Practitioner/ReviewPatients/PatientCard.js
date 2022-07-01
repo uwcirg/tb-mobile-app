@@ -114,9 +114,8 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed, isSimpleView 
                         <AdherenceLabel patient={patient} />
                     </Grid>
                     <Box height=".5em" />
-                    {!isSimpleView && (
-
-                        patient.issues.total === 0 ? <NoIssues resolvePatient={execute} /> : <Grid alignItems='center' wrap="nowrap" container className={classes.bottomSection}>
+                    {!isSimpleView && !isReviewed && (
+                        patient.issues.total === 0 ? <NoIssues patient={patient} resolvePatient={execute} /> : <Grid alignItems='center' wrap="nowrap" container className={classes.bottomSection}>
                             <IssueArea issues={patient.issues.state} patientId={patient.id} />
                             <Box flexGrow={1} />
                             <Button className={classes.expand} onClick={toggleDetails}>
@@ -127,27 +126,30 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed, isSimpleView 
                             </Button>
                         </Grid>)}
                 </Box>
-                    {!isSimpleView && <Collapse in={showDetails}>
+                    {!isSimpleView && !isReviewed && <Collapse in={showDetails}>
                         {showDetails && <IssueDetails visible={showDetails} patient={patient} />}
                         <ButtonArea isReviewed={isReviewed} loading={status === "pending"} patient={patient} resolvePatient={execute} />
                     </Collapse>}
-                </>
-                }
+                </>}
             </Box>
         </Collapse>
     )
 }
 
-const NoIssues = ({ resolvePatient }) => {
+const NoIssues = ({ resolvePatient, patient }) => {
     const classes = useStyles();
     const { t } = useTranslation('translation');
 
     return (
-        <Grid>
+        <Grid alignItems='center' container wrap="nowrap">
             <Typography>{t('reviewIssues.noIssues')}</Typography>
             <Box flex="1" />
+            <IconButton component={Link} to={`?onMessagingChannelId=${patient.channelId}`} style={{ backgroundColor: 'rgba(66, 133, 244, 0.15)', padding: ".25em" }}>
+                <Message style={{ color: Colors.buttonBlue }} />
+            </IconButton>
+            <Box width="4px" />
             <IconButton onClick={resolvePatient} className={classes.reviewButton}>
-                <Check style={{ color: Colors.approvedGreen }} />
+                <Check style={{ color: Colors.green }} />
             </IconButton>
         </Grid >
     )
@@ -171,7 +173,7 @@ const ButtonArea = ({ patient, resolvePatient, loading, isReviewed, isSimpleView
                 {(!isReviewed && !isSimpleView) && <>
                     <Box width=".5em" />
                     <IconButton disabled={disable} onClick={resolvePatient} className={classes.reviewButton}>
-                        {loading ? <CircularProgress style={{ color: Colors.gray }} size="1em" variant='indeterminate' /> : <Check style={{ color: disable ? Colors.lighterGray : Colors.approvedGreen }} />}
+                        {loading ? <CircularProgress style={{ color: Colors.gray }} size="1em" variant='indeterminate' /> : <Check style={{ color: Colors.green }} />}
                     </IconButton></>}
             </Grid>
         </Box>

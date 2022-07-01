@@ -8,12 +8,13 @@ const useStyles = makeStyles({
     },
 });
 
-const ListSectionLabel = ({ children }) => {
+const ListSectionLabel = ({ children, icon }) => {
 
     const classes = useStyles();
 
     return (
         <Box padding="8px">
+            {icon}
             <Typography className={classes.title} variant="h2">
                 {children}
             </Typography>
