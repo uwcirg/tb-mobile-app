@@ -2,13 +2,27 @@ import React, { useContext } from 'react';
 import { DateTime } from 'luxon';
 import PractitionerContext from '../PractitionerContext';
 import addIssuesToPatients from '../../Utility/FindIssues';
-import { Box, Grid, Typography } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 import PatientCard from './PatientCard';
 import LoadingPatients from './LoadingPatients';
 import ListSectionLabel from './ListSectionLabel';
+import { useTranslation } from 'react-i18next';
+import { Announcement, ThumbUp } from '@material-ui/icons';
+import Colors from '../../Basics/Colors';
 
 const wasToday = (isoTime) => {
     return DateTime.fromISO(isoTime).toISODate() === DateTime.local().toISODate()
+}
+
+const IssueSectionLabel = ({ isIssues }) => {
+    const { t } = useTranslation('translation');
+    return <Grid container alignItems="center">
+        {/* {isIssues ? <Announcement style={{ color: Colors.yellow }} /> : <ThumbUp style={{ color: Colors.green }} />} */}
+        {/* <Box width="8px" /> */}
+        <ListSectionLabel>
+            {isIssues ? t('reviewIssues.hasIssues') : t('reviewIssues.onTrack')}
+        </ListSectionLabel>
+    </Grid>
 }
 
 const ListOfPatients = ({ tabValue }) => {
@@ -38,18 +52,18 @@ const ListOfPatients = ({ tabValue }) => {
 
     if (!patients) return "";
 
-    let currentSection = "";
+    let currentSection;
 
     return (<Grid container direction="column" >
         <Box height={".5em"} aria-hidden />
         {patientsWithIssues.map(patient => {
-            let title = patient.issues.total > 0 ? "Has Issues" : "No Issues";
-            let showSection = currentSection !== title;
+            let isIssues = patient.issues.total > 0;
+            let showSection = currentSection !== isIssues;
             if (showSection) {
-                currentSection = title
+                currentSection = isIssues
             }
             return <Box key={`review-patient-${patient.id}`} padding='0 .5em .5em .5em'>
-                {showSection && tabValue !== 1 && <ListSectionLabel>{title}</ListSectionLabel>}
+                {showSection && tabValue !== 1 && <IssueSectionLabel isIssues={isIssues} />}
                 <PatientCard isReviewed={tabValue === 1} markPatientAsReviewed={markPatientAsReviewed} patient={patient} />
             </Box>
         })}

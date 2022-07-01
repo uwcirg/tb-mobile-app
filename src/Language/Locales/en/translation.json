@@ -1087,6 +1087,9 @@
         "submitted": "Review Submitted",
         "review": "Review",
         "reviewBefore": "Please review the photos before marking this patient as reviewed",
-        "noIssues": "No issues to review"
+        "noIssues": "No issues to review",
+        "hasIssues": "Issues to review",
+        "onTrack": "On track with treatment",
+        "reviewedAt": "Reviewed at"
     }
 }

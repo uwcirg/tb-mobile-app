@@ -2,5 +2,6 @@
     "i18n-ally.localesPaths": [
         "src/Language/Locales"
     ],
-    "i18n-ally.extract.autoDetect": true
+    "i18n-ally.extract.autoDetect": true,
+    "i18n-ally.keystyle": "nested"
 }

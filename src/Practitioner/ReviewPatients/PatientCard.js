@@ -11,6 +11,7 @@ import PractitionerAPI from '../../API/PractitionerAPI';
 import TreatmentWeek from './TreatmentWeek';
 import useToggle from '../../Hooks/useToggle';
 import IssueDetails from './IssueDetails';
+import { DateTime } from 'luxon';
 
 const useStyles = makeStyles({
     container: {
@@ -55,6 +56,9 @@ const useStyles = makeStyles({
         lineHeight: "1.1em",
         borderLeft: "solid 3px red",
         paddingLeft: "5px"
+    },
+    noIssues: {
+        fontStyle: "italic"
     }
 })
 
@@ -114,6 +118,9 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed, isSimpleView 
                         <AdherenceLabel patient={patient} />
                     </Grid>
                     <Box height=".5em" />
+                    {isReviewed && <Typography variant="body2">
+                        {t('reviewIssues.reviewedAt')}: {DateTime.fromISO(patient.lastGeneralResolution).toLocaleString(DateTime.TIME_SIMPLE)}
+                    </Typography>}
                     {!isSimpleView && !isReviewed && (
                         patient.issues.total === 0 ? <NoIssues patient={patient} resolvePatient={execute} /> : <Grid alignItems='center' wrap="nowrap" container className={classes.bottomSection}>
                             <IssueArea issues={patient.issues.state} patientId={patient.id} />
@@ -142,7 +149,7 @@ const NoIssues = ({ resolvePatient, patient }) => {
 
     return (
         <Grid alignItems='center' container wrap="nowrap">
-            <Typography>{t('reviewIssues.noIssues')}</Typography>
+            <Typography variant='body2' className={classes.noIssues}>{t('reviewIssues.noIssues')}</Typography>
             <Box flex="1" />
             <IconButton component={Link} to={`?onMessagingChannelId=${patient.channelId}`} style={{ backgroundColor: 'rgba(66, 133, 244, 0.15)', padding: ".25em" }}>
                 <Message style={{ color: Colors.buttonBlue }} />
