@@ -24,8 +24,7 @@ const useStyles = makeStyles({
   },
   select: {
     boxSizing: 'border-box',
-    margin: '1em',
-    width: '90%',
+    width: '100%',
     maxWidth: '400px',
     backgroundColor: 'white',
   },

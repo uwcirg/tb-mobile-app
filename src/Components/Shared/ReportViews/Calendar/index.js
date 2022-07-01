@@ -1,14 +1,13 @@
 import React from 'react'
-import Calendar from 'react-calendar';
+import ReactCalendar from 'react-calendar';
 import { DateTime } from 'luxon';
 import { ArrowLeft, ArrowRight } from '@material-ui/icons';
 import useCalendarStyles from './styles';
 import Day from './Day';
 import useStores from '../../../../Basics/UseStores';
 import { observer } from 'mobx-react';
-import Colors from '../../../../Basics/Colors';
 
-const ReportingCalendar = observer(({ patient, reports, handleDateChange, displayStartDate, updateMonth }) => {
+const Calendar = observer(({ patient, reports, handleDateChange, displayStartDate, updateMonth }) => {
 
     const { uiStore } = useStores();
 
@@ -25,7 +24,7 @@ const ReportingCalendar = observer(({ patient, reports, handleDateChange, displa
     }
 
     return (
-        <Calendar
+        <ReactCalendar
             activeStartDate={displayStartDate}
             tileDisabled={({ date }) => { return checkDisabled(date) }}
             calendarType="US"
@@ -59,4 +58,4 @@ const ReportingCalendar = observer(({ patient, reports, handleDateChange, displa
     )
 });
 
-export default ReportingCalendar;
+export default Calendar;

@@ -5,14 +5,13 @@ import { Link } from 'react-router-dom';
 import Colors from '../../Basics/Colors';
 import IssueArea from './IssueArea';
 import AdherenceLabel from './AdherenceLabel';
-import { daysSinceISODateTime } from '../../Utility/TimeUtils';
 import { useTranslation } from 'react-i18next';
 import useAsync from '../../Hooks/useAsync';
 import PractitionerAPI from '../../API/PractitionerAPI';
 import TreatmentWeek from './TreatmentWeek';
 import useToggle from '../../Hooks/useToggle';
 import IssueDetails from './IssueDetails';
-import { useHistory, useLocation } from 'react-router-dom'
+import { DateTime } from 'luxon';
 
 const useStyles = makeStyles({
     container: {
@@ -57,6 +56,9 @@ const useStyles = makeStyles({
         lineHeight: "1.1em",
         borderLeft: "solid 3px red",
         paddingLeft: "5px"
+    },
+    noIssues: {
+        fontStyle: "italic"
     }
 })
 
@@ -101,9 +103,9 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed, isSimpleView 
             <Box className={classes.container}>
                 {success ? <Box padding="1em">
                     <Grid container>
-                        <CheckCircle style={{color: Colors.green}} />
+                        <CheckCircle style={{ color: Colors.green }} />
                         <Box width=".5em" />
-                        <Typography>Review Submitted</Typography>
+                        <Typography>{t('reviewIssues.submitted')}</Typography>
                     </Grid>
                 </Box> : <><Box padding='.75em'>
                     <Grid alignItems='center' container wrap='nowrap'>
@@ -116,30 +118,53 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed, isSimpleView 
                         <AdherenceLabel patient={patient} />
                     </Grid>
                     <Box height=".5em" />
-                    {!isSimpleView && <Grid alignItems='center' wrap="nowrap" container className={classes.bottomSection}>
-                        <IssueArea issues={patient.issues.state} patientId={patient.id} />
-                        <Box flexGrow={1} />
-                        <Button className={classes.expand} onClick={toggleDetails}>
-                            <Typography style={{ paddingRight: ".5em" }} noWrap>
-                                {showDetails ? "Hide" : "Review"}
-                            </Typography>
-                            <Down className={showDetails ? classes.rotate : ""} />
-                        </Button>
-                    </Grid>}
+                    {isReviewed && <Typography variant="body2">
+                        {t('reviewIssues.reviewedAt')}: {DateTime.fromISO(patient.lastGeneralResolution).toLocaleString(DateTime.TIME_SIMPLE)}
+                    </Typography>}
+                    {!isSimpleView && !isReviewed && (
+                        patient.issues.total === 0 ? <NoIssues patient={patient} resolvePatient={execute} /> : <Grid alignItems='center' wrap="nowrap" container className={classes.bottomSection}>
+                            <IssueArea issues={patient.issues.state} patientId={patient.id} />
+                            <Box flexGrow={1} />
+                            <Button className={classes.expand} onClick={toggleDetails}>
+                                <Typography style={{ paddingRight: ".5em" }} noWrap>
+                                    {showDetails ? t('messaging.moderation.hideUI') : t('reviewIssues.review')}
+                                </Typography>
+                                <Down className={showDetails ? classes.rotate : ""} />
+                            </Button>
+                        </Grid>)}
                 </Box>
-                    {!isSimpleView && <Collapse in={showDetails}>
+                    {!isSimpleView && !isReviewed && <Collapse in={showDetails}>
                         {showDetails && <IssueDetails visible={showDetails} patient={patient} />}
                         <ButtonArea isReviewed={isReviewed} loading={status === "pending"} patient={patient} resolvePatient={execute} />
                     </Collapse>}
-                </>
-                }
+                </>}
             </Box>
         </Collapse>
     )
 }
 
+const NoIssues = ({ resolvePatient, patient }) => {
+    const classes = useStyles();
+    const { t } = useTranslation('translation');
+
+    return (
+        <Grid alignItems='center' container wrap="nowrap">
+            <Typography variant='body2' className={classes.noIssues}>{t('reviewIssues.noIssues')}</Typography>
+            <Box flex="1" />
+            <IconButton component={Link} to={`?onMessagingChannelId=${patient.channelId}`} style={{ backgroundColor: 'rgba(66, 133, 244, 0.15)', padding: ".25em" }}>
+                <Message style={{ color: Colors.buttonBlue }} />
+            </IconButton>
+            <Box width="4px" />
+            <IconButton onClick={resolvePatient} className={classes.reviewButton}>
+                <Check style={{ color: Colors.green }} />
+            </IconButton>
+        </Grid >
+    )
+}
+
 const ButtonArea = ({ patient, resolvePatient, loading, isReviewed, isSimpleView }) => {
 
+    const { t } = useTranslation('translation');
     const disable = patient.unreviewedPhotos.length > 0;
     const classes = useStyles();
 
@@ -147,7 +172,7 @@ const ButtonArea = ({ patient, resolvePatient, loading, isReviewed, isSimpleView
         <Box padding="1em .5em">
             <Grid wrap="nowrap" justify='flex-end' alignItems='center' container>
                 {disable && <Box padding=".5em">
-                    <Typography className={classes.reviewPhotoPrompt} >Please review photos before checking this patient off</Typography>
+                    <Typography className={classes.reviewPhotoPrompt}>{t('reviewIssues.reviewBefore')}</Typography>
                 </Box>}
                 <IconButton component={Link} to={`?onMessagingChannelId=${patient.channelId}`} style={{ backgroundColor: 'rgba(66, 133, 244, 0.15)', padding: ".25em" }}>
                     <Message style={{ color: Colors.buttonBlue }} />
@@ -155,7 +180,8 @@ const ButtonArea = ({ patient, resolvePatient, loading, isReviewed, isSimpleView
                 {(!isReviewed && !isSimpleView) && <>
                     <Box width=".5em" />
                     <IconButton disabled={disable} onClick={resolvePatient} className={classes.reviewButton}>
-                        {loading ? <CircularProgress style={{ color: Colors.gray }} size="1em" variant='indeterminate' /> : <Check style={{ color: disable ? Colors.lighterGray : Colors.approvedGreen }} />}
+                        {loading ? <CircularProgress style={{ color: Colors.gray }} size="1em" variant='indeterminate' /> :
+                            <Check style={{ color: disable ? "white" : Colors.green }} />}
                     </IconButton></>}
             </Grid>
         </Box>

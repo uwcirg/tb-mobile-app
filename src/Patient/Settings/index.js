@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import Styles from '../../Basics/Styles';
 import { observer } from 'mobx-react';
-import NewButton from '../../Basics/NewButton';
 import ExitToApp from '@material-ui/icons/ExitToApp';
 import PasswordUpdate from '../../Components/PasswordUpdate';
 import PersonalInformation from './PersonalInformation';
@@ -16,6 +15,7 @@ import Language from '../../Components/Shared/LanguageQuestion';
 import Colors from '../../Basics/Colors';
 import { Avatar, Box, Grid } from '@material-ui/core';
 import { LanguageOutlined, Lock } from '@material-ui/icons';
+import FlatButton from '../../Components/FlatButton';
 
 const SectionLabel = ({ children }) => {
     const classes = useStyles();
@@ -39,33 +39,34 @@ const Settings = observer(() => {
 
 const MainSettings = observer(() => {
     const classes = useStyles();
-    const { patientStore, patientUIStore } = useStores();
+    const { patientStore } = useStores();
     const { t } = useTranslation('translation');
     const logout = useLogout();
 
     return (
-            <div className={classes.fullContainer}>
-                <Box height="1em" />
-                <div className={classes.header}>
-                    <Avatar className={classes.avatar}>{patientStore.givenName[0]}</Avatar>
-                    <Typography variant="body1">{patientStore.givenName} {patientStore.familyName}</Typography>
-                </div>
-                <SectionLabel>
-                    <Lock />
-                    <Typography variant="h2">{t("patient.profile.personalInfo")}</Typography>
-                </SectionLabel>
-                <PersonalInformation />
-                <SectionLabel>
-                    <LanguageOutlined />
-                    <Typography variant='h2'>{t('patient.profile.options.language')}</Typography>
-                </SectionLabel>
-                <Language />
-                <Debugging />
-                <Box flex="1" />
-                <div className={classes.logoutContainer}>
-                    <NewButton onClick={logout} className={classes.logout} icon={<ExitToApp />} text={t("patient.profile.logout")} />
-                </div>
+        <div className={classes.fullContainer}>
+            <Box height="1em" />
+            <div className={classes.header}>
+                <Avatar className={classes.avatar}>{patientStore.givenName[0]}</Avatar>
+                <Typography variant="body1">{patientStore.givenName} {patientStore.familyName}</Typography>
             </div>
+            <SectionLabel>
+                <Lock />
+                <Typography variant="h2">{t("patient.profile.personalInfo")}</Typography>
+            </SectionLabel>
+            <PersonalInformation />
+            <SectionLabel>
+                <LanguageOutlined />
+                <Typography variant='h2'>{t('patient.profile.options.language')}</Typography>
+            </SectionLabel>
+            <Language />
+            <Box height="1em" />
+            <FlatButton onClick={logout} className={classes.logout}>
+                <ExitToApp />
+                {t("patient.profile.logout")}
+            </FlatButton>
+            <Debugging />
+        </div>
     )
 })
 
@@ -87,7 +88,6 @@ const useStyles = makeStyles({
     },
     fullContainer: {
         width: "100%",
-        minHeight: "100vh",
         padding: "0 1em",
         boxSizing: "border-box",
         display: "flex",
@@ -96,7 +96,9 @@ const useStyles = makeStyles({
     },
     logout: {
         width: "100%",
-        boxSizing: "border-box"
+        fontSize: "1em",
+        display: "flex",
+        justifyContent: "center"
     },
     header: {
         width: "100%",
@@ -110,14 +112,7 @@ const useStyles = makeStyles({
         textAlign: "center",
         fontSize: "1em",
         margin: ".5em 0 .5em 0",
-    },
-    logoutContainer: {
-        width: "100%",
-        display: "flex",
-        justifyContent: "center",
-        boxSizing: "border-box"
     }
-
 })
 
 export default Settings;
