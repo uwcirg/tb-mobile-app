@@ -4,7 +4,6 @@ import Typography from '@material-ui/core/Typography';
 import useStores from '../../../Basics/UseStores';
 import StackedLinearProgress from '../../../Components/StackedLinearProgress';
 import { observer } from 'mobx-react';
-import AdherenceValue from '../../../Components/AdherenceValue';
 import { useTranslation } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
 import AdherenceDetails from './Details';

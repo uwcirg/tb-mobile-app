@@ -1,9 +1,5 @@
 import React from 'react';
-import useStores from '../../../Basics/UseStores';
-import { observer } from 'mobx-react';
 import { useTranslation } from 'react-i18next';
-import AdherenceValue from '../../../Components/AdherenceValue';
-import StackedLinearProgress from '../../../Components/StackedLinearProgress';
 import { Typography, makeStyles, Grid, Box } from '@material-ui/core';
 import Colors from '../../../Basics/Colors';
 import ExpansionPanel from '../../../Components/SimpleExpansionPanel'
