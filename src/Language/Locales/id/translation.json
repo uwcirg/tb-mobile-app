@@ -449,6 +449,7 @@
             ]
         },
         "information": {
+            "otherSettings": "Other Settings",
             "changeLog": "Catatan perubahan aplikasi",
             "version": "Versi",
             "questions": "Pertanyaan dan Jawaban",
@@ -873,7 +874,9 @@
             "other": "Lainnya"
         },
         "showAll": "Tampilkan semua",
-        "showLess": "Tampilkan beberapa"
+        "showLess": "Tampilkan beberapa",
+        "addAnother": "Add another",
+        "nextAppointment": "Next appointment"
     },
     "update": {
         "update": "Memperbaharui",
@@ -889,16 +892,16 @@
         "success": "Password telah berhasil diperbaharui"
     },
     "treatmentUpdates": {
-        "3": "La Tuberculosis Pulmonar se contagia cuando una persona enferma al toser, estornudar o al hablar elimina con la tos secreciones que contienen los bacilos que producen la enfermedad. Siempre tratar de toser en lugar bien ventilado, nunca cerrado, si es posible cubrirse la boca y/o utilizar barbijo. ",
-        "5": "¿Sabías que puedes chatear con otros pacientes en tratamiento anónimamente?",
-        "7": "Una de las drogas utilizadas, la Rifampicina, colorea la orina, saliva o lagrimas de color naranja o rojo. Esto es  normal. Las lentes de contacto pueden teñirse de manera irreversible.",
-        "10": "Estar en contacto frecuente y en lugares cerrados aumenta el riesgo de contagiarse. Las personas con las que vive o trabaja deben hacerse un control. ¡Cuando tosa, por favor cúbrase la boca con el pliegue del codo!",
-        "14": "Las drogas utilizadas en el tratamiento deben tomarse en ayunas con agua, ya que con los alimentos, sobre todo si contienen abundantes azúcares (por ejemplo yogurt) y harinas, la acción disminuye en forma importante (25-60%) ",
-        "21": "La Tuberculosis Pulmonar no se contagia al dar la mano, compartir vasos o platos. Solo el contagio se produce al toser, estornudar o al hablar. Recordar que ¡La Tuberculosis se cura! ",
-        "24": "Por la acción rápida de las drogas una persona enferma a los pocos días (entre 15 a 20 días) deja de contagiar. Esto lo determina el médico mediante un estudio de catarro.",
-        "28": "Dejar de contagiar no es igual a curación. Para que la Tuberculosis Pulmonar se cure debo cumplir con al menos 6 meses de tratamiento. ",
-        "31": "Las drogas utilizadas en el tratamiento de la Tuberculosis pueden producir vómitos, picazón, pérdida del apetito, erupciones en la piel, disminución en la visión. Recordar que la presencia de estos efectos deberá consultarse con el servicio tratante, para evaluar la severidad de la misma.",
-        "35": "Los síntomas como fiebre, sudores nocturnos, tos y catarro, pueden persistir durante los primeros días del tratamiento. Recordar que hay que continuar con el tratamiento! ",
+        "3": "Tuberkulosis dapat menyebar ketika orang batuk, bersin atau berbicara, batuk mengeluarkan dahak yang mengandung basil penyebab penyakit. Usahakan selalu batuk di tempat yang berventilasi baik, jangan pernah tertutup, jika mungkin tutup mulut dan/atau gunakan masker.",
+        "5": "Tahukah Anda bahwa Anda dapat mengobrol dengan pasien lain yang sedang dalam pengobatan TBC yang menggunakan aplikasi ini secara anonim?",
+        "7": "Rifampisin yang merupakan salah satu obat yang dikonsumsi menyebabkan warna urin, air liur, atau air mata menjadi warna kemerahan. Ingat bahwa ini normal. Tetap teruskan minum obat, jangan berhenti. Namun segera laporkan keluhan anda kepada petugas.",
+        "10": "Kotak yang sering dan berada di tempat tertutup meningkatkan risiko terinfeksi. Orang yang tinggal atau bekerja dengan Anda perlu diskrining. Saat Anda batuk, tutup mulut Anda dengan lekukan siku!",
+        "14": "Obat-obatan yang digunakan dalam pengobatan harus diminum dengan perut kosong dengan air, karena dengan makanan, terutama jika mengandung banyak gula (misalnya, yogurt) dan tepung, aksinya berkurang secara signifikan (25-60%)",
+        "21": "Tuberkulosis tidak menular dengan berjabat tangan, berbagi gelas atau piring. Penularan hanya terjadi melalui batuk, bersin atau berbicara. Ingatlah bahwa Tuberkulosis dapat disembuhkan!",
+        "24": "Karena tindakan obat yang cepat, orang yang sakit setelah beberapa hari (antara 15 sampai 20 hari) berhenti menularkan penyakit. ",
+        "28": "Berhenti menginfeksi tidak sama dengan sembuh. Agar Tuberkulosis Paru bisa sembuh, saya harus menjalani pengobatan minimal 6 bulan.",
+        "31": "Obat-obatan yang digunakan dalam pengobatan TBC dapat menyebabkan muntah, gatal-gatal, kehilangan nafsu makan, ruam kulit, penurunan penglihatan. Ingatlah bahwa adanya efek ini harus dikonsultasikan dengan layanan perawatan, untuk menilai tingkat keparahannya.",
+        "35": "Gejala seperti demam, keringat malam, batuk dan pilek dapat bertahan selama beberapa hari pertama pengobatan. Ingatlah bahwa Anda harus melanjutkan perawatan!",
         "38": "Por la acción de los medicamentos la piel puede estar más sensible al sol. Tratar de no exponerse al sol. Recordar que lo importante es el cumplimiento del tratamiento.",
         "42": "La alimentación puede incluir todos los componentes como pan, pastas, harinas, grasas, proteínas, fibra, fruta y verduras.",
         "46": "Para controlar que las drogas antituberculosas utilizadas lo están curando, es necesario hacer controles mínimos del catarro. Recordar que los controles son importantes en los primeros meses del tratamiento cuando aún puede tener síntomas. ",
@@ -1062,11 +1065,11 @@
         "attachMessage": "Kirim pesan ke pasien"
     },
     "testStripInstructions":{
-        "imgSrc": "/img/en/v3-strip-instructions.jpg",
+        "imgFolder": "/img/en/",
         "one": "Tampung sedikit urin dalam wadah (sedalam sekitar 2 jari)",
         "two": "Keuarkan alat tes dari pembungkus",
         "three": "Celupkan strip ke dalam urin selama sekitar 2 detik ke garis yang ditandai. Jangan biarkan tes lebih dari 2 detik dalam urin.",
-        "four": "Tunggu 20 menit hingga tes diproses sebelum melanjutkan ke tahap berikut",
+        "four": "Letakkan tes strip pada permukaan rata dan diamkan selama 20 menit sebelum unggah foto",
         "five" : {
             "main": "Buka aplikasi dan tekan \"unggah foto\".",
             "a": "Pastikan foto memuat gambar seluruh strip, termasuk barcode.",
@@ -1080,5 +1083,14 @@
         "showActions": "Munculkan semua tindakan",
         "treatment": "Pengobatan",
         "supportRequests": "Butuh bantuan"
+    },
+    "reviewIssues":{
+        "submitted": "Review Submitted",
+        "review": "Review",
+        "reviewBefore": "Please review the photos before marking this patient as reviewed",
+        "noIssues": "No issues to review",
+        "hasIssues": "Issues to review",
+        "onTrack": "On track with treatment",
+        "reviewedAt": "Reviewed at"
     }
 }
