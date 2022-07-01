@@ -1086,6 +1086,7 @@
     "reviewIssues":{
         "submitted": "Review Submitted",
         "review": "Review",
-        "reviewBefore": "Please review the photos before marking this patient as reviewed"
+        "reviewBefore": "Please review the photos before marking this patient as reviewed",
+        "noIssues": "No issues to review"
     }
 }

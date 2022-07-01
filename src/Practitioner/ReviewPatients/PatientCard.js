@@ -114,16 +114,18 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed, isSimpleView 
                         <AdherenceLabel patient={patient} />
                     </Grid>
                     <Box height=".5em" />
-                    {!isSimpleView && <Grid alignItems='center' wrap="nowrap" container className={classes.bottomSection}>
-                        <IssueArea issues={patient.issues.state} patientId={patient.id} />
-                        <Box flexGrow={1} />
-                        <Button className={classes.expand} onClick={toggleDetails}>
-                            <Typography style={{ paddingRight: ".5em" }} noWrap>
-                                {showDetails ? t('messaging.moderation.hideUI') : t('reviewIssues.review')}
-                            </Typography>
-                            <Down className={showDetails ? classes.rotate : ""} />
-                        </Button>
-                    </Grid>}
+                    {!isSimpleView && (
+
+                        patient.issues.total === 0 ? <NoIssues resolvePatient={execute} /> : <Grid alignItems='center' wrap="nowrap" container className={classes.bottomSection}>
+                            <IssueArea issues={patient.issues.state} patientId={patient.id} />
+                            <Box flexGrow={1} />
+                            <Button className={classes.expand} onClick={toggleDetails}>
+                                <Typography style={{ paddingRight: ".5em" }} noWrap>
+                                    {showDetails ? t('messaging.moderation.hideUI') : t('reviewIssues.review')}
+                                </Typography>
+                                <Down className={showDetails ? classes.rotate : ""} />
+                            </Button>
+                        </Grid>)}
                 </Box>
                     {!isSimpleView && <Collapse in={showDetails}>
                         {showDetails && <IssueDetails visible={showDetails} patient={patient} />}
@@ -133,6 +135,21 @@ const PatientCard = ({ patient, markPatientAsReviewed, isReviewed, isSimpleView 
                 }
             </Box>
         </Collapse>
+    )
+}
+
+const NoIssues = ({ resolvePatient }) => {
+    const classes = useStyles();
+    const { t } = useTranslation('translation');
+
+    return (
+        <Grid>
+            <Typography>{t('reviewIssues.noIssues')}</Typography>
+            <Box flex="1" />
+            <IconButton onClick={resolvePatient} className={classes.reviewButton}>
+                <Check style={{ color: Colors.approvedGreen }} />
+            </IconButton>
+        </Grid >
     )
 }
 

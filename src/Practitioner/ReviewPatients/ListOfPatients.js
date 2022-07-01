@@ -5,6 +5,7 @@ import addIssuesToPatients from '../../Utility/FindIssues';
 import { Box, Grid, Typography } from '@material-ui/core';
 import PatientCard from './PatientCard';
 import LoadingPatients from './LoadingPatients';
+import ListSectionLabel from './ListSectionLabel';
 
 const wasToday = (isoTime) => {
     return DateTime.fromISO(isoTime).toISODate() === DateTime.local().toISODate()
@@ -44,11 +45,11 @@ const ListOfPatients = ({ tabValue }) => {
         {patientsWithIssues.map(patient => {
             let title = patient.issues.total > 0 ? "Has Issues" : "No Issues";
             let showSection = currentSection !== title;
-            if(showSection){
+            if (showSection) {
                 currentSection = title
             }
             return <Box key={`review-patient-${patient.id}`} padding='0 .5em .5em .5em'>
-                {showSection && <Typography>{title}</Typography>}
+                {showSection && tabValue !== 1 && <ListSectionLabel>{title}</ListSectionLabel>}
                 <PatientCard isReviewed={tabValue === 1} markPatientAsReviewed={markPatientAsReviewed} patient={patient} />
             </Box>
         })}
