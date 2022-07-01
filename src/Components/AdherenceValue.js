@@ -45,13 +45,6 @@ const AdherenceValue = ({ adherence, title, style, children, icon }) => {
           </Pill>
         </Box>
       )}
-      {/* <Typography
-        className={classes.title}
-        style={{ paddingTop: '.90em', paddingRight: '.5em' }}
-        variant="h2"
-      >
-        {`${title[0].toUpperCase()}${title.slice(1)}`}
-      </Typography> */}
       <div style={{ flexGrow: 1, paddingRight: '.5em' }}>{children}</div>
       <Typography
         variant="h2"
