@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 import { useTranslation } from 'react-i18next';
 import AdherenceValue from '../../Components/AdherenceValue';
 import StackedLinearProgress from '../../Components/StackedLinearProgress';
+import { Typography } from '@material-ui/core';
 
 const Adherence = observer(() => {
   const { details: patient } = useStores().patientProfileStore.selectedPatient;
@@ -13,13 +14,13 @@ const Adherence = observer(() => {
   const part = Math.floor(
     (patient.medicationSummary.adherentDays /
       patient.medicationSummary.daysSinceAppStart) *
-      100
+    100
   );
   const total = Math.floor(
     ((patient.medicationSummary.adherentDays +
       patient.medicationSummary.reportedMissedDays) /
       patient.medicationSummary.daysSinceAppStart) *
-      100
+    100
   );
   const diff =
     patient.medicationSummary.daysSinceAppStart -
@@ -28,6 +29,7 @@ const Adherence = observer(() => {
 
   return (
     <div>
+      <Typography>{t('commonWords.medication')}</Typography>
       <AdherenceValue
         title={`${t('commonWords.medication')}`}
         adherence={patient.adherence}

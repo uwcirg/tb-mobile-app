@@ -27,6 +27,7 @@ const PhotoAdherence = observer(() => {
 
   return (
     <div>
+      <Typography>{t('coordinator.patientTableLabels.photoAdherence')}</Typography>
       <AdherenceValue
         title={t('commonWords.photos')}
         adherence={patient.photoAdherence}
