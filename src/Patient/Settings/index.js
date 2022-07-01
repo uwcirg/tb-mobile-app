@@ -39,7 +39,7 @@ const Settings = observer(() => {
 
 const MainSettings = observer(() => {
     const classes = useStyles();
-    const { patientStore, patientUIStore } = useStores();
+    const { patientStore } = useStores();
     const { t } = useTranslation('translation');
     const logout = useLogout();
 

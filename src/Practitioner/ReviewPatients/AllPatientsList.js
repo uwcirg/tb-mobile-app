@@ -5,12 +5,9 @@ import PractitionerContext from '../PractitionerContext';
 import LoadingPatients from './LoadingPatients';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
+import ChunkLabel from './ListSectionLabel';
+import ListSectionLabel from './ListSectionLabel';
 
-const useStyles = makeStyles({
-  title: {
-    fontSize: '1.25em',
-  },
-});
 
 const AllPatientsList = () => {
   const { t } = useTranslation();
@@ -37,9 +34,11 @@ const AllPatientsList = () => {
           return (
             <>
               {showSection && (
-                <ChunkLabel>
-                  {t(`coordinator.cohortOverview.${each.status.toLowerCase()}`)}
-                </ChunkLabel>
+                <Box padding="1em 0 0 .5em">
+                  <ListSectionLabel>
+                    {t(`coordinator.cohortOverview.${each.status.toLowerCase()}`)}
+                  </ListSectionLabel>
+                </Box>
               )}
               <Box padding="8px 8px 0 8px">
                 <PatientCard isSimpleView patient={each} />
@@ -49,18 +48,6 @@ const AllPatientsList = () => {
         })}
       <Box height="68px" />
     </div>
-  );
-};
-
-const ChunkLabel = ({ children }) => {
-  const classes = useStyles();
-
-  return (
-    <Box padding="8px">
-      <Typography className={classes.title} variant="h2">
-        {children}
-      </Typography>
-    </Box>
   );
 };
 
