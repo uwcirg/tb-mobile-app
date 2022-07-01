@@ -28,7 +28,11 @@ const Adherence = observer(() => {
 
   return (
     <div>
-      <AdherenceValue title="Meds" adherence={patient.adherence} icon="null">
+      <AdherenceValue
+        title={`${t('commonWords.medication')}`}
+        adherence={patient.adherence}
+        icon="null"
+      >
         <StackedLinearProgress
           partValue={part}
           totalValue={total}
