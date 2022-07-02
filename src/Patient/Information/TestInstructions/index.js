@@ -7,11 +7,9 @@ import {
   MobileStepper,
   IconButton,
 } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ChevronRight from '@material-ui/icons/ChevronRight';
 import Colors from '../../../Basics/Colors';
-import { PageLabel } from '../../../Components/Shared/PageLabel';
 import { withStyles } from '@material-ui/styles';
 import { useSwipeable } from 'react-swipeable';
 
@@ -47,7 +45,6 @@ const useStyles = makeStyles({
 
 const TestInstructions = () => {
   const classes = useStyles();
-  const { t } = useTranslation('translation');
 
   const swipeHandlers = useSwipeable({
     onSwiped: (eventData) => {
