@@ -5,7 +5,11 @@ WORKDIR /usr/src/app
 COPY package.json yarn.lock ./
 RUN yarn
 COPY . ./
-RUN REACT_APP_BUILD_NUMBER=$build_sha REACT_APP_GITHUB_VERSION=$github_version yarn build
+RUN REACT_APP_BUILD_NUMBER=$build_sha \
+REACT_APP_GITHUB_VERSION=$github_version \
+REACT_APP_PAGE_TITLE="Asistente de Tratamiento" \ 
+REACT_APP_MANIFEST_NAME="manifest.json" \
+yarn build
 
 FROM httpd:2.4
 COPY ./.apache-config /usr/local/apache2/conf/httpd.conf
