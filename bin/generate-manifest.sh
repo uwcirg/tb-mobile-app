@@ -1,6 +1,9 @@
+#!/bin/sh -eu
+
+cat <<EOF
 {
-  "short_name": "Asistente",
-  "name": "Asistente",
+  "short_name": "${MANIFEST_NAME:-Asistente}",
+  "name": "${MANIFEST_NAME:-Asistente}",
   "theme_color": "white",
   "icons": [
     {
@@ -19,3 +22,5 @@
   "start_url": "./",
   "display": "standalone"
 }
+
+EOF

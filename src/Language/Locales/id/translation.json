@@ -11,7 +11,7 @@
         "fillAll": "Silahkan isi laman ini sebelum mulai",
         "edit": "edit",
         "error": "error",
-        "medication": "Jenis obat",
+        "medication": "Minum obat",
         "symptoms": "Gejala",
         "stripPhoto": "foto strip",
         "report": "lapor",
@@ -38,7 +38,7 @@
         "archived": "Diarsipkan",
         "successMessage": "Update berhasil",
         "errorMessage": "Terjadi Kesalahan. Silahkan coba kembali beberapa waktu lagi",
-        "atTime": "a las",
+        "atTime": "pada",
         "loadMore": "Tambahkan lagi"
     },
     "userTypes": {
@@ -51,7 +51,7 @@
         "you": "Anda"
     },
     "login": {
-        "changeLanguage": "Haga Clic Aquí Para Español",
+        "changeLanguage": "klik disini untuk pilihan bahasa",
         "activateAccount": "Mengaktifkan Akun Baru",
         "forgotPassword": "Lupa Password",
         "forgotPasswordDetails": "Silahkan menghubungi koordinator anda melalui WhatsApp, kode khusus akan dikirimkan oleh koordinator untuk digunakan mengakses aplikasi dan membuat password baru. ",
@@ -118,13 +118,13 @@
     "patient": {
         "tabNames": {
             "home": "Beranda",
-            "calendar": "History",
+            "calendar": "Riwayat",
             "messaging": "Mengirim Pesan",
             "information": "Informasi"
         },
         "oneStepReporting":{
             "photoRequestTitle": "Silahkan melakukan strip test untuk mengkonfirmasi perkembangan pengobatan anda",
-            "photoRequestButton": "Complete Test Strip",
+            "photoRequestButton": "Lengkapi Tes Strip",
             "supportTitle": "Apakah semuanya baik-baik saja dengan pengobatan anda hari ini?",
             "goodOption": "Telah minum obat dan tidak ada keluhan",
             "helpOption": "Jelajah masalah dan minta pertolongan"
@@ -138,18 +138,18 @@
             "coordinator": {
                 "title": "Apa itu pendamping pengobatan?",
                 "will": {
-                    "title": "Pengdamping berobat anda akan",
+                    "title": "Pendamping pengobatan anda akan",
                     "items": [
                         "Memonitor perkembangan anda",
-                        "Setuju dengan hasil foto strip test",
+                        "Setuju dengan hasil foto tes strip",
                         "Menjawab pertanyaan tentang pengobatan"
                     ]
                 },
                 "wont": {
-                    "title": "Pendamping berobat anda tidak akan",
+                    "title": "Pendamping pengobatan anda tidak akan",
                     "items": [
                         "Menyediakan pelayanan medis",
-                        "Jadwalkan appoinment anda"
+                        "Jadwalkan janji temu anda"
                     ]
                 },
                 "outro": "Sekarang, silahkan ceritakan sedikit tentang anda kepada kami."
@@ -174,14 +174,14 @@
                 "title": "Notifikasi",
                 "whenPrompted": "Ketika muncul silahkan pilih",
                 "permit": "Izin",
-                "listHeader": "Ini mengijikan kami untuk mengirimkan anda",
+                "listHeader": "Ini mengizinkan kami untuk mengirimkan anda",
                 "header": "Tahap berikutnya akan meminta anda untuk mengaktifkan notifikasi",
-                "one": "Apakah anda mau mengaktifkan alaram pengingat minum obat setiap hari?",
-                "two": "Jam berapa anda ingin mendapakan alaram pengingat setiap hari?"
+                "one": "Apakah anda mau mengaktifkan alarm pengingat minum obat setiap hari?",
+                "two": "Jam berapa anda ingin mendapakan alarm pengingat waktu setiap hari?"
             },
             "contactTracing": {
-                "one": "Berapa jumlah orang tinggal serumah?",
-                "two": "Berapa jumlah orang tinggal serumah yang telah melakukan test TBC?",
+                "one": "Berapa jumlah orang yang tinggal serumah?",
+                "two": "Berapa jumlah orang dalam satu rumah yang telah melakukan test TBC?",
                 "some": "Beberapa",
                 "all": "Semua",
                 "none": "Belum ada",
@@ -189,9 +189,9 @@
                 "important": "Sangat penting bagi setiap orang yang tinggal serumah dengan anda untuk melakukan test TBC",
                 "explanation": "Beritahukan kepada kami status dari masing-masing orang yang tinggal serumah dengan anda agar kami dapat mengirim informasi lebih."
             },
-            "success": "Finalisasi Setup akun",
+            "success": "Finalisasi pengaktifan akun",
             "next": "Berikut",
-            "endText": "Terima kasih atas masukan anda, Mari kita mulai!",
+            "endText": "Terima kasih telah menjawab, Mari kita mulai!",
             "activationError": "Terjadi kesalahan dalam pengaktivasian akun anda. Silahkan menghubungi koordinator untuk mendapatkan bantuan."
         },
         "walkthrough": {
@@ -204,7 +204,7 @@
             "homescreen": "Dimulai dari Beranda anda",
             "revisit": "Jika anda ingin melihat kembali jelajah, anda dapat menemukan fungsi ini pada laman informasi",
             "exit": "Anda dapat keluar dari jelajah setiap saat dengan menekan tombol X di bagian kanan atas",
-            "tasks": "Ini adalah tugas anda tiap hari, anda dapat menekan Star laporan untuk mulain login pada pengobatan anda setiap hari",
+            "tasks": "Ini adalah tugas anda tiap hari, anda dapat menekan Mulai laporan untuk login pada pengobatan anda setiap hari",
             "progressCard": "Kartu perkembangan menunjukkan kepada anda rangkuman sekilas anda berada di mana pada jadwal pengobatan anda.",
             "reminders": "Terakhir, Kartu pengingat mengijinkan anda untuk merubah alaram pengingat pengobatan anda setiap hari, dan menambahakan alaram pengingat untuk jadwal kunjungan anda.",
             "navigation": {
@@ -249,7 +249,7 @@
             "reminderEnabled": "Mengaktifkan alaram pengingat",
             "reminderDisabled": "Menonaktifkan alaram pengingat",
             "at": "Pada",
-            "successMessage": "Your appointment was successfully added"
+            "successMessage": "Janji temu sukses ditambahkan"
         },
         "demo": {
             "showDemo": "Tunjukan demo"
@@ -378,7 +378,7 @@
             },
             "symptoms": {
                 "nauseaRating": "Seberapa berat rasa mual yang anda rasakan?",
-                "instructions": "Please tap an option that represents how you are feeling",
+                "instructions": "Tekan pilihan yang menggambarkan perasaan anda",
                 "warning": {
                     "title": "Anda Melaporkan gejala-gejala yang perlu segera ditindaklanjuti",
                     "subtitle": "Segera cari pertolongan medis darurat. Pendamping minum obat anda akan segera menghubungi anda",
@@ -428,9 +428,9 @@
             "submissionLimit": "Jika anda lupa minum obat satu hari, anda hanya dapat memasukkan laporan untuk 3 hari sebelumnya, and hari apa saja yang anda lupa pada 2 minggu pertama",
             "loading": "Pelaporan riwayat pengunggahan",
             "calendarKey": {
-                "tookMeds": "Took medication",
-                "sideEffects": "Reported side effects",
-                "noMeds": "Didn't take medication",
+                "tookMeds": "Telah minum obat",
+                "sideEffects": "Melaporkan ada efek samping",
+                "noMeds": "Tidak minum obat",
                 "button": "Apa arti dari warna ini",
                 "description": "Ini merupakan kalender dimana anda dapat melihat aktifitas laporan anda. Warna-warna yang ada menunjukkan:",
                 "good": "Semuanya telah di laporkan",
@@ -449,6 +449,7 @@
             ]
         },
         "information": {
+            "otherSettings": "Pengaturan lainnya",
             "changeLog": "Catatan perubahan aplikasi",
             "version": "Versi",
             "questions": "Pertanyaan dan Jawaban",
@@ -497,7 +498,7 @@
             "subtitle": "Temperatur tubuh lebih dari 37.5 C"
         },
         "appetite_loss": {
-            "title": "Loss of appetite",
+            "title": "Hilang nafsu makan",
             "subtitle": "Hilang nafsu makan"
         },
         "blurred_vision": {
@@ -561,7 +562,7 @@
             "subtitle": "Perasaan kebingungan"
         },
         "oliguria":{
-            "title": "Oliguria",
+            "title": "Produksi urin sedikit",
             "subtitle": "Kesusahan berkemih/produksi urin sedikit"
         },
         "other": {
@@ -571,18 +572,18 @@
     },
     "milestones": {
         "titles": {
-            "sputumTest": "Test Sputum",
+            "sputumTest": " Sputum tes",
             "intensivePhase": "Akhir dari Fase Intensive",
-            "testingFU": "Test berikutnya",
-            "appointmentFU": "Jadwal kunjungan berikutnya",
+            "testingFU": "Tes selanjutnya",
+            "appointmentFU": "Jadwal kunjungan selanjutnya",
             "medPickup": "Ambil obat",
-            "housematesTested": "Semua orang yang tinggal satu rumah telah melakukan Test TBC"
+            "housematesTested": "Semua orang yang tinggal satu rumah telah melakukan Tes TBC"
         },
         "upcoming": "Berikutnya",
         "previous": "Sebelumnya"
     },
     "coordinator": {
-        "mobileWarning": "Tampilan mobile masih berlangsung. Anda dapat melihat tugas Anda, tetapi tidak menyetujuinya. Pesan adalah fungsional.",
+        "mobileWarning": "Tampilan mobile masih berlangsung. Anda dapat melihat tugas Anda, tetapi tidak dapat menyetujuinya. Pesan adalah fungsional.",
         "priority": {
             "high": "Tinggi",
             "medium": "Sedang",
@@ -610,7 +611,7 @@
             "forPatient": "Kode aktivasi untuk pasien",
             "activationCode": "Kode aktivasi",
             "clickToCopy": "klik untuk menyalin",
-            "success": "menyalin sukses",
+            "success": "Sukses menyalin",
             "patientSuccess": "Pasien berhasil ditambahkan"
         },
         "titles": {
@@ -629,8 +630,8 @@
             "archivedPatients": "Pasien yang diarsipkan",
             "awaitingActivation": "Menunggu aktivasi",
             "currentStatus": "Status saat ini",
-            "reportingCalender": "Melaporkan kalender",
-            "requestedSupport": "Dukungan telah di request"
+            "reportingCalender": "Kalender laporan",
+            "requestedSupport": "Dukungan telah diminta"
         },
         "recentReports": {
             "title": "Laporan terbaru",
@@ -680,7 +681,7 @@
                 "reportedTaking": "Terlapor sudah minum obat",
                 "didntTake": "Terlapor tidak minum obat",
                 "didntReport": "Lupa melaporkan",
-                "missedRequest": "Lupa Pesan"
+                "missedRequest": "Permintaan terlewatkan"
             },
             "notes": {
                 "noneFound": "Tidak ada catatan ditemukan",
@@ -770,7 +771,7 @@
         },
         "documents": {
             "manual": "Panduan aplikasi",
-            "instructions": "Instruksi  Strip Test"
+            "instructions": "Instruksi  Tes strip"
         }
     },
     "errors": {
@@ -804,7 +805,7 @@
         "submit": "Kirim"
     },
     "educationalMessages": {
-        "thoughtsForToday": "Thoughts for today",
+        "thoughtsForToday": "Pesan spesial untukmu hari ini ",
         "feedback": "Terima kasih atas masukkan anda",
         "week": "Minggu",
         "header": "Hal yang penting diketahui",
@@ -845,7 +846,7 @@
         "conclusive": "Pasti",
         "inconclusive": "Tidak pasti",
         "pending": "Tertunda",
-        "photoNotNeeded": "Foto tidak dibutuhkan",
+        "photoNotNeeded": "Foto tidak diminta saat ini",
         "missedPhoto": "Foto belum di kirimkan",
         "missedPhotoShort": "Foto belum ada",
         "submittedAt": "Dikirim pada",
@@ -854,12 +855,12 @@
         "flags": "Bendera"
     },
     "appointments": {
-        "typeNote": "Type note here",
-        "createAppointment": "Create Appointment",
+        "typeNote": "Ketik catatan disini",
+        "createAppointment": "Buat janji temu",
         "noUpcoming": "Tidak ada janji yang akan datang",
-        "whatDay": "What day is the appointment?",
-        "whatTime": "What time is the appointment?",
-        "select": "Select an appointment type",
+        "whatDay": "Tentukan hari untuk janji temu ",
+        "whatTime": "Tentukan waktu janji temu",
+        "select": "Pilih jenis janji temu",
         "typeQuestion": "Jenis janji temu apa yang ingin anda tambahkan?",
         "selectDate": "Pilih Waktu dan Tanggal",
         "addAppointment": "Tambahkan Janji Temu",
@@ -873,7 +874,9 @@
             "other": "Lainnya"
         },
         "showAll": "Tampilkan semua",
-        "showLess": "Tampilkan beberapa"
+        "showLess": "Tampilkan beberapa",
+        "addAnother": "Tambahkan lagi",
+        "nextAppointment": "Janji temu berikutnya"
     },
     "update": {
         "update": "Memperbaharui",
@@ -889,26 +892,26 @@
         "success": "Password telah berhasil diperbaharui"
     },
     "treatmentUpdates": {
-        "3": "La Tuberculosis Pulmonar se contagia cuando una persona enferma al toser, estornudar o al hablar elimina con la tos secreciones que contienen los bacilos que producen la enfermedad. Siempre tratar de toser en lugar bien ventilado, nunca cerrado, si es posible cubrirse la boca y/o utilizar barbijo. ",
-        "5": "¿Sabías que puedes chatear con otros pacientes en tratamiento anónimamente?",
-        "7": "Una de las drogas utilizadas, la Rifampicina, colorea la orina, saliva o lagrimas de color naranja o rojo. Esto es  normal. Las lentes de contacto pueden teñirse de manera irreversible.",
-        "10": "Estar en contacto frecuente y en lugares cerrados aumenta el riesgo de contagiarse. Las personas con las que vive o trabaja deben hacerse un control. ¡Cuando tosa, por favor cúbrase la boca con el pliegue del codo!",
-        "14": "Las drogas utilizadas en el tratamiento deben tomarse en ayunas con agua, ya que con los alimentos, sobre todo si contienen abundantes azúcares (por ejemplo yogurt) y harinas, la acción disminuye en forma importante (25-60%) ",
-        "21": "La Tuberculosis Pulmonar no se contagia al dar la mano, compartir vasos o platos. Solo el contagio se produce al toser, estornudar o al hablar. Recordar que ¡La Tuberculosis se cura! ",
-        "24": "Por la acción rápida de las drogas una persona enferma a los pocos días (entre 15 a 20 días) deja de contagiar. Esto lo determina el médico mediante un estudio de catarro.",
-        "28": "Dejar de contagiar no es igual a curación. Para que la Tuberculosis Pulmonar se cure debo cumplir con al menos 6 meses de tratamiento. ",
-        "31": "Las drogas utilizadas en el tratamiento de la Tuberculosis pueden producir vómitos, picazón, pérdida del apetito, erupciones en la piel, disminución en la visión. Recordar que la presencia de estos efectos deberá consultarse con el servicio tratante, para evaluar la severidad de la misma.",
-        "35": "Los síntomas como fiebre, sudores nocturnos, tos y catarro, pueden persistir durante los primeros días del tratamiento. Recordar que hay que continuar con el tratamiento! ",
-        "38": "Por la acción de los medicamentos la piel puede estar más sensible al sol. Tratar de no exponerse al sol. Recordar que lo importante es el cumplimiento del tratamiento.",
-        "42": "La alimentación puede incluir todos los componentes como pan, pastas, harinas, grasas, proteínas, fibra, fruta y verduras.",
-        "46": "Para controlar que las drogas antituberculosas utilizadas lo están curando, es necesario hacer controles mínimos del catarro. Recordar que los controles son importantes en los primeros meses del tratamiento cuando aún puede tener síntomas. ",
-        "50": "Sabemos que, lamentablemente, la persona enferma puede sufrir actos de discriminación. Esto se debe al miedo y al desconocimiento. Creemos que la información y la difusión son la manera de desterrar estos prejuicios. Todos podemos enfermar. ",
-        "54": "Las drogas utilizadas en el tratamiento de la Tuberculosis son 100% efectivas y curan al paciente enfermo. Si el tratamiento no se cumple hace que la bacteria se vuelva resistente a las drogas perdiendo así su esta efectividad.",
-        "58": "El control del catarro especialmente en los 2 primeros meses del tratamiento, permite saber si una persona aún sigue contagiando. Con estos controles si el catarro ya es negativo puedeo volver al trabajo, a pesar que debeo continuar con el tratamiento durante con el tratamiento los 6 meses. Adelante! ",
-        "62": "Después del segundo mes el tratamiento es más sencillo con menor cantidad de medicación. Es importante continuar con todos los controles y examen del catarro para saber si las drogas me sirven para curarme. ",
-        "70": "Ante cualquier complicación, el personal de salud de su lugar de atención puede controlar el tratamiento. Recordar que la única manera de prevenir en Tuberculosis es CURAR a todos los pacientes. ",
-        "80": "Un tratamiento exitoso depende del cumplimiento de todas las tomas de la medicación. Tratar de respetar los horarios.",
-        "90": "La mejoría de los síntomas no es lo mismo que curación. Curar significa que hay que continuar habitualmente con un tratamiento 6 meses. Adelante! ",
+        "3": "Tuberkulosis dapat menyebar ketika orang batuk, bersin atau berbicara, batuk mengeluarkan dahak yang mengandung basil penyebab penyakit. Usahakan selalu batuk di tempat yang berventilasi baik, jangan pernah tertutup, jika mungkin tutup mulut dan/atau gunakan masker.",
+        "5": "Tahukah Anda bahwa Anda dapat mengobrol dengan pasien lain yang sedang dalam pengobatan TBC yang menggunakan aplikasi ini secara anonim?",
+        "7": "Rifampisin yang merupakan salah satu obat yang dikonsumsi menyebabkan warna urin, air liur, atau air mata menjadi warna kemerahan. Ingat bahwa ini normal. Tetap teruskan minum obat, jangan berhenti. Namun segera laporkan keluhan anda kepada petugas.",
+        "10": "Kotak yang sering dan berada di tempat tertutup meningkatkan risiko terinfeksi. Orang yang tinggal atau bekerja dengan Anda perlu diskrining. Saat Anda batuk, tutup mulut Anda dengan lekukan siku!",
+        "14": "Obat-obatan yang digunakan dalam pengobatan harus diminum dengan perut kosong dengan air, karena dengan makanan, terutama jika mengandung banyak gula (misalnya, yogurt) dan tepung, aksinya berkurang secara signifikan (25-60%)",
+        "21": "Tuberkulosis tidak menular dengan berjabat tangan, berbagi gelas atau piring. Penularan hanya terjadi melalui batuk, bersin atau berbicara. Ingatlah bahwa Tuberkulosis dapat disembuhkan!",
+        "24": "Karena tindakan obat yang cepat, orang yang sakit setelah beberapa hari (antara 15 sampai 20 hari) berhenti menularkan penyakit. ",
+        "28": "Berhenti menginfeksi tidak sama dengan sembuh. Agar Tuberkulosis Paru bisa sembuh, saya harus menjalani pengobatan minimal 6 bulan.",
+        "31": "Obat-obatan yang digunakan dalam pengobatan TBC dapat menyebabkan muntah, gatal-gatal, kehilangan nafsu makan, ruam kulit, penurunan penglihatan. Ingatlah bahwa adanya efek ini harus dikonsultasikan dengan layanan perawatan, untuk menilai tingkat keparahannya.",
+        "35": "Gejala seperti demam, keringat malam, batuk dan pilek dapat bertahan selama beberapa hari pertama pengobatan. Ingatlah bahwa Anda harus melanjutkan perawatan!",
+        "38": "Karena tindakan obat-obatan, kulit mungkin lebih sensitif terhadap sinar matahari. Cobalah untuk tidak mengekspos diri Anda ke matahari. Ingatlah bahwa yang penting adalah kepatuhan dalam pengobatan.",
+        "42": "Makanan dapat mencakup semua komponen seperti nasi, roti, ubi-ubian, tepung, lemak, protein, serat, buah dan sayuran.",
+        "46": "Untuk memeriksa apakah obat antituberkulosis yang digunakan bereaksi baik, perlu dilakukan pemeriksaan dahak. Ingatlah bahwa pemeriksaan penting dalam beberapa bulan pertama pengobatan ketika Anda mungkin masih memiliki gejala.",
+        "50": "Kita tahu bahwa, kenyataannya, orang sakit dapat mengalami tindakan diskriminasi. Ini karena ketakutan dan ketidaktahuan. Kami percaya bahwa informasi dan diseminasi adalah cara untuk menghilangkan prasangka ini. Kita semua bisa sakit.",
+        "54": "Obat-obatan yang digunakan dalam pengobatan Tuberkulosis 100% efektif dan menyembuhkan pasien yang sakit. Jika pengobatan tidak lengkap, menyebabkan bakteri menjadi resisten terhadap obat, sehingga kehilangan efektivitasnya.",
+        "58": "Pemeriksaan dahak, terutama dalam 2 bulan pertama pengobatan, memungkinkan kita untuk mengetahui apakah seseorang masih menular. Dengan kontrol ini, jika dahaknya sudah negatif, dia bisa kembali bekerja, meskipun dia harus melanjutkan pengobatan selama 6 bulan. Di depan!",
+        "62": "Setelah bulan kedua, pengobatan lebih mudah dengan obat yang lebih sedikit. Penting untuk melanjutkan semua kontrol dan pemeriksaan dahak untuk mengetahui apakah obat membantu saya menyembuhkan diri sendiri.",
+        "70": "Jika terjadi komplikasi, petugas kesehatan di tempat perawatan Anda dapat mengontrol pengobatan. Ingatlah bahwa satu-satunya cara untuk mencegah Tuberkulosis adalah dengan MENGOBATI semua pasien.",
+        "80": "Keberhasilan pengobatan tergantung pada kepatuhan dengan semua asupan obat. Patuh pengobatan adalah kunci utama.",
+        "90": "Perbaikan gejala tidak sama dengan penyembuhan. Menyembuhkan berarti pengobatan harus dilanjutkan secara teratur selama 6 bulan. Di depan!",
         "141": "Beri masukkan kepada kami! Seseorang dari penelitian ini mungkin menghubungi Anda dan bertanya tentang pengalaman Anda dengan aplikasi ini. Kami juga memiliki survei yang tersedia di beranda. Terima kasih!"
     },
     "mayTestStripUpdate": {
@@ -1062,11 +1065,11 @@
         "attachMessage": "Kirim pesan ke pasien"
     },
     "testStripInstructions":{
-        "imgSrc": "/img/en/v3-strip-instructions.jpg",
+        "imgFolder": "/img/en/",
         "one": "Tampung sedikit urin dalam wadah (sedalam sekitar 2 jari)",
         "two": "Keuarkan alat tes dari pembungkus",
         "three": "Celupkan strip ke dalam urin selama sekitar 2 detik ke garis yang ditandai. Jangan biarkan tes lebih dari 2 detik dalam urin.",
-        "four": "Tunggu 20 menit hingga tes diproses sebelum melanjutkan ke tahap berikut",
+        "four": "Letakkan tes strip pada permukaan rata dan diamkan selama 20 menit sebelum unggah foto",
         "five" : {
             "main": "Buka aplikasi dan tekan \"unggah foto\".",
             "a": "Pastikan foto memuat gambar seluruh strip, termasuk barcode.",
@@ -1080,5 +1083,14 @@
         "showActions": "Munculkan semua tindakan",
         "treatment": "Pengobatan",
         "supportRequests": "Butuh bantuan"
+    },
+    "reviewIssues":{
+        "submitted": "Meninjau hasil yang dikirim",
+        "review": "Tinjau",
+        "reviewBefore": "Harap tinjau foto sebelum menandai pasien ini sebagai yang telah ditinjau",
+        "noIssues": "Tidak ada masalah untuk ditinjau",
+        "hasIssues": "Masalah untuk ditinjau",
+        "onTrack": "Sesuai jadwal perawatan",
+        "reviewedAt": "Ditinjau pada"
     }
 }
