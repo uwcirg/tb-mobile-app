@@ -11,9 +11,9 @@ import ClickableText from '../../../../Basics/ClickableText';
 import Colors from '../../../../Basics/Colors';
 import SharedAPI from '../../../../API/SharedAPI';
 import useAsyncWithParams from '../../../../Hooks/useAsyncWithParams';
+import useToggle from '../../../../Hooks/useToggle';
 
-export const UpcomingAppointment = ({ patientId = 3 }) => {
-  const [toggle, setToggle] = useState(false);
+export default function ViewAppointments({ patientId = 3 }) {
   const { translations } = useRelevantTranslations();
 
   const {
@@ -29,10 +29,7 @@ export const UpcomingAppointment = ({ patientId = 3 }) => {
     initialData: [],
   });
 
-  console.log(appointments);
-
   return (
-    <Box width="100%">
       <InteractionCard
         upperText={
           <>
@@ -42,18 +39,9 @@ export const UpcomingAppointment = ({ patientId = 3 }) => {
         }
       >
         <AppointmentList
-          toggle={toggle}
           appointments={appointments}
           header={translations.header}
         />
-        {appointments?.length > 1 && (
-          <ToggleAppointments
-            showAll={translations.showAll}
-            showLess={translations.showLess}
-            toggle={toggle}
-            onClick={() => setToggle(!toggle)}
-          />
-        )}
 
         <NewButton
           to="/add-appointment"
@@ -61,35 +49,48 @@ export const UpcomingAppointment = ({ patientId = 3 }) => {
           text={translations.addAppointment}
         />
       </InteractionCard>
-    </Box>
   );
 };
 
-const AppointmentList = ({ toggle, appointments, header }) => {
-  return (<Box width="100%">
-    <Box
-      color={Colors.buttonBlue}
-      width="90%"
-      margin="0 1rem"
-      borderBottom={`solid 2px ${Colors.lightgray}`}
-      marginBottom="1rem"
-    >
-      <h3>
-        <span style={{ color: Colors.approvedGreen }}>
-          {appointments.length}
-        </span>
-        {' ' + header}
-      </h3>
+const AppointmentList = ({ appointments, header }) => {
+  const [fullListVisible, toggleFullListVisible] = useToggle(false);
+
+  return (
+    <Box width="100%">
+      <Box
+        color={Colors.buttonBlue}
+        width="90%"
+        margin="0 1rem"
+        borderBottom={`solid 2px ${Colors.lightgray}`}
+        marginBottom="1rem"
+      >
+        <h3>
+          <span style={{ color: Colors.approvedGreen }}>
+            {appointments.length}
+          </span>
+          {' ' + header}
+        </h3>
+      </Box>
+
+      {appointments &&
+        appointments.slice(0, fullListVisible ? -1 : 1)
+          .map(each => <ReminderLineItem key={`reminder-${each.datetime}`} reminder={each} />)}
+
+      {appointments?.length > 1 && (
+        <ToggleAppointments
+          fullListVisible={fullListVisible}
+          onClick={toggleFullListVisible}
+        />
+      )}
     </Box>
 
-    {appointments &&
-      appointments.slice(0, toggle ? -1 : 1)
-        .map(each => <ReminderLineItem key={`reminder-${each.datetime}`} reminder={each} />)}
-  </Box>
   );
 };
 
-const ToggleAppointments = ({ onClick, showAll, showLess, toggle }) => {
+const ToggleAppointments = ({ onClick, fullListVisible }) => {
+
+  const { t } = useTranslation('translation');
+
   return (
     <Box
       padding="1rem"
@@ -98,10 +99,9 @@ const ToggleAppointments = ({ onClick, showAll, showLess, toggle }) => {
       display="flex"
       justifyContent="space-between"
     >
-      <div></div>
       <ClickableText
-        text={toggle === false ? showAll : showLess}
-        icon={toggle === false ? <KeyboardArrowDown /> : <KeyboardArrowUp />}
+        text={fullListVisible === false ? t('appointments.showAll') : t('appointments.showLess')}
+        icon={fullListVisible === false ? <KeyboardArrowDown /> : <KeyboardArrowUp />}
         onClick={onClick}
       />
     </Box>
