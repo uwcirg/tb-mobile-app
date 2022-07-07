@@ -62,14 +62,7 @@ const LineItem = (props) => {
   const { t, i18n } = useTranslation('translation');
 
   return (
-    <div
-      className={classes.milestone}
-      style={{
-        padding: '1rem .5rem',
-        boxShadow:
-          '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
-      }}
-    >
+    <div className={classes.milestone} >
       <div className={classes.date}>
         <div className={classes.month}>{date.monthShort}</div>
         <div className={classes.day}>{date.day}</div>
