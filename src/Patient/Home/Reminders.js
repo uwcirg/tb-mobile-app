@@ -132,7 +132,6 @@ const Card = observer(() => {
 
 const RemindersList = observer(() => {
   const reminders = useStores().reminderStore.reminders;
-  console.log(reminders);
 
   return (
     <>

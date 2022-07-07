@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReminderLineItem from '../../../Patient/Home/Reminder/ReminderLineItem';
 import useStores from '../../../Basics/UseStores';
 import InteractionCard from '../../../Basics/HomePageSection';
@@ -18,20 +17,7 @@ import SharedAPI from '../../../API/SharedAPI';
 export const UpcomingAppointment = observer(() => {
   const [toggle, setToggle] = useState(false);
   const appointments = useStores().reminderStore.reminders;
-  const { t } = useTranslation('translation');
-
-  const translations = {
-    header: `${t(`patient.progress.upcoming`)} ${t(
-      `patient.reminders.appointments`
-    )}`,
-    noScheduledApp: `${t('appointments.noUpcoming')}`,
-    appointments: `${t('patient.reminders.appointments')}`,
-    showAll: `${t('appointments.showAll')} ${t(
-      'patient.reminders.appointments'
-    )}`,
-    showLess: `${t('appointments.showLess')}`,
-    addAppointment: `${t('appointments.addAppointment')}`,
-  };
+  const { translations } = useRelevantTranslations();
 
   // const { patientStore } = useStores();
   // // placeholder until I can get ID from non mobx state
@@ -81,6 +67,7 @@ export const UpcomingAppointment = observer(() => {
 });
 
 const AppointmentList = ({ toggle, appointments, header }) => {
+  console.log(appointments[0]);
   return (
     <>
       <Box width="100%">
@@ -134,4 +121,22 @@ const ToggleAppointments = ({ onClick, showAll, showLess, toggle }) => {
       />
     </Box>
   );
+};
+
+const useRelevantTranslations = () => {
+  const { t } = useTranslation('translation');
+
+  const translations = {
+    header: `${t(`patient.progress.upcoming`)} ${t(
+      `patient.reminders.appointments`
+    )}`,
+    noScheduledApp: `${t('appointments.noUpcoming')}`,
+    appointments: `${t('patient.reminders.appointments')}`,
+    showAll: `${t('appointments.showAll')} ${t(
+      'patient.reminders.appointments'
+    )}`,
+    showLess: `${t('appointments.showLess')}`,
+    addAppointment: `${t('appointments.addAppointment')}`,
+  };
+  return { translations };
 };
