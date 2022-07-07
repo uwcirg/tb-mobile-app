@@ -17,7 +17,7 @@ export default class SharedAPI {
     return request(`/v2/patient/${patientId}/reminders`, 'POST', body);
   }
 
-  static async getAppointment(patientId) {
+  static async getAppointments(patientId) {
     return request(`/v2/patient/${patientId}/reminders`);
   }
 }

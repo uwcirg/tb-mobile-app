@@ -12,7 +12,7 @@ import RequiresAction from './MissedActions';
 import PushNotificationEnrollment from './PushEnrollmentReminder';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
-import { UpcomingAppointment } from '../../Components/Shared/Appointments/UpcomingAppointmentCard';
+import { UpcomingAppointment } from '../../Components/Shared/Appointments/ViewAppointments';
 
 const useStyles = makeStyles({
   body: {

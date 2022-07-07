@@ -1,36 +1,35 @@
-import React, { useEffect, useState } from 'react';
-import ReminderLineItem from '../../../Patient/Home/Reminder/ReminderLineItem';
-import useStores from '../../../Basics/UseStores';
-import InteractionCard from '../../../Basics/HomePageSection';
+import React, { useState } from 'react';
+import ReminderLineItem from '../../../../Patient/Home/Reminder/ReminderLineItem';
+import InteractionCard from '../../../../Basics/HomePageSection';
 import EventIcon from '@material-ui/icons/Event';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import { useTranslation } from 'react-i18next';
 import { Box } from '@material-ui/core';
-import NewButton from '../../../Basics/NewButton';
-import ClickableText from '../../../Basics/ClickableText';
-import Colors from '../../../Basics/Colors';
-import { observer } from 'mobx-react';
-import useAsync from '../../../Hooks/useAsync';
-import SharedAPI from '../../../API/SharedAPI';
+import NewButton from '../../../../Basics/NewButton';
+import ClickableText from '../../../../Basics/ClickableText';
+import Colors from '../../../../Basics/Colors';
+import SharedAPI from '../../../../API/SharedAPI';
+import useAsyncWithParams from '../../../../Hooks/useAsyncWithParams';
 
-export const UpcomingAppointment = observer(() => {
+export const UpcomingAppointment = ({ patientId = 3 }) => {
   const [toggle, setToggle] = useState(false);
-  const appointments = useStores().reminderStore.reminders;
   const { translations } = useRelevantTranslations();
 
-  // const { patientStore } = useStores();
-  // // placeholder until I can get ID from non mobx state
-  // const patientId = patientStore.userID;
+  const {
+    execute,
+    status,
+    value: appointments,
+    error,
+    reset,
+  } = useAsyncWithParams({
+    asyncFunc: SharedAPI.getAppointments,
+    immediate: true,
+    funcParams: [patientId],
+    initialData: [],
+  });
 
-  // const { execute, status, value, error, reset } = useAsync({
-  //   asyncFunc: SharedAPI.getAppointment,
-  //   immediate: false,
-  //   funcParams: [patientId],
-  // });
-
-  // We will need to listen to the deletion of an appointment from the server
-  // Unless we want to pass down state to the delete button from here
+  console.log(appointments);
 
   return (
     <Box width="100%">
@@ -47,7 +46,7 @@ export const UpcomingAppointment = observer(() => {
           appointments={appointments}
           header={translations.header}
         />
-        {appointments.length > 1 && (
+        {appointments?.length > 1 && (
           <ToggleAppointments
             showAll={translations.showAll}
             showLess={translations.showLess}
@@ -64,10 +63,9 @@ export const UpcomingAppointment = observer(() => {
       </InteractionCard>
     </Box>
   );
-});
+};
 
 const AppointmentList = ({ toggle, appointments, header }) => {
-  console.log(appointments[0]);
   return (
     <>
       <Box width="100%">
