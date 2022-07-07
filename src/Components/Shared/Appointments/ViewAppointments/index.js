@@ -66,39 +66,26 @@ export const UpcomingAppointment = ({ patientId = 3 }) => {
 };
 
 const AppointmentList = ({ toggle, appointments, header }) => {
-  return (
-    <>
-      <Box width="100%">
-        <Box
-          color={Colors.buttonBlue}
-          width="90%"
-          margin="0 1rem"
-          borderBottom={`solid 2px ${Colors.lightgray}`}
-          marginBottom="1rem"
-        >
-          <h3>
-            <strong style={{ color: Colors.approvedGreen }}>
-              {appointments.length}
-            </strong>{' '}
-            {header}
-          </h3>
-        </Box>
-        {appointments &&
-          appointments.length > 0 &&
-          toggle === true &&
-          appointments.map((a) => {
-            return (
-              <ReminderLineItem key={`reminder-${a.datetime}`} reminder={a} />
-            );
-          })}
-        {appointments && appointments.length > 0 && toggle === false && (
-          <ReminderLineItem
-            key={`reminder-${appointments[0].datetime}`}
-            reminder={appointments[0]}
-          />
-        )}
-      </Box>
-    </>
+  return (<Box width="100%">
+    <Box
+      color={Colors.buttonBlue}
+      width="90%"
+      margin="0 1rem"
+      borderBottom={`solid 2px ${Colors.lightgray}`}
+      marginBottom="1rem"
+    >
+      <h3>
+        <span style={{ color: Colors.approvedGreen }}>
+          {appointments.length}
+        </span>
+        {' ' + header}
+      </h3>
+    </Box>
+
+    {appointments &&
+      appointments.slice(0, toggle ? -1 : 1)
+        .map(each => <ReminderLineItem key={`reminder-${each.datetime}`} reminder={each} />)}
+  </Box>
   );
 };
 
