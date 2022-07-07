@@ -12,7 +12,9 @@ import RequiresAction from './MissedActions';
 import PushNotificationEnrollment from './PushEnrollmentReminder';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
-import ViewAppointments, { UpcomingAppointment } from '../../Components/Shared/Appointments/ViewAppointments';
+import ViewAppointments from '../../Components/Shared/Appointments/ViewAppointments';
+import { observer } from 'mobx-react';
+import useStores from '../../Basics/UseStores';
 
 const useStyles = makeStyles({
   body: {
@@ -30,7 +32,6 @@ const HomePage = () => {
 
   return (
     <div className={classes.body}>
-      {/* Some of these components are conditionally rendered within their implementaion */}
       <PushNotificationEnrollment />
       <Box maxWidth="400px" padding="0 .75rem">
         <Greeting />
@@ -41,10 +42,19 @@ const HomePage = () => {
         <Alerts />
         <Progress />
         <MedicationReminder />
-        <ViewAppointments />
+        <Appointments />
       </Box>
     </div>
   );
 };
+
+const Appointments = observer(() => {
+
+  const { patientStore } = useStores();
+
+  return <>
+    {patientStore.userID && <ViewAppointments patientId={patientStore.userID} />}
+  </>
+})
 
 export default HomePage;

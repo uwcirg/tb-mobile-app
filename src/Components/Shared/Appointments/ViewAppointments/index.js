@@ -12,8 +12,9 @@ import Colors from '../../../../Basics/Colors';
 import SharedAPI from '../../../../API/SharedAPI';
 import useAsyncWithParams from '../../../../Hooks/useAsyncWithParams';
 import useToggle from '../../../../Hooks/useToggle';
+import PropTypes from 'prop-types';
 
-export default function ViewAppointments({ patientId = 3 }) {
+export default function ViewAppointments({ patientId }) {
   const { translations } = useRelevantTranslations();
 
   const {
@@ -30,25 +31,25 @@ export default function ViewAppointments({ patientId = 3 }) {
   });
 
   return (
-      <InteractionCard
-        upperText={
-          <>
-            <EventIcon />
-            {translations.appointments}
-          </>
-        }
-      >
-        <AppointmentList
-          appointments={appointments}
-          header={translations.header}
-        />
+    <InteractionCard
+      upperText={
+        <>
+          <EventIcon />
+          {translations.appointments}
+        </>
+      }
+    >
+      <AppointmentList
+        appointments={appointments}
+        header={translations.header}
+      />
 
-        <NewButton
-          to="/add-appointment"
-          icon={<EventIcon />}
-          text={translations.addAppointment}
-        />
-      </InteractionCard>
+      <NewButton
+        to="/add-appointment"
+        icon={<EventIcon />}
+        text={translations.addAppointment}
+      />
+    </InteractionCard>
   );
 };
 
@@ -100,8 +101,8 @@ const ToggleAppointments = ({ onClick, fullListVisible }) => {
       justifyContent="space-between"
     >
       <ClickableText
-        text={fullListVisible === false ? t('appointments.showAll') : t('appointments.showLess')}
-        icon={fullListVisible === false ? <KeyboardArrowDown /> : <KeyboardArrowUp />}
+        text={!fullListVisible ? t('appointments.showAll') : t('appointments.showLess')}
+        icon={!fullListVisible ? <KeyboardArrowDown /> : <KeyboardArrowUp />}
         onClick={onClick}
       />
     </Box>
@@ -125,3 +126,7 @@ const useRelevantTranslations = () => {
   };
   return { translations };
 };
+
+ViewAppointments.propTypes = {
+  patientId: PropTypes.oneOfType([PropTypes.string,PropTypes.number]).isRequired
+}
