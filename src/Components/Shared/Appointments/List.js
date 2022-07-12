@@ -32,7 +32,8 @@ export default function AppointmentList({ patientId }) {
 }
 
 const Group = ({ items, title }) => {
-  const [expanded, toggle] = useToggle(true);
+
+  const [expanded, toggle] = useToggle(title !== "past");
   const { t } = useTranslation("translation");
 
   const getTitle = (str) => {
