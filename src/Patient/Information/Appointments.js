@@ -7,7 +7,7 @@ import AppointmentList from "../../Components/Shared/Appointments/List";
 const Appointments = observer(() => {
   const id = useStores().patientStore.userID;
 
-  return <Box>{id && <AppointmentList patientId={id} />}</Box>;
+  return <Box padding="1rem">{id && <AppointmentList patientId={id} />}</Box>;
 });
 
 export default Appointments;

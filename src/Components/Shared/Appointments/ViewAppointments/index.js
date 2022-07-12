@@ -9,6 +9,8 @@ import useToggle from "../../../../Hooks/useToggle";
 import PropTypes from "prop-types";
 import Colors from "../../../../Basics/Colors";
 import ExpansionToggle from "../../../ExpansionToggle";
+import { useHistory } from "react-router-dom";
+import { KeyboardArrowRight } from "@material-ui/icons";
 
 export default function ViewAppointments({ patientId }) {
   const { t } = useTranslation("translation");
@@ -26,16 +28,6 @@ export default function ViewAppointments({ patientId }) {
         appointments={appointments}
         header={t(`patient.progress.upcoming`)}
       />
-      {/* <NewButton
-        to="/settings/appointments"
-        icon={<EventNote />}
-        text={t("patient.home.progress.viewAll")}
-      />
-      <NewButton
-        to="/settings/appointments/add"
-        icon={<AddBox />}
-        text={t("appointments.addAppointment")}
-      /> */}
     </Box>
   );
 }
@@ -55,8 +47,9 @@ const Title = () => {
 };
 
 const AppointmentList = ({ appointments: apts }) => {
-  const [fullListVisible, toggleFullListVisible] = useToggle(false);
   const { t } = useTranslation("translation");
+
+  const history = useHistory();
 
   return (
     <Box width="100%">
@@ -64,33 +57,20 @@ const AppointmentList = ({ appointments: apts }) => {
       <Box height="16px" />
       {apts &&
         apts
-          .slice(0, fullListVisible ? -1 : 1)
+          .slice(0, 1)
           .map((each) => (
             <ReminderLineItem key={`reminder-${each.id}`} reminder={each} />
           ))}
-      {apts?.length > 1 && (
-        <ToggleAppointments
-          fullListVisible={fullListVisible}
-          onClick={toggleFullListVisible}
-        />
-      )}
-    </Box>
-  );
-};
-
-const ToggleAppointments = ({ onClick, fullListVisible }) => {
-  const { t } = useTranslation("translation");
-
-  return (
-    <Box width="100%" display="flex" justifyContent="space-between">
       <ClickableText
+        hideIcon
         text={
-          !fullListVisible
-            ? t("appointments.showAll")
-            : t("appointments.showLess")
+          <>
+            View / Add Appointments <KeyboardArrowRight />
+          </>
         }
-        icon={<ExpansionToggle expanded={!fullListVisible} />}
-        onClick={onClick}
+        onClick={() => {
+          history.push("/information/appointments");
+        }}
       />
     </Box>
   );
