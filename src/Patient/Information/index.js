@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { Link, Route, Switch, useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { PageLabel } from '../../Components/Shared/PageLabel';
-import { Settings as SettingsIcon, AccessAlarmRounded, ContactSupportRounded, FeedbackRounded, OndemandVideoRounded, QuestionAnswerRounded, YouTube, ExitToApp, Notifications, Map } from '@material-ui/icons';
+import { Settings as SettingsIcon, AccessAlarmRounded, ContactSupportRounded, FeedbackRounded, OndemandVideoRounded, QuestionAnswerRounded, YouTube, ExitToApp, Notifications, Map, EventNote } from '@material-ui/icons';
 import HelpVideos from './HelpVideos';
 import { useTranslation } from 'react-i18next';
 import QuestionsAndAnswers from './QuestionsAndAnswers';
@@ -20,6 +20,7 @@ import FlatButton from '../../Components/FlatButton';
 import useLogout from '../../Basics/Logout';
 import NotificationInstructions from './NotificationInstructions';
 import Walkthough from './Walkthrough';
+import Appointments from './Appointments';
 
 const useStyles = makeStyles({
     logout: {
@@ -56,6 +57,7 @@ const content = [
     {
         sectionTitle: 'patient.profile.title', items: [
             { translationKey: 'patient.profile.options.medicationReminder', to: "/information/medication-reminder", icon: <AccessAlarmRounded />, page: <MedicationReminder /> },
+            { translationKey: 'patient.reminders.appointments', to: "/information/appointments", icon: <EventNote />, page: <Appointments /> },
             { translationKey: 'patient.information.otherSettings', to: "/information/settings", page: <Settings />, icon: <SettingsIcon /> },
         ]
     },
