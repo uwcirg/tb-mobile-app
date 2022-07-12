@@ -10,20 +10,20 @@ function sortByDate(a, b) {
 export default function groupAppointments(appointments) {
   let grouped = {};
 
-  for (let apt of appointments.sort(sortByDate)) {
-    if (DateTime.fromISO(apt.datetime).diffNow('minutes').minutes > 0) {
-      if (!grouped.future) {
-        grouped.future = [];
-      } else {
-        grouped.future.push(apt);
-      }
-    } else {
-      if (!grouped.past) {
-        grouped.past = [];
-      } else {
-        grouped.past.push(apt);
-      }
+  function pushElement(listName, obj) {
+    if (!grouped[listName]) {
+      grouped[listName] = [];
     }
+    grouped[listName].push(obj);
+  }
+
+  for (let apt of appointments.sort(sortByDate)) {
+    const name =
+      DateTime.fromISO(apt.datetime).diffNow('minutes').minutes > 0
+        ? 'future'
+        : 'past';
+
+    pushElement(name, apt);
   }
 
   return grouped;
