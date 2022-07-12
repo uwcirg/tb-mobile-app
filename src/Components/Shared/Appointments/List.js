@@ -1,17 +1,17 @@
-import React from 'react';
-import ReminderLineItem from '../../../Patient/Home/Reminder/ReminderLineItem';
-import { useTranslation } from 'react-i18next';
+import React from "react";
+import ReminderLineItem from "../../../Patient/Home/Reminder/ReminderLineItem";
+import { useTranslation } from "react-i18next";
 
-import useAsyncWithParams from '../../../Hooks/useAsyncWithParams';
-import PropTypes from 'prop-types';
-import SharedAPI from '../../../API/SharedAPI';
-import { Collapse, Typography, Grid } from '@material-ui/core';
-import ExpansionToggle from '../../ExpansionToggle';
-import useToggle from '../../../Hooks/useToggle';
-import groupAppointments from '../../../Utility/group-appointments';
+import useAsyncWithParams from "../../../Hooks/useAsyncWithParams";
+import PropTypes from "prop-types";
+import SharedAPI from "../../../API/SharedAPI";
+import { Collapse, Typography, Grid, Box } from "@material-ui/core";
+import ExpansionToggle from "../../ExpansionToggle";
+import useToggle from "../../../Hooks/useToggle";
+import groupAppointments from "../../../Utility/group-appointments";
 
 export default function AppointmentList({ patientId }) {
-  const { t } = useTranslation('translation');
+  const { t } = useTranslation("translation");
 
   const { value: appointments } = useAsyncWithParams({
     asyncFunc: SharedAPI.getAppointments,
@@ -33,12 +33,22 @@ export default function AppointmentList({ patientId }) {
 
 const Group = ({ items, title }) => {
   const [expanded, toggle] = useToggle(true);
+  const { t } = useTranslation("translation");
+
+  const getTitle = (str) => {
+    if (str === "future") return t("milestones.upcoming");
+    if (str === "past") return t("milestones.previous");
+  };
+
   return (
     <>
-      <Grid onClick={toggle} container wrap="nowrap">
-        <Typography style={{ fontSize: '1.2rem' }} variant="h2">
-          {title} {items.length}
-        </Typography>
+      <Grid alignItems="center" onClick={toggle} container wrap="nowrap">
+        <Box padding="1rem 0">
+          <Typography style={{ fontSize: "1.2rem" }} variant="h2">
+            {getTitle(title)} {items.length}
+          </Typography>
+        </Box>
+        <Box flexGrow={1} />
         <ExpansionToggle expanded={expanded} />
       </Grid>
       <Collapse in={expanded}>
