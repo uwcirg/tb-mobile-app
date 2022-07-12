@@ -5,10 +5,11 @@ import { useTranslation } from "react-i18next";
 import useAsyncWithParams from "../../../Hooks/useAsyncWithParams";
 import PropTypes from "prop-types";
 import SharedAPI from "../../../API/SharedAPI";
-import { Collapse, Typography, Grid, Box } from "@material-ui/core";
+import { Collapse, Typography, Grid, Box, Avatar } from "@material-ui/core";
 import ExpansionToggle from "../../ExpansionToggle";
 import useToggle from "../../../Hooks/useToggle";
 import groupAppointments from "../../../Utility/group-appointments";
+import SmallAvatar from "../SmallAvatar";
 
 export default function AppointmentList({ patientId }) {
   const { t } = useTranslation("translation");
@@ -32,7 +33,6 @@ export default function AppointmentList({ patientId }) {
 }
 
 const Group = ({ items, title }) => {
-
   const [expanded, toggle] = useToggle(title !== "past");
   const { t } = useTranslation("translation");
 
@@ -43,15 +43,19 @@ const Group = ({ items, title }) => {
 
   return (
     <>
-      <Grid alignItems="center" onClick={toggle} container wrap="nowrap">
-        <Box padding="1rem 0">
-          <Typography style={{ fontSize: "1.2rem" }} variant="h2">
-            {getTitle(title)} {items.length}
-          </Typography>
-        </Box>
-        <Box flexGrow={1} />
-        <ExpansionToggle expanded={expanded} />
-      </Grid>
+      <Box borderBottom="1px solid lightgray" padding=".5rem 0">
+        <Grid alignItems="center" onClick={toggle} container wrap="nowrap">
+          <Grid container alignItems="center">
+            <SmallAvatar>{items.length}</SmallAvatar>
+            <Box width=".5rem" />
+            <Typography style={{ fontSize: "1.2rem" }} variant="h2">
+              {getTitle(title)}
+            </Typography>
+          </Grid>
+          <Box flexGrow={1} />
+          <ExpansionToggle expanded={expanded} />
+        </Grid>
+      </Box>
       <Collapse in={expanded}>
         <Items items={items} />
       </Collapse>
@@ -61,11 +65,11 @@ const Group = ({ items, title }) => {
 
 const Items = ({ items }) => {
   return (
-    <>
+    <Box paddingTop="1rem">
       {items.map((each) => (
         <ReminderLineItem key={`reminder-${each.id}`} reminder={each} />
       ))}
-    </>
+    </Box>
   );
 };
 
