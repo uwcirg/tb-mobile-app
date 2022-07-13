@@ -36,7 +36,6 @@ const HomePage = () => {
     <div className={classes.body}>
       <PushNotificationEnrollment />
       <Box maxWidth="400px" padding="0 .75rem">
-        <Appointments />
         <Greeting />
         <OneStepActions />
         <CachedReports />
@@ -45,7 +44,7 @@ const HomePage = () => {
         <Alerts />
         <Progress />
         <MedicationReminder />
-        {/* <Appointments /> */}
+        <Appointments />
       </Box>
     </div>
   );

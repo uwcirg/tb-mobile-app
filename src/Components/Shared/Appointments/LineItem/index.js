@@ -52,9 +52,9 @@ const useStyles = makeStyles({
   },
 });
 
-const LineItem = (props) => {
+const LineItem = ({reminder, showMenu}) => {
   const classes = useStyles();
-  const date = DateTime.fromISO(props.reminder.datetime);
+  const date = DateTime.fromISO(reminder.datetime);
   const { t } = useTranslation("translation");
 
   return (
@@ -70,18 +70,18 @@ const LineItem = (props) => {
       </div>
       <div className={classes.milestoneText}>
         <span className="title">
-          {props.reminder.title ||
-            (props.reminder.category &&
-              t(`appointments.types.${props.reminder.category}`))}
+          {reminder.title ||
+            (reminder.category &&
+              t(`appointments.types.${reminder.category}`))}
         </span>
         <span className="date" style={{ paddingBotton: "1em" }}>
           {date.toLocaleString(DateTime.TIME_24_SIMPLE)}
         </span>
         <span style={{ fontSize: ".85em", paddingTop: "1em" }}>
-          {props.reminder.note}
+          {reminder.note}
         </span>
       </div>
-      <Options reminderID={props.reminder.id} />
+      {showMenu && <Options reminderID={reminder.id} />}
     </Grid>
   );
 };
