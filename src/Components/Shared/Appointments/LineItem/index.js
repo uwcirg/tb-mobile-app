@@ -2,37 +2,19 @@ import React from "react";
 import { DateTime } from "luxon";
 import { useTranslation } from "react-i18next";
 import Options from "./Menu";
-import { Grid, makeStyles } from "@material-ui/core";
+import { Box, Grid, makeStyles } from "@material-ui/core";
 import Styles from "../../../../Basics/Styles";
 import Colors from "../../../../Basics/Colors";
 
 const useStyles = makeStyles({
-  milestone: {
-    "& > p": {
-      margin: 0,
-      padding: 0,
-    },
-    "& > button": {
-      marginLeft: "auto",
-      alignSelf: "flex-start",
-      padding: 0,
-    },
-  },
   date: {
     ...Styles.flexColumn,
     alignItems: "center",
-    marginRight: "1em",
     color: Colors.accentBlue,
-    width: "10%",
   },
   month: {
     fontSize: ".8em",
     marginBottom: "3px",
-  },
-  addButton: {
-    backgroundColor: Colors.buttonBlue,
-    color: "white",
-    boxShadow: "none",
   },
   milestoneText: {
     ...Styles.flexColumn,
@@ -52,37 +34,44 @@ const useStyles = makeStyles({
   },
 });
 
-const LineItem = ({reminder, showMenu}) => {
+const LineItem = ({ reminder, showMenu }) => {
   const classes = useStyles();
   const date = DateTime.fromISO(reminder.datetime);
   const { t } = useTranslation("translation");
 
   return (
-    <Grid
-      container
-      wrap="nowrap"
-      alignItems="flex-start"
-      className={classes.milestone}
-    >
-      <div className={classes.date}>
-        <div className={classes.month}>{date.monthShort}</div>
-        <div className={classes.day}>{date.day}</div>
-      </div>
-      <div className={classes.milestoneText}>
-        <span className="title">
-          {reminder.title ||
-            (reminder.category &&
-              t(`appointments.types.${reminder.category}`))}
-        </span>
-        <span className="date" style={{ paddingBotton: "1em" }}>
-          {date.toLocaleString(DateTime.TIME_24_SIMPLE)}
-        </span>
-        <span style={{ fontSize: ".85em", paddingTop: "1em" }}>
-          {reminder.note}
-        </span>
-      </div>
-      {showMenu && <Options reminderID={reminder.id} />}
-    </Grid>
+    <Box padding="8px">
+      <Grid container wrap="nowrap" alignItems="flex-start">
+        <Box paddingRight=".5rem">
+          <Date date={date} />
+        </Box>
+        <Box display="flex" flexDirection="column" flex="1 1 0" paddingLeft=".5rem" borderLeft={`solid 2px ${Colors.lightgray}`}>
+          <span className="title">
+            {reminder.title ||
+              (reminder.category &&
+                t(`appointments.types.${reminder.category}`))}
+          </span>
+          <span className="date" style={{ paddingBotton: "1em" }}>
+            {date.toLocaleString(DateTime.TIME_24_SIMPLE)}
+          </span>
+          <span style={{ fontSize: ".85em", paddingTop: "1em" }}>
+            {reminder.note}
+          </span>
+        </Box>
+        {showMenu && <Options reminderID={reminder.id} />}
+      </Grid>
+    </Box>
+  );
+};
+
+const Date = ({ date }) => {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.date}>
+      <div className={classes.month}>{date.monthShort}</div>
+      <div className={classes.day}>{date.day}</div>
+    </div>
   );
 };
 

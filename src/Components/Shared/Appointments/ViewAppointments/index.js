@@ -30,8 +30,6 @@ export default function ViewAppointments({ patientId }) {
     );
   })[0];
 
-  console.log(next);
-
   return (
     <Box width="100%" padding="0 .5rem" style={{ boxSizing: "border-box" }}>
       <Box width="100%">
