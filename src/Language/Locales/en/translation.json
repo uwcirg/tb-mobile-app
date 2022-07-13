@@ -855,6 +855,7 @@
         "flags": "Flags"
     },
     "appointments": {
+        "manage": "View / Manage Appointments",
         "typeNote": "Type note here",
         "createAppointment": "Create Appointment",
         "noUpcoming": "No Upcoming Appointments",
