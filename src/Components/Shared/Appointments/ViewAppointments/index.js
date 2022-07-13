@@ -1,5 +1,5 @@
 import React from "react";
-import ReminderLineItem from "../../../../Patient/Home/Reminder/ReminderLineItem";
+import ReminderLineItem from "../LineItem";
 import { useTranslation } from "react-i18next";
 import { Box, Typography } from "@material-ui/core";
 import ClickableText from "../../../../Basics/ClickableText";

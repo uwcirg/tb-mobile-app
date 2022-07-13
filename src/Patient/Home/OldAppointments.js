@@ -4,7 +4,7 @@ import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react';
 import InteractionCard from '../../Basics/HomePageSection';
 import { useTranslation } from 'react-i18next';
-import ReminderItem from './Reminder/ReminderLineItem';
+import ReminderItem from '../../Components/Shared/Appointments/LineItem';
 import ClickableText from '../../Basics/ClickableText';
 import AddReminder from './Reminder/index';
 import EventIcon from '@material-ui/icons/Event';

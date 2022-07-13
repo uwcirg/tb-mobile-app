@@ -1,11 +1,10 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import { DateTime } from "luxon";
-import Styles from "../../../Basics/Styles";
-import Colors from "../../../Basics/Colors";
 import { useTranslation } from "react-i18next";
-import Options from "./ReminderMenu";
-import { Box, Grid } from "@material-ui/core";
+import Options from "./Menu";
+import { Grid, makeStyles } from "@material-ui/core";
+import Styles from "../../../../Basics/Styles";
+import Colors from "../../../../Basics/Colors";
 
 const useStyles = makeStyles({
   milestone: {
