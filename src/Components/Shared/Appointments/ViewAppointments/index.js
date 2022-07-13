@@ -8,6 +8,8 @@ import useAsyncWithParams from "../../../../Hooks/useAsyncWithParams";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import { KeyboardArrowRight } from "@material-ui/icons";
+import groupAppointments from "../../../../Utility/group-appointments";
+import { DateTime } from "luxon";
 
 export default function ViewAppointments({ patientId }) {
   const { t } = useTranslation("translation");
@@ -21,12 +23,21 @@ export default function ViewAppointments({ patientId }) {
     initialData: [],
   });
 
+  let next = groupAppointments(apts)?.future?.sort((a, b) => {
+    return (
+      DateTime.fromISO(a.datetime).toMillis() -
+      DateTime.fromISO(b.datetime).toMillis()
+    );
+  })[0];
+
+  console.log(next);
+
   return (
     <Box width="100%" padding="0 .5rem" style={{ boxSizing: "border-box" }}>
       <Box width="100%">
         <Title />
         <Box height="16px" />
-        {apts && apts[0] && <ReminderLineItem reminder={apts[0]} />}
+        {next && <ReminderLineItem reminder={next} />}
         <ClickableText
           hideIcon
           text={
