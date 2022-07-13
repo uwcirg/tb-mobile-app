@@ -10,11 +10,12 @@ import ExpansionToggle from "../../ExpansionToggle";
 import useToggle from "../../../Hooks/useToggle";
 import groupAppointments from "../../../Utility/group-appointments";
 import SmallAvatar from "../SmallAvatar";
+import AsyncLoadingWrapper from "../../AsyncLoadingWrapper";
 
 export default function AppointmentList({ patientId }) {
   const { t } = useTranslation("translation");
 
-  const { value: appointments } = useAsyncWithParams({
+  const { value: appointments, status } = useAsyncWithParams({
     asyncFunc: SharedAPI.getAppointments,
     immediate: true,
     funcParams: [patientId],
@@ -23,12 +24,12 @@ export default function AppointmentList({ patientId }) {
 
   const grouped = groupAppointments(appointments);
   return (
-    <>
-      {Object.keys(grouped).length > 0 &&
+    <AsyncLoadingWrapper status={status}>
+     {Object.keys(grouped).length > 0 &&
         Object.keys(grouped).map((each) => (
           <Group key={`group-${each}`} title={each} items={grouped[each]} />
         ))}
-    </>
+    </AsyncLoadingWrapper>
   );
 }
 

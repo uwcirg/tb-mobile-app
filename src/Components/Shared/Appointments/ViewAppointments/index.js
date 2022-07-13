@@ -6,7 +6,6 @@ import ClickableText from "../../../../Basics/ClickableText";
 import SharedAPI from "../../../../API/SharedAPI";
 import useAsyncWithParams from "../../../../Hooks/useAsyncWithParams";
 import PropTypes from "prop-types";
-import Colors from "../../../../Basics/Colors";
 import { useHistory } from "react-router-dom";
 import { KeyboardArrowRight } from "@material-ui/icons";
 
