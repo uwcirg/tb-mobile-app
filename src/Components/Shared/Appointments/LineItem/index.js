@@ -56,7 +56,6 @@ const LineItem = ({ reminder, showMenu, isNextAppointment }) => {
                 (reminder.category && (
                   <>
                     {t(`appointments.types.${reminder.category}`)}{" "}
-                    {/* {t("patient.reminders.at")} */}
                     {"@ "}
                     {date.toLocaleString(DateTime.TIME_SIMPLE)}
                   </>

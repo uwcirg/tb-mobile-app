@@ -1,4 +1,4 @@
-import APIHelper from './Requests';
+import APIHelper from "./Requests";
 
 const api = new APIHelper();
 
@@ -14,10 +14,14 @@ export default class SharedAPI {
   }
 
   static async addAppointment(patientId, body) {
-    return request(`/v2/patient/${patientId}/reminders`, 'POST', body);
+    return request(`/v2/patient/${patientId}/reminders`, "POST", body);
   }
 
   static async getAppointments(patientId) {
     return request(`/v2/patient/${patientId}/reminders`);
+  }
+
+  static async deleteAppointment(reminderId) {
+    return request(`/v2/reminders/${reminderId}`, 'DELETE');
   }
 }

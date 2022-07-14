@@ -8,6 +8,8 @@ import { useTranslation } from "react-i18next";
 import Colors from "../../../../Basics/Colors";
 import useStores from "../../../../Basics/UseStores";
 import { MoreHoriz } from "@material-ui/icons";
+import useAsyncWithParams from "../../../../Hooks/useAsyncWithParams";
+import SharedAPI from "../../../../API/SharedAPI";
 
 const useStyles = makeStyles({
   delete: {
@@ -30,9 +32,16 @@ const ReminderMenu = observer(({ reminderID, disabled }) => {
     setAnchorEl(null);
   };
 
+  const { execute, status } = useAsyncWithParams({
+    asyncFunc: SharedAPI.deleteAppointment,
+    immediate: false,
+    funcParams: [reminderID],
+    initialData: [],
+  });
+
   const handleItemClick = () => {
     handleClose();
-    reminderStore.delete(patientID, reminderID);
+    execute();
   };
 
   return (
