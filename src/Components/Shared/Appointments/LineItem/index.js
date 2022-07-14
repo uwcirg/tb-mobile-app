@@ -5,7 +5,7 @@ import Options from "./Menu";
 import { Box, Grid, makeStyles } from "@material-ui/core";
 import Styles from "../../../../Basics/Styles";
 import Colors from "../../../../Basics/Colors";
-import { QueryBuilder } from "@material-ui/icons";
+import Tag from "../../../Tag";
 
 const useStyles = makeStyles({
   time: {
@@ -23,7 +23,7 @@ const useStyles = makeStyles({
     },
     "& > .title": {
       textTransform: "capitalize",
-      fontWeight: "medium",
+      fontWeight: "450",
       fontSize: "1em",
     },
     "& > .date": {
@@ -32,7 +32,7 @@ const useStyles = makeStyles({
   },
 });
 
-const LineItem = ({ reminder, showMenu }) => {
+const LineItem = ({ reminder, showMenu, isNextAppointment }) => {
   const classes = useStyles();
   const date = DateTime.fromISO(reminder.datetime);
   const { t } = useTranslation("translation");
@@ -51,24 +51,28 @@ const LineItem = ({ reminder, showMenu }) => {
           borderLeft={`solid 2px ${Colors.lightgray}`}
         >
           <Grid alignItems="center" container>
-            <span className="title">
+            <span style={{fontWeight: "450"}} className="title">
               {reminder.title ||
                 (reminder.category && (
                   <>
                     {t(`appointments.types.${reminder.category}`)}{" "}
-                    {t("patient.reminders.at")}{" "}
-                    {date.toLocaleString(DateTime.TIME_24_SIMPLE)}
+                    {/* {t("patient.reminders.at")} */}
+                    {"@ "}
+                    {date.toLocaleString(DateTime.TIME_SIMPLE)}
                   </>
                 ))}
             </span>
             <Box flex="1" />
-            {/* <Box display="flex" alignItems="center">
-              <QueryBuilder style={{ fontSize: "1rem" }} />
-              <span>{date.toLocaleString(DateTime.TIME_24_SIMPLE)}</span>
-            </Box> */}
             <Box width=".5rem" />
             <Options disabled={!showMenu} reminderID={reminder.id} />
           </Grid>
+          {isNextAppointment && (
+            <Box paddingTop=".25rem">
+              <Tag backgroundColor={Colors.calendarGreen}>
+                {t("appointments.nextAppointment")}
+              </Tag>
+            </Box>
+          )}
           <span style={{ fontSize: ".85rem", paddingTop: ".25rem" }}>
             {reminder.note}
           </span>

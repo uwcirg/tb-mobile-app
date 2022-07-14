@@ -68,8 +68,9 @@ const Items = ({ items, group }) => {
   const optionallyReversedItems = group === "future" ? items.reverse() : items;
   return (
     <Box paddingTop="1rem">
-      {optionallyReversedItems.map((each) => (
+      {optionallyReversedItems.map((each, index) => (
         <ReminderLineItem
+          isNextAppointment={index === 0 && group === "future"}
           showMenu={group === "future"}
           key={`reminder-${each.id}`}
           reminder={each}
