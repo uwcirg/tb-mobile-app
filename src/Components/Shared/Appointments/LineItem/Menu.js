@@ -2,12 +2,12 @@ import React from "react";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import IconButton from "@material-ui/core/IconButton";
-import Options from "@material-ui/icons/MoreVert";
 import { makeStyles } from "@material-ui/core/styles";
 import { observer } from "mobx-react";
 import { useTranslation } from "react-i18next";
 import Colors from "../../../../Basics/Colors";
 import useStores from "../../../../Basics/UseStores";
+import { MoreHoriz } from "@material-ui/icons";
 
 const useStyles = makeStyles({
   delete: {
@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ReminderMenu = observer((reminderId) => {
+const ReminderMenu = observer(({ reminderID, disabled }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const patientID = useStores().patientStore.userID;
@@ -32,13 +32,17 @@ const ReminderMenu = observer((reminderId) => {
 
   const handleItemClick = () => {
     handleClose();
-    reminderStore.delete(patientID, reminderId);
+    reminderStore.delete(patientID, reminderID);
   };
 
   return (
     <>
-      <IconButton onClick={handleClick}>
-        <Options />
+      <IconButton
+        disabled={disabled}
+        style={{ padding: 0 }}
+        onClick={handleClick}
+      >
+        <MoreHoriz />
       </IconButton>
       <Menu
         id="simple-menu"

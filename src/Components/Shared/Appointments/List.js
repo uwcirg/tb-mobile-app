@@ -25,7 +25,7 @@ export default function AppointmentList({ patientId }) {
   const grouped = groupAppointments(appointments);
   return (
     <AsyncLoadingWrapper status={status}>
-     {Object.keys(grouped).length > 0 &&
+      {Object.keys(grouped).length > 0 &&
         Object.keys(grouped).map((each) => (
           <Group key={`group-${each}`} title={each} items={grouped[each]} />
         ))}
@@ -58,17 +58,22 @@ const Group = ({ items, title }) => {
         </Grid>
       </Box>
       <Collapse in={expanded}>
-        <Items items={items} />
+        <Items group={title} items={items} />
       </Collapse>
     </>
   );
 };
 
-const Items = ({ items }) => {
+const Items = ({ items, group }) => {
+  const optionallyReversedItems = group === "future" ? items.reverse() : items;
   return (
     <Box paddingTop="1rem">
-      {items.map((each) => (
-        <ReminderLineItem key={`reminder-${each.id}`} reminder={each} />
+      {optionallyReversedItems.map((each) => (
+        <ReminderLineItem
+          showMenu={group === "future"}
+          key={`reminder-${each.id}`}
+          reminder={each}
+        />
       ))}
     </Box>
   );
