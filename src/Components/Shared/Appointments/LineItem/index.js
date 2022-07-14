@@ -63,7 +63,7 @@ const LineItem = ({ reminder, showMenu, isNextAppointment }) => {
             </span>
             <Box flex="1" />
             <Box width=".5rem" />
-            <Options disabled={!showMenu} reminderID={reminder.id} />
+            {showMenu && <Options disabled={!showMenu} reminderID={reminder.id} />}
           </Grid>
           {isNextAppointment && (
             <Box paddingTop=".25rem">
