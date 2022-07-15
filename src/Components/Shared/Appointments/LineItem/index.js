@@ -11,31 +11,6 @@ import useAsyncWithParams from "../../../../Hooks/useAsyncWithParams";
 import SharedAPI from "../../../../API/SharedAPI";
 import ShortDate from "../../ShortDate";
 
-const useStyles = makeStyles({
-  time: {
-    fontSize: ".75ren",
-  },
-  month: {
-    fontSize: ".8em",
-    marginBottom: "3px",
-  },
-  milestoneText: {
-    ...Styles.flexColumn,
-    "& > span": {
-      margin: 0,
-      padding: 0,
-    },
-    "& > .title": {
-      textTransform: "capitalize",
-      fontWeight: "450",
-      fontSize: "1em",
-    },
-    "& > .date": {
-      fontSize: ".9em",
-    },
-  },
-});
-
 const LineItem = ({ reminder, showMenu, isNextAppointment, handleRefresh }) => {
   const date = DateTime.fromISO(reminder.datetime);
   const { t } = useTranslation("translation");
@@ -54,6 +29,7 @@ const LineItem = ({ reminder, showMenu, isNextAppointment, handleRefresh }) => {
   useEffect(() => {
     if (status === "success") {
       handleRefresh();
+      reset();
     }
   }, [status]);
 
@@ -61,7 +37,6 @@ const LineItem = ({ reminder, showMenu, isNextAppointment, handleRefresh }) => {
     <Box padding="8px">
       <Grid container wrap="nowrap" alignItems="flex-start">
         <Box paddingRight=".5rem">
-          {/* <Date date={date} /> */}
           <ShortDate date={date} />
         </Box>
         <Box
@@ -104,17 +79,6 @@ const LineItem = ({ reminder, showMenu, isNextAppointment, handleRefresh }) => {
         </Box>
       </Grid>
     </Box>
-  );
-};
-
-const Date = ({ date }) => {
-  const classes = useStyles();
-
-  return (
-    <div className={classes.date}>
-      <div className={classes.month}>{date.monthShort}</div>
-      <div className={classes.day}>{date.day}</div>
-    </div>
   );
 };
 

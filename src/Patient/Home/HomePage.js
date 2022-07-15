@@ -17,6 +17,7 @@ import useStores from "../../Basics/UseStores";
 import { useTranslation } from "react-i18next";
 import HomePageSection from "../../Basics/HomePageSection";
 import { Event } from "@material-ui/icons";
+import NextAppointment from "./NextAppointment";
 
 const useStyles = makeStyles({
   body: {
@@ -44,32 +45,10 @@ const HomePage = () => {
         <Alerts />
         <Progress />
         <MedicationReminder />
-        <Appointments />
+        <NextAppointment />
       </Box>
     </div>
   );
 };
-
-const Appointments = observer(() => {
-  const { patientStore } = useStores();
-  const { t } = useTranslation("translation");
-
-  return (
-    <>
-      {patientStore.userID && (
-        <HomePageSection
-          upperText={
-            <>
-              <Event />
-              {t("patient.reminders.appointments")}
-            </>
-          }
-        >
-          <ViewAppointments patientId={patientStore.userID} />
-        </HomePageSection>
-      )}
-    </>
-  );
-});
 
 export default HomePage;

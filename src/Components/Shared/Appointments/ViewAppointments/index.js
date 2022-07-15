@@ -23,7 +23,7 @@ export default function ViewAppointments({ patientId }) {
     initialData: [],
   });
 
-  let next = groupAppointments(apts)?.future?.sort((a, b) => {
+  let nextAppointment = groupAppointments(apts)?.future?.sort((a, b) => {
     return (
       DateTime.fromISO(a.datetime).toMillis() -
       DateTime.fromISO(b.datetime).toMillis()
@@ -34,8 +34,13 @@ export default function ViewAppointments({ patientId }) {
     <Box width="100%" padding="0 .5rem" style={{ boxSizing: "border-box" }}>
       <Box width="100%">
         <Title />
-        <Box height="16px" />
-        {next && <ReminderLineItem reminder={next} />}
+        <Box padding="1rem 0">
+          {nextAppointment ? (
+            <ReminderLineItem reminder={nextAppointment} />
+          ) : (
+            <Typography>{t("appointments.noUpcoming")}</Typography>
+          )}
+        </Box>
         <ClickableText
           hideIcon
           text={
