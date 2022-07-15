@@ -1,5 +1,4 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import useStores from "../../../Basics/UseStores";
 import { observer } from "mobx-react";
 import StickyTopBar from "../../../Components/Shared/StickyTopBar";
@@ -18,32 +17,8 @@ import SectionTitle from "./SectionTitle";
 import PhotoAdherence from "../Adherence/Photo";
 import MedicationAdherence from "../Adherence/Medication";
 import { useTranslation } from "react-i18next";
-import LineItem from "../../../Components/Shared/Appointments/LineItem";
-import ClickableText from "../../../Basics/ClickableText";
-import { KeyboardArrowRight } from "@material-ui/icons";
-
-const useStyles = makeStyles({
-  card: {
-    "&:not(:first-child)": {
-      marginTop: ".5em",
-    },
-  },
-});
-
-const Card = ({ children }) => {
-  const classes = useStyles();
-
-  return (
-    <Box
-      className={classes.card}
-      padding="1em"
-      borderRadius="4px"
-      bgcolor={"white"}
-    >
-      {children}
-    </Box>
-  );
-};
+import AppointmentCard from "./AppointmentCard";
+import Card from "./Card";
 
 const MobilePatientProfile = observer(() => {
   const { patientProfileStore } = useStores();
@@ -121,53 +96,20 @@ const MobileView = observer(() => {
               />
             </Grid>
             <Box height={"5px"} />
-            <Grid container>
-              {/* <Typography>{t("appointments.nextAppointment")}:</Typography>
-              <Box width={"8px"} />
-              <Box flexGrow={1} /> */}
-              {/* {nextReminder ? (
-                <Label
-                  text={DateTime.fromISO(nextReminder.datetime).toLocaleString(
-                    DateTime.DATE_SHORT
-                  )}
-                  backgroundColor={Colors.accentBlue}
-                />
-              ) : (
-                "None Set"
-              )} */}
-            </Grid>
+            <Grid container></Grid>
             <Box height="8px" />
             <ReportingHistoryLinks
               patient={patientProfileStore.selectedPatient.details}
             />
           </Box>
           <Box height="1em" />
-          {/* <SectionTitle>
-            {t("coordinator.patientProfile.reportingHistory")}:
-          </SectionTitle>
-          <Box height="8px" /> */}
-          {/* <ReportingHistoryLinks
-            patient={patientProfileStore.selectedPatient.details}
-          /> */}
-          <SectionTitle>{t("appointments.nextAppointment")}:</SectionTitle>
-          {patientProfileStore.selectedPatient.details.nextReminder ? (
-            <LineItem
-              isNextAppointment
-              reminder={
-                patientProfileStore.selectedPatient.details.nextReminder
-              }
-            />
-          ) : (
-            <p>{t("appointments.noUpcoming")}</p>
-          )}
-          <Link to={`/patients/${id}/appointments`}>
-            {t("appointments.manage")}
-            <KeyboardArrowRight />
-          </Link>
         </Card>
         <Card>
           <ButtonList />
         </Card>
+        <AppointmentCard
+          patient={patientProfileStore.selectedPatient.details}
+        />
         <Card>
           <SectionTitle>
             {t("coordinator.cohortOverview.adherenceGraph")}:

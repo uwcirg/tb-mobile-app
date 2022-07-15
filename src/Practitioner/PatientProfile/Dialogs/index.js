@@ -6,16 +6,12 @@ import ChangePatientDetails from "./ChangePatientDetails";
 import ResetPassword from "./ResetPassword";
 import ArchiveDialog from "./ArchiveDialog";
 import ArchivedWarning from "./ArchivedWarning";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 import { Switch, Route } from "react-router-dom";
 import AddAppointment from "../../../Components/Shared/Appointments/AddAppointment";
 import PopOverV2 from "../../../Components/Shared/PopOverV2";
-import AppointmentList from "../../../Components/Shared/Appointments/List";
-import { Box } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import FlatButton from "../../../Components/FlatButton";
-import { Add } from "@material-ui/icons";
 import AppointmentsPage from "./AppointmentsPage";
 
 const Dialogs = observer(() => {
