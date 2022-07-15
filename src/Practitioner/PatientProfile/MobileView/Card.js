@@ -20,7 +20,12 @@ const Card = ({ children, title }) => {
       borderRadius="4px"
       bgcolor={"white"}
     >
-      {title && <SectionTitle>{title}:</SectionTitle>}
+      {title && (
+        <>
+          <SectionTitle>{title}:</SectionTitle>
+          <Box height="8px" />
+        </>
+      )}
       {children}
     </Box>
   );
