@@ -110,12 +110,12 @@ const Visualization = ({ treatmentWeek }) => {
     
     while (i < 26) { //Iterate over the 26 weeks of treatment
         if (i === treatmentWeek) {
-            list.push(<Element current={true} completed={true} value={i} />);
+            list.push(<Element key={`week-${i}`} current={true} completed={true} value={i} />);
             markerSet = true;
         } else if (i < treatmentWeek) {
-            list.push(<Element completed={true} current={!markerSet && i === 25} />);
+            list.push(<Element key={`week-${i}`} completed={true} current={!markerSet && i === 25} />);
         } else {
-            list.push(<Element completed={false} />);
+            list.push(<Element key={`week-${i}`} completed={false} />);
         }
         i++;
     }

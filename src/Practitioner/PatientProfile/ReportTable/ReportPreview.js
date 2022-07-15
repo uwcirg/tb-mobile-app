@@ -110,7 +110,7 @@ const ReportPreview = ({ row }) => {
 const Meds = ({ taken }) => {
     const classes = useStyles({ taken: taken })
     return (
-        <div className={classes.meds} container>
+        <div className={classes.meds}>
             {taken ? <Check /> : <Clear />}
         </div>
     )
