@@ -5,10 +5,11 @@ import Markdown from 'markdown-to-jsx';
 import raw from "raw.macro";
 import MarkdownRender from './Panel';
 
-const file = raw('../../Content/faq.md');
+const es = raw('../../Content/faq.md');
+const indonesiaa = raw('../../Content/faq-id.md');
 
 export default function QuestionsAndAnswers() {
     return (<Box>
-        <Markdown options={{ overrides: { Drawer: { component: MarkdownRender } } }} children={file} />
+        <Markdown options={{ overrides: { Drawer: { component: MarkdownRender } } }} children={indonesiaa} />
     </Box>)
 }
