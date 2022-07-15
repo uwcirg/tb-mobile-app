@@ -11,11 +11,16 @@ import useToggle from "../../../Hooks/useToggle";
 import groupAppointments from "../../../Utility/group-appointments";
 import SmallAvatar from "../SmallAvatar";
 import AsyncLoadingWrapper from "../../AsyncLoadingWrapper";
+import { RefreshSharp } from "@material-ui/icons";
 
 export default function AppointmentList({ patientId }) {
   const { t } = useTranslation("translation");
 
-  const { value: appointments, status } = useAsyncWithParams({
+  const {
+    value: appointments,
+    status,
+    execute: refresh,
+  } = useAsyncWithParams({
     asyncFunc: SharedAPI.getAppointments,
     immediate: true,
     funcParams: [patientId],
@@ -27,13 +32,18 @@ export default function AppointmentList({ patientId }) {
     <AsyncLoadingWrapper status={status}>
       {Object.keys(grouped).length > 0 &&
         Object.keys(grouped).map((each) => (
-          <Group key={`group-${each}`} title={each} items={grouped[each]} />
+          <Group
+            refresh={refresh}
+            key={`group-${each}`}
+            title={each}
+            items={grouped[each]}
+          />
         ))}
     </AsyncLoadingWrapper>
   );
 }
 
-const Group = ({ items, title }) => {
+const Group = ({ items, title, refresh }) => {
   const [expanded, toggle] = useToggle(title !== "past");
   const { t } = useTranslation("translation");
 
@@ -58,18 +68,19 @@ const Group = ({ items, title }) => {
         </Grid>
       </Box>
       <Collapse in={expanded}>
-        <Items group={title} items={items} />
+        <Items refresh={refresh} group={title} items={items} />
       </Collapse>
     </>
   );
 };
 
-const Items = ({ items, group }) => {
+const Items = ({ items, group, refresh }) => {
   const optionallyReversedItems = group === "future" ? items.reverse() : items;
   return (
     <Box paddingTop="1rem">
       {optionallyReversedItems.map((each, index) => (
         <ReminderLineItem
+          handleRefresh={refresh}
           isNextAppointment={index === 0 && group === "future"}
           showMenu={group === "future"}
           key={`reminder-${each.id}`}
