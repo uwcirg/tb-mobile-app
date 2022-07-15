@@ -43,7 +43,7 @@ export default function AdherenceDetails({ detailContent, additionalDetails }) {
 }
 
 const Details = ({ content = {}, additionalDetails }) => {
-    return (<Grid alignItems="flex-end">
+    return (<Grid container alignItems="flex-end">
         {additionalDetails}
         <Label color={Colors.calendarGreen} {...content.green} />
         <Label color={Colors.timelineYellow} {...content.yellow} />

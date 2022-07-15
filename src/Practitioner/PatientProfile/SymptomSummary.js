@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react'
-import Typography from '@material-ui/core/Typography'
 import { useTranslation } from 'react-i18next';
 import Styles from '../../Basics/Styles';
 import Select from '@material-ui/core/Select'
@@ -137,10 +136,10 @@ const SymptomSummary = observer(() => {
 
                 {total > 0 ? <div className={classes.totalContainer}><div className={classes.barContainer}> {list.sort( (a,b) =>{return symptomSummary[selection][b] - symptomSummary[selection][a]}).map(each => {
                     const value = symptomSummary[selection][each]
-                    return (symptomSummary[selection][each] > 0 ? <>
+                    return <React.Fragment key={`${each}`}>{symptomSummary[selection][each] > 0 ? <>
                         <div className={classes.barLabel}><p>{t(`symptoms.${each}.title`)}</p> <p>{value}</p></div>
                         <BorderLinearProgress severe={SevereSymptoms.includes(each)} variant="determinate" value={(value / total) * 100} />
-                    </> : "")
+                    </> : ""}</React.Fragment>
                 })} </div> <div className="total"><p>{total}</p><p>{t('commonWords.total')}</p></div> </div> : <NoSymptoms />}
             </div>)
 });

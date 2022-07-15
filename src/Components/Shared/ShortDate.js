@@ -5,6 +5,7 @@ import React from 'react'
 const useStyles = makeStyles({
     date:{
         width: "fit-content",
+        minWidth: '22px',
         "& > *":{
             lineHeight: "1em"
         }
@@ -13,8 +14,7 @@ const useStyles = makeStyles({
         fontSize: "1em"
     },
     month:{
-        fontSize: ".8em",
-        textTransform: "uppercase"
+        fontSize: ".8em"
     }
 })
 
@@ -25,7 +25,7 @@ export default function ShortDate({ date }) {
     const parsed = DateTime.fromISO(date)
 
     return (<Box>
-        <Grid container direction='column' alignItems='center' className={classes.date}>
+        <Grid container direction='column' alignItems='center' justify='center' className={classes.date}>
             <Typography className={classes.day}>{parsed.day}</Typography>
             <Box height="5px" />
             <Typography className={classes.month}>{parsed.monthShort}</Typography>

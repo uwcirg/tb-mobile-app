@@ -69,7 +69,7 @@ const CollapsibleTable = observer(() => {
                         </Table>
                     </TableContainer>
                     <TablePagination
-                        rowsPerPageOptions={false}
+                        rowsPerPageOptions={[]}
                         component="div"
                         count={patientProfileStore.selectedPatientReports.length}
                         rowsPerPage={rowsPerPage}

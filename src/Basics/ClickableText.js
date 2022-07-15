@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { ButtonBase } from '@material-ui/core';
 import Colors from './Colors';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
   text:{
@@ -25,15 +26,21 @@ const ClickableText = (props) => {
 
     const classes = useStyles();
 
+    const propsToUse = {
+        component: props.to? Link : "button",
+        onClick: props.onClick,
+        to: props.to
+    }
+
 
     return(
     !props.big ?
-    <ButtonBase className={`${classes.text} ${props.className}`} onClick={props.onClick}>
+    <ButtonBase {...propsToUse} className={`${classes.text} ${props.className}`}>
         { !props.hideIcon && <>{props.icon ? <>{props.icon}</> : <ErrorOutlineIcon  />}</> }
         {props.text}
     </ButtonBase>
     :
-    <ButtonBase className={`${classes.text} ${classes.big} ${props.className}`} onClick={props.onClick}>
+    <ButtonBase {...propsToUse} className={`${classes.text} ${classes.big} ${props.className}`}>
         {props.text}
     </ButtonBase>
     )

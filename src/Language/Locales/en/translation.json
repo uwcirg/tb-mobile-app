@@ -855,6 +855,7 @@
         "flags": "Flags"
     },
     "appointments": {
+        "manage": "View / Manage all appointments",
         "typeNote": "Type note here",
         "createAppointment": "Create Appointment",
         "noUpcoming": "No Upcoming Appointments",
@@ -927,8 +928,6 @@
         "ask": "To gather feedback, a member of the study team might call you after you have finished using the app.",
         "survey": "We also have a short survey on your home screen.",
         "thanks": "Thank you"
-
-
     },
     "dashboard": {
         "category": "Category",
