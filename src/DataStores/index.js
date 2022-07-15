@@ -7,7 +7,6 @@ import {UIStore} from "./uiStore"
 import {MessagingStore} from "./messagingStore"
 import PractitionerUIStore from './practitionerUIStore'
 import APIHelper from '../API/Requests'
-import ReminderStore from './reminderStore'
 
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
 import {createBrowserHistory} from 'history';
@@ -40,7 +39,6 @@ export const stores = {
     patientStore: new PatientStore(apiHelper),
     messagingStore: new MessagingStore(apiHelper),
     activationStore: new ActivationStore(apiHelper),
-    reminderStore: new ReminderStore(apiHelper),
     dailyReportStore: new DailyReportStore(apiHelper),
     patientProfileStore: new PatientProfileStore(),
 }
