@@ -28,7 +28,8 @@ const ClickableText = (props) => {
 
     const propsToUse = {
         component: props.to? Link : "button",
-        ...props
+        onClick: props.onClick,
+        to: props.to
     }
 
 

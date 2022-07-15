@@ -62,7 +62,7 @@ const ButtonList = observer(({ isDesktopView }) => {
             <Grid alignItems='center' container justify="flex-end" className={classes.desktopButtons}>
                 {buttons.map(each => {
                     if (each.hide) return;
-                    return <FlatButton className={each.red ? classes.redButton : ""} to={each.to}>{each.icon}{each.text}</FlatButton>
+                    return <FlatButton key={each.text} className={each.red ? classes.redButton : ""} to={each.to}>{each.icon}{each.text}</FlatButton>
                 })}
                 <MoreOptions />
             </Grid>
@@ -84,7 +84,7 @@ const ButtonList = observer(({ isDesktopView }) => {
             <div>
                 {buttons.splice(1).map(each => {
                     if (each.hide) return;
-                    return <NewButton to={each.to} onClick={each.onClick} className={classes.button} icon={each.icon} text={each.text} />
+                    return <NewButton key={each.text} to={each.to} onClick={each.onClick} className={classes.button} icon={each.icon} text={each.text} />
                 })}
             </div>
         </Collapse>

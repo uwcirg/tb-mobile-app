@@ -6,6 +6,7 @@ import MuiButton from '../../../Basics/MuiButton';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
+import { toJS } from 'mobx';
 
 const useStyles = makeStyles({
     popOverBody: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles({
 const AddNote = observer(({handleClose}) => {
     const { t } = useTranslation('translation');
     const classes = useStyles();
-    const { practitionerStore, practitionerUIStore, patientProfileStore } = useStores();
+    const { practitionerStore, patientProfileStore } = useStores();
 
     const [title, setTitle] = useState("");
     const [note, setNote] = useState("");
@@ -43,6 +44,8 @@ const AddNote = observer(({handleClose}) => {
         patientProfileStore.postPatientNote(title, note);
         handleClose();
     }
+
+    console.log( toJS(practitionerStore.selectedPatient.details))
 
     return (
         <PopOver close={handleClose} title={`${t("coordinator.patientProfile.addNote.header")} ${practitionerStore.selectedPatient.details.givenName}`}>
