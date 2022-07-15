@@ -14,6 +14,9 @@ import PopOverV2 from "../../../Components/Shared/PopOverV2";
 import AppointmentList from "../../../Components/Shared/Appointments/List";
 import { Box } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
+import FlatButton from "../../../Components/FlatButton";
+import { Add } from "@material-ui/icons";
+import AppointmentsPage from "./AppointmentsPage";
 
 const Dialogs = observer(() => {
   const { patientProfileStore } = useStores();
@@ -35,14 +38,7 @@ const Dialogs = observer(() => {
   return (
     <Switch>
       <Route path="/patients/:id/appointments">
-        <PopOverV2 open>
-          <Link to={`/patients/${patientId}/add-appointment`}>
-            {t("appointments.addAppointment")}
-          </Link>
-          <Box padding="1rem">
-            <AppointmentList patientId={patientId} />
-          </Box>
-        </PopOverV2>
+        <AppointmentsPage patientId={patientId} />
       </Route>
       <Route path="/patients/:id/archive">
         <ArchiveDialog handleClose={handleClose} />
