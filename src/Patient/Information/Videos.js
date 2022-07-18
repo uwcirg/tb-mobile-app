@@ -10,51 +10,27 @@ const useStyles = makeStyles({
     width: "100%",
     height: "auto",
   },
-  panel: {
-    boxShadow: "none",
-    margin: 0,
-  },
-  topCard: {
-    paddingTop: "8px",
-  },
-  heading: {
-    fontSize: "1em",
-  },
   button: {
     color: Colors.buttonBlue,
     textTransform: "capitalize",
-  },
-  video: {
-    "&:first-of-type": {
-      marginBottom: "12px",
-    },
-  },
+    padding: 0,
+  }
 });
 
 export default function Videos() {
   const classes = useStyles();
-  const { t, i18n } = useTranslation("translation");
+  const { i18n } = useTranslation("translation");
 
   const localeVideos =
     i18n.language === "id" ? videoSources.id : videoSources["es-Ar"];
 
   return (
     <Box padding="2rem 1rem">
-      {/* <div className={classes.video}>
-                        <a href="https://www.youtube.com/watch?v=KizqF_HmI2w"><img className={classes.preview} src={"/img/es-Ar/video-previews/ministry-of-health-video.jpg"}></img></a>
-                        <Button className={classes.button} href="https://www.youtube.com/watch?v=KizqF_HmI2w">
-                            Video de Ministerio de Salud</Button>
-                    </div>
-                    <div className={classes.video}>
-                        <a href="https://www.youtube.com/watch?v=vaXrKW0ZGtg"><img className={classes.preview} src={"/img/es-Ar/video-previews/province-of-misiones-video.png"}></img></a>
-                        <Button className={classes.button} href="https://www.youtube.com/watch?v=vaXrKW0ZGtg">
-                            Programa Tuberculosis Provincia de Misiones</Button>
-                    </div> */}
       {localeVideos.map(({ youtubeId, title }) => {
         const link = `https://www.youtube.com/watch?v=${youtubeId}`;
 
         return (
-          <div className={classes.video}>
+          <Box paddingBottom="1rem">
             <a href={link}>
               <img
                 className={classes.preview}
@@ -64,7 +40,7 @@ export default function Videos() {
             <Button className={classes.button} href={link}>
               {title}
             </Button>
-          </div>
+          </Box>
         );
       })}
     </Box>
