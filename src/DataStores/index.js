@@ -28,13 +28,13 @@ const apiHelper = new APIHelper(uiStore);
 export const history = syncHistoryWithStore(browserHistory, routingStore);
 
 export const stores = {
+    uiStore: uiStore,
     routingStore: routingStore,
     cohortStore: new CohortStore(apiHelper),
     passwordStore: new PasswordStore(apiHelper),
     patientUIStore: new PatientUIStore(routingStore),
     practitionerUIStore: new PractitionerUIStore(routingStore),
     loginStore: new LoginStore(apiHelper, routingStore),
-    uiStore: uiStore,
     practitionerStore: new PractitionerStore(apiHelper),
     patientStore: new PatientStore(apiHelper),
     messagingStore: new MessagingStore(apiHelper),
