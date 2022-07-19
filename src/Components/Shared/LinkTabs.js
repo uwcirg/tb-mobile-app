@@ -85,7 +85,7 @@ const Label = ({ text, icon }) => {
     return (<Grid direction='column' justify="center" alignItems='center' container>
         {React.createElement(icon)}
         <Box width="5px" />
-        <Typography style={{fontSize: ".75em"}}>{text}</Typography>
+        <Typography variant="body1" style={{fontSize: ".75em", textTransform: "capitalize"}}>{text}</Typography>
     </Grid>)
 }
 

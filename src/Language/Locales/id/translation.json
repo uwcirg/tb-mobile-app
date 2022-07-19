@@ -855,6 +855,7 @@
         "flags": "Bendera"
     },
     "appointments": {
+        "manage": "Lihat/Atur kembali semua Janji temu",
         "typeNote": "Ketik catatan disini",
         "createAppointment": "Buat janji temu",
         "noUpcoming": "Tidak ada janji yang akan datang",
@@ -927,8 +928,6 @@
         "ask": "Untuk mengumpulkan umpan balik, salah satu anggota dari tim penelitian akan menghubungi anda setelah anda selesai menggunakan aplikasi ini.",
         "survey": "Kami juga memiliki survey pendek pada beranda.",
         "thanks": "Terima Kasih"
-
-
     },
     "dashboard": {
         "category": "Kategori",
