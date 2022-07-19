@@ -148,4 +148,81 @@ const practitionerContent = [
   },
 ];
 
-export { patientContent, practitionerContent };
+const idPatientContent = [
+  {
+    sectionTitle: "patient.profile.title",
+    items: [
+      {
+        translationKey: "patient.profile.options.medicationReminder",
+        to: "/information/medication-reminder",
+        icon: <AccessAlarmRounded />,
+        page: <MedicationReminder />,
+      },
+      {
+        translationKey: "patient.reminders.appointments",
+        to: "/information/appointments",
+        icon: <EventNote />,
+        page: <Appointments />,
+      },
+      {
+        translationKey: "patient.information.otherSettings",
+        to: "/information/settings",
+        page: <Settings />,
+        icon: <SettingsIcon />,
+      },
+    ],
+  },
+  {
+    sectionTitle: "patient.information.infoSection",
+    items: [
+      {
+        translationKey: "patient.information.questions",
+        to: "/information/faq",
+        icon: <QuestionAnswerRounded />,
+        page: <QuestionsAndAnswers />,
+      },
+      {
+        translationKey: "patient.information.videos",
+        to: "/information/videos",
+        icon: <OndemandVideoRounded />,
+        page: <Videos />,
+      },
+    ],
+  },
+  {
+    sectionTitle: "patient.information.helpSection",
+    items: [
+      {
+        translationKey: "patient.information.testInstructions",
+        to: "/information/test-instructions",
+        icon: <TestStripImage />,
+        page: <TestInstructions />,
+      },
+      {
+        translationKey: "patient.information.walkthrough.title",
+        to: "/information/walkthrough",
+        icon: <Map />,
+        page: <Walkthough />,
+      },
+      {
+        translationKey: "patient.information.techSupport",
+        to: "/information/tech-support",
+        icon: <ContactSupportRounded />,
+        page: <StaticVersion />,
+      },
+      {
+        translationKey: "patient.information.reportIssue",
+        href: "https://forms.gle/gZHLZ4CGJT2J1V6p7",
+        icon: <FeedbackRounded />,
+      },
+      {
+        translationKey: "notificationInstructions.steps.title",
+        to: "/information/notification-instructions",
+        icon: <Notifications />,
+        page: <NotificationInstructions />,
+      },
+    ],
+  },
+];
+
+export { patientContent, practitionerContent, idPatientContent };

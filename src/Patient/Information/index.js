@@ -10,9 +10,14 @@ import Colors from "../../Basics/Colors";
 import useLogout from "../../Basics/Logout";
 import FlatButton from "../../Components/FlatButton";
 import { PageLabel } from "../../Components/Shared/PageLabel";
-import { practitionerContent, patientContent } from "../../Content/information";
+import {
+  practitionerContent,
+  patientContent,
+  idPatientContent,
+} from "../../Content/information";
 import InformationLink from "./InformationLink";
 import VersionNumber from "./VersionNumber";
+import isIndonesiaPilot from "../../Utility/check-indonesia-flag";
 
 const useStyles = makeStyles({
   logout: {
@@ -33,6 +38,8 @@ const useStyles = makeStyles({
     color: Colors.textDarkGray,
   },
 });
+
+const contentToUse = isIndonesiaPilot() ? idPatientContent : patientContent;
 
 const Translate = ({ children }) => {
   const { t } = useTranslation();
@@ -69,7 +76,7 @@ export default function InformationPage() {
 
   const buttons = [];
 
-  patientContent.forEach((d) => {
+  contentToUse.forEach((d) => {
     buttons.push(...d.items);
   });
 
@@ -130,7 +137,7 @@ const Buttons = () => {
 
   return (
     <Box padding="0 16px">
-      {patientContent.map((each) => {
+      {contentToUse.map((each) => {
         return (
           <div key={`information-section-${each.sectionTitle}}`}>
             <SectionTitle>
