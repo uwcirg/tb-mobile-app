@@ -1,12 +1,12 @@
-import React from 'react';
-import Messages from '../Messaging/PractitionerMessaging';
-import PatientsView from './CohortView';
-import ReviewPatients from './ReviewPatients';
-import Settings from './Settings/index';
-import PatientProfile from './PatientProfile';
-import OldTasksPage from './OldTasksPage';
-import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
-import AddPatient from './AddPatient';
+import React from "react";
+import Messages from "../Messaging/PractitionerMessaging";
+import PatientsView from "./CohortView";
+import ReviewPatients from "./ReviewPatients";
+import Settings from "./Settings/index";
+import PatientProfile from "./PatientProfile";
+import OldTasksPage from "./OldTasksPage";
+import { Switch, Route, Redirect, useLocation } from "react-router-dom";
+import AddPatient from "./AddPatient";
 
 const Routes = () => {
   const location = useLocation();
@@ -23,7 +23,7 @@ const Routes = () => {
       <Route path="/">
         <Redirect
           to={{
-            pathname: '/home/needs-review',
+            pathname: "/home/needs-review",
             state: { from: location },
           }}
         />

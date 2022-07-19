@@ -37,7 +37,7 @@ const useStyles = makeStyles({
 });
 
 
-const BottomBar = observer((props) => {
+const BottomBar = observer(() => {
     const { messagingStore, practitionerUIStore } = useStores();
     const classes = useStyles();
 
@@ -56,7 +56,6 @@ const BottomBar = observer((props) => {
                 <Badge color={"primary"} invisible={messagingStore.numberUnread < 1} badgeContent={messagingStore.numberUnread} >
                     <ForumIcon />
                 </Badge>} />
-            {/* <BottomNavigationAction onClick={practitionerUIStore.goToSettings} icon={<People />} /> */}
             <BottomNavigationAction id="intro-information-button" onClick={practitionerUIStore.goToSettings} icon={<InfoIcon />} />
         </BottomNavigation>
     );

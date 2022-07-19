@@ -1,101 +1,98 @@
-import { observable, action, computed } from 'mobx';
+import { observable, action, computed } from "mobx";
 
 //Extends this file https://github.com/alisd23/mobx-react-router/blob/master/src/store.js
 
 export default class PractitionerUIStore {
+  constructor(routerStore) {
+    this.router = routerStore;
+  }
 
-    constructor(routerStore) {
-        this.router = routerStore;
-    }
+  @observable alert = "";
 
-    @observable alert = "";
+  @observable onOnboarding = false;
+  @observable onAddPatientNote = false;
 
-    @observable onOnboarding = false;
-    @observable onAddPatientNote = false;
+  @observable settingsTab = "";
 
-    @observable settingsTab = ""
+  @computed get tabNumber() {
+    const splitPath = this.router.location.pathname.split("/");
 
-    @computed get tabNumber(){
-        const splitPath = this.router.location.pathname.split("/");
+    //Get the tab the user is one. ie. if on baseURL/home they are on the first tab
+    if (splitPath[1] === "home") return 0;
+    if (splitPath[1] === "patients") return 1;
+    if (splitPath[1] === "messaging") return 2;
+    if (splitPath[1] === "settings") return 3;
+    return 0;
+  }
 
-        //Get the tab the user is one. ie. if on baseURL/home they are on the first tab
-        if (splitPath[1] === "home") return 0
-        if (splitPath[1] === "patients") return 1
-        if (splitPath[1] === "messaging") return 2
-        if (splitPath[1] === "settings") return 3
-        return 0
-    }
+  @computed get onMessaging() {
+    return this.router.location.pathname.startsWith("/messaging");
+  }
 
-    @computed get onMessaging(){
-        return this.router.location.pathname.startsWith("/messaging")
-    }
+  @computed get onSettings() {
+    return this.router.location.pathname.startsWith("/settings");
+  }
 
-    @computed get onSettings(){
-        return this.router.location.pathname.startsWith("/settings")
-    }
+  @computed get onPatients() {
+    return this.router.location.pathname.startsWith("/patients");
+  }
 
-    @computed get onPatients(){
-        return this.router.location.pathname.startsWith("/patients")
-    }
+  @computed get pathNumber() {
+    const parts = this.router.location.pathname.split("/");
+    const parsed = parseInt(parts[parts.length - 1]);
+    return parsed ? parsed : 0;
+  }
 
-    @computed get pathNumber(){
-        const parts = this.router.location.pathname.split("/");
-        const parsed = parseInt(parts[parts.length - 1])
-        return parsed ? parsed : 0
-    }
+  @computed get onSinglePatient() {
+    return this.router.location.pathname.startsWith("/patients/");
+  }
 
-    @computed get onSinglePatient(){
-        return this.router.location.pathname.startsWith("/patients/")
-    }
+  @action goToPatient = (id) => {
+    this.router.push(`/patients/${id}`);
+  };
 
-    @action goToPatient = (id) =>{
-        this.router.push(`/patients/${id}`)
-    }
+  @action goToHome = () => {
+    this.router.push(`/home/needs-review`);
+  };
 
-    @action goToHome = () =>{
-        this.router.push(`/home`)
-    }
+  @action goToInfo = () => {
+    this.router.push(`/info`);
+  };
 
-    @action goToInfo = () =>{
-        this.router.push(`/info`)
-    }
+  @action goToChannel = (id) => {
+    this.router.push(`/messaging/channel/${id}`);
+    localStorage.setItem("lastChannelID", id);
+  };
 
-    @action goToChannel = (id) => {
-        this.router.push(`/messaging/channel/${id}`)
-        localStorage.setItem('lastChannelID',id)
-    }
+  @action goToMessaging = () => {
+    this.router.push(`/messaging`);
+  };
 
-    @action goToMessaging = () =>{
-        this.router.push(`/messaging`)
-    }
+  @action openAddPatientNote = () => {
+    this.onAddPatientNote = true;
+  };
 
-    @action openAddPatientNote = () => {
-        this.onAddPatientNote = true;
-    }
+  @action closeAddPatientNote = () => {
+    this.onAddPatientNote = false;
+  };
 
-    @action closeAddPatientNote =() => {
-        this.onAddPatientNote = false;
-    }
+  @computed get onReview() {
+    return this.router.location.pathname.startsWith("/review");
+  }
 
-    @computed get onReview(){
-        return this.router.location.pathname.startsWith("/review")
-    }
+  @action goToSettings = () => {
+    this.router.push("/settings");
+  };
 
-    @action goToSettings = () =>{
-        this.router.push('/settings')
-    }
+  @computed get mobileTabNumber() {
+    if (this.onSettings) return 2;
+    if (this.onMessaging) return 1;
+    return 0;
+  }
 
-    @computed get mobileTabNumber(){
-        if(this.onSettings) return 2
-        if(this.onMessaging) return 1
-        return 0
-    }
+  @action resetPath = () => {
+    this.router.push("/");
+  };
 
-    @action resetPath = () => {
-        this.router.push('/')
-    }
-
-    @action openNoteForSelectedPatient = (id) => {
-
-    }
+  @action openNoteForSelectedPatient = (id) => {};
 }
