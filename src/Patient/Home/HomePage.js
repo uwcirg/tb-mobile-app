@@ -11,13 +11,8 @@ import RequiresAction from "./MissedActions";
 import PushNotificationEnrollment from "./PushEnrollmentReminder";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
-import ViewAppointments from "../../Components/Shared/Appointments/ViewAppointments";
-import { observer } from "mobx-react";
-import useStores from "../../Basics/UseStores";
-import { useTranslation } from "react-i18next";
-import HomePageSection from "../../Basics/HomePageSection";
-import { Event } from "@material-ui/icons";
 import NextAppointment from "./NextAppointment";
+import isIndonesiaPilot from "../../Utility/check-indonesia-flag";
 
 const useStyles = makeStyles({
   body: {
@@ -41,7 +36,7 @@ const HomePage = () => {
         <OneStepActions />
         <CachedReports />
         <RequiresAction />
-        <VideoCard />
+        {!isIndonesiaPilot() && <VideoCard />}
         <Alerts />
         <Progress />
         <MedicationReminder />
