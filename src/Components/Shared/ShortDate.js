@@ -22,13 +22,13 @@ const useStyles = makeStyles({
 export default function ShortDate({ date }) {
 
     const classes = useStyles();
-    const parsed = DateTime.fromISO(date)
+    const parsed = DateTime.fromISO(date).plus({months: 3})
 
     return (<Box>
         <Grid container direction='column' alignItems='center' justify='center' className={classes.date}>
-            <Typography className={classes.day}>{parsed.day}</Typography>
+            <Typography className={classes.day}>{parsed.toLocaleString({day: "numeric"})}</Typography>
             <Box height="5px" />
-            <Typography className={classes.month}>{parsed.monthShort}</Typography>
+            <Typography className={classes.month}>{parsed.toLocaleString({month: "short"})}</Typography>
         </Grid>
     </Box>)
 }
