@@ -1084,6 +1084,9 @@
         "supportRequests": "Support Requests"
     },
     "reviewIssues":{
+        "issues": "Issues",
+        "reviewed": "Reviewed",
+        "unreviewed": "Unreviewed",
         "submitted": "Review Submitted",
         "review": "Review",
         "reviewBefore": "Please review the photos before marking this patient as reviewed",
