@@ -458,7 +458,7 @@
             "infoSection": "Informasi mengenai pengobatan TBC",
             "launchWalkthrough": "Menampilkan Tutorial",
             "video": "Tonton Video",
-            "videos": "VIdeo mengenai pengobatan",
+            "videos": "Video mengenai pengobatan",
             "helpVideos": "Video instruksi",
             "techSupport": "Dukungan teknis",
             "reportIssue": "Laporkan masalah",
@@ -572,7 +572,7 @@
     },
     "milestones": {
         "titles": {
-            "sputumTest": " Sputum tes",
+            "sputumTest": " Tes sputum",
             "intensivePhase": "Akhir dari Fase Intensive",
             "testingFU": "Tes selanjutnya",
             "appointmentFU": "Jadwal kunjungan selanjutnya",
@@ -1084,6 +1084,9 @@
         "supportRequests": "Butuh bantuan"
     },
     "reviewIssues":{
+        "issues": "Masalah-masalah",
+        "reviewed": "Telah ditinjau",
+        "unreviewed": "Belum ditinjau",
         "submitted": "Meninjau hasil yang dikirim",
         "review": "Tinjau",
         "reviewBefore": "Harap tinjau foto sebelum menandai pasien ini sebagai yang telah ditinjau",
