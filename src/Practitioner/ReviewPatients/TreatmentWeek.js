@@ -12,6 +12,7 @@ const Container = styled(Box)({
   minWidth: "3 0px",
   textAlign: "center",
   "& p": { fontSize: ".85em" },
+  textTransform: "capitalize"
 });
 
 const TreatmentWeek = ({ patient }) => {
