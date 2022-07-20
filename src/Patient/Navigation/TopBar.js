@@ -12,6 +12,7 @@ import Colors from "../../Basics/Colors";
 import Settings from "@material-ui/icons/Settings";
 import useStores from "../../Basics/UseStores";
 import { Link } from "react-router-dom";
+import isIndonesiaPilot from "../../Utility/check-indonesia-flag";
 
 const useStyles = makeStyles({
   personIcon: {
@@ -52,7 +53,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ArLogo = () => {
+const ArLogo = observer(() => {
   const { uiStore } = useStores();
   const classes = useStyles();
   return (
@@ -66,6 +67,11 @@ const ArLogo = () => {
       />
     </>
   );
+});
+
+const IdLogo = () => {
+  const classes = useStyles();
+  return <img className={classes.logo} src="/logo/id/main.png" />;
 };
 
 const TopBar = observer(() => {
@@ -78,7 +84,7 @@ const TopBar = observer(() => {
       color={!uiStore.offline ? "secondary" : "primary"}
     >
       <Toolbar>
-        <ArLogo />
+        {isIndonesiaPilot() ? <IdLogo /> : <ArLogo />}
         <GetTitle />
         <IconButton
           component={Link}
