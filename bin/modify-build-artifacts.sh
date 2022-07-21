@@ -9,7 +9,7 @@ EOF
 echo "Script ls"
 ls
 
-echo "Arg ls"
-ls $1
+echo "Build ls"
+ls ./build
 
-perl -pi -w -e "$REPLACE_REGEX" $1/index.html
+perl -pi -w -e "$REPLACE_REGEX" build/index.html
