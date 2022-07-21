@@ -6,10 +6,8 @@ s|%HTML_APP_TITLE%|${HTML_APP_TITLE:-Treatment Assistant}|g;
 EOF
 )
 
-echo "Script ls"
-ls
+echo "Manifest env var"
+echo "$MANIFEST_ICONS_FOLDER"
 
-echo "Build ls"
-ls ./build
 
-perl -pi -w -e "$REPLACE_REGEX" build/index.html
+perl -pi -w -e "$REPLACE_REGEX" $1/index.html
