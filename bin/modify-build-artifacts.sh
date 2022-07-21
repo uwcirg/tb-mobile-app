@@ -6,8 +6,5 @@ s|%HTML_APP_TITLE%|${HTML_APP_TITLE:-Treatment Assistant}|g;
 EOF
 )
 
-echo "Manifest env var"
-echo "$MANIFEST_ICONS_FOLDER"
-
 
 perl -pi -w -e "$REPLACE_REGEX" $1/index.html

@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
+import isIndonesiaPilot from '../Utility/check-indonesia-flag';
 
 const AppLogo = (props) => {
   const { t } = useTranslation('translation');
@@ -8,7 +9,7 @@ const AppLogo = (props) => {
 
   return (
     <Title className={props.className}>
-      <img src={`${BASE_URL}/${props.white ? "logo-white.png" : "logo.png"}`}></img>
+      {isIndonesiaPilot() ? <img src="/logo/id/main.png" /> : <img src={`${BASE_URL}/${props.white ? "logo-white.png" : "logo.png"}`}></img>}
       <h1>{t("title")}</h1>
     </Title>
   )
