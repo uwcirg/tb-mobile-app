@@ -6,4 +6,10 @@ s|%HTML_APP_TITLE%|${HTML_APP_TITLE:-Treatment Assistant}|g;
 EOF
 )
 
+echo "Script ls"
+ls
+
+echo "Arg ls"
+ls $1
+
 perl -pi -w -e "$REPLACE_REGEX" $1/index.html
