@@ -1,7 +1,7 @@
 #!/bin/sh
 
 REPLACE_REGEX=$(cat <<EOF
-s|%MANIFEST_ICONS_FOLDER%|${MANIFEST_ICONS_FOLDER:-/logo}|g;
+s|%MANIFEST_ICONS_FOLDER%|${MANIFEST_ICONS_FOLDER:-/logo/ar}|g;
 s|%HTML_APP_TITLE%|${HTML_APP_TITLE:-Treatment Assistant}|g;
 EOF
 )
