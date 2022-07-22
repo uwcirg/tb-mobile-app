@@ -4,10 +4,10 @@ import Colors from "../../Basics/Colors";
 
 const useStyles = makeStyles({
   input: {
-    backgroundColor: Colors.gray,
+    backgroundColor: Colors.lightgray,
     borderRadius: "18px",
-    border: "none"
-  }
+    border: "none",
+  },
 });
 
 export default function Input(props) {
@@ -19,12 +19,15 @@ export default function Input(props) {
       fullWidth
       size="small"
       className={classes.input}
-      InputProps={{ disableUnderline: true, style: { padding: ".25rem 1rem" } }}
+      InputProps={{
+        disableUnderline: true,
+        style: { padding: ".5rem 1rem" },
+      }}
       variant="standard"
     />
   );
 }
 
 Input.propTypes = {
-    ...TextField.propTypes
-}
+  ...TextField.propTypes,
+};
