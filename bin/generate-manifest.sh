@@ -7,13 +7,13 @@ cat <<EOF
   "theme_color": "white",
   "icons": [
     {
-      "src": "logo/manifest-icon-192.png",
+      "src": "${MANIFEST_ICONS_FOLDER:-/logo/ar}/manifest-icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "logo/manifest-icon-512.png",
+      "src": "${MANIFEST_ICONS_FOLDER:-/logo/ar}/manifest-icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable any"
