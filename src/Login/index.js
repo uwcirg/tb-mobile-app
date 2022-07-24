@@ -28,14 +28,10 @@ const Login = observer(() => {
     }
   };
 
-  if (isIndonesiaPilot()) {
-    return <PapuaLogin />;
-  }
-
   return (
     <>
       <DemoWarning />
-      <LoginRouter />
+      {isIndonesiaPilot() ? <PapuaLogin /> : <LoginRouter />}
       <VersionNumber isLoginScreen />
       {loginStore.error != 0 && (
         <Alert open text={errorText()} onClose={loginStore.clearError} />

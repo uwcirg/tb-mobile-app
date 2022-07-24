@@ -19,6 +19,7 @@ export default class LoginStore extends APIStore {
   //@observable selectedUserType = "";
   @observable userType = "";
   @observable error = 0;
+  @observable loading = false;
 
   @observable identifier = "";
   @observable password = "";
@@ -139,7 +140,9 @@ export default class LoginStore extends APIStore {
       [isEmail ? "email" : "phoneNumber"]: this.identifier,
     };
 
+    this.loading = true;
     return this.executeRequest("login", body).then((response) => {
+      this.loading = false;
       if (response.status > 400) {
         this.error = response.status;
         return;
