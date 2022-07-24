@@ -6,8 +6,11 @@ const useStyles = makeStyles({
   input: {
     backgroundColor: Colors.lightgray,
     borderRadius: "18px",
-    border: "none",
+    border: "solid 1px lightgray",
   },
+  label:{
+      color: "black"
+  }
 });
 
 export default function Input(props) {
@@ -19,9 +22,15 @@ export default function Input(props) {
       fullWidth
       size="small"
       className={classes.input}
+      InputLabelProps={{
+        className: classes.label
+      }
+      }
       InputProps={{
         disableUnderline: true,
-        style: { padding: ".5rem 1rem" },
+        style: {
+          padding: ".5rem 1rem"
+        },
       }}
       variant="standard"
     />

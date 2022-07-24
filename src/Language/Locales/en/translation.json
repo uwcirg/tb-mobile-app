@@ -39,7 +39,8 @@
         "successMessage": "Successfully Updated",
         "errorMessage": "An error has occured. Please try again later.",
         "atTime": "a las",
-        "loadMore": "load more"
+        "loadMore": "load more",
+        "back": "back"
     },
     "userTypes": {
         "patient": "Patient",
