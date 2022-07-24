@@ -2,7 +2,14 @@ import { Box, Button, Grid } from "@material-ui/core";
 import { observer } from "mobx-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Link, Redirect, Route, Switch } from "react-router-dom";
+import {
+  Link,
+  Redirect,
+  Route,
+  Switch,
+  useHistory,
+  useLocation,
+} from "react-router-dom";
 import useStores from "../../Basics/UseStores";
 import Loading from "../../Practitioner/Shared/Loading";
 import ForgotPassword from "../ForgotPassword";
@@ -13,6 +20,8 @@ import UserSelect from "./UserSelect";
 
 const PapuaLogin = () => {
   const { t } = useTranslation("translation");
+  const location = useLocation();
+
   return (
     <Box minHeight="60vh" padding="2rem">
       <Grid
@@ -32,9 +41,9 @@ const PapuaLogin = () => {
               />
             </Grid>
           </Box>
+          <BackButton hidden={location.pathname === "/login"} />
           <Switch>
             <Route path="/login/forgot-password">
-              <BackButton />
               {t("login.forgotPasswordDetails")}
             </Route>
             <Route path="/login/patient">
@@ -57,6 +66,5 @@ const PapuaLogin = () => {
     </Box>
   );
 };
-
 
 export default PapuaLogin;

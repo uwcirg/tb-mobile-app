@@ -11,13 +11,13 @@ const SelectButton = withStyles({
     justifyContent: "flex-start",
     backgroundColor: Colors.papuaGreen,
     color: "white",
-    borderRadius: "18px"
+    borderRadius: "18px",
   },
 })(ButtonBase);
 
 export default function UserSelect({ isProvider }) {
   const { t } = useTranslation("translation");
-  const icon = isProvider ? <AccountBox /> : <SupervisorAccount />;
+  const icon = isProvider ? <SupervisorAccount /> : <AccountBox />;
 
   return (
     <SelectButton

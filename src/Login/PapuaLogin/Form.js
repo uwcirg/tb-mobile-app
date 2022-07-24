@@ -11,6 +11,7 @@ import Loading from "../../Practitioner/Shared/Loading";
 const Form = observer(() => {
   const { loginStore } = useStores();
   const { t } = useTranslation();
+
   return (
     <Grid container spacing={1}>
       <Grid xs={12} item>
@@ -50,7 +51,6 @@ const Form = observer(() => {
         >
           {t("login.logIn")}
         </Button>
-        <BackButton />
         {loginStore.loading && <Loading />}
       </Grid>
     </Grid>
