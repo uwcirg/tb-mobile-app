@@ -16,11 +16,11 @@ const Form = observer(({ isProvider, isActivation }) => {
     loginStore.setPassword(change.toUpperCase());
   };
 
-  useEffect(()=>{
-    return function cleanup(){
-        loginStore.resetCredentials();
-    }
-  },[])
+  useEffect(() => {
+    return function cleanup() {
+      loginStore.resetCredentials();
+    };
+  }, []);
 
   return (
     <form>
@@ -87,8 +87,8 @@ const LoginButton = withStyles({
 const WrappedGrid = ({ children }) => {
   return (
     <Grid container spacing={1}>
-      {children.map((child) => (
-        <Grid item xs={12}>
+      {children.map((child, index) => (
+        <Grid key={`form-item-${index}`} item xs={12}>
           {child}
         </Grid>
       ))}
