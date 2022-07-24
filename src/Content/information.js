@@ -211,11 +211,6 @@ const idPatientContent = [
         page: <StaticVersion />,
       },
       {
-        translationKey: "patient.information.reportIssue",
-        href: "https://forms.gle/gZHLZ4CGJT2J1V6p7",
-        icon: <FeedbackRounded />,
-      },
-      {
         translationKey: "notificationInstructions.steps.title",
         to: "/information/notification-instructions",
         icon: <Notifications />,
