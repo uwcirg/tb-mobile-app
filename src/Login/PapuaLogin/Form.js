@@ -1,4 +1,4 @@
-import { Button, Grid } from "@material-ui/core";
+import { Button, Grid, withStyles } from "@material-ui/core";
 import { observer } from "mobx-react";
 import React from "react";
 import useStores from "../../Basics/UseStores";
@@ -35,24 +35,27 @@ const Form = observer(({ isProvider, isActivation }) => {
         type="password"
         placeholder={t("login.password").toLowerCase()}
       />
-      <Button
+      <LoginButton
         onClick={loginStore.submitCombinedLogin}
-        style={{
-          borderRadius: "18px",
-          backgroundColor: Colors.papuaGreen,
-          color: "white",
-          minHeight: "45px",
-        }}
         fullWidth
         disableElevation
         variant="contained"
       >
         {t("login.logIn")}
-      </Button>
+      </LoginButton>
       {loginStore.loading && <Loading />}
     </WrappedGrid>
   );
 });
+
+const LoginButton = withStyles({
+  root: {
+    borderRadius: "18px",
+    backgroundColor: Colors.papuaGreen,
+    color: "white",
+    minHeight: "45px",
+  },
+})(Button);
 
 const WrappedGrid = ({ children }) => {
   return (
