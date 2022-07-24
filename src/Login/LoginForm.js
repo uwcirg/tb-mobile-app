@@ -10,7 +10,7 @@ import ReactCodeInput from 'react-code-input';
 import ButtonBase from '@material-ui/core/ButtonBase'
 import { makeStyles } from '@material-ui/core';
 
-const LoginForm = observer((props) => {
+const LoginForm = observer(() => {
 
   const [onActivation, setOnActivation] = useState(false)
   const { t } = useTranslation('translation');
