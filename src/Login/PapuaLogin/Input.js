@@ -27,6 +27,7 @@ export default function Input(props) {
       }
       }
       InputProps={{
+        ...props.InputProps,
         disableUnderline: true,
         style: {
           padding: ".5rem 1rem"

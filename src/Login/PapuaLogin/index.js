@@ -50,7 +50,7 @@ const PapuaLogin = () => {
               <Form />
             </Route>
             <Route path="/login/provider">
-              <Form />
+              <Form isProvider />
             </Route>
             <Route path="/login">
               <Box>

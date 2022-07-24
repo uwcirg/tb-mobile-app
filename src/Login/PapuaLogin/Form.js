@@ -2,13 +2,12 @@ import { Button, Grid } from "@material-ui/core";
 import { observer } from "mobx-react";
 import React from "react";
 import useStores from "../../Basics/UseStores";
-import BackButton from "./BackButton";
 import Input from "./Input";
 import { useTranslation } from "react-i18next";
 import Colors from "../../Basics/Colors";
 import Loading from "../../Practitioner/Shared/Loading";
 
-const Form = observer(() => {
+const Form = observer(({ isProvider }) => {
   const { loginStore } = useStores();
   const { t } = useTranslation();
 
@@ -20,14 +19,18 @@ const Form = observer(() => {
             loginStore.setIdentifier(e.target.value);
           }}
           value={loginStore.identifier}
-          type="text"
-          placeholder={`${t("login.phoneNumber")} / ${t(
-            "login.email"
-          )}`.toLowerCase()}
+          autoComplete="username"
+          InputProps={!isProvider ? {inputMode: 'numeric'} : {}}
+          placeholder={
+            isProvider
+              ? t("login.email").toLowerCase()
+              : t("login.phoneNumber").toLowerCase()
+          }
         />
       </Grid>
       <Grid xs={12} item>
         <Input
+          autoComplete="password"
           onChange={(e) => {
             loginStore.setPassword(e.target.value);
           }}
