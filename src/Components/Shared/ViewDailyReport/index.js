@@ -44,7 +44,7 @@ const DailyReport = ({ report, date }) => {
 
     const { t } = useTranslation('translation');
 
-    if (!report) return (<Typography>There was no report on {date}</Typography>);
+    if (!report) return (<Typography>{t('patient.progress.noReport')}: {date}</Typography>);
 
     const { whyMedicationNotTaken, medicationWasTaken, photoWasRequired, symptoms, createdAt, doingOkay, doingOkayReason, photoUrl, whyPhotoWasSkipped } = report;
     const hadSymptoms = symptoms.length !== 0;
