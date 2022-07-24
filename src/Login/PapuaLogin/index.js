@@ -1,25 +1,49 @@
-import { Box, Button, Grid } from "@material-ui/core";
-import { observer } from "mobx-react";
 import React from "react";
+import { Box, Grid, makeStyles, Typography } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import {
-  Link,
-  Redirect,
-  Route,
-  Switch,
-  useHistory,
-  useLocation,
-} from "react-router-dom";
-import useStores from "../../Basics/UseStores";
-import Loading from "../../Practitioner/Shared/Loading";
-import ForgotPassword from "../ForgotPassword";
+import { Link, Redirect, Route, Switch, useLocation } from "react-router-dom";
 import BackButton from "./BackButton";
 import Form from "./Form";
-import Input from "./Input";
 import UserSelect from "./UserSelect";
+import Colors from "../../Basics/Colors";
+import { ChevronRight } from "@material-ui/icons";
+import capitalizeFirstLetter from "../../Utility/StringUtils";
+
+const useStyles = makeStyles({
+  link: {
+    textDecoration: "none",
+    color: Colors.buttonBlue,
+  },
+});
+
+const ActivationLink = () => {
+  const { t } = useTranslation();
+  const classes = useStyles();
+  return (
+    <Link className={classes.link} to="/login/patient/activate">
+      <Grid container alignItems="center">
+        {capitalizeFirstLetter(t("login.activateAccount").toLowerCase())}
+        <ChevronRight />
+      </Grid>
+    </Link>
+  );
+};
+
+const ForgotPassword = () => {
+  const { t } = useTranslation();
+  const classes = useStyles();
+  return (
+    <Link className={classes.link} to="/login/forgot-password">
+      <Grid container alignItems="center">
+        {capitalizeFirstLetter(t("login.forgotPassword").toLowerCase())}
+        <ChevronRight />
+      </Grid>
+    </Link>
+  );
+};
 
 const PapuaLogin = () => {
-  const { t } = useTranslation("translation");
+  const { t } = useTranslation();
   const location = useLocation();
 
   return (
@@ -44,10 +68,19 @@ const PapuaLogin = () => {
           <BackButton hidden={location.pathname === "/login"} />
           <Switch>
             <Route path="/login/forgot-password">
-              {t("login.forgotPasswordDetails")}
+              <Typography variant="body1">
+                {t("login.forgotPasswordDetails")}
+              </Typography>
+            </Route>
+            <Route path="/login/patient/activate">
+              <Form isActivation />
             </Route>
             <Route path="/login/patient">
               <Form />
+              <Box height="1rem" />
+              <ActivationLink />
+              <Box height="1rem" />
+              <ForgotPassword />
             </Route>
             <Route path="/login/provider">
               <Form isProvider />

@@ -152,4 +152,9 @@ export default class LoginStore extends APIStore {
       this.goHome();
     });
   };
+
+  @action resetCredentials = () => {
+    this.password = "";
+    this.identifier = "";
+  }
 }
