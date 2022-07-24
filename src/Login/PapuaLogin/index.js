@@ -46,7 +46,7 @@ const PapuaLogin = () => {
             <Route path="/login">
               <Box>
                 <UserSelect />
-                <Box height="1rem" />
+                <Box height=".5rem" />
                 <UserSelect isProvider />
               </Box>
             </Route>

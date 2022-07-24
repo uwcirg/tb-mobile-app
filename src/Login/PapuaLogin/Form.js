@@ -6,6 +6,7 @@ import BackButton from "./BackButton";
 import Input from "./Input";
 import { useTranslation } from "react-i18next";
 import Colors from "../../Basics/Colors";
+import Loading from "../../Practitioner/Shared/Loading";
 
 const Form = observer(() => {
   const { loginStore } = useStores();

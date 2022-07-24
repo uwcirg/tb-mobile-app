@@ -34,7 +34,12 @@ const Login = observer(() => {
       {isIndonesiaPilot() ? <PapuaLogin /> : <LoginRouter />}
       <VersionNumber isLoginScreen />
       {loginStore.error != 0 && (
-        <Alert open text={errorText()} onClose={loginStore.clearError} />
+        <Alert
+          position="bottom"
+          open
+          text={errorText()}
+          onClose={loginStore.clearError}
+        />
       )}
     </>
   );
