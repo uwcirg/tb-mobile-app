@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 export default function ShortDate({ date }) {
 
     const classes = useStyles();
-    const parsed = DateTime.fromISO(date).plus({months: 3})
+    const parsed = DateTime.fromISO(date)
 
     return (<Box>
         <Grid container direction='column' alignItems='center' justify='center' className={classes.date}>
