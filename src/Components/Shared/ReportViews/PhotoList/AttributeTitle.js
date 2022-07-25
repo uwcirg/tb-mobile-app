@@ -7,7 +7,8 @@ const useStyles = makeStyles({
   root: {
     textTransform: "capitalize",
     fontWeight: "500",
-    color: Colors.textDarkGray
+    color: Colors.textDarkGray,
+    marginBottom: ".5rem"
   },
 });
 
