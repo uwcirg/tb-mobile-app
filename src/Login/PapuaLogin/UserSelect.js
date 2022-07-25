@@ -7,6 +7,7 @@ import Colors from "../../Basics/Colors";
 
 const SelectButton = withStyles({
   root: {
+    width: "100%",
     display: "flex",
     justifyContent: "flex-start",
     backgroundColor: Colors.papuaGreen,

@@ -53,18 +53,17 @@ const PapuaLogin = () => {
         container
         direction="column"
         justify="center"
+        alignItems="center"
       >
-        <Box>
-          <Box padding="2rem 0">
-            <Grid container alignItems="center" direction="column">
-              <img
-                src="/img/id/login-logo.png"
-                style={{ objectFit: "contain" }}
-                height="100px"
-                width="200px"
-              />
-            </Grid>
-          </Box>
+        <Box width="250px" padding="2rem">
+          <Grid container alignItems="center" direction="column">
+            <img
+              src="/img/id/login-logo.png"
+              style={{ objectFit: "contain" }}
+              height="100px"
+              width="200px"
+            />
+          </Grid>
           <BackButton hidden={location.pathname === "/login"} />
           <Switch>
             <Route path="/login/forgot-password">

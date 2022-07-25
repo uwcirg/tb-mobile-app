@@ -18,7 +18,7 @@ export default function BackButton({ hidden }) {
   const { t } = useTranslation("translation");
   const classes = useStyles();
   return (
-    <Box minHeight="2rem">
+    <Box height="4rem" display="flex" alignItems="center">
       <Link className={classes.link} hidden={hidden} to="/login">
         <Grid container alignItems="center">
           <ChevronLeft />
