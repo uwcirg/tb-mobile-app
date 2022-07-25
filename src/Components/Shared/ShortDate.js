@@ -24,8 +24,6 @@ export default function ShortDate({ date }) {
   const parsed = DateTime.fromISO(date).plus({ months: 3 });
   const normal = DateTime.fromISO(date);
 
-  console.log(date);
-
   return (
     <Box>
       <Grid

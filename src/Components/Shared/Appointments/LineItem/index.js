@@ -33,8 +33,6 @@ const LineItem = ({ reminder, showMenu, isNextAppointment, handleRefresh }) => {
     }
   }, [status]);
 
-  console.log(date);
-
   return (
     <Box padding="8px">
       <Grid container wrap="nowrap" alignItems="flex-start">
@@ -50,7 +48,15 @@ const LineItem = ({ reminder, showMenu, isNextAppointment, handleRefresh }) => {
         >
           <Grid alignItems="center" container>
             <span style={{ fontWeight: '450' }} className="title">
-              {reminder.title ||
+              {(reminder.title !== '' && (
+                <>
+                  {reminder.title?.length > 15
+                    ? reminder.title?.slice(0, 15) + '...'
+                    : reminder.title}{' '}
+                  {'@ '}
+                  {date.toLocaleString(DateTime.TIME_SIMPLE)}
+                </>
+              )) ||
                 (reminder.category && (
                   <>
                     {t(`appointments.types.${reminder.category}`)} {'@ '}
