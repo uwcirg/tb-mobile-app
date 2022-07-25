@@ -1,19 +1,19 @@
-import React, { useEffect } from "react";
-import { DateTime } from "luxon";
-import { useTranslation } from "react-i18next";
-import Options from "./Menu";
-import { Box, Grid, makeStyles } from "@material-ui/core";
-import Styles from "../../../../Basics/Styles";
-import Colors from "../../../../Basics/Colors";
-import Tag from "../../../Tag";
+import React, { useEffect } from 'react';
+import { DateTime } from 'luxon';
+import { useTranslation } from 'react-i18next';
+import Options from './Menu';
+import { Box, Grid, makeStyles } from '@material-ui/core';
+import Styles from '../../../../Basics/Styles';
+import Colors from '../../../../Basics/Colors';
+import Tag from '../../../Tag';
 
-import useAsyncWithParams from "../../../../Hooks/useAsyncWithParams";
-import SharedAPI from "../../../../API/SharedAPI";
-import ShortDate from "../../ShortDate";
+import useAsyncWithParams from '../../../../Hooks/useAsyncWithParams';
+import SharedAPI from '../../../../API/SharedAPI';
+import ShortDate from '../../ShortDate';
 
 const LineItem = ({ reminder, showMenu, isNextAppointment, handleRefresh }) => {
   const date = DateTime.fromISO(reminder.datetime);
-  const { t } = useTranslation("translation");
+  const { t } = useTranslation('translation');
 
   const {
     execute: handleDelete,
@@ -27,11 +27,13 @@ const LineItem = ({ reminder, showMenu, isNextAppointment, handleRefresh }) => {
   });
 
   useEffect(() => {
-    if (status === "success") {
+    if (status === 'success') {
       handleRefresh();
       reset();
     }
   }, [status]);
+
+  console.log(date);
 
   return (
     <Box padding="8px">
@@ -47,11 +49,11 @@ const LineItem = ({ reminder, showMenu, isNextAppointment, handleRefresh }) => {
           borderLeft={`solid 2px ${Colors.lightgray}`}
         >
           <Grid alignItems="center" container>
-            <span style={{ fontWeight: "450" }} className="title">
+            <span style={{ fontWeight: '450' }} className="title">
               {reminder.title ||
                 (reminder.category && (
                   <>
-                    {t(`appointments.types.${reminder.category}`)} {"@ "}
+                    {t(`appointments.types.${reminder.category}`)} {'@ '}
                     {date.toLocaleString(DateTime.TIME_SIMPLE)}
                   </>
                 ))}
@@ -69,11 +71,11 @@ const LineItem = ({ reminder, showMenu, isNextAppointment, handleRefresh }) => {
           {isNextAppointment && (
             <Box paddingTop=".25rem">
               <Tag backgroundColor={Colors.calendarGreen}>
-                {t("appointments.nextAppointment")}
+                {t('appointments.nextAppointment')}
               </Tag>
             </Box>
           )}
-          <span style={{ fontSize: ".85rem", paddingTop: ".25rem" }}>
+          <span style={{ fontSize: '.85rem', paddingTop: '.25rem' }}>
             {reminder.note}
           </span>
         </Box>

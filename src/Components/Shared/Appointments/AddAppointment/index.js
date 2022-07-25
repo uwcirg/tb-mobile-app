@@ -12,6 +12,7 @@ import Loading from '../../../../Practitioner/Shared/CardLoading';
 
 const initialState = {
   category: '',
+  otherCategory: '',
   time: null,
   note: '',
   datetime: DateTime.local().toISO(),
