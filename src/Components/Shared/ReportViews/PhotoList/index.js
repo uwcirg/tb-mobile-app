@@ -6,8 +6,10 @@ import ReportContainer from "../ReportContainer";
 import { useTranslation } from "react-i18next";
 import Colors from "../../../../Basics/Colors";
 import LoadS3Image from "../../LoadS3Image";
-import { Label } from "@material-ui/icons";
+import { Check, CheckCircle, HighlightOff, Label } from "@material-ui/icons";
 import Tag from "../../../Tag";
+import AttributeTitle from "./AttributeTitle";
+import Result from "./Result";
 
 export default function PhotoList({ photoDays, reportsHash }) {
   const { t } = useTranslation("translation");
@@ -23,6 +25,7 @@ export default function PhotoList({ photoDays, reportsHash }) {
   return (
     <Box padding="16px">
       {toShow.map((date) => {
+        const approvalStatus = reportsHash[date]?.photoDetails?.approvalStatus;
         const reported = reportsHash[date]?.status?.photoReport;
         const photoDetails = {
           url: reportsHash[date]?.photoUrl,
@@ -34,7 +37,7 @@ export default function PhotoList({ photoDays, reportsHash }) {
             to={`?date=${date}`}
             disabled={!reported}
           >
-            <Grid container>
+            <Grid container alignItems="flex-start">
               <Box
                 bgcolor={reported ? Colors.calendarGreen : Colors.calendarRed}
                 borderRadius="4px"
@@ -50,10 +53,19 @@ export default function PhotoList({ photoDays, reportsHash }) {
                 )}
 
                 {photoDetails.url && (
-                  <LoadS3Image
-                    style={{ width: "100px" }}
-                    photo={photoDetails}
-                  />
+                  <Box borderLeft="1px solid lightgray" paddingLeft="8px">
+                    <AttributeTitle>
+                      {t("commonWords.stripPhoto")}:
+                    </AttributeTitle>
+                    <LoadS3Image
+                      style={{ width: "100px" }}
+                      photo={photoDetails}
+                    />
+                    <AttributeTitle>
+                      {t("photoReportReview.result")}:
+                    </AttributeTitle>
+                    <Result result={approvalStatus} />
+                  </Box>
                 )}
               </Box>
             </Grid>
