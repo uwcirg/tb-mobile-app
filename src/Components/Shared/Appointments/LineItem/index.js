@@ -48,7 +48,7 @@ const LineItem = ({ reminder, showMenu, isNextAppointment, handleRefresh }) => {
         >
           <Grid alignItems="center" container>
             <span style={{ fontWeight: '450' }} className="title">
-              {(reminder.title !== '' && (
+              {(reminder.title !== '' && reminder.title !== null && (
                 <>
                   {reminder.title?.length > 15
                     ? reminder.title?.slice(0, 15) + '...'

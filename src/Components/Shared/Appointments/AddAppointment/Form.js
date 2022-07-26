@@ -50,7 +50,7 @@ export default function Form({ state, setState, handleSubmit }) {
         />
       </Section>
       {state.category === 'other' && (
-        <Section title={t('appointments.select')}>
+        <Section title={t('appointments.otherType')}>
           <TextField
             value={state.otherCategory}
             onChange={(e) => {
