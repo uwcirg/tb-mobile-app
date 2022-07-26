@@ -53,16 +53,13 @@ const LineItem = ({ reminder, showMenu, isNextAppointment, handleRefresh }) => {
                   {reminder.title?.length > 15
                     ? reminder.title?.slice(0, 15) + '...'
                     : reminder.title}{' '}
-                  {'@ '}
-                  {date.toLocaleString(DateTime.TIME_SIMPLE)}
                 </>
               )) ||
                 (reminder.category && (
-                  <>
-                    {t(`appointments.types.${reminder.category}`)} {'@ '}
-                    {date.toLocaleString(DateTime.TIME_SIMPLE)}
-                  </>
+                  <>{t(`appointments.types.${reminder.category}`)} </>
                 ))}
+              {'@ '}
+              {date.toLocaleString(DateTime.TIME_SIMPLE)}
             </span>
             <Box flex="1" />
             <Box width=".5rem" />
