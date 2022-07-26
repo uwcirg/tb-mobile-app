@@ -37,8 +37,6 @@ export default function Form({ state, setState, handleSubmit }) {
     setState({ ...state, datetime: tempDT.toISO() });
   };
 
-  console.log(state.datetime);
-
   return (
     <Box padding="16px 8px">
       <Section title={t('appointments.typeQuestion')}>

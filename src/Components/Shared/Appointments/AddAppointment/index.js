@@ -15,8 +15,8 @@ const initialState = {
   otherCategory: '',
   time: null,
   note: '',
-  datetime: DateTime.local().toISO(),
-  tempDatetime: DateTime.local().toISO(),
+  datetime: DateTime.local().endOf('hour').plus(1).toISO(),
+  tempDatetime: DateTime.local().endOf('hour').toISO(),
 };
 
 export default function AddAppointment({ patientId }) {
