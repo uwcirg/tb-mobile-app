@@ -21,8 +21,7 @@ const useStyles = makeStyles({
 //Expects an ISO Date
 export default function ShortDate({ date }) {
   const classes = useStyles();
-  const parsed = DateTime.fromISO(date).plus({ months: 3 });
-  const normal = DateTime.fromISO(date);
+  const parsedDate = DateTime.fromISO(date);
 
   return (
     <Box>
@@ -34,11 +33,11 @@ export default function ShortDate({ date }) {
         className={classes.date}
       >
         <Typography className={classes.day}>
-          {normal.toLocaleString({ day: "numeric" })}
+          {parsedDate.toLocaleString({ day: "numeric" })}
         </Typography>
         <Box height="5px" />
         <Typography className={classes.month}>
-          {normal.toLocaleString({ month: "short" })}
+          {parsedDate.toLocaleString({ month: "short" })}
         </Typography>
       </Grid>
     </Box>
