@@ -7,6 +7,7 @@ import Result from "./Result";
 import ReportContainer from "../ReportContainer";
 import ShortDate from "../../ShortDate";
 import { useTranslation } from "react-i18next";
+import { ChevronRight } from "@material-ui/icons";
 
 export default function SingleDay({ date, report }) {
   const { t } = useTranslation("translation");
@@ -22,30 +23,45 @@ export default function SingleDay({ date, report }) {
       to={`?date=${date}`}
       disabled={!reported}
     >
-      <Grid container alignItems="flex-start">
+      <Grid container>
         <Box
+          alignSelf="flex-start"
           bgcolor={reported ? Colors.calendarGreen : Colors.calendarRed}
           borderRadius="4px"
           padding=".5em"
         >
           <ShortDate date={date} />
         </Box>
-        <Box padding="0 8px">
+        <Box borderLeft="1px solid lightgray" padding="0 8px" margin="0 8px">
           {!reported && (
-            <Typography variant="body2">
-              {t("report.missedPhotoShort")}
-            </Typography>
+            <>
+              <AttributeTitle>
+                {t("coordinator.patientProfile.adherenceSection.didntReport")}
+              </AttributeTitle>
+              <Typography variant="body2">
+                {t("patient.progress.noReport")}
+              </Typography>
+            </>
           )}
-
           {photoDetails.url && (
-            <Box borderLeft="1px solid lightgray" paddingLeft="8px">
+            <>
               <AttributeTitle>{t("commonWords.stripPhoto")}:</AttributeTitle>
-              <LoadS3Image style={{ width: "100px" }} photo={photoDetails} />
+              <Box height="4px" />
+              <LoadS3Image style={{ width: "100px", borderRadius: "4px" }} photo={photoDetails} />
               <AttributeTitle>{t("photoReportReview.result")}:</AttributeTitle>
+              <Box height="4px" />
               <Result result={approvalStatus} />
-            </Box>
+            </>
           )}
         </Box>
+        {photoDetails.url && (
+          <>
+            <Box flexGrow={1} />
+            <Box alignSelf="center">
+              <ChevronRight />
+            </Box>
+          </>
+        )}
       </Grid>
     </ReportContainer>
   );
