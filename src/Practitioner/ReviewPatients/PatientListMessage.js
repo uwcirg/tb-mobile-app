@@ -26,6 +26,16 @@ const PatientListMessage = ({ isLoading = false, tab }) => {
   const { t } = useTranslation('translation');
   const classes = useStyles();
 
+  let message = isLoading
+    ? `${t('summaries.loading')}`
+    : tab === 0
+    ? `${t('reviewIssues.noPateintIssues')}`
+    : tab === 1
+    ? `${t('reviewIssues.noPatientReviews')}`
+    : tab === 2
+    ? `${t('reviewIssues.noPatients')}`
+    : '';
+
   return (
     <Grid
       alignItems="center"
@@ -33,18 +43,10 @@ const PatientListMessage = ({ isLoading = false, tab }) => {
       container
       className={classes.container}
     >
-      <img
-        className={classes.image}
-        src={Visual}
-        alt={t('summaries.loading')}
-      />
+      <img className={classes.image} src={Visual} alt={message} />
       <Box padding="2em 0">
         <Typography align="center" className={classes.text} variant="h2">
-          {isLoading && `${t('summaries.loading')}`}
-          {tab === 0 && `${t('reviewIssues.noPateintIssues')}`}
-          {tab === 1 && `${t('reviewIssues.noPatientReviews')}`}
-          {tab === 2 && `${t('reviewIssues.noPatients')}`}
-          ...
+          {message}...
         </Typography>
       </Box>
       {isLoading && <CircularProgress variant="indeterminate" />}
