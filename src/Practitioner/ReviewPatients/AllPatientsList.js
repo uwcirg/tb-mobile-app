@@ -8,7 +8,6 @@ import { useTranslation } from 'react-i18next';
 import ChunkLabel from './ListSectionLabel';
 import ListSectionLabel from './ListSectionLabel';
 
-
 const AllPatientsList = () => {
   const { t } = useTranslation();
 
@@ -36,7 +35,9 @@ const AllPatientsList = () => {
               {showSection && (
                 <Box padding="1em 0 0 .5em">
                   <ListSectionLabel>
-                    {t(`coordinator.cohortOverview.${each.status.toLowerCase()}`)}
+                    {t(
+                      `coordinator.cohortOverview.${each.status.toLowerCase()}`
+                    )}
                   </ListSectionLabel>
                 </Box>
               )}
