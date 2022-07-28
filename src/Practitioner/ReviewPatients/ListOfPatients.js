@@ -64,15 +64,26 @@ const ListOfPatients = ({ tabValue }) => {
   let currentSection;
 
   const reviewedPatients = [...patients]?.filter(
-    (paitient) => paitient.lastGeneralResolution
+    (patient) => patient.lastGeneralResolution
   );
+
+  console.log(patientsToDisplay);
 
   return (
     <Grid container direction="column">
       <Box height={'.5em'} aria-hidden />
 
-      {/* This is where placeholder goes if length < 1  */}
-      {/* patients.filter(patient => patient.lastGeneralResolution) */}
+      {/* If there are no reviewed patients, render default */}
+      {reviewedPatients.length < 1 && tabValue === 1 && (
+        <h1>Nothing to see here, boss</h1>
+      )}
+
+      {/* If there are no patients with issues, render default */}
+      {patientsWithIssues.length < 1 && tabValue === 0 && (
+        <h1>Nothing issues to see here, dawg</h1>
+      )}
+
+      {/* all patients tab is rendered in AllPatientsList.js, where default is rendered too when < 1 */}
 
       {patientsWithIssues.map((patient) => {
         let isIssues = patient.issues.total > 0;

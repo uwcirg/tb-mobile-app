@@ -20,9 +20,13 @@ const AllPatientsList = () => {
   if (status === 'pending') return <LoadingPatients />;
 
   let currentPatientStatus;
+  console.log(patients);
 
   return (
     <div>
+      {/* Here we add the default image if no pictures are found */}
+      {patients?.length < 1 && <h1>Nothing to see here, boss</h1>}
+
       {patients &&
         patients.map((each) => {
           let showSection = false;
@@ -31,7 +35,7 @@ const AllPatientsList = () => {
             currentPatientStatus = each.status;
           }
           return (
-            <>
+            <div key={`review-patient-${each.id}`}>
               {showSection && (
                 <Box padding="1em 0 0 .5em">
                   <ListSectionLabel>
@@ -44,7 +48,7 @@ const AllPatientsList = () => {
               <Box padding="8px 8px 0 8px">
                 <PatientCard isSimpleView patient={each} />
               </Box>
-            </>
+            </div>
           );
         })}
       <Box height="68px" />
