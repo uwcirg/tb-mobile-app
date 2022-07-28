@@ -1,1099 +1,1097 @@
 {
-    "title": "Treatment Companion",
-    "online": "Online",
-    "offline": "Offline",
-    "greeting": "Hi",
-    "updating": "Updating",
-    "demoWarning": "This is a demo of the application and should not be used for real patient data",
-    "commonWords": {
-        "list": "list",
-        "photos": "photos",
-        "fillAll": "Please fill all fields before continuing",
-        "edit": "Edit",
-        "error": "Error",
-        "medication": "Medication",
-        "symptoms": "Symptoms",
-        "stripPhoto": "Strip Photo",
-        "report": "Report",
-        "no": "no",
-        "yes": "yes",
-        "of": "of",
+  "title": "Treatment Companion",
+  "online": "Online",
+  "offline": "Offline",
+  "greeting": "Hi",
+  "updating": "Updating",
+  "demoWarning": "This is a demo of the application and should not be used for real patient data",
+  "commonWords": {
+    "list": "list",
+    "photos": "photos",
+    "fillAll": "Please fill all fields before continuing",
+    "edit": "Edit",
+    "error": "Error",
+    "medication": "Medication",
+    "symptoms": "Symptoms",
+    "stripPhoto": "Strip Photo",
+    "report": "Report",
+    "no": "no",
+    "yes": "yes",
+    "of": "of",
+    "other": "Other",
+    "first": "first",
+    "second": "second",
+    "final": "final",
+    "total": "total",
+    "delete": "Delete",
+    "loading": "Loading",
+    "patients": "Patients",
+    "expandPhoto": "Expand Photo",
+    "hideThis": "Hide This",
+    "clickToLoadMore": "Click to load more",
+    "testStrips": "Test Strips",
+    "viewDetails": "View details",
+    "hideDetails": "Hide Details",
+    "copy": "Copy",
+    "copied": "Copied",
+    "copyExplanation": "Copy link to clipboard",
+    "archived": "Archived",
+    "successMessage": "Successfully Updated",
+    "errorMessage": "An error has occured. Please try again later.",
+    "atTime": "a las",
+    "loadMore": "load more",
+    "back": "back"
+  },
+  "userTypes": {
+    "patient": "Patient",
+    "provider": "Provider",
+    "practitioner": "Asistant",
+    "coordinator": "Treatment Assistant",
+    "admin": "Administrator",
+    "administrator": "Administrator",
+    "you": "You"
+  },
+  "login": {
+    "changeLanguage": "Haga Clic Aquí Para Español",
+    "activateAccount": "Activate New Account",
+    "forgotPassword": "Forgot Password",
+    "forgotPasswordDetails": "Please contact your coordinator on WhatsApp, they will send you a code you can use to login and create a new password.",
+    "phoneNumber": "Phone Number",
+    "email": "Email",
+    "password": "Password",
+    "logIn": "Log In",
+    "selectType": "Select your user type",
+    "haveAccount": "Already have an account?",
+    "activate": "Activate"
+  },
+  "messaging": {
+    "loadMore": "Load More Messages",
+    "yourSite": "Clinic Announcements",
+    "search": "Search",
+    "moderation": {
+      "hideUI": "Hide",
+      "hide": "Hide from patients",
+      "unhide": "Unhide message",
+      "isHidden": "This message has been hidden from patients",
+      "view": "View Message"
+    },
+    "creation": {
+      "errorInfo": "Title must exist and be less than 50 characters. Subtitle must be less than 100 characters.",
+      "error": "Error Creating New Discussion",
+      "fab": "Add New Discussion",
+      "header": "Add a new discussion topic",
+      "create": "Create",
+      "cancel": "Cancel",
+      "title": "Discussion Title",
+      "description": "Description"
+    },
+    "typeHere": "Type message here",
+    "begining": "Begining Of Chat",
+    "selectChannel": "Select a Patient or Discussion To Get Started",
+    "nurseContact": "Need individual support? Contact your provider!",
+    "privateExplained": "Private chat with your treatment assistant",
+    "searchTheme": "Search By Topic",
+    "searchPatient": "Search By Patient",
+    "patients": "Patients",
+    "coordinators": "Treatment assistants",
+    "discussions": "Discussions",
+    "expert": "TB Expert",
+    "groupDiscussion": "Group Discussion",
+    "found": "Found",
+    "empty": "No messages have been sent yet. Send the first one!",
+    "private": "Private",
+    "clinicChat": "Assistants and patients at your clinic",
+    "imageWillSend": "Image will be sent with message",
+    "sending": "Sending"
+  },
+  "time": {
+    "day": "day",
+    "day_plural": "days",
+    "week": "week",
+    "days": "days",
+    "weeks": "weeks",
+    "month": "month",
+    "all": "all",
+    "noon": "noon",
+    "day_ago": "day ago",
+    "day_ago_plural": "days ago"
+  },
+  "patient": {
+    "tabNames": {
+      "home": "Home",
+      "calendar": "History",
+      "messaging": "Messaging",
+      "information": "Information"
+    },
+    "oneStepReporting": {
+      "photoRequestTitle": "Please complete a test strip to confirm your progress",
+      "photoRequestButton": "Complete Test Strip",
+      "supportTitle": "Is everything going okay with your treatment today?",
+      "goodOption": "Took Medication and Feeling Good",
+      "helpOption": "Track Issues or Request Support"
+    },
+    "onboarding": {
+      "landing": {
+        "welcome": "Welcome",
+        "message": "Thank you for signing up! This app will be where you report your medication. Reports are monitored by your treatment assistant."
+      },
+      "profileInformation": "Add Profile Information",
+      "coordinator": {
+        "title": "What is a Treatment Assistant?",
+        "will": {
+          "title": "Your Treatment Assistant will",
+          "items": [
+            "Monitor your progress",
+            "Approve test strip photos",
+            " Answer questions about treatment"
+          ]
+        },
+        "wont": {
+          "title": "Your Treatment Assistant will not",
+          "items": ["Provide medical attention", "Schedule your appointments"]
+        },
+        "outro": "Now please tell us a little about yourself."
+      },
+      "password": {
+        "title": "Choose a new password for your account",
+        "confirmation": "Confirm Password",
+        "noMatch": "The password and confirmation do not match"
+      },
+      "gender": {
+        "title": "Select your preferred gender",
+        "man": "Man",
+        "woman": "Woman",
+        "nonbinary": "Nonbinary",
+        "transMan": "Transgender Man",
+        "transWoman": "Transgender Woman",
         "other": "Other",
-        "first": "first",
-        "second": "second",
-        "final": "final",
-        "total": "total",
-        "delete": "Delete",
-        "loading": "Loading",
-        "patients": "Patients",
-        "expandPhoto": "Expand Photo",
-        "hideThis": "Hide This",
-        "clickToLoadMore": "Click to load more",
-        "testStrips": "Test Strips",
-        "viewDetails": "View details",
-        "hideDetails": "Hide Details",
-        "copy": "Copy",
-        "copied": "Copied",
-        "copyExplanation": "Copy link to clipboard",
-        "archived": "Archived",
-        "successMessage": "Successfully Updated",
-        "errorMessage": "An error has occured. Please try again later.",
-        "atTime": "a las",
-        "loadMore": "load more",
-        "back": "back"
+        "question": "How would you describe yourself?"
+      },
+      "age": "How old are you?",
+      "notification": {
+        "title": "Notifications",
+        "whenPrompted": "When prompted please select",
+        "permit": "Permit",
+        "listHeader": "This will allow us to send you",
+        "header": "The next step will ask you to turn on notifications",
+        "one": "Would you like to enable a daily reminder to take your medication?",
+        "two": "What time would you like to be reminded?"
+      },
+      "contactTracing": {
+        "one": "How many people do you live with?",
+        "two": "How many have been tested for TB?",
+        "some": "Some of them",
+        "all": "All of them",
+        "none": "None of them",
+        "unsure": "Im not sure",
+        "important": "It is important that everyone you live with gets tested for TB.",
+        "explanation": "Please let us know the status of your household so we can send you more information."
+      },
+      "success": "Finalizing Account Setup",
+      "next": "Next",
+      "endText": "Thank you for your input, lets get started!",
+      "activationError": "There was an error activating your account. Contact your coordinator for help."
     },
-    "userTypes": {
-        "patient": "Patient",
-        "provider": "Provider",
-        "practitioner": "Asistant",
-        "coordinator": "Treatment Assistant",
-        "admin": "Administrator",
-        "administrator": "Administrator",
-        "you": "You"
+    "walkthrough": {
+      "swipe": "Swipe Left See More",
+      "welcome": {
+        "header": "Welcome",
+        "one": "Thank you for signing up for Treatment Assistant!",
+        "two": "We will now guide you through some of the core features"
+      },
+      "homescreen": "We will start by showing you the homescreen",
+      "revisit": "If you wish to revisit this walkthrough, you can find it on the information tab",
+      "exit": "You can exit this walkthrough at any time by clicking the X in the top right",
+      "tasks": "These are your daily tasks, you can click Start Report to begin logging your daily treatment",
+      "progressCard": "The progress card shows you a quick preview of where you are at in your treatment.",
+      "reminders": "Lastly, the reminders card allows you to change your daily medication reminder, and add reminders for appointments",
+      "navigation": {
+        "text": "The app has 4 main screens. To toggle between them select the icon in the bottom navigation bar",
+        "one": "Home + My Tasks",
+        "two": "Progress + Calendar",
+        "three": "Chat",
+        "four": "Information"
+      },
+      "progress": {
+        "header": "We are now on the progress page",
+        "here": "Here you can",
+        "one": "View past reports",
+        "two": "View and edit milestones",
+        "three": "Check the status of your photo submissions"
+      },
+      "weekCalendar": "This is a preview of your last 5 reports. You can click to view your full calendar",
+      "calendar": "Your full calendar gives a visual overview of your streak, and shows days you have missed in red",
+      "calendarBottom": "You can click this area at the bottom to view details about your report",
+      "milestones": "Back on the main progress page, you can manage your milestones here",
+      "messaging": {
+        "header": "Now we are on the messaging page",
+        "text": "This page allows you to communicate with your assistant and other patients",
+        "one": "Click here to directly and privately message your treatment assistant",
+        "two": "Here you can chat publicly with other patients about your treatment. These discussions are organized by topic"
+      },
+      "outro": {
+        "header": "Thats all for now!",
+        "one": "If you have any more questions check the information tab or reach out to your treatment assistant"
+      }
     },
-    "login": {
-        "changeLanguage": "Haga Clic Aquí Para Español",
-        "activateAccount": "Activate New Account",
-        "forgotPassword": "Forgot Password",
-        "forgotPasswordDetails": "Please contact your coordinator on WhatsApp, they will send you a code you can use to login and create a new password.",
-        "phoneNumber": "Phone Number",
-        "email": "Email",
-        "password": "Password",
-        "logIn": "Log In",
-        "selectType": "Select your user type",
-        "haveAccount": "Already have an account?",
-        "activate": "Activate"
+    "reminders": {
+      "title": "Reminders",
+      "medicationReminder": "Medication Reminder",
+      "whatTime": "What time would you like to recieve the reminder?",
+      "appointments": "Appointments",
+      "explanation": "Enable to receive a reminder to take your medication every day at a specified time",
+      "enable": "Enable",
+      "disable": "Disable",
+      "changeTime": "Change Time",
+      "options": "Edit or Disable",
+      "reminderEnabled": "Reminder Enabled",
+      "reminderDisabled": "Reminder Disabled",
+      "at": "at",
+      "successMessage": "Your appointment was successfully added"
     },
-    "messaging": {
-        "loadMore": "Load More Messages",
-        "yourSite": "Clinic Announcements",
-        "search": "Search",
-        "moderation": {
-            "hideUI": "Hide",
-            "hide": "Hide from patients",
-            "unhide": "Unhide message",
-            "isHidden": "This message has been hidden from patients",
-            "view": "View Message"
-        },
-        "creation": {
-            "errorInfo": "Title must exist and be less than 50 characters. Subtitle must be less than 100 characters.",
-            "error": "Error Creating New Discussion",
-            "fab": "Add New Discussion",
-            "header": "Add a new discussion topic",
-            "create": "Create",
-            "cancel": "Cancel",
-            "title": "Discussion Title",
-            "description": "Description"
-        },
-        "typeHere": "Type message here",
-        "begining": "Begining Of Chat",
-        "selectChannel": "Select a Patient or Discussion To Get Started",
-        "nurseContact": "Need individual support? Contact your provider!",
-        "privateExplained": "Private chat with your treatment assistant",
-        "searchTheme": "Search By Topic",
-        "searchPatient": "Search By Patient",
-        "patients": "Patients",
-        "coordinators": "Treatment assistants",
-        "discussions": "Discussions",
-        "expert": "TB Expert",
-        "groupDiscussion": "Group Discussion",
-        "found": "Found",
-        "empty": "No messages have been sent yet. Send the first one!",
-        "private": "Private",
-        "clinicChat": "Assistants and patients at your clinic",
-        "imageWillSend": "Image will be sent with message",
-        "sending": "Sending"
+    "demo": {
+      "showDemo": "Show Demo"
     },
-    "time": {
-        "day": "day",
-        "day_plural": "days",
-        "week": "week",
-        "days": "days",
-        "weeks": "weeks",
-        "month": "month",
-        "all": "all",
-        "noon": "noon",
-        "day_ago": "day ago",
-        "day_ago_plural": "days ago"
+    "userFields": {
+      "givenName": "Given Name",
+      "familyName": "Family Name",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "password": "Password",
+      "treatmentStart": "Treatment Start Date",
+      "phoneNumber": "Phone Number"
     },
-    "patient": {
-        "tabNames": {
-            "home": "Home",
-            "calendar": "History",
-            "messaging": "Messaging",
-            "information": "Information"
-        },
-        "oneStepReporting":{
-            "photoRequestTitle": "Please complete a test strip to confirm your progress",
-            "photoRequestButton": "Complete Test Strip",
-            "supportTitle": "Is everything going okay with your treatment today?",
-            "goodOption": "Took Medication and Feeling Good",
-            "helpOption": "Track Issues or Request Support"
-        },
-        "onboarding": {
-            "landing": {
-                "welcome": "Welcome",
-                "message": "Thank you for signing up! This app will be where you report your medication. Reports are monitored by your treatment assistant."
-            },
-            "profileInformation": "Add Profile Information",
-            "coordinator": {
-                "title": "What is a Treatment Assistant?",
-                "will": {
-                    "title": "Your Treatment Assistant will",
-                    "items": [
-                        "Monitor your progress",
-                        "Approve test strip photos",
-                        " Answer questions about treatment"
-                    ]
-                },
-                "wont": {
-                    "title": "Your Treatment Assistant will not",
-                    "items": [
-                        "Provide medical attention",
-                        "Schedule your appointments"
-                    ]
-                },
-                "outro": "Now please tell us a little about yourself."
-            },
-            "password": {
-                "title": "Choose a new password for your account",
-                "confirmation": "Confirm Password",
-                "noMatch": "The password and confirmation do not match"
-            },
-            "gender": {
-                "title": "Select your preferred gender",
-                "man": "Man",
-                "woman": "Woman",
-                "nonbinary": "Nonbinary",
-                "transMan": "Transgender Man",
-                "transWoman": "Transgender Woman",
-                "other": "Other",
-                "question": "How would you describe yourself?"
-            },
-            "age": "How old are you?",
-            "notification": {
-                "title": "Notifications",
-                "whenPrompted": "When prompted please select",
-                "permit": "Permit",
-                "listHeader": "This will allow us to send you",
-                "header": "The next step will ask you to turn on notifications",
-                "one": "Would you like to enable a daily reminder to take your medication?",
-                "two": "What time would you like to be reminded?"
-            },
-            "contactTracing": {
-                "one": "How many people do you live with?",
-                "two": "How many have been tested for TB?",
-                "some": "Some of them",
-                "all": "All of them",
-                "none": "None of them",
-                "unsure": "Im not sure",
-                "important": "It is important that everyone you live with gets tested for TB.",
-                "explanation": "Please let us know the status of your household so we can send you more information."
-            },
-            "success": "Finalizing Account Setup",
-            "next": "Next",
-            "endText": "Thank you for your input, lets get started!",
-            "activationError": "There was an error activating your account. Contact your coordinator for help."
-        },
-        "walkthrough": {
-            "swipe": "Swipe Left See More",
-            "welcome": {
-                "header": "Welcome",
-                "one": "Thank you for signing up for Treatment Assistant!",
-                "two": "We will now guide you through some of the core features"
-            },
-            "homescreen": "We will start by showing you the homescreen",
-            "revisit": "If you wish to revisit this walkthrough, you can find it on the information tab",
-            "exit": "You can exit this walkthrough at any time by clicking the X in the top right",
-            "tasks": "These are your daily tasks, you can click Start Report to begin logging your daily treatment",
-            "progressCard": "The progress card shows you a quick preview of where you are at in your treatment.",
-            "reminders": "Lastly, the reminders card allows you to change your daily medication reminder, and add reminders for appointments",
-            "navigation": {
-                "text": "The app has 4 main screens. To toggle between them select the icon in the bottom navigation bar",
-                "one": "Home + My Tasks",
-                "two": "Progress + Calendar",
-                "three": "Chat",
-                "four": "Information"
-            },
-            "progress": {
-                "header": "We are now on the progress page",
-                "here": "Here you can",
-                "one": "View past reports",
-                "two": "View and edit milestones",
-                "three": "Check the status of your photo submissions"
-            },
-            "weekCalendar": "This is a preview of your last 5 reports. You can click to view your full calendar",
-            "calendar": "Your full calendar gives a visual overview of your streak, and shows days you have missed in red",
-            "calendarBottom": "You can click this area at the bottom to view details about your report",
-            "milestones": "Back on the main progress page, you can manage your milestones here",
-            "messaging": {
-                "header": "Now we are on the messaging page",
-                "text": "This page allows you to communicate with your assistant and other patients",
-                "one": "Click here to directly and privately message your treatment assistant",
-                "two": "Here you can chat publicly with other patients about your treatment. These discussions are organized by topic"
-            },
-            "outro": {
-                "header": "Thats all for now!",
-                "one": "If you have any more questions check the information tab or reach out to your treatment assistant"
-            }
-        },
-        "reminders": {
-            "title": "Reminders",
-            "medicationReminder": "Medication Reminder",
-            "whatTime": "What time would you like to recieve the reminder?",
-            "appointments": "Appointments",
-            "explanation": "Enable to receive a reminder to take your medication every day at a specified time",
-            "enable": "Enable",
-            "disable": "Disable",
-            "changeTime": "Change Time",
-            "options": "Edit or Disable",
-            "reminderEnabled": "Reminder Enabled",
-            "reminderDisabled": "Reminder Disabled",
-            "at": "at",
-            "successMessage": "Your appointment was successfully added"
-        },
-        "demo": {
-            "showDemo": "Show Demo"
-        },
-        "userFields": {
-            "givenName": "Given Name",
-            "familyName": "Family Name",
-            "firstName": "First Name",
-            "lastName": "Last Name",
-            "password": "Password",
-            "treatmentStart": "Treatment Start Date",
-            "phoneNumber": "Phone Number"
-        },
-        "home": {
-            "purpose": "Lets keep track of your medication and health!",
-            "today": "Today",
-            "actions": {
-                "logMedication": "Begin Report",
-                "uploadPhoto": "Upload Photo"
-            },
-            "todaysActions": {
-                "logMedication": "Begin Report",
-                "uploadPhoto": "Upload Photo"
-            },
-            "progress": {
-                "currentStreak": "Current Streak",
-                "upcomingDate": "Upcoming Milestones",
-                "viewAll": "View All",
-                "close": "Close"
-            },
-            "completed": {
-                "title": "Complete",
-                "subtitle": "Todays Report Has Been Submitted",
-                "issue": "We have recieved your issue and your assistant will be in touch soon",
-                "modify": "Modify Your Report"
-            },
-            "cardTitles": {
-                "todaysTasks": "Todays Tasks",
-                "actionNeeded": "Action Needed",
-                "myProgress": "My Progress",
-                "myLearning": "My Learning"
-            },
-            "confirmAndSubmit": "Please Confirm and Submit Your Report",
-            "helpVideos": {
-                "needHelp": "Need help with the application?",
-                "hide": "Hide",
-                "seeAll": "See All Video Tutorials",
-                "collapse": "Hide List",
-                "viewOnInfo": "You can always see these videos on the information page"
-            },
-            "missedDays": {
-                "missing": "Missing Treatment Log",
-                "missing_plural": "Missing Treatment Logs",
-                "missedPhoto": "Submit missed test"
-            },
-            "chatReminder": {
-                "body": "Did you know you can chat anonymously with other patients?",
-                "button": "Show me how"
-            }
-        },
-        "profile": {
-            "title": "Settings",
-            "changePassword": "Update Password",
-            "editNotifications": "Edit Notification Preferences",
-            "changeUsername": "Edit Username",
-            "personalInfo": "Personal Information",
-            "startDate": "Start Date",
-            "endDate": "End Date",
-            "totalTreatments": "Total Required Treatments",
-            "currentAdherence": "Current Adherence",
-            "logout": "Log Out",
-            "organization": "Organization",
-            "options": {
-                "account": "My Account",
-                "language": "Language",
-                "dailyNotifications": "Daily Notifications",
-                "medicationReminder": "Medication Reminder",
-                "addNewReminder": "Add New Medication Reminder",
-                "remindMe": "Remind me at",
-                "spanish": "Español",
-                "english": "English",
-                "update": "Update"
-            }
-        },
-        "report": {
-            "allGood": "Everything Okay",
-            "trackIssues": "Track Issues",
-            "topTitle": "Todays Report",
-            "important": "Important",
-            "dayLate": "day late",
-            "dayLate_plural": "days late",
-            "late": "Late",
-            "next": "Next",
-            "title": "Log Today's Medication",
-            "medicationTitle": "Please Log Your Medication",
-            "medicationTime": "What time did you take your medication?",
-            "didYouTake": "Did you take your medication today?",
-            "didTake": "I took my medication",
-            "didNotTake": "I didn't take my medication",
-            "whyNotTaken": "Why didn't you take your medication?",
-            "symptomsTitle": "Did you have any symptoms?",
-            "moodTitle": "How are you feeling today?",
-            "doingWell": "Doing Well",
-            "needSupport": "Need Support",
-            "requireReason": "Please tell us how we can support you before continuing",
-            "whySupport": "How can we support you?",
-            "photoTitle": "Capture Strip Photo",
-            "photo": {
-                "permissionsError": "There was an error getting access to your camera. Please try again and make sure to allow access if prompted.",
-                "usePhoto": "Use Photo",
-                "retakePhoto": "Retake Photo",
-                "openCamera": "Open Camera",
-                "how": "How do I take the test?",
-                "help": {
-                    "remember": "Please remember to",
-                    "wait": "Let the test strip sit for 20 minutes before taking a photo",
-                    "straight": "Capture the photo straight above the test strip",
-                    "retakeIf": "Retake photo if it is blurry or the square marker is not visible",
-                    "instructions": "View Test Strip Instructions"
-                },
-                "other": "Other Options",
-                "submitLater": "Submit Later",
-                "unable": "Unable to submit? Tell us why",
-                "whyUnable": "Why are you unable to submit?",
-                "back": "Return to previous step"
-            },
-            "symptoms": {
-                "nauseaRating": "How bad is your nausea?",
-                "instructions": "Please tap an option that represents how you are feeling",
-                "warning": {
-                    "title": "You logged a symptom that needs immediate follow up",
-                    "subtitle": "Please seek emergency medical attention immediately. Your treatment assistant will follow up with you.",
-                    "button": "Okay",
-                    "moreInformation": "More Information"
-                }
-            },
-            "confirmation": {
-                "title": "Confirm and Submit",
-                "addMore": "Add More",
-                "noPhoto": "No Photo Needed Today",
-                "missingPhoto": "Missing Photo",
-                "takenAt": "Taken at",
-                "notTaken": "Not taken because",
-                "review": "Review Photo"
-            },
-            "offline": {
-                "report": "offline report",
-                "report_plural": "offline reports",
-                "allDone": "All offline reports have submitted",
-                "youHave": "You have",
-                "explanation": "They will be uploaded when you have an internet connection",
-                "uploading": "Uploading your offline reports"
-            },
-            "photoUploading": "Your photo is uploading",
-            "photoUploadError": "There was a problem uploading your report. Please try again, or contact your treatment assistant"
-        },
-        "reportConfirmation": {
-            "view": "View",
-            "hide":"Hide",
-            "viewOrEdit": "View / Edit Report",
-            "goodJob": "Good Job",
-            "photoNeeded": "You also need to upload a photo of your test strip today",
-            "doLater": "Do Later Today",
-            "baseComplete": "Your daily report has been successfully submitted",
-            "photoComplete": "Your test strip has been successfully submitted"
-        },
-        "progress": {
-            "noReport": "No report for this day",
-            "whenBackReport": "When can I report for a missed day?",
-            "viewCalendar": "View Your Calendar of Reports",
-            "viewPhotos": "View Your Photo Submissions",
-            "approvalStatus": "Approval Status",
-            "milestones": "Milestones",
-            "upcoming": "Upcoming",
-            "calendar": "Calendar of Reports",
-            "submissionLimit": "If you miss a day, you can only submit for the 3 previous days, and any days you missed in your first 2 weeks",
-            "loading": "Reporting history loading",
-            "calendarKey": {
-                "tookMeds": "Took medication",
-                "sideEffects": "Reported side effects",
-                "noMeds": "Didn't take medication",
-                "button": "What do these colors mean",
-                "description": "This is the calendar, where you can review your submissions. The colors show the following:",
-                "good": "All parts submitted",
-                "missed": "No Report submitted. If you miss a day you can report up to 3 days in the past.",
-                "notTaken": "Reported not taking your medication",
-                "symptoms": "Reported symptoms"
-            }
-        },
-        "addMilestone": {
-            "barTitle": "Add Milestone",
-            "titles": [
-                "What milestone would you like to add?",
-                "Whats the date of your milestone?",
-                "Whats the time of your milestone?",
-                "Where is your appointment?"
-            ]
-        },
-        "information": {
-            "otherSettings": "Other Settings",
-            "changeLog": "Application Change Log",
-            "version": "Version",
-            "questions": "Questions and answers",
-            "education": "Important Information To Know",
-            "helpSection": "Help With Application",
-            "infoSection": "Information About Treatment",
-            "launchWalkthrough": "Launch Walkthrough",
-            "video": "Watch Video",
-            "videos": "Videos About Treatment",
-            "helpVideos": "Video Instructions",
-            "techSupport": "Technical Support",
-            "reportIssue": "Report Issue",
-            "testInstructions": "Test Strip Instructions",
-            "walkthrough": {
-                "title": "Interactive Walkthrough",
-                "start": "Start from begining",
-                "home": "Home Page",
-                "calendar": "Calendar Page",
-                "messaging": "Messaging Page"
-            }
-        },
-        "chatReminder": {
-            "howTo": "Heres how",
-            "list": [
-                "Go to the Messaging tab ",
-                "Toward the bottom, tap on any of the Group Discussions",
-                "Talk to others experiencing TB. Ask questions, receive feedback, and provide encouragement. Only your treatment assistant can see your name"
-            ]
-        }
+    "home": {
+      "purpose": "Lets keep track of your medication and health!",
+      "today": "Today",
+      "actions": {
+        "logMedication": "Begin Report",
+        "uploadPhoto": "Upload Photo"
+      },
+      "todaysActions": {
+        "logMedication": "Begin Report",
+        "uploadPhoto": "Upload Photo"
+      },
+      "progress": {
+        "currentStreak": "Current Streak",
+        "upcomingDate": "Upcoming Milestones",
+        "viewAll": "View All",
+        "close": "Close"
+      },
+      "completed": {
+        "title": "Complete",
+        "subtitle": "Todays Report Has Been Submitted",
+        "issue": "We have recieved your issue and your assistant will be in touch soon",
+        "modify": "Modify Your Report"
+      },
+      "cardTitles": {
+        "todaysTasks": "Todays Tasks",
+        "actionNeeded": "Action Needed",
+        "myProgress": "My Progress",
+        "myLearning": "My Learning"
+      },
+      "confirmAndSubmit": "Please Confirm and Submit Your Report",
+      "helpVideos": {
+        "needHelp": "Need help with the application?",
+        "hide": "Hide",
+        "seeAll": "See All Video Tutorials",
+        "collapse": "Hide List",
+        "viewOnInfo": "You can always see these videos on the information page"
+      },
+      "missedDays": {
+        "missing": "Missing Treatment Log",
+        "missing_plural": "Missing Treatment Logs",
+        "missedPhoto": "Submit missed test"
+      },
+      "chatReminder": {
+        "body": "Did you know you can chat anonymously with other patients?",
+        "button": "Show me how"
+      }
     },
-    "symptoms": {
-        "nausea": {
-            "title": "Nausea or Vomiting",
-            "subtitle": "Feeling nauseous or unable to put food down"
-        },
-        "redness": {
-            "title": "Redness",
-            "subtitle": "Swelling, redness, itching of skin"
-        },
-        "hives": {
-            "title": "Hives",
-            "subtitle": "Itchy spots on skin"
-        },
-        "fever": {
-            "title": "Fever",
-            "subtitle": "Body temperature over 37.5"
-        },
-        "appetite_loss": {
-            "title": "Loss of appetite",
-            "subtitle": "Loss of appetite"
-        },
-        "blurred_vision": {
-            "title": "Blurry Vision",
-            "subtitle": "Blurred vision or changes in the way you see colors"
-        },
-        "sore_belly": {
-            "title": "Upset Stomach",
-            "subtitle": "Having a stomach ache or other stomach irritability"
-        },
-        "yellow_coloration": {
-            "title": "Yellow Coloration",
-            "subtitle": "Yellowing of the skin or whites of the eyes"
-        },
-        "difficulty_breathing": {
-            "title": "Difficulty Breathing",
-            "subtitle": "Shortness of breath or difficulty breathing"
-        },
-        "facial_swelling": {
-            "title": "Facial Swelling",
-            "subtitle": "Swelling of the face, lips, tongue, or throat"
-        },
-        "dizziness": {
-            "title": "Dizziness",
-            "subtitle": ""
-        },
-        "headache": {
-            "title": "Headache",
-            "subtitle": ""
-        },
-        "flu_symptoms": {
-            "title": "Flu Symptoms",
-            "subtitle": "Flu symptoms include fever, chills, headache, and body pain"
-        },
-        "red_urine":{
-            "title": "Red urine",
-            "subtitle": "Urine has a red tint"
-        },
-        "sleepy": {
-            "title": "Sleepy",
-            "subtitle": "Feeling tired all day"
-        },
-        "joint_pain" : {
-            "title": "Joint pain",
-            "subtitle": "Feeling pain in your joints or bones"
-        },
-        "burning_or_numbness": {
-            "title": "Burning, tingling or numbness",
-            "subtitle": "Feeling of burning, tingling, or numbness in your fingers or toes"
-        },
-        "hearing_loss":{
-            "title": "Hearing loss",
-            "subtitle": "Changes in your hearing, or being unable to hear"
-        },
-        "vertigo":{
-            "title": "Vertigo",
-            "subtitle": "Sensation of whirling and loss of balance, associated particularly with looking down from a great height" 
-        },
-        "confusion": {
-            "title": "Confusion",
-            "subtitle": "Increasingly feeling confused"
-        },
-        "oliguria":{
-            "title": "Decrease in urination",
-            "subtitle": "Urinating less than normal, or experiencing difficulty urinating"
-        },
-        "other": {
-            "title": "Other",
-            "subtitle": "Click here to list additional side effects"
-        }
-    },
-    "milestones": {
-        "titles": {
-            "sputumTest": "Sputum Test",
-            "intensivePhase": "End of Intensive Phase",
-            "testingFU": "Follow Up Testing",
-            "appointmentFU": "Follow Up Appointment",
-            "medPickup": "Medication pick-up",
-            "housematesTested": "All housemates tested"
-        },
-        "upcoming": "Upcoming",
-        "previous": "Previous"
-    },
-    "coordinator": {
-        "mobileWarning": "Mobile view still in progress. You can view your tasks, but not approve them. Messaging is functional.",
-        "priority": {
-            "high": "High",
-            "medium": "Medium",
-            "low": "Low"
-        },
-        "cohortOverview": {
-            "adherenceGraph": "Summary of Adherence",
-            "title": "Cohort Overview",
-            "high": "High Priority",
-            "medium": "Medium Priority",
-            "low": "Low Priority",
-            "active": "Active",
-            "pending": "Pending",
-            "archived": "Archived",
-            "reportedTime": "Reported In The Past 7 Days",
-            "noPatientsFound": "No Patients Found",
-            "searchByName": "Search By Name"
-        },
-        "addPatientFlow": {
-            "title": "Add Patient",
-            "formTitle": "New Patient Details",
-            "addedPatient": "Added Patient",
-            "codeToSend": "Code to send to patient",
-            "resetCode": "Reset Code",
-            "forPatient": "Activation Code For Patient",
-            "activationCode": "Activation Code",
-            "clickToCopy": "Click to copy",
-            "success": "Successfully copied",
-            "patientSuccess": "Patient Successfully Added"
-        },
-        "titles": {
-            "myTasks": "My Tasks",
-            "myPatients": "My Patients",
-            "reportingStatus": "Reporting Status"
-        },
-        "cardTitles": {
-            "patientsWithSymptoms": "Patients with Symptoms",
-            "photosToReview": "Photos to Review",
-            "missedReport": "Missed Report Since Last Resolution",
-            "missedPhoto": "Missed a Required Photo",
-            "overviewOfProgress": "Overview of Progress",
-            "allPatients": "All Patients",
-            "activePatients": "Active Patients",
-            "archivedPatients": "Archived Patients",
-            "awaitingActivation": "Awaiting Activation",
-            "currentStatus": "Current Status",
-            "reportingCalender": "Reporting Calender",
-            "requestedSupport": "Requested Support"
-        },
-        "recentReports": {
-            "title": "Recent Reports",
-            "noSymptoms": "No Symptoms Reported",
-            "tookMeds": "Took Meds",
-            "didntTakeMeds": "Didnt Take Meds",
-            "noPhoto": "No Photo",
-            "none": "None"
-        },
-        "sideBar": {
-            "noReason": "No reason submitted",
-            "lastContacted": "Last Contracted",
-            "viewFullProfile": "View Full Profile",
-            "daysMissed": "Days Missed Since Last Resolution",
-            "photoSub": "Photo Submission",
-            "expandPhoto": "View Larger Size Photo",
-            "symptomsSince": "Symptoms Reported",
-            "loading": "Loading",
-            "messagePatient": "Message Patient",
-            "contactedPatient": "Contacted Patient"
-        },
-        "patientTableLabels": {
-            "name": "Name",
-            "priority": "Priority",
-            "treatmentStart": "Treatment Start",
-            "lastSubmission": "Last Submission",
-            "adherence": "Adherence",
-            "photoAdherence": "Photos Submitted",
-            "streak": "Streak",
-            "details": "Details"
-        },
-        "noReports": "No Reports",
-        "noTasks": "No Tasks Found",
-        "profile": "Profile",
-        "message": "Message",
-        "adherence": "Adherence",
-        "months": "Months",
-        "true": "true",
-        "false": "false",
-        "daysInTreatment": "Days In Treatment",
-        "patientProfile": {
-            "lastReport": "Last report",
-            "details":{
-                "progress": "Progress"
-            },
-            "adherenceSection": {
-                "reportedTaking": "Reported Taking",
-                "didntTake": "Reported Not Taking",
-                "didntReport": "Missed Reporting",
-                "missedRequest": "Missed Request"
-            },
-            "notes": {
-                "noneFound": "No Notes Found",
-                "title": "Title",
-                "detail": "Detail"
-            },
-            "accessError": "This patient does not exist at your site",
-            "editDetails": {
-                "success": "Patient information successfully updated",
-                "title": "Edit Patient Details",
-                "newPhone": "New Phone Number",
-                "warning": "If the patients phone number is changed, they will need to log in with the new phone number you have provided.",
-                "submit": "Submit",
-                "cancel": "Cancel",
-                "inputError": "There was an error with your change, which has been marked in red. Phone numbers must be 9-15 digits, and unique for each patient."
-            },
-            "addNote": {
-                "header": "New note for",
-                "title": "Title",
-                "note": "Note",
-                "button": "Submit Note"
-            },
-            "age": "age",
-            "gender": "gender",
-            "resetPassword": "Reset Password",
-            "resetPasswordExplanation": "Click here to reset a patients password. This generates a temporary password that you will have to send to them via WhatsApp. They will be asked to enter a new password after they use the temporary one.",
-            "phoneNumber": "Phone Number",
-            "treatmentStart": "Treatment Start",
-            "treatmentEnd": "Treatment End Date",
-            "appEndDate": "App End Date",
-            "lastContacted": "Last Contacted",
-            "date": "Date",
-            "taken": "Taken",
-            "symptoms": "Symptoms",
-            "photo": "Photo",
-            "completedDays": "Completed Days",
-            "feelingHealthy": "Feeling Healthy",
-            "currentStreak": "Current Streak",
-            "longestStreak": "Longest Streak",
-            "symptomSummary": {
-                "title": "Symptom Summary",
-                "noneReported": "No symptoms reported for selected time period",
-                "timeOptions": {
-                    "week": "Past 7 Days",
-                    "month": "Past 30 Days",
-                    "all": "All Reports"
-                }
-            },
-            "treatmentStatus": "Treatment Status",
-            "feelingWell": "Feeling Well",
-            "contactTracing": "Contact Traces",
-            "reportingHistory": "Patient History",
-            "listReports": "Reports",
-            "calendarReports": "Calendar",
-            "options": {
-                "title": "Options",
-                "resetPassword": "Reset Password",
-                "archive": "Archive Patient",
-                "message": "Message",
-                "note": "Add Note",
-                "edit": "Edit",
-                "editOutcome": "Edit Treatment Outcome"
-            }
-        },
-        "tasksSidebar": {
-            "complete": "Complete",
-            "unfinished": "Unfinished",
-            "overview": "Tasks Overview",
-            "patientStatus": "Patient Report Status",
-            "noReport": "No Report Today",
-            "title": "Overview",
-            "doneToday": "Completed Today",
-            "unresolved": "Unresolved",
-            "submitted": "Submitted",
-            "taken": "Taken",
-            "notTaken": "Not Taken",
-            "noneYet": "No Reports Submitted Yet"
-        },
-        "settingsPage": {
-            "account": "My Account",
-            "language": "Language Selection",
-            "updatePassword": "Update Password",
-            "documents": "Instructions and Manuals",
-            "patientInformation": "Information for Patients",
-            "applicationHelp": "Application Help",
-            "patientViewExplanation": "This is the information that the patients can see from their mobile application"
-        },
-        "documents": {
-            "manual": "Application Manual",
-            "instructions": "Test Strip Instructions"
-        }
-    },
-    "errors": {
-        "offline": "is unavailable offline. Please connect to the internet to use this function.",
-        "page": {
-            "header": "Something went wrong.",
-            "sorry": "Sorry about that",
-            "furtherSupport": "For Further Support Contact Us",
-            "contactDetails": "Please provide a detailed description of your issue and any steps that lead you to it.",
-            "try": "Try these steps",
-            "reloadStep": "Reload the page",
-            "loginStep": "Log Out and Log Back In",
-            "closeStep": "Close app from at a system level or close browser tab"
-        },
-        "login": {
-            "badPhone": "Cannot find account with that phone number",
-            "badEmail": "Cannot find account with that email",
-            "identifier": "Incorrect Phone Number / Email",
-            "password": "Incorrect Password",
-            "other": "Unexpected Error. Please contact your treatment assistant on WhatsApp"
-        },
-        "sessionExpired": "Your session has expired.",
-        "logBackIn": "Please log back in.",
-        "reload": "Reload Page"
-    },
-    "settings": {
-        "updatePassword": "Update Password",
-        "currentPassword": "Current Password",
-        "newPassword": "New Password",
-        "confirmPassword": "Confirm New Password",
-        "submit": "Submit"
-    },
-    "educationalMessages": {
-        "thoughtsForToday": "Thoughts for today",
-        "feedback": "Thank you for your feedback",
-        "week": "Week",
-        "header": "Important to know",
-        "helpful": "Was this helpful?",
-        "lateWarning": "Updates that were missed may show up later in your treatment"
-    },
-    "timeline": {
-        "warning": "This is a general outline, and may vary from person to person",
-        "title": "Treatment Timeline",
-        "expect": "This month you can expect",
-        "sputumTest": "Sputum Test",
-        "start": "Start of Treatment",
-        "intensive": "Intensive Phase",
-        "medicationChange": "Change of Medication",
-        "continuous": "Continuous Phase",
-        "followUp": "Follow Up Appointment",
-        "end": "End of Treatment",
-        "here": "You are here",
-        "twoMonths": "Every two months",
-        "during": "During Continuous Phase",
-        "dayOne": "Day One",
-        "scheduled": "Monthly or as scheduled",
-        "oneToTwo": "After 1-2 months",
-        "changeMeds": "Change medication regimen",
-        "afterTwo": "After 2 months",
-        "threeToFour": "After 3-4 months",
-        "finish": "Finish treatment",
-        "sixMonths": "After Six Months",
-        "finalSputum": "Final sputum test"
+    "profile": {
+      "title": "Settings",
+      "changePassword": "Update Password",
+      "editNotifications": "Edit Notification Preferences",
+      "changeUsername": "Edit Username",
+      "personalInfo": "Personal Information",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "totalTreatments": "Total Required Treatments",
+      "currentAdherence": "Current Adherence",
+      "logout": "Log Out",
+      "organization": "Organization",
+      "options": {
+        "account": "My Account",
+        "language": "Language",
+        "dailyNotifications": "Daily Notifications",
+        "medicationReminder": "Medication Reminder",
+        "addNewReminder": "Add New Medication Reminder",
+        "remindMe": "Remind me at",
+        "spanish": "Español",
+        "english": "English",
+        "update": "Update"
+      }
     },
     "report": {
-        "for": "Report for",
-        "incomplete": "Incomplete",
-        "noReportsYet": "No Reports",
-        "tag": "Report",
-        "medicationTaken": "Medication Taken",
-        "time": "Time",
-        "conclusive": "Conclusive",
-        "inconclusive": "Inconclusive",
-        "pending": "Pending",
-        "photoNotNeeded": "Photo Not Required",
-        "missedPhoto": "Photo Not Submitted",
-        "missedPhotoShort": "Missed Photo",
-        "submittedAt": "Submitted At",
-        "feeling": "Feeling",
-        "photoSubmitted": "Photo Submitted",
-        "flags": "Flags"
-    },
-    "appointments": {
-        "manage": "View / Manage all appointments",
-        "typeNote": "Type note here",
-        "createAppointment": "Create Appointment",
-        "noUpcoming": "No Upcoming Appointments",
-        "whatDay": "What day is the appointment?",
-        "whatTime": "What time is the appointment?",
-        "select": "Select an appointment type",
-        "typeQuestion": "What type of appointment would you like to add?",
-        "selectDate": "Select a date and time",
-        "addAppointment": "Add Appointment",
-        "otherType": "What type of appointment?",
-        "remindedAt": "You will be reminded at",
-        "dayBefore": "the day before your appointment",
-        "types": {
-            "check_in": "Check In",
-            "medication_pickup": "Medication Pickup",
-            "sputum_test": "Sputum Test",
-            "other": "Other"
+      "allGood": "Everything Okay",
+      "trackIssues": "Track Issues",
+      "topTitle": "Todays Report",
+      "important": "Important",
+      "dayLate": "day late",
+      "dayLate_plural": "days late",
+      "late": "Late",
+      "next": "Next",
+      "title": "Log Today's Medication",
+      "medicationTitle": "Please Log Your Medication",
+      "medicationTime": "What time did you take your medication?",
+      "didYouTake": "Did you take your medication today?",
+      "didTake": "I took my medication",
+      "didNotTake": "I didn't take my medication",
+      "whyNotTaken": "Why didn't you take your medication?",
+      "symptomsTitle": "Did you have any symptoms?",
+      "moodTitle": "How are you feeling today?",
+      "doingWell": "Doing Well",
+      "needSupport": "Need Support",
+      "requireReason": "Please tell us how we can support you before continuing",
+      "whySupport": "How can we support you?",
+      "photoTitle": "Capture Strip Photo",
+      "photo": {
+        "permissionsError": "There was an error getting access to your camera. Please try again and make sure to allow access if prompted.",
+        "usePhoto": "Use Photo",
+        "retakePhoto": "Retake Photo",
+        "openCamera": "Open Camera",
+        "how": "How do I take the test?",
+        "help": {
+          "remember": "Please remember to",
+          "wait": "Let the test strip sit for 20 minutes before taking a photo",
+          "straight": "Capture the photo straight above the test strip",
+          "retakeIf": "Retake photo if it is blurry or the square marker is not visible",
+          "instructions": "View Test Strip Instructions"
         },
-        "showAll": "Show All",
-        "showLess": "Show Less",
-        "addAnother": "Add another",
-        "nextAppointment": "Next appointment"
-    },
-    "update": {
-        "update": "Update",
-        "updateAvailable": "Update Available",
-        "alreadyDownloaded": "It has already been downloaded and can be used immediately.",
-        "clickButton": "Click the button below to complete update",
-        "doLater": "Complete Later"
-    },
-    "forcePasswordUpdate": {
-        "temporaryPassword": "Temporary Code",
-        "title": "Your password was reset, please create a new one",
-        "exit": "Complete this later",
-        "success": "Password Updated Successfully"
-    },
-    "treatmentUpdates": {
-        "3": "La Tuberculosis Pulmonar se contagia cuando una persona enferma al toser, estornudar o al hablar elimina con la tos secreciones que contienen los bacilos que producen la enfermedad. Siempre tratar de toser en lugar bien ventilado, nunca cerrado, si es posible cubrirse la boca y/o utilizar barbijo. ",
-        "5": "¿Sabías que puedes chatear con otros pacientes en tratamiento anónimamente?",
-        "7": "Una de las drogas utilizadas, la Rifampicina, colorea la orina, saliva o lagrimas de color naranja o rojo. Esto es  normal. Las lentes de contacto pueden teñirse de manera irreversible.",
-        "10": "Estar en contacto frecuente y en lugares cerrados aumenta el riesgo de contagiarse. Las personas con las que vive o trabaja deben hacerse un control. ¡Cuando tosa, por favor cúbrase la boca con el pliegue del codo!",
-        "14": "Las drogas utilizadas en el tratamiento deben tomarse en ayunas con agua, ya que con los alimentos, sobre todo si contienen abundantes azúcares (por ejemplo yogurt) y harinas, la acción disminuye en forma importante (25-60%) ",
-        "21": "La Tuberculosis Pulmonar no se contagia al dar la mano, compartir vasos o platos. Solo el contagio se produce al toser, estornudar o al hablar. Recordar que ¡La Tuberculosis se cura! ",
-        "24": "Por la acción rápida de las drogas una persona enferma a los pocos días (entre 15 a 20 días) deja de contagiar. Esto lo determina el médico mediante un estudio de catarro.",
-        "28": "Dejar de contagiar no es igual a curación. Para que la Tuberculosis Pulmonar se cure debo cumplir con al menos 6 meses de tratamiento. ",
-        "31": "Las drogas utilizadas en el tratamiento de la Tuberculosis pueden producir vómitos, picazón, pérdida del apetito, erupciones en la piel, disminución en la visión. Recordar que la presencia de estos efectos deberá consultarse con el servicio tratante, para evaluar la severidad de la misma.",
-        "35": "Los síntomas como fiebre, sudores nocturnos, tos y catarro, pueden persistir durante los primeros días del tratamiento. Recordar que hay que continuar con el tratamiento! ",
-        "38": "Por la acción de los medicamentos la piel puede estar más sensible al sol. Tratar de no exponerse al sol. Recordar que lo importante es el cumplimiento del tratamiento.",
-        "42": "La alimentación puede incluir todos los componentes como pan, pastas, harinas, grasas, proteínas, fibra, fruta y verduras.",
-        "46": "Para controlar que las drogas antituberculosas utilizadas lo están curando, es necesario hacer controles mínimos del catarro. Recordar que los controles son importantes en los primeros meses del tratamiento cuando aún puede tener síntomas. ",
-        "50": "Sabemos que, lamentablemente, la persona enferma puede sufrir actos de discriminación. Esto se debe al miedo y al desconocimiento. Creemos que la información y la difusión son la manera de desterrar estos prejuicios. Todos podemos enfermar. ",
-        "54": "Las drogas utilizadas en el tratamiento de la Tuberculosis son 100% efectivas y curan al paciente enfermo. Si el tratamiento no se cumple hace que la bacteria se vuelva resistente a las drogas perdiendo así su esta efectividad.",
-        "58": "El control del catarro especialmente en los 2 primeros meses del tratamiento, permite saber si una persona aún sigue contagiando. Con estos controles si el catarro ya es negativo puedeo volver al trabajo, a pesar que debeo continuar con el tratamiento durante con el tratamiento los 6 meses. Adelante! ",
-        "62": "Después del segundo mes el tratamiento es más sencillo con menor cantidad de medicación. Es importante continuar con todos los controles y examen del catarro para saber si las drogas me sirven para curarme. ",
-        "70": "Ante cualquier complicación, el personal de salud de su lugar de atención puede controlar el tratamiento. Recordar que la única manera de prevenir en Tuberculosis es CURAR a todos los pacientes. ",
-        "80": "Un tratamiento exitoso depende del cumplimiento de todas las tomas de la medicación. Tratar de respetar los horarios.",
-        "90": "La mejoría de los síntomas no es lo mismo que curación. Curar significa que hay que continuar habitualmente con un tratamiento 6 meses. Adelante! ",
-        "141": "Let us know how we are doing! Someone from the study might reach out to you and ask about your experience with the app. We also have a survey that is available on the homepage. Thanks!"
-    },
-    "mayTestStripUpdate": {
-        "title": "Important Update",
-        "subtitle": "New test strip instructions",
-        "body": "The instructions for the test strips have changed, please review them before completing your next test.",
-        "textInstructions": "Text Instructions",
-        "videoInstructions": "Video Instructions"
-    },
-    "exitInterviewAlert":{
-        "title": "Feedback",
-        "intro": "You are almost done with treatment, great work!",
-        "ask": "To gather feedback, a member of the study team might call you after you have finished using the app.",
-        "survey": "We also have a short survey on your home screen.",
-        "thanks": "Thank you"
-    },
-    "dashboard": {
-        "category": "Category",
-        "reported": "Reported",
-        "requested": "Requested",
-        "submitted": "Submitted",
-        "submissions": "Submissions",
-        "percentage": "Percentage",
-        "dailyReports": "Daily Reports",
-        "percentageOfReports": "Percentage of Reports",
-        "photoReports": "Photo Reports",
-        "metric": "Metric",
-        "lessThan": "less than",
-        "registrationOfPatients": "Registration of patients over time",
-        "reportsVsRequests": "Daily Reports Submitted / Total Active Number of Patients",
-        "photosVsRequests": "Daily Photos Submitted / Number of Requests",
-        "adherenceVis": "Adherence vs Days In Treatment",
-        "skippedPhoto": "Skipped Photo",
-        "needsSupport": "Needs Support",
-        "sideEffects": "Side Effects"
-    },
-    "summaries": {
-        "averageAdherence": "Average Adherence",
-        "averagePhotoAdherence": "Average Photo Adherence",
-        "siteSummary": "Summary of Active Patients",
-        "loading": "Loading list of patients"
-    },
-    "archive": {
-        "notSelected": "Not Selected",
-        "warningTitle": "Patient Archived",
-        "explanation": "If the patient has completed thier time using the application, fill in their last day, and click the button below to archive them. They will no longer appear in the lists of tasks, but their profile can be accessed from the cohort tab.",
-        "appEndField": "Last day using app",
-        "warningShort": "This patient has been archived and can no longer report",
-        "warningLong": "This patient has been archived and will no longer show up in your tasks. If you need to undo this action please contact study staff for technical support.",
-        "treatmentOutcome": "Treatment Outcome",
-        "continue": "Continue To Patient Profile",
-        "outcomeTypes": {
-            "success": "Success",
-            "default": "Default",
-            "withdraw": "Withdraw",
-            "lost-to-follow-up": "Lost to follow up",
-            "transferred": "Transfered",
-            "deceased": "Deceased",
-            "refuse-to-use-app": "Refuse to use app"
-        },
-        "complete": "Complete",
-        "endSurvey": "Survey",
-        "patientSide": {
-            "congrats": "Congrats on successfully completing treatment!",
-            "subtitle": "We know completing treatment is not easy, and you did an excellent job. If you have any questions your assistant will be there to support you.",
-            "details": "You do not need to report anymore, but feel free to use the other resources in the app.",
-            "survey": "If you have not yet done so, please complete this survey to let us know about your experience using the application.",
-            "surveyButton": "Tell us about your experience",
-            "statusChange": "Your study status has changed and you can no longer report. Please contact your assistant for more details."
-        },
-        "surveyText": "Please send this link to the patient so they can tell us about their experience."
-    },
-    "notificationInstructions": {
-        "steps": {
-            "title": "How to enable notifications",
-            "goToSettings": "Go to the settings application on your phone",
-            "clickNotifications": "Click on notification settings",
-            "clickApp": "Click on Asistente",
-            "allowNotifications": "Enable notifications"
-        },
+        "other": "Other Options",
+        "submitLater": "Submit Later",
+        "unable": "Unable to submit? Tell us why",
+        "whyUnable": "Why are you unable to submit?",
+        "back": "Return to previous step"
+      },
+      "symptoms": {
+        "nauseaRating": "How bad is your nausea?",
+        "instructions": "Please tap an option that represents how you are feeling",
         "warning": {
-            "title": "Push notifications are off",
-            "subtitle": "This means you will not recieve:",
-            "medicationReminders": "Medication Reminders",
-            "aptReminders": "Appointment Reminders",
-            "msgAlerts": "New messages from your assistant",
-            "button": "View Instructions",
-            "unsupported": "This device does not support push notifications",
-            "unsupportedDetails": "You will not receive reminders or notifications about new messages",
-            "ask": "Enable"
+          "title": "You logged a symptom that needs immediate follow up",
+          "subtitle": "Please seek emergency medical attention immediately. Your treatment assistant will follow up with you.",
+          "button": "Okay",
+          "moreInformation": "More Information"
         }
+      },
+      "confirmation": {
+        "title": "Confirm and Submit",
+        "addMore": "Add More",
+        "noPhoto": "No Photo Needed Today",
+        "missingPhoto": "Missing Photo",
+        "takenAt": "Taken at",
+        "notTaken": "Not taken because",
+        "review": "Review Photo"
+      },
+      "offline": {
+        "report": "offline report",
+        "report_plural": "offline reports",
+        "allDone": "All offline reports have submitted",
+        "youHave": "You have",
+        "explanation": "They will be uploaded when you have an internet connection",
+        "uploading": "Uploading your offline reports"
+      },
+      "photoUploading": "Your photo is uploading",
+      "photoUploadError": "There was a problem uploading your report. Please try again, or contact your treatment assistant"
     },
-    "householdTesting": {
-        "updated": "Updated",
-        "button": "Update household testing status",
-        "title": "Household testing",
-        "thanks": "Thank you for your input",
-        "recorded": "Your response has been recorded",
-        "reachOut": "Not all of your contacts have been tested yet, please reach out to your treatment assistant for more information and recommendations.",
-        "completed": "Great job ensuring the health of those with whom you live.",
-        "membersTested": "Members tested",
-        "noResponse": "Not yet completed"
+    "reportConfirmation": {
+      "view": "View",
+      "hide": "Hide",
+      "viewOrEdit": "View / Edit Report",
+      "goodJob": "Good Job",
+      "photoNeeded": "You also need to upload a photo of your test strip today",
+      "doLater": "Do Later Today",
+      "baseComplete": "Your daily report has been successfully submitted",
+      "photoComplete": "Your test strip has been successfully submitted"
     },
-    "missedPhotoDetails":{
-        "topBarText": "Missed request",
-        "future": "In the future please submit your test on the day it is requested so we can see your treatment progress.",
-        "requestedOn": "Submitting for the request sent on",
-        "notRequired": "You do not have any missed test requests at this time. Keep up the great work!",
-        "confirmation": "Your photo was submitted, thanks for letting us know how you are doing!"
+    "progress": {
+      "noReport": "No report for this day",
+      "whenBackReport": "When can I report for a missed day?",
+      "viewCalendar": "View Your Calendar of Reports",
+      "viewPhotos": "View Your Photo Submissions",
+      "approvalStatus": "Approval Status",
+      "milestones": "Milestones",
+      "upcoming": "Upcoming",
+      "calendar": "Calendar of Reports",
+      "submissionLimit": "If you miss a day, you can only submit for the 3 previous days, and any days you missed in your first 2 weeks",
+      "loading": "Reporting history loading",
+      "calendarKey": {
+        "tookMeds": "Took medication",
+        "sideEffects": "Reported side effects",
+        "noMeds": "Didn't take medication",
+        "button": "What do these colors mean",
+        "description": "This is the calendar, where you can review your submissions. The colors show the following:",
+        "good": "All parts submitted",
+        "missed": "No Report submitted. If you miss a day you can report up to 3 days in the past.",
+        "notTaken": "Reported not taking your medication",
+        "symptoms": "Reported symptoms"
+      }
     },
-    "appSurvey":{
-        "goToSurvey": "Go to survey",
-        "markAsCompleted": "Mark as completed"
+    "addMilestone": {
+      "barTitle": "Add Milestone",
+      "titles": [
+        "What milestone would you like to add?",
+        "Whats the date of your milestone?",
+        "Whats the time of your milestone?",
+        "Where is your appointment?"
+      ]
     },
-    "oneStepReporting":{
-        "top": "No issues and took your medication?",
-        "tap": "tap the",
-        "greenButton": "green button",
-        "complete": "to complete your report in one step",
-        "needHelp": "Need help or have an issue?",
-        "yellowButton": "yellow button",
-        "newFeature": "New Feature",
-        "oneStep": "One Step Reporting",
-        "homeScreen": "You can also now complete your report for the day from your homescreen by reporting straight from your medication reminder"
+    "information": {
+      "otherSettings": "Other Settings",
+      "changeLog": "Application Change Log",
+      "version": "Version",
+      "questions": "Questions and answers",
+      "education": "Important Information To Know",
+      "helpSection": "Help With Application",
+      "infoSection": "Information About Treatment",
+      "launchWalkthrough": "Launch Walkthrough",
+      "video": "Watch Video",
+      "videos": "Videos About Treatment",
+      "helpVideos": "Video Instructions",
+      "techSupport": "Technical Support",
+      "reportIssue": "Report Issue",
+      "testInstructions": "Test Strip Instructions",
+      "walkthrough": {
+        "title": "Interactive Walkthrough",
+        "start": "Start from begining",
+        "home": "Home Page",
+        "calendar": "Calendar Page",
+        "messaging": "Messaging Page"
+      }
     },
-    "photoReportReview":{
-        "allLoaded": "all reports loaded",
-        "detected": "medication detected",
-        "unclear": "unclear result",
-        "resubmit": "resubmission requested",
-        "awaiting": "awaiting review",
-        "result": "result"
-
-    },
-    "redoPhoto":{
-        "viewMyPhotos": "View photo submssions",
-        "title": "Resubmit test strip",
-        "subtitle": "Review the issue your treatment supporter identified",
-        "flag": "Resubmission",
-        "shortFlag": "Redo",
-        "explanation": "There was an issue with your last test submission and you have been asked to resubmit. Please review the instructions carefully.",
-        "feedback": "Feedback",
-        "originalSubmission": "Original Submission",
-        "newSubmission": "New Submission",
-        "selectResult": "Select test result",
-        "detected": "Medication detected",
-        "notDetected": "Not detected",
-        "ask": "Ask patient to resubmit test",
-        "attachMessage": "Message to patient"
-    },
-    "testStripInstructions":{
-        "imgFolder": "/img/en/",
-        "one": "Collect a small amount of urine in a container (about 2 fingers deep)",
-        "two": "Take the test out of the bag",
-        "three": "Dip the strip into the urine for about 2 seconds to the line marked dip. Do not let the test for longer than 2 seconds in the urine.",
-        "four": "Let the test sit flat for 20 minutes before submitting ",
-        "five" : {
-            "main": "Open the application and click \"Submit Photo\".",
-            "a": "Make sure the photo shows the entire strip, including the barcodes.",
-            "b":  "Take the picture and click \"Next\"."
-        },
-        "six": "Put the test back in its bag and discard in the trash"
-
-    },
-    "mobileUpdate":{
-        "actions": "Actions",
-        "showActions": "Show All Actions",
-        "treatment": "Treatment",
-        "supportRequests": "Support Requests"
-    },
-    "reviewIssues":{
-        "issues": "Issues",
-        "reviewed": "Reviewed",
-        "unreviewed": "Unreviewed",
-        "submitted": "Review Submitted",
-        "review": "Review",
-        "reviewBefore": "Please review the photos before marking this patient as reviewed",
-        "noIssues": "No issues to review",
-        "hasIssues": "Issues to review",
-        "onTrack": "On track with treatment",
-        "reviewedAt": "Reviewed at"
+    "chatReminder": {
+      "howTo": "Heres how",
+      "list": [
+        "Go to the Messaging tab ",
+        "Toward the bottom, tap on any of the Group Discussions",
+        "Talk to others experiencing TB. Ask questions, receive feedback, and provide encouragement. Only your treatment assistant can see your name"
+      ]
     }
+  },
+  "symptoms": {
+    "nausea": {
+      "title": "Nausea or Vomiting",
+      "subtitle": "Feeling nauseous or unable to put food down"
+    },
+    "redness": {
+      "title": "Redness",
+      "subtitle": "Swelling, redness, itching of skin"
+    },
+    "hives": {
+      "title": "Hives",
+      "subtitle": "Itchy spots on skin"
+    },
+    "fever": {
+      "title": "Fever",
+      "subtitle": "Body temperature over 37.5"
+    },
+    "appetite_loss": {
+      "title": "Loss of appetite",
+      "subtitle": "Loss of appetite"
+    },
+    "blurred_vision": {
+      "title": "Blurry Vision",
+      "subtitle": "Blurred vision or changes in the way you see colors"
+    },
+    "sore_belly": {
+      "title": "Upset Stomach",
+      "subtitle": "Having a stomach ache or other stomach irritability"
+    },
+    "yellow_coloration": {
+      "title": "Yellow Coloration",
+      "subtitle": "Yellowing of the skin or whites of the eyes"
+    },
+    "difficulty_breathing": {
+      "title": "Difficulty Breathing",
+      "subtitle": "Shortness of breath or difficulty breathing"
+    },
+    "facial_swelling": {
+      "title": "Facial Swelling",
+      "subtitle": "Swelling of the face, lips, tongue, or throat"
+    },
+    "dizziness": {
+      "title": "Dizziness",
+      "subtitle": ""
+    },
+    "headache": {
+      "title": "Headache",
+      "subtitle": ""
+    },
+    "flu_symptoms": {
+      "title": "Flu Symptoms",
+      "subtitle": "Flu symptoms include fever, chills, headache, and body pain"
+    },
+    "red_urine": {
+      "title": "Red urine",
+      "subtitle": "Urine has a red tint"
+    },
+    "sleepy": {
+      "title": "Sleepy",
+      "subtitle": "Feeling tired all day"
+    },
+    "joint_pain": {
+      "title": "Joint pain",
+      "subtitle": "Feeling pain in your joints or bones"
+    },
+    "burning_or_numbness": {
+      "title": "Burning, tingling or numbness",
+      "subtitle": "Feeling of burning, tingling, or numbness in your fingers or toes"
+    },
+    "hearing_loss": {
+      "title": "Hearing loss",
+      "subtitle": "Changes in your hearing, or being unable to hear"
+    },
+    "vertigo": {
+      "title": "Vertigo",
+      "subtitle": "Sensation of whirling and loss of balance, associated particularly with looking down from a great height"
+    },
+    "confusion": {
+      "title": "Confusion",
+      "subtitle": "Increasingly feeling confused"
+    },
+    "oliguria": {
+      "title": "Decrease in urination",
+      "subtitle": "Urinating less than normal, or experiencing difficulty urinating"
+    },
+    "other": {
+      "title": "Other",
+      "subtitle": "Click here to list additional side effects"
+    }
+  },
+  "milestones": {
+    "titles": {
+      "sputumTest": "Sputum Test",
+      "intensivePhase": "End of Intensive Phase",
+      "testingFU": "Follow Up Testing",
+      "appointmentFU": "Follow Up Appointment",
+      "medPickup": "Medication pick-up",
+      "housematesTested": "All housemates tested"
+    },
+    "upcoming": "Upcoming",
+    "previous": "Previous"
+  },
+  "coordinator": {
+    "mobileWarning": "Mobile view still in progress. You can view your tasks, but not approve them. Messaging is functional.",
+    "priority": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "cohortOverview": {
+      "adherenceGraph": "Summary of Adherence",
+      "title": "Cohort Overview",
+      "high": "High Priority",
+      "medium": "Medium Priority",
+      "low": "Low Priority",
+      "active": "Active",
+      "pending": "Pending",
+      "archived": "Archived",
+      "reportedTime": "Reported In The Past 7 Days",
+      "noPatientsFound": "No Patients Found",
+      "searchByName": "Search By Name"
+    },
+    "addPatientFlow": {
+      "title": "Add Patient",
+      "formTitle": "New Patient Details",
+      "addedPatient": "Added Patient",
+      "codeToSend": "Code to send to patient",
+      "resetCode": "Reset Code",
+      "forPatient": "Activation Code For Patient",
+      "activationCode": "Activation Code",
+      "clickToCopy": "Click to copy",
+      "success": "Successfully copied",
+      "patientSuccess": "Patient Successfully Added"
+    },
+    "titles": {
+      "myTasks": "My Tasks",
+      "myPatients": "My Patients",
+      "reportingStatus": "Reporting Status"
+    },
+    "cardTitles": {
+      "patientsWithSymptoms": "Patients with Symptoms",
+      "photosToReview": "Photos to Review",
+      "missedReport": "Missed Report Since Last Resolution",
+      "missedPhoto": "Missed a Required Photo",
+      "overviewOfProgress": "Overview of Progress",
+      "allPatients": "All Patients",
+      "activePatients": "Active Patients",
+      "archivedPatients": "Archived Patients",
+      "awaitingActivation": "Awaiting Activation",
+      "currentStatus": "Current Status",
+      "reportingCalender": "Reporting Calender",
+      "requestedSupport": "Requested Support"
+    },
+    "recentReports": {
+      "title": "Recent Reports",
+      "noSymptoms": "No Symptoms Reported",
+      "tookMeds": "Took Meds",
+      "didntTakeMeds": "Didnt Take Meds",
+      "noPhoto": "No Photo",
+      "none": "None"
+    },
+    "sideBar": {
+      "noReason": "No reason submitted",
+      "lastContacted": "Last Contracted",
+      "viewFullProfile": "View Full Profile",
+      "daysMissed": "Days Missed Since Last Resolution",
+      "photoSub": "Photo Submission",
+      "expandPhoto": "View Larger Size Photo",
+      "symptomsSince": "Symptoms Reported",
+      "loading": "Loading",
+      "messagePatient": "Message Patient",
+      "contactedPatient": "Contacted Patient"
+    },
+    "patientTableLabels": {
+      "name": "Name",
+      "priority": "Priority",
+      "treatmentStart": "Treatment Start",
+      "lastSubmission": "Last Submission",
+      "adherence": "Adherence",
+      "photoAdherence": "Photos Submitted",
+      "streak": "Streak",
+      "details": "Details"
+    },
+    "noReports": "No Reports",
+    "noTasks": "No Tasks Found",
+    "profile": "Profile",
+    "message": "Message",
+    "adherence": "Adherence",
+    "months": "Months",
+    "true": "true",
+    "false": "false",
+    "daysInTreatment": "Days In Treatment",
+    "patientProfile": {
+      "lastReport": "Last report",
+      "details": {
+        "progress": "Progress"
+      },
+      "adherenceSection": {
+        "reportedTaking": "Reported Taking",
+        "didntTake": "Reported Not Taking",
+        "didntReport": "Missed Reporting",
+        "missedRequest": "Missed Request"
+      },
+      "notes": {
+        "noneFound": "No Notes Found",
+        "title": "Title",
+        "detail": "Detail"
+      },
+      "accessError": "This patient does not exist at your site",
+      "editDetails": {
+        "success": "Patient information successfully updated",
+        "title": "Edit Patient Details",
+        "newPhone": "New Phone Number",
+        "warning": "If the patients phone number is changed, they will need to log in with the new phone number you have provided.",
+        "submit": "Submit",
+        "cancel": "Cancel",
+        "inputError": "There was an error with your change, which has been marked in red. Phone numbers must be 9-15 digits, and unique for each patient."
+      },
+      "addNote": {
+        "header": "New note for",
+        "title": "Title",
+        "note": "Note",
+        "button": "Submit Note"
+      },
+      "age": "age",
+      "gender": "gender",
+      "resetPassword": "Reset Password",
+      "resetPasswordExplanation": "Click here to reset a patients password. This generates a temporary password that you will have to send to them via WhatsApp. They will be asked to enter a new password after they use the temporary one.",
+      "phoneNumber": "Phone Number",
+      "treatmentStart": "Treatment Start",
+      "treatmentEnd": "Treatment End Date",
+      "appEndDate": "App End Date",
+      "lastContacted": "Last Contacted",
+      "date": "Date",
+      "taken": "Taken",
+      "symptoms": "Symptoms",
+      "photo": "Photo",
+      "completedDays": "Completed Days",
+      "feelingHealthy": "Feeling Healthy",
+      "currentStreak": "Current Streak",
+      "longestStreak": "Longest Streak",
+      "symptomSummary": {
+        "title": "Symptom Summary",
+        "noneReported": "No symptoms reported for selected time period",
+        "timeOptions": {
+          "week": "Past 7 Days",
+          "month": "Past 30 Days",
+          "all": "All Reports"
+        }
+      },
+      "treatmentStatus": "Treatment Status",
+      "feelingWell": "Feeling Well",
+      "contactTracing": "Contact Traces",
+      "reportingHistory": "Patient History",
+      "listReports": "Reports",
+      "calendarReports": "Calendar",
+      "options": {
+        "title": "Options",
+        "resetPassword": "Reset Password",
+        "archive": "Archive Patient",
+        "message": "Message",
+        "note": "Add Note",
+        "edit": "Edit",
+        "editOutcome": "Edit Treatment Outcome"
+      }
+    },
+    "tasksSidebar": {
+      "complete": "Complete",
+      "unfinished": "Unfinished",
+      "overview": "Tasks Overview",
+      "patientStatus": "Patient Report Status",
+      "noReport": "No Report Today",
+      "title": "Overview",
+      "doneToday": "Completed Today",
+      "unresolved": "Unresolved",
+      "submitted": "Submitted",
+      "taken": "Taken",
+      "notTaken": "Not Taken",
+      "noneYet": "No Reports Submitted Yet"
+    },
+    "settingsPage": {
+      "account": "My Account",
+      "language": "Language Selection",
+      "updatePassword": "Update Password",
+      "documents": "Instructions and Manuals",
+      "patientInformation": "Information for Patients",
+      "applicationHelp": "Application Help",
+      "patientViewExplanation": "This is the information that the patients can see from their mobile application"
+    },
+    "documents": {
+      "manual": "Application Manual",
+      "instructions": "Test Strip Instructions"
+    }
+  },
+  "errors": {
+    "offline": "is unavailable offline. Please connect to the internet to use this function.",
+    "page": {
+      "header": "Something went wrong.",
+      "sorry": "Sorry about that",
+      "furtherSupport": "For Further Support Contact Us",
+      "contactDetails": "Please provide a detailed description of your issue and any steps that lead you to it.",
+      "try": "Try these steps",
+      "reloadStep": "Reload the page",
+      "loginStep": "Log Out and Log Back In",
+      "closeStep": "Close app from at a system level or close browser tab"
+    },
+    "login": {
+      "badPhone": "Cannot find account with that phone number",
+      "badEmail": "Cannot find account with that email",
+      "identifier": "Incorrect Phone Number / Email",
+      "password": "Incorrect Password",
+      "other": "Unexpected Error. Please contact your treatment assistant on WhatsApp"
+    },
+    "sessionExpired": "Your session has expired.",
+    "logBackIn": "Please log back in.",
+    "reload": "Reload Page"
+  },
+  "settings": {
+    "updatePassword": "Update Password",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm New Password",
+    "submit": "Submit"
+  },
+  "educationalMessages": {
+    "thoughtsForToday": "Thoughts for today",
+    "feedback": "Thank you for your feedback",
+    "week": "Week",
+    "header": "Important to know",
+    "helpful": "Was this helpful?",
+    "lateWarning": "Updates that were missed may show up later in your treatment"
+  },
+  "timeline": {
+    "warning": "This is a general outline, and may vary from person to person",
+    "title": "Treatment Timeline",
+    "expect": "This month you can expect",
+    "sputumTest": "Sputum Test",
+    "start": "Start of Treatment",
+    "intensive": "Intensive Phase",
+    "medicationChange": "Change of Medication",
+    "continuous": "Continuous Phase",
+    "followUp": "Follow Up Appointment",
+    "end": "End of Treatment",
+    "here": "You are here",
+    "twoMonths": "Every two months",
+    "during": "During Continuous Phase",
+    "dayOne": "Day One",
+    "scheduled": "Monthly or as scheduled",
+    "oneToTwo": "After 1-2 months",
+    "changeMeds": "Change medication regimen",
+    "afterTwo": "After 2 months",
+    "threeToFour": "After 3-4 months",
+    "finish": "Finish treatment",
+    "sixMonths": "After Six Months",
+    "finalSputum": "Final sputum test"
+  },
+  "report": {
+    "for": "Report for",
+    "incomplete": "Incomplete",
+    "noReportsYet": "No Reports",
+    "tag": "Report",
+    "medicationTaken": "Medication Taken",
+    "time": "Time",
+    "conclusive": "Conclusive",
+    "inconclusive": "Inconclusive",
+    "pending": "Pending",
+    "photoNotNeeded": "Photo Not Required",
+    "missedPhoto": "Photo Not Submitted",
+    "missedPhotoShort": "Missed Photo",
+    "submittedAt": "Submitted At",
+    "feeling": "Feeling",
+    "photoSubmitted": "Photo Submitted",
+    "flags": "Flags"
+  },
+  "appointments": {
+    "manage": "View / Manage all appointments",
+    "typeNote": "Type note here",
+    "createAppointment": "Create Appointment",
+    "noUpcoming": "No Upcoming Appointments",
+    "whatDay": "What day is the appointment?",
+    "whatTime": "What time is the appointment?",
+    "select": "Select an appointment type",
+    "typeQuestion": "What type of appointment would you like to add?",
+    "selectDate": "Select a date and time",
+    "addAppointment": "Add Appointment",
+    "otherType": "What type of appointment?",
+    "remindedAt": "You will be reminded at",
+    "dayBefore": "the day before your appointment",
+    "types": {
+      "check_in": "Check In",
+      "medication_pickup": "Medication Pickup",
+      "sputum_test": "Sputum Test",
+      "other": "Other"
+    },
+    "showAll": "Show All",
+    "showLess": "Show Less",
+    "addAnother": "Add another",
+    "nextAppointment": "Next appointment"
+  },
+  "update": {
+    "update": "Update",
+    "updateAvailable": "Update Available",
+    "alreadyDownloaded": "It has already been downloaded and can be used immediately.",
+    "clickButton": "Click the button below to complete update",
+    "doLater": "Complete Later"
+  },
+  "forcePasswordUpdate": {
+    "temporaryPassword": "Temporary Code",
+    "title": "Your password was reset, please create a new one",
+    "exit": "Complete this later",
+    "success": "Password Updated Successfully"
+  },
+  "treatmentUpdates": {
+    "3": "La Tuberculosis Pulmonar se contagia cuando una persona enferma al toser, estornudar o al hablar elimina con la tos secreciones que contienen los bacilos que producen la enfermedad. Siempre tratar de toser en lugar bien ventilado, nunca cerrado, si es posible cubrirse la boca y/o utilizar barbijo. ",
+    "5": "¿Sabías que puedes chatear con otros pacientes en tratamiento anónimamente?",
+    "7": "Una de las drogas utilizadas, la Rifampicina, colorea la orina, saliva o lagrimas de color naranja o rojo. Esto es  normal. Las lentes de contacto pueden teñirse de manera irreversible.",
+    "10": "Estar en contacto frecuente y en lugares cerrados aumenta el riesgo de contagiarse. Las personas con las que vive o trabaja deben hacerse un control. ¡Cuando tosa, por favor cúbrase la boca con el pliegue del codo!",
+    "14": "Las drogas utilizadas en el tratamiento deben tomarse en ayunas con agua, ya que con los alimentos, sobre todo si contienen abundantes azúcares (por ejemplo yogurt) y harinas, la acción disminuye en forma importante (25-60%) ",
+    "21": "La Tuberculosis Pulmonar no se contagia al dar la mano, compartir vasos o platos. Solo el contagio se produce al toser, estornudar o al hablar. Recordar que ¡La Tuberculosis se cura! ",
+    "24": "Por la acción rápida de las drogas una persona enferma a los pocos días (entre 15 a 20 días) deja de contagiar. Esto lo determina el médico mediante un estudio de catarro.",
+    "28": "Dejar de contagiar no es igual a curación. Para que la Tuberculosis Pulmonar se cure debo cumplir con al menos 6 meses de tratamiento. ",
+    "31": "Las drogas utilizadas en el tratamiento de la Tuberculosis pueden producir vómitos, picazón, pérdida del apetito, erupciones en la piel, disminución en la visión. Recordar que la presencia de estos efectos deberá consultarse con el servicio tratante, para evaluar la severidad de la misma.",
+    "35": "Los síntomas como fiebre, sudores nocturnos, tos y catarro, pueden persistir durante los primeros días del tratamiento. Recordar que hay que continuar con el tratamiento! ",
+    "38": "Por la acción de los medicamentos la piel puede estar más sensible al sol. Tratar de no exponerse al sol. Recordar que lo importante es el cumplimiento del tratamiento.",
+    "42": "La alimentación puede incluir todos los componentes como pan, pastas, harinas, grasas, proteínas, fibra, fruta y verduras.",
+    "46": "Para controlar que las drogas antituberculosas utilizadas lo están curando, es necesario hacer controles mínimos del catarro. Recordar que los controles son importantes en los primeros meses del tratamiento cuando aún puede tener síntomas. ",
+    "50": "Sabemos que, lamentablemente, la persona enferma puede sufrir actos de discriminación. Esto se debe al miedo y al desconocimiento. Creemos que la información y la difusión son la manera de desterrar estos prejuicios. Todos podemos enfermar. ",
+    "54": "Las drogas utilizadas en el tratamiento de la Tuberculosis son 100% efectivas y curan al paciente enfermo. Si el tratamiento no se cumple hace que la bacteria se vuelva resistente a las drogas perdiendo así su esta efectividad.",
+    "58": "El control del catarro especialmente en los 2 primeros meses del tratamiento, permite saber si una persona aún sigue contagiando. Con estos controles si el catarro ya es negativo puedeo volver al trabajo, a pesar que debeo continuar con el tratamiento durante con el tratamiento los 6 meses. Adelante! ",
+    "62": "Después del segundo mes el tratamiento es más sencillo con menor cantidad de medicación. Es importante continuar con todos los controles y examen del catarro para saber si las drogas me sirven para curarme. ",
+    "70": "Ante cualquier complicación, el personal de salud de su lugar de atención puede controlar el tratamiento. Recordar que la única manera de prevenir en Tuberculosis es CURAR a todos los pacientes. ",
+    "80": "Un tratamiento exitoso depende del cumplimiento de todas las tomas de la medicación. Tratar de respetar los horarios.",
+    "90": "La mejoría de los síntomas no es lo mismo que curación. Curar significa que hay que continuar habitualmente con un tratamiento 6 meses. Adelante! ",
+    "141": "Let us know how we are doing! Someone from the study might reach out to you and ask about your experience with the app. We also have a survey that is available on the homepage. Thanks!"
+  },
+  "mayTestStripUpdate": {
+    "title": "Important Update",
+    "subtitle": "New test strip instructions",
+    "body": "The instructions for the test strips have changed, please review them before completing your next test.",
+    "textInstructions": "Text Instructions",
+    "videoInstructions": "Video Instructions"
+  },
+  "exitInterviewAlert": {
+    "title": "Feedback",
+    "intro": "You are almost done with treatment, great work!",
+    "ask": "To gather feedback, a member of the study team might call you after you have finished using the app.",
+    "survey": "We also have a short survey on your home screen.",
+    "thanks": "Thank you"
+  },
+  "dashboard": {
+    "category": "Category",
+    "reported": "Reported",
+    "requested": "Requested",
+    "submitted": "Submitted",
+    "submissions": "Submissions",
+    "percentage": "Percentage",
+    "dailyReports": "Daily Reports",
+    "percentageOfReports": "Percentage of Reports",
+    "photoReports": "Photo Reports",
+    "metric": "Metric",
+    "lessThan": "less than",
+    "registrationOfPatients": "Registration of patients over time",
+    "reportsVsRequests": "Daily Reports Submitted / Total Active Number of Patients",
+    "photosVsRequests": "Daily Photos Submitted / Number of Requests",
+    "adherenceVis": "Adherence vs Days In Treatment",
+    "skippedPhoto": "Skipped Photo",
+    "needsSupport": "Needs Support",
+    "sideEffects": "Side Effects"
+  },
+  "summaries": {
+    "averageAdherence": "Average Adherence",
+    "averagePhotoAdherence": "Average Photo Adherence",
+    "siteSummary": "Summary of Active Patients",
+    "loading": "Loading list of patients"
+  },
+  "archive": {
+    "notSelected": "Not Selected",
+    "warningTitle": "Patient Archived",
+    "explanation": "If the patient has completed thier time using the application, fill in their last day, and click the button below to archive them. They will no longer appear in the lists of tasks, but their profile can be accessed from the cohort tab.",
+    "appEndField": "Last day using app",
+    "warningShort": "This patient has been archived and can no longer report",
+    "warningLong": "This patient has been archived and will no longer show up in your tasks. If you need to undo this action please contact study staff for technical support.",
+    "treatmentOutcome": "Treatment Outcome",
+    "continue": "Continue To Patient Profile",
+    "outcomeTypes": {
+      "success": "Success",
+      "default": "Default",
+      "withdraw": "Withdraw",
+      "lost-to-follow-up": "Lost to follow up",
+      "transferred": "Transfered",
+      "deceased": "Deceased",
+      "refuse-to-use-app": "Refuse to use app"
+    },
+    "complete": "Complete",
+    "endSurvey": "Survey",
+    "patientSide": {
+      "congrats": "Congrats on successfully completing treatment!",
+      "subtitle": "We know completing treatment is not easy, and you did an excellent job. If you have any questions your assistant will be there to support you.",
+      "details": "You do not need to report anymore, but feel free to use the other resources in the app.",
+      "survey": "If you have not yet done so, please complete this survey to let us know about your experience using the application.",
+      "surveyButton": "Tell us about your experience",
+      "statusChange": "Your study status has changed and you can no longer report. Please contact your assistant for more details."
+    },
+    "surveyText": "Please send this link to the patient so they can tell us about their experience."
+  },
+  "notificationInstructions": {
+    "steps": {
+      "title": "How to enable notifications",
+      "goToSettings": "Go to the settings application on your phone",
+      "clickNotifications": "Click on notification settings",
+      "clickApp": "Click on Asistente",
+      "allowNotifications": "Enable notifications"
+    },
+    "warning": {
+      "title": "Push notifications are off",
+      "subtitle": "This means you will not recieve:",
+      "medicationReminders": "Medication Reminders",
+      "aptReminders": "Appointment Reminders",
+      "msgAlerts": "New messages from your assistant",
+      "button": "View Instructions",
+      "unsupported": "This device does not support push notifications",
+      "unsupportedDetails": "You will not receive reminders or notifications about new messages",
+      "ask": "Enable"
+    }
+  },
+  "householdTesting": {
+    "updated": "Updated",
+    "button": "Update household testing status",
+    "title": "Household testing",
+    "thanks": "Thank you for your input",
+    "recorded": "Your response has been recorded",
+    "reachOut": "Not all of your contacts have been tested yet, please reach out to your treatment assistant for more information and recommendations.",
+    "completed": "Great job ensuring the health of those with whom you live.",
+    "membersTested": "Members tested",
+    "noResponse": "Not yet completed"
+  },
+  "missedPhotoDetails": {
+    "topBarText": "Missed request",
+    "future": "In the future please submit your test on the day it is requested so we can see your treatment progress.",
+    "requestedOn": "Submitting for the request sent on",
+    "notRequired": "You do not have any missed test requests at this time. Keep up the great work!",
+    "confirmation": "Your photo was submitted, thanks for letting us know how you are doing!"
+  },
+  "appSurvey": {
+    "goToSurvey": "Go to survey",
+    "markAsCompleted": "Mark as completed"
+  },
+  "oneStepReporting": {
+    "top": "No issues and took your medication?",
+    "tap": "tap the",
+    "greenButton": "green button",
+    "complete": "to complete your report in one step",
+    "needHelp": "Need help or have an issue?",
+    "yellowButton": "yellow button",
+    "newFeature": "New Feature",
+    "oneStep": "One Step Reporting",
+    "homeScreen": "You can also now complete your report for the day from your homescreen by reporting straight from your medication reminder"
+  },
+  "photoReportReview": {
+    "allLoaded": "all reports loaded",
+    "detected": "medication detected",
+    "unclear": "unclear result",
+    "resubmit": "resubmission requested",
+    "awaiting": "awaiting review",
+    "result": "result"
+  },
+  "redoPhoto": {
+    "viewMyPhotos": "View photo submssions",
+    "title": "Resubmit test strip",
+    "subtitle": "Review the issue your treatment supporter identified",
+    "flag": "Resubmission",
+    "shortFlag": "Redo",
+    "explanation": "There was an issue with your last test submission and you have been asked to resubmit. Please review the instructions carefully.",
+    "feedback": "Feedback",
+    "originalSubmission": "Original Submission",
+    "newSubmission": "New Submission",
+    "selectResult": "Select test result",
+    "detected": "Medication detected",
+    "notDetected": "Not detected",
+    "ask": "Ask patient to resubmit test",
+    "attachMessage": "Message to patient"
+  },
+  "testStripInstructions": {
+    "imgFolder": "/img/en/",
+    "one": "Collect a small amount of urine in a container (about 2 fingers deep)",
+    "two": "Take the test out of the bag",
+    "three": "Dip the strip into the urine for about 2 seconds to the line marked dip. Do not let the test for longer than 2 seconds in the urine.",
+    "four": "Let the test sit flat for 20 minutes before submitting ",
+    "five": {
+      "main": "Open the application and click \"Submit Photo\".",
+      "a": "Make sure the photo shows the entire strip, including the barcodes.",
+      "b": "Take the picture and click \"Next\"."
+    },
+    "six": "Put the test back in its bag and discard in the trash"
+  },
+  "mobileUpdate": {
+    "actions": "Actions",
+    "showActions": "Show All Actions",
+    "treatment": "Treatment",
+    "supportRequests": "Support Requests"
+  },
+  "reviewIssues": {
+    "issues": "Issues",
+    "reviewed": "Reviewed",
+    "unreviewed": "Unreviewed",
+    "submitted": "Review Submitted",
+    "review": "Review",
+    "reviewBefore": "Please review the photos before marking this patient as reviewed",
+    "noIssues": "No issues to review",
+    "hasIssues": "Issues to review",
+    "onTrack": "On track with treatment",
+    "reviewedAt": "Reviewed at",
+    "noPatients": "No patients found",
+    "noPatientReviews": "No patients reviewed today",
+    "noPateintIssues": "No patients left to review"
+  }
 }

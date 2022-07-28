@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import PatientCard from './PatientCard';
 import { Box, Typography } from '@material-ui/core';
 import PractitionerContext from '../PractitionerContext';
-import LoadingPatients from './LoadingPatients';
+import PatientListMessage from './PatientListMessage';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import ChunkLabel from './ListSectionLabel';
@@ -17,15 +17,15 @@ const AllPatientsList = () => {
     return a.status.localeCompare(b.status);
   });
 
-  if (status === 'pending') return <LoadingPatients />;
+  if (status === 'pending') return <PatientListMessage isLoading={true} />;
 
   let currentPatientStatus;
   console.log(patients);
 
   return (
     <div>
-      {/* Here we add the default image if no pictures are found */}
-      {patients?.length < 1 && <h1>Nothing to see here, boss</h1>}
+      {/* default placeholder if no patients are found */}
+      {patients?.length < 1 && <PatientListMessage tab={2} />}
 
       {patients &&
         patients.map((each) => {

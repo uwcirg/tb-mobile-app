@@ -449,6 +449,7 @@
             ]
         },
         "information": {
+            "otherSettings": "Other Settings",
             "changeLog": "Registro de Cambios de la Aplicación",
             "version": "Versión",
             "questions": "Preguntas y respuestas",
@@ -854,6 +855,7 @@
         "flags": "Información Importante  "
     },
     "appointments": {
+        "manage": "View / Manage all appointments",
         "typeNote": "Type note here",
         "createAppointment": "Create Appointment",
         "noUpcoming": "No Hay Visitas Agendadas",
@@ -873,7 +875,9 @@
             "other": "Otro"
         },
         "showAll": "Mostar Todos",
-        "showLess": "Mostar Menos"
+        "showLess": "Mostar Menos",
+        "addAnother": "Add another",
+        "nextAppointment": "Next appointment"
     },
     "update": {
         "update": "Actualizar",
@@ -924,8 +928,6 @@
         "ask": "Para collectar comentarios, es posible que un miembro del equipo del estudio le llame después que acabe de usar la aplicación.",
         "survey": "También tenemos una encuesta corta en la página principal. ",
         "thanks": "Gracias"
-
-
     },
     "dashboard": {
         "category": "Categoría",
@@ -1062,11 +1064,11 @@
         "attachMessage": "Mensaje para el paciente"
     },
     "testStripInstructions":{
-        "imgSrc": "/img/es-Ar/v3-strip-instructions.jpg",
+        "imgFolder": "/img/en/",
         "one": "Recoja una pequeña cantidad de orina en un recipiente (mas o menos 2 dedos).",
         "two": "Saque la tira de la bolsa.",
         "three": "Sumerja la tira en la orina por aproximadamente 2 segundos hasta la línea marcada “Sumerja.” No deje que la tira sobrepase el tiempo en la orina.",
-        "four": "Espere 20 minutos. Después de los 20 minutos podrá sacar la foto para enviar al asistente.",
+        "four": "Let the test sit flat for 20 minutes before submitting ",
         "five" : {
             "main": "Abra la aplicación y haga click en ‘SUBIR FOTO’.",
             "a": "Asegúrese de que la foto muestre toda la tira, incluyendo las marcas. ",
@@ -1080,5 +1082,17 @@
         "showActions": "Show All Actions",
         "treatment": "Treatment",
         "supportRequests": "Support Requests"
+    },
+    "reviewIssues":{
+        "issues": "Issues",
+        "reviewed": "Reviewed",
+        "unreviewed": "Unreviewed",
+        "submitted": "Review Submitted",
+        "review": "Review",
+        "reviewBefore": "Please review the photos before marking this patient as reviewed",
+        "noIssues": "No issues to review",
+        "hasIssues": "Issues to review",
+        "onTrack": "On track with treatment",
+        "reviewedAt": "Reviewed at"
     }
 }

@@ -4,11 +4,10 @@ import PractitionerContext from '../PractitionerContext';
 import addIssuesToPatients from '../../Utility/FindIssues';
 import { Box, Grid } from '@material-ui/core';
 import PatientCard from './PatientCard';
-import LoadingPatients from './LoadingPatients';
+import PatientListMessage from './PatientListMessage';
 import ListSectionLabel from './ListSectionLabel';
 import { useTranslation } from 'react-i18next';
 import { Announcement, ThumbUp } from '@material-ui/icons';
-import Colors from '../../Basics/Colors';
 
 const wasToday = (isoTime) => {
   return DateTime.fromISO(isoTime).toISODate() === DateTime.local().toISODate();
@@ -57,7 +56,7 @@ const ListOfPatients = ({ tabValue }) => {
     }
   );
 
-  if (status === 'pending') return <LoadingPatients />;
+  if (status === 'pending') return <PatientListMessage isLoading={true} />;
 
   if (!patients) return '';
 
@@ -67,20 +66,18 @@ const ListOfPatients = ({ tabValue }) => {
     (patient) => patient.lastGeneralResolution
   );
 
-  console.log(patientsToDisplay);
-
   return (
     <Grid container direction="column">
       <Box height={'.5em'} aria-hidden />
 
       {/* If there are no reviewed patients, render default */}
       {reviewedPatients.length < 1 && tabValue === 1 && (
-        <h1>Nothing to see here, boss</h1>
+        <PatientListMessage tab={tabValue} />
       )}
 
       {/* If there are no patients with issues, render default */}
       {patientsWithIssues.length < 1 && tabValue === 0 && (
-        <h1>Nothing issues to see here, dawg</h1>
+        <PatientListMessage tab={tabValue} />
       )}
 
       {/* all patients tab is rendered in AllPatientsList.js, where default is rendered too when < 1 */}
