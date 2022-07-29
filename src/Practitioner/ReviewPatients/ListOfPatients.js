@@ -69,19 +69,7 @@ const ListOfPatients = ({ tabValue }) => {
   return (
     <Grid container direction="column">
       <Box height={'.5em'} aria-hidden />
-
-      {/* If there are no reviewed patients, render default */}
-      {reviewedPatients.length < 1 && tabValue === 1 && (
-        <PatientListMessage tab={tabValue} />
-      )}
-
-      {/* If there are no patients with issues, render default */}
-      {patientsWithIssues.length < 1 && tabValue === 0 && (
-        <PatientListMessage tab={tabValue} />
-      )}
-
-      {/* all patients tab is rendered in AllPatientsList.js, where default is rendered too when < 1 */}
-
+      {patientsWithIssues.length === 0 && <PatientListMessage tab={tabValue} />}
       {patientsWithIssues.map((patient) => {
         let isIssues = patient.issues.total > 0;
         let showSection = currentSection !== isIssues;

@@ -1091,7 +1091,7 @@
     "onTrack": "On track with treatment",
     "reviewedAt": "Reviewed at",
     "noPatients": "No patients found",
-    "noPatientReviews": "No patients reviewed today",
+    "noPatientReviews": "No patients reviewed yet today",
     "noPateintIssues": "No patients left to review"
   }
 }
