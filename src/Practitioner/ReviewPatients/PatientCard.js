@@ -149,7 +149,6 @@ const PatientCard = ({
                   ).toLocaleString(DateTime.TIME_SIMPLE)}
                 </Typography>
               )}
-              <p>{patient.issues.hadSevereSymptom ? "TRUE": "FALSE"}</p>
               {!isSimpleView &&
                 !isReviewed &&
                 (patient.issues.total === 0 ? (
