@@ -1,26 +1,23 @@
-import React, { useContext } from 'react';
-import { DateTime } from 'luxon';
-import PractitionerContext from '../PractitionerContext';
-import addIssuesToPatients from '../../Utility/FindIssues';
-import { Box, Grid } from '@material-ui/core';
-import PatientCard from './PatientCard';
-import PatientListMessage from './PatientListMessage';
-import ListSectionLabel from './ListSectionLabel';
-import { useTranslation } from 'react-i18next';
-import { Announcement, ThumbUp } from '@material-ui/icons';
+import React, { useContext } from "react";
+import { DateTime } from "luxon";
+import PractitionerContext from "../PractitionerContext";
+import addIssuesToPatients from "../../Utility/FindIssues";
+import { Box, Grid } from "@material-ui/core";
+import PatientCard from "./PatientCard";
+import PatientListMessage from "./PatientListMessage";
+import ListSectionLabel from "./ListSectionLabel";
+import { useTranslation } from "react-i18next";
 
 const wasToday = (isoTime) => {
   return DateTime.fromISO(isoTime).toISODate() === DateTime.local().toISODate();
 };
 
 const IssueSectionLabel = ({ isIssues }) => {
-  const { t } = useTranslation('translation');
+  const { t } = useTranslation("translation");
   return (
     <Grid container alignItems="center">
-      {/* {isIssues ? <Announcement style={{ color: Colors.yellow }} /> : <ThumbUp style={{ color: Colors.green }} />} */}
-      {/* <Box width="8px" /> */}
       <ListSectionLabel>
-        {isIssues ? t('reviewIssues.hasIssues') : t('reviewIssues.onTrack')}
+        {isIssues ? t("reviewIssues.hasIssues") : t("reviewIssues.onTrack")}
       </ListSectionLabel>
     </Grid>
   );
@@ -50,27 +47,23 @@ const ListOfPatients = ({ tabValue }) => {
 
   //@Todo - wrap this in a callback since the calculations are complex
   // - Create clearer and better algorithim for sorting the patients so issues float to top
-  const patientsWithIssues = addIssuesToPatients(patientsToDisplay || []).sort(
+  const processedPatients = addIssuesToPatients(patientsToDisplay || []).sort(
     (a, b) => {
       return b.issues.total - a.issues.total;
     }
   );
 
-  if (status === 'pending') return <PatientListMessage isLoading={true} />;
+  if (status === "pending") return <PatientListMessage isLoading={true} />;
 
-  if (!patients) return '';
+  if (!patients) return "";
 
   let currentSection;
 
-  const reviewedPatients = [...patients]?.filter(
-    (patient) => patient.lastGeneralResolution
-  );
-
   return (
     <Grid container direction="column">
-      <Box height={'.5em'} aria-hidden />
-      {patientsWithIssues.length === 0 && <PatientListMessage tab={tabValue} />}
-      {patientsWithIssues.map((patient) => {
+      <Box height={".5em"} aria-hidden />
+      {processedPatients.length === 0 && <PatientListMessage tab={tabValue} />}
+      {processedPatients.map((patient) => {
         let isIssues = patient.issues.total > 0;
         let showSection = currentSection !== isIssues;
         if (showSection) {
