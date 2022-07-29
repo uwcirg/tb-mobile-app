@@ -52,7 +52,11 @@ const useStyles = makeStyles((theme) => ({
   tab: {
     textTransform: "capitalize",
     color: Colors.textDarkGray,
-  }
+  },
+  label: {
+    fontSize: "1em",
+    color: (props) => props.color,
+  },
 }));
 
 const ReviewPatientTabs = ({ value }) => {
@@ -107,11 +111,11 @@ const ReviewPatientTabs = ({ value }) => {
 };
 
 const LabelWithDot = ({ text, color }) => {
+  const classes = useStyles({ color: color });
   return (
-    <Grid justify="center" alignItems="center" container>
-      <FiberManualRecord style={{ fontSize: "1em", color: color }} />
-      <Box width="5px" />
-      <Typography>{text}</Typography>
+    <Grid justify="center" direction="column" alignItems="center" container>
+      <FiberManualRecord className={classes.label} />
+      <Typography variant="body2">{text}</Typography>
     </Grid>
   );
 };
