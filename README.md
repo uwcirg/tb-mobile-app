@@ -14,12 +14,12 @@ Indonesian Pilot Study (2022 - Current). Code available on the [prod-id]([https:
 
 ## System Components 
  
-**Provider and Client Frontend:**
+**Main Frontend:**
 React Application
 Code: [tb-mobile-app](https://github.com/uwcirg/tb-mobile-app) (this repo)
  
-**Back End:** 
-Ruby on Rails API + Docker-Compose Deployment Configuration
+**Back End API:** 
+Ruby on Rails App + Docker-Compose Deployment Configuration
 Code: [tb-foundation](https://github.com/uwcirg/tb-foundation)
 
 
@@ -53,6 +53,10 @@ yarn install
 yarn start
 ```
 
+## Production Build Process
+
+Beacause this React app has been dockerized, the build process is a bit different from most React apps. Some environment variables and configuration files are modified at container up time to allow for deployments with different settings. See [Deployment and Build Processes](https://github.com/uwcirg/tb-mobile-app/wiki/Deployment-and-Build-Processes) for more details.
+
 ## Publications about this project
 
 ### Academic Journal Articles
@@ -64,3 +68,9 @@ yarn start
 ### Blogs
 
 1. [Initiative and CoMotion co-fund grant to better treat and prevent tuberculosisÏ](https://www.washington.edu/populationhealth/2021/06/22/initiative-and-comotion-co-fund-grant-to-better-treat-and-prevent-tuberculosis/)
+
+## Contact
+
+[Sarah Iribarren](https://nursing.uw.edu/person/sarah-iribarren-phd-rn/) is the primary investegator for this research project, please reach out with any inquirys about research or collaboration. 
+
+[Kyle Goodwin](https://github.com/kylegoodwin) lead most of the technical development, reach out with any technical questions.
