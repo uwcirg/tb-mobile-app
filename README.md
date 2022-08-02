@@ -1,34 +1,48 @@
-# Asistente de Tratamiento:
+# Tuberculosis Treatment Support Tools:
 Development Branch Tests: [![CircleCI](https://circleci.com/gh/uwcirg/tb-mobile-app/tree/develop.svg?style=svg)](https://circleci.com/gh/uwcirg/tb-mobile-app/tree/develop)
 
-##  Mobile Application Intervention for Tuberculosis Patients
+##  mHealth Intervention to support people with TB
 Tuberculosis remains one of the top ten causes of death globally despite it being largely curable. Patients face many challenges to adhere to treatment and mobile health (mHealth) interventions may address these challenges and support patients to complete their treatment. We aim to develop an application that has implications not only for TB adherence but disease management more generally and to improve our understanding of how to support patients throughout challenging treatment regimens.
 
-## History of Project 
-A previous version of this application was developed on this repo and the code is still available on the [v1-stable]([https://github.com/uwcirg/tb-mobile-app/tree/v1-stable](https://github.com/uwcirg/tb-mobile-app/tree/v1-stable)) branch.
+## Branches used in deployments 
+Pilot Study (2018 - 2019). Code available on the [v1-stable]([https://github.com/uwcirg/tb-mobile-app/tree/v1-stable](https://github.com/uwcirg/tb-mobile-app/tree/v1-stable)) branch.
 
-Version 2 aims to provide a feedback driven UI, better user encouragement, improved developer experience, and multi-site design. Furthermore, we aim to provide a good experience for users on inconsistent connections, using ideas from [progressive web apps]([https://developers.google.com/web/progressive-web-apps](https://developers.google.com/web/progressive-web-apps)).
+Clinical trial (2020 - Current). Code available on the [master]([https://github.com/uwcirg/tb-mobile-app/tree/v1-stable](https://github.com/uwcirg/tb-mobile-app/tree/master)) branch.
 
-## Software Architecture 
+Indonesian Pilot Study (2022 - Current). Code available on the [prod-id]([https://github.com/uwcirg/tb-mobile-app/tree/v1-stable](https://github.com/uwcirg/tb-mobile-app/tree/prod-id)) branch.
+
+
+## System Components 
  
-**Front End:**
- React + Mobx Application 
- Code: [tb-mobile-app](https://github.com/uwcirg/tb-mobile-app) (this repo)
+**Provider and Client Frontend:**
+React Application
+Code: [tb-mobile-app](https://github.com/uwcirg/tb-mobile-app) (this repo)
  
 **Back End:** 
 Ruby on Rails API + Docker-Compose Deployment Configuration
 Code: [tb-foundation](https://github.com/uwcirg/tb-foundation)
 
 
-**Deployment Organized via Docker-Compose**
-Make sure you have both .env and /public/env.js ( CRA Serviceworker Environment Workaround)
-
 ## Tests
 
-Now that requirements have somewhat stabalized for this project, I am hoping to add more tests. Recently added react-testing-library and have experimented with simple tests for visibilty of componenets based on application state. There are important configuration files in `jest.config.js`,`src/testSetup.js `, and `package.json`
+There are very minimal tests, but this could be an area to improve in the future.
+
+Current tests use react-testing-library and there are important configuration files in `jest.config.js`,`src/testSetup.js `, and `package.json`
+
+To run the test suite run:
+```
+yarn test
+```
+
+To check coverage run:
+```
+yarn test:coverage
+```
 
 
 ## Getting started with development
+
+More details are available in the Wiki page: [Deployment and Build Processes](https://github.com/uwcirg/tb-mobile-app/wiki/Deployment-and-Build-Processes)
 
 Running the full application requires Docker. You will need to spin up the services outlined in the docker-compose.yml file from this repo [tb-foundation](https://github.com/uwcirg/tb-foundation).
 
@@ -39,4 +53,14 @@ yarn install
 yarn start
 ```
 
-More coming soon...
+## Publications about this project
+
+### Academic Journal Articles
+
+1. [Patient-centered mobile tuberculosis treatment support tools (TB-TSTs) to improve treatment adherence: A pilot randomized controlled trial exploring feasibility, acceptability and refinement needs ( Lancet Regional Health Americas, September 2022)](https://www.sciencedirect.com/science/article/pii/S2667193X22001089?via%3Dihub)
+2. [Mobile Tuberculosis Treatment Support Tools to Increase Treatment Success in Patients with Tuberculosis in Argentina: Protocol for a Randomized Controlled Trial (JMIR Research Protocols, January 2022)](https://www.researchprotocols.org/2021/6/e28094)
+3. [Insights from participant engagement with the tuberculosis treatment support tools intervention: Thematic analysis of interactive messages to guide refinement to better meet end user needs (International Journal of Medical Informatics, May, 2021)](https://www.sciencedirect.com/science/article/abs/pii/S1386505621000472?via%3Dihub)
+
+### Blogs
+
+1. [Initiative and CoMotion co-fund grant to better treat and prevent tuberculosisÏ](https://www.washington.edu/populationhealth/2021/06/22/initiative-and-comotion-co-fund-grant-to-better-treat-and-prevent-tuberculosis/)
