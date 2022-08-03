@@ -10,6 +10,7 @@ const react_env = {
   INDONESIA_PILOT_FLAG: "true",
   ENVIRONMENT: "development",
   DOCKER_TAG: "develop",
-  REDCAP_EOT_SURVEY_LINK: "https://docs.google.com/forms/d/e/1FAIpQLSegqQ0rFOU3I2pxCPxhvWnfMnmyuOopUTqyWXT0oqt-23b5_w/viewform",
-  MANIFEST_ICON_FOLDER: "/logo/ar"
+  REDCAP_EOT_SURVEY_LINK:
+    "https://docs.google.com/forms/d/e/1FAIpQLSegqQ0rFOU3I2pxCPxhvWnfMnmyuOopUTqyWXT0oqt-23b5_w/viewform",
+  MANIFEST_ICONS_FOLDER: "/logo/ar",
 };

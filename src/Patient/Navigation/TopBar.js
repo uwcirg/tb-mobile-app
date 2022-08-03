@@ -57,7 +57,7 @@ const Logo = observer(() => {
   const classes = useStyles();
 
   const basePath = `${window?._env?.URL_CLIENT || ""}/${(
-    window?._env?.MANIFEST_ICON_FOLDER || "/logo/ar"
+    window?._env?.MANIFEST_ICONS_FOLDER || "/logo/ar"
   ).substring(1)}/`;
 
   const offline = basePath + "white.png";
