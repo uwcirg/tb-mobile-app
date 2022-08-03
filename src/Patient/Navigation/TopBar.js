@@ -35,8 +35,7 @@ const useStyles = makeStyles({
   },
   logo: {
     height: "40px",
-
-    borderRadius: "50%",
+    objectFit: "contain",
   },
   offlineAlert: {
     "& > svg": {
@@ -53,26 +52,25 @@ const useStyles = makeStyles({
   },
 });
 
-const ArLogo = observer(() => {
+const Logo = observer(() => {
   const { uiStore } = useStores();
   const classes = useStyles();
+
+  const basePath = `${window?._env?.URL_CLIENT || ""}/${(
+    window?._env?.MANIFEST_ICONS_FOLDER || "/logo/ar"
+  ).substring(1)}/`;
+
+  const offline = basePath + "white.png";
+  const online = basePath + "main.png";
+
   return (
     <>
-      <img src="/logo-white.png" aria-hidden style={{ display: "none" }} />
-      <img
-        className={classes.logo}
-        src={`${window ? window._env.URL_CLIENT : ""}/${
-          uiStore.offline ? "logo-white.png" : "logo.png"
-        }`}
-      />
+      <img src={offline} aria-hidden style={{ display: "none" }} />
+      <img src={online} aria-hidden style={{ display: "none" }} />
+      <img className={classes.logo} src={uiStore.offline ? offline : online} />
     </>
   );
 });
-
-const IdLogo = () => {
-  const classes = useStyles();
-  return <img className={classes.logo} src="/logo/id/main.png" />;
-};
 
 const TopBar = observer(() => {
   const classes = useStyles();
@@ -84,7 +82,7 @@ const TopBar = observer(() => {
       color={!uiStore.offline ? "secondary" : "primary"}
     >
       <Toolbar>
-        {isIndonesiaPilot() ? <IdLogo /> : <ArLogo />}
+        <Logo />
         <GetTitle />
         <IconButton
           component={Link}
