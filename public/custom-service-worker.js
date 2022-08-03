@@ -3,7 +3,7 @@ importScripts('./config.js');
 
 workbox.setConfig({ debug: false });
 
-const { precacheAndRoute } = workbox.precaching//
+const { precacheAndRoute } = workbox.precaching
 const createHandlerBoundToURL = workbox.precaching.createHandlerBoundToURL
 const { NavigationRoute, registerRoute } = workbox.routing
 const { NetworkFirst } = workbox.strategies
