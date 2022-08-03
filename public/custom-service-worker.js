@@ -146,16 +146,6 @@ function isBroadcastChannelSupported() {
   }
 }
 
-function invokeServiceWorkerUpdateFlow(registration) {
-  notification.show("New version of the app is available. Refresh now?");
-  notification.addEventListener('click', () => {
-    if (registration.waiting) {
-      // let waiting Service Worker know it should became active
-      registration.waiting.postMessage('skip waiting')
-    }
-  })
-}
-
 function logNotificationDelivery(notificationId) {
   callAnalyticsAPI(notificationId, { deliveredSuccessfully: true, deliveredAt: getCurrentISODateTime() })
 }
