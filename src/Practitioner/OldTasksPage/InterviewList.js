@@ -21,6 +21,8 @@ const InterviewList = observer(() => {
   return (
     <Box>
       <h3>Patients ready for exit interview</h3>
+      {/* need translation ^^ */}
+
       {patientList?.map((patient) => {
         return <PatientData {...patient} />;
       })}
@@ -41,7 +43,15 @@ const PatientData = ({ id, fullName }) => {
     <Box paddingBottom={'1rem'} paddingRight={'3em'}>
       <Grid key={id} container>
         <ClickableText to={`/patients/${id}`} text={fullName} hideIcon />
+
         <Box flexGrow="1" />
+
+        {(status === 'pending' || status === 'idle') && (
+          <FlatButton onClick={execute}>
+            {t('patient.home.completed.title')}
+          </FlatButton>
+        )}
+
         {status === 'success' && (
           <FlatButton backgroundColor={'approvedGreen'}>
             <Box paddingLeft={'.7em'} />
@@ -49,9 +59,10 @@ const PatientData = ({ id, fullName }) => {
           </FlatButton>
         )}
 
-        {(status === 'pending' || status === 'idle') && (
-          <FlatButton onClick={execute}>
-            {t('patient.home.completed.title')}
+        {status === 'error' && (
+          <FlatButton backgroundColor={'warningRed'}>
+            <Box paddingLeft={'.7em'} />
+            {t('commonWords.error')}
           </FlatButton>
         )}
       </Grid>
