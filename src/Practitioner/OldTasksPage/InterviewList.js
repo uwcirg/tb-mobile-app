@@ -5,6 +5,7 @@ import { Grid, Box } from '@material-ui/core';
 import FlatButton from '../../Components/FlatButton';
 import useAsyncWithParams from '../../Hooks/useAsyncWithParams';
 import PractitionerAPI from '../../API/PractitionerAPI';
+import ClickableText from '../../Basics/ClickableText';
 
 const InterviewList = observer(() => {
   const { practitionerStore } = useStores();
@@ -14,6 +15,8 @@ const InterviewList = observer(() => {
       return !patient.referredForExitInterview;
     }
   );
+
+  console.log(patientList);
 
   return (
     <Box>
@@ -25,7 +28,7 @@ const InterviewList = observer(() => {
   );
 });
 
-const PatientData = ({ id, givenName }) => {
+const PatientData = ({ id, fullName }) => {
   const { execute, status } = useAsyncWithParams({
     asyncFunc: PractitionerAPI.markExitInterviewAsComplete,
     immediate: false,
@@ -42,8 +45,7 @@ const PatientData = ({ id, givenName }) => {
   return (
     <Box paddingBottom={'1rem'} paddingRight={'3em'}>
       <Grid key={id} container>
-        {/* get rid of this mf container */}
-        <p>{givenName}</p>
+        <ClickableText to={`/patients/${id}`} text={fullName} hideIcon />
         <Box flexGrow="1" />
         {status === 'success' && (
           <FlatButton backgroundColor={'approvedGreen'}>
