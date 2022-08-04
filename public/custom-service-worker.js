@@ -50,7 +50,7 @@ self.addEventListener("push", function (event) {
   let options = {
     body: json.body,
     icon: `${react_env.MANIFEST_ICONS_FOLDER}/notification.png`,
-    badge: "push-badge.png",
+    badge:  `${react_env.MANIFEST_ICONS_FOLDER}/badge.png`,
     url: json.url,
     click_action: json.url,
     data: json.data,
