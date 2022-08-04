@@ -30,7 +30,8 @@ const useStyles = makeStyles({
       paddingRight: '.5em',
     },
     '&:hover': {
-      backgroundColor: Colors.accentBlue,
+      backgroundColor: (props) =>
+        Colors[props.backgroundColor] || Colors.accentBlue,
       color: (props) => props.hoverColor || 'white',
     },
     '&:disabled': {

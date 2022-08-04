@@ -6,6 +6,8 @@ import FlatButton from '../../Components/FlatButton';
 import useAsyncWithParams from '../../Hooks/useAsyncWithParams';
 import PractitionerAPI from '../../API/PractitionerAPI';
 import ClickableText from '../../Basics/ClickableText';
+import { Check } from '@material-ui/icons';
+import { useTranslation } from 'react-i18next';
 
 const InterviewList = observer(() => {
   const { practitionerStore } = useStores();
@@ -15,8 +17,6 @@ const InterviewList = observer(() => {
       return !patient.referredForExitInterview;
     }
   );
-
-  console.log(patientList);
 
   return (
     <Box>
@@ -35,12 +35,7 @@ const PatientData = ({ id, fullName }) => {
     funcParams: [id],
   });
 
-  let patientChecked =
-    status === 'idle'
-      ? 'Completed?'
-      : status === 'pending'
-      ? 'pending'
-      : 'check!';
+  const { t } = useTranslation('translation');
 
   return (
     <Box paddingBottom={'1rem'} paddingRight={'3em'}>
@@ -49,12 +44,15 @@ const PatientData = ({ id, fullName }) => {
         <Box flexGrow="1" />
         {status === 'success' && (
           <FlatButton backgroundColor={'approvedGreen'}>
-            {patientChecked}
+            <Box paddingLeft={'.7em'} />
+            <Check />
           </FlatButton>
         )}
 
         {(status === 'pending' || status === 'idle') && (
-          <FlatButton onClick={execute}>{patientChecked}</FlatButton>
+          <FlatButton onClick={execute}>
+            {t('patient.home.completed.title')}
+          </FlatButton>
         )}
       </Grid>
     </Box>
