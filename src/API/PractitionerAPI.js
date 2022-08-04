@@ -40,4 +40,10 @@ export default class PractitionerAPI {
       body
     );
   }
+
+  static async markExitInterviewAsComplete(patientId) {
+    return api.executeRawRequest(`/v2/patient/${patientId}`, 'PATCH', {
+      referredForExitInterview: true,
+    });
+  }
 }
