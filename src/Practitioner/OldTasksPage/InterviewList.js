@@ -1,32 +1,27 @@
-import React, { useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
 import useStores from '../../Basics/UseStores';
 import { observer } from 'mobx-react';
-import { toJS } from 'mobx';
 import { Grid, Box } from '@material-ui/core';
 import FlatButton from '../../Components/FlatButton';
 import useAsyncWithParams from '../../Hooks/useAsyncWithParams';
 import PractitionerAPI from '../../API/PractitionerAPI';
-
-const useStyles = makeStyles({});
 
 const InterviewList = observer(() => {
   const { practitionerStore } = useStores();
 
   const patientList = Object.values(practitionerStore.patients).filter(
     (patient) => {
-      return (
-        !patient.referredForExitInterview && patient.weeksInTreatment <= 30
-      );
+      return !patient.referredForExitInterview;
     }
   );
 
   return (
-    <div>
+    <Box>
+      <h3>Patients ready for exit interview</h3>
       {patientList?.map((patient) => {
         return <PatientData {...patient} />;
       })}
-    </div>
+    </Box>
   );
 });
 
@@ -37,24 +32,30 @@ const PatientData = ({ id, givenName }) => {
     funcParams: [id],
   });
 
-  function handlePatientChecked() {
-    execute();
-  }
-
   let patientChecked =
     status === 'idle'
       ? 'Completed?'
       : status === 'pending'
       ? 'pending'
       : 'check!';
-  console.log(patientChecked);
 
   return (
-    <Grid key={id} container>
-      <p>{givenName} </p>
-      <Box flexGrow="1" />
-      <FlatButton onClick={handlePatientChecked}>{patientChecked}</FlatButton>
-    </Grid>
+    <Box paddingBottom={'1rem'} paddingRight={'3em'}>
+      <Grid key={id} container>
+        {/* get rid of this mf container */}
+        <p>{givenName}</p>
+        <Box flexGrow="1" />
+        {status === 'success' && (
+          <FlatButton backgroundColor={'approvedGreen'}>
+            {patientChecked}
+          </FlatButton>
+        )}
+
+        {(status === 'pending' || status === 'idle') && (
+          <FlatButton onClick={execute}>{patientChecked}</FlatButton>
+        )}
+      </Grid>
+    </Box>
   );
 };
 

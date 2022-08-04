@@ -94,7 +94,7 @@ const OldTasksPage = observer(() => {
             {isMobile && (
               <p className={classes.mobile}>{t('coordinator.mobileWarning')}</p>
             )}
-            <InterviewList />
+
             <Card
               key={'missed-photo'}
               icon={<AlertIcon />}
@@ -131,6 +131,7 @@ const OldTasksPage = observer(() => {
               patientList={practitionerStore.filteredPatients.missed}
               type="missed"
             />
+            <InterviewList />
           </div>
         </div>
         {!isMobile && <SideBarRouter />}
