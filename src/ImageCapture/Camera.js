@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import Fab from '@material-ui/core/Fab';
+import ImageOverlay from './ImageOverlay';
 
 export default class Camera extends Component {
   constructor(props) {
@@ -119,29 +120,7 @@ export default class Camera extends Component {
       <Container>
         {exit}
         <div className="webcam-container">
-          <div
-            style={{
-              position: 'absolute',
-              width: '100%',
-              height: '100%',
-              opacity: 0.1,
-              zIndex: '1',
-              backgroundColor: 'grey',
-            }}
-          >
-            <div
-              style={{
-                position: 'absolute',
-                width: '90%',
-                height: '95%',
-                opacity: 0.9,
-                zIndex: '1',
-                backgroundColor: 'red',
-                top: '1em',
-                left: '1em',
-              }}
-            ></div>
-          </div>
+          <ImageOverlay />
 
           <video
             width="350px"
