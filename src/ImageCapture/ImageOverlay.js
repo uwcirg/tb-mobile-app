@@ -13,6 +13,7 @@ export default function ImageOverlay() {
         zIndex: '1',
         top: '1em',
         left: '1em',
+        borderRadius: '5px',
       }}
     >
       <img
