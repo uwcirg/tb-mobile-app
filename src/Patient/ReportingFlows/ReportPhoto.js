@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
-import BigConfirmationButton from '../Home/OneStepActions/BigConfirmationButton';
 import Camera from '../../ImageCapture/Camera';
 import Colors from '../../Basics/Colors';
 import useStores from '../../Basics/UseStores';
@@ -10,12 +9,11 @@ import { useTranslation } from 'react-i18next';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import TextField from '@material-ui/core/TextField';
 import TestStripPhotoInfo from '../../Components/Patient/TestStripPhotoInfo';
-import PhotoPrompt from '../../Components/Patient/PhotoPrompt';
 import { Box, Button } from '@material-ui/core';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import PermissionsError from '../../ImageCapture/PermissionsError';
 import FlatButton from '../../Components/FlatButton';
-import { ThumbUp, Timer } from '@material-ui/icons';
+import ValidateTimePrompt from './ValidateTimePrompt';
 
 const ReportPhoto = observer((props) => {
   const classes = useStyles();
@@ -90,33 +88,9 @@ const ReportPhoto = observer((props) => {
             </>
           ) : (
             <>
-              <Box display="flex">
-                <Box flexGrow={1} padding="1em .5em">
-                  <BigConfirmationButton
-                    primaryColor={Colors.red}
-                    bgColor={Colors.calendarRed}
-                    icon={<Timer />}
-                    text={'I have not waited twenty minutes'}
-                    onClick={console.log('clicked')}
-                  />
-                </Box>
-                <Box flexGrow={1} padding="1em .5em">
-                  <BigConfirmationButton
-                    primaryColor={'#388E3C'}
-                    bgColor={'#E8F5E9'}
-                    icon={<ThumbUp />}
-                    text={'I have waited for twenty minutes'}
-                    onClick={console.log('clicked')}
-                  />
-                </Box>
-              </Box>
-              <PhotoPrompt
-                onClick={() => {
-                  patientStore.uiState.cameraIsOpen = true;
-                  setPermissionsError(false);
-                }}
-              />
+              <ValidateTimePrompt />
               {permissionsError && <PermissionsError />}
+
               <Box height=".5em" />
               <TestStripPhotoInfo />
             </>
