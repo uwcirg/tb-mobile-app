@@ -5,11 +5,9 @@ export default function ImageOverlay() {
   return (
     <div
       style={{
-        backgroundColor: 'white',
         position: 'absolute',
         width: '90%',
         height: '90%',
-        opacity: 0.4,
         zIndex: '1',
         borderRadius: '5px',
         margin: '1em auto',
