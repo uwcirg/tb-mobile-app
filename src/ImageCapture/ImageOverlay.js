@@ -17,7 +17,7 @@ export default function ImageOverlay() {
     >
       <img
         src={overlay}
-        alt="overlay is going to go right here"
+        alt="test layout guide"
         style={{
           height: '75vh',
           maxWidth: '100%',
