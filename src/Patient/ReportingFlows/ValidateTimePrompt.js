@@ -6,6 +6,7 @@ import { Box, Grow } from '@material-ui/core';
 import Colors from '../../Basics/Colors';
 import useStores from '../../Basics/UseStores';
 import FlatButton from '../../Components/FlatButton';
+import { makeStyles } from '@material-ui/core/styles';
 
 export default function ValidateTimePrompt() {
   const [testReady, setTestReady] = useState(true);
@@ -47,7 +48,6 @@ const TimeElapsedButton = ({ handleClick, valid }) => {
 
 const TestIsReady = ({ testReady }) => {
   const { patientStore } = useStores();
-  const minutes = [5, 10, 15];
   return (
     <TransitionWrapper>
       {testReady ? (
@@ -58,23 +58,7 @@ const TestIsReady = ({ testReady }) => {
           }}
         />
       ) : (
-        <Box flexWrap="wrap">
-          <h2>About how many minutes ago did you take the test?</h2>
-          <Box display="flex" justifyContent="space-around">
-            {minutes.map((minute, i) => (
-              <FlatButton
-                key={minute}
-                onClick={
-                  {
-                    /*() => patientStore.setTimeElapsed(minute)*/
-                  }
-                }
-              >
-                {minute}
-              </FlatButton>
-            ))}
-          </Box>
-        </Box>
+        <TimeoutPrompt />
       )}
     </TransitionWrapper>
   );
@@ -102,3 +86,45 @@ const TransitionWrapper = ({
     </Grow>
   );
 };
+
+const TimeoutPrompt = () => {
+  const [minutesLeft, setMinutesLeft] = useState(0);
+  const classes = useStyles();
+  const minutes = [5, 10, 15];
+  const handleTimeout = (min) => {
+    setMinutesLeft(() => 20 - min);
+    console.log(minutesLeft);
+  };
+  return (
+    <>
+      {minutesLeft === 0 ? (
+        <Box flexWrap="wrap">
+          <h2>About how many minutes ago did you take the test?</h2>
+          <Box display="flex" justifyContent="space-around">
+            {minutes.map((minute, i) => (
+              <FlatButton
+                className={classes.padding}
+                key={minute}
+                onClick={() => handleTimeout(minute)}
+              >
+                {minute}
+              </FlatButton>
+            ))}
+          </Box>
+        </Box>
+      ) : (
+        <TransitionWrapper>
+          <h2>
+            Thank you for waiting. We will notify you in {minutesLeft} minutes.
+          </h2>
+        </TransitionWrapper>
+      )}
+    </>
+  );
+};
+
+const useStyles = makeStyles({
+  padding: {
+    padding: '.2em 1.2em',
+  },
+});
