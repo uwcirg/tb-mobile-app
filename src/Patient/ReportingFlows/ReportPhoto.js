@@ -8,12 +8,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import TextField from '@material-ui/core/TextField';
-import TestStripPhotoInfo from '../../Components/Patient/TestStripPhotoInfo';
 import { Box, Button } from '@material-ui/core';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import PermissionsError from '../../ImageCapture/PermissionsError';
 import FlatButton from '../../Components/FlatButton';
 import ValidateTimePrompt from './ValidateTimePrompt';
+import AdditionalPhotoFlowOptions from '../../Components/Patient/AdditionalPhotoFlowOptions';
 
 const ReportPhoto = observer((props) => {
   const classes = useStyles();
@@ -71,6 +71,7 @@ const ReportPhoto = observer((props) => {
     <div className={classes.container}>
       {!patientStore.report.photoWasSkipped ? (
         <>
+          {/* photo submission review page */}
           {patientStore.report.photoWasTaken ? (
             <>
               <div className={classes.strip}>
@@ -90,15 +91,17 @@ const ReportPhoto = observer((props) => {
             <>
               <ValidateTimePrompt />
               {permissionsError && <PermissionsError />}
-
-              <Box height=".5em" />
-              <TestStripPhotoInfo />
+              <AdditionalPhotoFlowOptions />
             </>
           )}
         </>
       ) : (
+        // move this to a separate component with its own link
         <CantTakePhoto />
       )}
+
+      {/* either disable this or move it elsewhere useful */}
+
       <Box height="1em" />
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <FlatButton
