@@ -40,7 +40,7 @@ const useStyles = makeStyles({
   },
 });
 
-const PhotoPrompt = ({ onClick, disabled = true }) => {
+const PhotoPrompt = ({ onClick, disabled = false }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 

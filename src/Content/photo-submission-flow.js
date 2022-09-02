@@ -17,11 +17,6 @@ const optionalRoutes = [
     translationKey: 'patient.report.photo.submitLater',
     icon: <LaterIcon />,
   },
-  {
-    to: '/unable-to-report',
-    translationKey: 'patient.report.photo.unable',
-    icon: <BlockIcon />,
-  },
 ];
 
 export { optionalRoutes };

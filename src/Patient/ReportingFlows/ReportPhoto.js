@@ -5,12 +5,14 @@ import Colors from '../../Basics/Colors';
 import useStores from '../../Basics/UseStores';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import { Box, Button } from '@material-ui/core';
+import { Box, Button, TextField } from '@material-ui/core';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import PermissionsError from '../../ImageCapture/PermissionsError';
 import FlatButton from '../../Components/FlatButton';
 import ValidateTimePrompt from './ValidateTimePrompt';
 import AdditionalPhotoFlowOptions from '../../Components/Patient/AdditionalPhotoFlowOptions';
+import ClickableText from '../../Basics/ClickableText';
+import { KeyboardArrowLeft } from '@material-ui/icons';
 
 const ReportPhoto = observer((props) => {
   const classes = useStyles();
@@ -93,8 +95,10 @@ const ReportPhoto = observer((props) => {
           )}
         </>
       ) : (
-        // move this to a separate component with its own link
-        <></>
+        // move cant take photo back here
+        <>
+          <CantTakePhoto />
+        </>
       )}
 
       {/* either disable this or move it elsewhere useful */}
@@ -120,6 +124,37 @@ const ReportPhoto = observer((props) => {
         />
       )}
     </div>
+  );
+});
+
+const CantTakePhoto = observer(() => {
+  const { patientStore } = useStores();
+  const classes = useStyles();
+  const { t } = useTranslation('translation');
+
+  return (
+    <>
+      <div className={classes.cantSubmit}>
+        <TextField
+          rows={3}
+          label={t('patient.report.photo.whyUnable')}
+          multiline
+          value={patientStore.report.whyPhotoWasSkipped}
+          onChange={(e) => {
+            patientStore.report.whyPhotoWasSkipped = e.target.value;
+          }}
+          className={classes.textArea}
+          variant="outlined"
+        />
+        <ClickableText
+          icon={<KeyboardArrowLeft />}
+          onClick={() => {
+            patientStore.report.photoWasSkipped = false;
+          }}
+          text={t('patient.report.photo.back')}
+        />
+      </div>
+    </>
   );
 });
 

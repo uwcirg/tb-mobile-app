@@ -105,10 +105,6 @@ const PatientHome = observer(() => {
     return <AddApointment patientId={patientStore.userID} />;
   }
 
-  if (uiStore.pathname.startsWith('/unable-to-report')) {
-    return <CantTakePhoto />;
-  }
-
   return (
     <div
       id="main-patient-app-content"
