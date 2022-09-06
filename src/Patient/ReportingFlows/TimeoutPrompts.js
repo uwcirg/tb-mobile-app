@@ -8,6 +8,7 @@ import useStores from '../../Basics/UseStores';
 import FlatButton from '../../Components/FlatButton';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
+import { t } from 'i18next';
 
 export default function ValidateTimePrompt() {
   const [isTestReady, setIsTestReady] = useState(true);
@@ -21,8 +22,16 @@ export default function ValidateTimePrompt() {
 
   return (
     <>
-      <h3>{t('patient.report.photo.help.wait')}:</h3>
-      <Box height="150px">
+      <Box height="250px">
+        {isPendingValidation ? (
+          <Box height={'80px'}>
+            <TransitionWrapper height="auto">
+              <h3>{t('patient.report.photo.help.wait')}:</h3>
+            </TransitionWrapper>
+          </Box>
+        ) : (
+          <Box height={'80px'} />
+        )}
         <TransitionWrapper condition={isPendingValidation}>
           <TimeElapsedButton handleClick={() => handleTimeElapsed(false)} />
           <TimeElapsedButton valid handleClick={handleTimeElapsed} />
@@ -73,6 +82,7 @@ const TimeoutPrompt = () => {
   const [minutesLeft, setMinutesLeft] = useState(0);
   const classes = useStyles();
   const minutes = [5, 10, 15];
+  const { t } = useTranslation('translation');
   const handleTimeout = (min) => {
     setMinutesLeft(() => 20 - min);
     console.log(min);
@@ -96,9 +106,12 @@ const TimeoutPrompt = () => {
         </Box>
       ) : (
         <TransitionWrapper>
-          <h2>
-            Thank you for waiting. We will notify you in {minutesLeft} minutes.
-          </h2>
+          <Box display="flex" flexWrap="wrap" justifyContent="flex-end">
+            <h2>Please submit your photo in {minutesLeft} minutes.</h2>
+            <FlatButton to={'/'}>
+              {t('patient.report.symptoms.warning.button')}
+            </FlatButton>
+          </Box>
         </TransitionWrapper>
       )}
     </>
@@ -109,15 +122,16 @@ const TransitionWrapper = ({
   children,
   condition = true,
   height = '150px',
+  display,
 }) => {
   return (
     <Grow
       in={condition}
-      {...(condition ? { timeout: 1000 } : { timeout: 200 })}
+      {...(condition ? { timeout: 1000 } : { timeout: 100 })}
       unmountOnExit
     >
       <Box
-        display="flex"
+        display={display ? display : 'flex'}
         height={height}
         justifyContent="center"
         marginX="auto"
