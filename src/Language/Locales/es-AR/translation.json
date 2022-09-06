@@ -858,8 +858,8 @@
     "createAppointment": "Create Appointment",
     "noUpcoming": "No Hay Visitas Agendadas",
     "whatDay": "What day is the appointment?",
-    "whatTime": "What time is the appointment?",
-    "select": "Select an appointment type",
+    "whatTime": "¿A qué hora es la cita?",
+    "select": "Elija el sujeto de la cita",
     "typeQuestion": "¿Qué tipo de cita quiere añadir?",
     "selectDate": "Seleccione la fecha y la hora",
     "addAppointment": "Añadir Nueva Cita",
@@ -1076,22 +1076,30 @@
   "mobileUpdate": {
     "actions": "Actions",
     "showActions": "Show All Actions",
-    "treatment": "Treatment",
-    "supportRequests": "Support Requests"
+    "treatment": "tratamiento",
+    "supportRequests": "Solicitudes del apoyo"
   },
   "reviewIssues": {
-    "issues": "Issues",
-    "reviewed": "Reviewed",
-    "unreviewed": "Unreviewed",
-    "submitted": "Review Submitted",
-    "review": "Review",
-    "reviewBefore": "Please review the photos before marking this patient as reviewed",
-    "noIssues": "No issues to review",
-    "hasIssues": "Issues to review",
-    "onTrack": "On track with treatment",
-    "reviewedAt": "Reviewed at",
-    "noPatients": "No patients found",
-    "noPatientReviews": "No patients reviewed today",
-    "noPateintIssues": "No patients left to review"
+    "issues": "Cuestiones",
+    "reviewed": "Repasados",
+    "unreviewed": "No Repasados",
+    "submitted": "Se envió el repaso",
+    "review": "Repasa",
+    "reviewBefore": "Por favor, revise a las fotos antes de que termine con el repaso",
+    "noIssues": "No hay cuestiones que repasar",
+    "hasIssues": "Hay cuestiones que repasar",
+    "onTrack": "Va todo bien con el tratamiento",
+    "reviewedAt": "Repasó a las",
+    "noPatients": "No se encuentre ningún paciente",
+    "noPatientReviews": "Ya no ha repasado a nadie",
+    "noPateintIssues": "No hay nadie más que repasar"
+  },
+  "photoSubmissionFlow": {
+    "waitedTwentyMinutes": "He esperado 20 minutos",
+    "notTwentyMinutes": "No he esperado 20 minutos",
+    "waitedTime": "¿Hace cuántos minutos se hizo el análisis?",
+    "notify": "Le enviaremos un aviso en",
+    "pleaseWait": "Espere, por favor",
+    "minutes": "minutos"
   }
 }
