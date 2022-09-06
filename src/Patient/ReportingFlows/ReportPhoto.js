@@ -4,7 +4,7 @@ import Camera from '../../ImageCapture/Camera';
 import useStores from '../../Basics/UseStores';
 import { useTranslation } from 'react-i18next';
 import PermissionsError from '../../ImageCapture/PermissionsError';
-import ValidateTimePrompt from './ValidateTimePrompt';
+import TimeoutPrompts from './TimeoutPrompts';
 import AdditionalPhotoFlowOptions from '../../Components/Patient/AdditionalPhotoFlowOptions';
 import CantTakePhoto from './CantTakePhoto';
 import PhotoReview from './PhotoReview';
@@ -74,7 +74,7 @@ const ReportPhoto = observer((props) => {
             />
           ) : (
             <>
-              <ValidateTimePrompt />
+              <TimeoutPrompts />
               {permissionsError && <PermissionsError />}
               <AdditionalPhotoFlowOptions />
             </>

@@ -75,7 +75,7 @@ const PreSubmissionView = ({
       {photo ? (
         <>
           <div className={classes.strip}>
-            <img src={photo} />
+            <img src={photo} alt="test strip" />
           </div>
           <div className={classes.fullWidth}>
             <ClickableText
