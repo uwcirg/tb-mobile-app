@@ -1,5 +1,4 @@
 import React from 'react';
-import BlockIcon from '@material-ui/icons/Block';
 import LaterIcon from '@material-ui/icons/Update';
 
 const TestStripImage = () => {

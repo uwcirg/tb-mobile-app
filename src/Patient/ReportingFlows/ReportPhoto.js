@@ -1,21 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import Camera from '../../ImageCapture/Camera';
-import Colors from '../../Basics/Colors';
 import useStores from '../../Basics/UseStores';
-import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import { Box, Button, TextField } from '@material-ui/core';
-import RefreshIcon from '@material-ui/icons/Refresh';
 import PermissionsError from '../../ImageCapture/PermissionsError';
-import FlatButton from '../../Components/FlatButton';
 import ValidateTimePrompt from './ValidateTimePrompt';
 import AdditionalPhotoFlowOptions from '../../Components/Patient/AdditionalPhotoFlowOptions';
-import ClickableText from '../../Basics/ClickableText';
-import { KeyboardArrowLeft } from '@material-ui/icons';
+import CantTakePhoto from './CantTakePhoto';
+import PhotoReview from './PhotoReview';
+import NextReportStep from './NextReportStep';
+import { Box } from '@material-ui/core';
 
 const ReportPhoto = observer((props) => {
-  const classes = useStyles();
   const { t } = useTranslation('translation');
   const [permissionsError, setPermissionsError] = useState(false);
 
@@ -67,25 +63,15 @@ const ReportPhoto = observer((props) => {
   }, []);
 
   return (
-    <div className={classes.container}>
+    <Box padding="0 1em">
       {!patientStore.report.photoWasSkipped ? (
         <>
-          {/* photo submission review page */}
           {patientStore.report.photoWasTaken ? (
-            <>
-              <div className={classes.strip}>
-                <img src={patientStore.report.photoString} alt="test strip" />{' '}
-              </div>
-              <Button
-                onClick={handleRetake}
-                className={classes.refresh}
-                style={{ color: `${Colors.warningRed}` }}
-              >
-                <RefreshIcon />
-                <Box width=".5em" />
-                {t('patient.report.photo.retakePhoto')}
-              </Button>
-            </>
+            <PhotoReview
+              photoString={patientStore.report.photoString}
+              handleRetake={handleRetake}
+              translatedString={t('patient.report.photo.retakePhoto')}
+            />
           ) : (
             <>
               <ValidateTimePrompt />
@@ -95,27 +81,13 @@ const ReportPhoto = observer((props) => {
           )}
         </>
       ) : (
-        // move cant take photo back here
-        <>
-          <CantTakePhoto />
-        </>
+        <CantTakePhoto />
       )}
-
-      {/* either disable this or move it elsewhere useful */}
-
-      <Box height="1em" />
-      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <FlatButton
-          className={classes.padding}
-          backgroundColor={Colors.green}
-          onClick={handleNext}
-          disabled={nextDisabled()}
-          color={Colors.white}
-          label={t('patient.report.photo.next')}
-        >
-          {t('patient.report.next')}
-        </FlatButton>
-      </div>
+      <NextReportStep
+        handleNext={handleNext}
+        nextDisabled={nextDisabled()}
+        translatedString={t('patient.onboarding.next')}
+      />
       {patientStore.uiState.cameraIsOpen && (
         <Camera
           handlePermissionsError={handlePermissionsError}
@@ -123,124 +95,8 @@ const ReportPhoto = observer((props) => {
           returnPhoto={handlePhoto}
         />
       )}
-    </div>
+    </Box>
   );
-});
-
-const CantTakePhoto = observer(() => {
-  const { patientStore } = useStores();
-  const classes = useStyles();
-  const { t } = useTranslation('translation');
-
-  return (
-    <>
-      <div className={classes.cantSubmit}>
-        <TextField
-          rows={3}
-          label={t('patient.report.photo.whyUnable')}
-          multiline
-          value={patientStore.report.whyPhotoWasSkipped}
-          onChange={(e) => {
-            patientStore.report.whyPhotoWasSkipped = e.target.value;
-          }}
-          className={classes.textArea}
-          variant="outlined"
-        />
-        <ClickableText
-          icon={<KeyboardArrowLeft />}
-          onClick={() => {
-            patientStore.report.photoWasSkipped = false;
-          }}
-          text={t('patient.report.photo.back')}
-        />
-      </div>
-    </>
-  );
-});
-
-const useStyles = makeStyles({
-  buttonFix: {
-    width: '100%',
-    '& > button': {
-      marginRight: '0',
-    },
-  },
-  container: {
-    boxSizing: 'border-box',
-    width: '100%',
-    padding: '0 1em',
-  },
-  padding: {
-    padding: '.8em 1em',
-  },
-  info: {
-    fontSize: '1em',
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'left',
-    alignItems: 'center',
-    '& > span': {
-      alignItems: 'center',
-      display: 'flex',
-      textAlign: 'left',
-      width: '100%',
-      textTransform: 'none',
-    },
-  },
-  popUp: {
-    height: '90vh',
-    width: '85%',
-    overflowY: 'scroll',
-  },
-  title: {
-    fontSize: '1.25em',
-    textAlign: 'left',
-    marginLeft: '1em',
-  },
-  leftMargin: {
-    marginLeft: '1.5em',
-  },
-  cantSubmit: {
-    width: '90%',
-    margin: 'auto',
-    marginTop: '2em',
-    '& > div': {
-      display: 'flex',
-      justifyContent: 'flex-start',
-      marginBottom: '1em',
-    },
-  },
-  later: {
-    color: 'green',
-  },
-  unable: {
-    color: 'red',
-    margin: '.5em 0',
-  },
-  strip: {
-    height: '50vh',
-    width: '100%',
-    '& >img': {
-      objectFit: 'contain',
-      height: '100%',
-      width: '100%',
-    },
-    margin: 'auto',
-    textAlign: 'center',
-  },
-  cantSubmitContainer: {
-    width: '70%',
-    boxSizing: 'border-box',
-  },
-  optionButton: {
-    padding: '.5em',
-  },
-  refresh: {
-    color: Colors.buttonBlue,
-    textTransform: 'capitalize',
-    fontSize: '1em',
-    fontWeight: 'normal',
-  },
 });
 
 export default ReportPhoto;
