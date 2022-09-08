@@ -1,10 +1,10 @@
 import React from 'react';
+import { useLocation, Route, Switch } from 'react-router-dom';
 import ReviewPatientTabs from './Tabs';
 import StickyTopBar from '../../Components/Shared/StickyTopBar';
 import ReviewPhoto from './ReviewPhoto';
 import ListOfPatients from './ListOfPatients';
 import MessagePatient from './MessagePatient';
-import { useLocation, Route, Switch } from 'react-router-dom';
 import AllPatientsList from './AllPatientsList';
 import WrappedReportingPopover from './WrappedReportingPopover';
 import TopBar from './HomeTopBar';

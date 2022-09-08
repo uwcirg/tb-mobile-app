@@ -11,6 +11,7 @@ export default function TopBar() {
   return (
     <Box bgcolor="white" borderBottom="solid 1px lightgray" padding=".5em 1em">
       <Grid alignItems="center" container>
+        {/* Why does it say all patients? */}
         <PageLabelTitle title={`${t('coordinator.cardTitles.allPatients')}`} />
         <Box flexGrow="1" />
         <IconButton
