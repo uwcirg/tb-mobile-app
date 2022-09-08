@@ -33,10 +33,14 @@ const ListOfPatients = ({ tabValue }) => {
 
   const patientsToDisplay = (patients || []).filter((_patient) => {
     if (tabValue === 2) return true;
+
     const isUnresolved =
       (_patient.unresolvedReports?.length > 0 ||
         _patient.unreviewedPhotos?.length > 0) &&
-      _patient.unresolvedReports[0]?.updatedAt > _patient.lastGeneralResolution;
+      _patient.unresolvedReports?.filter((report) => {
+        return report.date >= DateTime.local().toISODate();
+      })[0]?.updatedAt > _patient.lastGeneralResolution;
+
     const alreadyReviewed =
       checkWasToday(_patient.lastGeneralResolution) && !isUnresolved;
     return tabValue === 0 ? !alreadyReviewed : alreadyReviewed;
