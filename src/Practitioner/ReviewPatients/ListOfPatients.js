@@ -34,15 +34,13 @@ const ListOfPatients = ({ tabValue }) => {
   const patientsToDisplay = (patients || []).filter((_patient) => {
     if (tabValue === 2) return true;
     const isUnresolved =
-      _patient.unresolvedReports?.length > 0 ||
-      _patient.unreviewedPhotos?.length > 0;
-    // && _patient.unresolvedReports[0].createdAt < _patient.lastGeneralResolution ;
+      (_patient.unresolvedReports?.length > 0 ||
+        _patient.unreviewedPhotos?.length > 0) &&
+      _patient.unresolvedReports[0]?.updatedAt > _patient.lastGeneralResolution;
     const alreadyReviewed =
       checkWasToday(_patient.lastGeneralResolution) && !isUnresolved;
     return tabValue === 0 ? !alreadyReviewed : alreadyReviewed;
   });
-
-  console.log(patientsToDisplay);
 
   //@Todo - wrap this in a callback since the calculations are complex
   // - Create clearer and better algorithim for sorting the patients so issues float to top
