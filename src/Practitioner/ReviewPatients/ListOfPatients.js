@@ -44,10 +44,10 @@ const ListOfPatients = ({ tabValue }) => {
       })[0]?.updatedAt > patient.lastGeneralResolution;
 
     const isUnresolved = hasUnresolvedReports && updatedAfterResolution;
-    const wasToday = checkWasToday(patient.lastGeneralResolution);
+    const resolvedToday = checkWasToday(patient.lastGeneralResolution);
 
-    const alreadyReviewed = wasToday && !isUnresolved;
-    return tabValue === 0 ? !alreadyReviewed : alreadyReviewed;
+    const reviewed = resolvedToday && !isUnresolved;
+    return tabValue === 0 ? !reviewed : reviewed;
   });
 
   //@Todo - wrap this in a callback since the calculations are complex
