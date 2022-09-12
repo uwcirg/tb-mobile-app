@@ -31,18 +31,22 @@ const ListOfPatients = ({ tabValue }) => {
     setPatients(tempValue);
   };
 
-  const patientsToDisplay = (patients || []).filter((_patient) => {
+  const patientsToDisplay = (patients || []).filter((patient) => {
     if (tabValue === 2) return true;
 
-    const isUnresolved =
-      (_patient.unresolvedReports?.length > 0 ||
-        _patient.unreviewedPhotos?.length > 0) &&
-      _patient.unresolvedReports?.filter((report) => {
-        return report.date >= DateTime.local().toISODate();
-      })[0]?.updatedAt > _patient.lastGeneralResolution;
+    const hasUnresolvedReports =
+      patient.unresolvedReports?.length > 0 ||
+      patient.unreviewedPhotos?.length > 0;
 
-    const alreadyReviewed =
-      checkWasToday(_patient.lastGeneralResolution) && !isUnresolved;
+    const updatedAfterResolution =
+      patient.unresolvedReports?.filter((unresolved) => {
+        return unresolved.date >= DateTime.local().toISODate();
+      })[0]?.updatedAt > patient.lastGeneralResolution;
+
+    const isUnresolved = hasUnresolvedReports && updatedAfterResolution;
+    const wasToday = checkWasToday(patient.lastGeneralResolution);
+
+    const alreadyReviewed = wasToday && !isUnresolved;
     return tabValue === 0 ? !alreadyReviewed : alreadyReviewed;
   });
 
