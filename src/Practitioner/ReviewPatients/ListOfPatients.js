@@ -8,12 +8,6 @@ import PatientListMessage from './PatientListMessage';
 import checkWasToday from './checkWasToday';
 import IssueSectionLabel from './IssueSectionLabel';
 
-// When patient's photo is reviewed, unreviewedPhotos is turned into [];
-// When patient with outstanding unresolved reports is reviewed, unresolvedReports is turned into [] in patientsToDisplay;
-// It is necessary to check whether the report was created after the lastGeneralResolution
-// I am trying to check that the patient meets all requirements to be marked as reviewed
-// These requirements are, date checked, and no unresolved reports / photos
-
 const ListOfPatients = ({ tabValue }) => {
   const {
     value: patients,
