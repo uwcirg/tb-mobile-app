@@ -36,13 +36,20 @@ const Seperator = () => (
   <Box width="100%" borderTop="solid 1px lightgray" margin="8px 0" />
 );
 
-const ReportCard = ({ title, titleIcon, status, statusIcon, statusText }) => {
+const ReportCard = ({
+  title,
+  titleIcon,
+  color,
+  statusIcon,
+  statusText,
+  children,
+}) => {
   return (
     <InputCard>
-      <Box>
-        <Box display="flex" alignContent="center">
+      <Box display="flex" flexDirection="column" style={{ rowGap: '1em' }}>
+        <Box display="flex" justifyContent="center" alignContent="center">
           {titleIcon}
-          <Typography variant="h6">{title}</Typography>
+          <Typography style={{ fontSize: '1.2em' }}>{title}</Typography>
         </Box>
         <Box
           display="flex"
@@ -51,10 +58,13 @@ const ReportCard = ({ title, titleIcon, status, statusIcon, statusText }) => {
           style={{ columnGap: '1em' }}
         >
           {React.createElement(statusIcon, {
-            style: { color: status ? Colors.green : Colors.red },
+            style: { color: Colors[color] },
           })}
-          <Typography variant="h6">{statusText}</Typography>
+          <Typography style={{ fontSize: '1.1em' }}>{statusText}</Typography>
         </Box>
+      </Box>
+      <Box display="flex" justifyContent="center">
+        {children}
       </Box>
     </InputCard>
   );
@@ -88,57 +98,41 @@ const DailyReport = ({ report, date }) => {
       <ReportCard
         title={t('patient.report.didYouTake')}
         titleIcon={<PillIcon />}
-        status={medicationWasTaken}
+        color="green"
+        // needs to rely on status
         statusIcon={medicationWasTaken ? CheckCircleIcon : HighlightOffIcon}
         statusText={
           medicationWasTaken ? t('commonWords.yes') : t('commonWords.no')
         }
       />
-
-      <InputCard>
-        <ExpandableCard
-          hideToggle
-          title={t('patient.report.symptomsTitle')}
-          icon={Assignment}
-        >
-          <Status
-            color={hadSymptoms ? Colors.red : Colors.green}
-            icon={!hadSymptoms ? CheckCircleIcon : HighlightOffIcon}
-            text={
-              hadSymptoms
-                ? t('coordinator.sideBar.symptomsSince')
-                : t('coordinator.recentReports.noSymptoms')
-            }
-          />
-          {hadSymptoms && (
-            <>
-              <Seperator />
-              <SymptomList symptoms={symptoms} />
-            </>
-          )}
-        </ExpandableCard>
-      </InputCard>
-
-      <InputCard>
-        <ExpandableCard
-          hideToggle
-          title={t('patient.report.moodTitle')}
-          icon={InsertEmoticon}
-        >
-          <Status
-            text={
-              doingOkay
-                ? t('patient.report.doingWell')
-                : t('patient.report.needSupport')
-            }
-            icon={
-              doingOkay ? SentimentVerySatisfied : SentimentVeryDissatisfied
-            }
-            color={doingOkay ? Colors.green : Colors.red}
-          />
-          {doingOkayReason && <Typography>{doingOkayReason}</Typography>}
-        </ExpandableCard>
-      </InputCard>
+      <ReportCard
+        title={t('patient.report.symptomsTitle')}
+        titleIcon={<Assignment />}
+        color="red"
+        statusIcon={hadSymptoms ? HighlightOffIcon : CheckCircleIcon}
+        statusText={
+          hadSymptoms
+            ? t('coordinator.sideBar.symptomsSince')
+            : t('coordinator.recentReports.noSymptoms')
+        }
+      >
+        {hadSymptoms && <SymptomList symptoms={symptoms} />}
+      </ReportCard>
+      <ReportCard
+        title={t('patient.report.moodTitle')}
+        titleIcon={<InsertEmoticon />}
+        color={doingOkay ? 'green' : 'red'}
+        statusIcon={
+          doingOkay ? SentimentVerySatisfied : SentimentVeryDissatisfied
+        }
+        statusText={
+          doingOkay
+            ? t('patient.report.doingWell')
+            : t('patient.report.needSupport')
+        }
+      >
+        {doingOkayReason && <Typography>{doingOkayReason}</Typography>}
+      </ReportCard>
 
       <InputCard>
         <ExpandableCard
@@ -186,11 +180,15 @@ const DailyReport = ({ report, date }) => {
 
 const SymptomList = ({ symptoms }) => {
   return (
-    <div>
+    <ul>
       {symptoms.map((each, index) => {
-        return <Symptom key={`symptom-${index}`} string={each} />;
+        return (
+          <li key={`symptom-${index}`}>
+            <Symptom string={each} />
+          </li>
+        );
       })}
-    </div>
+    </ul>
   );
 };
 
