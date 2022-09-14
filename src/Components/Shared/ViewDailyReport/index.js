@@ -12,19 +12,11 @@ import {
 } from '@material-ui/icons';
 import ZoomableImage from '../ZoomableImage';
 import ExpandableCard from '../../ExpandableCard';
-
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Colors from '../../../Basics/Colors.js';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
-import { makeStyles } from '@material-ui/core/styles';
 import InputCard from '../Appointments/AddAppointment/InputCard.js';
-
-const useStyles = makeStyles({
-  answer: {
-    fontStyle: 'italic',
-  },
-});
 
 const Status = ({ text, icon, color }) => {
   return (
@@ -37,13 +29,36 @@ const Status = ({ text, icon, color }) => {
 };
 
 const AnswerText = ({ children }) => {
-  const classes = useStyles();
-  return <Typography className={classes.answer}>{children}</Typography>;
+  return <Typography style={{ fontStyle: 'italic' }}>{children}</Typography>;
 };
 
 const Seperator = () => (
   <Box width="100%" borderTop="solid 1px lightgray" margin="8px 0" />
 );
+
+const ReportCard = ({ title, titleIcon, status, statusIcon, statusText }) => {
+  return (
+    <InputCard>
+      <Box>
+        <Box display="flex" alignContent="center">
+          {titleIcon}
+          <Typography variant="h6">{title}</Typography>
+        </Box>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          style={{ columnGap: '1em' }}
+        >
+          {React.createElement(statusIcon, {
+            style: { color: status ? Colors.green : Colors.red },
+          })}
+          <Typography variant="h6">{statusText}</Typography>
+        </Box>
+      </Box>
+    </InputCard>
+  );
+};
 
 const DailyReport = ({ report, date }) => {
   const { t } = useTranslation('translation');
@@ -70,31 +85,16 @@ const DailyReport = ({ report, date }) => {
 
   return (
     <Box bgcolor="white" padding="0 1em">
-      <InputCard>
-        <ExpandableCard
-          hideToggle
-          title={t('patient.report.didYouTake')}
-          icon={PillIcon}
-        >
-          <Status
-            text={
-              medicationWasTaken ? t('commonWords.yes') : t('commonWords.no')
-            }
-            icon={medicationWasTaken ? CheckCircleIcon : HighlightOffIcon}
-            color={medicationWasTaken ? Colors.green : Colors.red}
-          />
+      <ReportCard
+        title={t('patient.report.didYouTake')}
+        titleIcon={<PillIcon />}
+        status={medicationWasTaken}
+        statusIcon={medicationWasTaken ? CheckCircleIcon : HighlightOffIcon}
+        statusText={
+          medicationWasTaken ? t('commonWords.yes') : t('commonWords.no')
+        }
+      />
 
-          {!medicationWasTaken && (
-            <>
-              <Seperator />
-              <Typography>{t('patient.report.whyNotTaken')}</Typography>
-              <AnswerText>
-                {whyMedicationNotTaken || t('coordinator.sideBar.noReason')}
-              </AnswerText>
-            </>
-          )}
-        </ExpandableCard>
-      </InputCard>
       <InputCard>
         <ExpandableCard
           hideToggle
