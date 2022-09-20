@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Typography, Box } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { Assignment as Clipboard } from '@material-ui/icons';
 import Symptom from '../../Shared/Symptom';
 import { useTranslation } from 'react-i18next';
@@ -11,7 +11,7 @@ const SymptomSummary = ({ patient }) => {
   return (
     <IssueCard
       title={t('commonWords.symptoms')}
-      icon={Clipboard}
+      icon={<Clipboard />}
       issueCount={Object.keys(patient.issues.symptomCounts).length}
     >
       {Object.keys(patient.issues.symptomCounts).map((string, index) => {

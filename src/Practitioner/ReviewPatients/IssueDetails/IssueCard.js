@@ -6,8 +6,8 @@ export default function IssueCard({
   title,
   icon,
   children,
-  issueCount,
-  childrenStyles,
+  issueCount = null,
+  childrenStyles = {},
 }) {
   return (
     <Grid item xs={12}>
@@ -15,10 +15,12 @@ export default function IssueCard({
         <Box display="flex" style={{ columnGap: '1em' }}>
           {icon}
           <Typography>
-            {title} {issueCount}
+            {title} {issueCount && `: ${issueCount}`}
           </Typography>
         </Box>
-        <Box style={childrenStyles}>{children}</Box>
+        <Box style={childrenStyles} paddingTop="1em">
+          {children}
+        </Box>
       </InputCard>
     </Grid>
   );

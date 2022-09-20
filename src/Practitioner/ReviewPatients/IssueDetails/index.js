@@ -17,9 +17,7 @@ const IssueDetails = ({ patient, visible }) => {
         )}
         {issues.symptoms > 0 && <SymptomSummary patient={patient} />}
         {issues.supportRequests > 0 && (
-          <InputCard>
-            <SupportRequests supportRequests={patient.issues.supportRequests} />
-          </InputCard>
+          <SupportRequests supportRequests={patient.issues.supportRequests} />
         )}
         <ReportingHistoryLinks patient={patient} />
       </Grid>
