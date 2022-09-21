@@ -4,7 +4,6 @@ import { Box, Grid } from '@material-ui/core';
 import ReviewPhotos from './ReviewPhotos';
 import SupportRequests from './SupportRequests';
 import ReportingHistoryLinks from '../../../Components/Shared/ReportingHistoryLinks';
-import InputCard from '../../../Components/Shared/Appointments/AddAppointment/InputCard';
 
 const IssueDetails = ({ patient, visible }) => {
   const issues = patient.issues.state;
