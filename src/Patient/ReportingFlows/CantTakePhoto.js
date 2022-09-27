@@ -13,7 +13,7 @@ const CantTakePhoto = () => {
 
   return (
     <>
-      <Box display={'flex'} flexWrap="wrap">
+      <Box display={'flex'} flexWrap="wrap" style={{ rowGap: '1rem' }}>
         <TextField
           fullWidth
           rows={3}
