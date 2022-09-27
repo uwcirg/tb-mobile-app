@@ -83,7 +83,6 @@ const TimeoutPrompt = () => {
   const { t } = useTranslation('translation');
   const handleTimeout = (min) => {
     setMinutesLeft(() => 20 - min);
-    console.log(min);
   };
   return (
     <>
