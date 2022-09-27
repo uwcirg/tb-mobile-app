@@ -40,9 +40,7 @@
     "errorMessage": "Se ha producido un error. Por favor, inténtelo de nuevo más tarde.",
     "atTime": "a las",
     "loadMore": "cargar más",
-    "back": "back",
-    "summary": "Summary",
-    "reportingSummary": "Reporting Summary"
+    "back": "back"
   },
   "userTypes": {
     "patient": "Paciente",
@@ -1095,5 +1093,12 @@
     "noPatients": "No se encuentre ningún paciente",
     "noPatientReviews": "Ya no ha repasado a nadie",
     "noPateintIssues": "No hay nadie más que repasar"
+  },
+  "photoFlow": {
+    "pleaseSubmitLater": "Por favor, suba la foto en",
+    "minutes": "minutes",
+    "howManyMinutesAgo": "¿Hace cuántos minutos se sumergió la tira reactiva?",
+    "confirm20Minutes": "He esperado veinte minutos",
+    "deny20Minutes": "Ya no he esperado veinte minutos"
   }
 }
