@@ -8,7 +8,6 @@ import useStores from '../../Basics/UseStores';
 import FlatButton from '../../Components/FlatButton';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import { t } from 'i18next';
 
 export default function ValidateTimePrompt() {
   const [isTestReady, setIsTestReady] = useState(true);
@@ -43,16 +42,15 @@ export default function ValidateTimePrompt() {
 }
 
 const TimeElapsedButton = ({ handleClick, valid }) => {
+  const { t } = useTranslation('translation');
   return (
     <Box padding="1em .5em">
       <BigConfirmationButton
-        primaryColor={valid ? '#388E3C' : Colors.red}
-        bgColor={valid ? '#E8F5E9' : Colors.calendarRed}
+        primaryColor={valid ? Colors.darkGreen : Colors.red}
+        bgColor={valid ? Colors.backgroundGreen : Colors.calendarRed}
         icon={valid ? <ThumbUp /> : <Timer />}
         text={
-          valid
-            ? 'I have waited for twenty minutes'
-            : 'I have not waited twenty minutes'
+          valid ? t('photoFlow.confirm20Minutes') : t('photoFlow.deny20Minutes')
         }
         onClick={handleClick}
       />
@@ -91,7 +89,7 @@ const TimeoutPrompt = () => {
     <>
       {minutesLeft === 0 ? (
         <Box flexWrap="wrap">
-          <h2>About how many minutes ago did you take the test?</h2>
+          <h2>{t('photoFlow.howManyMinutesAgo')}</h2>
           <Box display="flex" justifyContent="space-around">
             {minutes.map((minute, i) => (
               <FlatButton
@@ -107,7 +105,10 @@ const TimeoutPrompt = () => {
       ) : (
         <TransitionWrapper>
           <Box display="flex" flexWrap="wrap" justifyContent="flex-end">
-            <h2>Please submit your photo in {minutesLeft} minutes.</h2>
+            <h2>
+              {t('photoFlow.pleaseSubmitLater')} {minutesLeft}{' '}
+              {t('photoFlow.minutes')}.
+            </h2>
             <FlatButton to={'/'}>
               {t('patient.report.symptoms.warning.button')}
             </FlatButton>
