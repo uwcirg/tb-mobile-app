@@ -2,53 +2,65 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
-import Typography from '@material-ui/core/Typography'
+import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Colors from '../../Basics/Colors';
 
 const useStyles = makeStyles({
-    photoPrompt: {
-        width: "100%",
-        display: "flex",
-        borderRadius: "10px",
-        padding: "1em",
-        justifyContent: "center",
-        alignItems: "center"
-    },
-    buttonText: {
-        fontSize: "1.5em",
-        fontWeight: "bold",
-        textAlign: "center",
-        width: "auto"
-    },
-    button: {
-        padding: "1em 0",
-        width: "100%",
-        display: "flex",
-        backgroundColor: Colors.actionBlue,
-        color: Colors.textDarkGray,
-        borderRadius: "10px"
-    },
-    icon:{
-        marginRight: "5px"
-    }
-})
+  photoPrompt: {
+    width: '100%',
+    display: 'flex',
+    borderRadius: '10px',
+    padding: '1em',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    fontSize: '1.5em',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    width: 'auto',
+  },
+  button: {
+    padding: '1em 0',
+    width: '100%',
+    display: 'flex',
+    borderRadius: '10px',
+  },
+  enabled: {
+    backgroundColor: Colors.actionBlue,
+    color: Colors.textDarkGray,
+  },
+  disabled: {
+    backgroundColor: Colors.gray,
+    color: Colors.textGray,
+  },
+  icon: {
+    marginRight: '5px',
+  },
+});
 
-const PhotoPrompt = ({ onClick }) => {
+const PhotoPrompt = ({ onClick, disabled = false }) => {
+  const classes = useStyles();
+  const { t } = useTranslation();
 
-    const classes = useStyles();
-    const { t } = useTranslation();
-
-    return (
-        <ButtonBase onClick={onClick} className={classes.button}>
-            <div className={classes.photoPrompt}>
-                <CameraAltIcon className={classes.icon} />
-                <Typography variant="body1" className={classes.buttonText}>
-                    {t("patient.report.photo.openCamera")}
-                </Typography>
-            </div>
-        </ButtonBase>
-    )
-}
+  return (
+    <ButtonBase
+      disabled={disabled}
+      onClick={onClick}
+      className={
+        classes.button +
+        (disabled ? ' ' + classes.disabled : ' ' + classes.enabled)
+      }
+    >
+      <div className={classes.photoPrompt}>
+        <CameraAltIcon className={classes.icon} />
+        <Typography variant="body1" className={classes.buttonText}>
+          {t('patient.report.photo.openCamera')}
+        </Typography>
+      </div>
+    </ButtonBase>
+  );
+};
 
 export default PhotoPrompt;

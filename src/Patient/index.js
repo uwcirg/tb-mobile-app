@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import BottomBar from './Navigation/BottomBar';
 import { observer } from 'mobx-react';
-import Home from './Home'
-import Info from './Information/'
+import Home from './Home';
+import Info from './Information/';
 import Messaging from '../Messaging';
 import Progress from './Progress';
 import TopBar from './Navigation/TopBar';
@@ -11,7 +11,7 @@ import Intro from './Walkthrough/';
 import useStores from '../Basics/UseStores';
 import Onboarding from './Onboarding';
 import Colors from '../Basics/Colors';
-import { useMatomo } from '@datapunt/matomo-tracker-react'
+import { useMatomo } from '@datapunt/matomo-tracker-react';
 import ErrorListener from './ErrorListener';
 import ForcePasswordChange from './ForcePasswordChange';
 import EducationalMessage from './Home/Education';
@@ -23,12 +23,13 @@ import Box from '@material-ui/core/Box';
 import RedoPhotoFlow from './ReportingFlows/AltPhotoFlows/RedoPhotoFlow';
 import isIndonesiaPilot from '../Utility/check-indonesia-flag';
 import AddApointment from '../Components/Shared/Appointments/AddAppointment/';
+import CantTakePhoto from './ReportingFlows/CantTakePhoto';
 
 const PatientHome = observer(() => {
-
-  const { patientUIStore, patientStore, uiStore, dailyReportStore } = useStores();
+  const { patientUIStore, patientStore, uiStore, dailyReportStore } =
+    useStores();
   const tabs = [<Home />, <Progress />, <Messaging />, <Info />];
-  const routeTab = tabs[patientUIStore.tabNumber]
+  const routeTab = tabs[patientUIStore.tabNumber];
   const { trackPageView, pushInstruction } = useMatomo();
   const isVisible = usePageVisibility();
 
@@ -36,28 +37,28 @@ const PatientHome = observer(() => {
   // Track page view in Matomo
   useEffect(() => {
     const TEXT_OPTIONS = ['Home', 'Progress', 'Messaging', 'Information'];
-    trackPageView({ documentTitle: TEXT_OPTIONS[patientUIStore.tabNumber] })
-    window.scrollTo(0, 0)
-  }, [patientUIStore.tabNumber])
+    trackPageView({ documentTitle: TEXT_OPTIONS[patientUIStore.tabNumber] });
+    window.scrollTo(0, 0);
+  }, [patientUIStore.tabNumber]);
 
   useEffect(() => {
-    if (patientStore.status === "Pending") patientUIStore.goToOnboarding();
-  }, [patientStore.status])
+    if (patientStore.status === 'Pending') patientUIStore.goToOnboarding();
+  }, [patientStore.status]);
 
   useEffect(() => {
     if (patientStore.userID) {
       pushInstruction('setUserId', `P${patientStore.userID}`);
     }
-  }, [patientStore.userID])
+  }, [patientStore.userID]);
 
   //Upload old reports when a patient comes back online
   useEffect(() => {
     if (!uiStore.offline && dailyReportStore.numberOfflineReports > 0) {
       dailyReportStore.syncOfflineReports().then(() => {
         patientStore.getReports();
-      })
+      });
     }
-  }, [uiStore.offline, dailyReportStore.numberOfflineReports])
+  }, [uiStore.offline, dailyReportStore.numberOfflineReports]);
 
   useEffect(() => {
     if (isVisible) {
@@ -66,40 +67,54 @@ const PatientHome = observer(() => {
       if (navigator.standalone || window.matchMedia(mqStandAlone).matches) {
         displayMode = 'standalone';
       }
-      pushInstruction('setCustomVariable', 2, "clientLaunchType", displayMode, "visit");
+      pushInstruction(
+        'setCustomVariable',
+        2,
+        'clientLaunchType',
+        displayMode,
+        'visit'
+      );
     }
-  }, [isVisible])
+  }, [isVisible]);
 
   if (patientStore.hasForcedPasswordChange) {
-    return <ForcePasswordChange />
+    return <ForcePasswordChange />;
   }
 
-  if (patientStore.status === "Pending") {
-    return <Onboarding />
+  if (patientStore.status === 'Pending') {
+    return <Onboarding />;
   }
 
-  if (uiStore.pathname.startsWith("/contact-tracing")) {
-    return <UpdateContactTracing />
+  if (uiStore.pathname.startsWith('/contact-tracing')) {
+    return <UpdateContactTracing />;
   }
 
-  if (uiStore.pathname.startsWith("/missed-photo")) {
-    return <MissedPhotoFlow />
+  if (uiStore.pathname.startsWith('/missed-photo')) {
+    return <MissedPhotoFlow />;
   }
 
-  if (uiStore.pathname.startsWith("/redo-photo")) {
-    return <RedoPhotoFlow />
+  if (uiStore.pathname.startsWith('/redo-photo')) {
+    return <RedoPhotoFlow />;
   }
 
-  if (uiStore.pathname.startsWith("/quick-report")) {
-    return <PushActionReportingFlow />
+  if (uiStore.pathname.startsWith('/quick-report')) {
+    return <PushActionReportingFlow />;
   }
 
-  if(uiStore.pathname.startsWith("/add-appointment")){
-    return <AddApointment patientId={patientStore.userID} />
+  if (uiStore.pathname.startsWith('/add-appointment')) {
+    return <AddApointment patientId={patientStore.userID} />;
   }
 
   return (
-    <div id="main-patient-app-content" className="main-screen" style={{ backgroundColor: `${Colors.white}`, height: "100vh", overflowY: patientUIStore.onSettings ? "hidden" : "scroll" }}>
+    <div
+      id="main-patient-app-content"
+      className="main-screen"
+      style={{
+        backgroundColor: `${Colors.white}`,
+        height: '100vh',
+        overflowY: patientUIStore.onSettings ? 'hidden' : 'scroll',
+      }}
+    >
       <ErrorListener />
       <div>
         <TopBar />
@@ -108,14 +123,10 @@ const PatientHome = observer(() => {
       {!isIndonesiaPilot() && <EducationalMessage />}
       {patientUIStore.onWalkthrough && <Intro />}
       <TopMenu />
-      <div style={{ paddingBottom: "60px" }}>
-        {routeTab}
-      </div>
+      <div style={{ paddingBottom: '60px' }}>{routeTab}</div>
       {!patientUIStore.onReportFlow && <BottomBar />}
-    </div >
+    </div>
   );
-}
-);
-
+});
 
 export default PatientHome;
