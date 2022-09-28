@@ -5,7 +5,7 @@ import addIssuesToPatients from '../../Utility/FindIssues';
 import { Box, Grid } from '@material-ui/core';
 import PatientCard from './PatientCard';
 import PatientListMessage from './PatientListMessage';
-import checkWasToday from './checkWasToday';
+import { checkWasToday } from '../../Utility/TimeUtils';
 import IssueSectionLabel from './IssueSectionLabel';
 
 const ListOfPatients = ({ tabValue }) => {
