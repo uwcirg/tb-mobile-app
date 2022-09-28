@@ -10,6 +10,7 @@ import Colors from '../../../Basics/Colors';
 import WarningBox from '../../../Basics/WarningBox';
 import DatePicker from '../../../Basics/DatePicker';
 import { DateTime } from 'luxon';
+import { Day } from '@material-ui/pickers';
 
 const ChangePatientDetails = observer(({ handleClose }) => {
   const { t } = useTranslation('translation');
@@ -122,7 +123,9 @@ const InputItem = observer((props) => {
           value={
             props.editEndDate
               ? DateTime.fromISO(patientProfileStore.changes.treatmentEndDate)
-              : DateTime.fromISO(patientProfileStore.changes.treatmentStart)
+              : DateTime.fromISO(
+                  patientProfileStore.changes.treatmentStart
+                ).plus({ days: 1 })
           }
           animateYearScrolling
           onChange={props.editEndDate ? editEndDate : editStartDate}
