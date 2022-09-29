@@ -125,11 +125,7 @@ const InputItem = observer((props) => {
               ? DateTime.fromISO(patientProfileStore.changes.treatmentEndDate)
               : DateTime.fromISO(
                   patientProfileStore.changes.treatmentStart
-<<<<<<< HEAD
-                ).plus({ days: 1 })
-=======
                 ).plus({ hours: 12 })
->>>>>>> e785d96 (datetime increased by 12hrs to combat visual bug)
           }
           animateYearScrolling
           onChange={props.editEndDate ? editEndDate : editStartDate}
