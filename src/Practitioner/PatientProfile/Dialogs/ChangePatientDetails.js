@@ -97,8 +97,6 @@ const InputItem = observer((props) => {
     patientProfileStore.changeTreatmentStart(date.toISODate());
   };
 
-  console.log(props.id, patientProfileStore.changes[props.id]);
-
   return (
     <div className={classes.inputItem}>
       <label className={classes.label} htmlFor={props.id}>
