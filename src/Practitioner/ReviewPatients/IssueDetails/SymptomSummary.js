@@ -4,15 +4,18 @@ import { Assignment as Clipboard } from '@material-ui/icons';
 import Symptom from '../../Shared/Symptom';
 import { useTranslation } from 'react-i18next';
 import IssueCard from './IssueCard';
+import Colors from '../../../Basics/Colors';
 
 const SymptomSummary = ({ patient }) => {
   const { t } = useTranslation('translation');
 
   return (
     <IssueCard
+      colors={Colors.warningRed}
       title={t('commonWords.symptoms')}
-      icon={<Clipboard />}
+      icon={<Clipboard style={{ color: Colors.warningRed }} />}
       issueCount={Object.keys(patient.issues.symptomCounts).length}
+      childrenStyles={{ color: Colors.warningRed }}
     >
       {Object.keys(patient.issues.symptomCounts).map((string, index) => {
         const count = patient.issues.symptomCounts[string];

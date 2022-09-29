@@ -7,6 +7,7 @@ export default function IssueCard({
   icon,
   children,
   issueCount = null,
+  colors = 'inherit',
   childrenStyles = {},
 }) {
   return (
@@ -14,7 +15,7 @@ export default function IssueCard({
       <InputCard>
         <Box display="flex" style={{ columnGap: '1em' }}>
           {icon}
-          <Typography>
+          <Typography style={{ fontWeight: 600, color: colors }}>
             {title} {issueCount && `: ${issueCount}`}
           </Typography>
         </Box>

@@ -11,13 +11,16 @@ const useStyles = makeStyles({
   button: {
     width: '60px',
     color: Colors.buttonBlue,
+    backgroundColor: Colors.actionBlue,
+    padding: '1em .2em',
+    borderRadius: '50%',
     flexDirection: 'column',
     justifyContent: 'center',
   },
   label: {
-    fontSize: '.75em',
+    fontSize: '.9em',
     textTransform: 'capitalize',
-    color: Colors.textDarkGray,
+    color: Colors.buttonBlue,
   },
 });
 
@@ -26,26 +29,21 @@ const ReportingHistoryLinks = ({ patient }) => {
 
   return (
     <IssueCard title={t('commonWords.reportingSummary')} icon={<ViewList />}>
-      <Box
-        flexGrow={1}
-        borderRadius="5px"
-        bgcolor={Colors.lighterGray}
-        padding="8px"
-      >
+      <Box flexGrow={1} borderRadius="5px" padding="8px">
         <Grid alignItems="center" container justify="space-between">
           <SingleButton
             to={`${patient.id}/reports/calendar`}
-            icon={<Event />}
+            icon={<Event style={{ fontSize: '2em' }} />}
             text={t('patient.tabNames.calendar')}
           />
           <SingleButton
             to={`${patient.id}/reports/list`}
-            icon={<ListAlt />}
-            text={t('commonWords.list')}
+            icon={<ListAlt style={{ fontSize: '2em' }} />}
+            text={t('commonWords.summary')}
           />
           <SingleButton
             to={`${patient.id}/reports/photos`}
-            icon={<CameraAlt />}
+            icon={<CameraAlt style={{ fontSize: '2em' }} />}
             text={t('commonWords.photos')}
           />
         </Grid>
@@ -58,10 +56,17 @@ const SingleButton = ({ icon, text, to }) => {
   const classes = useStyles();
 
   return (
-    <ButtonBase className={classes.button} component={Link} to={to}>
-      {icon}
+    <Box
+      display="flex"
+      flexDirection="column"
+      textAlign="center"
+      style={{ rowGap: '.5em' }}
+    >
+      <ButtonBase className={classes.button} component={Link} to={to}>
+        {icon}
+      </ButtonBase>
       <Typography className={classes.label}>{text}</Typography>
-    </ButtonBase>
+    </Box>
   );
 };
 

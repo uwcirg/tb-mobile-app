@@ -18,8 +18,8 @@ const useStyles = makeStyles({
     padding: '.5em',
     width: '100%',
     borderRadius: '4px',
-    backgroundColor: 'white',
-    border: 'solid 1px lightgray',
+    backgroundColor: `${Colors.white}`,
+    border: `2px solid ${Colors.accentBlue}`,
   },
 });
 
@@ -28,7 +28,7 @@ const ReviewPhotos = ({ patient }) => {
 
   return (
     <IssueCard
-      title={t('patient.report.photos')}
+      title={t('coordinator.cardTitles.photosToReview')}
       icon={<CameraAlt />}
       issueCount={patient.issues.state.unreviewedPhotos}
     >
@@ -51,7 +51,14 @@ const PhotoPreview = ({ photo }) => {
         to={`?review-photo=${photo.photoId}`}
         className={classes.photoReport}
       >
-        <ShortDate date={photo.createdAt} />
+        <Box
+          display="flex"
+          alignItems="center"
+          width="100%"
+          color={Colors.buttonBlue}
+        >
+          <ShortDate date={photo.createdAt} />
+        </Box>
         {!photo.backSubmission && photo.isRedo && (
           <Box paddingLeft="1em">
             <Label
@@ -71,7 +78,7 @@ const PhotoPreview = ({ photo }) => {
         <Box flexGrow="1" />
         <LoadS3Image photo={photo} style={{ display: 'block' }} width="50px" />
         <Box width="1em" />
-        <ChevronRight />
+        <ChevronRight style={{ color: Colors.buttonBlue }} />
       </ButtonBase>
       <Box height="5px" />
     </>
