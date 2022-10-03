@@ -15,8 +15,12 @@ import ReportingPopover from '../Shared/ReportingPopOver';
 import { PageLabelTitle } from '../../Components/Shared/PageLabel';
 import { useTranslation } from 'react-i18next';
 
-const TopBar = ({ setSearchResult, handleClick }) => {
+const TopBar = ({ setSearchResult, handleClick, setFocus }) => {
   const { t } = useTranslation('translation');
+
+  const handleFocus = (e) => {
+    setFocus(e.type);
+  };
 
   return (
     <Box bgcolor="white" borderBottom="solid 1px lightgray" padding="1em 1em">
@@ -32,10 +36,16 @@ const TopBar = ({ setSearchResult, handleClick }) => {
             onChange={(e) => {
               setSearchResult(e.target.value);
             }}
+            onFocus={(e) => handleFocus(e)}
+            onBlur={(e) => handleFocus(e)}
             InputProps={{
               'aria-label': 'search',
               endAdornment: (
-                <IconButton onClick={handleClick}>
+                <IconButton
+                  onClick={handleClick}
+                  component={Link}
+                  to={'/home/all'}
+                >
                   <Search />
                 </IconButton>
               ),
@@ -60,9 +70,11 @@ const TopBar = ({ setSearchResult, handleClick }) => {
 
 const PractitionerHome = () => {
   const [searchResult, setSearchResult] = useState('');
+  const [isFocused, setFocus] = useState('');
   const location = useLocation();
 
   const getTabValue = () => {
+    if (isFocused === 'focus') return 2;
     if (location.pathname === '/home/needs-review') return 0;
     if (location.pathname === '/home/reviewed') return 1;
     if (location.pathname === '/home/all') return 2;
@@ -71,9 +83,12 @@ const PractitionerHome = () => {
 
   const tabValue = getTabValue();
 
+  if (tabValue === 2) {
+    location.pathname = '/home/all';
+  }
+
   const handleSearch = () => {
     console.log(searchResult);
-    console.log('searching from parent');
   };
 
   return (
@@ -84,7 +99,11 @@ const PractitionerHome = () => {
       <ReviewPhoto />
       <MessagePatient />
       <StickyTopBar>
-        <TopBar handleClick={handleSearch} setSearchResult={setSearchResult} />
+        <TopBar
+          handleClick={handleSearch}
+          setSearchResult={setSearchResult}
+          setFocus={setFocus}
+        />
         <ReviewPatientTabs value={tabValue} />
       </StickyTopBar>
       <Switch>
