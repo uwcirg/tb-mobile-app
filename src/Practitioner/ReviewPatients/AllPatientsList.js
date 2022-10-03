@@ -3,9 +3,7 @@ import PatientCard from './PatientCard';
 import { Box, Typography } from '@material-ui/core';
 import PractitionerContext from '../PractitionerContext';
 import PatientListMessage from './PatientListMessage';
-import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import ChunkLabel from './ListSectionLabel';
 import ListSectionLabel from './ListSectionLabel';
 
 const AllPatientsList = () => {
@@ -20,7 +18,6 @@ const AllPatientsList = () => {
   if (status === 'pending') return <PatientListMessage isLoading={true} />;
 
   let currentPatientStatus;
-  console.log(patients);
 
   return (
     <div>

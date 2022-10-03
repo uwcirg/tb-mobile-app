@@ -1,46 +1,55 @@
-import React, { useContext } from "react";
-import { Grid, Box, IconButton } from "@material-ui/core";
-import { Search, Add } from "@material-ui/icons";
-import ReviewPatientTabs from "./Tabs";
-import StickyTopBar from "../../Components/Shared/StickyTopBar";
-import Colors from "../../Basics/Colors";
-import PractitionerContext from "../PractitionerContext";
-import ReviewPhoto from "./ReviewPhoto";
-import ListOfPatients from "./ListOfPatients";
-import MessagePatient from "./MessagePatient";
-import { useLocation, useHistory } from "react-router-dom";
-import { Route, Switch, useParams, Link } from "react-router-dom";
-import AllPatientsList from "./AllPatientsList";
-import ReportingPopover from "../Shared/ReportingPopOver";
-import { PageLabelTitle } from "../../Components/Shared/PageLabel";
-import { useTranslation } from "react-i18next";
+import React, { useContext, useState } from 'react';
+import { Grid, Box, IconButton, TextField } from '@material-ui/core';
+import { Search, Add } from '@material-ui/icons';
+import ReviewPatientTabs from './Tabs';
+import StickyTopBar from '../../Components/Shared/StickyTopBar';
+import Colors from '../../Basics/Colors';
+import PractitionerContext from '../PractitionerContext';
+import ReviewPhoto from './ReviewPhoto';
+import ListOfPatients from './ListOfPatients';
+import MessagePatient from './MessagePatient';
+import { useLocation, useHistory } from 'react-router-dom';
+import { Route, Switch, useParams, Link } from 'react-router-dom';
+import AllPatientsList from './AllPatientsList';
+import ReportingPopover from '../Shared/ReportingPopOver';
+import { PageLabelTitle } from '../../Components/Shared/PageLabel';
+import { useTranslation } from 'react-i18next';
 
-const TopBar = () => {
-  const { t } = useTranslation("translation");
+const TopBar = ({ setSearchResult, handleClick }) => {
+  const { t } = useTranslation('translation');
+
   return (
-    <Box bgcolor="white" borderBottom="solid 1px lightgray" padding=".5em 1em">
+    <Box bgcolor="white" borderBottom="solid 1px lightgray" padding="1em 1em">
       <Grid alignItems="center" container>
-        <PageLabelTitle title={`${t("coordinator.cardTitles.allPatients")}`} />
+        <PageLabelTitle title={`${t('coordinator.cardTitles.allPatients')}`} />
         <Box flexGrow="1" />
-
-        <IconButton
-          style={{
-            backgroundColor: Colors.lightgray,
-            padding: "5px",
-            marginRight: ".5em",
-          }}
-        >
-          <Search />
-        </IconButton>
-
+        <Box maxWidth="50%" paddingRight=".5em">
+          <TextField
+            id="outlined-search"
+            variant="outlined"
+            label={t('messaging.search')}
+            type="search"
+            onChange={(e) => {
+              setSearchResult(e.target.value);
+            }}
+            InputProps={{
+              'aria-label': 'search',
+              endAdornment: (
+                <IconButton onClick={handleClick}>
+                  <Search />
+                </IconButton>
+              ),
+            }}
+          />
+        </Box>
         <IconButton
           style={{
             backgroundColor: Colors.buttonBlue,
-            color: "white",
-            padding: "5px",
+            color: 'white',
+            padding: '5px',
           }}
           component={Link}
-          to={"/patients/add-patient"}
+          to={'/patients/add-patient'}
         >
           {<Add />}
         </IconButton>
@@ -50,33 +59,39 @@ const TopBar = () => {
 };
 
 const PractitionerHome = () => {
+  const [searchResult, setSearchResult] = useState('');
   const location = useLocation();
 
   const getTabValue = () => {
-    if (location.pathname === "/home/needs-review") return 0;
-    if (location.pathname === "/home/reviewed") return 1;
-    if (location.pathname === "/home/all") return 2;
+    if (location.pathname === '/home/needs-review') return 0;
+    if (location.pathname === '/home/reviewed') return 1;
+    if (location.pathname === '/home/all') return 2;
     return 0;
   };
 
   const tabValue = getTabValue();
 
+  const handleSearch = () => {
+    console.log(searchResult);
+    console.log('searching from parent');
+  };
+
   return (
-    <div style={{ maxHeight: "100vh", overflowY: "scroll" }}>
+    <div style={{ maxHeight: '100vh', overflowY: 'scroll' }}>
       <Route path="*/:patientId/reports">
         <WrappedReportingPopover />
       </Route>
       <ReviewPhoto />
       <MessagePatient />
       <StickyTopBar>
-        <TopBar />
+        <TopBar handleClick={handleSearch} setSearchResult={setSearchResult} />
         <ReviewPatientTabs value={tabValue} />
       </StickyTopBar>
       <Switch>
         <Route path="/home/all">
           <AllPatientsList />
         </Route>
-        <Route path={"/"}>
+        <Route path={'/'}>
           <ListOfPatients tabValue={tabValue} />
         </Route>
       </Switch>
@@ -95,7 +110,7 @@ const WrappedReportingPopover = () => {
   return (
     <ReportingPopover
       handleExit={() => {
-        history.push("/home/needs-review");
+        history.push('/home/needs-review');
       }}
       patient={patient}
     />
