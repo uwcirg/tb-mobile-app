@@ -15,59 +15,6 @@ import ReportingPopover from '../Shared/ReportingPopOver';
 import { PageLabelTitle } from '../../Components/Shared/PageLabel';
 import { useTranslation } from 'react-i18next';
 
-const TopBar = ({ setSearchResult, handleClick, setFocus }) => {
-  const { t } = useTranslation('translation');
-
-  const handleFocus = (e) => {
-    setFocus(e.type);
-  };
-
-  return (
-    <Box bgcolor="white" borderBottom="solid 1px lightgray" padding="1em 1em">
-      <Grid alignItems="center" container>
-        <PageLabelTitle title={`${t('coordinator.cardTitles.allPatients')}`} />
-        <Box flexGrow="1" />
-        <Box maxWidth="50%" paddingRight=".5em">
-          <TextField
-            id="outlined-search"
-            variant="outlined"
-            label={t('messaging.search')}
-            type="search"
-            onChange={(e) => {
-              setSearchResult(e.target.value);
-            }}
-            onFocus={(e) => handleFocus(e)}
-            onBlur={(e) => handleFocus(e)}
-            InputProps={{
-              'aria-label': 'search',
-              endAdornment: (
-                <IconButton
-                  onClick={handleClick}
-                  component={Link}
-                  to={'/home/all'}
-                >
-                  <Search />
-                </IconButton>
-              ),
-            }}
-          />
-        </Box>
-        <IconButton
-          style={{
-            backgroundColor: Colors.buttonBlue,
-            color: 'white',
-            padding: '5px',
-          }}
-          component={Link}
-          to={'/patients/add-patient'}
-        >
-          {<Add />}
-        </IconButton>
-      </Grid>
-    </Box>
-  );
-};
-
 const PractitionerHome = () => {
   const [searchResult, setSearchResult] = useState('');
   const [isFocused, setFocus] = useState('');
@@ -87,10 +34,6 @@ const PractitionerHome = () => {
     location.pathname = '/home/all';
   }
 
-  const handleSearch = () => {
-    console.log(searchResult);
-  };
-
   return (
     <div style={{ maxHeight: '100vh', overflowY: 'scroll' }}>
       <Route path="*/:patientId/reports">
@@ -99,22 +42,67 @@ const PractitionerHome = () => {
       <ReviewPhoto />
       <MessagePatient />
       <StickyTopBar>
-        <TopBar
-          handleClick={handleSearch}
-          setSearchResult={setSearchResult}
-          setFocus={setFocus}
-        />
+        <TopBar setSearchResult={setSearchResult} setFocus={setFocus} />
         <ReviewPatientTabs value={tabValue} />
       </StickyTopBar>
       <Switch>
         <Route path="/home/all">
-          <AllPatientsList />
+          <AllPatientsList searchName={searchResult} />
         </Route>
         <Route path={'/'}>
           <ListOfPatients tabValue={tabValue} />
         </Route>
       </Switch>
     </div>
+  );
+};
+
+const TopBar = ({ setSearchResult, setFocus }) => {
+  const { t } = useTranslation('translation');
+
+  const handleFocus = (e) => {
+    setFocus(e.type);
+  };
+
+  return (
+    <Box bgcolor="white" borderBottom="solid 1px lightgray" padding="1em 1em">
+      <Grid alignItems="center" container>
+        <PageLabelTitle title={`${t('coordinator.cardTitles.allPatients')}`} />
+        <Box flexGrow="1" />
+        <Box maxWidth="50%" paddingRight=".5em">
+          <TextField
+            id="outlined-search"
+            variant="outlined"
+            label={t('messaging.search')}
+            type="search"
+            onChange={(e) => {
+              setSearchResult(e.target.value.toLowerCase());
+            }}
+            onFocus={(e) => handleFocus(e)}
+            onBlur={(e) => handleFocus(e)}
+            InputProps={{
+              'aria-label': 'search',
+              endAdornment: (
+                <IconButton component={Link} to={'/home/all'}>
+                  <Search />
+                </IconButton>
+              ),
+            }}
+          />
+        </Box>
+        <IconButton
+          style={{
+            backgroundColor: Colors.buttonBlue,
+            color: 'white',
+            padding: '5px',
+          }}
+          component={Link}
+          to={'/patients/add-patient'}
+        >
+          {<Add />}
+        </IconButton>
+      </Grid>
+    </Box>
   );
 };
 
