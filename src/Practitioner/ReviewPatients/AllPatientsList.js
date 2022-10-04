@@ -20,7 +20,6 @@ const AllPatientsList = () => {
   if (status === 'pending') return <PatientListMessage isLoading={true} />;
 
   let currentPatientStatus;
-  console.log(patients);
 
   return (
     <div>

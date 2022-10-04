@@ -1,27 +1,12 @@
-import React, { useContext } from "react";
-import { DateTime } from "luxon";
-import PractitionerContext from "../PractitionerContext";
-import addIssuesToPatients from "../../Utility/FindIssues";
-import { Box, Grid } from "@material-ui/core";
-import PatientCard from "./PatientCard";
-import PatientListMessage from "./PatientListMessage";
-import ListSectionLabel from "./ListSectionLabel";
-import { useTranslation } from "react-i18next";
-
-const wasToday = (isoTime) => {
-  return DateTime.fromISO(isoTime).toISODate() === DateTime.local().toISODate();
-};
-
-const IssueSectionLabel = ({ isIssues }) => {
-  const { t } = useTranslation("translation");
-  return (
-    <Grid container alignItems="center">
-      <ListSectionLabel>
-        {isIssues ? t("reviewIssues.hasIssues") : t("reviewIssues.onTrack")}
-      </ListSectionLabel>
-    </Grid>
-  );
-};
+import React, { useContext } from 'react';
+import { DateTime } from 'luxon';
+import PractitionerContext from '../PractitionerContext';
+import addIssuesToPatients from '../../Utility/FindIssues';
+import { Box, Grid } from '@material-ui/core';
+import PatientCard from './PatientCard';
+import PatientListMessage from './PatientListMessage';
+import { checkWasToday } from '../../Utility/TimeUtils';
+import IssueSectionLabel from './IssueSectionLabel';
 
 const ListOfPatients = ({ tabValue }) => {
   const {
@@ -36,32 +21,47 @@ const ListOfPatients = ({ tabValue }) => {
       return each.id === patientId;
     });
     tempValue[indexOfPatient].lastGeneralResolution = DateTime.local().toISO();
+    tempValue[indexOfPatient].unresolvedReports = [];
     setPatients(tempValue);
   };
 
-  const patientsToDisplay = (patients || []).filter((_patient) => {
+  const patientsToDisplay = (patients || []).filter((patient) => {
     if (tabValue === 2) return true;
-    const alreadyReviewed = wasToday(_patient.lastGeneralResolution);
-    return tabValue === 0 ? !alreadyReviewed : alreadyReviewed;
+
+    const hasUnresolvedReports =
+      patient.unresolvedReports?.length > 0 ||
+      patient.unreviewedPhotos?.length > 0;
+
+    const updatedAfterResolution =
+      patient.unresolvedReports?.filter((unresolved) => {
+        return unresolved.date >= DateTime.local().toISODate();
+      })[0]?.updatedAt > patient.lastGeneralResolution;
+
+    const isUnresolved = hasUnresolvedReports && updatedAfterResolution;
+    const resolvedToday = checkWasToday(patient.lastGeneralResolution);
+
+    const reviewed = resolvedToday && !isUnresolved;
+    return tabValue === 0 ? !reviewed : reviewed;
   });
 
   //@Todo - wrap this in a callback since the calculations are complex
   // - Create clearer and better algorithim for sorting the patients so issues float to top
+  // addIssuesToPatients()
   const processedPatients = addIssuesToPatients(patientsToDisplay || []).sort(
     (a, b) => {
       return b.issues.total - a.issues.total;
     }
   );
 
-  if (status === "pending") return <PatientListMessage isLoading={true} />;
+  if (status === 'pending') return <PatientListMessage isLoading={true} />;
 
-  if (!patients) return "";
+  if (!patients) return '';
 
   let currentSection;
 
   return (
     <Grid container direction="column">
-      <Box height={".5em"} aria-hidden />
+      <Box height={'.5em'} aria-hidden />
       {processedPatients.length === 0 && <PatientListMessage tab={tabValue} />}
       {processedPatients.map((patient) => {
         let isIssues = patient.issues.total > 0;
