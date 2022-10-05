@@ -243,10 +243,21 @@ const RecentReport = ({ lastContacted }) => {
     <Grid wrap="nowrap" container>
       <Typography>{t('coordinator.patientProfile.lastReport')}:</Typography>
       <Box flexGrow={1} />
-      <Box width={'8px'} />
-      <Typography>
-        {daysAgo} {t('time.day_ago', { count: daysAgo })}
-      </Typography>
+      <Box
+        bgcolor={
+          daysAgo > 10
+            ? Colors.calendarRed
+            : daysAgo > 5
+            ? Colors.timelineYellow
+            : Colors.calendarGreen
+        }
+        padding=".2em .5em"
+        borderRadius="5px"
+      >
+        <Typography variant="body2">
+          {daysAgo} {t('time.day_ago', { count: daysAgo })}
+        </Typography>
+      </Box>
     </Grid>
   );
 };
