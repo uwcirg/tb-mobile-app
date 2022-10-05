@@ -27,55 +27,6 @@ import useToggle from '../../Hooks/useToggle';
 import IssueDetails from './IssueDetails';
 import { DateTime } from 'luxon';
 
-const useStyles = makeStyles({
-  container: {
-    width: '100%',
-    overflow: 'wrap',
-    backgroundColor: 'white',
-    boxSizing: 'border-box',
-    boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
-    '& a, & a:visited': {
-      textDecoration: 'none',
-    },
-  },
-  name: {
-    fontSize: '1.25em',
-    color: Colors.buttonBlue,
-  },
-  bottomSection: {
-    width: '100%',
-  },
-  messaged: {
-    fontSize: '.9em',
-    color: Colors.textDarkGray,
-  },
-  rotate: {
-    transform: 'rotate(180deg)',
-  },
-  reviewButton: {
-    backgroundColor: Colors.calendarGreen,
-    padding: '.25em',
-    '&:disabled': {
-      backgroundColor: Colors.lightgray,
-    },
-  },
-  expand: {
-    width: 'fit-content',
-    paddingRight: '0',
-    justifyContent: 'flex-end',
-    textTransform: 'none',
-    color: Colors.buttonBlue,
-  },
-  reviewPhotoPrompt: {
-    lineHeight: '1.1em',
-    borderLeft: 'solid 3px red',
-    paddingLeft: '5px',
-  },
-  noIssues: {
-    fontStyle: 'italic',
-  },
-});
-
 const PatientCard = ({
   patient,
   markPatientAsReviewed,
@@ -140,7 +91,7 @@ const PatientCard = ({
                 <Box width=".5em" />
                 <AdherenceLabel patient={patient} />
               </Grid>
-              <LastContacted lastContacted={patient?.lastContacted} />
+              <RecentReport lastContacted={patient?.lastContacted} />
               <Box height=".5em" />
               {isReviewed && (
                 <Typography variant="body2">
@@ -281,14 +232,12 @@ const ButtonArea = ({
   );
 };
 
-const LastContacted = ({ lastContacted }) => {
+const RecentReport = ({ lastContacted }) => {
   const { t } = useTranslation('translation');
 
   const daysAgo = !!lastContacted
     ? Math.round(DateTime.fromISO(lastContacted).diffNow('days').days) * -1
     : t('coordinator.tasksSidebar.noneYet');
-
-  console.log(lastContacted);
 
   return (
     <Grid wrap="nowrap" container>
@@ -301,5 +250,54 @@ const LastContacted = ({ lastContacted }) => {
     </Grid>
   );
 };
+
+const useStyles = makeStyles({
+  container: {
+    width: '100%',
+    overflow: 'wrap',
+    backgroundColor: 'white',
+    boxSizing: 'border-box',
+    boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
+    '& a, & a:visited': {
+      textDecoration: 'none',
+    },
+  },
+  name: {
+    fontSize: '1.25em',
+    color: Colors.buttonBlue,
+  },
+  bottomSection: {
+    width: '100%',
+  },
+  messaged: {
+    fontSize: '.9em',
+    color: Colors.textDarkGray,
+  },
+  rotate: {
+    transform: 'rotate(180deg)',
+  },
+  reviewButton: {
+    backgroundColor: Colors.calendarGreen,
+    padding: '.25em',
+    '&:disabled': {
+      backgroundColor: Colors.lightgray,
+    },
+  },
+  expand: {
+    width: 'fit-content',
+    paddingRight: '0',
+    justifyContent: 'flex-end',
+    textTransform: 'none',
+    color: Colors.buttonBlue,
+  },
+  reviewPhotoPrompt: {
+    lineHeight: '1.1em',
+    borderLeft: 'solid 3px red',
+    paddingLeft: '5px',
+  },
+  noIssues: {
+    fontStyle: 'italic',
+  },
+});
 
 export default PatientCard;
