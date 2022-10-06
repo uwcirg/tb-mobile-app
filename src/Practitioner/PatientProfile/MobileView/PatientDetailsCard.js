@@ -1,54 +1,49 @@
-import { Box, Grid, Typography } from "@material-ui/core";
-import { DateTime } from "luxon";
-import React from "react";
-import { useTranslation } from "react-i18next";
-import Colors from "../../../Basics/Colors";
-import ReportingHistoryLinks from "../../../Components/Shared/ReportingHistoryLinks";
-import Priority from "../../Shared/Priority";
-import Card from "./Card";
-import Label from "../../../Components/Label";
+import { Box, ButtonBase, Grid, Typography, Fade } from '@material-ui/core';
+import { DateTime } from 'luxon';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import Colors from '../../../Basics/Colors';
+import ReportingHistoryLinks from '../../../Components/Shared/ReportingHistoryLinks';
+import Priority from '../../Shared/Priority';
+import Card from './Card';
+import Label from '../../../Components/Label';
+import FlatButton from '../../../Components/FlatButton';
 
 export default function PatientDetailsCard({ patient }) {
-  const { t } = useTranslation("translation");
+  const { t } = useTranslation('translation');
 
   const { lastReport, weeksInTreatment, priority } = patient;
 
   const daysAgo = !!lastReport
-    ? Math.round(DateTime.fromISO(lastReport.createdAt).diffNow("days").days) *
+    ? Math.round(DateTime.fromISO(lastReport.createdAt).diffNow('days').days) *
       -1
-    : t("coordinator.tasksSidebar.noneYet");
+    : t('coordinator.tasksSidebar.noneYet');
 
   return (
-    <Card title={t("coordinator.patientTableLabels.details")}>
+    // get rid of all these spacing boxes
+    // after you merge changes with other commits
+    <Card title={t('coordinator.patientTableLabels.details')}>
       <Box padding="8px" bgcolor={Colors.lighterGray}>
         <Grid wrap="nowrap" container>
-          <Typography>{t("coordinator.patientProfile.lastReport")}:</Typography>
+          <Typography>{t('coordinator.patientProfile.lastReport')}:</Typography>
           <Box flexGrow={1} />
-          <Box width={"8px"} />
+          <Box width={'8px'} />
           <Typography>
-            {daysAgo} {t("time.day_ago", { count: daysAgo })}
+            {daysAgo} {t('time.day_ago', { count: daysAgo })}
           </Typography>
         </Grid>
-        <Box height={"5px"} />
+        <Box height={'5px'} />
         <Grid container>
           <Typography>
-            {t("coordinator.patientTableLabels.priority")}:
+            {t('coordinator.patientTableLabels.priority')}:
           </Typography>
-          <Box width={"8px"} />
+          <Box width={'8px'} />
           <Box flexGrow={1} />
           <Priority index={priority} />
         </Grid>
-        <Box height={"5px"} />
-        <Grid container>
-          <Typography>{t("mobileUpdate.treatment")}:</Typography>
-          <Box width={"8px"} />
-          <Box flexGrow={1} />
-          <Label
-            text={`${t("educationalMessages.week")} ${weeksInTreatment} / 26`}
-            backgroundColor={Colors.accentBlue}
-          />
-        </Grid>
-        <Box height={"5px"} />
+        <Box height={'5px'} />
+        <TreatmentDuration weeksInTreatment={weeksInTreatment} />
+        <Box height={'5px'} />
         <Grid container></Grid>
         <Box height="8px" />
         <ReportingHistoryLinks patient={patient} />
@@ -57,3 +52,51 @@ export default function PatientDetailsCard({ patient }) {
     </Card>
   );
 }
+
+const TreatmentDuration = ({ weeksInTreatment }) => {
+  const { t } = useTranslation('translation');
+  return (
+    <Grid container>
+      <Typography>
+        {t('mobileUpdate.treatment')[0].toUpperCase() +
+          t('mobileUpdate.treatment').slice(1)}
+        :
+      </Typography>
+      <Box flexGrow={1} />
+      <Label
+        text={`${t('educationalMessages.week')} ${weeksInTreatment} / 26`}
+        backgroundColor={Colors.accentBlue}
+      />
+      {weeksInTreatment > 8 && <TwoMonthAlert />}
+    </Grid>
+  );
+};
+
+const TwoMonthAlert = () => {
+  const [checked, setChecked] = React.useState(false);
+  return (
+    <>
+      <Fade in={!checked} {...(!checked ? { timeout: 1500 } : {})}>
+        <Box
+          margin="1em .2em"
+          padding="1em"
+          bgcolor={Colors.calendarGreen}
+          borderRadius="5px"
+          border={`1px solid ${Colors.calendarGreen}`}
+          color={Colors.darkGreen}
+          boxShadow="0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)"
+        >
+          <Typography variant="body1">
+            {/* translate */}
+            Two months of treatment surpassed.
+          </Typography>
+          <Box marginTop=".5em" display="flex" justifyContent="flex-end">
+            <FlatButton onClick={() => console.log('clicked')}>
+              Contact Admin
+            </FlatButton>
+          </Box>
+        </Box>
+      </Fade>
+    </>
+  );
+};
