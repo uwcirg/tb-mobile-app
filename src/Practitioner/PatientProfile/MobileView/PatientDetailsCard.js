@@ -1,4 +1,4 @@
-import { Box, ButtonBase, Grid, Typography, Fade } from '@material-ui/core';
+import { Box, Grid, Typography, Fade } from '@material-ui/core';
 import { DateTime } from 'luxon';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +8,7 @@ import Priority from '../../Shared/Priority';
 import Card from './Card';
 import Label from '../../../Components/Label';
 import FlatButton from '../../../Components/FlatButton';
+import CheckCircleOutline from '@material-ui/icons/CheckCircleOutline';
 
 export default function PatientDetailsCard({ patient }) {
   const { t } = useTranslation('translation');
@@ -76,10 +77,11 @@ const TwoMonthAlert = () => {
   const [checked, setChecked] = React.useState(false);
   return (
     <>
-      <Fade in={!checked} {...(!checked ? { timeout: 1500 } : {})}>
+      {!checked ? (
         <Box
           margin="1em .2em"
           padding="1em"
+          width={'100%'}
           bgcolor={Colors.calendarGreen}
           borderRadius="5px"
           border={`1px solid ${Colors.calendarGreen}`}
@@ -91,12 +93,38 @@ const TwoMonthAlert = () => {
             Two months of treatment surpassed.
           </Typography>
           <Box marginTop=".5em" display="flex" justifyContent="flex-end">
-            <FlatButton onClick={() => console.log('clicked')}>
+            <FlatButton
+              onClick={() => {
+                console.log('clicked');
+                setChecked(true);
+              }}
+            >
               Contact Admin
             </FlatButton>
           </Box>
         </Box>
-      </Fade>
+      ) : (
+        <Fade in={checked} {...(checked ? { timeout: 1000 } : {})}>
+          <Box
+            margin="1em .2em"
+            padding="1em"
+            width={'100%'}
+            bgcolor={Colors.calendarGreen}
+            borderRadius="5px"
+            border={`1px solid ${Colors.calendarGreen}`}
+            color={Colors.darkGreen}
+            boxShadow="0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)"
+          >
+            <Typography variant="body1">
+              {/* translate */}
+              Thanks for alerting your admin!
+            </Typography>
+            <Box marginTop=".5em" display="flex" justifyContent="flex-end">
+              <CheckCircleOutline fontSize="large" />
+            </Box>
+          </Box>
+        </Fade>
+      )}
     </>
   );
 };
