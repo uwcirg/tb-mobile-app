@@ -156,5 +156,5 @@ export default class LoginStore extends APIStore {
   @action resetCredentials = () => {
     this.password = "";
     this.identifier = "";
-  }
+  };
 }

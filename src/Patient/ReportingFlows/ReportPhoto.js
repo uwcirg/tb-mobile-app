@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { observer } from 'mobx-react';
-import Camera from '../../ImageCapture/Camera';
-import useStores from '../../Basics/UseStores';
-import { useTranslation } from 'react-i18next';
-import PermissionsError from '../../ImageCapture/PermissionsError';
-import TimeoutPrompts from './TimeoutPrompts';
-import AdditionalPhotoFlowOptions from '../../Components/Patient/AdditionalPhotoFlowOptions';
-import CantTakePhoto from './CantTakePhoto';
-import PhotoReview from './PhotoReview';
-import NextReportStep from './NextReportStep';
-import { Box } from '@material-ui/core';
+import React, { useEffect, useState } from "react";
+import { observer } from "mobx-react";
+import Camera from "../../ImageCapture/Camera";
+import useStores from "../../Basics/UseStores";
+import { useTranslation } from "react-i18next";
+import PermissionsError from "../../ImageCapture/PermissionsError";
+import TimeoutPrompts from "./TimeoutPrompts";
+import AdditionalPhotoFlowOptions from "../../Components/Patient/AdditionalPhotoFlowOptions";
+import CantTakePhoto from "./CantTakePhoto";
+import PhotoReview from "./PhotoReview";
+import NextReportStep from "./NextReportStep";
+import { Box } from "@material-ui/core";
 
 const ReportPhoto = observer((props) => {
-  const { t } = useTranslation('translation');
+  const { t } = useTranslation("translation");
   const [permissionsError, setPermissionsError] = useState(false);
 
   const { patientStore, patientUIStore } = useStores();
-  patientStore.report.headerText = t('patient.report.photoTitle');
+  patientStore.report.headerText = t("patient.report.photoTitle");
 
   const handlePhoto = (photo) => {
     patientStore.report.photoString = photo;
@@ -70,7 +70,7 @@ const ReportPhoto = observer((props) => {
             <PhotoReview
               photoString={patientStore.report.photoString}
               handleRetake={handleRetake}
-              translatedString={t('patient.report.photo.retakePhoto')}
+              translatedString={t("patient.report.photo.retakePhoto")}
             />
           ) : (
             <>
@@ -86,7 +86,7 @@ const ReportPhoto = observer((props) => {
       <NextReportStep
         handleNext={handleNext}
         nextDisabled={nextDisabled()}
-        translatedString={t('patient.onboarding.next')}
+        translatedString={t("patient.onboarding.next")}
       />
       {patientStore.uiState.cameraIsOpen && (
         <Camera

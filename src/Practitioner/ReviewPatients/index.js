@@ -1,21 +1,21 @@
-import React from 'react';
-import { useLocation, Route, Switch } from 'react-router-dom';
-import ReviewPatientTabs from './Tabs';
-import StickyTopBar from '../../Components/Shared/StickyTopBar';
-import ReviewPhoto from './ReviewPhoto';
-import ListOfPatients from './ListOfPatients';
-import MessagePatient from './MessagePatient';
-import AllPatientsList from './AllPatientsList';
-import WrappedReportingPopover from './WrappedReportingPopover';
-import TopBar from './HomeTopBar';
+import React from "react";
+import { useLocation, Route, Switch } from "react-router-dom";
+import ReviewPatientTabs from "./Tabs";
+import StickyTopBar from "../../Components/Shared/StickyTopBar";
+import ReviewPhoto from "./ReviewPhoto";
+import ListOfPatients from "./ListOfPatients";
+import MessagePatient from "./MessagePatient";
+import AllPatientsList from "./AllPatientsList";
+import WrappedReportingPopover from "./WrappedReportingPopover";
+import TopBar from "./HomeTopBar";
 
 const PractitionerHome = () => {
   const location = useLocation();
 
   const getTabLocation = () => {
-    return location.pathname === '/home/reviewed'
+    return location.pathname === "/home/reviewed"
       ? 1
-      : location.pathname === '/home/all'
+      : location.pathname === "/home/all"
       ? 2
       : 0;
   };
@@ -23,7 +23,7 @@ const PractitionerHome = () => {
   const tabValue = getTabLocation();
 
   return (
-    <div style={{ maxHeight: '100vh', overflowY: 'scroll' }}>
+    <div style={{ maxHeight: "100vh", overflowY: "scroll" }}>
       <Route path="*/:patientId/reports">
         <WrappedReportingPopover />
       </Route>
@@ -37,7 +37,7 @@ const PractitionerHome = () => {
         <Route path="/home/all">
           <AllPatientsList />
         </Route>
-        <Route path={'/'}>
+        <Route path={"/"}>
           <ListOfPatients tabValue={tabValue} />
         </Route>
       </Switch>

@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 
 const useAsync = (asyncFunction, immediate = true, initalValue = null) => {
-
   const [status, setStatus] = useState("idle");
   const [value, setValue] = useState(initalValue);
   const [error, setError] = useState(null);
@@ -17,12 +16,12 @@ const useAsync = (asyncFunction, immediate = true, initalValue = null) => {
     setError(null);
     return asyncFunction()
       .then((response) => {
-          setValue(response);
-          setStatus("success");
+        setValue(response);
+        setStatus("success");
       })
       .catch((error) => {
-          setError(error);
-          setStatus("error");
+        setError(error);
+        setStatus("error");
       });
   }, [asyncFunction]);
   // Call execute if we want to fire it right away.

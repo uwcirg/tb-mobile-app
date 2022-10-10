@@ -68,5 +68,4 @@ const MobileView = observer(() => {
   );
 });
 
-
 export default MobilePatientProfile;

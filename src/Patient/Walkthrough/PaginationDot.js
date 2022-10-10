@@ -1,29 +1,29 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 const styles = {
   root: {
     height: 18,
     width: 18,
-    cursor: 'pointer',
+    cursor: "pointer",
     border: 0,
-    background: 'none',
+    background: "none",
     padding: 0,
   },
   dot: {
-    backgroundColor: '#e4e6e7',
+    backgroundColor: "#e4e6e7",
     height: 12,
     width: 12,
     borderRadius: 6,
     margin: 3,
   },
   active: {
-    backgroundColor: '#319fd6',
+    backgroundColor: "#319fd6",
   },
 };
 
 class PaginationDot extends React.Component {
-  handleClick = event => {
+  handleClick = (event) => {
     this.props.onClick(event, this.props.index);
   };
 

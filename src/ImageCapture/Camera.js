@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import Webcam from './WebCam';
-import styled from 'styled-components';
-import CloseIcon from '@material-ui/icons/Close';
-import CameraAltIcon from '@material-ui/icons/CameraAlt';
-import Fab from '@material-ui/core/Fab';
-import ImageOverlay from './ImageOverlay';
+import React, { Component } from "react";
+import Webcam from "./WebCam";
+import styled from "styled-components";
+import CloseIcon from "@material-ui/icons/Close";
+import CameraAltIcon from "@material-ui/icons/CameraAlt";
+import Fab from "@material-ui/core/Fab";
+import ImageOverlay from "./ImageOverlay";
 
 export default class Camera extends Component {
   constructor(props) {
@@ -52,7 +52,7 @@ export default class Camera extends Component {
             };
           });
         })
-        .catch((error) => console.error('takePhoto() error:', error));
+        .catch((error) => console.error("takePhoto() error:", error));
     });
   };
 
@@ -65,9 +65,9 @@ export default class Camera extends Component {
 
   componentDidMount() {
     // initialize the camera
-    this.canvasElement = document.createElement('canvas');
+    this.canvasElement = document.createElement("canvas");
     this.webcam = new Webcam(
-      document.getElementById('webcam'),
+      document.getElementById("webcam"),
       this.canvasElement,
       this.handleOutcome
     );
@@ -128,12 +128,12 @@ export default class Camera extends Component {
             playsInline
             muted
             id="webcam"
-            className={this.state.captured ? 'hidden' : ''}
+            className={this.state.captured ? "hidden" : ""}
           />
         </div>
 
         <br />
-        <div className={'imageCanvas ' + this.state.captured ? '' : 'hidden'}>
+        <div className={"imageCanvas " + this.state.captured ? "" : "hidden"}>
           {imageDisplay}
         </div>
 

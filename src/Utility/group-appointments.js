@@ -1,4 +1,4 @@
-import { DateTime } from 'luxon';
+import { DateTime } from "luxon";
 
 function sortByDate(a, b) {
   return (
@@ -19,9 +19,9 @@ export default function groupAppointments(appointments) {
 
   for (let apt of appointments.sort(sortByDate)) {
     const name =
-      DateTime.fromISO(apt.datetime).diffNow('minutes').minutes > 0
-        ? 'future'
-        : 'past';
+      DateTime.fromISO(apt.datetime).diffNow("minutes").minutes > 0
+        ? "future"
+        : "past";
 
     pushElement(name, apt);
   }

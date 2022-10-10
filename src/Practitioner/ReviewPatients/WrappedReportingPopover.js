@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
-import PractitionerContext from '../PractitionerContext';
-import ReportingPopover from '../Shared/ReportingPopOver';
+import React, { useContext } from "react";
+import { useParams, useHistory } from "react-router-dom";
+import PractitionerContext from "../PractitionerContext";
+import ReportingPopover from "../Shared/ReportingPopOver";
 
 const WrappedReportingPopover = () => {
   const { patientId } = useParams();
@@ -14,7 +14,7 @@ const WrappedReportingPopover = () => {
   return (
     <ReportingPopover
       handleExit={() => {
-        history.push('/home/needs-review');
+        history.push("/home/needs-review");
       }}
       patient={patient}
     />

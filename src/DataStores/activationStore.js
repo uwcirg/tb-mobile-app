@@ -1,129 +1,132 @@
-import { action, observable, computed} from "mobx";
-import APIStore from './apiStore'
+import { action, observable, computed } from "mobx";
+import APIStore from "./apiStore";
 import { DateTime } from "luxon";
 
 const ROUTES = {
-    activate: ["/v2/patient/self/activation", "POST"],
-    setPassword: ["/patient/self/password", "POST"]
-}
+  activate: ["/v2/patient/self/activation", "POST"],
+  setPassword: ["/patient/self/password", "POST"],
+};
 
 export class ActivationStore extends APIStore {
+  //Takes in a data fetching strategy, so you can swap out the API one for testing data
+  constructor(strategy) {
+    super(strategy, ROUTES);
+  }
 
-    //Takes in a data fetching strategy, so you can swap out the API one for testing data
-    constructor(strategy) {
-        super(strategy, ROUTES);
+  @observable isLoading = false;
+
+  @observable onboardingInformation = {
+    gender: "Woman",
+    age: 30,
+    enableNotifications: false,
+    notificationTime: DateTime.local().toISOTime(),
+    date: DateTime.local().toISODate(),
+    numberOfContacts: 0,
+    numberOfContactsTested: 0,
+    genderOther: "",
+  };
+
+  @observable activationError = false;
+  @observable activtionErrorDetail = "";
+  @observable activationSuccess = false;
+
+  @observable passwordUpdate = {
+    passwordAccepted: false,
+    passwordLoading: false,
+    password: "",
+    passwordConfirmation: "",
+  };
+
+  @action setNumberOfContacts = (number) => {
+    this.onboardingInformation.numberOfContacts = number;
+
+    //You cant have more people tested than they live with
+    if (
+      this.onboardingInformation.numberOfContacts <
+      this.onboardingInformation.numberOfContactsTested
+    ) {
+      this.onboardingInformation.numberOfContactsTested = number;
     }
+  };
 
-    @observable isLoading = false;
+  @action setNumberOfContactsTested = (number) => {
+    this.onboardingInformation.numberOfContactsTested = number;
+  };
 
-    @observable onboardingInformation = {
-        gender: "Woman",
-        age: 30,
-        enableNotifications: false,
-        notificationTime: DateTime.local().toISOTime(),
-        date: DateTime.local().toISODate(),
-        numberOfContacts: 0,
-        numberOfContactsTested: 0,
-        genderOther: ""
-    }
+  @action register(body) {
+    return this.executeRequest("register", body).then((json) => {
+      this.setAccountInformation(json);
+    });
+  }
 
-    @observable activationError = false;
-    @observable activtionErrorDetail = "";
-    @observable activationSuccess = false;
+  @action submitActivation = () => {
+    this.isLoading = true;
+    this.onboardingInformation.currentDate = DateTime.local().toISODate();
 
-    @observable passwordUpdate = {
-        passwordAccepted: false,
-        passwordLoading: false,
-        password: "",
-        passwordConfirmation: ""
-  
-    }
+    return this.executeRequest("activate", this.requestBody(), {
+      allowErrors: true,
+    }).then((json) => {
+      if (json.error) {
+        this.activationError = true;
+        this.activtionErrorDetail = json.error;
+      } else {
+        this.activationSuccess = true;
+      }
+      this.isLoading = false;
+    });
+  };
 
-    @action setNumberOfContacts = (number) => {
-        this.onboardingInformation.numberOfContacts = number;
+  @action submitPassword = () => {
+    const body = {
+      password: this.passwordUpdate.password,
+      passwordConfirmation: this.passwordUpdate.passwordConfirmation,
+    };
+    this.passwordUpdate.passwordLoading = true;
+    this.executeRequest("setPassword", body).then((json) => {
+      this.passwordUpdate.passwordLoading = false;
+      this.passwordUpdate.passwordAccepted = true;
+    });
+  };
 
-        //You cant have more people tested than they live with
-        if(this.onboardingInformation.numberOfContacts < this.onboardingInformation.numberOfContactsTested){
-            this.onboardingInformation.numberOfContactsTested = number;
-        }
-    }
+  @action clearActivationError = () => {
+    this.activationError = false;
+    this.activtionErrorDetail = "";
+  };
 
-    @action setNumberOfContactsTested = (number) => {
-        this.onboardingInformation.numberOfContactsTested = number;
-    }
+  @action setNotificationTime = (time) => {
+    this.onboardingInformation.notificationTime = time;
+  };
 
-    @action register(body) {
-        return this.executeRequest('register', body).then(json => {
-            this.setAccountInformation(json);
-        });
-    }
+  @computed get checkPasswords() {
+    const notEmpty =
+      this.passwordUpdate.password != "" &&
+      this.passwordUpdate.passwordConfirmation != "";
 
-    @action submitActivation = () => {
-        this.isLoading = true;
-        this.onboardingInformation.currentDate = DateTime.local().toISODate();
+    return notEmpty && this.passwordsMatch;
+  }
 
-        return this.executeRequest('activate', this.requestBody() ,{allowErrors: true}).then(json => {
-            if(json.error){
-                this.activationError = true;
-                this.activtionErrorDetail = json.error;
-            }else{
-                this.activationSuccess = true;
-            }
-            this.isLoading = false;
-        })
-    }
+  @computed get passwordsMatch() {
+    return (
+      this.passwordUpdate.password === this.passwordUpdate.passwordConfirmation
+    );
+  }
 
-    @action submitPassword = () => {
-        const body = {
-            password: this.passwordUpdate.password,
-            passwordConfirmation: this.passwordUpdate.passwordConfirmation
-        }
-        this.passwordUpdate.passwordLoading = true;
-        this.executeRequest('setPassword',body).then((json) => {
-            this.passwordUpdate.passwordLoading = false;
-            this.passwordUpdate.passwordAccepted = true;
-        });
-    }
+  requestBody = () => {
+    return {
+      date: this.onboardingInformation.currentDate,
+      enableNotifications: this.onboardingInformation.enableNotifications,
+      notificationTime: this.onboardingInformation.notificationTime,
 
-    @action clearActivationError = () => {
-        this.activationError = false;
-        this.activtionErrorDetail = "";
-    }
-
-    @action setNotificationTime = (time) => {
-        this.onboardingInformation.notificationTime = time;
-    }
-
-    @computed get checkPasswords() {
-        const notEmpty = (this.passwordUpdate.password != "" && this.passwordUpdate.passwordConfirmation != "")
-
-
-        return (notEmpty && this.passwordsMatch)
-    }
-
-    @computed get passwordsMatch() {
-        return (this.passwordUpdate.password === this.passwordUpdate.passwordConfirmation)
-    }
-
-    requestBody = () => {
-        return(
-            {
-                date: this.onboardingInformation.currentDate,
-                enableNotifications: this.onboardingInformation.enableNotifications,
-                notificationTime: this.onboardingInformation.notificationTime,
-                
-                contactTracingSurvey: {
-                    numberOfContacts: this.onboardingInformation.numberOfContacts,
-                    numberOfContactsTested: this.onboardingInformation.numberOfContactsTested
-                },
-                patient: {
-                    gender: this.onboardingInformation.gender,
-                    genderOther: this.onboardingInformation.genderOther,
-                    age: this.onboardingInformation.age
-                }
-            }
-        )
-    }
-
-
+      contactTracingSurvey: {
+        numberOfContacts: this.onboardingInformation.numberOfContacts,
+        numberOfContactsTested:
+          this.onboardingInformation.numberOfContactsTested,
+      },
+      patient: {
+        gender: this.onboardingInformation.gender,
+        genderOther: this.onboardingInformation.genderOther,
+        age: this.onboardingInformation.age,
+      },
+    };
+  };
 }

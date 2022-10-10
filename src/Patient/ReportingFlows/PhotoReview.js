@@ -1,9 +1,9 @@
-import React from 'react';
-import { Button } from '@material-ui/core';
-import { Refresh } from '@material-ui/icons';
-import { Box } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core';
-import Colors from '../../Basics/Colors';
+import React from "react";
+import { Button } from "@material-ui/core";
+import { Refresh } from "@material-ui/icons";
+import { Box } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
+import Colors from "../../Basics/Colors";
 
 export default function PhotoReview({
   photoString,
@@ -14,7 +14,7 @@ export default function PhotoReview({
   return (
     <>
       <div className={classes.strip}>
-        <img src={photoString} alt="test strip" />{' '}
+        <img src={photoString} alt="test strip" />{" "}
       </div>
       <Button
         onClick={handleRetake}
@@ -31,14 +31,14 @@ export default function PhotoReview({
 
 const useStyles = makeStyles({
   strip: {
-    height: '50vh',
-    width: '100%',
-    '& >img': {
-      objectFit: 'contain',
-      height: '100%',
-      width: '100%',
+    height: "50vh",
+    width: "100%",
+    "& >img": {
+      objectFit: "contain",
+      height: "100%",
+      width: "100%",
     },
-    margin: 'auto',
-    textAlign: 'center',
+    margin: "auto",
+    textAlign: "center",
   },
 });

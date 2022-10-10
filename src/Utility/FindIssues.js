@@ -1,5 +1,5 @@
-import { DateTime } from 'luxon';
-import { severeSymptomsSet } from '../Content/symptom-list';
+import { DateTime } from "luxon";
+import { severeSymptomsSet } from "../Content/symptom-list";
 
 const sum = (prev, current) => prev + current;
 
@@ -80,9 +80,9 @@ class PatientIssueState {
 
     let reportsMap = getReportsMap(patient);
     let iteratorDay = DateTime.fromISO(patient.lastGeneralResolution).startOf(
-      'day'
+      "day"
     );
-    const endDay = DateTime.local().startOf('day');
+    const endDay = DateTime.local().startOf("day");
 
     const getReportForDate = () => {
       return reportsMap[`${iteratorDay.toISODate()}`];
