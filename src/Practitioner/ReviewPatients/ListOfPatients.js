@@ -15,6 +15,8 @@ const ListOfPatients = ({ tabValue }) => {
     status,
   } = useContext(PractitionerContext).patientIssues;
 
+  console.log('patients', patients);
+
   const markPatientAsReviewed = (patientId) => {
     let tempValue = [...patients];
     const indexOfPatient = tempValue.findIndex((each) => {

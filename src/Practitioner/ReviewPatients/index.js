@@ -33,6 +33,7 @@ const PractitionerHome = () => {
         <TopBar />
         <ReviewPatientTabs value={tabValue} />
       </StickyTopBar>
+      <TaskOverview />
       <Switch>
         <Route path="/home/all">
           <AllPatientsList />
@@ -41,6 +42,14 @@ const PractitionerHome = () => {
           <ListOfPatients tabValue={tabValue} />
         </Route>
       </Switch>
+    </div>
+  );
+};
+
+const TaskOverview = () => {
+  return (
+    <div>
+      <h1>test</h1>
     </div>
   );
 };
