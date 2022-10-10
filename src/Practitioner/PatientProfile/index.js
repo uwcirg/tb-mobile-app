@@ -79,7 +79,7 @@ const DesktopProfile = observer(() => {
         <TreatmentStatus />
         <SymptomSummary />
       </div>
-      <Box maxWidth="50%" style={{ ...Styles.profileCard }}>
+      <Box width="100%" marginBottom="1em" style={{ ...Styles.profileCard }}>
         <AppointmentCard
           patient={patientProfileStore.selectedPatient.details}
         />
