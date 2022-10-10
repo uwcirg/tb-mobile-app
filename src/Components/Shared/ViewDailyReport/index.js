@@ -11,7 +11,6 @@ import {
   SentimentVerySatisfied,
 } from '@material-ui/icons';
 import ZoomableImage from '../ZoomableImage';
-import ExpandableCard from '../../ExpandableCard';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Colors from '../../../Basics/Colors.js';
@@ -58,63 +57,10 @@ const DailyReport = ({ report, date }) => {
     whyPhotoWasSkipped,
   } = report;
 
-  // const reportKeysArray = Object.keys(report);
-
   const hadSymptoms = symptoms.length !== 0;
-
-  // TODO: Add a check for if the report is empty
-  // turn into its own component that takes
-  // in necessary info from the report
-  // const reportCardData = {
-  //   medicationWasTaken: {
-  //     title: t('patient.report.didYouTake'),
-  //     titleIcon: <PillIcon />,
-  //     color: medicationWasTaken ? 'green' : 'red',
-  //     statusIcon: medicationWasTaken ? CheckCircleIcon : HighlightOffIcon,
-  //     statusText: medicationWasTaken
-  //       ? t('commonWords.yes')
-  //       : t('commonWords.no'),
-  //   },
-  //   symptoms: {
-  //     title: t('patient.report.symptomsTitle'),
-  //     titleIcon: <Assignment />,
-  //     color: hadSymptoms ? 'red' : 'green',
-  //     statusIcon: hadSymptoms ? HighlightOffIcon : CheckCircleIcon,
-  //     statusText: hadSymptoms
-  //       ? t('coordinator.sideBar.symptomsSince')
-  //       : t('coordinator.recentReports.noSymptoms'),
-  //     children: hadSymptoms ? <SymptomList symptoms={symptoms} /> : null,
-  //   },
-  //   doingOkay: {
-  //     title: t('patient.report.moodTitle'),
-  //     titleIcon: <InsertEmoticon />,
-  //     color: doingOkay ? 'green' : 'red',
-  //     statusIcon: doingOkay
-  //       ? SentimentVerySatisfied
-  //       : SentimentVeryDissatisfied,
-  //     statusText: doingOkay
-  //       ? t('patient.report.doingWell')
-  //       : t('patient.report.needSupport'),
-  //     children: doingOkayReason ? (
-  //       <Typography>{doingOkayReason}</Typography>
-  //     ) : null,
-  //   },
-  // };
 
   return (
     <Box bgcolor="white" padding="0 1em">
-      {/* {reportKeysArray.map((key) => {
-        if (Object.hasOwn(reportCardData, key)) {
-          return (
-            <div key={key}>
-              <ReportCard {...reportCardData[key]}>
-                {reportCardData[key].children}
-              </ReportCard>
-            </div>
-          );
-        }
-        return null;
-      })} */}
       <ReportCard
         title={t('patient.report.didYouTake')}
         titleIcon={<PillIcon />}
@@ -188,47 +134,6 @@ const DailyReport = ({ report, date }) => {
           </>
         )}
       </ReportCard>
-
-      {/* <InputCard>
-        <ExpandableCard
-          hideToggle
-          title={t('commonWords.stripPhoto')}
-          icon={CameraIcon}
-        >
-          {photoWasRequired ? (
-            <>
-              {photoUrl ? (
-                <>
-                  <ZoomableImage
-                    initialScale={0.5}
-                    maxHeight="200px"
-                    url={photoUrl}
-                  />
-                </>
-              ) : (
-                <>
-                  <Status
-                    text={t('report.missedPhoto')}
-                    icon={HighlightOffIcon}
-                    color={Colors.red}
-                  />
-                  <Seperator />
-                  <Typography>{t('patient.report.photo.whyUnable')}</Typography>
-                  <AnswerText>
-                    {whyPhotoWasSkipped || t('coordinator.sideBar.noReason')}
-                  </AnswerText>
-                </>
-              )}
-            </>
-          ) : (
-            <Status
-              text={t('patient.report.confirmation.noPhoto')}
-              color={Colors.textGray}
-              icon={RemoveCircleIcon}
-            />
-          )}
-        </ExpandableCard>
-      </InputCard> */}
     </Box>
   );
 };
