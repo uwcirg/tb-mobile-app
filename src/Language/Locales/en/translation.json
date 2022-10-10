@@ -1095,12 +1095,5 @@
     "noPatients": "No patients found",
     "noPatientReviews": "No patients reviewed yet today",
     "noPateintIssues": "No patients left to review"
-  },
-  "photoFlow": {
-    "pleaseSubmitLater": "Please submit your photo in",
-    "minutes": "minutes",
-    "howManyMinutesAgo": "About how many minutes ago did you take the test?",
-    "confirm20Minutes": "I have waited for twenty minutes",
-    "deny20Minutes": "I have not waited for twenty minutes"
   }
 }

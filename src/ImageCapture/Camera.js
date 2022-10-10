@@ -1,158 +1,143 @@
 import React, { Component } from 'react';
-import Webcam from './WebCam';
+import Webcam from './WebCam'
 import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import Fab from '@material-ui/core/Fab';
-import ImageOverlay from './ImageOverlay';
 
 export default class Camera extends Component {
-  constructor(props) {
-    super(props);
-    this.webcam = null;
-    this.state = {
-      capturedImage: null,
-      captured: false,
-      uploading: false,
-      capturing: false,
-    };
-  }
+    constructor(props) {
+        super(props);
+        this.webcam = null;
+        this.state = {
+            capturedImage: null,
+            captured: false,
+            uploading: false,
+            capturing: false
 
-  myRotationFunction = async function (ArrayOfFilesToBeRotated) {
-    return ArrayOfFilesToBeRotated;
-  };
-
-  captureImage = async () => {
-    let image = this.webcam.takePhoto();
-    let captureHeight;
-
-    image.getPhotoCapabilities().then((settings) => {
-      if (settings) {
-        //Makesure Adjusted size is in range of min-max
-        captureHeight = settings.imageHeight.max / 2;
-
-        if (captureHeight < settings.imageHeight.min) {
-          captureHeight = settings.imageHeight.max;
         }
-      }
-      image
-        .takePhoto({ imageHeight: captureHeight })
-        .then((blob) => {
-          this.myRotationFunction([blob]).then((test) => {
-            let reader = new FileReader();
-            reader.readAsDataURL(test[0]); // converts the blob to base64 and calls onload
-            reader.onload = () => {
-              this.setState({
-                captured: true,
-                capturedImage: reader.result,
-                capturing: false,
-              });
+    }
 
-              this.handleUsePhoto();
-            };
-          });
+    myRotationFunction = async function (ArrayOfFilesToBeRotated) {
+        return ArrayOfFilesToBeRotated
+    }
+
+    captureImage = async () => {
+
+        let image = this.webcam.takePhoto();
+        let captureHeight;
+
+        image.getPhotoCapabilities().then(settings => {
+            if (settings) {
+                //Makesure Adjusted size is in range of min-max
+                captureHeight = settings.imageHeight.max / 2;
+
+                if (captureHeight < settings.imageHeight.min) {
+                    captureHeight = settings.imageHeight.max;
+                }
+            }
+            image.takePhoto({ imageHeight: captureHeight }).then(blob => {
+
+                this.myRotationFunction([blob]).then(test => {
+                    let reader = new FileReader();
+                    reader.readAsDataURL(test[0]); // converts the blob to base64 and calls onload
+                    reader.onload = () => {
+                        
+                        this.setState({
+                            captured: true,
+                            capturedImage: reader.result,
+                            capturing: false
+                        })
+                        
+                       this.handleUsePhoto()
+                    };
+
+                });
+            })
+                .catch(error => console.error('takePhoto() error:', error));
+        });
+    }
+
+    discardImage = () => {
+        this.setState({
+            captured: false,
+            capturedImage: null
         })
-        .catch((error) => console.error('takePhoto() error:', error));
-    });
-  };
+    }
 
-  discardImage = () => {
-    this.setState({
-      captured: false,
-      capturedImage: null,
-    });
-  };
+    componentDidMount() {
+        // initialize the camera
+        this.canvasElement = document.createElement('canvas');
+        this.webcam = new Webcam(
+            document.getElementById('webcam'),
+            this.canvasElement,
+            this.handleOutcome
+        );
 
-  componentDidMount() {
-    // initialize the camera
-    this.canvasElement = document.createElement('canvas');
-    this.webcam = new Webcam(
-      document.getElementById('webcam'),
-      this.canvasElement,
-      this.handleOutcome
-    );
+        this.webcam.setup().then(()=>{ 
+            //TODO Handle success ?
+        }).catch((err) => {
+                this.props.handlePermissionsError();
+            })
+    }
 
-    this.webcam
-      .setup()
-      .then(() => {
-        //TODO Handle success ?
-      })
-      .catch((err) => {
-        this.props.handlePermissionsError();
-      });
-  }
+    componentWillUnmount() {
+        this.webcam.endVideo();
+    }
 
-  componentWillUnmount() {
-    this.webcam.endVideo();
-  }
+    handleUsePhoto = () => {
+        this.props.returnPhoto(this.state.capturedImage);
+        this.props.handleExit();
+    }
 
-  handleUsePhoto = () => {
-    this.props.returnPhoto(this.state.capturedImage);
-    this.props.handleExit();
-  };
+    render() {
 
-  render() {
-    const imageDisplay = this.state.capturedImage ? (
-      <img src={this.state.capturedImage} alt="captured" />
-    ) : (
-      <span />
-    );
+        const imageDisplay = this.state.capturedImage ?
+            <img src={this.state.capturedImage} alt="captured" />
+            :
+            <span />;
 
-    const buttons = this.state.captured ? (
-      <></>
-    ) : (
-      <div className="camera-buttons">
-        <Fab onClick={this.captureImage}>
-          <CameraAltIcon />
-        </Fab>
-      </div>
-    );
+        const buttons = this.state.captured ?
+        <>
 
-    const exit = (
-      <Exit>
-        <Fab size="small" onClick={this.props.handleExit}>
-          <CloseIcon />
-        </Fab>
-      </Exit>
-    );
+            </>
+            :
+            <div className="camera-buttons">
+                <Fab onClick={this.captureImage}><CameraAltIcon /></Fab>
+            </div>
 
-    return (
-      <Container>
-        {exit}
-        <div className="webcam-container">
-          <ImageOverlay />
+        const exit = (<Exit><Fab size='small' onClick={this.props.handleExit}><CloseIcon /></Fab></Exit>)
 
-          <video
-            width="350px"
-            autoPlay
-            playsInline
-            muted
-            id="webcam"
-            className={this.state.captured ? 'hidden' : ''}
-          />
-        </div>
 
-        <br />
-        <div className={'imageCanvas ' + this.state.captured ? '' : 'hidden'}>
-          {imageDisplay}
-        </div>
+        return (
+            <Container>
+                {exit}
+                <div className="webcam-container">
+                <video width="350px" autoPlay playsInline muted id="webcam" className={this.state.captured ? "hidden" : ""} />
+                </div>
 
-        {buttons}
-      </Container>
-    );
-  }
+                <br />
+                <div className={"imageCanvas " + this.state.captured ? "" : "hidden"}>
+                    {imageDisplay}
+                </div>
+                
+                {buttons}
+            </Container>
+        )
+    }
 }
 
 const Exit = styled.div`
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  color: white;
-  z-index: 13;
-`;
+position: fixed;
+top: 10px;
+left: 10px;
+color: white;
+z-index: 13;
+`
 
 const Container = styled.div`
-  .hidden {
+
+.hidden{
     visibility: hidden;
     display: none;
     height: 0px;
@@ -160,7 +145,7 @@ const Container = styled.div`
     padding: 0px;
   }
 
-  .imageCanvas {
+.imageCanvas{
     position: fixed;
     top: 0;
     z-index: 11;
@@ -168,7 +153,7 @@ const Container = styled.div`
     text-align: center;
   }
 
-  img {
+  img{
     position: fixed;
     top: 0;
     z-index: 11;
@@ -178,9 +163,10 @@ const Container = styled.div`
     object-fit: cover;
     display: block;
     margin: auto;
+   
   }
 
-  #webcam {
+  #webcam{
     padding: 0;
     display: block;
     margin: auto;
@@ -189,21 +175,25 @@ const Container = styled.div`
     object-fit: cover;
   }
 
-  .webcam-container {
+  .webcam-container{
     background-color: black;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 11;
+
   }
 
-  .camera-buttons {
-    position: fixed;
-    bottom: 30px;
-    left: 0;
-    z-index: 12;
-    width: 100%;
-    display: flex;
-    justify-content: center;
+  .camera-buttons{
+      position: fixed;
+      bottom: 30px;
+      left: 0;
+      z-index: 12;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      
   }
-`;
+
+
+`
