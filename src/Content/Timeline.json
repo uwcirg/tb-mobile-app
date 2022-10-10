@@ -1,68 +1,66 @@
 {
-    "months": [
-        [
-            {
-                "title": "start",
-                "subtitle": "dayOne"
-            }
-        ],
-        [
-            {
-                "title": "followUp",
-                "subtitle": "scheduled"
-            }
-        ],
-        [
-            {
-                "title": "sputumTest",
-                "subtitle": "oneToTwo"
-            },
-            {
-                "title": "followUp",
-                "subtitle": "scheduled"
-            }
-        ],
-        [
-            {
-                "title": "changeMeds",
-                "subtitle": "afterTwo"
-            },
-            {
-                "title": "followUp",
-                "subtitle": "scheduled"
-            }
-        ],
-        [
-            {
-                "title": "followUp",
-                "subtitle": "scheduled"
-            }
-        ],
-        [
-            {
-                "title": "followUp",
-                "subtitle": "scheduled"
-            },
-            {
-                "title": "sputumTest",
-                "subtitle": "threeToFour"
-
-            }
-        ],
-        [
-            {
-                "title": "followUp",
-                "subtitle": "scheduled"
-            },
-            {
-                "title": "finalSputum",
-                "subtitle": "end"
-            },
-            {
-                "title": "finish",
-                "subtitle": "sixMonths"
-            }
-
-        ]
+  "months": [
+    [
+      {
+        "title": "start",
+        "subtitle": "dayOne"
+      }
+    ],
+    [
+      {
+        "title": "followUp",
+        "subtitle": "scheduled"
+      }
+    ],
+    [
+      {
+        "title": "sputumTest",
+        "subtitle": "oneToTwo"
+      },
+      {
+        "title": "followUp",
+        "subtitle": "scheduled"
+      }
+    ],
+    [
+      {
+        "title": "changeMeds",
+        "subtitle": "afterTwo"
+      },
+      {
+        "title": "followUp",
+        "subtitle": "scheduled"
+      }
+    ],
+    [
+      {
+        "title": "followUp",
+        "subtitle": "scheduled"
+      }
+    ],
+    [
+      {
+        "title": "followUp",
+        "subtitle": "scheduled"
+      },
+      {
+        "title": "sputumTest",
+        "subtitle": "threeToFour"
+      }
+    ],
+    [
+      {
+        "title": "followUp",
+        "subtitle": "scheduled"
+      },
+      {
+        "title": "finalSputum",
+        "subtitle": "end"
+      },
+      {
+        "title": "finish",
+        "subtitle": "sixMonths"
+      }
     ]
+  ]
 }

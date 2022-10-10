@@ -1,26 +1,26 @@
-import { DateTime } from 'luxon';
-import React, { useState } from 'react';
-import SharedAPI from '../../../../API/SharedAPI';
-import TopPageLabel from '../../TopPageLabel';
-import Form from './Form';
-import { useTranslation } from 'react-i18next';
-import { Box } from '@material-ui/core';
-import useAsync from '../../../../Hooks/useAsyncWithParams';
-import Success from './Success';
-import { useHistory } from 'react-router-dom';
-import Loading from '../../../../Practitioner/Shared/CardLoading';
+import { DateTime } from "luxon";
+import React, { useState } from "react";
+import SharedAPI from "../../../../API/SharedAPI";
+import TopPageLabel from "../../TopPageLabel";
+import Form from "./Form";
+import { useTranslation } from "react-i18next";
+import { Box } from "@material-ui/core";
+import useAsync from "../../../../Hooks/useAsyncWithParams";
+import Success from "./Success";
+import { useHistory } from "react-router-dom";
+import Loading from "../../../../Practitioner/Shared/CardLoading";
 
 const initialState = {
-  category: '',
-  otherCategory: '',
+  category: "",
+  otherCategory: "",
   time: null,
-  note: '',
-  datetime: DateTime.local().endOf('hour').plus(1).toISO(),
-  tempDatetime: DateTime.local().endOf('hour').toISO(),
+  note: "",
+  datetime: DateTime.local().endOf("hour").plus(1).toISO(),
+  tempDatetime: DateTime.local().endOf("hour").toISO(),
 };
 
 export default function AddAppointment({ patientId }) {
-  const { t } = useTranslation('translation');
+  const { t } = useTranslation("translation");
   const history = useHistory();
 
   const [state, setState] = useState({
@@ -40,29 +40,29 @@ export default function AddAppointment({ patientId }) {
 
   return (
     <>
-      <TopPageLabel sticky title={t('appointments.addAppointment')} />
-      {status === 'idle' && (
+      <TopPageLabel sticky title={t("appointments.addAppointment")} />
+      {status === "idle" && (
         <Form state={state} setState={setState} handleSubmit={execute} />
       )}
-      {status === 'loading' && (
+      {status === "loading" && (
         <>
-          <TopPageLabel sticky title={t('appointments.addAppointment')} />
-          {status === 'idle' && (
+          <TopPageLabel sticky title={t("appointments.addAppointment")} />
+          {status === "idle" && (
             <Form state={state} setState={setState} handleSubmit={execute} />
           )}
-          {status === 'loading' && (
+          {status === "loading" && (
             <>
               <Box height="3rem" />
               <Loading />
             </>
           )}
-          {status === 'success' && (
+          {status === "success" && (
             <Success handleExit={history.goBack} handleReset={resetState} />
           )}
-          {status === 'error' && <p> Error </p>}
+          {status === "error" && <p> Error </p>}
         </>
       )}
-      {status === 'success' && (
+      {status === "success" && (
         <Success handleExit={history.goBack} handleReset={resetState} />
       )}
     </>

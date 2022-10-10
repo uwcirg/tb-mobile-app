@@ -4,7 +4,7 @@ import React from "react";
 export default function AsyncLoadingWrapper({ status, children }) {
   switch (status) {
     case "idle":
-        <></>
+      <></>;
     case "pending":
       return (
         <Box

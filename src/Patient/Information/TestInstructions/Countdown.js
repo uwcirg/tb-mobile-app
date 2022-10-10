@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { observer } from 'mobx-react';
-import { DateTime } from 'luxon';
+import React, { useState, useEffect } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import { observer } from "mobx-react";
+import { DateTime } from "luxon";
 
 const useStyles = makeStyles({
   root: {
-    minHeight: '150px',
-    margin: '10px',
-    padding: '5px',
-    background: '#90EE90',
+    minHeight: "150px",
+    margin: "10px",
+    padding: "5px",
+    background: "#90EE90",
   },
 });
 
@@ -24,7 +24,7 @@ const Countdown = observer(() => {
       ...state,
       laterTime: DateTime.local().plus({ minutes: 20 }).toISO(),
     });
-    localStorage.setItem('later', state.laterTime);
+    localStorage.setItem("later", state.laterTime);
   }, []);
 
   useEffect(() => {
@@ -49,12 +49,12 @@ const Countdown = observer(() => {
       ...state,
       laterTime: newTime,
     });
-    localStorage.setItem('later', newTime);
+    localStorage.setItem("later", newTime);
   };
 
-  const dif = DateTime.fromISO(localStorage.getItem('later')).diff(
+  const dif = DateTime.fromISO(localStorage.getItem("later")).diff(
     state.currentTime,
-    'seconds'
+    "seconds"
   ).seconds;
 
   return (

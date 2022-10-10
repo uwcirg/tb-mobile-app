@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
-import { DateTime } from 'luxon';
-import PractitionerContext from '../PractitionerContext';
-import addIssuesToPatients from '../../Utility/FindIssues';
-import { Box, Grid } from '@material-ui/core';
-import PatientCard from './PatientCard';
-import PatientListMessage from './PatientListMessage';
-import { checkWasToday } from '../../Utility/TimeUtils';
-import IssueSectionLabel from './IssueSectionLabel';
+import React, { useContext } from "react";
+import { DateTime } from "luxon";
+import PractitionerContext from "../PractitionerContext";
+import addIssuesToPatients from "../../Utility/FindIssues";
+import { Box, Grid } from "@material-ui/core";
+import PatientCard from "./PatientCard";
+import PatientListMessage from "./PatientListMessage";
+import { checkWasToday } from "../../Utility/TimeUtils";
+import IssueSectionLabel from "./IssueSectionLabel";
 
 const ListOfPatients = ({ tabValue }) => {
   const {
@@ -53,15 +53,15 @@ const ListOfPatients = ({ tabValue }) => {
     }
   );
 
-  if (status === 'pending') return <PatientListMessage isLoading={true} />;
+  if (status === "pending") return <PatientListMessage isLoading={true} />;
 
-  if (!patients) return '';
+  if (!patients) return "";
 
   let currentSection;
 
   return (
     <Grid container direction="column">
-      <Box height={'.5em'} aria-hidden />
+      <Box height={".5em"} aria-hidden />
       {processedPatients.length === 0 && <PatientListMessage tab={tabValue} />}
       {processedPatients.map((patient) => {
         let isIssues = patient.issues.total > 0;

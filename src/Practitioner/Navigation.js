@@ -1,23 +1,23 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import HomeIcon from '@material-ui/icons/Home';
-import { observer } from 'mobx-react';
-import useStores from '../Basics/UseStores';
-import PatientsIcon from '@material-ui/icons/SupervisorAccount';
-import IconButton from '@material-ui/core/IconButton';
-import LogOut from '@material-ui/icons/ExitToApp';
-import Settings from '@material-ui/icons/Settings'
-import MessagingIcon from '@material-ui/icons/QuestionAnswer';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import HomeIcon from "@material-ui/icons/Home";
+import { observer } from "mobx-react";
+import useStores from "../Basics/UseStores";
+import PatientsIcon from "@material-ui/icons/SupervisorAccount";
+import IconButton from "@material-ui/core/IconButton";
+import LogOut from "@material-ui/icons/ExitToApp";
+import Settings from "@material-ui/icons/Settings";
+import MessagingIcon from "@material-ui/icons/QuestionAnswer";
 import Colors from "../Basics/Colors";
-import Badge from '@material-ui/core/Badge'
-import Tooltip from '@material-ui/core/Tooltip'
-import { useTranslation } from 'react-i18next';
-import ReportIssue from '@material-ui/icons/ReportProblem';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import ListAltIcon from '@material-ui/icons/ListAlt';
+import Badge from "@material-ui/core/Badge";
+import Tooltip from "@material-ui/core/Tooltip";
+import { useTranslation } from "react-i18next";
+import ReportIssue from "@material-ui/icons/ReportProblem";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import ListAltIcon from "@material-ui/icons/ListAlt";
 
 const useStyles = makeStyles({
   drawer: {
@@ -25,7 +25,7 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     borderRight: `solid 1px ${Colors.gray}`,
-    backgroundColor: "white"
+    backgroundColor: "white",
   },
   list: {
     width: "100%",
@@ -34,74 +34,140 @@ const useStyles = makeStyles({
     flexDirection: "column",
     "& > div > div > svg": {
       fontSize: "3em",
-      color: "black"
+      color: "black",
     },
     "& > div > div > span > svg": {
       fontSize: "3em",
-      color: "black"
+      color: "black",
     },
     "& > div > div": {
       display: "flex",
       width: "100%",
       justifyContent: "flex-end",
     },
-    marginBottom: "auto"
+    marginBottom: "auto",
   },
   settingsIcon: {
     boxSizing: "border-box",
     width: "100%",
-    borderRadius: 0
+    borderRadius: 0,
   },
   selected: {
     "& > div > svg, & > div > span > svg": {
-      fill: Colors.buttonBlue
+      fill: Colors.buttonBlue,
     },
-
-  }
+  },
 });
 
 const PractitionerDrawer = observer(() => {
   const classes = useStyles();
-  const { routingStore, practitionerStore, practitionerUIStore, messagingStore, loginStore } = useStores();
-  const {push} = routingStore;
-  const { t } = useTranslation('translation');
+  const {
+    routingStore,
+    practitionerStore,
+    practitionerUIStore,
+    messagingStore,
+    loginStore,
+  } = useStores();
+  const { push } = routingStore;
+  const { t } = useTranslation("translation");
 
   const handleLogout = () => {
     practitionerStore.logout();
     loginStore.logout();
-    push("/")
-  }
+    push("/");
+  };
 
   return (
     <>
       <div className={classes.drawer}>
         <List className={classes.list}>
-          <ListItem className={`${routingStore.location.pathname.startsWith("/home") && classes.selected}`} button key={"Home"} onClick={() => { push('/home') }}>
-            <ListItemIcon><HomeIcon className={classes.test} /></ListItemIcon>
+          <ListItem
+            className={`${
+              routingStore.location.pathname.startsWith("/home") &&
+              classes.selected
+            }`}
+            button
+            key={"Home"}
+            onClick={() => {
+              push("/home");
+            }}
+          >
+            <ListItemIcon>
+              <HomeIcon className={classes.test} />
+            </ListItemIcon>
           </ListItem>
-          <ListItem className={`${routingStore.location.pathname.startsWith("/old-tasks") && classes.selected}`} button key={"Old Tasks"} onClick={() => { push('/old-tasks') }}>
-            <ListItemIcon><ListAltIcon className={classes.test} /></ListItemIcon>
+          <ListItem
+            className={`${
+              routingStore.location.pathname.startsWith("/old-tasks") &&
+              classes.selected
+            }`}
+            button
+            key={"Old Tasks"}
+            onClick={() => {
+              push("/old-tasks");
+            }}
+          >
+            <ListItemIcon>
+              <ListAltIcon className={classes.test} />
+            </ListItemIcon>
           </ListItem>
-          <ListItem button className={practitionerUIStore.tabNumber === 1 ? classes.selected : ""} key={"Patients"} onClick={() => { push('/patients') }}>
-            <ListItemIcon><PatientsIcon /></ListItemIcon>
+          <ListItem
+            button
+            className={
+              practitionerUIStore.tabNumber === 1 ? classes.selected : ""
+            }
+            key={"Patients"}
+            onClick={() => {
+              push("/patients");
+            }}
+          >
+            <ListItemIcon>
+              <PatientsIcon />
+            </ListItemIcon>
           </ListItem>
-          <ListItem button className={practitionerUIStore.tabNumber === 2 ? classes.selected : ""} key={"Messaging"} onClick={practitionerUIStore.goToMessaging}>
+          <ListItem
+            button
+            className={
+              practitionerUIStore.tabNumber === 2 ? classes.selected : ""
+            }
+            key={"Messaging"}
+            onClick={practitionerUIStore.goToMessaging}
+          >
             <ListItemIcon>
               <Badge color="primary" badgeContent={messagingStore.numberUnread}>
                 <MessagingIcon />
               </Badge>
             </ListItemIcon>
           </ListItem>
-          <ListItem button className={practitionerUIStore.tabNumber === 3 ? classes.selected : ""} key={"Settings"} onClick={() => { push('/settings') }}>
-            <ListItemIcon><Settings /></ListItemIcon>
+          <ListItem
+            button
+            className={
+              practitionerUIStore.tabNumber === 3 ? classes.selected : ""
+            }
+            key={"Settings"}
+            onClick={() => {
+              push("/settings");
+            }}
+          >
+            <ListItemIcon>
+              <Settings />
+            </ListItemIcon>
           </ListItem>
         </List>
         <div className={classes.bottomButtons}>
-          <Tooltip title={t('patient.information.reportIssue')}>
-            <IconButton href="https://forms.gle/rRxp9f4bbVT5uB4R9" target="blank" className={classes.settingsIcon}><ReportIssue /></IconButton>
+          <Tooltip title={t("patient.information.reportIssue")}>
+            <IconButton
+              href="https://forms.gle/rRxp9f4bbVT5uB4R9"
+              target="blank"
+              className={classes.settingsIcon}
+            >
+              <ReportIssue />
+            </IconButton>
           </Tooltip>
-          <Tooltip title={t('patient.profile.logout')}>
-            <IconButton onClick={handleLogout} className={classes.settingsIcon}><LogOut /></IconButton>
+          <Tooltip title={t("patient.profile.logout")}>
+            <IconButton onClick={handleLogout} className={classes.settingsIcon}>
+              <LogOut />
+            </IconButton>
           </Tooltip>
         </div>
       </div>

@@ -1,11 +1,11 @@
-import { DateTime } from 'luxon';
+import { DateTime } from "luxon";
 
 function daysSinceISODateTime(isoDateTime) {
-  return DateTime.fromISO(isoDateTime).diffNow('days').days * -1;
+  return DateTime.fromISO(isoDateTime).diffNow("days").days * -1;
 }
 
 function daysSincePhotoRequest(isoDateTime) {
-  return DateTime.fromISO(isoDateTime).endOf('day').diffNow('days').days * -1;
+  return DateTime.fromISO(isoDateTime).endOf("day").diffNow("days").days * -1;
 }
 
 const checkWasToday = (isoTime) => {
