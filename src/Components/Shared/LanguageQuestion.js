@@ -1,35 +1,35 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import useStores from '../../Basics/UseStores';
-import { observer } from 'mobx-react';
-import Colors from '../../Basics/Colors';
-import Typography from '@material-ui/core/Typography';
-import { Box, Grid, MenuItem, Select } from '@material-ui/core';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import useStores from "../../Basics/UseStores";
+import { observer } from "mobx-react";
+import Colors from "../../Basics/Colors";
+import Typography from "@material-ui/core/Typography";
+import { Box, Grid, MenuItem, Select } from "@material-ui/core";
 
 const LOCALES = [
-  { id: 'es-AR', text: 'Español', flag: '🇦🇷' },
-  { id: 'id', text: 'Indonesia', flag: '🇮🇩' },
-  { id: 'en', text: 'English', flag: '🇺🇸' },
+  { id: "es-AR", text: "Español", flag: "🇦🇷" },
+  { id: "id", text: "Indonesia", flag: "🇮🇩" },
+  { id: "en", text: "English", flag: "🇺🇸" },
 ];
 
 const useStyles = makeStyles({
   languageContainer: {
-    maxWidth: '400px',
-    padding: '1em',
-    width: '100%',
-    boxSizing: 'border-box',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    maxWidth: "400px",
+    padding: "1em",
+    width: "100%",
+    boxSizing: "border-box",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   select: {
-    boxSizing: 'border-box',
-    width: '100%',
-    maxWidth: '400px',
-    backgroundColor: 'white',
+    boxSizing: "border-box",
+    width: "100%",
+    maxWidth: "400px",
+    backgroundColor: "white",
   },
-  flag: { fontSize: '1.5em', lineHeight: '.75em', padding: '5px 0' },
-  label: { lineHeight: '1em', textTransform: 'capitalize' },
+  flag: { fontSize: "1.5em", lineHeight: ".75em", padding: "5px 0" },
+  label: { lineHeight: "1em", textTransform: "capitalize" },
 });
 
 const Flag = ({ children }) => {

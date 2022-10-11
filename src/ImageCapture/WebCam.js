@@ -1,61 +1,61 @@
-import { ImageCapture } from 'image-capture';
+import { ImageCapture } from "image-capture";
 
 export default class WebCam {
+  constructor(webcamElement, canvasElement, handleOutcome) {
+    this.webcamElement = webcamElement;
+    this.canvasElement = canvasElement;
+    this.mediaStreamTrack = {};
+    this.handleOutcome = handleOutcome;
+  }
 
-    constructor(webcamElement, canvasElement, handleOutcome) {
+  getMediaStreamTrack() {
+    return this.mediaStreamTrack;
+  }
 
-        this.webcamElement = webcamElement;
-        this.canvasElement = canvasElement;
-        this.mediaStreamTrack = {}
-        this.handleOutcome = handleOutcome;
+  turnOffCamera() {
+    if (this.mediaStreamTrack != null) {
+      this.mediaStreamTrack.getTracks().map(function (val) {
+        val.stop();
+      });
     }
+  }
 
-    getMediaStreamTrack() {
-        return this.mediaStreamTrack;
-    }
+  async setup() {
+    const setupOptions = { audio: false, video: { facingMode: "environment" } };
 
-    turnOffCamera() {
-        if (this.mediaStreamTrack != null) {
-            this.mediaStreamTrack.getTracks().map(function (val) {
-                val.stop();
-            });
-        }
-    }
+    return new Promise((resolve, reject) => {
+      if (navigator.mediaDevices.getUserMedia === undefined) {
+        reject();
+      }
+      resolve(
+        navigator.mediaDevices
+          .getUserMedia(setupOptions)
+          .then((mediaStream) => {
+            const mediaStreamTrack = mediaStream.getVideoTracks()[0];
+            this.mediaStreamTrack = mediaStreamTrack;
 
-    async setup() {
-        const setupOptions = { audio: false, video: { facingMode: 'environment' } };
-
-        return new Promise((resolve, reject) => {
-            if (navigator.mediaDevices.getUserMedia === undefined) {
-                reject();
+            if ("srcObject" in this.webcamElement) {
+              this.webcamElement.srcObject = mediaStream;
+            } else {
+              // For older browsers without the srcObject.
+              this.webcamElement.src = window.URL.createObjectURL(mediaStream);
             }
-            resolve (navigator.mediaDevices.getUserMedia(setupOptions).then((mediaStream) => {
-                const mediaStreamTrack = mediaStream.getVideoTracks()[0];
-                this.mediaStreamTrack = mediaStreamTrack;
-
-
-                if ("srcObject" in this.webcamElement) {
-                    this.webcamElement.srcObject = mediaStream;
-                } else {
-                    // For older browsers without the srcObject.
-                    this.webcamElement.src = window.URL.createObjectURL(mediaStream);
-                }
-                this.webcamElement.addEventListener(
-                    'loadeddata',
-                    async () => {
-                        this.adjustVideoSize(
-                            this.webcamElement.videoWidth,
-                            this.webcamElement.videoHeight
-                        );
-                    },
-                    false
+            this.webcamElement.addEventListener(
+              "loadeddata",
+              async () => {
+                this.adjustVideoSize(
+                  this.webcamElement.videoWidth,
+                  this.webcamElement.videoHeight
                 );
-            }))
-        });
-}
+              },
+              false
+            );
+          })
+      );
+    });
+  }
 
-endVideo(){
-
+  endVideo() {
     let stream = this.webcamElement.srcObject;
 
     if (!stream) return; // Prevents error that was crashing app when exiting after denial
@@ -63,58 +63,51 @@ endVideo(){
     let tracks = stream.getTracks();
 
     tracks.forEach(function (track) {
-        track.stop();
+      track.stop();
     });
 
     this.webcamElement.srcObject = null;
+  }
 
-}
-
-takeBlobPhoto() {
+  takeBlobPhoto() {
     const { imageWidth, imageHeight } = this._drawImage();
     return new Promise((resolve, reject) => {
-        this.canvasElement.toBlob((blob) => {
-            resolve({ blob, imageHeight, imageWidth });
-        });
+      this.canvasElement.toBlob((blob) => {
+        resolve({ blob, imageHeight, imageWidth });
+      });
     });
-}
+  }
 
-_drawImage() {
-
+  _drawImage() {
     const imageWidth = this.webcamElement.videoWidth;
     const imageHeight = this.webcamElement.videoHeight;
 
-    const context = this.canvasElement.getContext('2d');
+    const context = this.canvasElement.getContext("2d");
     this.canvasElement.width = imageWidth;
     this.canvasElement.height = imageHeight;
 
     context.drawImage(this.webcamElement, 0, 0, imageWidth, imageHeight);
     return { imageHeight, imageWidth };
-}
+  }
 
-takeBase64Photo({ type, quality } = { type: 'png', quality: 1 }) {
+  takeBase64Photo({ type, quality } = { type: "png", quality: 1 }) {
     const { imageHeight, imageWidth } = this._drawImage();
-    const base64 = this.canvasElement.toDataURL('image/' + type, quality);
+    const base64 = this.canvasElement.toDataURL("image/" + type, quality);
     return { base64, imageHeight, imageWidth };
-}
+  }
 
-
-takePhoto(){
+  takePhoto() {
     const image = new ImageCapture(this.mediaStreamTrack);
     return image;
-}
+  }
 
-
-adjustVideoSize(width, height) {
+  adjustVideoSize(width, height) {
     const aspectRatio = width / height;
 
-
     if (width >= height) {
-        this.webcamElement.width = aspectRatio * this.webcamElement.height;
+      this.webcamElement.width = aspectRatio * this.webcamElement.height;
     } else {
-        this.webcamElement.height = this.webcamElement.width / aspectRatio;
+      this.webcamElement.height = this.webcamElement.width / aspectRatio;
     }
-
-}
-
+  }
 }

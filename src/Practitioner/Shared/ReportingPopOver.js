@@ -1,3 +1,4 @@
+
 import React, { useCallback, useMemo } from 'react';
 import PopOverV2 from '../../Components/Shared/PopOverV2';
 import { useParams } from 'react-router-dom';
@@ -8,6 +9,7 @@ import ReportViews from '../../Components/Shared/ReportViews';
 
 export default function ReportingPopover({ patient, handleExit }) {
   const { t } = useTranslation('translation');
+
 
   const { patientId } = useParams();
 
@@ -33,6 +35,7 @@ export default function ReportingPopover({ patient, handleExit }) {
         patient
           ? `${patient.fullName} ${t('coordinator.patientProfile.listReports')}`
           : ''
+
       }
       handleExit={handleExit}
     >
@@ -44,6 +47,7 @@ export default function ReportingPopover({ patient, handleExit }) {
             treatmentStart: patient.treatmentStart,
           }}
           reports={reportHash}
+
           loading={status === 'pending'}
         />
       )}

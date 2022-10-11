@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import { Assignment as Clipboard } from '@material-ui/icons';
@@ -16,6 +17,7 @@ const SymptomSummary = ({ patient }) => {
       icon={<Clipboard style={{ color: Colors.warningRed }} />}
       issueCount={Object.keys(patient.issues.symptomCounts).length}
       childrenStyles={{ color: Colors.warningRed }}
+
     >
       {Object.keys(patient.issues.symptomCounts).map((string, index) => {
         const count = patient.issues.symptomCounts[string];

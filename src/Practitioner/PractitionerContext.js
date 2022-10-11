@@ -1,5 +1,8 @@
-import React from 'react';
+import React from "react";
 
-const PractitionerContext = React.createContext({ patients: [], setPatients: null })
+const PractitionerContext = React.createContext({
+  patients: [],
+  setPatients: null,
+});
 
 export default PractitionerContext;

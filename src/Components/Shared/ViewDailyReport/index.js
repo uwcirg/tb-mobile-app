@@ -1,14 +1,17 @@
+
 import React from 'react';
 import CameraIcon from '@material-ui/icons/PhotoCamera';
 import PillIcon from '../../../Basics/Icons/Pill.js';
 import { useTranslation } from 'react-i18next';
 import { Box, Grid, Typography } from '@material-ui/core';
 import Symptom from '../../../Practitioner/Shared/Symptom';
+
 import {
   Assignment,
   InsertEmoticon,
   SentimentVeryDissatisfied,
   SentimentVerySatisfied,
+
 } from '@material-ui/icons';
 import ZoomableImage from '../ZoomableImage';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
@@ -17,12 +20,15 @@ import Colors from '../../../Basics/Colors.js';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import ReportCard from './ReportCard.js';
 
+
 const Status = ({ text, icon, color }) => {
   return (
     <Grid container>
       {React.createElement(icon, { style: { color: color } })}
       <Box width="8px" />
+
       <Typography style={{ textTransform: 'capitalize' }}>{text}</Typography>
+
     </Grid>
   );
 };
@@ -38,10 +44,13 @@ const Seperator = () => (
 const DailyReport = ({ report, date }) => {
   const { t } = useTranslation('translation');
 
+
   if (!report)
     return (
       <Typography>
+
         {t('patient.progress.noReport')}: {date}
+
       </Typography>
     );
 
@@ -108,6 +117,7 @@ const DailyReport = ({ report, date }) => {
         }
       >
         {photoWasRequired && (
+
           <>
             {photoUrl ? (
               <>
@@ -120,11 +130,13 @@ const DailyReport = ({ report, date }) => {
             ) : (
               <>
                 <Status
+
                   text={t('report.missedPhoto')}
                   icon={HighlightOffIcon}
                   color={Colors.red}
                 />
                 <Seperator />
+
                 <Typography>{t('patient.report.photo.whyUnable')}</Typography>
                 <AnswerText>
                   {whyPhotoWasSkipped || t('coordinator.sideBar.noReason')}
@@ -132,8 +144,10 @@ const DailyReport = ({ report, date }) => {
               </>
             )}
           </>
+
         )}
       </ReportCard>
+
     </Box>
   );
 };
@@ -149,6 +163,7 @@ const SymptomList = ({ symptoms }) => {
         );
       })}
     </ul>
+
   );
 };
 

@@ -1,5 +1,5 @@
 /**
- * Some ideas about this implementation taken from 
+ * Some ideas about this implementation taken from
  * https://stackoverflow.com/questions/56450975/to-fix-cancel-all-subscriptions-and-asynchronous-tasks-in-a-useeffect-cleanup-f
  */
 
@@ -22,56 +22,60 @@
  *  })
  */
 
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react";
 
+const useAsyncWithParams = ({
+  asyncFunc,
+  immediate,
+  funcParams,
+  initialData,
+}) => {
+  const [status, setStatus] = useState("idle");
+  const [value, setValue] = useState(initialData);
+  const [error, setError] = useState(null);
+  const mountedRef = useRef(true);
 
-const useAsyncWithParams = ({ asyncFunc, immediate, funcParams, initialData }) => {
+  const reset = () => {
+    if (!mountedRef.current) return null;
+    setStatus("idle");
+    setValue(initialData);
+    setError(null);
+  };
 
-    const [status, setStatus] = useState("idle");
-    const [value, setValue] = useState(initialData)
-    const [error, setError] = useState(null)
-    const mountedRef = useRef(true)
+  const execute = useCallback(() => {
+    setStatus("pending");
+    return asyncFunc(...funcParams)
+      .then((res) => {
+        if (!mountedRef.current) return null;
+        setValue(res);
+        setError(null);
+        setStatus("success");
+        return res;
+      })
+      .catch((err) => {
+        if (!mountedRef.current) return null;
+        setError(err);
+        setStatus("error");
+        throw err;
+      });
+  }, [asyncFunc, funcParams]);
 
-    const reset = () => {
-        if (!mountedRef.current) return null
-        setStatus("idle");
-        setValue(initialData)
-        setError(null)
+  useEffect(() => {
+    if (immediate) {
+      execute(funcParams);
     }
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
 
-    const execute = useCallback(() => {
-        setStatus("pending")
-        return asyncFunc(...funcParams)
-            .then(res => {
-                if (!mountedRef.current) return null
-                setValue(res)
-                setError(null)
-                setStatus("success");
-                return res
-            }).catch(err => {
-                if (!mountedRef.current) return null
-                setError(err)
-                setStatus("error");
-                throw err
-            })
-    }, [asyncFunc, funcParams])
-
-    useEffect(() => {
-        if (immediate) {
-            execute(funcParams)
-        }
-        return () => {
-            mountedRef.current = false
-        }
-    }, [])
-
-    return {
-        execute,
-        status,
-        value,
-        error,
-        reset
-    }
-}
+  return {
+    execute,
+    status,
+    value,
+    error,
+    reset,
+  };
+};
 
 export default useAsyncWithParams;

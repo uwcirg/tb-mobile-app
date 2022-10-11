@@ -1,3 +1,4 @@
+
 import { Box, ButtonBase, Grid, Typography } from '@material-ui/core';
 import { CameraAlt, ListAlt, Event, ViewList } from '@material-ui/icons';
 import React from 'react';
@@ -21,10 +22,12 @@ const useStyles = makeStyles({
     fontSize: '.9em',
     textTransform: 'capitalize',
     color: Colors.buttonBlue,
+
   },
 });
 
 const ReportingHistoryLinks = ({ patient }) => {
+
   const { t } = useTranslation('translation');
 
   return (
@@ -49,6 +52,7 @@ const ReportingHistoryLinks = ({ patient }) => {
         </Grid>
       </Box>
     </IssueCard>
+
   );
 };
 
@@ -67,6 +71,7 @@ const SingleButton = ({ icon, text, to }) => {
       </ButtonBase>
       <Typography className={classes.label}>{text}</Typography>
     </Box>
+
   );
 };
 

@@ -1,23 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import PaginationDot from './PaginationDot';
+import React from "react";
+import PropTypes from "prop-types";
+import PaginationDot from "./PaginationDot";
 
 const styles = {
   root: {
     margin: "auto",
-    display: 'flex',
-    flexDirection: 'row',
+    display: "flex",
+    flexDirection: "row",
     width: "30%",
     justifyContent: "center",
-
   },
-  container:{
-   
-  },
-  text:{
+  container: {},
+  text: {
     color: "white",
-    display: "inline"
-  }
+    display: "inline",
+  },
 };
 
 class Pagination extends React.Component {
@@ -42,9 +39,10 @@ class Pagination extends React.Component {
     return (
       <div style={styles.container}>
         <div style={styles.text}>
-          {index} / {dots -1}
+          {index} / {dots - 1}
         </div>
-      </div>);
+      </div>
+    );
   }
 }
 

@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
-import PatientCard from './PatientCard';
-import { Box, Typography } from '@material-ui/core';
-import PractitionerContext from '../PractitionerContext';
-import PatientListMessage from './PatientListMessage';
-import { makeStyles } from '@material-ui/core/styles';
-import { useTranslation } from 'react-i18next';
-import ChunkLabel from './ListSectionLabel';
-import ListSectionLabel from './ListSectionLabel';
+import React, { useContext } from "react";
+import PatientCard from "./PatientCard";
+import { Box, Typography } from "@material-ui/core";
+import PractitionerContext from "../PractitionerContext";
+import PatientListMessage from "./PatientListMessage";
+import { makeStyles } from "@material-ui/core/styles";
+import { useTranslation } from "react-i18next";
+import ChunkLabel from "./ListSectionLabel";
+import ListSectionLabel from "./ListSectionLabel";
 
 const AllPatientsList = () => {
   const { t } = useTranslation();
@@ -17,10 +17,9 @@ const AllPatientsList = () => {
     return a.status.localeCompare(b.status);
   });
 
-  if (status === 'pending') return <PatientListMessage isLoading={true} />;
+  if (status === "pending") return <PatientListMessage isLoading={true} />;
 
   let currentPatientStatus;
-  console.log(patients);
 
   return (
     <div>

@@ -1,36 +1,36 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Colors from '../../Basics/Colors';
-import { ButtonBase } from '@material-ui/core';
-import useLogout from '../../Basics/Logout';
-import { Link, useLocation } from 'react-router-dom';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Colors from "../../Basics/Colors";
+import { ButtonBase } from "@material-ui/core";
+import useLogout from "../../Basics/Logout";
+import { Link, useLocation } from "react-router-dom";
 
 const useStyles = makeStyles({
   navItemContainer: {
-    listStyle: 'none',
-    width: '100%',
-    height: '2.5em',
+    listStyle: "none",
+    width: "100%",
+    height: "2.5em",
   },
   navItem: {
-    boxSizing: 'border-box',
-    height: '100%',
-    margin: '1rem 0 0 0',
-    padding: '1.5rem .75rem',
-    display: 'flex',
-    width: '100%',
-    borderRadius: '4px',
-    color: (props) => (props.selected ? 'white' : Colors.buttonBlue),
+    boxSizing: "border-box",
+    height: "100%",
+    margin: "1rem 0 0 0",
+    padding: "1.5rem .75rem",
+    display: "flex",
+    width: "100%",
+    borderRadius: "4px",
+    color: (props) => (props.selected ? "white" : Colors.buttonBlue),
     backgroundColor: (props) =>
       props.selected ? Colors.textGray : Colors.lightgray,
-    '& > span:first-letter': {
-      textTransform: 'capitalize',
+    "& > span:first-letter": {
+      textTransform: "capitalize",
     },
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    '& > *:first-child': {
-      marginRight: '8px',
+    alignItems: "center",
+    justifyContent: "flex-start",
+    "& > *:first-child": {
+      marginRight: "8px",
     },
-    fontSize: '1em',
+    fontSize: "1em",
   },
 });
 
@@ -43,10 +43,10 @@ const LinkButton = (props) => {
 
   return (
     <ButtonBase
-      component={props.to ? Link : 'button'}
+      component={props.to ? Link : "button"}
       to={props.to}
       href={props.href}
-      target={props.href ? 'blank' : null}
+      target={props.href ? "blank" : null}
       onClick={props.onClick}
       className={`${classes.navItem}`}
     >
@@ -57,7 +57,6 @@ const LinkButton = (props) => {
 };
 
 const NavItem = (props) => {
-  
   const classes = useStyles();
   const logout = useLogout();
 

@@ -20,10 +20,12 @@ const useStyles = makeStyles({
     borderRadius: '4px',
     backgroundColor: `${Colors.white}`,
     border: `2px solid ${Colors.accentBlue}`,
+
   },
 });
 
 const ReviewPhotos = ({ patient }) => {
+
   const { t } = useTranslation('translation');
 
   return (
@@ -40,7 +42,9 @@ const ReviewPhotos = ({ patient }) => {
 };
 
 const PhotoPreview = ({ photo }) => {
+
   const { t } = useTranslation('translation');
+
   const classes = useStyles();
 
   return (
@@ -51,6 +55,7 @@ const PhotoPreview = ({ photo }) => {
         to={`?review-photo=${photo.photoId}`}
         className={classes.photoReport}
       >
+
         <Box
           display="flex"
           alignItems="center"
@@ -59,6 +64,7 @@ const PhotoPreview = ({ photo }) => {
         >
           <ShortDate date={photo.createdAt} />
         </Box>
+
         {!photo.backSubmission && photo.isRedo && (
           <Box paddingLeft="1em">
             <Label
