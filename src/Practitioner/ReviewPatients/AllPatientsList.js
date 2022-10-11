@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
 import PatientCard from './PatientCard';
-import { Box } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import PractitionerContext from '../PractitionerContext';
 import PatientListMessage from './PatientListMessage';
+import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
+import ChunkLabel from './ListSectionLabel';
 import ListSectionLabel from './ListSectionLabel';
 
 const AllPatientsList = ({ searchName = '' }) => {

@@ -12,14 +12,16 @@ const Container = styled(Box)({
   minWidth: "3 0px",
   textAlign: "center",
   "& p": { fontSize: ".85em" },
-  textTransform: "capitalize"
+  textTransform: "capitalize",
 });
 
 const TreatmentWeek = ({ patient }) => {
   const { t } = useTranslation("translation");
   return (
     <Container>
-      <Typography>{t('time.week')} {patient.weeksInTreatment}</Typography>
+      <Typography>
+        {t("time.week")} {patient.weeksInTreatment}
+      </Typography>
     </Container>
   );
 };

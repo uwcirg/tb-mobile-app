@@ -29,7 +29,7 @@ const PractitionerHome = () => {
     return 0;
   };
 
-  const tabValue = getTabValue();
+  const tabValue = getTabLocation();
 
   if (tabValue === 2) {
     location.pathname = '/home/all';

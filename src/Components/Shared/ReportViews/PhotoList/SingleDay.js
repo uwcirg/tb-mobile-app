@@ -47,7 +47,10 @@ export default function SingleDay({ date, report }) {
             <>
               <AttributeTitle>{t("commonWords.stripPhoto")}:</AttributeTitle>
               <Box height="4px" />
-              <LoadS3Image style={{ width: "100px", borderRadius: "4px" }} photo={photoDetails} />
+              <LoadS3Image
+                style={{ width: "100px", borderRadius: "4px" }}
+                photo={photoDetails}
+              />
               <AttributeTitle>{t("photoReportReview.result")}:</AttributeTitle>
               <Box height="4px" />
               <Result result={approvalStatus} />

@@ -1,8 +1,8 @@
-import React from 'react';
-import { Box } from '@material-ui/core';
-import FlatButton from '../../Components/FlatButton';
-import { makeStyles } from '@material-ui/core';
-import Colors from '../../Basics/Colors';
+import React from "react";
+import { Box } from "@material-ui/core";
+import FlatButton from "../../Components/FlatButton";
+import { makeStyles } from "@material-ui/core";
+import Colors from "../../Basics/Colors";
 
 export default function NextReportStep({
   handleNext,
@@ -28,6 +28,6 @@ export default function NextReportStep({
 
 const useStyles = makeStyles({
   padding: {
-    padding: '.8em 1em',
+    padding: ".8em 1em",
   },
 });
