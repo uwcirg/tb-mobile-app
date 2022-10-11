@@ -1,20 +1,21 @@
-import { Box, Grid, Typography, makeStyles } from "@material-ui/core";
-import { DateTime } from "luxon";
-import React from "react";
+import { Box, Grid, Typography, makeStyles } from '@material-ui/core';
+import { DateTime } from 'luxon';
+import React from 'react';
 
 const useStyles = makeStyles({
   date: {
-    width: "fit-content",
-    minWidth: "22px",
-    "& > *": {
-      lineHeight: "1em",
+    width: 'fit-content',
+    minWidth: '22px',
+    '& > *': {
+      lineHeight: '1em',
     },
   },
   day: {
-    fontSize: "1em",
+    fontSize: '1em',
+    fontWeight: 600,
   },
   month: {
-    fontSize: ".8em",
+    fontSize: '.8em',
   },
 });
 
@@ -33,11 +34,11 @@ export default function ShortDate({ date }) {
         className={classes.date}
       >
         <Typography className={classes.day}>
-          {parsedDate.toLocaleString({ day: "numeric" })}
+          {parsedDate.toLocaleString({ day: 'numeric' })}
         </Typography>
         <Box height="5px" />
         <Typography className={classes.month}>
-          {parsedDate.toLocaleString({ month: "short" })}
+          {parsedDate.toLocaleString({ month: 'short' })}
         </Typography>
       </Grid>
     </Box>
