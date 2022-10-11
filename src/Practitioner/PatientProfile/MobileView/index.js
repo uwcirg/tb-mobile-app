@@ -18,6 +18,7 @@ import PatientDetailsCard from "./PatientDetailsCard";
 import WhatsAppIcon from "@material-ui/icons/WhatsApp";
 import SymptomSummary from "../SymptomSummary";
 import PatientProgress from "../Details/PatientInfo";
+import ReportingHistory from "../ReportingHistory";
 
 const MobilePatientProfile = observer(() => {
   const { patientProfileStore } = useStores();
@@ -73,6 +74,9 @@ const MobileView = observer(() => {
           <Box height="8px" />
           <MedicationAdherence />
           <PhotoAdherence />
+        </Card>
+        <Card>
+          <ReportingHistory />
         </Card>
         <Box height="60px" aria-hidden />
       </Box>
