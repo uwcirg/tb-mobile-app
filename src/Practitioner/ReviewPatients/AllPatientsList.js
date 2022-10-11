@@ -1,14 +1,14 @@
-import React, { useContext } from "react";
-import PatientCard from "./PatientCard";
-import { Box, Typography } from "@material-ui/core";
-import PractitionerContext from "../PractitionerContext";
-import PatientListMessage from "./PatientListMessage";
-import { makeStyles } from "@material-ui/core/styles";
-import { useTranslation } from "react-i18next";
-import ChunkLabel from "./ListSectionLabel";
-import ListSectionLabel from "./ListSectionLabel";
+import React, { useContext } from 'react';
+import PatientCard from './PatientCard';
+import { Box, Typography } from '@material-ui/core';
+import PractitionerContext from '../PractitionerContext';
+import PatientListMessage from './PatientListMessage';
+import { makeStyles } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
+import ChunkLabel from './ListSectionLabel';
+import ListSectionLabel from './ListSectionLabel';
 
-const AllPatientsList = () => {
+const AllPatientsList = ({ searchName = '' }) => {
   const { t } = useTranslation();
 
   const { value: unsortedPatients, status } =
@@ -17,35 +17,39 @@ const AllPatientsList = () => {
     return a.status.localeCompare(b.status);
   });
 
-  if (status === "pending") return <PatientListMessage isLoading={true} />;
+  if (status === 'pending') return <PatientListMessage isLoading={true} />;
 
   let currentPatientStatus;
 
+  let searchResults =
+    patients &&
+    patients.filter((patient) =>
+      patient.fullName.toLowerCase().includes(searchName)
+    );
+
   return (
     <div>
-      {/* default placeholder if no patients are found */}
       {patients?.length < 1 && <PatientListMessage tab={2} />}
-
       {patients &&
-        patients.map((each) => {
+        searchResults.map((patient) => {
           let showSection = false;
-          if (each.status !== currentPatientStatus) {
+          if (patient.status !== currentPatientStatus) {
             showSection = true;
-            currentPatientStatus = each.status;
+            currentPatientStatus = patient.status;
           }
           return (
-            <div key={`review-patient-${each.id}`}>
+            <div key={`review-patient-${patient.id}`}>
               {showSection && (
                 <Box padding="1em 0 0 .5em">
                   <ListSectionLabel>
                     {t(
-                      `coordinator.cohortOverview.${each.status.toLowerCase()}`
+                      `coordinator.cohortOverview.${patient.status.toLowerCase()}`
                     )}
                   </ListSectionLabel>
                 </Box>
               )}
               <Box padding="8px 8px 0 8px">
-                <PatientCard isSimpleView patient={each} />
+                <PatientCard isSimpleView patient={patient} />
               </Box>
             </div>
           );
