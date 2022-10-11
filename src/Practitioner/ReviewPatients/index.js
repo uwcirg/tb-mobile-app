@@ -1,38 +1,37 @@
-import React, { useContext, useState } from 'react';
-import { Grid, Box, IconButton, TextField } from '@material-ui/core';
-import { Add, SearchOutlined, Close } from '@material-ui/icons';
-import ReviewPatientTabs from './Tabs';
-import StickyTopBar from '../../Components/Shared/StickyTopBar';
-import Colors from '../../Basics/Colors';
-import PractitionerContext from '../PractitionerContext';
-import ReviewPhoto from './ReviewPhoto';
-import ListOfPatients from './ListOfPatients';
-import MessagePatient from './MessagePatient';
-import { useLocation, useHistory } from 'react-router-dom';
-import { Route, Switch, useParams, Link } from 'react-router-dom';
-import AllPatientsList from './AllPatientsList';
-import ReportingPopover from '../Shared/ReportingPopOver';
-import { PageLabelTitle } from '../../Components/Shared/PageLabel';
-import { useTranslation } from 'react-i18next';
+import React, { useContext, useState } from "react";
+import { Grid, Box, IconButton, TextField } from "@material-ui/core";
+import { Add, SearchOutlined, Close } from "@material-ui/icons";
+import ReviewPatientTabs from "./Tabs";
+import StickyTopBar from "../../Components/Shared/StickyTopBar";
+import Colors from "../../Basics/Colors";
+import PractitionerContext from "../PractitionerContext";
+import ReviewPhoto from "./ReviewPhoto";
+import ListOfPatients from "./ListOfPatients";
+import MessagePatient from "./MessagePatient";
+import { useLocation, useHistory } from "react-router-dom";
+import { Route, Switch, useParams, Link } from "react-router-dom";
+import AllPatientsList from "./AllPatientsList";
+import ReportingPopover from "../Shared/ReportingPopOver";
+import { PageLabelTitle } from "../../Components/Shared/PageLabel";
+import { useTranslation } from "react-i18next";
 
 const PractitionerHome = () => {
-  const [searchResult, setSearchResult] = useState('');
+  const [searchResult, setSearchResult] = useState("");
   const [toggleSearch, setToggleSearch] = useState(false);
-  const [isFocused, setFocus] = useState('');
+  const [isFocused, setFocus] = useState("");
   const location = useLocation();
 
-  const getTabValue = () => {
-    if (isFocused === 'focus' && toggleSearch === true) return 2;
-    if (location.pathname === '/home/needs-review') return 0;
-    if (location.pathname === '/home/reviewed') return 1;
-    if (location.pathname === '/home/all') return 2;
+  const getTabLocation = () => {
+    if (isFocused === "focus" && toggleSearch === true) return 2;
+    if (location.pathname === "/home/needs-review") return 0;
+    if (location.pathname === "/home/reviewed") return 1;
+    if (location.pathname === "/home/all") return 2;
     return 0;
   };
-
   const tabValue = getTabLocation();
 
   if (tabValue === 2) {
-    location.pathname = '/home/all';
+    location.pathname = "/home/all";
   }
 
   const handleFocus = (e) => {
@@ -40,7 +39,7 @@ const PractitionerHome = () => {
   };
 
   return (
-    <div style={{ maxHeight: '100vh', overflowY: 'scroll' }}>
+    <div style={{ maxHeight: "100vh", overflowY: "scroll" }}>
       <Route path="*/:patientId/reports">
         <WrappedReportingPopover />
       </Route>
@@ -61,7 +60,7 @@ const PractitionerHome = () => {
         <Route path="/home/all">
           <AllPatientsList searchName={searchResult} />
         </Route>
-        <Route path={'/'}>
+        <Route path={"/"}>
           <ListOfPatients tabValue={tabValue} />
         </Route>
       </Switch>
@@ -70,19 +69,19 @@ const PractitionerHome = () => {
 };
 
 const TopBar = ({ setToggleSearch, toggleSearch }) => {
-  const { t } = useTranslation('translation');
+  const { t } = useTranslation("translation");
 
   return (
     <Box bgcolor="white" padding="1em 1em">
       <Grid alignItems="center" container>
-        <PageLabelTitle title={`${t('coordinator.cardTitles.allPatients')}`} />
+        <PageLabelTitle title={`${t("coordinator.cardTitles.allPatients")}`} />
         <Box flexGrow="1" />
         <IconButton
           style={{
             backgroundColor: Colors.lighterGray,
             color: Colors.textGray,
-            padding: '5px',
-            marginRight: '.5em',
+            padding: "5px",
+            marginRight: ".5em",
             border: toggleSearch
               ? `2px solid ${Colors.actionBlue}`
               : `2px solid ${Colors.lighterGray}`,
@@ -94,11 +93,11 @@ const TopBar = ({ setToggleSearch, toggleSearch }) => {
         <IconButton
           style={{
             backgroundColor: Colors.buttonBlue,
-            color: 'white',
-            padding: '5px',
+            color: "white",
+            padding: "5px",
           }}
           component={Link}
-          to={'/patients/add-patient'}
+          to={"/patients/add-patient"}
         >
           {<Add />}
         </IconButton>
@@ -108,18 +107,18 @@ const TopBar = ({ setToggleSearch, toggleSearch }) => {
 };
 
 const SearchBar = ({ setSearchResult, handleFocus, setToggleSearch }) => {
-  const { t } = useTranslation('translation');
+  const { t } = useTranslation("translation");
   function handleExitSearch() {
     setToggleSearch(false);
-    setSearchResult('');
+    setSearchResult("");
   }
   return (
     <Box maxWidth="60ch" paddingX=".5em" bgcolor="white">
       <TextField
-        style={{ width: '100%' }}
+        style={{ width: "100%" }}
         id="outlined-basic"
         variant="outlined"
-        label={t('messaging.search')}
+        label={t("messaging.search")}
         type="text"
         onChange={(e) => {
           setSearchResult(e.target.value.toLowerCase());
@@ -127,7 +126,7 @@ const SearchBar = ({ setSearchResult, handleFocus, setToggleSearch }) => {
         onFocus={(e) => handleFocus(e)}
         onBlur={(e) => handleFocus(e)}
         InputProps={{
-          'aria-label': 'search',
+          "aria-label": "search",
           endAdornment: (
             <IconButton onClick={handleExitSearch}>
               <Close />
@@ -150,7 +149,7 @@ const WrappedReportingPopover = () => {
   return (
     <ReportingPopover
       handleExit={() => {
-        history.push('/home/needs-review');
+        history.push("/home/needs-review");
       }}
       patient={patient}
     />
