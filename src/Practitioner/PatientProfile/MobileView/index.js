@@ -67,6 +67,9 @@ const MobileView = observer(() => {
         <Card title={t("coordinator.patientProfile.symptomSummary.title")}>
           <SymptomSummary patient={patient} />
         </Card>
+        <Card>
+          <ReportingHistory />
+        </Card>
         <Card title={t("coordinator.cardTitles.overviewOfProgress")}>
           <PatientProgress />
         </Card>
@@ -74,9 +77,6 @@ const MobileView = observer(() => {
           <Box height="8px" />
           <MedicationAdherence />
           <PhotoAdherence />
-        </Card>
-        <Card>
-          <ReportingHistory />
         </Card>
         <Box height="60px" aria-hidden />
       </Box>
