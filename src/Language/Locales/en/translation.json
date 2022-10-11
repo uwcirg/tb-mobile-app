@@ -40,7 +40,9 @@
     "errorMessage": "An error has occured. Please try again later.",
     "atTime": "a las",
     "loadMore": "load more",
-    "back": "back"
+    "back": "back",
+    "summary": "Summary",
+    "reportingSummary": "Reporting Summary"
   },
   "userTypes": {
     "patient": "Patient",

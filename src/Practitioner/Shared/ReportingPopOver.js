@@ -1,13 +1,15 @@
-import React, { useCallback, useMemo } from "react";
-import PopOverV2 from "../../Components/Shared/PopOverV2";
-import { useParams } from "react-router-dom";
-import SharedAPI from "../../API/SharedAPI";
-import useAsync from "../../Hooks/useAsync";
-import { useTranslation } from "react-i18next";
-import ReportViews from "../../Components/Shared/ReportViews";
+
+import React, { useCallback, useMemo } from 'react';
+import PopOverV2 from '../../Components/Shared/PopOverV2';
+import { useParams } from 'react-router-dom';
+import SharedAPI from '../../API/SharedAPI';
+import useAsync from '../../Hooks/useAsync';
+import { useTranslation } from 'react-i18next';
+import ReportViews from '../../Components/Shared/ReportViews';
 
 export default function ReportingPopover({ patient, handleExit }) {
-  const { t } = useTranslation("translation");
+  const { t } = useTranslation('translation');
+
 
   const { patientId } = useParams();
 
@@ -31,8 +33,9 @@ export default function ReportingPopover({ patient, handleExit }) {
       open={true}
       topBarTitle={
         patient
-          ? `${patient.fullName} ${t("coordinator.patientProfile.listReports")}`
-          : ""
+          ? `${patient.fullName} ${t('coordinator.patientProfile.listReports')}`
+          : ''
+
       }
       handleExit={handleExit}
     >
@@ -44,7 +47,8 @@ export default function ReportingPopover({ patient, handleExit }) {
             treatmentStart: patient.treatmentStart,
           }}
           reports={reportHash}
-          loading={status === "pending"}
+
+          loading={status === 'pending'}
         />
       )}
     </PopOverV2>

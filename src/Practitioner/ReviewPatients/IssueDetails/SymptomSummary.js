@@ -1,18 +1,23 @@
-import React from "react";
-import { Grid } from "@material-ui/core";
-import { Assignment as Clipboard } from "@material-ui/icons";
-import Symptom from "../../Shared/Symptom";
-import { useTranslation } from "react-i18next";
-import ExpandableCard from "../../../Components/ExpandableCard";
+
+import React from 'react';
+import { Grid } from '@material-ui/core';
+import { Assignment as Clipboard } from '@material-ui/icons';
+import Symptom from '../../Shared/Symptom';
+import { useTranslation } from 'react-i18next';
+import IssueCard from './IssueCard';
+import Colors from '../../../Basics/Colors';
 
 const SymptomSummary = ({ patient }) => {
-  const { t } = useTranslation("translation");
+  const { t } = useTranslation('translation');
 
   return (
-    <ExpandableCard
-      title={t("commonWords.symptoms")}
-      icon={Clipboard}
-      number={Object.keys(patient.issues.symptomCounts).length}
+    <IssueCard
+      colors={Colors.warningRed}
+      title={t('commonWords.symptoms')}
+      icon={<Clipboard style={{ color: Colors.warningRed }} />}
+      issueCount={Object.keys(patient.issues.symptomCounts).length}
+      childrenStyles={{ color: Colors.warningRed }}
+
     >
       {Object.keys(patient.issues.symptomCounts).map((string, index) => {
         const count = patient.issues.symptomCounts[string];
@@ -23,7 +28,7 @@ const SymptomSummary = ({ patient }) => {
           </Grid>
         );
       })}
-    </ExpandableCard>
+    </IssueCard>
   );
 };
 
