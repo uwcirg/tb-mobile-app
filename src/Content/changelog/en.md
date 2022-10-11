@@ -1,14 +1,17 @@
 ## v2.9
+
 Released December 27th, 2021
 
 Features:
+
 - Enabled one step reporting for patients who are not having issues
-    - If medication was taken, and they are not having any issues, they can fill the report with one button press
-    - If they have issues to log, the normal survey is available
+  - If medication was taken, and they are not having any issues, they can fill the report with one button press
+  - If they have issues to log, the normal survey is available
 - Patients can now report by interacting with a push notification
 - Removed time input for medication survey
 
 UI Changes:
+
 - Improved interface on photo submisison page
 - Improved button and spacing consistancy in daily survey
 - Removed shadows from cards and buttons
@@ -17,20 +20,22 @@ UI Changes:
 - Freshened up UI that displays number of offline reports
 
 Bug Fixes:
+
 - Fixes bug where photo appeared to not submit when skipping to photo portion of survey
 
 ## v2.8
 
 - Bug fixes:
-    - Back report not falling off of the list properly
-    - New patient table spacing
-    - Consistant reporting state when connection is intermittent
-    - Calendar styling bugs on patient side
+  - Back report not falling off of the list properly
+  - New patient table spacing
+  - Consistant reporting state when connection is intermittent
+  - Calendar styling bugs on patient side
 - Flag late photo submissions on the coordinator page
 - Add new UI for viewing patients in list + improve add patient flow
 - Add loading message when reporting history is loaded to prevent confusion about missing data
 
 ## v2.7
+
 Released September 2nd, 2021
 
 Patient Side:
@@ -40,16 +45,15 @@ Patient Side:
 - Update onboarding survey contact tracing to match new format
 - Show link to end of treatment survey after 20 weeks
 
-
 Assistant Side:
 
-- Add visual of treatment progress on patient profile 
+- Add visual of treatment progress on patient profile
 - View of contact tracing status on patient profile
 - Redesign of reports table, clearly label back submissions
 - Fix bug where patients who havent reported today would show up in missed medication reprot category
 
+## v2.6
 
-## v2.6 
 Released July 20th, 2021
 
 Patient Side:
@@ -60,9 +64,9 @@ Patient Side:
 - Add screen to onboarding to explain notifications before asking for permission
 - Track if patient is installing app or using in browser
 - Fix display issues in onboarding
-    - Button overlap with password input
-    - Increase size of age input
-    - Replace old analog time picker with same one used in daily report
+  - Button overlap with password input
+  - Increase size of age input
+  - Replace old analog time picker with same one used in daily report
 - Add number only keyboard for phone number input on login screen
 
 Assistant Side:
@@ -81,20 +85,20 @@ General:
 - Improve design of copyable text components
 - Workaround for bug where update popup was causing titles to be very large
 
-
 ## v2.5
+
 Released June 24th, 2021
 
 Assistant View:
 
 - Assistants can now archive patients
-	- A treatment outcome and end date can be selected during this process
-	- They will no longer show up in the list of tasks
-	- Added list of archived patients on the patients tab, and you can access their profiles from here
-	- Once archived patients can still access the app + messaging, but can no longer report
-	- Archived patients adherence will not be calculated on a rolling basis, will instead be calculated based on the number of days they used the app
+  - A treatment outcome and end date can be selected during this process
+  - They will no longer show up in the list of tasks
+  - Added list of archived patients on the patients tab, and you can access their profiles from here
+  - Once archived patients can still access the app + messaging, but can no longer report
+  - Archived patients adherence will not be calculated on a rolling basis, will instead be calculated based on the number of days they used the app
 - Redesign top part of the patient profile to have more options and details
-	- More details about adherence and 
+  - More details about adherence and
 - Summary of adherence at your site is now available at the top of the tasks list
 - Patients names will now be listed in site level chats ( only visible to assistants )
 
@@ -113,10 +117,10 @@ Other Small Changes:
 
 - Redesigned sidebar of tasks page to be more consistent with rest of app
 - Moved patients awaiting activation list to top of cohort page
-- Removed site summary from side of cohort view because it was confusing 
+- Removed site summary from side of cohort view because it was confusing
 - Limited number of messages loaded at a time to speed up load times for messaging
 - Improved loading UI for messages
-- Added button to copy temporary code for patient activation 
+- Added button to copy temporary code for patient activation
 
 ## v2.4.2
 
@@ -128,11 +132,13 @@ API Changes Only:
 ## v2.4.1
 
 Changes:
+
 - Updated test strip instructions to reflect new strip design
 - Added a popup to clarify new test strip instructions to existing users
 - New test strip instruction video
 
 Bug Fixes:
+
 - Issue with new patient registration, would have prevented new patients from being registered after the onboarding survey
 
 ## v2.4
@@ -142,13 +148,13 @@ New Features / Changes
 - Adjust photo request schedules due to logistical issues
 - Tracking push notification delivery and clicks via service-worker middleware
 - Reminders to complete a test on a day when it has been requested
-    - If not completed, a second reminder will be sent
+  - If not completed, a second reminder will be sent
 - Reminders for patients that have stopped reporting for more than 3 days
 - Enable external admin panel
 - Add warning to the demo, saying it should not be used for patient data
 - Add site level messaging
-    - Coordinators now have access to a channel that is only for patients at their site
-    - Used for site level announcements and discussions
+  - Coordinators now have access to a channel that is only for patients at their site
+  - Used for site level announcements and discussions
 - Clicking on a messaging notification will open the relevant channel
 - Create patient_information table to move patient specific fields out of user model
 - Coordinators can now see which category of messages has unread messages
@@ -158,12 +164,14 @@ Bug Fixes:
 - Fix timezone bug when adding a photo day on a patients first day
 - Fix onboarding survey not recording number of contacts
 - Fix item number 6's appearance on the onboarding survey
-- Ignore click-aways on coordinator side activation code for new patients 
+- Ignore click-aways on coordinator side activation code for new patients
 
 ## v2.3.1
+
 - Fix missing translation with new update about group chat
 
 ## v2.3
+
 Changes:
 
 Fix education messages:
@@ -195,11 +203,11 @@ Coordinator Side:
 - Add treatment end date for patients, make it editable
 
 Behind the scenes:
+
 - Updated tests w/ react-testing-framework
 - Integrated Swagger documentation generation
 - Moved messaging notification generation to workers
 - Refactor treatment messages into translation software
-
 
 ## v2.2
 
@@ -213,7 +221,7 @@ Across App:
 Patient Facing:
 
 - Reports upload at each step now ( with the exception of offline reports )
- - ie. if a patient submits their medication but forgets to submit the rest of the report, it will still be recorded on the server
+- ie. if a patient submits their medication but forgets to submit the rest of the report, it will still be recorded on the server
 - Allow patients to skip photo submission if they provide a reason
 - Confirmation screen has been removed and replaced with a confirmation, preview, and edit functionality on the home-screen's "Action Card"
 - Make offline mode more clear
@@ -222,23 +230,22 @@ Treatment Assistant Facing:
 
 - Added link to issue submission form
 - Added task for patients that have missed a photo submission
- - Shows the reason they provided for skipping if applicable
+- Shows the reason they provided for skipping if applicable
 - Basic layout of improved task design implemented at /review
 
 Admin Panel:
 
 - Don't show accounts from the designated test site in results
 
-
-
 ## v2.1.4
+
 Bug Fix:
 
 - Newly signed up patients were being shown the "Action needed missed report" card for reports before their treatment start.
 - Fixed this error for the days in the future or before treatment start
 
-
 ## v2.1.2
+
 Bug Fix:
 
 - Treatment Messages (weekly timed messages) were showing up blank. Fixed
@@ -256,9 +263,9 @@ New Features:
 - Require a reason for patients submitting a "Need Support" request
 - Remove 180 days reference from progress card on home page
 - Admin Functions
- - View summary statistics about app use
- - Show status of recent photo submissions
- - ElastiAlert monitoring setup for server errors
+- View summary statistics about app use
+- Show status of recent photo submissions
+- ElastiAlert monitoring setup for server errors
 
 Resolved Bugs:
 
@@ -268,35 +275,32 @@ Resolved Bugs:
 - Assistant mobile messaging missing channel bug fixed
 - Add error handling for onboarding survey to prevent infinite loop
 
-
 ## v2.0.5 - November 13th-24th, 2020
 
 New Features
 
- - Improved update experience. 
-  - Previously required users to close all tabs of app, now they just click a button.
-  - Added popup screen with update details
-  - Now checks for new update every time app is launched
- - Added Version number and Change log
- - Add table of contents for walkthrough
- - Change design of walkthrough for easier navigation
- - Add more gender options in onboarding
- - Add "I don’t know" field for contact tracing survey
- - Add free-text note for appointments
- - Fix "other" appointment category to use inputed name in list
- - Make adherence a percentage on the shared patient sidebar (treatment assistant side)
- - Changed icon used to reference test strips
+- Improved update experience.
+- Previously required users to close all tabs of app, now they just click a button.
+- Added popup screen with update details
+- Now checks for new update every time app is launched
+- Added Version number and Change log
+- Add table of contents for walkthrough
+- Change design of walkthrough for easier navigation
+- Add more gender options in onboarding
+- Add "I don’t know" field for contact tracing survey
+- Add free-text note for appointments
+- Fix "other" appointment category to use inputed name in list
+- Make adherence a percentage on the shared patient sidebar (treatment assistant side)
+- Changed icon used to reference test strips
 
 Translations
 
- - Updated translations for walkthrough table of contents
- - Fix "Next" translation on onboarding survey
- - Change english translations from "coordinator" -> treatment assistant
+- Updated translations for walkthrough table of contents
+- Fix "Next" translation on onboarding survey
+- Change english translations from "coordinator" -> treatment assistant
 
 Resolved Bugs:
 
 - Fixed walkthrough broken after onboarding completion
 - Logo not showing up when not on home route
 - Changing language when logged out is not persisted throughout app
-
-

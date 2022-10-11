@@ -1,23 +1,23 @@
-import React from 'react';
-import useStores from '../../../Basics/UseStores';
-import { observer } from 'mobx-react';
-import StickyTopBar from '../../../Components/Shared/StickyTopBar';
-import { Box, Typography } from '@material-ui/core';
-import Colors from '../../../Basics/Colors';
-import ButtonList from '../Buttons';
-import { PageLabel } from '../../../Components/Shared/PageLabel';
-import { Switch, Route } from 'react-router-dom';
-import ReportingPopOver from '../../Shared/ReportingPopOver';
-import { useHistory } from 'react-router-dom';
-import PhotoAdherence from '../Adherence/Photo';
-import MedicationAdherence from '../Adherence/Medication';
-import { useTranslation } from 'react-i18next';
-import AppointmentCard from './AppointmentCard';
-import Card from './Card';
-import PatientDetailsCard from './PatientDetailsCard';
-import WhatsAppIcon from '@material-ui/icons/WhatsApp';
-import SymptomSummary from '../SymptomSummary';
-import PatientProgress from '../Details/PatientInfo';
+import React from "react";
+import useStores from "../../../Basics/UseStores";
+import { observer } from "mobx-react";
+import StickyTopBar from "../../../Components/Shared/StickyTopBar";
+import { Box, Typography } from "@material-ui/core";
+import Colors from "../../../Basics/Colors";
+import ButtonList from "../Buttons";
+import { PageLabel } from "../../../Components/Shared/PageLabel";
+import { Switch, Route } from "react-router-dom";
+import ReportingPopOver from "../../Shared/ReportingPopOver";
+import { useHistory } from "react-router-dom";
+import PhotoAdherence from "../Adherence/Photo";
+import MedicationAdherence from "../Adherence/Medication";
+import { useTranslation } from "react-i18next";
+import AppointmentCard from "./AppointmentCard";
+import Card from "./Card";
+import PatientDetailsCard from "./PatientDetailsCard";
+import WhatsAppIcon from "@material-ui/icons/WhatsApp";
+import SymptomSummary from "../SymptomSummary";
+import PatientProgress from "../Details/PatientInfo";
 
 const MobilePatientProfile = observer(() => {
   const { patientProfileStore } = useStores();
@@ -43,7 +43,7 @@ const MobilePatientProfile = observer(() => {
 });
 
 const MobileView = observer(() => {
-  const { t } = useTranslation('translation');
+  const { t } = useTranslation("translation");
   const { patientProfileStore } = useStores();
   const patient = patientProfileStore.selectedPatient.details;
 
@@ -52,7 +52,7 @@ const MobileView = observer(() => {
       <StickyTopBar>
         <PageLabel
           title={<NameAndNumber patient={patient} />}
-          to={'/home/needs-review'}
+          to={"/home/needs-review"}
         />
       </StickyTopBar>
       <Box minHeight="90vh" bgcolor={Colors.lightgray} padding="8px">
@@ -63,13 +63,13 @@ const MobileView = observer(() => {
         <AppointmentCard
           patient={patientProfileStore.selectedPatient.details}
         />
-        <Card title={t('coordinator.patientProfile.symptomSummary.title')}>
+        <Card title={t("coordinator.patientProfile.symptomSummary.title")}>
           <SymptomSummary patient={patient} />
         </Card>
-        <Card title={t('coordinator.cardTitles.overviewOfProgress')}>
+        <Card title={t("coordinator.cardTitles.overviewOfProgress")}>
           <PatientProgress />
         </Card>
-        <Card title={t('coordinator.cohortOverview.adherenceGraph')}>
+        <Card title={t("coordinator.cohortOverview.adherenceGraph")}>
           <Box height="8px" />
           <MedicationAdherence />
           <PhotoAdherence />
@@ -99,7 +99,7 @@ const NameAndNumber = ({ patient }) => {
         style={{ color: Colors.blue }}
         paddingLeft
       >
-        <WhatsAppIcon style={{ height: '.75em', color: Colors.blue }} />
+        <WhatsAppIcon style={{ height: ".75em", color: Colors.blue }} />
         <Typography variant="body1" color="initial">
           {patient.phoneNumber}
         </Typography>

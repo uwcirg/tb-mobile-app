@@ -1,20 +1,19 @@
 import { action, observable } from "mobx";
 import getNotificationPreference from "../Utility/GetNotificationPreference";
-import APIStore from './apiStore'
+import APIStore from "./apiStore";
 
 const USER_ROUTES = {
   logout: ["/auth", "DELETE"],
   getVapidKey: ["/push_key", "GET"],
-  getLocales: ["/config/locales", "GET"]
-}
+  getLocales: ["/config/locales", "GET"],
+};
 
 export class UserStore extends APIStore {
-
   @observable userType = "";
-  @observable userID = ""
-  @observable token = ""
-  @observable givenName = ""
-  @observable familyName = ""
+  @observable userID = "";
+  @observable token = "";
+  @observable givenName = "";
+  @observable familyName = "";
   @observable expired = false;
   @observable isLoggedIn = false;
   @observable reminderTime = "";
@@ -22,14 +21,14 @@ export class UserStore extends APIStore {
   @observable forcePasswordChange = false;
 
   constructor(strategy, routes, userType) {
-    const mergedRoutes = { ...USER_ROUTES, ...routes }
+    const mergedRoutes = { ...USER_ROUTES, ...routes };
     super(strategy, mergedRoutes);
     this.userType = userType;
   }
 
   @action setAccountInformation(json) {
-
-    json.dailyNotificationTime && (this.reminderTime = json.dailyNotificationTime)
+    json.dailyNotificationTime &&
+      (this.reminderTime = json.dailyNotificationTime);
 
     this.givenName = json.givenName;
     this.familyName = json.familyName;
@@ -42,86 +41,85 @@ export class UserStore extends APIStore {
   }
 
   @action logout = () => {
-    this.executeRequest('logout').then((json) => {
+    this.executeRequest("logout").then((json) => {
       this.isLoggedIn = false;
-    })
+    });
     this.clearLocalStorage();
-  }
+  };
 
   @action getLocales = () => {
-    this.executeRequest('getLocales').then((json) => {
-      
-    })
-  }
+    this.executeRequest("getLocales").then((json) => {});
+  };
 
- initalize () {
-
-    return this.executeRequest(`getCurrent${this.userType}`,{}, {allowErrors: true}).then((json) => {
-      if(json && json.errors && json.status === 401){
+  initalize() {
+    return this.executeRequest(
+      `getCurrent${this.userType}`,
+      {},
+      { allowErrors: true }
+    ).then((json) => {
+      if (json && json.errors && json.status === 401) {
         this.authorizationError = true;
-        return
+        return;
       }
 
       this.authorizationError = false;
       if (json.id) {
-        this.setAccountInformation(json)
-        if(this.status !== "Pending"){
+        this.setAccountInformation(json);
+        if (this.status !== "Pending") {
           this.subscribeToNotifications();
         }
       }
     });
-
   }
 
   clearLocalStorage() {
     localStorage.removeItem("user.token");
     localStorage.removeItem("user.id");
     localStorage.removeItem("user.type");
-    localStorage.removeItem("medicationReport")
+    localStorage.removeItem("medicationReport");
   }
 
   unsubscribeFromNotifications() {
-    navigator.serviceWorker.ready.then(registration => {
+    navigator.serviceWorker.ready.then((registration) => {
       //Find the registered push subscription in the service worker
       registration.pushManager
         .getSubscription()
-        .then(subscription => {
+        .then((subscription) => {
           if (!subscription) {
-            return
+            return;
             //If there isn't a subscription, then there's nothing to do
           }
 
           subscription
             .unsubscribe()
             .then(() => console.log("unsubscribe"))
-            .catch(err => console.error(err))
+            .catch((err) => console.error(err));
         })
-        .catch((err) => console.error(err))
-    })
+        .catch((err) => console.error(err));
+    });
   }
 
   subscribeToNotifications = () => {
-
-    navigator.serviceWorker.ready.then(registration => {
-
+    navigator.serviceWorker.ready.then((registration) => {
       if (!registration.pushManager) {
         // Push notifications are not supported
-        return
+        return;
       }
       this.getVapidKeyFromServerAndStoreLocally().then(() => {
-        registration.pushManager.subscribe({
-          userVisibleOnly: true, //Always display notifications
-          applicationServerKey: this.urlB64ToUint8Array(localStorage.getItem("vapidKey"))
-        })
-          .then(subscription => this.updateSubscriptionOnServer(subscription))
-          .catch(err => console.error("Push subscription error: ", err))
-      })
-    })
-
-  }
+        registration.pushManager
+          .subscribe({
+            userVisibleOnly: true, //Always display notifications
+            applicationServerKey: this.urlB64ToUint8Array(
+              localStorage.getItem("vapidKey")
+            ),
+          })
+          .then((subscription) => this.updateSubscriptionOnServer(subscription))
+          .catch((err) => console.error("Push subscription error: ", err));
+      });
+    });
+  };
 
   updateSubscriptionOnServer = (subscription) => {
-
     if (subscription) {
       let sj = JSON.stringify(subscription);
       subscription = JSON.parse(sj);
@@ -130,30 +128,39 @@ export class UserStore extends APIStore {
         pushUrl: subscription.endpoint,
         pushAuth: subscription.keys.auth,
         pushP256dh: subscription.keys.p256dh,
-        pushClientPermission: getNotificationPreference()
-      }
+        pushClientPermission: getNotificationPreference(),
+      };
 
-      return this.executeRawRequest(`/v2/user/${this.userID}/push_subscription`,"PATCH",body)
+      return this.executeRawRequest(
+        `/v2/user/${this.userID}/push_subscription`,
+        "PATCH",
+        body
+      );
     }
-
-  }
+  };
 
   getVapidKeyFromServerAndStoreLocally = () => {
-    return this.executeRawRequest(`/v2/vapid_public_key?pushClientPermission=${getNotificationPreference()}`).then(json => {
-      localStorage.setItem("vapidKey", json.key)
-    })
-  }
+    return this.executeRawRequest(
+      `/v2/vapid_public_key?pushClientPermission=${getNotificationPreference()}`
+    ).then((json) => {
+      localStorage.setItem("vapidKey", json.key);
+    });
+  };
 
   logPushPermissionStatus = () => {
-    this.executeRawRequest(`/v2/user/${this.userID}/push_subscription`, "PATCH", {pushClientPermission: getNotificationPreference()})
-  }
+    this.executeRawRequest(
+      `/v2/user/${this.userID}/push_subscription`,
+      "PATCH",
+      { pushClientPermission: getNotificationPreference() }
+    );
+  };
 
   urlB64ToUint8Array = (base64String) => {
     try {
-      const padding = '='.repeat((4 - base64String.length % 4) % 4);
+      const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
       const base64 = (base64String + padding)
-        .replace(/\-/g, '+')
-        .replace(/_/g, '/');
+        .replace(/\-/g, "+")
+        .replace(/_/g, "/");
 
       const rawData = window.atob(base64);
       const outputArray = new Uint8Array(rawData.length);
@@ -162,13 +169,8 @@ export class UserStore extends APIStore {
         outputArray[i] = rawData.charCodeAt(i);
       }
       return outputArray;
-
     } catch (err) {
       alert(err);
     }
-
-  }
-  
-
-
+  };
 }

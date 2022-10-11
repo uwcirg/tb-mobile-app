@@ -8,9 +8,9 @@ const useStyles = makeStyles({
     borderRadius: "18px",
     border: "solid 1px lightgray",
   },
-  label:{
-      color: "black"
-  }
+  label: {
+    color: "black",
+  },
 });
 
 export default function Input(props) {
@@ -23,14 +23,13 @@ export default function Input(props) {
       size="small"
       className={classes.input}
       InputLabelProps={{
-        className: classes.label
-      }
-      }
+        className: classes.label,
+      }}
       InputProps={{
         ...props.InputProps,
         disableUnderline: true,
         style: {
-          padding: ".5rem 1rem"
+          padding: ".5rem 1rem",
         },
       }}
       variant="standard"

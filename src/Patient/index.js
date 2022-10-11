@@ -1,29 +1,29 @@
-import React, { useEffect, useRef } from 'react';
-import BottomBar from './Navigation/BottomBar';
-import { observer } from 'mobx-react';
-import Home from './Home';
-import Info from './Information/';
-import Messaging from '../Messaging';
-import Progress from './Progress';
-import TopBar from './Navigation/TopBar';
-import TopMenu from './Navigation/SettingsDrawer';
-import Intro from './Walkthrough/';
-import useStores from '../Basics/UseStores';
-import Onboarding from './Onboarding';
-import Colors from '../Basics/Colors';
-import { useMatomo } from '@datapunt/matomo-tracker-react';
-import ErrorListener from './ErrorListener';
-import ForcePasswordChange from './ForcePasswordChange';
-import EducationalMessage from './Home/Education';
-import { usePageVisibility } from '../Hooks/PageVisibility';
-import UpdateContactTracing from './HouseholdTesting';
-import MissedPhotoFlow from './ReportingFlows/AltPhotoFlows';
-import PushActionReportingFlow from './ReportingFlows/PushActionReportingFlow';
-import Box from '@material-ui/core/Box';
-import RedoPhotoFlow from './ReportingFlows/AltPhotoFlows/RedoPhotoFlow';
-import isIndonesiaPilot from '../Utility/check-indonesia-flag';
-import AddApointment from '../Components/Shared/Appointments/AddAppointment/';
-import CantTakePhoto from './ReportingFlows/CantTakePhoto';
+import React, { useEffect, useRef } from "react";
+import BottomBar from "./Navigation/BottomBar";
+import { observer } from "mobx-react";
+import Home from "./Home";
+import Info from "./Information/";
+import Messaging from "../Messaging";
+import Progress from "./Progress";
+import TopBar from "./Navigation/TopBar";
+import TopMenu from "./Navigation/SettingsDrawer";
+import Intro from "./Walkthrough/";
+import useStores from "../Basics/UseStores";
+import Onboarding from "./Onboarding";
+import Colors from "../Basics/Colors";
+import { useMatomo } from "@datapunt/matomo-tracker-react";
+import ErrorListener from "./ErrorListener";
+import ForcePasswordChange from "./ForcePasswordChange";
+import EducationalMessage from "./Home/Education";
+import { usePageVisibility } from "../Hooks/PageVisibility";
+import UpdateContactTracing from "./HouseholdTesting";
+import MissedPhotoFlow from "./ReportingFlows/AltPhotoFlows";
+import PushActionReportingFlow from "./ReportingFlows/PushActionReportingFlow";
+import Box from "@material-ui/core/Box";
+import RedoPhotoFlow from "./ReportingFlows/AltPhotoFlows/RedoPhotoFlow";
+import isIndonesiaPilot from "../Utility/check-indonesia-flag";
+import AddApointment from "../Components/Shared/Appointments/AddAppointment/";
+import CantTakePhoto from "./ReportingFlows/CantTakePhoto";
 
 const PatientHome = observer(() => {
   const { patientUIStore, patientStore, uiStore, dailyReportStore } =
@@ -36,18 +36,18 @@ const PatientHome = observer(() => {
   // When tab is changed, make sure that we scroll to the top so user does not get lost
   // Track page view in Matomo
   useEffect(() => {
-    const TEXT_OPTIONS = ['Home', 'Progress', 'Messaging', 'Information'];
+    const TEXT_OPTIONS = ["Home", "Progress", "Messaging", "Information"];
     trackPageView({ documentTitle: TEXT_OPTIONS[patientUIStore.tabNumber] });
     window.scrollTo(0, 0);
   }, [patientUIStore.tabNumber]);
 
   useEffect(() => {
-    if (patientStore.status === 'Pending') patientUIStore.goToOnboarding();
+    if (patientStore.status === "Pending") patientUIStore.goToOnboarding();
   }, [patientStore.status]);
 
   useEffect(() => {
     if (patientStore.userID) {
-      pushInstruction('setUserId', `P${patientStore.userID}`);
+      pushInstruction("setUserId", `P${patientStore.userID}`);
     }
   }, [patientStore.userID]);
 
@@ -62,17 +62,17 @@ const PatientHome = observer(() => {
 
   useEffect(() => {
     if (isVisible) {
-      let displayMode = 'browser';
-      const mqStandAlone = '(display-mode: standalone)';
+      let displayMode = "browser";
+      const mqStandAlone = "(display-mode: standalone)";
       if (navigator.standalone || window.matchMedia(mqStandAlone).matches) {
-        displayMode = 'standalone';
+        displayMode = "standalone";
       }
       pushInstruction(
-        'setCustomVariable',
+        "setCustomVariable",
         2,
-        'clientLaunchType',
+        "clientLaunchType",
         displayMode,
-        'visit'
+        "visit"
       );
     }
   }, [isVisible]);
@@ -81,27 +81,27 @@ const PatientHome = observer(() => {
     return <ForcePasswordChange />;
   }
 
-  if (patientStore.status === 'Pending') {
+  if (patientStore.status === "Pending") {
     return <Onboarding />;
   }
 
-  if (uiStore.pathname.startsWith('/contact-tracing')) {
+  if (uiStore.pathname.startsWith("/contact-tracing")) {
     return <UpdateContactTracing />;
   }
 
-  if (uiStore.pathname.startsWith('/missed-photo')) {
+  if (uiStore.pathname.startsWith("/missed-photo")) {
     return <MissedPhotoFlow />;
   }
 
-  if (uiStore.pathname.startsWith('/redo-photo')) {
+  if (uiStore.pathname.startsWith("/redo-photo")) {
     return <RedoPhotoFlow />;
   }
 
-  if (uiStore.pathname.startsWith('/quick-report')) {
+  if (uiStore.pathname.startsWith("/quick-report")) {
     return <PushActionReportingFlow />;
   }
 
-  if (uiStore.pathname.startsWith('/add-appointment')) {
+  if (uiStore.pathname.startsWith("/add-appointment")) {
     return <AddApointment patientId={patientStore.userID} />;
   }
 
@@ -111,8 +111,8 @@ const PatientHome = observer(() => {
       className="main-screen"
       style={{
         backgroundColor: `${Colors.white}`,
-        height: '100vh',
-        overflowY: patientUIStore.onSettings ? 'hidden' : 'scroll',
+        height: "100vh",
+        overflowY: patientUIStore.onSettings ? "hidden" : "scroll",
       }}
     >
       <ErrorListener />
@@ -123,7 +123,7 @@ const PatientHome = observer(() => {
       {!isIndonesiaPilot() && <EducationalMessage />}
       {patientUIStore.onWalkthrough && <Intro />}
       <TopMenu />
-      <div style={{ paddingBottom: '60px' }}>{routeTab}</div>
+      <div style={{ paddingBottom: "60px" }}>{routeTab}</div>
       {!patientUIStore.onReportFlow && <BottomBar />}
     </div>
   );

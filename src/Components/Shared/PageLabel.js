@@ -1,35 +1,34 @@
-import React from 'react';
-import { Grid, IconButton, Typography } from '@material-ui/core';
-import { ChevronLeftRounded } from '@material-ui/icons';
-import { makeStyles } from '@material-ui/core/styles';
-import { Link, useHistory } from 'react-router-dom';
+import React from "react";
+import { Grid, IconButton, Typography } from "@material-ui/core";
+import { ChevronLeftRounded } from "@material-ui/icons";
+import { makeStyles } from "@material-ui/core/styles";
+import { Link, useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   title: {
-    fontSize: '1.25em',
-    padding: '.5em 0',
+    fontSize: "1.25em",
+    padding: ".5em 0",
   },
   backButton: {
-    '& svg': {
-      fontSize: '1.5em',
+    "& svg": {
+      fontSize: "1.5em",
     },
-    color: 'black',
+    color: "black",
   },
   topBar: {
-    backgroundColor: 'white',
-    borderBottom: 'solid 1px lightgray',
+    backgroundColor: "white",
+    borderBottom: "solid 1px lightgray",
   },
 });
 
-export function PageLabel({ title, handleExit, to, hideBackButton}) {
-  
+export function PageLabel({ title, handleExit, to, hideBackButton }) {
   const history = useHistory();
 
   const classes = useStyles();
 
   const buttonProps = to
     ? { component: Link, to: to }
-    : {onClick: handleExit || history.goBack};
+    : { onClick: handleExit || history.goBack };
 
   return (
     <Grid

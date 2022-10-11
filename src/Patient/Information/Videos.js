@@ -14,7 +14,7 @@ const useStyles = makeStyles({
     color: Colors.buttonBlue,
     textTransform: "capitalize",
     padding: 0,
-  }
+  },
 });
 
 export default function Videos() {
