@@ -148,7 +148,22 @@ const Submitted = observer(() => {
         </div>
       ) : (
         // loading state
-        <div style={{ flex: "1 1 0" }} />
+        <div className={classes.visContainer}>
+          <CircularProgressbar
+            value={100}
+            circleRatio={0.5}
+            strokeWidth={8}
+            text={`${t("loading")}...`}
+            styles={buildStyles({
+              rotation: 3 / 4,
+              pathColor: "transparent",
+              textColor: "black",
+              trailColor: "#eee",
+              textSize: "14px",
+              strokeLinecap: "butt",
+            })}
+          />
+        </div>
       )}
       <div className={classes.key}>
         <KeyItem
