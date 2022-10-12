@@ -21,6 +21,8 @@ const Submitted = observer(() => {
     getPatients();
   }, []);
 
+  // to get netlify to build
+
   return (
     <div className={classes.container}>
       {patientsLoaded ? <PatientReportGraphic /> : <LoadingState />}
