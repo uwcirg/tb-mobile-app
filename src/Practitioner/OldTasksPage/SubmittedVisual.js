@@ -12,6 +12,145 @@ import Colors from "../../Basics/Colors";
 import { useTranslation } from "react-i18next";
 import { Typography } from "@material-ui/core";
 
+const Submitted = observer(() => {
+  const classes = useStyles();
+  const { practitionerStore } = useStores();
+  const { t } = useTranslation("translation");
+
+  const percentage = Math.round(
+    (practitionerStore.totalReported /
+      (practitionerStore.patientList.length || 1)) *
+      100
+  ).toString();
+
+  useEffect(() => {
+    practitionerStore.getPatients();
+  }, []);
+
+  return (
+    <div className={classes.container}>
+      {practitionerStore.patientsLoaded ? (
+        <PatientReportGraphic percentage={percentage} />
+      ) : (
+        <LoadingState />
+      )}
+      <div className={classes.key}>
+        <KeyItem
+          color={Colors.green}
+          text={t("coordinator.tasksSidebar.taken")}
+        />
+        <KeyItem
+          color={Colors.yellow}
+          text={t("coordinator.tasksSidebar.notTaken")}
+        />
+        <KeyItem
+          color={Colors.gray}
+          text={t("coordinator.tasksSidebar.noReport")}
+        />
+      </div>
+    </div>
+  );
+});
+
+const PatientReportGraphic = ({ percentage = 0 }) => {
+  const classes = useStyles();
+  const { practitionerStore } = useStores();
+  const { t } = useTranslation("translation");
+
+  useEffect(() => {
+    practitionerStore.getCompletedResolutionsSummary();
+    practitionerStore.updateTaskPageData();
+  }, []);
+
+  return (
+    <div className={classes.visContainer}>
+      {percentage >= 0 ? (
+        <div className={classes.halfCircle}>
+          <CircularProgressbarWithChildren
+            value={
+              (practitionerStore.totalReported /
+                practitionerStore.patientList.length) *
+              100
+            }
+            circleRatio={0.5}
+            strokeWidth={8}
+            styles={buildStyles({
+              rotation: 3 / 4,
+              pathColor: Colors.yellow,
+              trailColor: "#eee",
+              strokeLinecap: "butt",
+            })}
+          >
+            {/* Foreground path */}
+            <CircularProgressbarWithChildren
+              circleRatio={0.5}
+              strokeWidth={8}
+              value={
+                (practitionerStore.resolutionSummary.takenMedication /
+                  practitionerStore.patientList.length) *
+                100
+              }
+              styles={buildStyles({
+                rotation: 3 / 4,
+                pathColor: Colors.green,
+                trailColor: "transparent",
+                strokeLinecap: "butt",
+              })}
+            >
+              {" "}
+              <div className={classes.dialText}>
+                <span>{`${practitionerStore.totalReported} / ${practitionerStore.patientList.length}`}</span>
+                <p>
+                  {t("coordinator.tasksSidebar.submitted")} <br />{" "}
+                  {t("patient.home.today")}
+                </p>
+              </div>{" "}
+            </CircularProgressbarWithChildren>
+          </CircularProgressbarWithChildren>
+        </div>
+      ) : (
+        <Typography align="left" variant="body1">
+          {t("coordinator.tasksSidebar.noneYet")}
+        </Typography>
+      )}
+    </div>
+  );
+};
+
+const KeyItem = (props) => {
+  const classes = useStyles(props);
+
+  return (
+    <div className={classes.keyItem}>
+      <div className={classes.circle} />
+      <p>{props.text}</p>
+    </div>
+  );
+};
+
+const LoadingState = () => {
+  const classes = useStyles();
+  const { t } = useTranslation("translation");
+  return (
+    <div className={classes.visContainer}>
+      <CircularProgressbar
+        value={100}
+        circleRatio={0.5}
+        strokeWidth={8}
+        text={`${t("loading")}...`}
+        styles={buildStyles({
+          rotation: 3 / 4,
+          pathColor: "transparent",
+          textColor: "black",
+          trailColor: "#eee",
+          textSize: "14px",
+          strokeLinecap: "butt",
+        })}
+      />
+    </div>
+  );
+};
+
 const useStyles = makeStyles({
   halfCircle: {
     maxWidth: "200px",
@@ -70,128 +209,5 @@ const useStyles = makeStyles({
     backgroundColor: (props) => props.color,
   },
 });
-
-const Submitted = observer(() => {
-  const classes = useStyles();
-  const { practitionerStore } = useStores();
-  const { t } = useTranslation("translation");
-
-  const percentage = Math.round(
-    (practitionerStore.totalReported /
-      (practitionerStore.patientList.length || 1)) *
-      100
-  ).toString();
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = () => {
-    practitionerStore.getPatients();
-    practitionerStore.getCompletedResolutionsSummary();
-    practitionerStore.updateTaskPageData();
-  };
-
-  return (
-    <div className={classes.container}>
-      {practitionerStore.patientsLoaded ? (
-        <div className={classes.visContainer}>
-          {percentage >= 0 ? (
-            <div className={classes.halfCircle}>
-              <CircularProgressbarWithChildren
-                value={
-                  (practitionerStore.totalReported /
-                    practitionerStore.patientList.length) *
-                  100
-                }
-                circleRatio={0.5}
-                strokeWidth={8}
-                styles={buildStyles({
-                  rotation: 3 / 4,
-                  pathColor: Colors.yellow,
-                  trailColor: "#eee",
-                  strokeLinecap: "butt",
-                })}
-              >
-                {/* Foreground path */}
-                <CircularProgressbarWithChildren
-                  circleRatio={0.5}
-                  strokeWidth={8}
-                  value={
-                    (practitionerStore.resolutionSummary.takenMedication /
-                      practitionerStore.patientList.length) *
-                    100
-                  }
-                  styles={buildStyles({
-                    rotation: 3 / 4,
-                    pathColor: Colors.green,
-                    trailColor: "transparent",
-                    strokeLinecap: "butt",
-                  })}
-                >
-                  {" "}
-                  <div className={classes.dialText}>
-                    <span>{`${practitionerStore.totalReported} / ${practitionerStore.patientList.length}`}</span>
-                    <p>
-                      {t("coordinator.tasksSidebar.submitted")} <br />{" "}
-                      {t("patient.home.today")}
-                    </p>
-                  </div>{" "}
-                </CircularProgressbarWithChildren>
-              </CircularProgressbarWithChildren>
-            </div>
-          ) : (
-            <Typography align="left" variant="body1">
-              {t("coordinator.tasksSidebar.noneYet")}
-            </Typography>
-          )}
-        </div>
-      ) : (
-        // loading state
-        <div className={classes.visContainer}>
-          <CircularProgressbar
-            value={100}
-            circleRatio={0.5}
-            strokeWidth={8}
-            text={`${t("loading")}...`}
-            styles={buildStyles({
-              rotation: 3 / 4,
-              pathColor: "transparent",
-              textColor: "black",
-              trailColor: "#eee",
-              textSize: "14px",
-              strokeLinecap: "butt",
-            })}
-          />
-        </div>
-      )}
-      <div className={classes.key}>
-        <KeyItem
-          color={Colors.green}
-          text={t("coordinator.tasksSidebar.taken")}
-        />
-        <KeyItem
-          color={Colors.yellow}
-          text={t("coordinator.tasksSidebar.notTaken")}
-        />
-        <KeyItem
-          color={Colors.gray}
-          text={t("coordinator.tasksSidebar.noReport")}
-        />
-      </div>
-    </div>
-  );
-});
-
-const KeyItem = (props) => {
-  const classes = useStyles(props);
-
-  return (
-    <div className={classes.keyItem}>
-      <div className={classes.circle} />
-      <p>{props.text}</p>
-    </div>
-  );
-};
 
 export default Submitted;
