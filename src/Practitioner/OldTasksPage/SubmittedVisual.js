@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import useStores from "../../Basics/UseStores";
 import { observer } from "mobx-react";
@@ -14,7 +14,7 @@ import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles({
   halfCircle: {
-    width: "100%",
+    maxWidth: "200px",
     height: "120px",
     overflow: "hidden",
   },
@@ -36,12 +36,15 @@ const useStyles = makeStyles({
   },
   visContainer: {
     marginTop: "1em",
+    maxHeight: "120px",
     flexBasis: "40%",
     textAlign: "center",
   },
   container: {
     width: "100%",
+    height: "150px",
     display: "flex",
+    justifyContent: "space-around",
     marginTop: "1em",
   },
   key: {
@@ -72,17 +75,28 @@ const Submitted = observer(() => {
   const classes = useStyles();
   const { practitionerStore } = useStores();
   const { t } = useTranslation("translation");
+
   const percentage = Math.round(
     (practitionerStore.totalReported /
       (practitionerStore.patientList.length || 1)) *
       100
   ).toString();
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = () => {
+    practitionerStore.getPatients();
+    practitionerStore.getCompletedResolutionsSummary();
+    practitionerStore.updateTaskPageData();
+  };
+
   return (
     <div className={classes.container}>
       {practitionerStore.patientsLoaded ? (
         <div className={classes.visContainer}>
-          {percentage > 0 ? (
+          {percentage >= 0 ? (
             <div className={classes.halfCircle}>
               <CircularProgressbarWithChildren
                 value={
@@ -117,7 +131,7 @@ const Submitted = observer(() => {
                 >
                   {" "}
                   <div className={classes.dialText}>
-                    <span>{percentage}%</span>
+                    <span>{`${practitionerStore.totalReported} / ${practitionerStore.patientList.length}`}</span>
                     <p>
                       {t("coordinator.tasksSidebar.submitted")} <br />{" "}
                       {t("patient.home.today")}
@@ -133,6 +147,7 @@ const Submitted = observer(() => {
           )}
         </div>
       ) : (
+        // loading state
         <div style={{ flex: "1 1 0" }} />
       )}
       <div className={classes.key}>
