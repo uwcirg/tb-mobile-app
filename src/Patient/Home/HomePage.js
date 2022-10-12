@@ -33,6 +33,7 @@ const HomePage = () => {
       <PushNotificationEnrollment />
       <Box maxWidth="400px" padding="0 .75rem">
         <Greeting />
+        <h2>PR BUILD TEST</h2>
         <OneStepActions />
         <CachedReports />
         <RequiresAction />
