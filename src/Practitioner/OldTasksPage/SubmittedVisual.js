@@ -50,14 +50,14 @@ const PatientReportGraphic = ({ activePatients }) => {
   const classes = useStyles();
   const { t } = useTranslation("translation");
 
-  const totalReported = activePatients.filter(
+  const totalReported = activePatients?.filter(
     ({ reportingStatus }) => reportingStatus.today.reported
   ).length;
 
-  const takenMedication = activePatients.filter((patient) => {
+  const takenMedication = activePatients?.filter(({ lastReport }) => {
     return (
-      patient.lastReport.date === DateTime.local().toISODate() &&
-      patient.lastReport.medicationWasTaken
+      lastReport?.date === DateTime.local().toISODate() &&
+      lastReport?.medicationWasTaken
     );
   }).length;
 
@@ -117,20 +117,22 @@ const LoadingState = () => {
   const { t } = useTranslation("translation");
   return (
     <div className={classes.visContainer}>
-      <CircularProgressbar
-        value={100}
-        circleRatio={0.5}
-        strokeWidth={8}
-        text={`${t("loading")}...`}
-        styles={buildStyles({
-          rotation: 3 / 4,
-          pathColor: "transparent",
-          textColor: "black",
-          trailColor: "#eee",
-          textSize: "14px",
-          strokeLinecap: "butt",
-        })}
-      />
+      <div className={classes.halfCircle}>
+        <CircularProgressbar
+          value={100}
+          circleRatio={0.5}
+          strokeWidth={8}
+          text={`${t("loading")}...`}
+          styles={buildStyles({
+            rotation: 3 / 4,
+            pathColor: "transparent",
+            textColor: "black",
+            trailColor: "#eee",
+            textSize: "14px",
+            strokeLinecap: "butt",
+          })}
+        />
+      </div>
     </div>
   );
 };
