@@ -1,31 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import useStores from "../../Basics/UseStores";
-import { observer } from "mobx-react";
 import {
   CircularProgressbar,
   CircularProgressbarWithChildren,
   buildStyles,
 } from "react-circular-progressbar";
+import { DateTime } from "luxon";
 import "react-circular-progressbar/dist/styles.css";
 import Colors from "../../Basics/Colors";
 import { useTranslation } from "react-i18next";
+import PractitionerContext from "../PractitionerContext";
 
-const Submitted = observer(() => {
+const SubmittedVisual = () => {
   const classes = useStyles();
-  const { practitionerStore } = useStores();
   const { t } = useTranslation("translation");
-  const { patientsLoaded, getPatients } = practitionerStore;
+  const { value: allPatients, status } =
+    useContext(PractitionerContext).patients;
 
-  useEffect(() => {
-    getPatients();
-  }, []);
-
-  // to get netlify to build
+  const activePatients = allPatients?.filter(
+    ({ status }) => status === "Active"
+  );
 
   return (
     <div className={classes.container}>
-      {patientsLoaded ? <PatientReportGraphic /> : <LoadingState />}
+      {status === "success" ? (
+        <PatientReportGraphic activePatients={activePatients} />
+      ) : (
+        <LoadingState />
+      )}
       <div className={classes.key}>
         <KeyItem
           color={Colors.green}
@@ -42,30 +44,28 @@ const Submitted = observer(() => {
       </div>
     </div>
   );
-});
+};
 
-const PatientReportGraphic = observer(() => {
+const PatientReportGraphic = ({ activePatients }) => {
   const classes = useStyles();
-  const { practitionerStore } = useStores();
   const { t } = useTranslation("translation");
-  const {
-    resolutionSummary: { takenMedication },
-    patientList,
-    totalReported,
-    getCompletedResolutionsSummary,
-    updateTaskPageData,
-  } = practitionerStore;
 
-  useEffect(() => {
-    getCompletedResolutionsSummary();
-    updateTaskPageData();
-  }, []);
+  const totalReported = activePatients.filter(
+    ({ reportingStatus }) => reportingStatus.today.reported
+  ).length;
+
+  const takenMedication = activePatients.filter((patient) => {
+    return (
+      patient.lastReport.date === DateTime.local().toISODate() &&
+      patient.lastReport.medicationWasTaken
+    );
+  }).length;
 
   return (
     <div className={classes.visContainer}>
       <div className={classes.halfCircle}>
         <CircularProgressbarWithChildren
-          value={(totalReported / patientList.length) * 100}
+          value={(totalReported / activePatients.length) * 100}
           circleRatio={0.5}
           strokeWidth={8}
           styles={buildStyles({
@@ -79,7 +79,7 @@ const PatientReportGraphic = observer(() => {
           <CircularProgressbarWithChildren
             circleRatio={0.5}
             strokeWidth={8}
-            value={(takenMedication / patientList.length) * 100}
+            value={(takenMedication / activePatients.length) * 100}
             styles={buildStyles({
               rotation: 3 / 4,
               pathColor: Colors.green,
@@ -89,7 +89,7 @@ const PatientReportGraphic = observer(() => {
           >
             {" "}
             <div className={classes.dialText}>
-              <span>{`${totalReported} / ${patientList.length}`}</span>
+              <span>{`${totalReported} / ${activePatients.length}`}</span>
               <p>
                 {t("coordinator.tasksSidebar.submitted")} <br />{" "}
                 {t("patient.home.today")}
@@ -100,11 +100,10 @@ const PatientReportGraphic = observer(() => {
       </div>
     </div>
   );
-});
+};
 
 const KeyItem = (props) => {
   const classes = useStyles(props);
-
   return (
     <div className={classes.keyItem}>
       <div className={classes.circle} />
@@ -139,7 +138,7 @@ const LoadingState = () => {
 const useStyles = makeStyles({
   halfCircle: {
     maxWidth: "200px",
-    height: "120px",
+    height: "150px",
     overflow: "hidden",
   },
   dialText: {
@@ -195,4 +194,4 @@ const useStyles = makeStyles({
   },
 });
 
-export default Submitted;
+export default SubmittedVisual;
