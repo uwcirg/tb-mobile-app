@@ -10,6 +10,12 @@ import "react-circular-progressbar/dist/styles.css";
 import Colors from "../../Basics/Colors";
 import { useTranslation } from "react-i18next";
 import PractitionerContext from "../PractitionerContext";
+import {
+  AccessTimeOutlined,
+  CheckCircleOutline,
+  Close,
+  CloseOutlined,
+} from "@material-ui/icons";
 
 const SubmittedVisual = () => {
   const classes = useStyles();
@@ -17,6 +23,7 @@ const SubmittedVisual = () => {
   const { value: allPatients, status } =
     useContext(PractitionerContext).patients;
 
+  // memoize this?
   const activePatients = allPatients?.filter(
     ({ status }) => status === "Active"
   );
@@ -28,20 +35,7 @@ const SubmittedVisual = () => {
       ) : (
         <LoadingState />
       )}
-      <div className={classes.key}>
-        <KeyItem
-          color={Colors.green}
-          text={t("coordinator.tasksSidebar.taken")}
-        />
-        <KeyItem
-          color={Colors.yellow}
-          text={t("coordinator.tasksSidebar.notTaken")}
-        />
-        <KeyItem
-          color={Colors.gray}
-          text={t("coordinator.tasksSidebar.noReport")}
-        />
-      </div>
+      <GraphicKey />
     </div>
   );
 };
@@ -49,6 +43,8 @@ const SubmittedVisual = () => {
 const PatientReportGraphic = ({ activePatients }) => {
   const classes = useStyles();
   const { t } = useTranslation("translation");
+
+  // memoize this
 
   const totalReported = activePatients?.filter(
     ({ reportingStatus }) => reportingStatus.today.reported
@@ -102,11 +98,32 @@ const PatientReportGraphic = ({ activePatients }) => {
   );
 };
 
+const GraphicKey = () => {
+  const classes = useStyles();
+  const { t } = useTranslation("translation");
+  return (
+    <div className={classes.key}>
+      <KeyItem
+        icon={<CheckCircleOutline style={{ color: Colors.green }} />}
+        text={t("coordinator.tasksSidebar.taken")}
+      />
+      <KeyItem
+        text={t("coordinator.tasksSidebar.notTaken")}
+        icon={<AccessTimeOutlined style={{ color: Colors.yellow }} />}
+      />
+      <KeyItem
+        text={t("coordinator.tasksSidebar.noReport")}
+        icon={<CloseOutlined style={{ color: Colors.gray }} />}
+      />
+    </div>
+  );
+};
+
 const KeyItem = (props) => {
   const classes = useStyles(props);
   return (
     <div className={classes.keyItem}>
-      <div className={classes.circle} />
+      <div>{props.icon ? props.icon : null}</div>
       <p>{props.text}</p>
     </div>
   );
