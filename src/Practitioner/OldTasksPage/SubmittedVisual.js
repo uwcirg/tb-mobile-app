@@ -12,14 +12,12 @@ import { useTranslation } from "react-i18next";
 import PractitionerContext from "../PractitionerContext";
 import {
   AccessTimeOutlined,
+  Block,
   CheckCircleOutline,
-  Close,
-  CloseOutlined,
 } from "@material-ui/icons";
 
 const SubmittedVisual = () => {
   const classes = useStyles();
-  const { t } = useTranslation("translation");
   const { value: allPatients, status } =
     useContext(PractitionerContext).patients;
 
@@ -109,11 +107,11 @@ const GraphicKey = () => {
       />
       <KeyItem
         text={t("coordinator.tasksSidebar.notTaken")}
-        icon={<AccessTimeOutlined style={{ color: Colors.yellow }} />}
+        icon={<Block style={{ color: Colors.yellow }} />}
       />
       <KeyItem
         text={t("coordinator.tasksSidebar.noReport")}
-        icon={<CloseOutlined style={{ color: Colors.gray }} />}
+        icon={<AccessTimeOutlined style={{ color: Colors.gray }} />}
       />
     </div>
   );

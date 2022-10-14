@@ -26,55 +26,7 @@ import TreatmentWeek from "./TreatmentWeek";
 import useToggle from "../../Hooks/useToggle";
 import IssueDetails from "./IssueDetails";
 import { DateTime } from "luxon";
-
-const useStyles = makeStyles({
-  container: {
-    width: "100%",
-    overflow: "wrap",
-    backgroundColor: "white",
-    boxSizing: "border-box",
-    boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.25)",
-    "& a, & a:visited": {
-      textDecoration: "none",
-    },
-  },
-  name: {
-    fontSize: "1.25em",
-    color: Colors.buttonBlue,
-  },
-  bottomSection: {
-    width: "100%",
-  },
-  messaged: {
-    fontSize: ".9em",
-    color: Colors.textDarkGray,
-  },
-  rotate: {
-    transform: "rotate(180deg)",
-  },
-  reviewButton: {
-    backgroundColor: Colors.calendarGreen,
-    padding: ".25em",
-    "&:disabled": {
-      backgroundColor: Colors.lightgray,
-    },
-  },
-  expand: {
-    width: "fit-content",
-    paddingRight: "0",
-    justifyContent: "flex-end",
-    textTransform: "none",
-    color: Colors.buttonBlue,
-  },
-  reviewPhotoPrompt: {
-    lineHeight: "1.1em",
-    borderLeft: "solid 3px red",
-    paddingLeft: "5px",
-  },
-  noIssues: {
-    fontStyle: "italic",
-  },
-});
+import HasReported from "./HasReported";
 
 const PatientCard = ({
   patient,
@@ -140,6 +92,9 @@ const PatientCard = ({
                 <Box width=".5em" />
                 <AdherenceLabel patient={patient} />
               </Grid>
+              <Box display="flex" justifyContent="flex-end">
+                <HasReported patient={patient} />
+              </Box>
               <Box height=".5em" />
               {isReviewed && (
                 <Typography variant="body2">
@@ -279,5 +234,54 @@ const ButtonArea = ({
     </Box>
   );
 };
+
+const useStyles = makeStyles({
+  container: {
+    width: "100%",
+    overflow: "wrap",
+    backgroundColor: "white",
+    boxSizing: "border-box",
+    boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.25)",
+    "& a, & a:visited": {
+      textDecoration: "none",
+    },
+  },
+  name: {
+    fontSize: "1.25em",
+    color: Colors.buttonBlue,
+  },
+  bottomSection: {
+    width: "100%",
+  },
+  messaged: {
+    fontSize: ".9em",
+    color: Colors.textDarkGray,
+  },
+  rotate: {
+    transform: "rotate(180deg)",
+  },
+  reviewButton: {
+    backgroundColor: Colors.calendarGreen,
+    padding: ".25em",
+    "&:disabled": {
+      backgroundColor: Colors.lightgray,
+    },
+  },
+  expand: {
+    width: "fit-content",
+    paddingRight: "0",
+    justifyContent: "flex-end",
+    textTransform: "none",
+    color: Colors.buttonBlue,
+  },
+  reviewPhotoPrompt: {
+    lineHeight: "1.1em",
+    borderLeft: "solid 3px red",
+    paddingLeft: "5px",
+  },
+  noIssues: {
+    fontStyle: "italic",
+  },
+});
 
 export default PatientCard;
