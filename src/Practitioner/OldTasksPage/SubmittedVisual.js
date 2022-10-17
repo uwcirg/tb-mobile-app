@@ -21,7 +21,6 @@ const SubmittedVisual = () => {
   const { value: allPatients, status } =
     useContext(PractitionerContext).patients;
 
-  // memoize this?
   const activePatients = allPatients?.filter(
     ({ status }) => status === "Active"
   );
@@ -41,8 +40,6 @@ const SubmittedVisual = () => {
 const PatientReportGraphic = ({ activePatients }) => {
   const classes = useStyles();
   const { t } = useTranslation("translation");
-
-  // memoize this
 
   const totalReported = activePatients?.filter(
     ({ reportingStatus }) => reportingStatus.today.reported
@@ -208,6 +205,11 @@ const useStyles = makeStyles({
     height: "10px",
     borderRadius: "50%",
     backgroundColor: (props) => props.color,
+  },
+  progress: {
+    padding: "1em",
+    width: "70%",
+    margin: "1em auto",
   },
 });
 

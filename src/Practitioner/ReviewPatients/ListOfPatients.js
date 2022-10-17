@@ -8,6 +8,7 @@ import PatientListMessage from "./PatientListMessage";
 import { checkWasToday } from "../../Utility/TimeUtils";
 import IssueSectionLabel from "./IssueSectionLabel";
 import Submitted from "../OldTasksPage/SubmittedVisual";
+import IssuesProgressBar from "./IssuesProgressBar";
 
 const ListOfPatients = ({ tabValue }) => {
   const {
@@ -63,6 +64,7 @@ const ListOfPatients = ({ tabValue }) => {
   return (
     <Grid container direction="column">
       <Submitted />
+      <IssuesProgressBar patients={patients} />
       <Box height={".5em"} aria-hidden />
       {processedPatients.length === 0 && <PatientListMessage tab={tabValue} />}
       {processedPatients.map((patient) => {
