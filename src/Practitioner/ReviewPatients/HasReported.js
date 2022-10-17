@@ -12,15 +12,13 @@ export default function HasReported({ patient }) {
 
   const hasUnresolvedReports = unresolvedReports.length > 0;
 
-  const today =
-    hasUnresolvedReports &&
-    unresolvedReports?.filter((report, i) => {
-      return unresolvedReports[i]?.date === DateTime.local().toISODate()
-        ? report
-        : false;
-    });
+  const today = hasUnresolvedReports
+    ? unresolvedReports?.filter((report) => {
+        return report.date === DateTime.local().toISODate();
+      })
+    : [];
 
-  const reportedToday = today || hasUnresolvedReports;
+  const reportedToday = today.length > 0 && hasUnresolvedReports;
 
   if (!reportedToday)
     return <AccessTimeOutlined style={{ color: Colors.gray }} />;
