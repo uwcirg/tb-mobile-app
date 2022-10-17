@@ -92,9 +92,11 @@ const PatientCard = ({
                 <Box width=".5em" />
                 <AdherenceLabel patient={patient} />
               </Grid>
-              <Box display="flex" justifyContent="flex-end">
-                <HasReported patient={patient} />
-              </Box>
+              {!isSimpleView && !isReviewed && (
+                <Box display="flex" justifyContent="flex-end">
+                  <HasReported patient={patient} />
+                </Box>
+              )}
               <Box height=".5em" />
               {isReviewed && (
                 <Typography variant="body2">
@@ -120,6 +122,7 @@ const PatientCard = ({
                       patientId={patient.id}
                     />
                     <Box flexGrow={1} />
+
                     <Button className={classes.expand} onClick={toggleDetails}>
                       <Typography style={{ paddingRight: ".5em" }} noWrap>
                         {showDetails

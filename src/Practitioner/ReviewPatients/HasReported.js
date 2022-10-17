@@ -10,7 +10,7 @@ import { DateTime } from "luxon";
 export default function HasReported({ patient }) {
   const { unresolvedReports } = patient;
 
-  const hasUnresolvedReports = unresolvedReports.length > 0;
+  const hasUnresolvedReports = unresolvedReports?.length > 0;
 
   if (!hasUnresolvedReports)
     return <AccessTimeOutlined style={{ color: Colors.gray }} />;

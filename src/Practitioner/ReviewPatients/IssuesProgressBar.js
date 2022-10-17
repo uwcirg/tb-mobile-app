@@ -42,7 +42,7 @@ export default function IssuesProgressBar({ patients }) {
 const useStyles = makeStyles({
   progress: {
     padding: "1em",
-    width: "70%",
+    width: "90%",
     margin: "0 auto",
   },
 });

@@ -9,6 +9,8 @@ import { checkWasToday } from "../../Utility/TimeUtils";
 import IssueSectionLabel from "./IssueSectionLabel";
 import Submitted from "../OldTasksPage/SubmittedVisual";
 import IssuesProgressBar from "./IssuesProgressBar";
+import InputCard from "../../Components/Shared/Appointments/AddAppointment/InputCard";
+import { useTranslation } from "react-i18next";
 
 const ListOfPatients = ({ tabValue }) => {
   const {
@@ -16,6 +18,7 @@ const ListOfPatients = ({ tabValue }) => {
     setValue: setPatients,
     status,
   } = useContext(PractitionerContext).patientIssues;
+  const { t } = useTranslation("translation");
 
   const markPatientAsReviewed = (patientId) => {
     let tempValue = [...patients];
@@ -63,9 +66,12 @@ const ListOfPatients = ({ tabValue }) => {
 
   return (
     <Grid container direction="column">
-      <Submitted />
-      <IssuesProgressBar patients={patients} />
-      <Box height={".5em"} aria-hidden />
+      <Box padding=".5em" marginBottom="-16px">
+        <InputCard title={t("coordinator.tasksSidebar.overview")}>
+          <Submitted />
+          <IssuesProgressBar patients={patients} />
+        </InputCard>
+      </Box>
       {processedPatients.length === 0 && <PatientListMessage tab={tabValue} />}
       {processedPatients.map((patient) => {
         let isIssues = patient.issues.total > 0;
