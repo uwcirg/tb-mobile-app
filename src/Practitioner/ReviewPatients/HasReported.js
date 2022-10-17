@@ -12,6 +12,9 @@ export default function HasReported({ patient }) {
 
   const hasUnresolvedReports = unresolvedReports.length > 0;
 
+  if (!hasUnresolvedReports)
+    return <AccessTimeOutlined style={{ color: Colors.gray }} />;
+
   const today = hasUnresolvedReports
     ? unresolvedReports?.filter((report) => {
         return report.date === DateTime.local().toISODate();
@@ -19,9 +22,6 @@ export default function HasReported({ patient }) {
     : [];
 
   const reportedToday = today.length > 0 && hasUnresolvedReports;
-
-  if (!reportedToday)
-    return <AccessTimeOutlined style={{ color: Colors.gray }} />;
 
   const tookMeds = today[0]?.medicationWasTaken;
 
