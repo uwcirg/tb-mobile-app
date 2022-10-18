@@ -29,8 +29,10 @@ export default function HasReported({ patient }) {
     <>
       {reportedToday && tookMeds ? (
         <CheckCircleOutline style={{ color: Colors.green }} />
-      ) : (
+      ) : reportedToday && !tookMeds ? (
         <Block style={{ color: Colors.yellow }} />
+      ) : (
+        <AccessTimeOutlined style={{ color: Colors.gray }} />
       )}
     </>
   );
