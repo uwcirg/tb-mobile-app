@@ -1,1024 +1,1097 @@
 {
-    "title": "Pendamping Pengobatan",
-    "online": "online",
-    "offline": "offline",
-    "greeting": "Hallo",
-    "updating": "Memperbaharui",
-    "demoWarning": "Ini merupakan demo dari aplikasi dan tidak dapat digunakan pada pasien aktif",
-    "commonWords": {
-        "photos": "Foto-foto",
-        "fillAll": "Silahkan isi laman ini sebelum mulai",
-        "edit": "edit",
-        "error": "error",
-        "medication": "Jenis obat",
-        "symptoms": "Gejala",
-        "stripPhoto": "foto strip",
-        "report": "lapor",
-        "no": "Tidak",
-        "yes": "Ya",
-        "of": "Dari",
-        "other": "Lain",
-        "first": "Pertama",
-        "second": "Kedua",
-        "final": "Terakhir",
-        "total": "Total",
-        "delete": "Hapus",
-        "loading": "Memuat",
-        "patients": "Pasien",
-        "expandPhoto": "Perbesar Foto",
-        "hideThis": "Sembunyikan",
-        "clickToLoadMore": "Tekan untuk menambahkan",
-        "testStrips": "Strip test",
-        "viewDetails": "Lihat detail",
-        "hideDetails": "Sembunyikan Detail",
-        "copy": "Salin",
-        "copied": "Telah tersalin",
-        "copyExplanation": "Salin tautan ke beranda",
-        "archived": "Diarsipkan",
-        "successMessage": "Update berhasil",
-        "errorMessage": "Terjadi Kesalahan. Silahkan coba kembali beberapa waktu lagi",
-        "atTime": "a las",
-        "loadMore": "Tambahkan lagi"
+  "title": "SamoCare",
+  "online": "online",
+  "offline": "offline",
+  "greeting": "Hallo",
+  "updating": "Memperbaharui",
+  "demoWarning": "Ini merupakan demo dari aplikasi dan tidak dapat digunakan pada pasien aktif",
+  "commonWords": {
+    "list": "daftar",
+    "photos": "Foto-foto",
+    "fillAll": "Silahkan isi laman ini sebelum mulai",
+    "edit": "edit",
+    "error": "error",
+    "medication": "Minum obat",
+    "symptoms": "Gejala",
+    "stripPhoto": "foto strip",
+    "report": "lapor",
+    "no": "Tidak",
+    "yes": "Ya",
+    "of": "Dari",
+    "other": "Lain",
+    "first": "Pertama",
+    "second": "Kedua",
+    "final": "Terakhir",
+    "total": "Total",
+    "delete": "Hapus",
+    "loading": "Memuat",
+    "patients": "Pasien",
+    "expandPhoto": "Perbesar Foto",
+    "hideThis": "Sembunyikan",
+    "clickToLoadMore": "Tekan untuk menambahkan",
+    "testStrips": "Strip test",
+    "viewDetails": "Lihat detail",
+    "hideDetails": "Sembunyikan Detail",
+    "copy": "Salin",
+    "copied": "Telah tersalin",
+    "copyExplanation": "Salin tautan ke beranda",
+    "archived": "Diarsipkan",
+    "successMessage": "Update berhasil",
+    "errorMessage": "Terjadi Kesalahan. Silahkan coba kembali beberapa waktu lagi",
+    "atTime": "pada",
+    "loadMore": "Tambahkan lagi",
+    "back": "back"
+  },
+  "userTypes": {
+    "patient": "Pasien",
+    "provider": "Petugas",
+    "practitioner": "Pendamping",
+    "coordinator": "Pendamping berobat",
+    "admin": "Petugas Administrasi",
+    "administrator": "Petugas Administrasi",
+    "you": "Anda"
+  },
+  "login": {
+    "changeLanguage": "klik disini untuk pilihan bahasa",
+    "activateAccount": "Mengaktifkan Akun Baru",
+    "forgotPassword": "Lupa Password",
+    "forgotPasswordDetails": "Silahkan menghubungi koordinator anda melalui WhatsApp, kode khusus akan dikirimkan oleh koordinator untuk digunakan mengakses aplikasi dan membuat password baru. ",
+    "phoneNumber": "Nomor Ponsel",
+    "email": "Email",
+    "password": "Password",
+    "logIn": "Login",
+    "selectType": "Pilih pengguna",
+    "haveAccount": "Sudah memiliki akun sebelumnya?",
+    "activate": "Aktifkan"
+  },
+  "messaging": {
+    "loadMore": "Kotak Masuk",
+    "yourSite": "Pemberitahuan dari Klinik",
+    "search": "Cari",
+    "moderation": {
+      "hideUI": "Sembunyikan",
+      "hide": "Sembunyikan dari pasien",
+      "unhide": "Lihat kembali pesan tersembunyi",
+      "isHidden": "Pesan ini disembunyikan dari pasien",
+      "view": "Lihat pesan"
     },
-    "userTypes": {
-        "patient": "Pasien",
-        "provider": "Petugas",
-        "practitioner": "Pendamping",
-        "coordinator": "Pendamping berobat",
-        "admin": "Petugas Administrasi",
-        "administrator": "Petugas Administrasi",
-        "you": "Anda"
+    "creation": {
+      "errorInfo": "Judul harus ada dan tidak lebih dari 50 karakter. sub-judul harus kurang dari 100 karakter",
+      "error": "Terjadi kesalahan dalam membuat percakapan baru",
+      "fab": "Manambah percakapan baru",
+      "header": "Menambah topik baru dalam percakapan",
+      "create": "Buat",
+      "cancel": "Batalkan",
+      "title": "Judul Diskusi",
+      "description": "Keterangan"
     },
-    "login": {
-        "changeLanguage": "Haga Clic Aquí Para Español",
-        "activateAccount": "Mengaktifkan Akun Baru",
-        "forgotPassword": "Lupa Password",
-        "forgotPasswordDetails": "Silahkan menghubungi koordinator anda melalui WhatsApp, kode khusus akan dikirimkan oleh koordinator untuk digunakan mengakses aplikasi dan membuat password baru. ",
-        "phoneNumber": "Nomor Ponsel",
-        "email": "Email",
-        "password": "Password",
-        "logIn": "Login",
-        "selectType": "Pilih pengguna",
-        "haveAccount": "Sudah memiliki akun sebelumnya?",
-        "activate": "Aktifkan"
+    "typeHere": "Mulai ketik pesan anda disini",
+    "begining": "Memulai percakapan",
+    "selectChannel": "Pilih pasien atau kolom diskusi untuk memulai",
+    "nurseContact": "Anda membutuhkan support secara individu? Silahkan hubungi petugas!",
+    "privateExplained": "Percakapan rahasia dengan pendamping pengobatan",
+    "searchTheme": "Cari berdasarkan topik",
+    "searchPatient": "Cari berdasarkan nama Pasien",
+    "patients": "Pasien",
+    "coordinators": "Pendamping Pengobatan",
+    "discussions": "Beranda diskusi",
+    "expert": "Pakar TBC",
+    "groupDiscussion": "Group diskusi",
+    "found": "Ditemukan",
+    "empty": "Pesan anda belum terkirim. Silahkan mengirim pesan!",
+    "private": "Rahasia",
+    "clinicChat": "Pendamping and Pasien pada klinik anda",
+    "imageWillSend": "Gambar akan dikirim dengan pesan",
+    "sending": "Mengirim"
+  },
+  "time": {
+    "day": "Hari",
+    "day_plural": "Hari",
+    "week": "Minggu",
+    "days": "Hari ",
+    "weeks": "Minggu",
+    "month": "Bulan",
+    "all": "semua",
+    "noon": "Siang",
+    "day_ago": "Hari yang lalu",
+    "day_ago_plural": "Hari yang lalu"
+  },
+  "patient": {
+    "tabNames": {
+      "home": "Beranda",
+      "calendar": "Riwayat",
+      "messaging": "Mengirim Pesan",
+      "information": "Informasi"
     },
-    "messaging": {
-        "loadMore": "Kotak Masuk",
-        "yourSite": "Pemberitahuan dari Klinik",
-        "search": "Cari",
-        "moderation": {
-            "hideUI": "Sembunyikan",
-            "hide": "Sembunyikan dari pasien",
-            "unhide": "Lihat kembali pesan tersembunyi",
-            "isHidden": "Pesan ini disembunyikan dari pasien",
-            "view": "Lihat pesan"
-        },
-        "creation": {
-            "errorInfo": "Judul harus ada dan tidak lebih dari 50 karakter. sub-judul harus kurang dari 100 karakter",
-            "error": "Terjadi kesalahan dalam membuat percakapan baru",
-            "fab": "Manambah percakapan baru",
-            "header": "Menambah topik baru dalam percakapan",
-            "create": "Buat",
-            "cancel": "Batalkan",
-            "title": "Judul Diskusi",
-            "description": "Keterangan"
-        },
-        "typeHere": "Mulai ketik pesan anda disini",
-        "begining": "Memulai percakapan",
-        "selectChannel": "Pilih pasien atau kolom diskusi untuk memulai",
-        "nurseContact": "Anda membutuhkan support secara individu? Silahkan hubungi petugas!",
-        "privateExplained": "Percakapan rahasia dengan pendamping pengobatan",
-        "searchTheme": "Cari berdasarkan topik",
-        "searchPatient": "Cari berdasarkan nama Pasien",
-        "patients": "Pasien",
-        "coordinators": "Pendamping Pengobatan",
-        "discussions": "Beranda diskusi",
-        "expert": "Pakar TBC",
-        "groupDiscussion": "Group diskusi",
-        "found": "Ditemukan",
-        "empty": "Pesan anda belum terkirim. Silahkan mengirim pesan!",
-        "private": "Rahasia",
-        "clinicChat": "Pendamping and Pasien pada klinik anda"
+    "oneStepReporting": {
+      "photoRequestTitle": "Silahkan melakukan strip test untuk mengkonfirmasi perkembangan pengobatan anda",
+      "photoRequestButton": "Lengkapi Tes Strip",
+      "supportTitle": "Apakah semuanya baik-baik saja dengan pengobatan anda hari ini?",
+      "goodOption": "Telah minum obat dan tidak ada keluhan",
+      "helpOption": "Jelajah masalah dan minta pertolongan"
     },
-    "time": {
-        "day": "Hari",
-        "day_plural": "Hari",
-        "week": "Minggu",
-        "days": "Hari ",
-        "weeks": "Minggu",
-        "month": "Bulan",
-        "all": "semua",
-        "noon": "Siang",
-        "day_ago": "Hari yang lalu",
-        "day_ago_plural": "Hari yang lalu"
+    "onboarding": {
+      "landing": {
+        "welcome": "Selamat Datang",
+        "message": "Terima kasih telah mendaftar! Aplikasi ini digunakan untuk melaporkan pengobatan anda. Segala jenis laporan dimonitor oleh petugas kesehatan pendamping pengobatan anda."
+      },
+      "profileInformation": "Tambahkan informasi profil",
+      "coordinator": {
+        "title": "Apa itu pendamping pengobatan?",
+        "will": {
+          "title": "Pendamping pengobatan anda akan",
+          "items": [
+            "Memonitor perkembangan anda",
+            "Setuju dengan hasil foto tes strip",
+            "Menjawab pertanyaan tentang pengobatan"
+          ]
+        },
+        "wont": {
+          "title": "Pendamping pengobatan anda tidak akan",
+          "items": ["Menyediakan pelayanan medis", "Jadwalkan janji temu anda"]
+        },
+        "outro": "Sekarang, silahkan ceritakan sedikit tentang anda kepada kami."
+      },
+      "password": {
+        "title": "Pilih password baru untuk akun anda",
+        "confirmation": "Konfirmasi Password",
+        "noMatch": "Password dan konfirmasi password tidak sama"
+      },
+      "gender": {
+        "title": "Pilih Jenis Kelamin",
+        "man": "Laki-laki",
+        "woman": "Perempuan",
+        "nonbinary": "Non-binari",
+        "transMan": "Transgender Laki-laki",
+        "transWoman": "Transgender Perempuan",
+        "other": "Lainnya",
+        "question": "Bagaimana anda menjelaskan diri anda?"
+      },
+      "age": "Berapa usia anda?",
+      "notification": {
+        "title": "Notifikasi",
+        "whenPrompted": "Ketika muncul silahkan pilih",
+        "permit": "Izin",
+        "listHeader": "Ini mengizinkan kami untuk mengirimkan anda",
+        "header": "Tahap berikutnya akan meminta anda untuk mengaktifkan notifikasi",
+        "one": "Apakah anda mau mengaktifkan alarm pengingat minum obat setiap hari?",
+        "two": "Jam berapa anda ingin mendapakan alarm pengingat waktu setiap hari?"
+      },
+      "contactTracing": {
+        "one": "Berapa jumlah orang yang tinggal serumah?",
+        "two": "Berapa jumlah orang dalam satu rumah yang telah melakukan test TBC?",
+        "some": "Beberapa",
+        "all": "Semua",
+        "none": "Belum ada",
+        "unsure": "Tidak tau",
+        "important": "Sangat penting bagi setiap orang yang tinggal serumah dengan anda untuk melakukan test TBC",
+        "explanation": "Beritahukan kepada kami status dari masing-masing orang yang tinggal serumah dengan anda agar kami dapat mengirim informasi lebih."
+      },
+      "success": "Finalisasi pengaktifan akun",
+      "next": "Berikut",
+      "endText": "Terima kasih telah menjawab, Mari kita mulai!",
+      "activationError": "Terjadi kesalahan dalam pengaktivasian akun anda. Silahkan menghubungi koordinator untuk mendapatkan bantuan."
     },
-    "patient": {
-        "tabNames": {
-            "home": "Beranda",
-            "calendar": "Kalender",
-            "messaging": "Mengirim Pesan",
-            "information": "Informasi"
-        },
-        "oneStepReporting":{
-            "photoRequestTitle": "Silahkan melakukan strip test untuk mengkonfirmasi perkembangan pengobatan anda",
-            "photoRequestButton": "Lengkapi strip test dan kirim foto ",
-            "supportTitle": "Apakah semuanya baik-baik saja dengan pengobatan anda hari ini?",
-            "goodOption": "Telah minum obat dan tidak ada keluhan",
-            "helpOption": "Jelajah masalah dan minta pertolongan"
-        },
-        "onboarding": {
-            "landing": {
-                "welcome": "Selamat Datang",
-                "message": "Terima kasih telah mendaftar! Aplikasi ini digunakan untuk melaporkan pengobatan anda. Segala jenis laporan dimonitor oleh petugas kesehatan pendamping pengobatan anda."
-            },
-            "profileInformation": "Tambahkan informasi profil",
-            "coordinator": {
-                "title": "Apa itu pendamping pengobatan?",
-                "will": {
-                    "title": "Pengdamping berobat anda akan",
-                    "items": [
-                        "Memonitor perkembangan anda",
-                        "Setuju dengan hasil foto strip test",
-                        "Menjawab pertanyaan tentang pengobatan"
-                    ]
-                },
-                "wont": {
-                    "title": "Pendamping berobat anda tidak akan",
-                    "items": [
-                        "Menyediakan pelayanan medis",
-                        "Jadwalkan appoinment anda"
-                    ]
-                },
-                "outro": "Sekarang, silahkan ceritakan sedikit tentang anda kepada kami."
-            },
-            "password": {
-                "title": "Pilih password baru untuk akun anda",
-                "confirmation": "Konfirmasi Password",
-                "noMatch": "Password dan konfirmasi password tidak sama"
-            },
-            "gender": {
-                "title": "Pilih Jenis Kelamin",
-                "man": "Laki-laki",
-                "woman": "Perempuan",
-                "nonbinary": "Non-binari",
-                "transMan": "Transgender Laki-laki",
-                "transWoman": "Transgender Perempuan",
-                "other": "Lainnya",
-                "question": "Bagaimana anda menjelaskan diri anda?"
-            },
-            "age": "Berapa usia anda?",
-            "notification": {
-                "title": "Notifikasi",
-                "whenPrompted": "Ketika muncul silahkan pilih",
-                "permit": "Izin",
-                "listHeader": "Ini mengijikan kami untuk mengirimkan anda",
-                "header": "Tahap berikutnya akan meminta anda untuk mengaktifkan notifikasi",
-                "one": "Apakah anda mau mengaktifkan alaram pengingat minum obat setiap hari?",
-                "two": "Jam berapa anda ingin mendapakan alaram pengingat setiap hari?"
-            },
-            "contactTracing": {
-                "one": "Berapa jumlah orang tinggal serumah?",
-                "two": "Berapa jumlah orang tinggal serumah yang telah melakukan test TBC?",
-                "some": "Beberapa",
-                "all": "Semua",
-                "none": "Belum ada",
-                "unsure": "Tidak tau",
-                "important": "Sangat penting bagi setiap orang yang tinggal serumah dengan anda untuk melakukan test TBC",
-                "explanation": "Beritahukan kepada kami status dari masing-masing orang yang tinggal serumah dengan anda agar kami dapat mengirim informasi lebih."
-            },
-            "success": "Finalisasi Setup akun",
-            "next": "Berikut",
-            "endText": "Terima kasih atas masukan anda, Mari kita mulai!",
-            "activationError": "Terjadi kesalahan dalam pengaktivasian akun anda. Silahkan menghubungi koordinator untuk mendapatkan bantuan."
-        },
-        "walkthrough": {
-            "swipe": "Geser layar ke kiri untuk lebih",
-            "welcome": {
-                "header": "Selamat Datang",
-                "one": "Terima kasih telah mendaftar pada aplikasi ini",
-                "two": "Sekarang kami akan membawa anda dalam jelajah untuk melihat beberapa fungsi utama aplikasi ini."
-            },
-            "homescreen": "Dimulai dari Beranda anda",
-            "revisit": "Jika anda ingin melihat kembali jelajah, anda dapat menemukan fungsi ini pada laman informasi",
-            "exit": "Anda dapat keluar dari jelajah setiap saat dengan menekan tombol X di bagian kanan atas",
-            "tasks": "Ini adalah tugas anda tiap hari, anda dapat menekan Star laporan untuk mulain login pada pengobatan anda setiap hari",
-            "progressCard": "Kartu perkembangan menunjukkan kepada anda rangkuman sekilas anda berada di mana pada jadwal pengobatan anda.",
-            "reminders": "Terakhir, Kartu pengingat mengijinkan anda untuk merubah alaram pengingat pengobatan anda setiap hari, dan menambahakan alaram pengingat untuk jadwal kunjungan anda.",
-            "navigation": {
-                "text": "Aplikasi ini memiliki 4 layar utama. Untuk menelusuri, tekan ikon yang berada di bawah bilah navigasi",
-                "one": "Beranda+Tugas Saya",
-                "two": "Perkembangan + Kalender",
-                "three": "Percakapan",
-                "four": "Informasi"
-            },
-            "progress": {
-                "header": "Sekarang Anda berada pada beranda perkembangan",
-                "here": "Disini anda dapat",
-                "one": "Melihat laporan yang telah lewat",
-                "two": "Melihat dan mengedit perkembangan pengobatan anda",
-                "three": "Cek status dari foto yang anda masukkan"
-            },
-            "weekCalendar": "Ini adalah pratayang dari 5 laporan terakhir. Anda dapat menekan tombol kalender untuk melihat ",
-            "calendar": "Kalender lengkap Anda memberikan gambaran visual tentang garis anda, dan menunjukkan jumlah hari yang telah anda lewatkan dengan warna merah.",
-            "calendarBottom": "Anda dapat mengklik area ini di bagian bawah untuk melihat detail tentang laporan Anda",
-            "milestones": "Kembali ke halaman kemajuan utama, Anda dapat mengatur perkembangan Anda di sini",
-            "messaging": {
-                "header": "Sakarang kita berada pada halaman pesan",
-                "text": "Halaman ini merupakan tempat anda dapat berkomunikasi dengan pendamping anda dan pasien lainnya",
-                "one": "Tekan tombol ini untuk mengirim pesan pribadi kepada pendamping pengobatan anda.",
-                "two": "Disini anda dapat melakukan diskusi terbuka dengan pasien lainnya. Diskusi ini disusun berdasarkan topik"
-            },
-            "outro": {
-                "header": "Sudah semuanya!",
-                "one": "Jika anda memiliki beberapa pertanyaan, silahkan mengecek laman informasi atau langsung mengontak pendamping pengobatan anda."
-            }
-        },
-        "reminders": {
-            "title": "Pengingat",
-            "medicationReminder": "Pengingat Minum Obat",
-            "whatTime": "Jam berapa anda setuju untuk menerima alaram pengingat minum obat?",
-            "appointments": "Jadwal kunjungan ",
-            "explanation": "Memungkinkan untuk menerima pengingat untuk minum obat Anda setiap hari pada waktu tertentu",
-            "enable": "Mengaktifkan",
-            "disable": "Menonaktifkan",
-            "changeTime": "Rubah waktu",
-            "options": "edit atau menonaktifkan",
-            "reminderEnabled": "Mengaktifkan alaram pengingat",
-            "reminderDisabled": "Menonaktifkan alaram pengingat",
-            "at": "Pada",
-            "successMessage": "Sukses ditambahkan"
-        },
-        "demo": {
-            "showDemo": "Tunjukan demo"
-        },
-        "userFields": {
-            "givenName": "Nama panggil",
-            "familyName": "Marga",
-            "firstName": "Nama pertama",
-            "lastName": "Nama terakhir",
-            "password": "Password",
-            "treatmentStart": "Tanggal mulai pengobatan",
-            "phoneNumber": "Nomor Ponsel"
-        },
-        "home": {
-            "purpose": "Mari kita melacak pengobatan dan kesehatan Anda!",
-            "today": "Hari ini",
-            "actions": {
-                "logMedication": "Mulai Lapor",
-                "uploadPhoto": "Unggah foto"
-            },
-            "todaysActions": {
-                "logMedication": "Mulai Lapor",
-                "uploadPhoto": "Unggah foto"
-            },
-            "progress": {
-                "currentStreak": "Posisi anda saat ini",
-                "upcomingDate": "Capaian selanjutnya",
-                "viewAll": "Lihat semuanya",
-                "close": "Tutup"
-            },
-            "completed": {
-                "title": "Lengkap",
-                "subtitle": "Laporan hari ini telah di laporkan",
-                "issue": "Kami telah menerima laporan masalah anda dan pendamping anda akan menghubungi anda segera.",
-                "modify": "Edit laporan anda"
-            },
-            "cardTitles": {
-                "todaysTasks": "Kegiatan anda hari ini",
-                "actionNeeded": "Tindakan yang diperlukan",
-                "myProgress": "Perkembangan saya",
-                "myLearning": "Pembelajaran saya"
-            },
-            "confirmAndSubmit": "Silahkan melakukan konfirmasi dan memasukkan laporan anda",
-            "helpVideos": {
-                "needHelp": "Apakah anda membutuhkan bantuan untuk aplikasi ini?",
-                "hide": "Sembunyikan",
-                "seeAll": "Lihat semua video tutorial",
-                "collapse": "Sembunyikan daftar",
-                "viewOnInfo": "Anda dapat melihat video ini kembali di halaman informasi"
-            },
-            "missedDays": {
-                "missing": "Catatan pengobatan terlewatkan",
-                "missing_plural": "Catatan pengobatan terlewatkan",
-                "missedPhoto": "Mengajukan test yang terlewatkan"
-            },
-            "chatReminder": {
-                "body": "Apakah anda tau anda dapat memulai percakapan dengan pasien lain secara anonim? ",
-                "button": "Tunjukan kepada saya bagaimana"
-            }
-        },
-        "profile": {
-            "title": "Pengaturan",
-            "changePassword": "Perbaharui Password",
-            "editNotifications": "Mengedit preferensi pemberitahuan",
-            "changeUsername": "edit nama pengguna",
-            "personalInfo": "Informasi pribadi",
-            "startDate": "Tanggal mulai",
-            "endDate": "Tanggal akhir",
-            "totalTreatments": "Jumlah total pengobatan",
-            "currentAdherence": "Status kepatuhan saat ini",
-            "logout": "Logout",
-            "organization": "Organisasi",
-            "options": {
-                "account": "Akun saya",
-                "language": "Bahasa",
-                "dailyNotifications": "Notifikasi tiap hari",
-                "medicationReminder": "Pengingat Minum Obat",
-                "addNewReminder": "Tambahkan alaram pengingat minum obat",
-                "remindMe": "Ingatkan saya pada jam",
-                "spanish": "Bahasa Spanyol",
-                "english": "Bahasa Inggris",
-                "update": "Pemuktahiran"
-            }
-        },
-        "report": {
-            "allGood": "Semua tampak baik",
-            "trackIssues": "Melacak masalah",
-            "topTitle": "Laporan hari ini",
-            "important": "Penting",
-            "dayLate": "Hari terlambat",
-            "dayLate_plural": "Hari terlambat",
-            "late": "Late",
-            "next": "Berikut",
-            "title": "Laporan aktifitas untuk pengobatan hari ini",
-            "medicationTitle": "Silahkan laporkan pengobatan anda",
-            "medicationTime": "Jam berapa anda minum obat hari ini?",
-            "didYouTake": "Apakah anda minum obat hari ini?",
-            "didTake": "Ya, saya minum obat hari ini",
-            "didNotTake": "Tidak, saya belum minum obat hari ini",
-            "whyNotTaken": "Kenapa anda belum minum obat hari ini?",
-            "symptomsTitle": "Apakah anda memiliki gejala?",
-            "moodTitle": "Bagaimana perasaan anda hari ini?",
-            "doingWell": "Baik",
-            "needSupport": "Butuh bantuan",
-            "requireReason": "Tolong beri tahu kami bagaimana kami dapat mendukung Anda sebelum melanjutkan",
-            "whySupport": "Bagaimana kami dapat membantu anda?",
-            "photoTitle": "Ambil gambar foto strip",
-            "photo": {
-                "permissionsError": "There was an error getting access to your camera. Please try again and make sure to allow access if prompted.",
-                "usePhoto": "Pakai foto",
-                "retakePhoto": "ambil foto kembali",
-                "openCamera": "Buka kamera",
-                "how": "Bagaimana caranya saya melakukan test?",
-                "help": {
-                    "remember": "Tolong ingat untuk",
-                    "wait": "Let the test strip sit for 20 minutes before taking a photo",
-                    "straight": "Ambil gambar foto hasil strip test tepat diatas.",
-                    "retakeIf": "Foto kembali jika kabur atau tanda kotak tidak terlihat",
-                    "instructions": "Lihat instruksi strip test"
-                },
-                "other": "Opsi Lainnya",
-                "submitLater": "Kirim nanti",
-                "unable": "Tidak dapat kirim? beritahukan kepada kami kenapa?",
-                "whyUnable": "Kenapa anda tidak dapat kirim gambar?",
-                "back": "Kembali ke tahap sebelumnya"
-            },
-            "symptoms": {
-                "nauseaRating": "Seberapa berat rasa mual yang anda rasakan?",
-                "warning": {
-                    "title": "Anda Melaporkan gejala-gejala yang perlu segera ditindaklanjuti",
-                    "subtitle": "Segera cari pertolongan medis darurat. Pendamping minum obat anda akan segera menghubungi anda",
-                    "button": "Oke",
-                    "moreInformation": "Informasi lebih lanjut"
-                }
-            },
-            "confirmation": {
-                "title": "Konfirmasi dan Masukkan",
-                "addMore": "Tambahkan lagi",
-                "noPhoto": "Tidak perlu memasukkan foto hari ini",
-                "missingPhoto": "Foto belum ada",
-                "takenAt": "Diambil pada",
-                "notTaken": "Tidak mengambil foto karena",
-                "review": "Lihat foto"
-            },
-            "offline": {
-                "report": "Laporan offline",
-                "report_plural": "Laporan offline",
-                "allDone": "Semua laporan offline sudah di masukkan",
-                "youHave": "Anda memiliki",
-                "explanation": "Akan di unggah saat ada koneksi internet",
-                "uploading": "Mungunggah laporan offline anda"
-            },
-            "photoUploading": "Foto anda sudah diunggah",
-            "photoUploadError": "Terjadi kesalahan dalam pengunggahan laporan anda. Silahkan coba lagi, atau hubungi pendamping pengobatan anda"
-        },
-        "reportConfirmation": {
-            "view": "Lihat",
-            "hide":"Sembunyikan",
-            "viewOrEdit": "Lihat / Edit Laporan",
-            "goodJob": "Bagus!",
-            "photoNeeded": "Anda juga harus mengunduh foto strip test anda hari ini",
-            "doLater": "Akan dilakukan nanti",
-            "baseComplete": "Laporan harian anda telah berhasil di laporkan",
-            "photoComplete": "Laporan hasil strip test anda telah berhasil di laporkan"
-        },
-        "progress": {
-            "noReport": "Tidak ada laporan hari ini",
-            "whenBackReport": "Kapan saya dapat melaporkan hari yang saya lupa laporan?",
-            "viewCalendar": "Lihat laporan kalender anda",
-            "viewPhotos": "Lihat foto yang telah anda laporkan",
-            "approvalStatus": "Status persetujuan",
-            "milestones": "Pencapaian",
-            "upcoming": "Berikutnya",
-            "calendar": "Kalender laporan",
-            "submissionLimit": "Jika anda lupa minum obat satu hari, anda hanya dapat memasukkan laporan untuk 3 hari sebelumnya, and hari apa saja yang anda lupa pada 2 minggu pertama",
-            "loading": "Pelaporan riwayat pengunggahan",
-            "calendarKey": {
-                "button": "Apa arti dari warna ini",
-                "description": "Ini merupakan kalender dimana anda dapat melihat aktifitas laporan anda. Warna-warna yang ada menunjukkan:",
-                "good": "Semuanya telah di laporkan",
-                "missed": "TIdak ada yang dilaporkan. Jika anda lupa melaporkan 1 hari, anda dapat melaporkan kembali maksimal 3 hari sebelumnya",
-                "notTaken": "Terlaporkan tidak minum obat",
-                "symptoms": "Laporan adanya gejala-gejala"
-            }
-        },
-        "addMilestone": {
-            "barTitle": "Tambahkan pencapaian",
-            "titles": [
-                "Pencapaian apa yang ingin anda tambahkan?",
-                "Sebutkan tanggal pencapaian yang anda ingin tambahkan?",
-                "Sebutkan waktu dari pencapaian yang anda ingin tambahkan?",
-                "Dimana lokasi jadwal berkunjung anda?"
-            ]
-        },
-        "information": {
-            "changeLog": "Catatan perubahan aplikasi",
-            "version": "Versi",
-            "questions": "Pertanyaan dan Jawaban",
-            "education": "Informasi penting yang perlu diketahui",
-            "helpSection": "Bantuan tentang aplikasi",
-            "infoSection": "Informasi mengenai pengobatan TBC",
-            "launchWalkthrough": "Menampilkan Tutorial",
-            "video": "Tonton Video",
-            "videos": "VIdeo mengenai pengobatan",
-            "helpVideos": "Video instruksi",
-            "techSupport": "Dukungan teknis",
-            "reportIssue": "Laporkan masalah",
-            "testInstructions": "Instruksi mengenai strip test",
-            "walkthrough": {
-                "title": "Interaktif tutorial",
-                "start": "Mulai dari awal",
-                "home": "Beranda",
-                "calendar": "Halaman Kalender",
-                "messaging": "Halaman Mengirim pesan"
-            }
-        },
-        "chatReminder": {
-            "howTo": "Berikutnya adalah bagaimana",
-            "list": [
-                "SIlahkan lanjut pada halaman mengirim pesan",
-                "Ke arah bawah, ketuk salah satu Diskusi Grup",
-                "Berdiskusi dengan pasien lain yang memiliki TBC. Ajukan pertanyaan, mendapatkan jawaban, dan memberi dukungan. Hanya pendamping pengobatan anda yang dapat melihat nama anda"
-            ]
-        }
+    "walkthrough": {
+      "swipe": "Geser layar ke kiri untuk lebih",
+      "welcome": {
+        "header": "Selamat Datang",
+        "one": "Terima kasih telah mendaftar pada aplikasi ini",
+        "two": "Sekarang kami akan membawa anda dalam jelajah untuk melihat beberapa fungsi utama aplikasi ini."
+      },
+      "homescreen": "Dimulai dari Beranda anda",
+      "revisit": "Jika anda ingin melihat kembali jelajah, anda dapat menemukan fungsi ini pada laman informasi",
+      "exit": "Anda dapat keluar dari jelajah setiap saat dengan menekan tombol X di bagian kanan atas",
+      "tasks": "Ini adalah tugas anda tiap hari, anda dapat menekan Mulai laporan untuk login pada pengobatan anda setiap hari",
+      "progressCard": "Kartu perkembangan menunjukkan kepada anda rangkuman sekilas anda berada di mana pada jadwal pengobatan anda.",
+      "reminders": "Terakhir, Kartu pengingat mengijinkan anda untuk merubah alaram pengingat pengobatan anda setiap hari, dan menambahakan alaram pengingat untuk jadwal kunjungan anda.",
+      "navigation": {
+        "text": "Aplikasi ini memiliki 4 layar utama. Untuk menelusuri, tekan ikon yang berada di bawah bilah navigasi",
+        "one": "Beranda+Tugas Saya",
+        "two": "Perkembangan + Kalender",
+        "three": "Percakapan",
+        "four": "Informasi"
+      },
+      "progress": {
+        "header": "Sekarang Anda berada pada beranda perkembangan",
+        "here": "Disini anda dapat",
+        "one": "Melihat laporan yang telah lewat",
+        "two": "Melihat dan mengedit perkembangan pengobatan anda",
+        "three": "Cek status dari foto yang anda masukkan"
+      },
+      "weekCalendar": "Ini adalah pratayang dari 5 laporan terakhir. Anda dapat menekan tombol kalender untuk melihat ",
+      "calendar": "Kalender lengkap Anda memberikan gambaran visual tentang garis anda, dan menunjukkan jumlah hari yang telah anda lewatkan dengan warna merah.",
+      "calendarBottom": "Anda dapat mengklik area ini di bagian bawah untuk melihat detail tentang laporan Anda",
+      "milestones": "Kembali ke halaman kemajuan utama, Anda dapat mengatur perkembangan Anda di sini",
+      "messaging": {
+        "header": "Sakarang kita berada pada halaman pesan",
+        "text": "Halaman ini merupakan tempat anda dapat berkomunikasi dengan pendamping anda dan pasien lainnya",
+        "one": "Tekan tombol ini untuk mengirim pesan pribadi kepada pendamping pengobatan anda.",
+        "two": "Disini anda dapat melakukan diskusi terbuka dengan pasien lainnya. Diskusi ini disusun berdasarkan topik"
+      },
+      "outro": {
+        "header": "Sudah semuanya!",
+        "one": "Jika anda memiliki beberapa pertanyaan, silahkan mengecek laman informasi atau langsung mengontak pendamping pengobatan anda."
+      }
     },
-    "symptoms": {
-        "nausea": {
-            "title": "Mual atau Muntah",
-            "subtitle": "Merasakan mual atau hilang napsu makan"
-        },
-        "redness": {
-            "title": "Kemerahan",
-            "subtitle": "Bengkak, kemerahan, gatal-gatal pada kulit"
-        },
-        "hives": {
-            "title": "Gatal",
-            "subtitle": "Bintik-bintik gatal pada kulit"
-        },
-        "fever": {
-            "title": "Demam",
-            "subtitle": "Temperatur tubuh lebih dari 37.5 C"
-        },
-        "appetite_loss": {
-            "title": "Hilang nafsu makan",
-            "subtitle": "Hilang nafsu makan"
-        },
-        "blurred_vision": {
-            "title": "Pandangan Kabur",
-            "subtitle": "Pandangan tampak kabur atau warna terlihat berubah-ubah"
-        },
-        "sore_belly": {
-            "title": "Nyeri Perut",
-            "subtitle": "Mengalami sakit perut atau iritasi pada perut"
-        },
-        "yellow_coloration": {
-            "title": "Kulit kekuningan",
-            "subtitle": "Kulit menguning atau mata memutih"
-        },
-        "difficulty_breathing": {
-            "title": "Kesusahan bernafas",
-            "subtitle": "Sesak nafas atau kesulitan bernafas"
-        },
-        "facial_swelling": {
-            "title": "Wajah membengkak",
-            "subtitle": "Pembengkakan pada wajah, bibir, lidah, dan tenggorokan"
-        },
-        "dizziness": {
-            "title": "Pusing",
-            "subtitle": ""
-        },
-        "headache": {
-            "title": "Sakit Kepala",
-            "subtitle": ""
-        },
-        "other": {
-            "title": "Lainnya",
-            "subtitle": "Tekan disini untuk menambahkan efek samping lainnya"
-        }
+    "reminders": {
+      "title": "Pengingat",
+      "medicationReminder": "Pengingat Minum Obat",
+      "whatTime": "Jam berapa anda setuju untuk menerima alaram pengingat minum obat?",
+      "appointments": "Jadwal kunjungan ",
+      "explanation": "Memungkinkan untuk menerima pengingat untuk minum obat Anda setiap hari pada waktu tertentu",
+      "enable": "Mengaktifkan",
+      "disable": "Menonaktifkan",
+      "changeTime": "Rubah waktu",
+      "options": "edit atau menonaktifkan",
+      "reminderEnabled": "Mengaktifkan alaram pengingat",
+      "reminderDisabled": "Menonaktifkan alaram pengingat",
+      "at": "Pada",
+      "successMessage": "Janji temu sukses ditambahkan"
     },
-    "milestones": {
-        "titles": {
-            "sputumTest": "Test Sputum",
-            "intensivePhase": "Akhir dari Fase Intensive",
-            "testingFU": "Test berikutnya",
-            "appointmentFU": "Jadwal kunjungan berikutnya",
-            "medPickup": "Ambil obat",
-            "housematesTested": "Semua orang yang tinggal satu rumah telah melakukan Test TBC"
-        },
-        "upcoming": "Berikutnya",
-        "previous": "Sebelumnya"
+    "demo": {
+      "showDemo": "Tunjukan demo"
     },
-    "coordinator": {
-        "mobileWarning": "Tampilan mobile masih berlangsung. Anda dapat melihat tugas Anda, tetapi tidak menyetujuinya. Pesan adalah fungsional.",
-        "priority": {
-            "high": "Tinggi",
-            "medium": "Sedang",
-            "low": "Rendah"
-        },
-        "cohortOverview": {
-            "adherenceGraph": "Rangkuman kepatuhan",
-            "title": "Ikhtisar per-kohort",
-            "high": "Prioritas tinggi",
-            "medium": "Prioritas Sedang",
-            "low": "Prioritas Rendah",
-            "active": "Aktif",
-            "pending": "Tertunda",
-            "reportedTime": "Dilaporkan dalam 7 hari terakhir",
-            "noPatientsFound": "Pasien tidak ditemukan",
-            "searchByName": "Cari berdasarkan nama pasien"
-        },
-        "addPatientFlow": {
-            "title": "Tambah Pasien",
-            "formTitle": "RIncian pasien baru",
-            "addedPatient": "Pasien baru ditambahkan",
-            "codeToSend": "Kode untuk dikirim ke pasien",
-            "resetCode": "Reset kode",
-            "forPatient": "Kode aktivasi untuk pasien",
-            "activationCode": "Kode aktivasi",
-            "clickToCopy": "klik untuk menyalin",
-            "success": "menyalin sukses",
-            "patientSuccess": "Pasien berhasil ditambahkan"
-        },
-        "titles": {
-            "myTasks": "Tugas saya",
-            "myPatients": "Pasien saya",
-            "reportingStatus": "Status laporan"
-        },
-        "cardTitles": {
-            "patientsWithSymptoms": "Pasien yang memiliki gejala",
-            "photosToReview": "Foto-foto untuk direview",
-            "missedReport": "Laporan hilang sejak resolusi terakhir",
-            "missedPhoto": "Foto yang diminta tidak ada",
-            "overviewOfProgress": "Ikhtisar kemajuan",
-            "allPatients": "Semua Pasien",
-            "activePatients": "Pasien aktif",
-            "archivedPatients": "Pasien yang diarsipkan",
-            "awaitingActivation": "Menunggu aktivasi",
-            "currentStatus": "Status saat ini",
-            "reportingCalender": "Melaporkan kalender",
-            "requestedSupport": "Dukungan telah di request"
-        },
-        "recentReports": {
-            "title": "Laporan terbaru",
-            "noSymptoms": "TIdak ada gejala dilaporkan",
-            "tookMeds": "Telah minum obat",
-            "didntTakeMeds": "Tidak minum obat",
-            "noPhoto": "Tidak ada foto",
-            "none": "TIdak ada"
-        },
-        "sideBar": {
-            "noReason": "Tidak ada alasan yang di masukkan",
-            "lastContacted": "Terakhir dikontrak",
-            "viewFullProfile": "Lihat profil penuh",
-            "daysMissed": "Jumlah hari lupa minum obat sejak resolusi terakhir",
-            "photoSub": "Unduhan foto",
-            "expandPhoto": "Melihat foto yang diperbesar",
-            "symptomsSince": "Ada laporan gejala",
-            "loading": "Memuat",
-            "messagePatient": "Kirim pesan pada pasien",
-            "contactedPatient": "Pasien yang telah dikontak"
-        },
-        "patientTableLabels": {
-            "name": "Nama",
-            "priority": "Prioritas",
-            "treatmentStart": "Pengobatan dimulai",
-            "lastSubmission": "Pengajuan terakhir",
-            "adherence": "Kepatuhan minum obat",
-            "photoAdherence": "Foto telah di masukkan",
-            "streak": "beruntun",
-            "details": "Detail"
-        },
-        "noReports": "tidak ada laporan",
-        "noTasks": "TIdak ada tugas ditemukan",
-        "profile": "Profil",
-        "message": "Pesan",
-        "adherence": "Kepatuhan minum obat",
-        "months": "Bulan",
-        "true": "Benar",
-        "false": "Salah",
-        "daysInTreatment": "Hari dalam pengobatan",
-        "patientProfile": {
-            "details":{
-                "progress": "Perkembangan"
-            },
-            "adherenceSection": {
-                "reportedTaking": "Terlapor sudah minum obat",
-                "didntTake": "Terlapor tidak minum obat",
-                "didntReport": "Lupa melaporkan",
-                "missedRequest": "Lupa Pesan"
-            },
-            "notes": {
-                "noneFound": "Tidak ada catatan ditemukan",
-                "title": "gelar",
-                "detail": "Detail"
-            },
-            "accessError": "Pasien init tidak ada di tempat anda",
-            "editDetails": {
-                "success": "Informasi pasien berhasil di perbaharui",
-                "title": "Edit detail pasien",
-                "newPhone": "Nomor ponsel baru",
-                "warning": "Jika pasien mengganti nomor ponsel, pasien harus login dengan nomor ponsel barunya",
-                "submit": "Kirim",
-                "cancel": "Batalkan",
-                "inputError": "Terjadi kesalahan dengan perubahan, ditandai dengan warna merah. Nomor ponsel harus berupa 9-15 digit dan berbeda pada setiap pasien. "
-            },
-            "addNote": {
-                "header": "Catatan baru untuk",
-                "title": "Gelar",
-                "note": "Catatan",
-                "button": "Kirim catatan"
-            },
-            "age": "Umur",
-            "gender": "Jenis Kelamin",
-            "resetPassword": "Reset password",
-            "resetPasswordExplanation": "Klik disini untuk mereset password. Ini akan menghasilkan password sementara untuk dikirim kepada pasien melalui WhatsApp. Pasien akan diminta untuk memasukkan password baru setelah mereka menggunakan password sementara. ",
-            "phoneNumber": "Nomor Ponsel",
-            "treatmentStart": "Mulai Pengobatan",
-            "treatmentEnd": "Tanggal Pengobatan Selesai",
-            "appEndDate": "tanggal akhir aplikasi",
-            "lastContacted": "Terakhir kali komunikasi",
-            "date": "Tanggal",
-            "taken": "Ambil",
-            "symptoms": "Gejala-gejala",
-            "photo": "Foto",
-            "completedDays": "Jumlah hari selesai",
-            "feelingHealthy": "Merasa Sehat",
-            "currentStreak": "Posisi sekarang",
-            "longestStreak": "Posisi terpanjang",
-            "symptomSummary": {
-                "title": "Ringkasan gejala",
-                "noneReported": "Tidak ada gejala yang dilaporkan untuk periode waktu yang dipilih",
-                "timeOptions": {
-                    "week": "7 hari terakhir",
-                    "month": "30 hari terakhir",
-                    "all": "Semua laporan"
-                }
-            },
-            "treatmentStatus": "Status pengobatan",
-            "feelingWell": "Sehat",
-            "contactTracing": "Penelusuran kontak",
-            "reportingHistory": "Riwayat pasien",
-            "listReports": "Laporan",
-            "calendarReports": "Kalender",
-            "options": {
-                "title": "Pilihan",
-                "resetPassword": "Mengatur ulang password",
-                "archive": "Arsipkan pasien",
-                "message": "Pesan",
-                "note": "Tambahkan catatan",
-                "edit": "Edit",
-                "editOutcome": "Edit luaran pengobatan/hasil akhir pengobatan"
-            }
-        },
-        "tasksSidebar": {
-            "complete": "Komplit",
-            "unfinished": "Tidak selesai",
-            "overview": "Gambaran tugas",
-            "patientStatus": "Status laporan pasien",
-            "noReport": "Tidak ada laporan hari ini",
-            "title": "Iktisar",
-            "doneToday": "Selesai untuk hari ini",
-            "unresolved": "Tidak terpecahkan",
-            "submitted": "Terkirim",
-            "taken": "Telah diambil",
-            "notTaken": "belum diambil",
-            "noneYet": "Belum ada laporan yang dikirimkan"
-        },
-        "settingsPage": {
-            "account": "Akun saya",
-            "language": "Pilihan Bahasa",
-            "updatePassword": "Perbarui password",
-            "documents": "Instruksi dan panduan",
-            "patientInformation": "Informasi untuk pasien",
-            "applicationHelp": "Bantuan Aplikasi",
-            "patientViewExplanation": "Ini adalah informasi yang dapat dilihat pasien dari aplikasi seluler mereka"
-        },
-        "documents": {
-            "manual": "Panduan aplikasi",
-            "instructions": "Instruksi  Strip Test"
-        }
+    "userFields": {
+      "givenName": "Nama panggil",
+      "familyName": "Marga",
+      "firstName": "Nama pertama",
+      "lastName": "Nama terakhir",
+      "password": "Password",
+      "treatmentStart": "Tanggal mulai pengobatan",
+      "phoneNumber": "Nomor Ponsel"
     },
-    "errors": {
-        "offline": "Tidak tersedia untuk jaringan offline. Silahkan sambungkan pada koneksi internet untuk menggunakan fungsi ini",
-        "page": {
-            "header": "Terjadi kesalahan",
-            "sorry": "Maaf atas kesalahan yang terjadi",
-            "furtherSupport": "Untuk dukungan lebih lanjut silahkan menghubungi kami",
-            "contactDetails": "Harap berikan deskripsi mendetail tentang masalah Anda dan langkah apa pun yang mengarahkan Anda ke masalah tersebut.",
-            "try": "Coba langkah-langkah berikut",
-            "reloadStep": "Memuat ulang halaman",
-            "loginStep": "Logout dan Login kembali",
-            "closeStep": "Tutup aplikasi dari sistem atau tutup browser"
-        },
-        "login": {
-            "badPhone": "Tidak ditemukan akun dengan nomor ponsel yang dimasukkan",
-            "badEmail": "Tidak ditemukan akun dengan email yang dimasukkan",
-            "identifier": "Salah nomor ponsel/email",
-            "password": "Password salah",
-            "other": "Kesalahan yang tidak terduga. Silakan hubungi pendamping perawatan Anda melalui WhatsApp"
-        },
-        "sessionExpired": "sesi anda telah habis masa tenggang",
-        "logBackIn": "Silahkan login kembali",
-        "reload": "Memuat ulang halaman"
+    "home": {
+      "purpose": "Mari kita melacak pengobatan dan kesehatan Anda!",
+      "today": "Hari ini",
+      "actions": {
+        "logMedication": "Mulai Lapor",
+        "uploadPhoto": "Unggah foto"
+      },
+      "todaysActions": {
+        "logMedication": "Mulai Lapor",
+        "uploadPhoto": "Unggah foto"
+      },
+      "progress": {
+        "currentStreak": "Posisi anda saat ini",
+        "upcomingDate": "Capaian selanjutnya",
+        "viewAll": "Lihat semuanya",
+        "close": "Tutup"
+      },
+      "completed": {
+        "title": "Lengkap",
+        "subtitle": "Laporan hari ini telah di laporkan",
+        "issue": "Kami telah menerima laporan masalah anda dan pendamping anda akan menghubungi anda segera.",
+        "modify": "Edit laporan anda"
+      },
+      "cardTitles": {
+        "todaysTasks": "Kegiatan anda hari ini",
+        "actionNeeded": "Tindakan yang diperlukan",
+        "myProgress": "Perkembangan saya",
+        "myLearning": "Pembelajaran saya"
+      },
+      "confirmAndSubmit": "Silahkan melakukan konfirmasi dan memasukkan laporan anda",
+      "helpVideos": {
+        "needHelp": "Apakah anda membutuhkan bantuan untuk aplikasi ini?",
+        "hide": "Sembunyikan",
+        "seeAll": "Lihat semua video tutorial",
+        "collapse": "Sembunyikan daftar",
+        "viewOnInfo": "Anda dapat melihat video ini kembali di halaman informasi"
+      },
+      "missedDays": {
+        "missing": "Catatan pengobatan terlewatkan",
+        "missing_plural": "Catatan pengobatan terlewatkan",
+        "missedPhoto": "Mengajukan test yang terlewatkan"
+      },
+      "chatReminder": {
+        "body": "Apakah anda tau anda dapat memulai percakapan dengan pasien lain secara anonim? ",
+        "button": "Tunjukan kepada saya bagaimana"
+      }
     },
-    "settings": {
-        "updatePassword": "Perbarui password",
-        "currentPassword": "Password saat ini",
-        "newPassword": "Password baru",
-        "confirmPassword": "Konfirmasi password baru",
-        "submit": "Kirim"
-    },
-    "educationalMessages": {
-        "feedback": "Terima kasih atas masukkan anda",
-        "week": "Minggu",
-        "header": "Hal yang penting diketahui",
-        "helpful": "Apakah ini membantu?",
-        "lateWarning": "Pembaruan yang terlewatkan mungkin muncul nanti dalam perawatan Anda"
-    },
-    "timeline": {
-        "warning": "Ini adalah garis besar umum, dan mungkin berbeda dari orang ke orang",
-        "title": "Garis waktu pengobatan",
-        "expect": "Yang anda dapat harapkan bulan ini",
-        "sputumTest": "Tes sputum",
-        "start": "Mulai pengobatan",
-        "intensive": "Fase intensif",
-        "medicationChange": "Rubah pengobatan",
-        "continuous": "Fase lanjutan",
-        "followUp": "Jadwal Kunjungan selanjutnya",
-        "end": "Akhir pengobatan",
-        "here": "Anda disini",
-        "twoMonths": "Setiap dua bulan",
-        "during": "Selama fase lanjutan",
-        "dayOne": "Hari pertama",
-        "scheduled": "Setiap bulan atau sesuai yang di jadwalkan",
-        "oneToTwo": "Setelah 1-2 bulan",
-        "changeMeds": "Rubah regimen pengobatan",
-        "afterTwo": "setelah 2 bulan",
-        "threeToFour": "setelah 3-4 bulan",
-        "finish": "Pengobatan selesai",
-        "sixMonths": "Setelah 6 bulan",
-        "finalSputum": "Tes sputum terakhir"
+    "profile": {
+      "title": "Pengaturan",
+      "changePassword": "Perbaharui Password",
+      "editNotifications": "Mengedit preferensi pemberitahuan",
+      "changeUsername": "edit nama pengguna",
+      "personalInfo": "Informasi pribadi",
+      "startDate": "Tanggal mulai",
+      "endDate": "Tanggal akhir",
+      "totalTreatments": "Jumlah total pengobatan",
+      "currentAdherence": "Status kepatuhan saat ini",
+      "logout": "Logout",
+      "organization": "Organisasi",
+      "options": {
+        "account": "Akun saya",
+        "language": "Bahasa",
+        "dailyNotifications": "Notifikasi tiap hari",
+        "medicationReminder": "Pengingat Minum Obat",
+        "addNewReminder": "Tambahkan alaram pengingat minum obat",
+        "remindMe": "Ingatkan saya pada jam",
+        "spanish": "Bahasa Spanyol",
+        "english": "Bahasa Inggris",
+        "update": "Pemuktahiran"
+      }
     },
     "report": {
-        "for": "Tujuan laporan",
-        "incomplete": "Tidak komplit",
-        "noReportsYet": "Tidak ada laporan",
-        "tag": "Laporan",
-        "medicationTaken": "Obat yang sudah diminum",
-        "time": "Waktu",
-        "conclusive": "Pasti",
-        "inconclusive": "Tidak pasti",
-        "pending": "Tertunda",
-        "photoNotNeeded": "Foto tidak dibutuhkan",
-        "missedPhoto": "Foto belum di kirimkan",
-        "missedPhotoShort": "Foto belum ada",
-        "submittedAt": "Dikirim pada",
-        "feeling": "Perasaan",
-        "photoSubmitted": "Foto telah dikirim",
-        "flags": "Bendera"
-    },
-    "appointments": {
-        "noUpcoming": "Tidak ada janji yang akan datang",
-        "typeQuestion": "Jenis janji temu apa yang ingin anda tambahkan?",
-        "selectDate": "Pilih Waktu dan Tanggal",
-        "addAppointment": "Tambahkan Janji Temu",
-        "otherType": "Jenis janji temu apa?",
-        "remindedAt": "Anda akan di ingatkan pada",
-        "dayBefore": "Hari sebelum janji temu anda",
-        "types": {
-            "check_in": "Daftar",
-            "medication_pickup": "Ambil obat",
-            "sputum_test": "Tes sputum",
-            "other": "Lainnya"
+      "allGood": "Semua tampak baik",
+      "trackIssues": "Melacak masalah",
+      "topTitle": "Laporan hari ini",
+      "important": "Penting",
+      "dayLate": "Hari terlambat",
+      "dayLate_plural": "Hari terlambat",
+      "late": "Terlambat",
+      "next": "Berikut",
+      "title": "Laporan aktifitas untuk pengobatan hari ini",
+      "medicationTitle": "Silahkan laporkan pengobatan anda",
+      "medicationTime": "Jam berapa anda minum obat hari ini?",
+      "didYouTake": "Apakah anda minum obat hari ini?",
+      "didTake": "Ya, saya minum obat hari ini",
+      "didNotTake": "Tidak, saya belum minum obat hari ini",
+      "whyNotTaken": "Kenapa anda belum minum obat hari ini?",
+      "symptomsTitle": "Apakah anda memiliki gejala?",
+      "moodTitle": "Bagaimana perasaan anda hari ini?",
+      "doingWell": "Baik",
+      "needSupport": "Butuh bantuan",
+      "requireReason": "Tolong beri tahu kami bagaimana kami dapat mendukung Anda sebelum melanjutkan",
+      "whySupport": "Bagaimana kami dapat membantu anda?",
+      "photoTitle": "Ambil gambar foto strip",
+      "photo": {
+        "permissionsError": "Terjadi kesalahan saat mendapatkan akses ke kamera Anda. Harap coba lagi dan pastikan untuk mengizinkan akses jika diminta.",
+        "usePhoto": "Pakai foto",
+        "retakePhoto": "ambil foto kembali",
+        "openCamera": "Buka kamera",
+        "how": "Bagaimana caranya saya melakukan test?",
+        "help": {
+          "remember": "Tolong ingat untuk",
+          "wait": "Diamkan strip tes selama 20 menit sebelum mengambil foto",
+          "straight": "Ambil gambar foto hasil strip test tepat diatas.",
+          "retakeIf": "Foto kembali jika kabur atau tanda kotak tidak terlihat",
+          "instructions": "Lihat instruksi strip test"
         },
-        "showAll": "Tampilkan semua",
-        "showLess": "Tampilkan beberapa"
-    },
-    "update": {
-        "update": "Memperbaharui",
-        "updateAvailable": "Pemuktahiran tersedia",
-        "alreadyDownloaded": "Telah di unduh dan siap digunakan segera",
-        "clickButton": "Tekan tombol berikut untuk menyelesaikan pemuktahiran",
-        "doLater": "Selesaikan nanti"
-    },
-    "forcePasswordUpdate": {
-        "temporaryPassword": "Kode sementara",
-        "title": "Password anda telah direset, silahkan buat password baru",
-        "exit": "Selesaikan ini nanti",
-        "success": "Password telah berhasil diperbaharui"
-    },
-    "treatmentUpdates": {
-        "3": "La Tuberculosis Pulmonar se contagia cuando una persona enferma al toser, estornudar o al hablar elimina con la tos secreciones que contienen los bacilos que producen la enfermedad. Siempre tratar de toser en lugar bien ventilado, nunca cerrado, si es posible cubrirse la boca y/o utilizar barbijo. ",
-        "5": "¿Sabías que puedes chatear con otros pacientes en tratamiento anónimamente?",
-        "7": "Una de las drogas utilizadas, la Rifampicina, colorea la orina, saliva o lagrimas de color naranja o rojo. Esto es  normal. Las lentes de contacto pueden teñirse de manera irreversible.",
-        "10": "Estar en contacto frecuente y en lugares cerrados aumenta el riesgo de contagiarse. Las personas con las que vive o trabaja deben hacerse un control. ¡Cuando tosa, por favor cúbrase la boca con el pliegue del codo!",
-        "14": "Las drogas utilizadas en el tratamiento deben tomarse en ayunas con agua, ya que con los alimentos, sobre todo si contienen abundantes azúcares (por ejemplo yogurt) y harinas, la acción disminuye en forma importante (25-60%) ",
-        "21": "La Tuberculosis Pulmonar no se contagia al dar la mano, compartir vasos o platos. Solo el contagio se produce al toser, estornudar o al hablar. Recordar que ¡La Tuberculosis se cura! ",
-        "24": "Por la acción rápida de las drogas una persona enferma a los pocos días (entre 15 a 20 días) deja de contagiar. Esto lo determina el médico mediante un estudio de catarro.",
-        "28": "Dejar de contagiar no es igual a curación. Para que la Tuberculosis Pulmonar se cure debo cumplir con al menos 6 meses de tratamiento. ",
-        "31": "Las drogas utilizadas en el tratamiento de la Tuberculosis pueden producir vómitos, picazón, pérdida del apetito, erupciones en la piel, disminución en la visión. Recordar que la presencia de estos efectos deberá consultarse con el servicio tratante, para evaluar la severidad de la misma.",
-        "35": "Los síntomas como fiebre, sudores nocturnos, tos y catarro, pueden persistir durante los primeros días del tratamiento. Recordar que hay que continuar con el tratamiento! ",
-        "38": "Por la acción de los medicamentos la piel puede estar más sensible al sol. Tratar de no exponerse al sol. Recordar que lo importante es el cumplimiento del tratamiento.",
-        "42": "La alimentación puede incluir todos los componentes como pan, pastas, harinas, grasas, proteínas, fibra, fruta y verduras.",
-        "46": "Para controlar que las drogas antituberculosas utilizadas lo están curando, es necesario hacer controles mínimos del catarro. Recordar que los controles son importantes en los primeros meses del tratamiento cuando aún puede tener síntomas. ",
-        "50": "Sabemos que, lamentablemente, la persona enferma puede sufrir actos de discriminación. Esto se debe al miedo y al desconocimiento. Creemos que la información y la difusión son la manera de desterrar estos prejuicios. Todos podemos enfermar. ",
-        "54": "Las drogas utilizadas en el tratamiento de la Tuberculosis son 100% efectivas y curan al paciente enfermo. Si el tratamiento no se cumple hace que la bacteria se vuelva resistente a las drogas perdiendo así su esta efectividad.",
-        "58": "El control del catarro especialmente en los 2 primeros meses del tratamiento, permite saber si una persona aún sigue contagiando. Con estos controles si el catarro ya es negativo puedeo volver al trabajo, a pesar que debeo continuar con el tratamiento durante con el tratamiento los 6 meses. Adelante! ",
-        "62": "Después del segundo mes el tratamiento es más sencillo con menor cantidad de medicación. Es importante continuar con todos los controles y examen del catarro para saber si las drogas me sirven para curarme. ",
-        "70": "Ante cualquier complicación, el personal de salud de su lugar de atención puede controlar el tratamiento. Recordar que la única manera de prevenir en Tuberculosis es CURAR a todos los pacientes. ",
-        "80": "Un tratamiento exitoso depende del cumplimiento de todas las tomas de la medicación. Tratar de respetar los horarios.",
-        "90": "La mejoría de los síntomas no es lo mismo que curación. Curar significa que hay que continuar habitualmente con un tratamiento 6 meses. Adelante! ",
-        "141": "Let us know how we are doing! Someone from the study might reach out to you and ask about your experience with the app. We also have a survey that is available on the homepage. Thanks!"
-    },
-    "mayTestStripUpdate": {
-        "title": "Pembaruan penting",
-        "subtitle": "strip test instruksi terbaru",
-        "body": "Instruksi untuk stip test sudah diubah, silahkan lihat kembali instruksi sebelum menyelesaikan test anda",
-        "textInstructions": "Instruksi dalam bentuk tulisan",
-        "videoInstructions": "Video instruksi"
-    },
-    "exitInterviewAlert":{
-        "title": "Umpan balik",
-        "intro": "Sangat Bagus!!! Pengobatan anda hampir selesai!",
-        "ask": "Untuk mengumpulkan umpan balik, salah satu anggota dari tim penelitian akan menghubungi anda setelah anda selesai menggunakan aplikasi ini.",
-        "survey": "Kami juga memiliki survey pendek pada beranda.",
-        "thanks": "Terima Kasih"
-
-
-    },
-    "dashboard": {
-        "category": "Kategori",
-        "reported": "Terlaporkan",
-        "requested": "Diminta",
-        "submitted": "Dikirim",
-        "submissions": "Pengajuan-pengajuan",
-        "percentage": "Persentase",
-        "dailyReports": "Laporan Harian",
-        "percentageOfReports": "Persentase laporan",
-        "photoReports": "Laporan foto-foto",
-        "metric": "Metrik",
-        "lessThan": "Kurang dari",
-        "registrationOfPatients": "Pendaftaran pasien dari waktu ke waktu",
-        "reportsVsRequests": "Laporan Harian yang Disampaikan / Total Jumlah Pasien Aktif ",
-        "photosVsRequests": "Foto Harian Dikirim / Jumlah Permintaan ",
-        "adherenceVis": "Kepatuhan vs Hari keberapa dalam pengobatan",
-        "skippedPhoto": "Foto terlewatkan",
-        "needsSupport": "Membutuhkan bantuan",
-        "sideEffects": "Efek samping"
-    },
-    "summaries": {
-        "averageAdherence": "Rata-rata kepatuhan",
-        "averagePhotoAdherence": "Rata-rata kepatuhan berdasarkan foto",
-        "siteSummary": "RIngkasan dari pasien-pasien aktif",
-        "loading": "Memuat daftar pasien"
-    },
-    "archive": {
-        "notSelected": "Tidak pilih",
-        "warningTitle": "Pasien diarsipkan",
-        "explanation": "Jika pasien telah selesai menggunakan aplikasi, isi hari terakhir mereka, dan klik tombol di bawah untuk mengarsipkannya. Mereka tidak akan lagi muncul dalam daftar tugas, tetapi profil mereka dapat diakses dari tab kelompok. ",
-        "appEndField": "Hari terakhir menggunakan aplikasi",
-        "warningShort": "Pasien yang telah diarsipkan dan tidak dapat dilaporkan kembali",
-        "warningLong": "Pasien ini telah diarsipkan dan tidak akan muncul lagi di tugas Anda. Jika Anda perlu membatalkan tindakan ini, harap hubungi staf studi untuk mendapatkan dukungan teknis. ",
-        "treatmentOutcome": "Luaran Pengobatan",
-        "continue": "Lanjut kepada profil pasien",
-        "outcomeTypes": {
-            "success": "Sukses",
-            "default": "Gagal",
-            "withdraw": "Mundur",
-            "lost-to-follow-up": "Lost to follow up",
-            "transferred": "Pindah",
-            "deceased": "Meninggal"
-        },
-        "complete": "Komplit",
-        "endSurvey": "Survey",
-        "patientSide": {
-            "congrats": "Selamat anda telah menyelesaikan pengobatan anda!",
-            "subtitle": "Kami tahu menyelesaikan perawatan tidak mudah, dan Anda melakukan pekerjaan yang sangat baik. Jika Anda memiliki pertanyaan Pendamping Anda akan berada di sana untuk mendukung Anda",
-            "details": "Anda tidap perlu memasukkan laporan lagi, namun anda masih dapat menggunakan fitur-fitur dukungan di aplikasi yang lainnya.",
-            "survey": "Jika anda belum mengisi survey, silahkan diisi untuk memberikan informasi kepada kami tentang pengalaman anda menggunakan aplikasi ini.",
-            "surveyButton": "Beritahukan kepada kami pengalaman anda.",
-            "statusChange": "Statuse anda telah berubah dan anda tidak lagi dapat melakukan laporan. Silahkan menguhubungi pendamping anda untuk mengetahui lebih lanjut."
-        },
-        "surveyText": "Mohon dapat mengirimkan tautan ini kepada pasien sehingga mereka dapat memberitahukan pengalaman mereka."
-    },
-    "notificationInstructions": {
-        "steps": {
-            "title": "Bagaimana cara mengaktifkan notifikasi",
-            "goToSettings": "SIlahkan buka fitur pengaturan aplikasi pada ponsel anda ",
-            "clickNotifications": "Tekan aktif pada pengaturan notifikasi",
-            "clickApp": "Tekan aplikasi",
-            "allowNotifications": "Aktifkan notifikasi"
-        },
+        "other": "Opsi Lainnya",
+        "submitLater": "Kirim nanti",
+        "unable": "Tidak dapat kirim? beritahukan kepada kami kenapa?",
+        "whyUnable": "Kenapa anda tidak dapat kirim gambar?",
+        "back": "Kembali ke tahap sebelumnya"
+      },
+      "symptoms": {
+        "nauseaRating": "Seberapa berat rasa mual yang anda rasakan?",
+        "instructions": "Tekan pilihan yang menggambarkan perasaan anda",
         "warning": {
-            "title": "notifikasi tidak diaktifkan",
-            "subtitle": "Artinya anda tidak akan menerima:",
-            "medicationReminders": "Alaram pengingat minum obat",
-            "aptReminders": "Alaram pengingat jadwal kunjungan",
-            "msgAlerts": "Pesan baru dari pendamping anda",
-            "button": "Lihat instruksi",
-            "unsupported": "Perangkat ini tidak dapat menampilkan notifikasi",
-            "unsupportedDetails": "Anda tidak dapat menerima alaram pengingat atau notifikasi ada pesan baru",
-            "ask": "Mengaktifkan"
+          "title": "Anda Melaporkan gejala-gejala yang perlu segera ditindaklanjuti",
+          "subtitle": "Segera cari pertolongan medis darurat. Pendamping minum obat anda akan segera menghubungi anda",
+          "button": "Oke",
+          "moreInformation": "Informasi lebih lanjut"
         }
+      },
+      "confirmation": {
+        "title": "Konfirmasi dan Masukkan",
+        "addMore": "Tambahkan lagi",
+        "noPhoto": "Tidak perlu memasukkan foto hari ini",
+        "missingPhoto": "Foto belum ada",
+        "takenAt": "Diambil pada",
+        "notTaken": "Tidak mengambil foto karena",
+        "review": "Lihat foto"
+      },
+      "offline": {
+        "report": "Laporan offline",
+        "report_plural": "Laporan offline",
+        "allDone": "Semua laporan offline sudah di masukkan",
+        "youHave": "Anda memiliki",
+        "explanation": "Akan di unggah saat ada koneksi internet",
+        "uploading": "Mungunggah laporan offline anda"
+      },
+      "photoUploading": "Foto anda sudah diunggah",
+      "photoUploadError": "Terjadi kesalahan dalam pengunggahan laporan anda. Silahkan coba lagi, atau hubungi pendamping pengobatan anda"
     },
-    "householdTesting": {
-        "updated": "Telah diperbaharui",
-        "button": "Memperbaharui hasil test anggota keluarga",
-        "title": "Test anggota keluarga",
-        "thanks": "Terima Kasih atas masukkan anda",
-        "recorded": "Respon anda telah di rekam",
-        "reachOut": "Belum semua kontak anda telah di test, silahkan hubungi pendamping pengobatan anda untuk informasi dan rekomendasi lebih lanjut.",
-        "completed": "Terima kasih telah perduli terhadap kesehatan orang yang tinggal serumah dengan anda.",
-        "membersTested": "Jumlah orang yang di test",
-        "noResponse": "Belum Komplit"
+    "reportConfirmation": {
+      "view": "Lihat",
+      "hide": "Sembunyikan",
+      "viewOrEdit": "Lihat / Edit Laporan",
+      "goodJob": "Bagus!",
+      "photoNeeded": "Anda juga harus mengunduh foto strip test anda hari ini",
+      "doLater": "Akan dilakukan nanti",
+      "baseComplete": "Laporan harian anda telah berhasil di laporkan",
+      "photoComplete": "Laporan hasil strip test anda telah berhasil di laporkan"
     },
-    "missedPhotoDetails":{
-        "topBarText": "Permintaan yang tidak terjawab",
-        "future": "Kedepannya, harap kirimkan tes Anda pada hari yang diminta sehingga kami dapat melihat kemajuan perawatan Anda. ",
-        "requestedOn": "Mengirimkan untuk permintaan yang dikirim pada",
-        "notRequired": "Anda tidak memiliki permintaan tes yang terlewat saat ini. Pertahankan hasil anda!",
-        "confirmation": "Foto Anda telah dikirim, terima kasih telah memberi tahu kami kabar Anda! "
+    "progress": {
+      "noReport": "Tidak ada laporan hari ini",
+      "whenBackReport": "Kapan saya dapat melaporkan hari yang saya lupa laporan?",
+      "viewCalendar": "Lihat laporan kalender anda",
+      "viewPhotos": "Lihat foto yang telah anda laporkan",
+      "approvalStatus": "Status persetujuan",
+      "milestones": "Pencapaian",
+      "upcoming": "Berikutnya",
+      "calendar": "Kalender laporan",
+      "submissionLimit": "Jika anda lupa minum obat satu hari, anda hanya dapat memasukkan laporan untuk 3 hari sebelumnya, and hari apa saja yang anda lupa pada 2 minggu pertama",
+      "loading": "Pelaporan riwayat pengunggahan",
+      "calendarKey": {
+        "tookMeds": "Telah minum obat",
+        "sideEffects": "Melaporkan ada efek samping",
+        "noMeds": "Tidak minum obat",
+        "button": "Apa arti dari warna ini",
+        "description": "Ini merupakan kalender dimana anda dapat melihat aktifitas laporan anda. Warna-warna yang ada menunjukkan:",
+        "good": "Semuanya telah di laporkan",
+        "missed": "TIdak ada yang dilaporkan. Jika anda lupa melaporkan 1 hari, anda dapat melaporkan kembali maksimal 3 hari sebelumnya",
+        "notTaken": "Terlaporkan tidak minum obat",
+        "symptoms": "Laporan adanya gejala-gejala"
+      }
     },
-    "appSurvey":{
-        "goToSurvey": "SIlahkan mengisi survey",
-        "markAsCompleted": "Tandai telah komplit"
+    "addMilestone": {
+      "barTitle": "Tambahkan pencapaian",
+      "titles": [
+        "Pencapaian apa yang ingin anda tambahkan?",
+        "Sebutkan tanggal pencapaian yang anda ingin tambahkan?",
+        "Sebutkan waktu dari pencapaian yang anda ingin tambahkan?",
+        "Dimana lokasi jadwal berkunjung anda?"
+      ]
     },
-    "oneStepReporting":{
-        "top": "Apakah anda telah minum obat? Apakah ada masalah?",
-        "tap": "Ketuk tombol",
-        "greenButton": "Tombol hijau",
-        "complete": "Untuk menyelesaikan laporan anda dalam satu langkah",
-        "needHelp": "Apakah anda mengalami masalah atau membutuhkan bantuan?",
-        "yellowButton": "Tombol Kuning",
-        "newFeature": "Fitur baru",
-        "oneStep": "Pelaporan satu langkah",
-        "homeScreen": "Anda juga sekarang dapat menyelesaikan laporan Anda setiap hari dari layar beranda dengan melaporkan langsung dari pengingat pengobatan Anda "
+    "information": {
+      "otherSettings": "Pengaturan lainnya",
+      "changeLog": "Catatan perubahan aplikasi",
+      "version": "Versi",
+      "questions": "Pertanyaan dan Jawaban",
+      "education": "Informasi penting yang perlu diketahui",
+      "helpSection": "Bantuan tentang aplikasi",
+      "infoSection": "Informasi mengenai pengobatan TBC",
+      "launchWalkthrough": "Menampilkan Tutorial",
+      "video": "Tonton Video",
+      "videos": "Video mengenai pengobatan",
+      "helpVideos": "Video instruksi",
+      "techSupport": "Dukungan teknis",
+      "reportIssue": "Laporkan masalah",
+      "testInstructions": "Instruksi mengenai strip test",
+      "walkthrough": {
+        "title": "Interaktif tutorial",
+        "start": "Mulai dari awal",
+        "home": "Beranda",
+        "calendar": "Halaman Kalender",
+        "messaging": "Halaman Mengirim pesan"
+      }
     },
-    "photoReportReview":{
-        "allLoaded": "Semua laporan telah dimuat",
-        "detected": "Obat terdeteksi",
-        "unclear": "Hasil tidak jelas",
-        "resubmit": "Pengajuan ulang diminta",
-        "awaiting": "Menunggu hasil",
-        "result": "Hasil"
-
-    },
-    "redoPhoto":{
-        "title": "Resubmit test strip",
-        "subtitle": "Review the issue your treatment supporter identified",
-        "flag": "Resubmission",
-        "explanation": "There was an issue with your last test submission and you have been asked to resubmit. Please review the instructions carefully.",
-        "feedback": "Feedback",
-        "originalSubmission": "Original Submission",
-        "newSubmission": "New Submission",
-        "selectResult": "Select test result",
-        "detected": "Medication detected",
-        "notDetected": "Not detected",
-        "ask": "Ask patient to resubmit test",
-        "attachMessage": "Message to patient"
-    },
-    "testStripInstructions":{
-        "imgSrc": "/img/es-Ar/v3-strip-instructions.jpg",
-        "one": "Collect a small amount of urine in a container (about 2 fingers deep)",
-        "two": "Take the test out of the bag",
-        "three": "Dip the strip into the urine for about 2 seconds to the line marked dip. Do not let the test for longer than 2 seconds in the urine.",
-        "four": "Wait 20 minutes for the test to process before proceeding",
-        "five" : {
-            "main": "Open the application and click \"Submit Photo\".",
-            "a": "Make sure the photo shows the entire strip, including the barcodes.",
-            "b":  "Take the picture and click \"Next\"."
-        },
-        "six": "Put the test back in its bag and discard in the trash"
-
+    "chatReminder": {
+      "howTo": "Berikutnya adalah bagaimana",
+      "list": [
+        "SIlahkan lanjut pada halaman mengirim pesan",
+        "Ke arah bawah, ketuk salah satu Diskusi Grup",
+        "Berdiskusi dengan pasien lain yang memiliki TBC. Ajukan pertanyaan, mendapatkan jawaban, dan memberi dukungan. Hanya pendamping pengobatan anda yang dapat melihat nama anda"
+      ]
     }
+  },
+  "symptoms": {
+    "nausea": {
+      "title": "Mual atau Muntah",
+      "subtitle": "Merasakan mual atau hilang napsu makan"
+    },
+    "redness": {
+      "title": "Kemerahan",
+      "subtitle": "Bengkak, kemerahan, gatal-gatal pada kulit"
+    },
+    "hives": {
+      "title": "Gatal",
+      "subtitle": "Bintik-bintik gatal pada kulit"
+    },
+    "fever": {
+      "title": "Demam",
+      "subtitle": "Temperatur tubuh lebih dari 37.5 C"
+    },
+    "appetite_loss": {
+      "title": "Hilang nafsu makan",
+      "subtitle": "Hilang nafsu makan"
+    },
+    "blurred_vision": {
+      "title": "Pandangan Kabur",
+      "subtitle": "Pandangan tampak kabur atau warna terlihat berubah-ubah"
+    },
+    "sore_belly": {
+      "title": "Nyeri Perut",
+      "subtitle": "Mengalami sakit perut atau iritasi pada perut"
+    },
+    "yellow_coloration": {
+      "title": "Kulit kekuningan",
+      "subtitle": "Kulit menguning atau mata memutih"
+    },
+    "difficulty_breathing": {
+      "title": "Kesusahan bernafas",
+      "subtitle": "Sesak nafas atau kesulitan bernafas"
+    },
+    "facial_swelling": {
+      "title": "Wajah membengkak",
+      "subtitle": "Pembengkakan pada wajah, bibir, lidah, dan tenggorokan"
+    },
+    "dizziness": {
+      "title": "Pusing",
+      "subtitle": ""
+    },
+    "headache": {
+      "title": "Sakit Kepala",
+      "subtitle": ""
+    },
+    "flu_symptoms": {
+      "title": "Sindrom Flu",
+      "subtitle": "Mengalami demam, menggigil, malaise, sakit kepala, nyeri tulang"
+    },
+    "red_urine": {
+      "title": "Air Kencing berwarna merah",
+      "subtitle": "Saat berkemih air kencing berwarna kemerahan"
+    },
+    "sleepy": {
+      "title": "Mengantuk",
+      "subtitle": "Rasa ingin tidur sepanjang hari"
+    },
+    "joint_pain": {
+      "title": "Nyeri sendi",
+      "subtitle": "Terasa nyeri pada persendian"
+    },
+    "burning_or_numbness": {
+      "title": "Rasa terbakar, kebas atau kesemutan",
+      "subtitle": "Gejala terasa pada jari-jari tangan dan atau kaki"
+    },
+    "hearing_loss": {
+      "title": "Gangguan Pendengaran",
+      "subtitle": "Mengalami gangguan pendengaran"
+    },
+    "vertigo": {
+      "title": "Pusing / Vertigo",
+      "subtitle": "Nyeri kepala berat atau nyeri kepala setengah"
+    },
+    "confusion": {
+      "title": "Bingung",
+      "subtitle": "Perasaan kebingungan"
+    },
+    "oliguria": {
+      "title": "Produksi urin sedikit",
+      "subtitle": "Kesusahan berkemih/produksi urin sedikit"
+    },
+    "other": {
+      "title": "Lainnya",
+      "subtitle": "Tekan disini untuk menambahkan efek samping lainnya"
+    }
+  },
+  "milestones": {
+    "titles": {
+      "sputumTest": " Tes sputum",
+      "intensivePhase": "Akhir dari Fase Intensive",
+      "testingFU": "Tes selanjutnya",
+      "appointmentFU": "Jadwal kunjungan selanjutnya",
+      "medPickup": "Ambil obat",
+      "housematesTested": "Semua orang yang tinggal satu rumah telah melakukan Tes TBC"
+    },
+    "upcoming": "Berikutnya",
+    "previous": "Sebelumnya"
+  },
+  "coordinator": {
+    "mobileWarning": "Tampilan mobile masih berlangsung. Anda dapat melihat tugas Anda, tetapi tidak dapat menyetujuinya. Pesan adalah fungsional.",
+    "priority": {
+      "high": "Tinggi",
+      "medium": "Sedang",
+      "low": "Rendah"
+    },
+    "cohortOverview": {
+      "adherenceGraph": "Rangkuman kepatuhan",
+      "title": "Ikhtisar per-kohort",
+      "high": "Prioritas tinggi",
+      "medium": "Prioritas Sedang",
+      "low": "Prioritas Rendah",
+      "active": "Aktif",
+      "pending": "Tertunda",
+      "archived": "Diarsipkan",
+      "reportedTime": "Dilaporkan dalam 7 hari terakhir",
+      "noPatientsFound": "Pasien tidak ditemukan",
+      "searchByName": "Cari berdasarkan nama pasien"
+    },
+    "addPatientFlow": {
+      "title": "Tambah Pasien",
+      "formTitle": "RIncian pasien baru",
+      "addedPatient": "Pasien baru ditambahkan",
+      "codeToSend": "Kode untuk dikirim ke pasien",
+      "resetCode": "Reset kode",
+      "forPatient": "Kode aktivasi untuk pasien",
+      "activationCode": "Kode aktivasi",
+      "clickToCopy": "klik untuk menyalin",
+      "success": "Sukses menyalin",
+      "patientSuccess": "Pasien berhasil ditambahkan"
+    },
+    "titles": {
+      "myTasks": "Tugas saya",
+      "myPatients": "Pasien saya",
+      "reportingStatus": "Status laporan"
+    },
+    "cardTitles": {
+      "patientsWithSymptoms": "Pasien yang memiliki gejala",
+      "photosToReview": "Foto-foto untuk direview",
+      "missedReport": "Laporan hilang sejak resolusi terakhir",
+      "missedPhoto": "Foto yang diminta tidak ada",
+      "overviewOfProgress": "Ikhtisar kemajuan",
+      "allPatients": "Semua Pasien",
+      "activePatients": "Pasien aktif",
+      "archivedPatients": "Pasien yang diarsipkan",
+      "awaitingActivation": "Menunggu aktivasi",
+      "currentStatus": "Status saat ini",
+      "reportingCalender": "Kalender laporan",
+      "requestedSupport": "Dukungan telah diminta"
+    },
+    "recentReports": {
+      "title": "Laporan terbaru",
+      "noSymptoms": "TIdak ada gejala dilaporkan",
+      "tookMeds": "Telah minum obat",
+      "didntTakeMeds": "Tidak minum obat",
+      "noPhoto": "Tidak ada foto",
+      "none": "TIdak ada"
+    },
+    "sideBar": {
+      "noReason": "Tidak ada alasan yang di masukkan",
+      "lastContacted": "Terakhir dikontrak",
+      "viewFullProfile": "Lihat profil penuh",
+      "daysMissed": "Jumlah hari lupa minum obat sejak resolusi terakhir",
+      "photoSub": "Unduhan foto",
+      "expandPhoto": "Melihat foto yang diperbesar",
+      "symptomsSince": "Ada laporan gejala",
+      "loading": "Memuat",
+      "messagePatient": "Kirim pesan pada pasien",
+      "contactedPatient": "Pasien yang telah dikontak"
+    },
+    "patientTableLabels": {
+      "name": "Nama",
+      "priority": "Prioritas",
+      "treatmentStart": "Pengobatan dimulai",
+      "lastSubmission": "Pengajuan terakhir",
+      "adherence": "Kepatuhan minum obat",
+      "photoAdherence": "Foto telah di masukkan",
+      "streak": "beruntun",
+      "details": "Detail"
+    },
+    "noReports": "tidak ada laporan",
+    "noTasks": "TIdak ada tugas ditemukan",
+    "profile": "Profil",
+    "message": "Pesan",
+    "adherence": "Kepatuhan minum obat",
+    "months": "Bulan",
+    "true": "Benar",
+    "false": "Salah",
+    "daysInTreatment": "Hari dalam pengobatan",
+    "patientProfile": {
+      "lastReport": "Laporan terakhir",
+      "details": {
+        "progress": "Perkembangan"
+      },
+      "adherenceSection": {
+        "reportedTaking": "Terlapor sudah minum obat",
+        "didntTake": "Terlapor tidak minum obat",
+        "didntReport": "Lupa melaporkan",
+        "missedRequest": "Permintaan terlewatkan"
+      },
+      "notes": {
+        "noneFound": "Tidak ada catatan ditemukan",
+        "title": "gelar",
+        "detail": "Detail"
+      },
+      "accessError": "Pasien init tidak ada di tempat anda",
+      "editDetails": {
+        "success": "Informasi pasien berhasil di perbaharui",
+        "title": "Edit detail pasien",
+        "newPhone": "Nomor ponsel baru",
+        "warning": "Jika pasien mengganti nomor ponsel, pasien harus login dengan nomor ponsel barunya",
+        "submit": "Kirim",
+        "cancel": "Batalkan",
+        "inputError": "Terjadi kesalahan dengan perubahan, ditandai dengan warna merah. Nomor ponsel harus berupa 9-15 digit dan berbeda pada setiap pasien. "
+      },
+      "addNote": {
+        "header": "Catatan baru untuk",
+        "title": "Gelar",
+        "note": "Catatan",
+        "button": "Kirim catatan"
+      },
+      "age": "Umur",
+      "gender": "Jenis Kelamin",
+      "resetPassword": "Reset password",
+      "resetPasswordExplanation": "Klik disini untuk mereset password. Ini akan menghasilkan password sementara untuk dikirim kepada pasien melalui WhatsApp. Pasien akan diminta untuk memasukkan password baru setelah mereka menggunakan password sementara. ",
+      "phoneNumber": "Nomor Ponsel",
+      "treatmentStart": "Mulai Pengobatan",
+      "treatmentEnd": "Tanggal Pengobatan Selesai",
+      "appEndDate": "tanggal akhir aplikasi",
+      "lastContacted": "Terakhir kali komunikasi",
+      "date": "Tanggal",
+      "taken": "Ambil",
+      "symptoms": "Gejala-gejala",
+      "photo": "Foto",
+      "completedDays": "Jumlah hari selesai",
+      "feelingHealthy": "Merasa Sehat",
+      "currentStreak": "Posisi sekarang",
+      "longestStreak": "Posisi terpanjang",
+      "symptomSummary": {
+        "title": "Ringkasan gejala",
+        "noneReported": "Tidak ada gejala yang dilaporkan untuk periode waktu yang dipilih",
+        "timeOptions": {
+          "week": "7 hari terakhir",
+          "month": "30 hari terakhir",
+          "all": "Semua laporan"
+        }
+      },
+      "treatmentStatus": "Status pengobatan",
+      "feelingWell": "Sehat",
+      "contactTracing": "Penelusuran kontak",
+      "reportingHistory": "Riwayat pasien",
+      "listReports": "Laporan",
+      "calendarReports": "Kalender",
+      "options": {
+        "title": "Pilihan",
+        "resetPassword": "Mengatur ulang password",
+        "archive": "Arsipkan pasien",
+        "message": "Pesan",
+        "note": "Tambahkan catatan",
+        "edit": "Edit",
+        "editOutcome": "Edit luaran pengobatan/hasil akhir pengobatan"
+      }
+    },
+    "tasksSidebar": {
+      "complete": "Komplit",
+      "unfinished": "Tidak selesai",
+      "overview": "Gambaran tugas",
+      "patientStatus": "Status laporan pasien",
+      "noReport": "Tidak ada laporan hari ini",
+      "title": "Iktisar",
+      "doneToday": "Selesai untuk hari ini",
+      "unresolved": "Tidak terpecahkan",
+      "submitted": "Terkirim",
+      "taken": "Telah diambil",
+      "notTaken": "belum diambil",
+      "noneYet": "Belum ada laporan yang dikirimkan"
+    },
+    "settingsPage": {
+      "account": "Akun saya",
+      "language": "Pilihan Bahasa",
+      "updatePassword": "Perbarui password",
+      "documents": "Instruksi dan panduan",
+      "patientInformation": "Informasi untuk pasien",
+      "applicationHelp": "Bantuan Aplikasi",
+      "patientViewExplanation": "Ini adalah informasi yang dapat dilihat pasien dari aplikasi seluler mereka"
+    },
+    "documents": {
+      "manual": "Panduan aplikasi",
+      "instructions": "Instruksi  Tes strip"
+    }
+  },
+  "errors": {
+    "offline": "Tidak tersedia untuk jaringan offline. Silahkan sambungkan pada koneksi internet untuk menggunakan fungsi ini",
+    "page": {
+      "header": "Terjadi kesalahan",
+      "sorry": "Maaf atas kesalahan yang terjadi",
+      "furtherSupport": "Untuk dukungan lebih lanjut silahkan menghubungi kami",
+      "contactDetails": "Harap berikan deskripsi mendetail tentang masalah Anda dan langkah apa pun yang mengarahkan Anda ke masalah tersebut.",
+      "try": "Coba langkah-langkah berikut",
+      "reloadStep": "Memuat ulang halaman",
+      "loginStep": "Logout dan Login kembali",
+      "closeStep": "Tutup aplikasi dari sistem atau tutup browser"
+    },
+    "login": {
+      "badPhone": "Tidak ditemukan akun dengan nomor ponsel yang dimasukkan",
+      "badEmail": "Tidak ditemukan akun dengan email yang dimasukkan",
+      "identifier": "Salah nomor ponsel/email",
+      "password": "Password salah",
+      "other": "Kesalahan yang tidak terduga. Silakan hubungi pendamping perawatan Anda melalui WhatsApp"
+    },
+    "sessionExpired": "sesi anda telah habis masa tenggang",
+    "logBackIn": "Silahkan login kembali",
+    "reload": "Memuat ulang halaman"
+  },
+  "settings": {
+    "updatePassword": "Perbarui password",
+    "currentPassword": "Password saat ini",
+    "newPassword": "Password baru",
+    "confirmPassword": "Konfirmasi password baru",
+    "submit": "Kirim"
+  },
+  "educationalMessages": {
+    "thoughtsForToday": "Pesan spesial untukmu hari ini ",
+    "feedback": "Terima kasih atas masukkan anda",
+    "week": "Minggu",
+    "header": "Hal yang penting diketahui",
+    "helpful": "Apakah ini membantu?",
+    "lateWarning": "Pembaruan yang terlewatkan mungkin muncul nanti dalam perawatan Anda"
+  },
+  "timeline": {
+    "warning": "Ini adalah garis besar umum, dan mungkin berbeda dari orang ke orang",
+    "title": "Garis waktu pengobatan",
+    "expect": "Yang anda dapat harapkan bulan ini",
+    "sputumTest": "Tes sputum",
+    "start": "Mulai pengobatan",
+    "intensive": "Fase intensif",
+    "medicationChange": "Rubah pengobatan",
+    "continuous": "Fase lanjutan",
+    "followUp": "Jadwal Kunjungan selanjutnya",
+    "end": "Akhir pengobatan",
+    "here": "Anda disini",
+    "twoMonths": "Setiap dua bulan",
+    "during": "Selama fase lanjutan",
+    "dayOne": "Hari pertama",
+    "scheduled": "Setiap bulan atau sesuai yang di jadwalkan",
+    "oneToTwo": "Setelah 1-2 bulan",
+    "changeMeds": "Rubah regimen pengobatan",
+    "afterTwo": "setelah 2 bulan",
+    "threeToFour": "setelah 3-4 bulan",
+    "finish": "Pengobatan selesai",
+    "sixMonths": "Setelah 6 bulan",
+    "finalSputum": "Tes sputum terakhir"
+  },
+  "report": {
+    "for": "Tujuan laporan",
+    "incomplete": "Tidak komplit",
+    "noReportsYet": "Tidak ada laporan",
+    "tag": "Laporan",
+    "medicationTaken": "Obat yang sudah diminum",
+    "time": "Waktu",
+    "conclusive": "Pasti",
+    "inconclusive": "Tidak pasti",
+    "pending": "Tertunda",
+    "photoNotNeeded": "Foto tidak diminta saat ini",
+    "missedPhoto": "Foto belum di kirimkan",
+    "missedPhotoShort": "Foto belum ada",
+    "submittedAt": "Dikirim pada",
+    "feeling": "Perasaan",
+    "photoSubmitted": "Foto telah dikirim",
+    "flags": "Bendera"
+  },
+  "appointments": {
+    "manage": "Lihat/Atur kembali semua Janji temu",
+    "typeNote": "Ketik catatan disini",
+    "createAppointment": "Buat janji temu",
+    "noUpcoming": "Tidak ada janji yang akan datang",
+    "whatDay": "Tentukan hari untuk janji temu ",
+    "whatTime": "Tentukan waktu janji temu",
+    "select": "Pilih jenis janji temu",
+    "typeQuestion": "Jenis janji temu apa yang ingin anda tambahkan?",
+    "selectDate": "Pilih Waktu dan Tanggal",
+    "addAppointment": "Tambahkan Janji Temu",
+    "otherType": "Jenis janji temu apa?",
+    "remindedAt": "Anda akan di ingatkan pada",
+    "dayBefore": "Hari sebelum janji temu anda",
+    "types": {
+      "check_in": "Daftar",
+      "medication_pickup": "Ambil obat",
+      "sputum_test": "Tes sputum",
+      "other": "Lainnya"
+    },
+    "showAll": "Tampilkan semua",
+    "showLess": "Tampilkan beberapa",
+    "addAnother": "Tambahkan lagi",
+    "nextAppointment": "Janji temu berikutnya"
+  },
+  "update": {
+    "update": "Memperbaharui",
+    "updateAvailable": "Pemuktahiran tersedia",
+    "alreadyDownloaded": "Telah di unduh dan siap digunakan segera",
+    "clickButton": "Tekan tombol berikut untuk menyelesaikan pemuktahiran",
+    "doLater": "Selesaikan nanti"
+  },
+  "forcePasswordUpdate": {
+    "temporaryPassword": "Kode sementara",
+    "title": "Password anda telah direset, silahkan buat password baru",
+    "exit": "Selesaikan ini nanti",
+    "success": "Password telah berhasil diperbaharui"
+  },
+  "treatmentUpdates": {
+    "3": "Tuberkulosis dapat menyebar ketika orang batuk, bersin atau berbicara, batuk mengeluarkan dahak yang mengandung basil penyebab penyakit. Usahakan selalu batuk di tempat yang berventilasi baik, jangan pernah tertutup, jika mungkin tutup mulut dan/atau gunakan masker.",
+    "5": "Tahukah Anda bahwa Anda dapat mengobrol dengan pasien lain yang sedang dalam pengobatan TBC yang menggunakan aplikasi ini secara anonim?",
+    "7": "Rifampisin yang merupakan salah satu obat yang dikonsumsi menyebabkan warna urin, air liur, atau air mata menjadi warna kemerahan. Ingat bahwa ini normal. Tetap teruskan minum obat, jangan berhenti. Namun segera laporkan keluhan anda kepada petugas.",
+    "10": "Kotak yang sering dan berada di tempat tertutup meningkatkan risiko terinfeksi. Orang yang tinggal atau bekerja dengan Anda perlu diskrining. Saat Anda batuk, tutup mulut Anda dengan lekukan siku!",
+    "14": "Obat-obatan yang digunakan dalam pengobatan harus diminum dengan perut kosong dengan air, karena dengan makanan, terutama jika mengandung banyak gula (misalnya, yogurt) dan tepung, aksinya berkurang secara signifikan (25-60%)",
+    "21": "Tuberkulosis tidak menular dengan berjabat tangan, berbagi gelas atau piring. Penularan hanya terjadi melalui batuk, bersin atau berbicara. Ingatlah bahwa Tuberkulosis dapat disembuhkan!",
+    "24": "Karena tindakan obat yang cepat, orang yang sakit setelah beberapa hari (antara 15 sampai 20 hari) berhenti menularkan penyakit. ",
+    "28": "Berhenti menginfeksi tidak sama dengan sembuh. Agar Tuberkulosis Paru bisa sembuh, saya harus menjalani pengobatan minimal 6 bulan.",
+    "31": "Obat-obatan yang digunakan dalam pengobatan TBC dapat menyebabkan muntah, gatal-gatal, kehilangan nafsu makan, ruam kulit, penurunan penglihatan. Ingatlah bahwa adanya efek ini harus dikonsultasikan dengan layanan perawatan, untuk menilai tingkat keparahannya.",
+    "35": "Gejala seperti demam, keringat malam, batuk dan pilek dapat bertahan selama beberapa hari pertama pengobatan. Ingatlah bahwa Anda harus melanjutkan perawatan!",
+    "38": "Karena tindakan obat-obatan, kulit mungkin lebih sensitif terhadap sinar matahari. Cobalah untuk tidak mengekspos diri Anda ke matahari. Ingatlah bahwa yang penting adalah kepatuhan dalam pengobatan.",
+    "42": "Makanan dapat mencakup semua komponen seperti nasi, roti, ubi-ubian, tepung, lemak, protein, serat, buah dan sayuran.",
+    "46": "Untuk memeriksa apakah obat antituberkulosis yang digunakan bereaksi baik, perlu dilakukan pemeriksaan dahak. Ingatlah bahwa pemeriksaan penting dalam beberapa bulan pertama pengobatan ketika Anda mungkin masih memiliki gejala.",
+    "50": "Kita tahu bahwa, kenyataannya, orang sakit dapat mengalami tindakan diskriminasi. Ini karena ketakutan dan ketidaktahuan. Kami percaya bahwa informasi dan diseminasi adalah cara untuk menghilangkan prasangka ini. Kita semua bisa sakit.",
+    "54": "Obat-obatan yang digunakan dalam pengobatan Tuberkulosis 100% efektif dan menyembuhkan pasien yang sakit. Jika pengobatan tidak lengkap, menyebabkan bakteri menjadi resisten terhadap obat, sehingga kehilangan efektivitasnya.",
+    "58": "Pemeriksaan dahak, terutama dalam 2 bulan pertama pengobatan, memungkinkan kita untuk mengetahui apakah seseorang masih menular. Dengan kontrol ini, jika dahaknya sudah negatif, dia bisa kembali bekerja, meskipun dia harus melanjutkan pengobatan selama 6 bulan. Di depan!",
+    "62": "Setelah bulan kedua, pengobatan lebih mudah dengan obat yang lebih sedikit. Penting untuk melanjutkan semua kontrol dan pemeriksaan dahak untuk mengetahui apakah obat membantu saya menyembuhkan diri sendiri.",
+    "70": "Jika terjadi komplikasi, petugas kesehatan di tempat perawatan Anda dapat mengontrol pengobatan. Ingatlah bahwa satu-satunya cara untuk mencegah Tuberkulosis adalah dengan MENGOBATI semua pasien.",
+    "80": "Keberhasilan pengobatan tergantung pada kepatuhan dengan semua asupan obat. Patuh pengobatan adalah kunci utama.",
+    "90": "Perbaikan gejala tidak sama dengan penyembuhan. Menyembuhkan berarti pengobatan harus dilanjutkan secara teratur selama 6 bulan. Di depan!",
+    "141": "Beri masukkan kepada kami! Seseorang dari penelitian ini mungkin menghubungi Anda dan bertanya tentang pengalaman Anda dengan aplikasi ini. Kami juga memiliki survei yang tersedia di beranda. Terima kasih!"
+  },
+  "mayTestStripUpdate": {
+    "title": "Pembaruan penting",
+    "subtitle": "strip test instruksi terbaru",
+    "body": "Instruksi untuk stip test sudah diubah, silahkan lihat kembali instruksi sebelum menyelesaikan test anda",
+    "textInstructions": "Instruksi dalam bentuk tulisan",
+    "videoInstructions": "Video instruksi"
+  },
+  "exitInterviewAlert": {
+    "title": "Umpan balik",
+    "intro": "Sangat Bagus!!! Pengobatan anda hampir selesai!",
+    "ask": "Untuk mengumpulkan umpan balik, salah satu anggota dari tim penelitian akan menghubungi anda setelah anda selesai menggunakan aplikasi ini.",
+    "survey": "Kami juga memiliki survey pendek pada beranda.",
+    "thanks": "Terima Kasih"
+  },
+  "dashboard": {
+    "category": "Kategori",
+    "reported": "Terlaporkan",
+    "requested": "Diminta",
+    "submitted": "Dikirim",
+    "submissions": "Pengajuan-pengajuan",
+    "percentage": "Persentase",
+    "dailyReports": "Laporan Harian",
+    "percentageOfReports": "Persentase laporan",
+    "photoReports": "Laporan foto-foto",
+    "metric": "Metrik",
+    "lessThan": "Kurang dari",
+    "registrationOfPatients": "Pendaftaran pasien dari waktu ke waktu",
+    "reportsVsRequests": "Laporan Harian yang Disampaikan / Total Jumlah Pasien Aktif ",
+    "photosVsRequests": "Foto Harian Dikirim / Jumlah Permintaan ",
+    "adherenceVis": "Kepatuhan vs Hari keberapa dalam pengobatan",
+    "skippedPhoto": "Foto terlewatkan",
+    "needsSupport": "Membutuhkan bantuan",
+    "sideEffects": "Efek samping"
+  },
+  "summaries": {
+    "averageAdherence": "Rata-rata kepatuhan",
+    "averagePhotoAdherence": "Rata-rata kepatuhan berdasarkan foto",
+    "siteSummary": "RIngkasan dari pasien-pasien aktif",
+    "loading": "Memuat daftar pasien"
+  },
+  "archive": {
+    "notSelected": "Tidak pilih",
+    "warningTitle": "Pasien diarsipkan",
+    "explanation": "Jika pasien telah selesai menggunakan aplikasi, isi hari terakhir mereka, dan klik tombol di bawah untuk mengarsipkannya. Mereka tidak akan lagi muncul dalam daftar tugas, tetapi profil mereka dapat diakses dari tab kelompok. ",
+    "appEndField": "Hari terakhir menggunakan aplikasi",
+    "warningShort": "Pasien yang telah diarsipkan dan tidak dapat dilaporkan kembali",
+    "warningLong": "Pasien ini telah diarsipkan dan tidak akan muncul lagi di tugas Anda. Jika Anda perlu membatalkan tindakan ini, harap hubungi staf studi untuk mendapatkan dukungan teknis. ",
+    "treatmentOutcome": "Luaran Pengobatan",
+    "continue": "Lanjut kepada profil pasien",
+    "outcomeTypes": {
+      "success": "Sukses",
+      "default": "Gagal",
+      "withdraw": "Mundur",
+      "lost-to-follow-up": "Lost to follow up",
+      "transferred": "Pindah",
+      "deceased": "Meninggal",
+      "refuse-to-use-app": "Menolak menggunakan aplikasi "
+    },
+    "complete": "Komplit",
+    "endSurvey": "Survey",
+    "patientSide": {
+      "congrats": "Selamat anda telah menyelesaikan pengobatan anda!",
+      "subtitle": "Kami tahu menyelesaikan perawatan tidak mudah, dan Anda melakukan pekerjaan yang sangat baik. Jika Anda memiliki pertanyaan Pendamping Anda akan berada di sana untuk mendukung Anda",
+      "details": "Anda tidap perlu memasukkan laporan lagi, namun anda masih dapat menggunakan fitur-fitur dukungan di aplikasi yang lainnya.",
+      "survey": "Jika anda belum mengisi survey, silahkan diisi untuk memberikan informasi kepada kami tentang pengalaman anda menggunakan aplikasi ini.",
+      "surveyButton": "Beritahukan kepada kami pengalaman anda.",
+      "statusChange": "Statuse anda telah berubah dan anda tidak lagi dapat melakukan laporan. Silahkan menguhubungi pendamping anda untuk mengetahui lebih lanjut."
+    },
+    "surveyText": "Mohon dapat mengirimkan tautan ini kepada pasien sehingga mereka dapat memberitahukan pengalaman mereka."
+  },
+  "notificationInstructions": {
+    "steps": {
+      "title": "Bagaimana cara mengaktifkan notifikasi",
+      "goToSettings": "SIlahkan buka fitur pengaturan aplikasi pada ponsel anda ",
+      "clickNotifications": "Tekan aktif pada pengaturan notifikasi",
+      "clickApp": "Tekan aplikasi",
+      "allowNotifications": "Aktifkan notifikasi"
+    },
+    "warning": {
+      "title": "notifikasi tidak diaktifkan",
+      "subtitle": "Artinya anda tidak akan menerima:",
+      "medicationReminders": "Alaram pengingat minum obat",
+      "aptReminders": "Alaram pengingat jadwal kunjungan",
+      "msgAlerts": "Pesan baru dari pendamping anda",
+      "button": "Lihat instruksi",
+      "unsupported": "Perangkat ini tidak dapat menampilkan notifikasi",
+      "unsupportedDetails": "Anda tidak dapat menerima alaram pengingat atau notifikasi ada pesan baru",
+      "ask": "Mengaktifkan"
+    }
+  },
+  "householdTesting": {
+    "updated": "Telah diperbaharui",
+    "button": "Memperbaharui hasil test anggota keluarga",
+    "title": "Test anggota keluarga",
+    "thanks": "Terima Kasih atas masukkan anda",
+    "recorded": "Respon anda telah di rekam",
+    "reachOut": "Belum semua kontak anda telah di test, silahkan hubungi pendamping pengobatan anda untuk informasi dan rekomendasi lebih lanjut.",
+    "completed": "Terima kasih telah perduli terhadap kesehatan orang yang tinggal serumah dengan anda.",
+    "membersTested": "Jumlah orang yang di test",
+    "noResponse": "Belum Komplit"
+  },
+  "missedPhotoDetails": {
+    "topBarText": "Permintaan yang tidak terjawab",
+    "future": "Kedepannya, harap kirimkan tes Anda pada hari yang diminta sehingga kami dapat melihat kemajuan perawatan Anda. ",
+    "requestedOn": "Mengirimkan untuk permintaan yang dikirim pada",
+    "notRequired": "Anda tidak memiliki permintaan tes yang terlewat saat ini. Pertahankan hasil anda!",
+    "confirmation": "Foto Anda telah dikirim, terima kasih telah memberi tahu kami kabar Anda! "
+  },
+  "appSurvey": {
+    "goToSurvey": "SIlahkan mengisi survey",
+    "markAsCompleted": "Tandai telah komplit"
+  },
+  "oneStepReporting": {
+    "top": "Apakah anda telah minum obat? Apakah ada masalah?",
+    "tap": "Ketuk tombol",
+    "greenButton": "Tombol hijau",
+    "complete": "Untuk menyelesaikan laporan anda dalam satu langkah",
+    "needHelp": "Apakah anda mengalami masalah atau membutuhkan bantuan?",
+    "yellowButton": "Tombol Kuning",
+    "newFeature": "Fitur baru",
+    "oneStep": "Pelaporan satu langkah",
+    "homeScreen": "Anda juga sekarang dapat menyelesaikan laporan Anda setiap hari dari layar beranda dengan melaporkan langsung dari pengingat pengobatan Anda "
+  },
+  "photoReportReview": {
+    "allLoaded": "Semua laporan telah dimuat",
+    "detected": "Obat terdeteksi",
+    "unclear": "Hasil tidak jelas",
+    "resubmit": "Pengajuan ulang diminta",
+    "awaiting": "Menunggu hasil",
+    "result": "Hasil"
+  },
+  "redoPhoto": {
+    "viewMyPhotos": "Lihat kembali foto yang telah di unggah",
+    "title": "Unggah kembali foto hasil test strip",
+    "subtitle": "Tinjau masalah yang telah diidentifikasi oleh pendamping berobat anda",
+    "flag": "Unggah kembali",
+    "shortFlag": "Ulangi tindakan",
+    "explanation": "Ada masalah dengan pengunggahan hasil test anda yang terakhir. Mohon dapat mengunggah kembali foto hasil test anda. Mohon dapat memperhatikan instruksi secara seksama",
+    "feedback": "Masukan",
+    "originalSubmission": "Pengajuan awal",
+    "newSubmission": "Pengajuan baru",
+    "selectResult": "Pilih hasil tes",
+    "detected": "Obat terdeteksi",
+    "notDetected": "Tidak terdeteksi",
+    "ask": "Minta pasien untuk memasukan kembali hasil tes",
+    "attachMessage": "Kirim pesan ke pasien"
+  },
+  "testStripInstructions": {
+    "imgFolder": "/img/en/",
+    "one": "Tampung sedikit urin dalam wadah (sedalam sekitar 2 jari)",
+    "two": "Keuarkan alat tes dari pembungkus",
+    "three": "Celupkan strip ke dalam urin selama sekitar 2 detik ke garis yang ditandai. Jangan biarkan tes lebih dari 2 detik dalam urin.",
+    "four": "Letakkan tes strip pada permukaan rata dan diamkan selama 20 menit sebelum unggah foto",
+    "five": {
+      "main": "Buka aplikasi dan tekan \"unggah foto\".",
+      "a": "Pastikan foto memuat gambar seluruh strip, termasuk barcode.",
+      "b": "Ambil gambar dan tekan \"Berikut\""
+    },
+    "six": "Masukkan kembali tes ke dalam pembungkusnya dan buang ke tempat sampah"
+  },
+  "mobileUpdate": {
+    "actions": "Tindakan",
+    "showActions": "Munculkan semua tindakan",
+    "treatment": "Pengobatan",
+    "supportRequests": "Butuh bantuan"
+  },
+  "reviewIssues": {
+    "issues": "Ada masalah",
+    "reviewed": "ditinjau",
+    "unreviewed": "Belum ditinjau",
+    "submitted": "Meninjau hasil yang dikirim",
+    "review": "Tinjau",
+    "reviewBefore": "Harap tinjau foto sebelum menandai pasien ini sebagai yang telah ditinjau",
+    "noIssues": "Tidak ada masalah untuk ditinjau",
+    "hasIssues": "Masalah untuk ditinjau",
+    "onTrack": "Sesuai jadwal perawatan",
+    "reviewedAt": "Ditinjau pada",
+    "noPatients": "No patients found",
+    "noPatientReviews": "No patients reviewed today",
+    "noPateintIssues": "No patients left to review"
+  }
 }

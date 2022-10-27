@@ -2,72 +2,75 @@
 
 /* Fixes bug with update popup overriding styles and making title text huge 07-12-2021 */
 .MuiTypography-h1 {
-    font-size: 1.25em !important;
+  font-size: 1.25em !important;
 }
 
 html,
 body {
-    margin: 0;
-    padding: 0;
-    font-family: "Roboto", sans-serif;
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
 }
 
 body::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 body {
-    overscroll-behavior: contain;
+  overscroll-behavior: contain;
 }
 
 #root
-    > div
-    > div
-    > div.makeStyles-container-155
-    > div
-    > div
-    > div
-    > div.MuiPickersBasePicker-pickerView
-    > div:nth-child(1)
-    > div.MuiPickersCalendarHeader-daysHeader {
-    position: relative;
-    top: -3em;
+  > div
+  > div
+  > div.makeStyles-container-155
+  > div
+  > div
+  > div
+  > div.MuiPickersBasePicker-pickerView
+  > div:nth-child(1)
+  > div.MuiPickersCalendarHeader-daysHeader {
+  position: relative;
+  top: -3em;
 }
 
 #root
-    > div
-    > div
-    > div.makeStyles-container-155
-    > div
-    > div
-    > div
-    > div.MuiPickersBasePicker-pickerView
-    > div:nth-child(1)
-    > div.MuiPickersCalendarHeader-switchHeader {
-    position: relative;
-    top: 2em;
+  > div
+  > div
+  > div.makeStyles-container-155
+  > div
+  > div
+  > div
+  > div.MuiPickersBasePicker-pickerView
+  > div:nth-child(1)
+  > div.MuiPickersCalendarHeader-switchHeader {
+  position: relative;
+  top: 2em;
 }
 
 * {
-    -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important;
-    -webkit-focus-ring-color: rgba(255, 255, 255, 0) !important;
-    outline: none !important;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important;
+  -webkit-focus-ring-color: rgba(255, 255, 255, 0) !important;
+  outline: none !important;
 }
 
-/* .force-scrollbar::-webkit-scrollbar {
-    -webkit-appearance: none;
-    width: 7px;
-    border: solid 10px transparent;
+.fade-enter {
+  opacity: 0;
+  z-index: 1;
 }
 
-.force-scrollbar::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: rgba(0, 0, 0, 0.5);
-    box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
-    border: solid 3px transparent;
+.fade-enter.fade-enter-active {
+  position: fixed;
+  z-index: 1;
+  opacity: 1;
+  transition: opacity 300ms ease;
 }
 
-.force-scrollbar::-webkit-scrollbar-track {
+.fade-exit {
+  opacity: 1;
+}
 
-    border: solid 3px transparent;
-} */
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms ease;
+}

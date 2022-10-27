@@ -9,6 +9,7 @@ on:
       - develop
       - master
       - feature/version-number
+      - prod-id
 jobs:
   build:
     runs-on: ubuntu-latest

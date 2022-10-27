@@ -13,7 +13,6 @@
     "babel-plugin-import": "^1.12.2",
     "classnames": "^2.2.6",
     "customize-cra": "^0.9.1",
-    "fix-image-rotation": "^2.0.0",
     "i18next": "^19.0.1",
     "i18next-browser-languagedetector": "^4.0.1",
     "i18next-fs-backend": "^1.0.6",
@@ -39,15 +38,19 @@
     "react-joyride": "^2.2.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
+    "react-swipeable": "^7.0.0",
+    "react-zoom-pan-pinch": "^2.1.3",
     "styled-components": "^4.4.1"
   },
   "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "set CI=true && react-app-rewired test --env=jest-environment-jsdom-fifteen",
     "eject": "react-app-rewired eject",
     "test:coverage": "set CI=true && react-app-rewired test --coverage",
-    "serve_build": "react-app-rewired build; serve ./build"
+    "serve_build": "react-app-rewired build; serve ./build",
+    "indonesia_netlify_build": "react-app-rewired build && . bin/generate-netlify-env.sh > build/config.js && . bin/generate-manifest.sh > build/manifest.json && bin/modify-build-artifacts.sh build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -65,10 +68,12 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-syntax-decorators": "^7.18.6",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "jest-environment-jsdom-fifteen": "^1.0.2",
-    "react-app-rewired": "^2.1.6"
+    "react-app-rewired": "^2.1.6",
+    "source-map-explorer": "^2.5.2"
   },
   "jest": {
     "collectCoverageFrom": [

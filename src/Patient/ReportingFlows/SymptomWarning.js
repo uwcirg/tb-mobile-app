@@ -1,67 +1,61 @@
-import React, { useState } from 'react';
-import { observer } from 'mobx-react';
-import useStores from '../../Basics/UseStores';
-import PopUp from '../Navigation/PopUp';
-import NewButton from '../../Basics/NewButton'
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles/'
-import Colors from '../../Basics/Colors';
-import { useTranslation } from 'react-i18next';
-import { ReactComponent as DoctorIcon } from '../../Basics/Icons/doctor.svg';
+import React from "react";
+import { observer } from "mobx-react";
+import useStores from "../../Basics/UseStores";
+import PopUp from "../Navigation/PopUp";
+import { makeStyles } from "@material-ui/core/styles/";
+import Colors from "../../Basics/Colors";
+import { useTranslation } from "react-i18next";
+import FlatButton from "../../Components/FlatButton";
+import { WarningRounded } from "@material-ui/icons";
+import { Box } from "@material-ui/core";
 
 const SymptomWarning = observer(() => {
+  const { patientStore } = useStores();
+  const classes = useStyles();
+  const { t } = useTranslation("translation");
 
-    const { patientStore } = useStores();
-    const classes = useStyles();
-    const { t, i18n } = useTranslation('translation');
+  const handleClick = () => {
+    patientStore.toggleSymptomWarningVisibility();
+  };
 
-    const handleClick = () => {
-        patientStore.toggleSymptomWarningVisibility();
-    }
+  const handleExit = () => {
+    patientStore.toggleSymptomWarningVisibility();
+  };
 
-    const handleExit = () => {
-        patientStore.toggleSymptomWarningVisibility();
-    }
-
-    return (
-        <PopUp handleClickAway={handleExit}>
-            <DoctorIcon />
-            <h1 className={classes.title}>
-                {t("patient.report.symptoms.warning.title")} {" "}
-            </h1>
-            <p classes={classes.subtitle}>{t("patient.report.symptoms.warning.subtitle")}</p>
-            <NewButton onClick={handleClick} className={classes.customButton} text={t("patient.report.symptoms.warning.button")} />
-            {/*<Button className={classes.basicButton} onClick={handleExit}>{t("patient.report.symptoms.warning.moreInformation")}</Button>*/}
-        </PopUp>
-    )
+  return (
+    <PopUp handleClickAway={handleExit}>
+      <Box className={classes.container} padding="1em 0">
+        <WarningRounded
+          style={{ color: Colors.warningRed, fontSize: "100px" }}
+        />
+        <h1 data-testid="severe-symptom-warning">
+          {t("patient.report.symptoms.warning.title")}
+        </h1>
+        <p>{t("patient.report.symptoms.warning.subtitle")}</p>
+      </Box>
+      <FlatButton className={classes.bottomButton} onClick={handleClick}>
+        {t("patient.report.symptoms.warning.button")}
+      </FlatButton>
+    </PopUp>
+  );
 });
 
 const useStyles = makeStyles({
-    basicButton: {
-        textTransform: "capitalize",
-        color: Colors.buttonBlue
+  bottomButton: {
+    width: "100%",
+    fontSize: "1em",
+    justifyContent: "center",
+  },
+  container: {
+    "& h1": {
+      fontSize: "1.2rem",
+      textAlign: "center",
     },
-
-    title: {
-        margin: "1em 0 0 0",
-        fontSize: "120%"
+    "& p": {
+      fontsize: "1rem",
+      textAlign: "left",
     },
-    subtitle: {
-        fontSize: "100%"
-    },
-    customButton: {
-        width: "50%",
-        textAlign: "center",
-        justifyContent: "center",
-        "& > span": {
-            width: "100%",
-            textAlign: "center"
-        },
-        "& > svg": {
-            display: "none"
-        }
-    }
-})
-
+  },
+});
 
 export default SymptomWarning;

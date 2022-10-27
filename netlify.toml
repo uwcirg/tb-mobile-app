@@ -1,0 +1,12 @@
+[build]
+command = "sed -i \"s|API_BASE_PLACEHOLDER|${URL_API}|g\" netlify.toml && yarn indonesia_netlify_build"
+
+[[redirects]]
+  from = "/api/*"
+  to = "API_BASE_PLACEHOLDER/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
