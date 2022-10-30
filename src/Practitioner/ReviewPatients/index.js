@@ -39,7 +39,12 @@ const PractitionerHome = () => {
   };
 
   return (
-    <div style={{ maxHeight: "100vh", overflowY: "scroll" }}>
+    <div
+      style={{
+        maxHeight: "100vh",
+        overflowY: "scroll",
+      }}
+    >
       <Route path="*/:patientId/reports">
         <WrappedReportingPopover />
       </Route>
@@ -56,6 +61,7 @@ const PractitionerHome = () => {
         )}
         <ReviewPatientTabs value={tabValue} />
       </StickyTopBar>
+
       <Switch>
         <Route path="/home/all">
           <AllPatientsList searchName={searchResult} />

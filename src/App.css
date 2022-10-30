@@ -74,3 +74,23 @@ body {
   opacity: 0;
   transition: opacity 300ms ease;
 }
+
+.switcher {
+  display: flex;
+  flex-wrap: wrap;
+  /* ↓ The default value is the first point on the modular scale */
+  gap: "1em";
+  /* ↓ The width at which the layout “breaks” */
+}
+.switcher > * {
+  /* ↓ Allow children to grow */
+  flex-grow: 1;
+  /* ↓ Switch the layout at the --threshold */
+  flex-basis: calc((30rem - 100%) * 999);
+}
+.switcher > :nth-last-child(n + 5),
+.switcher > :nth-last-child(n + 5) ~ * {
+  /* ↓ Switch to a vertical configuration if
+  there are more than 4 child elements */
+  flex-basis: 100%;
+}
