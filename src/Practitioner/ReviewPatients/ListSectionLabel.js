@@ -12,7 +12,7 @@ const ListSectionLabel = ({ children, icon }) => {
   const classes = useStyles();
 
   return (
-    <Box padding="8px">
+    <Box padding="1em">
       {icon}
       <Typography className={classes.title} variant="h2">
         {children}

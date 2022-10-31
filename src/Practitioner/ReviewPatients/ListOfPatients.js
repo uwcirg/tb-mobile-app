@@ -2,11 +2,13 @@ import React, { useContext } from "react";
 import { DateTime } from "luxon";
 import PractitionerContext from "../PractitionerContext";
 import addIssuesToPatients from "../../Utility/FindIssues";
-import { Box, Grid } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import PatientCard from "./PatientCard";
 import PatientListMessage from "./PatientListMessage";
 import { checkWasToday } from "../../Utility/TimeUtils";
 import IssueSectionLabel from "./IssueSectionLabel";
+import Grid from "../../Layouts/Grid";
+import Stack from "../../Layouts/Stack";
 
 const ListOfPatients = ({ tabValue }) => {
   const {
@@ -44,9 +46,6 @@ const ListOfPatients = ({ tabValue }) => {
     return tabValue === 0 ? !reviewed : reviewed;
   });
 
-  //@Todo - wrap this in a callback since the calculations are complex
-  // - Create clearer and better algorithim for sorting the patients so issues float to top
-  // addIssuesToPatients()
   const processedPatients = addIssuesToPatients(patientsToDisplay || []).sort(
     (a, b) => {
       return b.issues.total - a.issues.total;
@@ -60,30 +59,36 @@ const ListOfPatients = ({ tabValue }) => {
   let currentSection;
 
   return (
-    <Grid container direction="column">
-      <Box height={".5em"} aria-hidden />
-      {processedPatients.length === 0 && <PatientListMessage tab={tabValue} />}
-      {processedPatients.map((patient) => {
-        let isIssues = patient.issues.total > 0;
-        let showSection = currentSection !== isIssues;
-        if (showSection) {
-          currentSection = isIssues;
-        }
-        return (
-          <Box key={`review-patient-${patient.id}`} padding="0 .5em .5em .5em">
-            {showSection && tabValue !== 1 && (
-              <IssueSectionLabel isIssues={isIssues} />
-            )}
-            <PatientCard
-              isReviewed={tabValue === 1}
-              markPatientAsReviewed={markPatientAsReviewed}
-              patient={patient}
-            />
-          </Box>
-        );
-      })}
-      <Box height="60px" aria-hidden />
-    </Grid>
+    <Stack>
+      <Grid style={{ alignItems: "end" }}>
+        {processedPatients.length === 0 && (
+          <PatientListMessage tab={tabValue} />
+        )}
+        {processedPatients.map((patient) => {
+          let isIssues = patient.issues.total > 0;
+          let showSection = currentSection !== isIssues;
+          if (showSection) {
+            currentSection = isIssues;
+          }
+          return (
+            <Box
+              key={`review-patient-${patient.id}`}
+              padding="0 .5em .5em .5em"
+            >
+              {showSection && tabValue !== 1 && (
+                <IssueSectionLabel isIssues={isIssues} />
+              )}
+              <PatientCard
+                isReviewed={tabValue === 1}
+                markPatientAsReviewed={markPatientAsReviewed}
+                patient={patient}
+              />
+            </Box>
+          );
+        })}
+        <Box height="60px" aria-hidden />
+      </Grid>
+    </Stack>
   );
 };
 
