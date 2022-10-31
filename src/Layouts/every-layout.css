@@ -1,0 +1,36 @@
+.switcher {
+display: flex;
+flex-wrap: wrap;
+gap: 1rem;
+}
+.switcher > * {
+flex-grow: 1;
+flex-basis: 20em;
+}
+.switcher > :nth-last-child(n+5),
+.switcher > :nth-last-child(n+5) ~ * {
+flex-basis: 100%;
+}
+
+.grid {
+display: grid;
+grid-gap: 1rem;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+margin: 0 .5em;
+}
+
+
+.stack {
+/* ↓ The flex context */
+display: flex;
+flex-direction: column;
+justify-content: flex-start;
+}
+.stack > * {
+/* ↓ Any extant vertical margins are removed */
+margin-block: 0;
+}
+.stack > * + * {
+/* ↓ Top margin is only applied to successive elements */
+margin-block-start: var(1rem, 1.5rem);
+}

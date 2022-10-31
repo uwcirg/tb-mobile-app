@@ -39,7 +39,9 @@ const AllPatientsList = ({ searchName = "" }) => {
         </ListSectionLabel>
       </Box>
       <FilteredPatientList
-        patients={patients?.filter((patient) => patient.status === "Active")}
+        patients={searchResults?.filter(
+          (patient) => patient.status === "Active"
+        )}
       />
       <Box padding="1em 0 0 .5em" flexGrow="100">
         <ListSectionLabel>
@@ -47,7 +49,9 @@ const AllPatientsList = ({ searchName = "" }) => {
         </ListSectionLabel>
       </Box>
       <FilteredPatientList
-        patients={patients?.filter((patient) => patient.status === "Pending")}
+        patients={searchResults?.filter(
+          (patient) => patient.status === "Pending"
+        )}
       />
     </>
   );

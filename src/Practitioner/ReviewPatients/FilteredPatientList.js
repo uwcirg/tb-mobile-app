@@ -2,21 +2,21 @@ import React from "react";
 import { Box } from "@material-ui/core";
 import PatientCard from "./PatientCard";
 import { makeStyles } from "@material-ui/core";
+import Switcher from "../../Layouts/Switcher";
+import "./every-layout.css";
+import Grid from "../../Layouts/Grid";
 
 export default function FilteredPatientList({ patients }) {
   const classes = useStyles();
 
   return (
     <>
-      <div
-        className={classes.switcher}
-        style={{ marginRight: "1em", marginLeft: "1em" }}
-      >
+      <Grid>
         {patients?.map((patient) => {
           return (
             <div
               key={`review-patient-${patient.id}`}
-              className={classes.switcherChildren}
+              // className={classes.switcherChildren}
             >
               <Box>
                 <PatientCard isSimpleView patient={patient} />
@@ -24,7 +24,7 @@ export default function FilteredPatientList({ patients }) {
             </div>
           );
         })}
-      </div>
+      </Grid>
     </>
   );
 }
@@ -34,15 +34,18 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flexWrap: "wrap",
     gap: "1em",
-  },
-  switcherChildren: {
-    flexGrow: "1",
-    flexBasis: "20em",
-    "& > :nth-last-child(n+5)": {
+    "& > *": {
+      flexGrow: "1",
+      flexBasis: "calc((40em - 100%) * 999)",
+    },
+    "&:nth-last-child(5n)": {
       flexBasis: "100%",
     },
-    "& > :nth-last-child(n+5) ~ *": {
+    "&:nth-last-child(n+5) ~ *": {
       flexBasis: "100%",
     },
   },
+  // switcherChildren: {
+
+  // },
 }));
