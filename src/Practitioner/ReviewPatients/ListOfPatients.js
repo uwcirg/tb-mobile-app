@@ -52,42 +52,56 @@ const ListOfPatients = ({ tabValue }) => {
     }
   );
 
+  // filter patients with issues
+  const patientsWithIssues = processedPatients.filter((patient) => {
+    return patient.issues.total > 0;
+  });
+  // filter patients with no issues
+  const patientsWithoutIssues = processedPatients.filter((patient) => {
+    return patient.issues.total === 0;
+  });
+
   if (status === "pending") return <PatientListMessage isLoading={true} />;
 
   if (!patients) return "";
 
-  let currentSection;
-
   return (
     <Stack>
-      <Grid style={{ alignItems: "end" }}>
-        {processedPatients.length === 0 && (
-          <PatientListMessage tab={tabValue} />
-        )}
-        {processedPatients.map((patient) => {
-          let isIssues = patient.issues.total > 0;
-          let showSection = currentSection !== isIssues;
-          if (showSection) {
-            currentSection = isIssues;
-          }
-          return (
-            <Box
-              key={`review-patient-${patient.id}`}
-              padding="0 .5em .5em .5em"
-            >
-              {showSection && tabValue !== 1 && (
-                <IssueSectionLabel isIssues={isIssues} />
-              )}
-              <PatientCard
-                isReviewed={tabValue === 1}
-                markPatientAsReviewed={markPatientAsReviewed}
-                patient={patient}
-              />
-            </Box>
-          );
-        })}
-        <Box height="60px" aria-hidden />
-      </Grid>
+      {patientsWithIssues.length > 0 && (
+        <>
+          <IssueSectionLabel isIssues={true} />
+          <Grid>
+            {patientsWithIssues.map((patient) => {
+              return (
+                <PatientCard
+                  isReviewed={tabValue === 1}
+                  markPatientAsReviewed={markPatientAsReviewed}
+                  patient={patient}
+                  key={patient.id}
+                />
+              );
+            })}
+          </Grid>
+        </>
+      )}
+      {patientsWithoutIssues.length > 0 && (
+        <>
+          <IssueSectionLabel isIssues={false} />
+          <Grid>
+            {patientsWithoutIssues.map((patient) => {
+              return (
+                <PatientCard
+                  isReviewed={tabValue === 1}
+                  markPatientAsReviewed={markPatientAsReviewed}
+                  patient={patient}
+                  key={patient.id}
+                />
+              );
+            })}
+          </Grid>
+        </>
+      )}
+      <Box height="60px" aria-hidden />
     </Stack>
   );
 };
