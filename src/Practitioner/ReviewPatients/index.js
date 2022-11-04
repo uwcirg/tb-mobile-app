@@ -113,6 +113,7 @@ const SearchBar = ({ setSearchResult, handleFocus, setToggleSearch }) => {
     setSearchResult("");
   }
   return (
+
     <Box
       id="search-bar-container"
       width="auto"
