@@ -113,27 +113,37 @@ const SearchBar = ({ setSearchResult, handleFocus, setToggleSearch }) => {
     setSearchResult("");
   }
   return (
-    <Box maxWidth="60ch" paddingX=".5em" bgcolor="white">
-      <TextField
-        style={{ width: "100%" }}
-        id="outlined-basic"
-        variant="outlined"
-        label={t("messaging.search")}
-        type="text"
-        onChange={(e) => {
-          setSearchResult(e.target.value.toLowerCase());
-        }}
-        onFocus={(e) => handleFocus(e)}
-        onBlur={(e) => handleFocus(e)}
-        InputProps={{
-          "aria-label": "search",
-          endAdornment: (
-            <IconButton onClick={handleExitSearch}>
-              <Close />
-            </IconButton>
-          ),
-        }}
-      />
+
+    <Box
+      id="search-bar-container"
+      width="auto"
+      bgcolor="white"
+      display="flex"
+      justifyContent="flex-end"
+      paddingY="1em"
+    >
+      <Box maxWidth="60ch" paddingX=".5em" bgcolor="white" flexGrow="1">
+        <TextField
+          style={{ width: "100%" }}
+          id="outlined-basic"
+          variant="outlined"
+          label={t("messaging.search")}
+          type="text"
+          onChange={(e) => {
+            setSearchResult(e.target.value.toLowerCase());
+          }}
+          onFocus={(e) => handleFocus(e)}
+          onBlur={(e) => handleFocus(e)}
+          InputProps={{
+            "aria-label": "search",
+            endAdornment: (
+              <IconButton onClick={handleExitSearch}>
+                <Close />
+              </IconButton>
+            ),
+          }}
+        />
+      </Box>
     </Box>
   );
 };
