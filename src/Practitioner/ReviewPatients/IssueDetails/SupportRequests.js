@@ -1,17 +1,18 @@
-import { Box, Grid, Typography } from "@material-ui/core";
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { SentimentDissatisfied } from "@material-ui/icons";
-import ShortDate from "../../../Components/Shared/ShortDate";
-import ExpandableCard from "../../../Components/ExpandableCard";
+import { Box, Grid, Typography } from '@material-ui/core';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { SentimentDissatisfied } from '@material-ui/icons';
+import ShortDate from '../../../Components/Shared/ShortDate';
+import ExpandableCard from '../../../Components/ExpandableCard';
+import IssueCard from './IssueCard';
 
 export default function SupportRequests({ supportRequests }) {
-  const { t } = useTranslation("translation");
+  const { t } = useTranslation('translation');
 
   return (
-    <ExpandableCard
-      title={t("mobileUpdate.supportRequests")}
-      icon={SentimentDissatisfied}
+    <IssueCard
+      title={t('mobileUpdate.supportRequests')}
+      icon={<SentimentDissatisfied />}
       number={supportRequests.length}
     >
       {supportRequests.map((each) => {
@@ -28,6 +29,6 @@ export default function SupportRequests({ supportRequests }) {
           </Grid>
         );
       })}
-    </ExpandableCard>
+    </IssueCard>
   );
 }

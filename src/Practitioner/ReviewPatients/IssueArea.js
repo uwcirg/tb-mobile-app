@@ -43,7 +43,11 @@ const IssueArea = ({ issues, patientId }) => {
               badgeContent={issues[item]}
               key={`issue-icon-${index}-${patientId}`}
             >
-              {item === "symptoms" && issues.hadSevereSymptom ? <Assignment style={{color: Colors.red}} /> : iconMap[item]}
+              {item === "symptoms" && issues.hadSevereSymptom ? (
+                <Assignment style={{ color: Colors.red }} />
+              ) : (
+                iconMap[item]
+              )}
             </CustomBadge>
           );
         }

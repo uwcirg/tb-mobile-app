@@ -1,12 +1,12 @@
-import { action, observable, computed, autorun } from 'mobx';
-import APIHelper from '../API/Requests';
+import { action, observable, computed, autorun } from "mobx";
+import APIHelper from "../API/Requests";
 
 export default class PatientProfileStore {
   constructor() {
     this.apiHelper = new APIHelper();
   }
 
-  @observable temporaryPassword = '';
+  @observable temporaryPassword = "";
 
   @observable onPasswordReset = false;
   @observable onChangeDetails = false;
@@ -24,11 +24,10 @@ export default class PatientProfileStore {
   };
 
   @observable changes = {
-    givenName: '',
-    familyName: '',
-    phoneNumber: '',
-    treatmentEndDate: '',
-    treatmentStart: '',
+    givenName: "",
+    familyName: "",
+    phoneNumber: "",
+    treatmentEndDate: "",
     errors: {},
     success: false,
   };
@@ -72,7 +71,8 @@ export default class PatientProfileStore {
     this.selectedPatient.details = details;
     this.selectedPatient.loaded = true;
 
-    if (this.selectedPatient.details.status === 'Archived') {
+
+    if (this.selectedPatient.details.status === "Archived") {
       this.onArchiveWarning = true;
     }
   };
@@ -110,6 +110,7 @@ export default class PatientProfileStore {
     this.changes.phoneNumber = this.selectedPatient.details.phoneNumber;
     this.changes.treatmentEndDate =
       this.selectedPatient.details.treatmentEndDate;
+
     this.changes.treatmentStart = this.selectedPatient.details.treatmentStart;
   };
 
@@ -122,6 +123,7 @@ export default class PatientProfileStore {
         this.selectedPatient.details.treatmentEndDate ||
       this.changes.treatmentStart !==
         this.selectedPatient.details.treatmentStart
+
     );
   }
 
@@ -133,7 +135,8 @@ export default class PatientProfileStore {
   getPatientDetails = (id) => {
     this.resetProfileState();
     this.apiHelper
-      .executeRawRequest(`/v2/patient/${id}`, 'GET')
+
+      .executeRawRequest(`/v2/patient/${id}`, "GET")
       .then((response) => {
         if (response.error && response.code >= 400) {
           this.setAuthError();
@@ -142,7 +145,8 @@ export default class PatientProfileStore {
       });
     //Must fetch reports seperately due to key tranform in Rails::AMS removing dashes ISO date keys :(
     this.apiHelper
-      .executeRawRequest(`/patient/${id}/reports`, 'GET')
+
+      .executeRawRequest(`/patient/${id}/reports`, "GET")
       .then((response) => {
         this.addPatientReports(response);
       });
@@ -187,7 +191,8 @@ export default class PatientProfileStore {
     this.apiHelper
       .executeRawRequest(
         `/patient/${this.selectedPatient.details.id}/notes`,
-        'POST',
+
+        "POST",
         body
       )
       .then((response) => {
@@ -200,7 +205,8 @@ export default class PatientProfileStore {
     return this.apiHelper
       .executeRawRequest(
         `/v2/patient/${this.selectedPatient.details.id}/treatment_outcome`,
-        'POST',
+
+        "POST",
         this.treatmentOutcome
       )
       .then((response) => {
@@ -220,7 +226,8 @@ export default class PatientProfileStore {
     this.apiHelper
       .executeRawRequest(
         `/v2/patient/${this.selectedPatient.details.id}`,
-        'PATCH',
+
+        "PATCH",
         this.changes
       )
       .then((response) => {
@@ -242,6 +249,7 @@ export default class PatientProfileStore {
       familyName: this.selectedPatient.details.familyName,
       phoneNumber: this.selectedPatient.details.phoneNumber,
       treatmentEndDate: this.selectedPatient.details.treatmentEndDate,
+
       treatmentStart: this.selectedPatient.details.treatmentStart,
       success: false,
       errors: {},
@@ -252,12 +260,14 @@ export default class PatientProfileStore {
       treatmentOutcome: null,
     };
 
-    this.temporaryPassword = '';
+
+    this.temporaryPassword = "";
   };
 
   @action changeTreatmentEndDate(date) {
     this.changes.treatmentEndDate = date;
   }
+
 
   @action changeTreatmentStart(date) {
     this.changes.treatmentStart = date;
@@ -268,7 +278,8 @@ export default class PatientProfileStore {
       this.apiHelper
         .executeRawRequest(
           `/patient/${this.selectedPatient.details.id}/password-reset`,
-          'POST'
+
+          "POST"
         )
         .then((response) => {
           this.setTemporaryPassword(response.temporaryPassword);
@@ -285,7 +296,8 @@ export default class PatientProfileStore {
   };
 
   @computed get isArchived() {
-    return this.selectedPatient.details.status === 'Archived';
+
+    return this.selectedPatient.details.status === "Archived";
   }
 
   @action closeArchiveWarning = () => {
@@ -307,7 +319,8 @@ export default class PatientProfileStore {
   sendTestReminder = () => {
     this.apiHelper.executeRawRequest(
       `/v2/patient/${this.selectedPatient.details.id}/test_medication_reminder`,
-      'POST'
+
+      "POST"
     );
   };
 

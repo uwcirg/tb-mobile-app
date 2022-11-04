@@ -8,46 +8,87 @@ import LoadS3Image from '../../../Components/Shared/LoadS3Image';
 import Label from '../../../Components/Label';
 import Colors from '../../../Basics/Colors';
 import ShortDate from '../../../Components/Shared/ShortDate';
-import ExpandableCard from '../../../Components/ExpandableCard';
+import IssueCard from './IssueCard';
 
 const useStyles = makeStyles({
-    photoReport: {
-        boxSizing: "border-box",
-        alignItems: "center",
-        justifyContent: "flex-start",
-        padding: ".5em",
-        width: "100%",
-        borderRadius: "4px",
-        backgroundColor: "white",
-        border: "solid 1px lightgray"
-    }
-})
+  photoReport: {
+    boxSizing: 'border-box',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    padding: '.5em',
+    width: '100%',
+    borderRadius: '4px',
+    backgroundColor: `${Colors.white}`,
+    border: `2px solid ${Colors.accentBlue}`,
+
+  },
+});
 
 const ReviewPhotos = ({ patient }) => {
-    const { t } = useTranslation('translation');
 
-    return (<ExpandableCard icon={CameraAlt} title={t('coordinator.cardTitles.photosToReview')} number={patient.issues.unreviewedPhotos.length}>
-        {patient.unreviewedPhotos.map(photo => <PhotoPreview key={`photo-to-review-${photo.photoId}`} photo={photo} />)}
-    </ExpandableCard>)
-}
+  const { t } = useTranslation('translation');
+
+  return (
+    <IssueCard
+      title={t('coordinator.cardTitles.photosToReview')}
+      icon={<CameraAlt />}
+      issueCount={patient.issues.state.unreviewedPhotos}
+    >
+      {patient.unreviewedPhotos.map((photo) => (
+        <PhotoPreview key={`photo-to-review-${photo.photoId}`} photo={photo} />
+      ))}
+    </IssueCard>
+  );
+};
 
 const PhotoPreview = ({ photo }) => {
 
-    const { t } = useTranslation('translation');
-    const classes = useStyles();
+  const { t } = useTranslation('translation');
 
-    return (<>
-        <ButtonBase disableTouchRipple component={Link} to={`?review-photo=${photo.photoId}`} className={classes.photoReport}>
-            <ShortDate date={photo.createdAt} />
-            {(!photo.backSubmission && photo.isRedo) && <Box paddingLeft="1em"><Label backgroundColor={Colors.yellow} text={t('patient.report.late')} /></Box>}
-            {photo.backSubmission && <Box paddingLeft="1em"><Label backgroundColor={Colors.yellow} text={t('redoPhoto.shortFlag')} /></Box>}
-            <Box flexGrow="1" />
-            <LoadS3Image photo={photo} style={{ display: "block" }} width="50px" />
-            <Box width="1em" />
-            <ChevronRight />
-        </ButtonBase>
-        <Box height="5px" />
-    </>)
-}
+  const classes = useStyles();
+
+  return (
+    <>
+      <ButtonBase
+        disableTouchRipple
+        component={Link}
+        to={`?review-photo=${photo.photoId}`}
+        className={classes.photoReport}
+      >
+
+        <Box
+          display="flex"
+          alignItems="center"
+          width="100%"
+          color={Colors.buttonBlue}
+        >
+          <ShortDate date={photo.createdAt} />
+        </Box>
+
+        {!photo.backSubmission && photo.isRedo && (
+          <Box paddingLeft="1em">
+            <Label
+              backgroundColor={Colors.yellow}
+              text={t('patient.report.late')}
+            />
+          </Box>
+        )}
+        {photo.backSubmission && (
+          <Box paddingLeft="1em">
+            <Label
+              backgroundColor={Colors.yellow}
+              text={t('redoPhoto.shortFlag')}
+            />
+          </Box>
+        )}
+        <Box flexGrow="1" />
+        <LoadS3Image photo={photo} style={{ display: 'block' }} width="50px" />
+        <Box width="1em" />
+        <ChevronRight style={{ color: Colors.buttonBlue }} />
+      </ButtonBase>
+      <Box height="5px" />
+    </>
+  );
+};
 
 export default ReviewPhotos;

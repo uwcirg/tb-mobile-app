@@ -2,7 +2,7 @@ import React from "react";
 import useStores from "../../../Basics/UseStores";
 import { observer } from "mobx-react";
 import StickyTopBar from "../../../Components/Shared/StickyTopBar";
-import { Box } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
 import Colors from "../../../Basics/Colors";
 import ButtonList from "../Buttons";
 import { PageLabel } from "../../../Components/Shared/PageLabel";
@@ -15,6 +15,10 @@ import { useTranslation } from "react-i18next";
 import AppointmentCard from "./AppointmentCard";
 import Card from "./Card";
 import PatientDetailsCard from "./PatientDetailsCard";
+import WhatsAppIcon from "@material-ui/icons/WhatsApp";
+import SymptomSummary from "../SymptomSummary";
+import PatientProgress from "../Details/PatientInfo";
+import ReportingHistory from "../ReportingHistory";
 
 const MobilePatientProfile = observer(() => {
   const { patientProfileStore } = useStores();
@@ -47,7 +51,10 @@ const MobileView = observer(() => {
   return (
     <>
       <StickyTopBar>
-        <PageLabel title={patient.fullName} to={"/home/needs-review"} />
+        <PageLabel
+          title={<NameAndNumber patient={patient} />}
+          to={"/home/needs-review"}
+        />
       </StickyTopBar>
       <Box minHeight="90vh" bgcolor={Colors.lightgray} padding="8px">
         <PatientDetailsCard patient={patient} />
@@ -57,6 +64,15 @@ const MobileView = observer(() => {
         <AppointmentCard
           patient={patientProfileStore.selectedPatient.details}
         />
+        <Card title={t("coordinator.patientProfile.symptomSummary.title")}>
+          <SymptomSummary patient={patient} />
+        </Card>
+        <Card>
+          <ReportingHistory />
+        </Card>
+        <Card title={t("coordinator.cardTitles.overviewOfProgress")}>
+          <PatientProgress />
+        </Card>
         <Card title={t("coordinator.cohortOverview.adherenceGraph")}>
           <Box height="8px" />
           <MedicationAdherence />
@@ -68,5 +84,32 @@ const MobileView = observer(() => {
   );
 });
 
+const NameAndNumber = ({ patient }) => {
+  return (
+    <Box
+      padding=".5em 1em"
+      display="flex"
+      justifyContent="flex-end"
+      flexDirection="column"
+      width="100%"
+      textAlign="right"
+    >
+      <Typography variant="h1">{patient.fullName}</Typography>
+      <Box
+        display="flex"
+        flexGrow={1}
+        alignItems="center"
+        justifyContent="flex-end"
+        style={{ color: Colors.blue }}
+        paddingLeft
+      >
+        <WhatsAppIcon style={{ height: ".75em", color: Colors.blue }} />
+        <Typography variant="body1" color="initial">
+          {patient.phoneNumber}
+        </Typography>
+      </Box>
+    </Box>
+  );
+};
 
 export default MobilePatientProfile;

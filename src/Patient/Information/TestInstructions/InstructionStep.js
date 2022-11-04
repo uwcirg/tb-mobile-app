@@ -1,34 +1,34 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import testStripInstructions from '../../../Content/test-strip-instructions';
-import { useTranslation } from 'react-i18next';
-import { Typography } from '@material-ui/core';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import testStripInstructions from "../../../Content/test-strip-instructions";
+import { useTranslation } from "react-i18next";
+import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles({
   space: {
-    maxWidth: '500px',
+    maxWidth: "500px",
   },
   body: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    flexGrow: '1',
-    alignItems: 'flex-start',
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    flexGrow: "1",
+    alignItems: "flex-start",
   },
   img: {
-    height: 'auto',
-    width: '100%',
+    height: "auto",
+    width: "100%",
   },
   text: {
-    padding: '16px 0',
-    fontSize: '18px',
+    padding: "16px 0",
+    fontSize: "18px",
   },
 });
 
 const InstructionStep = ({ currentStep }) => {
   const classes = useStyles();
-  const { t, i18n } = useTranslation('translation');
+  const { t, i18n } = useTranslation("translation");
 
   return (
     <div className={classes.body}>
@@ -38,7 +38,7 @@ const InstructionStep = ({ currentStep }) => {
         alt={`step # ${currentStep}`}
       />
       <Typography className={classes.text} variant="body2">
-        {typeof testStripInstructions[currentStep] === 'string'
+        {typeof testStripInstructions[currentStep] === "string"
           ? t(testStripInstructions[currentStep])
           : testStripInstructions[currentStep]}
       </Typography>

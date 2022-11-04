@@ -38,7 +38,7 @@ Oleh karena itu penting sekali untuk:
 - Tutup mulut Anda saat batuk atau bersin.
 - Ajarkan di sekolah, di lingkungan sekitar dan di masyarakat bahwa kita SEMUA
   harus berpartisipasi dalam memerangi Tuberkulosis.
-</Drawer>
+  </Drawer>
 
 <Drawer>
 # Apa tes untuk mendeteksi infeksi?
@@ -99,7 +99,7 @@ yaitu:
 - Gangguan penglihatan dan gangguan pendengaran
 - Kulit kuning tanpa penyebab lainnya,
   Segera datang kepada petugas Kesehatan atau dokter di Fasyankes setempat.
-</Drawer>
+  </Drawer>
 
 <Drawer>
 # Mengapa saya harus minum obat TBC secara teratur?
