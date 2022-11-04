@@ -5,11 +5,15 @@ import { Box, Grid } from "@material-ui/core";
 import FlatButton from "../../../Components/FlatButton";
 import { Add } from "@material-ui/icons";
 import { useTranslation } from "react-i18next";
+import OverTopBar from "../../../Patient/Navigation/OverTopBar";
+import TopPageLabel from "../../../Components/Shared/TopPageLabel";
 
 export default function AppointmentsPage({ patientId }) {
   const { t } = useTranslation("translation");
+
   return (
-    <PopOverV2 topBarTitle={t("patient.reminders.appointments")} open>
+    <>
+      <TopPageLabel title={t("patient.reminders.appointments")} sticky />
       <Box padding="1rem .5rem">
         <Grid justify="flex-end" container>
           <FlatButton to={`/patients/${patientId}/add-appointment`}>
@@ -21,6 +25,6 @@ export default function AppointmentsPage({ patientId }) {
       <Box padding="1rem">
         <AppointmentList patientId={patientId} />
       </Box>
-    </PopOverV2>
+    </>
   );
 }
