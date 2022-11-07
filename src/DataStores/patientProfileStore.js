@@ -28,6 +28,7 @@ export default class PatientProfileStore {
     familyName: "",
     phoneNumber: "",
     treatmentEndDate: "",
+    treatmentStart: "",
     errors: {},
     success: false,
   };
@@ -70,7 +71,6 @@ export default class PatientProfileStore {
   @action setSelectedPatientDetails = (details) => {
     this.selectedPatient.details = details;
     this.selectedPatient.loaded = true;
-
 
     if (this.selectedPatient.details.status === "Archived") {
       this.onArchiveWarning = true;
@@ -123,7 +123,6 @@ export default class PatientProfileStore {
         this.selectedPatient.details.treatmentEndDate ||
       this.changes.treatmentStart !==
         this.selectedPatient.details.treatmentStart
-
     );
   }
 
@@ -260,14 +259,12 @@ export default class PatientProfileStore {
       treatmentOutcome: null,
     };
 
-
     this.temporaryPassword = "";
   };
 
   @action changeTreatmentEndDate(date) {
     this.changes.treatmentEndDate = date;
   }
-
 
   @action changeTreatmentStart(date) {
     this.changes.treatmentStart = date;
@@ -296,7 +293,6 @@ export default class PatientProfileStore {
   };
 
   @computed get isArchived() {
-
     return this.selectedPatient.details.status === "Archived";
   }
 
