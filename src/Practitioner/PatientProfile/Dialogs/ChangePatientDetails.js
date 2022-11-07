@@ -12,8 +12,9 @@ import DatePicker from "../../../Basics/DatePicker";
 import { DateTime } from "luxon";
 import { Day } from "@material-ui/pickers";
 
+
 const ChangePatientDetails = observer(({ handleClose }) => {
-  const { t } = useTranslation("translation");
+  const { t } = useTranslation('translation');
   const classes = useStyles();
   const { patientProfileStore } = useStores();
 
@@ -25,21 +26,21 @@ const ChangePatientDetails = observer(({ handleClose }) => {
     <PopOver
       ignoreClickAway
       close={handleClose}
-      title={t("coordinator.patientProfile.editDetails.title")}
+      title={t('coordinator.patientProfile.editDetails.title')}
     >
       <form className={classes.form}>
-        <p>{t("coordinator.patientProfile.editDetails.warning")}</p>
+        <p>{t('coordinator.patientProfile.editDetails.warning')}</p>
         <div className={classes.inputs}>
           <InputItem
-            labelText={t("patient.userFields.firstName")}
+            labelText={t('patient.userFields.firstName')}
             id="givenName"
           />
           <InputItem
-            labelText={t("patient.userFields.lastName")}
+            labelText={t('patient.userFields.lastName')}
             id="familyName"
           />
           <InputItem
-            labelText={t("coordinator.patientProfile.phoneNumber")}
+            labelText={t('coordinator.patientProfile.phoneNumber')}
             id="phoneNumber"
           />
           <InputItem
@@ -52,11 +53,12 @@ const ChangePatientDetails = observer(({ handleClose }) => {
             labelText={t("coordinator.patientProfile.treatmentEnd")}
             id="treatmentEndDate"
             editEndDate
+
           />
         </div>
         {patientProfileStore.hasErrorWithChanges && (
           <WarningBox>
-            {t("coordinator.patientProfile.editDetails.inputError")}
+            {t('coordinator.patientProfile.editDetails.inputError')}
           </WarningBox>
         )}
         <div className={classes.formControl}>
@@ -66,7 +68,7 @@ const ChangePatientDetails = observer(({ handleClose }) => {
             id="cancel"
             variant="contained"
           >
-            {t("coordinator.patientProfile.editDetails.cancel")}
+            {t('coordinator.patientProfile.editDetails.cancel')}
           </Button>
           <Button
             className={classes.submit}
@@ -76,7 +78,7 @@ const ChangePatientDetails = observer(({ handleClose }) => {
             id="submit"
             variant="contained"
           >
-            {t("coordinator.patientProfile.editDetails.submit")}
+            {t('coordinator.patientProfile.editDetails.submit')}
           </Button>
         </div>
       </form>
@@ -108,7 +110,7 @@ const InputItem = observer((props) => {
           className={classes.textInput}
           id={props.id}
           variant="outlined"
-          value={patientProfileStore.changes[props.id] || ""}
+          value={patientProfileStore.changes[props.id] || ''}
           fullWidth
           error={error}
           onChange={(e) => {
@@ -123,6 +125,7 @@ const InputItem = observer((props) => {
             props.editEndDate
               ? DateTime.fromISO(patientProfileStore.changes.treatmentEndDate)
               : DateTime.fromISO(patientProfileStore.changes.treatmentStart)
+
           }
           animateYearScrolling
           onChange={props.editEndDate ? editEndDate : editStartDate}
@@ -168,6 +171,7 @@ const useStyles = makeStyles({
       backgroundColor: Colors.buttonBlue,
       "&:disabled": {
         backgroundColor: "lightgray",
+
       },
     },
   },
@@ -180,6 +184,7 @@ const useStyles = makeStyles({
   calendarInput: {
     "& > input": {
       padding: "10px",
+
     },
   },
 });

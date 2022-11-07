@@ -72,6 +72,7 @@ export default class PatientProfileStore {
     this.selectedPatient.details = details;
     this.selectedPatient.loaded = true;
 
+
     if (this.selectedPatient.details.status === "Archived") {
       this.onArchiveWarning = true;
     }
@@ -259,6 +260,7 @@ export default class PatientProfileStore {
       treatmentOutcome: null,
     };
 
+
     this.temporaryPassword = "";
   };
 
@@ -293,6 +295,7 @@ export default class PatientProfileStore {
   };
 
   @computed get isArchived() {
+
     return this.selectedPatient.details.status === "Archived";
   }
 
