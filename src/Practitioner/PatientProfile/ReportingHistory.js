@@ -65,17 +65,6 @@ const ReportingHistory = observer(() => {
       <ReportingHistoryLabel setVisible={setVisible} visible={visible} />
       {patientProfileStore.selectedPatient.reportsLoaded ? (
         <div className={classes.reportingHistory}>
-          {visible === "calendar" && (
-            <>
-              <CalendarWithKey
-                patient={{
-                  treatmentStart: patientStore.treatmentStart,
-                  photoDays: Object.keys(patientStore.photoSchedule),
-                }}
-                reportHash={patientStore.savedReports}
-              />
-            </>
-          )}
           {visible === "reports" && <ReportTable />}
           {visible === "notes" && <NotesView />}
           {visible === "photos" && <PhotoReportsList />}
@@ -119,16 +108,6 @@ const ReportingHistoryLabel = (props) => {
           }`}
         >
           {t("commonWords.photos")}
-        </Button>
-        <Button
-          onClick={() => {
-            props.setVisible("calendar");
-          }}
-          className={`${classes.buttonBorder} ${
-            props.visible === "calendar" && "selected"
-          }`}
-        >
-          {t("coordinator.patientProfile.calendarReports")}
         </Button>
         <Button
           onClick={() => {
