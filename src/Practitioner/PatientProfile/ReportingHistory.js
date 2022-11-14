@@ -4,6 +4,7 @@ import useStores from "../../Basics/UseStores";
 import { observer } from "mobx-react";
 import CalendarTest from "./Calendar";
 import Button from "@material-ui/core/Button";
+import { Box } from "@material-ui/core";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Typography from "@material-ui/core/Typography";
 import Colors from "../../Basics/Colors";
@@ -41,6 +42,11 @@ const useStyles = makeStyles({
       color: "white",
       backgroundColor: Colors.textDarkGray,
     },
+  },
+  buttonBorder: {
+    borderRadius: "5px",
+    border: "1px solid #eee",
+    padding: "0 1em",
   },
 });
 
@@ -87,12 +93,18 @@ const ReportingHistoryLabel = (props) => {
       <Typography variant="h2">
         {t("coordinator.patientProfile.reportingHistory")}
       </Typography>
-      <ButtonGroup className={classes.buttonGroup} size="small">
+      <Box
+        style={{ display: "flex", flexWrap: "wrap" }}
+        className={classes.buttonGroup}
+        size="small"
+      >
         <Button
           onClick={() => {
             props.setVisible("reports");
           }}
-          className={props.visible === "reports" && "selected"}
+          className={`${classes.buttonBorder} ${
+            props.visible === "reports" && "selected"
+          }`}
         >
           {t("coordinator.patientProfile.listReports")}
         </Button>
@@ -100,7 +112,9 @@ const ReportingHistoryLabel = (props) => {
           onClick={() => {
             props.setVisible("photos");
           }}
-          className={props.visible === "photos" && "selected"}
+          className={`${classes.buttonBorder} ${
+            props.visible === "photos" && "selected"
+          }`}
         >
           {t("commonWords.photos")}
         </Button>
@@ -108,7 +122,9 @@ const ReportingHistoryLabel = (props) => {
           onClick={() => {
             props.setVisible("calendar");
           }}
-          className={props.visible === "calendar" && "selected"}
+          className={`${classes.buttonBorder} ${
+            props.visible === "calendar" && "selected"
+          }`}
         >
           {t("coordinator.patientProfile.calendarReports")}
         </Button>
@@ -116,11 +132,13 @@ const ReportingHistoryLabel = (props) => {
           onClick={() => {
             props.setVisible("notes");
           }}
-          className={props.visible === "notes" && "selected"}
+          className={`${classes.buttonBorder} ${
+            props.visible === "notes" && "selected"
+          }`}
         >
           {t("notes")}
         </Button>
-      </ButtonGroup>
+      </Box>
     </div>
   );
 };

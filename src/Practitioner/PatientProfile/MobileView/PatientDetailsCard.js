@@ -26,7 +26,11 @@ export default function PatientDetailsCard({ patient }) {
           <Box flexGrow={1} />
           <Box width={"8px"} />
           <Typography>
-            {daysAgo} {t("time.day_ago", { count: daysAgo })}
+            {typeof daysAgo !== "string"
+              ? daysAgo === 0
+                ? t("patient.home.today")
+                : `${daysAgo} ${t("time.day_ago", { count: daysAgo })}`
+              : daysAgo}
           </Typography>
         </Grid>
         <Box height={"5px"} />

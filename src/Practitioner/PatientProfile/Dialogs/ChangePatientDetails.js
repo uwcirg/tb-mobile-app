@@ -10,6 +10,130 @@ import Colors from "../../../Basics/Colors";
 import WarningBox from "../../../Basics/WarningBox";
 import DatePicker from "../../../Basics/DatePicker";
 import { DateTime } from "luxon";
+import { Day } from "@material-ui/pickers";
+
+
+const ChangePatientDetails = observer(({ handleClose }) => {
+  const { t } = useTranslation('translation');
+  const classes = useStyles();
+  const { patientProfileStore } = useStores();
+
+  useEffect(() => {
+    patientProfileStore.initalizeChanges();
+  }, [patientProfileStore.selectedPatient.details]);
+
+  return (
+    <PopOver
+      ignoreClickAway
+      close={handleClose}
+      title={t('coordinator.patientProfile.editDetails.title')}
+    >
+      <form className={classes.form}>
+        <p>{t('coordinator.patientProfile.editDetails.warning')}</p>
+        <div className={classes.inputs}>
+          <InputItem
+            labelText={t('patient.userFields.firstName')}
+            id="givenName"
+          />
+          <InputItem
+            labelText={t('patient.userFields.lastName')}
+            id="familyName"
+          />
+          <InputItem
+            labelText={t('coordinator.patientProfile.phoneNumber')}
+            id="phoneNumber"
+          />
+          <InputItem
+            isDate
+            labelText={t("patient.userFields.treatmentStart")}
+            id="treatmentStart"
+          />
+          <InputItem
+            isDate
+            labelText={t("coordinator.patientProfile.treatmentEnd")}
+            id="treatmentEndDate"
+            editEndDate
+
+          />
+        </div>
+        {patientProfileStore.hasErrorWithChanges && (
+          <WarningBox>
+            {t('coordinator.patientProfile.editDetails.inputError')}
+          </WarningBox>
+        )}
+        <div className={classes.formControl}>
+          <Button
+            disableElevation
+            onClick={patientProfileStore.toggleOnChangeDetails}
+            id="cancel"
+            variant="contained"
+          >
+            {t('coordinator.patientProfile.editDetails.cancel')}
+          </Button>
+          <Button
+            className={classes.submit}
+            disabled={!patientProfileStore.hasChanges}
+            onClick={patientProfileStore.postPatientChanges}
+            disableElevation
+            id="submit"
+            variant="contained"
+          >
+            {t('coordinator.patientProfile.editDetails.submit')}
+          </Button>
+        </div>
+      </form>
+    </PopOver>
+  );
+});
+
+const InputItem = observer((props) => {
+  const classes = useStyles();
+  const { patientProfileStore } = useStores();
+  const error = patientProfileStore.changes.errors[props.id];
+
+  const editEndDate = (date) => {
+    patientProfileStore.changeTreatmentEndDate(date.toISODate());
+  };
+
+  const editStartDate = (date) => {
+    date = DateTime.fromISO(date.toISODate());
+    patientProfileStore.changeTreatmentStart(date);
+  };
+
+  return (
+    <div className={classes.inputItem}>
+      <label className={classes.label} htmlFor={props.id}>
+        {props.labelText}
+      </label>
+      {!props.isDate ? (
+        <TextField
+          className={classes.textInput}
+          id={props.id}
+          variant="outlined"
+          value={patientProfileStore.changes[props.id] || ''}
+          fullWidth
+          error={error}
+          onChange={(e) => {
+            patientProfileStore.changes[props.id] = e.target.value;
+          }}
+        />
+      ) : (
+        <DatePicker
+          inputVariant="outlined"
+          InputProps={{ className: classes.calendarInput, fullWidth: true }}
+          value={
+            props.editEndDate
+              ? DateTime.fromISO(patientProfileStore.changes.treatmentEndDate)
+              : DateTime.fromISO(patientProfileStore.changes.treatmentStart)
+
+          }
+          animateYearScrolling
+          onChange={props.editEndDate ? editEndDate : editStartDate}
+        />
+      )}
+    </div>
+  );
+});
 
 const useStyles = makeStyles({
   textInput: {
@@ -47,6 +171,7 @@ const useStyles = makeStyles({
       backgroundColor: Colors.buttonBlue,
       "&:disabled": {
         backgroundColor: "lightgray",
+
       },
     },
   },
@@ -59,113 +184,9 @@ const useStyles = makeStyles({
   calendarInput: {
     "& > input": {
       padding: "10px",
+
     },
   },
-});
-
-const ChangePatientDetails = observer(({ handleClose }) => {
-  const { t } = useTranslation("translation");
-  const classes = useStyles();
-  const { patientProfileStore } = useStores();
-
-  useEffect(() => {
-    patientProfileStore.initalizeChanges();
-  }, [patientProfileStore.selectedPatient.details]);
-
-  return (
-    <PopOver
-      ignoreClickAway
-      close={handleClose}
-      title={t("coordinator.patientProfile.editDetails.title")}
-    >
-      <form className={classes.form}>
-        <p>{t("coordinator.patientProfile.editDetails.warning")}</p>
-        <div className={classes.inputs}>
-          <InputItem
-            labelText={t("patient.userFields.firstName")}
-            id="givenName"
-          />
-          <InputItem
-            labelText={t("patient.userFields.lastName")}
-            id="familyName"
-          />
-          <InputItem
-            labelText={t("coordinator.patientProfile.phoneNumber")}
-            id="phoneNumber"
-          />
-          <InputItem
-            isDate
-            labelText={t("coordinator.patientProfile.treatmentEnd")}
-            id="treatmentEndDate"
-          />
-        </div>
-        {patientProfileStore.hasErrorWithChanges && (
-          <WarningBox>
-            {t("coordinator.patientProfile.editDetails.inputError")}
-          </WarningBox>
-        )}
-        <div className={classes.formControl}>
-          <Button
-            disableElevation
-            onClick={patientProfileStore.toggleOnChangeDetails}
-            id="cancel"
-            variant="contained"
-          >
-            {t("coordinator.patientProfile.editDetails.cancel")}
-          </Button>
-          <Button
-            className={classes.submit}
-            disabled={!patientProfileStore.hasChanges}
-            onClick={patientProfileStore.postPatientChanges}
-            disableElevation
-            id="submit"
-            variant="contained"
-          >
-            {t("coordinator.patientProfile.editDetails.submit")}
-          </Button>
-        </div>
-      </form>
-    </PopOver>
-  );
-});
-
-const InputItem = observer((props) => {
-  const classes = useStyles();
-  const { patientProfileStore } = useStores();
-  const error = patientProfileStore.changes.errors[props.id];
-
-  const handleDateChange = (date) => {
-    patientProfileStore.changeTreatmentEndDate(date.toISODate());
-  };
-
-  return (
-    <div className={classes.inputItem}>
-      <label className={classes.label} htmlFor={props.id}>
-        {props.labelText}
-      </label>
-      {!props.isDate ? (
-        <TextField
-          className={classes.textInput}
-          id={props.id}
-          variant="outlined"
-          value={patientProfileStore.changes[props.id] || ""}
-          fullWidth
-          error={error}
-          onChange={(e) => {
-            patientProfileStore.changes[props.id] = e.target.value;
-          }}
-        />
-      ) : (
-        <DatePicker
-          inputVariant="outlined"
-          InputProps={{ className: classes.calendarInput, fullWidth: true }}
-          value={DateTime.fromISO(patientProfileStore.changes.treatmentEndDate)}
-          animateYearScrolling
-          onChange={handleDateChange}
-        />
-      )}
-    </div>
-  );
 });
 
 export default ChangePatientDetails;

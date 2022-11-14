@@ -28,6 +28,7 @@ export default class PatientProfileStore {
     familyName: "",
     phoneNumber: "",
     treatmentEndDate: "",
+    treatmentStart: "",
     errors: {},
     success: false,
   };
@@ -71,6 +72,7 @@ export default class PatientProfileStore {
     this.selectedPatient.details = details;
     this.selectedPatient.loaded = true;
 
+
     if (this.selectedPatient.details.status === "Archived") {
       this.onArchiveWarning = true;
     }
@@ -109,15 +111,19 @@ export default class PatientProfileStore {
     this.changes.phoneNumber = this.selectedPatient.details.phoneNumber;
     this.changes.treatmentEndDate =
       this.selectedPatient.details.treatmentEndDate;
+
+    this.changes.treatmentStart = this.selectedPatient.details.treatmentStart;
   };
 
   @computed get hasChanges() {
     return (
       this.changes.givenName !== this.selectedPatient.details.givenName ||
-      this.changes.familyName != this.selectedPatient.details.familyName ||
-      this.changes.phoneNumber != this.selectedPatient.details.phoneNumber ||
-      this.changes.treatmentEndDate !=
-        this.selectedPatient.details.treatmentEndDate
+      this.changes.familyName !== this.selectedPatient.details.familyName ||
+      this.changes.phoneNumber !== this.selectedPatient.details.phoneNumber ||
+      this.changes.treatmentEndDate !==
+        this.selectedPatient.details.treatmentEndDate ||
+      this.changes.treatmentStart !==
+        this.selectedPatient.details.treatmentStart
     );
   }
 
@@ -129,6 +135,7 @@ export default class PatientProfileStore {
   getPatientDetails = (id) => {
     this.resetProfileState();
     this.apiHelper
+
       .executeRawRequest(`/v2/patient/${id}`, "GET")
       .then((response) => {
         if (response.error && response.code >= 400) {
@@ -138,6 +145,7 @@ export default class PatientProfileStore {
       });
     //Must fetch reports seperately due to key tranform in Rails::AMS removing dashes ISO date keys :(
     this.apiHelper
+
       .executeRawRequest(`/patient/${id}/reports`, "GET")
       .then((response) => {
         this.addPatientReports(response);
@@ -183,6 +191,7 @@ export default class PatientProfileStore {
     this.apiHelper
       .executeRawRequest(
         `/patient/${this.selectedPatient.details.id}/notes`,
+
         "POST",
         body
       )
@@ -196,6 +205,7 @@ export default class PatientProfileStore {
     return this.apiHelper
       .executeRawRequest(
         `/v2/patient/${this.selectedPatient.details.id}/treatment_outcome`,
+
         "POST",
         this.treatmentOutcome
       )
@@ -216,6 +226,7 @@ export default class PatientProfileStore {
     this.apiHelper
       .executeRawRequest(
         `/v2/patient/${this.selectedPatient.details.id}`,
+
         "PATCH",
         this.changes
       )
@@ -238,6 +249,8 @@ export default class PatientProfileStore {
       familyName: this.selectedPatient.details.familyName,
       phoneNumber: this.selectedPatient.details.phoneNumber,
       treatmentEndDate: this.selectedPatient.details.treatmentEndDate,
+
+      treatmentStart: this.selectedPatient.details.treatmentStart,
       success: false,
       errors: {},
     };
@@ -247,6 +260,7 @@ export default class PatientProfileStore {
       treatmentOutcome: null,
     };
 
+
     this.temporaryPassword = "";
   };
 
@@ -254,11 +268,16 @@ export default class PatientProfileStore {
     this.changes.treatmentEndDate = date;
   }
 
+  @action changeTreatmentStart(date) {
+    this.changes.treatmentStart = date;
+  }
+
   resetPassword = () => {
     if (this.selectedPatient.details.id > 0) {
       this.apiHelper
         .executeRawRequest(
           `/patient/${this.selectedPatient.details.id}/password-reset`,
+
           "POST"
         )
         .then((response) => {
@@ -276,6 +295,7 @@ export default class PatientProfileStore {
   };
 
   @computed get isArchived() {
+
     return this.selectedPatient.details.status === "Archived";
   }
 
@@ -298,6 +318,7 @@ export default class PatientProfileStore {
   sendTestReminder = () => {
     this.apiHelper.executeRawRequest(
       `/v2/patient/${this.selectedPatient.details.id}/test_medication_reminder`,
+
       "POST"
     );
   };

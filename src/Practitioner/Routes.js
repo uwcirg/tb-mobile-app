@@ -7,15 +7,24 @@ import PatientProfile from "./PatientProfile";
 import OldTasksPage from "./OldTasksPage";
 import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import AddPatient from "./AddPatient";
+import AddAppointment from "../Components/Shared/Appointments/AddAppointment";
+import AppointmentsPage from "./PatientProfile/Dialogs/AppointmentsPage";
 
 const Routes = () => {
   const location = useLocation();
+  const id = location.pathname.split("/")[2];
 
   return (
     <Switch>
       <Route path="/messaging" children={<Messages />} />
       <Route path="/settings" children={<Settings />} />
       <Route path="/patients/add-patient" children={<AddPatient />} />
+      <Route path="/patients/:id/add-appointment">
+        <AddAppointment patientId={id} />
+      </Route>
+      <Route path="/patients/:id/appointments">
+        <AppointmentsPage patientId={id} />
+      </Route>
       <Route path="/patients/:id" children={<PatientProfile />} />
       <Route path="/patients" children={<PatientsView />} />
       <Route path="/old-tasks" children={<OldTasksPage />} />
