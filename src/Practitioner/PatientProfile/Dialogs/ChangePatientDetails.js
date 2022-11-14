@@ -1,16 +1,17 @@
-import React, { useEffect } from 'react';
-import useStores from '../../../Basics/UseStores';
-import { observer } from 'mobx-react';
-import PopOver from '../../Shared/PopOver';
-import makeStyles from '@material-ui/styles/makeStyles';
-import TextField from '@material-ui/core/TextField';
-import { useTranslation } from 'react-i18next';
-import Button from '@material-ui/core/Button';
-import Colors from '../../../Basics/Colors';
-import WarningBox from '../../../Basics/WarningBox';
-import DatePicker from '../../../Basics/DatePicker';
-import { DateTime } from 'luxon';
-import { Day } from '@material-ui/pickers';
+import React, { useEffect } from "react";
+import useStores from "../../../Basics/UseStores";
+import { observer } from "mobx-react";
+import PopOver from "../../Shared/PopOver";
+import makeStyles from "@material-ui/styles/makeStyles";
+import TextField from "@material-ui/core/TextField";
+import { useTranslation } from "react-i18next";
+import Button from "@material-ui/core/Button";
+import Colors from "../../../Basics/Colors";
+import WarningBox from "../../../Basics/WarningBox";
+import DatePicker from "../../../Basics/DatePicker";
+import { DateTime } from "luxon";
+import { Day } from "@material-ui/pickers";
+
 
 const ChangePatientDetails = observer(({ handleClose }) => {
   const { t } = useTranslation('translation');
@@ -44,14 +45,15 @@ const ChangePatientDetails = observer(({ handleClose }) => {
           />
           <InputItem
             isDate
-            labelText={t('coordinator.patientProfile.treatmentEnd')}
-            id="treatmentEndDate"
-            editEndDate
+            labelText={t("patient.userFields.treatmentStart")}
+            id="treatmentStart"
           />
           <InputItem
             isDate
-            labelText={t('patient.userFields.treatmentStart')}
-            id="treatmentStart"
+            labelText={t("coordinator.patientProfile.treatmentEnd")}
+            id="treatmentEndDate"
+            editEndDate
+
           />
         </div>
         {patientProfileStore.hasErrorWithChanges && (
@@ -94,7 +96,8 @@ const InputItem = observer((props) => {
   };
 
   const editStartDate = (date) => {
-    patientProfileStore.changeTreatmentStart(date.toISODate());
+    date = DateTime.fromISO(date.toISODate());
+    patientProfileStore.changeTreatmentStart(date);
   };
 
   return (
@@ -121,9 +124,8 @@ const InputItem = observer((props) => {
           value={
             props.editEndDate
               ? DateTime.fromISO(patientProfileStore.changes.treatmentEndDate)
-              : DateTime.fromISO(
-                  patientProfileStore.changes.treatmentStart
-                ).plus({ hours: 12 })
+              : DateTime.fromISO(patientProfileStore.changes.treatmentStart)
+
           }
           animateYearScrolling
           onChange={props.editEndDate ? editEndDate : editStartDate}
@@ -135,52 +137,54 @@ const InputItem = observer((props) => {
 
 const useStyles = makeStyles({
   textInput: {
-    '& > div > input': {
-      padding: '10px',
+    "& > div > input": {
+      padding: "10px",
     },
   },
   inputs: {
-    width: '70%',
+    width: "70%",
   },
   label: {
-    display: 'block',
-    marginBottom: '5px',
+    display: "block",
+    marginBottom: "5px",
   },
 
   popOverBody: {
-    marginBottom: '1em',
+    marginBottom: "1em",
   },
   formControl: {
-    marginTop: '2em',
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'flex-end',
-    '& > button': {
-      margin: '0 .25em',
-      color: 'white',
+    marginTop: "2em",
+    width: "100%",
+    display: "flex",
+    justifyContent: "flex-end",
+    "& > button": {
+      margin: "0 .25em",
+      color: "white",
     },
-    '& > button > span': {
-      textTransform: 'capitalize',
+    "& > button > span": {
+      textTransform: "capitalize",
     },
-    '& > #cancel': {
+    "& > #cancel": {
       backgroundColor: Colors.warningRed,
     },
-    '& > #submit': {
+    "& > #submit": {
       backgroundColor: Colors.buttonBlue,
-      '&:disabled': {
-        backgroundColor: 'lightgray',
+      "&:disabled": {
+        backgroundColor: "lightgray",
+
       },
     },
   },
   inputItem: {
-    margin: '.5em 0',
+    margin: ".5em 0",
   },
   warning: {
-    marginTop: '.5em',
+    marginTop: ".5em",
   },
   calendarInput: {
-    '& > input': {
-      padding: '10px',
+    "& > input": {
+      padding: "10px",
+
     },
   },
 });

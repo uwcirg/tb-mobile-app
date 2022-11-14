@@ -28,6 +28,7 @@ export default class PatientProfileStore {
     familyName: "",
     phoneNumber: "",
     treatmentEndDate: "",
+    treatmentStart: "",
     errors: {},
     success: false,
   };
@@ -123,7 +124,6 @@ export default class PatientProfileStore {
         this.selectedPatient.details.treatmentEndDate ||
       this.changes.treatmentStart !==
         this.selectedPatient.details.treatmentStart
-
     );
   }
 
@@ -267,7 +267,6 @@ export default class PatientProfileStore {
   @action changeTreatmentEndDate(date) {
     this.changes.treatmentEndDate = date;
   }
-
 
   @action changeTreatmentStart(date) {
     this.changes.treatmentStart = date;
