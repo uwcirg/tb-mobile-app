@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import useStores from "../../Basics/UseStores";
 import { observer } from "mobx-react";
@@ -14,6 +14,7 @@ import NotesView from "./NotesView";
 import ReportsLoading from "./ReportsLoading";
 import ReportTable from "./ReportTable";
 import PhotoReportsList from "./PhotoReportsList";
+import CalendarWithKey from "../../Components/Shared/ReportViews/Calendar/CalendarWithKey";
 
 const useStyles = makeStyles({
   reportingHistoryContainer: {
@@ -52,27 +53,28 @@ const useStyles = makeStyles({
 
 const ReportingHistory = observer(() => {
   const [visible, setVisible] = useState("reports");
-  const [day, setDay] = useState(new Date());
   const classes = useStyles();
-  const { patientProfileStore } = useStores();
+  const { patientProfileStore, patientStore } = useStores();
 
-  const handleChange = (change) => {
-    setDay(change);
-  };
+  useEffect(() => {
+    patientStore.getReports();
+  }, []);
+
   return (
     <div className={classes.reportingHistoryContainer}>
       <ReportingHistoryLabel setVisible={setVisible} visible={visible} />
       {patientProfileStore.selectedPatient.reportsLoaded ? (
         <div className={classes.reportingHistory}>
           {visible === "calendar" && (
-            <CalendarTest
-              selectedDay={day}
-              handleChange={handleChange}
-              reports={patientProfileStore.selectedPatient.reports}
-              treatmentStart={
-                patientProfileStore.selectedPatient.details.treatmentStart
-              }
-            />
+            <>
+              <CalendarWithKey
+                patient={{
+                  treatmentStart: patientStore.treatmentStart,
+                  photoDays: Object.keys(patientStore.photoSchedule),
+                }}
+                reportHash={patientStore.savedReports}
+              />
+            </>
           )}
           {visible === "reports" && <ReportTable />}
           {visible === "notes" && <NotesView />}
