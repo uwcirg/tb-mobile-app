@@ -20,6 +20,7 @@ import { useParams } from "react-router-dom";
 import AppointmentCard from "./MobileView/AppointmentCard";
 import { Box, Grid } from "@material-ui/core";
 import PatientDetailsCard from "./MobileView/PatientDetailsCard";
+import Notes from "./NotesView";
 
 const Profile = observer(() => {
   const { id: patientId } = useParams();
@@ -80,19 +81,31 @@ const DesktopProfile = observer(() => {
         <TreatmentStatus />
         <SymptomSummary />
       </div>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} alignItems="stretch">
         <Grid item xs={12} md={4}>
           <PatientDetailsCard
             patient={patientProfileStore.selectedPatient.details}
           />
         </Grid>
-        <Grid item xs={12} md={8}>
-          <AppointmentCard
-            patient={patientProfileStore.selectedPatient.details}
-          />
+        <Grid
+          container
+          item
+          xs={12}
+          md={8}
+          spacing={1}
+          alignContent="flex-start"
+        >
+          <Grid item xs={12} md={12}>
+            <AppointmentCard
+              patient={patientProfileStore.selectedPatient.details}
+            />
+          </Grid>
+          <Grid item xs={12} md={12}>
+            <Notes />
+          </Grid>
         </Grid>
       </Grid>
-      <Box
+      {/* <Box
         width="100%"
         marginBottom="1em"
         style={{ ...Styles.profileCard }}
@@ -107,7 +120,7 @@ const DesktopProfile = observer(() => {
             }
           />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 });
