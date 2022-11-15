@@ -105,22 +105,6 @@ const DesktopProfile = observer(() => {
           </Grid>
         </Grid>
       </Grid>
-      {/* <Box
-        width="100%"
-        marginBottom="1em"
-        style={{ ...Styles.profileCard }}
-      ></Box>
-      <div className={classes.bottom}>
-        <ReportingHistory />
-        <div className={classes.treatmentTimeline}>
-          <SectionLabel>{t("timeline.title")}</SectionLabel>
-          <TreatmentTimeline
-            weeksInTreatment={
-              patientProfileStore.selectedPatient.details.weeksInTreatment
-            }
-          />
-        </div>
-      </div> */}
     </div>
   );
 });
