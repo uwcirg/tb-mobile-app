@@ -5,20 +5,43 @@ import ReviewPatients from "./ReviewPatients";
 import Settings from "./Settings/index";
 import PatientProfile from "./PatientProfile";
 import OldTasksPage from "./OldTasksPage";
-import { Switch, Route, Redirect, useLocation } from "react-router-dom";
+import {
+  Switch,
+  Route,
+  Redirect,
+  useLocation,
+  useHistory,
+} from "react-router-dom";
 import AddPatient from "./AddPatient";
 import AddAppointment from "../Components/Shared/Appointments/AddAppointment";
 import AppointmentsPage from "./PatientProfile/Dialogs/AppointmentsPage";
+import useStores from "../Basics/UseStores";
+import PatientDetailsReport from "./Shared/PatientDetailsReport";
 
 const Routes = () => {
+  const { patientProfileStore } = useStores();
   const location = useLocation();
   const id = location.pathname.split("/")[2];
+  const history = useHistory();
 
   return (
     <Switch>
       <Route path="/messaging" children={<Messages />} />
       <Route path="/settings" children={<Settings />} />
       <Route path="/patients/add-patient" children={<AddPatient />} />
+      <Route
+        path="/patients/:id/reports"
+        children={
+          <PatientDetailsReport
+            patient={patientProfileStore.selectedPatient.details}
+            handleExit={() => {
+              history.push(
+                `/patients/${patientProfileStore.selectedPatient.details.id}`
+              );
+            }}
+          />
+        }
+      />
       <Route path="/patients/:id/add-appointment">
         <AddAppointment patientId={id} />
       </Route>
