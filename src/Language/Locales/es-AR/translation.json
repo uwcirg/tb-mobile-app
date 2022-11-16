@@ -6,7 +6,7 @@
   "updating": "Actualizando",
   "demoWarning": "Esta es una demostración de la aplicación y no debe usarse para los datos de pacientes reales.",
   "commonWords": {
-    "list": "list",
+    "list": "lista",
     "photos": "fotos",
     "fillAll": "Complete todas las secciones antes de continuar",
     "edit": "Editar",
@@ -40,7 +40,7 @@
     "errorMessage": "Se ha producido un error. Por favor, inténtelo de nuevo más tarde.",
     "atTime": "a las",
     "loadMore": "cargar más",
-    "back": "back"
+    "back": "detrás"
   },
   "userTypes": {
     "patient": "Paciente",
@@ -101,8 +101,8 @@
     "empty": "No se han enviado mensajes todavia. Envie el primero!",
     "private": "Privado",
     "clinicChat": "Asistentes y Pacientes en su Clínica",
-    "imageWillSend": "Image will be sent with message",
-    "sending": "Sending"
+    "imageWillSend": "Imagen será enviado con mensaje",
+    "sending": "Enviando"
   },
   "time": {
     "day": "día",
@@ -119,13 +119,13 @@
   "patient": {
     "tabNames": {
       "home": "pantalla inicial",
-      "calendar": "History",
+      "calendar": "Historia",
       "messaging": "Mensajes",
       "information": "Información"
     },
     "oneStepReporting": {
       "photoRequestTitle": "Por favor manda una foto de tu tira reactiva para confirmar tu progresso.",
-      "photoRequestButton": "Complete Test Strip",
+      "photoRequestButton": "Completar Tira Reactiva",
       "supportTitle": "¿Cómo estás hoy, va todo bien?",
       "goodOption": "Tomé mis medicamentos y me siento bien",
       "helpOption": "Reportar asuntos y pedir ayuda"
@@ -247,7 +247,7 @@
       "reminderEnabled": "Recordatorio Habilitado",
       "reminderDisabled": "Recordatorio Desactivado",
       "at": "a las",
-      "successMessage": "Your appointment was successfully added"
+      "successMessage": "Su cita fue agregada exitosamente"
     },
     "demo": {
       "showDemo": "Mostrar Demostración"
@@ -376,7 +376,7 @@
       },
       "symptoms": {
         "nauseaRating": "¿Que severa es su náusea?",
-        "instructions": "Please tap an option that represents how you are feeling",
+        "instructions": "Por favor seleccione la opción que representa como estas sentindo",
         "warning": {
           "title": "Has reportado un malestar que requiere inmediata atención médica.",
           "subtitle": "Por favor busque atención médica inmediatamente! Su asistente se comunicará con ud. más tarde para confirmar que esté bien.",
@@ -426,9 +426,9 @@
       "submissionLimit": "Durante las primeras dos semanas del tratamiento podrá completar los reportes de los días que no los haya enviado.\nA partir de las dos semanas, si algún día no envía un reporte solo podrá completar y enviar los reportes de los últimos 3 días. ",
       "loading": "Cargando historia de reportes ",
       "calendarKey": {
-        "tookMeds": "Took medication",
-        "sideEffects": "Reported side effects",
-        "noMeds": "Didn't take medication",
+        "tookMeds": "Tomó medicamento",
+        "sideEffects": "Reportó efectos secundarios",
+        "noMeds": "No tomó medicamento",
         "button": "Qué significan estos colores",
         "description": "Este es el calendario, donde puede revisar sus reportes. Los colores representan lo siguiente:",
         "good": "Todas las partes enviadas.",
@@ -447,7 +447,7 @@
       ]
     },
     "information": {
-      "otherSettings": "Other Settings",
+      "otherSettings": "Otras Configuraciones ",
       "changeLog": "Registro de Cambios de la Aplicación",
       "version": "Versión",
       "questions": "Preguntas y respuestas",
@@ -496,7 +496,7 @@
       "subtitle": "Temperatura más de  37.5"
     },
     "appetite_loss": {
-      "title": "Loss of appetite",
+      "title": "Pérdida de apetito",
       "subtitle": "Pérdida de apetito"
     },
     "blurred_vision": {
@@ -528,40 +528,40 @@
       "subtitle": ""
     },
     "flu_symptoms": {
-      "title": "Flu Symptoms",
-      "subtitle": "Flu symptoms include fever, chills, headache, and body pain"
+      "title": "Sintomas de Gripe",
+      "subtitle": "Síntomas de la gripe incluyen fiebre, escalofríos, dolor de cabeza, y dolor corporal"
     },
     "red_urine": {
-      "title": "Red urine",
-      "subtitle": "Urine has a red tint"
+      "title": "Orina roja",
+      "subtitle": "Orina tiene un tinte rojo"
     },
     "sleepy": {
-      "title": "Sleepy",
-      "subtitle": "Feeling tired all day"
+      "title": "Soñoliento",
+      "subtitle": "Sentirse cansado todo el día"
     },
     "joint_pain": {
-      "title": "Joint pain",
-      "subtitle": "Feeling pain in your joints or bones"
+      "title": "Dolor articular",
+      "subtitle": "Sentir dolor en las articulaciones o los huesos"
     },
     "burning_or_numbness": {
-      "title": "Burning, tingling or numbness",
-      "subtitle": "Feeling of burning, tingling, or numbness in your fingers or toes"
+      "title": "Ardor, hormigueo o entumecimiento",
+      "subtitle": "Sensación de ardor, entumecimiento, o ohormigueo en los dedos de las manos o los pies"
     },
     "hearing_loss": {
-      "title": "Hearing loss",
-      "subtitle": "Changes in your hearing, or being unable to hear"
+      "title": "Pérdida de la audición",
+      "subtitle": "Cambios en su audición, o no poder oír"
     },
     "vertigo": {
-      "title": "Vertigo",
-      "subtitle": "Sensation of whirling and loss of balance, associated particularly with looking down from a great height"
+      "title": "Vértigo",
+      "subtitle": "Sensación de dar vueltas y pérdida de equilibrio, asociado particularmente con mirando hacia abajo desde una gran altura"
     },
     "confusion": {
-      "title": "Confusion",
-      "subtitle": "Increasingly feeling confused"
+      "title": "Confusión",
+      "subtitle": "Aumento en confusión"
     },
     "oliguria": {
-      "title": "Decrease in urination",
-      "subtitle": "Urinating less than normal, or experiencing difficulty urinating"
+      "title": "Disminución de la micción",
+      "subtitle": "Orinando menos de lo normal o teniendo dificultad orinando"
     },
     "other": {
       "title": "Otros síntomas",
@@ -584,7 +584,7 @@
     "mobileWarning": "El diseño para móviles está incompleto. Puede ver sus tareas, pero no aprobarlas. El sistema de mensajes está listo.",
     "priority": {
       "high": "Alto",
-      "medium": "Mediano",
+      "medium": "Intermedia",
       "low": "Bajo"
     },
     "cohortOverview": {
@@ -595,7 +595,7 @@
       "low": "Baja prioridad",
       "active": "Activo",
       "pending": "Pendiente",
-      "archived": "Archived",
+      "archived": "Archivado",
       "reportedTime": "Reportado en los últimos 7 días",
       "noPatientsFound": "No se encuentran pacientes",
       "searchByName": "Busqueda por nombre"
@@ -671,7 +671,7 @@
     "false": "Falso",
     "daysInTreatment": "Días en Tratamiento",
     "patientProfile": {
-      "lastReport": "Last report",
+      "lastReport": "Último reporte",
       "details": {
         "progress": "Progreso"
       },
@@ -803,7 +803,7 @@
     "submit": "Enviar"
   },
   "educationalMessages": {
-    "thoughtsForToday": "Thoughts for today",
+    "thoughtsForToday": "Pensamientos para hoy",
     "feedback": "Gracias Por Su Respuesta",
     "week": "Semana",
     "header": "Importante conocer",
@@ -853,11 +853,11 @@
     "flags": "Información Importante  "
   },
   "appointments": {
-    "manage": "View / Manage all appointments",
-    "typeNote": "Type note here",
-    "createAppointment": "Create Appointment",
+    "manage": "Ver / Manejar todas las citas",
+    "typeNote": "Escriba su nota aquí",
+    "createAppointment": "Crear Cita",
     "noUpcoming": "No Hay Visitas Agendadas",
-    "whatDay": "What day is the appointment?",
+    "whatDay": "¿Qué día es la cita?",
     "whatTime": "¿A qué hora es la cita?",
     "select": "Elija el sujeto de la cita",
     "typeQuestion": "¿Qué tipo de cita quiere añadir?",
@@ -874,8 +874,8 @@
     },
     "showAll": "Mostar Todos",
     "showLess": "Mostar Menos",
-    "addAnother": "Add another",
-    "nextAppointment": "Next appointment"
+    "addAnother": "Añadir otra",
+    "nextAppointment": "Próxima cita"
   },
   "update": {
     "update": "Actualizar",
@@ -969,7 +969,7 @@
       "lost-to-follow-up": "Perdido de seguimiento",
       "transferred": "Derivado",
       "deceased": "Fallecido",
-      "refuse-to-use-app": "Refuse to use app"
+      "refuse-to-use-app": "Negar usar la aplicación"
     },
     "complete": "Completo",
     "endSurvey": "Encuesta",
@@ -1065,7 +1065,7 @@
     "one": "Recoja una pequeña cantidad de orina en un recipiente (mas o menos 2 dedos).",
     "two": "Saque la tira de la bolsa.",
     "three": "Sumerja la tira en la orina por aproximadamente 2 segundos hasta la línea marcada “Sumerja.” No deje que la tira sobrepase el tiempo en la orina.",
-    "four": "Let the test sit flat for 20 minutes before submitting ",
+    "four": "Coloque la prueba horizontalmente de plana y espere 15-20 minutos.",
     "five": {
       "main": "Abra la aplicación y haga click en ‘SUBIR FOTO’.",
       "a": "Asegúrese de que la foto muestre toda la tira, incluyendo las marcas. ",
@@ -1074,8 +1074,8 @@
     "six": "Coloque la tira en la bolsa y descartela en la basura."
   },
   "mobileUpdate": {
-    "actions": "Actions",
-    "showActions": "Show All Actions",
+    "actions": "Acciones",
+    "showActions": "Muestra todas las acciones",
     "treatment": "tratamiento",
     "supportRequests": "Solicitudes del apoyo"
   },
@@ -1096,7 +1096,7 @@
   },
   "photoFlow": {
     "pleaseSubmitLater": "Por favor, suba la foto en",
-    "minutes": "minutes",
+    "minutes": "minutos",
     "howManyMinutesAgo": "¿Hace cuántos minutos se sumergió la tira reactiva?",
     "confirm20Minutes": "He esperado veinte minutos",
     "deny20Minutes": "Ya no he esperado veinte minutos"
