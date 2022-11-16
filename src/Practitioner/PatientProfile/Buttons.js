@@ -42,7 +42,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ButtonList = observer(({ isDesktopView }) => {
+const ButtonList = observer(({ isDesktopView = true }) => {
   const classes = useStyles();
 
   const [showActions, toggleShowActions] = useToggle(false);
@@ -92,12 +92,12 @@ const ButtonList = observer(({ isDesktopView }) => {
 
   if (isDesktopView) {
     return (
-      <Grid container spacing={1}>
-        <Box display="flex" flexWrap="wrap" alignContent="flex-end">
+      <Grid container alignItems="center" alignContent="center">
+        <Box display="flex" flexWrap="wrap" alignItems="center">
           {buttons.map((each) => {
             if (each.hide) return null;
             return (
-              <Box key={each.text} m={1}>
+              <Box key={each.text} m=".2em">
                 <FlatButton
                   key={each.text}
                   className={each.red ? classes.redButton : ""}
@@ -109,53 +109,53 @@ const ButtonList = observer(({ isDesktopView }) => {
               </Box>
             );
           })}
-          <MoreOptions />
+          <ReportReminder />
         </Box>
       </Grid>
     );
   }
 
-  return (
-    <>
-      <Grid alignItems="center" container>
-        <SectionTitle>{t("mobileUpdate.showActions")}</SectionTitle>
-        <Box flexGrow={1} />
-        <Button className={classes.toggle} onClick={toggleShowActions}>
-          {showActions
-            ? t("patient.home.helpVideos.hide")
-            : t("mobileUpdate.showActions")}
-          {showActions ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
-        </Button>
-      </Grid>
-      <Box height=".5em" aria-hidden />
-      <NewButton
-        to={buttons[0].to}
-        className={classes.button}
-        icon={buttons[0].icon}
-        text={buttons[0].text}
-      />
-      <Collapse in={showActions}>
-        <div>
-          {buttons.splice(1).map((each) => {
-            if (each.hide) return;
-            return (
-              <NewButton
-                key={each.text}
-                to={each.to}
-                onClick={each.onClick}
-                className={classes.button}
-                icon={each.icon}
-                text={each.text}
-              />
-            );
-          })}
-        </div>
-      </Collapse>
-    </>
-  );
+  // return (
+  //   <>
+  //     <Grid alignItems="center" container>
+  //       <SectionTitle>{t("mobileUpdate.showActions")}</SectionTitle>
+  //       <Box flexGrow={1} />
+  //       <Button className={classes.toggle} onClick={toggleShowActions}>
+  //         {showActions
+  //           ? t("patient.home.helpVideos.hide")
+  //           : t("mobileUpdate.showActions")}
+  //         {showActions ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+  //       </Button>
+  //     </Grid>
+  //     <Box height=".5em" aria-hidden />
+  //     <NewButton
+  //       to={buttons[0].to}
+  //       className={classes.button}
+  //       icon={buttons[0].icon}
+  //       text={buttons[0].text}
+  //     />
+  //     <Collapse in={showActions}>
+  //       <div>
+  //         {buttons.splice(1).map((each) => {
+  //           if (each.hide) return null;
+  //           return (
+  //             <NewButton
+  //               key={each.text}
+  //               to={each.to}
+  //               onClick={each.onClick}
+  //               className={classes.button}
+  //               icon={each.icon}
+  //               text={each.text}
+  //             />
+  //           );
+  //         })}
+  //       </div>
+  //     </Collapse>
+  //   </>
+  // );
 });
 
-const MoreOptions = () => {
+const ReportReminder = () => {
   const { patientProfileStore } = useStores();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -199,7 +199,6 @@ const MoreOptions = () => {
       </Menu>
     </div>
   );
-  v;
 };
 
 export default ButtonList;
