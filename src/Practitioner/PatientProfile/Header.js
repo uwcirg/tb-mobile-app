@@ -1,23 +1,21 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import useStores from "../../Basics/UseStores";
 import { observer } from "mobx-react";
 import Buttons from "./Buttons";
 import { Box, Grid } from "@material-ui/core";
 import Styles from "../../Basics/Styles";
 import PatientAvatar from "./PatientAvatar";
+import { useTranslation } from "react-i18next";
 
-const ProfileHeader = observer(() => {
+const ProfileHeader = observer(({ patient }) => {
   const classes = useStyles();
-  const { patientProfileStore } = useStores();
+  const { t } = useTranslation("translation");
 
   return (
     <div className={classes.header}>
       <Grid container spacing={1} alignItems="center" justify="space-between">
         <div className={classes.profileHeader}>
-          <PatientAvatar
-            patient={patientProfileStore.selectedPatient.details}
-          />
+          <PatientAvatar patient={patient} />
         </div>
         <Grid item xs={12} md={9}>
           <Box display="flex" alignContent="center" padding=".2em">
@@ -35,9 +33,9 @@ const useStyles = makeStyles({
   },
   profileHeader: {
     display: "flex",
-    alignContent: "center",
+    alignContent: "flex-start",
     padding: "1em",
-    alignItems: "center",
+    alignItems: "flex-end",
     "& > h1": {
       ...Styles.header,
       margin: 0,

@@ -74,23 +74,22 @@ const DesktopProfile = observer(() => {
   const { patientProfileStore } = useStores();
   const classes = useStyles();
   const { t } = useTranslation("translation");
+  const patient = patientProfileStore.selectedPatient.details;
 
   return (
     <>
       <TopPageLabel title={t("coordinator.titles.myPatients")} />
       <div className={classes.patientContainer}>
-        <ProfileHeader />
+        <ProfileHeader patient={patient} />
         <ArchivedOptions />
         <div className={classes.top}>
-          <PatientInfo />
+          <PatientInfo patient={patient} />
           <TreatmentStatus />
           <SymptomSummary />
         </div>
         <Grid container spacing={2} alignItems="stretch">
           <Grid item xs={12} md={4}>
-            <PatientDetailsCard
-              patient={patientProfileStore.selectedPatient.details}
-            />
+            <PatientDetailsCard patient={patient} />
           </Grid>
           <Grid
             container
@@ -101,9 +100,7 @@ const DesktopProfile = observer(() => {
             alignContent="flex-start"
           >
             <Grid item xs={12} md={12}>
-              <AppointmentCard
-                patient={patientProfileStore.selectedPatient.details}
-              />
+              <AppointmentCard patient={patient} />
             </Grid>
             <Grid item xs={12} md={12}>
               <Notes />

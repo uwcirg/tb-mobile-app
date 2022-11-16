@@ -92,7 +92,12 @@ const ButtonList = observer(({ isDesktopView = true }) => {
 
   if (isDesktopView) {
     return (
-      <Grid container alignItems="center" alignContent="center">
+      <Grid
+        container
+        alignItems="center"
+        alignContent="center"
+        justify="flex-end"
+      >
         <Box display="flex" flexWrap="wrap" alignItems="center">
           {buttons.map((each) => {
             if (each.hide) return null;
