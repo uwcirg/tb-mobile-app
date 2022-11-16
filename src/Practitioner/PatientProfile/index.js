@@ -21,6 +21,7 @@ import AppointmentCard from "./MobileView/AppointmentCard";
 import { Box, Grid } from "@material-ui/core";
 import PatientDetailsCard from "./MobileView/PatientDetailsCard";
 import Notes from "./NotesView";
+import TopPageLabel from "../../Components/Shared/TopPageLabel";
 
 const Profile = observer(() => {
   const { id: patientId } = useParams();
@@ -75,39 +76,42 @@ const DesktopProfile = observer(() => {
   const { t } = useTranslation("translation");
 
   return (
-    <div className={classes.patientContainer}>
-      <ProfileHeader />
-      <ArchivedOptions />
-      <div className={classes.top}>
-        <PatientInfo />
-        <TreatmentStatus />
-        <SymptomSummary />
-      </div>
-      <Grid container spacing={2} alignItems="stretch">
-        <Grid item xs={12} md={4}>
-          <PatientDetailsCard
-            patient={patientProfileStore.selectedPatient.details}
-          />
-        </Grid>
-        <Grid
-          container
-          item
-          xs={12}
-          md={8}
-          spacing={1}
-          alignContent="flex-start"
-        >
-          <Grid item xs={12} md={12}>
-            <AppointmentCard
+    <>
+      <TopPageLabel title={t("coordinator.titles.myPatients")} />
+      <div className={classes.patientContainer}>
+        <ProfileHeader />
+        <ArchivedOptions />
+        <div className={classes.top}>
+          <PatientInfo />
+          <TreatmentStatus />
+          <SymptomSummary />
+        </div>
+        <Grid container spacing={2} alignItems="stretch">
+          <Grid item xs={12} md={4}>
+            <PatientDetailsCard
               patient={patientProfileStore.selectedPatient.details}
             />
           </Grid>
-          <Grid item xs={12} md={12}>
-            <Notes />
+          <Grid
+            container
+            item
+            xs={12}
+            md={8}
+            spacing={1}
+            alignContent="flex-start"
+          >
+            <Grid item xs={12} md={12}>
+              <AppointmentCard
+                patient={patientProfileStore.selectedPatient.details}
+              />
+            </Grid>
+            <Grid item xs={12} md={12}>
+              <Notes />
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
-    </div>
+      </div>
+    </>
   );
 });
 

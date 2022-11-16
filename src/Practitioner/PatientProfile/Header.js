@@ -20,7 +20,7 @@ const ProfileHeader = observer(() => {
           />
         </div>
         <Grid item xs={12} md={9}>
-          <Box display="flex" alignContent="center">
+          <Box display="flex" alignContent="center" padding=".2em">
             <Buttons />
           </Box>
         </Grid>
