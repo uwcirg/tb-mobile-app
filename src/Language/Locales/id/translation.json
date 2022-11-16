@@ -40,7 +40,7 @@
     "errorMessage": "Terjadi Kesalahan. Silahkan coba kembali beberapa waktu lagi",
     "atTime": "pada",
     "loadMore": "Tambahkan lagi",
-    "back": "back"
+    "back": "kembali"
   },
   "userTypes": {
     "patient": "Pasien",
@@ -1090,8 +1090,15 @@
     "hasIssues": "Masalah untuk ditinjau",
     "onTrack": "Sesuai jadwal perawatan",
     "reviewedAt": "Ditinjau pada",
-    "noPatients": "No patients found",
-    "noPatientReviews": "No patients reviewed today",
-    "noPateintIssues": "No patients left to review"
+    "noPatients": "Pasien tidak ditemukan",
+    "noPatientReviews": "Belum ada pasien yang ditinjau hari ini",
+    "noPateintIssues": "Tidak ada pasien untuk ditinjau"
+  },
+  "photoFlow": {
+    "pleaseSubmitLater": "Silahkan masukkan foto anda",
+    "minutes": "menit",
+    "howManyMinutesAgo": "Kira-kira berapa menit yang lalu anda melakukan tes?",
+    "confirm20Minutes": "Saya telah menunggu  20 menit",
+    "deny20Minutes": "Saya tidak menunggu selama 20 menit"
   }
 }
