@@ -5,9 +5,14 @@ import useAsync from "../../Hooks/useAsync";
 import { useTranslation } from "react-i18next";
 import ReportViews from "../../Components/Shared/ReportViews";
 import TopPageLabel from "../../Components/Shared/TopPageLabel";
+import useStores from "../../Basics/UseStores";
+import { useHistory } from "react-router-dom";
 
-export default function PatientDetailsReport({ patient, handleExit }) {
+export default function PatientDetailsReport() {
   const { t } = useTranslation("translation");
+  const { patientProfileStore } = useStores();
+  const history = useHistory();
+  let patient = patientProfileStore.selectedPatient.details;
 
   const { patientId } = useParams();
 
@@ -29,7 +34,9 @@ export default function PatientDetailsReport({ patient, handleExit }) {
   return (
     <>
       <TopPageLabel
-        handleExit={handleExit}
+        handleExit={() => {
+          history.push(`/patients/${patient.id}`);
+        }}
         sticky
         title={t("coordinator.addPatientFlow.title")}
       />

@@ -37,12 +37,6 @@ const useStyles = makeStyles({
   toggle: {
     textTransform: "capitalize",
   },
-  desktopButtons: {
-    width: "unset",
-    "& > *": {
-      margin: "3px",
-    },
-  },
   redButton: {
     backgroundColor: Colors.warningRed,
   },
@@ -98,26 +92,25 @@ const ButtonList = observer(({ isDesktopView }) => {
 
   if (isDesktopView) {
     return (
-      <Grid
-        alignItems="center"
-        container
-        justify="flex-end"
-        className={classes.desktopButtons}
-      >
-        {buttons.map((each) => {
-          if (each.hide) return;
-          return (
-            <FlatButton
-              key={each.text}
-              className={each.red ? classes.redButton : ""}
-              to={each.to}
-            >
-              {each.icon}
-              {each.text}
-            </FlatButton>
-          );
-        })}
-        <MoreOptions />
+      <Grid container spacing={1}>
+        <Box display="flex" flexWrap="wrap" alignContent="flex-end">
+          {buttons.map((each) => {
+            if (each.hide) return null;
+            return (
+              <Box key={each.text} m={1}>
+                <FlatButton
+                  key={each.text}
+                  className={each.red ? classes.redButton : ""}
+                  to={each.to}
+                >
+                  {each.icon}
+                  {each.text}
+                </FlatButton>
+              </Box>
+            );
+          })}
+          <MoreOptions />
+        </Box>
       </Grid>
     );
   }

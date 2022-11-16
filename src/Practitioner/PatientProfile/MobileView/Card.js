@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, makeStyles } from "@material-ui/core";
 import SectionTitle from "./SectionTitle";
+import SectionLabel from "../../../Components/SectionLabel";
 
 const useStyles = makeStyles({
   card: {
@@ -22,7 +23,7 @@ const Card = ({ children, title }) => {
     >
       {title && (
         <>
-          <SectionTitle>{title}:</SectionTitle>
+          <SectionLabel>{title}</SectionLabel>
           <Box height="8px" />
         </>
       )}

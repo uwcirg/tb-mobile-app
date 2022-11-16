@@ -19,7 +19,6 @@ import useStores from "../Basics/UseStores";
 import PatientDetailsReport from "./Shared/PatientDetailsReport";
 
 const Routes = () => {
-  const { patientProfileStore } = useStores();
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const history = useHistory();
@@ -29,19 +28,7 @@ const Routes = () => {
       <Route path="/messaging" children={<Messages />} />
       <Route path="/settings" children={<Settings />} />
       <Route path="/patients/add-patient" children={<AddPatient />} />
-      <Route
-        path="/patients/:id/reports"
-        children={
-          <PatientDetailsReport
-            patient={patientProfileStore.selectedPatient.details}
-            handleExit={() => {
-              history.push(
-                `/patients/${patientProfileStore.selectedPatient.details.id}`
-              );
-            }}
-          />
-        }
-      />
+      <Route path="/patients/:id/reports" children={<PatientDetailsReport />} />
       <Route path="/patients/:id/add-appointment">
         <AddAppointment patientId={id} />
       </Route>

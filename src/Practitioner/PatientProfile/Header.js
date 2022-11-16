@@ -4,7 +4,8 @@ import useStores from "../../Basics/UseStores";
 import { observer } from "mobx-react";
 import Buttons from "./Buttons";
 import Avatar from "@material-ui/core/Avatar";
-import Grid from "@material-ui/core/Grid";
+
+import { Box, Grid } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Styles from "../../Basics/Styles";
 import Colors from "../../Basics/Colors";
@@ -16,12 +17,14 @@ const useStyles = makeStyles({
     boxSizing: "border-box",
     padding: "1em",
     display: "flex",
+    justifyContent: "space-around",
     alignItems: "center",
     ...Styles.profileCard,
   },
   profileHeader: {
     display: "flex",
-    marginRight: "auto",
+    alignContent: "center",
+    padding: "1em",
     alignItems: "center",
     "& > h1": {
       ...Styles.header,
@@ -40,26 +43,42 @@ const ProfileHeader = observer(() => {
 
   return (
     <div className={classes.header}>
-      <div className={classes.profileHeader}>
-        <Avatar
-          style={{ backgroundColor: Colors.green, marginRight: "1em" }}
-          size="small"
-        >
-          {patientProfileStore.selectedPatient.details.fullName[0]}
-        </Avatar>
-        <Grid container direction="column">
-          <Typography variant="h1">
-            {patientProfileStore.selectedPatient.details.fullName}
-          </Typography>
-          <Grid wrap="nowrap" justify="flex-end" container alignItems="center">
-            <WhatsAppIcon className={classes.phoneIcon} />
-            <Typography variant="body1" color="initial">
-              {patientProfileStore.selectedPatient.details.phoneNumber}
-            </Typography>
+      <Grid container spacing={1}>
+        <div className={classes.profileHeader}>
+          <Grid item xs={12} md={3} spacing={2}>
+            <Avatar
+              style={{ backgroundColor: Colors.green, marginRight: "1em" }}
+              size="small"
+            >
+              {patientProfileStore.selectedPatient.details.fullName[0]}
+            </Avatar>
           </Grid>
-        </Grid>
-      </div>
-      <Buttons isDesktopView />
+          <Grid container spacing={1} direction="column">
+            <Grid item xs={12} md={3} spacing={2}>
+              <Typography variant="h1">
+                {patientProfileStore.selectedPatient.details.fullName}
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              md={3}
+              spacing={2}
+              style={{ display: "flex", alignItems: "center" }}
+            >
+              <WhatsAppIcon className={classes.phoneIcon} />
+              <Typography variant="body1" color="initial">
+                {patientProfileStore.selectedPatient.details.phoneNumber}
+              </Typography>
+            </Grid>
+          </Grid>
+        </div>
+        <Box margin="0 auto">
+          <Grid item xs={12} md={8}>
+            <Buttons isDesktopView />
+          </Grid>
+        </Box>
+      </Grid>
     </div>
   );
 });

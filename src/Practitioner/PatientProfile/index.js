@@ -62,7 +62,9 @@ const Profile = observer(() => {
   return (
     <>
       <PatientProfileDialogs />
-      {isMobileView ? <MobileView /> : <DesktopProfile />}
+      {/* {isMobileView ? <MobileView /> :  */}
+      <DesktopProfile />
+      {/* } */}
     </>
   );
 });
