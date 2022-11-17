@@ -9,7 +9,7 @@ export default function PatientAvatar({ patient }) {
   const { t } = useTranslation("translation");
   return (
     <>
-      <Grid item xs={12} md={3} spacing={2}>
+      <Grid item xs={12} md={3}>
         <Avatar
           style={{ backgroundColor: Colors.green, marginRight: "1em" }}
           size="small"
@@ -18,14 +18,13 @@ export default function PatientAvatar({ patient }) {
         </Avatar>
       </Grid>
       <Grid container spacing={1} direction="column">
-        <Grid item xs={12} md={3} spacing={2}>
+        <Grid item xs={12} md={3}>
           <Typography variant="h1">{patient.fullName}</Typography>
         </Grid>
         <Grid
           item
           xs={12}
           md={3}
-          spacing={2}
           style={{ display: "flex", alignItems: "center" }}
         >
           <WhatsApp style={{ height: ".75em", color: Colors.blue }} />

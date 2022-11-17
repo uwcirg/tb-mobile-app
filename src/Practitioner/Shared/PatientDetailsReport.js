@@ -18,7 +18,7 @@ export default function PatientDetailsReport() {
 
   const getDailyReports = useCallback(() => {
     return SharedAPI.getDailyReports(patientId || patient.id);
-  }, [patientId]);
+  }, [patient.id, patientId]);
 
   const { value, status } = useAsync(getDailyReports);
 
