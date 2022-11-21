@@ -25,7 +25,7 @@ const ListOfPatients = ({ tabValue }) => {
     setPatients(tempValue);
   };
 
-  const patientsToDisplay = (patients || []).filter((patient) => {
+  const patientsToDisplay = (patients || [])?.filter((patient) => {
     if (tabValue === 2) return true;
 
     const hasUnresolvedReports =
