@@ -9,7 +9,7 @@ import PractitionerAPI from "../../API/PractitionerAPI";
 import useAsync from "../../Hooks/useAsync";
 
 async function getAllPatients() {
-  return PractitionerAPI.getPatients(true);
+  return PractitionerAPI.getPatientBasics();
 }
 
 const AllPatientsList = ({ searchName = "" }) => {
