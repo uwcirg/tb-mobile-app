@@ -17,6 +17,10 @@ export default class PractitionerAPI {
     return api.executeRawRequest("/v2/patient_issues");
   }
 
+  static async getPatientBasics() {
+    return api.executeRawRequest("/v2/patient_basics");
+  }
+
   static async getMessages(channelId) {
     return api.executeRawRequest(`/v2/channel/${channelId}/messages`);
   }
