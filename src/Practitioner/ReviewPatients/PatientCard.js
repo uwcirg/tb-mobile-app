@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, lazy, Suspense } from "react";
 import {
   makeStyles,
   Grid,
@@ -24,8 +24,9 @@ import useAsync from "../../Hooks/useAsync";
 import PractitionerAPI from "../../API/PractitionerAPI";
 import TreatmentWeek from "./TreatmentWeek";
 import useToggle from "../../Hooks/useToggle";
-import IssueDetails from "./IssueDetails";
 import { DateTime } from "luxon";
+
+const IssueDetails = lazy(() => import("./IssueDetails"));
 
 const useStyles = makeStyles({
   container: {
@@ -179,7 +180,15 @@ const PatientCard = ({
             {!isSimpleView && !isReviewed && (
               <Collapse in={showDetails}>
                 {showDetails && (
-                  <IssueDetails visible={showDetails} patient={patient} />
+                  <Suspense
+                    fallback={
+                      <Box display="flex" justifyContent="center">
+                        <CircularProgress />
+                      </Box>
+                    }
+                  >
+                    <IssueDetails visible={showDetails} patient={patient} />
+                  </Suspense>
                 )}
                 <ButtonArea
                   isReviewed={isReviewed}
