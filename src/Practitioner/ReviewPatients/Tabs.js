@@ -101,7 +101,7 @@ const ReviewPatientTabs = ({ value }) => {
 const LabelWithoutDot = ({ text }) => {
   return (
     <Grid justify="center" direction="column" alignItems="center" container>
-      <Typography variant="h6">{text}</Typography>
+      <Typography variant="body1">{text}</Typography>
     </Grid>
   );
 };
