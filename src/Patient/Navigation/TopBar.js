@@ -117,11 +117,13 @@ const GetTitle = observer(() => {
             ]}
       </Typography>
       {uiStore.offline && (
-        <p className={classes.offlineAlert}>
-          {" "}
-          {t("offline")}
-          <OfflineIcon />
-        </p>
+        <>
+          <p className={classes.offlineAlert}>
+            {" "}
+            {t("offline")}
+            <OfflineIcon />
+          </p>
+        </>
       )}
     </div>
   );
