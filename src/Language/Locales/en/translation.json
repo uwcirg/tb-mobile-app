@@ -402,7 +402,9 @@
         "youHave": "You have",
         "explanation": "They will be uploaded when you have an internet connection",
         "uploading": "Uploading your offline reports",
-        "offlineCapabilities": "The app remains functional while you are offline. Please to submit reports as you normally would. All reports will upload when you have internet connection."
+        "appRemainsFunctional": "The app remains functional while you are offline",
+        "pleaseSubmit": "Please to submit reports as you normally would.",
+        "willBeUploaded": "They will be uploaded when you have an internet connection"
       },
       "photoUploading": "Your photo is uploading",
       "photoUploadError": "There was a problem uploading your report. Please try again, or contact your treatment assistant"

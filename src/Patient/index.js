@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import BottomBar from "./Navigation/BottomBar";
 import { observer } from "mobx-react";
 import Home from "./Home";
@@ -23,8 +23,7 @@ import Box from "@material-ui/core/Box";
 import RedoPhotoFlow from "./ReportingFlows/AltPhotoFlows/RedoPhotoFlow";
 import isIndonesiaPilot from "../Utility/check-indonesia-flag";
 import AddApointment from "../Components/Shared/Appointments/AddAppointment/";
-import CantTakePhoto from "./ReportingFlows/CantTakePhoto";
-import { Typography } from "@material-ui/core";
+import OfflineMessage from "./OfflineMessage";
 
 const PatientHome = observer(() => {
   const { patientUIStore, patientStore, uiStore, dailyReportStore } =
@@ -120,22 +119,7 @@ const PatientHome = observer(() => {
       <div style={{ backgroundColor: Colors.accentBlue }}>
         <TopBar />
         <Box height="60px" />
-        {uiStore.offline && (
-          <div style={{ backgroundColor: Colors.accentBlue }}>
-            <div
-              style={{
-                backgroundColor: Colors.highlightYellow,
-                padding: ".5em 1em",
-              }}
-            >
-              <Typography variant="body2">
-                The app remains functional while you are offline. Please to
-                submit reports as you normally would. All reports will upload
-                when you have internet connection.{" "}
-              </Typography>
-            </div>
-          </div>
-        )}
+        {uiStore.offline && <OfflineMessage />}
       </div>
       {!isIndonesiaPilot() && <EducationalMessage />}
       {patientUIStore.onWalkthrough && <Intro />}
