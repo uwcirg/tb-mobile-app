@@ -76,33 +76,21 @@ const ReviewPatientTabs = ({ value }) => {
           className={classes.tab}
           component={Link}
           to="/home/needs-review"
-          label={
-            <LabelWithDot
-              text={t("reviewIssues.issues")}
-              color={Colors.yellow}
-            />
-          }
+          label={<LabelWithoutDot text={t("reviewIssues.issues")} />}
           {...a11yProps(0)}
         />
         <Tab
           className={classes.tab}
           component={Link}
           to="/home/reviewed"
-          label={
-            <LabelWithDot
-              text={t("reviewIssues.reviewed")}
-              color={Colors.green}
-            />
-          }
+          label={<LabelWithoutDot text={t("reviewIssues.reviewed")} />}
           {...a11yProps(1)}
         />
         <Tab
           className={classes.tab}
           component={Link}
           to="/home/all"
-          label={
-            <LabelWithDot text={t("time.all")} color={Colors.buttonBlue} />
-          }
+          label={<LabelWithoutDot text={t("time.all")} />}
           {...a11yProps(1)}
         />
       </Tabs>
@@ -110,12 +98,10 @@ const ReviewPatientTabs = ({ value }) => {
   );
 };
 
-const LabelWithDot = ({ text, color }) => {
-  const classes = useStyles({ color: color });
+const LabelWithoutDot = ({ text }) => {
   return (
     <Grid justify="center" direction="column" alignItems="center" container>
-      <FiberManualRecord className={classes.label} />
-      <Typography variant="body2">{text}</Typography>
+      <Typography variant="h6">{text}</Typography>
     </Grid>
   );
 };
