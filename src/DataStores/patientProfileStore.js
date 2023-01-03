@@ -72,7 +72,6 @@ export default class PatientProfileStore {
     this.selectedPatient.details = details;
     this.selectedPatient.loaded = true;
 
-
     if (this.selectedPatient.details.status === "Archived") {
       this.onArchiveWarning = true;
     }
@@ -144,12 +143,6 @@ export default class PatientProfileStore {
         this.setSelectedPatientDetails(response);
       });
     //Must fetch reports seperately due to key tranform in Rails::AMS removing dashes ISO date keys :(
-    this.apiHelper
-
-      .executeRawRequest(`/patient/${id}/reports`, "GET")
-      .then((response) => {
-        this.addPatientReports(response);
-      });
 
     this.apiHelper
       .executeRawRequest(`/patient/${id}/symptom_summary`)
@@ -158,6 +151,14 @@ export default class PatientProfileStore {
       });
 
     this.getPatientNotes(id);
+  };
+
+  getPatientReports = (id) => {
+    this.apiHelper
+      .executeRawRequest(`/patient/${id}/reports`, "GET")
+      .then((response) => {
+        this.addPatientReports(response);
+      });
   };
 
   @computed get selectedPatientReports() {
@@ -260,7 +261,6 @@ export default class PatientProfileStore {
       treatmentOutcome: null,
     };
 
-
     this.temporaryPassword = "";
   };
 
@@ -295,7 +295,6 @@ export default class PatientProfileStore {
   };
 
   @computed get isArchived() {
-
     return this.selectedPatient.details.status === "Archived";
   }
 

@@ -51,7 +51,7 @@ const useStyles = makeStyles({
 });
 
 const ReportingHistory = observer(() => {
-  const [visible, setVisible] = useState("reports");
+  const [visible, setVisible] = useState("notes");
   const [day, setDay] = useState(new Date());
   const classes = useStyles();
   const { patientProfileStore } = useStores();
@@ -62,24 +62,36 @@ const ReportingHistory = observer(() => {
   return (
     <div className={classes.reportingHistoryContainer}>
       <ReportingHistoryLabel setVisible={setVisible} visible={visible} />
-      {patientProfileStore.selectedPatient.reportsLoaded ? (
-        <div className={classes.reportingHistory}>
-          {visible === "calendar" && (
-            <CalendarTest
-              selectedDay={day}
-              handleChange={handleChange}
-              reports={patientProfileStore.selectedPatient.reports}
-              treatmentStart={
-                patientProfileStore.selectedPatient.details.treatmentStart
-              }
-            />
+      {visible === "notes" && <NotesView />}
+      {visible === "photos" && <PhotoReportsList />}
+      {visible === "calendar" && (
+        <div>
+          {patientProfileStore.selectedPatient.reportsLoaded ? (
+            <div className={classes.reportingHistory}>
+              <CalendarTest
+                selectedDay={day}
+                handleChange={handleChange}
+                reports={patientProfileStore.selectedPatient.reports}
+                treatmentStart={
+                  patientProfileStore.selectedPatient.details.treatmentStart
+                }
+              />
+            </div>
+          ) : (
+            <ReportsLoading />
           )}
-          {visible === "reports" && <ReportTable />}
-          {visible === "notes" && <NotesView />}
-          {visible === "photos" && <PhotoReportsList />}
         </div>
-      ) : (
-        <ReportsLoading />
+      )}
+      {visible === "reports" && (
+        <div>
+          {patientProfileStore.selectedPatient.reportsLoaded ? (
+            <div className={classes.reportingHistory}>
+              <ReportTable />
+            </div>
+          ) : (
+            <ReportsLoading />
+          )}
+        </div>
       )}
     </div>
   );
@@ -88,6 +100,7 @@ const ReportingHistory = observer(() => {
 const ReportingHistoryLabel = (props) => {
   const classes = useStyles();
   const { t } = useTranslation("translation");
+  const { patientProfileStore } = useStores();
   return (
     <div className={classes.reportsHeader}>
       <Typography variant="h2">
@@ -100,7 +113,22 @@ const ReportingHistoryLabel = (props) => {
       >
         <Button
           onClick={() => {
+            props.setVisible("notes");
+          }}
+          className={`${classes.buttonBorder} ${
+            props.visible === "notes" && "selected"
+          }`}
+        >
+          {t("notes")}
+        </Button>
+        <Button
+          onClick={() => {
             props.setVisible("reports");
+            if (!patientProfileStore.selectedPatient.reportsLoaded) {
+              patientProfileStore.getPatientReports(
+                patientProfileStore.selectedPatient.details.id
+              );
+            }
           }}
           className={`${classes.buttonBorder} ${
             props.visible === "reports" && "selected"
@@ -121,22 +149,17 @@ const ReportingHistoryLabel = (props) => {
         <Button
           onClick={() => {
             props.setVisible("calendar");
+            if (!patientProfileStore.selectedPatient.reportsLoaded) {
+              patientProfileStore.getPatientReports(
+                patientProfileStore.selectedPatient.details.id
+              );
+            }
           }}
           className={`${classes.buttonBorder} ${
             props.visible === "calendar" && "selected"
           }`}
         >
           {t("coordinator.patientProfile.calendarReports")}
-        </Button>
-        <Button
-          onClick={() => {
-            props.setVisible("notes");
-          }}
-          className={`${classes.buttonBorder} ${
-            props.visible === "notes" && "selected"
-          }`}
-        >
-          {t("notes")}
         </Button>
       </Box>
     </div>
