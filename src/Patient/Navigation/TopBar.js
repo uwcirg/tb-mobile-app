@@ -61,7 +61,7 @@ const Logo = observer(() => {
   ).substring(1)}/`;
 
   const offline = basePath + "white.png";
-  const online = basePath + "main.png";
+  const online = basePath + "main-logo.png";
 
   return (
     <>

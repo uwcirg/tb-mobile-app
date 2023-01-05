@@ -13,7 +13,7 @@ const AppLogo = (props) => {
         <img src="/logo/id/main.png" />
       ) : (
         <img
-          src={`${BASE_URL}/${props.white ? "logo-white.png" : "logo.png"}`}
+          src={`${BASE_URL}/${props.white ? "white.png" : "main-logo.png"}`}
         ></img>
       )}
       <h1>{t("title")}</h1>
