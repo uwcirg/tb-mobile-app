@@ -21,6 +21,10 @@ export default class SharedAPI {
     return request(`/v2/patient/${patientId}/reminders`);
   }
 
+  static async getFutureAppointments(patientId) {
+    return request(`/v2/patient/${patientId}/reminders/future_appointments`);
+  }
+
   static async deleteAppointment(reminderId) {
     return request(`/v2/reminders/${reminderId}`, "DELETE");
   }

@@ -17,12 +17,14 @@ export default function ViewAppointments({ patientId }) {
   const history = useHistory();
 
   const { value: apts } = useAsyncWithParams({
-    asyncFunc: SharedAPI.getAppointments,
+    asyncFunc: SharedAPI.getFutureAppointments,
     immediate: true,
     funcParams: [patientId],
     initialData: [],
   });
 
+  // if we are using the new API, we need to sort the appointments accordingly
+  // nextAppointment may be unnecessary
   let nextAppointment = groupAppointments(apts)?.future?.sort((a, b) => {
     return (
       DateTime.fromISO(a.datetime).toMillis() -
