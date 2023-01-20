@@ -7,36 +7,9 @@ import Channel from "./Channel";
 import Div100vh from "react-div-100vh";
 import OverTopBar from "../Patient/Navigation/OverTopBar";
 
-const useStyles = makeStyles({
-  navContainer: {
-    width: "100%",
-  },
-  channel: {
-    position: "fixed",
-    width: "100%",
-    top: 0,
-    zIndex: "15",
-    display: "flex",
-    flexDirection: "column",
-    flex: 1,
-  },
-  placeHolder: {
-    height: "60px",
-  },
-});
-
 const MobileMessaging = observer(() => {
   const classes = useStyles();
-  const { messagingStore, practitionerStore, uiStore } = useStores();
-
-  // useEffect(() => {
-  //     if (uiStore.pathNumber && uiStore.pathNumber > 0) {
-  //         messagingStore.selectedChannel.id = uiStore.pathNumber;
-  //         messagingStore.updateSelectedChannel();
-  //         messagingStore.getInitalMessages()
-  //     }
-
-  // }, [uiStore.pathNumber])
+  const { messagingStore, practitionerStore } = useStores();
 
   return (
     <div className={classes.navContainer}>
@@ -73,6 +46,24 @@ const MobileMessaging = observer(() => {
       )}
     </div>
   );
+});
+
+const useStyles = makeStyles({
+  navContainer: {
+    width: "100%",
+  },
+  channel: {
+    position: "fixed",
+    width: "100%",
+    top: 0,
+    zIndex: "15",
+    display: "flex",
+    flexDirection: "column",
+    flex: 1,
+  },
+  placeHolder: {
+    height: "60px",
+  },
 });
 
 export default MobileMessaging;
