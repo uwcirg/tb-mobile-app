@@ -49,6 +49,13 @@ const MobileMessaging = observer(() => {
               messagingStore.coordinatorSelectedChannel.title
             }
             handleBack={messagingStore.clearSelection}
+            id={
+              messagingStore.coordinatorSelectedChannel &&
+              messagingStore.channels.find(
+                (channel) =>
+                  channel.id === messagingStore.coordinatorSelectedChannel.id
+              ).userId
+            }
           />
           <div className={classes.placeHolder} />
           <Channel
