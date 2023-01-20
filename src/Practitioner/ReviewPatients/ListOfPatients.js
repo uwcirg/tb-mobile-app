@@ -59,10 +59,21 @@ const ListOfPatients = ({ tabValue }) => {
 
   let currentSection;
 
+  let isReadyForArchive = patientsToDisplay.filter((patient) => {
+    return patient.weeksInTreatment >= 26;
+  });
+
   return (
     <Grid container direction="column">
       <Box height={".5em"} aria-hidden />
       {processedPatients.length === 0 && <PatientListMessage tab={tabValue} />}
+      {/* {isReadyForArchive.length > 0 &&
+        tabValue === 0 &&
+        isReadyForArchive.map((patient) => {
+          return (
+            <p key={patient.id}>{patient.fullName} is ready for archive</p>
+          );
+        })} */}
       {processedPatients.map((patient) => {
         let isIssues = patient.issues.total > 0;
         let showSection = currentSection !== isIssues;
@@ -74,6 +85,7 @@ const ListOfPatients = ({ tabValue }) => {
             {showSection && tabValue !== 1 && (
               <IssueSectionLabel isIssues={isIssues} />
             )}
+
             <PatientCard
               isReviewed={tabValue === 1}
               markPatientAsReviewed={markPatientAsReviewed}
