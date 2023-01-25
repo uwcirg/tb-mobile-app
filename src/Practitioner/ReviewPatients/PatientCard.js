@@ -22,7 +22,7 @@ import AdherenceLabel from "./AdherenceLabel";
 import { useTranslation } from "react-i18next";
 import useAsync from "../../Hooks/useAsync";
 import PractitionerAPI from "../../API/PractitionerAPI";
-import TreatmentWeek from "./TreatmentWeek";
+import ArchiveCountdown from "./ArchiveCountdown";
 import useToggle from "../../Hooks/useToggle";
 import IssueDetails from "./IssueDetails";
 import { DateTime } from "luxon";
@@ -81,6 +81,7 @@ const PatientCard = ({
   markPatientAsReviewed,
   isReviewed,
   isSimpleView,
+  isReadyForArchive = false,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation("translation");
@@ -115,6 +116,8 @@ const PatientCard = ({
     };
   }, [status]);
 
+  if (patient.weeksInTreatment >= 26) isReadyForArchive = true;
+
   return (
     <Collapse onExited={handleExit} in={!reviewed}>
       <Box className={classes.container}>
@@ -135,10 +138,22 @@ const PatientCard = ({
                     {patient.fullName}
                   </Typography>
                 </Link>
+
                 <Box flexGrow={1} />
-                <TreatmentWeek patient={patient} />
-                <Box width=".5em" />
-                <AdherenceLabel patient={patient} />
+                <Box
+                  display="flex"
+                  flexWrap="wrap"
+                  justifyContent="end"
+                  justifyItems="end"
+                  alignItems="baseline"
+                >
+                  <ArchiveCountdown
+                    weeksInTreatment={patient.weeksInTreatment}
+                    id={patient.id}
+                  />
+
+                  <AdherenceLabel patient={patient} />
+                </Box>
               </Grid>
               <Box height=".5em" />
               {isReviewed && (
