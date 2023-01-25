@@ -18,6 +18,8 @@ const ArchiveCountdown = ({ weeksInTreatment, id }) => {
     textAlign: "center",
     "& p": { fontSize: ".85em" },
     textTransform: "capitalize",
+    textDecoration: "none",
+    fontWeight: isReadyForArchive ? "bold" : "normal",
     // make bold
   });
   return (
