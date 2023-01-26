@@ -9,7 +9,7 @@ const ArchiveCountdown = ({ weeksInTreatment, id }) => {
   const isReadyForArchive = weeksInTreatment >= 26;
   const Container = styled(Box)({
     height: "fit-content",
-    backgroundColor: isReadyForArchive ? Colors.buttonBlue : Colors.lightgray,
+    backgroundColor: isReadyForArchive ? Colors.warningRed : Colors.lightgray,
     color: isReadyForArchive ? "white" : Colors.textDarkGray,
     borderRadius: "4px",
     padding: "2px 5px",
