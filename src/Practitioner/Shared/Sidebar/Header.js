@@ -11,6 +11,7 @@ import Add from "@material-ui/icons/AddCircle";
 import { useTranslation } from "react-i18next";
 import ClearIcon from "@material-ui/icons/Clear";
 import PatientDataSummmary from "./PatientSummary";
+import ArchiveCountdown from "../../ReviewPatients/ArchiveCountdown";
 
 const useStyles = makeStyles({
   container: {
@@ -18,6 +19,9 @@ const useStyles = makeStyles({
     padding: "0 .5em 1em 1em",
     boxSizing: "border-box",
     borderBottom: "solid 1px lightgray",
+    "& a, & a:visited": {
+      textDecoration: "none",
+    },
   },
   profileLink: {
     display: "flex",
@@ -60,6 +64,8 @@ const Header = observer(({ selectedPatient }) => {
     practitionerStore.selectedRow.clearSelection();
   };
 
+  const isReadyForArchive = selectedPatient.weeksInTreatment >= 26;
+
   return (
     <div className={classes.container}>
       <Grid wrap="nowrap" container alignItems="center">
@@ -98,6 +104,12 @@ const Header = observer(({ selectedPatient }) => {
           <Add />
           {t("coordinator.patientProfile.options.note")}
         </ProfileButton>
+        <div className={classes.profileLink}>
+          <ArchiveCountdown
+            weeksInTreatment={selectedPatient.weeksInTreatment}
+            id={selectedPatient.id}
+          />
+        </div>
       </Grid>
     </div>
   );

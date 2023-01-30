@@ -10,6 +10,7 @@ import Styles from "../../Basics/Styles";
 import { DateTime } from "luxon";
 import { getFirstSevereSymptomFromArray } from "../../Basics/SymptomsSeperation";
 import Label from "../../Components/Label";
+import ArchiveCountdown from "../ReviewPatients/ArchiveCountdown";
 
 const useStyles = makeStyles({
   container: {
@@ -165,6 +166,10 @@ const SingleLine = observer((props) => {
       {patient ? (
         <>
           <p>{patient.fullName} </p>
+          <ArchiveCountdown
+            weeksInTreatment={patient.weeksInTreatment}
+            id={patient.id}
+          />
           <TaskInfo
             isPhotoRedo={props.isPhotoRedo}
             missedPhotoItem={props.missedPhotoItem}

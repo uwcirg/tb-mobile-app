@@ -15,6 +15,7 @@ const Container = styled(Box)({
   padding: "0 5px",
   minWidth: "3 0px",
   textAlign: "center",
+  margin: "2px 5px",
 });
 
 const AdherenceLabel = ({ patient }) => {
