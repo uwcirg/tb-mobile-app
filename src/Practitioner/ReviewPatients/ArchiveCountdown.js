@@ -3,6 +3,7 @@ import React from "react";
 import Colors from "../../Basics/Colors";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { Restore } from "@material-ui/icons";
 
 const ArchiveCountdown = ({ weeksInTreatment, id }) => {
   const { t } = useTranslation("translation");
@@ -38,9 +39,14 @@ const ArchiveCountdown = ({ weeksInTreatment, id }) => {
                 color: "white",
                 textDecoration: "none",
                 fontSize: ".95rem",
+                display: "flex",
+                alignItems: "center",
+                gap: "5px",
+                flexWrap: "wrap",
               }}
             >
-              &larr; {t("coordinator.patientProfile.options.archive")}
+              <Restore fontSize="small" />{" "}
+              {t("coordinator.patientProfile.options.archive")}
             </Typography>
           </Link>
         ) : (
