@@ -33,7 +33,9 @@ const useStyles = makeStyles({
 const ArchiveWarningDialog = ({ handleClose }) => {
   const { t } = useTranslation("translation");
   const classes = useStyles();
-  const link = window._env.REDCAP_EOT_SURVEY_LINK || "";
+  // make sure to set this in the .env file
+  const link =
+    window._env.REDCAP_EOT_SURVEY_LINK || "https://redcap.link/krdumr8b";
 
   return (
     <PopOver close={handleClose} ignoreClickAway>
