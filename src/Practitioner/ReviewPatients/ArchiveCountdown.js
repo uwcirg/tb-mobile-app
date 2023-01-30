@@ -29,7 +29,10 @@ const ArchiveCountdown = ({ weeksInTreatment, id }) => {
     <>
       <Container>
         {isReadyForArchive ? (
-          <Link to={`/patients/${id}/archive`}>
+          <Link
+            to={`/patients/${id}/archive`}
+            style={{ textDecoration: "none" }}
+          >
             <Typography
               style={{
                 color: "white",
