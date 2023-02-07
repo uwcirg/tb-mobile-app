@@ -25,7 +25,7 @@ const ListOfPatients = ({ tabValue }) => {
     setPatients(tempValue);
   };
 
-  const patientsToDisplay = (patients || []).filter((patient) => {
+  const patientsToDisplay = (patients || [])?.filter((patient) => {
     if (tabValue === 2) return true;
 
     const hasUnresolvedReports =
@@ -63,6 +63,7 @@ const ListOfPatients = ({ tabValue }) => {
     <Grid container direction="column">
       <Box height={".5em"} aria-hidden />
       {processedPatients.length === 0 && <PatientListMessage tab={tabValue} />}
+
       {processedPatients.map((patient) => {
         let isIssues = patient.issues.total > 0;
         let showSection = currentSection !== isIssues;

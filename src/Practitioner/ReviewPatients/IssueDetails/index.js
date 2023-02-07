@@ -3,7 +3,6 @@ import SymptomSummary from "./SymptomSummary";
 import { Box, Grid } from "@material-ui/core";
 import ReviewPhotos from "./ReviewPhotos";
 import SupportRequests from "./SupportRequests";
-import ReportingHistoryLinks from "../../../Components/Shared/ReportingHistoryLinks";
 
 const IssueDetails = ({ patient, visible }) => {
   const issues = patient.issues.state;
@@ -18,7 +17,6 @@ const IssueDetails = ({ patient, visible }) => {
         {issues.supportRequests > 0 && (
           <SupportRequests supportRequests={patient.issues.supportRequests} />
         )}
-        <ReportingHistoryLinks patient={patient} />
       </Grid>
     </Box>
   );

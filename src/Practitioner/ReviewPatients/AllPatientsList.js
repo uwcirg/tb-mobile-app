@@ -1,23 +1,28 @@
-import React, { useContext } from 'react';
-import PatientCard from './PatientCard';
-import { Box, Typography } from '@material-ui/core';
-import PractitionerContext from '../PractitionerContext';
-import PatientListMessage from './PatientListMessage';
-import { makeStyles } from '@material-ui/core/styles';
-import { useTranslation } from 'react-i18next';
-import ChunkLabel from './ListSectionLabel';
-import ListSectionLabel from './ListSectionLabel';
+import React, { useMemo } from "react";
+import PatientCard from "./PatientCard";
+import { Box, Typography } from "@material-ui/core";
+import PatientListMessage from "./PatientListMessage";
+import { makeStyles } from "@material-ui/core/styles";
+import { useTranslation } from "react-i18next";
+import ListSectionLabel from "./ListSectionLabel";
+import PractitionerAPI from "../../API/PractitionerAPI";
+import useAsync from "../../Hooks/useAsync";
 
-const AllPatientsList = ({ searchName = '' }) => {
+async function getAllPatients() {
+  return PractitionerAPI.getPatientBasics();
+}
+
+const AllPatientsList = ({ searchName = "" }) => {
   const { t } = useTranslation();
+  const { value, setValue, status } = useAsync(getAllPatients);
 
-  const { value: unsortedPatients, status } =
-    useContext(PractitionerContext).patients;
+  const unsortedPatients = useMemo(() => value, [value]);
+
   const patients = unsortedPatients?.sort((a, b) => {
     return a.status.localeCompare(b.status);
   });
 
-  if (status === 'pending') return <PatientListMessage isLoading={true} />;
+  if (status === "pending") return <PatientListMessage isLoading={true} />;
 
   let currentPatientStatus;
 

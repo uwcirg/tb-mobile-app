@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
 
 import Colors from "../../Basics/Colors";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   fixed: {
@@ -35,6 +36,9 @@ const useStyles = makeStyles({
     flexGrow: 1,
     fontSize: "1.25em",
     lineHeight: "1.1em",
+    textAlign: "center",
+    textDecoration: "none",
+    color: Colors.buttonBlue,
   },
   reverse: {
     flexDirection: "row-reverse",
@@ -70,9 +74,21 @@ const OverTopBar = (props) => {
             {buttonToDisplay}
           </IconButton>
         )}
-        <Typography variant="h6" className={classes.title}>
-          {props.title}
-        </Typography>
+        {props.id ? (
+          <Link
+            to={`/patients/${props.id}`}
+            style={{ color: Colors.buttonBlue }}
+          >
+            <Typography variant="h6" className={classes.title}>
+              {props.title}
+            </Typography>
+          </Link>
+        ) : (
+          <Typography variant="h6" className={classes.title}>
+            {props.title}
+          </Typography>
+        )}
+
         <Typography variant="h6" color="primary"></Typography>
       </Toolbar>
     </AppBar>

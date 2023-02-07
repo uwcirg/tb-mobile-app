@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import BottomBar from "./Navigation/BottomBar";
 import { observer } from "mobx-react";
 import Home from "./Home";
@@ -23,7 +23,7 @@ import Box from "@material-ui/core/Box";
 import RedoPhotoFlow from "./ReportingFlows/AltPhotoFlows/RedoPhotoFlow";
 import isIndonesiaPilot from "../Utility/check-indonesia-flag";
 import AddApointment from "../Components/Shared/Appointments/AddAppointment/";
-import CantTakePhoto from "./ReportingFlows/CantTakePhoto";
+import OfflineMessage from "./OfflineMessage";
 
 const PatientHome = observer(() => {
   const { patientUIStore, patientStore, uiStore, dailyReportStore } =
@@ -116,9 +116,10 @@ const PatientHome = observer(() => {
       }}
     >
       <ErrorListener />
-      <div>
+      <div style={{ backgroundColor: Colors.accentBlue }}>
         <TopBar />
         <Box height="60px" />
+        {uiStore.offline && <OfflineMessage />}
       </div>
       {!isIndonesiaPilot() && <EducationalMessage />}
       {patientUIStore.onWalkthrough && <Intro />}
