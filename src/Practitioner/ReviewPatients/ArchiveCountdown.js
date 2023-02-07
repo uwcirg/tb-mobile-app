@@ -7,7 +7,7 @@ import { Restore } from "@material-ui/icons";
 
 const ArchiveCountdown = ({ weeksInTreatment, id }) => {
   const { t } = useTranslation("translation");
-  const isReadyForArchive = weeksInTreatment >= 26;
+  const isReadyForArchive = weeksInTreatment > 26;
   const Container = styled(Box)({
     height: "fit-content",
     backgroundColor: isReadyForArchive ? Colors.warningRed : Colors.lightgray,
