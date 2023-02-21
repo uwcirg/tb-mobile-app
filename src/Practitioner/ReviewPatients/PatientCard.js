@@ -180,69 +180,25 @@ const PatientCard = ({
                       issues={patient.issues.state}
                       patientId={patient.id}
                     />
+
                     {patient.nextReminder !== null ? (
-                      <Box flexGrow={1}>
-                        <Link
-                          to={`/patients/${patient.id}/appointments`}
-                          style={{ textDecoration: "none", color: "black" }}
-                        >
-                          <Box
-                            display="flex"
-                            alignItems="center"
-                            justifyContent="center"
-                            flexWrap="wrap"
-                            paddingBottom={".2em"}
-                            paddingTop={".2em"}
-                            style={{
-                              border: `2px solid ${Colors.transparentBlueAccent}`,
-                              borderRadius: "5px",
-                              marginLeft: "1em",
-                              boxShadow: `2px 3px 4px rgba(0, 0, 0, 0.10)`,
-                            }}
-                          >
-                            <Box paddingRight="1em" color>
-                              <AccessTime fontSize="large" />
-                            </Box>
-                            <Box
-                              display="flex"
-                              flexDirection="column"
-                              alignItems="flex-start"
-                            >
-                              <Typography
-                                variant="body1"
-                                style={{
-                                  padding: ".2em",
-                                  marginX: ".5em",
-                                }}
-                              >
-                                {DateTime.fromISO(
-                                  patient.nextReminder.datetime
-                                ).toFormat("HH:mm dd/LL")}
-                              </Typography>
-                              <Typography
-                                variant="caption"
-                                style={{
-                                  textDecoration: "underline",
-                                  color: Colors.buttonBlue,
-                                }}
-                              >
-                                {t("appointments.nextAppointment")} &rarr;
-                              </Typography>
-                            </Box>
-                          </Box>
-                        </Link>
-                      </Box>
+                      <AppointmentReminder patient={patient} />
                     ) : (
-                      <Box flexGrow={1} />
+                      <Box flexGrow={2} />
                     )}
-                    <Button className={classes.expand} onClick={toggleDetails}>
-                      <Typography style={{ paddingRight: ".5em" }} noWrap>
-                        {showDetails
-                          ? t("messaging.moderation.hideUI")
-                          : t("reviewIssues.review")}
-                      </Typography>
-                      <Down className={showDetails ? classes.rotate : ""} />
-                    </Button>
+                    <Box flexGrow={1} display="flex" justifyContent="flex-end">
+                      <Button
+                        className={classes.expand}
+                        onClick={toggleDetails}
+                      >
+                        <Typography style={{ paddingRight: ".5em" }} noWrap>
+                          {showDetails
+                            ? t("messaging.moderation.hideUI")
+                            : t("reviewIssues.review")}
+                        </Typography>
+                        <Down className={showDetails ? classes.rotate : ""} />
+                      </Button>
+                    </Box>
                   </Grid>
                 ))}
             </Box>
@@ -291,6 +247,59 @@ const NoIssues = ({ resolvePatient, patient }) => {
         <Check style={{ color: Colors.green }} />
       </IconButton>
     </Grid>
+  );
+};
+
+const AppointmentReminder = ({ patient }) => {
+  const { t } = useTranslation("translation");
+  return (
+    <Box grow={1} padding=".2em .5em">
+      <Link
+        to={`/patients/${patient.id}/appointments`}
+        style={{ textDecoration: "none", color: "black" }}
+      >
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          flexWrap="wrap"
+          paddingBottom={".2em"}
+          paddingTop={".2em"}
+          style={{
+            border: `2px solid ${Colors.transparentBlueAccent}`,
+            borderRadius: "5px",
+            marginLeft: "1em",
+            boxShadow: `2px 3px 4px rgba(0, 0, 0, 0.10)`,
+          }}
+        >
+          <Box paddingRight="1em" color>
+            <AccessTime fontSize="large" />
+          </Box>
+          <Box display="flex" flexDirection="column" alignItems="center">
+            <Typography
+              variant="body1"
+              style={{
+                padding: ".2em",
+                marginX: ".5em",
+              }}
+            >
+              {DateTime.fromISO(patient.nextReminder.datetime).toFormat(
+                "HH:mm dd/LL"
+              )}
+            </Typography>
+            <Typography
+              variant="caption"
+              style={{
+                textDecoration: "underline",
+                color: Colors.buttonBlue,
+              }}
+            >
+              {t("appointments.nextAppointment")} &rarr;
+            </Typography>
+          </Box>
+        </Box>
+      </Link>
+    </Box>
   );
 };
 
