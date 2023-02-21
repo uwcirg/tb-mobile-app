@@ -179,7 +179,35 @@ const PatientCard = ({
                       issues={patient.issues.state}
                       patientId={patient.id}
                     />
-                    <Box flexGrow={1} />
+                    {patient.nextReminder !== null ? (
+                      <Box
+                        flexGrow={1}
+                        display="flex"
+                        alignItems="flex-end"
+                        justifyContent="center"
+                      >
+                        {console.log(patient.nextReminder)}
+                        <Box paddingRight="1em">
+                          <Typography variant="body1">icons</Typography>
+                        </Box>
+                        <Box
+                          display="flex"
+                          flexDirection="column"
+                          alignItems="flex-start"
+                        >
+                          <Typography variant="body1">
+                            {DateTime.fromISO(
+                              patient.nextReminder.datetime
+                            ).toFormat("HH:mm LL-dd")}
+                          </Typography>
+                          <Typography variant="caption">
+                            {t("appointments.nextAppointment")}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    ) : (
+                      <Box flexGrow={1} />
+                    )}
                     <Button className={classes.expand} onClick={toggleDetails}>
                       <Typography style={{ paddingRight: ".5em" }} noWrap>
                         {showDetails
