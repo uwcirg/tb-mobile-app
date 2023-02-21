@@ -181,7 +181,11 @@ const PatientCard = ({
                       patientId={patient.id}
                     />
 
-                    {patient.nextReminder !== null ? (
+                    {patient.nextReminder !== null &&
+                    DateTime.fromISO(patient.nextReminder.datetime) <=
+                      DateTime.local().plus({ days: 5 }) &&
+                    DateTime.fromISO(patient.nextReminder.datetime) >=
+                      DateTime.local() ? (
                       <AppointmentReminder patient={patient} />
                     ) : (
                       <Box flexGrow={2} />
@@ -315,7 +319,7 @@ const ButtonArea = ({
 
   return (
     <Box padding="1em .5em">
-      <Grid wrap="nowrap" justify="flex-end" alignItems="center" container>
+      <Grid wrap="nowrap" alignItems="center" container>
         {disable && (
           <Box padding=".5em">
             <Typography className={classes.reviewPhotoPrompt}>
