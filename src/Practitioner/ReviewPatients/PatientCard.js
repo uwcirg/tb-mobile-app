@@ -14,6 +14,7 @@ import {
   Message,
   ArrowDropDownCircle as Down,
   CheckCircle,
+  AccessTime,
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import Colors from "../../Basics/Colors";
@@ -180,30 +181,56 @@ const PatientCard = ({
                       patientId={patient.id}
                     />
                     {patient.nextReminder !== null ? (
-                      <Box
-                        flexGrow={1}
-                        display="flex"
-                        alignItems="flex-end"
-                        justifyContent="center"
-                      >
-                        {console.log(patient.nextReminder)}
-                        <Box paddingRight="1em">
-                          <Typography variant="body1">icons</Typography>
-                        </Box>
-                        <Box
-                          display="flex"
-                          flexDirection="column"
-                          alignItems="flex-start"
+                      <Box flexGrow={1}>
+                        <Link
+                          to={`/patients/${patient.id}/appointments`}
+                          style={{ textDecoration: "none", color: "black" }}
                         >
-                          <Typography variant="body1">
-                            {DateTime.fromISO(
-                              patient.nextReminder.datetime
-                            ).toFormat("HH:mm LL-dd")}
-                          </Typography>
-                          <Typography variant="caption">
-                            {t("appointments.nextAppointment")}
-                          </Typography>
-                        </Box>
+                          <Box
+                            display="flex"
+                            alignItems="center"
+                            justifyContent="center"
+                            flexWrap="wrap"
+                            paddingBottom={".2em"}
+                            paddingTop={".2em"}
+                            style={{
+                              border: `2px solid ${Colors.transparentBlueAccent}`,
+                              borderRadius: "5px",
+                              marginLeft: "1em",
+                              boxShadow: `2px 3px 4px rgba(0, 0, 0, 0.10)`,
+                            }}
+                          >
+                            <Box paddingRight="1em" color>
+                              <AccessTime fontSize="large" />
+                            </Box>
+                            <Box
+                              display="flex"
+                              flexDirection="column"
+                              alignItems="flex-start"
+                            >
+                              <Typography
+                                variant="body1"
+                                style={{
+                                  padding: ".2em",
+                                  marginX: ".5em",
+                                }}
+                              >
+                                {DateTime.fromISO(
+                                  patient.nextReminder.datetime
+                                ).toFormat("HH:mm dd/LL")}
+                              </Typography>
+                              <Typography
+                                variant="caption"
+                                style={{
+                                  textDecoration: "underline",
+                                  color: Colors.buttonBlue,
+                                }}
+                              >
+                                {t("appointments.nextAppointment")} &rarr;
+                              </Typography>
+                            </Box>
+                          </Box>
+                        </Link>
                       </Box>
                     ) : (
                       <Box flexGrow={1} />
