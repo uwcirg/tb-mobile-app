@@ -253,7 +253,7 @@ const NoIssues = ({ resolvePatient, patient }) => {
 const AppointmentReminder = ({ patient }) => {
   const { t } = useTranslation("translation");
   return (
-    <Box grow={1} padding=".2em .5em">
+    <Box grow={1} padding=".2em .75em">
       <Link
         to={`/patients/${patient.id}/appointments`}
         style={{ textDecoration: "none", color: "black" }}
@@ -268,7 +268,6 @@ const AppointmentReminder = ({ patient }) => {
           style={{
             border: `2px solid ${Colors.transparentBlueAccent}`,
             borderRadius: "5px",
-            marginLeft: "1em",
             boxShadow: `2px 3px 4px rgba(0, 0, 0, 0.10)`,
           }}
         >
