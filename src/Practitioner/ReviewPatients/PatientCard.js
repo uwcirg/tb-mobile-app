@@ -256,6 +256,7 @@ const NoIssues = ({ resolvePatient, patient }) => {
 
 const AppointmentReminder = ({ patient }) => {
   const { t } = useTranslation("translation");
+  const date = DateTime.fromISO(patient.nextReminder.datetime);
   return (
     <Box grow={1} padding=".2em .75em">
       <Link
@@ -269,13 +270,14 @@ const AppointmentReminder = ({ patient }) => {
           flexWrap="wrap"
           paddingBottom={".2em"}
           paddingTop={".2em"}
+          paddingX={".5em"}
           style={{
             border: `2px solid ${Colors.transparentBlueAccent}`,
             borderRadius: "5px",
             boxShadow: `2px 3px 4px rgba(0, 0, 0, 0.10)`,
           }}
         >
-          <Box paddingRight="1em" color>
+          <Box paddingRight=".15em" color>
             <AccessTime fontSize="large" />
           </Box>
           <Box display="flex" flexDirection="column" alignItems="center">
@@ -286,9 +288,13 @@ const AppointmentReminder = ({ patient }) => {
                 marginX: ".5em",
               }}
             >
-              {DateTime.fromISO(patient.nextReminder.datetime).toFormat(
-                "HH:mm dd/LL"
-              )}
+              {date.toLocaleString({
+                day: "numeric",
+                month: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                hourCycle: "h23",
+              })}
             </Typography>
             <Typography
               variant="caption"
