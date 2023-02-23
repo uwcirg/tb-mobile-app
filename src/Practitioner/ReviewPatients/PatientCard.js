@@ -119,6 +119,12 @@ const PatientCard = ({
 
   if (patient.weeksInTreatment >= 26) isReadyForArchive = true;
 
+  const hasUpcomingAppointment =
+    patient.nextReminder !== null &&
+    DateTime.fromISO(patient.nextReminder.datetime) <=
+      DateTime.local().plus({ days: 5 }) &&
+    DateTime.fromISO(patient.nextReminder.datetime) >= DateTime.local();
+
   return (
     <Collapse onExited={handleExit} in={!reviewed}>
       <Box className={classes.container}>
@@ -179,17 +185,8 @@ const PatientCard = ({
                     <IssueArea
                       issues={patient.issues.state}
                       patientId={patient.id}
+                      appointmentInfo={hasUpcomingAppointment}
                     />
-
-                    {patient.nextReminder !== null &&
-                    DateTime.fromISO(patient.nextReminder.datetime) <=
-                      DateTime.local().plus({ days: 5 }) &&
-                    DateTime.fromISO(patient.nextReminder.datetime) >=
-                      DateTime.local() ? (
-                      <AppointmentReminder patient={patient} />
-                    ) : (
-                      <Box flexGrow={2} />
-                    )}
                     <Box flexGrow={1} display="flex" justifyContent="flex-end">
                       <Button
                         className={classes.expand}
@@ -209,14 +206,21 @@ const PatientCard = ({
             {!isSimpleView && !isReviewed && (
               <Collapse in={showDetails}>
                 {showDetails && (
-                  <IssueDetails visible={showDetails} patient={patient} />
+                  <>
+                    {hasUpcomingAppointment && (
+                      <AppointmentReminder patient={patient} />
+                    )}
+                    <IssueDetails visible={showDetails} patient={patient} />
+                  </>
                 )}
-                <ButtonArea
-                  isReviewed={isReviewed}
-                  loading={status === "pending"}
-                  patient={patient}
-                  resolvePatient={execute}
-                />
+                <Box display="flex" justifyContent="flex-end">
+                  <ButtonArea
+                    isReviewed={isReviewed}
+                    loading={status === "pending"}
+                    patient={patient}
+                    resolvePatient={execute}
+                  />
+                </Box>
               </Collapse>
             )}
           </>
@@ -258,7 +262,7 @@ const AppointmentReminder = ({ patient }) => {
   const { t } = useTranslation("translation");
   const date = DateTime.fromISO(patient.nextReminder.datetime);
   return (
-    <Box grow={1} padding=".2em .75em">
+    <Box grow={1} padding=".2em .75em" margin=".2em .75em">
       <Link
         to={`/patients/${patient.id}/appointments`}
         style={{ textDecoration: "none", color: "black" }}
@@ -277,7 +281,7 @@ const AppointmentReminder = ({ patient }) => {
             boxShadow: `2px 3px 4px rgba(0, 0, 0, 0.10)`,
           }}
         >
-          <Box paddingRight=".15em" color>
+          <Box paddingRight=".15em">
             <AccessTime fontSize="large" />
           </Box>
           <Box display="flex" flexDirection="column" alignItems="center">

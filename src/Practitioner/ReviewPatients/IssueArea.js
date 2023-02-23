@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles, Grid, Badge, Box } from "@material-ui/core";
 import {
+  AccessTime,
   Assignment,
   CameraAlt,
   EventBusy,
@@ -22,6 +23,8 @@ const useStyles = makeStyles({
   },
 });
 
+// dynamic import?
+
 const iconMap = {
   missedMedication: <Pill />,
   missedReporting: <EventBusy />,
@@ -31,7 +34,7 @@ const iconMap = {
   feelingBad: <SentimentDissatisfied />,
 };
 
-const IssueArea = ({ issues, patientId }) => {
+const IssueArea = ({ issues, patientId, appointmentInfo }) => {
   const classes = useStyles();
 
   return (
@@ -52,6 +55,11 @@ const IssueArea = ({ issues, patientId }) => {
           );
         }
       })}
+      {appointmentInfo && (
+        <AccessTime
+          style={{ color: Colors.transparentBlueAccent, zIndex: 2 }}
+        />
+      )}
     </Grid>
   );
 };
