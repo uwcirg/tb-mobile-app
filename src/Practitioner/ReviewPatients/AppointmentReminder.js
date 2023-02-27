@@ -51,16 +51,20 @@ const IssuePreview = ({ date, category }) => {
       <Box borderRight={`solid 2px ${Colors.lightgray}`} paddingRight=".75em">
         <ShortDate date={date} />
       </Box>
-      <Box marginLeft="1em">
-        <Grid alignItems="center" container>
-          <span style={{ fontWeight: "450" }} className="title">
-            <>{t(`appointments.types.${category}`)} </>
-            {"@ "}
-            {date.toLocaleString(DateTime.TIME_SIMPLE)}
-          </span>
-          <Box flex="1" />
-          <Box width=".5rem" />
-        </Grid>
+      <Box
+        marginLeft="1em"
+        style={{
+          border: ` 1px solid ${Colors.transparentBlueAccent}`,
+          borderRadius: "5px",
+          color: Colors.buttonBlue,
+        }}
+        padding=".5em 1em"
+      >
+        <span style={{ fontWeight: "450" }}>
+          <>{t(`appointments.types.${category}`)} </>
+          {"@ "}
+          {date.toLocaleString(DateTime.TIME_SIMPLE)}
+        </span>
       </Box>
     </Box>
   );
