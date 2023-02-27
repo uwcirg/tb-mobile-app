@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles, Grid, Badge, Box } from "@material-ui/core";
 import {
-  AccessTime,
+  AccessAlarm,
   Assignment,
   CameraAlt,
   EventBusy,
@@ -56,7 +56,7 @@ const IssueArea = ({ issues, patientId, appointmentInfo }) => {
         }
       })}
       {appointmentInfo && (
-        <AccessTime
+        <AccessAlarm
           style={{ color: Colors.transparentBlueAccent, zIndex: 2 }}
         />
       )}

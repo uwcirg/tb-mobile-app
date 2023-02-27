@@ -1,21 +1,27 @@
 import React from "react";
-import { Box, Typography } from "@material-ui/core";
+import { Box, Typography, Grid } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { AccessTime } from "@material-ui/icons";
+import { AccessAlarm } from "@material-ui/icons";
 import { DateTime } from "luxon";
 import { useTranslation } from "react-i18next";
 import Colors from "../../Basics/Colors";
 import IssueCard from "./IssueDetails/IssueCard";
+import ShortDate from "../../Components/Shared/ShortDate";
 
 export default function AppointmentReminder({ id, nextReminder }) {
   const { t } = useTranslation("translation");
-  const date = DateTime.fromISO(nextReminder);
+  const { category, note, datetime } = nextReminder;
+  const date = DateTime.fromISO(datetime);
+
+  console.log("category:" + category + "note:" + note);
+
   return (
     <>
       <IssueCard
         title={t("appointments.nextAppointment")}
-        icon={<AccessTime style={{ color: Colors.transparentBlueAccent }} />}
+        icon={<AccessAlarm style={{ color: Colors.transparentBlueAccent }} />}
         colors={Colors.transparentBlueAccent}
+        typeColor={Colors.buttonBlue}
       >
         <Link
           to={`/patients/${id}/appointments`}
@@ -29,52 +35,33 @@ export default function AppointmentReminder({ id, nextReminder }) {
                 marginX: ".5em",
               }}
             >
-              {date.toLocaleString({
-                day: "numeric",
-                month: "numeric",
-                hour: "2-digit",
-                minute: "2-digit",
-                hourCycle: "h23",
-              })}
-            </Typography>
-            <Typography
-              variant="caption"
-              style={{
-                textDecoration: "underline",
-                color: Colors.buttonBlue,
-              }}
-            >
-              {t("appointments.nextAppointment")} &rarr;
+              <IssuePreview date={date} category={category} />
             </Typography>
           </Box>
         </Link>
       </IssueCard>
-      {/* <Box grow={1} padding=".2em .75em" margin=".2em .75em">
-      <Link
-        to={`/patients/${id}/appointments`}
-        style={{ textDecoration: "none", color: "black" }}
-      >
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          flexWrap="wrap"
-          paddingBottom={".2em"}
-          paddingTop={".2em"}
-          paddingX={".5em"}
-          style={{
-            border: `2px solid ${Colors.transparentBlueAccent}`,
-            borderRadius: "5px",
-            boxShadow: `2px 3px 4px rgba(0, 0, 0, 0.10)`,
-          }}
-        >
-          <Box paddingRight=".15em">
-            <AccessTime fontSize="large" />
-          </Box>
-          
-        </Box>
-      </Link>
-    </Box> */}
     </>
   );
 }
+
+const IssuePreview = ({ date, category }) => {
+  const { t } = useTranslation("translation");
+  return (
+    <Box display="flex" alignItems="center">
+      <Box borderRight={`solid 2px ${Colors.lightgray}`} paddingRight=".75em">
+        <ShortDate date={date} />
+      </Box>
+      <Box marginLeft="1em">
+        <Grid alignItems="center" container>
+          <span style={{ fontWeight: "450" }} className="title">
+            <>{t(`appointments.types.${category}`)} </>
+            {"@ "}
+            {date.toLocaleString(DateTime.TIME_SIMPLE)}
+          </span>
+          <Box flex="1" />
+          <Box width=".5rem" />
+        </Grid>
+      </Box>
+    </Box>
+  );
+};

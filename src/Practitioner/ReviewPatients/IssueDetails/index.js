@@ -1,10 +1,8 @@
 import React from "react";
 import SymptomSummary from "./SymptomSummary";
-import IssueCard from "./IssueCard";
 import { Box, Grid } from "@material-ui/core";
 import ReviewPhotos from "./ReviewPhotos";
 import SupportRequests from "./SupportRequests";
-import { DateTime } from "luxon";
 import AppointmentReminder from "../AppointmentReminder";
 
 const IssueDetails = ({ patient, visible, hasUpcomingAppointment }) => {
@@ -21,7 +19,7 @@ const IssueDetails = ({ patient, visible, hasUpcomingAppointment }) => {
           <>
             <AppointmentReminder
               id={patient.id}
-              nextReminder={patient.nextReminder.datetime}
+              nextReminder={patient.nextReminder}
             />
           </>
         )}

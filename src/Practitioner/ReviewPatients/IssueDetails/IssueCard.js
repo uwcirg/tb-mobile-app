@@ -9,13 +9,14 @@ export default function IssueCard({
   issueCount = null,
   colors = "inherit",
   childrenStyles = {},
+  typeColor = colors,
 }) {
   return (
     <Grid item xs={12}>
       <InputCard colors={colors}>
         <Box display="flex" style={{ columnGap: "1em" }}>
           {icon}
-          <Typography style={{ fontWeight: 600, color: "black" }}>
+          <Typography style={{ fontWeight: 600, color: typeColor }}>
             {title} {issueCount && `: ${issueCount}`}
           </Typography>
         </Box>
