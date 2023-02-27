@@ -23,8 +23,6 @@ const useStyles = makeStyles({
   },
 });
 
-// dynamic import?
-
 const iconMap = {
   missedMedication: <Pill />,
   missedReporting: <EventBusy />,
@@ -34,7 +32,7 @@ const iconMap = {
   feelingBad: <SentimentDissatisfied />,
 };
 
-const IssueArea = ({ issues, patientId, appointmentInfo }) => {
+const IssueArea = ({ issues, patientId, hasUpcomingAppointment = false }) => {
   const classes = useStyles();
 
   return (
@@ -55,7 +53,7 @@ const IssueArea = ({ issues, patientId, appointmentInfo }) => {
           );
         }
       })}
-      {appointmentInfo && (
+      {hasUpcomingAppointment && (
         <AccessAlarm
           style={{ color: Colors.transparentBlueAccent, zIndex: 2 }}
         />

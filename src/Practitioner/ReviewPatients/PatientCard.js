@@ -184,7 +184,7 @@ const PatientCard = ({
                     <IssueArea
                       issues={patient.issues.state}
                       patientId={patient.id}
-                      appointmentInfo={hasUpcomingAppointment}
+                      hasUpcomingAppointment={hasUpcomingAppointment}
                     />
                     <Box flexGrow={1} display="flex" justifyContent="flex-end">
                       <Button
