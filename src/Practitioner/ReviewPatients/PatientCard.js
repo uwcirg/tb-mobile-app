@@ -118,6 +118,12 @@ const PatientCard = ({
 
   if (patient.weeksInTreatment >= 26) isReadyForArchive = true;
 
+  const hasUpcomingAppointment =
+    patient.nextReminder !== null &&
+    DateTime.fromISO(patient.nextReminder.datetime) <=
+      DateTime.local().plus({ days: 5 }) &&
+    DateTime.fromISO(patient.nextReminder.datetime) >= DateTime.local();
+
   return (
     <Collapse onExited={handleExit} in={!reviewed}>
       <Box className={classes.container}>
@@ -178,30 +184,43 @@ const PatientCard = ({
                     <IssueArea
                       issues={patient.issues.state}
                       patientId={patient.id}
+                      hasUpcomingAppointment={hasUpcomingAppointment}
                     />
-                    <Box flexGrow={1} />
-                    <Button className={classes.expand} onClick={toggleDetails}>
-                      <Typography style={{ paddingRight: ".5em" }} noWrap>
-                        {showDetails
-                          ? t("messaging.moderation.hideUI")
-                          : t("reviewIssues.review")}
-                      </Typography>
-                      <Down className={showDetails ? classes.rotate : ""} />
-                    </Button>
+                    <Box flexGrow={1} display="flex" justifyContent="flex-end">
+                      <Button
+                        className={classes.expand}
+                        onClick={toggleDetails}
+                      >
+                        <Typography style={{ paddingRight: ".5em" }} noWrap>
+                          {showDetails
+                            ? t("messaging.moderation.hideUI")
+                            : t("reviewIssues.review")}
+                        </Typography>
+                        <Down className={showDetails ? classes.rotate : ""} />
+                      </Button>
+                    </Box>
                   </Grid>
                 ))}
             </Box>
             {!isSimpleView && !isReviewed && (
               <Collapse in={showDetails}>
                 {showDetails && (
-                  <IssueDetails visible={showDetails} patient={patient} />
+                  <>
+                    <IssueDetails
+                      visible={showDetails}
+                      patient={patient}
+                      hasUpcomingAppointment={hasUpcomingAppointment}
+                    />
+                  </>
                 )}
-                <ButtonArea
-                  isReviewed={isReviewed}
-                  loading={status === "pending"}
-                  patient={patient}
-                  resolvePatient={execute}
-                />
+                <Box display="flex" justifyContent="flex-end">
+                  <ButtonArea
+                    isReviewed={isReviewed}
+                    loading={status === "pending"}
+                    patient={patient}
+                    resolvePatient={execute}
+                  />
+                </Box>
               </Collapse>
             )}
           </>
@@ -252,7 +271,7 @@ const ButtonArea = ({
 
   return (
     <Box padding="1em .5em">
-      <Grid wrap="nowrap" justify="flex-end" alignItems="center" container>
+      <Grid wrap="nowrap" alignItems="center" container>
         {disable && (
           <Box padding=".5em">
             <Typography className={classes.reviewPhotoPrompt}>
