@@ -1,21 +1,21 @@
-import React from 'react';
-import { Box, Grid, Typography } from '@material-ui/core';
-import InputCard from '../../../Components/Shared/Appointments/AddAppointment/InputCard';
+import React from "react";
+import { Box, Grid, Typography } from "@material-ui/core";
+import InputCard from "../../../Components/Shared/Appointments/AddAppointment/InputCard";
 
 export default function IssueCard({
   title,
   icon,
   children,
   issueCount = null,
-  colors = 'inherit',
+  colors = "inherit",
   childrenStyles = {},
 }) {
   return (
     <Grid item xs={12}>
-      <InputCard>
-        <Box display="flex" style={{ columnGap: '1em' }}>
+      <InputCard colors={colors}>
+        <Box display="flex" style={{ columnGap: "1em" }}>
           {icon}
-          <Typography style={{ fontWeight: 600, color: colors }}>
+          <Typography style={{ fontWeight: 600, color: "black" }}>
             {title} {issueCount && `: ${issueCount}`}
           </Typography>
         </Box>

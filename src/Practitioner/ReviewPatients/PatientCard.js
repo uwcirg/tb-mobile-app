@@ -207,10 +207,14 @@ const PatientCard = ({
               <Collapse in={showDetails}>
                 {showDetails && (
                   <>
-                    {hasUpcomingAppointment && (
+                    {/* {hasUpcomingAppointment && (
                       <AppointmentReminder patient={patient} />
-                    )}
-                    <IssueDetails visible={showDetails} patient={patient} />
+                    )} */}
+                    <IssueDetails
+                      visible={showDetails}
+                      patient={patient}
+                      hasUpcomingAppointment={hasUpcomingAppointment}
+                    />
                   </>
                 )}
                 <Box display="flex" justifyContent="flex-end">
@@ -258,63 +262,63 @@ const NoIssues = ({ resolvePatient, patient }) => {
   );
 };
 
-const AppointmentReminder = ({ patient }) => {
-  const { t } = useTranslation("translation");
-  const date = DateTime.fromISO(patient.nextReminder.datetime);
-  return (
-    <Box grow={1} padding=".2em .75em" margin=".2em .75em">
-      <Link
-        to={`/patients/${patient.id}/appointments`}
-        style={{ textDecoration: "none", color: "black" }}
-      >
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          flexWrap="wrap"
-          paddingBottom={".2em"}
-          paddingTop={".2em"}
-          paddingX={".5em"}
-          style={{
-            border: `2px solid ${Colors.transparentBlueAccent}`,
-            borderRadius: "5px",
-            boxShadow: `2px 3px 4px rgba(0, 0, 0, 0.10)`,
-          }}
-        >
-          <Box paddingRight=".15em">
-            <AccessTime fontSize="large" />
-          </Box>
-          <Box display="flex" flexDirection="column" alignItems="center">
-            <Typography
-              variant="body1"
-              style={{
-                padding: ".2em",
-                marginX: ".5em",
-              }}
-            >
-              {date.toLocaleString({
-                day: "numeric",
-                month: "numeric",
-                hour: "2-digit",
-                minute: "2-digit",
-                hourCycle: "h23",
-              })}
-            </Typography>
-            <Typography
-              variant="caption"
-              style={{
-                textDecoration: "underline",
-                color: Colors.buttonBlue,
-              }}
-            >
-              {t("appointments.nextAppointment")} &rarr;
-            </Typography>
-          </Box>
-        </Box>
-      </Link>
-    </Box>
-  );
-};
+// const AppointmentReminder = ({ patient }) => {
+//   const { t } = useTranslation("translation");
+//   const date = DateTime.fromISO(patient.nextReminder.datetime);
+//   return (
+//     <Box grow={1} padding=".2em .75em" margin=".2em .75em">
+//       <Link
+//         to={`/patients/${patient.id}/appointments`}
+//         style={{ textDecoration: "none", color: "black" }}
+//       >
+//         <Box
+//           display="flex"
+//           alignItems="center"
+//           justifyContent="center"
+//           flexWrap="wrap"
+//           paddingBottom={".2em"}
+//           paddingTop={".2em"}
+//           paddingX={".5em"}
+//           style={{
+//             border: `2px solid ${Colors.transparentBlueAccent}`,
+//             borderRadius: "5px",
+//             boxShadow: `2px 3px 4px rgba(0, 0, 0, 0.10)`,
+//           }}
+//         >
+//           <Box paddingRight=".15em">
+//             <AccessTime fontSize="large" />
+//           </Box>
+//           <Box display="flex" flexDirection="column" alignItems="center">
+//             <Typography
+//               variant="body1"
+//               style={{
+//                 padding: ".2em",
+//                 marginX: ".5em",
+//               }}
+//             >
+//               {date.toLocaleString({
+//                 day: "numeric",
+//                 month: "numeric",
+//                 hour: "2-digit",
+//                 minute: "2-digit",
+//                 hourCycle: "h23",
+//               })}
+//             </Typography>
+//             <Typography
+//               variant="caption"
+//               style={{
+//                 textDecoration: "underline",
+//                 color: Colors.buttonBlue,
+//               }}
+//             >
+//               {t("appointments.nextAppointment")} &rarr;
+//             </Typography>
+//           </Box>
+//         </Box>
+//       </Link>
+//     </Box>
+//   );
+// };
 
 const ButtonArea = ({
   patient,
