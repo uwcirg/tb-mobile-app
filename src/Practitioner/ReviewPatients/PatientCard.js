@@ -118,20 +118,15 @@ const PatientCard = ({
 
   if (patient.weeksInTreatment >= 26) isReadyForArchive = true;
 
-  console.log(patient.nextReminder);
-
-  // const hasUpcomingAppointment =
-  //   patient.nextReminder.datetime !== null &&
   let hasUpcomingAppointment;
   if (patient.nextReminder) {
     hasUpcomingAppointment =
       DateTime.fromISO(patient.nextReminder.datetime) <=
         DateTime.local().plus({ days: 5 }) &&
       DateTime.fromISO(patient.nextReminder.datetime) >= DateTime.local();
+  } else {
+    hasUpcomingAppointment = false;
   }
-  // DateTime.fromISO(patient.nextReminder.datetime) <=
-  //   DateTime.local().plus({ days: 5 }) &&
-  // DateTime.fromISO(patient.nextReminder.datetime) >= DateTime.local();
 
   return (
     <Collapse onExited={handleExit} in={!reviewed}>
