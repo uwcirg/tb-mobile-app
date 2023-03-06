@@ -91,7 +91,7 @@ export default function Form({ state, setState, handleSubmit }) {
           {t("appointments.createAppointment")}
         </FlatButton>
       </Grid>
-      <Box height="5rem" aria-hidden />
+      <Box height="2rem" aria-hidden />
     </Box>
   );
 }

@@ -3,9 +3,8 @@ import SymptomSummary from "./SymptomSummary";
 import { Box, Grid } from "@material-ui/core";
 import ReviewPhotos from "./ReviewPhotos";
 import SupportRequests from "./SupportRequests";
-import AppointmentReminder from "../AppointmentReminder";
 
-const IssueDetails = ({ patient, visible, hasUpcomingAppointment }) => {
+const IssueDetails = ({ patient, visible }) => {
   const issues = patient.issues.state;
 
   return (
@@ -15,14 +14,6 @@ const IssueDetails = ({ patient, visible, hasUpcomingAppointment }) => {
           <ReviewPhotos patient={patient} />
         )}
         {issues.symptoms > 0 && <SymptomSummary patient={patient} />}
-        {hasUpcomingAppointment && (
-          <>
-            <AppointmentReminder
-              id={patient.id}
-              nextReminder={patient.nextReminder}
-            />
-          </>
-        )}
         {issues.supportRequests > 0 && (
           <SupportRequests supportRequests={patient.issues.supportRequests} />
         )}
