@@ -81,7 +81,7 @@ class PatientIssueState {
       DateTime.fromISO(this.mostRecentReport).startOf("day"),
       "days"
     ).days;
-    return Math.ceil(daysPast) === 1 ? 0 : Math.ceil(daysPast);
+    return Math.ceil(daysPast) - 1;
   }
 
   processMissedDays(patient) {
