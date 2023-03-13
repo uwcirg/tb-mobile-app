@@ -24,17 +24,17 @@ class PatientIssueState {
     this.processReports(patient.unresolvedReports);
     this.processMissedDays(patient);
     this.unreviewedPhotos = patient.unreviewedPhotos;
+    this.mostRecentReport = patient.mostRecentReport;
   }
 
   get state() {
     return {
       goodDays: this.goodDays.length,
-      // change this below to derive its number since last report sent in
-      missedReporting: this.numberOfMissedDays,
       symptoms: this.numberOfSymptoms,
       unreviewedPhotos: this.unreviewedPhotos.length,
       supportRequests: this.supportRequests.length,
       hadSevereSymptom: this.hadSevereSymptom,
+      daysSinceLastReport: this.getDifferenceBetweenLastReportAndToday(),
     };
   }
 
@@ -76,7 +76,13 @@ class PatientIssueState {
     }
   }
 
-  // change logic to be based on last report sent in
+  getDifferenceBetweenLastReportAndToday() {
+    let daysPast = DateTime.local().diff(
+      DateTime.fromISO(this.mostRecentReport).startOf("day"),
+      "days"
+    ).days;
+    return Math.ceil(daysPast) === 1 ? 0 : Math.ceil(daysPast);
+  }
 
   processMissedDays(patient) {
     if (!patient.lastGeneralResolution) return;
