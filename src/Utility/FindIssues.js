@@ -29,6 +29,7 @@ class PatientIssueState {
   get state() {
     return {
       goodDays: this.goodDays.length,
+      // change this below to derive its number since last report sent in
       missedReporting: this.numberOfMissedDays,
       symptoms: this.numberOfSymptoms,
       unreviewedPhotos: this.unreviewedPhotos.length,
@@ -74,6 +75,8 @@ class PatientIssueState {
       });
     }
   }
+
+  // change logic to be based on last report sent in
 
   processMissedDays(patient) {
     if (!patient.lastGeneralResolution) return;
