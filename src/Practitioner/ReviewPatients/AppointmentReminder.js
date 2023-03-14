@@ -13,8 +13,6 @@ export default function AppointmentReminder({ id, nextReminder }) {
   const { category, note, datetime } = nextReminder;
   const date = DateTime.fromISO(datetime);
 
-  console.log("category:" + category + "note:" + note);
-
   return (
     <>
       <IssueCard
