@@ -25,7 +25,7 @@ const useStyles = makeStyles({
 
 const iconMap = {
   missedMedication: <Pill />,
-  missedReporting: <EventBusy />,
+  daysSinceLastReport: <EventBusy />,
   supportRequests: <SentimentDissatisfied />,
   symptoms: <Assignment />,
   unreviewedPhotos: <CameraAlt />,
