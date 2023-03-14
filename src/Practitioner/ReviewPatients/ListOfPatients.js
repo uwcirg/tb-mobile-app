@@ -53,8 +53,6 @@ const ListOfPatients = ({ tabValue }) => {
     }
   );
 
-  console.log("processedPatients", processedPatients);
-
   if (status === "pending") return <PatientListMessage isLoading={true} />;
 
   if (!patients) return "";
