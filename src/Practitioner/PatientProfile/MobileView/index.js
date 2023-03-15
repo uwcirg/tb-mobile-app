@@ -87,21 +87,21 @@ const MobileView = observer(() => {
 const NameAndNumber = ({ patient }) => {
   return (
     <Box
-      padding=".5em 1em"
+      padding=".5em"
       display="flex"
       justifyContent="flex-end"
       flexDirection="column"
-      width="100%"
       textAlign="right"
     >
-      <Typography variant="h1">{patient.fullName}</Typography>
+      <Typography variant="h1" style={{ flexGrow: 1 }}>
+        {patient.fullName}
+      </Typography>
       <Box
         display="flex"
         flexGrow={1}
         alignItems="center"
         justifyContent="flex-end"
         style={{ color: Colors.blue }}
-        paddingLeft
       >
         <WhatsAppIcon style={{ height: ".75em", color: Colors.blue }} />
         <Typography variant="body1" color="initial">

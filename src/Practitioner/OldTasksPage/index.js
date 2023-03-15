@@ -122,6 +122,9 @@ const OldTasksPage = observer(() => {
               patientList={practitionerStore.filteredPatients.photo}
               type="photo"
             />
+            {/* here is where I'll refactor to align with new missedDays logic (mostRecentReport) */}
+            {/* I need to get patient_issues API. Either from practitionerStore or not. */}
+            {console.log(practitionerStore.filteredPatients)}
             <Card
               key={"missed-review"}
               icon={<PillIcon />}

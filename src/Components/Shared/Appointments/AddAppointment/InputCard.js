@@ -1,10 +1,12 @@
 import { Box, Card, Typography, withStyles } from "@material-ui/core";
 import React from "react";
 
-const InputCard = ({ title, children }) => {
+const InputCard = ({ title, children, colors }) => {
   return (
     <>
-      <SectionCard>
+      <SectionCard
+        style={{ border: `2px ${colors} solid`, borderRadius: "5px" }}
+      >
         <Box padding="16px">
           <SectionTitle>{title}</SectionTitle>
           <Box padding="8px 0">{children}</Box>

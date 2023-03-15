@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles, Grid, Badge, Box } from "@material-ui/core";
 import {
+  AccessAlarm,
   Assignment,
   CameraAlt,
   EventBusy,
@@ -24,14 +25,14 @@ const useStyles = makeStyles({
 
 const iconMap = {
   missedMedication: <Pill />,
-  missedReporting: <EventBusy />,
+  daysSinceLastReport: <EventBusy />,
   supportRequests: <SentimentDissatisfied />,
   symptoms: <Assignment />,
   unreviewedPhotos: <CameraAlt />,
   feelingBad: <SentimentDissatisfied />,
 };
 
-const IssueArea = ({ issues, patientId }) => {
+const IssueArea = ({ issues, patientId, hasUpcomingAppointment = false }) => {
   const classes = useStyles();
 
   return (
@@ -52,6 +53,11 @@ const IssueArea = ({ issues, patientId }) => {
           );
         }
       })}
+      {hasUpcomingAppointment && (
+        <AccessAlarm
+          style={{ color: Colors.transparentBlueAccent, zIndex: 2 }}
+        />
+      )}
     </Grid>
   );
 };

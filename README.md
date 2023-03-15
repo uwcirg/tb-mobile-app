@@ -1,30 +1,30 @@
 # Tuberculosis Treatment Support Tools:
+
 Development Branch Tests: [![CircleCI](https://circleci.com/gh/uwcirg/tb-mobile-app/tree/develop.svg?style=svg)](https://circleci.com/gh/uwcirg/tb-mobile-app/tree/develop)
 
 <img width="700px" alt="Screen Shot 2022-08-02 at 11 34 50 AM" src="https://user-images.githubusercontent.com/10137989/182414444-2bd00346-104f-469d-ad5a-4769aacc695b.png">
 
+## mHealth Intervention to support people with TB
 
-##  mHealth Intervention to support people with TB
 Tuberculosis remains one of the top ten causes of death globally despite it being largely curable. Patients face many challenges to adhere to treatment and mobile health (mHealth) interventions may address these challenges and support patients to complete their treatment. We aim to develop an application that has implications not only for TB adherence but disease management more generally and to improve our understanding of how to support patients throughout challenging treatment regimens.
 
-## Branches used in deployments 
-Pilot Study (2018 - 2019). Code available on the [v1-stable]([https://github.com/uwcirg/tb-mobile-app/tree/v1-stable](https://github.com/uwcirg/tb-mobile-app/tree/v1-stable)) branch.
+## Branches used in deployments
 
-Clinical trial (2020 - Current). Code available on the [master]([https://github.com/uwcirg/tb-mobile-app/tree/v1-stable](https://github.com/uwcirg/tb-mobile-app/tree/master)) branch.
+Pilot Study (2018 - 2019). Code available on the [v1-stable](<[https://github.com/uwcirg/tb-mobile-app/tree/v1-stable](https://github.com/uwcirg/tb-mobile-app/tree/v1-stable)>) branch.
 
-Indonesian Pilot Study (2022 - Current). Code available on the [prod-id]([https://github.com/uwcirg/tb-mobile-app/tree/v1-stable](https://github.com/uwcirg/tb-mobile-app/tree/prod-id)) branch.
+Clinical trial (2020 - Current). Code available on the [master](<[https://github.com/uwcirg/tb-mobile-app/tree/v1-stable](https://github.com/uwcirg/tb-mobile-app/tree/master)>) branch.
 
+Indonesian Pilot Study (2022 - Current). Code available on the [prod-id](<[https://github.com/uwcirg/tb-mobile-app/tree/v1-stable](https://github.com/uwcirg/tb-mobile-app/tree/prod-id)>) branch.
 
-## System Components 
- 
+## System Components
+
 **Main Frontend:**
 React Application
 Code: [tb-mobile-app](https://github.com/uwcirg/tb-mobile-app) (this repo)
- 
-**Back End API:** 
+
+**Back End API:**
 Ruby on Rails App + Docker-Compose Deployment Configuration
 Code: [tb-foundation](https://github.com/uwcirg/tb-foundation)
-
 
 ## Tests
 
@@ -33,15 +33,16 @@ There are very minimal tests, but this could be an area to improve in the future
 Current tests use react-testing-library and there are important configuration files in `jest.config.js`,`src/testSetup.js `, and `package.json`
 
 To run the test suite run:
+
 ```
 yarn test
 ```
 
 To check coverage run:
+
 ```
 yarn test:coverage
 ```
-
 
 ## Getting started with development
 
@@ -51,9 +52,15 @@ Running the full application requires Docker. You will need to spin up the servi
 
 Once that process has completed, its best to run the React development server outside of docker like this:
 
-```
+```bash
 yarn install
 yarn start
+```
+
+If you are having node version issues, you can use nvm to install the correct version of node. We have set up a .nvmrc file to make this easier.
+
+```bash
+nvm use
 ```
 
 ## Production Build Process
@@ -74,6 +81,6 @@ Beacause this React app has been dockerized, the build process is a bit differen
 
 ## Contact
 
-[Sarah Iribarren](https://nursing.uw.edu/person/sarah-iribarren-phd-rn/) is the primary investegator for this research project, please reach out with any inquirys about research or collaboration. 
+[Sarah Iribarren](https://nursing.uw.edu/person/sarah-iribarren-phd-rn/) is the primary investegator for this research project, please reach out with any inquirys about research or collaboration.
 
 [Kyle Goodwin](https://github.com/kylegoodwin) lead most of the technical development, reach out with any technical questions.
