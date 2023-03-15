@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, IconButton, Typography } from "@material-ui/core";
+import { Box, IconButton, Typography } from "@material-ui/core";
 import { ChevronLeftRounded } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link, useHistory } from "react-router-dom";
@@ -7,7 +7,8 @@ import { Link, useHistory } from "react-router-dom";
 const useStyles = makeStyles({
   title: {
     fontSize: "1.25em",
-    padding: ".5em 0",
+    flexGrow: 2,
+    marginRight: "1em",
   },
   backButton: {
     "& svg": {
@@ -31,20 +32,14 @@ export function PageLabel({ title, handleExit, to, hideBackButton }) {
     : { onClick: handleExit || history.goBack };
 
   return (
-    <Grid
-      className={classes.topBar}
-      container
-      alignItems="center"
-      wrap="nowrap"
-    >
+    <Box className={classes.topBar} display="flex" justifyContent="start">
       {!hideBackButton && (
         <IconButton className={classes.backButton} {...buttonProps}>
           <ChevronLeftRounded />
         </IconButton>
       )}
-
       <PageLabelTitle title={title} />
-    </Grid>
+    </Box>
   );
 }
 

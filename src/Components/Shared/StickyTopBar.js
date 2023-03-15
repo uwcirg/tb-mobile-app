@@ -6,6 +6,7 @@ const useStyles = makeStyles({
     position: "sticky",
     top: 0,
     zIndex: 10,
+    inlineSize: "100%",
   },
 });
 
