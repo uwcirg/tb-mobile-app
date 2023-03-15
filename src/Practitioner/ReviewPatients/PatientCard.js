@@ -155,7 +155,7 @@ const PatientCard = ({
                   flexWrap="wrap"
                   justifyContent="end"
                   justifyItems="end"
-                  alignItems="baseline"
+                  alignItems="end"
                 >
                   <ArchiveCountdown
                     weeksInTreatment={patient.weeksInTreatment}
