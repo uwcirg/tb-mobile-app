@@ -17,7 +17,6 @@ const ArchiveCountdown = ({ weeksInTreatment, id }) => {
     color: isReadyForArchive ? "white" : Colors.textDarkGray,
     borderRadius: "4px",
     padding: "2px 5px",
-    margin: "2px 5px",
     minWidth: "3 0px",
     textAlign: "center",
     "& p": { fontSize: ".85em" },
