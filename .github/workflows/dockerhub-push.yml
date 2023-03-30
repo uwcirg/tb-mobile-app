@@ -23,7 +23,7 @@ jobs:
         run: echo "branch_name=${GITHUB_REF##*/}" >> $GITHUB_ENV
       - name: Publish to Dockerhub registry
         # todo: pin to hash
-        uses: elgohr/Publish-Docker-Github-Action@master
+        uses: elgohr/Publish-Docker-Github-Action@v5
         with:
           # https://help.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions
           name: ${{ github.repository }}
